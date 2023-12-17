@@ -1,0 +1,113 @@
+/* Primere css for visual selectors */
+#primere_visual_modal {
+    align-content: start;
+    text-align: left;
+}
+#primere_visual_modal .visual_modal_title {
+    text-align: center;
+    padding: 0px;
+    margin-top: -1em;
+    color: var(--input-text);
+    text-transform: capitalize;
+    font-style: normal;
+    font-size: 28px;
+    /* line-height: 0px; */
+    height: 10px;
+}
+
+#primere_visual_modal button.modal-closer {
+    text-align: center;
+    padding: 5px;
+    margin-top: -1em;
+    font-style: normal;
+    width: 200px;
+    box-shadow: inset 1px 1px 3px #bdbdbd;
+}
+
+#primere_visual_modal .primere-modal-content {
+    z-index: 10000;
+    overflow: auto;
+    height: 90%;
+}
+#primere_visual_modal .visual-ckpt {
+    width: min-content;
+    display: inline-grid;
+    margin-right: 10px;
+    border: white solid 1px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px #909090;
+    position: relative;
+    background: white;
+    color: black;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border-radius:5px;
+}
+#primere_visual_modal .visual-ckpt.visual-ckpt-selected {
+    background: #672727;
+    color: white;
+    border: #ff5151 solid 2px;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+#primere_visual_modal .visual-ckpt:hover {
+    box-shadow: unset;
+    left: 2px;
+    top: 2px;
+    border: #949494 solid 1px;
+    background: #444444;
+    color: white;
+}
+
+#primere_visual_modal .visual-ckpt img {
+    height: 220px;
+    display: block;
+    -moz-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius:5px;
+    -moz-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius:5px;
+}
+
+#primere_visual_modal .checkpoint-name {
+    overflow: hidden;
+    display: inline-block;
+    width: 99%;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 1px;
+    text-align: center;
+    white-space: nowrap;
+}
+#primere_visual_modal .subdirtab {
+    background: #656565;
+    vertical-align: middle;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: #aeaeae  solid 1px;
+    border-top: #aeaeae  solid 1px;
+}
+#primere_visual_modal .subdirtab button {
+    min-width: 80px;
+    margin-right: 5px;
+    padding-left: 9px;
+    padding-right: 10px;
+    font-size: 16px;
+    box-shadow: inset 1px 1px 3px #bdbdbd;
+}
+
+#primere_visual_modal .subdirtab label {
+    color: var(--input-text);
+}
+
+.selected_path {
+    color: #626262 !important;
+    background: white !important;
+    border: white solid 2px !important;
+}

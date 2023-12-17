@@ -1,0 +1,211 @@
+{
+  "last_node_id": 18,
+  "last_link_id": 15,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "Debug Extra",
+      "pos": [
+        2450,
+        347
+      ],
+      "size": {
+        "0": 210,
+        "1": 66
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "extra_pnginfo",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "state",
+          "type": "STRING",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Debug Extra"
+      }
+    },
+    {
+      "id": 5,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        2141,
+        456
+      ],
+      "size": {
+        "0": 463,
+        "1": 279
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 14,
+          "dir": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        "\"{aaa|bbb|ccc}\""
+      ]
+    },
+    {
+      "id": 6,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        2150,
+        771
+      ],
+      "size": {
+        "0": 334,
+        "1": 224
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 15,
+          "dir": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        "\"{ddd|eee|fff}\""
+      ]
+    },
+    {
+      "id": 9,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        2843,
+        333
+      ],
+      "size": {
+        "0": 517,
+        "1": 210
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 13,
+          "dir": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        "\"{'Display Any (rgthree)(Display Any (rgthree)).5': {'output': ''},\\n 'Display Any (rgthree)(Display Any (rgthree)).6': {'output': ''},\\n 'Display Any (rgthree)(Display Any (rgthree)).9': {'output': ''},\\n 'PrimerePrompt(PrimerePrompt).18': ['{aaa|bbb|ccc}', '{ddd|eee|fff}']}\""
+      ]
+    },
+    {
+      "id": 18,
+      "type": "PrimerePrompt",
+      "pos": [
+        1288,
+        271
+      ],
+      "size": {
+        "0": 705,
+        "1": 681
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "{aaa|bbb|ccc}",
+        "{ddd|eee|fff}"
+      ]
+    }
+  ],
+  "links": [
+    [
+      13,
+      3,
+      2,
+      9,
+      0,
+      "*"
+    ],
+    [
+      14,
+      18,
+      0,
+      5,
+      0,
+      "*"
+    ],
+    [
+      15,
+      18,
+      1,
+      6,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

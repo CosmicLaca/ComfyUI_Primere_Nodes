@@ -1,0 +1,8 @@
+.idea
+/!Examples/
+wildcards
+stylecsv
+consoletests
+*.safetensors
+reqgen.py
+front_end/images

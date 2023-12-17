@@ -1,0 +1,52 @@
+[RATIO_1_1]
+name = "Square [1:1]"
+side_x = 1
+side_y = 1
+[RATIO_19_13]
+name = "Photo [19:13]"
+side_x = 19
+side_y = 13
+[RATIO_9_7]
+name = "Portrait [9:7]"
+side_x = 9
+side_y = 7
+[RATIO_7_4]
+name = "Wildscreen [7:4]"
+side_x = 7
+side_y = 4
+[RATIO_12_5]
+name = "Cinema [12:5]"
+side_x = 12
+side_y = 5
+[RATIO_4_3]
+name = "Old TV screen [4:3]"
+side_x = 4
+side_y = 3
+[RATIO_16_9]
+name = "HD screen [16:9]"
+side_x = 16
+side_y = 9
+[RATIO_16_10]
+name = "HD+ screen [16:10]"
+side_x = 16
+side_y = 10
+[RATIO_2_1]
+name = "Half side [2:1]"
+side_x = 2
+side_y = 1
+[RATIO_9_8]
+name = "Dual screen [9:8]"
+side_x = 9
+side_y = 8
+[RATIO_17_9]
+name = "DCI screen [17:9]"
+side_x = 17
+side_y = 9
+[RATIO_21_9]
+name = "G5 screen [21:9]"
+side_x = 21
+side_y = 9
+[RATIO_32_9]
+name = "G9 screen [32:9]"
+side_x = 32
+side_y = 9

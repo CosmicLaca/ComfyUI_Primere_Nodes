@@ -1,0 +1,36 @@
+[SHORT]
+positive=''
+negative='worst quality, low quality, lowres, low res, bad anatomy, bad hands, missing hands, missing fingers, cropped, blurry, heavily cropped, watermark, text,'
+[LOWTOKEN]
+positive=''
+negative='lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry,'
+[LONG]
+positive=''
+negative='bad anatomy, bad proportions, blurry, cloned face, cropped, deformed, dehydrated, disfigured, duplicate, error, extra arms, extra fingers, extra legs, extra limbs, fused fingers, gross proportions, jpeg artifacts, long neck, low quality, lowres, malformed limbs, missing arms, missing legs, morbid, mutated hands, mutation, mutilated, out of frame, poorly drawn face, poorly drawn hands, signature, text, too many fingers, ugly, username, watermark, worst quality,'
+[LONG_SFW]
+positive=''
+negative='NSFW, add_nsfw, Cleavage, Pubic Hair, Nudity, Naked, Au naturel, Watermark, Text, censored, deformed, bad anatomy, disfigured, poorly drawn face, mutated, extra limb, ugly, poorly drawn hands, missing limb, floating limbs, disconnected limbs, disconnected head, malformed hands, long neck, mutated hands and fingers, bad hands, missing fingers, cropped, worst quality, low quality, mutation, poorly drawn, huge calf, bad hands, fused hand, missing hand, disappearing arms, disappearing thigh, disappearing calf, disappearing legs, missing fingers, fused fingers, abnormal eye proportion, Abnormal hands, abnormal legs, abnormal feet,  abnormal fingers,'
+[BETTER_IMAGES]
+positive=''
+negative='Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language,'
+[LANDSCAPES]
+positive=''
+negative='Blurry, Boring, Close-up, Dark (optional), Details are low, Distorted details, Eerie, Foggy (optional), Gloomy (optional), Grains, Grainy, Grayscale (optional), Homogenous, Low contrast, Low quality, Lowres, Macro, Monochrome (optional), Multiple angles, Multiple views, Opaque, Overexposed, Oversaturated, Plain, Plain background, Portrait, Simple background, Standard, Surreal, Unattractive, Uncreative, Underexposed,'
+[CITYSCAPES]
+positive=''
+negative='Animals (optional), Asymmetrical buildings, Blurry, Cars (optional), Close-up, Creepy, Deformed structures, Grainy, Jpeg artifacts, Low contrast, Low quality, Lowres, Macro, Multiple angles, Multiple views, Overexposed, Oversaturated, People (optional), Pets (optional), Plain background, Scary, Solid background, Surreal, Underexposed, Unreal architecture, Unreal sky, Weird colors,'
+[PORTRAITS_PETS]
+positive=''
+negative='3D, Absent limbs, Additional appendages, Additional digits, Additional limbs, Altered appendages, Amputee, Asymmetric, Asymmetric ears, Bad anatomy, Bad ears, Bad eyes, Bad face, Bad proportions, Beard (optional), Broken finger, Broken hand, Broken leg, Broken wrist, Cartoon, Childish (optional), Cloned face, Cloned head, Collapsed eyeshadow, Combined appendages, Conjoined, Copied visage, Corpse, Cripple, Cropped head, Cross-eyed, Depressed, Desiccated, Disconnected limb, Disfigured, Dismembered, Disproportionate, Double face, Duplicated features, Eerie, Elongated throat,'
+[INANIMATE_OBJ]
+positive=''
+negative='absent, parts, added, components, asymmetrical, design, broken, cartoonish, cloned, collapsed, complex, background, distorted, distorted, perspective, extra, pieces, faded, color, flawed, shape, flipped, folded, improper, proportion, incomplete, incorrect, geometry, inverted, kitsch, low, quality, low, resolution, macabre, misaligned, parts, misshapen, missing, parts, mutated, off-center, out, of, focus, over-saturated, color, overexposed, oversized, poorly, rendered, replica, surreal, tilted, underexposed, unrealistic, upside, down,'
+[NATURE_WILD]
+positive=''
+negative='abstract, amputated, animal, face, anime, artificial, asymmetrical, bad, anatomy, cartoon, cgi, cloned, collapsed, deformed, distorted, extra, limbs, fantasy, foggy, grainy, human, face, incomplete, low, quality, low, resolution, lowres, malformed, missing, parts, monochrome, mutated, over-saturated, color, overexposed, photoshopped, scary, silhouette, sketch, surreal, twisted, underexposed, unfocused, unreal, engine,'
+[ABSTRACT_ART]
+positive=''
+negative='3d, render, anatomically, correct, animals, body, parts, buildings, cartoon, characters, cityscape, concrete, detailed, faces, figurative, human, figure, landscape, literal, low, resolution, lowres, monochrome, people, photorealistic, portrait, realistic, scenery, sharp, edges, sketch, symmetrical, text,'
+[FOOD_DRINK]
+positive=''
+negative='asymmetrical, badly, cooked, black, and, white, blurry, burnt, cartoon, cgi, cold, dark, distorted, expired, grainy, human, parts, incomplete, low, resolution, lowres, moldy, mutated, overcooked, oversaturated, rotten, sculpture, sketch, soggy, sour, stale, undercooked, unfocused, unrealistic, upside, down,'

@@ -1,0 +1,12 @@
+chardet
+dynamicprompts
+nodes
+numpy
+pandas
+pefile
+piexif
+Pillow
+pyexiv2
+Requests
+tomli
+torch
