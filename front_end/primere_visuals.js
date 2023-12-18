@@ -2,7 +2,8 @@ import { app } from "/scripts/app.js";
 
 const realPath = "extensions/Primere";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle'];
-let defaultSubdir = 'All';
+let lastDirObject = {};
+let currentClass = false;
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let checkpoint_new = checkpoint.replaceAll('\\', '/');
@@ -14,7 +15,6 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     }
     finalName = finalName.replaceAll(' ', "_");
     let previewName = finalName + '.jpg';
-    console.log(previewName);
 
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
@@ -77,13 +77,13 @@ app.registerExtension({
                     var modal = null;
                     $('body').on("click", 'button.modal-closer', function() {
                         modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style','display: none; width: 60%; height: 70%;')
+                        modal.setAttribute('style','display: none; width: 80%; height: 70%;')
                     });
 
                     $('body').on("click", 'div.primere-modal-content div.visual-ckpt img', function() {
                         var ckptName = $(this).data('ckptname');
                         modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style','display: none; width: 60%; height: 70%;')
+                        modal.setAttribute('style','display: none; width: 80%; height: 70%;')
                         apply_modal(ckptName);
                     });
 
@@ -92,7 +92,10 @@ app.registerExtension({
                     $('body').on("click", 'div.subdirtab button.subdirfilter', function() {
                         $('div.subdirtab input').val('');
                         subdirName = $(this).data('ckptsubdir');
-                        defaultSubdir = subdirName;
+                        if (currentClass !== false) {
+                            lastDirObject[currentClass] = subdirName
+                        }
+
                         var imageContainers = $('div.primere-modal-content div.visual-ckpt');
                         filteredCheckpoints = 0;
                         $(imageContainers).find('img').each(function (img_index, img_obj) {
@@ -218,7 +221,7 @@ app.registerExtension({
 
             var subdir_tabs = modal.getElementsByClassName("subdirtab")[0];
             var menu_html = '';
-            console.log(node.type + ' - ' + defaultSubdir);
+
             for (var subdir of subdirArray) {
                 var addWhiteClass = '';
                 let firstletter = subdir.charAt(0);
@@ -227,7 +230,9 @@ app.registerExtension({
                     subdirName = subdir.substring(1);
                 }
                 if ((firstletter === '.' && ShowHidden === true) || firstletter !== '.') {
-                    if (subdirName == 'All') {
+                    if (lastDirObject.hasOwnProperty(currentClass) === true && subdir === lastDirObject[currentClass]) {
+                        addWhiteClass = ' selected_path';
+                    } else if (lastDirObject.hasOwnProperty(currentClass) === false && subdir === 'All') {
                         addWhiteClass = ' selected_path';
                     }
                     menu_html += '<button type="button" data-ckptsubdir="' + subdir + '" class="subdirfilter' + addWhiteClass + '">' + subdirName + '</button>';
@@ -244,16 +249,46 @@ app.registerExtension({
                 }
             }
 
-            modal.setAttribute('style','display: block; width: 60%; height: 70%;');
+
             var TimingBase =AllModels.length;
-            var mtimeout = TimingBase * 3;
+            var mtimeout = TimingBase * 5;
             if (modalExist === false) {
-                mtimeout = TimingBase * 18;
+                mtimeout = TimingBase * 10;
             }
+
             setTimeout(function(mtimeout) {
-                $('div#primere_visual_modal div.modal_header label.ckpt-name').text('All');
-                $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements - 1);
+                $('div.subdirtab input').val('');
+                if (lastDirObject.hasOwnProperty(currentClass)) {
+                    subdirName = lastDirObject[currentClass];
+                    var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                    var filteredCheckpoints = 0;
+                    $(imageContainers).find('img').each(function (img_index, img_obj) {
+                        var ImageCheckpoint = $(img_obj).data('ckptname');
+                        if (subdirName === 'Root') {
+                            let isSubdirExist = ImageCheckpoint.lastIndexOf('\\');
+                            if (isSubdirExist > 1 && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
+                                $(img_obj).parent().hide();
+                            } else {
+                                $(img_obj).parent().show();
+                                filteredCheckpoints++;
+                            }
+                        } else {
+                            if (!ImageCheckpoint.startsWith(subdirName) && subdirName !== 'All' && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
+                                $(img_obj).parent().hide();
+                            } else {
+                                $(img_obj).parent().show();
+                                filteredCheckpoints++;
+                            }
+                        }
+                    });
+                    $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
+                    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
+                } else {
+                    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements - 1);
+                }
+
                 $(".visual-ckpt-selected").prependTo(".primere-modal-content");
+                modal.setAttribute('style','display: block; width: 80%; height: 70%;');
             }, mtimeout);
 
         }
@@ -314,6 +349,8 @@ app.registerExtension({
             if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
                 return lcg.call(this, node, pos, event, active_widget);
             }
+
+            currentClass = node.type;
 
             var x = pos[0] - node.pos[0];
             var y = pos[1] - node.pos[1];

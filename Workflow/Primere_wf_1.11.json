@@ -278,9 +278,9 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "A stunning {30|35|40|45|50} years old European white {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman {stands|walking|buying} in the {snowy|rainy|stormy|sunny but cold} winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open {red|green|white|patterned} sweater revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor {night|daytime} photography, (__jumbo/people/mood__ mood:0.7), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} winter {coat|jacket|urban underwear}:1.3)",
-        "nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera",
-        "christmas",
+        "A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)",
+        "nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)",
+        "ChristmasFinal-2",
         "None",
         "Random"
       ],
@@ -759,12 +759,12 @@
         "",
         "edge lighting",
         "eye level",
-        "Aaton LTR",
+        "Bolex H16",
         "film grain",
-        "50mm",
+        "Voigtländer Nokton 50mm f1.1",
+        "bokeh",
         "",
-        "",
-        "street fashion photography photo of , upper body, edge lighting, eye level, Aaton LTR, film grain, 50mm",
+        "street fashion photography photo of , upper body, edge lighting, eye level, Bolex H16, film grain, Voigtländer Nokton 50mm f1.1, bokeh",
         "No"
       ],
       "color": "#432",
@@ -924,8 +924,8 @@
       "id": 248,
       "type": "PrimereVisualCKPT",
       "pos": [
-        2375,
-        -1105
+        2370,
+        -1108
       ],
       "size": {
         "0": 533.8221435546875,
@@ -959,7 +959,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\Photon_ICBNP_merge_v10.safetensors",
+        "Photo\\insaneRealisticV20_insaneRealisticV20.safetensors",
         true,
         true
       ],
@@ -1167,19 +1167,19 @@
         "Node name for S&R": "PrimereStylePile"
       },
       "widgets_values": [
-        "photo",
+        "None",
         1,
-        "Kodachrome",
+        "None",
         1.3,
-        "Romantic",
+        "None",
         1.2,
-        "Ultra detailed",
+        "None",
         1,
         "None",
         0.7000000000000001,
         "None",
         1,
-        "80s Art",
+        "None",
         0.6,
         "",
         ""
@@ -1523,13 +1523,13 @@
         "Node name for S&R": "PrimereResolution"
       },
       "widgets_values": [
-        "Photo [19:13]",
+        "Portrait [9:7]",
         768,
         true,
         "Vertical",
         true,
         "BaseModel_1024",
-        -833155949775221,
+        51663001409172,
         "randomize",
         false,
         1,
@@ -1564,7 +1564,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A stunning {30|35|40|45|50} years old European white {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman {stands|walking|buying} in the {snowy|rainy|stormy|sunny but cold} winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open {red|green|white|patterned} sweater revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor {night|daytime} photography, (__jumbo/people/mood__ mood:0.7), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} winter {coat|jacket|urban underwear}:1.3)"
+        "A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1595,7 +1595,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera"
+        "nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1952,7 +1952,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1596,
+        1018,
         "randomize",
         65,
         895,
@@ -2145,7 +2145,7 @@
       },
       "widgets_values": [
         "",
-        854195503664800,
+        -468024368948955,
         "randomize"
       ],
       "color": "#232",
@@ -2199,7 +2199,7 @@
       },
       "widgets_values": [
         "",
-        46094213789628,
+        439425548927946,
         "randomize"
       ],
       "color": "#322",
@@ -2231,7 +2231,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"A stunning {30|35|40|45|50} years old European white {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman {stands|walking|buying} in the {snowy|rainy|stormy|sunny but cold} winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open {red|green|white|patterned} sweater revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor {night|daytime} photography, (__jumbo/people/mood__ mood:0.7), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} winter {coat|jacket|urban underwear}:1.3)\",\n    \"negative\": \"nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\Photon_ICBNP_merge_v10.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 555573102679546,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"A stunning 30 years old European white blonde beautiful sexy model look woman stands in the stormy winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open red sweater revealing her beautiful cleavage, wearing warm long pink leather trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor night photography, (interested mood:0.7), (wearing top elegant luxury opened sexy winter jacket:1.3)\",\n    \"dynamic_negative\": \"nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera\"\n}"
+        "{\n    \"positive\": \"A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)\",\n    \"negative\": \"nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 925430360387776,\n    \"width\": 896,\n    \"height\": 658,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Horizontal\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6)\",\n    \"dynamic_negative\": \"nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2311,14 +2311,14 @@
         true,
         "brownian_fractal",
         true,
-        1.1,
+        1.1500000000000001,
         0.75,
         1.3,
         true,
         1.2,
         0.9,
-        1.25,
-        -336636579880303,
+        1.3,
+        628602019572709,
         "randomize",
         true,
         "cpu"
@@ -2469,30 +2469,30 @@
         true,
         true,
         "Style\\Winter.pt",
-        0.4,
+        0.7000000000000001,
         false,
         false,
         "Negative\\bhands-neg.pt",
         1.2,
         true,
         false,
-        "Negative\\Asian-Less-Neg.pt",
-        1,
+        "Age-Gen-Face\\AS-Adult.pt",
+        1.2,
+        false,
         true,
-        true,
-        "Negative\\BadNegAnatomy.pt",
+        "Age-Gen-Face\\AS-Adult-neg.pt",
         1,
         true,
         true,
         ".NSFW\\add_nsfw.pt",
-        1,
+        1.3,
         true,
         false,
         "Style\\Paintmagic.pt",
         0.8,
         false,
         "First",
-        "Last"
+        "First"
       ],
       "color": "#002c2c",
       "bgcolor": "#004040"
@@ -2927,19 +2927,19 @@
         true,
         true,
         "snowfall.safetensors",
-        0.9,
-        0.85,
+        0.7000000000000001,
+        0.7000000000000001,
         false,
         "Style\\detailed_eye_V2.safetensors",
         0.6,
         1,
-        false,
+        true,
         "Style\\add_detail.safetensors",
         1,
         1.2,
         false,
-        "Style\\CircuitBoardAI.safetensors",
-        1,
+        "noOne\\noOne25.safetensors",
+        0.3,
         1,
         false,
         "Design\\logo_v1.safetensors",
@@ -3456,9 +3456,9 @@
         1.2,
         true,
         "PHOTO",
-        1,
-        "PORTRAITS_PETS",
         0.8,
+        "PORTRAITS_PETS",
+        1.2,
         true,
         "mean",
         "comfy++",
@@ -3467,9 +3467,9 @@
         "",
         1,
         "",
-        1,
+        0.5,
         "",
-        1,
+        0.7000000000000001,
         "",
         "",
         true,
@@ -3576,7 +3576,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        259561807939185,
+        958347696100196,
         "randomize",
         20,
         8,
@@ -3613,7 +3613,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:Winter:0.4), A stunning 30 years old European white blonde beautiful sexy model look woman stands in the stormy winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open red sweater revealing her beautiful cleavage, wearing warm long pink leather trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor night photography, (interested mood:0.7), (wearing top elegant luxury opened sexy winter jacket:1.3), ((street fashion photography photo of , upper body, edge lighting, eye level, Aaton LTR, film grain, 50mm), (Photo,Highly Detailed), (Kodachrome:1.30), (Romantic:1.20), (Ultra detailed), (80s Art:0.60):0.80), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "(embedding:Winter:0.7000000000000001), A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6), ((street fashion photography photo of , upper body, edge lighting, eye level, Bolex H16, film grain, Voigtl\\u00e4nder Nokton 50mm f1.1, bokeh):0.50), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:0.80), master"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3644,7 +3644,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera:1.20), ((Low rated,Phone,Wedding,Frame,Painting,tumblr):0.60), (3D, Absent limbs, Additional appendages, Additional digits, Additional limbs, Altered appendages, Amputee, Asymmetric, Asymmetric ears, Bad anatomy, Bad ears, Bad eyes, Bad face, Bad proportions, Beard (optional), Broken finger, Broken hand, Broken leg, Broken wrist, Cartoon, Childish (optional), Cloned face, Cloned head, Collapsed eyeshadow, Combined appendages, Conjoined, Copied visage, Corpse, Cripple, Cropped head, Cross-eyed, Depressed, Desiccated, Disconnected limb, Disfigured, Dismembered, Disproportionate, Double face, Duplicated features, Eerie, Elongated throat:0.70), embedding:BadNegAnatomy, embedding:add_nsfw"
+        "embedding:AS-Adult-neg, (embedding:add_nsfw:1.3), (nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6):1.20), (3D, Absent limbs, Additional appendages, Additional digits, Additional limbs, Altered appendages, Amputee, Asymmetric, Asymmetric ears, Bad anatomy, Bad ears, Bad eyes, Bad face, Bad proportions, Beard (optional), Broken finger, Broken hand, Broken leg, Broken wrist, Cartoon, Childish (optional), Cloned face, Cloned head, Collapsed eyeshadow, Combined appendages, Conjoined, Copied visage, Corpse, Cripple, Cropped head, Cross-eyed, Depressed, Desiccated, Disconnected limb, Disfigured, Dismembered, Disproportionate, Double face, Duplicated features, Eerie, Elongated throat:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -3995,7 +3995,7 @@
       },
       "widgets_values": [
         2.1,
-        929711022898355,
+        87470298021135,
         "randomize",
         7,
         6.5,
@@ -4107,7 +4107,7 @@
         "jpg",
         true,
         true,
-        50,
+        95,
         "false",
         false,
         false
@@ -4145,7 +4145,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-18 13:24:32\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_ICBNP_MERGE_V10\\christmas\\2023-12-Week-51\\Image_20231812_132432_533297728334189_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: A stunning {30|35|40|45|50} years old European white {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman {stands|walking|buying} in the {snowy|rainy|stormy|sunny but cold} winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open {red|green|white|patterned} sweater revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor {night|daytime} photography, (__jumbo/people/mood__ mood:0.7)\n:: NEGATIVE: nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera\n:: MODEL_NAME: BestAll\\Photon_ICBNP_merge_v10.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 533297728334189\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: A stunning 35 years old European white black hair beautiful sexy model look woman walking in the sunny but cold winter Christmas time streets of christmas market in the big modern city, middle sized beautiful covered breasts, her thin open white sweater revealing her beautiful cleavage, wearing warm long pink jeans trousers. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland, beauty street outdoor night photography, (resentful mood:0.7)\n:: DYNAMIC_NEGATIVE: nsfw, nude, nudity, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2023-12-18 15:20:41\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_V1\\ChristmasFinal-2\\2023-12-Week-51\\Image_20231812_152040_925430360387776_3584x2624_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)\n:: NEGATIVE: nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 925430360387776\n:: WIDTH: 896\n:: HEIGHT: 658\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Horizontal\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6)\n:: DYNAMIC_NEGATIVE: nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\n:: SAVED_IMAGE_WIDTH: 3584\n:: SAVED_IMAGE_HEIGTH: 2624\n:: UPSCALER_RATIO: From: 896x658 to: 3584x2624 Ratio: 4.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
