@@ -2,7 +2,14 @@ import os
 from .utils import comfy_dir
 from .utils import here
 
-__version__ = "0.1.0"
+from .Nodes import Dashboard
+from .Nodes import Inputs
+from .Nodes import Styles
+from .Nodes import Outputs
+from .Nodes import Visuals
+from .Nodes import Networks
+
+__version__ = "0.1.2"
 
 comfy_frontend = comfy_dir/"web"/"extensions"
 frontend_target = comfy_frontend/"Primere"
@@ -37,13 +44,6 @@ if frontend_target.exists() == False:
         print(f"Failed to create symlink to {frontend_target}. Please copy the folder manually.")
 # else:
 #    print(f"Comfy root probably not found automatically, please copy the folder {frontend_target} manually in the web/extensions folder of ComfyUI")
-
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Dashboard as Dashboard
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Inputs as Inputs
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Styles as Styles
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Outputs as Outputs
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Visuals as Visuals
-import custom_nodes.ComfyUI_Primere_Nodes.Nodes.Networks as Networks
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
