@@ -771,6 +771,7 @@ class PrimereNetworkTagLoader:
               "positive_prompt": ("STRING", {"forceInput": True}),
               "process_lora": ("BOOLEAN", {"default": True}),
               "process_hypernetwork": ("BOOLEAN", {"default": True}),
+              "hypernetwork_safe_load": ("BOOLEAN", {"default": True}),
               "copy_weight_to_clip": ("BOOLEAN", {"default": False}),
               "lora_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
 
@@ -782,7 +783,7 @@ class PrimereNetworkTagLoader:
           }
       }
 
-  def load_networks(self, model, clip, positive_prompt, process_lora, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight):
+  def load_networks(self, model, clip, positive_prompt, process_lora, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, hypernetwork_safe_load = True):
       NETWORK_START = []
 
       cloned_model = model
@@ -866,7 +867,10 @@ class PrimereNetworkTagLoader:
                       if hyper_name is not None:
                           hypernetwork_path = folder_paths.get_full_path("hypernetworks", hyper_name)
                           model_hypernetwork = cloned_model.clone()
-                          patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, NetworkStrenght, False)
+                          try:
+                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, NetworkStrenght, hypernetwork_safe_load)
+                          except Exception:
+                              patch = None
                           if patch is not None:
                               model_hypernetwork.set_model_attn1_patch(patch)
                               model_hypernetwork.set_model_attn2_patch(patch)

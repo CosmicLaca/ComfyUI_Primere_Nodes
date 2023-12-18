@@ -1,6 +1,6 @@
 {
-  "last_node_id": 278,
-  "last_link_id": 696,
+  "last_node_id": 283,
+  "last_link_id": 706,
   "nodes": [
     {
       "id": 93,
@@ -541,7 +541,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        936106653593657,
         null,
         null,
         null
@@ -911,7 +911,7 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "nice animal walking in the forest, sunny day <lora:betterSwimwear:1>",
+        "nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>",
         "",
         "NetworkTest",
         "None",
@@ -1462,7 +1462,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        5
+        4
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1529,7 +1529,7 @@
         "Vertical",
         true,
         "BaseModel_1024",
-        -274014373019201,
+        -996435884194464,
         "randomize",
         false,
         1,
@@ -1564,7 +1564,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A stunning redhead stands in the snowy streets of Wernigerode, her thin open sweater revealing her ample cleavage. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland"
+        "nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1952,7 +1952,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        283,
+        1683,
         "randomize",
         65,
         895,
@@ -1999,7 +1999,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            667
+            701
           ],
           "shape": 3,
           "slot_index": 0
@@ -2008,7 +2008,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            668
+            702
           ],
           "shape": 3,
           "slot_index": 1
@@ -2031,9 +2031,9 @@
             592,
             598,
             610,
-            627,
             673,
-            674
+            674,
+            698
           ],
           "shape": 3,
           "slot_index": 3
@@ -2134,7 +2134,7 @@
           "type": "STRING",
           "links": [
             659,
-            669
+            703
           ],
           "shape": 3,
           "slot_index": 0
@@ -2145,7 +2145,7 @@
       },
       "widgets_values": [
         "",
-        188109584834081,
+        728616098689193,
         "randomize"
       ],
       "color": "#232",
@@ -2199,7 +2199,7 @@
       },
       "widgets_values": [
         "",
-        -280346619888688,
+        -1090613163762642,
         "randomize"
       ],
       "color": "#322",
@@ -2231,7 +2231,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"A stunning redhead stands in the snowy streets of Wernigerode, her thin open sweater revealing her ample cleavage. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\Photon_ICBNP_merge_v10.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 414596807806691,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"A stunning redhead stands in the snowy streets of Wernigerode, her thin open sweater revealing her ample cleavage. The Christmas lights of downtown twinkle in the background, creating a sexy and festive atmosphere. Rendered in 4K, this image captures the realistic beauty of the winter wonderland\",\n    \"dynamic_negative\": \"\"\n}"
+        "{\n    \"positive\": \"nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\Photon_ICBNP_merge_v10.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 936106653593657,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>\",\n    \"dynamic_negative\": \"\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2318,7 +2318,7 @@
         1.2,
         0.9,
         1.25,
-        1102882996192012,
+        384115996484883,
         "randomize",
         true,
         "cpu"
@@ -2587,16 +2587,16 @@
       "bgcolor": "#004040"
     },
     {
-      "id": 238,
+      "id": 283,
       "type": "PrimereNetworkTagLoader",
       "pos": [
-        1899,
-        -513
+        1900,
+        -491
       ],
-      "size": {
-        "0": 444.92315673828125,
-        "1": 330
-      },
+      "size": [
+        438.98994841314016,
+        354
+      ],
       "flags": {},
       "order": 33,
       "mode": 0,
@@ -2604,17 +2604,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 667
+          "link": 701
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 668
+          "link": 702
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 669,
+          "link": 703,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2625,7 +2625,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            670
+            704
           ],
           "shape": 3,
           "slot_index": 0
@@ -2634,7 +2634,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            671
+            705
           ],
           "shape": 3,
           "slot_index": 1
@@ -2655,7 +2655,7 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            672
+            706
           ],
           "shape": 3,
           "slot_index": 4
@@ -2669,10 +2669,11 @@
         true,
         true,
         true,
+        true,
         1,
         true,
         "Last",
-        "Random select",
+        "Select in order",
         1,
         1
       ],
@@ -2862,12 +2863,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 670
+          "link": 704
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 671
+          "link": 705
         },
         {
           "name": "model_version",
@@ -3057,7 +3058,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            638
+            697
           ],
           "shape": 3,
           "slot_index": 0
@@ -3132,15 +3133,15 @@
       "bgcolor": "#004040"
     },
     {
-      "id": 224,
+      "id": 280,
       "type": "PrimereVisualHypernetwork",
       "pos": [
-        1898,
-        -1108
+        1900,
+        -1109
       ],
       "size": {
-        "0": 445.0310363769531,
-        "1": 558
+        "0": 439.9612121582031,
+        "1": 582
       },
       "flags": {},
       "order": 40,
@@ -3149,12 +3150,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 638
+          "link": 697
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 627,
+          "link": 698,
           "widget": {
             "name": "model_version"
           }
@@ -3165,8 +3166,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            657,
-            658
+            699,
+            700
           ],
           "shape": 3,
           "slot_index": 0
@@ -3174,7 +3175,7 @@
         {
           "name": "HYPERNETWORK_STACK",
           "type": "HYPERNETWORK_STACK",
-          "links": [],
+          "links": null,
           "shape": 3
         }
       ],
@@ -3183,26 +3184,27 @@
       },
       "widgets_values": [
         "BaseModel_1024",
+        true,
         "Any",
         true,
-        false,
+        true,
         false,
         "Character\\MJ_V4_Portraits.pt",
         1,
         false,
-        "Character\\Venom_v1.pt",
-        0.6,
-        false,
         "WaterElemental.pt",
         1,
         false,
-        "Photo\\stylizaraBeautiful_v10.pt",
-        1.5,
+        "Photo\\ladybreBaroqueA_v10.pt",
+        1,
         false,
-        "streetArt_v10.pt",
-        2,
+        "Style\\styltokSplashOf_v10.pt",
+        1,
         false,
-        "Style\\wrataRenderFantasy_v10.pt",
+        "Character\\witchblade_10k.pt",
+        1,
+        false,
+        "Style\\LuisapAbstract.pt",
         1
       ],
       "color": "#002c2c",
@@ -3236,7 +3238,7 @@
         {
           "name": "lora_keyword_tagloader",
           "type": "MODEL_KEYWORD",
-          "link": 672
+          "link": 706
         }
       ],
       "outputs": [
@@ -3496,7 +3498,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 657
+          "link": 700
         },
         {
           "name": "positive",
@@ -3574,7 +3576,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        211382234055953,
+        854670925457000,
         "randomize",
         20,
         8,
@@ -3611,7 +3613,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "beautiful sexy 35 year old perfect body model woman, black hair, swimmer fitness body, bathing in a big pool, green water, small wave, (beautiful long wet watery trapped waterlogged soggy hair:1.5), (rainy wet full body:1.3), (heavy rain:1.2), luxury pool and exterior, (wear white one-piece swimsuit:1.2), sexy middle sized breasts, huge neckline cleavage decolletage, thinking friendly natural face, closeup half body portrait, detailed face, detailed hair"
+        "nice animal walking in the forest, sunny day"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3642,7 +3644,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(dry hair, porn, nudity, nsfw, umbrella, cap, hat, headgear, dry, necklace embedding:add_nsfw, muscle, muscled, man, manly:1.20)"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -3885,7 +3887,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 658
+          "link": 699
         },
         {
           "name": "positive",
@@ -3993,7 +3995,7 @@
       },
       "widgets_values": [
         2.1,
-        567096627515400,
+        774213444777237,
         "randomize",
         7,
         6.5,
@@ -4143,7 +4145,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-17 21:59:33\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_ICBNP_MERGE_V10\\SFW_story\\2023-12-Week-50\\Image_20231712_215933_310679447349041_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: beautiful sexy 35 year old perfect body model woman, black hair, swimmer fitness body, bathing in a big pool, {dark-blue|light-blue|transparent|green} water, small wave, (beautiful long wet watery trapped waterlogged soggy hair:1.5), (rainy wet full body:1.3), (heavy rain:1.2), luxury pool and exterior, (wear {rainbow|yellow|blue|white|green|red|dark-red|striper} one-piece swimsuit:1.2), sexy middle sized breasts, huge neckline cleavage decolletage, {smile|thinking|flirty} {romantic|friendly} {satisfied|natural} face, closeup half body portrait, detailed face, detailed hair\n:: NEGATIVE: dry hair, porn, nudity, nsfw, umbrella, cap, hat, headgear, dry, necklace add_nsfw, muscle, muscled, man, manly\n:: MODEL_NAME: BestAll\\Photon_ICBNP_merge_v10.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 310679447349041\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: beautiful sexy 35 year old perfect body model woman, black hair, swimmer fitness body, bathing in a big pool, green water, small wave, (beautiful long wet watery trapped waterlogged soggy hair:1.5), (rainy wet full body:1.3), (heavy rain:1.2), luxury pool and exterior, (wear white one-piece swimsuit:1.2), sexy middle sized breasts, huge neckline cleavage decolletage, thinking friendly natural face, closeup half body portrait, detailed face, detailed hair\n:: DYNAMIC_NEGATIVE: dry hair, porn, nudity, nsfw, umbrella, cap, hat, headgear, dry, necklace add_nsfw, muscle, muscled, man, manly\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2023-12-18 08:42:21\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_ICBNP_MERGE_V10\\NetworkTest\\2023-12-Week-51\\Image_20231812_084220_936106653593657_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>\n:: MODEL_NAME: BestAll\\Photon_ICBNP_merge_v10.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 936106653593657\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -5095,26 +5097,10 @@
       "INT"
     ],
     [
-      627,
-      147,
-      3,
-      224,
-      1,
-      "STRING"
-    ],
-    [
       632,
       217,
       0,
       218,
-      0,
-      "MODEL"
-    ],
-    [
-      638,
-      218,
-      0,
-      224,
       0,
       "MODEL"
     ],
@@ -5175,76 +5161,12 @@
       "CLIP"
     ],
     [
-      657,
-      224,
-      0,
-      102,
-      0,
-      "MODEL"
-    ],
-    [
-      658,
-      224,
-      0,
-      156,
-      1,
-      "MODEL"
-    ],
-    [
       659,
       105,
       0,
       146,
       1,
       "STRING"
-    ],
-    [
-      667,
-      147,
-      0,
-      238,
-      0,
-      "MODEL"
-    ],
-    [
-      668,
-      147,
-      1,
-      238,
-      1,
-      "CLIP"
-    ],
-    [
-      669,
-      105,
-      0,
-      238,
-      2,
-      "STRING"
-    ],
-    [
-      670,
-      238,
-      0,
-      217,
-      0,
-      "MODEL"
-    ],
-    [
-      671,
-      238,
-      1,
-      217,
-      1,
-      "CLIP"
-    ],
-    [
-      672,
-      238,
-      4,
-      219,
-      2,
-      "MODEL_KEYWORD"
     ],
     [
       673,
@@ -5397,6 +5319,86 @@
       107,
       0,
       "STRING"
+    ],
+    [
+      697,
+      218,
+      0,
+      280,
+      0,
+      "MODEL"
+    ],
+    [
+      698,
+      147,
+      3,
+      280,
+      1,
+      "STRING"
+    ],
+    [
+      699,
+      280,
+      0,
+      156,
+      1,
+      "MODEL"
+    ],
+    [
+      700,
+      280,
+      0,
+      102,
+      0,
+      "MODEL"
+    ],
+    [
+      701,
+      147,
+      0,
+      283,
+      0,
+      "MODEL"
+    ],
+    [
+      702,
+      147,
+      1,
+      283,
+      1,
+      "CLIP"
+    ],
+    [
+      703,
+      105,
+      0,
+      283,
+      2,
+      "STRING"
+    ],
+    [
+      704,
+      283,
+      0,
+      217,
+      0,
+      "MODEL"
+    ],
+    [
+      705,
+      283,
+      1,
+      217,
+      1,
+      "CLIP"
+    ],
+    [
+      706,
+      283,
+      4,
+      219,
+      2,
+      "MODEL_KEYWORD"
     ]
   ],
   "groups": [

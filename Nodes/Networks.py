@@ -257,6 +257,7 @@ class PrimereHypernetwork:
         return {"required": {
             "model": ("MODEL",),
             "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+            "safe_load": ("BOOLEAN", {"default": True}),
             "stack_version": (["SD", "SDXL", "Any"], {"default": "Any"}),
 
             "use_hypernetwork_1": ("BOOLEAN", {"default": False}),
@@ -285,7 +286,7 @@ class PrimereHypernetwork:
         }
     }
 
-    def primere_hypernetwork(self, model, model_version, stack_version = 'Any',  **kwargs):
+    def primere_hypernetwork(self, model, model_version, stack_version = 'Any', safe_load = True, **kwargs):
         model_hypernetwork = model
         if model_version == 'SDXL_2048' and stack_version == 'SD':
             return (model, [],)
@@ -303,7 +304,10 @@ class PrimereHypernetwork:
             for hn_tuple in hnetwork_stack:
                 hypernetwork_path = folder_paths.get_full_path("hypernetworks", hn_tuple[0])
                 model_hypernetwork = cloned_model.clone()
-                patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, hn_tuple[1], False)
+                try:
+                    patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, hn_tuple[1], safe_load)
+                except Exception:
+                    patch = None
                 if patch is not None:
                     model_hypernetwork.set_model_attn1_patch(patch)
                     model_hypernetwork.set_model_attn2_patch(patch)

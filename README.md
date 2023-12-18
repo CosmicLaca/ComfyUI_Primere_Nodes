@@ -143,7 +143,9 @@ This node remove Lora, Hypernetwork and Embedding (booth A1111 and Comfy) from t
 The another thing, that you must remove original tags after 'Primere Network Tag Loader', because after prompt cleaner non tags for tag loader.
 
 ### Primere Network Tag Loader
-This node loads addtional networks (Lora and Hypernetwork) to the CLIP and MODEL. You can read and use Lora keywords to send to prompt encoder or the keyword merger like in the example workflow. 
+This node loads addtional networks (Lora and Hypernetwork) to the CLIP and MODEL. You can read and use Lora and Hypernetwork keywords to send to prompt encoder or the keyword merger like in the example workflow.
+**Hypernetwork is harmful, because can run any code on your computer, so set 'process_hypernetwork' to False on this node or download them from reliable source only**
+**If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork tags will be ignored, but your computer stay safe.
 
 ### Primere Model Keyword
 This node loads model keyword. You can read and use model keywords to send directly to prompt encoder like in the example workflow.
@@ -178,6 +180,7 @@ You can choose embedding placement in the prompt.
 
 ### Primere Hypernetwork
 Use hypernetwork if you already have by this node. **Hypernetwork is harmful, because can run any code on your computer, so ignore/delete this node or download them from reliable source only**
+**If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork settings will be ignored, but your computer stay safe.
 Hypernetworks don't need seperated SD and SDXL sources, use only one stack for all, and set 'stack_version' to 'Any'. 
 
 ## Visuals:
@@ -199,6 +202,7 @@ You must copy your original embedding subdirs to ComfyUI\custom_nodes\ComfyUI_Pr
 ### Primere Visual Hypernetwork selector:
 Same as than the 'Primere Hypernetwork' node, but with preview images of selection modal.  
 You must copy your original hypernetwork subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\hypernetworks\ path but only the preview images needed, same name as the hypernetwork file but with .jpg only extension.
+**If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork settings will be ignored, but your computer stay safe.
 
 ### Primere Visual Style selector:
 Same as than the 'Primere Styles' node, but with preview images of selection modal.  
