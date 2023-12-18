@@ -1,4 +1,4 @@
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import TREE_OUTPUTS
+from ..components.tree import TREE_OUTPUTS
 import os
 import folder_paths
 import re

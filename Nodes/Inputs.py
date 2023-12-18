@@ -1,5 +1,5 @@
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import TREE_INPUTS
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_INPUTS
+from ..components.tree import PRIMERE_ROOT
 import os
 import re
 from dynamicprompts.parser.parse import ParserConfig
@@ -12,7 +12,7 @@ import hashlib
 from .modules.image_meta_reader import ImageExifReader
 from .modules import exif_data_checker
 import nodes
-from custom_nodes.ComfyUI_Primere_Nodes.components import utility
+from ..components import utility
 from pathlib import Path
 import random
 import string

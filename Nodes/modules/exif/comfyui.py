@@ -1,6 +1,6 @@
 import json
 from ..exif.base_format import BaseFormat
-from custom_nodes.ComfyUI_Primere_Nodes.components import utility
+from ....components import utility
 
 # comfyui node types
 KSAMPLER_TYPES = ["KSampler", "KSamplerAdvanced"]

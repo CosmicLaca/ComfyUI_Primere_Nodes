@@ -1,5 +1,5 @@
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import TREE_STYLES
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_STYLES
+from ..components.tree import PRIMERE_ROOT
 import os
 import tomli
 

@@ -1,9 +1,9 @@
 import nodes
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import TREE_VISUALS
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_VISUALS
+from ..components.tree import PRIMERE_ROOT
 import folder_paths
-from custom_nodes.ComfyUI_Primere_Nodes.components import utility
-from custom_nodes.ComfyUI_Primere_Nodes.components import hypernetwork
+from ..components import utility
+from ..components import hypernetwork
 import comfy.sd
 import comfy.utils
 import os

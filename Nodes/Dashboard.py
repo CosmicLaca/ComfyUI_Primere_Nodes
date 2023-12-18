@@ -1,5 +1,5 @@
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import TREE_DASHBOARD
-from custom_nodes.ComfyUI_Primere_Nodes.components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_DASHBOARD
+from ..components.tree import PRIMERE_ROOT
 import comfy.samplers
 import folder_paths
 import nodes
@@ -11,11 +11,11 @@ import os
 import tomli
 from .modules.adv_encode import advanced_encode, advanced_encode_XL
 from nodes import MAX_RESOLUTION
-from custom_nodes.ComfyUI_Primere_Nodes.components import utility
+from ..components import utility
 from pathlib import Path
 import re
 import requests
-from custom_nodes.ComfyUI_Primere_Nodes.components import hypernetwork
+from ..components import hypernetwork
 import comfy.sd
 import comfy.utils
 
