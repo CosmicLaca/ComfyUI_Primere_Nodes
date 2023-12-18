@@ -673,28 +673,28 @@ class PrimereEmbeddingKeywordMerger:
             if len(mkw_list_1) == 2:
                 model_keyword_1 = mkw_list_1[0]
                 placement = mkw_list_1[1]
-                embedding_pos.append([model_keyword_1, placement])
+                embedding_pos.extend([model_keyword_1, placement])
 
         if embedding_pos_SDXL is not None:
             mkw_list_1 = list(filter(None, embedding_pos_SDXL))
             if len(mkw_list_1) == 2:
                 model_keyword_1 = mkw_list_1[0]
                 placement = mkw_list_1[1]
-                embedding_pos.append([model_keyword_1, placement])
+                embedding_pos.extend([model_keyword_1, placement])
 
         if embedding_neg_SD is not None:
             mkw_list_1 = list(filter(None, embedding_neg_SD))
             if len(mkw_list_1) == 2:
                 model_keyword_1 = mkw_list_1[0]
                 placement = mkw_list_1[1]
-                embedding_neg.append([model_keyword_1, placement])
+                embedding_neg.extend([model_keyword_1, placement])
 
         if embedding_neg_SDXL is not None:
             mkw_list_1 = list(filter(None, embedding_neg_SDXL))
             if len(mkw_list_1) == 2:
                 model_keyword_1 = mkw_list_1[0]
                 placement = mkw_list_1[1]
-                embedding_neg.append([model_keyword_1, placement])
+                embedding_neg.extend([model_keyword_1, placement])
 
         if (len(embedding_pos) == 0):
             embedding_pos = [None, None]
