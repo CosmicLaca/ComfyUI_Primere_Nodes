@@ -72,6 +72,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLoraStackMerger": Inputs.PrimereLoraStackMerger,
     "PrimereLoraKeywordMerger": Inputs.PrimereLoraKeywordMerger,
     "PrimereEmbeddingKeywordMerger": Inputs.PrimereEmbeddingKeywordMerger,
+    "PrimereLycorisStackMerger": Inputs.PrimereLycorisStackMerger,
+    "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -84,10 +86,12 @@ NODE_CLASS_MAPPINGS = {
     "PrimereVisualEmbedding": Visuals.PrimereVisualEmbedding,
     "PrimereVisualHypernetwork": Visuals.PrimereVisualHypernetwork,
     "PrimereVisualStyle": Visuals.PrimereVisualStyle,
+    "PrimereVisualLYCORIS": Visuals.PrimereVisualLYCORIS,
 
     "PrimereLORA": Networks.PrimereLORA,
     "PrimereEmbedding": Networks.PrimereEmbedding,
     "PrimereHypernetwork": Networks.PrimereHypernetwork,
+    "PrimereLYCORIS": Networks.PrimereLYCORIS,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -117,6 +121,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLoraStackMerger": "Primere Lora Stack Merger",
     "PrimereLoraKeywordMerger": 'Primere Lora Keyword Merger',
     "PrimereEmbeddingKeywordMerger": "Primere Embedding Keyword Merger",
+    "PrimereLycorisStackMerger": 'Primere Lycoris Stack Merger',
+    "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",
@@ -129,8 +135,10 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereVisualEmbedding": 'Primere Visual Embedding Selector',
     "PrimereVisualHypernetwork": 'Primere Visual Hypernetwork Selector',
     "PrimereVisualStyle": 'Primere Visual Style Selector',
+    "PrimereVisualLYCORIS": 'Primere Visual LYCORIS Selector',
 
     "PrimereLORA": 'Primere LORA',
     "PrimereEmbedding": 'Primere Embedding',
     "PrimereHypernetwork": 'Primere Hypernetwork',
+    "PrimereLYCORIS": 'Primere LYCORIS',
 }

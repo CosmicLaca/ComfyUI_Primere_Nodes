@@ -1,13 +1,13 @@
 {
-  "last_node_id": 285,
-  "last_link_id": 708,
+  "last_node_id": 317,
+  "last_link_id": 787,
   "nodes": [
     {
       "id": 93,
       "type": "PrimereSamplers",
       "pos": [
-        3567.0352204112855,
-        -1105.0315485659328
+        3568.9493593984735,
+        -1184.5818136632176
       ],
       "size": {
         "0": 315,
@@ -51,8 +51,8 @@
       "id": 95,
       "type": "PrimereStepsCfg",
       "pos": [
-        3567.9568468515367,
-        -965.8056508620263
+        3569.8709858387247,
+        -1045.3559159593106
       ],
       "size": {
         "0": 314.7979736328125,
@@ -96,8 +96,8 @@
       "id": 96,
       "type": "PrimereStepsCfg",
       "pos": [
-        3895.9568468515354,
-        -964.8056508620263
+        3897.8709858387233,
+        -1044.3559159593106
       ],
       "size": {
         "0": 314.3031311035156,
@@ -278,9 +278,9 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)",
-        "nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)",
-        "ChristmasFinal-2",
+        "({30|35|40|45|50} year old {European|Australian|American} {white|black|half-black} {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter street in the {modern big city|nature near lake|forest|snowy hill|large village|small village|village in the snowy hill}, visible her thin {open|close} top revealing beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} coat, (sexy outdoor {daytime|nighttime} photography:1.3), realistic beauty model woman of the (winter outdoor street photography:1.2), (__jumbo/people/mood__ mood:1.1), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)",
+        "(Christmas, holiday, asian, russian, gray:2), nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, china, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)",
+        "WinterWalk",
         "None",
         "Random"
       ],
@@ -353,7 +353,7 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "",
+        "nice animal walking in the forest, sunny day, <lyco:InsPX:0.7> ",
         "",
         "",
         "None",
@@ -366,8 +366,8 @@
       "id": 88,
       "type": "PrimereVAE",
       "pos": [
-        2374,
-        -742
+        2375.914138987188,
+        -821.5502650972844
       ],
       "size": {
         "0": 533.7551879882812,
@@ -401,8 +401,8 @@
       "id": 89,
       "type": "PrimereVAE",
       "pos": [
-        2374,
-        -651
+        2375.914138987188,
+        -730.5502650972844
       ],
       "size": {
         "0": 533.7551879882812,
@@ -436,8 +436,8 @@
       "id": 94,
       "type": "PrimereSamplers",
       "pos": [
-        3893.9568468515354,
-        -1104.8056508620266
+        3895.8709858387233,
+        -1184.3559159593115
       ],
       "size": {
         "0": 315,
@@ -481,8 +481,8 @@
       "id": 161,
       "type": "UpscaleModelLoader",
       "pos": [
-        2779,
-        -549
+        2782,
+        -626
       ],
       "size": {
         "0": 390.1788024902344,
@@ -515,8 +515,8 @@
       "id": 90,
       "type": "PrimereSeed",
       "pos": [
-        2917.600048828125,
-        -1104.600048828125
+        2919.514187815313,
+        -1184.1503139254098
       ],
       "size": {
         "0": 311.65582275390625,
@@ -550,81 +550,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 135,
-      "type": "PrimerePrompt",
-      "pos": [
-        -1007,
-        1022
-      ],
-      "size": {
-        "0": 991.83154296875,
-        "1": 417.1067199707031
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            404
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            405
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            406
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            407
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            408
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Prompt - TEST #6",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "",
-        "",
-        "",
-        "None",
-        "None"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 79,
       "type": "PrimerePrompt",
       "pos": [
@@ -636,7 +561,7 @@
         "1": 445.68524169921875
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "outputs": [
         {
@@ -711,7 +636,7 @@
         "1": 414.56573486328125
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -753,18 +678,18 @@
       },
       "widgets_values": [
         true,
-        "street fashion photography",
         "",
-        "upper body",
         "",
-        "edge lighting",
-        "eye level",
-        "Bolex H16",
-        "film grain",
-        "Voigtländer Nokton 50mm f1.1",
-        "bokeh",
         "",
-        "street fashion photography photo of , upper body, edge lighting, eye level, Bolex H16, film grain, Voigtländer Nokton 50mm f1.1, bokeh",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         "No"
       ],
       "color": "#432",
@@ -782,7 +707,7 @@
         "1": 258
       },
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "outputs": [
         {
@@ -835,7 +760,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Woman swiming in the rain",
+        "SFW Luxury model",
         true,
         false,
         true,
@@ -857,7 +782,7 @@
         "1": 444.4584045410156
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "outputs": [
         {
@@ -924,15 +849,15 @@
       "id": 248,
       "type": "PrimereVisualCKPT",
       "pos": [
-        2370,
-        -1108
+        2372,
+        -1187
       ],
       "size": {
         "0": 533.8221435546875,
         "1": 129.9805450439453
       },
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "outputs": [
         {
@@ -959,7 +884,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "Photo\\insaneRealisticV20_insaneRealisticV20.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         true
       ],
@@ -967,11 +892,86 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 288,
+      "type": "PrimerePrompt",
+      "pos": [
+        -1009,
+        1018
+      ],
+      "size": {
+        "0": 990.8077392578125,
+        "1": 418.6113586425781
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            712
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            713
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            714
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            715
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            716
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Prompt - TEST #6",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)",
+        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic",
+        "",
+        "None",
+        "Vertical"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
       "id": 91,
       "type": "PrimereLCMSelector",
       "pos": [
-        3569.600048828125,
-        -823.600048828125
+        3571.514187815313,
+        -903.1503139254094
       ],
       "size": {
         "0": 643.9768676757812,
@@ -1148,7 +1148,7 @@
           "name": "STYLE+",
           "type": "STRING",
           "links": [
-            613
+            764
           ],
           "shape": 3,
           "slot_index": 0
@@ -1157,7 +1157,7 @@
           "name": "STYLE-",
           "type": "STRING",
           "links": [
-            614
+            765
           ],
           "shape": 3,
           "slot_index": 1
@@ -1170,13 +1170,13 @@
         "None",
         1,
         "None",
-        1.3,
+        1,
         "None",
         1.2,
         "None",
-        1,
+        0.6,
         "None",
-        0.7000000000000001,
+        1,
         "None",
         1,
         "None",
@@ -1188,6 +1188,77 @@
       "bgcolor": "#653"
     },
     {
+      "id": 164,
+      "type": "PrimereResolution",
+      "pos": [
+        3245.040851842843,
+        -1185.2459065497005
+      ],
+      "size": {
+        "0": 313.5058288574219,
+        "1": 247.00794982910156
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 690,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 520,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            521
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            522
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "HD+ screen [16:10]",
+        768,
+        true,
+        "Horizontal",
+        true,
+        "BaseModel_1024",
+        -559276143087254,
+        "randomize",
+        false,
+        1,
+        1.5
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 137,
       "type": "PrimerePromptSwitch",
       "pos": [
@@ -1195,11 +1266,11 @@
         378
       ],
       "size": {
-        "0": 260.9117126464844,
+        "0": 261.80865478515625,
         "1": 838
       },
       "flags": {},
-      "order": 19,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1330,27 +1401,27 @@
         {
           "name": "prompt_pos_6",
           "type": "STRING",
-          "link": 404
+          "link": 712
         },
         {
           "name": "prompt_neg_6",
           "type": "STRING",
-          "link": 405
+          "link": 713
         },
         {
           "name": "subpath_6",
           "type": "STRING",
-          "link": 406
+          "link": 714
         },
         {
           "name": "model_6",
           "type": "STRING",
-          "link": 407
+          "link": 715
         },
         {
           "name": "orientation_6",
           "type": "STRING",
-          "link": 408
+          "link": 716
         },
         {
           "name": "prompt_pos_7",
@@ -1462,78 +1533,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        5
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 164,
-      "type": "PrimereResolution",
-      "pos": [
-        3243.126712855655,
-        -1105.6956414524157
-      ],
-      "size": {
-        "0": 313.5058288574219,
-        "1": 247.00794982910156
-      },
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 690,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 520,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            521
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            522
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Portrait [9:7]",
-        768,
-        true,
-        "Vertical",
-        true,
-        "BaseModel_1024",
-        51663001409172,
-        "randomize",
-        false,
-        1,
-        1.5
+        6
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1564,7 +1564,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)"
+        "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1595,7 +1595,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)"
+        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1860,7 +1860,7 @@
             425,
             478,
             497,
-            615
+            766
           ],
           "shape": 3,
           "slot_index": 10
@@ -1872,7 +1872,7 @@
             426,
             479,
             498,
-            616
+            767
           ],
           "shape": 3,
           "slot_index": 11
@@ -1952,7 +1952,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1018,
+        1046,
         "randomize",
         65,
         895,
@@ -1969,8 +1969,8 @@
       "id": 147,
       "type": "PrimereCKPTLoader",
       "pos": [
-        2918,
-        -940
+        2919.914138987188,
+        -1019.5502650972841
       ],
       "size": {
         "0": 312.7875671386719,
@@ -1999,7 +1999,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            701
+            747
           ],
           "shape": 3,
           "slot_index": 0
@@ -2008,7 +2008,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            702
+            748
           ],
           "shape": 3,
           "slot_index": 1
@@ -2026,14 +2026,17 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            445,
             480,
-            592,
-            598,
-            610,
             673,
             674,
-            698
+            698,
+            737,
+            742,
+            761,
+            776,
+            777,
+            778,
+            779
           ],
           "shape": 3,
           "slot_index": 3
@@ -2055,8 +2058,8 @@
       "id": 244,
       "type": "PrimereModelKeyword",
       "pos": [
-        2374,
-        -941
+        2375.914138987188,
+        -1020.5502650972841
       ],
       "size": {
         "0": 533.7551879882812,
@@ -2077,7 +2080,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            685
+            755
           ],
           "shape": 3,
           "slot_index": 0
@@ -2133,8 +2136,8 @@
           "name": "PROMPT",
           "type": "STRING",
           "links": [
-            659,
-            703
+            738,
+            749
           ],
           "shape": 3,
           "slot_index": 0
@@ -2145,7 +2148,7 @@
       },
       "widgets_values": [
         "",
-        -468024368948955,
+        -536332213640746,
         "randomize"
       ],
       "color": "#232",
@@ -2188,7 +2191,7 @@
           "name": "PROMPT",
           "type": "STRING",
           "links": [
-            470
+            739
           ],
           "shape": 3,
           "slot_index": 0
@@ -2199,7 +2202,7 @@
       },
       "widgets_values": [
         "",
-        439425548927946,
+        -710838939809507,
         "randomize"
       ],
       "color": "#322",
@@ -2231,7 +2234,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)\",\n    \"negative\": \"nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 925430360387776,\n    \"width\": 896,\n    \"height\": 658,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Horizontal\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6)\",\n    \"dynamic_negative\": \"nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\"\n}"
+        "{\n    \"positive\": \"(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 80184775029291,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the small village:1.3), near small village house, closeup outdoor color professional model fashion photography, soft natural lights, grieving mood, open mouth, (wear rainbow, silky, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long blue, trousers:1.6), (short black straight hair:1.6), large cleavage, natural tits, snow:0.5, Spring, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2240,8 +2243,8 @@
       "id": 100,
       "type": "PrimereLatentNoise",
       "pos": [
-        2372,
-        90
+        2375.46398741521,
+        70.75124695278095
       ],
       "size": {
         "0": 341.4631042480469,
@@ -2308,19 +2311,19 @@
       "widgets_values": [
         512,
         512,
-        true,
+        false,
         "brownian_fractal",
-        true,
+        false,
         1.1500000000000001,
         0.75,
         1.3,
-        true,
+        false,
         1.2,
         0.9,
         1.3,
-        628602019572709,
+        553743265490795,
         "randomize",
-        true,
+        false,
         "cpu"
       ],
       "color": "#6c0000",
@@ -2330,8 +2333,8 @@
       "id": 151,
       "type": "PrimereResolutionMultiplier",
       "pos": [
-        3244.126712855655,
-        -821.6956414524146
+        3246.040851842843,
+        -901.245906549699
       ],
       "size": {
         "0": 313.2674255371094,
@@ -2413,8 +2416,8 @@
       "id": 223,
       "type": "PrimereVisualEmbedding",
       "pos": [
-        978,
-        -1108
+        964,
+        -1189
       ],
       "size": {
         "0": 451.0870361328125,
@@ -2467,25 +2470,25 @@
         "SD",
         true,
         true,
-        true,
+        false,
         "Style\\Winter.pt",
         0.7000000000000001,
         false,
         false,
-        "Negative\\bhands-neg.pt",
-        1.2,
+        "Photo\\kkw-photoreal.bin",
+        0.4,
+        false,
+        false,
+        "Negative\\kkw-photo-neg.bin",
+        0.7000000000000001,
         true,
         false,
-        "Age-Gen-Face\\AS-Adult.pt",
-        1.2,
-        false,
-        true,
         "Age-Gen-Face\\AS-Adult-neg.pt",
-        1,
+        0.7000000000000001,
         true,
-        true,
+        false,
         ".NSFW\\add_nsfw.pt",
-        1.3,
+        1,
         true,
         false,
         "Style\\Paintmagic.pt",
@@ -2494,20 +2497,20 @@
         "First",
         "First"
       ],
-      "color": "#002c2c",
-      "bgcolor": "#004040"
+      "color": "#6c006c",
+      "bgcolor": "#800080"
     },
     {
       "id": 239,
       "type": "PrimereVisualEmbedding",
       "pos": [
-        1439,
-        -1109
+        1422,
+        -1189
       ],
-      "size": {
-        "0": 451.0870361328125,
-        "1": 770
-      },
+      "size": [
+        451.0313289421638,
+        770
+      ],
       "flags": {},
       "order": 32,
       "mode": 0,
@@ -2555,11 +2558,11 @@
         "BaseModel_1024",
         "SDXL",
         true,
+        true,
         false,
-        false,
-        "SDXL\\Arcpastel.safetensors",
-        1,
-        false,
+        "SDXL\\negativeXL_D.safetensors",
+        0.8,
+        true,
         false,
         "SDXL\\unaestheticXL_hk1.safetensors",
         1,
@@ -2574,29 +2577,29 @@
         false,
         false,
         "SDXL\\ImgFixerPre0.3.safetensors",
-        1,
+        0.5,
         false,
         false,
         "SDXL\\unaestheticXL_hk1.safetensors",
         0.8,
         false,
-        "Last",
-        "Last"
+        "First",
+        "First"
       ],
-      "color": "#002c00",
-      "bgcolor": "#004000"
+      "color": "#6c002c",
+      "bgcolor": "#800040"
     },
     {
-      "id": 283,
+      "id": 313,
       "type": "PrimereNetworkTagLoader",
       "pos": [
-        1900,
-        -491
+        1881,
+        -571
       ],
-      "size": {
-        "0": 438.9899597167969,
-        "1": 354
-      },
+      "size": [
+        460.52725194505365,
+        562
+      ],
       "flags": {},
       "order": 33,
       "mode": 0,
@@ -2604,17 +2607,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 701
+          "link": 747
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 702
+          "link": 748
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 703,
+          "link": 749,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2625,7 +2628,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            704
+            750
           ],
           "shape": 3,
           "slot_index": 0
@@ -2634,7 +2637,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            705
+            751
           ],
           "shape": 3,
           "slot_index": 1
@@ -2642,6 +2645,12 @@
         {
           "name": "LORA_STACK",
           "type": "LORA_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
           "links": null,
           "shape": 3
         },
@@ -2655,10 +2664,19 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            706
+            752
           ],
           "shape": 3,
-          "slot_index": 4
+          "slot_index": 5
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            753
+          ],
+          "shape": 3,
+          "slot_index": 6
         }
       ],
       "properties": {
@@ -2668,8 +2686,15 @@
         "",
         true,
         true,
+        true,
         false,
         true,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
         1,
         true,
         "Last",
@@ -2677,20 +2702,20 @@
         1,
         1
       ],
-      "color": "#002c2c",
-      "bgcolor": "#004040"
+      "color": "#1060b8",
+      "bgcolor": "#2474cc"
     },
     {
-      "id": 146,
+      "id": 314,
       "type": "PrimereClearPrompt",
       "pos": [
-        980,
-        -303
+        966,
+        -262
       ],
-      "size": {
-        "0": 450.1855773925781,
-        "1": 194
-      },
+      "size": [
+        455.7814524684245,
+        218
+      ],
       "flags": {},
       "order": 34,
       "mode": 0,
@@ -2698,7 +2723,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 445,
+          "link": 737,
           "widget": {
             "name": "model_version"
           }
@@ -2706,7 +2731,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 659,
+          "link": 738,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2714,7 +2739,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 470,
+          "link": 739,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2725,7 +2750,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            694
+            740
           ],
           "shape": 3,
           "slot_index": 0
@@ -2734,12 +2759,13 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            444
+            741
           ],
           "shape": 3,
           "slot_index": 1
         }
       ],
+      "title": "Primere Prompt Cleaner - SD",
       "properties": {
         "Node name for S&R": "PrimereClearPrompt"
       },
@@ -2751,22 +2777,23 @@
         false,
         false,
         true,
+        true,
         true
       ],
-      "color": "#002c2c",
-      "bgcolor": "#004040"
+      "color": "#232",
+      "bgcolor": "#353"
     },
     {
       "id": 27,
       "type": "PreviewImage",
       "pos": [
-        2375,
-        510
+        2376,
+        489
       ],
-      "size": {
-        "0": 340.3442687988281,
-        "1": 272.2190246582031
-      },
+      "size": [
+        340.38232421875,
+        295.889404296875
+      ],
       "flags": {},
       "order": 35,
       "mode": 0,
@@ -2787,13 +2814,13 @@
       "id": 240,
       "type": "PrimereEmbeddingKeywordMerger",
       "pos": [
-        1438,
-        -303
+        965,
+        -383
       ],
-      "size": {
-        "0": 452.39666748046875,
-        "1": 86
-      },
+      "size": [
+        910.1211975097658,
+        86
+      ],
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -2824,7 +2851,7 @@
           "name": "EMBEDDING+",
           "type": "EMBEDDING",
           "links": [
-            679
+            759
           ],
           "shape": 3,
           "slot_index": 0
@@ -2833,7 +2860,7 @@
           "name": "EMBEDDING-",
           "type": "EMBEDDING",
           "links": [
-            680
+            760
           ],
           "shape": 3,
           "slot_index": 1
@@ -2842,15 +2869,15 @@
       "properties": {
         "Node name for S&R": "PrimereEmbeddingKeywordMerger"
       },
-      "color": "#002c2c",
-      "bgcolor": "#004040"
+      "color": "#b0004e",
+      "bgcolor": "#c40062"
     },
     {
       "id": 217,
       "type": "PrimereVisualLORA",
       "pos": [
-        29,
-        -1107
+        -1010,
+        -1189
       ],
       "size": {
         "0": 465.599853515625,
@@ -2863,17 +2890,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 704
+          "link": 750
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 705
+          "link": 751
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 592,
+          "link": 776,
           "widget": {
             "name": "model_version"
           }
@@ -2884,7 +2911,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            632
+            780
           ],
           "shape": 3,
           "slot_index": 0
@@ -2893,7 +2920,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            597
+            781
           ],
           "shape": 3,
           "slot_index": 1
@@ -2925,17 +2952,17 @@
         true,
         false,
         true,
-        true,
+        false,
         "snowfall.safetensors",
-        0.7000000000000001,
+        1.2,
         0.7000000000000001,
         false,
-        "Style\\detailed_eye_V2.safetensors",
-        0.6,
+        "Style\\frosted-style-richy-v1.safetensors",
+        0.2,
         1,
-        true,
+        false,
         "Style\\add_detail.safetensors",
-        1,
+        0.8,
         1.2,
         false,
         "noOne\\noOne25.safetensors",
@@ -2959,24 +2986,32 @@
       "bgcolor": "#004040"
     },
     {
-      "id": 107,
-      "type": "PrimereEmbeddingHandler",
+      "id": 316,
+      "type": "PrimereClearPrompt",
       "pos": [
-        28,
-        265
+        1428,
+        -262
       ],
-      "size": {
-        "0": 262.75347900390625,
-        "1": 77.75587463378906
-      },
+      "size": [
+        447.8295366156822,
+        218
+      ],
       "flags": {},
       "order": 38,
       "mode": 0,
       "inputs": [
         {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 742,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 694,
+          "link": 740,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2984,7 +3019,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 444,
+          "link": 741,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2995,36 +3030,45 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            692
+            743
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            612
+            744
           ],
           "shape": 3,
           "slot_index": 1
         }
       ],
+      "title": "Primere Prompt Cleaner - SDXL",
       "properties": {
-        "Node name for S&R": "PrimereEmbeddingHandler"
+        "Node name for S&R": "PrimereClearPrompt"
       },
       "widgets_values": [
+        "BaseModel_1024",
         "",
-        ""
+        "",
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
       ],
-      "color": "#233",
-      "bgcolor": "#355"
+      "color": "#174c3a",
+      "bgcolor": "#2b604e"
     },
     {
       "id": 218,
       "type": "PrimereVisualLORA",
       "pos": [
-        501,
-        -1108
+        -535,
+        -1189
       ],
       "size": {
         "0": 465.599853515625,
@@ -3037,17 +3081,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 632
+          "link": 780
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 597
+          "link": 781
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 598,
+          "link": 777,
           "widget": {
             "name": "model_version"
           }
@@ -3058,7 +3102,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            697
+            786
           ],
           "shape": 3,
           "slot_index": 0
@@ -3067,7 +3111,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            656
+            787
           ],
           "shape": 3,
           "slot_index": 1
@@ -3098,30 +3142,30 @@
         "SDXL",
         true,
         false,
+        true,
         false,
-        false,
-        "SDXL\\Camellia2.safetensors",
-        1,
-        1,
-        false,
-        "SDXL\\Helena.safetensors",
-        1,
+        "SDXL\\realistic_film_photography.safetensors",
+        0.85,
         1,
         false,
-        "SDXL\\Surreal_Harmony.safetensors",
-        1,
+        "SDXL\\DetailedEyes_V3.safetensors",
+        1.2,
         1,
         false,
-        "SDXL\\more_art-full_v1.safetensors",
+        "SDXL\\BetterPhotography-v1.2.safetensors",
+        0.7000000000000001,
+        1,
+        false,
+        "SDXL\\Ice.safetensors",
         1,
         1,
         false,
         "SDXL\\betterfaces_v3.safetensors",
-        1,
+        1.1,
         1,
         false,
-        "SDXL\\RealisticIMG.safetensors",
-        1,
+        "SDXL\\add-detail.safetensors",
+        1.2,
         1,
         true,
         "Last",
@@ -3133,24 +3177,361 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 280,
-      "type": "PrimereVisualHypernetwork",
+      "id": 107,
+      "type": "PrimereEmbeddingHandler",
       "pos": [
-        1900,
-        -1109
+        28,
+        265
       ],
       "size": {
-        "0": 439.9612121582031,
-        "1": 582
+        "0": 262.75347900390625,
+        "1": 77.75587463378906
       },
       "flags": {},
       "order": 40,
       "mode": 0,
       "inputs": [
         {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 743,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 744,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            762
+          ],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            763
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmbeddingHandler"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 304,
+      "type": "PrimereVisualLYCORIS",
+      "pos": [
+        -62,
+        -1189
+      ],
+      "size": [
+        511.28994140625036,
+        886
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
           "name": "model",
           "type": "MODEL",
-          "link": 697
+          "link": 786,
+          "slot_index": 0
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 787,
+          "slot_index": 1
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 778,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            782
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            783
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            745
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "SD - Primere Visual LYCORIS Selector",
+      "properties": {
+        "Node name for S&R": "PrimereVisualLYCORIS"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SD",
+        true,
+        true,
+        true,
+        false,
+        "Character\\kisslora.safetensors",
+        1.6,
+        1,
+        false,
+        "Exterior\\miniatureWorldStyle_v10.safetensors",
+        1,
+        1,
+        false,
+        "Photo\\selfiearm.safetensors",
+        1,
+        1,
+        false,
+        "Photo\\publicPhoto_v3.0.safetensors",
+        1,
+        1,
+        false,
+        "Wear\\VolleyballUniform_v20.safetensors",
+        1,
+        1,
+        false,
+        "Wear\\edgButterflyBarbarian.safetensors",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#002c6c",
+      "bgcolor": "#004080"
+    },
+    {
+      "id": 219,
+      "type": "PrimereLoraKeywordMerger",
+      "pos": [
+        -1011.0220473632813,
+        -262.1536652101627
+      ],
+      "size": {
+        "0": 941.1514892578125,
+        "1": 72.18949127197266
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "lora_keyword_SD",
+          "type": "MODEL_KEYWORD",
+          "link": 603
+        },
+        {
+          "name": "lora_keyword_SDXL",
+          "type": "MODEL_KEYWORD",
+          "link": 604
+        },
+        {
+          "name": "lora_keyword_tagloader",
+          "type": "MODEL_KEYWORD",
+          "link": 752
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            757
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLoraKeywordMerger"
+      },
+      "color": "#005600",
+      "bgcolor": "#006a00"
+    },
+    {
+      "id": 305,
+      "type": "PrimereVisualLYCORIS",
+      "pos": [
+        457,
+        -1188
+      ],
+      "size": [
+        496.63994140625005,
+        886
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 782,
+          "slot_index": 0
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 783,
+          "slot_index": 1
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 779,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            785
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            784
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            746
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "SDXL - Primere Visual LYCORIS Selector",
+      "properties": {
+        "Node name for S&R": "PrimereVisualLYCORIS"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SDXL",
+        true,
+        true,
+        true,
+        false,
+        "SDXL\\BikeMaker-SDXL.safetensors",
+        1,
+        1,
+        false,
+        "SDXL\\cyberfuture.safetensors",
+        1,
+        1,
+        false,
+        ".NSFW\\CumOnTongue-000020.safetensors",
+        1,
+        1,
+        false,
+        ".NSFW\\CumOnTongue-000020.safetensors",
+        1,
+        1,
+        false,
+        ".NSFW\\CumOnTongue-000020.safetensors",
+        1,
+        1,
+        false,
+        ".NSFW\\CumOnTongue-000020.safetensors",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#00008c",
+      "bgcolor": "#0000a0"
+    },
+    {
+      "id": 280,
+      "type": "PrimereVisualHypernetwork",
+      "pos": [
+        1880,
+        -1189
+      ],
+      "size": [
+        462.3537539647623,
+        582
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 785
         },
         {
           "name": "model_version",
@@ -3207,102 +3588,106 @@
         "Style\\LuisapAbstract.pt",
         1
       ],
-      "color": "#025900",
-      "bgcolor": "#166d07"
+      "color": "#853900",
+      "bgcolor": "#994d00"
     },
     {
-      "id": 219,
-      "type": "PrimereLoraKeywordMerger",
+      "id": 301,
+      "type": "PrimereLycorisKeywordMerger",
       "pos": [
-        28,
-        -182
+        -62,
+        -261
       ],
-      "size": {
-        "0": 941.1514892578125,
-        "1": 72.18949127197266
-      },
+      "size": [
+        1015.5799134288777,
+        71.22733752267118
+      ],
       "flags": {},
-      "order": 41,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
-          "name": "lora_keyword_SD",
+          "name": "lycoris_keyword_SD",
           "type": "MODEL_KEYWORD",
-          "link": 603
+          "link": 745
         },
         {
-          "name": "lora_keyword_SDXL",
+          "name": "lycoris_keyword_SDXL",
           "type": "MODEL_KEYWORD",
-          "link": 604
+          "link": 746
         },
         {
-          "name": "lora_keyword_tagloader",
+          "name": "lycoris_keyword_tagloader",
           "type": "MODEL_KEYWORD",
-          "link": 706
+          "link": 753
         }
       ],
       "outputs": [
         {
-          "name": "LORA_KEYWORD",
+          "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            609
+            758
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereLoraKeywordMerger"
+        "Node name for S&R": "PrimereLycorisKeywordMerger"
       },
-      "color": "#002c2c",
-      "bgcolor": "#004040"
+      "color": "#0000e7",
+      "bgcolor": "#0000fb"
     },
     {
-      "id": 222,
+      "id": 310,
       "type": "PrimereCLIPEncoder",
       "pos": [
-        2724,
-        88
+        2723.46398741521,
+        71.75124695278095
       ],
-      "size": {
-        "0": 356.93743896484375,
-        "1": 694
-      },
+      "size": [
+        361.48768310546893,
+        714
+      ],
       "flags": {},
-      "order": 42,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 656
+          "link": 784
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 685
+          "link": 755
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 609
+          "link": 757
+        },
+        {
+          "name": "lycoris_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 758
         },
         {
           "name": "embedding_pos",
           "type": "EMBEDDING",
-          "link": 679
+          "link": 759
         },
         {
           "name": "embedding_neg",
           "type": "EMBEDDING",
-          "link": 680,
-          "slot_index": 4
+          "link": 760
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 610,
+          "link": 761,
           "widget": {
             "name": "model_version"
           }
@@ -3310,7 +3695,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 692,
+          "link": 762,
           "widget": {
             "name": "positive_prompt"
           }
@@ -3318,7 +3703,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 612,
+          "link": 763,
           "widget": {
             "name": "negative_prompt"
           }
@@ -3342,7 +3727,7 @@
         {
           "name": "style_pos_prompt",
           "type": "STRING",
-          "link": 613,
+          "link": 764,
           "widget": {
             "name": "style_pos_prompt"
           }
@@ -3350,7 +3735,7 @@
         {
           "name": "style_neg_prompt",
           "type": "STRING",
-          "link": 614,
+          "link": 765,
           "widget": {
             "name": "style_neg_prompt"
           }
@@ -3374,7 +3759,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 615,
+          "link": 766,
           "widget": {
             "name": "width"
           }
@@ -3382,7 +3767,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 616,
+          "link": 767,
           "widget": {
             "name": "height"
           }
@@ -3393,8 +3778,8 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            617,
-            650
+            768,
+            770
           ],
           "shape": 3,
           "slot_index": 0
@@ -3403,8 +3788,8 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            618,
-            620
+            769,
+            771
           ],
           "shape": 3,
           "slot_index": 1
@@ -3413,7 +3798,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            621
+            772
           ],
           "shape": 3,
           "slot_index": 2
@@ -3422,7 +3807,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            622
+            773
           ],
           "shape": 3,
           "slot_index": 3
@@ -3431,7 +3816,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            623
+            774
           ],
           "shape": 3,
           "slot_index": 4
@@ -3440,7 +3825,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            624
+            775
           ],
           "shape": 3,
           "slot_index": 5
@@ -3454,11 +3839,11 @@
         "",
         "",
         1.2,
-        true,
+        false,
         "PHOTO",
-        0.8,
-        "PORTRAITS_PETS",
-        1.2,
+        1,
+        "BETTER_IMAGES",
+        1,
         true,
         "mean",
         "comfy++",
@@ -3467,15 +3852,15 @@
         "",
         1,
         "",
-        0.5,
+        1,
         "",
-        0.7000000000000001,
+        1,
         "",
         "",
         true,
-        true,
-        true,
-        true
+        1,
+        1024,
+        1024
       ],
       "color": "#6c0000",
       "bgcolor": "#800000"
@@ -3484,15 +3869,15 @@
       "id": 102,
       "type": "KSampler",
       "pos": [
-        3093,
-        170
+        3096.46398741521,
+        150.75124695278103
       ],
       "size": {
         "0": 372.2841796875,
         "1": 218
       },
       "flags": {},
-      "order": 43,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3503,12 +3888,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 650
+          "link": 770
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 620
+          "link": 771
         },
         {
           "name": "latent_image",
@@ -3576,7 +3961,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        958347696100196,
+        529863475043375,
         "randomize",
         20,
         8,
@@ -3599,13 +3984,13 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 44,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 621,
+          "link": 772,
           "dir": 3
         }
       ],
@@ -3613,7 +3998,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:Winter:0.7000000000000001), A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6), ((street fashion photography photo of , upper body, edge lighting, eye level, Bolex H16, film grain, Voigtl\\u00e4nder Nokton 50mm f1.1, bokeh):0.50), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:0.80), master"
+        "(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the small village:1.3), near small village house, closeup outdoor color professional model fashion photography, soft natural lights, grieving mood, open mouth, (wear rainbow, silky, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long blue, trousers:1.6), (short black straight hair:1.6), large cleavage, natural tits, snow:0.5, embedding:Spring, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7), kiss"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3630,13 +4015,13 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 45,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 622,
+          "link": 773,
           "dir": 3
         }
       ],
@@ -3644,7 +4029,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "embedding:AS-Adult-neg, (embedding:add_nsfw:1.3), (nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6):1.20), (3D, Absent limbs, Additional appendages, Additional digits, Additional limbs, Altered appendages, Amputee, Asymmetric, Asymmetric ears, Bad anatomy, Bad ears, Bad eyes, Bad face, Bad proportions, Beard (optional), Broken finger, Broken hand, Broken leg, Broken wrist, Cartoon, Childish (optional), Cloned face, Cloned head, Collapsed eyeshadow, Combined appendages, Conjoined, Copied visage, Corpse, Cripple, Cropped head, Cross-eyed, Depressed, Desiccated, Disconnected limb, Disfigured, Dismembered, Disproportionate, Double face, Duplicated features, Eerie, Elongated throat:1.20)"
+        "(porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, embedding:add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -3661,13 +4046,13 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 46,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 623,
+          "link": 774,
           "dir": 3
         }
       ],
@@ -3692,13 +4077,13 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 47,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 624,
+          "link": 775,
           "dir": 3
         }
       ],
@@ -3715,15 +4100,15 @@
       "id": 103,
       "type": "VAEDecode",
       "pos": [
-        3091,
-        90
+        3094.46398741521,
+        70.75124695278095
       ],
       "size": {
         "0": 372.4214172363281,
         "1": 46
       },
       "flags": {},
-      "order": 48,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3761,15 +4146,15 @@
       "id": 155,
       "type": "ttN hiresfixScale",
       "pos": [
-        2775,
-        -454
+        2778,
+        -533
       ],
       "size": {
         "0": 392.8316955566406,
         "1": 262
       },
       "flags": {},
-      "order": 49,
+      "order": 53,
       "mode": 4,
       "inputs": [
         {
@@ -3841,15 +4226,15 @@
       "id": 157,
       "type": "PreviewImage",
       "pos": [
-        3094,
-        424
+        3097.46398741521,
+        404.75124695278095
       ],
-      "size": {
-        "0": 372.5260009765625,
-        "1": 359.26953125
-      },
+      "size": [
+        370.9183368035401,
+        380.13815734409405
+      ],
       "flags": {},
-      "order": 50,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -3869,14 +4254,14 @@
       "type": "UltimateSDUpscale",
       "pos": [
         3179,
-        -549
+        -626
       ],
       "size": {
         "0": 297.423583984375,
         "1": 550.7127075195312
       },
       "flags": {},
-      "order": 51,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -3892,12 +4277,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 617
+          "link": 768
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 618
+          "link": 769
         },
         {
           "name": "vae",
@@ -3983,8 +4368,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            523,
-            524
+            736
           ],
           "shape": 3,
           "slot_index": 0
@@ -3995,7 +4379,7 @@
       },
       "widgets_values": [
         2.1,
-        87470298021135,
+        202971335049573,
         "randomize",
         7,
         6.5,
@@ -4018,51 +4402,66 @@
       "bgcolor": "#353"
     },
     {
-      "id": 19,
-      "type": "PreviewImage",
+      "id": 291,
+      "type": "JDC_GaussianBlur",
       "pos": [
-        3492,
-        43
+        2779,
+        -234
       ],
-      "size": {
-        "0": 1737.1102294921875,
-        "1": 1827.3470458984375
-      },
+      "size": [
+        387.63728970655984,
+        58
+      ],
       "flags": {},
-      "order": 52,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
-          "name": "images",
+          "name": "IMAGE",
           "type": "IMAGE",
-          "link": 523
+          "link": 736
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            733,
+            735
+          ],
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "JDC_GaussianBlur"
       },
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
+      "widgets_values": [
+        1.25
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
     },
     {
       "id": 149,
       "type": "PrimereMetaSave",
       "pos": [
-        4228.956846851535,
-        -1103.8056508620266
+        4230.870985838724,
+        -1183.3559159593115
       ],
       "size": {
         "0": 453.39007568359375,
         "1": 506
       },
       "flags": {},
-      "order": 53,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 524
+          "link": 733
         },
         {
           "name": "image_metadata",
@@ -4093,7 +4492,7 @@
       },
       "widgets_values": [
         "z:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
-        "Preview",
+        "Test",
         "",
         true,
         "Image",
@@ -4116,18 +4515,45 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        3494,
+        23
+      ],
+      "size": [
+        1737.6588496093755,
+        1849.4316627197268
+      ],
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 735
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 148,
       "type": "PrimereTextOutput",
       "pos": [
-        3493,
-        -548
+        3494,
+        -624
       ],
-      "size": {
-        "0": 1735.4661865234375,
-        "1": 552.715087890625
-      },
+      "size": [
+        1734.266491906823,
+        610.2072383009596
+      ],
       "flags": {},
-      "order": 54,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4145,7 +4571,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-18 15:20:41\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_V1\\ChristmasFinal-2\\2023-12-Week-51\\Image_20231812_152040_925430360387776_3584x2624_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: A stunning ({30|35|40|45|50} year old European {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter (streets of Christmas market:0.7) in the street of {modern big city|nature near lake|in the hill|village|small village|small village in the snowy hill}, her thin {open|close} top revealing her beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor {food-market|festive|holiday|Christmas|market|nightly} atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor {nighttime|daytime} winter holiday photography, (__jumbo/people/mood__ mood:0.8), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} hot winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)\n:: NEGATIVE: nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 925430360387776\n:: WIDTH: 896\n:: HEIGHT: 658\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Horizontal\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: A stunning (40 year old European dyed hair beautiful sexy model look woman:1.4) talking in the sunny but cold winter (streets of Christmas market:0.7) in the street of nature near lake, her thin open top revealing her beautiful cleavage, wearing warm long pink jeans trousers, (Christmas holiday lights and lamps of downtown twinkle in the background, creating a sexy and outdoor nightly atmosphere:1), captures the realistic beauty model woman of the (winter wonderland:1.1), beauty street outdoor nighttime winter holiday photography, (shocked mood:0.8), (wearing top elegant luxury opened sexy hot winter red urban underwear:1.3), (perfect hands, perfect face, perfect lights:1.6)\n:: DYNAMIC_NEGATIVE: nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)\n:: SAVED_IMAGE_WIDTH: 3584\n:: SAVED_IMAGE_HEIGTH: 2624\n:: UPSCALER_RATIO: From: 896x658 to: 3584x2624 Ratio: 4.0\n"
+        ":: Time to save: 2023-12-19 22:02:38\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_V1\\Test\\2023-12-Week-51\\Image_20231912_220238_80184775029291_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 80184775029291\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the small village:1.3), near small village house, closeup outdoor color professional model fashion photography, soft natural lights, grieving mood, open mouth, (wear rainbow, silky, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long blue, trousers:1.6), (short black straight hair:1.6), large cleavage, natural tits, snow:0.5, Spring, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -4393,46 +4819,6 @@
       "STRING"
     ],
     [
-      404,
-      135,
-      0,
-      137,
-      25,
-      "STRING"
-    ],
-    [
-      405,
-      135,
-      1,
-      137,
-      26,
-      "STRING"
-    ],
-    [
-      406,
-      135,
-      2,
-      137,
-      27,
-      "STRING"
-    ],
-    [
-      407,
-      135,
-      3,
-      137,
-      28,
-      "STRING"
-    ],
-    [
-      408,
-      135,
-      4,
-      137,
-      29,
-      "STRING"
-    ],
-    [
       409,
       136,
       0,
@@ -4569,22 +4955,6 @@
       "VAE"
     ],
     [
-      444,
-      146,
-      1,
-      107,
-      1,
-      "STRING"
-    ],
-    [
-      445,
-      147,
-      3,
-      146,
-      0,
-      "STRING"
-    ],
-    [
       446,
       145,
       9,
@@ -4703,14 +5073,6 @@
       91,
       3,
       "COMBO"
-    ],
-    [
-      470,
-      106,
-      0,
-      146,
-      2,
-      "STRING"
     ],
     [
       473,
@@ -4913,51 +5275,11 @@
       "INT"
     ],
     [
-      523,
-      156,
-      0,
-      19,
-      0,
-      "IMAGE"
-    ],
-    [
-      524,
-      156,
-      0,
-      149,
-      0,
-      "IMAGE"
-    ],
-    [
       564,
       208,
       0,
       99,
       0,
-      "STRING"
-    ],
-    [
-      592,
-      147,
-      3,
-      217,
-      2,
-      "STRING"
-    ],
-    [
-      597,
-      217,
-      1,
-      218,
-      1,
-      "CLIP"
-    ],
-    [
-      598,
-      147,
-      3,
-      218,
-      2,
       "STRING"
     ],
     [
@@ -4977,132 +5299,12 @@
       "MODEL_KEYWORD"
     ],
     [
-      609,
-      219,
-      0,
-      222,
-      2,
-      "MODEL_KEYWORD"
-    ],
-    [
-      610,
-      147,
-      3,
-      222,
-      5,
-      "STRING"
-    ],
-    [
-      612,
-      107,
-      1,
-      222,
-      7,
-      "STRING"
-    ],
-    [
-      613,
-      99,
-      0,
-      222,
-      10,
-      "STRING"
-    ],
-    [
-      614,
-      99,
-      1,
-      222,
-      11,
-      "STRING"
-    ],
-    [
-      615,
-      145,
-      10,
-      222,
-      14,
-      "INT"
-    ],
-    [
-      616,
-      145,
-      11,
-      222,
-      15,
-      "INT"
-    ],
-    [
-      617,
-      222,
-      0,
-      156,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      618,
-      222,
-      1,
-      156,
-      3,
-      "CONDITIONING"
-    ],
-    [
-      620,
-      222,
-      1,
-      102,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      621,
-      222,
-      2,
-      110,
-      0,
-      "*"
-    ],
-    [
-      622,
-      222,
-      3,
-      111,
-      0,
-      "*"
-    ],
-    [
-      623,
-      222,
-      4,
-      112,
-      0,
-      "*"
-    ],
-    [
-      624,
-      222,
-      5,
-      113,
-      0,
-      "*"
-    ],
-    [
       625,
       91,
       4,
       145,
       17,
       "INT"
-    ],
-    [
-      632,
-      217,
-      0,
-      218,
-      0,
-      "MODEL"
     ],
     [
       641,
@@ -5142,30 +5344,6 @@
       4,
       137,
       4,
-      "STRING"
-    ],
-    [
-      650,
-      222,
-      0,
-      102,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      656,
-      218,
-      1,
-      222,
-      0,
-      "CLIP"
-    ],
-    [
-      659,
-      105,
-      0,
-      146,
-      1,
       "STRING"
     ],
     [
@@ -5217,22 +5395,6 @@
       "EMBEDDING"
     ],
     [
-      679,
-      240,
-      0,
-      222,
-      3,
-      "EMBEDDING"
-    ],
-    [
-      680,
-      240,
-      1,
-      222,
-      4,
-      "EMBEDDING"
-    ],
-    [
       681,
       137,
       0,
@@ -5255,14 +5417,6 @@
       145,
       18,
       "STRING"
-    ],
-    [
-      685,
-      244,
-      0,
-      222,
-      1,
-      "MODEL_KEYWORD"
     ],
     [
       686,
@@ -5305,30 +5459,6 @@
       "STRING"
     ],
     [
-      692,
-      107,
-      0,
-      222,
-      6,
-      "STRING"
-    ],
-    [
-      694,
-      146,
-      0,
-      107,
-      0,
-      "STRING"
-    ],
-    [
-      697,
-      218,
-      0,
-      280,
-      0,
-      "MODEL"
-    ],
-    [
       698,
       147,
       3,
@@ -5353,52 +5483,460 @@
       "MODEL"
     ],
     [
-      701,
-      147,
+      712,
+      288,
       0,
-      283,
-      0,
-      "MODEL"
+      137,
+      25,
+      "STRING"
     ],
     [
-      702,
-      147,
+      713,
+      288,
       1,
-      283,
-      1,
-      "CLIP"
+      137,
+      26,
+      "STRING"
     ],
     [
-      703,
+      714,
+      288,
+      2,
+      137,
+      27,
+      "STRING"
+    ],
+    [
+      715,
+      288,
+      3,
+      137,
+      28,
+      "STRING"
+    ],
+    [
+      716,
+      288,
+      4,
+      137,
+      29,
+      "STRING"
+    ],
+    [
+      733,
+      291,
+      0,
+      149,
+      0,
+      "IMAGE"
+    ],
+    [
+      735,
+      291,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      736,
+      156,
+      0,
+      291,
+      0,
+      "IMAGE"
+    ],
+    [
+      737,
+      147,
+      3,
+      314,
+      0,
+      "STRING"
+    ],
+    [
+      738,
       105,
       0,
-      283,
+      314,
+      1,
+      "STRING"
+    ],
+    [
+      739,
+      106,
+      0,
+      314,
       2,
       "STRING"
     ],
     [
-      704,
-      283,
+      740,
+      314,
+      0,
+      316,
+      1,
+      "STRING"
+    ],
+    [
+      741,
+      314,
+      1,
+      316,
+      2,
+      "STRING"
+    ],
+    [
+      742,
+      147,
+      3,
+      316,
+      0,
+      "STRING"
+    ],
+    [
+      743,
+      316,
+      0,
+      107,
+      0,
+      "STRING"
+    ],
+    [
+      744,
+      316,
+      1,
+      107,
+      1,
+      "STRING"
+    ],
+    [
+      745,
+      304,
+      3,
+      301,
+      0,
+      "MODEL_KEYWORD"
+    ],
+    [
+      746,
+      305,
+      3,
+      301,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      747,
+      147,
+      0,
+      313,
+      0,
+      "MODEL"
+    ],
+    [
+      748,
+      147,
+      1,
+      313,
+      1,
+      "CLIP"
+    ],
+    [
+      749,
+      105,
+      0,
+      313,
+      2,
+      "STRING"
+    ],
+    [
+      750,
+      313,
       0,
       217,
       0,
       "MODEL"
     ],
     [
-      705,
-      283,
+      751,
+      313,
       1,
       217,
       1,
       "CLIP"
     ],
     [
-      706,
-      283,
-      4,
+      752,
+      313,
+      5,
       219,
       2,
       "MODEL_KEYWORD"
+    ],
+    [
+      753,
+      313,
+      6,
+      301,
+      2,
+      "MODEL_KEYWORD"
+    ],
+    [
+      755,
+      244,
+      0,
+      310,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      757,
+      219,
+      0,
+      310,
+      2,
+      "MODEL_KEYWORD"
+    ],
+    [
+      758,
+      301,
+      0,
+      310,
+      3,
+      "MODEL_KEYWORD"
+    ],
+    [
+      759,
+      240,
+      0,
+      310,
+      4,
+      "EMBEDDING"
+    ],
+    [
+      760,
+      240,
+      1,
+      310,
+      5,
+      "EMBEDDING"
+    ],
+    [
+      761,
+      147,
+      3,
+      310,
+      6,
+      "STRING"
+    ],
+    [
+      762,
+      107,
+      0,
+      310,
+      7,
+      "STRING"
+    ],
+    [
+      763,
+      107,
+      1,
+      310,
+      8,
+      "STRING"
+    ],
+    [
+      764,
+      99,
+      0,
+      310,
+      11,
+      "STRING"
+    ],
+    [
+      765,
+      99,
+      1,
+      310,
+      12,
+      "STRING"
+    ],
+    [
+      766,
+      145,
+      10,
+      310,
+      15,
+      "INT"
+    ],
+    [
+      767,
+      145,
+      11,
+      310,
+      16,
+      "INT"
+    ],
+    [
+      768,
+      310,
+      0,
+      156,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      769,
+      310,
+      1,
+      156,
+      3,
+      "CONDITIONING"
+    ],
+    [
+      770,
+      310,
+      0,
+      102,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      771,
+      310,
+      1,
+      102,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      772,
+      310,
+      2,
+      110,
+      0,
+      "*"
+    ],
+    [
+      773,
+      310,
+      3,
+      111,
+      0,
+      "*"
+    ],
+    [
+      774,
+      310,
+      4,
+      112,
+      0,
+      "*"
+    ],
+    [
+      775,
+      310,
+      5,
+      113,
+      0,
+      "*"
+    ],
+    [
+      776,
+      147,
+      3,
+      217,
+      2,
+      "STRING"
+    ],
+    [
+      777,
+      147,
+      3,
+      218,
+      2,
+      "STRING"
+    ],
+    [
+      778,
+      147,
+      3,
+      304,
+      2,
+      "STRING"
+    ],
+    [
+      779,
+      147,
+      3,
+      305,
+      2,
+      "STRING"
+    ],
+    [
+      780,
+      217,
+      0,
+      218,
+      0,
+      "MODEL"
+    ],
+    [
+      781,
+      217,
+      1,
+      218,
+      1,
+      "CLIP"
+    ],
+    [
+      782,
+      304,
+      0,
+      305,
+      0,
+      "MODEL"
+    ],
+    [
+      783,
+      304,
+      1,
+      305,
+      1,
+      "CLIP"
+    ],
+    [
+      784,
+      305,
+      1,
+      310,
+      0,
+      "CLIP"
+    ],
+    [
+      785,
+      305,
+      0,
+      280,
+      0,
+      "MODEL"
+    ],
+    [
+      786,
+      218,
+      0,
+      304,
+      0,
+      "MODEL"
+    ],
+    [
+      787,
+      218,
+      1,
+      304,
+      1,
+      "CLIP"
     ]
   ],
   "groups": [
@@ -5417,8 +5955,8 @@
     {
       "title": "Dashboard",
       "bounding": [
-        2361,
-        -1178,
+        2363,
+        -1258,
         2864,
         591
       ],
@@ -5429,10 +5967,10 @@
     {
       "title": "Sampling, encoding",
       "bounding": [
-        2363,
-        12,
+        2367,
+        -7,
         1116,
-        780
+        804
       ],
       "color": "#eb6c6c",
       "font_size": 24,
@@ -5465,10 +6003,10 @@
     {
       "title": "Networks",
       "bounding": [
-        20,
-        -1177,
-        2331,
-        1178
+        -1019,
+        -1257,
+        3372,
+        1259
       ],
       "color": "#6ceb6c",
       "font_size": 24,

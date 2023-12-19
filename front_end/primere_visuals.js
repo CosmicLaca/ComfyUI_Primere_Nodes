@@ -1,7 +1,7 @@
 import { app } from "/scripts/app.js";
 
 const realPath = "extensions/Primere";
-const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle'];
+const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
 let lastDirObject = {};
 let currentClass = false;
 
@@ -340,6 +340,13 @@ app.registerExtension({
                 modaltitle = 'Select style';
                 nodematch = '^styles';
                 isnumeric_end = false;
+            }
+
+            if (node.type == 'PrimereVisualLYCORIS') {
+                subdirname = 'lycoris';
+                modaltitle = 'Select LYCORIS';
+                nodematch = '^lycoris_';
+                isnumeric_end = true;
             }
 
             if (event.type != LiteGraph.pointerevents_method + "down") {

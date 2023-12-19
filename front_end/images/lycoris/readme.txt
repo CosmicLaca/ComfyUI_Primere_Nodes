@@ -1,0 +1,2 @@
+Duplicate your original checkpoint structure here, but copy/symlink only the images, name as {checkpoint_filename}.jpg
+For example if you have checkpoint in path Design/dvarchInterior.safetensors, you must create here Design/dvarchInterior.jpg for preview.

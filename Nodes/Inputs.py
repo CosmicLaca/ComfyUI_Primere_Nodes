@@ -702,3 +702,68 @@ class PrimereEmbeddingKeywordMerger:
             embedding_neg = [None, None]
 
         return (embedding_pos, embedding_neg,)
+
+class PrimereLycorisStackMerger:
+    RETURN_TYPES = ("LYCORIS_STACK",)
+    RETURN_NAMES = ("LYCORIS_STACK",)
+    FUNCTION = "lycoris_stack_merger"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "lycoris_stack_1": ("LYCORIS_STACK",),
+                "lycoris_stack_2": ("LYCORIS_STACK",),
+            }
+        }
+
+    def lycoris_stack_merger(self, lycoris_stack_1, lycoris_stack_2):
+        if lycoris_stack_1 is not None and lycoris_stack_2 is not None:
+            return (lycoris_stack_1 + lycoris_stack_2, )
+        else:
+            return ([], )
+
+class PrimereLycorisKeywordMerger:
+    RETURN_TYPES = ("MODEL_KEYWORD",)
+    RETURN_NAMES = ("LYCORIS_KEYWORD",)
+    FUNCTION = "lycoris_keyword_merger"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "lycoris_keyword_SD": ("MODEL_KEYWORD",),
+                "lycoris_keyword_SDXL": ("MODEL_KEYWORD",),
+            },
+            "optional": {
+                "lycoris_keyword_tagloader": ("MODEL_KEYWORD",),
+            },
+        }
+
+    def lycoris_keyword_merger(self, lycoris_keyword_SD, lycoris_keyword_SDXL, lycoris_keyword_tagloader):
+        model_keyword = [None, None]
+
+        if lycoris_keyword_SD is not None:
+            mkw_list_1 = list(filter(None, lycoris_keyword_SD))
+            if len(mkw_list_1) == 2:
+                model_keyword_1 = mkw_list_1[0]
+                placement = mkw_list_1[1]
+                model_keyword = [model_keyword_1, placement]
+
+        if lycoris_keyword_SDXL is not None:
+            mkw_list_2 = list(filter(None, lycoris_keyword_SDXL))
+            if len(mkw_list_2) == 2:
+                model_keyword_2 = mkw_list_2[0]
+                placement = mkw_list_2[1]
+                model_keyword = [model_keyword_2, placement]
+
+        if lycoris_keyword_tagloader is not None:
+            mkw_list_3 = list(filter(None, lycoris_keyword_tagloader))
+            if len(mkw_list_3) == 2:
+                model_keyword_3 = mkw_list_3[0]
+                placement = mkw_list_3[1]
+                model_keyword = [model_keyword_3, placement]
+
+        return (model_keyword,)

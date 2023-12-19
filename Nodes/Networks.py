@@ -8,6 +8,7 @@ import comfy.utils
 import os
 import random
 from pathlib import Path
+from ..utils import comfy_dir
 # import comfy_extras.nodes_hypernetwork as comfy_extras
 
 class PrimereLORA:
@@ -316,3 +317,135 @@ class PrimereHypernetwork:
             return (model, [],)
 
         return (model_hypernetwork, hnetwork_stack,)
+
+class PrimereLYCORIS:
+    RETURN_TYPES = ("MODEL", "CLIP", "LYCORIS_STACK", "MODEL_KEYWORD")
+    RETURN_NAMES = ("MODEL", "CLIP", "LYCORIS_STACK", "LYCORIS_KEYWORD")
+    FUNCTION = "primere_lycoris_stacker"
+    CATEGORY = TREE_NETWORKS
+    LYCOSCOUNT = 6
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+        folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+        LyCORIS = folder_paths.get_filename_list("lycoris")
+        LyCORISList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
+
+        return {
+            "required": {
+                "model": ("MODEL",),
+                "clip": ("CLIP",),
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "stack_version": (["SD", "SDXL", "Any"], {"default": "Any"}),
+                "use_only_model_weight": ("BOOLEAN", {"default": True}),
+
+                "use_lycoris_1": ("BOOLEAN", {"default": False}),
+                "lycoris_1": (LyCORISList,),
+                "lycoris_1_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_1_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_2": ("BOOLEAN", {"default": False}),
+                "lycoris_2": (LyCORISList,),
+                "lycoris_2_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_2_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_3": ("BOOLEAN", {"default": False}),
+                "lycoris_3": (LyCORISList,),
+                "lycoris_3_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_3_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_4": ("BOOLEAN", {"default": False}),
+                "lycoris_4": (LyCORISList,),
+                "lycoris_4_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_4_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_5": ("BOOLEAN", {"default": False}),
+                "lycoris_5": (LyCORISList,),
+                "lycoris_5_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_5_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_6": ("BOOLEAN", {"default": False}),
+                "lycoris_6": (LyCORISList,),
+                "lycoris_6_model_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_6_clip_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+
+                "use_lycoris_keyword": ("BOOLEAN", {"default": False}),
+                "lycoris_keyword_placement": (["First", "Last"], {"default": "Last"}),
+                "lycoris_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
+                "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
+                "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
+            },
+        }
+
+    def primere_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+        model_keyword = [None, None]
+
+        if model_version == 'SDXL_2048' and stack_version == 'SD':
+            return (model, clip, [], model_keyword)
+
+        if model_version != 'SDXL_2048' and stack_version == 'SDXL':
+            return (model, clip, [], model_keyword)
+
+        lycoris = [kwargs.get(f"lycoris_{i}") for i in range(1, self.LYCOSCOUNT + 1)]
+        model_weight = [kwargs.get(f"lycoris_{i}_model_weight") for i in range(1, self.LYCOSCOUNT + 1)]
+        if use_only_model_weight == True:
+            clip_weight =[kwargs.get(f"lycoris_{i}_model_weight") for i in range(1, self.LYCOSCOUNT + 1)]
+        else:
+            clip_weight =[kwargs.get(f"lycoris_{i}_clip_weight") for i in range(1, self.LYCOSCOUNT + 1)]
+
+        uses = [kwargs.get(f"use_lycoris_{i}") for i in range(1, self.LYCOSCOUNT + 1)]
+        lycoris_stack = [(lycoris_name, lycoris_model_weight, lycoris_clip_weight) for lycoris_name, lycoris_model_weight, lycoris_clip_weight, lycoris_uses in zip(lycoris, model_weight, clip_weight, uses) if lycoris_uses == True]
+
+        lycoris_params = list()
+        if lycoris_stack and len(lycoris_stack) > 0:
+            lycoris_params.extend(lycoris_stack)
+        else:
+            return (model, clip, lycoris_stack, model_keyword)
+
+        model_lyco = model
+        clip_lyco = clip
+        list_of_keyword_items = []
+        lycoris_keywords_num_set = lycoris_keywords_num
+
+        for tup in lycoris_params:
+            lycoris_name, strength_model, strength_clip = tup
+
+            lycoris_path = folder_paths.get_full_path("lycoris", lycoris_name)
+            lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+            model_lyco, clip_lyco = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, strength_model, strength_clip)
+
+            if use_lycoris_keyword == True:
+                ModelKvHash = utility.get_model_hash(lycoris_path)
+                if ModelKvHash is not None:
+                    KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
+                    keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
+                    if keywords is not None and keywords != "":
+                        if keywords.find('|') > 1:
+                            keyword_list = [word.strip() for word in keywords.split('|')]
+                            keyword_list = list(filter(None, keyword_list))
+                            if (len(keyword_list) > 0):
+                                lycoris_keywords_num = lycoris_keywords_num_set
+                                keyword_qty = len(keyword_list)
+                                if (lycoris_keywords_num > keyword_qty):
+                                    lycoris_keywords_num = keyword_qty
+                                if lycoris_keyword_selection == 'Select in order':
+                                    list_of_keyword_items.extend(keyword_list[:lycoris_keywords_num])
+                                else:
+                                    list_of_keyword_items.extend(random.sample(keyword_list, lycoris_keywords_num))
+                        else:
+                            list_of_keyword_items.append(keywords)
+
+        if len(list_of_keyword_items) > 0:
+            if lycoris_keyword_selection != 'Select in order':
+                random.shuffle(list_of_keyword_items)
+
+            list_of_keyword_items = list(set(list_of_keyword_items))
+            keywords = ", ".join(list_of_keyword_items)
+
+            if (lycoris_keyword_weight != 1):
+                keywords = '(' + keywords + ':' + str(lycoris_keyword_weight) + ')'
+
+            model_keyword = [keywords, lycoris_keyword_placement]
+
+        return (model_lyco, clip_lyco, lycoris_stack, model_keyword)

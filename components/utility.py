@@ -141,6 +141,8 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
                         networkdata.append('1')
                     if LABEL == '<lora:':
                         networkdata.append('LORA')
+                    if LABEL == '<lyco:':
+                        networkdata.append('LYCORIS')
                     if LABEL == '<hypernet:':
                         networkdata.append('HYPERNET')
 

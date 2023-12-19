@@ -18,6 +18,7 @@ import requests
 from ..components import hypernetwork
 import comfy.sd
 import comfy.utils
+from ..utils import comfy_dir
 
 class PrimereSamplers:
     CATEGORY = TREE_DASHBOARD
@@ -430,6 +431,7 @@ class PrimereCLIP:
             "optional": {
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lora_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
+                "lycoris_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "embedding_pos": ("EMBEDDING", {"forceInput": True}),
                 "embedding_neg": ("EMBEDDING", {"forceInput": True}),
 
@@ -452,7 +454,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024"):
+    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
@@ -508,6 +510,16 @@ class PrimereCLIP:
                     positive_text = lora_keyword + ', ' + positive_text
                 else:
                     positive_text = positive_text + ', ' + lora_keyword
+
+        if lycoris_keywords is not None:
+            lykw_list = list(filter(None, lycoris_keywords))
+            if len(lykw_list) == 2:
+                lyco_keyword = lykw_list[0]
+                lyplacement = lykw_list[1]
+                if (lyplacement == 'First'):
+                    positive_text = lyco_keyword + ', ' + positive_text
+                else:
+                    positive_text = positive_text + ', ' + lyco_keyword
 
         if embedding_pos is not None:
             embp_list = list(filter(None, embedding_pos))
@@ -714,11 +726,12 @@ class PrimereClearPrompt:
               "remove_comfy_embedding": ("BOOLEAN", {"default": False}),
               "remove_a1111_embedding": ("BOOLEAN", {"default": False}),
               "remove_lora": ("BOOLEAN", {"default": False}),
+              "remove_lycoris": ("BOOLEAN", {"default": False}),
               "remove_hypernetwork": ("BOOLEAN", {"default": False}),
           },
       }
 
-  def clean_prompt(self, positive_prompt, negative_prompt, remove_comfy_embedding, remove_a1111_embedding, remove_lora, remove_hypernetwork, remove_only_if_sdxl, model_version = 'BaseModel_1024'):
+  def clean_prompt(self, positive_prompt, negative_prompt, remove_comfy_embedding, remove_a1111_embedding, remove_lora, remove_lycoris, remove_hypernetwork, remove_only_if_sdxl, model_version = 'BaseModel_1024'):
       NETWORK_START = []
 
       is_sdxl = 0
@@ -734,6 +747,9 @@ class PrimereClearPrompt:
 
       if remove_lora == True:
           NETWORK_START.append('<lora:')
+
+      if remove_lycoris == True:
+          NETWORK_START.append('<lyco:')
 
       if remove_hypernetwork == True:
           NETWORK_START.append('<hypernet:')
@@ -758,8 +774,8 @@ class PrimereClearPrompt:
       return (positive_prompt, negative_prompt,)
 
 class PrimereNetworkTagLoader:
-  RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "HYPERNETWORK_STACK", "MODEL_KEYWORD")
-  RETURN_NAMES = ("MODEL", "CLIP", "LORA_STACK", "HYPERNETWORK_STACK", "LORA_KEYWORD")
+  RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "MODEL_KEYWORD", "MODEL_KEYWORD")
+  RETURN_NAMES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "LORA_KEYWORD", "LYCORIS_KEYWORD")
   FUNCTION = "load_networks"
   CATEGORY = TREE_DASHBOARD
   @classmethod
@@ -770,46 +786,65 @@ class PrimereNetworkTagLoader:
               "clip": ("CLIP",),
               "positive_prompt": ("STRING", {"forceInput": True}),
               "process_lora": ("BOOLEAN", {"default": True}),
+              "process_lycoris": ("BOOLEAN", {"default": True}),
               "process_hypernetwork": ("BOOLEAN", {"default": True}),
               "hypernetwork_safe_load": ("BOOLEAN", {"default": True}),
               "copy_weight_to_clip": ("BOOLEAN", {"default": False}),
               "lora_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+              "lycoris_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
 
               "use_lora_keyword": ("BOOLEAN", {"default": False}),
               "lora_keyword_placement": (["First", "Last"], {"default": "Last"}),
               "lora_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
               "lora_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
               "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
+
+              "use_lycoris_keyword": ("BOOLEAN", {"default": False}),
+              "lycoris_keyword_placement": (["First", "Last"], {"default": "Last"}),
+              "lycoris_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
+              "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
+              "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
           }
       }
 
-  def load_networks(self, model, clip, positive_prompt, process_lora, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, hypernetwork_safe_load = True):
+  def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load = True):
       NETWORK_START = []
 
       cloned_model = model
       cloned_clip = clip
       list_of_keyword_items = []
       lora_keywords_num_set = lora_keywords_num
-      model_keyword = [None, None]
+      lycoris_keywords_num_set = lycoris_keywords_num
+      model_lora_keyword = [None, None]
+      model_lyco_keyword = [None, None]
       lora_stack = []
+      lycoris_stack = []
       hnet_stack = []
 
       HypernetworkList = folder_paths.get_filename_list("hypernetworks")
       LoraList = folder_paths.get_filename_list("loras")
 
+      LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+      folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+      LyCORIS = folder_paths.get_filename_list("lycoris")
+      LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
+
       if process_lora == True:
         NETWORK_START.append('<lora:')
+
+      if process_lycoris == True:
+        NETWORK_START.append('<lyco:')
 
       if process_hypernetwork == True:
         NETWORK_START.append('<hypernet:')
 
       if len(NETWORK_START) == 0:
-          return (model, clip, lora_stack, hnet_stack, model_keyword)
+          return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
       else:
           NETWORK_END = ['>'] + NETWORK_START
           NETWORK_TUPLE = utility.get_networks_prompt(NETWORK_START, NETWORK_END, positive_prompt)
           if (len(NETWORK_TUPLE) == 0):
-              return (model, clip, lora_stack, hnet_stack, model_keyword)
+              return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
           else:
               for NETWORK_DATA in NETWORK_TUPLE:
                   NetworkName = NETWORK_DATA[0]
@@ -860,7 +895,50 @@ class PrimereNetworkTagLoader:
                           if (lora_keyword_weight != 1):
                               keywords = '(' + keywords + ':' + str(lora_keyword_weight) + ')'
 
-                          model_keyword = [keywords, lora_keyword_placement]
+                          model_lora_keyword = [keywords, lora_keyword_placement]
+
+                  if (process_lycoris == True and NetworkType == 'LYCORIS'):
+                      lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
+                      if lycoris_name is not None:
+                          lycoris_path = folder_paths.get_full_path("lycoris", lycoris_name)
+                          lycoris = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+                          if (copy_weight_to_clip == True):
+                              lycoris_clip_custom_weight = NetworkStrenght
+                          lycoris_stack.append([lycoris_name, NetworkStrenght, lycoris_clip_custom_weight])
+                          cloned_model, cloned_clip = comfy.sd.load_lora_for_models(cloned_model, cloned_clip, lycoris, NetworkStrenght, lycoris_clip_custom_weight)
+
+                          if use_lycoris_keyword == True:
+                              ModelKvHash = utility.get_model_hash(lycoris_path)
+                              if ModelKvHash is not None:
+                                  KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
+                                  keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
+                                  if keywords is not None and keywords != "":
+                                      if keywords.find('|') > 1:
+                                          keyword_list = [word.strip() for word in keywords.split('|')]
+                                          keyword_list = list(filter(None, keyword_list))
+                                          if (len(keyword_list) > 0):
+                                              lycoris_keywords_num = lycoris_keywords_num_set
+                                              keyword_qty = len(keyword_list)
+                                              if (lycoris_keywords_num > keyword_qty):
+                                                  lycoris_keywords_num = keyword_qty
+                                              if lycoris_keyword_selection == 'Select in order':
+                                                  list_of_keyword_items.extend(keyword_list[:lycoris_keywords_num])
+                                              else:
+                                                  list_of_keyword_items.extend(random.sample(keyword_list, lycoris_keywords_num))
+                                      else:
+                                          list_of_keyword_items.append(keywords)
+
+                      if len(list_of_keyword_items) > 0:
+                          if lycoris_keyword_selection != 'Select in order':
+                              random.shuffle(list_of_keyword_items)
+
+                          list_of_keyword_items = list(set(list_of_keyword_items))
+                          keywords = ", ".join(list_of_keyword_items)
+
+                          if (lycoris_keyword_weight != 1):
+                              keywords = '(' + keywords + ':' + str(lycoris_keyword_weight) + ')'
+
+                          model_lyco_keyword = [keywords, lycoris_keyword_placement]
 
                   if (process_hypernetwork == True and NetworkType == 'HYPERNET'):
                       hyper_name = utility.get_closest_element(NetworkName, HypernetworkList)
@@ -877,7 +955,7 @@ class PrimereNetworkTagLoader:
                               hnet_stack.append([hyper_name, NetworkStrenght])
                               cloned_model = model_hypernetwork
 
-      return (cloned_model, cloned_clip, lora_stack, hnet_stack, model_keyword)
+      return (cloned_model, cloned_clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
 
 class PrimereModelKeyword:
     RETURN_TYPES = ("MODEL_KEYWORD",)
