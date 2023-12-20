@@ -1,5 +1,7 @@
 # Primere nodes for ComfyUI
 
+Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
+
 ## Do it before first run, or the workflow will be failed in your environment:
 1; Install missing Python libraries if not start for first try. Activate Comfy venv and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually)
 
