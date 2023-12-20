@@ -96,7 +96,12 @@ class PrimereStyleLoader:
     @classmethod
     def INPUT_TYPES(cls):
         STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
-        cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.csv"))
+
+        try:
+            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.csv"))
+        except Exception:
+            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.example.csv"))
+
         return {
             "required": {
                 "styles": (sorted(list(cls.styles_csv['name'])),),
