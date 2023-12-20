@@ -6,3 +6,4 @@ consoletests
 *.safetensors
 reqgen.py
 front_end/images
+Nodes/.cache
