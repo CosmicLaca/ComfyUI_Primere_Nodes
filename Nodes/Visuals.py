@@ -35,8 +35,12 @@ class PrimereVisualCKPT:
         }
 
     def load_ckpt_visual_list(self, base_model, show_hidden, show_modal):
-        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
-        model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+        modelname_only = Path(base_model).stem
+        model_version = utility.get_value_from_cache('model_version', modelname_only)
+        if model_version is None:
+            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
+            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+            utility.add_value_to_cache('model_version', modelname_only, model_version)
 
         return (base_model, model_version)
 

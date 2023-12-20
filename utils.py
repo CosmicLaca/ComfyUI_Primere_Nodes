@@ -1,3 +1,4 @@
+import os.path
 import sys
 from pathlib import Path
 
@@ -18,6 +19,8 @@ def add_path(path, prepend=False):
 
 here = Path(__file__).parent.absolute()
 comfy_dir = here.parent.parent
+cache_dir = os.path.join(here, 'Nodes', '.cache')
+cache_file = os.path.join(cache_dir, '.cache.json')
 
 add_path(comfy_dir)
 add_path((comfy_dir/"custom_nodes"))

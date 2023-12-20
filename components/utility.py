@@ -8,6 +8,9 @@ import pandas
 import re
 from pathlib import Path
 import difflib
+from ..utils import cache_file
+import os
+import json
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
@@ -340,3 +343,45 @@ def get_closest_element(value, list):
             return is_found[0]
 
     return is_found
+
+def get_value_from_cache(category, key):
+    ifCacheExist = os.path.isfile(cache_file)
+    if ifCacheExist == True:
+        with open(cache_file, 'r') as openfile:
+            try:
+                saved_cache = json.load(openfile)
+                try:
+                    return saved_cache[category][key]
+                except Exception:
+                    return None
+            except ValueError as e:
+                return None
+    else:
+        return None
+
+def add_value_to_cache(category, key, value):
+    cacheData = {category: {key: value}}
+    json_object = json.dumps(cacheData, indent=4)
+    ifCacheExist = os.path.isfile(cache_file)
+
+    if ifCacheExist == True:
+        with open(cache_file, 'r') as openfile:
+            try:
+                saved_cache = json.load(openfile)
+                if category in saved_cache:
+                    saved_cache[category][key] = value
+                else:
+                    saved_cache.update(cacheData)
+
+                newJsonObject = json.dumps(saved_cache, indent=4)
+                with open(cache_file, "w", encoding='utf-8') as outfile:
+                    outfile.write(newJsonObject)
+                return True
+
+            except ValueError as e:
+                return False
+    else:
+        with open(cache_file, "w", encoding='utf-8') as outfile:
+            outfile.write(json_object)
+        return True
+

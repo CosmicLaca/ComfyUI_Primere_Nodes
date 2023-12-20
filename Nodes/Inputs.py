@@ -256,8 +256,8 @@ class PrimereVAESelector:
 
 class PrimereMetaRead:
     CATEGORY = TREE_INPUTS
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "CHECKPOINT_NAME", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "INT", "INT", "FLOAT", "INT", "VAE_NAME", "VAE", "TUPLE")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-", "REFINER+", "REFINER-", "MODEL_NAME", "SAMPLER_NAME", "SCHEDULER_NAME", "SEED", "WIDTH", "HEIGHT", "CFG", "STEPS", "VAE_NAME", "VAE", "METADATA")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "CHECKPOINT_NAME", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "INT", "INT", "FLOAT", "INT", "VAE_NAME", "VAE", "CLIP", "MODEL", "TUPLE")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-", "REFINER+", "REFINER-", "MODEL_NAME", "SAMPLER_NAME", "SCHEDULER_NAME", "SEED", "WIDTH", "HEIGHT", "CFG", "STEPS", "VAE_NAME", "VAE",  "CLIP", "MODEL", "METADATA")
     FUNCTION = "load_image_meta"
 
     def __init__(self):
@@ -348,7 +348,7 @@ class PrimereMetaRead:
         data_json['force_model_vae'] = force_model_vae
         data_json['prefered_model'] = prefered_model
         data_json['prefered_orientation'] = prefered_orientation
-        LOADED_CHECKPOINT = None
+        LOADED_CHECKPOINT = []
 
         is_sdxl = 0
         match model_version:
@@ -375,9 +375,10 @@ class PrimereMetaRead:
                         LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(model_name)
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        realvae = self.vae_loader.load_vae(data_json['vae_name'])[0]
+                        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                        realvae = LOADED_CHECKPOINT[2]
 
-                    return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, data_json)
+                    return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
                 reader = readerResult.parser
 
@@ -400,9 +401,10 @@ class PrimereMetaRead:
                         LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(model_name)
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        realvae = self.vae_loader.load_vae(data_json['vae_name'])[0]
+                        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                        realvae = LOADED_CHECKPOINT[2]
 
-                    return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, data_json)
+                    return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
                 try:
                     if use_model == True:
@@ -424,8 +426,13 @@ class PrimereMetaRead:
 
                     if (data_json['model_name'] != model_name):
                         is_sdxl = 0
-                        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
-                        model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                        modelname_only = Path((data_json['model_name'])).stem
+                        model_version = utility.get_value_from_cache('model_version', modelname_only)
+                        if model_version is None:
+                            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            utility.add_value_to_cache('model_version', modelname_only, model_version)
+
                         data_json['model_version'] = model_version
                         match model_version:
                             case 'SDXL_2048':
@@ -464,10 +471,11 @@ class PrimereMetaRead:
                         data_json['vae_name'] = folder_paths.get_filename_list("vae")[0]
 
                     if force_model_vae == True:
-                        if LOADED_CHECKPOINT is not None:
+                        if len(LOADED_CHECKPOINT) == 3:
                             realvae = LOADED_CHECKPOINT[2]
                         else:
-                            realvae = self.chkp_loader.load_checkpoint(data_json['model_name'])[2]
+                            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                            realvae = LOADED_CHECKPOINT[2]
                     else:
                         if use_exif_vae == True:
                             if 'vae' in reader.parameter:
@@ -501,31 +509,33 @@ class PrimereMetaRead:
                             data_json['negative'] = reader.parameter['dynamic_negative']
                             data_json['dynamic_negative'] = reader.parameter['dynamic_negative']
 
-                    return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, data_json)
+                    return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
                 except ValueError as VE:
                     print(VE)
                     if (force_model_vae == True):
-                        if LOADED_CHECKPOINT is not None:
+                        if len(LOADED_CHECKPOINT) == 3:
                             realvae = LOADED_CHECKPOINT[2]
                         else:
-                            realvae = self.chkp_loader.load_checkpoint(data_json['model_name'])[2]
+                            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                            realvae = LOADED_CHECKPOINT[2]
                     else:
                         realvae = self.vae_loader.load_vae(data_json['vae_name'])[0]
 
-                    return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, data_json)
+                    return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
             else:
                 print('No source image loaded')
                 if (force_model_vae == True):
-                    if LOADED_CHECKPOINT is not None:
+                    if len(LOADED_CHECKPOINT) == 3:
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        realvae = self.chkp_loader.load_checkpoint(data_json['model_name'])[2]
+                        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                        realvae = LOADED_CHECKPOINT[2]
                 else:
                     realvae = self.vae_loader.load_vae(data_json['vae_name'])[0]
 
-                return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, data_json)
+                return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
         else:
             print('Exif reader off')
@@ -533,8 +543,13 @@ class PrimereMetaRead:
                 data_json['model_name'] = exif_data_checker.check_model_from_exif("no_hash_data", prefered_model, prefered_model, False)
 
                 is_sdxl = 0
-                LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
-                model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                modelname_only = Path(data_json['model_name']).stem
+                model_version = utility.get_value_from_cache('model_version', modelname_only)
+                if model_version is None:
+                    LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    utility.add_value_to_cache('model_version', modelname_only, model_version)
+
                 data_json['model_version'] = model_version
                 match model_version:
                     case 'SDXL_2048':
@@ -542,10 +557,11 @@ class PrimereMetaRead:
                 data_json['is_sdxl'] = is_sdxl
 
             if (force_model_vae == True):
-                if LOADED_CHECKPOINT is not None:
+                if len(LOADED_CHECKPOINT) == 3:
                     realvae = LOADED_CHECKPOINT[2]
                 else:
-                    realvae = self.chkp_loader.load_checkpoint(data_json['model_name'])[2]
+                    LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(data_json['model_name'])
+                    realvae = LOADED_CHECKPOINT[2]
             else:
                 if (is_sdxl == 1):
                     data_json['vae_name'] = vae_name_sdxl
@@ -557,14 +573,6 @@ class PrimereMetaRead:
             data_json['dynamic_negative'] = utility.DynPromptDecoder(self, data_json['negative'], seed)
 
             if prefered_orientation is not None and len(prefered_orientation.strip()) > 0:
-                # image_sides = sorted([data_json['width'], data_json['height']])
-                # custom_side_b = round((image_sides[1] / image_sides[0]), 4)
-                # dimensions = utility.calculate_dimensions(self, "Square [1:1]", prefered_orientation, 1, model_version, True, 1, custom_side_b)
-                # data_json['width'] = dimensions[0]
-                # data_json['height'] = dimensions[1]
-
-                # width = dimensions[0]
-                # height = dimensions[1]
                 if prefered_orientation == 'Vertical' and (data_json['width'] > data_json['height']):
                     data_json['width'] = height
                     data_json['height'] = width
@@ -572,7 +580,7 @@ class PrimereMetaRead:
                     data_json['width'] = height
                     data_json['height'] = width
 
-            return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, data_json)
+            return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
     @classmethod
     def IS_CHANGED(cls, image):

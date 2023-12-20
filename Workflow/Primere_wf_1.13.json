@@ -1,6 +1,6 @@
 {
-  "last_node_id": 318,
-  "last_link_id": 787,
+  "last_node_id": 321,
+  "last_link_id": 867,
   "nodes": [
     {
       "id": 93,
@@ -86,8 +86,8 @@
         "Node name for S&R": "PrimereStepsCfg"
       },
       "widgets_values": [
-        25,
-        8
+        30,
+        7.5
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -216,8 +216,8 @@
       "id": 81,
       "type": "PrimerePrompt",
       "pos": [
-        -1009,
-        564
+        -1006.14357734375,
+        566.8563997680664
       ],
       "size": {
         "0": 991.83154296875,
@@ -291,8 +291,8 @@
       "id": 136,
       "type": "PrimerePrompt",
       "pos": [
-        -1007,
-        1476
+        -1004.14357734375,
+        1478.8563997680665
       ],
       "size": {
         "0": 992.3745727539062,
@@ -381,7 +381,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            418
+            807
           ],
           "shape": 3,
           "slot_index": 0
@@ -416,7 +416,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            419
+            808
           ],
           "shape": 3,
           "slot_index": 0
@@ -530,8 +530,8 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            464,
-            520
+            520,
+            814
           ],
           "shape": 3,
           "slot_index": 0
@@ -774,8 +774,8 @@
       "id": 80,
       "type": "PrimerePrompt",
       "pos": [
-        -1010,
-        81
+        -1007.14357734375,
+        83.85639976806641
       ],
       "size": {
         "0": 991.5969848632812,
@@ -849,8 +849,8 @@
       "id": 248,
       "type": "PrimereVisualCKPT",
       "pos": [
-        2372,
-        -1187
+        2373,
+        -1185
       ],
       "size": {
         "0": 533.8221435546875,
@@ -864,7 +864,7 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            688
+            806
           ],
           "shape": 3,
           "slot_index": 0
@@ -873,8 +873,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            689,
-            690
+            690,
+            811
           ],
           "shape": 3,
           "slot_index": 1
@@ -884,7 +884,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\realisticVision_v5.1.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         true
       ],
@@ -895,8 +895,8 @@
       "id": 288,
       "type": "PrimerePrompt",
       "pos": [
-        -1009,
-        1018
+        -1006,
+        1021
       ],
       "size": {
         "0": 990.8077392578125,
@@ -959,7 +959,7 @@
       "widgets_values": [
         "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)",
         "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)",
-        "",
+        "OutdodorModels",
         "None",
         "Vertical"
       ],
@@ -973,10 +973,10 @@
         -1507,
         -1032
       ],
-      "size": [
-        434.5,
-        58
-      ],
+      "size": {
+        "0": 434.5,
+        "1": 58
+      },
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1080,7 +1080,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            462
+            812
           ],
           "shape": 3,
           "slot_index": 0
@@ -1089,7 +1089,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            463
+            813
           ],
           "shape": 3,
           "slot_index": 1
@@ -1098,7 +1098,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            465
+            818
           ],
           "shape": 3,
           "slot_index": 2
@@ -1107,7 +1107,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            466
+            817
           ],
           "shape": 3,
           "slot_index": 3
@@ -1116,8 +1116,8 @@
           "name": "IS_LCM",
           "type": "INT",
           "links": [
-            433,
-            625
+            805,
+            819
           ],
           "shape": 3,
           "slot_index": 4
@@ -1253,7 +1253,7 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            521
+            815
           ],
           "shape": 3,
           "slot_index": 0
@@ -1262,7 +1262,7 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            522
+            816
           ],
           "shape": 3,
           "slot_index": 1
@@ -1278,7 +1278,7 @@
         "Vertical",
         true,
         "BaseModel_1024",
-        1061732784333158,
+        286008136534895,
         "randomize",
         false,
         1,
@@ -1509,7 +1509,7 @@
           "type": "STRING",
           "links": [
             414,
-            681
+            809
           ],
           "shape": 3,
           "slot_index": 0
@@ -1519,7 +1519,7 @@
           "type": "STRING",
           "links": [
             415,
-            682
+            810
           ],
           "shape": 3,
           "slot_index": 1
@@ -1537,7 +1537,7 @@
           "name": "MODEL",
           "type": "STRING",
           "links": [
-            684
+            820
           ],
           "shape": 3,
           "slot_index": 3
@@ -1546,7 +1546,7 @@
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [
-            423
+            821
           ],
           "shape": 3,
           "slot_index": 4
@@ -1562,7 +1562,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        1
+        6
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1593,7 +1593,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "glamour portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old beautiful perfect body sexy nude woman, sex-model in {nude|transparent fishnet lingerie|bra|fishnet panties|transparent panties|full nude}, ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) {({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3)|nude breast:1.2}, beautiful natural sexy {middle|small|large|big}-size breasts, {visible|covered} nipples, ({covered|uncovered|nude} breast:1.2), erotic mood, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional|sex} pose, luxury erotic {nude|sex|porn} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II"
+        "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1624,21 +1624,21 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin"
+        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)"
       ],
       "color": "#322",
       "bgcolor": "#533"
     },
     {
-      "id": 145,
+      "id": 321,
       "type": "PrimereMetaRead",
       "pos": [
-        726,
-        86
+        728,
+        85
       ],
       "size": {
-        "0": 507.81854248046875,
-        "1": 1245.0166015625
+        "0": 504.64862060546875,
+        "1": 1247.798583984375
       },
       "flags": {},
       "order": 24,
@@ -1647,22 +1647,22 @@
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 688
+          "link": 806
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 418
+          "link": 807
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 419
+          "link": 808
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 681,
+          "link": 809,
           "widget": {
             "name": "positive"
           }
@@ -1670,7 +1670,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 682,
+          "link": 810,
           "widget": {
             "name": "negative"
           }
@@ -1710,7 +1710,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 689,
+          "link": 811,
           "widget": {
             "name": "model_version"
           }
@@ -1718,7 +1718,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 462,
+          "link": 812,
           "widget": {
             "name": "sampler_name"
           }
@@ -1726,7 +1726,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 463,
+          "link": 813,
           "widget": {
             "name": "scheduler_name"
           }
@@ -1734,7 +1734,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 464,
+          "link": 814,
           "widget": {
             "name": "seed"
           }
@@ -1742,7 +1742,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 521,
+          "link": 815,
           "widget": {
             "name": "width"
           }
@@ -1750,7 +1750,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 522,
+          "link": 816,
           "widget": {
             "name": "height"
           }
@@ -1758,7 +1758,7 @@
         {
           "name": "cfg_scale",
           "type": "FLOAT",
-          "link": 466,
+          "link": 817,
           "widget": {
             "name": "cfg_scale"
           }
@@ -1766,7 +1766,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 465,
+          "link": 818,
           "widget": {
             "name": "steps"
           }
@@ -1774,7 +1774,7 @@
         {
           "name": "is_lcm",
           "type": "INT",
-          "link": 625,
+          "link": 819,
           "widget": {
             "name": "is_lcm"
           }
@@ -1782,7 +1782,7 @@
         {
           "name": "prefered_model",
           "type": "STRING",
-          "link": 684,
+          "link": 820,
           "widget": {
             "name": "prefered_model"
           }
@@ -1790,7 +1790,7 @@
         {
           "name": "prefered_orientation",
           "type": "STRING",
-          "link": 423,
+          "link": 821,
           "widget": {
             "name": "prefered_orientation"
           }
@@ -1801,7 +1801,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            448
+            824
           ],
           "shape": 3,
           "slot_index": 0
@@ -1810,7 +1810,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            449
+            825
           ],
           "shape": 3,
           "slot_index": 1
@@ -1843,8 +1843,8 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            686,
-            687
+            848,
+            850
           ],
           "shape": 3,
           "slot_index": 6
@@ -1853,8 +1853,8 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            457,
-            506
+            843,
+            844
           ],
           "shape": 3,
           "slot_index": 7
@@ -1863,8 +1863,8 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            458,
-            507
+            845,
+            846
           ],
           "shape": 3,
           "slot_index": 8
@@ -1873,11 +1873,11 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            427,
-            446,
-            447,
-            456,
-            496
+            860,
+            861,
+            862,
+            863,
+            864
           ],
           "shape": 3,
           "slot_index": 9
@@ -1886,10 +1886,10 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            425,
-            478,
-            497,
-            766
+            851,
+            853,
+            855,
+            858
           ],
           "shape": 3,
           "slot_index": 10
@@ -1898,10 +1898,10 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            426,
-            479,
-            498,
-            767
+            852,
+            854,
+            856,
+            859
           ],
           "shape": 3,
           "slot_index": 11
@@ -1910,8 +1910,8 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            455,
-            508
+            836,
+            838
           ],
           "shape": 3,
           "slot_index": 12
@@ -1920,8 +1920,8 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            454,
-            509
+            831,
+            834
           ],
           "shape": 3,
           "slot_index": 13
@@ -1936,22 +1936,41 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            434,
-            484,
-            493
+            828,
+            829,
+            830,
+            865
           ],
           "shape": 3,
           "slot_index": 15
         },
         {
-          "name": "METADATA",
-          "type": "TUPLE",
+          "name": "CLIP",
+          "type": "CLIP",
           "links": [
-            424,
-            474
+            866
           ],
           "shape": 3,
           "slot_index": 16
+        },
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            867
+          ],
+          "shape": 3,
+          "slot_index": 17
+        },
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            826,
+            827
+          ],
+          "shape": 3,
+          "slot_index": 18
         }
       ],
       "properties": {
@@ -1981,107 +2000,18 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        28,
+        815,
         "randomize",
-        65,
-        895,
-        1210,
         512,
         512,
+        7,
+        12,
+        0,
         "",
         ""
       ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 147,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        2919.914138987188,
-        -1019.5502650972841
-      ],
-      "size": {
-        "0": 312.7875671386719,
-        "1": 166
-      },
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 686
-        },
-        {
-          "name": "is_lcm",
-          "type": "INT",
-          "link": 433,
-          "widget": {
-            "name": "is_lcm"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            747
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            748
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            431
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            480,
-            673,
-            674,
-            698,
-            737,
-            742,
-            761,
-            776,
-            777,
-            778,
-            779
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        true,
-        1,
-        1,
-        1
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
+      "color": "#2d07ae",
+      "bgcolor": "#411bc2"
     },
     {
       "id": 244,
@@ -2095,13 +2025,13 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 687
+          "link": 848
         }
       ],
       "outputs": [
@@ -2129,6 +2059,60 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 106,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        28,
+        175
+      ],
+      "size": {
+        "0": 262.75347900390625,
+        "1": 54
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 825,
+          "widget": {
+            "name": "dyn_prompt"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 860,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            739
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [
+        "",
+        -885306130975868,
+        "randomize"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 105,
       "type": "PrimereDynamicParser",
       "pos": [
@@ -2146,7 +2130,7 @@
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 448,
+          "link": 824,
           "widget": {
             "name": "dyn_prompt"
           }
@@ -2154,7 +2138,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 446,
+          "link": 861,
           "widget": {
             "name": "seed"
           }
@@ -2177,65 +2161,115 @@
       },
       "widgets_values": [
         "",
-        -676783344722029,
+        802301860311207,
         "randomize"
       ],
       "color": "#232",
       "bgcolor": "#353"
     },
     {
-      "id": 106,
-      "type": "PrimereDynamicParser",
+      "id": 320,
+      "type": "PrimereCKPTLoader",
       "pos": [
-        28,
-        175
+        2920,
+        -1020
       ],
       "size": {
-        "0": 262.75347900390625,
-        "1": 54
+        "0": 312.216796875,
+        "1": 186
       },
       "flags": {},
       "order": 28,
       "mode": 0,
       "inputs": [
         {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 449,
-          "widget": {
-            "name": "dyn_prompt"
-          }
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 850
         },
         {
-          "name": "seed",
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": 867
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": 866
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": 865
+        },
+        {
+          "name": "is_lcm",
           "type": "INT",
-          "link": 447,
+          "link": 805,
           "widget": {
-            "name": "seed"
+            "name": "is_lcm"
           }
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT",
-          "type": "STRING",
+          "name": "MODEL",
+          "type": "MODEL",
           "links": [
-            739
+            803
           ],
           "shape": 3,
           "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            804
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            801
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            791,
+            792,
+            793,
+            794,
+            795,
+            796,
+            797,
+            798,
+            799,
+            800,
+            802
+          ],
+          "shape": 3,
+          "slot_index": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        "",
-        1099179973363697,
-        "randomize"
+        true,
+        false,
+        1,
+        1
       ],
-      "color": "#322",
-      "bgcolor": "#533"
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 114,
@@ -2255,7 +2289,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 424,
+          "link": 827,
           "dir": 3
         }
       ],
@@ -2263,360 +2297,10 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"glamour portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old beautiful perfect body sexy nude woman, sex-model in {nude|transparent fishnet lingerie|bra|fishnet panties|transparent panties|full nude}, ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) {({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3)|nude breast:1.2}, beautiful natural sexy {middle|small|large|big}-size breasts, {visible|covered} nipples, ({covered|uncovered|nude} breast:1.2), erotic mood, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional|sex} pose, luxury erotic {nude|sex|porn} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\",\n    \"negative\": \"childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\absolutereality_v181.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 169359929534186,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 25,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"glamour portrait of bokeh (professional sexy 28 year old beautiful perfect body sexy nude woman, sex-model in transparent fishnet lingerie, (short straight black hair) nude breast:1.2, beautiful natural sexy large-size breasts, covered nipples, (nude breast:1.2), erotic mood, love face, professional pose, luxury erotic sex photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:1.2), luxury old style style beautiful  interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\",\n    \"dynamic_negative\": \"childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin\"\n}"
+        "{\n    \"positive\": \"(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\hyper_v2.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 874859213786596,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (Australian white:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, full body outdoor color professional model fashion photography, soft natural lights, embarrassed mood, closed mouth, (wear white, winter, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long black, trousers:1.6), (short blue straight hair:1.6), large cleavage, natural tits, snow:0.5, dark starry night, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 100,
-      "type": "PrimereLatentNoise",
-      "pos": [
-        2375.46398741521,
-        70.75124695278095
-      ],
-      "size": {
-        "0": 341.4631042480469,
-        "1": 382
-      },
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "optional_vae",
-          "type": "VAE",
-          "link": 431
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 425,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 426,
-          "widget": {
-            "name": "height"
-          },
-          "slot_index": 2
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 427,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENTS",
-          "type": "LATENT",
-          "links": [
-            347
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PREVIEWS",
-          "type": "IMAGE",
-          "links": [
-            346
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
-      },
-      "widgets_values": [
-        512,
-        512,
-        false,
-        "brownian_fractal",
-        false,
-        1.1500000000000001,
-        0.75,
-        1.3,
-        false,
-        1.2,
-        0.9,
-        1.3,
-        -552336035192073,
-        "randomize",
-        false,
-        "cpu"
-      ],
-      "color": "#6c0000",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 151,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        3246.040851842843,
-        -901.245906549699
-      ],
-      "size": {
-        "0": 313.2674255371094,
-        "1": 146
-      },
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 478,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 479,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 480,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            485
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            486
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE RATIO",
-          "type": "FLOAT",
-          "links": [
-            499
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        512,
-        512,
-        "BaseModel_1024",
-        true,
-        4,
-        3
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 223,
-      "type": "PrimereVisualEmbedding",
-      "pos": [
-        966,
-        -1189
-      ],
-      "size": {
-        "0": 451.0870361328125,
-        "1": 770
-      },
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 673,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
-          "links": [
-            675
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
-          "links": [
-            676
-          ],
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING_STACK",
-          "type": "EMBEDDING_STACK",
-          "links": [],
-          "shape": 3
-        }
-      ],
-      "title": "SD - Primere Visual Embedding Selector",
-      "properties": {
-        "Node name for S&R": "PrimereVisualEmbedding"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "SD",
-        true,
-        true,
-        true,
-        "Negative\\BadNegAnatomy.pt",
-        0.7000000000000001,
-        true,
-        true,
-        "Photo\\kkw-photoreal.bin",
-        0.5,
-        false,
-        false,
-        "Photo\\PhotoHelper.pt",
-        0.6,
-        false,
-        true,
-        "Negative\\light-negative.pt",
-        0.7000000000000001,
-        true,
-        true,
-        "Negative\\bhands-neg.pt",
-        0.6,
-        true,
-        false,
-        "Style\\Paintmagic.pt",
-        0.8,
-        false,
-        "First",
-        "First"
-      ],
-      "color": "#6c006c",
-      "bgcolor": "#800080"
-    },
-    {
-      "id": 239,
-      "type": "PrimereVisualEmbedding",
-      "pos": [
-        1422,
-        -1189
-      ],
-      "size": {
-        "0": 451.0313415527344,
-        "1": 770
-      },
-      "flags": {},
-      "order": 33,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 674,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
-          "links": [
-            677
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
-          "links": [
-            678
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "EMBEDDING_STACK",
-          "type": "EMBEDDING_STACK",
-          "links": [],
-          "shape": 3
-        }
-      ],
-      "title": "SDXL - Primere Visual Embedding Selector",
-      "properties": {
-        "Node name for S&R": "PrimereVisualEmbedding"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "SDXL",
-        true,
-        true,
-        true,
-        "SDXL\\ImgFixerPre0.3.safetensors",
-        0.8,
-        true,
-        false,
-        "SDXL\\unaestheticXL_hk1.safetensors",
-        1,
-        false,
-        false,
-        "SDXL\\negativeXL_D.safetensors",
-        1,
-        true,
-        false,
-        "SDXL\\peopleneg.safetensors",
-        1,
-        false,
-        false,
-        "SDXL\\ImgFixerPre0.3.safetensors",
-        0.5,
-        false,
-        false,
-        "SDXL\\unaestheticXL_hk1.safetensors",
-        0.8,
-        false,
-        "First",
-        "First"
-      ],
-      "color": "#6c002c",
-      "bgcolor": "#800040"
     },
     {
       "id": 313,
@@ -2630,18 +2314,18 @@
         "1": 562
       },
       "flags": {},
-      "order": 34,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 747
+          "link": 803
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 748
+          "link": 804
         },
         {
           "name": "positive_prompt",
@@ -2735,6 +2419,273 @@
       "bgcolor": "#2474cc"
     },
     {
+      "id": 100,
+      "type": "PrimereLatentNoise",
+      "pos": [
+        2375.46398741521,
+        70.75124695278095
+      ],
+      "size": {
+        "0": 341.4631042480469,
+        "1": 382
+      },
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "optional_vae",
+          "type": "VAE",
+          "link": 801
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 851,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 852,
+          "widget": {
+            "name": "height"
+          },
+          "slot_index": 2
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 863,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENTS",
+          "type": "LATENT",
+          "links": [
+            347
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PREVIEWS",
+          "type": "IMAGE",
+          "links": [
+            346
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLatentNoise"
+      },
+      "widgets_values": [
+        512,
+        512,
+        true,
+        "brownian_fractal",
+        true,
+        1.1500000000000001,
+        0.75,
+        1.3,
+        true,
+        1.2,
+        0.9,
+        1.3,
+        653062755269152,
+        "randomize",
+        true,
+        "cpu"
+      ],
+      "color": "#6c0000",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 223,
+      "type": "PrimereVisualEmbedding",
+      "pos": [
+        966,
+        -1189
+      ],
+      "size": {
+        "0": 451.0870361328125,
+        "1": 770
+      },
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 795,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            675
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            676
+          ],
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING_STACK",
+          "type": "EMBEDDING_STACK",
+          "links": [],
+          "shape": 3
+        }
+      ],
+      "title": "SD - Primere Visual Embedding Selector",
+      "properties": {
+        "Node name for S&R": "PrimereVisualEmbedding"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SD",
+        true,
+        true,
+        true,
+        "Negative\\BadNegAnatomy.pt",
+        0.7000000000000001,
+        true,
+        true,
+        "Photo\\kkw-photoreal.bin",
+        0.5,
+        false,
+        false,
+        "Photo\\PhotoHelper.pt",
+        0.6,
+        false,
+        true,
+        "Negative\\light-negative.pt",
+        0.7000000000000001,
+        true,
+        true,
+        "Negative\\bhands-neg.pt",
+        0.6,
+        true,
+        false,
+        "Style\\Paintmagic.pt",
+        0.8,
+        false,
+        "First",
+        "First"
+      ],
+      "color": "#6c006c",
+      "bgcolor": "#800080"
+    },
+    {
+      "id": 239,
+      "type": "PrimereVisualEmbedding",
+      "pos": [
+        1422,
+        -1189
+      ],
+      "size": {
+        "0": 451.0313415527344,
+        "1": 770
+      },
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 796,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            677
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            678
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "EMBEDDING_STACK",
+          "type": "EMBEDDING_STACK",
+          "links": [],
+          "shape": 3
+        }
+      ],
+      "title": "SDXL - Primere Visual Embedding Selector",
+      "properties": {
+        "Node name for S&R": "PrimereVisualEmbedding"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SDXL",
+        true,
+        true,
+        true,
+        "SDXL\\ImgFixerPre0.3.safetensors",
+        0.8,
+        true,
+        false,
+        "SDXL\\unaestheticXL_hk1.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\negativeXL_D.safetensors",
+        1,
+        true,
+        false,
+        "SDXL\\peopleneg.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\ImgFixerPre0.3.safetensors",
+        0.5,
+        false,
+        false,
+        "SDXL\\unaestheticXL_hk1.safetensors",
+        0.8,
+        false,
+        "First",
+        "First"
+      ],
+      "color": "#6c002c",
+      "bgcolor": "#800040"
+    },
+    {
       "id": 314,
       "type": "PrimereClearPrompt",
       "pos": [
@@ -2746,13 +2697,13 @@
         "1": 218
       },
       "flags": {},
-      "order": 35,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 737,
+          "link": 798,
           "widget": {
             "name": "model_version"
           }
@@ -2813,93 +2764,87 @@
       "bgcolor": "#353"
     },
     {
-      "id": 27,
-      "type": "PreviewImage",
+      "id": 151,
+      "type": "PrimereResolutionMultiplier",
       "pos": [
-        2376,
-        489
+        3246.040851842843,
+        -901.245906549699
       ],
       "size": {
-        "0": 340.38232421875,
-        "1": 295.889404296875
+        "0": 313.2674255371094,
+        "1": 146
       },
       "flags": {},
-      "order": 36,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 346
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#6c0000",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 240,
-      "type": "PrimereEmbeddingKeywordMerger",
-      "pos": [
-        965,
-        -383
-      ],
-      "size": {
-        "0": 910.1212158203125,
-        "1": 86
-      },
-      "flags": {},
-      "order": 37,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "embedding_pos_SD",
-          "type": "EMBEDDING",
-          "link": 675
+          "name": "width",
+          "type": "INT",
+          "link": 855,
+          "widget": {
+            "name": "width"
+          }
         },
         {
-          "name": "embedding_pos_SDXL",
-          "type": "EMBEDDING",
-          "link": 677
+          "name": "height",
+          "type": "INT",
+          "link": 856,
+          "widget": {
+            "name": "height"
+          }
         },
         {
-          "name": "embedding_neg_SD",
-          "type": "EMBEDDING",
-          "link": 676
-        },
-        {
-          "name": "embedding_neg_SDXL",
-          "type": "EMBEDDING",
-          "link": 678
+          "name": "model_version",
+          "type": "STRING",
+          "link": 800,
+          "widget": {
+            "name": "model_version"
+          }
         }
       ],
       "outputs": [
         {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
+          "name": "WIDTH",
+          "type": "INT",
           "links": [
-            759
+            485
           ],
           "shape": 3,
           "slot_index": 0
         },
         {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
+          "name": "HEIGHT",
+          "type": "INT",
           "links": [
-            760
+            486
           ],
           "shape": 3,
           "slot_index": 1
+        },
+        {
+          "name": "UPSCALE RATIO",
+          "type": "FLOAT",
+          "links": [
+            499
+          ],
+          "shape": 3,
+          "slot_index": 2
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereEmbeddingKeywordMerger"
+        "Node name for S&R": "PrimereResolutionMultiplier"
       },
-      "color": "#b0004e",
-      "bgcolor": "#c40062"
+      "widgets_values": [
+        512,
+        512,
+        "BaseModel_1024",
+        true,
+        4,
+        3
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 217,
@@ -2913,7 +2858,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 38,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2929,7 +2874,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 776,
+          "link": 791,
           "widget": {
             "name": "model_version"
           }
@@ -3015,6 +2960,95 @@
       "bgcolor": "#004040"
     },
     {
+      "id": 27,
+      "type": "PreviewImage",
+      "pos": [
+        2376,
+        489
+      ],
+      "size": {
+        "0": 340.38232421875,
+        "1": 295.889404296875
+      },
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 346
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6c0000",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 240,
+      "type": "PrimereEmbeddingKeywordMerger",
+      "pos": [
+        965,
+        -383
+      ],
+      "size": {
+        "0": 910.1212158203125,
+        "1": 86
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "embedding_pos_SD",
+          "type": "EMBEDDING",
+          "link": 675
+        },
+        {
+          "name": "embedding_pos_SDXL",
+          "type": "EMBEDDING",
+          "link": 677
+        },
+        {
+          "name": "embedding_neg_SD",
+          "type": "EMBEDDING",
+          "link": 676
+        },
+        {
+          "name": "embedding_neg_SDXL",
+          "type": "EMBEDDING",
+          "link": 678
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            759
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            760
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmbeddingKeywordMerger"
+      },
+      "color": "#b0004e",
+      "bgcolor": "#c40062"
+    },
+    {
       "id": 316,
       "type": "PrimereClearPrompt",
       "pos": [
@@ -3032,7 +3066,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 742,
+          "link": 799,
           "widget": {
             "name": "model_version"
           }
@@ -3120,7 +3154,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 777,
+          "link": 792,
           "widget": {
             "name": "model_version"
           }
@@ -3296,7 +3330,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 778,
+          "link": 793,
           "widget": {
             "name": "model_version"
           }
@@ -3458,7 +3492,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 779,
+          "link": 794,
           "widget": {
             "name": "model_version"
           }
@@ -3565,7 +3599,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 698,
+          "link": 797,
           "widget": {
             "name": "model_version"
           }
@@ -3675,10 +3709,10 @@
         2723.46398741521,
         71.75124695278095
       ],
-      "size": {
-        "0": 361.4876708984375,
-        "1": 714
-      },
+      "size": [
+        363.92595399103993,
+        714.7673931839377
+      ],
       "flags": {},
       "order": 47,
       "mode": 0,
@@ -3716,7 +3750,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 761,
+          "link": 802,
           "widget": {
             "name": "model_version"
           }
@@ -3788,7 +3822,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 766,
+          "link": 853,
           "widget": {
             "name": "width"
           }
@@ -3796,7 +3830,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 767,
+          "link": 854,
           "widget": {
             "name": "height"
           }
@@ -3932,7 +3966,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 456,
+          "link": 864,
           "widget": {
             "name": "seed"
           },
@@ -3941,7 +3975,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 454,
+          "link": 831,
           "widget": {
             "name": "steps"
           },
@@ -3950,7 +3984,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 455,
+          "link": 838,
           "widget": {
             "name": "cfg"
           },
@@ -3959,7 +3993,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 457,
+          "link": 844,
           "widget": {
             "name": "sampler_name"
           },
@@ -3968,7 +4002,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 458,
+          "link": 846,
           "widget": {
             "name": "scheduler"
           },
@@ -3990,7 +4024,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        869951925323456,
+        799781596622785,
         "randomize",
         20,
         8,
@@ -4027,7 +4061,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:kkw-photoreal:0.5), glamour portrait of bokeh (professional sexy 28 year old beautiful perfect body sexy nude woman, sex-model in transparent fishnet lingerie, (short straight black hair) nude breast:1.2, beautiful natural sexy large-size breasts, covered nipples, (nude breast:1.2), erotic mood, love face, professional pose, luxury erotic sex photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:1.2), luxury old style style beautiful interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), embedding:add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), master"
+        "(embedding:kkw-photoreal:0.5), (beautiful sexy 30 years old (Australian white:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, full body outdoor color professional model fashion photography, soft natural lights, embarrassed mood, closed mouth, (wear white, winter, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long black, trousers:1.6), (short blue straight hair:1.6), large cleavage, natural tits, snow:0.5, dark starry night, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), master"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4058,7 +4092,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:light-negative:0.7000000000000001), (embedding:BadNegAnatomy:0.7000000000000001), (embedding:bhands-neg:0.6), (childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
+        "(embedding:BadNegAnatomy:0.7000000000000001), (embedding:light-negative:0.7000000000000001), (embedding:bhands-neg:0.6), (porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, embedding:add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2):1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4148,7 +4182,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 434,
+          "link": 830,
           "slot_index": 1
         }
       ],
@@ -4194,7 +4228,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 484
+          "link": 828
         },
         {
           "name": "width",
@@ -4316,7 +4350,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 493
+          "link": 829
         },
         {
           "name": "upscale_model",
@@ -4326,7 +4360,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 496,
+          "link": 862,
           "widget": {
             "name": "seed"
           }
@@ -4334,7 +4368,7 @@
         {
           "name": "tile_width",
           "type": "INT",
-          "link": 497,
+          "link": 858,
           "widget": {
             "name": "tile_width"
           }
@@ -4342,7 +4376,7 @@
         {
           "name": "tile_height",
           "type": "INT",
-          "link": 498,
+          "link": 859,
           "widget": {
             "name": "tile_height"
           }
@@ -4358,7 +4392,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 506,
+          "link": 843,
           "widget": {
             "name": "sampler_name"
           },
@@ -4367,7 +4401,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 507,
+          "link": 845,
           "widget": {
             "name": "scheduler"
           },
@@ -4376,7 +4410,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 509,
+          "link": 834,
           "widget": {
             "name": "steps"
           },
@@ -4385,7 +4419,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 508,
+          "link": 836,
           "widget": {
             "name": "cfg"
           },
@@ -4408,7 +4442,7 @@
       },
       "widgets_values": [
         2.1,
-        650364039376858,
+        154629340660616,
         "randomize",
         7,
         6.5,
@@ -4495,7 +4529,7 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 474
+          "link": 826
         },
         {
           "name": "prefered_subpath",
@@ -4600,7 +4634,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-20 14:58:20\n:: Output file: z:\\AIPICS\\Comfy\\ABSOLUTEREALITY_V181\\NSFW\\2023-12-Week-51\\Image_20232012_145820_1123708635975825_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: glamour portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old beautiful perfect body sexy nude woman, sex-model in {nude|transparent fishnet lingerie|bra|fishnet panties|transparent panties|full nude}, ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) {({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3)|nude breast:1.2}, beautiful natural sexy {middle|small|large|big}-size breasts, {visible|covered} nipples, ({covered|uncovered|nude} breast:1.2), erotic mood, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional|sex} pose, luxury erotic {nude|sex|porn} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\n:: NEGATIVE: childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin\n:: MODEL_NAME: BestAll\\absolutereality_v181.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 1123708635975825\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 25\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: glamour portrait of bokeh (professional sexy 32 year old beautiful perfect body sexy nude woman, sex-model in bra, (short curly multicolored rainbow hair) (multicolor luxury leather bra:1.3), beautiful natural sexy middle-size breasts, covered nipples, (nude breast:1.2), erotic mood, romantic face, romantic pose, luxury erotic sex photography:1.3), (huge striking expensive sparkling white diamond luxury jewellery in her neck:1.2), luxury retro style beautiful living room interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4), add_nsfw, nudity, porn, sex as a ((luxury person)) with ((curtain bangs haircut)) glamour photography fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\n:: DYNAMIC_NEGATIVE: childish, plastic breast, covered pussy, covered breast, eye-catching makeup, perfect skin\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2023-12-20 19:44:14\n:: Output file: z:\\AIPICS\\Comfy\\HYPER_V2\\Test\\2023-12-Week-51\\Image_20232012_194413_874859213786596_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\n:: MODEL_NAME: BestAll\\hyper_v2.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 874859213786596\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (Australian white:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, full body outdoor color professional model fashion photography, soft natural lights, embarrassed mood, closed mouth, (wear white, winter, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear jeans long black, trousers:1.6), (short blue straight hair:1.6), large cleavage, natural tits, snow:0.5, dark starry night, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -4904,198 +4938,6 @@
       "*"
     ],
     [
-      418,
-      88,
-      0,
-      145,
-      1,
-      "VAE_NAME"
-    ],
-    [
-      419,
-      89,
-      0,
-      145,
-      2,
-      "VAE_NAME"
-    ],
-    [
-      423,
-      137,
-      4,
-      145,
-      19,
-      "STRING"
-    ],
-    [
-      424,
-      145,
-      16,
-      114,
-      0,
-      "*"
-    ],
-    [
-      425,
-      145,
-      10,
-      100,
-      1,
-      "INT"
-    ],
-    [
-      426,
-      145,
-      11,
-      100,
-      2,
-      "INT"
-    ],
-    [
-      427,
-      145,
-      9,
-      100,
-      3,
-      "INT"
-    ],
-    [
-      431,
-      147,
-      2,
-      100,
-      0,
-      "VAE"
-    ],
-    [
-      433,
-      91,
-      4,
-      147,
-      1,
-      "INT"
-    ],
-    [
-      434,
-      145,
-      15,
-      103,
-      1,
-      "VAE"
-    ],
-    [
-      446,
-      145,
-      9,
-      105,
-      1,
-      "INT"
-    ],
-    [
-      447,
-      145,
-      9,
-      106,
-      1,
-      "INT"
-    ],
-    [
-      448,
-      145,
-      0,
-      105,
-      0,
-      "STRING"
-    ],
-    [
-      449,
-      145,
-      1,
-      106,
-      0,
-      "STRING"
-    ],
-    [
-      454,
-      145,
-      13,
-      102,
-      5,
-      "INT"
-    ],
-    [
-      455,
-      145,
-      12,
-      102,
-      6,
-      "FLOAT"
-    ],
-    [
-      456,
-      145,
-      9,
-      102,
-      4,
-      "INT"
-    ],
-    [
-      457,
-      145,
-      7,
-      102,
-      7,
-      "COMBO"
-    ],
-    [
-      458,
-      145,
-      8,
-      102,
-      8,
-      "COMBO"
-    ],
-    [
-      462,
-      91,
-      0,
-      145,
-      10,
-      "COMBO"
-    ],
-    [
-      463,
-      91,
-      1,
-      145,
-      11,
-      "COMBO"
-    ],
-    [
-      464,
-      90,
-      0,
-      145,
-      12,
-      "INT"
-    ],
-    [
-      465,
-      91,
-      2,
-      145,
-      16,
-      "INT"
-    ],
-    [
-      466,
-      91,
-      3,
-      145,
-      15,
-      "FLOAT"
-    ],
-    [
       467,
       94,
       1,
@@ -5112,43 +4954,11 @@
       "STRING"
     ],
     [
-      474,
-      145,
-      16,
-      149,
-      1,
-      "TUPLE"
-    ],
-    [
       475,
       149,
       0,
       148,
       0,
-      "STRING"
-    ],
-    [
-      478,
-      145,
-      10,
-      151,
-      0,
-      "INT"
-    ],
-    [
-      479,
-      145,
-      11,
-      151,
-      1,
-      "INT"
-    ],
-    [
-      480,
-      147,
-      3,
-      151,
-      2,
       "STRING"
     ],
     [
@@ -5158,14 +4968,6 @@
       155,
       0,
       "IMAGE"
-    ],
-    [
-      484,
-      145,
-      15,
-      155,
-      1,
-      "VAE"
     ],
     [
       485,
@@ -5208,38 +5010,6 @@
       "IMAGE"
     ],
     [
-      493,
-      145,
-      15,
-      156,
-      4,
-      "VAE"
-    ],
-    [
-      496,
-      145,
-      9,
-      156,
-      6,
-      "INT"
-    ],
-    [
-      497,
-      145,
-      10,
-      156,
-      7,
-      "INT"
-    ],
-    [
-      498,
-      145,
-      11,
-      156,
-      8,
-      "INT"
-    ],
-    [
       499,
       151,
       2,
@@ -5248,59 +5018,11 @@
       "FLOAT"
     ],
     [
-      506,
-      145,
-      7,
-      156,
-      10,
-      "COMBO"
-    ],
-    [
-      507,
-      145,
-      8,
-      156,
-      11,
-      "COMBO"
-    ],
-    [
-      508,
-      145,
-      12,
-      156,
-      13,
-      "FLOAT"
-    ],
-    [
-      509,
-      145,
-      13,
-      156,
-      12,
-      "INT"
-    ],
-    [
       520,
       90,
       0,
       164,
       1,
-      "INT"
-    ],
-    [
-      521,
-      164,
-      0,
-      145,
-      13,
-      "INT"
-    ],
-    [
-      522,
-      164,
-      1,
-      145,
-      14,
       "INT"
     ],
     [
@@ -5326,14 +5048,6 @@
       219,
       1,
       "MODEL_KEYWORD"
-    ],
-    [
-      625,
-      91,
-      4,
-      145,
-      17,
-      "INT"
     ],
     [
       641,
@@ -5376,22 +5090,6 @@
       "STRING"
     ],
     [
-      673,
-      147,
-      3,
-      223,
-      0,
-      "STRING"
-    ],
-    [
-      674,
-      147,
-      3,
-      239,
-      0,
-      "STRING"
-    ],
-    [
       675,
       223,
       0,
@@ -5424,75 +5122,11 @@
       "EMBEDDING"
     ],
     [
-      681,
-      137,
-      0,
-      145,
-      3,
-      "STRING"
-    ],
-    [
-      682,
-      137,
-      1,
-      145,
-      4,
-      "STRING"
-    ],
-    [
-      684,
-      137,
-      3,
-      145,
-      18,
-      "STRING"
-    ],
-    [
-      686,
-      145,
-      6,
-      147,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      687,
-      145,
-      6,
-      244,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      688,
-      248,
-      0,
-      145,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      689,
-      248,
-      1,
-      145,
-      9,
-      "STRING"
-    ],
-    [
       690,
       248,
       1,
       164,
       0,
-      "STRING"
-    ],
-    [
-      698,
-      147,
-      3,
-      280,
-      1,
       "STRING"
     ],
     [
@@ -5576,14 +5210,6 @@
       "IMAGE"
     ],
     [
-      737,
-      147,
-      3,
-      314,
-      0,
-      "STRING"
-    ],
-    [
       738,
       105,
       0,
@@ -5613,14 +5239,6 @@
       1,
       316,
       2,
-      "STRING"
-    ],
-    [
-      742,
-      147,
-      3,
-      316,
-      0,
       "STRING"
     ],
     [
@@ -5654,22 +5272,6 @@
       301,
       1,
       "MODEL_KEYWORD"
-    ],
-    [
-      747,
-      147,
-      0,
-      313,
-      0,
-      "MODEL"
-    ],
-    [
-      748,
-      147,
-      1,
-      313,
-      1,
-      "CLIP"
     ],
     [
       749,
@@ -5752,14 +5354,6 @@
       "EMBEDDING"
     ],
     [
-      761,
-      147,
-      3,
-      310,
-      6,
-      "STRING"
-    ],
-    [
       762,
       107,
       0,
@@ -5790,22 +5384,6 @@
       310,
       12,
       "STRING"
-    ],
-    [
-      766,
-      145,
-      10,
-      310,
-      15,
-      "INT"
-    ],
-    [
-      767,
-      145,
-      11,
-      310,
-      16,
-      "INT"
     ],
     [
       768,
@@ -5872,38 +5450,6 @@
       "*"
     ],
     [
-      776,
-      147,
-      3,
-      217,
-      2,
-      "STRING"
-    ],
-    [
-      777,
-      147,
-      3,
-      218,
-      2,
-      "STRING"
-    ],
-    [
-      778,
-      147,
-      3,
-      304,
-      2,
-      "STRING"
-    ],
-    [
-      779,
-      147,
-      3,
-      305,
-      2,
-      "STRING"
-    ],
-    [
       780,
       217,
       0,
@@ -5966,6 +5512,518 @@
       304,
       1,
       "CLIP"
+    ],
+    [
+      791,
+      320,
+      3,
+      217,
+      2,
+      "STRING"
+    ],
+    [
+      792,
+      320,
+      3,
+      218,
+      2,
+      "STRING"
+    ],
+    [
+      793,
+      320,
+      3,
+      304,
+      2,
+      "STRING"
+    ],
+    [
+      794,
+      320,
+      3,
+      305,
+      2,
+      "STRING"
+    ],
+    [
+      795,
+      320,
+      3,
+      223,
+      0,
+      "STRING"
+    ],
+    [
+      796,
+      320,
+      3,
+      239,
+      0,
+      "STRING"
+    ],
+    [
+      797,
+      320,
+      3,
+      280,
+      1,
+      "STRING"
+    ],
+    [
+      798,
+      320,
+      3,
+      314,
+      0,
+      "STRING"
+    ],
+    [
+      799,
+      320,
+      3,
+      316,
+      0,
+      "STRING"
+    ],
+    [
+      800,
+      320,
+      3,
+      151,
+      2,
+      "STRING"
+    ],
+    [
+      801,
+      320,
+      2,
+      100,
+      0,
+      "VAE"
+    ],
+    [
+      802,
+      320,
+      3,
+      310,
+      6,
+      "STRING"
+    ],
+    [
+      803,
+      320,
+      0,
+      313,
+      0,
+      "MODEL"
+    ],
+    [
+      804,
+      320,
+      1,
+      313,
+      1,
+      "CLIP"
+    ],
+    [
+      805,
+      91,
+      4,
+      320,
+      4,
+      "INT"
+    ],
+    [
+      806,
+      248,
+      0,
+      321,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      807,
+      88,
+      0,
+      321,
+      1,
+      "VAE_NAME"
+    ],
+    [
+      808,
+      89,
+      0,
+      321,
+      2,
+      "VAE_NAME"
+    ],
+    [
+      809,
+      137,
+      0,
+      321,
+      3,
+      "STRING"
+    ],
+    [
+      810,
+      137,
+      1,
+      321,
+      4,
+      "STRING"
+    ],
+    [
+      811,
+      248,
+      1,
+      321,
+      9,
+      "STRING"
+    ],
+    [
+      812,
+      91,
+      0,
+      321,
+      10,
+      "COMBO"
+    ],
+    [
+      813,
+      91,
+      1,
+      321,
+      11,
+      "COMBO"
+    ],
+    [
+      814,
+      90,
+      0,
+      321,
+      12,
+      "INT"
+    ],
+    [
+      815,
+      164,
+      0,
+      321,
+      13,
+      "INT"
+    ],
+    [
+      816,
+      164,
+      1,
+      321,
+      14,
+      "INT"
+    ],
+    [
+      817,
+      91,
+      3,
+      321,
+      15,
+      "FLOAT"
+    ],
+    [
+      818,
+      91,
+      2,
+      321,
+      16,
+      "INT"
+    ],
+    [
+      819,
+      91,
+      4,
+      321,
+      17,
+      "INT"
+    ],
+    [
+      820,
+      137,
+      3,
+      321,
+      18,
+      "STRING"
+    ],
+    [
+      821,
+      137,
+      4,
+      321,
+      19,
+      "STRING"
+    ],
+    [
+      824,
+      321,
+      0,
+      105,
+      0,
+      "STRING"
+    ],
+    [
+      825,
+      321,
+      1,
+      106,
+      0,
+      "STRING"
+    ],
+    [
+      826,
+      321,
+      18,
+      149,
+      1,
+      "TUPLE"
+    ],
+    [
+      827,
+      321,
+      18,
+      114,
+      0,
+      "*"
+    ],
+    [
+      828,
+      321,
+      15,
+      155,
+      1,
+      "VAE"
+    ],
+    [
+      829,
+      321,
+      15,
+      156,
+      4,
+      "VAE"
+    ],
+    [
+      830,
+      321,
+      15,
+      103,
+      1,
+      "VAE"
+    ],
+    [
+      831,
+      321,
+      13,
+      102,
+      5,
+      "INT"
+    ],
+    [
+      834,
+      321,
+      13,
+      156,
+      12,
+      "INT"
+    ],
+    [
+      836,
+      321,
+      12,
+      156,
+      13,
+      "FLOAT"
+    ],
+    [
+      838,
+      321,
+      12,
+      102,
+      6,
+      "FLOAT"
+    ],
+    [
+      843,
+      321,
+      7,
+      156,
+      10,
+      "COMBO"
+    ],
+    [
+      844,
+      321,
+      7,
+      102,
+      7,
+      "COMBO"
+    ],
+    [
+      845,
+      321,
+      8,
+      156,
+      11,
+      "COMBO"
+    ],
+    [
+      846,
+      321,
+      8,
+      102,
+      8,
+      "COMBO"
+    ],
+    [
+      848,
+      321,
+      6,
+      244,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      850,
+      321,
+      6,
+      320,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      851,
+      321,
+      10,
+      100,
+      1,
+      "INT"
+    ],
+    [
+      852,
+      321,
+      11,
+      100,
+      2,
+      "INT"
+    ],
+    [
+      853,
+      321,
+      10,
+      310,
+      15,
+      "INT"
+    ],
+    [
+      854,
+      321,
+      11,
+      310,
+      16,
+      "INT"
+    ],
+    [
+      855,
+      321,
+      10,
+      151,
+      0,
+      "INT"
+    ],
+    [
+      856,
+      321,
+      11,
+      151,
+      1,
+      "INT"
+    ],
+    [
+      858,
+      321,
+      10,
+      156,
+      7,
+      "INT"
+    ],
+    [
+      859,
+      321,
+      11,
+      156,
+      8,
+      "INT"
+    ],
+    [
+      860,
+      321,
+      9,
+      106,
+      1,
+      "INT"
+    ],
+    [
+      861,
+      321,
+      9,
+      105,
+      1,
+      "INT"
+    ],
+    [
+      862,
+      321,
+      9,
+      156,
+      6,
+      "INT"
+    ],
+    [
+      863,
+      321,
+      9,
+      100,
+      3,
+      "INT"
+    ],
+    [
+      864,
+      321,
+      9,
+      102,
+      4,
+      "INT"
+    ],
+    [
+      865,
+      321,
+      15,
+      320,
+      3,
+      "VAE"
+    ],
+    [
+      866,
+      321,
+      16,
+      320,
+      2,
+      "CLIP"
+    ],
+    [
+      867,
+      321,
+      17,
+      320,
+      1,
+      "MODEL"
     ]
   ],
   "groups": [
@@ -6020,8 +6078,8 @@
     {
       "title": "Test prompts",
       "bounding": [
-        -1023,
-        10,
+        -1020,
+        13,
         1027,
         1859
       ],

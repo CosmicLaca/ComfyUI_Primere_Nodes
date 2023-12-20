@@ -74,8 +74,12 @@ class PrimereCKPT:
         }
 
     def load_ckpt_list(self, base_model):
-        LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
-        model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+        modelname_only = Path(base_model).stem
+        model_version = utility.get_value_from_cache('model_version', modelname_only)
+        if model_version is None:
+            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
+            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+            utility.add_value_to_cache('model_version', modelname_only, model_version)
 
         return (base_model, model_version)
 
@@ -153,27 +157,41 @@ class PrimereCKPTLoader:
                 "strength_lcm_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
                 "strength_lcm_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
             },
+            "optional": {
+                "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
+                "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
+                "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
+            },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, is_lcm, strength_lcm_model, strength_lcm_clip):
+    def load_primere_ckpt(self, ckpt_name, use_yaml, is_lcm, strength_lcm_model, strength_lcm_clip, loaded_model = None, loaded_clip = None, loaded_vae = None):
         path = Path(ckpt_name)
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
         ModelConfigFullPath = Path(folder_paths.models_dir).joinpath('checkpoints').joinpath(ModelConfigPath)
 
-        if (os.path.isfile(ModelConfigFullPath) and use_yaml == True):
-            ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-            print(ModelName + '.yaml file found and loading...')
-            try:
-                LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
-            except Exception:
-                LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
+        if (loaded_model is not None and loaded_clip is not None and loaded_vae is not None):
+            LOADED_CHECKPOINT = []
+            LOADED_CHECKPOINT.insert(0, loaded_model)
+            LOADED_CHECKPOINT.insert(1, loaded_clip)
+            LOADED_CHECKPOINT.insert(2, loaded_vae)
         else:
-            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
+            if (os.path.isfile(ModelConfigFullPath) and use_yaml == True):
+                ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+                print(ModelName + '.yaml file found and loading...')
+                try:
+                    LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
+                except Exception:
+                    LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
+            else:
+                LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
 
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         OUTPUT_CLIP = LOADED_CHECKPOINT[1]
-        MODEL_VERSION = utility.getCheckpointVersion(OUTPUT_MODEL)
+        MODEL_VERSION = utility.get_value_from_cache('model_version', ModelName)
+        if MODEL_VERSION is None:
+            MODEL_VERSION = utility.getCheckpointVersion(OUTPUT_MODEL)
+            utility.add_value_to_cache('model_version', ModelName, MODEL_VERSION)
 
         def lcm(self, model, zsnr=False):
             m = model.clone()
