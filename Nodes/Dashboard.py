@@ -19,6 +19,7 @@ from ..components import hypernetwork
 import comfy.sd
 import comfy.utils
 from ..utils import comfy_dir
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
 
 class PrimereSamplers:
     CATEGORY = TREE_DASHBOARD
@@ -196,8 +197,8 @@ class PrimereCKPTLoader:
         def lcm(self, model, zsnr=False):
             m = model.clone()
 
-            sampling_base = comfy.model_sampling.ModelSamplingDiscrete
-            sampling_type = utility.LCM
+            # sampling_base = comfy.model_sampling.ModelSamplingDiscrete
+            sampling_type = nodes_model_advanced.LCM
             sampling_base = utility.ModelSamplingDiscreteLCM
 
             class ModelSamplingAdvanced(sampling_base, sampling_type):
@@ -205,7 +206,7 @@ class PrimereCKPTLoader:
 
             model_sampling = ModelSamplingAdvanced()
             if zsnr:
-                model_sampling.set_sigmas(utility.rescale_zero_terminal_snr_sigmas(model_sampling.sigmas))
+                model_sampling.set_sigmas(nodes_model_advanced.rescale_zero_terminal_snr_sigmas(model_sampling.sigmas))
 
             m.add_object_patch("model_sampling", model_sampling)
             return m

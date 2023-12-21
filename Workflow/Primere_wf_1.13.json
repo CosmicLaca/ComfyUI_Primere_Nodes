@@ -353,11 +353,11 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "nice animal walking in the forest, sunny day, <lyco:InsPX:0.7> ",
+        "The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \"Budapest.\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \"Budapest\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle",
         "",
         "",
         "None",
-        "None"
+        "Horizontal"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -515,8 +515,8 @@
       "id": 90,
       "type": "PrimereSeed",
       "pos": [
-        2919.514187815313,
-        -1184.1503139254098
+        2920,
+        -1184
       ],
       "size": {
         "0": 311.65582275390625,
@@ -760,7 +760,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Architechture Exterior",
+        "Architechture Minimal interior",
         true,
         true,
         true,
@@ -884,7 +884,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
+        "BestAll\\realisticVision_v5.1.safetensors",
         true,
         true
       ],
@@ -1274,11 +1274,11 @@
       "widgets_values": [
         "HD+ screen [16:10]",
         768,
-        false,
+        true,
         "Vertical",
         true,
         "BaseModel_1024",
-        300787119849487,
+        -313089058676950,
         "randomize",
         false,
         1,
@@ -1562,7 +1562,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        6
+        7
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1593,7 +1593,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)"
+        "The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1624,7 +1624,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2000,7 +2000,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1038,
+        1474,
         "randomize",
         512,
         512,
@@ -2049,7 +2049,7 @@
         "Node name for S&R": "PrimereModelKeyword"
       },
       "widgets_values": [
-        false,
+        true,
         "Last",
         "Random select",
         1,
@@ -2106,7 +2106,7 @@
       },
       "widgets_values": [
         "",
-        186916743365806,
+        1101716230990986,
         "randomize"
       ],
       "color": "#322",
@@ -2161,7 +2161,7 @@
       },
       "widgets_values": [
         "",
-        -1085538475351498,
+        147231143885468,
         "randomize"
       ],
       "color": "#232",
@@ -2297,7 +2297,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 271678383557792,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (European white:1.4) model woman:1.2), (standing in the green park:1.3), near big snowy hill, full body outdoor color professional model fashion photography, soft natural lights, pensive mood, kissing mouth, (wear rainbow, leather, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear leather short blue, trousers:1.6), (short white curly hair:1.6), small cleavage, natural tits, snow:0.5, daytime, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\"\n}"
+        "{\n    \"positive\": \"The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\nightvisionXLPhotorealistic.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 361546671882258,\n    \"width\": 1280,\n    \"height\": 819,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Horizontal\",\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\",\n    \"dynamic_negative\": \"\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2500,7 +2500,7 @@
         1.2,
         0.9,
         1.3,
-        -457852158341296,
+        352665543476346,
         "randomize",
         true,
         "cpu"
@@ -2566,11 +2566,11 @@
         "SD",
         true,
         true,
-        true,
+        false,
         "Negative\\BadNegAnatomy.pt",
         0.7000000000000001,
         true,
-        true,
+        false,
         "Photo\\kkw-photoreal.bin",
         0.5,
         false,
@@ -2578,11 +2578,11 @@
         "Style\\Winter.pt",
         0.7000000000000001,
         false,
-        true,
+        false,
         "Negative\\light-negative.pt",
         0.7000000000000001,
         true,
-        true,
+        false,
         "Negative\\bhands-neg.pt",
         0.6,
         true,
@@ -2655,7 +2655,7 @@
         "SDXL",
         true,
         true,
-        true,
+        false,
         "SDXL\\ImgFixerPre0.3.safetensors",
         0.8,
         true,
@@ -2926,7 +2926,7 @@
         true,
         false,
         false,
-        true,
+        false,
         "Style\\add_detail.safetensors",
         0.6,
         0.8,
@@ -3206,15 +3206,15 @@
         true,
         false,
         false,
-        true,
+        false,
         "SDXL\\add-detail.safetensors",
         1.2,
         0.6,
-        true,
+        false,
         "SDXL\\DetailedEyes_V3.safetensors",
         1.2,
         0.6,
-        true,
+        false,
         "SDXL\\BetterPhotography-v1.2.safetensors",
         1.1,
         0.4,
@@ -3632,7 +3632,7 @@
         "Any",
         true,
         true,
-        true,
+        false,
         "Style\\Cinematic_500SoftEnough.pt",
         0.4,
         false,
@@ -3902,7 +3902,7 @@
         "",
         "",
         1.2,
-        true,
+        false,
         "PHOTO",
         1,
         "BETTER_IMAGES",
@@ -4024,7 +4024,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        354965331419838,
+        943297718050368,
         "randomize",
         20,
         8,
@@ -4061,7 +4061,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:kkw-photoreal:0.5), (beautiful sexy 30 years old (European white:1.4) model woman:1.2), (standing in the green park:1.3), near big snowy hill, full body outdoor color professional model fashion photography, soft natural lights, pensive mood, kissing mouth, (wear rainbow, leather, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear leather short blue, trousers:1.6), (short white curly hair:1.6), small cleavage, natural tits, snow:0.5, daytime, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), master"
+        "The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4092,7 +4092,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:BadNegAnatomy:0.7000000000000001), (embedding:light-negative:0.7000000000000001), (embedding:bhands-neg:0.6), (porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, embedding:add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2):1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4123,7 +4123,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "(The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4442,7 +4442,7 @@
       },
       "widgets_values": [
         2.1,
-        860102430542194,
+        753357298268359,
         "randomize",
         7,
         6.5,
@@ -4468,8 +4468,8 @@
       "id": 291,
       "type": "JDC_GaussianBlur",
       "pos": [
-        2779,
-        -234
+        2782,
+        -229
       ],
       "size": {
         "0": 387.6372985839844,
@@ -4634,7 +4634,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-20 21:03:37\n:: Output file: z:\\AIPICS\\Comfy\\PHOTON_V1\\OutdodorModels\\2023-12-Week-51\\Image_20232012_210336_271678383557792_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 271678383557792\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (European white:1.4) model woman:1.2), (standing in the green park:1.3), near big snowy hill, full body outdoor color professional model fashion photography, soft natural lights, pensive mood, kissing mouth, (wear rainbow, leather, jacket:1.6), (wear maroon luxury silk underwear:1.6), (wear leather short blue, trousers:1.6), (short white curly hair:1.6), small cleavage, natural tits, snow:0.5, daytime, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2023-12-21 11:48:09\n:: Output file: z:\\AIPICS\\Comfy\\NIGHTVISIONXLPHOTOREALISTIC\\Test\\2023-12-Week-51\\Image_20232112_114808_931485644482025_3840x2448_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \"Budapest.\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \"Budapest\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\n:: MODEL_NAME: SDXL\\nightvisionXLPhotorealistic.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 931485644482025\n:: WIDTH: 1280\n:: HEIGHT: 819\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Horizontal\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \"Budapest.\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \"Budapest\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\n:: SAVED_IMAGE_WIDTH: 3840\n:: SAVED_IMAGE_HEIGTH: 2448\n:: UPSCALER_RATIO: From: 1280x819 to: 3840x2448 Ratio: 3.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
