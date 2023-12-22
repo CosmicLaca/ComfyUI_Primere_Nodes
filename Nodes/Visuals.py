@@ -57,9 +57,12 @@ class PrimereVisualLORA:
     CATEGORY = TREE_VISUALS
     LORASCOUNT = 6
 
+    lora_versions = utility.get_category_from_cache('lora_version')
+
     @classmethod
     def INPUT_TYPES(cls):
         LoraList = folder_paths.get_filename_list("loras")
+
         return {
             "required": {
                 "model": ("MODEL",),
@@ -107,6 +110,9 @@ class PrimereVisualLORA:
                 "lora_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
                 "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
+            "hidden": {
+                "cached_lora": (cls.lora_versions,),
+            }
         }
 
     def visual_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
@@ -479,6 +485,8 @@ class PrimereVisualLYCORIS:
     CATEGORY = TREE_VISUALS
     LYCOSCOUNT = 6
 
+    lyco_versions = utility.get_category_from_cache('lycoris_version')
+
     @classmethod
     def INPUT_TYPES(cls):
         LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
@@ -533,6 +541,9 @@ class PrimereVisualLYCORIS:
                 "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
                 "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
+            "hidden": {
+                "cached_lyco": (cls.lyco_versions,),
+            }
         }
 
     def primere_visual_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):

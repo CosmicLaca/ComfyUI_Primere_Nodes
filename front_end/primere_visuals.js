@@ -2,10 +2,12 @@ import { app } from "/scripts/app.js";
 
 const realPath = "extensions/Primere";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
+const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS']
 let lastDirObject = {};
 let currentClass = false;
-let hiddenWidgets = false;
+let hiddenWidgets = {};
 let checkpointVersions = false;
+const SDXLVersionTags = ['SDXL_2048', 5120]
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let checkpoint_new = checkpoint.replaceAll('\\', '/');
@@ -21,11 +23,13 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
 
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
-    let versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknow checkpoint version. Use before the version cached."></div>';
+    let versionWidget = ''; //'<div class="ckpt-version unknown-ckpt" title="Unknow checkpoint version. Use before the version cached."></div>';
 
+    //console.log(checkpointVersions)
     if (checkpointVersions !== false) {
         if (checkpointVersions.hasOwnProperty(ckptName) === true) {
-            if (checkpointVersions[ckptName] === 'SDXL_2048') {
+            //if (checkpointVersions[ckptName] === 'SDXL_2048') {
+            if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
                 versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
             } else {
                 versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
@@ -326,8 +330,8 @@ app.registerExtension({
                 modaltitle = 'Select checkpoint';
                 nodematch = '^base_model';
                 isnumeric_end = false;
-                if (hiddenWidgets != false) {
-                    $.each(hiddenWidgets.hidden, function(index, value) {
+                if (hiddenWidgets.hasOwnProperty('PrimereVisualCKPT') === true) {
+                    $.each(hiddenWidgets['PrimereVisualCKPT'], function(index, value) {
                         if (index == 'cached_model') {
                             checkpointVersions = value[0];
                         }
@@ -340,6 +344,13 @@ app.registerExtension({
                 modaltitle = 'Select LoRA';
                 nodematch = '^lora_';
                 isnumeric_end = true;
+                if (hiddenWidgets.hasOwnProperty('PrimereVisualLORA') === true) {
+                    $.each(hiddenWidgets['PrimereVisualLORA'], function(index, value) {
+                        if (index == 'cached_lora') {
+                            checkpointVersions = value[0];
+                        }
+                    });
+                }
             }
 
             if (node.type == 'PrimereVisualEmbedding') {
@@ -368,6 +379,13 @@ app.registerExtension({
                 modaltitle = 'Select LYCORIS';
                 nodematch = '^lycoris_';
                 isnumeric_end = true;
+                if (hiddenWidgets.hasOwnProperty('PrimereVisualLYCORIS') === true) {
+                    $.each(hiddenWidgets['PrimereVisualLYCORIS'], function(index, value) {
+                        if (index == 'cached_lyco') {
+                            checkpointVersions = value[0];
+                        }
+                    });
+                }
             }
 
             if (event.type != LiteGraph.pointerevents_method + "down") {
@@ -455,8 +473,11 @@ app.registerExtension({
     },
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (nodeData.name === "PrimereVisualCKPT") {
-            hiddenWidgets = nodeData.input;
+        if (versionClasses.includes(nodeData.name)) {
+            if (nodeData.input.hasOwnProperty('hidden') === true) {
+                hiddenWidgets[nodeData.name] = nodeData.input.hidden;
+            }
+            //console.log(hiddenWidgets);
         }
     },
 });
