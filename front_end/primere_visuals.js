@@ -4,6 +4,8 @@ const realPath = "extensions/Primere";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
 let lastDirObject = {};
 let currentClass = false;
+let hiddenWidgets = false;
+let checkpointVersions = false;
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let checkpoint_new = checkpoint.replaceAll('\\', '/');
@@ -13,13 +15,25 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     } else {
         var finalName = checkpoint_new;
     }
+
     finalName = finalName.replaceAll(' ', "_");
     let previewName = finalName + '.jpg';
 
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
+    let versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknow checkpoint version. Use before the version cached."></div>';
 
-    var card_html = '<div class="checkpoint-name">' + ckptName.replaceAll('_', " ") + '</div>';
+    if (checkpointVersions !== false) {
+        if (checkpointVersions.hasOwnProperty(ckptName) === true) {
+            if (checkpointVersions[ckptName] === 'SDXL_2048') {
+                versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
+            } else {
+                versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
+            }
+        }
+    }
+
+    var card_html = '<div class="checkpoint-name">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
     var imgsrc = realPath + '/images/' + ModelType + '/' + previewName;
     var missingimgsrc = realPath + '/images/missing.jpg';
 
@@ -312,6 +326,13 @@ app.registerExtension({
                 modaltitle = 'Select checkpoint';
                 nodematch = '^base_model';
                 isnumeric_end = false;
+                if (hiddenWidgets != false) {
+                    $.each(hiddenWidgets.hidden, function(index, value) {
+                        if (index == 'cached_model') {
+                            checkpointVersions = value[0];
+                        }
+                    });
+                }
             }
 
             if (node.type == 'PrimereVisualLORA') {
@@ -434,6 +455,8 @@ app.registerExtension({
     },
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-
+        if (nodeData.name === "PrimereVisualCKPT") {
+            hiddenWidgets = nodeData.input;
+        }
     },
 });

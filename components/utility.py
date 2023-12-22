@@ -347,6 +347,20 @@ def get_closest_element(value, list):
 
     return is_found
 
+def get_category_from_cache(category):
+    ifCacheExist = os.path.isfile(cache_file)
+    if ifCacheExist == True:
+        with open(cache_file, 'r') as openfile:
+            try:
+                saved_cache = json.load(openfile)
+                try:
+                    return saved_cache[category]
+                except Exception:
+                    return None
+            except ValueError as e:
+                return None
+    else:
+        return None
 def get_value_from_cache(category, key):
     ifCacheExist = os.path.isfile(cache_file)
     if ifCacheExist == True:

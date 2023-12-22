@@ -24,6 +24,8 @@ class PrimereVisualCKPT:
     def __init__(self):
         self.chkp_loader = nodes.CheckpointLoaderSimple()
 
+    model_versions = utility.get_category_from_cache('model_version')
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -31,10 +33,14 @@ class PrimereVisualCKPT:
                 "base_model": (folder_paths.get_filename_list("checkpoints"),),
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+
             },
+            "hidden": {
+                "cached_model": (cls.model_versions,),
+            }
         }
 
-    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal):
+    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal, cached_model):
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
