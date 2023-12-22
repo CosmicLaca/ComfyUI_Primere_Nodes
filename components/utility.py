@@ -407,7 +407,9 @@ def getLoraVersion(modelobject):
         'lora_te_text_model_encoder_layers_0_mlp_fc1.lora_up.weight',
         'lora_unet_input_blocks_4_1_transformer_blocks_0_ff_net_0_proj.lora_up.weight',
         'lora_unet_down_blocks_1_attentions_0_transformer_blocks_0_ff_net_0_proj.lora_up.weight',
-        'lora_unet_input_blocks_4_1_transformer_blocks_0_ff_net_0_proj.hada_w1_a'
+        'lora_unet_input_blocks_4_1_transformer_blocks_0_ff_net_0_proj.hada_w1_a',
+        'lora_unet_down_blocks_1_attentions_0_transformer_blocks_0_ff_net_0_proj.hada_w1_a',
+        'lora_unet_down_blocks_2_attentions_0_transformer_blocks_0_attn1_to_k.lora_up.weight'
     ]
     VersionHelper = 'Unknown'
 

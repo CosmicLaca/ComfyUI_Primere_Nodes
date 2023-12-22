@@ -7,7 +7,7 @@ let lastDirObject = {};
 let currentClass = false;
 let hiddenWidgets = {};
 let checkpointVersions = false;
-const SDXLVersionTags = ['SDXL_2048', 5120]
+const SDXLVersionTags = ['SDXL_2048', 5120, 1280]
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let checkpoint_new = checkpoint.replaceAll('\\', '/');
