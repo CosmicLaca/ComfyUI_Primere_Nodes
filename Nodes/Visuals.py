@@ -40,7 +40,7 @@ class PrimereVisualCKPT:
             }
         }
 
-    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal, cached_model):
+    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal):
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
@@ -145,6 +145,13 @@ class PrimereVisualLORA:
             lora_path = folder_paths.get_full_path("loras", lora_name)
             lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
             model_lora, clip_lora = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, strength_model, strength_clip)
+
+            loraname_only = Path(lora_name).stem
+            model_lora_version = utility.get_value_from_cache('lora_version', loraname_only)
+            if model_lora_version is None:
+                loraVER = utility.getLoraVersion(lora)
+                if loraVER is not None:
+                    utility.add_value_to_cache('lora_version', loraname_only, loraVER)
 
             if use_lora_keyword == True:
                 ModelKvHash = utility.get_model_hash(lora_path)
@@ -564,6 +571,13 @@ class PrimereVisualLYCORIS:
             lycoris_path = folder_paths.get_full_path("lycoris", lycoris_name)
             lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
             model_lyco, clip_lyco = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, strength_model, strength_clip)
+
+            lyconame_only = Path(lycoris_name).stem
+            model_lyco_version = utility.get_value_from_cache('lycoris_version', lyconame_only)
+            if model_lyco_version is None:
+                lycoVER = utility.getLoraVersion(lyco)
+                if lycoVER is not None:
+                    utility.add_value_to_cache('lycoris_version', lyconame_only, lycoVER)
 
             if use_lycoris_keyword == True:
                 ModelKvHash = utility.get_model_hash(lycoris_path)
