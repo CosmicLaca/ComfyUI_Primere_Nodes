@@ -760,7 +760,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Architechture Minimal interior",
+        "Architechture Mountain architect",
         true,
         true,
         true,
@@ -1127,7 +1127,7 @@
         "Node name for S&R": "PrimereLCMSelector"
       },
       "widgets_values": [
-        false,
+        true,
         "euler",
         "normal",
         "lcm",
@@ -1278,7 +1278,7 @@
         "Vertical",
         true,
         "BaseModel_1024",
-        -313089058676950,
+        -767079805330416,
         "randomize",
         false,
         1,
@@ -1562,7 +1562,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        7
+        1
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1593,7 +1593,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle"
+        "exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1624,7 +1624,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "watermark, person, text, china style, indian style"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2000,7 +2000,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1474,
+        1535,
         "randomize",
         512,
         512,
@@ -2106,7 +2106,7 @@
       },
       "widgets_values": [
         "",
-        1101716230990986,
+        96744961367257,
         "randomize"
       ],
       "color": "#322",
@@ -2161,7 +2161,7 @@
       },
       "widgets_values": [
         "",
-        147231143885468,
+        -104919518974706,
         "randomize"
       ],
       "color": "#232",
@@ -2297,7 +2297,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\nightvisionXLPhotorealistic.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 361546671882258,\n    \"width\": 1280,\n    \"height\": 819,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Horizontal\",\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\",\n    \"dynamic_negative\": \"\"\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\realisticVision_v5.1.safetensors\",\n    \"sampler_name\": \"lcm\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 161237472767947,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 1.18,\n    \"steps\": 8,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 1,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"exterior, extreme architecture, (friendly retro terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening summer professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2500,7 +2500,7 @@
         1.2,
         0.9,
         1.3,
-        352665543476346,
+        761637144913844,
         "randomize",
         true,
         "cpu"
@@ -4024,7 +4024,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        943297718050368,
+        71539515401459,
         "randomize",
         20,
         8,
@@ -4061,7 +4061,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle"
+        "exterior, extreme architecture, (friendly retro terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening summer professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4092,7 +4092,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "(watermark, person, text, china style, indian style:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4123,7 +4123,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \\\"Budapest.\\\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \\\"Budapest\\\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle)"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4442,7 +4442,7 @@
       },
       "widgets_values": [
         2.1,
-        753357298268359,
+        716528645090920,
         "randomize",
         7,
         6.5,
@@ -4554,7 +4554,7 @@
         "Node name for S&R": "PrimereMetaSave"
       },
       "widgets_values": [
-        "z:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
+        "v:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
         "Test",
         "",
         true,
@@ -4634,7 +4634,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-21 11:48:09\n:: Output file: z:\\AIPICS\\Comfy\\NIGHTVISIONXLPHOTOREALISTIC\\Test\\2023-12-Week-51\\Image_20232112_114808_931485644482025_3840x2448_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \"Budapest.\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \"Budapest\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\n:: MODEL_NAME: SDXL\\nightvisionXLPhotorealistic.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 931485644482025\n:: WIDTH: 1280\n:: HEIGHT: 819\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Horizontal\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: The image illustrates a surreal battle scene on the streets of Budapest, with the only text being a subtle indication of \"Budapest.\" Characters in elaborate Hungarian folk costumes clash amidst a Bosch-inspired cyberpunk environment. The scene is intense and chaotic, with blood flowing from a tram, creating a vivid contrast against the dark, neon-infused cyberpunk backdrop. Characters are grotesquely exaggerated, symbolizing the fusion of traditional and dystopian elements. The word \"Budapest\" is subtly integrated into the scene, emphasizing the location without detracting from the surreal nature of the battle\n:: SAVED_IMAGE_WIDTH: 3840\n:: SAVED_IMAGE_HEIGTH: 2448\n:: UPSCALER_RATIO: From: 1280x819 to: 3840x2448 Ratio: 3.0\n"
+        ":: Time to save: 2023-12-22 11:40:53\n:: Output file: v:\\AIPICS\\Comfy\\REALISTICVISION_V5.1\\Architechture\\2023-12-Week-51\\Image_20232212_114052_161237472767947_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: BestAll\\realisticVision_v5.1.safetensors\n:: SAMPLER_NAME: lcm\n:: SCHEDULER_NAME: sgm_uniform\n:: SEED: 161237472767947\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 1.18\n:: STEPS: 8\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 1\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (friendly retro terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening summer professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
