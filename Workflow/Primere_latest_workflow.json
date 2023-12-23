@@ -988,9 +988,9 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\omnigenxlNSFWSFW_v10.safetensors",
-        true,
-        false
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1558,7 +1558,7 @@
         "Vertical",
         true,
         "BaseModel_1024",
-        -900554433340664,
+        -429742287766863,
         "randomize",
         false,
         1,
@@ -2000,7 +2000,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        259,
+        1129,
         "randomize",
         512,
         512,
@@ -2049,7 +2049,7 @@
         "Node name for S&R": "PrimereModelKeyword"
       },
       "widgets_values": [
-        true,
+        false,
         "Last",
         "Random select",
         1,
@@ -2106,7 +2106,7 @@
       },
       "widgets_values": [
         "",
-        -23961950196294,
+        1060943821361893,
         "randomize"
       ],
       "color": "#322",
@@ -2161,7 +2161,7 @@
       },
       "widgets_values": [
         "",
-        946248120973545,
+        815414253411600,
         "randomize"
       ],
       "color": "#232",
@@ -2297,7 +2297,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\omnigenxlNSFWSFW_v10.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 740981516880953,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"exterior, extreme architecture, (small metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning Apocalypse professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 270457722958468,\n    \"width\": 960,\n    \"height\": 614,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"exterior, extreme architecture, (small home terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening  professional architectural photography), beautiful nature on Earth, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (forest with trees:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2500,7 +2500,7 @@
         1.2,
         0.9,
         1.3,
-        -941053460004380,
+        389242672464650,
         "randomize",
         true,
         "cpu"
@@ -3379,7 +3379,7 @@
         "BaseModel_1024",
         "SD",
         true,
-        false,
+        true,
         true,
         false,
         "Character\\kisslora.safetensors",
@@ -3902,10 +3902,10 @@
         "",
         "",
         1.2,
-        false,
+        true,
         "PHOTO",
         1,
-        "BETTER_IMAGES",
+        "LANDSCAPES",
         1.2,
         true,
         "mean",
@@ -4024,7 +4024,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        690268748155239,
+        122179144280631,
         "randomize",
         20,
         8,
@@ -4061,7 +4061,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (small metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)"
+        "exterior, extreme architecture, (small home terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening professional architectural photography), beautiful nature on Earth, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (forest with trees:0.6), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4092,7 +4092,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20)"
+        "(watermark, person, text, china style, indian style:1.20), (Blurry, Boring, Close-up, Dark (optional), Details are low, Distorted details, Eerie, Foggy (optional), Gloomy (optional), Grains, Grainy, Grayscale (optional), Homogenous, Low contrast, Low quality, Lowres, Macro, Monochrome (optional), Multiple angles, Multiple views, Opaque, Overexposed, Oversaturated, Plain, Plain background, Portrait, Simple background, Standard, Surreal, Unattractive, Uncreative, Underexposed:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4123,7 +4123,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(exterior, extreme architecture, (small metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6))"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4154,7 +4154,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "((watermark, person, text, china style, indian style:1.20))"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4442,7 +4442,7 @@
       },
       "widgets_values": [
         2.1,
-        234182385869408,
+        518563037611618,
         "randomize",
         7,
         6.5,
@@ -4554,7 +4554,7 @@
         "Node name for S&R": "PrimereMetaSave"
       },
       "widgets_values": [
-        "v:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
+        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
         "Test",
         "",
         true,
@@ -4634,7 +4634,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-22 23:00:20\n:: Output file: v:\\AIPICS\\Comfy\\OMNIGENXLNSFWSFW_V10\\Architechture\\2023-12-Week-51\\Image_20232212_230020_740981516880953_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: SDXL\\omnigenxlNSFWSFW_v10.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 740981516880953\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (small metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning Apocalypse professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
+        ":: Time to save: 2023-12-23 13:27:15\n:: Output file: h:\\AIPICS\\Comfy\\CANVERS-PHOTOREAL-V3.2-FP16-NO-EMA\\Architechture\\2023-12-Week-51\\Image_20232312_132714_499242086557557_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: BestPhoto\\canvers-photoreal-v3.2-fp16-no-ema.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 499242086557557\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (friendly office building terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor morning Summer professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
