@@ -29,6 +29,8 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 10; Sometime the node development change existing nodes, so the previous workflow failed adter pull. Then you must refresh and rewire changed nodes, or load the tested example workflow again.
 
+11; Remove dynamic prompts from the filled prompt input nodes I used before the workflow saved. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
+
 ## Special features:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
 - No need to switch nodes or workflow between SD and SDXL mode
