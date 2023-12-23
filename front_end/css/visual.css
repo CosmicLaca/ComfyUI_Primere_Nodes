@@ -102,18 +102,18 @@
 
 #primere_visual_modal .ckpt-version.unknown-ckpt::before {
     content: '?';
-    background: #ffffff;
-    color: #5e5e5e;
+    background: #325614;
+    color: #e8dd8d;
 }
 
 #primere_visual_modal .ckpt-version.sdxl-ckpt::before {
     content: 'SDXL';
-    background: #672727;
-    color: #e8d3af;
+    background: #8a2929;
+    color: #c9c1ae;
 }
 #primere_visual_modal .ckpt-version.sd1-ckpt::before {
     content: 'SD';
-    background: #0e5881;
+    background: #0a5075;
     color: #ffffff;
 }
 

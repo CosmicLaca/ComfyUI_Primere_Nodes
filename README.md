@@ -2,26 +2,28 @@
 
 Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
-<a href="./Workflow/readme_images/workflow.png" target="_blank"><img src="./Workflow/readme_images/workflow.png" width="300px"></a>
+<a href="./Workflow/readme_images/workflow.png" target="_blank"><img src="./Workflow/readme_images/workflow.jpg" width="300px"></a>
 
-## Do it before first run, or the workflow will be failed in your environment:
-1; Install missing Python libraries if not start for first try. Activate Comfy venv and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually)
+## Do it before first run, or the example workflow will be failed in your environment. Always use only 'Primere_latest_workflow.json' from the 'Workflow' folder:
+1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually)
 
 2; If started, use the last workflow on the 'Workflow' folder for first try, all nodes visible under the 'Primere Nodes' submenu if you need custom workflow later. If some other nodes missing and red in workflow, download or delete unloaded nodes. 
 
 3; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
-4; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use 'Primere Styles' node. If you keep the renamed 'styles.example.csv', you will see image previews for 4 example prompts included.
+4; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
 
-5; **Set all selectors from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Primere Image Meta Saver and Hypernetwork selectors will be failed if not choose right values from your own environment.
+5; **Set values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values from your own environment.
 
 6; Choose your own image from your machine to the 'Primere Exif Reader'.
 
 7; If the workflow failed, read the message in terminal.
 
-8; Update your Comfy to latest version, I always do it before development, so my nodes compatible with latest Comfy version.
+8; **Update your Comfy to latest version**, I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
 
 9; I develop my nodes and workflow continously, so do git pull from master branch once a week.
+
+10; Sometime the node development change existing nodes, so the previous workflow failed adter pull. Then you must refresh and rewire changed nodes, or load the tested example workflow again.
 
 ## Special features:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
@@ -46,7 +48,8 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 # Nodes in the pack by submenus:
 
 ## Inputs:
-### Primere Prompt: 
+<a href="./Workflow/readme_images/pprompt.jpg" target="_blank"><img src="./Workflow/readme_images/pprompt.jpg" height="130px" style="float: right; margin-right: 20px"></a>
+### Primere Prompt:
 2 input fileds within one node for positive and negative prompts. 3 additional fields appear under the text inputs:
 - **Subpath**: the prefered subpath for final image saving. This can be use for example the subject of the generated image, like 'sci-fi' 'art' or 'interior'. This setting overwrite the subpath in 'Primere Image Meta Saver' node.
 - **Use model**: the prefered checkpoint for image rendering. If your prompt need special checkpoint, for example because product design or architechture, here you can force apply this model to the prompt rendering process. This setting overwrite dashboard settings.
@@ -54,12 +57,14 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 If you set these fields, (where 'None' mean not set and use dashboard settings) the workflow will use all of these settings for rendering your prompt instead of settings in 'Dashboard' group.
 
+<a href="./Workflow/readme_images/pstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pstyles.jpg" height="120px" style="float: right; margin-right: 20px"></a>
 ### Primere Styles:
 Style (.csv) file reader, compatible with A1111 syle.csv, but little more than the original concept. The file must be copied/symlinked to the 'stylecsv' folder. Rename included 'style.example.csv' to 'style.csv' for first working example, and later edit this file manually.
 - **A1111 compatible CSV headers required for this file**: 'name,prompt,negative_prompt'. But this version have more 3 required headers: 'prefered_subpath,prefered_model,prefered_orientation'. These new headers working like additional fields in the simple prompt input. 
 - If you fill these 3 optional columns in the style.csv, the rendering process will use them. **These last 3 fields are optional**, if you leave empty the style will be rendering with system 'dashboard' settings, if fill and enable to use at the bottom switches of node, dashboard settings will be overwritten.
 - You can enable/disable these additional settings by switches if already entered to csv but want to use system settings instead, no need to delete if you failed or want to try with dashboard settings instead.
 
+<a href="./Workflow/readme_images/pdynamic.jpg" target="_blank"><img src="./Workflow/readme_images/pdynamic.jpg" height="80px" style="float: right; margin-right: 20px"></a>
 ### Primere Dynamic:
 - This node render A1111 compatible dynamic prompts, including external wildcard files of A1111 dynamic prompt plugin. External files must be copied/symlinked to the 'wildcards' folder and use the '__filepath/of/file__' keyword within your prompt. Use this to decode all style.csv and double prompt inputs, because the output of prompt/style nodes not resolved by another comfy dynamic decoder/resolver.
 - Check the included workflow how to use this node.

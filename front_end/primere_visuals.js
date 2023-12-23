@@ -31,6 +31,8 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
             //if (checkpointVersions[ckptName] === 'SDXL_2048') {
             if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
                 versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
+            } else if (checkpointVersions[ckptName] == 'Unknown') {
+                versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknown checkpoint. You can enter right version manually to the version cache file."></div>';
             } else {
                 versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
             }
