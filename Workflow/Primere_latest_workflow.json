@@ -1,5 +1,5 @@
 {
-  "last_node_id": 321,
+  "last_node_id": 325,
   "last_link_id": 867,
   "nodes": [
     {
@@ -988,12 +988,170 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
+        "SDXL\\OpenDalle.safetensors",
+        true,
+        false
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 322,
+      "type": "CR Color Bars",
+      "pos": [
+        2342,
+        -1819
+      ],
+      "size": {
+        "0": 315,
+        "1": 274
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Color Bars"
+      },
+      "widgets_values": [
+        "2-color",
+        512,
+        512,
+        "custom",
+        "custom",
+        "vertical",
+        5,
+        0,
+        "#215411",
+        "#000000"
+      ]
+    },
+    {
+      "id": 323,
+      "type": "CR Color Panel",
+      "pos": [
+        2842.9786376953125,
+        -1761.800830078125
+      ],
+      "size": {
+        "0": 315,
+        "1": 150
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "show_help",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Color Panel"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "black",
+        "#000000"
+      ]
+    },
+    {
+      "id": 324,
+      "type": "Image Select Color",
+      "pos": [
+        3264,
+        -1754
+      ],
+      "size": {
+        "0": 315,
+        "1": 130
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Image Select Color"
+      },
+      "widgets_values": [
+        255,
+        255,
+        255,
+        10
+      ]
+    },
+    {
+      "id": 325,
+      "type": "Colored Image (mtb)",
+      "pos": [
+        1944.2786376953125,
+        -1761.800830078125
+      ],
+      "size": {
+        "0": 210,
+        "1": 138
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "foreground_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "foreground_mask",
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Colored Image (mtb)"
+      },
+      "widgets_values": [
+        "#2042df",
+        512,
+        512
+      ]
     },
     {
       "id": 91,
@@ -1007,7 +1165,7 @@
         "1": 205.3205108642578
       },
       "flags": {},
-      "order": 18,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1152,7 +1310,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 19,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1228,7 +1386,7 @@
         "1": 838
       },
       "flags": {},
-      "order": 20,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1508,7 +1666,7 @@
         "1": 247.00794982910156
       },
       "flags": {},
-      "order": 21,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1558,7 +1716,7 @@
         "Vertical",
         true,
         "BaseModel_1024",
-        -429742287766863,
+        -201029382202890,
         "randomize",
         false,
         1,
@@ -1579,7 +1737,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 22,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1610,7 +1768,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 23,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1641,7 +1799,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 24,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2000,7 +2158,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1129,
+        1784,
         "randomize",
         512,
         512,
@@ -2025,7 +2183,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 25,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2070,7 +2228,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 26,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2106,7 +2264,7 @@
       },
       "widgets_values": [
         "",
-        1060943821361893,
+        -528913429266130,
         "randomize"
       ],
       "color": "#322",
@@ -2124,7 +2282,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 27,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2161,7 +2319,7 @@
       },
       "widgets_values": [
         "",
-        815414253411600,
+        739149963540979,
         "randomize"
       ],
       "color": "#232",
@@ -2179,7 +2337,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 28,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2283,7 +2441,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 29,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2297,7 +2455,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 270457722958468,\n    \"width\": 960,\n    \"height\": 614,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"exterior, extreme architecture, (small home terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening  professional architectural photography), beautiful nature on Earth, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (forest with trees:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\OpenDalle.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 725787251293657,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2314,7 +2472,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 30,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2430,7 +2588,7 @@
         "1": 382
       },
       "flags": {},
-      "order": 31,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2500,7 +2658,7 @@
         1.2,
         0.9,
         1.3,
-        389242672464650,
+        -12934451979685,
         "randomize",
         true,
         "cpu"
@@ -2520,7 +2678,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 32,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2608,7 +2766,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 33,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2697,7 +2855,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 34,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2775,7 +2933,7 @@
         "1": 146
       },
       "flags": {},
-      "order": 35,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2858,7 +3016,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 36,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -2971,7 +3129,7 @@
         "1": 295.889404296875
       },
       "flags": {},
-      "order": 37,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -2998,7 +3156,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 38,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3060,7 +3218,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 39,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3138,7 +3296,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 40,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3251,7 +3409,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 41,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3312,7 +3470,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 42,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3426,7 +3584,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 43,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3474,7 +3632,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 44,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3588,7 +3746,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 45,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3666,7 +3824,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 46,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3714,7 +3872,7 @@
         "1": 714.7673950195312
       },
       "flags": {},
-      "order": 47,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3940,7 +4098,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 48,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -4024,7 +4182,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        122179144280631,
+        546122238146656,
         "randomize",
         20,
         8,
@@ -4047,7 +4205,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 49,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -4061,7 +4219,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (small home terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening professional architectural photography), beautiful nature on Earth, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (forest with trees:0.6), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), design"
+        "exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4078,7 +4236,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 50,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -4109,7 +4267,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 51,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4123,7 +4281,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "(exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6))"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4140,7 +4298,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 52,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -4154,7 +4312,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "((watermark, person, text, china style, indian style:1.20))"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4171,7 +4329,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 53,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4217,7 +4375,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 54,
+      "order": 58,
       "mode": 4,
       "inputs": [
         {
@@ -4297,7 +4455,7 @@
         "1": 380.1381530761719
       },
       "flags": {},
-      "order": 55,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4324,7 +4482,7 @@
         "1": 550.7127075195312
       },
       "flags": {},
-      "order": 56,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -4442,7 +4600,7 @@
       },
       "widgets_values": [
         2.1,
-        518563037611618,
+        656985631469004,
         "randomize",
         7,
         6.5,
@@ -4476,7 +4634,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 57,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4518,7 +4676,7 @@
         "1": 506
       },
       "flags": {},
-      "order": 58,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4589,7 +4747,7 @@
         "1": 1849.431640625
       },
       "flags": {},
-      "order": 59,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4616,7 +4774,7 @@
         "1": 610.2072143554688
       },
       "flags": {},
-      "order": 60,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4634,7 +4792,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-23 13:27:15\n:: Output file: h:\\AIPICS\\Comfy\\CANVERS-PHOTOREAL-V3.2-FP16-NO-EMA\\Architechture\\2023-12-Week-51\\Image_20232312_132714_499242086557557_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: BestPhoto\\canvers-photoreal-v3.2-fp16-no-ema.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 499242086557557\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (friendly office building terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor morning Summer professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (volcano in the background with smoke and fire:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2023-12-23 19:39:20\n:: Output file: h:\\AIPICS\\Comfy\\OPENDALLE\\Architechture\\2023-12-Week-51\\Image_20232312_193920_725787251293657_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: SDXL\\OpenDalle.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 725787251293657\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"

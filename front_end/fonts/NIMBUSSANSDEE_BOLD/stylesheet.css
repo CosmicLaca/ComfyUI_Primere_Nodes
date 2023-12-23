@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'NIMBUSSANSDEE BOLD';
+	src: url('NIMBUSSANSDEE-BOLD.eot');
+	src: url('NIMBUSSANSDEE-BOLD.eot?#iefix') format('embedded-opentype'),
+		url('NIMBUSSANSDEE-BOLD.ttf') format('truetype'),
+		url('NIMBUSSANSDEE-BOLD.svg') format('svg'),
+		url('NIMBUSSANSDEE-BOLD.woff') format('woff');
+}

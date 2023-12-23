@@ -23,28 +23,35 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
 
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
-    let versionWidget = ''; //'<div class="ckpt-version unknown-ckpt" title="Unknow checkpoint version. Use before the version cached."></div>';
+    let versionWidget = '';
 
-    //console.log(checkpointVersions)
     if (checkpointVersions !== false && checkpointVersions != null) {
         if (checkpointVersions.hasOwnProperty(ckptName) === true) {
-            //if (checkpointVersions[ckptName] === 'SDXL_2048') {
+            var versionString = '';
+            var titleText = '';
             if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
-                versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
+                titleText = 'SDXL checkpoint. Select right version of additional networks.';
+                versionString = 'sdxl';
+                //versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
             } else if (checkpointVersions[ckptName] == 'Unknown') {
-                versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknown checkpoint. You can enter right version manually to the version cache file."></div>';
+                titleText = 'Unknown checkpoint version. You can enter right version manually to the version cache file. README.md helps.';
+                versionString = 'unknown';
+                //versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknown checkpoint. You can enter right version manually to the version cache file."></div>';
             } else {
-                versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
+                titleText = 'SD1.5 checkpoint. Select right version of additional networks.';
+                versionString = 'sd1';
+                //versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
             }
+            versionWidget = '<div class="ckpt-version ' + versionString + '-ckpt" title="' + titleText + '"></div>';
         }
     }
 
-    var card_html = '<div class="checkpoint-name">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
+    var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
     var imgsrc = realPath + '/images/' + ModelType + '/' + previewName;
     var missingimgsrc = realPath + '/images/missing.jpg';
 
 	var card = document.createElement("div");
-	card.classList.add('visual-ckpt');
+	card.classList.add('visual-ckpt', 'version-' + versionString);
     if (SelectedModel === checkpoint) {
         card.classList.add('visual-ckpt-selected');
     }
