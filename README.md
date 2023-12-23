@@ -2,7 +2,7 @@
 
 Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
-<a href="./Workflow/readme_images/workflow.svg" target="_blank"><img src="./Workflow/readme_images/workflow.svg" width="300px"></a>
+<a href="./Workflow/readme_images/workflow.png" target="_blank"><img src="./Workflow/readme_images/workflow.png" width="300px"></a>
 
 ## Do it before first run, or the workflow will be failed in your environment:
 1; Install missing Python libraries if not start for first try. Activate Comfy venv and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually)
