@@ -5,8 +5,11 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <a href="./Workflow/readme_images/workflow.png" target="_blank"><img src="./Workflow/readme_images/workflow.jpg" width="400px"></a>
 <hr>
 
-## Do it before first run, or the example workflow will be failed in your environment. Always use only 'Primere_latest_workflow.json' from the 'Workflow' folder:
-1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually)
+## Do it before first run, or the example workflow will be failed in your environment:
+
+**Always use only the latest 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes.**
+
+1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually).
 
 2; If started, use the last workflow on the 'Workflow' folder for first try, all nodes visible under the 'Primere Nodes' submenu if you need custom workflow later. If some other nodes missing and red in workflow, download or delete unloaded nodes. 
 
