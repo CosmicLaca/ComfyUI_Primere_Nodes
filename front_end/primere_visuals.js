@@ -26,7 +26,7 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let versionWidget = ''; //'<div class="ckpt-version unknown-ckpt" title="Unknow checkpoint version. Use before the version cached."></div>';
 
     //console.log(checkpointVersions)
-    if (checkpointVersions !== false) {
+    if (checkpointVersions !== false && checkpointVersions != null) {
         if (checkpointVersions.hasOwnProperty(ckptName) === true) {
             //if (checkpointVersions[ckptName] === 'SDXL_2048') {
             if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
