@@ -637,15 +637,18 @@ class PrimereResolution:
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+
                 "seed": ("INT", {"default": 0, "min": -18446744073709551615, "max": 18446744073709551615, "forceInput": True}),
                 "calculate_by_custom": ("BOOLEAN", {"default": False}),
                 "custom_side_a": ("FLOAT", {"default": 1.6, "min": 1.0, "max": 100.0, "step": 0.1}),
                 "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.1}),
             },
+            "optional": {
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+            }
         }
 
-    def calculate_imagesize(self, ratio: str, basemodel_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, model_version: str, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float):
+    def calculate_imagesize(self, ratio: str, basemodel_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024",):
         if rnd_orientation == True:
             if (seed % 2) == 0:
                 orientation = "Horizontal"
@@ -654,7 +657,7 @@ class PrimereResolution:
 
         # if force_768_SD1x == True and  model_version == 'BaseModel_768':
         #    model_version = 'BaseModel_1024'
-        if model_version == 'BaseModel_768':
+        if model_version != 'SDXL_2048':
             match basemodel_res:
                 case 512:
                     model_version = 'BaseModel_768'
@@ -682,14 +685,16 @@ class PrimereResolutionMultiplier:
             "required": {
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "use_multiplier": ("BOOLEAN", {"default": True}),
                 "multiply_sd": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.1}),
                 "multiply_sdxl": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.1}),
             },
+            "optional": {
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+            }
         }
 
-    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, model_version: str):
+    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, model_version: str = "BaseModel_1024"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':

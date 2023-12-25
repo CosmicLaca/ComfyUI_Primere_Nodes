@@ -1,0 +1,364 @@
+{
+  "last_node_id": 9,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PrimereSeed",
+      "pos": [
+        837,
+        245
+      ],
+      "size": {
+        "0": 210,
+        "1": 130
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            8
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        87171992957678,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PrimereResolution",
+      "pos": [
+        1279,
+        233
+      ],
+      "size": {
+        "0": 358,
+        "1": 270
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 8,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            9,
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            10,
+            12
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Square [1:1]",
+        1024,
+        false,
+        "Horizontal",
+        true,
+        961748454370125,
+        "randomize",
+        true,
+        3.7,
+        1.6,
+        "BaseModel_1024"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1165,
+        550
+      ],
+      "size": {
+        "0": 210,
+        "1": 76
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 11
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "1536"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "PrimereResolutionMultiplier",
+      "pos": [
+        1865,
+        233
+      ],
+      "size": {
+        "0": 382,
+        "1": 194
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 9,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 10,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplier"
+      },
+      "widgets_values": [
+        512,
+        512,
+        true,
+        2,
+        2,
+        "BaseModel_1024"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1430,
+        550
+      ],
+      "size": {
+        "0": 210,
+        "1": 76
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 12
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "683"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1851,
+        553
+      ],
+      "size": {
+        "0": 210,
+        "1": 76
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 13
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "3072"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        2132,
+        542
+      ],
+      "size": {
+        "0": 210,
+        "1": 76
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 14
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "1366"
+      ]
+    }
+  ],
+  "links": [
+    [
+      8,
+      1,
+      0,
+      8,
+      0,
+      "INT"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      0,
+      "INT"
+    ],
+    [
+      10,
+      8,
+      1,
+      9,
+      1,
+      "INT"
+    ],
+    [
+      11,
+      8,
+      0,
+      4,
+      0,
+      "*"
+    ],
+    [
+      12,
+      8,
+      1,
+      5,
+      0,
+      "*"
+    ],
+    [
+      13,
+      9,
+      0,
+      6,
+      0,
+      "*"
+    ],
+    [
+      14,
+      9,
+      1,
+      7,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

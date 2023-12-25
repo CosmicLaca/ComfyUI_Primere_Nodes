@@ -51,6 +51,8 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Check/debug generation details
 - Workflow and nodes support Lycoris in dedicated node
 
+<hr>
+
 # Nodes in the pack by submenus:
 
 ## Inputs:
@@ -102,18 +104,23 @@ This node convert A1111 embeddings to Comfy embeddings. Use after dynamically de
 
 ### Primere Lora Stack Merger:
 This node merge two different Lora stacks, SD and SDXL. The output is useful to store Lora settings to the image meta.
+<hr>
 
 ### Primere Lora Keyword Merger:
 With Lora stackers you can read model keywords. This node merge all selected Lora keywords to one string, and send to prompt encoder.
+<hr>
 
 ### Primere Lycoris Stack Merger:
 This node merge two different Lycoris stacks, SD and SDXL. The output is useful to store Lycoris settings to the image meta.
+<hr>
 
 ### Primere Lycoris Keyword Merger:
 With Lycoris stackers you can read model keywords. This node merge all selected Lycoris keywords to one string, and send to prompt encoder.
+<hr>
 
 ### Primere Embedding Keyword Merger:
 This node merge positive and negative SD and SDXL embedding tags, to send them to the prompt encoder.
+<hr>
 
 ## Dashboard:
 ### Primere Sampler Selector:
@@ -136,6 +143,7 @@ Use this node to switch on/off LCM mode in whole rendering process. Wire two sam
 
 ### Primere VAE Selector:
 This node is a simple VAE selector. Use 2 nodes in workflow, 1 for SD, 1 for SDXL compatible VAE for autimatized selection. The checkpoint selector and loader get the loaded checkpoint version.
+<hr>
 
 ### Primere CKPT Selector:
 Simple checkpoint selector, but with extras:
@@ -147,6 +155,7 @@ Simple checkpoint selector, but with extras:
 
 ### Primere VAE loader:
 Use this node to convert VAE name to VAE.
+<hr>
 
 ### Primere CKPT Loader:
 Use this node to convert checkpoint name to 'MODEL', 'CLIP' and 'VAE'. Use 'is_lcm' input for detect LCM mode, see the example workflow.
@@ -160,13 +169,14 @@ This node have optional inputs if checkpoint already loaded by previous process.
 ### Primere Prompt Switch:
 Use this node if you have more than one prompt input (for example several half-ready test prompts). Connect prompts/styles node outputs to this node inputs and set the right index at the bottom. To connect 'subpath', 'model', and 'orientation' inputs are optional, only the positive and negative prompt required.
 
+**Very important:** don't remove the connected node from the middle or from the top of inputs. Connect nodes in right queue, and disconnect them only from the last to first. If you getting js error becuase disconnected inputs in wrong gueue, just reload your browser and use 'reload node' menu with right click on node.
+
 <a href="./Workflow/readme_images/prpmptswitch.jpg" target="_blank"><img src="./Workflow/readme_images/prpmptswitch.jpg" height="150px"></a>
 <hr>
 
-**Very important:** don't remove the connected node from the middle or from the top of inputs. Connect nodes in right queue, and disconnect them only from the last to first. If you getting js error becuase disconnected inputs in wrong gueue, just reload your browser and use 'reload node' menu with right click on node. 
-
 ### Primere Seed:
-Use only one seed input for all. A1111 look node, connect this one node to all other seed inputs. 
+Use only one seed input for all. A1111 look node, connect this one node to all other seed inputs.
+<hr>
 
 ### Primere Noise Latent
 This node generate 'empty' latent image, but with several noise settings. **You can randomize these setting between min. and max. values using switches**, this cause small difference between generated images for same seed and settings, but you can freeze your noise and image if you disable variations of random noise generation.
@@ -191,12 +201,14 @@ This node generate 'empty' latent image, but with several noise settings. **You 
 - Use 'round_to_standard' switch if you want to modify the exactly calculated size to the 'officially' recommended SD / SDXL values. This is usually very small modification and I think not too important.
 - Not sure what orientation the best for your prompt and want to test in batch image generation? Just set batch value on the Comfy menu and switch 'rnd_orientation' to randomize vertical and horizontal images.
 - Set the base model (SD1.x not SDXL) resolution to 512, 768, 1024, or 1280. The official setting is 512, but I like 768 instead.
+- Open debug workflow from workflow folder: 'debug_resolution_nodes.json'
 
 <a href="./Workflow/readme_images/pres.jpg" target="_blank"><img src="./Workflow/readme_images/pres.jpg" height="120px"></a>
 <hr>
 
 ### Primere Resolution Multiplier:
 Multiply the base image size for upscaling. Important to use 'model_version' if you want to use several multipliers for SD and SDXL models. Just switch off 'use_multiplier' on this node if you don't need to resize original image.
+Open debug workflow from workflow folder: 'debug_resolution_nodes.json'
 
 <a href="./Workflow/readme_images/presmul.jpg" target="_blank"><img src="./Workflow/readme_images/presmul.jpg" height="100px"></a>
 <hr>
@@ -232,9 +244,11 @@ This node save the image, but with/without metadata, and save meta to .json/.txt
 
 ### Primere Any Debug:
 Use this node to display 'any' output values of several nodes like prompts or metadata (**metadata is formatted**). See the example workflow for details.
+<hr>
 
 ### Primere Text Output
-Use this node to diaplay simple text (not tuples or dict). 
+Use this node to diaplay simple text (not tuples or dict).
+<hr>
 
 ## Styles:
 ### Primere Style Pile:
