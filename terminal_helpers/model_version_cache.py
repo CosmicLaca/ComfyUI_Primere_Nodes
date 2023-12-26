@@ -3,8 +3,8 @@ import sys
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
-
 sys.path.append(comfy_dir)
+
 import folder_paths
 import custom_nodes.ComfyUI_Primere_Nodes.components.utility as utility
 import nodes

@@ -1,6 +1,6 @@
 {
-  "last_node_id": 325,
-  "last_link_id": 867,
+  "last_node_id": 327,
+  "last_link_id": 877,
   "nodes": [
     {
       "id": 93,
@@ -455,8 +455,8 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            520,
-            814
+            814,
+            869
           ],
           "shape": 3,
           "slot_index": 0
@@ -625,7 +625,7 @@
       "type": "PrimereVisualStyle",
       "pos": [
         298,
-        84
+        83
       ],
       "size": {
         "0": 419.51910400390625,
@@ -685,9 +685,9 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Architechture Mountain architect",
+        "SFW Luxury model",
         true,
-        true,
+        false,
         true,
         false,
         true
@@ -761,11 +761,11 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "nice animal walking in the forest, sunny day <hypernet:styltokSplashOf_v10:1.5>",
-        "",
-        "NetworkTest",
+        "portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in ({white|black|yellow|red} {fishnet|opaque|transparent} luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large {white|red|yellow}} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)",
+        "(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)",
+        "Camelia",
         "None",
-        "None"
+        "Vertical"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -871,7 +871,7 @@
         "Node name for S&R": "UNETLoader"
       },
       "widgets_values": [
-        null
+        "xl-inpaint-0.1\\diffusion_pytorch_model.safetensors"
       ]
     },
     {
@@ -902,8 +902,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            690,
-            811
+            811,
+            868
           ],
           "shape": 3,
           "slot_index": 1
@@ -913,12 +913,87 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\OpenDalle.safetensors",
+        "SDXL\\socababesXL_vae05.safetensors",
         true,
         false
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 138,
+      "type": "PrimerePrompt",
+      "pos": [
+        296,
+        860
+      ],
+      "size": {
+        "0": 416.81658935546875,
+        "1": 470.09844970703125
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            389
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            390
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            391
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            392
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            393
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Prompt - MAIN #3",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "Futuristic sci-fi theme, christmas time with tree and lights in the futuristic modern alien interior, alien lifeform family holyday with mechanical robots, watching Christmas tree, sparkler, small colorful lights, night, depressive modern futuristic mood",
+        "watermark text child childish nsfw nude nudity porn draw illustration movie,",
+        "BeastIntheSaloon",
+        "None",
+        "Horizontal"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
     },
     {
       "id": 91,
@@ -1140,6 +1215,77 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 326,
+      "type": "PrimereResolution",
+      "pos": [
+        3240,
+        -1184
+      ],
+      "size": {
+        "0": 323.36981201171875,
+        "1": 246
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 869,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 868,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            870
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            871
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "HD+ screen [16:10]",
+        768,
+        true,
+        "Horizontal",
+        true,
+        -882941243828425,
+        "randomize",
+        false,
+        1.6,
+        2.8,
+        "BaseModel_1024"
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 137,
@@ -1416,78 +1562,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        3
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 164,
-      "type": "PrimereResolution",
-      "pos": [
-        3245.040851842843,
-        -1185.2459065497005
-      ],
-      "size": {
-        "0": 313.5058288574219,
-        "1": 247.00794982910156
-      },
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 690,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 520,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            815
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            816
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "HD+ screen [16:10]",
-        768,
-        true,
-        "Vertical",
-        true,
-        "BaseModel_1024",
-        -228109801055100,
-        "randomize",
-        false,
-        1,
-        1.5
+        4
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1518,7 +1593,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "Futuristic sci-fi theme, christmas time with tree and lights in the futuristic modern alien interior, alien lifeform family holyday with mechanical robots, watching Christmas tree, sparkler, small colorful lights, night, depressive modern futuristic mood"
+        "portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in ({white|black|yellow|red} {fishnet|opaque|transparent} luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large {white|red|yellow}} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1549,7 +1624,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "watermark text child childish nsfw nude nudity porn draw illustration movie,"
+        "(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1667,7 +1742,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 815,
+          "link": 870,
           "widget": {
             "name": "width"
           }
@@ -1675,7 +1750,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 816,
+          "link": 871,
           "widget": {
             "name": "height"
           }
@@ -1813,8 +1888,8 @@
           "links": [
             851,
             853,
-            855,
-            858
+            858,
+            872
           ],
           "shape": 3,
           "slot_index": 10
@@ -1825,8 +1900,8 @@
           "links": [
             852,
             854,
-            856,
-            859
+            859,
+            873
           ],
           "shape": 3,
           "slot_index": 11
@@ -1925,7 +2000,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1009,
+        332,
         "randomize",
         512,
         512,
@@ -2031,7 +2106,7 @@
       },
       "widgets_values": [
         "",
-        -450761767162362,
+        279679789831680,
         "randomize"
       ],
       "color": "#322",
@@ -2086,7 +2161,7 @@
       },
       "widgets_values": [
         "",
-        -247533442430330,
+        242720514350430,
         "randomize"
       ],
       "color": "#232",
@@ -2177,8 +2252,8 @@
             797,
             798,
             799,
-            800,
-            802
+            802,
+            874
           ],
           "shape": 3,
           "slot_index": 3
@@ -2222,7 +2297,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\OpenDalle.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 725787251293657,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
+        "{\n    \"positive\": \"portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in ({white|black|yellow|red} {fishnet|opaque|transparent} luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large {white|red|yellow}} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)\",\n    \"negative\": \"(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\socababesXL_vae05.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 948277111860401,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in (black fishnet luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large white} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)\",\n    \"dynamic_negative\": \"(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2327,9 +2402,9 @@
         true,
         false,
         true,
+        -1.57,
         1,
-        1,
-        true,
+        false,
         "Last",
         "Select in order",
         1,
@@ -2425,7 +2500,7 @@
         1.2,
         0.9,
         1.3,
-        360252502399280,
+        -235482791347301,
         "randomize",
         true,
         "cpu"
@@ -2689,14 +2764,14 @@
       "bgcolor": "#353"
     },
     {
-      "id": 151,
+      "id": 327,
       "type": "PrimereResolutionMultiplier",
       "pos": [
-        3246.040851842843,
-        -901.245906549699
+        3239,
+        -903
       ],
       "size": {
-        "0": 313.2674255371094,
+        "0": 325.78076171875,
         "1": 146
       },
       "flags": {},
@@ -2706,7 +2781,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 855,
+          "link": 872,
           "widget": {
             "name": "width"
           }
@@ -2714,7 +2789,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 856,
+          "link": 873,
           "widget": {
             "name": "height"
           }
@@ -2722,7 +2797,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 800,
+          "link": 874,
           "widget": {
             "name": "model_version"
           }
@@ -2733,7 +2808,7 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            485
+            876
           ],
           "shape": 3,
           "slot_index": 0
@@ -2742,16 +2817,16 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            486
+            877
           ],
           "shape": 3,
           "slot_index": 1
         },
         {
-          "name": "UPSCALE RATIO",
+          "name": "UPSCALE_RATIO",
           "type": "FLOAT",
           "links": [
-            499
+            875
           ],
           "shape": 3,
           "slot_index": 2
@@ -2763,10 +2838,10 @@
       "widgets_values": [
         512,
         512,
-        "BaseModel_1024",
         true,
         4,
-        3
+        3,
+        "BaseModel_1024"
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -2853,19 +2928,19 @@
         false,
         false,
         "Style\\add_detail.safetensors",
-        0.6,
-        0.8,
+        1,
+        1,
         false,
         "Landscape\\kkw-Winter.pt",
-        2,
-        2,
+        1,
+        1,
         false,
         "Style\\add_detail.safetensors",
-        0.8,
-        1.2,
+        1,
+        1,
         false,
         "noOne\\noOne25.safetensors",
-        0.3,
+        1,
         1,
         false,
         "Design\\logo_v1.safetensors",
@@ -2873,13 +2948,13 @@
         1,
         false,
         "Style\\Pencil_Sketch.safetensors",
-        2,
+        1,
         1,
         true,
-        "Last",
-        "Select in order",
+        "First",
+        "Random select",
         1,
-        1
+        1.2000000000000002
       ],
       "color": "#002c2c",
       "bgcolor": "#004040"
@@ -3133,33 +3208,33 @@
         false,
         false,
         "SDXL\\add-detail.safetensors",
-        1.2,
-        0.6,
-        false,
-        "SDXL\\DetailedEyes_V3.safetensors",
-        1.2,
-        0.6,
-        false,
-        "SDXL\\BetterPhotography-v1.2.safetensors",
         1.1,
-        0.4,
+        1,
+        true,
+        "SDXL\\DetailedEyes_V3.safetensors",
+        1,
+        1.4000000000000001,
+        true,
+        "SDXL\\breasts_slider_v10.safetensors",
+        -6,
+        -6,
         false,
         "SDXL\\realistic_film_photography.safetensors",
-        0.7000000000000001,
-        0.4,
-        false,
-        "SDXL\\FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors",
         1,
-        0.6,
-        false,
-        "SDXL\\add-detail.safetensors",
+        1,
+        true,
+        "SDXL\\Helena.safetensors",
         1.2,
         1,
         true,
-        "Last",
-        "Select in order",
+        "SDXL\\Dalia.safetensors",
+        1.2,
         1,
-        1
+        true,
+        "First",
+        "Random select",
+        1,
+        1.2000000000000002
       ],
       "color": "#002c00",
       "bgcolor": "#004000"
@@ -3304,11 +3379,11 @@
         "BaseModel_1024",
         "SD",
         true,
-        true,
-        true,
+        false,
+        false,
         false,
         "Character\\kisslora.safetensors",
-        1.6,
+        1,
         1,
         false,
         "Exterior\\miniatureWorldStyle_v10.safetensors",
@@ -3331,10 +3406,10 @@
         1,
         1,
         true,
-        "Last",
-        "Select in order",
+        "First",
+        "Random select",
         1,
-        1
+        1.2000000000000002
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -3493,10 +3568,10 @@
         1,
         1,
         true,
-        "Last",
-        "Select in order",
+        "First",
+        "Random select",
         1,
-        1
+        1.2000000000000002
       ],
       "color": "#00008c",
       "bgcolor": "#0000a0"
@@ -3827,10 +3902,10 @@
         "",
         "",
         1.2,
-        true,
+        false,
         "PHOTO",
-        1,
-        "LANDSCAPES",
+        1.3,
+        "BETTER_IMAGES",
         1.2,
         true,
         "mean",
@@ -3949,7 +4024,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        363234520505812,
+        182995558102097,
         "randomize",
         20,
         8,
@@ -3986,7 +4061,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6), (Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in (black fishnet luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large white} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4017,7 +4092,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20), (Blurry, Boring, Close-up, Dark (optional), Details are low, Distorted details, Eerie, Foggy (optional), Gloomy (optional), Grains, Grainy, Grayscale (optional), Homogenous, Low contrast, Low quality, Lowres, Macro, Monochrome (optional), Multiple angles, Multiple views, Opaque, Overexposed, Oversaturated, Plain, Plain background, Portrait, Simple background, Standard, Surreal, Unattractive, Uncreative, Underexposed:1.20)"
+        "((nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20):1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4048,7 +4123,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6))"
+        "(portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in (black fishnet luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large white} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2))"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4079,7 +4154,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "((watermark, person, text, china style, indian style:1.20))"
+        "(((nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20):1.20))"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4158,7 +4233,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 485,
+          "link": 876,
           "widget": {
             "name": "width"
           }
@@ -4166,7 +4241,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 486,
+          "link": 877,
           "widget": {
             "name": "height"
           }
@@ -4309,7 +4384,7 @@
         {
           "name": "upscale_by",
           "type": "FLOAT",
-          "link": 499,
+          "link": 875,
           "widget": {
             "name": "upscale_by"
           }
@@ -4367,7 +4442,7 @@
       },
       "widgets_values": [
         2.1,
-        1116830816166652,
+        26865084333739,
         "randomize",
         7,
         6.5,
@@ -4435,11 +4510,11 @@
       "id": 149,
       "type": "PrimereMetaSave",
       "pos": [
-        4230.870985838724,
-        -1183.3559159593115
+        4225,
+        -1183
       ],
       "size": {
-        "0": 453.39007568359375,
+        "0": 364.8876953125,
         "1": 506
       },
       "flags": {},
@@ -4499,8 +4574,8 @@
         false,
         false
       ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
+      "color": "#6c0000",
+      "bgcolor": "#800000"
     },
     {
       "id": 19,
@@ -4559,85 +4634,10 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-23 19:39:20\n:: Output file: h:\\AIPICS\\Comfy\\OPENDALLE\\Architechture\\2023-12-Week-51\\Image_20232312_193920_725787251293657_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL_NAME: SDXL\\OpenDalle.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 725787251293657\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: exterior, extreme architecture, (small futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor daytime spring professional architectural photography), beautiful nature on Mars, large hill, (snow on hill:0.7), (a frightening sight:1.3), small swimming pool, (solar panels:0.6), (:0.6)\n:: DYNAMIC_NEGATIVE: watermark, person, text, china style, indian style\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
+        ":: Time to save: 2023-12-25 18:39:08\n:: Output file: h:\\AIPICS\\Comfy\\SOCABABESXL_VAE05\\Camelia\\2023-12-Week-52\\Image_20232512_183907_948277111860401_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in ({white|black|yellow|red} {fishnet|opaque|transparent} luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large {white|red|yellow}} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)\n:: NEGATIVE: (nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)\n:: MODEL_NAME: SDXL\\socababesXL_vae05.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 948277111860401\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in (black fishnet luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large white} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)\n:: DYNAMIC_NEGATIVE: (nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 138,
-      "type": "PrimerePrompt",
-      "pos": [
-        296,
-        860
-      ],
-      "size": {
-        "0": 416.81658935546875,
-        "1": 470.09844970703125
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            389
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            390
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            391
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            392
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            393
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Prompt - MAIN #3",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "Futuristic sci-fi theme, christmas time with tree and lights in the futuristic modern alien interior, alien lifeform family holyday with mechanical robots, watching Christmas tree, sparkler, small colorful lights, night, depressive modern futuristic mood",
-        "watermark text child childish nsfw nude nudity porn draw illustration movie,",
-        "BeastIntheSaloon",
-        "None",
-        "Horizontal"
-      ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159"
     }
   ],
   "links": [
@@ -4970,22 +4970,6 @@
       "IMAGE"
     ],
     [
-      485,
-      151,
-      0,
-      155,
-      2,
-      "INT"
-    ],
-    [
-      486,
-      151,
-      1,
-      155,
-      3,
-      "INT"
-    ],
-    [
       489,
       103,
       0,
@@ -5008,22 +4992,6 @@
       156,
       0,
       "IMAGE"
-    ],
-    [
-      499,
-      151,
-      2,
-      156,
-      9,
-      "FLOAT"
-    ],
-    [
-      520,
-      90,
-      0,
-      164,
-      1,
-      "INT"
     ],
     [
       564,
@@ -5120,14 +5088,6 @@
       240,
       3,
       "EMBEDDING"
-    ],
-    [
-      690,
-      248,
-      1,
-      164,
-      0,
-      "STRING"
     ],
     [
       699,
@@ -5586,14 +5546,6 @@
       "STRING"
     ],
     [
-      800,
-      320,
-      3,
-      151,
-      2,
-      "STRING"
-    ],
-    [
       801,
       320,
       2,
@@ -5703,22 +5655,6 @@
       0,
       321,
       12,
-      "INT"
-    ],
-    [
-      815,
-      164,
-      0,
-      321,
-      13,
-      "INT"
-    ],
-    [
-      816,
-      164,
-      1,
-      321,
-      14,
       "INT"
     ],
     [
@@ -5930,22 +5866,6 @@
       "INT"
     ],
     [
-      855,
-      321,
-      10,
-      151,
-      0,
-      "INT"
-    ],
-    [
-      856,
-      321,
-      11,
-      151,
-      1,
-      "INT"
-    ],
-    [
       858,
       321,
       10,
@@ -6024,6 +5944,86 @@
       320,
       1,
       "MODEL"
+    ],
+    [
+      868,
+      248,
+      1,
+      326,
+      1,
+      "STRING"
+    ],
+    [
+      869,
+      90,
+      0,
+      326,
+      0,
+      "INT"
+    ],
+    [
+      870,
+      326,
+      0,
+      321,
+      13,
+      "INT"
+    ],
+    [
+      871,
+      326,
+      1,
+      321,
+      14,
+      "INT"
+    ],
+    [
+      872,
+      321,
+      10,
+      327,
+      0,
+      "INT"
+    ],
+    [
+      873,
+      321,
+      11,
+      327,
+      1,
+      "INT"
+    ],
+    [
+      874,
+      320,
+      3,
+      327,
+      2,
+      "STRING"
+    ],
+    [
+      875,
+      327,
+      2,
+      156,
+      9,
+      "FLOAT"
+    ],
+    [
+      876,
+      327,
+      0,
+      155,
+      2,
+      "INT"
+    ],
+    [
+      877,
+      327,
+      1,
+      155,
+      3,
+      "INT"
     ]
   ],
   "groups": [

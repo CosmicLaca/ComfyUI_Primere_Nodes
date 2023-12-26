@@ -3,9 +3,8 @@ import sys
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
-
 sys.path.append(comfy_dir)
-import os
+
 import folder_paths
 import custom_nodes.ComfyUI_Primere_Nodes.components.utility as utility
 import comfy
@@ -26,7 +25,5 @@ if len(LoraList) > 0:
                 print('cached: ' + loraname_only + ' -> ' + str(loraVER))
         else:
             print('Already cached: ' + loraname_only + ' -> ' + str(model_lora_version))
-
-        break
 else:
     print('No loras in your system....')
