@@ -7,7 +7,8 @@ let lastDirObject = {};
 let currentClass = false;
 let hiddenWidgets = {};
 let checkpointVersions = false;
-const SDXLVersionTags = ['SDXL_2048', 5120, 1280]
+const SDXLVersionTags = ['SDXL_2048', 5120, 1280];
+let networkVersions = {};
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let checkpoint_new = checkpoint.replaceAll('\\', '/');
@@ -18,33 +19,30 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
         var finalName = checkpoint_new;
     }
 
-    finalName = finalName.replaceAll(' ', "_");
-    let previewName = finalName + '.jpg';
-
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
     let versionWidget = '';
 
     if (checkpointVersions !== false && checkpointVersions != null) {
         if (checkpointVersions.hasOwnProperty(ckptName) === true) {
-            var versionString = '';
-            var titleText = '';
+            var versionString;
+            var titleText;
             if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
                 titleText = 'SDXL checkpoint. Select right version of additional networks.';
                 versionString = 'sdxl';
-                //versionWidget = '<div class="ckpt-version sdxl-ckpt" title="SDXL checkpoint. Select right version of additional networks."></div>';
             } else if (checkpointVersions[ckptName] == 'Unknown') {
                 titleText = 'Unknown checkpoint version. You can enter right version manually to the version cache file. README.md helps.';
                 versionString = 'unknown';
-                //versionWidget = '<div class="ckpt-version unknown-ckpt" title="Unknown checkpoint. You can enter right version manually to the version cache file."></div>';
             } else {
                 titleText = 'SD1.5 checkpoint. Select right version of additional networks.';
                 versionString = 'sd1';
-                //versionWidget = '<div class="ckpt-version sd1-ckpt" title="SD1.5 checkpoint. Select right version of additional networks."></div>';
             }
             versionWidget = '<div class="ckpt-version ' + versionString + '-ckpt" title="' + titleText + '"></div>';
         }
     }
+
+    finalName = finalName.replaceAll(' ', "_");
+    let previewName = finalName + '.jpg';
 
     var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
     var imgsrc = realPath + '/images/' + ModelType + '/' + previewName;
@@ -146,7 +144,27 @@ app.registerExtension({
                         });
                         $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
                         $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                        $('div.subdirtab button.subdirfilter').removeClass("selected_path");
+                        $('div.subdirtab button').removeClass("selected_path");
+                        $(this).addClass('selected_path');
+                        $(".visual-ckpt-selected").prependTo(".primere-modal-content");
+                    });
+
+                    $('body').on("click", 'div.subdirtab button.verfilter', function() {
+                        $('div.subdirtab input').val('');
+                        var versionName = $(this).data('ckptver').toLowerCase();
+                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                        filteredCheckpoints = 0;
+                        $(imageContainers).each(function () {
+                            if ($(this).hasClass('version-' + versionName)) {
+                                $(this).show();
+                                filteredCheckpoints++;
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                        $('div#primere_visual_modal div.modal_header label.ckpt-name').text(versionName);
+                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
+                        $('div.subdirtab button').removeClass("selected_path");
                         $(this).addClass('selected_path');
                         $(".visual-ckpt-selected").prependTo(".primere-modal-content");
                     });
@@ -248,6 +266,7 @@ app.registerExtension({
 
             var subdir_tabs = modal.getElementsByClassName("subdirtab")[0];
             var menu_html = '';
+            var version_html = '';
 
             for (var subdir of subdirArray) {
                 var addWhiteClass = '';
@@ -265,7 +284,24 @@ app.registerExtension({
                     menu_html += '<button type="button" data-ckptsubdir="' + subdir + '" class="subdirfilter' + addWhiteClass + '">' + subdirName + '</button>';
                 }
             }
-            subdir_tabs.innerHTML = menu_html + '<label> | </label> <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
+
+            if (checkpointVersions !== false && checkpointVersions != null) {
+                console.log(checkpointVersions);
+                $.each(checkpointVersions, function(ver_index, ver_value) {
+                    var addWhiteClass = '';
+                    var versionName = 'Unknown'
+                    if (SDXLVersionTags.includes(ver_value)) {
+                        versionName ='SDXL'
+                    } else if (!SDXLVersionTags.includes(ver_value) && ver_value !== 'Unknown') {
+                        versionName ='SD1'
+                    }
+                    if (!version_html.includes('data-ckptver="' + versionName + '"')) {
+                        version_html += '<button type="button" data-ckptver="' + versionName + '" class="verfilter' + addWhiteClass + '">' + versionName + '</button>';
+                    }
+                });
+            }
+
+            subdir_tabs.innerHTML = menu_html + '<label> | </label> ' + version_html + ' <label> | </label> <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
 
             var CKPTElements = 0;
             for (var checkpoint of AllModels) {
