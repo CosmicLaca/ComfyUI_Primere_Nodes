@@ -8,8 +8,9 @@ from .Nodes import Styles
 from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
+from .Nodes import Segments
 
-__version__ = "0.1.2"
+__version__ = "0.1.4"
 
 comfy_frontend = comfy_dir/"web"/"extensions"
 frontend_target = comfy_frontend/"Primere"
@@ -92,6 +93,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereEmbedding": Networks.PrimereEmbedding,
     "PrimereHypernetwork": Networks.PrimereHypernetwork,
     "PrimereLYCORIS": Networks.PrimereLYCORIS,
+
+    "PrimereImageSegments": Segments.PrimereImageSegments,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -141,4 +144,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereEmbedding": 'Primere Embedding',
     "PrimereHypernetwork": 'Primere Hypernetwork',
     "PrimereLYCORIS": 'Primere LYCORIS',
+
+    "PrimereImageSegments": 'Primere Image Segments',
 }
