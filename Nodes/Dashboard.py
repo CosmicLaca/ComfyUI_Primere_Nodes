@@ -329,11 +329,7 @@ class PrimereSeed:
   def INPUT_TYPES(cls):
     return {
       "required": {
-        "seed": ("INT", {
-          "default": -1,
-          "min": -18446744073709551615, # -1125899906842624,
-          "max": 18446744073709551615, # 1125899906842624
-        }),
+        "seed": ("INT", {"default": -1, "min": -1, "max": 0xffffffffffffffff}),
       },
     }
 
@@ -365,7 +361,7 @@ class PrimereFractalLatent:
                 "modulator": ("FLOAT", {"default": 1.0, "max": 2.0, "min": 0.1, "step": 0.01}),
                 "modulator_rand_min": ("FLOAT", {"default": 0.8, "max": 2.0, "min": 0.1, "step": 0.01}),
                 "modulator_rand_max": ("FLOAT", {"default": 1.4, "max": 2.0, "min": 0.1, "step": 0.01}),
-                "seed": ("INT", {"default": 0, "min": -18446744073709551615, "max": 18446744073709551615, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "rand_device": ("BOOLEAN", {"default": False}),
                 "device": (["cpu", "cuda"],),
             },
@@ -638,7 +634,7 @@ class PrimereResolution:
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
 
-                "seed": ("INT", {"default": 0, "min": -18446744073709551615, "max": 18446744073709551615, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "calculate_by_custom": ("BOOLEAN", {"default": False}),
                 "custom_side_a": ("FLOAT", {"default": 1.6, "min": 1.0, "max": 100.0, "step": 0.1}),
                 "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.1}),
