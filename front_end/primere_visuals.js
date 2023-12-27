@@ -286,7 +286,7 @@ app.registerExtension({
             }
 
             if (checkpointVersions !== false && checkpointVersions != null) {
-                console.log(checkpointVersions);
+                //console.log(checkpointVersions);
                 $.each(checkpointVersions, function(ver_index, ver_value) {
                     var addWhiteClass = '';
                     var versionName = 'Unknown'
@@ -299,9 +299,10 @@ app.registerExtension({
                         version_html += '<button type="button" data-ckptver="' + versionName + '" class="verfilter' + addWhiteClass + '">' + versionName + '</button>';
                     }
                 });
+                version_html += '<label> | </label>';
             }
 
-            subdir_tabs.innerHTML = menu_html + '<label> | </label> ' + version_html + ' <label> | </label> <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
+            subdir_tabs.innerHTML = menu_html + '<label> | </label> ' + version_html + ' <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
 
             var CKPTElements = 0;
             for (var checkpoint of AllModels) {
@@ -375,6 +376,7 @@ app.registerExtension({
                 modaltitle = 'Select checkpoint';
                 nodematch = '^base_model';
                 isnumeric_end = false;
+                checkpointVersions = false;
                 if (hiddenWidgets.hasOwnProperty('PrimereVisualCKPT') === true) {
                     $.each(hiddenWidgets['PrimereVisualCKPT'], function(index, value) {
                         if (index == 'cached_model') {
@@ -389,6 +391,7 @@ app.registerExtension({
                 modaltitle = 'Select LoRA';
                 nodematch = '^lora_';
                 isnumeric_end = true;
+                checkpointVersions = false;
                 if (hiddenWidgets.hasOwnProperty('PrimereVisualLORA') === true) {
                     $.each(hiddenWidgets['PrimereVisualLORA'], function(index, value) {
                         if (index == 'cached_lora') {
@@ -403,6 +406,7 @@ app.registerExtension({
                 modaltitle = 'Select embedding';
                 nodematch = '^embedding_';
                 isnumeric_end = true;
+                checkpointVersions = false;
             }
 
             if (node.type == 'PrimereVisualHypernetwork') {
@@ -410,6 +414,7 @@ app.registerExtension({
                 modaltitle = 'Select hypernetwork';
                 nodematch = '^hypernetwork_';
                 isnumeric_end = true;
+                checkpointVersions = false;
             }
 
             if (node.type == 'PrimereVisualStyle') {
@@ -417,6 +422,7 @@ app.registerExtension({
                 modaltitle = 'Select style';
                 nodematch = '^styles';
                 isnumeric_end = false;
+                checkpointVersions = false;
             }
 
             if (node.type == 'PrimereVisualLYCORIS') {
@@ -424,6 +430,7 @@ app.registerExtension({
                 modaltitle = 'Select LYCORIS';
                 nodematch = '^lycoris_';
                 isnumeric_end = true;
+                checkpointVersions = false;
                 if (hiddenWidgets.hasOwnProperty('PrimereVisualLYCORIS') === true) {
                     $.each(hiddenWidgets['PrimereVisualLYCORIS'], function(index, value) {
                         if (index == 'cached_lyco') {
