@@ -51,7 +51,7 @@ class PrimereImageSegments:
             }
         }
 
-    def primere_segments(self, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, labels=None):
+    def primere_segments(self, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size):
         model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
         model = detectors.load_yolo(model_path)
 
@@ -77,22 +77,9 @@ class PrimereImageSegments:
             SEGM_DETECTOR_RESULT = detectors.UltraSegmDetector(model)
 
         bbox_segs = BBOX_DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
-        '''
-        if labels is not None and labels != '':
-            labels_bbox = labels.split(',')
-            if len(labels_bbox) > 0:
-                bbox_segs, _ = detectors.SEGSLabelFilter.filter(bbox_segs, labels_bbox)
-        '''
-
         segm_segs = bbox_segs
         if bbox_segm_model_name.startswith("segm"):
             segm_segs = SEGM_DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
-            '''
-            if labels is not None and labels != '':
-                labels_segm = labels.split(',')
-                if len(labels_segm) > 0:
-                    segm_segs, _ = detectors.SEGSLabelFilter.filter(segm_segs, labels_segm)
-            '''
 
         image_max_area = 0
         if (len(segm_segs[2]) > 0):
@@ -147,70 +134,34 @@ class PrimereAnyDetailer:
                      "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
 
                      "bbox_detector": ("BBOX_DETECTOR", ),
+                     "segs": ("SEGS",),
                      # "wildcard": ("STRING", {"multiline": True, "dynamicPrompts": False}),
 
                      "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
                 },
                 "optional": {
                     "sam_model_opt": ("SAM_MODEL", ),
-                    "segm_detector_opt": ("SEGM_DETECTOR", ),
+                    "segm_detector": ("SEGM_DETECTOR", ),
                     # "detailer_hook": ("DETAILER_HOOK",)
                 }
         }
-
-
-    def detect(self, image, threshold, dilation, crop_factor, bbox_model, drop_size=1, detailer_hook=None):
-        drop_size = max(drop_size, 1)
-        mmdet_results = detectors.inference_bbox(bbox_model, image, threshold)
-        segmasks = detectors.create_segmasks(mmdet_results)
-
-        if dilation > 0:
-            segmasks = detectors.dilate_masks(segmasks, dilation)
-
-        items = []
-        h = image.shape[1]
-        w = image.shape[2]
-
-        for x in segmasks:
-            item_bbox = x[0]
-            item_mask = x[1]
-
-            y1, x1, y2, x2 = item_bbox
-
-            if x2 - x1 > drop_size and y2 - y1 > drop_size:  # minimum dimension must be (2,2) to avoid squeeze issue
-                crop_region = detectors.make_crop_region(w, h, item_bbox, crop_factor)
-                cropped_image = detectors.crop_image(image, crop_region)
-                cropped_mask = detectors.crop_ndarray2(item_mask, crop_region)
-                confidence = x[2]
-                # bbox_size = (item_bbox[2]-item_bbox[0],item_bbox[3]-item_bbox[1]) # (w,h)
-
-                item = detectors.SEG(cropped_image, cropped_mask, confidence, crop_region, item_bbox, None, None)
-
-                items.append(item)
-
-        shape = image.shape[1], image.shape[2]
-        return shape, items
-
-    def setAux(self, x):
-        pass
 
     @staticmethod
     def enhance_face(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
                      bbox_threshold, bbox_dilation, bbox_crop_factor,
                      sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-                     sam_mask_hint_use_negative, drop_size,
-                     bbox_detector, segm_detector=None, sam_model_opt=None, wildcard_opt=None, detailer_hook=None,
-                     refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, cycle=1):
+                     sam_mask_hint_use_negative, drop_size, bbox_detector, segs, segm_detector=None, sam_model_opt=None, cycle=1):
 
         max_size = guide_size * 1.5
+        detailer_hook = None
+        wildcard_opt = None
+        refiner_ratio = None
+        refiner_model = None
+        refiner_clip = None
+        refiner_positive = None
+        refiner_negative = None
 
-        # make default prompt as 'face' if empty prompt for CLIPSeg
-        # bbox_detector.setAux('face')
-        segs = bbox_detector.detect(image, bbox_threshold, bbox_dilation, bbox_crop_factor, sam_model_opt, drop_size, detailer_hook=detailer_hook)
-        bbox_detector.setAux(None)
-
-        # bbox + sam combination
         if sam_model_opt is not None:
             sam_mask = detectors.make_sam_mask(sam_model_opt, segs, image, sam_detection_hint, sam_dilation,
                                           sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
@@ -220,8 +171,7 @@ class PrimereAnyDetailer:
         elif segm_detector is not None:
             segm_segs = segm_detector.detect(image, bbox_threshold, bbox_dilation, bbox_crop_factor, drop_size)
 
-            if (hasattr(segm_detector, 'override_bbox_by_segm') and segm_detector.override_bbox_by_segm and
-                    not (detailer_hook is not None and not hasattr(detailer_hook, 'override_bbox_by_segm'))):
+            if (hasattr(segm_detector, 'override_bbox_by_segm') and segm_detector.override_bbox_by_segm and not (detailer_hook is not None and not hasattr(detailer_hook, 'override_bbox_by_segm'))):
                 segs = segm_segs
             else:
                 segm_mask = detectors.segs_to_combined_mask(segm_segs)
@@ -230,11 +180,9 @@ class PrimereAnyDetailer:
         if len(segs[1]) > 0:
             enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs = \
                 detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
-                                          sampler_name, scheduler, positive, negative, denoise, feather, noise_mask,
-                                          force_inpaint, wildcard_opt, detailer_hook,
-                                          refiner_ratio=refiner_ratio, refiner_model=refiner_model,
-                                          refiner_clip=refiner_clip, refiner_positive=refiner_positive,
-                                          refiner_negative=refiner_negative, cycle=cycle)
+                                                    sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint,
+                                                    wildcard_opt, detailer_hook,
+                                                    refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip, refiner_positive=refiner_positive, refiner_negative=refiner_negative, cycle=cycle)
         else:
             enhanced_img = image
             cropped_enhanced = []
@@ -259,10 +207,11 @@ class PrimereAnyDetailer:
              positive, negative, denoise, feather, noise_mask, force_inpaint,
              bbox_threshold, bbox_dilation, bbox_crop_factor,
              sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-             sam_mask_hint_use_negative, drop_size, bbox_detector, cycle=1,
-             sam_model_opt=None, segm_detector_opt=None, detailer_hook=None):
+             sam_mask_hint_use_negative, drop_size, bbox_detector, segs, cycle=1,
+             sam_model_opt=None, segm_detector=None):
 
         max_size = guide_size * 1.5
+        detailer_hook = None
 
         result_img = None
         result_mask = None
@@ -273,11 +222,11 @@ class PrimereAnyDetailer:
 
         for i, single_image in enumerate(image):
             enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_face(
-                single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for, max_size, seed + i, steps, cfg, sampler_name, scheduler,
+                single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for, seed + i, steps, cfg, sampler_name, scheduler,
                 positive, negative, denoise, feather, noise_mask, force_inpaint,
                 bbox_threshold, bbox_dilation, bbox_crop_factor,
                 sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-                sam_mask_hint_use_negative, drop_size, bbox_detector, segm_detector_opt, sam_model_opt, wildcard, detailer_hook, cycle=cycle)
+                sam_mask_hint_use_negative, drop_size, bbox_detector, segs, segm_detector, sam_model_opt, cycle=cycle)
 
             result_img = torch.cat((result_img, enhanced_img), dim=0) if result_img is not None else enhanced_img
             result_mask = torch.cat((result_mask, mask), dim=0) if result_mask is not None else mask
@@ -285,5 +234,5 @@ class PrimereAnyDetailer:
             result_cropped_enhanced_alpha.extend(cropped_enhanced_alpha)
             result_cnet_images.extend(cnet_pil_list)
 
-        pipe = (model, clip, vae, positive, negative, wildcard, bbox_detector, segm_detector_opt, sam_model_opt, detailer_hook, None, None, None, None)
+        pipe = (model, clip, vae, positive, negative, wildcard, bbox_detector, segm_detector, sam_model_opt, detailer_hook, None, None, None, None)
         return result_img, result_cropped_enhanced, result_cropped_enhanced_alpha, result_mask, pipe, result_cnet_images

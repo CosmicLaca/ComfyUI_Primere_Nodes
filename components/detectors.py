@@ -1294,11 +1294,9 @@ def tensor_putalpha(image, mask):
 
 class DetailerForEach:
     def do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
-                  sampler_name, scheduler,
-                  positive, negative, denoise, feather, noise_mask, force_inpaint, wildcard_opt=None,
-                  detailer_hook=None,
-                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
-                  refiner_negative=None, cycle=1):
+                  sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint,
+                  wildcard_opt=None, detailer_hook=None,
+                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, cycle=1):
 
         if len(image) > 1:
             raise Exception('[Impact Pack] ERROR: does not allow image batches.')
