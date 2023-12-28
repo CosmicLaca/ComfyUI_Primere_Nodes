@@ -25,8 +25,11 @@ class PrimereImageSegments:
     folder_paths.add_model_folder_path("ultralytics_segm", SEGM_DIR)
     folder_paths.add_model_folder_path("ultralytics", UL_DIR)
 
-    BBOX_LIST = folder_paths.get_filename_list("ultralytics_bbox")
-    SEGM_LIST = folder_paths.get_filename_list("ultralytics_segm")
+    BBOX_LIST_ALL = folder_paths.get_filename_list("ultralytics_bbox")
+    SEGM_LIST_ALL = folder_paths.get_filename_list("ultralytics_segm")
+
+    BBOX_LIST = folder_paths.filter_files_extensions(BBOX_LIST_ALL, ['.pt'])
+    SEGM_LIST = folder_paths.filter_files_extensions(SEGM_LIST_ALL, ['.pt'])
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -39,17 +42,13 @@ class PrimereImageSegments:
                 "sam_model_name": (folder_paths.get_filename_list("sams"),),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
 
-                # "bbox_detector": ("BBOX_DETECTOR",),
                 "image": ("IMAGE",),
                 "threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
                 "crop_factor": ("FLOAT", {"default": 1.2, "min": 1.0, "max": 100, "step": 0.1}),
                 "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
                 "labels": ("STRING", {"multiline": True, "default": "all", "placeholder": "List the types of segments to be allowed, separated by commas"}),
-            },
-            # "optional": {
-            #     "segm_detector": ("SEGM_DETECTOR",),
-            # }
+            }
         }
 
     def primere_segments(self, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, labels=None):
@@ -83,13 +82,13 @@ class PrimereImageSegments:
             if len(labels) > 0:
                 bbox_segs, _ = detectors.SEGSLabelFilter.filter(bbox_segs, labels)
 
-        '''
-        segm_segs = SEGM_DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
-        if labels is not None and labels != '':
-            labels = labels.split(',')
-            if len(labels) > 0:
-                segm_segs, _ = detectors.SEGSLabelFilter.filter(segm_segs, labels)
-        '''
+        segm_segs = bbox_segs
+        if bbox_segm_model_name.startswith("segm"):
+            segm_segs = SEGM_DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
+            if labels is not None and labels != '':
+                labels = labels.split(',')
+                if len(labels) > 0:
+                    segm_segs, _ = detectors.SEGSLabelFilter.filter(segm_segs, labels)
 
         image_max_area = 0
         if (len(bbox_segs[2]) > 0):
@@ -98,11 +97,4 @@ class PrimereImageSegments:
                 if (image_area > image_max_area):
                     image_max_area = image_area
 
-        return BBOX_DETECTOR_RESULT, SEGM_DETECTOR_RESULT, sam, bbox_segs, bbox_segs, bbox_segs[2], image_max_area
-
-        '''
-        if bbox_segm_model_name.startswith("bbox"):
-            return detectors.UltraBBoxDetector(model), detectors.NO_SEGM_DETECTOR(), sam, bbox_segs, segm_segs
-        else:
-            return detectors.UltraBBoxDetector(model), detectors.UltraSegmDetector(model), sam, bbox_segs, segm_segs
-        '''
+        return BBOX_DETECTOR_RESULT, SEGM_DETECTOR_RESULT, sam, bbox_segs, segm_segs, bbox_segs[2], image_max_area

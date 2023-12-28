@@ -294,18 +294,20 @@ Hypernetworks don't need seperated SD and SDXL sources, use only one stack for a
 
 ## Visuals:
 Here are same functions like upper, but the selection (for example checkpoints, loras, lycoris, embeddings, styles from style.csv and hypernetworks) **possible by image previews on modal**. Very similar than in several themes of A1111, but you must create previews to right path.
-You must save images as previews to the right path and name, deails later. Preview can be **only .jpg** format with only .jpg extension. 
-Dont use large files because the modal loading time. The preview heigth in visual selector modal is only 220px, so dont use upscaled or original images as preview. Downsize your previews heigth to 250-300 px, and set jpg image quality to ~50 for faster loading.
-Checkpoint and additional networks have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time kist read back from cached jason file.
+You have to save images as previews to the right path and name, deails later. Preview can be **only .jpg** format with only .jpg extension. 
+Don't use large files because the modal loading time. The preview height in visual selector modal is only 220px, so dont use upscaled or original images as preview. Downsize your previews height to 250-300 px, and set jpg image quality to ~50 for faster loading. ACDSee do it automatically at Tools->Batch->Resize menu.
+Checkpoint and additional networks have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time just read back from cached jason file.
 
-**But if you need all version info, you can use helper files from the 'terminal_helpers' subdir:**
+**But if you need version info of all your files, you can use helper files from the 'terminal_helpers' subdir:**
 - Activate your comfy venv. This is the most important step before run helpers.
 - In the terminal window you already activated your venv, just run included .py files:
 - **lora_version_cache.py** will be read and store versions of all lora files
 - **lyco_version_cache.py** will be read and store versions of all lycoris files
 - **model_version_cache.py** will be read and store versions of all checkpoint files
+- **embedding_version_cache.py** will be read and store versions of all textual embedding files
 
 Unfortunately the result is not perfect :(. You must check the version labels on your models and network files. If failed or unknown, you can modify and correct the .cache.json manually. Git pull will keep your edited cache file.
+**The embedding cache helper can't read the right version of embedding files**, so after first run all files will be marked to **SD** version. You must modify and replace SD to SDXL in the .cache.json manually.
 
 <a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="300px"></a>
 <hr>

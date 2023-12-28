@@ -2,12 +2,12 @@ import { app } from "/scripts/app.js";
 
 const realPath = "extensions/Primere";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
-const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS']
+const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS', 'PrimereVisualEmbedding']
 let lastDirObject = {};
 let currentClass = false;
 let hiddenWidgets = {};
 let checkpointVersions = false;
-const SDXLVersionTags = ['SDXL_2048', 5120, 1280];
+const SDXLVersionTags = ['SDXL_2048', 5120, 1280, 'SDXL'];
 let networkVersions = {};
 
 function createCardElement(checkpoint, container, SelectedModel, ModelType) {
@@ -407,6 +407,13 @@ app.registerExtension({
                 nodematch = '^embedding_';
                 isnumeric_end = true;
                 checkpointVersions = false;
+                if (hiddenWidgets.hasOwnProperty('PrimereVisualEmbedding') === true) {
+                    $.each(hiddenWidgets['PrimereVisualEmbedding'], function(index, value) {
+                        if (index == 'cached_embedding') {
+                            checkpointVersions = value[0];
+                        }
+                    });
+                }
             }
 
             if (node.type == 'PrimereVisualHypernetwork') {

@@ -154,19 +154,6 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
 
     return valid_networks
 
-'''
-def rescale_zero_terminal_snr_sigmas(sigmas):
-    alphas_cumprod = 1 / ((sigmas * sigmas) + 1)
-    alphas_bar_sqrt = alphas_cumprod.sqrt()
-    alphas_bar_sqrt_0 = alphas_bar_sqrt[0].clone()
-    alphas_bar_sqrt_T = alphas_bar_sqrt[-1].clone()
-    alphas_bar_sqrt -= (alphas_bar_sqrt_T)
-    alphas_bar_sqrt *= alphas_bar_sqrt_0 / (alphas_bar_sqrt_0 - alphas_bar_sqrt_T)
-    alphas_bar = alphas_bar_sqrt ** 2  # Revert sqrt
-    alphas_bar[-1] = 4.8973451890853435e-08
-    return ((1 - alphas_bar) / alphas_bar) ** 0.5
-'''
-
 class ModelSamplingDiscreteLCM(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -216,22 +203,6 @@ class ModelSamplingDiscreteLCM(torch.nn.Module):
 
     def percent_to_sigma(self, percent):
         return self.sigma(torch.tensor(percent * 999.0))
-
-'''
-class LCM(comfy.model_sampling.EPS):
-    def calculate_denoised(self, sigma, model_output, model_input):
-        timestep = self.timestep(sigma).view(sigma.shape[:1] + (1,) * (model_output.ndim - 1))
-        sigma = sigma.view(sigma.shape[:1] + (1,) * (model_output.ndim - 1))
-        x0 = model_input - model_output * sigma
-
-        sigma_data = 0.5
-        scaled_timestep = timestep * 10.0 #timestep_scaling
-
-        c_skip = sigma_data**2 / (scaled_timestep**2 + sigma_data**2)
-        c_out = scaled_timestep / (scaled_timestep**2 + sigma_data**2) ** 0.5
-
-        return c_out * x0 + c_skip * model_input
-'''
 
 def DynPromptDecoder(self, dyn_prompt, seed):
     prompt_generator = RandomPromptGenerator(

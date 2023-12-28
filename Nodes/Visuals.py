@@ -201,8 +201,10 @@ class PrimereVisualEmbedding:
     CATEGORY = TREE_VISUALS
     EMBCOUNT = 6
 
+    embedding_versions = utility.get_category_from_cache('embedding_version')
+
     @classmethod
-    def INPUT_TYPES(self):
+    def INPUT_TYPES(cls):
         EmbeddingList = folder_paths.get_filename_list("embeddings")
         return {
             "required": {
@@ -245,6 +247,9 @@ class PrimereVisualEmbedding:
                 "embedding_placement_pos": (["First", "Last"], {"default": "Last"}),
                 "embedding_placement_neg": (["First", "Last"], {"default": "Last"}),
             },
+            "hidden": {
+                "cached_embedding": (cls.embedding_versions,),
+            }
         }
 
     def primere_visual_embedding(self, embedding_placement_pos, embedding_placement_neg, stack_version='Any', model_version="BaseModel_1024", **kwargs):

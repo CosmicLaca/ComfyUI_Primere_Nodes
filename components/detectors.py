@@ -63,11 +63,11 @@ def inference_segm(model, image: Image.Image, confidence: float = 0.3, device: s
         results[3].append(pred[0].boxes[i].conf.cpu().numpy())
 
     return results
+
 def load_yolo(model_path: str):
     try:
         return YOLO(model_path)
     except ModuleNotFoundError:
-        # https://github.com/ultralytics/ultralytics/issues/3856
         YOLO("yolov8n.pt")
         return YOLO(model_path)
 
