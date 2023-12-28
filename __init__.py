@@ -95,6 +95,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLYCORIS": Networks.PrimereLYCORIS,
 
     "PrimereImageSegments": Segments.PrimereImageSegments,
+    "PrimereAnyDetailer": Segments.PrimereAnyDetailer,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -146,4 +147,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLYCORIS": 'Primere LYCORIS',
 
     "PrimereImageSegments": 'Primere Image Segments',
+    "PrimereAnyDetailer": 'Primere Any Detailer',
 }

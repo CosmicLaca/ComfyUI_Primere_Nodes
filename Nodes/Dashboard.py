@@ -154,18 +154,18 @@ class PrimereCKPTLoader:
             "required": {
                 "ckpt_name": ("CHECKPOINT_NAME",),
                 "use_yaml": ("BOOLEAN", {"default": False}),
-                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
                 "strength_lcm_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
                 "strength_lcm_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
             },
             "optional": {
+                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
                 "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, is_lcm, strength_lcm_model, strength_lcm_clip, loaded_model = None, loaded_clip = None, loaded_vae = None):
+    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, is_lcm = 0, loaded_model = None, loaded_clip = None, loaded_vae = None):
         path = Path(ckpt_name)
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
