@@ -1,6 +1,6 @@
 from ..components.tree import TREE_SEGMENTS
 from ..components.tree import PRIMERE_ROOT
-
+import math
 import os
 import folder_paths
 from ..utils import comfy_dir
@@ -94,9 +94,11 @@ class PrimereImageSegments:
                 if (image_area > image_max_area):
                     image_max_area = image_area
 
-        segment_settings['crop_region'] = segs[2]
-        return DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
+        image_max_area = int((image_max_area / (crop_factor**2)))
 
+        segment_settings['crop_region'] = segs[2]
+        segment_settings['image_size'] = [image.shape[2], image.shape[1]]
+        return DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
 
 class PrimereAnyDetailer:
     RETURN_TYPES = ("IMAGE", "IMAGE")
@@ -112,7 +114,7 @@ class PrimereAnyDetailer:
                      "model": ("MODEL",),
                      "clip": ("CLIP",),
                      "vae": ("VAE",),
-                     "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
+                     # "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
                      # "guide_size": ("FLOAT", {"default": 256, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
                      # "guide_size_for_box": ("BOOLEAN", {"default": True, "label_on": "bbox", "label_off": "crop_region"}),
                      # "max_size": ("FLOAT", {"default": 768, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
@@ -157,12 +159,12 @@ class PrimereAnyDetailer:
         }
 
     @staticmethod
-    def enhance_face(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler,
+    def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
                      # bbox_threshold, bbox_dilation, bbox_crop_factor,
                      # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
                      # sam_mask_hint_use_negative, drop_size, bbox_detector,
-                     segment_settings, detector = None, segs = None,
+                     segment_settings, detector, segs,
                      # segm_detector=None, sam_model_opt=None,
                      cycle=1):
 
@@ -210,14 +212,14 @@ class PrimereAnyDetailer:
 
         return enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list
 
-    def any_detailer(self, image, model, clip, vae, guided_size_multiplier,
+    def any_detailer(self, image, model, clip, vae,
                      # guide_size, guide_size_for_box,
                      seed, steps, cfg, sampler_name, scheduler,
              positive, negative, denoise, feather, noise_mask, force_inpaint,
              # bbox_threshold, bbox_dilation, bbox_crop_factor,
              # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
              # sam_mask_hint_use_negative, drop_size, bbox_detector,
-             detector, segs, segment_settings, cycle=1):
+             segment_settings, detector = None, segs  = None, cycle=1):
 
         result_img = None
         result_mask = None
@@ -226,20 +228,24 @@ class PrimereAnyDetailer:
         result_cnet_images = []
         crop_region = segment_settings['crop_region']
         guide_size_for_box = True
+        full_area = segment_settings['image_size'][0] * segment_settings['image_size'][1]
 
         for i, single_image in enumerate(image):
             if i < len(crop_region):
                 image_segs = crop_region[i]
                 size_1 = (abs(image_segs[2] - image_segs[0]))
                 size_2 =(abs(image_segs[3] - image_segs[1]))
+                part_area = size_1 * size_2
+                area_diff = full_area / part_area
+                guided_size_multiplier = round(math.pow(area_diff, (1/3.4)), 2)
                 if size_1 > size_2:
-                    guide_size = size_1 * guided_size_multiplier
+                   guide_size = size_1 * guided_size_multiplier
                 else:
-                    guide_size = size_2 * guided_size_multiplier
+                   guide_size = size_2 * guided_size_multiplier
             else:
-                guide_size = 512
+                guide_size = round(math.sqrt(full_area), 2)
 
-            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_face(
+            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(
                 single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler,
                 positive, negative, denoise, feather, noise_mask, force_inpaint,
                 segment_settings, detector, segs, cycle=cycle

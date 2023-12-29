@@ -1,89 +1,146 @@
 {
-  "last_node_id": 78,
-  "last_link_id": 210,
+  "last_node_id": 89,
+  "last_link_id": 229,
   "nodes": [
     {
-      "id": 35,
-      "type": "SAMLoader",
+      "id": 45,
+      "type": "PrimereVisualCKPT",
       "pos": [
-        -708,
-        -1412
+        43,
+        -1938
       ],
       "size": {
-        "0": 315,
-        "1": 82
+        "0": 641.046875,
+        "1": 126
       },
       "flags": {},
       "order": 0,
       "mode": 0,
       "outputs": [
         {
-          "name": "SAM_MODEL",
-          "type": "SAM_MODEL",
-          "links": null,
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            40
+          ],
           "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            60
+          ],
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "SAMLoader"
+        "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "sam_vit_b_01ec64.pth",
-        "AUTO"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
+        "SDXL\\realityvisionSDXL_v20.safetensors",
+        true,
+        false
+      ]
     },
     {
-      "id": 36,
-      "type": "UltralyticsDetectorProvider",
+      "id": 1,
+      "type": "LoadImage",
       "pos": [
-        -799,
-        -1246
+        -347,
+        -1119
       ],
       "size": {
-        "0": 392,
-        "1": 78
+        "0": 639.1292114257812,
+        "1": 960.4127197265625
       },
       "flags": {},
       "order": 1,
       "mode": 0,
       "outputs": [
         {
-          "name": "BBOX_DETECTOR",
-          "type": "BBOX_DETECTOR",
-          "links": null,
-          "shape": 3
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            5,
+            11,
+            19,
+            21,
+            27,
+            31,
+            52,
+            65,
+            174,
+            211
+          ],
+          "shape": 3,
+          "slot_index": 0
         },
         {
-          "name": "SEGM_DETECTOR",
-          "type": "SEGM_DETECTOR",
+          "name": "MASK",
+          "type": "MASK",
           "links": null,
           "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "UltralyticsDetectorProvider"
+        "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "bbox/face_yolov8s.pt"
+        "tmpl_gkpjs2 (1).png",
+        "image"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "PrimereSeed",
+      "pos": [
+        770,
+        -1883
       ],
-      "color": "#322",
-      "bgcolor": "#533"
+      "size": {
+        "0": 402.27398681640625,
+        "1": 130
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            77,
+            220
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ]
     },
     {
       "id": 47,
       "type": "PrimerePrompt",
       "pos": [
-        98,
-        -2184
+        206,
+        -1762
       ],
       "size": {
         "0": 481.4360046386719,
         "1": 415.1746826171875
       },
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -127,264 +184,26 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "perfect face",
-        "deformed face, deformed hands, blured",
+        "50 year old woman wear on (top luxury, elegant, (red leather jacket:1.2)) and (long green silky skirt:1.3), high-fashion clothes, professional indoor model photography, perfect hands, perfect fingers",
+        "deformed face, deformed hands, deformed fingers, blured",
         "",
         "None",
         "None"
       ]
     },
     {
-      "id": 45,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        350,
-        -2403
-      ],
-      "size": {
-        "0": 641.046875,
-        "1": 126
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            40
-          ],
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            60
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        true,
-        false
-      ]
-    },
-    {
-      "id": 1,
-      "type": "LoadImage",
-      "pos": [
-        -836,
-        -996
-      ],
-      "size": {
-        "0": 1147.8492431640625,
-        "1": 826.5444946289062
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            5,
-            11,
-            19,
-            21,
-            27,
-            31,
-            52,
-            65,
-            174,
-            200
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "00009-20231008102419-457822749.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 48,
-      "type": "PrimereSeed",
-      "pos": [
-        749,
-        -1972
-      ],
-      "size": {
-        "0": 402.27398681640625,
-        "1": 130
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            77,
-            208
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        -1,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "id": 76,
-      "type": "CLIPSeg",
-      "pos": [
-        -1030,
-        -2195
-      ],
-      "size": {
-        "0": 315,
-        "1": 170
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Mask",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "Heatmap Mask",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "BW Mask",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPSeg"
-      },
-      "widgets_values": [
-        "",
-        7,
-        0.4,
-        4
-      ]
-    },
-    {
-      "id": 77,
-      "type": "CLIPSegDetectorProvider",
-      "pos": [
-        -543,
-        -2249
-      ],
-      "size": {
-        "0": 315,
-        "1": 130
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "BBOX_DETECTOR",
-          "type": "BBOX_DETECTOR",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPSegDetectorProvider"
-      },
-      "widgets_values": [
-        "",
-        7,
-        0.4,
-        4
-      ]
-    },
-    {
-      "id": 78,
-      "type": "CLIPSeg Model Loader",
-      "pos": [
-        -764,
-        -1919
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "clipseg_model",
-          "type": "CLIPSEG_MODEL",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPSeg Model Loader"
-      },
-      "widgets_values": [
-        "CIDAS/clipseg-rd64-refined"
-      ]
-    },
-    {
       "id": 46,
       "type": "PrimereCKPTLoader",
       "pos": [
-        1087,
-        -2470
+        1233,
+        -2035
       ],
       "size": {
         "0": 330,
         "1": 190
       },
       "flags": {},
-      "order": 9,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -423,7 +242,7 @@
           "type": "MODEL",
           "links": [
             69,
-            201
+            212
           ],
           "shape": 3,
           "slot_index": 0
@@ -434,7 +253,7 @@
           "links": [
             55,
             70,
-            202
+            213
           ],
           "shape": 3,
           "slot_index": 1
@@ -444,7 +263,7 @@
           "type": "VAE",
           "links": [
             71,
-            203
+            214
           ],
           "shape": 3,
           "slot_index": 2
@@ -470,15 +289,15 @@
       "id": 4,
       "type": "SAMDetectorSegmented",
       "pos": [
-        1492,
-        -352
+        1436,
+        75
       ],
       "size": {
         "0": 315,
         "1": 218
       },
       "flags": {},
-      "order": 10,
+      "order": 5,
       "mode": 4,
       "inputs": [
         {
@@ -533,15 +352,15 @@
       "id": 7,
       "type": "SEGSToImageList",
       "pos": [
-        975,
-        -94
+        448,
+        51
       ],
       "size": {
         "0": 304.79998779296875,
         "1": 46
       },
       "flags": {},
-      "order": 11,
+      "order": 6,
       "mode": 4,
       "inputs": [
         {
@@ -574,15 +393,15 @@
       "id": 18,
       "type": "SegmDetectorSEGS",
       "pos": [
-        1499,
-        -656
+        331,
+        206
       ],
       "size": {
         "0": 400,
         "1": 212
       },
       "flags": {},
-      "order": 12,
+      "order": 7,
       "mode": 4,
       "inputs": [
         {
@@ -627,15 +446,15 @@
       "id": 50,
       "type": "GetImage_(Width&Height) _O",
       "pos": [
-        794,
-        -2076
+        860,
+        -1982
       ],
       "size": {
         "0": 218.39999389648438,
         "1": 46
       },
       "flags": {},
-      "order": 13,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -673,15 +492,15 @@
       "id": 73,
       "type": "PrimereImageSegments",
       "pos": [
-        -186,
-        -1566
+        -344,
+        -1477
       ],
       "size": {
         "0": 443.2939453125,
         "1": 302
       },
       "flags": {},
-      "order": 14,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -694,9 +513,7 @@
         {
           "name": "DETECTOR",
           "type": "DETECTOR",
-          "links": [
-            210
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 0
         },
@@ -712,7 +529,7 @@
           "links": [
             178,
             179,
-            209
+            229
           ],
           "shape": 3,
           "slot_index": 2
@@ -740,7 +557,7 @@
           "type": "TUPLE",
           "links": [
             175,
-            206
+            217
           ],
           "shape": 3,
           "slot_index": 5
@@ -750,12 +567,12 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        "bbox/face_yolov8m.pt",
+        "segm/deepfashion2_yolov8s-seg.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
-        0.5,
-        10,
-        1.2,
+        0.55,
+        5,
+        1.8,
         10
       ]
     },
@@ -763,15 +580,15 @@
       "id": 9,
       "type": "MaskToImage",
       "pos": [
-        2102,
-        -136
+        2271,
+        33
       ],
       "size": {
         "0": 210,
         "1": 26
       },
       "flags": {},
-      "order": 15,
+      "order": 10,
       "mode": 4,
       "inputs": [
         {
@@ -808,7 +625,7 @@
         "1": 26
       },
       "flags": {},
-      "order": 16,
+      "order": 11,
       "mode": 4,
       "inputs": [
         {
@@ -837,15 +654,15 @@
       "id": 8,
       "type": "PreviewImage",
       "pos": [
-        960,
-        59
+        828,
+        88
       ],
       "size": {
         "0": 545,
         "1": 418
       },
       "flags": {},
-      "order": 17,
+      "order": 12,
       "mode": 4,
       "inputs": [
         {
@@ -862,15 +679,15 @@
       "id": 23,
       "type": "SEGSPreview",
       "pos": [
-        2004,
-        -714
+        3268,
+        29
       ],
       "size": {
         "0": 660.713134765625,
         "1": 512.0816040039062
       },
       "flags": {},
-      "order": 18,
+      "order": 13,
       "mode": 4,
       "inputs": [
         {
@@ -905,15 +722,15 @@
       "id": 51,
       "type": "PrimereCLIPEncoder",
       "pos": [
-        1570,
-        -2338
+        1609,
+        -2040
       ],
       "size": {
         "0": 330,
         "1": 758
       },
       "flags": {},
-      "order": 19,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -1042,7 +859,7 @@
           "type": "CONDITIONING",
           "links": [
             72,
-            204
+            225
           ],
           "shape": 3,
           "slot_index": 0
@@ -1052,7 +869,7 @@
           "type": "CONDITIONING",
           "links": [
             73,
-            205
+            224
           ],
           "shape": 3,
           "slot_index": 1
@@ -1118,15 +935,15 @@
       "id": 27,
       "type": "SEGSPreview",
       "pos": [
-        714,
-        -929
+        636,
+        -921
       ],
       "size": {
-        "0": 660.713134765625,
-        "1": 512.0816040039062
+        "0": 777.4293212890625,
+        "1": 491.0549621582031
       },
       "flags": {},
-      "order": 20,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1160,15 +977,15 @@
       "id": 28,
       "type": "SEGSToImageList",
       "pos": [
-        921,
-        -1047
+        782,
+        -1030
       ],
       "size": {
         "0": 304.79998779296875,
         "1": 46
       },
       "flags": {},
-      "order": 21,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -1201,15 +1018,15 @@
       "id": 33,
       "type": "PrimereAnyOutput",
       "pos": [
-        453,
-        -925
+        361,
+        -930
       ],
       "size": {
-        "0": 233.58184814453125,
-        "1": 702.2943725585938
+        "0": 240.51930236816406,
+        "1": 533.3299560546875
       },
       "flags": {},
-      "order": 22,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1223,22 +1040,22 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "[\n    [\n        464,\n        37,\n        507,\n        98\n    ]\n]"
+        "[\n    [\n        0,\n        338,\n        512,\n        768\n    ],\n    [\n        0,\n        71,\n        512,\n        697\n    ]\n]"
       ]
     },
     {
       "id": 34,
       "type": "PrimereAnyOutput",
       "pos": [
-        412,
-        -1185
+        348,
+        -1145
       ],
       "size": {
         "0": 421.927001953125,
         "1": 162.3820037841797
       },
       "flags": {},
-      "order": 23,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1252,22 +1069,22 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "2623"
+        "98923"
       ]
     },
     {
       "id": 72,
       "type": "PrimereAnyOutput",
       "pos": [
-        1030,
-        -1700
+        736,
+        -1670
       ],
       "size": {
         "0": 511.5440368652344,
         "1": 374.5364074707031
       },
       "flags": {},
-      "order": 24,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -1281,7 +1098,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"threshold\": 0.5,\n    \"dilation\": 10,\n    \"crop_factor\": 1.2,\n    \"drop_size\": 10,\n    \"crop_region\": [\n        [\n            464,\n            37,\n            507,\n            98\n        ]\n    ]\n}"
+        "{\n    \"threshold\": 0.55,\n    \"dilation\": 5,\n    \"crop_factor\": 1.8,\n    \"drop_size\": 10,\n    \"crop_region\": [\n        [\n            0,\n            338,\n            512,\n            768\n        ],\n        [\n            0,\n            71,\n            512,\n            697\n        ]\n    ],\n    \"image_size\": [\n        512,\n        768\n    ]\n}"
       ]
     },
     {
@@ -1296,7 +1113,7 @@
         "1": 418
       },
       "flags": {},
-      "order": 25,
+      "order": 20,
       "mode": 4,
       "inputs": [
         {
@@ -1321,7 +1138,7 @@
         "1": 599
       },
       "flags": {},
-      "order": 26,
+      "order": 21,
       "mode": 4,
       "inputs": [
         {
@@ -1338,15 +1155,15 @@
       "id": 41,
       "type": "FaceDetailer",
       "pos": [
-        2130,
-        -2473
+        2105,
+        -3250
       ],
       "size": {
         "0": 506.4000244140625,
         "1": 832
       },
       "flags": {},
-      "order": 27,
+      "order": 22,
       "mode": 4,
       "inputs": [
         {
@@ -1462,7 +1279,7 @@
         256,
         true,
         768,
-        1002347074484303,
+        687766412364484,
         "randomize",
         20,
         8,
@@ -1487,69 +1304,69 @@
       ]
     },
     {
-      "id": 75,
+      "id": 89,
       "type": "PrimereAnyDetailer",
       "pos": [
-        2191,
-        -1410
+        1482,
+        -1189
       ],
       "size": {
-        "0": 413.1614074707031,
-        "1": 454
+        "0": 422.43841552734375,
+        "1": 430
       },
       "flags": {},
-      "order": 28,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 200
+          "link": 211
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 201
+          "link": 212
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 202
+          "link": 213
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 203
+          "link": 214
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 204
+          "link": 225
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 205
+          "link": 224
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 206
+          "link": 217
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 209
+          "link": 229
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 210
+          "link": null
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 208,
+          "link": 220,
           "widget": {
             "name": "seed"
           }
@@ -1560,7 +1377,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            198
+            221
           ],
           "shape": 3,
           "slot_index": 0
@@ -1569,7 +1386,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            199
+            222
           ],
           "shape": 6,
           "slot_index": 1
@@ -1579,33 +1396,32 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1.6,
-        1107298979069140,
+        733820453191942,
         "randomize",
-        20,
-        7,
+        5,
+        9,
         "euler",
         "normal",
         0.5,
-        5,
+        9,
         true,
         false,
-        1
+        10
       ]
     },
     {
       "id": 30,
       "type": "Image size to string",
       "pos": [
-        1248,
-        -1045
+        1136,
+        -1024
       ],
       "size": {
         "0": 301.9547424316406,
         "1": 36.881568908691406
       },
       "flags": {},
-      "order": 29,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1634,15 +1450,15 @@
       "id": 53,
       "type": "PreviewImage",
       "pos": [
-        2715,
-        -2706
+        3034,
+        -3332
       ],
       "size": {
         "0": 708.733154296875,
         "1": 633.0344848632812
       },
       "flags": {},
-      "order": 30,
+      "order": 25,
       "mode": 4,
       "inputs": [
         {
@@ -1660,15 +1476,15 @@
       "id": 54,
       "type": "PreviewImage",
       "pos": [
-        2679,
-        -2009
+        2629,
+        -3094
       ],
       "size": {
         "0": 397.8631286621094,
         "1": 258.8345031738281
       },
       "flags": {},
-      "order": 31,
+      "order": 26,
       "mode": 4,
       "inputs": [
         {
@@ -1686,15 +1502,15 @@
       "id": 55,
       "type": "PreviewImage",
       "pos": [
-        3173,
-        -2006
+        2654,
+        -2734
       ],
       "size": {
         "0": 294.713134765625,
         "1": 246
       },
       "flags": {},
-      "order": 32,
+      "order": 27,
       "mode": 4,
       "inputs": [
         {
@@ -1712,21 +1528,21 @@
       "id": 58,
       "type": "PreviewImage",
       "pos": [
-        3239,
-        -1686
+        2064,
+        -1741
       ],
       "size": {
-        "0": 708.733154296875,
-        "1": 633.0344848632812
+        "0": 808.044921875,
+        "1": 804.9505615234375
       },
       "flags": {},
-      "order": 33,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 198,
+          "link": 221,
           "slot_index": 0
         }
       ],
@@ -1738,21 +1554,21 @@
       "id": 59,
       "type": "PreviewImage",
       "pos": [
-        2747,
-        -987
+        1943,
+        -885
       ],
       "size": {
-        "0": 1332.5460205078125,
-        "1": 783.4157104492188
+        "0": 1002.588134765625,
+        "1": 578.0776977539062
       },
       "flags": {},
-      "order": 34,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 199,
+          "link": 222,
           "slot_index": 0
         }
       ],
@@ -1764,15 +1580,15 @@
       "id": 31,
       "type": "ShowText|pysssss",
       "pos": [
-        1405,
-        -923
+        1465,
+        -687
       ],
       "size": {
         "0": 436.7719421386719,
         "1": 226
       },
       "flags": {},
-      "order": 35,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -1796,7 +1612,8 @@
         "Node name for S&R": "ShowText|pysssss"
       },
       "widgets_values": [
-        "43x61"
+        "512x430",
+        "512x626"
       ]
     }
   ],
@@ -2106,100 +1923,92 @@
       "SEGS"
     ],
     [
-      198,
-      75,
+      211,
+      1,
+      0,
+      89,
+      0,
+      "IMAGE"
+    ],
+    [
+      212,
+      46,
+      0,
+      89,
+      1,
+      "MODEL"
+    ],
+    [
+      213,
+      46,
+      1,
+      89,
+      2,
+      "CLIP"
+    ],
+    [
+      214,
+      46,
+      2,
+      89,
+      3,
+      "VAE"
+    ],
+    [
+      217,
+      73,
+      5,
+      89,
+      6,
+      "TUPLE"
+    ],
+    [
+      220,
+      48,
+      0,
+      89,
+      9,
+      "INT"
+    ],
+    [
+      221,
+      89,
       0,
       58,
       0,
       "IMAGE"
     ],
     [
-      199,
-      75,
+      222,
+      89,
       1,
       59,
       0,
       "IMAGE"
     ],
     [
-      200,
+      224,
+      51,
       1,
-      0,
-      75,
-      0,
-      "IMAGE"
+      89,
+      5,
+      "CONDITIONING"
     ],
     [
-      201,
-      46,
-      0,
-      75,
-      1,
-      "MODEL"
-    ],
-    [
-      202,
-      46,
-      1,
-      75,
-      2,
-      "CLIP"
-    ],
-    [
-      203,
-      46,
-      2,
-      75,
-      3,
-      "VAE"
-    ],
-    [
-      204,
+      225,
       51,
       0,
-      75,
+      89,
       4,
       "CONDITIONING"
     ],
     [
-      205,
-      51,
-      1,
-      75,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      206,
-      73,
-      5,
-      75,
-      6,
-      "TUPLE"
-    ],
-    [
-      208,
-      48,
-      0,
-      75,
-      9,
-      "INT"
-    ],
-    [
-      209,
+      229,
       73,
       2,
-      75,
+      89,
       7,
       "SEGS"
-    ],
-    [
-      210,
-      73,
-      0,
-      75,
-      8,
-      "DETECTOR"
     ]
   ],
   "groups": [],
