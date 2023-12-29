@@ -35,11 +35,12 @@ class PrimereImageSegments:
     def INPUT_TYPES(cls):
         bboxs = ["bbox/"+x for x in cls.BBOX_LIST]
         segms = ["segm/"+x for x in cls.SEGM_LIST]
+        sams = list(filter(lambda x: x.startswith('sam_vit'), folder_paths.get_filename_list("sams")))
 
         return {
             "required": {
                 "bbox_segm_model_name": (bboxs + segms,),
-                "sam_model_name": (folder_paths.get_filename_list("sams"),),
+                "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
 
                 "image": ("IMAGE",),
