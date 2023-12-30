@@ -15,6 +15,12 @@ import folder_paths
 import threading
 import torchvision
 import math
+import glob
+
+from .local_groundingdino.datasets import transforms as T
+from .local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
+from .local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
+from .local_groundingdino.models import build_model as local_groundingdino_build_model
 
 def inference_bbox(model, image: Image.Image, confidence: float = 0.3, device: str = "",):
     pred = model(image, conf=confidence, device=device)
@@ -1400,3 +1406,33 @@ class DetailerForEach:
 
 def empty_pil_tensor(w=64, h=64):
     return torch.zeros((1, h, w, 3), dtype=torch.float32)
+
+def get_bert_base_uncased_model_path():
+    comfy_bert_model_base = os.path.join(folder_paths.models_dir, 'bert-base-uncased')
+    if glob.glob(os.path.join(comfy_bert_model_base, '**/model.safetensors'), recursive=True):
+        print('grounding-dino is using models/bert-base-uncased')
+        return comfy_bert_model_base
+    return 'bert-base-uncased'
+
+def load_groundingdino_model(model_name):
+    config_destination = folder_paths.get_full_path('grounding-dino', model_name)
+    dino_model_args = local_groundingdino_SLConfig.fromfile(
+        get_local_filepath(
+            groundingdino_model_list[model_name]["config_url"],
+            'grounding-dino'
+        ),
+    )
+
+    if dino_model_args.text_encoder_type == 'bert-base-uncased':
+        dino_model_args.text_encoder_type = get_bert_base_uncased_model_path()
+
+    dino = local_groundingdino_build_model(dino_model_args)
+    model_destination = folder_paths.get_full_path('grounding-dino', model_name)
+    checkpoint = torch.load(model_destination,)
+
+    dino.load_state_dict(local_groundingdino_clean_state_dict(
+        checkpoint['model']), strict=False)
+    device = comfy.model_management.get_torch_device()
+    dino.to(device=device)
+    dino.eval()
+    return dino

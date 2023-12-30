@@ -11,8 +11,8 @@ from ..components import utility
 import torch
 
 class PrimereImageSegments:
-    RETURN_TYPES = ("DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
-    RETURN_NAMES = ("DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "SEGMENT_SETTINGS")
+    RETURN_TYPES = ("IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
+    RETURN_NAMES = ("IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "SEGMENT_SETTINGS")
     FUNCTION = "primere_segments"
     CATEGORY = TREE_SEGMENTS
 
@@ -31,36 +31,77 @@ class PrimereImageSegments:
     BBOX_LIST = folder_paths.filter_files_extensions(BBOX_LIST_ALL, ['.pt'])
     SEGM_LIST = folder_paths.filter_files_extensions(SEGM_LIST_ALL, ['.pt'])
 
+    DINO_DIR = os.path.join(comfy_dir, 'models', 'grounding-dino')
+    folder_paths.add_model_folder_path("grounding-dino", DINO_DIR)
+    DINO_LIST_ALL = folder_paths.get_filename_list("grounding-dino")
+    DINO_LIST = folder_paths.filter_files_extensions(DINO_LIST_ALL, ['.pth'])
+    DINO_CONFIG_LIST = folder_paths.filter_files_extensions(DINO_LIST_ALL, ['.cfg.py'])
+
     @classmethod
     def INPUT_TYPES(cls):
         bboxs = ["bbox/"+x for x in cls.BBOX_LIST]
         segms = ["segm/"+x for x in cls.SEGM_LIST]
+        dinos = ["dino/" + x for x in cls.DINO_LIST]
         sams = list(filter(lambda x: x.startswith('sam_vit'), folder_paths.get_filename_list("sams")))
 
         return {
             "required": {
-                "bbox_segm_model_name": (bboxs + segms,),
+                "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
+                "bbox_segm_model_name": (bboxs + segms + dinos,),
                 "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
 
                 "image": ("IMAGE",),
+
                 "threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
                 "crop_factor": ("FLOAT", {"default": 1.2, "min": 1.0, "max": 100, "step": 0.1}),
                 "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
                 # "labels": ("STRING", {"multiline": True, "default": "all", "placeholder": "List the types of segments to be allowed, separated by commas"}),
+            },
+            "optional": {
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "dino_serach_prompt": ("STRING", {"default": None, "forceInput": True}),
+                "dino_replace_prompt": ("STRING", {"default": None, "forceInput": True}),
             }
         }
 
-    def primere_segments(self, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size):
-        model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
-        model = detectors.load_yolo(model_path)
-
+    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
         segment_settings = dict()
         segment_settings['threshold'] = threshold
         segment_settings['dilation'] = dilation
         segment_settings['crop_factor'] = crop_factor
         segment_settings['drop_size'] = drop_size
+        segment_settings['use_segments'] = use_segments
+
+        if use_segments == False:
+            empty_segs = [[image.shape[1], image.shape[2]],[],[] ]
+            return image, None, None, empty_segs, [], 0, segment_settings
+
+        image_size = [image.shape[2], image.shape[1]]
+        segment_settings['input_image_size'] = image_size
+
+        print('------------------ 1 ---------------')
+        print(image_size)
+        if model_version == 'SDXL_2048':
+            max_shape = 1024
+        else:
+            max_shape = 768
+        print(max_shape)
+
+        if image.shape[2] > max_shape or image.shape[1] > max_shape:
+            scale_by = max_shape / max(image_size)
+            scale_by = min(scale_by, 1.0)
+            print('------------------ 2 ---------------')
+            print(scale_by)
+            image = utility.image_scale_down_by(image, scale_by)[0]
+
+        print('------------------ 3 ---------------')
+        image_size = [image.shape[2], image.shape[1]]
+        print(image_size)
+
+        model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
+        model = detectors.load_yolo(model_path)
 
         sam_modelname = folder_paths.get_full_path("sams", sam_model_name)
         if 'vit_h' in sam_modelname:
@@ -77,16 +118,22 @@ class PrimereImageSegments:
 
         sam.is_auto_mode = sam_device_mode == "AUTO"
 
-        if bbox_segm_model_name.startswith("bbox"):
-            # DETECTOR_RESULT = detectors.NO_SEGM_DETECTOR()
-            DETECTOR_RESULT = detectors.UltraBBoxDetector(model)
-        else:
-            DETECTOR_RESULT = detectors.UltraSegmDetector(model)
+        if bbox_segm_model_name.startswith("bbox") or bbox_segm_model_name.startswith("segm"):
+            if bbox_segm_model_name.startswith("bbox"):
+                # DETECTOR_RESULT = detectors.NO_SEGM_DETECTOR()
+                DETECTOR_RESULT = detectors.UltraBBoxDetector(model)
+            else:
+                DETECTOR_RESULT = detectors.UltraSegmDetector(model)
 
-        bbox_segs = DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
-        segs = bbox_segs
-        if bbox_segm_model_name.startswith("segm"):
-            segs = DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
+            bbox_segs = DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
+            segs = bbox_segs
+            if bbox_segm_model_name.startswith("segm"):
+                segs = DETECTOR_RESULT.detect(image, threshold, dilation, crop_factor, drop_size)
+
+        if bbox_segm_model_name.startswith("dino"):
+            print('DINO')
+            # dino_model = load_groundingdino_model(model_name)
+            return None, None, [], [], 0, segment_settings
 
         image_max_area = 0
         if (len(segs[2]) > 0):
@@ -99,11 +146,11 @@ class PrimereImageSegments:
 
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
-        return DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
+        return image, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
 
 class PrimereAnyDetailer:
-    RETURN_TYPES = ("IMAGE", "IMAGE")
-    RETURN_NAMES = ("IMAGE", "CROPPED_REFINED")
+    RETURN_TYPES = ("IMAGE", "IMAGE", "INT", "INT",)
+    RETURN_NAMES = ("IMAGE", "CROPPED_REFINED", "WIDTH", "HEIGHT",)
     OUTPUT_IS_LIST = (False, True)
     FUNCTION = "any_detailer"
     CATEGORY = TREE_SEGMENTS
@@ -115,6 +162,7 @@ class PrimereAnyDetailer:
                      "model": ("MODEL",),
                      "clip": ("CLIP",),
                      "vae": ("VAE",),
+                     # "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                      # "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
                      # "guide_size": ("FLOAT", {"default": 256, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
                      # "guide_size_for_box": ("BOOLEAN", {"default": True, "label_on": "bbox", "label_off": "crop_region"}),
@@ -220,7 +268,14 @@ class PrimereAnyDetailer:
              # bbox_threshold, bbox_dilation, bbox_crop_factor,
              # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
              # sam_mask_hint_use_negative, drop_size, bbox_detector,
-             segment_settings, detector = None, segs  = None, cycle=1):
+             segment_settings, detector = None, segs = None, cycle = 1):
+
+        print('------------ 111 ------------------')
+
+        if segment_settings['use_segments'] == False:
+            return image, [image], 0, 0
+
+        print('------------ 222 ------------------')
 
         result_img = None
         result_mask = None
@@ -262,4 +317,4 @@ class PrimereAnyDetailer:
             result_cnet_images.extend(cnet_pil_list)
 
         # pipe = (model, clip, vae, positive, negative, wildcard, bbox_detector, segm_detector, sam_model_opt, detailer_hook, None, None, None, None)
-        return result_img, result_cropped_enhanced #, result_cropped_enhanced_alpha, result_mask, pipe, result_cnet_images
+        return result_img, result_cropped_enhanced, segment_settings['image_size'][0], segment_settings['image_size'][1] #, result_cropped_enhanced_alpha, result_mask, pipe, result_cnet_images

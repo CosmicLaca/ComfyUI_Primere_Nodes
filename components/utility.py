@@ -11,6 +11,8 @@ import difflib
 from ..utils import cache_file
 import os
 import json
+import numpy as np
+from PIL import Image
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
@@ -396,4 +398,45 @@ def getLoraVersion(modelobject):
 
     return VersionHelper
 
+def pil2numpy(image: Image.Image):
+    return np.array(image).astype(np.float32) / 255.0
 
+def numpy2pil(image: np.ndarray, mode=None):
+    return Image.fromarray(np.clip(255.0 * image, 0, 255).astype(np.uint8), mode)
+
+def pil2tensor(image: Image.Image):
+    return torch.from_numpy(pil2numpy(image)).unsqueeze(0)
+
+def tensor2pil(image: torch.Tensor, mode=None):
+    return numpy2pil(image.cpu().numpy().squeeze(), mode=mode)
+
+def image_scale_down(images, width, height, crop):
+    if crop == "center":
+        old_width = images.shape[2]
+        old_height = images.shape[1]
+        old_aspect = old_width / old_height
+        new_aspect = width / height
+        x = 0
+        y = 0
+        if old_aspect > new_aspect:
+            x = round((old_width - old_width * (new_aspect / old_aspect)) / 2)
+        elif old_aspect < new_aspect:
+            y = round((old_height - old_height * (old_aspect / new_aspect)) / 2)
+        s = images[:, y : old_height - y, x : old_width - x, :]
+    else:
+        s = images
+
+    results = []
+    for image in s:
+        img = tensor2pil(image).convert("RGB")
+        img = img.resize((width, height), Image.LANCZOS)
+        results.append(pil2tensor(img))
+
+    return (torch.cat(results, dim=0),)
+
+def image_scale_down_by(images, scale_by):
+    width = images.shape[2]
+    height = images.shape[1]
+    new_width = int(width * scale_by)
+    new_height = int(height * scale_by)
+    return image_scale_down(images, new_width, new_height, "center")
