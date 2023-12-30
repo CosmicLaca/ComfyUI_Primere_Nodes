@@ -47,7 +47,7 @@ class PrimereImageSegments:
         return {
             "required": {
                 "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
-                "bbox_segm_model_name": (bboxs + segms + dinos,),
+                "bbox_segm_model_name": (bboxs + segms,),
                 "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
 
@@ -81,24 +81,17 @@ class PrimereImageSegments:
         image_size = [image.shape[2], image.shape[1]]
         segment_settings['input_image_size'] = image_size
 
-        print('------------------ 1 ---------------')
-        print(image_size)
         if model_version == 'SDXL_2048':
             max_shape = 1024
         else:
             max_shape = 768
-        print(max_shape)
 
         if image.shape[2] > max_shape or image.shape[1] > max_shape:
             scale_by = max_shape / max(image_size)
             scale_by = min(scale_by, 1.0)
-            print('------------------ 2 ---------------')
-            print(scale_by)
             image = utility.image_scale_down_by(image, scale_by)[0]
 
-        print('------------------ 3 ---------------')
         image_size = [image.shape[2], image.shape[1]]
-        print(image_size)
 
         model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
         model = detectors.load_yolo(model_path)
@@ -270,12 +263,8 @@ class PrimereAnyDetailer:
              # sam_mask_hint_use_negative, drop_size, bbox_detector,
              segment_settings, detector = None, segs = None, cycle = 1):
 
-        print('------------ 111 ------------------')
-
         if segment_settings['use_segments'] == False:
             return image, [image], 0, 0
-
-        print('------------ 222 ------------------')
 
         result_img = None
         result_mask = None

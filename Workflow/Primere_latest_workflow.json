@@ -1559,7 +1559,7 @@
         true,
         "Horizontal",
         true,
-        969647285753259,
+        474887983851766,
         "randomize",
         false,
         1.6,
@@ -2002,7 +2002,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1957,
+        1131,
         "randomize",
         512,
         512,
@@ -2108,7 +2108,7 @@
       },
       "widgets_values": [
         "",
-        395251428942422,
+        1065557720687105,
         "randomize"
       ],
       "color": "#322",
@@ -2163,7 +2163,7 @@
       },
       "widgets_values": [
         "",
-        469631980234900,
+        623788801819033,
         "randomize"
       ],
       "color": "#232",
@@ -2307,7 +2307,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 974132248711035,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, wondering mood, closed mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\"\n}"
+        "{\n    \"positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 510478970037160,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2510,7 +2510,7 @@
         1.2,
         0.9,
         1.3,
-        839900982472069,
+        954750008633632,
         "randomize",
         true,
         "cpu"
@@ -4038,7 +4038,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        10194861085874,
+        55706566047561,
         "randomize",
         20,
         8,
@@ -4075,7 +4075,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, wondering mood, closed mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (embedding:Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)"
+        "(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (embedding:Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4226,10 +4226,10 @@
         3801,
         -531
       ],
-      "size": [
-        390.720303622159,
-        262
-      ],
+      "size": {
+        "0": 390.7203063964844,
+        "1": 262
+      },
       "flags": {},
       "order": 54,
       "mode": 4,
@@ -4333,10 +4333,10 @@
         5249.760859374999,
         -1183.539897460937
       ],
-      "size": [
-        395.5224609375,
-        433.2811279296875
-      ],
+      "size": {
+        "0": 395.5224609375,
+        "1": 433.2811279296875
+      },
       "flags": {},
       "order": 56,
       "mode": 0,
@@ -4451,10 +4451,10 @@
         5654,
         -1183
       ],
-      "size": [
-        415.3723058320811,
-        432.0261881632699
-      ],
+      "size": {
+        "0": 415.372314453125,
+        "1": 432.02618408203125
+      },
       "flags": {},
       "order": 57,
       "mode": 0,
@@ -4550,7 +4550,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        347628658335557,
+        390947681580930,
         "randomize",
         20,
         8,
@@ -4572,10 +4572,10 @@
         5248.760859374999,
         -701.5398974609376
       ],
-      "size": [
-        394.7295332750273,
-        428.7176996083475
-      ],
+      "size": {
+        "0": 394.7295227050781,
+        "1": 428.71771240234375
+      },
       "flags": {},
       "order": 58,
       "mode": 0,
@@ -4668,7 +4668,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        true,
+        false,
         "bbox/hand_yolov8n.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
@@ -4690,10 +4690,10 @@
         6080,
         -1181
       ],
-      "size": [
-        626.010657162511,
-        431.1257170276949
-      ],
+      "size": {
+        "0": 626.0106811523438,
+        "1": 431.1257019042969
+      },
       "flags": {},
       "order": 59,
       "mode": 0,
@@ -4718,10 +4718,10 @@
         5652,
         -702
       ],
-      "size": [
-        417.5224609375,
-        430
-      ],
+      "size": {
+        "0": 417.5224609375,
+        "1": 430
+      },
       "flags": {},
       "order": 60,
       "mode": 0,
@@ -4816,7 +4816,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        200569332046639,
+        614164003489368,
         "randomize",
         20,
         8,
@@ -4838,10 +4838,10 @@
         3493,
         -626
       ],
-      "size": [
-        298.666259765625,
-        534
-      ],
+      "size": {
+        "0": 298.666259765625,
+        "1": 534
+      },
       "flags": {},
       "order": 61,
       "mode": 0,
@@ -4961,7 +4961,7 @@
       },
       "widgets_values": [
         2.1,
-        760491298037770,
+        173004648208369,
         "randomize",
         7,
         6.5,
@@ -4990,10 +4990,10 @@
         6079.760859374999,
         -700.5398974609376
       ],
-      "size": [
-        629.0943010131004,
-        428.46916702006797
-      ],
+      "size": {
+        "0": 629.0942993164062,
+        "1": 428.46917724609375
+      },
       "flags": {},
       "order": 62,
       "mode": 0,
@@ -5132,10 +5132,10 @@
         3494,
         23
       ],
-      "size": [
-        1724.4405078124992,
-        1849.2044583129875
-      ],
+      "size": {
+        "0": 1724.4405517578125,
+        "1": 1849.2044677734375
+      },
       "flags": {},
       "order": 65,
       "mode": 0,
@@ -5159,10 +5159,10 @@
         2361,
         -628
       ],
-      "size": [
-        1120.720470081676,
-        613.2086181640625
-      ],
+      "size": {
+        "0": 1120.720458984375,
+        "1": 613.2086181640625
+      },
       "flags": {},
       "order": 66,
       "mode": 0,
@@ -5182,7 +5182,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-30 15:33:00\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Sci-fi\\2023-12-Week-52\\Image_20233012_153300_1011615333056787_1944x3072_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: {human|alien|robot} scientists repair {old|new|futuristic|broken} {simple|difficult} time-machine in {futuristic|rusty|abandoned|dirty} {small|large} scientific laboratory, modern computers, computer screens, perfect light, {clean|large|small|broken} windows, {clean air|smoke|powder|fire} in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\n:: NEGATIVE: old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 1011615333056787\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: alien scientists repair new simple time-machine in abandoned small scientific laboratory, modern computers, computer screens, perfect light, clean windows, smoke in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\n:: DYNAMIC_NEGATIVE: old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\n:: SAVED_IMAGE_WIDTH: 1944\n:: SAVED_IMAGE_HEIGTH: 3072\n:: UPSCALER_RATIO: From: 614x960 to: 1944x3072 Ratio: 3.15\n"
+        ":: Time to save: 2023-12-30 19:50:42\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\SFW\\2023-12-Week-52\\Image_20233012_195042_510478970037160_1944x3072_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 510478970037160\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\n:: SAVED_IMAGE_WIDTH: 1944\n:: SAVED_IMAGE_HEIGTH: 3072\n:: UPSCALER_RATIO: From: 614x960 to: 1944x3072 Ratio: 3.15\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"

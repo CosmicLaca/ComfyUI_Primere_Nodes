@@ -17,10 +17,10 @@ import torchvision
 import math
 import glob
 
-from .local_groundingdino.datasets import transforms as T
-from .local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
-from .local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
-from .local_groundingdino.models import build_model as local_groundingdino_build_model
+# from .local_groundingdino.datasets import transforms as T
+# from .local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
+# from .local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
+# from .local_groundingdino.models import build_model as local_groundingdino_build_model
 
 def inference_bbox(model, image: Image.Image, confidence: float = 0.3, device: str = "",):
     pred = model(image, conf=confidence, device=device)
@@ -1407,6 +1407,7 @@ class DetailerForEach:
 def empty_pil_tensor(w=64, h=64):
     return torch.zeros((1, h, w, 3), dtype=torch.float32)
 
+'''
 def get_bert_base_uncased_model_path():
     comfy_bert_model_base = os.path.join(folder_paths.models_dir, 'bert-base-uncased')
     if glob.glob(os.path.join(comfy_bert_model_base, '**/model.safetensors'), recursive=True):
@@ -1436,3 +1437,4 @@ def load_groundingdino_model(model_name):
     dino.to(device=device)
     dino.eval()
     return dino
+'''
