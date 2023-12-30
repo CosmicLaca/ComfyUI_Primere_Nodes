@@ -1,6 +1,6 @@
 {
-  "last_node_id": 333,
-  "last_link_id": 905,
+  "last_node_id": 349,
+  "last_link_id": 946,
   "nodes": [
     {
       "id": 93,
@@ -647,7 +647,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Black girl in winter",
+        "Sci-fi Time machine",
         true,
         false,
         true,
@@ -978,8 +978,8 @@
           "links": [
             814,
             869,
-            891,
-            905
+            911,
+            931
           ],
           "shape": 3,
           "slot_index": 0
@@ -998,6 +998,132 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 344,
+      "type": "PrimerePrompt",
+      "pos": [
+        4215,
+        -601
+      ],
+      "size": [
+        468.34528906250034,
+        277.99999237060547
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            935
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            936
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "perfect detailed face, perfect detailed eyes, natural skin",
+        "deformed face, blur, blured",
+        "",
+        "None",
+        "None"
+      ]
+    },
+    {
+      "id": 345,
+      "type": "PrimerePrompt",
+      "pos": [
+        4728,
+        -604
+      ],
+      "size": {
+        "0": 468.34527587890625,
+        "1": 278
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            941
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            942
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "perfect hands, perfect fingers, perfect shadows",
+        "deformed hands, deformed fingers, extra fingers",
+        "",
+        "None",
+        "None"
+      ]
+    },
+    {
       "id": 91,
       "type": "PrimereLCMSelector",
       "pos": [
@@ -1009,7 +1135,7 @@
         "1": 205.3205108642578
       },
       "flags": {},
-      "order": 18,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1154,7 +1280,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 19,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
@@ -1230,7 +1356,7 @@
         "1": 838
       },
       "flags": {},
-      "order": 20,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1510,7 +1636,7 @@
         "1": 246
       },
       "flags": {},
-      "order": 21,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1559,7 +1685,7 @@
         true,
         "Horizontal",
         true,
-        474887983851766,
+        365388455310240,
         "randomize",
         false,
         1.6,
@@ -1581,7 +1707,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 22,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1595,7 +1721,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)"
+        "{human|alien|robot} scientists repair {old|new|futuristic|broken} {simple|difficult} time-machine in {futuristic|rusty|abandoned|dirty} {small|large} scientific laboratory, modern computers, computer screens, perfect light, {clean|large|small|broken} windows, {clean air|smoke|powder|fire} in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1612,7 +1738,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 23,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1626,7 +1752,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear"
+        "old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1643,7 +1769,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 24,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -2002,7 +2128,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1131,
+        339,
         "randomize",
         512,
         512,
@@ -2027,7 +2153,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 25,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2072,7 +2198,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 26,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2108,7 +2234,7 @@
       },
       "widgets_values": [
         "",
-        1065557720687105,
+        1113105466536668,
         "randomize"
       ],
       "color": "#322",
@@ -2126,7 +2252,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 27,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2163,7 +2289,7 @@
       },
       "widgets_values": [
         "",
-        623788801819033,
+        687548295582884,
         "randomize"
       ],
       "color": "#232",
@@ -2181,7 +2307,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 28,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2219,8 +2345,8 @@
           "type": "MODEL",
           "links": [
             803,
-            886,
-            898
+            912,
+            926
           ],
           "shape": 3,
           "slot_index": 0
@@ -2230,8 +2356,12 @@
           "type": "CLIP",
           "links": [
             804,
-            887,
-            899
+            913,
+            927,
+            937,
+            938,
+            943,
+            944
           ],
           "shape": 3,
           "slot_index": 1
@@ -2241,8 +2371,8 @@
           "type": "VAE",
           "links": [
             801,
-            888,
-            900
+            914,
+            928
           ],
           "shape": 3,
           "slot_index": 2
@@ -2262,8 +2392,8 @@
             799,
             874,
             883,
-            894,
-            895
+            908,
+            922
           ],
           "shape": 3,
           "slot_index": 3
@@ -2293,7 +2423,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 29,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2307,7 +2437,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 510478970037160,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\"\n}"
+        "{\n    \"positive\": \"{human|alien|robot} scientists repair {old|new|futuristic|broken} {simple|difficult} time-machine in {futuristic|rusty|abandoned|dirty} {small|large} scientific laboratory, modern computers, computer screens, perfect light, {clean|large|small|broken} windows, {clean air|smoke|powder|fire} in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\",\n    \"negative\": \"old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 747999224106763,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"alien scientists repair broken difficult time-machine in abandoned large scientific laboratory, modern computers, computer screens, perfect light, clean windows, powder in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\",\n    \"dynamic_negative\": \"old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2324,7 +2454,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 30,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2429,6 +2559,194 @@
       "bgcolor": "#2474cc"
     },
     {
+      "id": 346,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4403,
+        -279
+      ],
+      "size": [
+        277.9864763335836,
+        54
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 937
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 935,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            939
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 347,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4400,
+        -182
+      ],
+      "size": {
+        "0": 277.9864807128906,
+        "1": 54
+      },
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 938
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 936,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            940
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 348,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4920,
+        -280
+      ],
+      "size": {
+        "0": 277.9864807128906,
+        "1": 54
+      },
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 943
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 941,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            945
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 349,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4919,
+        -180
+      ],
+      "size": {
+        "0": 277.9864807128906,
+        "1": 54
+      },
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 944
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 942,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            946
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
       "id": 100,
       "type": "PrimereLatentNoise",
       "pos": [
@@ -2440,7 +2758,7 @@
         "1": 382
       },
       "flags": {},
-      "order": 31,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2510,7 +2828,7 @@
         1.2,
         0.9,
         1.3,
-        954750008633632,
+        686242154108750,
         "randomize",
         true,
         "cpu"
@@ -2530,7 +2848,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 32,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2618,7 +2936,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 33,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2707,7 +3025,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 34,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -2785,7 +3103,7 @@
         "1": 146
       },
       "flags": {},
-      "order": 35,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -2868,7 +3186,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 36,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -2981,7 +3299,7 @@
         "1": 295.889404296875
       },
       "flags": {},
-      "order": 37,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3008,7 +3326,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 38,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3070,7 +3388,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 39,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3148,7 +3466,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 40,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3261,7 +3579,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 41,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3322,7 +3640,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 42,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3436,7 +3754,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 43,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3484,7 +3802,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 44,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3598,7 +3916,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 45,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3676,7 +3994,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 46,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3724,7 +4042,7 @@
         "1": 714.7673950195312
       },
       "flags": {},
-      "order": 47,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -3852,9 +4170,7 @@
           "type": "CONDITIONING",
           "links": [
             768,
-            770,
-            889,
-            901
+            770
           ],
           "shape": 3,
           "slot_index": 0
@@ -3864,9 +4180,7 @@
           "type": "CONDITIONING",
           "links": [
             769,
-            771,
-            890,
-            902
+            771
           ],
           "shape": 3,
           "slot_index": 1
@@ -3954,7 +4268,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 48,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -4038,7 +4352,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        55706566047561,
+        1107261056284080,
         "randomize",
         20,
         8,
@@ -4061,7 +4375,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 49,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4075,7 +4389,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (embedding:Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)"
+        "alien scientists repair broken difficult time-machine in abandoned large scientific laboratory, modern computers, computer screens, perfect light, clean windows, powder in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4092,7 +4406,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 50,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -4106,7 +4420,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, embedding:add_nsfw, bra, lingerie, underwear:1.20)"
+        "(old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4123,7 +4437,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 51,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4154,7 +4468,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 52,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4185,7 +4499,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 53,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4207,7 +4521,7 @@
           "links": [
             483,
             489,
-            878
+            907
           ],
           "shape": 3,
           "slot_index": 0
@@ -4231,7 +4545,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 54,
+      "order": 60,
       "mode": 4,
       "inputs": [
         {
@@ -4311,7 +4625,7 @@
         "1": 380.1381530761719
       },
       "flags": {},
-      "order": 55,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4327,29 +4641,29 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 328,
+      "id": 335,
       "type": "PrimereImageSegments",
       "pos": [
-        5249.760859374999,
-        -1183.539897460937
+        5247,
+        -1189
       ],
-      "size": {
-        "0": 395.5224609375,
-        "1": 433.2811279296875
-      },
+      "size": [
+        403.472631937655,
+        430.7224182041358
+      ],
       "flags": {},
-      "order": 56,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 878
+          "link": 907
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 894,
+          "link": 908,
           "widget": {
             "name": "model_version"
           }
@@ -4376,10 +4690,18 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            879
+            906
           ],
           "shape": 3,
           "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            924
+          ],
+          "shape": 6
         },
         {
           "name": "DETECTOR",
@@ -4397,10 +4719,10 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            881
+            909
           ],
           "shape": 3,
-          "slot_index": 3
+          "slot_index": 4
         },
         {
           "name": "CROP_REGIONS",
@@ -4418,10 +4740,10 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            880
+            910
           ],
           "shape": 3,
-          "slot_index": 6
+          "slot_index": 7
         }
       ],
       "title": "Primere Image Segments - FACE",
@@ -4445,59 +4767,88 @@
       "bgcolor": "#826133"
     },
     {
-      "id": 329,
+      "id": 338,
+      "type": "PreviewImage",
+      "pos": [
+        5951,
+        -1189
+      ],
+      "size": [
+        348.47369544429966,
+        430.21437388643426
+      ],
+      "flags": {},
+      "order": 63,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 924,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6e4d1f",
+      "bgcolor": "#826133"
+    },
+    {
+      "id": 337,
       "type": "PrimereAnyDetailer",
       "pos": [
-        5654,
-        -1183
+        5659,
+        -1189
       ],
-      "size": {
-        "0": 415.372314453125,
-        "1": 432.02618408203125
-      },
+      "size": [
+        284.8486328125,
+        430
+      ],
       "flags": {},
-      "order": 57,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 879
+          "link": 906
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 886
+          "link": 912
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 887
+          "link": 913
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 888
+          "link": 914
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 889
+          "link": 939
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 890
+          "link": 940
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 880
+          "link": 910
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 881
+          "link": 909
         },
         {
           "name": "detector",
@@ -4507,7 +4858,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 891,
+          "link": 911,
           "widget": {
             "name": "seed"
           }
@@ -4518,7 +4869,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            892
+            925
           ],
           "shape": 3,
           "slot_index": 0
@@ -4527,7 +4878,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            885
+            923
           ],
           "shape": 6,
           "slot_index": 1
@@ -4550,13 +4901,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        390947681580930,
+        945506180865375,
         "randomize",
         20,
         8,
         "euler",
         "normal",
-        0.52,
+        0.48,
         5,
         true,
         false,
@@ -4566,29 +4917,29 @@
       "bgcolor": "#826133"
     },
     {
-      "id": 331,
+      "id": 341,
       "type": "PrimereImageSegments",
       "pos": [
-        5248.760859374999,
-        -701.5398974609376
+        5249,
+        -719
       ],
-      "size": {
-        "0": 394.7295227050781,
-        "1": 428.71771240234375
-      },
+      "size": [
+        401.82623391614106,
+        429.9841818451789
+      ],
       "flags": {},
-      "order": 58,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 892
+          "link": 925
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 895,
+          "link": 922,
           "widget": {
             "name": "model_version"
           }
@@ -4615,10 +4966,19 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            893
+            919
           ],
           "shape": 3,
           "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            934
+          ],
+          "shape": 6,
+          "slot_index": 1
         },
         {
           "name": "DETECTOR",
@@ -4636,10 +4996,10 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            897
+            920
           ],
           "shape": 3,
-          "slot_index": 3
+          "slot_index": 4
         },
         {
           "name": "CROP_REGIONS",
@@ -4657,10 +5017,10 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            896
+            921
           ],
           "shape": 3,
-          "slot_index": 6
+          "slot_index": 7
         }
       ],
       "title": "Primere Image Segments - HANDS",
@@ -4668,11 +5028,11 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
         "bbox/hand_yolov8n.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
-        0.5,
+        0.6,
         5,
         1.6,
         10,
@@ -4687,24 +5047,24 @@
       "id": 330,
       "type": "PreviewImage",
       "pos": [
-        6080,
-        -1181
+        6309,
+        -1189
       ],
-      "size": {
-        "0": 626.0106811523438,
-        "1": 431.1257019042969
-      },
+      "size": [
+        404.69683594016715,
+        431.2634142525294
+      ],
       "flags": {},
-      "order": 59,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 885
+          "link": 923
         }
       ],
-      "title": "Preview Image - FACE",
+      "title": "Preview Image - REFINED FACE",
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
@@ -4712,59 +5072,88 @@
       "bgcolor": "#826133"
     },
     {
-      "id": 332,
+      "id": 343,
+      "type": "PreviewImage",
+      "pos": [
+        5951,
+        -719
+      ],
+      "size": [
+        349.55202535412354,
+        429.7041153987067
+      ],
+      "flags": {},
+      "order": 67,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 934,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL HANDS",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6e3d14",
+      "bgcolor": "#825128"
+    },
+    {
+      "id": 342,
       "type": "PrimereAnyDetailer",
       "pos": [
-        5652,
-        -702
+        5659,
+        -720
       ],
-      "size": {
-        "0": 417.5224609375,
-        "1": 430
-      },
+      "size": [
+        285.35267754410506,
+        430
+      ],
       "flags": {},
-      "order": 60,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 893
+          "link": 919
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 898
+          "link": 926
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 899
+          "link": 927
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 900
+          "link": 928
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 901
+          "link": 945
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 902
+          "link": 946
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 896
+          "link": 921
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 897
+          "link": 920
         },
         {
           "name": "detector",
@@ -4774,7 +5163,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 905,
+          "link": 931,
           "widget": {
             "name": "seed"
           }
@@ -4785,7 +5174,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            903
+            932
           ],
           "shape": 3,
           "slot_index": 0
@@ -4794,9 +5183,10 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            904
+            933
           ],
-          "shape": 6
+          "shape": 6,
+          "slot_index": 1
         },
         {
           "name": "WIDTH",
@@ -4816,14 +5206,14 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        614164003489368,
+        149894811459941,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         0.65,
-        5,
+        3,
         true,
         false,
         1
@@ -4843,13 +5233,13 @@
         "1": 534
       },
       "flags": {},
-      "order": 61,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 903
+          "link": 932
         },
         {
           "name": "model",
@@ -4961,7 +5351,7 @@
       },
       "widgets_values": [
         2.1,
-        173004648208369,
+        321834360971519,
         "randomize",
         7,
         6.5,
@@ -4987,25 +5377,25 @@
       "id": 333,
       "type": "PreviewImage",
       "pos": [
-        6079.760859374999,
-        -700.5398974609376
+        6309,
+        -719
       ],
-      "size": {
-        "0": 629.0942993164062,
-        "1": 428.46917724609375
-      },
+      "size": [
+        405.11531742028,
+        429.09329455927207
+      ],
       "flags": {},
-      "order": 62,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 904,
+          "link": 933,
           "slot_index": 0
         }
       ],
-      "title": "Preview Image - HANDS",
+      "title": "Preview Image - REFINED HANDS",
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
@@ -5024,7 +5414,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 63,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -5066,7 +5456,7 @@
         "1": 506
       },
       "flags": {},
-      "order": 64,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -5137,7 +5527,7 @@
         "1": 1849.2044677734375
       },
       "flags": {},
-      "order": 65,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -5164,7 +5554,7 @@
         "1": 613.2086181640625
       },
       "flags": {},
-      "order": 66,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -5182,7 +5572,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2023-12-30 19:50:42\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\SFW\\2023-12-Week-52\\Image_20233012_195042_510478970037160_1944x3072_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, {half body|full body|portrait|closeup} outdoor color professional model photography, soft natural lights, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 510478970037160\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (American black:1.4) model woman:1.2), (standing in the green park:1.3), near blue lake, closeup outdoor color professional model photography, soft natural lights, thinker mood, open mouth, (wear white, leather, jacket:1.6), (wear maroon, luxury, silk, underwear:1.6), (wear leather, long, black, trousers:1.6), (long, black, straight, hair:1.6), small cleavage, natural tits, snow, (Winter:1.4), blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (funny yellow hat:0.7)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, underwear\n:: SAVED_IMAGE_WIDTH: 1944\n:: SAVED_IMAGE_HEIGTH: 3072\n:: UPSCALER_RATIO: From: 614x960 to: 1944x3072 Ratio: 3.15\n"
+        ":: Time to save: 2023-12-30 23:02:59\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Sci-fi\\2023-12-Week-52\\Image_20233012_230259_501512675914606_3072x1944_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: {human|alien|robot} scientists repair {old|new|futuristic|broken} {simple|difficult} time-machine in {futuristic|rusty|abandoned|dirty} {small|large} scientific laboratory, modern computers, computer screens, perfect light, {clean|large|small|broken} windows, {clean air|smoke|powder|fire} in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\n:: NEGATIVE: old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 501512675914606\n:: WIDTH: 960\n:: HEIGHT: 614\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: robot scientists repair new difficult time-machine in futuristic large scientific laboratory, modern computers, computer screens, perfect light, clean windows, smoke in the room, perfect lights, photo realistic, perfect faces, perfect hands, extremely detailed\n:: DYNAMIC_NEGATIVE: old, draw, text, nsfw, sex, porn, nudity, tits, illustration, mask\n:: SAVED_IMAGE_WIDTH: 3072\n:: SAVED_IMAGE_HEIGTH: 1944\n:: UPSCALER_RATIO: From: 960x614 to: 3072x1944 Ratio: 3.2\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -6558,38 +6948,6 @@
       "INT"
     ],
     [
-      878,
-      103,
-      0,
-      328,
-      0,
-      "IMAGE"
-    ],
-    [
-      879,
-      328,
-      0,
-      329,
-      0,
-      "IMAGE"
-    ],
-    [
-      880,
-      328,
-      6,
-      329,
-      6,
-      "TUPLE"
-    ],
-    [
-      881,
-      328,
-      3,
-      329,
-      7,
-      "SEGS"
-    ],
-    [
       883,
       320,
       3,
@@ -6598,172 +6956,284 @@
       "STRING"
     ],
     [
-      885,
-      329,
+      906,
+      335,
+      0,
+      337,
+      0,
+      "IMAGE"
+    ],
+    [
+      907,
+      103,
+      0,
+      335,
+      0,
+      "IMAGE"
+    ],
+    [
+      908,
+      320,
+      3,
+      335,
+      1,
+      "STRING"
+    ],
+    [
+      909,
+      335,
+      4,
+      337,
+      7,
+      "SEGS"
+    ],
+    [
+      910,
+      335,
+      7,
+      337,
+      6,
+      "TUPLE"
+    ],
+    [
+      911,
+      90,
+      0,
+      337,
+      9,
+      "INT"
+    ],
+    [
+      912,
+      320,
+      0,
+      337,
+      1,
+      "MODEL"
+    ],
+    [
+      913,
+      320,
+      1,
+      337,
+      2,
+      "CLIP"
+    ],
+    [
+      914,
+      320,
+      2,
+      337,
+      3,
+      "VAE"
+    ],
+    [
+      919,
+      341,
+      0,
+      342,
+      0,
+      "IMAGE"
+    ],
+    [
+      920,
+      341,
+      4,
+      342,
+      7,
+      "SEGS"
+    ],
+    [
+      921,
+      341,
+      7,
+      342,
+      6,
+      "TUPLE"
+    ],
+    [
+      922,
+      320,
+      3,
+      341,
+      1,
+      "STRING"
+    ],
+    [
+      923,
+      337,
       1,
       330,
       0,
       "IMAGE"
     ],
     [
-      886,
+      924,
+      335,
+      1,
+      338,
+      0,
+      "IMAGE"
+    ],
+    [
+      925,
+      337,
+      0,
+      341,
+      0,
+      "IMAGE"
+    ],
+    [
+      926,
       320,
       0,
-      329,
+      342,
       1,
       "MODEL"
     ],
     [
-      887,
+      927,
       320,
       1,
-      329,
+      342,
       2,
       "CLIP"
     ],
     [
-      888,
+      928,
       320,
       2,
-      329,
+      342,
       3,
       "VAE"
     ],
     [
-      889,
-      310,
-      0,
-      329,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      890,
-      310,
-      1,
-      329,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      891,
+      931,
       90,
       0,
-      329,
+      342,
       9,
       "INT"
     ],
     [
-      892,
-      329,
-      0,
-      331,
-      0,
-      "IMAGE"
-    ],
-    [
-      893,
-      331,
-      0,
-      332,
-      0,
-      "IMAGE"
-    ],
-    [
-      894,
-      320,
-      3,
-      328,
-      1,
-      "STRING"
-    ],
-    [
-      895,
-      320,
-      3,
-      331,
-      1,
-      "STRING"
-    ],
-    [
-      896,
-      331,
-      6,
-      332,
-      6,
-      "TUPLE"
-    ],
-    [
-      897,
-      331,
-      3,
-      332,
-      7,
-      "SEGS"
-    ],
-    [
-      898,
-      320,
-      0,
-      332,
-      1,
-      "MODEL"
-    ],
-    [
-      899,
-      320,
-      1,
-      332,
-      2,
-      "CLIP"
-    ],
-    [
-      900,
-      320,
-      2,
-      332,
-      3,
-      "VAE"
-    ],
-    [
-      901,
-      310,
-      0,
-      332,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      902,
-      310,
-      1,
-      332,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      903,
-      332,
+      932,
+      342,
       0,
       156,
       0,
       "IMAGE"
     ],
     [
-      904,
-      332,
+      933,
+      342,
       1,
       333,
       0,
       "IMAGE"
     ],
     [
-      905,
-      90,
+      934,
+      341,
+      1,
+      343,
       0,
-      332,
-      9,
-      "INT"
+      "IMAGE"
+    ],
+    [
+      935,
+      344,
+      0,
+      346,
+      1,
+      "STRING"
+    ],
+    [
+      936,
+      344,
+      1,
+      347,
+      1,
+      "STRING"
+    ],
+    [
+      937,
+      320,
+      1,
+      346,
+      0,
+      "CLIP"
+    ],
+    [
+      938,
+      320,
+      1,
+      347,
+      0,
+      "CLIP"
+    ],
+    [
+      939,
+      346,
+      0,
+      337,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      940,
+      347,
+      0,
+      337,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      941,
+      345,
+      0,
+      348,
+      1,
+      "STRING"
+    ],
+    [
+      942,
+      345,
+      1,
+      349,
+      1,
+      "STRING"
+    ],
+    [
+      943,
+      320,
+      1,
+      348,
+      0,
+      "CLIP"
+    ],
+    [
+      944,
+      320,
+      1,
+      349,
+      0,
+      "CLIP"
+    ],
+    [
+      945,
+      348,
+      0,
+      342,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      946,
+      349,
+      0,
+      342,
+      5,
+      "CONDITIONING"
     ]
   ],
   "groups": [
@@ -6840,7 +7310,7 @@
       "locked": false
     },
     {
-      "title": "Detailers",
+      "title": "Detailers, Refiners, Inpaint",
       "bounding": [
         5238,
         -1258,

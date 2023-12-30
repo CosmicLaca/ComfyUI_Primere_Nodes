@@ -1407,6 +1407,37 @@ class DetailerForEach:
 def empty_pil_tensor(w=64, h=64):
     return torch.zeros((1, h, w, 3), dtype=torch.float32)
 
+def segmented_images(segs, input_image):
+    result_image_list = []
+
+    if len(segs[1]) > 0:
+        for seg in segs[1]:
+            result_image_batch = None
+            def stack_image(image):
+                nonlocal result_image_batch
+                if isinstance(image, np.ndarray):
+                    image = torch.from_numpy(image)
+
+                if result_image_batch is None:
+                    result_image_batch = image
+                else:
+                    result_image_batch = torch.concat((result_image_batch, image), dim=0)
+
+            ref_image = input_image[0].unsqueeze(0)
+            cropped_image = crop_image(ref_image, seg.crop_region)
+            if isinstance(cropped_image, np.ndarray):
+                cropped_image = torch.from_numpy(cropped_image)
+                cropped_image = cropped_image.clone()
+                stack_image(cropped_image)
+
+            if result_image_batch is not None:
+                result_image_list.append(result_image_batch)
+    else:
+        result_image_list.append(input_image)
+
+    return result_image_list
+
+
 '''
 def get_bert_base_uncased_model_path():
     comfy_bert_model_base = os.path.join(folder_paths.models_dir, 'bert-base-uncased')

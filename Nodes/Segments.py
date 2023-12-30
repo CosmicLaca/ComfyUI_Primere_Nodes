@@ -11,8 +11,9 @@ from ..components import utility
 import torch
 
 class PrimereImageSegments:
-    RETURN_TYPES = ("IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
-    RETURN_NAMES = ("IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "SEGMENT_SETTINGS")
+    RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
+    RETURN_NAMES = ("IMAGE", "IMAGE_SEGS", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "SEGMENT_SETTINGS")
+    OUTPUT_IS_LIST = (False, True, False, False, False, False, False, False)
     FUNCTION = "primere_segments"
     CATEGORY = TREE_SEGMENTS
 
@@ -73,10 +74,10 @@ class PrimereImageSegments:
         segment_settings['crop_factor'] = crop_factor
         segment_settings['drop_size'] = drop_size
         segment_settings['use_segments'] = use_segments
+        empty_segs = [[image.shape[1], image.shape[2]], [], []]
 
         if use_segments == False:
-            empty_segs = [[image.shape[1], image.shape[2]],[],[] ]
-            return image, None, None, empty_segs, [], 0, segment_settings
+            return image, [image], None, None, empty_segs, [], 0, segment_settings
 
         image_size = [image.shape[2], image.shape[1]]
         segment_settings['input_image_size'] = image_size
@@ -90,8 +91,6 @@ class PrimereImageSegments:
             scale_by = max_shape / max(image_size)
             scale_by = min(scale_by, 1.0)
             image = utility.image_scale_down_by(image, scale_by)[0]
-
-        image_size = [image.shape[2], image.shape[1]]
 
         model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
         model = detectors.load_yolo(model_path)
@@ -139,7 +138,10 @@ class PrimereImageSegments:
 
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
-        return image, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
+
+        input_img_segs = detectors.segmented_images(segs, image)
+
+        return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
 
 class PrimereAnyDetailer:
     RETURN_TYPES = ("IMAGE", "IMAGE", "INT", "INT",)
