@@ -3,49 +3,6 @@
   "last_link_id": 375,
   "nodes": [
     {
-      "id": 93,
-      "type": "HighRes-Fix Script",
-      "pos": [
-        4790,
-        700
-      ],
-      "size": {
-        "0": 315,
-        "1": 154
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "script",
-          "type": "SCRIPT",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SCRIPT",
-          "type": "SCRIPT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "HighRes-Fix Script"
-      },
-      "widgets_values": [
-        "nearest-exact",
-        1.25,
-        12,
-        0.56,
-        1
-      ],
-      "color": "#443322",
-      "bgcolor": "#665533",
-      "shape": 1
-    },
-    {
       "id": 1,
       "type": "LoadImage",
       "pos": [
@@ -57,7 +14,7 @@
         "1": 960.4127197265625
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -80,7 +37,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "GP_20230701-093610-82686-hq-scale-3_00x.jpg",
+        "GP_Image_20231711_125928_383602995137207_1296x809_01-hq-scale-3_00x.jpg",
         "image"
       ]
     },
@@ -96,7 +53,7 @@
         "1": 126
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -127,157 +84,6 @@
       ]
     },
     {
-      "id": 120,
-      "type": "SAMModelLoader (segment anything)",
-      "pos": [
-        1480,
-        -400
-      ],
-      "size": {
-        "0": 483.15301513671875,
-        "1": 58
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SAM_MODEL",
-          "type": "SAM_MODEL",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "SAMModelLoader (segment anything)"
-      },
-      "widgets_values": [
-        "sam_vit_h (2.56GB)"
-      ]
-    },
-    {
-      "id": 121,
-      "type": "GroundingDinoModelLoader (segment anything)",
-      "pos": [
-        1490,
-        -290
-      ],
-      "size": {
-        "0": 556.2288818359375,
-        "1": 58
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "GROUNDING_DINO_MODEL",
-          "type": "GROUNDING_DINO_MODEL",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GroundingDinoModelLoader (segment anything)"
-      },
-      "widgets_values": [
-        "GroundingDINO_SwinT_OGC (694MB)"
-      ]
-    },
-    {
-      "id": 122,
-      "type": "GroundingDinoSAMSegment (segment anything)",
-      "pos": [
-        2250,
-        -420
-      ],
-      "size": {
-        "0": 468.7867126464844,
-        "1": 122
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "sam_model",
-          "type": "SAM_MODEL",
-          "link": null
-        },
-        {
-          "name": "grounding_dino_model",
-          "type": "GROUNDING_DINO_MODEL",
-          "link": null
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GroundingDinoSAMSegment (segment anything)"
-      },
-      "widgets_values": [
-        "",
-        0.3
-      ]
-    },
-    {
-      "id": 123,
-      "type": "MaskToSEGS",
-      "pos": [
-        2840,
-        -480
-      ],
-      "size": {
-        "0": 424.360107421875,
-        "1": 154
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SEGS",
-          "type": "SEGS",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MaskToSEGS"
-      },
-      "widgets_values": [
-        false,
-        3,
-        false,
-        10,
-        false
-      ]
-    },
-    {
       "id": 48,
       "type": "PrimereSeed",
       "pos": [
@@ -289,7 +95,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 7,
+      "order": 2,
       "mode": 0,
       "outputs": [
         {
@@ -325,7 +131,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 8,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
@@ -417,7 +223,7 @@
         "1": 366
       },
       "flags": {},
-      "order": 9,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -532,6 +338,101 @@
       ]
     },
     {
+      "id": 131,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        792,
+        729
+      ],
+      "size": {
+        "0": 455.39410400390625,
+        "1": 573.5899047851562
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 373
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 372,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            374
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            375
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "perfect detailed human faces, {screaming|happy|unhappy|scary|crying} mood",
+        "deformed face, deformed hands, deformed fingers, blured",
+        1,
+        1,
+        1,
+        1,
+        758744041817047,
+        "randomize",
+        "length+mean",
+        "comfy++",
+        "",
+        ""
+      ]
+    },
+    {
       "id": 129,
       "type": "PreviewImage",
       "pos": [
@@ -543,7 +444,7 @@
         "1": 306.16473388671875
       },
       "flags": {},
-      "order": 11,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -569,7 +470,7 @@
         "1": 458
       },
       "flags": {},
-      "order": 12,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -662,7 +563,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        500028177398517,
+        15228262925805,
         "randomize",
         20,
         8.5,
@@ -687,7 +588,7 @@
         "1": 653.249755859375
       },
       "flags": {},
-      "order": 13,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -705,15 +606,15 @@
       "id": 59,
       "type": "PreviewImage",
       "pos": [
-        1943,
-        1030
+        1997,
+        1036
       ],
       "size": {
         "0": 606.1574096679688,
         "1": 300.36773681640625
       },
       "flags": {},
-      "order": 14,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -726,101 +627,6 @@
       "properties": {
         "Node name for S&R": "PreviewImage"
       }
-    },
-    {
-      "id": 131,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        792,
-        729
-      ],
-      "size": {
-        "0": 455.39410400390625,
-        "1": 573.5899047851562
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 373
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 372,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "negative_original"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            374
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            375
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "perfect detailed human faces, {screaming|happy|unhappy|scary} mood",
-        "deformed face, deformed hands, deformed fingers, blured",
-        1,
-        1,
-        1,
-        1,
-        879342694484487,
-        "randomize",
-        "length+mean",
-        "comfy++",
-        "",
-        ""
-      ]
     }
   ],
   "links": [
