@@ -75,6 +75,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereEmbeddingKeywordMerger": Inputs.PrimereEmbeddingKeywordMerger,
     "PrimereLycorisStackMerger": Inputs.PrimereLycorisStackMerger,
     "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
+    "PrimereRefinerPrompt": Inputs.PrimereRefinerPrompt,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -127,6 +128,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereEmbeddingKeywordMerger": "Primere Embedding Keyword Merger",
     "PrimereLycorisStackMerger": 'Primere Lycoris Stack Merger',
     "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
+    "PrimereRefinerPrompt": "Primere Refiner Prompt",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

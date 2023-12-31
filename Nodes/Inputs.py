@@ -16,6 +16,7 @@ from ..components import utility
 from pathlib import Path
 import random
 import string
+from .modules.adv_encode import advanced_encode
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
@@ -69,6 +70,94 @@ class PrimereDoublePrompt:
             orientation = random.choice(orientations)
 
         return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation)
+
+class PrimereRefinerPrompt:
+    RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "COND+", "COND-")
+    FUNCTION = "refiner_prompt"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "positive_refiner": ("STRING", {"default": "", "multiline": True}),
+                "negative_refiner": ("STRING", {"default": "", "multiline": True}),
+                "positive_refiner_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "negative_refiner_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "positive_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "negative_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "clip": ("CLIP",),
+                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "token_normalization": (["none", "mean", "length", "length+mean"],),
+                "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
+            },
+            "optional": {
+                "positive_original": ("STRING", {"default": None, "forceInput": True}),
+                "negative_original": ("STRING", {"default": None, "forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "id": "UNIQUE_ID",
+            },
+        }
+
+    def __init__(self):
+        wildcard_dir = os.path.join(PRIMERE_ROOT, 'wildcards')
+        self._wildcard_manager = WildcardManager(wildcard_dir)
+        self._parser_config = ParserConfig(
+            variant_start = "{",
+            variant_end = "}",
+            wildcard_wrap = "__"
+        )
+
+    def refiner_prompt(self, extra_pnginfo, id, clip, seed, token_normalization, weight_interpretation, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1):
+        def refiner_debug_state(self, extra_pnginfo, id):
+            workflow = extra_pnginfo["workflow"]
+            for node in workflow["nodes"]:
+                node_id = str(node["id"])
+                name = node["type"]
+                if node_id == id and name == 'PrimereRefinerPrompt':
+                    if "Debug" in name or "Show" in name or "Function" in name or "Evaluate" in name:
+                        continue
+
+                    return node['widgets_values']
+
+        rawResult = refiner_debug_state(self, extra_pnginfo, id)
+        if not rawResult:
+            rawResult = (positive_refiner, negative_refiner)
+
+        output_positive = rawResult[0].replace('\n', ' ')
+        output_negative = rawResult[1].replace('\n', ' ')
+        if positive_refiner_strength != 1:
+            final_positive = f'({output_positive}:{positive_refiner_strength:.2f})' if output_positive is not None and output_positive != '' else ''
+        else:
+            final_positive = f'{output_positive}' if output_positive is not None and output_positive != '' else ''
+
+        if (negative_refiner_strength != 1):
+            final_negative = f'({output_negative}:{negative_refiner_strength:.2f})' if output_negative is not None and output_negative != '' else ''
+        else:
+            final_negative = f'{output_negative}' if output_negative is not None and output_negative != '' else ''
+
+        if positive_original is not None and positive_original != "":
+            if positive_original_strength != 1:
+                final_positive = f'{final_positive} ({positive_original}:{positive_original_strength:.2f})'
+            else:
+                final_positive = f'{final_positive} {positive_original}'
+
+        if negative_original is not None and negative_original != "":
+            if negative_original_strength != 1:
+                final_negative = f'{final_negative} ({negative_original}:{negative_original_strength:.2f})'
+            else:
+                final_negative = f'{final_negative} {negative_original}'
+
+        final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed)
+        final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed)
+
+        embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+        embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+
+        return final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
