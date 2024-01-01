@@ -129,23 +129,28 @@ class PrimereRefinerPrompt:
 
         output_positive = rawResult[0].replace('\n', ' ')
         output_negative = rawResult[1].replace('\n', ' ')
-        if positive_refiner_strength != 1:
-            final_positive = f'({output_positive}:{positive_refiner_strength:.2f})' if output_positive is not None and output_positive != '' else ''
-        else:
-            final_positive = f'{output_positive}' if output_positive is not None and output_positive != '' else ''
+        final_positive = ""
+        final_negative = ""
 
-        if (negative_refiner_strength != 1):
-            final_negative = f'({output_negative}:{negative_refiner_strength:.2f})' if output_negative is not None and output_negative != '' else ''
-        else:
-            final_negative = f'{output_negative}' if output_negative is not None and output_negative != '' else ''
+        if positive_refiner_strength != 0:
+            if positive_refiner_strength != 1:
+                final_positive = f'({output_positive}:{positive_refiner_strength:.2f})' if output_positive is not None and output_positive != '' else ''
+            else:
+                final_positive = f'{output_positive}' if output_positive is not None and output_positive != '' else ''
 
-        if positive_original is not None and positive_original != "":
+        if negative_refiner_strength != 0:
+            if negative_refiner_strength != 1:
+                final_negative = f'({output_negative}:{negative_refiner_strength:.2f})' if output_negative is not None and output_negative != '' else ''
+            else:
+                final_negative = f'{output_negative}' if output_negative is not None and output_negative != '' else ''
+
+        if positive_original is not None and positive_original != "" and positive_original_strength != 0:
             if positive_original_strength != 1:
                 final_positive = f'{final_positive} ({positive_original}:{positive_original_strength:.2f})'
             else:
                 final_positive = f'{final_positive} {positive_original}'
 
-        if negative_original is not None and negative_original != "":
+        if negative_original is not None and negative_original != "" and negative_original_strength != 0:
             if negative_original_strength != 1:
                 final_negative = f'{final_negative} ({negative_original}:{negative_original_strength:.2f})'
             else:

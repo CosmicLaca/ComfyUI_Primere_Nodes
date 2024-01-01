@@ -1437,6 +1437,18 @@ def segmented_images(segs, input_image):
 
     return result_image_list
 
+def filter_segs_by_label(segs, label):
+    remained_segs = []
+    remained_crops = []
+    final_segs = []
+    final_segs.append(segs[0])
+    for segment in segs[1]:
+        if segment.label in label:
+           remained_segs.append(segment)
+           remained_crops.append(segment.crop_region)
+
+    final_segs = final_segs + [remained_segs] + [remained_crops]
+    return final_segs
 
 '''
 def get_bert_base_uncased_model_path():

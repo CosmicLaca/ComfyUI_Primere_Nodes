@@ -13,6 +13,8 @@ import os
 import json
 import numpy as np
 from PIL import Image
+from torchvision.transforms import InterpolationMode
+import torchvision.transforms.functional as F
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
@@ -434,9 +436,27 @@ def image_scale_down(images, width, height, crop):
 
     return (torch.cat(results, dim=0),)
 
-def image_scale_down_by(images, scale_by):
+def image_scale_down_by_scale(images, scale_by):
     width = images.shape[2]
     height = images.shape[1]
     new_width = int(width * scale_by)
     new_height = int(height * scale_by)
     return image_scale_down(images, new_width, new_height, "center")
+
+def image_scale_down_by_dim(images, new_width, new_height):
+    return image_scale_down(images, new_width, new_height, "center")
+
+def img_resizer(image: torch.Tensor, width: int, height: int, interpolation_mode: str):
+    assert isinstance(image, torch.Tensor)
+    assert isinstance(height, int)
+    assert isinstance(width, int)
+    assert isinstance(interpolation_mode, str)
+
+    interpolation_mode = interpolation_mode.upper().replace(" ", "_")
+    interpolation_mode = getattr(InterpolationMode, interpolation_mode)
+
+    image = image.permute(0, 3, 1, 2)
+    image = F.resize(image, (height, width), interpolation=interpolation_mode, antialias=True)
+    image = image.permute(0, 2, 3, 1)
+
+    return image

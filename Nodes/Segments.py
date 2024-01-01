@@ -52,6 +52,10 @@ class PrimereImageSegments:
                 "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
 
+                "search_yolov8s": (['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'],),
+                "search_deepfashion2_yolov8s": (['short_sleeved_shirt', 'long_sleeved_shirt', 'short_sleeved_outwear', 'long_sleeved_outwear', 'vest', 'sling', 'shorts', 'trousers', 'skirt', 'short_sleeved_dress', 'long_sleeved_dress', 'vest_dress', 'sling_dress'],),
+                "search_facial_features_yolo8x": (['eye', 'eyebrown', 'nose', 'mouth'],),
+
                 "image": ("IMAGE",),
 
                 "threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
@@ -67,7 +71,7 @@ class PrimereImageSegments:
             }
         }
 
-    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
+    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
         segment_settings = dict()
         segment_settings['threshold'] = threshold
         segment_settings['dilation'] = dilation
@@ -83,14 +87,22 @@ class PrimereImageSegments:
         segment_settings['input_image_size'] = image_size
 
         if model_version == 'SDXL_2048':
-            max_shape = 1024
+            square_shape = 1024
         else:
-            max_shape = 768
+            square_shape = 768
 
-        if image.shape[2] > max_shape or image.shape[1] > max_shape:
-            scale_by = max_shape / max(image_size)
-            scale_by = min(scale_by, 1.0)
-            image = utility.image_scale_down_by(image, scale_by)[0]
+        if image.shape[2] * image.shape[1] > square_shape ** 2:
+            if (image.shape[2] > image.shape[1]):
+                orientation = 'Horizontal'
+            else:
+                orientation = 'Vertical'
+
+            image_sides = sorted([image.shape[2], image.shape[1]])
+            custom_side_b = round((image_sides[1] / image_sides[0]), 4)
+            dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, False, model_version, True, 1, custom_side_b)
+            new_width = dimensions[0]
+            new_height = dimensions[1]
+            image = utility.img_resizer(image, new_width, new_height, 'bicubic')
 
         model_path = folder_paths.get_full_path("ultralytics", bbox_segm_model_name)
         model = detectors.load_yolo(model_path)
@@ -127,6 +139,15 @@ class PrimereImageSegments:
             # dino_model = load_groundingdino_model(model_name)
             return None, None, [], [], 0, segment_settings
 
+        if 'yolov8s.pt' in bbox_segm_model_name:
+            segs = detectors.filter_segs_by_label(segs, search_yolov8s)
+
+        if 'deepfashion2_yolov8' in bbox_segm_model_name:
+            segs = detectors.filter_segs_by_label(segs, search_deepfashion2_yolov8s)
+
+        if 'facial_features_yolo8x' in bbox_segm_model_name:
+            segs = detectors.filter_segs_by_label(segs, search_facial_features_yolo8x)
+
         image_max_area = 0
         if (len(segs[2]) > 0):
             for image_segs in segs[2]:
@@ -135,10 +156,8 @@ class PrimereImageSegments:
                     image_max_area = image_area
 
         image_max_area = int((image_max_area / (crop_factor**2)))
-
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
-
         input_img_segs = detectors.segmented_images(segs, image)
 
         return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
