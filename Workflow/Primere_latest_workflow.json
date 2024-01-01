@@ -1,6 +1,6 @@
 {
-  "last_node_id": 366,
-  "last_link_id": 1021,
+  "last_node_id": 375,
+  "last_link_id": 1077,
   "nodes": [
     {
       "id": 93,
@@ -647,7 +647,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Luxury model",
+        "Portrait",
         true,
         false,
         true,
@@ -978,14 +978,7 @@
           "links": [
             814,
             869,
-            911,
-            931,
-            949,
-            950,
-            991,
-            1001,
-            1007,
-            1017
+            1027
           ],
           "shape": 3,
           "slot_index": 0
@@ -1565,7 +1558,7 @@
         true,
         "Horizontal",
         true,
-        26515644171525,
+        661768876036328,
         "randomize",
         false,
         1.6,
@@ -1574,6 +1567,53 @@
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 372,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5101,
+        -386
+      ],
+      "size": [
+        98.36443575000158,
+        26
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1027,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            1062,
+            1063,
+            1064,
+            1065,
+            1066,
+            1067,
+            1068,
+            1069
+          ],
+          "shape": 3,
+          "label": "INT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
     },
     {
       "id": 108,
@@ -1587,7 +1627,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1601,7 +1641,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old glamour beautiful perfect body woman, photomodel in ({black|red|white|yellow|brown|blue|multicolor} {transparent|fishnet|silk|denim|leather} luxury {elegant|silk|plastic} {lingerie|sexy top}:1.25), ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) ({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3), beautiful natural sexy {middle|small|large|big}-size breasts, {visible|hidden} nipples, ({covered|uncovered} breast:1.2), large erotic necklace, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional} pose, luxury erotic {glamour|fashion|woman|clothes} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II"
+        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1618,7 +1658,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1632,7 +1672,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin"
+        "porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1649,7 +1689,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 24,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -2008,7 +2048,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1347,
+        1898,
         "randomize",
         512,
         512,
@@ -2033,7 +2073,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -2078,7 +2118,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2114,7 +2154,7 @@
       },
       "widgets_values": [
         "",
-        636853871238668,
+        845671151314433,
         "randomize"
       ],
       "color": "#322",
@@ -2132,7 +2172,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2169,7 +2209,7 @@
       },
       "widgets_values": [
         "",
-        20307326006252,
+        818486824455311,
         "randomize"
       ],
       "color": "#232",
@@ -2187,7 +2227,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 28,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2225,10 +2265,7 @@
           "type": "MODEL",
           "links": [
             803,
-            912,
-            926,
-            993,
-            1015
+            1023
           ],
           "shape": 3,
           "slot_index": 0
@@ -2238,14 +2275,7 @@
           "type": "CLIP",
           "links": [
             804,
-            913,
-            927,
-            947,
-            948,
-            992,
-            995,
-            1008,
-            1009
+            1024
           ],
           "shape": 3,
           "slot_index": 1
@@ -2255,10 +2285,7 @@
           "type": "VAE",
           "links": [
             801,
-            914,
-            928,
-            994,
-            1016
+            1025
           ],
           "shape": 3,
           "slot_index": 2
@@ -2278,10 +2305,7 @@
             799,
             874,
             883,
-            979,
-            1004,
-            1005,
-            1006
+            1036
           ],
           "shape": 3,
           "slot_index": 3
@@ -2311,7 +2335,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2325,10 +2349,53 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old glamour beautiful perfect body woman, photomodel in ({black|red|white|yellow|brown|blue|multicolor} {transparent|fishnet|silk|denim|leather} luxury {elegant|silk|plastic} {lingerie|sexy top}:1.25), ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) ({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3), beautiful natural sexy {middle|small|large|big}-size breasts, {visible|hidden} nipples, ({covered|uncovered} breast:1.2), large erotic necklace, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional} pose, luxury erotic {glamour|fashion|woman|clothes} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\",\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 762472178768270,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"portrait of bokeh (professional sexy 26 year old glamour beautiful perfect body woman, photomodel in (yellow leather luxury elegant lingerie:1.25), (short straight black hair) (red luxury denim bra:1.3), beautiful natural sexy large-size breasts, hidden nipples, (uncovered breast:1.2), large erotic necklace, erotic face, romantic pose, luxury erotic woman photography:1.3), (huge striking expensive sparkling white diamond luxury jewellery in her neck:1.2), luxury retro style beautiful living room interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\",\n    \"dynamic_negative\": \"nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin\"\n}"
+        "{\n    \"positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 1124413669379927,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 368,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5100,
+        -288
+      ],
+      "size": [
+        100.63672860511906,
+        26
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1023,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "MODEL",
+          "links": [
+            1045,
+            1046,
+            1047,
+            1048
+          ],
+          "shape": 3,
+          "label": "MODEL",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#323",
+      "bgcolor": "#535"
     },
     {
       "id": 313,
@@ -2342,7 +2409,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 30,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2447,6 +2514,53 @@
       "bgcolor": "#2474cc"
     },
     {
+      "id": 369,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5100,
+        -240
+      ],
+      "size": [
+        100.63672860511906,
+        26
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1024,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "CLIP",
+          "links": [
+            1049,
+            1050,
+            1051,
+            1052,
+            1070,
+            1071,
+            1072,
+            1073
+          ],
+          "shape": 3,
+          "label": "CLIP",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
       "id": 100,
       "type": "PrimereLatentNoise",
       "pos": [
@@ -2458,7 +2572,7 @@
         "1": 382
       },
       "flags": {},
-      "order": 31,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2528,13 +2642,56 @@
         1.2,
         0.9,
         1.3,
-        342783000472322,
+        38250605455583,
         "randomize",
         true,
         "cpu"
       ],
       "color": "#6c0000",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 370,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5100,
+        -190
+      ],
+      "size": [
+        100.63672860511906,
+        26
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1025,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "VAE",
+          "links": [
+            1041,
+            1042,
+            1043,
+            1044
+          ],
+          "shape": 3,
+          "label": "VAE",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 223,
@@ -2548,7 +2705,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 32,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2636,7 +2793,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 33,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2725,7 +2882,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 34,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2803,7 +2960,7 @@
         "1": 146
       },
       "flags": {},
-      "order": 35,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2875,6 +3032,49 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 371,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5099,
+        -458
+      ],
+      "size": [
+        101.63672860511906,
+        26
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1036,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            1037,
+            1038,
+            1039,
+            1040
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#149494",
+      "bgcolor": "#008080"
+    },
+    {
       "id": 217,
       "type": "PrimereVisualLORA",
       "pos": [
@@ -2886,7 +3086,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 36,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -2999,7 +3199,7 @@
         "1": 295.889404296875
       },
       "flags": {},
-      "order": 37,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3026,7 +3226,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 38,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3088,7 +3288,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 39,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3166,7 +3366,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 40,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3279,7 +3479,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 41,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3305,10 +3505,7 @@
           "type": "STRING",
           "links": [
             966,
-            968,
-            970,
-            996,
-            1020
+            1074
           ],
           "shape": 3,
           "slot_index": 0
@@ -3318,10 +3515,7 @@
           "type": "STRING",
           "links": [
             967,
-            969,
-            971,
-            997,
-            1021
+            1033
           ],
           "shape": 3,
           "slot_index": 1
@@ -3349,7 +3543,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 42,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3463,7 +3657,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 43,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3500,300 +3694,90 @@
       "bgcolor": "#006a00"
     },
     {
-      "id": 351,
-      "type": "PrimereRefinerPrompt",
+      "id": 373,
+      "type": "ReroutePrimitive|pysssss",
       "pos": [
-        5250,
-        400
+        5101,
+        -560
       ],
-      "size": {
-        "0": 343.049072265625,
-        "1": 436.53277587890625
-      },
+      "size": [
+        100.63672860511906,
+        26
+      ],
       "flags": {},
-      "order": 44,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 948
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 950,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 968,
-          "widget": {
-            "name": "positive_original"
-          },
-          "slot_index": 2
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 969,
-          "widget": {
-            "name": "negative_original"
-          },
-          "slot_index": 3
+          "name": "value",
+          "type": "*",
+          "link": 1074,
+          "label": " "
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT+",
+          "name": "*",
           "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
           "links": [
-            953
+            1054,
+            1055,
+            1056,
+            1057
           ],
           "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            954
-          ],
-          "shape": 3,
-          "slot_index": 3
+          "label": "STRING",
+          "slot_index": 0
         }
       ],
-      "title": "Primere Refiner Prompt - HANDS",
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "ReroutePrimitive|pysssss"
       },
-      "widgets_values": [
-        "perfect hands, head of hand only, perfect fingers, detailed",
-        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers",
-        1.5,
-        1.5,
-        0,
-        0,
-        186414985073298,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#6e3d14",
-      "bgcolor": "#825128"
+      "color": "#232",
+      "bgcolor": "#353"
     },
     {
-      "id": 350,
-      "type": "PrimereRefinerPrompt",
+      "id": 374,
+      "type": "ReroutePrimitive|pysssss",
       "pos": [
-        5250,
-        -80
+        5100,
+        -506
       ],
-      "size": {
-        "0": 345.04864501953125,
-        "1": 438.3260803222656
-      },
+      "size": [
+        100.63672860511906,
+        26
+      ],
       "flags": {},
-      "order": 45,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 947
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 949,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 970,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 971,
-          "widget": {
-            "name": "negative_original"
-          }
+          "name": "value",
+          "type": "*",
+          "link": 1033,
+          "label": " "
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT+",
+          "name": "*",
           "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
           "links": [
-            951
+            1058,
+            1059,
+            1060,
+            1061
           ],
           "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            952
-          ],
-          "shape": 3,
-          "slot_index": 3
+          "label": "STRING",
+          "slot_index": 0
         }
       ],
-      "title": "Primere Refiner Prompt - FACE",
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "ReroutePrimitive|pysssss"
       },
-      "widgets_values": [
-        "human face, high detailed eyes",
-        "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated,  blur",
-        0.3,
-        0.4,
-        0.6,
-        0,
-        1108208674594930,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#967547",
-      "bgcolor": "#826133"
-    },
-    {
-      "id": 359,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        5244,
-        -1189
-      ],
-      "size": {
-        "0": 326.2857666015625,
-        "1": 436.9217834472656
-      },
-      "flags": {},
-      "order": 46,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 992
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 991,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 996,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 997,
-          "widget": {
-            "name": "negative_original"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            987
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            988
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "title": "Primere Refiner Prompt - EYES",
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "detailed natural sharp {dark-brown|brown|dark-green|green|dark-blue|blue|light-blue|black} eyes, perfect size pupil and eye, perfect eye color and high details, perfect angle, perfect eyelash mascilla, duplicated eyes",
-        "deformed eyes, bad eyes, bad colors, unsharp",
-        1.2,
-        1.3,
-        0,
-        0,
-        1072182532422576,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#9b5e42",
-      "bgcolor": "#874a2e"
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 305,
@@ -3807,7 +3791,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 48,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3910,6 +3894,400 @@
       "bgcolor": "#0000a0"
     },
     {
+      "id": 359,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5247,
+        -700
+      ],
+      "size": [
+        366.04863699462294,
+        437.07026352513344
+      ],
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1071
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1063,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1055,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1058,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            987
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            988
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "detailed natural realistic photo quality sharp {dark-brown|brown|dark-green|green|dark-blue|blue|light-blue|black} eyes, perfect size pupil and eye, perfect eye color and high details, perfect angle, perfect thin detailed eyelash and mascilla, duplicated eyes, ultra detailed, high resolution, 8k",
+        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.6)",
+        1.2,
+        1.3,
+        0,
+        0,
+        404860293520832,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#9b5e42",
+      "bgcolor": "#874a2e"
+    },
+    {
+      "id": 364,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5251,
+        -210
+      ],
+      "size": [
+        365.5010653409081,
+        435.45878462357905
+      ],
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1072
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1064,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1056,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1059,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            1018
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            1019
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - MOUTH",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "highly detailed realistic photo quality natural human mouth, natural red mouth, sharpen, ultra detailed, high resolution, 8k",
+        "deformed mouth, (much lipstick:0.4), deformed ugly  dark teeth, bad colors, unsharp, ugly mouth, (blurred, blurry, vague:1.6)",
+        1,
+        1.4000000000000001,
+        0,
+        0,
+        608531918629299,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#772915",
+      "bgcolor": "#8b3d29"
+    },
+    {
+      "id": 350,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5245,
+        -1190
+      ],
+      "size": [
+        368.08696929329653,
+        438.8279517951155
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1070
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1062,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1054,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1060,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            951
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            952
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "human face, realistic photo quality ultra detailed, high resolution, 8k",
+        "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.6)",
+        0.3,
+        0.4,
+        0.6,
+        0,
+        1043457491823836,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#967547",
+      "bgcolor": "#826133"
+    },
+    {
+      "id": 351,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5249,
+        293
+      ],
+      "size": [
+        367.7260279743332,
+        440.43673824533107
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1073
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1065,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1057,
+          "widget": {
+            "name": "positive_original"
+          },
+          "slot_index": 2
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1061,
+          "widget": {
+            "name": "negative_original"
+          },
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            953
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            954
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "perfect hands, head of hand only, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, 8k",
+        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, vague:1.6)",
+        1.5,
+        1.5,
+        0,
+        0,
+        346311753397993,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#6e3d14",
+      "bgcolor": "#825128"
+    },
+    {
       "id": 280,
       "type": "PrimereVisualHypernetwork",
       "pos": [
@@ -3921,7 +4299,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 49,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -3999,7 +4377,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 50,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4047,7 +4425,7 @@
         "1": 714.7673950195312
       },
       "flags": {},
-      "order": 51,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4273,7 +4651,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 52,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4357,7 +4735,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1074955102320805,
+        558947071648821,
         "randomize",
         20,
         8,
@@ -4380,7 +4758,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 53,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -4394,7 +4772,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "portrait of bokeh (professional sexy 26 year old glamour beautiful perfect body woman, photomodel in (yellow leather luxury elegant lingerie:1.25), (short straight black hair) (red luxury denim bra:1.3), beautiful natural sexy large-size breasts, hidden nipples, (uncovered breast:1.2), large erotic necklace, erotic face, romantic pose, luxury erotic woman photography:1.3), (huge striking expensive sparkling white diamond luxury jewellery in her neck:1.2), luxury retro style beautiful living room interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II"
+        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4411,7 +4789,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 54,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4425,7 +4803,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.20)"
+        "(porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4442,7 +4820,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 55,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4473,7 +4851,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 56,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4504,7 +4882,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 57,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4526,7 +4904,7 @@
           "links": [
             483,
             489,
-            999
+            1030
           ],
           "shape": 3,
           "slot_index": 0
@@ -4550,7 +4928,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 58,
+      "order": 65,
       "mode": 4,
       "inputs": [
         {
@@ -4630,7 +5008,7 @@
         "1": 380.1381530761719
       },
       "flags": {},
-      "order": 59,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -4646,29 +5024,344 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 360,
+      "id": 375,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5101,
+        -643
+      ],
+      "size": [
+        98.36443575000158,
+        26
+      ],
+      "flags": {},
+      "order": 67,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1030,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "IMAGE",
+          "links": [
+            1053
+          ],
+          "shape": 3,
+          "label": "IMAGE",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
+      "id": 352,
       "type": "PrimereImageSegments",
       "pos": [
-        5577,
-        -1189
+        5620,
+        -1190
       ],
-      "size": {
-        "0": 487.913330078125,
-        "1": 438
-      },
+      "size": [
+        470.3595351264794,
+        438.8279517951155
+      ],
       "flags": {},
-      "order": 60,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 999
+          "link": 1053
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1005,
+          "link": 1037,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "dino_serach_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_serach_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            974
+          ],
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            975
+          ],
+          "shape": 6
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            976
+          ],
+          "shape": 3
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            977
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        true,
+        "bbox/face_yolov8m.pt",
+        "sam_vit_b_01ec64.pth",
+        "AUTO",
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.75,
+        5,
+        1.4000000000000001,
+        10,
+        "BaseModel_1024",
+        "",
+        ""
+      ],
+      "color": "#967547",
+      "bgcolor": "#826133"
+    },
+    {
+      "id": 338,
+      "type": "PreviewImage",
+      "pos": [
+        6374,
+        -1191
+      ],
+      "size": [
+        342.24881626657134,
+        440.01768662457175
+      ],
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 975,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6e4d1f",
+      "bgcolor": "#826133"
+    },
+    {
+      "id": 337,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        6096,
+        -1191
+      ],
+      "size": [
+        270.3999938964844,
+        439.957030005566
+      ],
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 974
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1045
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1049
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 1041
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 951
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 952
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 977
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 976
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1066,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1075
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            923
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        630254588860749,
+        "randomize",
+        20,
+        7,
+        "dpmpp_sde",
+        "karras",
+        0.45,
+        10,
+        true,
+        false,
+        1
+      ],
+      "color": "#6e4d1f",
+      "bgcolor": "#826133"
+    },
+    {
+      "id": 360,
+      "type": "PrimereImageSegments",
+      "pos": [
+        5620,
+        -701
+      ],
+      "size": [
+        469.89209879953614,
+        438
+      ],
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1075
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1038,
           "widget": {
             "name": "model_version"
           }
@@ -4776,18 +5469,46 @@
       "bgcolor": "#874a2e"
     },
     {
+      "id": 330,
+      "type": "PreviewImage",
+      "pos": [
+        6723,
+        -1191
+      ],
+      "size": [
+        341.1293514238714,
+        440.01768662457175
+      ],
+      "flags": {},
+      "order": 72,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 923
+        }
+      ],
+      "title": "Preview Image - REFINED FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6e4d1f",
+      "bgcolor": "#826133"
+    },
+    {
       "id": 356,
       "type": "PreviewImage",
       "pos": [
-        6367,
-        -1188
+        6374,
+        -700
       ],
-      "size": {
-        "0": 345.9239501953125,
-        "1": 437.8877868652344
-      },
+      "size": [
+        339.6070898730977,
+        435.51981831241756
+      ],
       "flags": {},
-      "order": 61,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -4808,15 +5529,15 @@
       "id": 361,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6071,
-        -1188
+        6095,
+        -700
       ],
-      "size": {
-        "0": 290.4597473144531,
-        "1": 436.9439697265625
-      },
+      "size": [
+        270.3999938964844,
+        436.3182385053311
+      ],
       "flags": {},
-      "order": 62,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -4827,17 +5548,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 993
+          "link": 1046
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 995
+          "link": 1050
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 994
+          "link": 1042
         },
         {
           "name": "positive",
@@ -4867,7 +5588,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 1001,
+          "link": 1067,
           "widget": {
             "name": "seed"
           }
@@ -4878,7 +5599,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1002
+            1076
           ],
           "shape": 3,
           "slot_index": 0
@@ -4910,7 +5631,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        897823762877781,
+        954571327787750,
         "randomize",
         30,
         8,
@@ -4929,26 +5650,26 @@
       "id": 365,
       "type": "PrimereImageSegments",
       "pos": [
-        5576,
-        -690
+        5623,
+        -211
       ],
       "size": [
-        487.9051342384482,
+        466.64191999084323,
         438
       ],
       "flags": {},
-      "order": 63,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1002
+          "link": 1076
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1006,
+          "link": 1039,
           "widget": {
             "name": "model_version"
           }
@@ -5046,7 +5767,7 @@
         "short_sleeved_shirt",
         "mouth",
         0.55,
-        -5,
+        -3,
         1.3,
         7,
         "BaseModel_1024",
@@ -5060,15 +5781,15 @@
       "id": 354,
       "type": "PreviewImage",
       "pos": [
-        6720,
-        -1188
+        6721,
+        -700
       ],
-      "size": {
-        "0": 344.03973388671875,
-        "1": 433.69158935546875
-      },
+      "size": [
+        341.2276758986427,
+        434.0171887106144
+      ],
       "flags": {},
-      "order": 64,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5088,15 +5809,15 @@
       "id": 363,
       "type": "PreviewImage",
       "pos": [
-        6366,
-        -690
+        6374,
+        -210
       ],
-      "size": {
-        "0": 345.9239501953125,
-        "1": 437.8877868652344
-      },
+      "size": [
+        341.4995741019384,
+        438.5439047862412
+      ],
       "flags": {},
-      "order": 65,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5117,15 +5838,15 @@
       "id": 366,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6070,
-        -690
+        6095,
+        -210
       ],
-      "size": {
-        "0": 290.4597473144531,
-        "1": 436.9439697265625
-      },
+      "size": [
+        270.3999938964844,
+        438.4392526307778
+      ],
       "flags": {},
-      "order": 66,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5136,17 +5857,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 1015
+          "link": 1047
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 1009
+          "link": 1051
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 1016
+          "link": 1043
         },
         {
           "name": "positive",
@@ -5176,7 +5897,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 1017,
+          "link": 1068,
           "widget": {
             "name": "seed"
           }
@@ -5187,7 +5908,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1003
+            1077
           ],
           "shape": 3,
           "slot_index": 0
@@ -5219,13 +5940,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        255038386490600,
+        734929716810610,
         "randomize",
         30,
-        7,
-        "dpmpp_sde",
-        "karras",
-        0.55,
+        9,
+        "euler",
+        "normal",
+        0.5,
         4,
         true,
         false,
@@ -5235,332 +5956,29 @@
       "bgcolor": "#8b3d29"
     },
     {
-      "id": 352,
-      "type": "PrimereImageSegments",
-      "pos": [
-        5610,
-        -80
-      ],
-      "size": {
-        "0": 398.51519775390625,
-        "1": 438
-      },
-      "flags": {},
-      "order": 67,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 1003
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 1004,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "dino_serach_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_serach_prompt"
-          }
-        },
-        {
-          "name": "dino_replace_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_replace_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            974
-          ],
-          "shape": 3
-        },
-        {
-          "name": "IMAGE_SEGS",
-          "type": "IMAGE",
-          "links": [
-            975
-          ],
-          "shape": 6
-        },
-        {
-          "name": "DETECTOR",
-          "type": "DETECTOR",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "SAM_MODEL",
-          "type": "SAM_MODEL",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "SEGS",
-          "type": "SEGS",
-          "links": [
-            976
-          ],
-          "shape": 3
-        },
-        {
-          "name": "CROP_REGIONS",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "IMAGE_MAX",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "SEGMENT_SETTINGS",
-          "type": "TUPLE",
-          "links": [
-            977
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereImageSegments"
-      },
-      "widgets_values": [
-        false,
-        "bbox/face_yolov8m.pt",
-        "sam_vit_b_01ec64.pth",
-        "AUTO",
-        "person",
-        "short_sleeved_shirt",
-        "eye",
-        0.75,
-        5,
-        1.6,
-        10,
-        "BaseModel_1024",
-        "",
-        ""
-      ],
-      "color": "#967547",
-      "bgcolor": "#826133"
-    },
-    {
-      "id": 362,
-      "type": "PreviewImage",
-      "pos": [
-        6720,
-        -690
-      ],
-      "size": [
-        344.5998606359062,
-        438.9652425441475
-      ],
-      "flags": {},
-      "order": 68,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 1012
-        }
-      ],
-      "title": "Preview Image - REFINED MOUTH",
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#9f513d",
-      "bgcolor": "#8b3d29"
-    },
-    {
-      "id": 338,
-      "type": "PreviewImage",
-      "pos": [
-        6302,
-        -82
-      ],
-      "size": {
-        "0": 346.2471618652344,
-        "1": 443.45843505859375
-      },
-      "flags": {},
-      "order": 69,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 975,
-          "slot_index": 0
-        }
-      ],
-      "title": "Preview Image - ORIGINAL FACE",
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#6e4d1f",
-      "bgcolor": "#826133"
-    },
-    {
-      "id": 337,
-      "type": "PrimereAnyDetailer",
-      "pos": [
-        6010,
-        -80
-      ],
-      "size": {
-        "0": 286.0306091308594,
-        "1": 440.8287048339844
-      },
-      "flags": {},
-      "order": 70,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 974
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 912
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 913
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 914
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 951
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 952
-        },
-        {
-          "name": "segment_settings",
-          "type": "TUPLE",
-          "link": 977
-        },
-        {
-          "name": "segs",
-          "type": "SEGS",
-          "link": 976
-        },
-        {
-          "name": "detector",
-          "type": "DETECTOR",
-          "link": null
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 911,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            978
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CROPPED_REFINED",
-          "type": "IMAGE",
-          "links": [
-            923
-          ],
-          "shape": 6,
-          "slot_index": 1
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "title": "Primere Any Detailer - FACE",
-      "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
-      },
-      "widgets_values": [
-        700594390036995,
-        "randomize",
-        20,
-        7,
-        "dpmpp_sde",
-        "karras",
-        0.45,
-        10,
-        true,
-        false,
-        1
-      ],
-      "color": "#6e4d1f",
-      "bgcolor": "#826133"
-    },
-    {
       "id": 353,
       "type": "PrimereImageSegments",
       "pos": [
-        5600,
-        400
+        5623,
+        293
       ],
-      "size": {
-        "0": 401.1099548339844,
-        "1": 438
-      },
+      "size": [
+        464.55055713621005,
+        438
+      ],
       "flags": {},
-      "order": 71,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 978
+          "link": 1077
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 979,
+          "link": 1040,
           "widget": {
             "name": "model_version"
           }
@@ -5653,7 +6071,7 @@
         "eye",
         0.75,
         8,
-        1.5,
+        1.3,
         7,
         "BaseModel_1024",
         "",
@@ -5663,46 +6081,46 @@
       "bgcolor": "#825128"
     },
     {
-      "id": 330,
+      "id": 362,
       "type": "PreviewImage",
       "pos": [
-        6654,
-        -82
+        6725,
+        -211
       ],
-      "size": {
-        "0": 406.94964599609375,
-        "1": 443.45843505859375
-      },
+      "size": [
+        336.352751045888,
+        439.43929817094545
+      ],
       "flags": {},
-      "order": 72,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 923
+          "link": 1012
         }
       ],
-      "title": "Preview Image - REFINED FACE",
+      "title": "Preview Image - REFINED MOUTH",
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
-      "color": "#6e4d1f",
-      "bgcolor": "#826133"
+      "color": "#9f513d",
+      "bgcolor": "#8b3d29"
     },
     {
       "id": 343,
       "type": "PreviewImage",
       "pos": [
-        6310,
-        400
+        6375,
+        292
       ],
-      "size": {
-        "0": 346.88336181640625,
-        "1": 434.6940002441406
-      },
+      "size": [
+        339.5566529312473,
+        438.55973504092947
+      ],
       "flags": {},
-      "order": 73,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -5723,15 +6141,15 @@
       "id": 342,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6010,
-        400
+        6093,
+        292
       ],
-      "size": {
-        "0": 289.00775146484375,
-        "1": 435.53277587890625
-      },
+      "size": [
+        270.3999938964844,
+        438.5597439652523
+      ],
       "flags": {},
-      "order": 74,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -5742,17 +6160,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 926
+          "link": 1048
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 927
+          "link": 1052
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 928
+          "link": 1044
         },
         {
           "name": "positive",
@@ -5782,7 +6200,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 931,
+          "link": 1069,
           "widget": {
             "name": "seed"
           }
@@ -5825,13 +6243,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        649755825689188,
+        500468362493574,
         "randomize",
         20,
         7,
         "dpmpp_sde",
         "karras",
-        0.58,
+        0.59,
         6,
         true,
         false,
@@ -5852,7 +6270,7 @@
         "1": 534
       },
       "flags": {},
-      "order": 75,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -5970,7 +6388,7 @@
       },
       "widgets_values": [
         2.1,
-        1046736663097426,
+        782924862646337,
         "randomize",
         7,
         6.5,
@@ -5996,15 +6414,15 @@
       "id": 333,
       "type": "PreviewImage",
       "pos": [
-        6660,
-        400
+        6724,
+        292
       ],
-      "size": {
-        "0": 404.1234436035156,
-        "1": 435.53277587890625
-      },
+      "size": [
+        336.8445680820332,
+        437.87671185249746
+      ],
       "flags": {},
-      "order": 76,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -6033,7 +6451,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 77,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -6075,7 +6493,7 @@
         "1": 506
       },
       "flags": {},
-      "order": 78,
+      "order": 86,
       "mode": 0,
       "inputs": [
         {
@@ -6146,7 +6564,7 @@
         "1": 1849.2044677734375
       },
       "flags": {},
-      "order": 79,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -6173,7 +6591,7 @@
         "1": 613.2086181640625
       },
       "flags": {},
-      "order": 80,
+      "order": 88,
       "mode": 0,
       "inputs": [
         {
@@ -6191,108 +6609,10 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-01 19:07:14\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\SFW\\2024-01-Week-01\\Image_20240101_190714_496484628755910_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: portrait of bokeh (professional sexy {26|28|30|32|35|38|40|42|45|48|50|} year old glamour beautiful perfect body woman, photomodel in ({black|red|white|yellow|brown|blue|multicolor} {transparent|fishnet|silk|denim|leather} luxury {elegant|silk|plastic} {lingerie|sexy top}:1.25), ({long|short} {straight|curly} {red|blonde|brown|black|multicolored rainbow|} hair) ({red|green|white|yellow|black|blue|multicolor} luxury {transparent|fishnet|leather|denim|expensive} bra:1.3), beautiful natural sexy {middle|small|large|big}-size breasts, {visible|hidden} nipples, ({covered|uncovered} breast:1.2), large erotic necklace, {erotic|satisfied|romantic|love} face, {erotic|romantic|professional} pose, luxury erotic {glamour|fashion|woman|clothes} photography:1.3), (huge striking expensive sparkling {red|white|green|glassy|brown|silver|gold} diamond luxury jewellery in her neck:1.2), luxury {Paris|Rome|London|modern|futuristic|minimalist|retro|old style|elegant} style beautiful {bedroom|kitchen|living room|office|} interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\n:: NEGATIVE: nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 496484628755910\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: portrait of bokeh (professional sexy  year old glamour beautiful perfect body woman, photomodel in (red transparent luxury plastic lingerie:1.25), (long straight blonde hair) (green luxury denim bra:1.3), beautiful natural sexy middle-size breasts, hidden nipples, (covered breast:1.2), large erotic necklace, erotic face, professional pose, luxury erotic woman photography:1.3), (huge striking expensive sparkling glassy diamond luxury jewellery in her neck:1.2), luxury futuristic style beautiful bedroom interior with large curtains and expensive leather bed, (less soft makeup, natural skin:1.2), (film grain:1.4) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II\n:: DYNAMIC_NEGATIVE: nsfw, porn, nude, nudity, child, childish, plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2024-01-01 20:01:28\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Test\\2024-01-Week-01\\Image_20240101_200127_736261084090882_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 736261084090882\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 364,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        5244,
-        -690
-      ],
-      "size": [
-        324.29702365123194,
-        438.1636645795393
-      ],
-      "flags": {},
-      "order": 47,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1008
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1007,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 1020,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 1021,
-          "widget": {
-            "name": "negative_original"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            1018
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            1019
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "title": "Primere Refiner Prompt - MOUTH",
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "highly detailed natural human mouth, natural red mouth, sharpen",
-        "deformed mouth, (much lipstick:0.4), deformed ugly  dark teeth, bad colors, unsharp, ugly mouth",
-        1,
-        1.4000000000000001,
-        0,
-        0,
-        521767903550668,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#772915",
-      "bgcolor": "#8b3d29"
     }
   ],
   "links": [
@@ -7657,76 +7977,12 @@
       "STRING"
     ],
     [
-      911,
-      90,
-      0,
-      337,
-      9,
-      "INT"
-    ],
-    [
-      912,
-      320,
-      0,
-      337,
-      1,
-      "MODEL"
-    ],
-    [
-      913,
-      320,
-      1,
-      337,
-      2,
-      "CLIP"
-    ],
-    [
-      914,
-      320,
-      2,
-      337,
-      3,
-      "VAE"
-    ],
-    [
       923,
       337,
       1,
       330,
       0,
       "IMAGE"
-    ],
-    [
-      926,
-      320,
-      0,
-      342,
-      1,
-      "MODEL"
-    ],
-    [
-      927,
-      320,
-      1,
-      342,
-      2,
-      "CLIP"
-    ],
-    [
-      928,
-      320,
-      2,
-      342,
-      3,
-      "VAE"
-    ],
-    [
-      931,
-      90,
-      0,
-      342,
-      9,
-      "INT"
     ],
     [
       932,
@@ -7743,38 +7999,6 @@
       333,
       0,
       "IMAGE"
-    ],
-    [
-      947,
-      320,
-      1,
-      350,
-      0,
-      "CLIP"
-    ],
-    [
-      948,
-      320,
-      1,
-      351,
-      0,
-      "CLIP"
-    ],
-    [
-      949,
-      90,
-      0,
-      350,
-      1,
-      "INT"
-    ],
-    [
-      950,
-      90,
-      0,
-      351,
-      1,
-      "INT"
     ],
     [
       951,
@@ -7825,38 +8049,6 @@
       "STRING"
     ],
     [
-      968,
-      107,
-      0,
-      351,
-      2,
-      "STRING"
-    ],
-    [
-      969,
-      107,
-      1,
-      351,
-      3,
-      "STRING"
-    ],
-    [
-      970,
-      107,
-      0,
-      350,
-      2,
-      "STRING"
-    ],
-    [
-      971,
-      107,
-      1,
-      350,
-      3,
-      "STRING"
-    ],
-    [
       974,
       352,
       0,
@@ -7887,22 +8079,6 @@
       337,
       6,
       "TUPLE"
-    ],
-    [
-      978,
-      337,
-      0,
-      353,
-      0,
-      "IMAGE"
-    ],
-    [
-      979,
-      320,
-      3,
-      353,
-      1,
-      "STRING"
     ],
     [
       980,
@@ -7993,142 +8169,6 @@
       "IMAGE"
     ],
     [
-      991,
-      90,
-      0,
-      359,
-      1,
-      "INT"
-    ],
-    [
-      992,
-      320,
-      1,
-      359,
-      0,
-      "CLIP"
-    ],
-    [
-      993,
-      320,
-      0,
-      361,
-      1,
-      "MODEL"
-    ],
-    [
-      994,
-      320,
-      2,
-      361,
-      3,
-      "VAE"
-    ],
-    [
-      995,
-      320,
-      1,
-      361,
-      2,
-      "CLIP"
-    ],
-    [
-      996,
-      107,
-      0,
-      359,
-      2,
-      "STRING"
-    ],
-    [
-      997,
-      107,
-      1,
-      359,
-      3,
-      "STRING"
-    ],
-    [
-      999,
-      103,
-      0,
-      360,
-      0,
-      "IMAGE"
-    ],
-    [
-      1001,
-      90,
-      0,
-      361,
-      9,
-      "INT"
-    ],
-    [
-      1002,
-      361,
-      0,
-      365,
-      0,
-      "IMAGE"
-    ],
-    [
-      1003,
-      366,
-      0,
-      352,
-      0,
-      "IMAGE"
-    ],
-    [
-      1004,
-      320,
-      3,
-      352,
-      1,
-      "STRING"
-    ],
-    [
-      1005,
-      320,
-      3,
-      360,
-      1,
-      "STRING"
-    ],
-    [
-      1006,
-      320,
-      3,
-      365,
-      1,
-      "STRING"
-    ],
-    [
-      1007,
-      90,
-      0,
-      364,
-      1,
-      "INT"
-    ],
-    [
-      1008,
-      320,
-      1,
-      364,
-      0,
-      "CLIP"
-    ],
-    [
-      1009,
-      320,
-      1,
-      366,
-      2,
-      "CLIP"
-    ],
-    [
       1010,
       365,
       0,
@@ -8169,30 +8209,6 @@
       "SEGS"
     ],
     [
-      1015,
-      320,
-      0,
-      366,
-      1,
-      "MODEL"
-    ],
-    [
-      1016,
-      320,
-      2,
-      366,
-      3,
-      "VAE"
-    ],
-    [
-      1017,
-      90,
-      0,
-      366,
-      9,
-      "INT"
-    ],
-    [
       1018,
       364,
       2,
@@ -8209,20 +8225,388 @@
       "CONDITIONING"
     ],
     [
-      1020,
+      1023,
+      320,
+      0,
+      368,
+      0,
+      "*"
+    ],
+    [
+      1024,
+      320,
+      1,
+      369,
+      0,
+      "*"
+    ],
+    [
+      1025,
+      320,
+      2,
+      370,
+      0,
+      "*"
+    ],
+    [
+      1027,
+      90,
+      0,
+      372,
+      0,
+      "*"
+    ],
+    [
+      1030,
+      103,
+      0,
+      375,
+      0,
+      "*"
+    ],
+    [
+      1033,
       107,
+      1,
+      374,
+      0,
+      "*"
+    ],
+    [
+      1036,
+      320,
+      3,
+      371,
+      0,
+      "*"
+    ],
+    [
+      1037,
+      371,
+      0,
+      352,
+      1,
+      "STRING"
+    ],
+    [
+      1038,
+      371,
+      0,
+      360,
+      1,
+      "STRING"
+    ],
+    [
+      1039,
+      371,
+      0,
+      365,
+      1,
+      "STRING"
+    ],
+    [
+      1040,
+      371,
+      0,
+      353,
+      1,
+      "STRING"
+    ],
+    [
+      1041,
+      370,
+      0,
+      337,
+      3,
+      "VAE"
+    ],
+    [
+      1042,
+      370,
+      0,
+      361,
+      3,
+      "VAE"
+    ],
+    [
+      1043,
+      370,
+      0,
+      366,
+      3,
+      "VAE"
+    ],
+    [
+      1044,
+      370,
+      0,
+      342,
+      3,
+      "VAE"
+    ],
+    [
+      1045,
+      368,
+      0,
+      337,
+      1,
+      "MODEL"
+    ],
+    [
+      1046,
+      368,
+      0,
+      361,
+      1,
+      "MODEL"
+    ],
+    [
+      1047,
+      368,
+      0,
+      366,
+      1,
+      "MODEL"
+    ],
+    [
+      1048,
+      368,
+      0,
+      342,
+      1,
+      "MODEL"
+    ],
+    [
+      1049,
+      369,
+      0,
+      337,
+      2,
+      "CLIP"
+    ],
+    [
+      1050,
+      369,
+      0,
+      361,
+      2,
+      "CLIP"
+    ],
+    [
+      1051,
+      369,
+      0,
+      366,
+      2,
+      "CLIP"
+    ],
+    [
+      1052,
+      369,
+      0,
+      342,
+      2,
+      "CLIP"
+    ],
+    [
+      1053,
+      375,
+      0,
+      352,
+      0,
+      "IMAGE"
+    ],
+    [
+      1054,
+      373,
+      0,
+      350,
+      2,
+      "STRING"
+    ],
+    [
+      1055,
+      373,
+      0,
+      359,
+      2,
+      "STRING"
+    ],
+    [
+      1056,
+      373,
       0,
       364,
       2,
       "STRING"
     ],
     [
-      1021,
-      107,
-      1,
+      1057,
+      373,
+      0,
+      351,
+      2,
+      "STRING"
+    ],
+    [
+      1058,
+      374,
+      0,
+      359,
+      3,
+      "STRING"
+    ],
+    [
+      1059,
+      374,
+      0,
       364,
       3,
       "STRING"
+    ],
+    [
+      1060,
+      374,
+      0,
+      350,
+      3,
+      "STRING"
+    ],
+    [
+      1061,
+      374,
+      0,
+      351,
+      3,
+      "STRING"
+    ],
+    [
+      1062,
+      372,
+      0,
+      350,
+      1,
+      "INT"
+    ],
+    [
+      1063,
+      372,
+      0,
+      359,
+      1,
+      "INT"
+    ],
+    [
+      1064,
+      372,
+      0,
+      364,
+      1,
+      "INT"
+    ],
+    [
+      1065,
+      372,
+      0,
+      351,
+      1,
+      "INT"
+    ],
+    [
+      1066,
+      372,
+      0,
+      337,
+      9,
+      "INT"
+    ],
+    [
+      1067,
+      372,
+      0,
+      361,
+      9,
+      "INT"
+    ],
+    [
+      1068,
+      372,
+      0,
+      366,
+      9,
+      "INT"
+    ],
+    [
+      1069,
+      372,
+      0,
+      342,
+      9,
+      "INT"
+    ],
+    [
+      1070,
+      369,
+      0,
+      350,
+      0,
+      "CLIP"
+    ],
+    [
+      1071,
+      369,
+      0,
+      359,
+      0,
+      "CLIP"
+    ],
+    [
+      1072,
+      369,
+      0,
+      364,
+      0,
+      "CLIP"
+    ],
+    [
+      1073,
+      369,
+      0,
+      351,
+      0,
+      "CLIP"
+    ],
+    [
+      1074,
+      107,
+      0,
+      373,
+      0,
+      "*"
+    ],
+    [
+      1075,
+      337,
+      0,
+      360,
+      0,
+      "IMAGE"
+    ],
+    [
+      1076,
+      361,
+      0,
+      365,
+      0,
+      "IMAGE"
+    ],
+    [
+      1077,
+      366,
+      0,
+      353,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
