@@ -48,6 +48,8 @@ class PrimereImageSegments:
         return {
             "required": {
                 "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
+                "trigger_high_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
+                "trigger_low_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
                 "bbox_segm_model_name": (bboxs + segms,),
                 "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
@@ -71,13 +73,21 @@ class PrimereImageSegments:
             }
         }
 
-    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
+    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
         segment_settings = dict()
+        segment_settings['bbox_segm_model_name'] = bbox_segm_model_name
+        segment_settings['sam_model_name'] = sam_model_name
+        segment_settings['search_yolov8s'] = search_yolov8s
+        segment_settings['search_deepfashion2_yolov8s'] = search_deepfashion2_yolov8s
+        segment_settings['search_facial_features_yolo8x'] = search_facial_features_yolo8x
         segment_settings['threshold'] = threshold
         segment_settings['dilation'] = dilation
         segment_settings['crop_factor'] = crop_factor
         segment_settings['drop_size'] = drop_size
+        segment_settings['model_version'] = model_version
         segment_settings['use_segments'] = use_segments
+        segment_settings['trigger_high_off'] = trigger_high_off
+        segment_settings['trigger_low_off'] = trigger_low_off
         empty_segs = [[image.shape[1], image.shape[2]], [], []]
 
         if use_segments == False:
@@ -148,6 +158,9 @@ class PrimereImageSegments:
         if 'facial_features_yolo8x' in bbox_segm_model_name:
             segs = detectors.filter_segs_by_label(segs, search_facial_features_yolo8x)
 
+        if (trigger_high_off > 0) or (trigger_low_off > 0):
+            segs = detectors.filter_segs_by_trigger(segs, trigger_high_off, trigger_low_off, crop_factor)
+
         image_max_area = 0
         if (len(segs[2]) > 0):
             for image_segs in segs[2]:
@@ -156,6 +169,12 @@ class PrimereImageSegments:
                     image_max_area = image_area
 
         image_max_area = int((image_max_area / (crop_factor**2)))
+        # if (image_max_area > 0) and (trigger_high_off > 0) and (image_max_area > trigger_high_off):
+        #     return image, [image], None, None, empty_segs, [], 0, segment_settings
+
+        # if (image_max_area > 0) and (trigger_low_off > 0) and (image_max_area < trigger_low_off):
+        #     return image, [image], None, None, empty_segs, [], 0, segment_settings
+
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
         input_img_segs = detectors.segmented_images(segs, image)

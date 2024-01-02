@@ -1450,6 +1450,21 @@ def filter_segs_by_label(segs, label):
     final_segs = final_segs + [remained_segs] + [remained_crops]
     return final_segs
 
+def filter_segs_by_trigger(segs, trigger_high_off, trigger_low_off, crop_factor):
+    remained_segs = []
+    remained_crops = []
+    final_segs = []
+    final_segs.append(segs[0])
+    for segment in segs[1]:
+        image_area = (abs(segment.crop_region[2] - segment.crop_region[0])) * (abs(segment.crop_region[3] - segment.crop_region[1]))
+        image_area = int((image_area / (crop_factor ** 2)))
+        if ((trigger_high_off == 0) or (image_area <= trigger_high_off and trigger_high_off > 0)) and ((trigger_low_off == 0) or (image_area >= trigger_low_off and trigger_low_off > 0)):
+            remained_segs.append(segment)
+            remained_crops.append(segment.crop_region)
+
+    final_segs = final_segs + [remained_segs] + [remained_crops]
+    return final_segs
+
 '''
 def get_bert_base_uncased_model_path():
     comfy_bert_model_base = os.path.join(folder_paths.models_dir, 'bert-base-uncased')

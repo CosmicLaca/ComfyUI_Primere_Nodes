@@ -1,6 +1,6 @@
 {
-  "last_node_id": 375,
-  "last_link_id": 1077,
+  "last_node_id": 381,
+  "last_link_id": 1103,
   "nodes": [
     {
       "id": 93,
@@ -647,7 +647,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Model with car",
+        "Portrait",
         true,
         false,
         true,
@@ -875,7 +875,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\OpenDalle.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         false
       ],
@@ -1492,7 +1492,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        7
+        1
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1558,7 +1558,7 @@
         true,
         "Horizontal",
         true,
-        141062644057871,
+        928146885137103,
         "randomize",
         false,
         1.6,
@@ -1641,7 +1641,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy {25|30|35|40|45|50} years old model woman siting in the sofa {|||with her husband}, wear {fishnet|transparent|silky|luxury|old style} {black|red|white|yellow|green|blue|pink} lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long {black|brown|red|blonde} hair, {smiling|happy|unhappy|boring|satisfied|orgasm face|sexy} mood:1.3), (wearing a thin {brown|white|red|green|blue|yellow} {opaque|silky|fishnet} silk cape:{0|1|0.3|0.5|0.8|1.3|1.6})"
+        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1672,7 +1672,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs"
+        "porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2048,7 +2048,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1768,
+        2018,
         "randomize",
         512,
         512,
@@ -2154,7 +2154,7 @@
       },
       "widgets_values": [
         "",
-        99057024067610,
+        1083353345138449,
         "randomize"
       ],
       "color": "#322",
@@ -2209,7 +2209,7 @@
       },
       "widgets_values": [
         "",
-        566203635568141,
+        688535920236261,
         "randomize"
       ],
       "color": "#232",
@@ -2349,7 +2349,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy {25|30|35|40|45|50} years old model woman siting in the sofa {|||with her husband}, wear {fishnet|transparent|silky|luxury|old style} {black|red|white|yellow|green|blue|pink} lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long {black|brown|red|blonde} hair, {smiling|happy|unhappy|boring|satisfied|orgasm face|sexy} mood:1.3), (wearing a thin {brown|white|red|green|blue|yellow} {opaque|silky|fishnet} silk cape:{0|1|0.3|0.5|0.8|1.3|1.6})\",\n    \"negative\": \"nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\OpenDalle.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 145716691099361,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy 45 years old model woman siting in the sofa , wear old style blue lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long black hair, smiling mood:1.3), (wearing a thin blue opaque silk cape:0)\",\n    \"dynamic_negative\": \"nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs\"\n}"
+        "{\n    \"positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 221362648015872,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2642,7 +2642,7 @@
         1.2,
         0.9,
         1.3,
-        87570738822390,
+        223112232982568,
         "randomize",
         true,
         "cpu"
@@ -3058,10 +3058,10 @@
           "name": "*",
           "type": "STRING",
           "links": [
-            1037,
-            1038,
-            1039,
-            1040
+            1079,
+            1085,
+            1091,
+            1097
           ],
           "shape": 3,
           "label": "STRING",
@@ -3897,13 +3897,13 @@
       "id": 359,
       "type": "PrimereRefinerPrompt",
       "pos": [
-        5247,
-        -700
+        5244,
+        -634
       ],
-      "size": [
-        366.04863699462294,
-        437.07026352513344
-      ],
+      "size": {
+        "0": 365.26263427734375,
+        "1": 484.9033203125
+      },
       "flags": {},
       "order": 52,
       "mode": 0,
@@ -3975,13 +3975,13 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "detailed natural realistic photo quality sharp {dark-brown|brown|dark-green|green|dark-blue|blue|light-blue|black} eyes, perfect size pupil and eye, perfect eye color and high details, perfect angle, perfect thin detailed eyelash and mascilla, duplicated eyes, ultra detailed, high resolution, 8k",
-        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.6)",
+        "detailed natural realistic photo quality sharp {dark-brown|brown|dark-green|green|dark-blue|blue|light-blue|black} eyes, perfect size pupil and eye, perfect eye color and high details, perfect angle, perfect thin detailed eyelash and mascilla, duplicated eyes, ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
+        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.6), nicely proportioned",
         1.2,
         1.3,
         0,
         0,
-        998321422351188,
+        248772290307076,
         "randomize",
         "mean",
         "comfy++",
@@ -3995,13 +3995,13 @@
       "id": 364,
       "type": "PrimereRefinerPrompt",
       "pos": [
-        5251,
-        -210
+        5246,
+        -87
       ],
-      "size": [
-        365.5010653409081,
-        435.45878462357905
-      ],
+      "size": {
+        "0": 363.67938232421875,
+        "1": 487.41436767578125
+      },
       "flags": {},
       "order": 53,
       "mode": 0,
@@ -4073,16 +4073,16 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "highly detailed realistic photo quality natural human mouth, (highly detailed lower and upper lip:1.4) natural red mouth, sharpen, ultra detailed, high resolution, 8k",
-        "deformed mouth, (much lipstick:0.4), deformed ugly  dark teeth, bad colors, unsharp, ugly mouth, (blurred, blurry, vague:1.6), purple",
-        1,
-        1.4000000000000001,
+        "detailed realistic human mouth, (highly detailed lower and upper lips:0.5) red mouth, sharpen and smooth, high resolution, nicely proportioned",
+        "deformed mouth, deformed ugly dark teeth, bad shadows, unsharp, (blurred, blurry, vague:1.2), (purple, gray, black-and-white, white lights, reflections, filled swollen stuffy inflated, cracked, split in two, hard lights, high contrast lights:1.4), unnatural mood",
+        1.1,
+        1.3,
         0,
         0,
-        585226138727205,
+        892506673054148,
         "randomize",
         "mean",
-        "comfy++",
+        "A1111",
         "",
         ""
       ],
@@ -4096,10 +4096,10 @@
         5245,
         -1190
       ],
-      "size": [
-        368.08696929329653,
-        438.8279517951155
-      ],
+      "size": {
+        "0": 367.1075439453125,
+        "1": 486.3999328613281
+      },
       "flags": {},
       "order": 54,
       "mode": 0,
@@ -4171,13 +4171,13 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "face, natural skin, realistic photo quality ultra detailed, high resolution, 8k",
+        "face, natural skin, realistic photo quality ultra detailed, high resolution, nicely proportioned",
         "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.6)",
         0.3,
         0.5,
         0.55,
         0.2,
-        546158832581775,
+        644505883887395,
         "randomize",
         "mean",
         "comfy++",
@@ -4191,13 +4191,13 @@
       "id": 351,
       "type": "PrimereRefinerPrompt",
       "pos": [
-        5249,
-        293
+        5248,
+        466
       ],
-      "size": [
-        367.7260279743332,
-        440.43673824533107
-      ],
+      "size": {
+        "0": 366.8717346191406,
+        "1": 486.1943054199219
+      },
       "flags": {},
       "order": 55,
       "mode": 0,
@@ -4271,16 +4271,16 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, sharp, 8k",
-        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, vague:1.6)",
-        1.5,
-        1.5,
+        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned",
+        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague:1.6), bad shadows",
+        1.4000000000000001,
+        1.2,
         0,
         0,
-        539593883744024,
+        151150129055137,
         "randomize",
         "mean",
-        "comfy++",
+        "A1111",
         "",
         ""
       ],
@@ -4735,7 +4735,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        724671152573148,
+        608773774681927,
         "randomize",
         20,
         8,
@@ -4772,7 +4772,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy 45 years old model woman siting in the sofa, wear old style blue lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long black hair, smiling mood:1.3), (wearing a thin blue opaque silk cape:0)"
+        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4803,7 +4803,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs:1.20)"
+        "(porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4834,7 +4834,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy 45 years old model woman siting in the sofa, wear old style blue lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long black hair, smiling mood:1.3), (wearing a thin blue opaque silk cape:0))"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4865,7 +4865,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "((nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs:1.20))"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -5050,7 +5050,7 @@
           "name": "*",
           "type": "IMAGE",
           "links": [
-            1053
+            1078
           ],
           "shape": 3,
           "label": "IMAGE",
@@ -5064,16 +5064,16 @@
       "bgcolor": "#000080"
     },
     {
-      "id": 352,
+      "id": 376,
       "type": "PrimereImageSegments",
       "pos": [
         5620,
         -1190
       ],
-      "size": [
-        470.3595351264794,
-        438.8279517951155
-      ],
+      "size": {
+        "0": 468.1706237792969,
+        "1": 486
+      },
       "flags": {},
       "order": 68,
       "mode": 0,
@@ -5081,12 +5081,12 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1053
+          "link": 1078
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1037,
+          "link": 1079,
           "widget": {
             "name": "model_version"
           }
@@ -5113,7 +5113,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            974
+            1080
           ],
           "shape": 3
         },
@@ -5121,7 +5121,7 @@
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
           "links": [
-            975
+            1081
           ],
           "shape": 6
         },
@@ -5141,7 +5141,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            976
+            1082
           ],
           "shape": 3
         },
@@ -5161,16 +5161,19 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            977
+            1083
           ],
           "shape": 3
         }
       ],
+      "title": "Primere Image Segments - FACE",
       "properties": {
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
+        5200,
+        0,
         "bbox/face_yolov8m.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
@@ -5195,10 +5198,10 @@
         6374,
         -1191
       ],
-      "size": [
-        342.24881626657134,
-        440.01768662457175
-      ],
+      "size": {
+        "0": 342.8484191894531,
+        "1": 487.42388916015625
+      },
       "flags": {},
       "order": 69,
       "mode": 0,
@@ -5206,7 +5209,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 975,
+          "link": 1081,
           "slot_index": 0
         }
       ],
@@ -5224,10 +5227,10 @@
         6096,
         -1191
       ],
-      "size": [
-        270.3999938964844,
-        439.957030005566
-      ],
+      "size": {
+        "0": 270.3999938964844,
+        "1": 487.42388916015625
+      },
       "flags": {},
       "order": 70,
       "mode": 0,
@@ -5235,7 +5238,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 974
+          "link": 1080
         },
         {
           "name": "model",
@@ -5265,12 +5268,12 @@
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 977
+          "link": 1083
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 976
+          "link": 1082
         },
         {
           "name": "detector",
@@ -5291,7 +5294,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1075
+            1084
           ],
           "shape": 3,
           "slot_index": 0
@@ -5323,7 +5326,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        861796001472506,
+        139590110982034,
         "randomize",
         30,
         7,
@@ -5339,16 +5342,16 @@
       "bgcolor": "#826133"
     },
     {
-      "id": 360,
+      "id": 377,
       "type": "PrimereImageSegments",
       "pos": [
-        5620,
-        -701
+        5616,
+        -634
       ],
-      "size": [
-        469.89209879953614,
-        438
-      ],
+      "size": {
+        "0": 477.7383117675781,
+        "1": 486
+      },
       "flags": {},
       "order": 71,
       "mode": 0,
@@ -5356,12 +5359,12 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1075
+          "link": 1084
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1038,
+          "link": 1085,
           "widget": {
             "name": "model_version"
           }
@@ -5388,19 +5391,17 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            984
+            1086
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
         },
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
           "links": [
-            989
+            1087
           ],
-          "shape": 6,
-          "slot_index": 1
+          "shape": 6
         },
         {
           "name": "DETECTOR",
@@ -5418,10 +5419,9 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            986
+            1088
           ],
-          "shape": 3,
-          "slot_index": 4
+          "shape": 3
         },
         {
           "name": "CROP_REGIONS",
@@ -5439,10 +5439,9 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            985
+            1089
           ],
-          "shape": 3,
-          "slot_index": 7
+          "shape": 3
         }
       ],
       "title": "Primere Image Segments - EYES",
@@ -5451,6 +5450,8 @@
       },
       "widgets_values": [
         true,
+        0,
+        0,
         "segm/facial_features_yolo8x-seg.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
@@ -5465,7 +5466,7 @@
         "",
         ""
       ],
-      "color": "#73361a",
+      "color": "#9b5e42",
       "bgcolor": "#874a2e"
     },
     {
@@ -5475,10 +5476,10 @@
         6723,
         -1191
       ],
-      "size": [
-        341.1293514238714,
-        440.01768662457175
-      ],
+      "size": {
+        "0": 344.0476379394531,
+        "1": 487.4239196777344
+      },
       "flags": {},
       "order": 72,
       "mode": 0,
@@ -5500,13 +5501,13 @@
       "id": 356,
       "type": "PreviewImage",
       "pos": [
-        6374,
-        -700
+        6376,
+        -632
       ],
-      "size": [
-        339.6070898730977,
-        435.51981831241756
-      ],
+      "size": {
+        "0": 341.45196533203125,
+        "1": 482.9033203125
+      },
       "flags": {},
       "order": 73,
       "mode": 0,
@@ -5514,7 +5515,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 989,
+          "link": 1087,
           "slot_index": 0
         }
       ],
@@ -5529,13 +5530,13 @@
       "id": 361,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6095,
-        -700
+        6100,
+        -632
       ],
-      "size": [
-        270.3999938964844,
-        436.3182385053311
-      ],
+      "size": {
+        "0": 270.3999938964844,
+        "1": 482.9033203125
+      },
       "flags": {},
       "order": 74,
       "mode": 0,
@@ -5543,7 +5544,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 984
+          "link": 1086
         },
         {
           "name": "model",
@@ -5573,12 +5574,12 @@
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 985
+          "link": 1089
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 986
+          "link": 1088
         },
         {
           "name": "detector",
@@ -5599,7 +5600,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1076
+            1090
           ],
           "shape": 3,
           "slot_index": 0
@@ -5631,10 +5632,10 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        940597110402613,
+        849474645116897,
         "randomize",
         30,
-        8,
+        10,
         "euler",
         "normal",
         0.5,
@@ -5647,16 +5648,16 @@
       "bgcolor": "#874a2e"
     },
     {
-      "id": 365,
+      "id": 378,
       "type": "PrimereImageSegments",
       "pos": [
-        5623,
-        -211
+        5616,
+        -86
       ],
-      "size": [
-        466.64191999084323,
-        438
-      ],
+      "size": {
+        "0": 477.2528991699219,
+        "1": 486
+      },
       "flags": {},
       "order": 75,
       "mode": 0,
@@ -5664,12 +5665,12 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1076
+          "link": 1090
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1039,
+          "link": 1091,
           "widget": {
             "name": "model_version"
           }
@@ -5696,19 +5697,17 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1010
+            1092
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
         },
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
           "links": [
-            1011
+            1093
           ],
-          "shape": 6,
-          "slot_index": 1
+          "shape": 6
         },
         {
           "name": "DETECTOR",
@@ -5726,32 +5725,29 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            1014
+            1094
           ],
-          "shape": 3,
-          "slot_index": 4
+          "shape": 3
         },
         {
           "name": "CROP_REGIONS",
           "type": "TUPLE",
           "links": null,
-          "shape": 3,
-          "slot_index": 5
+          "shape": 3
         },
         {
           "name": "IMAGE_MAX",
           "type": "INT",
-          "links": null,
+          "links": [],
           "shape": 3
         },
         {
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            1013
+            1095
           ],
-          "shape": 3,
-          "slot_index": 7
+          "shape": 3
         }
       ],
       "title": "Primere Image Segments - MOUTH",
@@ -5760,6 +5756,8 @@
       },
       "widgets_values": [
         true,
+        0,
+        2000,
         "segm/facial_features_yolo8x-seg.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
@@ -5767,8 +5765,8 @@
         "short_sleeved_shirt",
         "mouth",
         0.55,
-        -4,
-        1.2000000000000002,
+        -3,
+        1.1,
         8,
         "BaseModel_1024",
         "",
@@ -5781,13 +5779,13 @@
       "id": 354,
       "type": "PreviewImage",
       "pos": [
-        6721,
-        -700
+        6723,
+        -632
       ],
-      "size": [
-        341.2276758986427,
-        434.0171887106144
-      ],
+      "size": {
+        "0": 343.8133544921875,
+        "1": 485.15728759765625
+      },
       "flags": {},
       "order": 76,
       "mode": 0,
@@ -5810,12 +5808,12 @@
       "type": "PreviewImage",
       "pos": [
         6374,
-        -210
+        -84
       ],
-      "size": [
-        341.4995741019384,
-        438.5439047862412
-      ],
+      "size": {
+        "0": 344.210205078125,
+        "1": 484.41436767578125
+      },
       "flags": {},
       "order": 77,
       "mode": 0,
@@ -5823,7 +5821,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 1011,
+          "link": 1093,
           "slot_index": 0
         }
       ],
@@ -5838,13 +5836,13 @@
       "id": 366,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6095,
-        -210
+        6098,
+        -85
       ],
-      "size": [
-        270.3999938964844,
-        438.4392526307778
-      ],
+      "size": {
+        "0": 270.3999938964844,
+        "1": 485.41436767578125
+      },
       "flags": {},
       "order": 78,
       "mode": 0,
@@ -5852,7 +5850,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1010
+          "link": 1092
         },
         {
           "name": "model",
@@ -5882,12 +5880,12 @@
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 1013
+          "link": 1095
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 1014
+          "link": 1094
         },
         {
           "name": "detector",
@@ -5908,7 +5906,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1077
+            1096
           ],
           "shape": 3,
           "slot_index": 0
@@ -5940,14 +5938,14 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        725989296125782,
+        852584928869428,
         "randomize",
         30,
-        9,
+        10,
         "euler",
         "normal",
-        0.52,
-        4,
+        0.5,
+        5,
         true,
         false,
         1
@@ -5956,16 +5954,16 @@
       "bgcolor": "#8b3d29"
     },
     {
-      "id": 353,
+      "id": 379,
       "type": "PrimereImageSegments",
       "pos": [
-        5623,
-        293
+        5620,
+        466
       ],
-      "size": [
-        464.55055713621005,
-        438
-      ],
+      "size": {
+        "0": 474.2106018066406,
+        "1": 486
+      },
       "flags": {},
       "order": 79,
       "mode": 0,
@@ -5973,12 +5971,12 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1077
+          "link": 1096
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1040,
+          "link": 1097,
           "widget": {
             "name": "model_version"
           }
@@ -6005,7 +6003,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            980
+            1098
           ],
           "shape": 3
         },
@@ -6013,7 +6011,7 @@
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
           "links": [
-            981
+            1099
           ],
           "shape": 6
         },
@@ -6033,7 +6031,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            982
+            1100
           ],
           "shape": 3
         },
@@ -6046,32 +6044,35 @@
         {
           "name": "IMAGE_MAX",
           "type": "INT",
-          "links": null,
+          "links": [],
           "shape": 3
         },
         {
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            983
+            1101
           ],
           "shape": 3
         }
       ],
+      "title": "Primere Image Segments - HANDS",
       "properties": {
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
         true,
+        30000,
+        0,
         "bbox/hand_yolov8n.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
         "person",
         "short_sleeved_shirt",
         "eye",
-        0.75,
-        8,
-        1.3,
+        0.6,
+        2,
+        1.2000000000000002,
         8,
         "BaseModel_1024",
         "",
@@ -6084,13 +6085,13 @@
       "id": 362,
       "type": "PreviewImage",
       "pos": [
-        6725,
-        -211
+        6724,
+        -85
       ],
-      "size": [
-        336.352751045888,
-        439.43929817094545
-      ],
+      "size": {
+        "0": 342.54705810546875,
+        "1": 485.41436767578125
+      },
       "flags": {},
       "order": 80,
       "mode": 0,
@@ -6112,13 +6113,13 @@
       "id": 343,
       "type": "PreviewImage",
       "pos": [
-        6375,
-        289
+        6376,
+        466
       ],
-      "size": [
-        339.5566529312473,
-        438.55973504092947
-      ],
+      "size": {
+        "0": 339.5479431152344,
+        "1": 486.1943054199219
+      },
       "flags": {},
       "order": 81,
       "mode": 0,
@@ -6126,7 +6127,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 981,
+          "link": 1099,
           "slot_index": 0
         }
       ],
@@ -6141,13 +6142,13 @@
       "id": 342,
       "type": "PrimereAnyDetailer",
       "pos": [
-        6093,
-        292
+        6100,
+        467
       ],
-      "size": [
-        270.3999938964844,
-        438.5597439652523
-      ],
+      "size": {
+        "0": 270.3999938964844,
+        "1": 485.1943054199219
+      },
       "flags": {},
       "order": 82,
       "mode": 0,
@@ -6155,7 +6156,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 980
+          "link": 1098
         },
         {
           "name": "model",
@@ -6185,12 +6186,12 @@
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 983
+          "link": 1101
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 982
+          "link": 1100
         },
         {
           "name": "detector",
@@ -6243,13 +6244,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        303275322735809,
+        209635142365585,
         "randomize",
         30,
-        9,
+        10,
         "euler",
         "normal",
-        0.54,
+        0.52,
         6,
         true,
         false,
@@ -6388,7 +6389,7 @@
       },
       "widgets_values": [
         2.1,
-        420843860377658,
+        216794760001991,
         "randomize",
         7,
         6.5,
@@ -6414,13 +6415,13 @@
       "id": 333,
       "type": "PreviewImage",
       "pos": [
-        6724,
-        292
+        6722,
+        465
       ],
-      "size": [
-        336.8445680820332,
-        437.87671185249746
-      ],
+      "size": {
+        "0": 342.9093017578125,
+        "1": 487.1943054199219
+      },
       "flags": {},
       "order": 84,
       "mode": 0,
@@ -6609,7 +6610,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-01 22:55:58\n:: Output file: h:\\AIPICS\\Comfy\\OPENDALLE\\Test\\2024-01-Week-01\\Image_20240101_225558_145716691099361_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy {25|30|35|40|45|50} years old model woman siting in the sofa {|||with her husband}, wear {fishnet|transparent|silky|luxury|old style} {black|red|white|yellow|green|blue|pink} lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long {black|brown|red|blonde} hair, {smiling|happy|unhappy|boring|satisfied|orgasm face|sexy} mood:1.3), (wearing a thin {brown|white|red|green|blue|yellow} {opaque|silky|fishnet} silk cape:{0|1|0.3|0.5|0.8|1.3|1.6})\n:: NEGATIVE: nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs\n:: MODEL_NAME: SDXL\\OpenDalle.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 145716691099361\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy 45 years old model woman siting in the sofa , wear old style blue lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long black hair, smiling mood:1.3), (wearing a thin blue opaque silk cape:0)\n:: DYNAMIC_NEGATIVE: nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
+        ":: Time to save: 2024-01-02 22:30:40\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Test\\2024-01-Week-01\\Image_20240201_223039_54436248239176_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 54436248239176\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -8049,94 +8050,6 @@
       "STRING"
     ],
     [
-      974,
-      352,
-      0,
-      337,
-      0,
-      "IMAGE"
-    ],
-    [
-      975,
-      352,
-      1,
-      338,
-      0,
-      "IMAGE"
-    ],
-    [
-      976,
-      352,
-      4,
-      337,
-      7,
-      "SEGS"
-    ],
-    [
-      977,
-      352,
-      7,
-      337,
-      6,
-      "TUPLE"
-    ],
-    [
-      980,
-      353,
-      0,
-      342,
-      0,
-      "IMAGE"
-    ],
-    [
-      981,
-      353,
-      1,
-      343,
-      0,
-      "IMAGE"
-    ],
-    [
-      982,
-      353,
-      4,
-      342,
-      7,
-      "SEGS"
-    ],
-    [
-      983,
-      353,
-      7,
-      342,
-      6,
-      "TUPLE"
-    ],
-    [
-      984,
-      360,
-      0,
-      361,
-      0,
-      "IMAGE"
-    ],
-    [
-      985,
-      360,
-      7,
-      361,
-      6,
-      "TUPLE"
-    ],
-    [
-      986,
-      360,
-      4,
-      361,
-      7,
-      "SEGS"
-    ],
-    [
       987,
       359,
       2,
@@ -8153,34 +8066,10 @@
       "CONDITIONING"
     ],
     [
-      989,
-      360,
-      1,
-      356,
-      0,
-      "IMAGE"
-    ],
-    [
       990,
       361,
       1,
       354,
-      0,
-      "IMAGE"
-    ],
-    [
-      1010,
-      365,
-      0,
-      366,
-      0,
-      "IMAGE"
-    ],
-    [
-      1011,
-      365,
-      1,
-      363,
       0,
       "IMAGE"
     ],
@@ -8191,22 +8080,6 @@
       362,
       0,
       "IMAGE"
-    ],
-    [
-      1013,
-      365,
-      7,
-      366,
-      6,
-      "TUPLE"
-    ],
-    [
-      1014,
-      365,
-      4,
-      366,
-      7,
-      "SEGS"
     ],
     [
       1018,
@@ -8279,38 +8152,6 @@
       371,
       0,
       "*"
-    ],
-    [
-      1037,
-      371,
-      0,
-      352,
-      1,
-      "STRING"
-    ],
-    [
-      1038,
-      371,
-      0,
-      360,
-      1,
-      "STRING"
-    ],
-    [
-      1039,
-      371,
-      0,
-      365,
-      1,
-      "STRING"
-    ],
-    [
-      1040,
-      371,
-      0,
-      353,
-      1,
-      "STRING"
     ],
     [
       1041,
@@ -8407,14 +8248,6 @@
       342,
       2,
       "CLIP"
-    ],
-    [
-      1053,
-      375,
-      0,
-      352,
-      0,
-      "IMAGE"
     ],
     [
       1054,
@@ -8585,28 +8418,196 @@
       "*"
     ],
     [
-      1075,
+      1078,
+      375,
+      0,
+      376,
+      0,
+      "IMAGE"
+    ],
+    [
+      1079,
+      371,
+      0,
+      376,
+      1,
+      "STRING"
+    ],
+    [
+      1080,
+      376,
+      0,
       337,
       0,
-      360,
+      "IMAGE"
+    ],
+    [
+      1081,
+      376,
+      1,
+      338,
       0,
       "IMAGE"
     ],
     [
-      1076,
+      1082,
+      376,
+      4,
+      337,
+      7,
+      "SEGS"
+    ],
+    [
+      1083,
+      376,
+      7,
+      337,
+      6,
+      "TUPLE"
+    ],
+    [
+      1084,
+      337,
+      0,
+      377,
+      0,
+      "IMAGE"
+    ],
+    [
+      1085,
+      371,
+      0,
+      377,
+      1,
+      "STRING"
+    ],
+    [
+      1086,
+      377,
+      0,
       361,
       0,
-      365,
+      "IMAGE"
+    ],
+    [
+      1087,
+      377,
+      1,
+      356,
       0,
       "IMAGE"
     ],
     [
-      1077,
-      366,
+      1088,
+      377,
+      4,
+      361,
+      7,
+      "SEGS"
+    ],
+    [
+      1089,
+      377,
+      7,
+      361,
+      6,
+      "TUPLE"
+    ],
+    [
+      1090,
+      361,
       0,
-      353,
+      378,
       0,
       "IMAGE"
+    ],
+    [
+      1091,
+      371,
+      0,
+      378,
+      1,
+      "STRING"
+    ],
+    [
+      1092,
+      378,
+      0,
+      366,
+      0,
+      "IMAGE"
+    ],
+    [
+      1093,
+      378,
+      1,
+      363,
+      0,
+      "IMAGE"
+    ],
+    [
+      1094,
+      378,
+      4,
+      366,
+      7,
+      "SEGS"
+    ],
+    [
+      1095,
+      378,
+      7,
+      366,
+      6,
+      "TUPLE"
+    ],
+    [
+      1096,
+      366,
+      0,
+      379,
+      0,
+      "IMAGE"
+    ],
+    [
+      1097,
+      371,
+      0,
+      379,
+      1,
+      "STRING"
+    ],
+    [
+      1098,
+      379,
+      0,
+      342,
+      0,
+      "IMAGE"
+    ],
+    [
+      1099,
+      379,
+      1,
+      343,
+      0,
+      "IMAGE"
+    ],
+    [
+      1100,
+      379,
+      4,
+      342,
+      7,
+      "SEGS"
+    ],
+    [
+      1101,
+      379,
+      7,
+      342,
+      6,
+      "TUPLE"
     ]
   ],
   "groups": [
