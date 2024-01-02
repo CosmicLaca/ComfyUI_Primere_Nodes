@@ -137,7 +137,7 @@ class PrimereImageSegments:
         if bbox_segm_model_name.startswith("dino"):
             print('DINO')
             # dino_model = load_groundingdino_model(model_name)
-            return None, None, [], [], 0, segment_settings
+            return image, [image], None, None, empty_segs, [], 0, segment_settings
 
         if 'yolov8s.pt' in bbox_segm_model_name:
             segs = detectors.filter_segs_by_label(segs, search_yolov8s)

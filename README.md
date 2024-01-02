@@ -122,6 +122,13 @@ With Lycoris stackers you can read model keywords. This node merge all selected 
 This node merge positive and negative SD and SDXL embedding tags, to send them to the prompt encoder.
 <hr>
 
+### Primere Refiner Prompt:
+Another dual prompt input, bur for refiners and detailers. You can connect original prompts too to this node, and set the weights of all inputs. Text and cond outputs are available.
+For more info about usage see **"Segments"** submenu.
+
+<a href="./Workflow/readme_images/prefprompt.jpg" target="_blank"><img src="./Workflow/readme_images/prefprompt.jpg" height="200px"></a>
+<hr>
+
 ## Dashboard:
 ### Primere Sampler Selector:
 Select sampler and scheduler in separated node, and wire outputs to the sampler (through exif reader input in the example workflow). This is useful to separate from other nodes, and for LCM mode you need two several sampler settings. (see the example workflow, and try to undestand LCM setting)
@@ -354,6 +361,49 @@ You must create .jpg images as preview with same name as the style name in the l
 Example style.csv included, if rename you will see example previews.
 
 <a href="./Workflow/readme_images/pvstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pvstyles.jpg" height="300px"></a>
+<hr>
+
+## Segments:
+Under this submenu you can found nodes for detailer/refiner nodes, and required one more **Primere Refiner Prompt** node from the Inputs menu. 
+For these nodes you have to download ultralitics bbox and segmentation models from here: https://huggingface.co/Bingsu/adetailer/tree/main or use Comfy's internal model downloader.
+Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models\ultralytics\bbox\ paths, the Comfy model manager save these models to right path. For the included workflow these models required:
+
+### For segments:
+<a href="./Workflow/readme_images/ulsegs.jpg" target="_blank"><img src="./Workflow/readme_images/ulsegs.jpg" height="300px"></a>
+
+### For bbox:
+<a href="./Workflow/readme_images/ulbbox.jpg" target="_blank"><img src="./Workflow/readme_images/ulbbox.jpg" height="120px"></a>
+
+### Tips for use detailer nodes:
+- For hands, faces, persons, hair and skins just use specific models. 
+- Another contents, for example cars or animals use universal model like **yolov8s** and don't forget to select right label from bottom list.
+- Large faces don't need refiner or detailer because just change the good face to another one. If you create closeup portrait, just switch off face detailer.
+- On large faces, for example portrait, useful to refine eyes and mouth. These refiners can be on, while the face detailer off.
+- Fenally you can use hand detailer. Depending on settings, this group will refine smaller hands too.
+- Check refiners's prompts. That important, and you can mix this prompt to original for several results.
+- If you set **strength** of prompts to 0 on **Primere Refiner Prompt**, the prompt input will be ignored. Not always good idea to mix detailer's prompt to the original, then you dont need to remove original connection, you can set strenght value to 0, same as disconnet.
+- Not too easy to set really good refiner group, the result depending on source image. All settings will drastically modify the result with same prompt and seed.
+- You can use standard dynamic prompts withon the Refiner prompt node.
+
+#### For smaller faces you need face detailer, but dont need eye and mouth detailers:
+<a href="./Workflow/readme_images/pdetsmallfaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetsmallfaces.jpg" height="200px"></a>
+
+#### For half-body or closeup partraits you dont need (just off) face detailer, but need eye and mouth detailers:
+<a href="./Workflow/readme_images/pdetlargefaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetlargefaces.jpg" height="270px"></a>
+
+### Primere Image Segments:
+This node is to select segs ot bbox model, but for three models: **yolov8s**, **deepfashion2_yolov8s** and **facial_features_yolo8x** you can define label. When you use these models with right label selection, the segmentation result will folow your labels.
+Some models no need label. You can use these nodes for generation workflow by new prompts, but you can use if the input your image only. Load **civitai-[what]-refiner.json** example workflows how to use these nodes if you want to refine your existing images.
+You can On/Off this node anytime, and you can play with bottom parameters.
+
+<a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="260px"></a>
+<hr>
+
+### Primere Any Detailer:
+This node create detailed/refined output by input image and segs. This node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved.
+Detailer group exaple included to the **Primere_latest_workflow.json** you have to check it your own ideas and settings.
+
+<a href="./Workflow/readme_images/panydetailer.jpg" target="_blank"><img src="./Workflow/readme_images/panydetailer.jpg" height="280px"></a>
 <hr>
 
 # Contact:
