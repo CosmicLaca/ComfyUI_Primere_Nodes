@@ -386,7 +386,7 @@ Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models
 - You can use standard dynamic prompts withon the Refiner prompt node.
 
 #### For smaller faces you need face detailer, but dont need eye and mouth detailers:
-<a href="./Workflow/readme_images/pdetsmallfaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetsmallfaces.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/pdetsmallfaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetsmallfaces.jpg" height="210px"></a>
 
 #### For half-body or closeup partraits you dont need (just off) face detailer, but need eye and mouth detailers:
 <a href="./Workflow/readme_images/pdetlargefaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetlargefaces.jpg" height="270px"></a>
@@ -396,7 +396,15 @@ This node is to select segs ot bbox model, but for three models: **yolov8s**, **
 Some models no need label. You can use these nodes for generation workflow by new prompts, but you can use if the input your image only. Load **civitai-[what]-refiner.json** example workflows how to use these nodes if you want to refine your existing images.
 You can On/Off this node anytime, and you can play with bottom parameters.
 
-<a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="260px"></a>
+#### Triggers:
+Two trigger input available on this node, **trigger_high_off** and **trigger_low_off**. These input fields are numerical inputs, with step 100. Both are designed to automatically switch on/off the node by the area of segmented image.
+The good trigger value depending on the segment area. If you want to ignore segments what is smaller than 100 pixels (area, not side), add 100 to **trigger_low_off** input, and segemnts under the size W x H = 100 will be ignored. This is useful if the segment (for example mouth) too small to done correct detailers.
+**trigger_high_off** switch off the node if the segmented area higher than the field value. For example if the face is good if biger than 3000px (area), enter 5000 to the input, and the node will use segments only if the segment area less than 5000 px.
+In the example workflow for face detailers I using trigger_high_off = 5200, because if the area of segmented face less than 5200 px, then I need the node for fix small faces. If larger than 5200, no need fixes. The right value depending on used model, prompt, and additional networks like Loras or controlnet settings.
+For mouth I using trigger_low_off = 2000, because if the area of mouth less than 2000, n o need to repair, only if bigger.
+For hand fixer i set trigger_high_off to 30000 because if the hand's area is larger, no need to fix/detail. All settings depending in workflow and the input image.
+
+<a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="280px"></a>
 <hr>
 
 ### Primere Any Detailer:
