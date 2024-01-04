@@ -63,9 +63,6 @@ class PrimereCKPT:
     FUNCTION = "load_ckpt_list"
     CATEGORY = TREE_DASHBOARD
 
-    def __init__(self):
-        self.chkp_loader = nodes.CheckpointLoaderSimple()
-
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -78,7 +75,7 @@ class PrimereCKPT:
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
-            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model, output_vae=True, output_clip=True)
             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
@@ -90,9 +87,6 @@ class PrimereVAELoader:
     FUNCTION = "load_primere_vae"
     CATEGORY = TREE_DASHBOARD
 
-    def __init__(self):
-        self.vae_loader = nodes.VAELoader()
-
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -102,7 +96,7 @@ class PrimereVAELoader:
         }
 
     def load_primere_vae(self, vae_name, ):
-        return self.vae_loader.load_vae(vae_name)
+        return nodes.VAELoader.load_vae(self, vae_name)
 
 class PrimereLCMSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "INT")
@@ -137,7 +131,6 @@ class PrimereLCMSelector:
 
         return (sampler_name, scheduler_name, steps, cfg_scale, lcm_mode,)
 
-
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
     RETURN_NAMES = ("MODEL", "CLIP", "VAE", "MODEL_VERSION")
@@ -145,7 +138,6 @@ class PrimereCKPTLoader:
     CATEGORY = TREE_DASHBOARD
 
     def __init__(self):
-        self.chkp_loader = nodes.CheckpointLoaderSimple()
         self.loaded_lora = None
 
     @classmethod
@@ -183,9 +175,9 @@ class PrimereCKPTLoader:
                 try:
                     LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
                 except Exception:
-                    LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name, output_vae=True, output_clip=True)
             else:
-                LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(ckpt_name)
+                LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name, output_vae=True, output_clip=True)
 
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         OUTPUT_CLIP = LOADED_CHECKPOINT[1]

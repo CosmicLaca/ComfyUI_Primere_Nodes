@@ -647,12 +647,12 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Portrait",
+        "SFW Character",
         true,
         false,
         true,
-        false,
-        true
+        true,
+        false
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -1558,7 +1558,7 @@
         true,
         "Horizontal",
         true,
-        928146885137103,
+        165258723789047,
         "randomize",
         false,
         1.6,
@@ -1641,7 +1641,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
+        "(beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1672,7 +1672,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores"
+        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2048,7 +2048,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        2018,
+        1486,
         "randomize",
         512,
         512,
@@ -2154,7 +2154,7 @@
       },
       "widgets_values": [
         "",
-        1083353345138449,
+        166635448334223,
         "randomize"
       ],
       "color": "#322",
@@ -2209,7 +2209,7 @@
       },
       "widgets_values": [
         "",
-        688535920236261,
+        265988276888883,
         "randomize"
       ],
       "color": "#232",
@@ -2349,7 +2349,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 221362648015872,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\"\n}"
+        "{\n    \"positive\": \"(beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 589291622274093,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2642,7 +2642,7 @@
         1.2,
         0.9,
         1.3,
-        223112232982568,
+        842906302105093,
         "randomize",
         true,
         "cpu"
@@ -3981,7 +3981,7 @@
         1.3,
         0,
         0,
-        248772290307076,
+        472227483647600,
         "randomize",
         "mean",
         "comfy++",
@@ -4079,7 +4079,7 @@
         1.3,
         0,
         0,
-        892506673054148,
+        519564522167342,
         "randomize",
         "mean",
         "A1111",
@@ -4171,13 +4171,13 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "face, natural skin, realistic photo quality ultra detailed, high resolution, nicely proportioned",
+        "face, natural skin, realistic photo quality detailed, high resolution, nicely proportioned, smooth image",
         "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.6)",
         0.3,
-        0.5,
-        0.55,
-        0.2,
-        644505883887395,
+        0.4,
+        0.25,
+        0.3,
+        103268035508801,
         "randomize",
         "mean",
         "comfy++",
@@ -4186,106 +4186,6 @@
       ],
       "color": "#967547",
       "bgcolor": "#826133"
-    },
-    {
-      "id": 351,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        5248,
-        466
-      ],
-      "size": {
-        "0": 366.8717346191406,
-        "1": 486.1943054199219
-      },
-      "flags": {},
-      "order": 55,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1073
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1065,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 1057,
-          "widget": {
-            "name": "positive_original"
-          },
-          "slot_index": 2
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 1061,
-          "widget": {
-            "name": "negative_original"
-          },
-          "slot_index": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            953
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            954
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "title": "Primere Refiner Prompt - HANDS",
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned",
-        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague:1.6), bad shadows",
-        1.4000000000000001,
-        1.2,
-        0,
-        0,
-        151150129055137,
-        "randomize",
-        "mean",
-        "A1111",
-        "",
-        ""
-      ],
-      "color": "#6e3d14",
-      "bgcolor": "#825128"
     },
     {
       "id": 280,
@@ -4735,7 +4635,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        608773774681927,
+        1108030027760801,
         "randomize",
         20,
         8,
@@ -4772,7 +4672,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
+        "(beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, embedding:Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4803,7 +4703,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores:1.20)"
+        "(porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, (embedding:add_nsfw:1.6):1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -5174,9 +5074,9 @@
         true,
         5200,
         0,
-        "bbox/face_yolov8m.pt",
+        "bbox/face_yolov8n_v2.pt",
         "sam_vit_b_01ec64.pth",
-        "AUTO",
+        "Prefer GPU",
         "person",
         "short_sleeved_shirt",
         "eye",
@@ -5326,13 +5226,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        139590110982034,
+        99870450591636,
         "randomize",
         30,
-        7,
-        "euler",
-        "normal",
-        0.48,
+        8,
+        "heun",
+        "simple",
+        0.46,
         8,
         true,
         false,
@@ -5458,7 +5358,7 @@
         "person",
         "short_sleeved_shirt",
         "eye",
-        0.5,
+        0.45,
         -5,
         1.3,
         5,
@@ -5632,7 +5532,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        849474645116897,
+        123077441081397,
         "randomize",
         30,
         10,
@@ -5938,13 +5838,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        852584928869428,
+        136913491205042,
         "randomize",
         30,
         10,
         "euler",
         "normal",
-        0.5,
+        0.45,
         5,
         true,
         false,
@@ -6244,13 +6144,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        209635142365585,
+        697891082280415,
         "randomize",
         30,
         10,
         "euler",
         "normal",
-        0.52,
+        0.55,
         6,
         true,
         false,
@@ -6389,7 +6289,7 @@
       },
       "widgets_values": [
         2.1,
-        216794760001991,
+        549174883680866,
         "randomize",
         7,
         6.5,
@@ -6610,10 +6510,110 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-02 22:30:40\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Test\\2024-01-Week-01\\Image_20240201_223039_54436248239176_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 54436248239176\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2024-01-03 19:47:16\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\SFW\\2024-01-Week-01\\Image_20240301_194716_589291622274093_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 589291622274093\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 351,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5248,
+        466
+      ],
+      "size": {
+        "0": 366.8717346191406,
+        "1": 486.1943054199219
+      },
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1073
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1065,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1057,
+          "widget": {
+            "name": "positive_original"
+          },
+          "slot_index": 2
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1061,
+          "widget": {
+            "name": "negative_original"
+          },
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            953
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            954
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned",
+        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague, jpeg artifacts:1.6), bad shadows",
+        1.2,
+        1.2,
+        0,
+        0.2,
+        139012529664774,
+        "randomize",
+        "mean",
+        "A1111",
+        "",
+        ""
+      ],
+      "color": "#6e3d14",
+      "bgcolor": "#825128"
     }
   ],
   "links": [

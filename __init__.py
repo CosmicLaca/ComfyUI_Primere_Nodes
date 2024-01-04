@@ -10,7 +10,7 @@ from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
 
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 
 comfy_frontend = comfy_dir/"web"/"extensions"
 frontend_target = comfy_frontend/"Primere"

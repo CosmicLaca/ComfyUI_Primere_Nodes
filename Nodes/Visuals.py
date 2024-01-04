@@ -20,10 +20,6 @@ class PrimereVisualCKPT:
     RETURN_NAMES = ("MODEL_NAME", "MODEL_VERSION")
     FUNCTION = "load_ckpt_visual_list"
     CATEGORY = TREE_VISUALS
-
-    def __init__(self):
-        self.chkp_loader = nodes.CheckpointLoaderSimple()
-
     model_versions = utility.get_category_from_cache('model_version')
 
     @classmethod
@@ -44,7 +40,7 @@ class PrimereVisualCKPT:
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
-            LOADED_CHECKPOINT = self.chkp_loader.load_checkpoint(base_model)
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model, output_vae=True, output_clip=True)
             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
