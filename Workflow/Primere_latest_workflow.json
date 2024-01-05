@@ -658,81 +658,6 @@
       "bgcolor": "#3f5159"
     },
     {
-      "id": 80,
-      "type": "PrimerePrompt",
-      "pos": [
-        -1007.14357734375,
-        83.85639976806641
-      ],
-      "size": {
-        "0": 991.5969848632812,
-        "1": 444.4584045410156
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            394
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            395
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            396
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            397
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            398
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Prompt - TEST #4",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "portrait of bokeh (professional sexy 45 year old glamour beautiful perfect body woman, photomodel in ({white|black|yellow|red} {fishnet|opaque|transparent} luxury elegant lingerie underwear:1.3), (short curly red hair) (luxury expensive fashion bra:1.3), beautiful natural sexy breasts, hidden nipples by larger bra, erotic necklace, love face, professional pose, luxury erotic glamour photography:1.3), (huge striking expensive sparkling brown diamond luxury jewellery in her neck:0.7), luxury elegant style beautiful interior with large {white|red|yellow}} curtains and expensive leather bed, (less soft makeup, natural skin:1.4), (film grain:1.6) as a ((luxury person)) with ((curtain bangs haircut)) wearing (silk) glamour photography high fashion photography shot on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)",
-        "(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)",
-        "Camelia",
-        "None",
-        "Vertical"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 288,
       "type": "PrimerePrompt",
       "pos": [
@@ -744,7 +669,7 @@
         "1": 418.6113586425781
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "outputs": [
         {
@@ -808,39 +733,10 @@
       "bgcolor": "#653"
     },
     {
-      "id": 318,
-      "type": "UNETLoader",
-      "pos": [
-        -1507,
-        -1032
-      ],
-      "size": {
-        "0": 434.5,
-        "1": 58
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UNETLoader"
-      },
-      "widgets_values": [
-        "xl-inpaint-0.1\\diffusion_pytorch_model.safetensors"
-      ]
-    },
-    {
       "id": 248,
       "type": "PrimereVisualCKPT",
       "pos": [
-        2373,
+        2375,
         -1185
       ],
       "size": {
@@ -848,7 +744,7 @@
         "1": 129.9805450439453
       },
       "flags": {},
-      "order": 15,
+      "order": 13,
       "mode": 0,
       "outputs": [
         {
@@ -875,7 +771,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
+        "SDXL\\OpenDalle.safetensors",
         true,
         false
       ],
@@ -894,7 +790,7 @@
         "1": 470.09844970703125
       },
       "flags": {},
-      "order": 16,
+      "order": 14,
       "mode": 0,
       "outputs": [
         {
@@ -969,7 +865,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 17,
+      "order": 15,
       "mode": 0,
       "outputs": [
         {
@@ -1008,7 +904,7 @@
         "1": 205.3205108642578
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1153,7 +1049,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1218,6 +1114,124 @@
       "bgcolor": "#653"
     },
     {
+      "id": 326,
+      "type": "PrimereResolution",
+      "pos": [
+        3240,
+        -1184
+      ],
+      "size": {
+        "0": 323.36981201171875,
+        "1": 246
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 869,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 868,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            870
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            871
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "HD+ screen [16:10]",
+        768,
+        true,
+        "Horizontal",
+        true,
+        613527289221801,
+        "randomize",
+        false,
+        1.6,
+        2.8,
+        "BaseModel_1024"
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 372,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5101,
+        -386
+      ],
+      "size": [
+        98.36443575000158,
+        26
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 1027,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            1062,
+            1063,
+            1064,
+            1065,
+            1066,
+            1067,
+            1068,
+            1069
+          ],
+          "shape": 3,
+          "label": "INT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
       "id": 137,
       "type": "PrimerePromptSwitch",
       "pos": [
@@ -1229,7 +1243,7 @@
         "1": 838
       },
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
@@ -1492,128 +1506,10 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        1
+        4
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
-    },
-    {
-      "id": 326,
-      "type": "PrimereResolution",
-      "pos": [
-        3240,
-        -1184
-      ],
-      "size": {
-        "0": 323.36981201171875,
-        "1": 246
-      },
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 869,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 868,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            870
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            871
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "HD+ screen [16:10]",
-        768,
-        true,
-        "Horizontal",
-        true,
-        165258723789047,
-        "randomize",
-        false,
-        1.6,
-        2.8,
-        "BaseModel_1024"
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 372,
-      "type": "ReroutePrimitive|pysssss",
-      "pos": [
-        5101,
-        -386
-      ],
-      "size": [
-        98.36443575000158,
-        26
-      ],
-      "flags": {},
-      "order": 22,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "*",
-          "link": 1027,
-          "label": " "
-        }
-      ],
-      "outputs": [
-        {
-          "name": "*",
-          "type": "INT",
-          "links": [
-            1062,
-            1063,
-            1064,
-            1065,
-            1066,
-            1067,
-            1068,
-            1069
-          ],
-          "shape": 3,
-          "label": "INT",
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
-      },
-      "color": "#223",
-      "bgcolor": "#335"
     },
     {
       "id": 108,
@@ -1627,7 +1523,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1641,7 +1537,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair"
+        "(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1658,7 +1554,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 24,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1672,7 +1568,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)"
+        "human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1689,7 +1585,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 25,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -2048,7 +1944,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1486,
+        1274,
         "randomize",
         512,
         512,
@@ -2073,7 +1969,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -2118,7 +2014,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -2154,7 +2050,7 @@
       },
       "widgets_values": [
         "",
-        166635448334223,
+        581892754539508,
         "randomize"
       ],
       "color": "#322",
@@ -2172,7 +2068,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2209,7 +2105,7 @@
       },
       "widgets_values": [
         "",
-        265988276888883,
+        996622826569092,
         "randomize"
       ],
       "color": "#232",
@@ -2227,7 +2123,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2335,7 +2231,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2349,7 +2245,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"(beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair\",\n    \"negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 589291622274093,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"(beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair\",\n    \"dynamic_negative\": \"porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\"\n}"
+        "{\n    \"positive\": \"(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\",\n    \"negative\": \"human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\OpenDalle.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 293441831120612,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"(one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\",\n    \"dynamic_negative\": \"human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2366,7 +2262,7 @@
         26
       ],
       "flags": {},
-      "order": 31,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2409,7 +2305,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 32,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2525,7 +2421,7 @@
         26
       ],
       "flags": {},
-      "order": 33,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2572,7 +2468,7 @@
         "1": 382
       },
       "flags": {},
-      "order": 34,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2642,7 +2538,7 @@
         1.2,
         0.9,
         1.3,
-        842906302105093,
+        834638992038231,
         "randomize",
         true,
         "cpu"
@@ -2662,7 +2558,7 @@
         26
       ],
       "flags": {},
-      "order": 35,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2705,7 +2601,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 36,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2793,7 +2689,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 37,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2840,7 +2736,7 @@
         "SDXL",
         true,
         false,
-        false,
+        true,
         "SDXL\\negativeXL_D.safetensors",
         0.4,
         true,
@@ -2882,7 +2778,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 38,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2960,7 +2856,7 @@
         "1": 146
       },
       "flags": {},
-      "order": 39,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -3043,7 +2939,7 @@
         26
       ],
       "flags": {},
-      "order": 40,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -3086,7 +2982,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 41,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -3159,9 +3055,9 @@
         1,
         1,
         false,
-        "Landscape\\kkw-Winter.pt",
-        1,
-        1,
+        "Style\\glassSculptures_v2.0.safetensors",
+        0.3,
+        0.4,
         false,
         "Style\\add_detail.safetensors",
         1,
@@ -3199,7 +3095,7 @@
         "1": 295.889404296875
       },
       "flags": {},
-      "order": 42,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3226,7 +3122,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 43,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3288,7 +3184,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 44,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3366,7 +3262,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 45,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3436,12 +3332,12 @@
         false,
         true,
         "SDXL\\add-detail.safetensors",
-        0.6,
-        0.4,
-        false,
-        "SDXL\\DetailedEyes_V3.safetensors",
-        1.4000000000000001,
-        1.4000000000000001,
+        0.5,
+        0.75,
+        true,
+        "SDXL\\glass.safetensors",
+        0.5,
+        1.2,
         false,
         "SDXL\\breasts_slider_v10.safetensors",
         -7,
@@ -3479,7 +3375,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 46,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3543,7 +3439,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 47,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3657,7 +3553,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 48,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3705,7 +3601,7 @@
         26
       ],
       "flags": {},
-      "order": 49,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3748,7 +3644,7 @@
         26
       ],
       "flags": {},
-      "order": 50,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3791,7 +3687,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 51,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3861,9 +3757,9 @@
         false,
         false,
         false,
-        "SDXL\\Sophitia_XL.safetensors",
-        0.25,
-        0.3,
+        "SDXL\\Glass_Islands.safetensors",
+        0.5,
+        0.5,
         false,
         "SDXL\\cyberfuture.safetensors",
         1,
@@ -3905,7 +3801,7 @@
         "1": 484.9033203125
       },
       "flags": {},
-      "order": 52,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3981,7 +3877,7 @@
         1.3,
         0,
         0,
-        472227483647600,
+        182988837331935,
         "randomize",
         "mean",
         "comfy++",
@@ -4003,7 +3899,7 @@
         "1": 487.41436767578125
       },
       "flags": {},
-      "order": 53,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -4079,7 +3975,7 @@
         1.3,
         0,
         0,
-        519564522167342,
+        521703835932052,
         "randomize",
         "mean",
         "A1111",
@@ -4101,7 +3997,7 @@
         "1": 486.3999328613281
       },
       "flags": {},
-      "order": 54,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -4177,7 +4073,7 @@
         0.4,
         0.25,
         0.3,
-        103268035508801,
+        250764849393222,
         "randomize",
         "mean",
         "comfy++",
@@ -4186,6 +4082,106 @@
       ],
       "color": "#967547",
       "bgcolor": "#826133"
+    },
+    {
+      "id": 351,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        5248,
+        466
+      ],
+      "size": {
+        "0": 366.8717346191406,
+        "1": 486.1943054199219
+      },
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1073
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1065,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1057,
+          "widget": {
+            "name": "positive_original"
+          },
+          "slot_index": 2
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1061,
+          "widget": {
+            "name": "negative_original"
+          },
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            953
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            954
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Refiner Prompt - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned",
+        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague, jpeg artifacts:1.6), bad shadows",
+        1.2,
+        1.2,
+        0,
+        0.2,
+        883519985977667,
+        "randomize",
+        "mean",
+        "A1111",
+        "",
+        ""
+      ],
+      "color": "#6e3d14",
+      "bgcolor": "#825128"
     },
     {
       "id": 280,
@@ -4199,7 +4195,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 56,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4243,7 +4239,7 @@
         "Any",
         true,
         false,
-        false,
+        true,
         "Photo\\ProjectPhoto.pt",
         0.4,
         false,
@@ -4277,7 +4273,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 57,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -4325,7 +4321,7 @@
         "1": 714.7673950195312
       },
       "flags": {},
-      "order": 58,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4516,7 +4512,7 @@
         false,
         "PHOTO",
         1.1,
-        "None",
+        "BETTER_IMAGES",
         1.2,
         true,
         "mean",
@@ -4551,7 +4547,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 59,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4635,7 +4631,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1108030027760801,
+        242317228270306,
         "randomize",
         20,
         8,
@@ -4658,7 +4654,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 60,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4672,7 +4668,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, embedding:Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair"
+        "(one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4689,7 +4685,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 61,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -4703,7 +4699,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(porn, sex, nude, nudity, child, childish, embedding:Asian-Less-Neg, embedding:FastNegativeEmbedding, embedding:negative_hand, draw, illustration, telephoto, earrings, necklace, (embedding:add_nsfw:1.6):1.20)"
+        "(embedding:negativeXL_D:0.4), (human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2):1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4720,7 +4716,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 62,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4734,7 +4730,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "((one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4751,7 +4747,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 63,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4765,7 +4761,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "((human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2):1.20))"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4782,7 +4778,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 64,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4828,7 +4824,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 65,
+      "order": 64,
       "mode": 4,
       "inputs": [
         {
@@ -4908,7 +4904,7 @@
         "1": 380.1381530761719
       },
       "flags": {},
-      "order": 66,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -4935,7 +4931,7 @@
         26
       ],
       "flags": {},
-      "order": 67,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -4975,7 +4971,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 68,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -5071,7 +5067,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        true,
+        false,
         5200,
         0,
         "bbox/face_yolov8n_v2.pt",
@@ -5103,7 +5099,7 @@
         "1": 487.42388916015625
       },
       "flags": {},
-      "order": 69,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -5132,7 +5128,7 @@
         "1": 487.42388916015625
       },
       "flags": {},
-      "order": 70,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -5226,7 +5222,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        99870450591636,
+        138417326210302,
         "randomize",
         30,
         8,
@@ -5253,7 +5249,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 71,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -5349,7 +5345,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        true,
+        false,
         0,
         0,
         "segm/facial_features_yolo8x-seg.pt",
@@ -5381,7 +5377,7 @@
         "1": 487.4239196777344
       },
       "flags": {},
-      "order": 72,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -5409,7 +5405,7 @@
         "1": 482.9033203125
       },
       "flags": {},
-      "order": 73,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -5438,7 +5434,7 @@
         "1": 482.9033203125
       },
       "flags": {},
-      "order": 74,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -5532,7 +5528,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        123077441081397,
+        987258202056216,
         "randomize",
         30,
         10,
@@ -5559,7 +5555,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 75,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -5655,7 +5651,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        true,
+        false,
         0,
         2000,
         "segm/facial_features_yolo8x-seg.pt",
@@ -5687,7 +5683,7 @@
         "1": 485.15728759765625
       },
       "flags": {},
-      "order": 76,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -5715,7 +5711,7 @@
         "1": 484.41436767578125
       },
       "flags": {},
-      "order": 77,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5744,7 +5740,7 @@
         "1": 485.41436767578125
       },
       "flags": {},
-      "order": 78,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5838,7 +5834,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        136913491205042,
+        367462968069386,
         "randomize",
         30,
         10,
@@ -5865,7 +5861,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 79,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5961,7 +5957,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        true,
+        false,
         30000,
         0,
         "bbox/hand_yolov8n.pt",
@@ -5985,15 +5981,15 @@
       "id": 362,
       "type": "PreviewImage",
       "pos": [
-        6724,
-        -85
+        6725,
+        -83
       ],
       "size": {
         "0": 342.54705810546875,
         "1": 485.41436767578125
       },
       "flags": {},
-      "order": 80,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -6021,7 +6017,7 @@
         "1": 486.1943054199219
       },
       "flags": {},
-      "order": 81,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -6050,7 +6046,7 @@
         "1": 485.1943054199219
       },
       "flags": {},
-      "order": 82,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -6144,7 +6140,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        697891082280415,
+        596963955887805,
         "randomize",
         30,
         10,
@@ -6171,7 +6167,7 @@
         "1": 534
       },
       "flags": {},
-      "order": 83,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -6289,7 +6285,7 @@
       },
       "widgets_values": [
         2.1,
-        549174883680866,
+        884000763873575,
         "randomize",
         7,
         6.5,
@@ -6323,7 +6319,7 @@
         "1": 487.1943054199219
       },
       "flags": {},
-      "order": 84,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -6352,7 +6348,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 85,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -6394,7 +6390,7 @@
         "1": 506
       },
       "flags": {},
-      "order": 86,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -6465,7 +6461,7 @@
         "1": 1849.2044677734375
       },
       "flags": {},
-      "order": 87,
+      "order": 86,
       "mode": 0,
       "inputs": [
         {
@@ -6492,7 +6488,7 @@
         "1": 613.2086181640625
       },
       "flags": {},
-      "order": 88,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -6510,110 +6506,85 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-03 19:47:16\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\SFW\\2024-01-Week-01\\Image_20240301_194716_589291622274093_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (beautiful sexy {25|30|35|40|45|50|55} years old ({half-black|black|white|European}:1.4) {model|housewife|wife|hotwife|average} woman:1.2), (standing in the {city|bedroom|living room|kitchen}:1.3), {half body|full body|portrait|closeup} {outdoor|indoor} color {professional|amateur|mobile} photography, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, {open|closed|kissing} mouth, wear {white|brown|red|yellow|green|pink} {leather|luxury|silk|denim} jacket, {blue|white|pink|red|black} {denim|leather|silk} {short|long|hot|small} pants, (long {black|red|painted|blonde} straight hair:1.4), {matte|glossy|transparent fishnet} top, large cleavage, natural tits, {Summer|Spring|Winter|Autumn|weekday}, blury background, bokeh, duplicate face, duplicate body, duplicate hair\n:: NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 589291622274093\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: (beautiful sexy 30 years old (black:1.4) average woman:1.2), (standing in the kitchen:1.3), full body outdoor color mobile photography, happy mood, closed mouth, wear yellow denim jacket, blue leather small pants, (long painted straight hair:1.4), glossy top, large cleavage, natural tits, Spring, blury background, bokeh, duplicate face, duplicate body, duplicate hair\n:: DYNAMIC_NEGATIVE: porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.6)\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2024-01-05 13:05:45\n:: Output file: h:\\AIPICS\\Comfy\\OPENDALLE\\GlassFruit\\2024-01-Week-01\\Image_20240501_130544_654860851738082_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\n:: NEGATIVE: human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\n:: MODEL_NAME: SDXL\\OpenDalle.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 654860851738082\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: (one large glass ornament object shaped pear, artistic glass object in the desk:1.5), (autumn blue lake (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\n:: DYNAMIC_NEGATIVE: human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
     },
     {
-      "id": 351,
-      "type": "PrimereRefinerPrompt",
+      "id": 80,
+      "type": "PrimerePrompt",
       "pos": [
-        5248,
-        466
+        -1007.14357734375,
+        83.85639976806641
       ],
       "size": {
-        "0": 366.8717346191406,
-        "1": 486.1943054199219
+        "0": 991.5969848632812,
+        "1": 444.4584045410156
       },
       "flags": {},
-      "order": 55,
+      "order": 16,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1073
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1065,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 1057,
-          "widget": {
-            "name": "positive_original"
-          },
-          "slot_index": 2
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 1061,
-          "widget": {
-            "name": "negative_original"
-          },
-          "slot_index": 3
-        }
-      ],
       "outputs": [
         {
           "name": "PROMPT+",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            394
+          ],
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            395
+          ],
+          "shape": 3,
+          "slot_index": 1
         },
         {
-          "name": "COND+",
-          "type": "CONDITIONING",
+          "name": "SUBPATH",
+          "type": "STRING",
           "links": [
-            953
+            396
           ],
           "shape": 3,
           "slot_index": 2
         },
         {
-          "name": "COND-",
-          "type": "CONDITIONING",
+          "name": "MODEL",
+          "type": "STRING",
           "links": [
-            954
+            397
           ],
           "shape": 3,
           "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            398
+          ],
+          "shape": 3,
+          "slot_index": 4
         }
       ],
-      "title": "Primere Refiner Prompt - HANDS",
+      "title": "Primere Prompt - TEST #4",
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned",
-        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague, jpeg artifacts:1.6), bad shadows",
-        1.2,
-        1.2,
-        0,
-        0.2,
-        139012529664774,
-        "randomize",
-        "mean",
-        "A1111",
-        "",
-        ""
+        "(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the {wooden|metal|glass|modern|platina|old style retro|futuristic} desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface",
+        "human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)",
+        "GlassFruit",
+        "None",
+        "Random"
       ],
-      "color": "#6e3d14",
-      "bgcolor": "#825128"
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
