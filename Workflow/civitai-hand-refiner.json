@@ -1,6 +1,6 @@
 {
-  "last_node_id": 131,
-  "last_link_id": 375,
+  "last_node_id": 132,
+  "last_link_id": 381,
   "nodes": [
     {
       "id": 1,
@@ -21,7 +21,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            357
+            376
           ],
           "shape": 3,
           "slot_index": 0
@@ -68,7 +68,7 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            358
+            377
           ],
           "shape": 3,
           "slot_index": 1
@@ -113,7 +113,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        998171497233667,
         null,
         null,
         null
@@ -212,16 +212,16 @@
       ]
     },
     {
-      "id": 128,
+      "id": 132,
       "type": "PrimereImageSegments",
       "pos": [
         1490,
         600
       ],
-      "size": {
-        "0": 471.5300598144531,
-        "1": 366
-      },
+      "size": [
+        530.7103836437882,
+        486
+      ],
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -229,12 +229,12 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 357
+          "link": 376
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 358,
+          "link": 377,
           "widget": {
             "name": "model_version"
           }
@@ -261,19 +261,17 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            360
+            378
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
         },
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
           "links": [
-            370
+            379
           ],
-          "shape": 6,
-          "slot_index": 1
+          "shape": 6
         },
         {
           "name": "DETECTOR",
@@ -291,33 +289,29 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            363
+            380
           ],
-          "shape": 3,
-          "slot_index": 4
+          "shape": 3
         },
         {
           "name": "CROP_REGIONS",
           "type": "TUPLE",
-          "links": [],
-          "shape": 3,
-          "slot_index": 5
+          "links": null,
+          "shape": 3
         },
         {
           "name": "IMAGE_MAX",
           "type": "INT",
-          "links": [],
-          "shape": 3,
-          "slot_index": 6
+          "links": null,
+          "shape": 3
         },
         {
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            369
+            381
           ],
-          "shape": 3,
-          "slot_index": 7
+          "shape": 3
         }
       ],
       "properties": {
@@ -325,12 +319,17 @@
       },
       "widgets_values": [
         true,
-        "bbox/hand_yolov8s.pt",
+        0,
+        0,
+        "bbox/hand_yolov8n.pt",
         "sam_vit_b_01ec64.pth",
         "AUTO",
-        0.75,
-        12,
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.65,
         3,
+        2,
         10,
         "BaseModel_1024",
         "",
@@ -424,7 +423,7 @@
         1,
         1,
         1,
-        651977278084316,
+        483483394469958,
         "randomize",
         "mean",
         "comfy++",
@@ -436,8 +435,8 @@
       "id": 129,
       "type": "PreviewImage",
       "pos": [
-        1329,
-        1030
+        1424,
+        1142
       ],
       "size": {
         "0": 578.4644165039062,
@@ -450,7 +449,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 370,
+          "link": 379,
           "slot_index": 0
         }
       ],
@@ -476,7 +475,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 360
+          "link": 378
         },
         {
           "name": "model",
@@ -506,12 +505,12 @@
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 369
+          "link": 381
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 363
+          "link": 380
         },
         {
           "name": "detector",
@@ -563,14 +562,14 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        577980310733468,
+        866906309653481,
         "randomize",
-        20,
-        7,
+        30,
+        8,
         "dpmpp_2m",
         "karras",
-        0.6,
-        6,
+        0.53,
+        10,
         true,
         false,
         1
@@ -606,8 +605,8 @@
       "id": 59,
       "type": "PreviewImage",
       "pos": [
-        1943,
-        1030
+        2058,
+        1144
       ],
       "size": {
         "0": 606.1574096679688,
@@ -687,54 +686,6 @@
       "IMAGE"
     ],
     [
-      357,
-      1,
-      0,
-      128,
-      0,
-      "IMAGE"
-    ],
-    [
-      358,
-      45,
-      1,
-      128,
-      1,
-      "STRING"
-    ],
-    [
-      360,
-      128,
-      0,
-      125,
-      0,
-      "IMAGE"
-    ],
-    [
-      363,
-      128,
-      4,
-      125,
-      7,
-      "SEGS"
-    ],
-    [
-      369,
-      128,
-      7,
-      125,
-      6,
-      "TUPLE"
-    ],
-    [
-      370,
-      128,
-      1,
-      129,
-      0,
-      "IMAGE"
-    ],
-    [
       372,
       48,
       0,
@@ -765,6 +716,54 @@
       125,
       5,
       "CONDITIONING"
+    ],
+    [
+      376,
+      1,
+      0,
+      132,
+      0,
+      "IMAGE"
+    ],
+    [
+      377,
+      45,
+      1,
+      132,
+      1,
+      "STRING"
+    ],
+    [
+      378,
+      132,
+      0,
+      125,
+      0,
+      "IMAGE"
+    ],
+    [
+      379,
+      132,
+      1,
+      129,
+      0,
+      "IMAGE"
+    ],
+    [
+      380,
+      132,
+      4,
+      125,
+      7,
+      "SEGS"
+    ],
+    [
+      381,
+      132,
+      7,
+      125,
+      6,
+      "TUPLE"
     ]
   ],
   "groups": [],
