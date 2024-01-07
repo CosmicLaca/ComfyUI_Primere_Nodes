@@ -1,6 +1,6 @@
 {
-  "last_node_id": 381,
-  "last_link_id": 1103,
+  "last_node_id": 393,
+  "last_link_id": 1136,
   "nodes": [
     {
       "id": 93,
@@ -203,11 +203,11 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "({30|35|40|45|50} year old {European|Australian|American} {white|black|half-black} {redhead|black hair|blonde|dyed hair|light-pink hair|rainbow hair} beautiful sexy model look woman:1.4) {stands|walking|buying|watching|talking} in the {snowy|rainy|stormy|sunny but cold} winter street in the {modern big city|nature near lake|forest|snowy hill|large village|small village|village in the snowy hill}, visible her thin {open|close} top revealing beautiful cleavage, wearing warm long {red|white|blue|green|pink} {leather|jeans} coat, (sexy outdoor {daytime|nighttime} photography:1.3), realistic beauty model woman of the (winter outdoor street photography:1.2), (__jumbo/people/mood__ mood:1.1), (wearing top elegant luxury {opened|closed} {large|big bold|small|minimal|sexy} winter {red|green|white|blue|brown|patterned} {coat|bold hot coat|jacket|leather jacket|urban underwear|sweater}:1.3), (perfect hands, perfect face, perfect lights:1.6)",
-        "(Christmas, holiday, asian, russian, gray:2), nsfw, nude, nudity, visible nipples, visible bra, porn, sex, child, childish, asian, china, chinesse, (huge big large breast boobs:1.3), church, religion, religious, necklace, jewellery, jewelry, camera, (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)",
-        "WinterWalk",
+        "",
+        " (duplicate, duplication:1.6), (gold. silver, nude breasts, nude tits, nude boobs, plastic:1.4), visible bra, plastic breasts, funny (deformed hands:1.6)",
+        "",
         "None",
-        "Random"
+        "None"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -278,8 +278,8 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "A luxurious bourgeois apartment, 5th floor, featuring large windows that offer beautiful winter views of the street. Moody lighting, cold colors, light brown, grey, and blue. A cozy fireplace is lit, with firewood neatly stacked next to it, adding warmth to the space. The room is elegantly decorated with luxury victorian decorations and paints in the wall, showcasing a mix of gold and silver accents. Victorian style, touch of classic elegance. A huge, plush sofa, large television. Wide-angle view. Intricate details. (A beautiful sexy {25|30|35|40|45|50} years old model woman siting in the sofa {|||with her husband}, wear {fishnet|transparent|silky|luxury|old style} {black|red|white|yellow|green|blue|pink} lingerie and underwear, visible underwear and bra with huge natural necklace, natural tits, long {black|brown|red|blonde} hair, {smiling|happy|unhappy|boring|satisfied|orgasm face|sexy} mood:1.3), (wearing a thin {brown|white|red|green|blue|yellow} {opaque|silky|fishnet} silk cape:{0|1|0.3|0.5|0.8|1.3|1.6})",
-        "nude nudity sex porn nsfw, deformed body, bad legs, deformed hands, extra legs",
+        "",
+        "",
         "",
         "None",
         "None"
@@ -502,9 +502,9 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "beautiful sexy 42 year old perfect body model woman, bathing in a big pool, blue water, small wave, (beautiful long wet watery trapped waterlogged soggy hair:1.5) and rainy wet full body, luxury, pool and exterior, (wear {green|blue|red|sexy|small sexy|yellow|rainbow|transparent|black|purple|white} one-piece swimsuit:1.2), sexy middle sized breasts, huge neckline cleavage decolletage, smile romantic satisfied face, closeup half body portrait, detailed face, detailed hair",
-        "dry hair, porn, nudity, nsfw, necklace add_nsfw",
-        "SFW",
+        "cute cat walking in the street at cold, snow, winter",
+        "dog",
+        "CuteAnimal",
         "None",
         "None"
       ],
@@ -647,11 +647,11 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Character",
+        "Architechture Exterior",
         true,
         false,
-        true,
-        true,
+        false,
+        false,
         false
       ],
       "color": "#2a363b",
@@ -723,11 +723,11 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "(beautiful sexy 30 years old ({American black|Australian white|European white|white}:1.4) model woman:1.2), (standing in the {green park|big city street|small village|small city|near friendly house}:1.3), near {blue lake|office building|small village house|big snowy hill|night starry sky}, {half body|full body|portrait|closeup} outdoor color professional model fashion photography, soft natural lights, __jumbo/people/mood__ mood, {open|closed|kissing} mouth, (wear {white|brown|red|green|yellow|rainbow}, {leather|winter|silky|luxury|elegant}, {jacket|coat|winter coat}:1.6), (wear maroon luxury silk underwear:1.6), (wear {leather|jeans} {long|short} {black|white|blue}, trousers:1.6), ({long|short} {black|red|pink|blonde|brown|blue|green|white|rainbow painted} {straight|curly} hair:1.6), {small|large} cleavage, natural tits, snow:0.5, {Winter|Autumn|Spring|dark starry night|daytime}, blury background, bokeh, (film grain:1.6), (detailed face:1.6), (detailed skin:1.6), (luxury beautiful winter cap on her head:0.7)",
-        "porn, sex, nude, nudity, child, childish, Asian-Less-Neg, FastNegativeEmbedding, negative_hand, draw, illustration, telephoto, earrings, necklace, add_nsfw, bra, lingerie, (duplicate, duplication:1.6), (Christmas, holiday, asian, russian, gray:2), plastic, (underwear, panties, bra:2)",
-        "OutdodorModels",
+        "",
+        "",
+        "",
         "None",
-        "Vertical"
+        "None"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -771,7 +771,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\OpenDalle.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         false
       ],
@@ -844,9 +844,9 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "beautiful 40 year old woman standing, {half body|full body|closeup portrait} photography, fully clothed, ((curtain bangs haircut)), wear elegant top, front view, perfect face, detailed brown eyes, natural background, perfect lights, perfect colors, realistic photo, professional photography, high fashion photography shot {indoor|outdoor} on Canon EOS 5D Mark IV with Canon EF 24-70mm f-2.8L II, (Agfacolor)), (Photorealistic, Hyperrealistic, Hyperdetailed, analog photography style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus:1.30), (perfect detailed eyes:2)",
-        "(nsfw, porn, nude, nudity, porn, child, childish, large plastic breast, nude pussy, nude breast, eye-catching makeup, perfect skin:1.4), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)",
-        "Camelia",
+        "",
+        "",
+        "",
         "None",
         "Random"
       ],
@@ -891,6 +891,81 @@
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 80,
+      "type": "PrimerePrompt",
+      "pos": [
+        -1007.14357734375,
+        83.85639976806641
+      ],
+      "size": {
+        "0": 991.5969848632812,
+        "1": 444.4584045410156
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            394
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            395
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            396
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            397
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            398
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Prompt - TEST #4",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "",
+        "None",
+        "None"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     },
     {
       "id": 91,
@@ -1171,10 +1246,10 @@
       "widgets_values": [
         "HD+ screen [16:10]",
         768,
+        false,
+        "Vertical",
         true,
-        "Horizontal",
-        true,
-        613527289221801,
+        167757464862314,
         "randomize",
         false,
         1.6,
@@ -1506,7 +1581,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        4
+        2
       ],
       "color": "#0000eb",
       "bgcolor": "#0000ff"
@@ -1537,7 +1612,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface"
+        "cute cat walking in the street at cold, snow, winter"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1568,7 +1643,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)"
+        "dog"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1944,7 +2019,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1274,
+        1951,
         "randomize",
         512,
         512,
@@ -1993,7 +2068,7 @@
         "Node name for S&R": "PrimereModelKeyword"
       },
       "widgets_values": [
-        false,
+        true,
         "Last",
         "Random select",
         1,
@@ -2050,7 +2125,7 @@
       },
       "widgets_values": [
         "",
-        581892754539508,
+        424734785387593,
         "randomize"
       ],
       "color": "#322",
@@ -2105,7 +2180,7 @@
       },
       "widgets_values": [
         "",
-        996622826569092,
+        63314475158459,
         "randomize"
       ],
       "color": "#232",
@@ -2245,7 +2320,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\",\n    \"negative\": \"human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\OpenDalle.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 293441831120612,\n    \"width\": 819,\n    \"height\": 1280,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"SDXL_2048\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": \"Vertical\",\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"(one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\",\n    \"dynamic_negative\": \"human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\"\n}"
+        "{\n    \"positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"negative\": \"dog\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 327710957767129,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"dynamic_negative\": \"dog\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2538,7 +2613,7 @@
         1.2,
         0.9,
         1.3,
-        834638992038231,
+        1048201272971777,
         "randomize",
         true,
         "cpu"
@@ -2736,7 +2811,7 @@
         "SDXL",
         true,
         false,
-        true,
+        false,
         "SDXL\\negativeXL_D.safetensors",
         0.4,
         true,
@@ -3330,11 +3405,11 @@
         true,
         false,
         false,
-        true,
+        false,
         "SDXL\\add-detail.safetensors",
         0.5,
         0.75,
-        true,
+        false,
         "SDXL\\glass.safetensors",
         0.5,
         1.2,
@@ -3877,7 +3952,7 @@
         1.3,
         0,
         0,
-        182988837331935,
+        580174942124973,
         "randomize",
         "mean",
         "comfy++",
@@ -3975,7 +4050,7 @@
         1.3,
         0,
         0,
-        521703835932052,
+        595924631686224,
         "randomize",
         "mean",
         "A1111",
@@ -4073,7 +4148,7 @@
         0.4,
         0.25,
         0.3,
-        250764849393222,
+        1023450146524380,
         "randomize",
         "mean",
         "comfy++",
@@ -4173,7 +4248,7 @@
         1.2,
         0,
         0.2,
-        883519985977667,
+        982662699861687,
         "randomize",
         "mean",
         "A1111",
@@ -4218,7 +4293,7 @@
           "type": "MODEL",
           "links": [
             699,
-            700
+            1136
           ],
           "shape": 3,
           "slot_index": 0
@@ -4239,7 +4314,7 @@
         "Any",
         true,
         false,
-        true,
+        false,
         "Photo\\ProjectPhoto.pt",
         0.4,
         false,
@@ -4553,7 +4628,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 700
+          "link": 1136
         },
         {
           "name": "positive",
@@ -4631,7 +4706,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        242317228270306,
+        1010714948397685,
         "randomize",
         20,
         8,
@@ -4668,7 +4743,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface"
+        "cute cat walking in the street at cold, snow, winter, design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4699,7 +4774,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(embedding:negativeXL_D:0.4), (human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2):1.20)"
+        "(dog:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4730,7 +4805,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "((one large glass ornament object shaped raspberry, artistic glass object in the desk:1.5), (summer hill (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface)"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4761,7 +4836,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "((human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2):1.20))"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -4946,7 +5021,7 @@
           "name": "*",
           "type": "IMAGE",
           "links": [
-            1078
+            1131
           ],
           "shape": 3,
           "label": "IMAGE",
@@ -4977,7 +5052,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1078
+          "link": 1131
         },
         {
           "name": "model_version",
@@ -5009,7 +5084,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            1080
+            1105
           ],
           "shape": 3
         },
@@ -5067,7 +5142,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
         5200,
         0,
         "bbox/face_yolov8n_v2.pt",
@@ -5134,7 +5209,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 1080
+          "link": 1105
         },
         {
           "name": "model",
@@ -5222,7 +5297,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        138417326210302,
+        772497272662019,
         "randomize",
         30,
         8,
@@ -5345,7 +5420,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
         0,
         0,
         "segm/facial_features_yolo8x-seg.pt",
@@ -5528,7 +5603,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        987258202056216,
+        1087699788711699,
         "randomize",
         30,
         10,
@@ -5651,7 +5726,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
         0,
         2000,
         "segm/facial_features_yolo8x-seg.pt",
@@ -5661,8 +5736,8 @@
         "short_sleeved_shirt",
         "mouth",
         0.55,
-        -3,
-        1.1,
+        0,
+        1.2000000000000002,
         8,
         "BaseModel_1024",
         "",
@@ -5834,13 +5909,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        367462968069386,
+        525153125699262,
         "randomize",
         30,
         10,
         "euler",
         "normal",
-        0.45,
+        0.4,
         5,
         true,
         false,
@@ -5957,7 +6032,7 @@
         "Node name for S&R": "PrimereImageSegments"
       },
       "widgets_values": [
-        false,
+        true,
         30000,
         0,
         "bbox/hand_yolov8n.pt",
@@ -6140,7 +6215,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        596963955887805,
+        503601937743767,
         "randomize",
         30,
         10,
@@ -6285,7 +6360,7 @@
       },
       "widgets_values": [
         2.1,
-        884000763873575,
+        755017529877556,
         "randomize",
         7,
         6.5,
@@ -6427,7 +6502,7 @@
       },
       "widgets_values": [
         "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
-        "Test",
+        "Preview",
         "",
         true,
         "Image",
@@ -6441,7 +6516,7 @@
         "jpg",
         true,
         true,
-        95,
+        60,
         "false",
         false,
         false
@@ -6506,85 +6581,10 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-05 13:05:45\n:: Output file: h:\\AIPICS\\Comfy\\OPENDALLE\\GlassFruit\\2024-01-Week-01\\Image_20240501_130544_654860851738082_2448x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: (one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\n:: NEGATIVE: human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\n:: MODEL_NAME: SDXL\\OpenDalle.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 654860851738082\n:: WIDTH: 819\n:: HEIGHT: 1280\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: SDXL_2048\n:: IS_LCM: 0\n:: VAE_NAME: sdxl_vae.safetensors\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: Vertical\n:: IS_SDXL: 1\n:: DYNAMIC_POSITIVE: (one large glass ornament object shaped pear, artistic glass object in the desk:1.5), (autumn blue lake (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface\n:: DYNAMIC_NEGATIVE: human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)\n:: SAVED_IMAGE_WIDTH: 2448\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 819x1280 to: 2448x3840 Ratio: 3.0\n"
+        ":: Time to save: 2024-01-07 09:07:05\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\CuteAnimal\\2024-01-Week-01\\Image_20240701_090704_327710957767129_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: cute cat walking in the street at cold, snow, winter\n:: NEGATIVE: dog\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 327710957767129\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: cute cat walking in the street at cold, snow, winter\n:: DYNAMIC_NEGATIVE: dog\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 80,
-      "type": "PrimerePrompt",
-      "pos": [
-        -1007.14357734375,
-        83.85639976806641
-      ],
-      "size": {
-        "0": 991.5969848632812,
-        "1": 444.4584045410156
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            394
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            395
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            396
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            397
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            398
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Prompt - TEST #4",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "(one large glass ornament object shaped {apple|pear|raspberry|melon|strawberry}, artistic glass object in the {wooden|metal|glass|modern|platina|old style retro|futuristic} desk:1.5), ({winter|summer|autumn|spring} {landscape|hill|city|village|blue lake} (colorful image visible inside the glass ornament object:1.2)), realistic background, professional photorealistic artistic product photography, reflections of lights in the object surface",
-        "human animal nsfw nude nudity draw illustration text, watermark, (humans, animals within the object:2), (Christmas tree decorations:2)",
-        "GlassFruit",
-        "None",
-        "Random"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -7034,14 +7034,6 @@
       0,
       156,
       1,
-      "MODEL"
-    ],
-    [
-      700,
-      280,
-      0,
-      102,
-      0,
       "MODEL"
     ],
     [
@@ -8389,28 +8381,12 @@
       "*"
     ],
     [
-      1078,
-      375,
-      0,
-      376,
-      0,
-      "IMAGE"
-    ],
-    [
       1079,
       371,
       0,
       376,
       1,
       "STRING"
-    ],
-    [
-      1080,
-      376,
-      0,
-      337,
-      0,
-      "IMAGE"
     ],
     [
       1081,
@@ -8579,6 +8555,30 @@
       342,
       6,
       "TUPLE"
+    ],
+    [
+      1105,
+      376,
+      0,
+      337,
+      0,
+      "IMAGE"
+    ],
+    [
+      1131,
+      375,
+      0,
+      376,
+      0,
+      "IMAGE"
+    ],
+    [
+      1136,
+      280,
+      0,
+      102,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [
