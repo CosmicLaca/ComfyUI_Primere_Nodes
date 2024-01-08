@@ -7,56 +7,186 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Do it before first run, or the example workflow will be failed in your environment:
 
-**Always use only the latest 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes.**
+**Always use only the latest 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes if the previous workflow failed becuae nodes changed by develpment.**
 
 1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually).
 
-2; If started, use the last workflow on the 'Workflow' folder for first try, all nodes visible under the 'Primere Nodes' submenu if you need custom workflow later. If some other nodes missing and red in workflow, download or delete unloaded nodes.
+2; If started, use the last workflow on the 'Workflow' folder for first try, all nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow later. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
-2a; The **Primere_latest_workflow.json** is the most complex workflow, using most nodes I developed. But the **Primere_basic_workflow.json** is a really basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu after right-click after git pull. 
+3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is a really basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
-3; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
+4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
-4; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
+5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
 
-5; **Set available values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values from your own environment.
+6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values on all input fields from your own environment.
 
-6; Choose your own image from your machine to the 'Primere Exif Reader'.
+7; Choose your own image from your machine to the 'Primere Exif Reader'.
 
-7; If the workflow failed, read the message in terminal, or try **Primere_basic_workflow.json**. After git pull try to refresh changed nodes.
+8; **Update your Comfy to latest version** if workflow failed, I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
 
-8; **Update your Comfy to latest version**, I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
+9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved workflow if required.
 
-9; I develop my nodes and workflow continously, so do git pull from master branch once a week.
-
-10; Sometime the node development change existing nodes, so the previous workflow failed after pull. Then you must refresh **'Fix node (recreate)' menu** and maybe rewire changed nodes, or load the uploaded example workflows again.
+10; Sometime the node development change existing nodes, so the previous workflow failed after pull. Then use right-click + **'Fix node (recreate)' menu** and maybe rewire changed nodes, or load the attached example workflows again.
 
 11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
 
-## Special features:
+## Special features in attached complex workflow **Primere_latest_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
 - No need to switch nodes or workflow between SD and SDXL mode
-- You can select model, subpath and orientation under the prompt input overwrite the system settings, same settings under the csv Styles loader node
+- You can select model, subpath and orientation under the prompt input overwrite the system settings, same settings under the .csv Styles loader node
 - You can randomize the image orientation if using batch mode
-- One button LCM mode (see example workflow), the node download SD and SDXL LCM models at first usage
+- One button LCM mode (see example workflow), the node download required SD and SDXL LCM models at first usage
 - Save .json and/or .txt file with process details, but these details saved to image as EXIF too
-- Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts, example csv included
+- Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts, example .csv included
 - Random noise generator for latent image
-- Important and easy editable styles included in the text encoder as list
+- Additional and easy editable styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, and auto detect checkpoint version for right final size
 - Image size can be convert to "standard" (x16) values, fully customizable side ratios at the bottom of the resolution selector node
 - Original image size multiplied to upscaler by two several ratios, one for SD and another one for SDXL models
-- Remove previously included networks from prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included additional networks or change to different networks, or using SDXL checkpoint and Loras have to be changed to SDXL compatible version 
+- Remove previously included networks from prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included additional networks or change to different networks by nodes, or using SDXL checkpoint and Loras have to be changed to SDXL compatible version 
 - Embedding handler for A1111 compatible prompts (or .csv styles), this node convert A1111 Embeddings to ComfyUI
 - Use more than one prompt or style inputs for testing, and select any by 'Prompt Switch' node
-- Special image meta/EXIF reader, which handle model name and samplers from A1111 .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images using same or several settings. With switches you can change the original seed/model/size/etc... to workflow settings
+- Special image meta/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images using same or different settings. With switches you can change/keep the original seed/model/size/etc... to workflow settings
 - Check/debug generation details
 - Workflow and nodes support Lycoris in dedicated node
 - Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
+- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
 
 <hr>
 
 # Nodes in the pack by submenus:
+
+## Visuals:
+
+### Before you save your own previews, just set 'show_modal' input to 'false'
+
+Here are same functions similar like in **Inputs** submenu, but the selection (for example checkpoints, loras, lycoris, embeddings, styles from style.csv and hypernetworks) **possible by image previews on modal**. Very similar than in several themes of A1111, but you must create previews to right path.
+You have to save images as previews to the right path and name, deails later. Preview can be **only .jpg** format with only .jpg extension. 
+Don't use large files because the modal loading time. The preview height in visual selector modal is only 220px, so dont use upscaled or original images as preview. Downsize your previews height to 250-300 px, and set jpg image quality to ~50% for faster loading. ACDSee do it automatically at Tools->Batch->Resize menu i you already have large images, if you generate new, just set the upscaler under the 1 (0.4 for SD and 0.2 for SDXL is good enought, while set the jpeg quality to ~50-60 in the image saver node).
+Checkpoint and additional networks files have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time just read back from cached jason file. About version caching read more later.
+
+**If you need version info of all your files for visual modal badges, you can use helper files from the 'terminal_helpers' subdir:**
+- Activate your comfy venv. This is the most important step before run command line helpers.
+- In the terminal window you already activated your venv, just run included .py files:
+- **lora_version_cache.py** will be read and store versions of all lora files
+- **lyco_version_cache.py** will be read and store versions of all lycoris files
+- **model_version_cache.py** will be read and store versions of all checkpoint files
+- **embedding_version_cache.py** will be read and store versions of all textual embedding files
+
+Unfortunately the result is not perfect :(. You must check the version labels on your models and network files. If failed or unknown, you can modify and correct the .cache.json manually. Git pull will keep your edited cache file.
+**The embedding cache helper can't read the right version of embedding files**, so after first run all files will be marked as **SD** version. You must modify and replace SD to SDXL in the .cache.json manually.
+
+<a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="300px"></a>
+<hr>
+
+### Primere Visual CKPT selector:
+**Visual selector for checkpoints**. You must mirror your original checkpoint subdirs **(not the checkpoint files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
+As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
+
+<a href="./Workflow/readme_images/pvmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvmodal.jpg" height="120px"></a>
+<hr>
+
+### Primere Visual Lora selector:
+Same as than the 'Primere LORA' node, but with preview images of selection modal.  
+You must mirror your original lora subdirs **(not your lora files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\loras\ path but only the preview images needed, same name as the lora files but with .jpg only extension.
+As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
+
+<a href="./Workflow/readme_images/pvlora.jpg" target="_blank"><img src="./Workflow/readme_images/pvlora.jpg" height="300px"></a>
+<hr>
+
+### Primere Visual Lycoris selector:
+Same as than the 'Primere LYCORIS' node, but with preview images of selection modal.  
+You must mirror your original lycoris subdirs **(not your lycoris files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\lycoris\ path but only the preview images needed, same name as the lyco files but with .jpg only extension.
+As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
+
+<a href="./Workflow/readme_images/pvlyco.jpg" target="_blank"><img src="./Workflow/readme_images/pvlyco.jpg" height="200px"></a>
+<hr>
+
+### Primere Visual Embedding selector:
+Same as than the 'Primere Embedding' node, but with preview images of selection modal.  
+You must copy your original embedding subdirs **(not your embedding files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\embeddings\ path but only the preview images needed, same name as the embedding file but with .jpg only extension.
+As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
+
+<a href="./Workflow/readme_images/pvembedd.jpg" target="_blank"><img src="./Workflow/readme_images/pvembedd.jpg" height="300px"></a>
+<hr>
+
+### Primere Visual Hypernetwork selector:
+Same as than the 'Primere Hypernetwork' node, but with preview images of selection modal.  
+You must copy your original hypernetwork subdirs **(not your hypernetwork files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\hypernetworks\ path but only the preview images needed, same name as the hypernetwork file but with .jpg only extension.
+**If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork settings will be ignored, but your computer stay safe.
+As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
+
+<a href="./Workflow/readme_images/pvhyper.jpg" target="_blank"><img src="./Workflow/readme_images/pvhyper.jpg" height="200px"></a>
+<hr>
+
+### Primere Visual Style selector:
+Same as than the 'Primere Styles' node, but with preview images of selection modal.  
+You must create .jpg images as preview with same name as the style name in the list, but **space characters must be changed to _.** For example if your style in the list is 'Architechture Exterior', you must save Architechture_Exterior.jpg to the path: ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\styles\
+Example style.csv included, if rename to style.csv you will see example previews.
+
+<a href="./Workflow/readme_images/pvstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pvstyles.jpg" height="300px"></a>
+<hr>
+
+## Segments:
+Under this submenu you can found nodes for detailer/refiner nodes, and required one more **Primere Refiner Prompt** node from the Inputs menu. 
+For these nodes you have to download ultralitics bbox and segmentation models from here: https://huggingface.co/Bingsu/adetailer/tree/main or use Comfy's internal model downloader (this is much easier).
+Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models\ultralytics\bbox\ paths, the Comfy model manager save these models to right path automatically. For the included workflow these models required, but maybe you dont need if created your own custom workflow.
+
+#### Download files manually from here:
+- Universal segmentation model, useful labels included to node: https://huggingface.co/ultralyticsplus/yolov8s/tree/main
+- Important and useful model set: https://huggingface.co/jags/yolov8_model_segmentation-set/tree/main
+- Another link for example for deepfashion: https://huggingface.co/Bingsu/adetailer/tree/main
+- Segmentation models for anime/cartoon: https://huggingface.co/RamRom/yolov8m_crop-anime-characters/tree/main, https://huggingface.co/AkitoP/Anime-yolov8-seg/tree/main
+- But the best if you use Comfy's model manager to download required models, use manual download if you nees something else
+
+### For segments:
+<a href="./Workflow/readme_images/ulsegs.jpg" target="_blank"><img src="./Workflow/readme_images/ulsegs.jpg" height="300px"></a>
+
+### For bbox:
+<a href="./Workflow/readme_images/ulbbox.jpg" target="_blank"><img src="./Workflow/readme_images/ulbbox.jpg" height="120px"></a>
+
+### Tips for use detailer nodes:
+- For hands, faces, persons, hair and skins just use specific models without labels (keywords). 
+- Another contents, for example cars or animals use universal model like **yolov8s** and don't forget to select right label from bottom list.
+- Large faces don't need refiner or detailer because just change the good face to another one (or crerating new worst). If you create closeup portrait, just switch off (or trigger by size) the face detailer.
+- On large faces, for example portrait, good idea to refine eyes and mouth only. These refiners can be on, while the face detailer off (or off automatically by trigger values).
+- Finally you can use hand detailer. Depending on settings, this group will refine smaller hands too. 
+- For cartoon/anime use anime segmentation models, what very different I use and recommend.  
+- Check (and modify) refiners's prompts. That very important, and you can mix this prompt to original for several results.
+- If you set **strength** of prompts to **0** on **Primere Refiner Prompt** node, the prompt input will be ignored. Not always good idea to mix detailer's prompt to the original, but you don't need to remove original connection, you can set strenght value to 0, same as disconnet.
+- Not too easy to set really good refiner group, the result depending on source image and node stttings. All settings will drastically modify the result with same prompt and seed.
+- You can use standard dynamic prompts within the Refiner prompt node.
+- Try to use **trigger values** what automatically on/off the detailer by the segment area. Read later on the **Primere Image Segments** node.
+
+#### For smaller faces you need face detailer, but don't need eye and mouth detailers:
+<a href="./Workflow/readme_images/pdetsmallfaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetsmallfaces.jpg" height="210px"></a>
+
+#### For half-body or closeup partraits you don't need face detailer, but need eye and mouth detailers:
+<a href="./Workflow/readme_images/pdetlargefaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetlargefaces.jpg" height="270px"></a>
+
+### Primere Image Segments:
+This node is to select segs and bbox model, but for three models: **yolov8s**, **deepfashion2_yolov8s** and **facial_features_yolo8x** you can define label. When you use one of these models with right label selection, the segmentation result will folow your selected label.
+Some models no need label. You can use these nodes for workflow by new prompts, but you can use if the input is image only. Load/test attached **civitai-[what]-refiner.json** workflows how to use these nodes if you want to refine your existing images.
+You can On/Off this node anytime by switch and **triggers**, and you can play with parameters.
+
+#### Triggers:
+Two trigger input available on this node, **trigger_high_off** and **trigger_low_off**. These input fields are numerical inputs, with step 100. Both are designed to automatically switch on/off the node by the area of segmented image.
+The good trigger value depending on the segment area. If you want to ignore segments what is smaller than 100 pixels (area, not side), add 100 to **trigger_low_off** input, and segemnts under the size W x H = 100 will be ignored. This is useful if the segment (for example mouth) too small to do correct refining.
+The **trigger_high_off** switch off the node if the segmented area higher than this field value. For example if the face is always good if larger than 5000px (area), enter 5000 to the input, and the node will use segments only if the segment area less than 5000 px.
+In the example workflow for face detailers I using trigger_high_off = 5200, because if the area of segmented face less than 5200 px, then I need the node for fix small faces. If larger than 5200, no need fixes because good enought. The right value depending on used model, prompt, and additional networks like Loras or controlnet settings.
+For mouth I using trigger_low_off = 2000, because if the area of mouth less than 2000, no need to repair, only if bigger.
+For hand fixer I set trigger_high_off to 30000 because if the hand's area is larger than 30000, no need to fix/detail. All settings depending in workflow and the input image.
+
+<a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="280px"></a>
+<hr>
+
+### Primere Any Detailer:
+This node create detailed/refined output by input image and segs. This node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved.
+Detailer group exaple included to the **Primere_latest_workflow.json** you have to check it your own ideas and settings, or test only detailers in attached **civitai-[what]-refiner.json** files.
+
+<a href="./Workflow/readme_images/panydetailer.jpg" target="_blank"><img src="./Workflow/readme_images/panydetailer.jpg" height="280px"></a>
+<hr>
 
 ## Inputs:
 ### Primere Prompt:
@@ -300,132 +430,6 @@ Use hypernetwork if you already have by this node. **Hypernetwork is harmful, be
 Hypernetworks don't need seperated SD and SDXL sources, use only one stack for all, and set 'stack_version' to 'Any'. 
 
 <a href="./Workflow/readme_images/phyper.jpg" target="_blank"><img src="./Workflow/readme_images/phyper.jpg" height="200px"></a>
-<hr>
-
-## Visuals:
-
-### Before you save your own previews, just set 'show_modal' input to 'false'
-
-Here are same functions like upper, but the selection (for example checkpoints, loras, lycoris, embeddings, styles from style.csv and hypernetworks) **possible by image previews on modal**. Very similar than in several themes of A1111, but you must create previews to right path.
-You have to save images as previews to the right path and name, deails later. Preview can be **only .jpg** format with only .jpg extension. 
-Don't use large files because the modal loading time. The preview height in visual selector modal is only 220px, so dont use upscaled or original images as preview. Downsize your previews height to 250-300 px, and set jpg image quality to ~50 for faster loading. ACDSee do it automatically at Tools->Batch->Resize menu.
-Checkpoint and additional networks have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time just read back from cached jason file.
-
-**If you need version info of all your files, you can use helper files from the 'terminal_helpers' subdir:**
-- Activate your comfy venv. This is the most important step before run helpers.
-- In the terminal window you already activated your venv, just run included .py files:
-- **lora_version_cache.py** will be read and store versions of all lora files
-- **lyco_version_cache.py** will be read and store versions of all lycoris files
-- **model_version_cache.py** will be read and store versions of all checkpoint files
-- **embedding_version_cache.py** will be read and store versions of all textual embedding files
-
-Unfortunately the result is not perfect :(. You must check the version labels on your models and network files. If failed or unknown, you can modify and correct the .cache.json manually. Git pull will keep your edited cache file.
-**The embedding cache helper can't read the right version of embedding files**, so after first run all files will be marked to **SD** version. You must modify and replace SD to SDXL in the .cache.json manually.
-
-<a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="300px"></a>
-<hr>
-
-### Primere Visual CKPT selector:
-**Visual selector for checkpoints**. You must copy your original checkpoint subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
-As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
-
-<a href="./Workflow/readme_images/pvmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvmodal.jpg" height="120px"></a>
-<hr>
-
-### Primere Visual Lora selector:
-Same as than the 'Primere LORA' node, but with preview images of selection modal.  
-You must copy your original lora subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\loras\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
-
-<a href="./Workflow/readme_images/pvlora.jpg" target="_blank"><img src="./Workflow/readme_images/pvlora.jpg" height="300px"></a>
-<hr>
-
-### Primere Visual Lycoris selector:
-Same as than the 'Primere LYCORIS' node, but with preview images of selection modal.  
-You must copy your original lycoris subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\lycoris\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
-
-<a href="./Workflow/readme_images/pvlyco.jpg" target="_blank"><img src="./Workflow/readme_images/pvlyco.jpg" height="200px"></a>
-<hr>
-
-### Primere Visual Embedding selector:
-Same as than the 'Primere Embedding' node, but with preview images of selection modal.  
-You must copy your original embedding subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\embeddings\ path but only the preview images needed, same name as the embedding file but with .jpg only extension.
-
-<a href="./Workflow/readme_images/pvembedd.jpg" target="_blank"><img src="./Workflow/readme_images/pvembedd.jpg" height="300px"></a>
-<hr>
-
-### Primere Visual Hypernetwork selector:
-Same as than the 'Primere Hypernetwork' node, but with preview images of selection modal.  
-You must copy your original hypernetwork subdirs to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\hypernetworks\ path but only the preview images needed, same name as the hypernetwork file but with .jpg only extension.
-**If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork settings will be ignored, but your computer stay safe.
-
-<a href="./Workflow/readme_images/pvhyper.jpg" target="_blank"><img src="./Workflow/readme_images/pvhyper.jpg" height="200px"></a>
-<hr>
-
-### Primere Visual Style selector:
-Same as than the 'Primere Styles' node, but with preview images of selection modal.  
-You must create .jpg images as preview with same name as the style name in the list, but **space characters must be changed to _.** For example if your style in the list is 'Architechture Exterior', you must save Architechture_Exterior.jpg to the path: ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\styles\
-Example style.csv included, if rename you will see example previews.
-
-<a href="./Workflow/readme_images/pvstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pvstyles.jpg" height="300px"></a>
-<hr>
-
-## Segments:
-Under this submenu you can found nodes for detailer/refiner nodes, and required one more **Primere Refiner Prompt** node from the Inputs menu. 
-For these nodes you have to download ultralitics bbox and segmentation models from here: https://huggingface.co/Bingsu/adetailer/tree/main or use Comfy's internal model downloader.
-Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models\ultralytics\bbox\ paths, the Comfy model manager save these models to right path. For the included workflow these models required.
-
-- Universal segmentation model, labels included to node: https://huggingface.co/ultralyticsplus/yolov8s/tree/main
-- Important and useful set: https://huggingface.co/jags/yolov8_model_segmentation-set/tree/main
-- Another link for example for deepfashion: https://huggingface.co/Bingsu/adetailer/tree/main
-- Segmentation models for anime/cartoon: https://huggingface.co/RamRom/yolov8m_crop-anime-characters/tree/main, https://huggingface.co/AkitoP/Anime-yolov8-seg/tree/main
-- But the best if you use Comfy's model manager to download required models
-
-### For segments:
-<a href="./Workflow/readme_images/ulsegs.jpg" target="_blank"><img src="./Workflow/readme_images/ulsegs.jpg" height="300px"></a>
-
-### For bbox:
-<a href="./Workflow/readme_images/ulbbox.jpg" target="_blank"><img src="./Workflow/readme_images/ulbbox.jpg" height="120px"></a>
-
-### Tips for use detailer nodes:
-- For hands, faces, persons, hair and skins just use specific models without labels (keywords). 
-- Another contents, for example cars or animals use universal model like **yolov8s** and don't forget to select right label from bottom list.
-- Large faces don't need refiner or detailer because just change the good face to another one (or crerating new worst). If you create closeup portrait, just switch off (or trigger by size) the face detailer.
-- On large faces, for example portrait, good idea to refine eyes and mouth. These refiners can be on, while the face detailer off (ot off by trigger automatically).
-- Finally you can use hand detailer. Depending on settings, this group will refine smaller hands too. 
-- For cartoon/anime use anime segmentation models, what very different I use and recommend.  
-- Check (and modify) refiners's prompts. That very important, and you can mix this prompt to original for several results.
-- If you set **strength** of prompts to **0** on **Primere Refiner Prompt** node, the prompt input will be ignored. Not always good idea to mix detailer's prompt to the original, then you don't need to remove original connection, you can set strenght value to 0, same as disconnet.
-- Not too easy to set really good refiner group, the result depending on source image and node stttings. All settings will drastically modify the result with same prompt and seed.
-- You can use standard dynamic prompts within the Refiner prompt node.
-- Try to use **trigger values** what automatically on/off the detailer by the segment area. Read later on the **Primere Image Segments** node.
-
-#### For smaller faces you need face detailer, but dont need eye and mouth detailers:
-<a href="./Workflow/readme_images/pdetsmallfaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetsmallfaces.jpg" height="210px"></a>
-
-#### For half-body or closeup partraits you dont need (just off) face detailer, but need eye and mouth detailers:
-<a href="./Workflow/readme_images/pdetlargefaces.jpg" target="_blank"><img src="./Workflow/readme_images/pdetlargefaces.jpg" height="270px"></a>
-
-### Primere Image Segments:
-This node is to select segs ot bbox model, but for three models: **yolov8s**, **deepfashion2_yolov8s** and **facial_features_yolo8x** you can define label. When you use these models with right label selection, the segmentation result will folow your labels.
-Some models no need label. You can use these nodes for generation workflow by new prompts, but you can use if the input your image only. Load **civitai-[what]-refiner.json** example workflows how to use these nodes if you want to refine your existing images.
-You can On/Off this node anytime, and you can play with bottom parameters.
-
-#### Triggers:
-Two trigger input available on this node, **trigger_high_off** and **trigger_low_off**. These input fields are numerical inputs, with step 100. Both are designed to automatically switch on/off the node by the area of segmented image.
-The good trigger value depending on the segment area. If you want to ignore segments what is smaller than 100 pixels (area, not side), add 100 to **trigger_low_off** input, and segemnts under the size W x H = 100 will be ignored. This is useful if the segment (for example mouth) too small to done correct detailers.
-**trigger_high_off** switch off the node if the segmented area higher than the field value. For example if the face is good if larger than 5000px (area), enter 5000 to the input, and the node will use segments only if the segment area less than 5000 px.
-In the example workflow for face detailers I using trigger_high_off = 5200, because if the area of segmented face less than 5200 px, then I need the node for fix small faces. If larger than 5200, no need fixes because good enought. The right value depending on used model, prompt, and additional networks like Loras or controlnet settings.
-For mouth I using trigger_low_off = 2000, because if the area of mouth less than 2000, no need to repair, only if bigger.
-For hand fixer I set trigger_high_off to 30000 because if the hand's area is larger  than 30000, no need to fix/detail. All settings depending in workflow and the input image.
-
-<a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="280px"></a>
-<hr>
-
-### Primere Any Detailer:
-This node create detailed/refined output by input image and segs. This node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved.
-Detailer group exaple included to the **Primere_latest_workflow.json** you have to check it your own ideas and settings.
-
-<a href="./Workflow/readme_images/panydetailer.jpg" target="_blank"><img src="./Workflow/readme_images/panydetailer.jpg" height="280px"></a>
 <hr>
 
 # Contact:
