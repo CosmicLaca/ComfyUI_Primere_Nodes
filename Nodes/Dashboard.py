@@ -320,9 +320,9 @@ class PrimereSeed:
   @classmethod
   def INPUT_TYPES(cls):
     return {
-      "required": {
-        "seed": ("INT", {"default": -1, "min": -1, "max": 0xffffffffffffffff}),
-      },
+        "required": {
+            "seed": ("INT", {"default": -1, "min": -1, "max": 0xffffffffffffffff}),
+       },
     }
 
   def seed(self, seed = 0):
@@ -353,9 +353,15 @@ class PrimereFractalLatent:
                 "modulator": ("FLOAT", {"default": 1.0, "max": 2.0, "min": 0.1, "step": 0.01}),
                 "modulator_rand_min": ("FLOAT", {"default": 0.8, "max": 2.0, "min": 0.1, "step": 0.01}),
                 "modulator_rand_max": ("FLOAT", {"default": 1.4, "max": 2.0, "min": 0.1, "step": 0.01}),
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "noise_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "rand_device": ("BOOLEAN", {"default": False}),
                 "device": (["cpu", "cuda"],),
+
+                "extra_variation": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
+                # "variation_seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                # "variation_increment": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 1.0, "step": 0.01}),
+                # "variation_strength": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
             },
             "optional": {
                 "optional_vae": ("VAE",),
@@ -367,9 +373,27 @@ class PrimereFractalLatent:
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, seed, rand_device, device, optional_vae = None):
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, seed, rand_device, device, optional_vae = None, extra_variation = False):
+        if extra_variation == True:
+            rand_device = True
+            rand_alpha_exponent = True
+            rand_modulator = True
+            rand_noise_type = True
+            alpha_exp_rand_min = -12.00
+            alpha_exp_rand_max = 7.00
+            modulator_rand_min = 0.10
+            modulator_rand_max = 2.00
+            noise_seed = seed
+
+        if rand_noise_type == True:
+            pln = PowerLawNoise(device)
+            noise_type = random.choice(pln.get_noise_types())
+
         if rand_device == True:
             device = random.choice(["cpu", "cuda"])
+
+        if extra_variation == True and (noise_type == 'white' or noise_type == 'violet'):
+            alpha_exp_rand_min = 0.00
 
         power_law = PowerLawNoise(device = device)
 
@@ -379,11 +403,7 @@ class PrimereFractalLatent:
         if rand_modulator == True:
             modulator = round(random.uniform(modulator_rand_min, modulator_rand_max), 2)
 
-        if rand_noise_type == True:
-            pln = PowerLawNoise(device)
-            noise_type = random.choice(pln.get_noise_types())
-
-        tensors = power_law(1, width, height, scale = 1, alpha = alpha_exponent, modulator = modulator, noise_type = noise_type, seed = seed)
+        tensors = power_law(1, width, height, scale = 1, alpha = alpha_exponent, modulator = modulator, noise_type = noise_type, seed = noise_seed)
         alpha_channel = torch.ones((1, height, width, 1), dtype = tensors.dtype, device = "cpu")
         tensors = torch.cat((tensors, alpha_channel), dim = 3)
 
@@ -628,8 +648,8 @@ class PrimereResolution:
 
                 "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "calculate_by_custom": ("BOOLEAN", {"default": False}),
-                "custom_side_a": ("FLOAT", {"default": 1.6, "min": 1.0, "max": 100.0, "step": 0.1}),
-                "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.1}),
+                "custom_side_a": ("FLOAT", {"default": 1.6, "min": 1.0, "max": 100.0, "step": 0.05}),
+                "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.05}),
             },
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
@@ -674,8 +694,8 @@ class PrimereResolutionMultiplier:
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
                 "use_multiplier": ("BOOLEAN", {"default": True}),
-                "multiply_sd": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.1}),
-                "multiply_sdxl": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.1}),
+                "multiply_sd": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
+                "multiply_sdxl": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
             },
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),

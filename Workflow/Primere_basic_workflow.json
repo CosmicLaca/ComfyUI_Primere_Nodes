@@ -1,6 +1,6 @@
 {
-  "last_node_id": 17,
-  "last_link_id": 37,
+  "last_node_id": 39,
+  "last_link_id": 139,
   "nodes": [
     {
       "id": 3,
@@ -36,7 +36,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\copaxTimelessxlSDXL1_v7.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         true
       ]
@@ -207,9 +207,9 @@
           "links": [
             17,
             18,
-            19,
             20,
-            34
+            34,
+            137
           ],
           "shape": 3,
           "slot_index": 0
@@ -219,7 +219,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        218876056720308,
         null,
         null,
         null
@@ -291,8 +291,8 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            16,
-            36
+            36,
+            134
           ],
           "shape": 3
         },
@@ -494,8 +494,8 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            22,
-            28
+            28,
+            135
           ],
           "shape": 3,
           "slot_index": 0
@@ -504,8 +504,8 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            23,
-            29
+            29,
+            136
           ],
           "shape": 3,
           "slot_index": 1
@@ -519,8 +519,8 @@
         768,
         true,
         "Horizontal",
-        false,
-        634167927872988,
+        true,
+        729604421095564,
         "randomize",
         false,
         1.6,
@@ -577,7 +577,7 @@
       },
       "widgets_values": [
         "",
-        817029395929541,
+        281164421636985,
         "randomize"
       ]
     },
@@ -630,21 +630,21 @@
       },
       "widgets_values": [
         "",
-        467345014983569,
+        54227952213564,
         "randomize"
       ]
     },
     {
-      "id": 11,
+      "id": 39,
       "type": "PrimereLatentNoise",
       "pos": [
-        1755,
-        368
+        1760,
+        447
       ],
-      "size": {
-        "0": 315,
-        "1": 438
-      },
+      "size": [
+        332,
+        471
+      ],
       "flags": {},
       "order": 9,
       "mode": 0,
@@ -652,13 +652,12 @@
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 16,
-          "slot_index": 0
+          "link": 134
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 22,
+          "link": 135,
           "widget": {
             "name": "width"
           }
@@ -666,17 +665,17 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 23,
+          "link": 136,
           "widget": {
             "name": "height"
           }
         },
         {
-          "name": "seed",
+          "name": "noise_seed",
           "type": "INT",
-          "link": 19,
+          "link": 137,
           "widget": {
-            "name": "seed"
+            "name": "noise_seed"
           }
         }
       ],
@@ -685,14 +684,16 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            31
+            138
           ],
           "shape": 3
         },
         {
           "name": "PREVIEWS",
           "type": "IMAGE",
-          "links": null,
+          "links": [
+            139
+          ],
           "shape": 3
         }
       ],
@@ -702,20 +703,23 @@
       "widgets_values": [
         512,
         512,
-        true,
+        false,
         "white",
-        true,
+        false,
         1,
         0.5,
         1.5,
-        true,
+        false,
         1,
         0.8,
         1.4,
-        102306924483936,
+        552044321990063,
         "randomize",
+        false,
+        "cpu",
         true,
-        "cpu"
+        762455303042557,
+        "randomize"
       ]
     },
     {
@@ -779,18 +783,43 @@
       ]
     },
     {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        1396,
+        691
+      ],
+      "size": {
+        "0": 334.67486572265625,
+        "1": 246
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 139
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
       "id": 14,
       "type": "PrimereCLIPEncoder",
       "pos": [
         2110,
-        95
+        129
       ],
       "size": {
         "0": 330,
         "1": 758
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -999,7 +1028,7 @@
         "1": 234
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -1023,7 +1052,7 @@
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 31,
+          "link": 138,
           "slot_index": 3
         },
         {
@@ -1050,7 +1079,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        493544399204151,
+        1098807145567755,
         "randomize",
         20,
         8,
@@ -1071,7 +1100,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -1113,7 +1142,7 @@
         "1": 468.0492248535156
       },
       "flags": {},
-      "order": 14,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1249,14 +1278,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      16,
-      9,
-      2,
-      11,
-      0,
-      "VAE"
-    ],
-    [
       17,
       10,
       0,
@@ -1270,14 +1291,6 @@
       0,
       7,
       1,
-      "INT"
-    ],
-    [
-      19,
-      10,
-      0,
-      11,
-      3,
       "INT"
     ],
     [
@@ -1295,22 +1308,6 @@
       13,
       1,
       "STRING"
-    ],
-    [
-      22,
-      13,
-      0,
-      11,
-      1,
-      "INT"
-    ],
-    [
-      23,
-      13,
-      1,
-      11,
-      2,
-      "INT"
     ],
     [
       24,
@@ -1369,14 +1366,6 @@
       "MODEL"
     ],
     [
-      31,
-      11,
-      0,
-      15,
-      3,
-      "LATENT"
-    ],
-    [
       32,
       14,
       0,
@@ -1421,6 +1410,54 @@
       16,
       0,
       17,
+      0,
+      "IMAGE"
+    ],
+    [
+      134,
+      9,
+      2,
+      39,
+      0,
+      "VAE"
+    ],
+    [
+      135,
+      13,
+      0,
+      39,
+      1,
+      "INT"
+    ],
+    [
+      136,
+      13,
+      1,
+      39,
+      2,
+      "INT"
+    ],
+    [
+      137,
+      10,
+      0,
+      39,
+      3,
+      "INT"
+    ],
+    [
+      138,
+      39,
+      0,
+      15,
+      3,
+      "LATENT"
+    ],
+    [
+      139,
+      39,
+      1,
+      19,
       0,
       "IMAGE"
     ]
