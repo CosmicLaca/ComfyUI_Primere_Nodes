@@ -39,7 +39,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - One button LCM mode (see example workflow), the node download required SD and SDXL LCM models at first usage
 - Save .json and/or .txt file with process details, but these details saved to image as EXIF too
 - Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts, example .csv included
-- Random noise generator for latent image
+- Random noise generator for latent image, with special finction to generate different, but consistent images with locked seed 
 - Additional and easy editable styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, and auto detect checkpoint version for right final size
 - Image size can be convert to "standard" (x16) values, fully customizable side ratios at the bottom of the resolution selector node
@@ -319,9 +319,12 @@ Use only one seed input for all. A1111 look node, connect this one node to all o
 <hr>
 
 ### Primere Noise Latent
-This node generate 'empty' latent image, but with several noise settings. **You can randomize these setting between min. and max. values using switches**, this cause small difference between generated images for same seed and settings, but you can freeze your noise and image if you disable variations of random noise generation.
+This node generate 'empty' latent image, but with several noise settings, what control the final images. **You can randomize these setting between min. and max. values using switches**, this cause small difference between generated images for same seed and settings, but you can freeze your noise and image if you disable variations of random noise generation.
+- You can generate several images with large difference with randomized dashboard seed.
+- If you freeze seed (on the dashboard group) and set the min and max values of generation details on this node, you will get smaller difference by your noise values (primary by alpha_exponent and modulator if randomized)
+- If the difference not big enought switch on 'extra_variation' and set 'control_after_generate' to 'randomize' or 'increment' or 'decrement'. You can get different but consistent images with these settings **if the dasboard seed locked** 
 
-<a href="./Workflow/readme_images/platent.jpg" target="_blank"><img src="./Workflow/readme_images/platent.jpg" height="180px"></a>
+<a href="./Workflow/readme_images/platent.jpg" target="_blank"><img src="./Workflow/readme_images/platent.jpg" height="240px"></a>
 <hr>
 
 ### Primere Prompt Encoder:
