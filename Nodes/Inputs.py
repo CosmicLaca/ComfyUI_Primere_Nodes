@@ -606,6 +606,9 @@ class PrimereMetaRead:
                             data_json['negative'] = reader.parameter['dynamic_negative']
                             data_json['dynamic_negative'] = reader.parameter['dynamic_negative']
 
+                    if len(LOADED_CHECKPOINT) != 3:
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+
                     return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
                 except ValueError as VE:
