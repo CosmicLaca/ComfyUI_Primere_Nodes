@@ -74,6 +74,8 @@ class PrimereMetaSave:
         original_output = self.output_dir
         filename_prefix = tokens.parseTokens(filename_prefix)
         nowdate = datetime.datetime.now()
+        if image_metadata is None:
+            image_metadata = {}
 
         if len(images) < 1:
             return
@@ -81,7 +83,8 @@ class PrimereMetaSave:
         image_metadata['saved_image_width'] = images[0].shape[1]
         image_metadata['saved_image_heigth'] = images[0].shape[0]
         # image_metadata['upscaler_ratio'] = round(image_metadata['saved_image_width'] / image_metadata['width'], 2)
-        image_metadata['upscaler_ratio'] = 'From: ' + str(image_metadata['width']) + 'x' + str(image_metadata['height']) + ' to: '  + str(image_metadata['saved_image_width']) + 'x' + str(image_metadata['saved_image_heigth']) + ' Ratio: ' + str(round(round(image_metadata['saved_image_width'] / image_metadata['width'] / 0.05) * 0.05, 2))
+        if 'width' in image_metadata and 'height' in image_metadata:
+            image_metadata['upscaler_ratio'] = 'From: ' + str(image_metadata['width']) + 'x' + str(image_metadata['height']) + ' to: '  + str(image_metadata['saved_image_width']) + 'x' + str(image_metadata['saved_image_heigth']) + ' Ratio: ' + str(round(round(image_metadata['saved_image_width'] / image_metadata['width'] / 0.05) * 0.05, 2))
 
         if add_date_to_filename:
             filename_prefix = filename_prefix + '_' + nowdate.strftime("%Y%d%m")
@@ -104,7 +107,7 @@ class PrimereMetaSave:
         if output_path.endswith("ComfyUI/output") or output_path.endswith("ComfyUI\output"):
             base_output = ""
 
-        if add_modelname_to_path == True:
+        if add_modelname_to_path == True and 'model_name' in image_metadata:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
             ModelPath = Path(image_metadata['model_name'])
@@ -115,6 +118,12 @@ class PrimereMetaSave:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
             else:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
+        else:
+            if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
+                path = Path(output_path)
+                ModelStartPath = output_path.replace(path.stem, '')
+                subpath = prefered_subpath
+                output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
 
         if output_path.strip() != '':
             if not os.path.isabs(output_path):
@@ -167,7 +176,9 @@ class PrimereMetaSave:
         try:
             output_file = os.path.abspath(os.path.join(output_path, file))
 
-            exif_metadata_A11 = f"""{image_metadata['positive']}
+            exif_metadata_A11 = None
+            if 'positive' in image_metadata and 'negative' in image_metadata:
+                exif_metadata_A11 = f"""{image_metadata['positive']}
 Negative prompt: {image_metadata['negative']}
 Steps: {str(image_metadata['steps'])}, Sampler: {image_metadata['sampler_name'] + ' ' + image_metadata['scheduler_name']}, CFG scale: {str(image_metadata['cfg_scale'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model_name']}, VAE: {image_metadata['vae_name']}"""
 
@@ -181,7 +192,8 @@ Steps: {str(image_metadata['steps'])}, Sampler: {image_metadata['sampler_name'] 
                 img.save(output_file, quality=quality, optimize=True)
                 if image_embed_exif == True:
                     metadata = pyexiv2.Image(output_file)
-                    metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
+                    if exif_metadata_A11 is not None:
+                        metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
                     metadata.modify_exif({'Exif.Image.ImageDescription': json.dumps(exif_metadata_json)})
                     print(f"Image file saved with exif: {output_file}")
                 else:
@@ -219,7 +231,7 @@ Steps: {str(image_metadata['steps'])}, Sampler: {image_metadata['sampler_name'] 
                 results.append(image_data)
 
         metastring = ""
-        if image_metadata is not None:
+        if image_metadata is not None and len(image_metadata) > 0:
             for key, val in image_metadata.items():
                 if len(str(val).strip( '"')) > 0:
                     metastring = metastring + ':: ' + key.upper() + ': ' + str(val).strip( '"') + '\n'
