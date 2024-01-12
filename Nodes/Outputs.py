@@ -65,7 +65,7 @@ class PrimereMetaSave:
                          output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
-                         png_embed_workflow=False, image_embed_exif=False, prefered_subpath=""):
+                         png_embed_workflow=False, image_embed_exif=False, prefered_subpath=None):
 
         delimiter = filename_delimiter
         number_padding = filename_number_padding
