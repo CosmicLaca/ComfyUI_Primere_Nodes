@@ -9,3 +9,4 @@ pyexiv2
 Requests
 tomli
 torch
+ultralytics

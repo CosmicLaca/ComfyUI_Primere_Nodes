@@ -37,7 +37,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "tmpl_gkpjs2.png",
+        "Image_20241301_134806_211178893612040_2568x3648_1.jpg",
         "image"
       ]
     },
@@ -78,7 +78,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestPhoto\\absoluteRealistic_v20.safetensors",
+        "SDXL\\icbinpXL_v10.safetensors",
         true,
         false
       ]
@@ -113,7 +113,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        998171497233667,
+        -1,
         null,
         null,
         null
@@ -218,10 +218,10 @@
         1490,
         600
       ],
-      "size": [
-        530.7103836437882,
-        486
-      ],
+      "size": {
+        "0": 530.7103881835938,
+        "1": 486
+      },
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -328,8 +328,8 @@
         "short_sleeved_shirt",
         "eye",
         0.65,
+        0,
         3,
-        2,
         10,
         "BaseModel_1024",
         "",
@@ -417,13 +417,13 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "perfect hands, perfect fingers",
-        "deformed face, deformed hands, deformed fingers, blured",
+        "perfect hands, head of hand only, natural detailed skin, perfect fingers, detailed, ultra detailed, realistic photo quality, high resolution, smooth, nicely proportioned, 8k, ultradetailed",
+        "Deformed, blurry, bad anatomy, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated hands, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague, jpeg artifacts:1.6), bad shadows",
         1,
         1,
         1,
         1,
-        483483394469958,
+        811037129184416,
         "randomize",
         "mean",
         "comfy++",
@@ -562,13 +562,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        866906309653481,
+        1061251226328543,
         "randomize",
-        30,
-        8,
+        40,
+        9,
         "dpmpp_2m",
         "karras",
-        0.53,
+        0.3,
         10,
         true,
         false,
