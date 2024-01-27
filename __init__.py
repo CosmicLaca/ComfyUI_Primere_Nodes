@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from .utils import comfy_dir
 from .utils import here
 
@@ -12,25 +13,30 @@ from .Nodes import Segments
 
 __version__ = "0.1.5"
 
-comfy_frontend = comfy_dir/"web"/"extensions"
-frontend_target = comfy_frontend/"Primere"
+# comfy_frontend = comfy_dir/"web"/"extensions"
+# frontend_target = comfy_frontend/"Primere"
 
-if frontend_target.exists() == False:
+comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
+frontend_target = os.path.join(comfy_frontend, 'Primere')
+
+
+if os.path.exists(frontend_target) == False:
     # print(f"Primere front-end folder found at {frontend_target}")
     # if not os.path.islink(frontend_target.as_posix()):
     # print(f"Primere front-end folder at {frontend_target} is not a symlink, if updating please delete it before")
 
 # elif comfy_frontend.exists():
-    frontend_source = here/"front_end"
-    src = frontend_source.as_posix()
-    dst = frontend_target.as_posix()
+    # frontend_source = here/"front_end"
+    frontend_source = os.path.join(here, 'front_end')
+    src = Path(frontend_source).as_posix()
+    dst = Path(frontend_target).as_posix()
 
     try:
         if os.name == "nt":
             import _winapi
             _winapi.CreateJunction(src, dst)
         else:
-            os.symlink(frontend_source.as_posix(), frontend_target.as_posix())
+            os.symlink(Path(frontend_source).as_posix(), Path(frontend_target).as_posix())
         print(f"Primere front-end folder symlinked to {frontend_target}")
 
     except OSError:

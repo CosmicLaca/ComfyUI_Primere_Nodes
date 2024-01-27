@@ -9,6 +9,8 @@ import comfy
 from segment_anything import sam_model_registry
 from ..components import utility
 import torch
+from urllib.parse import urlparse
+from pathlib import Path
 
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
@@ -16,6 +18,92 @@ class PrimereImageSegments:
     OUTPUT_IS_LIST = (False, True, False, False, False, False, False, False)
     FUNCTION = "primere_segments"
     CATEGORY = TREE_SEGMENTS
+
+    BBOX = {}
+    SEGM = {}
+    GDINO = {}
+    SAMS = {}
+
+    BBOX['UBBOX_FACE_YOLOV8M'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt?download=true'
+    BBOX['UBBOX_FACE_YOLOV8N'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt?download=true'
+    BBOX['UBBOX_FACE_YOLOV8N_V2'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n_v2.pt?download=true'
+    BBOX['UBBOX_FACE_YOLOV8S'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8s.pt?download=true'
+    BBOX['UBBOX_HAND_YOLOV8N'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8n.pt?download=true'
+    BBOX['UBBOX_HAND_YOLOV8S'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt?download=true'
+    BBOX['UBBOX_YOLOV8S'] = 'https://huggingface.co/ultralyticsplus/yolov8s/resolve/main/yolov8s.pt?download=true'
+
+    SEGM['USEGM_DEEPFASHION2_YOLOV8S'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt?download=true'
+    SEGM['USEGM_FACE_YOLOV8M'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8m-seg_60.pt?download=true'
+    SEGM['USEGM_FACE_YOLOV8N'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt?download=true'
+    SEGM['USEGM_FACIAL_FEATURES_YOLO8X'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/facial_features_yolo8x-seg.pt?download=true'
+    SEGM['USEGM_FLOWERS_SEG_YOLOV8MODEL'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/flowers_seg_yolov8model.pt?download=true'
+    SEGM['USEGM_HAIR_YOLOV8N'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/hair_yolov8n-seg_60.pt?download=true'
+    SEGM['USEGM_PERSON_YOLOV8M'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt?download=true'
+    SEGM['USEGM_PERSON_YOLOV8N'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt?download=true'
+    SEGM['USEGM_PERSON_YOLOV8S'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt?download=true'
+    SEGM['USEGM_SKIN_YOLOV8M400'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/skin_yolov8m-seg_400.pt?download=true'
+    SEGM['USEGM_SKIN_YOLOV8N400'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/skin_yolov8n-seg_400.pt?download=true'
+    SEGM['USEGM_SKIN_YOLOV8N800'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/skin_yolov8n-seg_800.pt?download=true'
+    SEGM['USEGM_YOLOV8L'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8l-seg.pt?download=true'
+    SEGM['USEGM_YOLOV8M'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8m-seg.pt?download=true'
+    SEGM['USEGM_YOLOV8N'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8n-seg.pt?download=true'
+    SEGM['USEGM_YOLOV8S'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8s-seg.pt?download=true'
+    SEGM['USEGM_YOLOV8X'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8x-seg.pt?download=true'
+    SEGM['USEGM_YOLOV8_BUTTERFLY'] = 'https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/yolov8_butterfly_custom.pt?download=true'
+
+    GDINO['GDINO_GROUNDINGDINO_SWINB_COGCOOR'] = 'https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth?download=true'
+    GDINO['GDINO_GROUNDINGDINO_SWINB_CFG'] = 'https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py?download=true'
+    GDINO['GDINO_GROUNDINGDINO_SWINT_OGC'] = 'https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth?download=true'
+    GDINO['GDINO_GROUNDINGDINO_SWINT_OGC_CFG'] = 'https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinT_OGC.cfg.py?download=true'
+
+    SAMS['SAM_VIT_B_01EC64'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_b_01ec64.pth?download=true'
+    SAMS['SAM_VIT_H_4B8939'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_h_4b8939.pth?download=true'
+    SAMS['SAM_VIT_L_0B3195'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_l_0b3195.pth?download=true'
+
+    BBOX_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')
+    SEGM_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'segm')
+    GDINO_PATH = os.path.join(comfy_dir, 'models', 'grounding-dino')
+    SAMS_PATH = os.path.join(comfy_dir, 'models', 'sams')
+
+    if os.path.exists(BBOX_PATH) == False:
+        Path(BBOX_PATH).mkdir(parents=True, exist_ok=True)
+    for BBOX_KEY in BBOX:
+        FileUrl = BBOX[BBOX_KEY]
+        pathparser = urlparse(FileUrl)
+        TargetFilename = os.path.basename(pathparser.path)
+        FullFilePath = os.path.join(BBOX_PATH, TargetFilename)
+        if os.path.isfile(FullFilePath) == False:
+            ModelDownload = utility.downloader(FileUrl, FullFilePath)
+
+    if os.path.exists(SEGM_PATH) == False:
+        Path(SEGM_PATH).mkdir(parents=True, exist_ok=True)
+    for SEGM_KEY in SEGM:
+        FileUrl = SEGM[SEGM_KEY]
+        pathparser = urlparse(FileUrl)
+        TargetFilename = os.path.basename(pathparser.path)
+        FullFilePath = os.path.join(SEGM_PATH, TargetFilename)
+        if os.path.isfile(FullFilePath) == False:
+            ModelDownload = utility.downloader(FileUrl, FullFilePath)
+
+    if os.path.exists(GDINO_PATH) == False:
+        Path(GDINO_PATH).mkdir(parents=True, exist_ok=True)
+    for GDINO_KEY in GDINO:
+        FileUrl = GDINO[GDINO_KEY]
+        pathparser = urlparse(FileUrl)
+        TargetFilename = os.path.basename(pathparser.path)
+        FullFilePath = os.path.join(GDINO_PATH, TargetFilename)
+        if os.path.isfile(FullFilePath) == False:
+            ModelDownload = utility.downloader(FileUrl, FullFilePath)
+
+    if os.path.exists(SAMS_PATH) == False:
+        Path(SAMS_PATH).mkdir(parents=True, exist_ok=True)
+    for SAMS_KEY in SAMS:
+        FileUrl = SAMS[SAMS_KEY]
+        pathparser = urlparse(FileUrl)
+        TargetFilename = os.path.basename(pathparser.path)
+        FullFilePath = os.path.join(SAMS_PATH, TargetFilename)
+        if os.path.isfile(FullFilePath) == False:
+            ModelDownload = utility.downloader(FileUrl, FullFilePath)
 
     # model_path = folder_paths.models_dir
     BBOX_DIR = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')

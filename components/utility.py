@@ -15,6 +15,8 @@ import numpy as np
 from PIL import Image
 from torchvision.transforms import InterpolationMode
 import torchvision.transforms.functional as F
+from urllib.parse import urlparse
+import requests
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
@@ -579,3 +581,17 @@ def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", incre
     noises = [noises[i] for i in inverse]
     noises = torch.cat(noises, axis=0)
     return noises
+
+def downloader(from_url, to_path):
+    if os.path.isfile(to_path) == False:
+        pathparser = urlparse(from_url)
+        TargetFilename = os.path.basename(pathparser.path)
+        print('Downloading: ' + TargetFilename)
+        Request = requests.get(from_url, allow_redirects=True)
+        if Request.status_code == 200 and Request.ok == True:
+            open(to_path, 'wb').write(Request.content)
+            print('DOWNLOADED: ' + to_path)
+            return True
+        else:
+            print('ERROR: Cannot download ' + TargetFilename)
+            return False

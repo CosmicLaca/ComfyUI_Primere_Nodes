@@ -138,13 +138,10 @@ Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models
 - Important and useful model set: https://huggingface.co/jags/yolov8_model_segmentation-set/tree/main
 - Another link for example for deepfashion: https://huggingface.co/Bingsu/adetailer/tree/main
 - Segmentation models for anime/cartoon: https://huggingface.co/RamRom/yolov8m_crop-anime-characters/tree/main, https://huggingface.co/AkitoP/Anime-yolov8-seg/tree/main
+- Segment anything: https://huggingface.co/ybelkada/segment-anything/tree/main/checkpoints
 - But the best if you use Comfy's model manager to download required models, use manual download if you nees something else
 
-### For segments:
-<a href="./Workflow/readme_images/ulsegs.jpg" target="_blank"><img src="./Workflow/readme_images/ulsegs.jpg" height="300px"></a>
-
-### For bbox:
-<a href="./Workflow/readme_images/ulbbox.jpg" target="_blank"><img src="./Workflow/readme_images/ulbbox.jpg" height="120px"></a>
+#### WARNING: because most of users don't know how to download models or how to use ComfyUI model manager, the "Image Segments" node will download all required segmentation models to the right path if not exist. This is long loading time (about ~10 minutes) depending on network speed, and required ~6.5 GB of disk space  
 
 ### Tips for use detailer nodes:
 - For hands, faces, persons, hair and skins just use specific models without labels (keywords). 
@@ -179,6 +176,9 @@ For mouth I using trigger_low_off = 2000, because if the area of mouth less than
 For hand fixer I set trigger_high_off to 30000 because if the hand's area is larger than 30000, no need to fix/detail. All settings depending in workflow and the input image.
 
 <a href="./Workflow/readme_images/pimgsegments.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsegments.jpg" height="280px"></a>
+
+#### This node will download all required segmentation models to the right path, if models not exist. This is long loading time (about ~10 minutes), and required ~6.5 GB of disk space  
+
 <hr>
 
 ### Primere Any Detailer:
