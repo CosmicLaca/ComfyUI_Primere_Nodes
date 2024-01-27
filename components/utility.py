@@ -42,24 +42,34 @@ def add_quotes(string):
     return '"' + str(string) + '"'
 
 def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: bool, model_version: str, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float):
-    SD_1 = 512
-    SD_2 = 768
-    SD_1024 = 1024
-    SD_1280 = 1280
-    SDXL_1 = 1024
-    DEFAULT_RES = SD_2
+    DEFAULT_RES = 768
 
     match model_version:
         case 'BaseModel_768':
-            DEFAULT_RES = SD_1
+            DEFAULT_RES = 512
         case 'BaseModel_1024':
-            DEFAULT_RES = SD_2
+            DEFAULT_RES = 768
         case 'BaseModel_mod_1024':
-            DEFAULT_RES = SD_1024
+            DEFAULT_RES = 1024
         case 'BaseModel_mod_1280':
-            DEFAULT_RES = SD_1280
+            DEFAULT_RES = 1280
+        case 'BaseModel_mod_1600':
+            DEFAULT_RES = 1600
+        case 'BaseModel_mod_2048':
+            DEFAULT_RES = 2048
+
         case 'SDXL_2048':
-            DEFAULT_RES = SDXL_1
+            DEFAULT_RES = 1024
+        case 'SDXLModel_mod_768':
+            DEFAULT_RES = 512
+        case 'SDXLModel_mod_1024':
+            DEFAULT_RES = 768
+        case 'SDXLModel_mod_1280':
+            DEFAULT_RES = 1280
+        case 'SDXLModel_mod_1600':
+            DEFAULT_RES = 1600
+        case 'SDXLModel_mod_2048':
+            DEFAULT_RES = 2048
 
     def calculate(ratio_1: float, ratio_2: float, side: int):
         FullPixels = side ** 2

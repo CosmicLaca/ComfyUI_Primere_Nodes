@@ -339,14 +339,14 @@ This node generate 'empty' latent image, but with several noise settings, what c
 
 ### Primere Resolution:
 - Select image size by side ratios only, and use 'model_version' input for correct SD or SDXL size on the output.  
-- You can calculate image size by really custom ratios at the bottom float inputs (and set 'calculate_by_custom' switch on), or just edit the external ratio source file.
+- You can calculate image size by custom ratios at the bottom float inputs (and set 'calculate_by_custom' switch on), or just edit the external ratio source file.
 - The ratios of this node stored in external file at 'Toml/resolution_ratios.toml', what you can edit if you need changes.
-- Use 'round_to_standard' switch if you want to modify the exactly calculated size to the 'officially' recommended SD / SDXL values. This is usually very small modification and I think not too important.
+- Use 'round_to_standard' switch if you want to modify the exactly calculated size to the 'officially' recommended SD / SDXL values. This is usually very small modification and I think not too important, but some 3rd party nodes failed if the side not divisible by 16.
 - Not sure what orientation the best for your prompt and want to test in batch image generation? Just set batch value on the Comfy menu and switch 'rnd_orientation' to randomize vertical and horizontal images.
-- Set the base model (SD1.x not SDXL) resolution to 512, 768, 1024, or 1280. The official setting is 512, but I like 768 instead.
+- Set the model basse resolution to 512, 768, 1024, 1280, 1600, or 2048, both SD and SDXL, but ion separated inputs. The official setting is 512 SD, but I like 768 instead, and 1024 for SDXL.
 - Open debug workflow from workflow folder: 'debug_resolution_nodes.json'
 
-<a href="./Workflow/readme_images/pres.jpg" target="_blank"><img src="./Workflow/readme_images/pres.jpg" height="120px"></a>
+<a href="./Workflow/readme_images/pres.jpg" target="_blank"><img src="./Workflow/readme_images/pres.jpg" height="160px"></a>
 <hr>
 
 ### Primere Resolution Multiplier:

@@ -641,7 +641,8 @@ class PrimereResolution:
             "required": {
                 "ratio": (list(namelist.keys()),),
                 # "force_768_SD1x": ("BOOLEAN", {"default": True}),
-                "basemodel_res": ([512, 768, 1024, 1280], {"default": 768}),
+                "basemodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 768}),
+                "sdxlmodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 1024}),
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
@@ -656,7 +657,7 @@ class PrimereResolution:
             }
         }
 
-    def calculate_imagesize(self, ratio: str, basemodel_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024",):
+    def calculate_imagesize(self, ratio: str, basemodel_res: int, sdxlmodel_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024",):
         if rnd_orientation == True:
             if (seed % 2) == 0:
                 orientation = "Horizontal"
@@ -675,6 +676,24 @@ class PrimereResolution:
                     model_version = 'BaseModel_mod_1024'
                 case 1280:
                     model_version = 'BaseModel_mod_1280'
+                case 1600:
+                    model_version = 'BaseModel_mod_1600'
+                case 2048:
+                    model_version = 'BaseModel_mod_2048'
+        else:
+            match sdxlmodel_res:
+                case 512:
+                    model_version = 'SDXLModel_mod_768'
+                case 768:
+                    model_version = 'SDXLModel_mod_1024'
+                case 1024:
+                    model_version = 'SDXL_2048'
+                case 1280:
+                    model_version = 'SDXLModel_mod_1280'
+                case 1600:
+                    model_version = 'SDXLModel_mod_1600'
+                case 2048:
+                    model_version = 'SDXLModel_mod_2048'
 
         dimensions = utility.calculate_dimensions(self, ratio, orientation, round_to_standard, model_version, calculate_by_custom, custom_side_a, custom_side_b)
         dimension_x = dimensions[0]
