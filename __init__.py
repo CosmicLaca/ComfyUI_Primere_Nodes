@@ -13,20 +13,11 @@ from .Nodes import Segments
 
 __version__ = "0.1.5"
 
-# comfy_frontend = comfy_dir/"web"/"extensions"
-# frontend_target = comfy_frontend/"Primere"
-
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
 
 
 if os.path.exists(frontend_target) == False:
-    # print(f"Primere front-end folder found at {frontend_target}")
-    # if not os.path.islink(frontend_target.as_posix()):
-    # print(f"Primere front-end folder at {frontend_target} is not a symlink, if updating please delete it before")
-
-# elif comfy_frontend.exists():
-    # frontend_source = here/"front_end"
     frontend_source = os.path.join(here, 'front_end')
     src = Path(frontend_source).as_posix()
     dst = Path(frontend_target).as_posix()
@@ -49,8 +40,6 @@ if os.path.exists(frontend_target) == False:
             print(f"Failed to symlink and copy {frontend_source} to {frontend_target}. Please copy the folder manually.")
     except Exception as e:
         print(f"Failed to create symlink to {frontend_target}. Please copy the folder manually.")
-# else:
-#    print(f"Comfy root probably not found automatically, please copy the folder {frontend_target} manually in the web/extensions folder of ComfyUI")
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,

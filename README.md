@@ -141,7 +141,7 @@ Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models
 - Segment anything: https://huggingface.co/ybelkada/segment-anything/tree/main/checkpoints
 - But the best if you use Comfy's model manager to download required models, use manual download if you nees something else
 
-#### WARNING: because most of users don't know how to download models or how to use ComfyUI model manager, the "Image Segments" node will download all required segmentation models to the right path if not exist. This is long loading time (about ~10 minutes) depending on network speed, and required ~6.5 GB of disk space  
+#### WARNING: The "Image Segments" node will download all required segmentation models to the right path if not exist. This cause long loading time (about ~10 minutes) depending on network speed, and required ~6.5 GB of disk space  
 
 ### Tips for use detailer nodes:
 - For hands, faces, persons, hair and skins just use specific models without labels (keywords). 

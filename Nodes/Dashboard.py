@@ -664,8 +664,6 @@ class PrimereResolution:
             else:
                 orientation = "Vertical"
 
-        # if force_768_SD1x == True and  model_version == 'BaseModel_768':
-        #    model_version = 'BaseModel_1024'
         if model_version != 'SDXL_2048':
             match basemodel_res:
                 case 512:

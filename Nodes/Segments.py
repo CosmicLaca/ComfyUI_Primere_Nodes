@@ -257,12 +257,6 @@ class PrimereImageSegments:
                     image_max_area = image_area
 
         image_max_area = int((image_max_area / (crop_factor**2)))
-        # if (image_max_area > 0) and (trigger_high_off > 0) and (image_max_area > trigger_high_off):
-        #     return image, [image], None, None, empty_segs, [], 0, segment_settings
-
-        # if (image_max_area > 0) and (trigger_low_off > 0) and (image_max_area < trigger_low_off):
-        #     return image, [image], None, None, empty_segs, [], 0, segment_settings
-
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
         input_img_segs = detectors.segmented_images(segs, image)
