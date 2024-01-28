@@ -1,6 +1,6 @@
 {
-  "last_node_id": 394,
-  "last_link_id": 1142,
+  "last_node_id": 395,
+  "last_link_id": 1146,
   "nodes": [
     {
       "id": 93,
@@ -761,7 +761,7 @@
           "type": "STRING",
           "links": [
             811,
-            868
+            1144
           ],
           "shape": 3,
           "slot_index": 1
@@ -948,9 +948,9 @@
           "type": "INT",
           "links": [
             814,
-            869,
             1027,
-            1142
+            1142,
+            1143
           ],
           "shape": 3,
           "slot_index": 0
@@ -1470,77 +1470,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 326,
-      "type": "PrimereResolution",
-      "pos": [
-        3240,
-        -1184
-      ],
-      "size": {
-        "0": 323.36981201171875,
-        "1": 246
-      },
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 869,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 868,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            870
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            871
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "HD+ screen [16:10]",
-        768,
-        false,
-        "Vertical",
-        true,
-        167757464862314,
-        "randomize",
-        false,
-        1.6,
-        2.8,
-        "BaseModel_1024"
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 372,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -1552,7 +1481,7 @@
         26
       ],
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1586,6 +1515,76 @@
       },
       "color": "#223",
       "bgcolor": "#335"
+    },
+    {
+      "id": 395,
+      "type": "PrimereResolution",
+      "pos": [
+        3240,
+        -1184
+      ],
+      "size": [
+        323.3572998046875,
+        270
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1143,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1144,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            1145
+          ],
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            1146
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Photo [19:13]",
+        768,
+        1024,
+        false,
+        "Vertical",
+        false,
+        366976988889405,
+        "randomize",
+        false,
+        1.6,
+        2.8,
+        "BaseModel_1024"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 108,
@@ -1762,7 +1761,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 870,
+          "link": 1145,
           "widget": {
             "name": "width"
           }
@@ -1770,7 +1769,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 871,
+          "link": 1146,
           "widget": {
             "name": "height"
           }
@@ -2019,7 +2018,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1951,
+        44,
         "randomize",
         512,
         512,
@@ -2125,7 +2124,7 @@
       },
       "widgets_values": [
         "",
-        424734785387593,
+        936008116109768,
         "randomize"
       ],
       "color": "#322",
@@ -2180,7 +2179,7 @@
       },
       "widgets_values": [
         "",
-        63314475158459,
+        138781342087842,
         "randomize"
       ],
       "color": "#232",
@@ -2320,7 +2319,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"negative\": \"dog\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 327710957767129,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"dynamic_negative\": \"dog\"\n}"
+        "{\n    \"positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"negative\": \"dog\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 1028328651104421,\n    \"width\": 634,\n    \"height\": 931,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"dynamic_negative\": \"dog\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2581,10 +2580,10 @@
         2375.46398741521,
         70.75124695278095
       ],
-      "size": [
-        339.304122203931,
-        454
-      ],
+      "size": {
+        "0": 339.3041076660156,
+        "1": 454
+      },
       "flags": {},
       "order": 34,
       "mode": 0,
@@ -2653,12 +2652,12 @@
         1,
         0.8,
         1.4,
-        0,
+        720232221591809,
         "randomize",
         true,
         "cpu",
         false,
-        0,
+        1014053202687147,
         "randomize"
       ],
       "color": "#941414",
@@ -2923,8 +2922,8 @@
       "id": 327,
       "type": "PrimereResolutionMultiplier",
       "pos": [
-        3239,
-        -903
+        3241,
+        -878
       ],
       "size": {
         "0": 325.78076171875,
@@ -3157,6 +3156,33 @@
       ],
       "color": "#002c2c",
       "bgcolor": "#004040"
+    },
+    {
+      "id": 27,
+      "type": "PreviewImage",
+      "pos": [
+        2377,
+        561
+      ],
+      "size": [
+        338.3373718261719,
+        246
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1141
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#6c0000",
+      "bgcolor": "#800000"
     },
     {
       "id": 240,
@@ -3925,7 +3951,7 @@
         1.3,
         0,
         0,
-        580174942124973,
+        253125619710108,
         "randomize",
         "mean",
         "comfy++",
@@ -4023,7 +4049,7 @@
         1.3,
         0,
         0,
-        595924631686224,
+        268865617192238,
         "randomize",
         "mean",
         "A1111",
@@ -4121,7 +4147,7 @@
         0.4,
         0.25,
         0.3,
-        1023450146524380,
+        763040128433406,
         "randomize",
         "mean",
         "comfy++",
@@ -4221,7 +4247,7 @@
         1.2,
         0,
         0.2,
-        982662699861687,
+        680733085045190,
         "randomize",
         "mean",
         "A1111",
@@ -4679,7 +4705,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1010714948397685,
+        795429362445275,
         "randomize",
         20,
         8,
@@ -4869,7 +4895,7 @@
       ],
       "size": {
         "0": 390.7203063964844,
-        "1": 262
+        "1": 310
       },
       "flags": {},
       "order": 64,
@@ -4918,8 +4944,8 @@
         }
       ],
       "properties": {
-        "infoWidgetHidden": true,
         "Node name for S&R": "ttN hiresfixScale",
+        "infoWidgetHidden": true,
         "ttNnodeVersion": "1.0.3"
       },
       "widgets_values": [
@@ -4934,8 +4960,7 @@
         1024,
         "disabled",
         "Hide",
-        "ComfyUI",
-        false
+        "ComfyUI"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5270,7 +5295,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        772497272662019,
+        1037909977663112,
         "randomize",
         30,
         8,
@@ -5576,7 +5601,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1087699788711699,
+        873282040534759,
         "randomize",
         30,
         10,
@@ -5882,7 +5907,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        525153125699262,
+        467189226258136,
         "randomize",
         30,
         10,
@@ -6188,7 +6213,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        503601937743767,
+        421180292071834,
         "randomize",
         30,
         10,
@@ -6212,7 +6237,7 @@
       ],
       "size": {
         "0": 298.666259765625,
-        "1": 534
+        "1": 558
       },
       "flags": {},
       "order": 82,
@@ -6333,7 +6358,7 @@
       },
       "widgets_values": [
         2.1,
-        755017529877556,
+        1099654024280205,
         "randomize",
         7,
         6.5,
@@ -6350,7 +6375,8 @@
         64,
         8,
         16,
-        "enable"
+        "enable",
+        false
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -6554,37 +6580,10 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-01-07 09:07:05\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\CuteAnimal\\2024-01-Week-01\\Image_20240701_090704_327710957767129_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: cute cat walking in the street at cold, snow, winter\n:: NEGATIVE: dog\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 327710957767129\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: cute cat walking in the street at cold, snow, winter\n:: DYNAMIC_NEGATIVE: dog\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        ":: Time to save: 2024-01-28 11:20:54\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\CuteAnimal\\2024-01-Week-04\\Image_20242801_112054_1028328651104421_2528x3712_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: cute cat walking in the street at cold, snow, winter\n:: NEGATIVE: dog\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 1028328651104421\n:: WIDTH: 634\n:: HEIGHT: 931\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: cute cat walking in the street at cold, snow, winter\n:: DYNAMIC_NEGATIVE: dog\n:: SAVED_IMAGE_WIDTH: 2528\n:: SAVED_IMAGE_HEIGTH: 3712\n:: UPSCALER_RATIO: From: 634x931 to: 2528x3712 Ratio: 4.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 27,
-      "type": "PreviewImage",
-      "pos": [
-        2377,
-        561
-      ],
-      "size": [
-        338.33737594777176,
-        226.2114839426457
-      ],
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 1141
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#6c0000",
-      "bgcolor": "#800000"
     }
   ],
   "links": [
@@ -7805,38 +7804,6 @@
       "MODEL"
     ],
     [
-      868,
-      248,
-      1,
-      326,
-      1,
-      "STRING"
-    ],
-    [
-      869,
-      90,
-      0,
-      326,
-      0,
-      "INT"
-    ],
-    [
-      870,
-      326,
-      0,
-      321,
-      13,
-      "INT"
-    ],
-    [
-      871,
-      326,
-      1,
-      321,
-      14,
-      "INT"
-    ],
-    [
       872,
       321,
       10,
@@ -8578,6 +8545,38 @@
       0,
       394,
       3,
+      "INT"
+    ],
+    [
+      1143,
+      90,
+      0,
+      395,
+      0,
+      "INT"
+    ],
+    [
+      1144,
+      248,
+      1,
+      395,
+      1,
+      "STRING"
+    ],
+    [
+      1145,
+      395,
+      0,
+      321,
+      13,
+      "INT"
+    ],
+    [
+      1146,
+      395,
+      1,
+      321,
+      14,
       "INT"
     ]
   ],
