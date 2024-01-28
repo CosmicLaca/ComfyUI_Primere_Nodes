@@ -7,27 +7,27 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Do it before first run, or the example workflow will be failed in your environment:
 
-**Always use only the latest 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes if the previous workflow failed becuae nodes changed by develpment.**
+**Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes if the previous workflow failed because nodes changed by develpment. This node contains most of developed nodes, but with 3rd party nodes and models required**
 
 1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually).
 
-2; If started, use the last workflow on the 'Workflow' folder for first try, all nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow later. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
+2; If started, use the Primere_latest_workflow or Primere_basic_workflow on the 'Workflow' folder for first try, all separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
-3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is a really basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
+3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is a really basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
 4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
-5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
+5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use your custom 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
 
 6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values on all input fields from your own environment.
 
 7; Choose your own image from your machine to the 'Primere Exif Reader'.
 
-8; **Update your Comfy to latest version** if workflow failed, I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
+8; **Update your Comfy to latest version** if workflow failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version only.
 
-9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved workflow if required.
+9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved workflow if required. **'Fix node (recreate)'** menu will keep previous connections.
 
-10; Sometime the node development change existing nodes, so the previous workflow failed after pull. Then use right-click + **'Fix node (recreate)' menu** and maybe rewire changed nodes, or load the attached example workflows again.
+10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually with invalid input value. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
 
 11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
 
@@ -52,6 +52,17 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Workflow and nodes support Lycoris in dedicated node
 - Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
 - Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
+
+## For this workflow needed 3rd party nodes, see this screenshot, the green is Primire, the red is 3rd party. Use 'Install missing cistom nodes' in Comfy menu or found git repo by name and clone.
+
+<a href="./Workflow/readme_images/nodelist_latest.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_latest.jpg" height="600px"></a>
+
+<hr>
+
+## About the simple basic workflow **Primere_basic_workflow.json**:
+Very basic workflow with less nodes, but using Comfy nodes too, maybe no need to download 3rd party nodes and models if you have right installed and updated ComfyUI:
+
+<a href="./Workflow/readme_images/nodelist_basic.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_basic.jpg" height="250px"></a>
 
 <hr>
 
