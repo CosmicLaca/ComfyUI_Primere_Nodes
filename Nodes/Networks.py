@@ -117,7 +117,7 @@ class PrimereLORA:
                 if ModelKvHash is not None:
                     KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
                     keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lora_name)
-                    if keywords is not None and keywords != "":
+                    if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
                         if keywords.find('|') > 1:
                             keyword_list = [word.strip() for word in keywords.split('|')]
                             keyword_list = list(filter(None, keyword_list))
@@ -434,7 +434,7 @@ class PrimereLYCORIS:
                 if ModelKvHash is not None:
                     KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
                     keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
-                    if keywords is not None and keywords != "":
+                    if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
                         if keywords.find('|') > 1:
                             keyword_list = [word.strip() for word in keywords.split('|')]
                             keyword_list = list(filter(None, keyword_list))

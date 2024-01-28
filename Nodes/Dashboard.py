@@ -918,7 +918,7 @@ class PrimereNetworkTagLoader:
                               if ModelKvHash is not None:
                                   KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
                                   keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lora_name)
-                                  if keywords is not None and keywords != "":
+                                  if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
                                       if keywords.find('|') > 1:
                                           keyword_list = [word.strip() for word in keywords.split('|')]
                                           keyword_list = list(filter(None, keyword_list))
@@ -961,7 +961,7 @@ class PrimereNetworkTagLoader:
                               if ModelKvHash is not None:
                                   KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
                                   keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
-                                  if keywords is not None and keywords != "":
+                                  if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
                                       if keywords.find('|') > 1:
                                           keyword_list = [word.strip() for word in keywords.split('|')]
                                           keyword_list = list(filter(None, keyword_list))
@@ -1035,7 +1035,7 @@ class PrimereModelKeyword:
                 KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'model-keyword.txt')
                 keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, model_name)
 
-                if keywords is not None:
+                if keywords is not None and isinstance(keywords, str) == True:
                     if keywords.find('|') > 1:
                         keyword_list = keywords.split("|")
                         if (len(keyword_list) > 0):
