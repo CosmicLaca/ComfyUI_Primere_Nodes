@@ -942,7 +942,7 @@ class PrimereNetworkTagLoader:
                           keywords = ", ".join(list_of_keyword_items)
 
                           if (lora_keyword_weight != 1):
-                              keywords = '(' + keywords + ':' + str(lora_keyword_weight) + ')'
+                              keywords = '(' + keywords + ':' + str(round(lora_keyword_weight, 1)) + ')'
 
                           model_lora_keyword = [keywords, lora_keyword_placement]
 
@@ -985,7 +985,7 @@ class PrimereNetworkTagLoader:
                           keywords = ", ".join(list_of_keyword_items)
 
                           if (lycoris_keyword_weight != 1):
-                              keywords = '(' + keywords + ':' + str(lycoris_keyword_weight) + ')'
+                              keywords = '(' + keywords + ':' + str(round(lycoris_keyword_weight, 1)) + ')'
 
                           model_lyco_keyword = [keywords, lycoris_keyword_placement]
 
@@ -1049,7 +1049,7 @@ class PrimereModelKeyword:
                             keywords = ", ".join(list_of_keyword_items)
 
                     if (model_keyword_weight != 1):
-                        keywords = '(' + keywords + ':' + str(model_keyword_weight) + ')'
+                        keywords = '(' + keywords + ':' + str(round(model_keyword_weight, 1)) + ')'
 
                     model_keyword = [keywords, model_keyword_placement]
 

@@ -123,9 +123,9 @@ class PrimereVisualLORA:
         loras = [kwargs.get(f"lora_{i}") for i in range(1, self.LORASCOUNT + 1)]
         model_weight = [kwargs.get(f"lora_{i}_model_weight") for i in range(1, self.LORASCOUNT + 1)]
         if use_only_model_weight == True:
-            clip_weight =[kwargs.get(f"lora_{i}_model_weight") for i in range(1, self.LORASCOUNT + 1)]
+            clip_weight = [kwargs.get(f"lora_{i}_model_weight") for i in range(1, self.LORASCOUNT + 1)]
         else:
-            clip_weight =[kwargs.get(f"lora_{i}_clip_weight") for i in range(1, self.LORASCOUNT + 1)]
+            clip_weight = [kwargs.get(f"lora_{i}_clip_weight") for i in range(1, self.LORASCOUNT + 1)]
 
         uses = [kwargs.get(f"use_lora_{i}") for i in range(1, self.LORASCOUNT + 1)]
         lora_stack = [(lora_name, lora_model_weight, lora_clip_weight) for lora_name, lora_model_weight, lora_clip_weight, lora_uses in zip(loras, model_weight, clip_weight, uses) if lora_uses == True]
@@ -184,7 +184,7 @@ class PrimereVisualLORA:
             keywords = ", ".join(list_of_keyword_items)
 
             if (lora_keyword_weight != 1):
-                keywords = '(' + keywords + ':' + str(lora_keyword_weight) + ')'
+                keywords = '(' + keywords + ':' + str(round(lora_keyword_weight, 1)) + ')'
 
             model_keyword = [keywords, lora_keyword_placement]
 
@@ -620,7 +620,7 @@ class PrimereVisualLYCORIS:
             keywords = ", ".join(list_of_keyword_items)
 
             if (lycoris_keyword_weight != 1):
-                keywords = '(' + keywords + ':' + str(lycoris_keyword_weight) + ')'
+                keywords = '(' + keywords + ':' + str(round(lycoris_keyword_weight, 1)) + ')'
 
             model_keyword = [keywords, lycoris_keyword_placement]
 
