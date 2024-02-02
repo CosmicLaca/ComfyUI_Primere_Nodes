@@ -81,8 +81,8 @@
       "id": 1,
       "type": "PrimerePrompt",
       "pos": [
-        28.113382586669896,
-        91.1530190124512
+        28,
+        91
       ],
       "size": {
         "0": 358.3917236328125,
@@ -143,7 +143,7 @@
       },
       "widgets_values": [
         "{creepy|angry} {cat|dog|pig|lion|elephant} walking in the street of {big city|village|park|hill}, snow and winter",
-        "human, summer, sunny, man, woman, girl, nsfw",
+        "human, summer, sunny, man, woman, girl, nsfw, nude, nudity, porn",
         "",
         "None",
         "None"
@@ -184,7 +184,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        288272962969034,
+        -1,
         null,
         null,
         null
@@ -242,10 +242,10 @@
         1180,
         257
       ],
-      "size": [
-        286.21567331589495,
-        102
-      ],
+      "size": {
+        "0": 286.2156677246094,
+        "1": 102
+      },
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -287,10 +287,10 @@
         1475,
         395
       ],
-      "size": [
-        312.61983953266827,
-        102
-      ],
+      "size": {
+        "0": 312.6198425292969,
+        "1": 102
+      },
       "flags": {},
       "order": 5,
       "mode": 0,
@@ -332,10 +332,10 @@
         1179,
         394
       ],
-      "size": [
-        287.1246987925208,
-        102
-      ],
+      "size": {
+        "0": 287.12469482421875,
+        "1": 102
+      },
       "flags": {},
       "order": 6,
       "mode": 0,
@@ -377,10 +377,10 @@
         1476,
         531
       ],
-      "size": [
-        311.20467215254166,
-        102
-      ],
+      "size": {
+        "0": 311.2046813964844,
+        "1": 102
+      },
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -419,8 +419,8 @@
       "id": 5,
       "type": "PrimerePromptSwitch",
       "pos": [
-        398.11338258667007,
-        91.1530190124512
+        398,
+        91
       ],
       "size": {
         "0": 273,
@@ -564,10 +564,10 @@
         700,
         254
       ],
-      "size": [
-        469.49213652177286,
-        154
-      ],
+      "size": {
+        "0": 469.49212646484375,
+        "1": 154
+      },
       "flags": {},
       "order": 9,
       "mode": 0,
@@ -594,7 +594,7 @@
       },
       "widgets_values": [
         true,
-        "Last",
+        "First",
         "Random select",
         1,
         0.5
@@ -607,12 +607,12 @@
       "type": "PrimereLCMSelector",
       "pos": [
         700,
-        443
+        445
       ],
-      "size": [
-        471.3103665438564,
-        198
-      ],
+      "size": {
+        "0": 471.31036376953125,
+        "1": 198
+      },
       "flags": {},
       "order": 10,
       "mode": 0,
@@ -795,7 +795,7 @@
       },
       "widgets_values": [
         "",
-        568330226042170,
+        1121189051507599,
         "randomize"
       ]
     },
@@ -806,10 +806,10 @@
         694,
         820
       ],
-      "size": [
-        290.3481442342238,
-        54
-      ],
+      "size": {
+        "0": 290.34814453125,
+        "1": 54
+      },
       "flags": {},
       "order": 12,
       "mode": 0,
@@ -848,7 +848,7 @@
       },
       "widgets_values": [
         "",
-        1070397958652946,
+        940264083690558,
         "randomize"
       ]
     },
@@ -938,7 +938,7 @@
         "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        true,
+        false,
         1,
         1,
         0
@@ -1066,7 +1066,7 @@
         true,
         "Horizontal",
         true,
-        461524558553328,
+        837575708708016,
         "randomize",
         false,
         1.6,
@@ -1261,7 +1261,7 @@
         "",
         "",
         1.5,
-        true,
+        false,
         "PHOTO",
         1,
         "INANIMATE_OBJ",
@@ -1366,12 +1366,12 @@
         1,
         0.8,
         1.4,
-        810424149698612,
+        65093779756847,
         "randomize",
         true,
         "cpu",
         false,
-        826626608518731,
+        119206952384243,
         "randomize"
       ],
       "color": "#941414",
@@ -1384,10 +1384,10 @@
         2502,
         174
       ],
-      "size": [
-        321.9254152224871,
-        218
-      ],
+      "size": {
+        "0": 321.9254150390625,
+        "1": 218
+      },
       "flags": {},
       "order": 18,
       "mode": 0,
@@ -1472,7 +1472,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        1064903299652587,
+        979995925066429,
         "randomize",
         20,
         8,
