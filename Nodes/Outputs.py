@@ -11,6 +11,7 @@ from PIL import Image
 from pathlib import Path
 import datetime
 import comfy.samplers
+from .modules import exif_data_checker
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -179,9 +180,10 @@ class PrimereMetaSave:
 
             exif_metadata_A11 = None
             if 'positive' in image_metadata and 'negative' in image_metadata:
+                a11samplername = exif_data_checker.comfy_samplers2a11(image_metadata['sampler_name'], image_metadata['scheduler_name'])
                 exif_metadata_A11 = f"""{image_metadata['positive']}
 Negative prompt: {image_metadata['negative']}
-Steps: {str(image_metadata['steps'])}, Sampler: {image_metadata['sampler_name'] + ' ' + image_metadata['scheduler_name']}, CFG scale: {str(image_metadata['cfg_scale'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model_name']}, VAE: {image_metadata['vae_name']}"""
+Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {str(image_metadata['cfg_scale'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model_name']}, VAE: {image_metadata['vae_name']}"""
 
             exif_metadata_json = image_metadata
 
@@ -390,9 +392,7 @@ class PrimereMetaCollector:
                 prefered_orientation = "Vertical"
 
         data_json = {}
-        data_json['positive'] = positive.replace('ADDROW ', '').replace('ADDCOL ', '').replace('ADDCOMM ',
-                                                                                               '').replace('\n',
-                                                                                                           ' ')
+        data_json['positive'] = positive.replace('ADDROW ', '').replace('ADDCOL ', '').replace('ADDCOMM ', '').replace('\n', ' ')
         data_json['negative'] = negative.replace('\n', ' ')
         data_json['positive_l'] = positive_l
         data_json['negative_l'] = negative_l

@@ -99,6 +99,13 @@ def check_sampler_from_exif(sampler_name_exif, sampler_name, scheduler_name):
 
     return {'sampler': sampler_name, 'scheduler': scheduler_name}
 
+def comfy_samplers2a11(comfy_sampler, comfy_scheduler):
+  sampler_name_a11 = comfy_sampler.capitalize().replace('_', ' ').replace('pp', '++').replace('Dpm 2', 'DPM2').replace('Uni pc', 'UniPC').replace(' ancestral', ' a') + ' ' + comfy_scheduler.capitalize()
+  sampler_name_a11 = sampler_name_a11.replace(' Normal', '')
+  sampler_name_a11 = sampler_name_a11.replace('Ddim', 'DDIM').replace('Dpm', 'DPM').replace('2m', '2M').replace('sde', 'SDE').replace('2s', '2S').replace('Lms', 'LMS')
+
+  return  sampler_name_a11
+
 def check_vae_exif(vae_name_exif, vae_name):
     comfy_vaes = folder_paths.get_filename_list("vae")
     cutoff_list = [1, 0.9, 0.8, 0.7]
