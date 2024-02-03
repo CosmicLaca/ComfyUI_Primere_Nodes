@@ -71,11 +71,11 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLycorisStackMerger": Inputs.PrimereLycorisStackMerger,
     "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
     "PrimereRefinerPrompt": Inputs.PrimereRefinerPrompt,
-    "PrimereMetaCollector": Inputs.PrimereMetaCollector,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
     "PrimereTextOutput": Outputs.PrimereTextOutput,
+    "PrimereMetaCollector": Outputs.PrimereMetaCollector,
 
     "PrimereStylePile": Styles.PrimereStylePile,
 
@@ -125,11 +125,11 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLycorisStackMerger": 'Primere Lycoris Stack Merger',
     "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
     "PrimereRefinerPrompt": "Primere Refiner Prompt",
-    "PrimereMetaCollector": "Primere Meta Collector",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",
     "PrimereTextOutput": "Primere Text Ouput",
+    "PrimereMetaCollector": "Primere Meta Collector",
 
     "PrimereStylePile": "Primere Style Pile",
 

@@ -2,7 +2,7 @@
 
 Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
-<a href="./Workflow/readme_images/workflow.png" target="_blank"><img src="./Workflow/readme_images/workflow.jpg" width="400px"></a>
+<a href="./Workflow/readme_images/latest_workflow.png" target="_blank"><img src="./Workflow/readme_images/latest_workflow.jpg" width="400px"></a>
 <hr>
 
 ## Do it before first run, or the example workflow will be failed in your environment:
@@ -31,7 +31,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
 
-## Special features in attached complex workflow **Primere_latest_workflow.json**:
+## Special features in attached most complex workflow **Primere_latest_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
 - No need to switch nodes or workflow between SD and SDXL mode
 - You can select model, subpath and orientation under the prompt input overwrite the system settings, same settings under the .csv Styles loader node
@@ -63,6 +63,15 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 Very basic workflow with less nodes, but using Comfy nodes too, maybe no need to download 3rd party nodes and models if you have right installed and updated ComfyUI:
 
 <a href="./Workflow/readme_images/nodelist_basic.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_basic.jpg" height="250px"></a>
+
+<hr>
+
+# Compare attached workflows
+
+<a href="./Workflow/readme_details/howto_minmalwf.md" target="_blank"><img src="./Workflow/readme_images/howto_minmalwf.png" height="150px"></a>
+<a href="./Workflow/readme_details/howto_basicwf.md" target="_blank"><img src="./Workflow/readme_images/howto_basicwf.png" height="150px"></a>
+<a href="./Workflow/readme_details/howto_advwf.md" target="_blank"><img src="./Workflow/readme_images/howto_advwf.png" height="150px"></a>
+<a href="./Workflow/readme_details/howto_finalwf.md" target="_blank"><img src="./Workflow/readme_images/howto_finalwf.png" height="150px"></a>
 
 <hr>
 
@@ -402,6 +411,12 @@ Use this node to display 'any' output values of several nodes like prompts or me
 
 ### Primere Text Output
 Use this node to diaplay simple text (not tuples or dict).
+<hr>
+
+### Primere Meta Collector
+Use this node in the workflow if you don't need Primere Meta Reader node. This node collect required metadata for Primere Meta Saver, the data will be stored to jpg exif or png pnginfo, then you can read back and recycle your previous prompts and settings by Primere Meta Reader. Check 'Primere_advanced_workflow.json' how to use this node.
+
+<a href="./Workflow/readme_images/pmetacoll.jpg" target="_blank"><img src="./Workflow/readme_images/pmetacoll.jpg" height="250px"></a>
 <hr>
 
 ## Styles:

@@ -10,6 +10,7 @@ from PIL.PngImagePlugin import PngInfo
 from PIL import Image
 from pathlib import Path
 import datetime
+import comfy.samplers
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -339,3 +340,91 @@ class PrimereTextOutput:
 
     def notify(self, text):
         return {"ui": {"text": text}}
+
+class PrimereMetaCollector:
+    CATEGORY = TREE_OUTPUTS
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("METADATA",)
+    FUNCTION = "load_process_meta"
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "positive": ('STRING', {"forceInput": True, "default": ""}),
+                "negative": ('STRING', {"forceInput": True, "default": ""}),
+                "seed": ('INT', {"forceInput": True, "default": 1}),
+            },
+            "optional": {
+                "positive_l": ('STRING', {"forceInput": True, "default": ""}),
+                "negative_l": ('STRING', {"forceInput": True, "default": ""}),
+                "positive_r": ('STRING', {"forceInput": True, "default": ""}),
+                "negative_r": ('STRING', {"forceInput": True, "default": ""}),
+                "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": ""}),
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+                "seed": ('INT', {"forceInput": True, "default": 1}),
+                "width": ('INT', {"forceInput": True, "default": 512}),
+                "height": ('INT', {"forceInput": True, "default": 512}),
+                "cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
+                "steps": ('INT', {"forceInput": True, "default": 12}),
+                "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": ""}),
+                "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
+                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
+                "prefered_model": ("STRING", {"default": "", "forceInput": True}),
+                "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
+            },
+        }
+
+    def load_process_meta(self, positive="", negative="", seed=1, positive_l="", negative_l="", positive_r="",
+                          negative_r="", model_hash="", model_name="", model_version="BaseModel_1024",
+                          sampler_name="euler", scheduler_name="normal", width=512, height=512, cfg_scale=7,
+                          steps=12, vae_name_sd="", vae_name_sdxl="", is_lcm=0, prefered_model="",
+                          prefered_orientation=""):
+
+        if prefered_orientation == 'Random':
+            if (seed % 2) == 0:
+                prefered_orientation = "Horizontal"
+            else:
+                prefered_orientation = "Vertical"
+
+        data_json = {}
+        data_json['positive'] = positive.replace('ADDROW ', '').replace('ADDCOL ', '').replace('ADDCOMM ',
+                                                                                               '').replace('\n',
+                                                                                                           ' ')
+        data_json['negative'] = negative.replace('\n', ' ')
+        data_json['positive_l'] = positive_l
+        data_json['negative_l'] = negative_l
+        data_json['positive_r'] = positive_r
+        data_json['negative_r'] = negative_r
+        data_json['model_hash'] = model_hash
+        data_json['model_name'] = model_name
+        data_json['sampler_name'] = sampler_name
+        data_json['scheduler_name'] = scheduler_name
+        data_json['seed'] = seed
+        data_json['width'] = width
+        data_json['height'] = height
+        data_json['cfg_scale'] = cfg_scale
+        data_json['steps'] = steps
+        data_json['model_version'] = model_version
+        data_json['is_lcm'] = is_lcm
+        data_json['vae_name'] = vae_name_sd
+        data_json['prefered_model'] = prefered_model
+        data_json['prefered_orientation'] = prefered_orientation
+
+        is_sdxl = 0
+        match model_version:
+            case 'SDXL_2048':
+                is_sdxl = 1
+        data_json['is_sdxl'] = is_sdxl
+
+        if (is_sdxl == 1):
+            data_json['vae_name'] = vae_name_sdxl
+        else:
+            data_json['vae_name'] = vae_name_sd
+
+        if (data_json['vae_name'] == ""):
+            data_json['vae_name'] = folder_paths.get_filename_list("vae")[0]
+
+        return (data_json,)
