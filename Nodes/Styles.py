@@ -27,12 +27,12 @@ class PrimereStylePile:
         cls.COLORS = ['None'] + sorted(STYLE['colors']['colors'])
         cls.DIRECTIONS = ['None'] + sorted(STYLE['directions']['directions'])
         cls.MOODS = ['None'] + sorted(STYLE['moods']['moods'])
+        cls.MJSTYLES = ['None'] + sorted(STYLE['mjstyles']['mjstyles'])
 
         return {
             "required": {
                 "art_type": (list(cls.ART_TYPES.keys()),),
                 "art_type_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
-
                 "color": (cls.COLORS,),
                 "color_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "mood": (cls.MOODS,),
@@ -45,6 +45,8 @@ class PrimereStylePile:
                 "artist_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "movement": (cls.ART_MOVEMENTS,),
                 "movement_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "midjourney_styles": (cls.MJSTYLES,),
+                "midjourney_styles_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
             },
             "optional": {
                 "opt_pos_style": ("STRING", {"forceInput": True}),
@@ -52,7 +54,7 @@ class PrimereStylePile:
             }
         }
 
-    def styleple(self, concept, concept_strength, art_type, art_type_strength, artist, artist_strength, movement, movement_strength, color, color_strength, mood, mood_strength, direction, direction_strength, opt_pos_style = '', opt_neg_style = ''):
+    def styleple(self, concept, concept_strength, art_type, art_type_strength, artist, artist_strength, movement, movement_strength, midjourney_styles, midjourney_styles_strength, color, color_strength, mood, mood_strength, direction, direction_strength, opt_pos_style = '', opt_neg_style = ''):
         opt_pos_style = f'({opt_pos_style})' if opt_pos_style is not None and opt_pos_style.strip(' ,;') != '' else ''
         opt_neg_style = f'({opt_neg_style})' if opt_neg_style is not None and opt_neg_style.strip(' ,;') != '' else ''
 
@@ -67,8 +69,9 @@ class PrimereStylePile:
         concept = f'({concept}:{concept_strength:.2f})' if concept is not None and concept != 'None' and concept.strip(' ,;') != '' else ''
         artist = f'({artist}:{artist_strength:.2f})' if artist is not None and artist != 'None' and artist.strip(' ,;') != '' else ''
         movement = f'({movement}:{movement_strength:.2f})' if movement is not None and movement != 'None' and movement.strip(' ,;') != '' else ''
+        midjourney_styles = f'({midjourney_styles}:{midjourney_styles_strength:.2f})' if midjourney_styles is not None and midjourney_styles != 'None' and midjourney_styles.strip(' ,;') != '' else ''
 
-        positive_text = f'{opt_pos_style}, {art_type_pos_str}, {color}, {mood}, {direction}, {concept}, {artist}, {movement}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(", , ", ", ")
+        positive_text = f'{opt_pos_style}, {art_type_pos_str}, {color}, {mood}, {direction}, {concept}, {artist}, {movement}, {midjourney_styles}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(", , ", ", ")
         negative_text = f'{opt_neg_style}, {art_type_neg_str}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ")
 
         return (positive_text, negative_text,)
