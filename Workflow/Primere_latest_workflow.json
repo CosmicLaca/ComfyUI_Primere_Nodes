@@ -1,6 +1,6 @@
 {
-  "last_node_id": 395,
-  "last_link_id": 1146,
+  "last_node_id": 396,
+  "last_link_id": 1150,
   "nodes": [
     {
       "id": 93,
@@ -1150,7 +1150,7 @@
           "name": "STYLE+",
           "type": "STRING",
           "links": [
-            764
+            1147
           ],
           "shape": 3,
           "slot_index": 0
@@ -1159,7 +1159,7 @@
           "name": "STYLE-",
           "type": "STRING",
           "links": [
-            765
+            1148
           ],
           "shape": 3,
           "slot_index": 1
@@ -1184,9 +1184,7 @@
         "None",
         0.6,
         "None",
-        1,
-        "",
-        ""
+        1
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -1578,7 +1576,7 @@
         false,
         "Vertical",
         false,
-        151338786133201,
+        543358279383361,
         "randomize",
         false,
         1.6,
@@ -1587,6 +1585,90 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 396,
+      "type": "PrimereMidjourneyStyles",
+      "pos": [
+        1565,
+        573
+      ],
+      "size": [
+        774.0844440328124,
+        582
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "type": "STRING",
+          "link": 1147,
+          "widget": {
+            "name": "opt_pos_style"
+          }
+        },
+        {
+          "name": "opt_neg_style",
+          "type": "STRING",
+          "link": 1148,
+          "widget": {
+            "name": "opt_neg_style"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            1149
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            1150
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMidjourneyStyles"
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "",
+        ""
+      ],
+      "color": "#43361d",
+      "bgcolor": "#574a31"
     },
     {
       "id": 108,
@@ -1600,7 +1682,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1631,7 +1713,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1662,7 +1744,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 24,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -2020,7 +2102,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        233,
+        1433,
         "randomize",
         512,
         512,
@@ -2045,7 +2127,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -2090,7 +2172,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2126,7 +2208,7 @@
       },
       "widgets_values": [
         "",
-        452087164160339,
+        633361313915876,
         "randomize"
       ],
       "color": "#322",
@@ -2144,7 +2226,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2181,7 +2263,7 @@
       },
       "widgets_values": [
         "",
-        519828389103364,
+        270285597041633,
         "randomize"
       ],
       "color": "#232",
@@ -2199,7 +2281,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 28,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2307,7 +2389,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2321,7 +2403,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"negative\": \"dog\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 592989993685375,\n    \"width\": 634,\n    \"height\": 931,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"dynamic_negative\": \"dog\"\n}"
+        "{\n    \"positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"negative\": \"dog\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 826680315943320,\n    \"width\": 634,\n    \"height\": 931,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": true,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"cute cat walking in the street at cold, snow, winter\",\n    \"dynamic_negative\": \"dog\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2338,7 +2420,7 @@
         26
       ],
       "flags": {},
-      "order": 30,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2381,7 +2463,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 31,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2497,7 +2579,7 @@
         26
       ],
       "flags": {},
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2544,7 +2626,7 @@
         26
       ],
       "flags": {},
-      "order": 33,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2587,7 +2669,7 @@
         "1": 454
       },
       "flags": {},
-      "order": 34,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2654,12 +2736,12 @@
         1,
         0.8,
         1.4,
-        987888671554570,
+        180179204619488,
         "randomize",
         true,
         "cpu",
         false,
-        954415500867114,
+        40646959768823,
         "randomize"
       ],
       "color": "#941414",
@@ -2677,7 +2759,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 35,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2765,7 +2847,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 36,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2854,7 +2936,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 37,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2932,7 +3014,7 @@
         "1": 146
       },
       "flags": {},
-      "order": 38,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -3015,7 +3097,7 @@
         26
       ],
       "flags": {},
-      "order": 39,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -3058,7 +3140,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 40,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3171,7 +3253,7 @@
         "1": 246
       },
       "flags": {},
-      "order": 41,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3198,7 +3280,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 42,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3260,7 +3342,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 43,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3338,7 +3420,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 44,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3451,7 +3533,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 45,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3515,7 +3597,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 46,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3629,7 +3711,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 47,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3677,7 +3759,7 @@
         26
       ],
       "flags": {},
-      "order": 48,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3720,7 +3802,7 @@
         26
       ],
       "flags": {},
-      "order": 49,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3763,7 +3845,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 50,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3877,7 +3959,7 @@
         "1": 484.9033203125
       },
       "flags": {},
-      "order": 51,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3953,7 +4035,7 @@
         1.3,
         0,
         0,
-        299353717890145,
+        347360131020931,
         "randomize",
         "mean",
         "comfy++",
@@ -3975,7 +4057,7 @@
         "1": 487.41436767578125
       },
       "flags": {},
-      "order": 52,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -4051,7 +4133,7 @@
         1.3,
         0,
         0,
-        303766295846029,
+        1077581309452994,
         "randomize",
         "mean",
         "A1111",
@@ -4073,7 +4155,7 @@
         "1": 486.3999328613281
       },
       "flags": {},
-      "order": 53,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -4149,7 +4231,7 @@
         0.4,
         0.25,
         0.3,
-        1125264741862344,
+        387279532049303,
         "randomize",
         "mean",
         "comfy++",
@@ -4171,7 +4253,7 @@
         "1": 486.1943054199219
       },
       "flags": {},
-      "order": 54,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4249,7 +4331,7 @@
         1.2,
         0,
         0.2,
-        531773561273808,
+        58653252084848,
         "randomize",
         "mean",
         "A1111",
@@ -4271,7 +4353,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 55,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -4349,7 +4431,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 56,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4397,7 +4479,7 @@
         "1": 714.7673950195312
       },
       "flags": {},
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4473,7 +4555,7 @@
         {
           "name": "style_pos_prompt",
           "type": "STRING",
-          "link": 764,
+          "link": 1149,
           "widget": {
             "name": "style_pos_prompt"
           }
@@ -4481,7 +4563,7 @@
         {
           "name": "style_neg_prompt",
           "type": "STRING",
-          "link": 765,
+          "link": 1150,
           "widget": {
             "name": "style_neg_prompt"
           }
@@ -4623,7 +4705,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 58,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4707,7 +4789,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        932676724381954,
+        396278764722950,
         "randomize",
         20,
         8,
@@ -4730,7 +4812,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 59,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -4761,7 +4843,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 60,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4792,7 +4874,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 61,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4823,7 +4905,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 62,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4854,7 +4936,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 63,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4900,7 +4982,7 @@
         "1": 310
       },
       "flags": {},
-      "order": 64,
+      "order": 65,
       "mode": 4,
       "inputs": [
         {
@@ -4979,7 +5061,7 @@
         "1": 380.1381530761719
       },
       "flags": {},
-      "order": 65,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -5006,7 +5088,7 @@
         26
       ],
       "flags": {},
-      "order": 66,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -5046,7 +5128,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 67,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -5174,7 +5256,7 @@
         "1": 487.42388916015625
       },
       "flags": {},
-      "order": 68,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -5203,7 +5285,7 @@
         "1": 487.42388916015625
       },
       "flags": {},
-      "order": 69,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -5297,7 +5379,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        135086177168827,
+        89188191182196,
         "randomize",
         30,
         8,
@@ -5324,7 +5406,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 70,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -5452,7 +5534,7 @@
         "1": 487.4239196777344
       },
       "flags": {},
-      "order": 71,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -5480,7 +5562,7 @@
         "1": 482.9033203125
       },
       "flags": {},
-      "order": 72,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -5509,7 +5591,7 @@
         "1": 482.9033203125
       },
       "flags": {},
-      "order": 73,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -5603,7 +5685,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        514672709921946,
+        115815664726531,
         "randomize",
         30,
         10,
@@ -5630,7 +5712,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 74,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -5758,7 +5840,7 @@
         "1": 485.15728759765625
       },
       "flags": {},
-      "order": 75,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5786,7 +5868,7 @@
         "1": 484.41436767578125
       },
       "flags": {},
-      "order": 76,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5815,7 +5897,7 @@
         "1": 485.41436767578125
       },
       "flags": {},
-      "order": 77,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5909,7 +5991,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        873232779686963,
+        394709121493478,
         "randomize",
         30,
         10,
@@ -5936,7 +6018,7 @@
         "1": 486
       },
       "flags": {},
-      "order": 78,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -6064,7 +6146,7 @@
         "1": 485.41436767578125
       },
       "flags": {},
-      "order": 79,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -6092,7 +6174,7 @@
         "1": 486.1943054199219
       },
       "flags": {},
-      "order": 80,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -6121,7 +6203,7 @@
         "1": 485.1943054199219
       },
       "flags": {},
-      "order": 81,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -6215,7 +6297,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        917383729785902,
+        215097770279031,
         "randomize",
         30,
         10,
@@ -6242,7 +6324,7 @@
         "1": 558
       },
       "flags": {},
-      "order": 82,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -6360,7 +6442,7 @@
       },
       "widgets_values": [
         2.1,
-        955472986033484,
+        250700279384518,
         "randomize",
         7,
         6.5,
@@ -6395,7 +6477,7 @@
         "1": 487.1943054199219
       },
       "flags": {},
-      "order": 83,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -6424,7 +6506,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 84,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -6466,7 +6548,7 @@
         "1": 506
       },
       "flags": {},
-      "order": 85,
+      "order": 86,
       "mode": 0,
       "inputs": [
         {
@@ -6537,7 +6619,7 @@
         "1": 1849.2044677734375
       },
       "flags": {},
-      "order": 86,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -6564,7 +6646,7 @@
         "1": 613.2086181640625
       },
       "flags": {},
-      "order": 87,
+      "order": 88,
       "mode": 0,
       "inputs": [
         {
@@ -6582,7 +6664,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-02-02 09:54:05\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\CuteAnimal\\2024-02-Week-05\\Image_20240202_095405_592989993685375_2528x3712_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: cute cat walking in the street at cold, snow, winter\n:: NEGATIVE: dog\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 592989993685375\n:: WIDTH: 634\n:: HEIGHT: 931\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: cute cat walking in the street at cold, snow, winter\n:: DYNAMIC_NEGATIVE: dog\n:: SAVED_IMAGE_WIDTH: 2528\n:: SAVED_IMAGE_HEIGTH: 3712\n:: UPSCALER_RATIO: From: 634x931 to: 2528x3712 Ratio: 4.0\n"
+        ":: Time to save: 2024-02-04 15:14:15\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\CuteAnimal\\2024-02-Week-05\\Image_20240402_151414_826680315943320_2528x3712_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: cute cat walking in the street at cold, snow, winter\n:: NEGATIVE: dog\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 826680315943320\n:: WIDTH: 634\n:: HEIGHT: 931\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: True\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: cute cat walking in the street at cold, snow, winter\n:: DYNAMIC_NEGATIVE: dog\n:: SAVED_IMAGE_WIDTH: 2528\n:: SAVED_IMAGE_HEIGTH: 3712\n:: UPSCALER_RATIO: From: 634x931 to: 2528x3712 Ratio: 4.0\n"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -7228,22 +7310,6 @@
       310,
       5,
       "EMBEDDING"
-    ],
-    [
-      764,
-      99,
-      0,
-      310,
-      11,
-      "STRING"
-    ],
-    [
-      765,
-      99,
-      1,
-      310,
-      12,
-      "STRING"
     ],
     [
       768,
@@ -8580,6 +8646,38 @@
       321,
       14,
       "INT"
+    ],
+    [
+      1147,
+      99,
+      0,
+      396,
+      0,
+      "STRING"
+    ],
+    [
+      1148,
+      99,
+      1,
+      396,
+      1,
+      "STRING"
+    ],
+    [
+      1149,
+      396,
+      0,
+      310,
+      11,
+      "STRING"
+    ],
+    [
+      1150,
+      396,
+      1,
+      310,
+      12,
+      "STRING"
     ]
   ],
   "groups": [

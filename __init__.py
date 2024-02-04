@@ -78,6 +78,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereMetaCollector": Outputs.PrimereMetaCollector,
 
     "PrimereStylePile": Styles.PrimereStylePile,
+    "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
 
     "PrimereVisualCKPT": Visuals.PrimereVisualCKPT,
     "PrimereVisualLORA": Visuals.PrimereVisualLORA,
@@ -132,6 +133,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereMetaCollector": "Primere Meta Collector",
 
     "PrimereStylePile": "Primere Style Pile",
+    "PrimereMidjourneyStyles": "Primere Midjourney Styles",
 
     "PrimereVisualCKPT": "Primere Visual CKPT Selector",
     "PrimereVisualLORA": "Primere Visual LORA Selector",
