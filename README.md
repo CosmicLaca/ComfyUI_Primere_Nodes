@@ -432,7 +432,7 @@ Style collection from Midjourney. You can attach art-style prompt to your origin
 
 <a href="./Workflow/readme_images/pmidjourney.jpg" target="_blank"><img src="./Workflow/readme_images/pmidjourney.jpg" height="340px"></a>
 
-Example images about the result of this style node. The left-top image is the original, without any style, all others styled by this one, using SD1.5 model:
+Example images about the result of this style node. The left-top image is the original without any style, all others styled by this one, using SD1.5 model, same seed, same prompt:
 
 <a href="./Workflow/readme_images/mjmontage.jpg" target="_blank"><img src="./Workflow/readme_images/mjmontage.jpg" height="300px"></a>
 
