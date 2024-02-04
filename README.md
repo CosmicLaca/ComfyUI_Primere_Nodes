@@ -52,8 +52,9 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Workflow and nodes support Lycoris in dedicated node
 - Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
 - Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
+- Midjourney art-style prompt can be attached to the original prompt
 
-## For this workflow needed 3rd party nodes, see this screenshot, the green is Primire, the red is 3rd party. Use 'Install missing cistom nodes' in Comfy menu or found git repo by name and clone.
+## For the **Primere_latest_workflow** workflow needed 3rd party nodes, see the screenshot, the green is Primire, the red is 3rd party. Use 'Install missing cistom nodes' in Comfy menu or found git repo by name and clone.
 
 <a href="./Workflow/readme_images/nodelist_latest.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_latest.jpg" height="600px"></a>
 
@@ -424,6 +425,12 @@ Use this node in the workflow if you don't need Primere Meta Reader node. This n
 Style collection for generated images. Set and connect this node to the 'Prompt Encoder'. No forget to set and play with style strenght. The source of this node is external file at 'Toml/stylepile.toml', what you can edit if you need changes.
 
 <a href="./Workflow/readme_images/pstylepile.jpg" target="_blank"><img src="./Workflow/readme_images/pstylepile.jpg" height="200px"></a>
+<hr>
+
+### Primere Midjourney Styles:
+Style collection from Midjourney. You can attach art-style prompt to your original prompt, and get your result in several artistic style.
+
+<a href="./Workflow/readme_images/pmidjourney.jpg" target="_blank"><img src="./Workflow/readme_images/pmidjourney.jpg" height="340px"></a>
 <hr>
 
 ## Networks:
