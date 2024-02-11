@@ -15,6 +15,7 @@ import folder_paths
 import threading
 import torchvision
 import math
+import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import glob
 
 # from .local_groundingdino.datasets import transforms as T
@@ -1049,28 +1050,30 @@ def to_latent_image(pixels, vae):
 
 def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise,
                      refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
-                     refiner_negative=None):
+                     refiner_negative=None, model_concept="Normal"):
 
     if refiner_ratio is None or refiner_model is None or refiner_clip is None or refiner_positive is None or refiner_negative is None:
-        refined_latent = \
-            nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
+        if model_concept == "Turbo":
+            sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
+            sampler = comfy.samplers.sampler_object(sampler_name)
+            turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+            refined_latent = turbo_samples[0]
+        else:
+            refined_latent = nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
     else:
         advanced_steps = math.floor(steps / denoise)
         start_at_step = advanced_steps - steps
         end_at_step = start_at_step + math.floor(steps * (1.0 - refiner_ratio))
 
         print(f"pre: {start_at_step} .. {end_at_step} / {advanced_steps}")
-        temp_latent = \
-            nodes.KSamplerAdvanced().sample(model, "enable", seed, advanced_steps, cfg, sampler_name, scheduler, positive, negative, latent_image, start_at_step, end_at_step, "enable")[0]
+        temp_latent = nodes.KSamplerAdvanced().sample(model, "enable", seed, advanced_steps, cfg, sampler_name, scheduler, positive, negative, latent_image, start_at_step, end_at_step, "enable")[0]
 
         if 'noise_mask' in latent_image:
             latent_compositor = nodes.NODE_CLASS_MAPPINGS['LatentCompositeMasked']()
-            temp_latent = \
-                latent_compositor.composite(latent_image, temp_latent, 0, 0, False, latent_image['noise_mask'])[0]
+            temp_latent = latent_compositor.composite(latent_image, temp_latent, 0, 0, False, latent_image['noise_mask'])[0]
 
         print(f"post: {end_at_step} .. {advanced_steps + 1} / {advanced_steps}")
-        refined_latent = \
-            nodes.KSamplerAdvanced().sample(refiner_model, "disable", seed, advanced_steps, cfg, sampler_name, scheduler, refiner_positive, refiner_negative, temp_latent, end_at_step, advanced_steps + 1, "disable")[0]
+        refined_latent = nodes.KSamplerAdvanced().sample(refiner_model, "disable", seed, advanced_steps, cfg, sampler_name, scheduler, refiner_positive, refiner_negative, temp_latent, end_at_step, advanced_steps + 1, "disable")[0]
 
     return refined_latent
 
@@ -1080,7 +1083,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
                    wildcard_opt=None, wildcard_opt_concat_mode=None,
                    detailer_hook=None,
                    refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
-                   refiner_negative=None, control_net_wrapper=None, cycle=1):
+                   refiner_negative=None, control_net_wrapper=None, model_concept = "Normal", cycle=1):
 
     if noise_mask is not None and len(noise_mask.shape) == 3:
         noise_mask = noise_mask.squeeze(0)
@@ -1171,7 +1174,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
             model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = \
                 model, seed + i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise
 
-        refined_latent = ksampler_wrapper(model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, refined_latent, denoise2, refiner_ratio, refiner_model, refiner_clip, refiner_positive, refiner_negative)
+        refined_latent = ksampler_wrapper(model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, refined_latent, denoise2, refiner_ratio, refiner_model, refiner_clip, refiner_positive, refiner_negative, model_concept)
 
     if detailer_hook is not None:
         refined_latent = detailer_hook.pre_decode(refined_latent)
@@ -1302,7 +1305,7 @@ class DetailerForEach:
     def do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
                   sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint,
                   wildcard_opt=None, detailer_hook=None,
-                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, cycle=1):
+                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, model_concept="Normal", cycle=1):
 
         if len(image) > 1:
             raise Exception('[Impact Pack] ERROR: does not allow image batches.')
@@ -1365,7 +1368,7 @@ class DetailerForEach:
                                                            refiner_ratio=refiner_ratio, refiner_model=refiner_model,
                                                            refiner_clip=refiner_clip, refiner_positive=refiner_positive,
                                                            refiner_negative=refiner_negative,
-                                                           control_net_wrapper=seg.control_net_wrapper, cycle=cycle)
+                                                           control_net_wrapper=seg.control_net_wrapper, model_concept=model_concept, cycle=cycle)
 
             if cnet_pil is not None:
                 cnet_pil_list.append(cnet_pil)

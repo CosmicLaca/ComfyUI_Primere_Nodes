@@ -1,6 +1,6 @@
 {
-  "last_node_id": 40,
-  "last_link_id": 145,
+  "last_node_id": 44,
+  "last_link_id": 164,
   "nodes": [
     {
       "id": 3,
@@ -9,10 +9,10 @@
         702.8476042799265,
         91.4171916525597
       ],
-      "size": [
-        466.3917236328125,
-        126
-      ],
+      "size": {
+        "0": 466.3917236328125,
+        "1": 126
+      },
       "flags": {},
       "order": 0,
       "mode": 0,
@@ -21,7 +21,7 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            15
+            158
           ],
           "shape": 3
         },
@@ -50,10 +50,10 @@
         26.1133825866699,
         489.1530190124513
       ],
-      "size": [
-        360.3917236328125,
-        258
-      ],
+      "size": {
+        "0": 360.3917236328125,
+        "1": 258
+      },
       "flags": {},
       "order": 1,
       "mode": 0,
@@ -125,10 +125,10 @@
         28.113382586669896,
         91.1530190124512
       ],
-      "size": [
-        358.3917236328125,
-        359.32012939453125
-      ],
+      "size": {
+        "0": 358.3917236328125,
+        "1": 359.32012939453125
+      },
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -199,10 +199,10 @@
         1182,
         91
       ],
-      "size": [
-        283.3917236328125,
-        130
-      ],
+      "size": {
+        "0": 283.3917236328125,
+        "1": 130
+      },
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -213,9 +213,9 @@
           "links": [
             17,
             18,
-            34,
             137,
-            140
+            150,
+            152
           ],
           "shape": 3,
           "slot_index": 0
@@ -234,96 +234,26 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 9,
-      "type": "PrimereCKPTLoader",
+      "id": 43,
+      "type": "Note",
       "pos": [
-        1001,
-        417
+        1670,
+        -61
       ],
       "size": {
-        "0": 330,
-        "1": 190
+        "0": 244.4199981689453,
+        "1": 72.5999984741211
       },
       "flags": {},
       "order": 4,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 15,
-          "slot_index": 0
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "is_lcm",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "is_lcm"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            30
-          ],
-          "shape": 3
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            24
-          ],
-          "shape": 3
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            36,
-            134
-          ],
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            27,
-            141
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
       "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
+        "text": ""
       },
       "widgets_values": [
-        true,
-        1,
-        1,
-        0
-      ]
+        "Primere minimal workflow"
+      ],
+      "color": "#c09430"
     },
     {
       "id": 5,
@@ -337,7 +267,7 @@
         "1": 338
       },
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -468,24 +398,24 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 40,
+      "id": 42,
       "type": "PrimereResolution",
       "pos": [
         1476,
         90
       ],
       "size": {
-        "0": 312.3883056640625,
-        "1": 270
+        "0": 319.3999938964844,
+        "1": 314
       },
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "seed",
           "type": "INT",
-          "link": 140,
+          "link": 152,
           "widget": {
             "name": "seed"
           }
@@ -493,9 +423,17 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 141,
+          "link": 159,
           "widget": {
             "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
           }
         }
       ],
@@ -504,19 +442,21 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            142,
-            143
+            154,
+            156
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            144,
-            145
+            155,
+            157
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
@@ -526,15 +466,17 @@
         "Photo [19:13]",
         768,
         1024,
+        512,
         true,
         "Horizontal",
         true,
-        40072935042362,
+        206578366141651,
         "randomize",
         false,
         1.6,
         2.8,
-        "BaseModel_1024"
+        "BaseModel_1024",
+        "Normal"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -543,15 +485,15 @@
       "id": 6,
       "type": "PrimereDynamicParser",
       "pos": [
-        703,
-        417
+        399,
+        463
       ],
       "size": {
-        "0": 290,
+        "0": 274.12115478515625,
         "1": 54
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -588,23 +530,25 @@
       },
       "widgets_values": [
         "",
-        504457382006207,
+        593644626978349,
         "randomize"
-      ]
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
     },
     {
       "id": 7,
       "type": "PrimereDynamicParser",
       "pos": [
-        703,
-        505
+        398,
+        551
       ],
       "size": {
-        "0": 290,
+        "0": 275.12115478515625,
         "1": 54
       },
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -641,9 +585,11 @@
       },
       "widgets_values": [
         "",
-        33555780571648,
+        653483809585305,
         "randomize"
-      ]
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
     },
     {
       "id": 39,
@@ -657,18 +603,18 @@
         "1": 471
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 134
+          "link": 162
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 143,
+          "link": 154,
           "widget": {
             "name": "width"
           }
@@ -676,7 +622,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 145,
+          "link": 155,
           "widget": {
             "name": "height"
           }
@@ -695,7 +641,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            138
+            149
           ],
           "shape": 3
         },
@@ -724,12 +670,12 @@
         1,
         0.8,
         1.4,
-        233336824139137,
+        748240838630078,
         "randomize",
         true,
         "cpu",
         false,
-        647407801405112,
+        209881811295364,
         "randomize"
       ],
       "color": "#941414",
@@ -739,15 +685,15 @@
       "id": 8,
       "type": "PrimereEmbeddingHandler",
       "pos": [
-        700,
-        597
+        397,
+        639
       ],
-      "size": [
-        292.8295658836679,
-        54
-      ],
+      "size": {
+        "0": 277.4871826171875,
+        "1": 54
+      },
       "flags": {},
-      "order": 10,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -793,7 +739,9 @@
       "widgets_values": [
         "",
         ""
-      ]
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
     },
     {
       "id": 19,
@@ -802,12 +750,12 @@
         1819.2397509765617,
         596.2399588775634
       ],
-      "size": [
-        335.4447132457385,
-        246
-      ],
+      "size": {
+        "0": 335.4447021484375,
+        "1": 246
+      },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -823,169 +771,24 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 15,
-      "type": "KSampler",
-      "pos": [
-        2502,
-        174
-      ],
-      "size": {
-        "0": 322.4237060546875,
-        "1": 234
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 30,
-          "slot_index": 0
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 32,
-          "slot_index": 1
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 33,
-          "slot_index": 2
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 138,
-          "slot_index": 3
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 34,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            35
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        330961478150410,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 16,
-      "type": "VAEDecode",
-      "pos": [
-        2501,
-        92
-      ],
-      "size": [
-        324.1989734171025,
-        46
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 35
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 36,
-          "slot_index": 1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            37
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 17,
-      "type": "PreviewImage",
-      "pos": [
-        2866,
-        48
-      ],
-      "size": [
-        712.2599487304688,
-        806.3679901123048
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 37
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#549494",
-      "bgcolor": "#408080"
-    },
-    {
       "id": 14,
       "type": "PrimereCLIPEncoder",
       "pos": [
         2163,
         92
       ],
-      "size": [
-        329.55994873046893,
-        748.0679901123046
-      ],
+      "size": {
+        "0": 329.5599365234375,
+        "1": 748.0679931640625
+      },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 24,
+          "link": 161,
           "slot_index": 0
         },
         {
@@ -1016,7 +819,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 27,
+          "link": 164,
           "widget": {
             "name": "model_version"
           }
@@ -1088,7 +891,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 142,
+          "link": 156,
           "widget": {
             "name": "width"
           }
@@ -1096,7 +899,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 144,
+          "link": 157,
           "widget": {
             "name": "height"
           }
@@ -1107,7 +910,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            32
+            147
           ],
           "shape": 3
         },
@@ -1115,7 +918,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            33
+            148
           ],
           "shape": 3
         },
@@ -1177,6 +980,252 @@
       ],
       "color": "#941414",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 41,
+      "type": "PrimereKSampler",
+      "pos": [
+        2501,
+        174
+      ],
+      "size": {
+        "0": 322.0338134765625,
+        "1": 278.9809265136719
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 160
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 147
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 148
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 149
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 150,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            151
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        258822628475850,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        "Normal"
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [
+        2501,
+        92
+      ],
+      "size": {
+        "0": 324.198974609375,
+        "1": 46
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 151
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 163,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            37
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 17,
+      "type": "PreviewImage",
+      "pos": [
+        2866,
+        48
+      ],
+      "size": {
+        "0": 712.2599487304688,
+        "1": 806.3679809570312
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 37
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 44,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        702,
+        253
+      ],
+      "size": [
+        470.32500000000005,
+        186
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 158
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            160
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            161
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            162,
+            163
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            159,
+            164
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -1293,14 +1342,6 @@
       "STRING"
     ],
     [
-      15,
-      3,
-      0,
-      9,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
       17,
       10,
       0,
@@ -1315,14 +1356,6 @@
       7,
       1,
       "INT"
-    ],
-    [
-      24,
-      9,
-      1,
-      14,
-      0,
-      "CLIP"
     ],
     [
       25,
@@ -1341,76 +1374,12 @@
       "STRING"
     ],
     [
-      27,
-      9,
-      3,
-      14,
-      6,
-      "STRING"
-    ],
-    [
-      30,
-      9,
-      0,
-      15,
-      0,
-      "MODEL"
-    ],
-    [
-      32,
-      14,
-      0,
-      15,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      33,
-      14,
-      1,
-      15,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      34,
-      10,
-      0,
-      15,
-      4,
-      "INT"
-    ],
-    [
-      35,
-      15,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
-      36,
-      9,
-      2,
-      16,
-      1,
-      "VAE"
-    ],
-    [
       37,
       16,
       0,
       17,
       0,
       "IMAGE"
-    ],
-    [
-      134,
-      9,
-      2,
-      39,
-      0,
-      "VAE"
     ],
     [
       137,
@@ -1421,14 +1390,6 @@
       "INT"
     ],
     [
-      138,
-      39,
-      0,
-      15,
-      3,
-      "LATENT"
-    ],
-    [
       139,
       39,
       1,
@@ -1437,52 +1398,140 @@
       "IMAGE"
     ],
     [
-      140,
+      147,
+      14,
+      0,
+      41,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      148,
+      14,
+      1,
+      41,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      149,
+      39,
+      0,
+      41,
+      3,
+      "LATENT"
+    ],
+    [
+      150,
       10,
       0,
-      40,
+      41,
+      5,
+      "INT"
+    ],
+    [
+      151,
+      41,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      152,
+      10,
+      0,
+      42,
       0,
       "INT"
     ],
     [
-      141,
-      9,
-      3,
-      40,
+      154,
+      42,
+      0,
+      39,
       1,
-      "STRING"
+      "INT"
     ],
     [
-      142,
-      40,
+      155,
+      42,
+      1,
+      39,
+      2,
+      "INT"
+    ],
+    [
+      156,
+      42,
       0,
       14,
       15,
       "INT"
     ],
     [
-      143,
-      40,
-      0,
-      39,
-      1,
-      "INT"
-    ],
-    [
-      144,
-      40,
+      157,
+      42,
       1,
       14,
       16,
       "INT"
     ],
     [
-      145,
-      40,
+      158,
+      3,
+      0,
+      44,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      159,
+      44,
+      3,
+      42,
       1,
-      39,
+      "STRING"
+    ],
+    [
+      160,
+      44,
+      0,
+      41,
+      0,
+      "MODEL"
+    ],
+    [
+      161,
+      44,
+      1,
+      14,
+      0,
+      "CLIP"
+    ],
+    [
+      162,
+      44,
       2,
-      "INT"
+      39,
+      0,
+      "VAE"
+    ],
+    [
+      163,
+      44,
+      2,
+      16,
+      1,
+      "VAE"
+    ],
+    [
+      164,
+      44,
+      3,
+      14,
+      6,
+      "STRING"
     ]
   ],
   "groups": [
@@ -1491,8 +1540,8 @@
       "bounding": [
         694,
         20,
-        1104,
-        352
+        1110,
+        829
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -1504,7 +1553,7 @@
         20,
         21,
         664,
-        738
+        827
       ],
       "color": "#8A8",
       "font_size": 24,

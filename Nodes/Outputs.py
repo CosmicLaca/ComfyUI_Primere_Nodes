@@ -12,6 +12,8 @@ from pathlib import Path
 import datetime
 import comfy.samplers
 from .modules import exif_data_checker
+from nodes import common_ksampler
+import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -428,3 +430,39 @@ class PrimereMetaCollector:
             data_json['vae_name'] = folder_paths.get_filename_list("vae")[0]
 
         return (data_json,)
+
+class PrimereKSampler:
+    CATEGORY = TREE_OUTPUTS
+    RETURN_TYPES =("LATENT",)
+    RETURN_NAMES = ("LATENT",)
+    FUNCTION = "pk_sampler"
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                    "model": ("MODEL", {"forceInput": True}),
+                    "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                    "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
+                    "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
+                    "sampler_name": (comfy.samplers.KSampler.SAMPLERS, ),
+                    "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, ),
+                    "positive": ("CONDITIONING", ),
+                    "negative": ("CONDITIONING", ),
+                    "latent_image": ("LATENT", ),
+                    "denoise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                },
+                "optional": {
+                    "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                }
+            }
+
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, model_concept = "Normal", denoise=1.0):
+        if (model_concept == "Turbo"):
+            sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
+            sampler = comfy.samplers.sampler_object(sampler_name)
+            turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+            samples = (turbo_samples[0],)
+        else:
+            samples = common_ksampler(model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+
+        return samples

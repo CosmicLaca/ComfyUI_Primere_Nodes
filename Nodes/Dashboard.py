@@ -39,6 +39,26 @@ class PrimereSamplers:
     def get_sampler(self, sampler_name, scheduler_name):
         return sampler_name, scheduler_name
 
+class PrimereSamplersSteps:
+    CATEGORY = TREE_DASHBOARD
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG")
+    FUNCTION = "get_sampler_step"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
+                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS,),
+                "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+                "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
+            }
+        }
+
+    def get_sampler_step(self, sampler_name, scheduler_name, steps = 12, cfg = 7):
+        return sampler_name, scheduler_name, steps, cfg
+
 
 class PrimereVAE:
     RETURN_TYPES = ("VAE_NAME",)
@@ -131,6 +151,61 @@ class PrimereLCMSelector:
 
         return (sampler_name, scheduler_name, steps, cfg_scale, lcm_mode,)
 
+class PrimereModelConceptSelector:
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
+    FUNCTION = "select_model_concept"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "model_concept":(["Normal", "LCM", "Turbo"], {"default": "Normal"}),
+                "normal_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "normal_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+                "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
+                "normal_steps": ('INT', {"forceInput": True, "default": 12}),
+            },
+            "optional": {
+                "lcm_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "lcm"}),
+                "lcm_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "sgm_uniform"}),
+                "lcm_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
+                "lcm_steps": ('INT', {"forceInput": True, "default": 6}),
+
+                "turbo_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "dpmpp_sde"}),
+                "turbo_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+                "turbo_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.15}),
+                "turbo_steps": ('INT', {"forceInput": True, "default": 2}),
+            }
+        }
+
+    def select_model_concept(self, model_concept = 'Normal',
+                             normal_sampler_name = 'euler', normal_scheduler_name = 'normal', normal_cfg_scale = 7, normal_steps = 12,
+                             lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', lcm_cfg_scale = 1.2, lcm_steps = 6,
+                             turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2):
+
+        match model_concept:
+            case 'Normal':
+                sampler_name = normal_sampler_name
+                scheduler_name = normal_scheduler_name
+                steps = normal_steps
+                cfg_scale = normal_cfg_scale
+
+            case 'LCM':
+                sampler_name = lcm_sampler_name
+                scheduler_name = lcm_scheduler_name
+                steps = lcm_steps
+                cfg_scale = lcm_cfg_scale
+
+            case 'Turbo':
+                sampler_name = turbo_sampler_name
+                scheduler_name = turbo_scheduler_name
+                steps = turbo_steps
+                cfg_scale = turbo_cfg_scale
+
+        return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
+
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
     RETURN_NAMES = ("MODEL", "CLIP", "VAE", "MODEL_VERSION")
@@ -150,14 +225,14 @@ class PrimereCKPTLoader:
                 "strength_lcm_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
             },
             "optional": {
-                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
                 "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, is_lcm = 0, loaded_model = None, loaded_clip = None, loaded_vae = None):
+    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, model_concept = "Normal", loaded_model = None, loaded_clip = None, loaded_vae = None):
         path = Path(ckpt_name)
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
@@ -208,7 +283,7 @@ class PrimereCKPTLoader:
             case 'SDXL_2048':
                 is_sdxl = 1
 
-        if is_lcm == 1:
+        if model_concept == "LCM":
             SDXL_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true'
             SD_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true'
             DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
@@ -643,6 +718,7 @@ class PrimereResolution:
                 # "force_768_SD1x": ("BOOLEAN", {"default": True}),
                 "basemodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 768}),
                 "sdxlmodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 1024}),
+                "turbo_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 512}),
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
@@ -654,15 +730,20 @@ class PrimereResolution:
             },
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
             }
         }
 
-    def calculate_imagesize(self, ratio: str, basemodel_res: int, sdxlmodel_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024",):
+    def calculate_imagesize(self, ratio: str, basemodel_res: int, sdxlmodel_res: int, turbo_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024", model_concept = "Normal"):
         if rnd_orientation == True:
             if (seed % 2) == 0:
                 orientation = "Horizontal"
             else:
                 orientation = "Vertical"
+
+        if model_concept == "Turbo":
+            basemodel_res = turbo_res
+            sdxlmodel_res = turbo_res
 
         if model_version != 'SDXL_2048':
             match basemodel_res:

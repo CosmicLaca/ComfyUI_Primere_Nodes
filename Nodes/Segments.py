@@ -272,65 +272,73 @@ class PrimereAnyDetailer:
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {
-                     "image": ("IMAGE", ),
-                     "model": ("MODEL",),
-                     "clip": ("CLIP",),
-                     "vae": ("VAE",),
-                     # "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                     # "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
-                     # "guide_size": ("FLOAT", {"default": 256, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
-                     # "guide_size_for_box": ("BOOLEAN", {"default": True, "label_on": "bbox", "label_off": "crop_region"}),
-                     # "max_size": ("FLOAT", {"default": 768, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
-                     "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                     "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
-                     "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
-                     "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
-                     "scheduler": (comfy.samplers.KSampler.SCHEDULERS,),
-                     "positive": ("CONDITIONING",),
-                     "negative": ("CONDITIONING",),
-                     "denoise": ("FLOAT", {"default": 0.5, "min": 0.0001, "max": 1.0, "step": 0.01}),
-                     "feather": ("INT", {"default": 5, "min": 0, "max": 100, "step": 1}),
-                     "noise_mask": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
-                     "force_inpaint": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
+        return {
+            "required": {
+                 "image": ("IMAGE", ),
+                 "model": ("MODEL",),
+                 "clip": ("CLIP",),
+                 "vae": ("VAE",),
+                 # "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                 # "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
+                 # "guide_size": ("FLOAT", {"default": 256, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
+                 # "guide_size_for_box": ("BOOLEAN", {"default": True, "label_on": "bbox", "label_off": "crop_region"}),
+                 # "max_size": ("FLOAT", {"default": 768, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
+                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
 
-                     # "bbox_threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
-                     # "bbox_dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
-                     # "bbox_crop_factor": ("FLOAT", {"default": 3.0, "min": 1.0, "max": 10, "step": 0.1}),
+                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
+                 "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS,),
+                 "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
+                 "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
 
-                     # "sam_detection_hint": (["center-1", "horizontal-2", "vertical-2", "rect-4", "diamond-4", "mask-area", "mask-points", "mask-point-bbox", "none"],),
-                     # "sam_dilation": ("INT", {"default": 0, "min": -512, "max": 512, "step": 1}),
-                     # "sam_threshold": ("FLOAT", {"default": 0.93, "min": 0.0, "max": 1.0, "step": 0.01}),
-                     # "sam_bbox_expansion": ("INT", {"default": 0, "min": 0, "max": 1000, "step": 1}),
-                     # "sam_mask_hint_threshold": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 1.0, "step": 0.01}),
-                     # "sam_mask_hint_use_negative": (["False", "Small", "Outter"],),
-                     # "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
+                 "positive": ("CONDITIONING",),
+                 "negative": ("CONDITIONING",),
+                 "denoise": ("FLOAT", {"default": 0.5, "min": 0.0001, "max": 1.0, "step": 0.01}),
+                 "feather": ("INT", {"default": 5, "min": 0, "max": 100, "step": 1}),
+                 "noise_mask": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
+                 "force_inpaint": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
 
-                     # "detector": ("DETECTOR", ),
-                     # "segs": ("SEGS",),
-                     "segment_settings": ("TUPLE",),
-                     # "wildcard": ("STRING", {"multiline": True, "dynamicPrompts": False}),
+                 # "bbox_threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+                 # "bbox_dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
+                 # "bbox_crop_factor": ("FLOAT", {"default": 3.0, "min": 1.0, "max": 10, "step": 0.1}),
 
-                     "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
-                },
-                "optional": {
-                    "segs": ("SEGS",),
-                    "detector": ("DETECTOR",),
-                    # "sam_model_opt": ("SAM_MODEL", ),
-                    # "segm_detector": ("SEGM_DETECTOR", ),
-                    # "detailer_hook": ("DETAILER_HOOK",)
-                }
+                 # "sam_detection_hint": (["center-1", "horizontal-2", "vertical-2", "rect-4", "diamond-4", "mask-area", "mask-points", "mask-point-bbox", "none"],),
+                 # "sam_dilation": ("INT", {"default": 0, "min": -512, "max": 512, "step": 1}),
+                 # "sam_threshold": ("FLOAT", {"default": 0.93, "min": 0.0, "max": 1.0, "step": 0.01}),
+                 # "sam_bbox_expansion": ("INT", {"default": 0, "min": 0, "max": 1000, "step": 1}),
+                 # "sam_mask_hint_threshold": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 1.0, "step": 0.01}),
+                 # "sam_mask_hint_use_negative": (["False", "Small", "Outter"],),
+                 # "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
+
+                 # "detector": ("DETECTOR", ),
+                 # "segs": ("SEGS",),
+                 "segment_settings": ("TUPLE",),
+                 # "wildcard": ("STRING", {"multiline": True, "dynamicPrompts": False}),
+                 "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
+            },
+            "optional": {
+                "segs": ("SEGS",),
+                "detector": ("DETECTOR",),
+                # "sam_model_opt": ("SAM_MODEL", ),
+                # "segm_detector": ("SEGM_DETECTOR", ),
+                # "detailer_hook": ("DETAILER_HOOK",)
+
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "concept_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "concept_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+                "concept_steps": ("INT", {"default": 4, "forceInput": True}),
+                "concept_cfg": ("FLOAT", {"default": 1.0, "forceInput": True}),
+            }
         }
 
     @staticmethod
-    def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler,
+    def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler_name,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
                      # bbox_threshold, bbox_dilation, bbox_crop_factor,
                      # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
                      # sam_mask_hint_use_negative, drop_size, bbox_detector,
                      segment_settings, detector, segs,
                      # segm_detector=None, sam_model_opt=None,
-                     cycle=1):
+                     model_concept, cycle = 1):
 
         max_size = guide_size * 1.25
         detailer_hook = None
@@ -351,11 +359,14 @@ class PrimereAnyDetailer:
                 segs = detectors.segs_bitwise_and_mask(segs, segm_mask)
 
         if len(segs[1]) > 0:
-            enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs = \
-                detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
-                                                    sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint,
-                                                    wildcard_opt, detailer_hook,
-                                                    refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip, refiner_positive=refiner_positive, refiner_negative=refiner_negative, cycle=cycle)
+            enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs =  detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox,
+                                                                                                                                      max_size, seed, steps, cfg,
+                                                                                                                                   sampler_name, scheduler_name, positive, negative, denoise,
+                                                                                                                                  feather, noise_mask, force_inpaint,
+                                                                                                                                 wildcard_opt, detailer_hook,
+                                                                                                                                            refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip,
+                                                                                                                                            refiner_positive=refiner_positive, refiner_negative=refiner_negative,
+                                                                                                                                            model_concept=model_concept, cycle=cycle)
         else:
             enhanced_img = image
             cropped_enhanced = []
@@ -378,15 +389,22 @@ class PrimereAnyDetailer:
 
     def any_detailer(self, image, model, clip, vae,
                      # guide_size, guide_size_for_box,
-                     seed, steps, cfg, sampler_name, scheduler,
-             positive, negative, denoise, feather, noise_mask, force_inpaint,
-             # bbox_threshold, bbox_dilation, bbox_crop_factor,
-             # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-             # sam_mask_hint_use_negative, drop_size, bbox_detector,
-             segment_settings, detector = None, segs = None, cycle = 1):
+                     seed, steps, cfg, sampler_name, scheduler_name,
+                     positive, negative, denoise, feather, noise_mask, force_inpaint,
+                     # bbox_threshold, bbox_dilation, bbox_crop_factor,
+                     # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
+                     # sam_mask_hint_use_negative, drop_size, bbox_detector,
+                     segment_settings, detector = None, segs = None, cycle = 1,
+                     model_concept = "Normal", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8):
 
         if segment_settings['use_segments'] == False:
             return image, [image], 0, 0
+
+        if model_concept != "Normal":
+            sampler_name = concept_sampler_name
+            scheduler_name = concept_scheduler_name
+            steps = concept_steps
+            cfg = concept_cfg
 
         result_img = None
         result_mask = None
@@ -413,9 +431,9 @@ class PrimereAnyDetailer:
                 guide_size = round(math.sqrt(full_area), 2)
 
             enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(
-                single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler,
+                single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name,
                 positive, negative, denoise, feather, noise_mask, force_inpaint,
-                segment_settings, detector, segs, cycle=cycle
+                segment_settings, detector, segs, model_concept, cycle=cycle
                 # bbox_threshold, bbox_dilation, bbox_crop_factor,
                 # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
                 # sam_mask_hint_use_negative, drop_size, bbox_detector, segment_settings, segs, segm_detector, sam_model_opt, cycle=cycle

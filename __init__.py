@@ -11,7 +11,7 @@ from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
 
-__version__ = "0.1.5"
+__version__ = "0.2.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -43,6 +43,8 @@ if os.path.exists(frontend_target) == False:
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
+    "PrimereStepsCfg": Dashboard.PrimereStepsCfg,
+    "PrimereSamplersSteps": Dashboard.PrimereSamplersSteps,
     "PrimereVAE": Dashboard.PrimereVAE,
     "PrimereCKPT": Dashboard.PrimereCKPT,
     "PrimereVAELoader": Dashboard.PrimereVAELoader,
@@ -52,9 +54,10 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLatentNoise": Dashboard.PrimereFractalLatent,
     "PrimereCLIPEncoder": Dashboard.PrimereCLIP,
     "PrimereResolution": Dashboard.PrimereResolution,
-    "PrimereStepsCfg": Dashboard.PrimereStepsCfg,
+
     "PrimereClearPrompt": Dashboard.PrimereClearPrompt,
     "PrimereLCMSelector": Dashboard.PrimereLCMSelector,
+    "PrimereModelConceptSelector": Dashboard.PrimereModelConceptSelector,
     "PrimereResolutionMultiplier": Dashboard.PrimereResolutionMultiplier,
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
@@ -76,6 +79,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
     "PrimereTextOutput": Outputs.PrimereTextOutput,
     "PrimereMetaCollector": Outputs.PrimereMetaCollector,
+    "PrimereKSampler": Outputs.PrimereKSampler,
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
@@ -98,6 +102,8 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereSamplers": "Primere Sampler Selector",
+    "PrimereStepsCfg": "Primere Steps & Cfg",
+    "PrimereSamplersSteps": "Primere Samplers & Steps & Cfg",
     "PrimereVAE": "Primere VAE Selector",
     "PrimereCKPT": "Primere CKPT Selector",
     "PrimereVAELoader": "Primere VAE Loader",
@@ -107,9 +113,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLatentNoise": "Primere Noise Latent",
     "PrimereCLIPEncoder": "Primere Prompt Encoder",
     "PrimereResolution": "Primere Resolution",
-    "PrimereStepsCfg": "Primere Steps & Cfg",
     "PrimereClearPrompt": "Primere Prompt Cleaner",
     "PrimereLCMSelector": "Primere LCM selector",
+    "PrimereModelConceptSelector": "Primere Model Concept Selector",
     "PrimereResolutionMultiplier": "Primere Resolution Multiplier",
     "PrimereNetworkTagLoader": 'Primere Network Tag Loader',
     "PrimereModelKeyword": "Primere Model Keyword",
@@ -131,6 +137,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereAnyOutput": "Primere Any Debug",
     "PrimereTextOutput": "Primere Text Ouput",
     "PrimereMetaCollector": "Primere Meta Collector",
+    "PrimereKSampler": "Primere KSampler",
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",
