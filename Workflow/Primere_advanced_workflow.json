@@ -558,7 +558,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        625074013724605,
         null,
         null,
         null
@@ -1077,7 +1077,7 @@
       },
       "widgets_values": [
         "",
-        139580969615053,
+        909988300686168,
         "randomize"
       ],
       "color": "#145414",
@@ -1132,7 +1132,7 @@
       },
       "widgets_values": [
         "",
-        453396498029896,
+        195608673002421,
         "randomize"
       ],
       "color": "#145414",
@@ -1437,7 +1437,7 @@
         false,
         1.6,
         2.8,
-        783190814472245,
+        683989162442505,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1524,12 +1524,12 @@
         1,
         0.8,
         1.4,
-        1120281012573176,
+        129060138033237,
         "randomize",
         true,
         "cpu",
         false,
-        11752601794167,
+        454595345786577,
         "randomize"
       ],
       "color": "#941414",
@@ -1832,8 +1832,8 @@
         "",
         "",
         1.2,
-        false,
-        "PHOTO",
+        true,
+        "PHOTO_SFW",
         1,
         "BETTER_IMAGES",
         1,
@@ -1985,7 +1985,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1095392070179966,
+        161026638993733,
         "randomize",
         20,
         8,
@@ -2023,7 +2023,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "inside of a penthouse design style, (((living room))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
+        "inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -2054,7 +2054,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        ""
+        "(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
@@ -2244,7 +2244,7 @@
       "widgets_values": [
         "",
         "",
-        480,
+        1026,
         "randomize",
         "",
         "",
@@ -2334,7 +2334,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"inside of a penthouse design style, (((living room))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 120868413849000,\n    \"width\": 896,\n    \"height\": 658,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
+        "{\n    \"positive\": \"inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2497,7 +2497,7 @@
       },
       "widgets_values": [
         2,
-        397925160538663,
+        453488398874015,
         "randomize",
         20,
         8,

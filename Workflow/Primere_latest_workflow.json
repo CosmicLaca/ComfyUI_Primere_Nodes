@@ -334,7 +334,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        639086904517729,
         null,
         null,
         null
@@ -968,20 +968,20 @@
         "Node name for S&R": "PrimereStylePile"
       },
       "widgets_values": [
+        "photo",
+        1.2,
+        "Kodachrome",
+        0.7000000000000001,
         "None",
+        1,
+        "Ultra detailed",
         1,
         "None",
         1,
         "None",
         1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
+        "Futurism",
+        0.8,
         "None",
         1
       ],
@@ -995,10 +995,10 @@
         2357,
         -1573
       ],
-      "size": [
-        482.8311748046867,
-        85.65190820312478
-      ],
+      "size": {
+        "0": 482.8311767578125,
+        "1": 85.65190887451172
+      },
       "flags": {},
       "order": 16,
       "mode": 0,
@@ -1594,7 +1594,7 @@
         1,
         "None",
         1,
-        "None",
+        "Precisionist::Realism::Charles Demuth",
         1,
         "None",
         1,
@@ -1814,10 +1814,10 @@
         3238,
         -1399
       ],
-      "size": [
-        324.3401006687127,
-        314
-      ],
+      "size": {
+        "0": 324.340087890625,
+        "1": 314
+      },
       "flags": {},
       "order": 26,
       "mode": 0,
@@ -1884,13 +1884,13 @@
         768,
         1024,
         512,
-        true,
-        "Horizontal",
+        false,
+        "Vertical",
         true,
         false,
         1.6,
         2.8,
-        598864155472318,
+        472369726719544,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2267,7 +2267,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        544,
+        258,
         "randomize",
         512,
         512,
@@ -2416,7 +2416,7 @@
       },
       "widgets_values": [
         "",
-        161098510849784,
+        1117981221176082,
         "randomize"
       ],
       "color": "#322",
@@ -2471,7 +2471,7 @@
       },
       "widgets_values": [
         "",
-        813392079597016,
+        52500510450643,
         "randomize"
       ],
       "color": "#232",
@@ -2484,10 +2484,10 @@
         3239,
         -1050
       ],
-      "size": [
-        323.1519331369718,
-        122
-      ],
+      "size": {
+        "0": 323.1519470214844,
+        "1": 122
+      },
       "flags": {},
       "order": 32,
       "mode": 0,
@@ -2675,7 +2675,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 448933192076271,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 639086904517729,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"futuristic difficult half-human plastic robot, face portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2965,12 +2965,12 @@
         1,
         0.8,
         1.4,
-        851114518614517,
+        979236435221075,
         "randomize",
         true,
         "cpu",
         false,
-        321136767116033,
+        51820576731298,
         "randomize"
       ],
       "color": "#941414",
@@ -4405,7 +4405,7 @@
         1.3,
         0,
         0,
-        115239098044031,
+        247652248643793,
         "randomize",
         "mean",
         "comfy++",
@@ -4508,7 +4508,7 @@
         1.3,
         0,
         0,
-        205956314168881,
+        886454711659337,
         "randomize",
         "mean",
         "A1111",
@@ -4611,7 +4611,7 @@
         0.7000000000000001,
         0.35000000000000003,
         0.2,
-        574166840079991,
+        661386098399231,
         "randomize",
         "length+mean",
         "down_weight",
@@ -4716,7 +4716,7 @@
         1.2,
         0.3,
         0.2,
-        207739665579066,
+        649838883732152,
         "randomize",
         "mean",
         "down_weight",
@@ -4934,13 +4934,13 @@
         "",
         "",
         1.2,
-        false,
-        "PHOTO",
+        true,
+        "None",
         1,
         "BETTER_IMAGES",
-        1,
+        1.2,
         true,
-        "length",
+        "mean",
         "comfy++",
         "Normal",
         "",
@@ -5060,7 +5060,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1101688281749126,
+        766048067916285,
         "randomize",
         20,
         8,
@@ -5099,7 +5099,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights, interriordesign"
+        "futuristic difficult half-human plastic robot, face portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights, (((Photo,Highly Detailed:1.20), (Kodachrome:0.70), (Ultra detailed), (Futurism:0.80)), (Charles Demuth precisionist realism, capturing the beauty of industrial America with exacting detail)), design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5131,7 +5131,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20)"
+        "(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20), (((Low rated,Phone,Wedding,Frame,Painting,tumblr:1.20))), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -5735,7 +5735,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        748353759116292,
+        140892778433259,
         "randomize",
         "heun",
         "simple",
@@ -6128,7 +6128,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        308053293351017,
+        920625853548295,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6520,13 +6520,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        680718183158937,
+        775797819039383,
         "randomize",
         "dpmpp_sde",
         "karras",
         25,
         9,
-        0.43,
+        0.42,
         8,
         true,
         false,
@@ -6912,7 +6912,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        813170355182964,
+        285888037545350,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7063,7 +7063,7 @@
       },
       "widgets_values": [
         2.1,
-        330818267633780,
+        991565282614300,
         "randomize",
         7,
         6.5,
@@ -7191,7 +7191,7 @@
         "Node name for S&R": "PrimereMetaSave"
       },
       "widgets_values": [
-        true,
+        false,
         "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
         "Test",
         "",
@@ -7245,7 +7245,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-02-13 19:26:58\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Sci-fi\\2024-02-Week-07\\Image_20241302_192658_448933192076271_2384x3760_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: {futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\n:: NEGATIVE: draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 448933192076271\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: False\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights\n:: DYNAMIC_NEGATIVE: draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\n:: SAVED_IMAGE_WIDTH: 2384\n:: SAVED_IMAGE_HEIGTH: 3760\n:: UPSCALER_RATIO: From: 614x960 to: 2384x3760 Ratio: 3.9\n"
+        "*** Image saver switched OFF, image not saved. ***"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"

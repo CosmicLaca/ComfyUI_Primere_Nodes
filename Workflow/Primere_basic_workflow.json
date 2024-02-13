@@ -184,7 +184,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        709553356738663,
         null,
         null,
         null
@@ -871,7 +871,7 @@
       },
       "widgets_values": [
         "",
-        192740019386967,
+        769752842896905,
         "randomize"
       ],
       "color": "#145414",
@@ -926,7 +926,7 @@
       },
       "widgets_values": [
         "",
-        977693587621088,
+        946593803374885,
         "randomize"
       ],
       "color": "#145414",
@@ -1091,6 +1091,96 @@
       "bgcolor": "#004000"
     },
     {
+      "id": 65,
+      "type": "PrimereResolution",
+      "pos": [
+        1473,
+        92
+      ],
+      "size": {
+        "0": 316.6576232910156,
+        "1": 347.66705322265625
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 231,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 232,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 233,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            234,
+            236
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            235,
+            237
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Photo [19:13]",
+        768,
+        1024,
+        512,
+        false,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8,
+        838562818413387,
+        "randomize",
+        "BaseModel_1024",
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 39,
       "type": "PrimereLatentNoise",
       "pos": [
@@ -1169,12 +1259,12 @@
         1,
         0.8,
         1.4,
-        446781076282575,
+        546175286177801,
         "randomize",
         true,
         "cpu",
         false,
-        449309260652715,
+        1019342539919821,
         "randomize"
       ],
       "color": "#941414",
@@ -1374,8 +1464,8 @@
         "",
         "",
         1.2,
-        false,
-        "PHOTO",
+        true,
+        "PHOTO_SFW",
         1,
         "BETTER_IMAGES",
         1,
@@ -1527,7 +1617,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        460988876265449,
+        474229832192219,
         "randomize",
         20,
         8,
@@ -1609,96 +1699,6 @@
       },
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 65,
-      "type": "PrimereResolution",
-      "pos": [
-        1473,
-        92
-      ],
-      "size": [
-        316.6576139393144,
-        347.6670480481623
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 231,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 232,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 233,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            234,
-            236
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            235,
-            237
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Photo [19:13]",
-        768,
-        1024,
-        512,
-        false,
-        "Horizontal",
-        true,
-        false,
-        1.6,
-        2.8,
-        1093889731065536,
-        "randomize",
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     }
   ],
   "links": [

@@ -16,8 +16,11 @@ negative=''
 [INDIE_GAME]
 positive='Indie game art,({prompt}), (Vector Art, Borderlands style, Arcane style, Cartoon style), Line art, Disctinct features, Hand drawn, Technical illustration, Graphic design, Vector graphics, High contrast, Precision artwork, Linear compositions, Scalable artwork, Digital art, cinematic sensual, Sharp focus, humorous illustration, big depth of field, Masterpiece, trending on artstation, Vivid colors, trending on ArtStation, trending on CGSociety, Intricate, Low Detail, dramatic,'
 negative=''
-[PHOTO]
-positive='Photorealistic, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, black lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus,'
+[PHOTO_SFW]
+positive='Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus,'
+negative=''
+[PHOTO_NSFW]
+positive='Photorealistic, NSFW, sexy, Hyperrealistic, Hyperdetailed, analog style, hip cocked, demure, low cut, sexy lace, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus,'
 negative=''
 [BW_FILM_NOIR]
 positive='(b&w, Monochromatic, Film Photography:1.3),  Photorealistic, Hyperrealistic, Hyperdetailed, film noir, analog style, hip cocked, demure, low cut, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus,'
