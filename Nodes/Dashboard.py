@@ -1,3 +1,4 @@
+import math
 from ..components.tree import TREE_DASHBOARD
 from ..components.tree import PRIMERE_ROOT
 import comfy.samplers
@@ -729,18 +730,21 @@ class PrimereResolution:
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
 
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "calculate_by_custom": ("BOOLEAN", {"default": False}),
                 "custom_side_a": ("FLOAT", {"default": 1.6, "min": 1.0, "max": 100.0, "step": 0.05}),
                 "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.05}),
             },
             "optional": {
+                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
             }
         }
 
-    def calculate_imagesize(self, ratio: str, basemodel_res: int, sdxlmodel_res: int, turbo_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, seed: int, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, model_version: str = "BaseModel_1024", model_concept = "Normal"):
+    def calculate_imagesize(self, ratio: str, basemodel_res: int, sdxlmodel_res: int, turbo_res: int, rnd_orientation: bool, orientation: str, round_to_standard: bool, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, seed: int = 0, model_version: str = "BaseModel_1024", model_concept = "Normal"):
+        if seed < 1:
+            seed = random.randint(0, 9)
+
         if rnd_orientation == True:
             if (seed % 2) == 0:
                 orientation = "Horizontal"
@@ -797,18 +801,20 @@ class PrimereResolutionMultiplier:
     def INPUT_TYPES(cls):
         return {
             "required": {
+                "use_multiplier": ("BOOLEAN", {"default": True}),
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
-                "use_multiplier": ("BOOLEAN", {"default": True}),
                 "multiply_sd": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
                 "multiply_sdxl": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
+                "multiply_turbo": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
             },
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
             }
         }
 
-    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, model_version: str = "BaseModel_1024"):
+    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, multiply_turbo: float, model_version: str = "BaseModel_1024", model_concept: str = "Normal"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
@@ -817,6 +823,7 @@ class PrimereResolutionMultiplier:
         if use_multiplier == False:
             multiply_sd = 1
             multiply_sdxl = 1
+            multiply_turbo = 1
 
         if (is_sdxl == 1):
             dimension_x = round(width * multiply_sdxl)
@@ -826,6 +833,42 @@ class PrimereResolutionMultiplier:
             dimension_x = round(width * multiply_sd)
             dimension_y = round(height * multiply_sd)
             ratio = round(multiply_sd, 2)
+
+        if model_concept == "Turbo":
+            dimension_x = round(width * multiply_turbo)
+            dimension_y = round(height * multiply_turbo)
+            ratio = round(multiply_turbo, 2)
+
+        return (dimension_x, dimension_y, ratio)
+
+
+class PrimereResolutionMultiplierMPX:
+    RETURN_TYPES = ("INT", "INT", "FLOAT")
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO")
+    FUNCTION = "multiply_imagesize_mpx"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "use_multiplier": ("BOOLEAN", {"default": True}),
+                "width": ('INT', {"forceInput": True, "default": 512}),
+                "height": ('INT', {"forceInput": True, "default": 512}),
+                "upscale_to_mpx": ("FLOAT", {"default": 12.00, "min": 0.01, "max": 48.00, "step": 0.01}),
+            }
+        }
+
+    def multiply_imagesize_mpx(self, width: int, height: int, use_multiplier: bool, upscale_to_mpx: int):
+        if use_multiplier == False or upscale_to_mpx < 0.01:
+            return (width, height, 1)
+
+        sourceMPX = (width * height) / 1000000
+        difference = upscale_to_mpx / sourceMPX
+        squareDiff = math.sqrt(difference)
+        dimension_x = round(width * squareDiff)
+        dimension_y = round(height * squareDiff)
+        ratio = round(squareDiff, 2)
 
         return (dimension_x, dimension_y, ratio)
 

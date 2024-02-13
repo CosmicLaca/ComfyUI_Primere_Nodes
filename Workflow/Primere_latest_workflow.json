@@ -1,6 +1,6 @@
 {
-  "last_node_id": 498,
-  "last_link_id": 1619,
+  "last_node_id": 502,
+  "last_link_id": 1633,
   "nodes": [
     {
       "id": 88,
@@ -210,7 +210,7 @@
           "type": "STRING",
           "links": [
             811,
-            1266
+            1621
           ],
           "shape": 3,
           "slot_index": 1
@@ -324,7 +324,7 @@
             814,
             1027,
             1186,
-            1265
+            1620
           ],
           "shape": 3,
           "slot_index": 0
@@ -989,6 +989,28 @@
       "bgcolor": "#5f4e34"
     },
     {
+      "id": 499,
+      "type": "Note",
+      "pos": [
+        2357,
+        -1573
+      ],
+      "size": [
+        482.8311748046867,
+        85.65190820312478
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere latest workflow"
+      ],
+      "color": "#c09430"
+    },
+    {
       "id": 372,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -1000,7 +1022,7 @@
         26
       ],
       "flags": {},
-      "order": 16,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1047,7 +1069,7 @@
         "1": 838
       },
       "flags": {},
-      "order": 17,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1327,7 +1349,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 18,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -1478,10 +1500,10 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            1269,
             1278,
             1311,
-            1339
+            1339,
+            1622
           ],
           "shape": 3,
           "slot_index": 4
@@ -1520,7 +1542,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 19,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1604,7 +1626,7 @@
         "1": 243.8347930908203
       },
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
@@ -1635,7 +1657,7 @@
         "1": 208.28933715820312
       },
       "flags": {},
-      "order": 21,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1666,7 +1688,7 @@
         26
       ],
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1710,7 +1732,7 @@
         26
       ],
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1740,97 +1762,6 @@
       },
       "color": "#d37414",
       "bgcolor": "#bf6000"
-    },
-    {
-      "id": 442,
-      "type": "PrimereResolution",
-      "pos": [
-        3240.14357734375,
-        -1398.4458445312512
-      ],
-      "size": {
-        "0": 322.49591064453125,
-        "1": 314
-      },
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1265,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 1266,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 1269,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            1267
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            1268
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": [
-            1441
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Portrait [9:7]",
-        768,
-        1024,
-        512,
-        true,
-        "Vertical",
-        true,
-        1015999373959043,
-        "randomize",
-        false,
-        1.6,
-        2.8,
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 452,
@@ -1877,6 +1808,97 @@
       "bgcolor": "#8e4700"
     },
     {
+      "id": 501,
+      "type": "PrimereResolution",
+      "pos": [
+        3238,
+        -1399
+      ],
+      "size": [
+        324.3401006687127,
+        314
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1620,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1621,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 1622,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            1625
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            1626
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": [
+            1624
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Photo [19:13]",
+        768,
+        1024,
+        512,
+        true,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8,
+        598864155472318,
+        "randomize",
+        "BaseModel_1024",
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 321,
       "type": "PrimereMetaRead",
       "pos": [
@@ -1888,7 +1910,7 @@
         "1": 1247.798583984375
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1989,7 +2011,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1267,
+          "link": 1625,
           "widget": {
             "name": "width"
           }
@@ -1997,7 +2019,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1268,
+          "link": 1626,
           "widget": {
             "name": "height"
           }
@@ -2133,10 +2155,9 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            858,
-            872,
             1182,
-            1606
+            1606,
+            1627
           ],
           "shape": 3,
           "slot_index": 10
@@ -2145,10 +2166,9 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            859,
-            873,
             1183,
-            1607
+            1607,
+            1628
           ],
           "shape": 3,
           "slot_index": 11
@@ -2247,7 +2267,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1082,
+        544,
         "randomize",
         512,
         512,
@@ -2272,13 +2292,13 @@
         26
       ],
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
           "name": "value",
           "type": "*",
-          "link": 1441,
+          "link": 1624,
           "label": " "
         }
       ],
@@ -2315,7 +2335,7 @@
         "1": 165.17919921875
       },
       "flags": {},
-      "order": 28,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2360,7 +2380,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2396,7 +2416,7 @@
       },
       "widgets_values": [
         "",
-        530769555708447,
+        161098510849784,
         "randomize"
       ],
       "color": "#322",
@@ -2414,7 +2434,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 30,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2451,11 +2471,86 @@
       },
       "widgets_values": [
         "",
-        1096077569441292,
+        813392079597016,
         "randomize"
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 502,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        3239,
+        -1050
+      ],
+      "size": [
+        323.1519331369718,
+        122
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 1627,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 1628,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            1630,
+            1632
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            1631,
+            1633
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [
+            1629
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        9
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 444,
@@ -2469,7 +2564,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 31,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2566,7 +2661,7 @@
         "1": 1037.8740234375
       },
       "flags": {},
-      "order": 32,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2580,7 +2675,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 432629234709170,\n    \"width\": 896,\n    \"height\": 658,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"friendly damaged alien rusty iron robot, face portrait, light in eyes, fire, thunder lightning in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 448933192076271,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -2597,7 +2692,7 @@
         26
       ],
       "flags": {},
-      "order": 33,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2640,7 +2735,7 @@
         26
       ],
       "flags": {},
-      "order": 34,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2687,7 +2782,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 35,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2803,7 +2898,7 @@
         "1": 454
       },
       "flags": {},
-      "order": 36,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2870,12 +2965,12 @@
         1,
         0.8,
         1.4,
-        388420542585671,
+        851114518614517,
         "randomize",
         true,
         "cpu",
         false,
-        678910910067712,
+        321136767116033,
         "randomize"
       ],
       "color": "#941414",
@@ -2893,7 +2988,7 @@
         26
       ],
       "flags": {},
-      "order": 37,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2936,7 +3031,7 @@
         26
       ],
       "flags": {},
-      "order": 38,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -2960,7 +3055,6 @@
             1288,
             1289,
             1290,
-            1292,
             1293,
             1600
           ],
@@ -2987,7 +3081,7 @@
         "1": 290.51715087890625
       },
       "flags": {},
-      "order": 39,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3014,7 +3108,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 40,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3127,7 +3221,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 41,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3205,7 +3299,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 42,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3293,7 +3387,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 43,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3371,89 +3465,6 @@
       "bgcolor": "#800040"
     },
     {
-      "id": 327,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        3241.14357734375,
-        -1049.4458445312498
-      ],
-      "size": {
-        "0": 323.65350341796875,
-        "1": 146
-      },
-      "flags": {},
-      "order": 44,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 872,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 873,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 1292,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            876
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            877
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [
-            875
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        512,
-        512,
-        true,
-        4,
-        3,
-        "BaseModel_1024"
-      ],
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 371,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -3465,7 +3476,7 @@
         26
       ],
       "flags": {},
-      "order": 45,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3508,7 +3519,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 46,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3621,7 +3632,7 @@
         "1": 218
       },
       "flags": {},
-      "order": 47,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3699,7 +3710,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 48,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3761,7 +3772,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 49,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3875,7 +3886,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 50,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3923,7 +3934,7 @@
         "1": 77.75587463378906
       },
       "flags": {},
-      "order": 51,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3987,7 +3998,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 52,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -4101,7 +4112,7 @@
         26
       ],
       "flags": {},
-      "order": 53,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -4144,7 +4155,7 @@
         26
       ],
       "flags": {},
-      "order": 54,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4187,7 +4198,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 55,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -4265,7 +4276,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 56,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -4313,7 +4324,7 @@
         "1": 545.6480712890625
       },
       "flags": {},
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4394,7 +4405,7 @@
         1.3,
         0,
         0,
-        508016338756979,
+        115239098044031,
         "randomize",
         "mean",
         "comfy++",
@@ -4416,7 +4427,7 @@
         "1": 546.3279418945312
       },
       "flags": {},
-      "order": 58,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4497,7 +4508,7 @@
         1.3,
         0,
         0,
-        472354318372012,
+        205956314168881,
         "randomize",
         "mean",
         "A1111",
@@ -4519,7 +4530,7 @@
         "1": 544.5726318359375
       },
       "flags": {},
-      "order": 59,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -4600,7 +4611,7 @@
         0.7000000000000001,
         0.35000000000000003,
         0.2,
-        147208429138907,
+        574166840079991,
         "randomize",
         "length+mean",
         "down_weight",
@@ -4622,7 +4633,7 @@
         "1": 547.1814575195312
       },
       "flags": {},
-      "order": 60,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -4705,7 +4716,7 @@
         1.2,
         0.3,
         0.2,
-        861381883425638,
+        207739665579066,
         "randomize",
         "mean",
         "down_weight",
@@ -4722,12 +4733,12 @@
         2713,
         0
       ],
-      "size": [
-        367.71632240075996,
-        780.6217481968673
-      ],
+      "size": {
+        "0": 367.71630859375,
+        "1": 780.6217651367188
+      },
       "flags": {},
-      "order": 61,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4962,7 +4973,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 62,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -5049,7 +5060,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1005493551677637,
+        1101688281749126,
         "randomize",
         20,
         8,
@@ -5073,7 +5084,7 @@
         "1": 241.82644653320312
       },
       "flags": {},
-      "order": 63,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -5088,7 +5099,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "friendly damaged alien rusty iron robot, face portrait, light in eyes, fire, thunder lightning in the background, extremely detailed, realistic photography, perfect lights, interriordesign"
+        "friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights, interriordesign"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5105,7 +5116,7 @@
         "1": 237.03305053710938
       },
       "flags": {},
-      "order": 64,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -5137,7 +5148,7 @@
         "1": 236.41322326660156
       },
       "flags": {},
-      "order": 65,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -5169,7 +5180,7 @@
         "1": 211.87461853027344
       },
       "flags": {},
-      "order": 66,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -5201,7 +5212,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 67,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -5247,7 +5258,7 @@
         "1": 310
       },
       "flags": {},
-      "order": 68,
+      "order": 69,
       "mode": 4,
       "inputs": [
         {
@@ -5263,7 +5274,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 876,
+          "link": 1630,
           "widget": {
             "name": "width"
           }
@@ -5271,7 +5282,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 877,
+          "link": 1631,
           "widget": {
             "name": "height"
           }
@@ -5326,7 +5337,7 @@
         "1": 422.146484375
       },
       "flags": {},
-      "order": 69,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -5353,7 +5364,7 @@
         26
       ],
       "flags": {},
-      "order": 70,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -5393,7 +5404,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 71,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -5562,7 +5573,7 @@
         "1": 253.89134216308594
       },
       "flags": {},
-      "order": 72,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -5591,7 +5602,7 @@
         "1": 546.3991088867188
       },
       "flags": {},
-      "order": 73,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -5724,7 +5735,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        292085074035088,
+        748353759116292,
         "randomize",
         "heun",
         "simple",
@@ -5756,7 +5767,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 74,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -5901,7 +5912,7 @@
         "person",
         "short_sleeved_shirt",
         "eye",
-        0.55,
+        0.45,
         -2,
         1.1,
         5,
@@ -5925,7 +5936,7 @@
         "1": 252.9562530517578
       },
       "flags": {},
-      "order": 75,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5953,7 +5964,7 @@
         "1": 253.62490844726562
       },
       "flags": {},
-      "order": 76,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5982,7 +5993,7 @@
         "1": 545.8857421875
       },
       "flags": {},
-      "order": 77,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -6117,7 +6128,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        116601922889952,
+        308053293351017,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6149,7 +6160,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 78,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -6318,7 +6329,7 @@
         "1": 254.34019470214844
       },
       "flags": {},
-      "order": 79,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -6346,7 +6357,7 @@
         "1": 252.16758728027344
       },
       "flags": {},
-      "order": 80,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -6375,7 +6386,7 @@
         "1": 545.427734375
       },
       "flags": {},
-      "order": 81,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -6509,7 +6520,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        240625509373562,
+        680718183158937,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6541,7 +6552,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 82,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -6710,7 +6721,7 @@
         "1": 252.90768432617188
       },
       "flags": {},
-      "order": 83,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -6738,7 +6749,7 @@
         "1": 253.6001434326172
       },
       "flags": {},
-      "order": 84,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -6767,7 +6778,7 @@
         "1": 546.1814575195312
       },
       "flags": {},
-      "order": 85,
+      "order": 86,
       "mode": 0,
       "inputs": [
         {
@@ -6901,7 +6912,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        93175224616188,
+        813170355182964,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6922,170 +6933,6 @@
       "bgcolor": "#925a2e"
     },
     {
-      "id": 333,
-      "type": "PreviewImage",
-      "pos": [
-        7646,
-        805
-      ],
-      "size": {
-        "0": 259.8514099121094,
-        "1": 254.08993530273438
-      },
-      "flags": {},
-      "order": 87,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 1387,
-          "slot_index": 0
-        }
-      ],
-      "title": "Preview Image - REFINED HANDS",
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#a66e42",
-      "bgcolor": "#925a2e"
-    },
-    {
-      "id": 462,
-      "type": "PrimereMetaSave",
-      "pos": [
-        4887,
-        -1397
-      ],
-      "size": {
-        "0": 323.5218505859375,
-        "1": 530
-      },
-      "flags": {},
-      "order": 89,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 1618
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 1410
-        },
-        {
-          "name": "prefered_subpath",
-          "type": "STRING",
-          "link": 1411,
-          "widget": {
-            "name": "prefered_subpath"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            1412
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
-        "Test",
-        "",
-        true,
-        "Image",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        true,
-        true,
-        95,
-        "false",
-        false,
-        false
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 148,
-      "type": "PrimereTextOutput",
-      "pos": [
-        5232,
-        -1443
-      ],
-      "size": {
-        "0": 1266.02734375,
-        "1": 1226.839111328125
-      },
-      "flags": {},
-      "order": 90,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 1412,
-          "widget": {
-            "name": "text"
-          },
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        "*** Image saver switched OFF, image not saved. ***"
-      ],
-      "color": "#002c6c",
-      "bgcolor": "#004080"
-    },
-    {
-      "id": 19,
-      "type": "PreviewImage",
-      "pos": [
-        3491,
-        -44
-      ],
-      "size": {
-        "0": 1733.90234375,
-        "1": 1920.54248046875
-      },
-      "flags": {},
-      "order": 88,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 1617
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#0000eb",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 156,
       "type": "UltimateSDUpscale",
       "pos": [
@@ -7097,7 +6944,7 @@
         "1": 558
       },
       "flags": {},
-      "order": 86,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -7141,7 +6988,7 @@
         {
           "name": "tile_width",
           "type": "INT",
-          "link": 858,
+          "link": 1632,
           "widget": {
             "name": "tile_width"
           }
@@ -7149,7 +6996,7 @@
         {
           "name": "tile_height",
           "type": "INT",
-          "link": 859,
+          "link": 1633,
           "widget": {
             "name": "tile_height"
           }
@@ -7157,7 +7004,7 @@
         {
           "name": "upscale_by",
           "type": "FLOAT",
-          "link": 875,
+          "link": 1629,
           "widget": {
             "name": "upscale_by"
           }
@@ -7216,7 +7063,7 @@
       },
       "widgets_values": [
         2.1,
-        138016752322860,
+        330818267633780,
         "randomize",
         7,
         6.5,
@@ -7238,6 +7085,170 @@
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 333,
+      "type": "PreviewImage",
+      "pos": [
+        7646,
+        805
+      ],
+      "size": {
+        "0": 259.8514099121094,
+        "1": 254.08993530273438
+      },
+      "flags": {},
+      "order": 88,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1387,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - REFINED HANDS",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        3491,
+        -44
+      ],
+      "size": {
+        "0": 1733.90234375,
+        "1": 1920.54248046875
+      },
+      "flags": {},
+      "order": 89,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1617
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 462,
+      "type": "PrimereMetaSave",
+      "pos": [
+        4887,
+        -1397
+      ],
+      "size": {
+        "0": 323.5218505859375,
+        "1": 530
+      },
+      "flags": {},
+      "order": 90,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1618
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 1410
+        },
+        {
+          "name": "prefered_subpath",
+          "type": "STRING",
+          "link": 1411,
+          "widget": {
+            "name": "prefered_subpath"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            1412
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        true,
+        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
+        "Test",
+        "",
+        true,
+        "Image",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        true,
+        true,
+        95,
+        "false",
+        false,
+        false
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 148,
+      "type": "PrimereTextOutput",
+      "pos": [
+        5232,
+        -1443
+      ],
+      "size": {
+        "0": 1266.02734375,
+        "1": 1226.839111328125
+      },
+      "flags": {},
+      "order": 91,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 1412,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        ":: Time to save: 2024-02-13 19:26:58\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Sci-fi\\2024-02-Week-07\\Image_20241302_192658_448933192076271_2384x3760_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: {futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\n:: NEGATIVE: draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: dpmpp_sde\n:: SCHEDULER_NAME: karras\n:: SEED: 448933192076271\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 7.5\n:: STEPS: 30\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: FORCE_MODEL_VAE: False\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: DYNAMIC_POSITIVE: friendly difficult alien plastic robot, face portrait, light in eyes, spaceship interior in the background, extremely detailed, realistic photography, perfect lights\n:: DYNAMIC_NEGATIVE: draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\n:: SAVED_IMAGE_WIDTH: 2384\n:: SAVED_IMAGE_HEIGTH: 3760\n:: UPSCALER_RATIO: From: 614x960 to: 2384x3760 Ratio: 3.9\n"
+      ],
+      "color": "#002c6c",
+      "bgcolor": "#004080"
     }
   ],
   "links": [
@@ -7930,22 +7941,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      858,
-      321,
-      10,
-      156,
-      7,
-      "INT"
-    ],
-    [
-      859,
-      321,
-      11,
-      156,
-      8,
-      "INT"
-    ],
-    [
       860,
       321,
       9,
@@ -7967,46 +7962,6 @@
       9,
       156,
       6,
-      "INT"
-    ],
-    [
-      872,
-      321,
-      10,
-      327,
-      0,
-      "INT"
-    ],
-    [
-      873,
-      321,
-      11,
-      327,
-      1,
-      "INT"
-    ],
-    [
-      875,
-      327,
-      2,
-      156,
-      9,
-      "FLOAT"
-    ],
-    [
-      876,
-      327,
-      0,
-      155,
-      2,
-      "INT"
-    ],
-    [
-      877,
-      327,
-      1,
-      155,
-      3,
       "INT"
     ],
     [
@@ -8282,46 +8237,6 @@
       "FLOAT"
     ],
     [
-      1265,
-      90,
-      0,
-      442,
-      0,
-      "INT"
-    ],
-    [
-      1266,
-      248,
-      1,
-      442,
-      1,
-      "STRING"
-    ],
-    [
-      1267,
-      442,
-      0,
-      321,
-      13,
-      "INT"
-    ],
-    [
-      1268,
-      442,
-      1,
-      321,
-      14,
-      "INT"
-    ],
-    [
-      1269,
-      436,
-      4,
-      442,
-      2,
-      "STRING"
-    ],
-    [
       1270,
       436,
       0,
@@ -8479,14 +8394,6 @@
       0,
       280,
       1,
-      "STRING"
-    ],
-    [
-      1292,
-      445,
-      0,
-      327,
-      2,
       "STRING"
     ],
     [
@@ -8928,14 +8835,6 @@
       148,
       0,
       "STRING"
-    ],
-    [
-      1441,
-      442,
-      2,
-      472,
-      0,
-      "*"
     ],
     [
       1491,
@@ -9544,6 +9443,110 @@
       462,
       0,
       "IMAGE"
+    ],
+    [
+      1620,
+      90,
+      0,
+      501,
+      0,
+      "INT"
+    ],
+    [
+      1621,
+      248,
+      1,
+      501,
+      1,
+      "STRING"
+    ],
+    [
+      1622,
+      436,
+      4,
+      501,
+      2,
+      "STRING"
+    ],
+    [
+      1624,
+      501,
+      2,
+      472,
+      0,
+      "*"
+    ],
+    [
+      1625,
+      501,
+      0,
+      321,
+      13,
+      "INT"
+    ],
+    [
+      1626,
+      501,
+      1,
+      321,
+      14,
+      "INT"
+    ],
+    [
+      1627,
+      321,
+      10,
+      502,
+      0,
+      "INT"
+    ],
+    [
+      1628,
+      321,
+      11,
+      502,
+      1,
+      "INT"
+    ],
+    [
+      1629,
+      502,
+      2,
+      156,
+      9,
+      "FLOAT"
+    ],
+    [
+      1630,
+      502,
+      0,
+      155,
+      2,
+      "INT"
+    ],
+    [
+      1631,
+      502,
+      1,
+      155,
+      3,
+      "INT"
+    ],
+    [
+      1632,
+      502,
+      0,
+      156,
+      7,
+      "INT"
+    ],
+    [
+      1633,
+      502,
+      1,
+      156,
+      8,
+      "INT"
     ]
   ],
   "groups": [

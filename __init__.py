@@ -59,6 +59,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLCMSelector": Dashboard.PrimereLCMSelector,
     "PrimereModelConceptSelector": Dashboard.PrimereModelConceptSelector,
     "PrimereResolutionMultiplier": Dashboard.PrimereResolutionMultiplier,
+    "PrimereResolutionMultiplierMPX": Dashboard.PrimereResolutionMultiplierMPX,
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
 
@@ -117,6 +118,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLCMSelector": "Primere LCM selector",
     "PrimereModelConceptSelector": "Primere Model Concept Selector",
     "PrimereResolutionMultiplier": "Primere Resolution Multiplier",
+    "PrimereResolutionMultiplierMPX": "Primere Resolution MPX",
     "PrimereNetworkTagLoader": 'Primere Network Tag Loader',
     "PrimereModelKeyword": "Primere Model Keyword",
 

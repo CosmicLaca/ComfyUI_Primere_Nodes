@@ -1,6 +1,6 @@
 {
-  "last_node_id": 82,
-  "last_link_id": 315,
+  "last_node_id": 87,
+  "last_link_id": 327,
   "nodes": [
     {
       "id": 4,
@@ -155,8 +155,8 @@
       "id": 51,
       "type": "UpscaleModelLoader",
       "pos": [
-        2847.3400439453126,
-        271.29990234374964
+        2848,
+        321
       ],
       "size": {
         "0": 330.50860595703125,
@@ -546,9 +546,9 @@
             18,
             137,
             187,
-            238,
             270,
-            294
+            294,
+            317
           ],
           "shape": 3,
           "slot_index": 0
@@ -998,10 +998,10 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            266,
             267,
             299,
-            301
+            301,
+            319
           ],
           "shape": 3,
           "slot_index": 4
@@ -1077,7 +1077,7 @@
       },
       "widgets_values": [
         "",
-        356175679240847,
+        139580969615053,
         "randomize"
       ],
       "color": "#145414",
@@ -1132,7 +1132,7 @@
       },
       "widgets_values": [
         "",
-        568334505540113,
+        453396498029896,
         "randomize"
       ],
       "color": "#145414",
@@ -1270,8 +1270,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            243,
-            286
+            286,
+            318
           ],
           "shape": 3,
           "slot_index": 3
@@ -1352,15 +1352,15 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 74,
+      "id": 87,
       "type": "PrimereResolution",
       "pos": [
         1476,
-        90
+        92
       ],
       "size": {
-        "0": 319.5495910644531,
-        "1": 352.3848571777344
+        "0": 314.92584228515625,
+        "1": 349.075927734375
       },
       "flags": {},
       "order": 21,
@@ -1369,7 +1369,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 238,
+          "link": 317,
           "widget": {
             "name": "seed"
           }
@@ -1377,7 +1377,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 243,
+          "link": 318,
           "widget": {
             "name": "model_version"
           }
@@ -1385,7 +1385,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 266,
+          "link": 319,
           "widget": {
             "name": "model_concept"
           }
@@ -1396,10 +1396,10 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            239,
-            268,
-            280,
-            289
+            320,
+            322,
+            324,
+            326
           ],
           "shape": 3,
           "slot_index": 0
@@ -1408,10 +1408,10 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            240,
-            269,
-            281,
-            290
+            321,
+            323,
+            325,
+            327
           ],
           "shape": 3,
           "slot_index": 1
@@ -1427,18 +1427,18 @@
         "Node name for S&R": "PrimereResolution"
       },
       "widgets_values": [
-        "Photo [19:13]",
+        "Portrait [9:7]",
         768,
         1024,
         512,
         true,
         "Horizontal",
         true,
-        650955888828758,
-        "randomize",
         false,
         1.6,
         2.8,
+        783190814472245,
+        "randomize",
         "BaseModel_1024",
         "Normal"
       ],
@@ -1468,7 +1468,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 239,
+          "link": 320,
           "widget": {
             "name": "width"
           }
@@ -1476,7 +1476,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 240,
+          "link": 321,
           "widget": {
             "name": "height"
           }
@@ -1524,12 +1524,12 @@
         1,
         0.8,
         1.4,
-        979619194179079,
+        1120281012573176,
         "randomize",
         true,
         "cpu",
         false,
-        820157063115503,
+        11752601794167,
         "randomize"
       ],
       "color": "#941414",
@@ -1544,16 +1544,18 @@
       ],
       "size": {
         "0": 329.50860595703125,
-        "1": 146
+        "1": 194
       },
-      "flags": {},
+      "flags": {
+        "pinned": true
+      },
       "order": 23,
       "mode": 0,
       "inputs": [
         {
           "name": "width",
           "type": "INT",
-          "link": 268,
+          "link": 322,
           "widget": {
             "name": "width"
           }
@@ -1561,7 +1563,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 269,
+          "link": 323,
           "widget": {
             "name": "height"
           }
@@ -1613,7 +1615,9 @@
         true,
         4,
         3.2,
-        "BaseModel_1024"
+        5,
+        "BaseModel_1024",
+        "Normal"
       ],
       "color": "#945414",
       "bgcolor": "#804000"
@@ -1625,10 +1629,10 @@
         2162,
         91
       ],
-      "size": [
-        330.657470703125,
-        749.5175537109376
-      ],
+      "size": {
+        "0": 330.657470703125,
+        "1": 749.517578125
+      },
       "flags": {},
       "order": 24,
       "mode": 0,
@@ -1746,7 +1750,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 289,
+          "link": 324,
           "widget": {
             "name": "width"
           }
@@ -1754,7 +1758,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 290,
+          "link": 325,
           "widget": {
             "name": "height"
           }
@@ -1889,10 +1893,10 @@
         2500,
         174
       ],
-      "size": [
-        323.6610298981941,
-        238
-      ],
+      "size": {
+        "0": 323.6610412597656,
+        "1": 238
+      },
       "flags": {},
       "order": 26,
       "mode": 0,
@@ -1981,7 +1985,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        693432121052889,
+        1095392070179966,
         "randomize",
         20,
         8,
@@ -2019,7 +2023,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "inside of a Paris design style, (((kitchen))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
+        "inside of a penthouse design style, (((living room))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -2168,7 +2172,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 280,
+          "link": 326,
           "widget": {
             "name": "width"
           }
@@ -2176,7 +2180,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 281,
+          "link": 327,
           "widget": {
             "name": "height"
           }
@@ -2240,7 +2244,7 @@
       "widgets_values": [
         "",
         "",
-        137,
+        480,
         "randomize",
         "",
         "",
@@ -2312,10 +2316,10 @@
         3845,
         618
       ],
-      "size": [
-        611.324274328218,
-        741.8129805773383
-      ],
+      "size": {
+        "0": 611.3242797851562,
+        "1": 741.81298828125
+      },
       "flags": {},
       "order": 31,
       "mode": 0,
@@ -2330,7 +2334,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"inside of a futuristic design style, (((kitchen))), interior estate photography, modern plastic table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 115359730298473,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
+        "{\n    \"positive\": \"inside of a penthouse design style, (((living room))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\",\n    \"negative\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 120868413849000,\n    \"width\": 896,\n    \"height\": 658,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2342,10 +2346,10 @@
         2501,
         446
       ],
-      "size": [
-        322.6610298981941,
-        300.7714004297651
-      ],
+      "size": {
+        "0": 322.6610412597656,
+        "1": 300.7713928222656
+      },
       "flags": {},
       "order": 32,
       "mode": 0,
@@ -2493,7 +2497,7 @@
       },
       "widgets_values": [
         2,
-        392852920367043,
+        397925160538663,
         "randomize",
         20,
         8,
@@ -2550,10 +2554,10 @@
         3528,
         47
       ],
-      "size": [
-        307.343404607966,
-        530
-      ],
+      "size": {
+        "0": 307.3434143066406,
+        "1": 530
+      },
       "flags": {},
       "order": 35,
       "mode": 0,
@@ -2623,10 +2627,10 @@
         3843,
         47
       ],
-      "size": [
-        613.0707391499573,
-        528.191603674197
-      ],
+      "size": {
+        "0": 613.0707397460938,
+        "1": 528.1915893554688
+      },
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -2645,7 +2649,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-02-13 16:59:28\n:: Output file: H:\\ComfyUI\\output\\PHOTON_V1\\Test\\2024-02-13\\ComfyUI_20241302_165927_115359730298473_2432x3840_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: inside of a futuristic design style, (((kitchen))), interior estate photography, modern plastic table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\n:: MODEL_NAME: BestAll\\photon_v1.safetensors\n:: SAMPLER_NAME: euler\n:: SCHEDULER_NAME: normal\n:: SEED: 115359730298473\n:: WIDTH: 614\n:: HEIGHT: 960\n:: CFG_SCALE: 8.0\n:: STEPS: 20\n:: MODEL_VERSION: BaseModel_768\n:: IS_LCM: 0\n:: VAE_NAME: vae-ft-mse-840000-ema-pruned.ckpt\n:: PREFERED_MODEL: None\n:: PREFERED_ORIENTATION: None\n:: IS_SDXL: 0\n:: SAVED_IMAGE_WIDTH: 2432\n:: SAVED_IMAGE_HEIGTH: 3840\n:: UPSCALER_RATIO: From: 614x960 to: 2432x3840 Ratio: 3.95\n"
+        "*** Image saver switched OFF, image not saved. ***"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2989,38 +2993,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      238,
-      10,
-      0,
-      74,
-      0,
-      "INT"
-    ],
-    [
-      239,
-      74,
-      0,
-      39,
-      1,
-      "INT"
-    ],
-    [
-      240,
-      74,
-      1,
-      39,
-      2,
-      "INT"
-    ],
-    [
-      243,
-      73,
-      3,
-      74,
-      1,
-      "STRING"
-    ],
-    [
       244,
       73,
       2,
@@ -3133,36 +3105,12 @@
       "VAE"
     ],
     [
-      266,
-      71,
-      4,
-      74,
-      2,
-      "STRING"
-    ],
-    [
       267,
       71,
       4,
       73,
       4,
       "STRING"
-    ],
-    [
-      268,
-      74,
-      0,
-      49,
-      0,
-      "INT"
-    ],
-    [
-      269,
-      74,
-      1,
-      49,
-      1,
-      "INT"
     ],
     [
       270,
@@ -3245,22 +3193,6 @@
       "FLOAT"
     ],
     [
-      280,
-      74,
-      0,
-      57,
-      13,
-      "INT"
-    ],
-    [
-      281,
-      74,
-      1,
-      57,
-      14,
-      "INT"
-    ],
-    [
       284,
       73,
       1,
@@ -3299,22 +3231,6 @@
       79,
       8,
       "STRING"
-    ],
-    [
-      289,
-      74,
-      0,
-      79,
-      16,
-      "INT"
-    ],
-    [
-      290,
-      74,
-      1,
-      79,
-      17,
-      "INT"
     ],
     [
       291,
@@ -3507,6 +3423,94 @@
       54,
       0,
       "*"
+    ],
+    [
+      317,
+      10,
+      0,
+      87,
+      0,
+      "INT"
+    ],
+    [
+      318,
+      73,
+      3,
+      87,
+      1,
+      "STRING"
+    ],
+    [
+      319,
+      71,
+      4,
+      87,
+      2,
+      "STRING"
+    ],
+    [
+      320,
+      87,
+      0,
+      39,
+      1,
+      "INT"
+    ],
+    [
+      321,
+      87,
+      1,
+      39,
+      2,
+      "INT"
+    ],
+    [
+      322,
+      87,
+      0,
+      49,
+      0,
+      "INT"
+    ],
+    [
+      323,
+      87,
+      1,
+      49,
+      1,
+      "INT"
+    ],
+    [
+      324,
+      87,
+      0,
+      79,
+      16,
+      "INT"
+    ],
+    [
+      325,
+      87,
+      1,
+      79,
+      17,
+      "INT"
+    ],
+    [
+      326,
+      87,
+      0,
+      57,
+      13,
+      "INT"
+    ],
+    [
+      327,
+      87,
+      1,
+      57,
+      14,
+      "INT"
     ]
   ],
   "groups": [

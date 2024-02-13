@@ -1,6 +1,6 @@
 {
-  "last_node_id": 63,
-  "last_link_id": 230,
+  "last_node_id": 65,
+  "last_link_id": 237,
   "nodes": [
     {
       "id": 4,
@@ -173,8 +173,8 @@
             17,
             18,
             137,
-            190,
-            225
+            225,
+            231
           ],
           "shape": 3,
           "slot_index": 0
@@ -792,10 +792,10 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            196,
             198,
             222,
-            223
+            223,
+            233
           ],
           "shape": 3,
           "slot_index": 4
@@ -871,7 +871,7 @@
       },
       "widgets_values": [
         "",
-        34268922450903,
+        192740019386967,
         "randomize"
       ],
       "color": "#145414",
@@ -926,7 +926,7 @@
       },
       "widgets_values": [
         "",
-        667785299872634,
+        977693587621088,
         "randomize"
       ],
       "color": "#145414",
@@ -1009,8 +1009,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            203,
-            212
+            212,
+            232
           ],
           "shape": 3,
           "slot_index": 3
@@ -1091,96 +1091,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 54,
-      "type": "PrimereResolution",
-      "pos": [
-        1471,
-        92
-      ],
-      "size": {
-        "0": 321.0346374511719,
-        "1": 349.587158203125
-      },
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 190,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 203,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 196,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            192,
-            215
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            193,
-            216
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Photo [19:13]",
-        768,
-        1024,
-        512,
-        false,
-        "Vertical",
-        true,
-        156050444898677,
-        "randomize",
-        false,
-        1.6,
-        2.8,
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 39,
       "type": "PrimereLatentNoise",
       "pos": [
@@ -1203,7 +1113,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 192,
+          "link": 234,
           "widget": {
             "name": "width"
           }
@@ -1211,7 +1121,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 193,
+          "link": 235,
           "widget": {
             "name": "height"
           }
@@ -1259,12 +1169,12 @@
         1,
         0.8,
         1.4,
-        408817333132011,
+        446781076282575,
         "randomize",
         true,
         "cpu",
         false,
-        922784113369518,
+        449309260652715,
         "randomize"
       ],
       "color": "#941414",
@@ -1277,10 +1187,10 @@
         2162,
         93
       ],
-      "size": [
-        333.52952522427313,
-        750.2066639332922
-      ],
+      "size": {
+        "0": 333.5295104980469,
+        "1": 750.2066650390625
+      },
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1398,7 +1308,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 215,
+          "link": 236,
           "widget": {
             "name": "width"
           }
@@ -1406,7 +1316,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 216,
+          "link": 237,
           "widget": {
             "name": "height"
           }
@@ -1525,10 +1435,10 @@
         2500,
         174
       ],
-      "size": [
-        324.7420107102371,
-        238
-      ],
+      "size": {
+        "0": 324.74200439453125,
+        "1": 238
+      },
       "flags": {},
       "order": 19,
       "mode": 0,
@@ -1617,7 +1527,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1107427023807751,
+        460988876265449,
         "randomize",
         20,
         8,
@@ -1680,10 +1590,10 @@
         2866,
         48
       ],
-      "size": [
-        747.5659716796877,
-        854.6353674316408
-      ],
+      "size": {
+        "0": 747.5659790039062,
+        "1": 854.6353759765625
+      },
       "flags": {},
       "order": 21,
       "mode": 0,
@@ -1699,6 +1609,96 @@
       },
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 65,
+      "type": "PrimereResolution",
+      "pos": [
+        1473,
+        92
+      ],
+      "size": [
+        316.6576139393144,
+        347.6670480481623
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 231,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 232,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 233,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            234,
+            236
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            235,
+            237
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Photo [19:13]",
+        768,
+        1024,
+        512,
+        false,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8,
+        1093889731065536,
+        "randomize",
+        "BaseModel_1024",
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -1959,38 +1959,6 @@
       "FLOAT"
     ],
     [
-      190,
-      10,
-      0,
-      54,
-      0,
-      "INT"
-    ],
-    [
-      192,
-      54,
-      0,
-      39,
-      1,
-      "INT"
-    ],
-    [
-      193,
-      54,
-      1,
-      39,
-      2,
-      "INT"
-    ],
-    [
-      196,
-      53,
-      4,
-      54,
-      2,
-      "STRING"
-    ],
-    [
       197,
       3,
       0,
@@ -2021,14 +1989,6 @@
       16,
       1,
       "VAE"
-    ],
-    [
-      203,
-      58,
-      3,
-      54,
-      1,
-      "STRING"
     ],
     [
       210,
@@ -2069,22 +2029,6 @@
       62,
       8,
       "STRING"
-    ],
-    [
-      215,
-      54,
-      0,
-      62,
-      16,
-      "INT"
-    ],
-    [
-      216,
-      54,
-      1,
-      62,
-      17,
-      "INT"
     ],
     [
       219,
@@ -2181,6 +2125,62 @@
       16,
       0,
       "LATENT"
+    ],
+    [
+      231,
+      10,
+      0,
+      65,
+      0,
+      "INT"
+    ],
+    [
+      232,
+      58,
+      3,
+      65,
+      1,
+      "STRING"
+    ],
+    [
+      233,
+      53,
+      4,
+      65,
+      2,
+      "STRING"
+    ],
+    [
+      234,
+      65,
+      0,
+      39,
+      1,
+      "INT"
+    ],
+    [
+      235,
+      65,
+      1,
+      39,
+      2,
+      "INT"
+    ],
+    [
+      236,
+      65,
+      0,
+      62,
+      16,
+      "INT"
+    ],
+    [
+      237,
+      65,
+      1,
+      62,
+      17,
+      "INT"
     ]
   ],
   "groups": [
