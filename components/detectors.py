@@ -1054,6 +1054,7 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
 
     if refiner_ratio is None or refiner_model is None or refiner_clip is None or refiner_positive is None or refiner_negative is None:
         if model_concept == "Turbo":
+            cfg = cfg * 1.5
             sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
             sampler = comfy.samplers.sampler_object(sampler_name)
             turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
@@ -1065,14 +1066,14 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
         start_at_step = advanced_steps - steps
         end_at_step = start_at_step + math.floor(steps * (1.0 - refiner_ratio))
 
-        print(f"pre: {start_at_step} .. {end_at_step} / {advanced_steps}")
+        # print(f"pre: {start_at_step} .. {end_at_step} / {advanced_steps}")
         temp_latent = nodes.KSamplerAdvanced().sample(model, "enable", seed, advanced_steps, cfg, sampler_name, scheduler, positive, negative, latent_image, start_at_step, end_at_step, "enable")[0]
 
         if 'noise_mask' in latent_image:
             latent_compositor = nodes.NODE_CLASS_MAPPINGS['LatentCompositeMasked']()
             temp_latent = latent_compositor.composite(latent_image, temp_latent, 0, 0, False, latent_image['noise_mask'])[0]
 
-        print(f"post: {end_at_step} .. {advanced_steps + 1} / {advanced_steps}")
+        # print(f"post: {end_at_step} .. {advanced_steps + 1} / {advanced_steps}")
         refined_latent = nodes.KSamplerAdvanced().sample(refiner_model, "disable", seed, advanced_steps, cfg, sampler_name, scheduler, refiner_positive, refiner_negative, temp_latent, end_at_step, advanced_steps + 1, "disable")[0]
 
     return refined_latent
@@ -1140,8 +1141,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
     if detailer_hook is not None:
         new_w, new_h = detailer_hook.touch_scaled_size(new_w, new_h)
 
-    print(f"Detailer: segment upscale for ({bbox_w, bbox_h}) | crop region {w, h} x {upscale} -> {new_w, new_h}")
-
+    # print(f"Detailer: segment upscale for ({bbox_w, bbox_h}) | crop region {w, h} x {upscale} -> {new_w, new_h}")
     upscaled_image = tensor_resize(image, new_w, new_h)
     latent_image = to_latent_image(upscaled_image, vae)
 
@@ -1168,11 +1168,9 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
 
             refined_latent = detailer_hook.cycle_latent(refined_latent)
 
-            model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = \
-                detailer_hook.pre_ksample(model, seed+i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)
+            model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = detailer_hook.pre_ksample(model, seed+i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)
         else:
-            model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = \
-                model, seed + i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise
+            model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = model, seed + i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise
 
         refined_latent = ksampler_wrapper(model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, refined_latent, denoise2, refiner_ratio, refiner_model, refiner_clip, refiner_positive, refiner_negative, model_concept)
 
@@ -1308,7 +1306,7 @@ class DetailerForEach:
                   refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, model_concept="Normal", cycle=1):
 
         if len(image) > 1:
-            raise Exception('[Impact Pack] ERROR: does not allow image batches.')
+            raise Exception('[Primere] ERROR: does not allow image batches.')
 
         image = image.clone()
         enhanced_alpha_list = []
@@ -1337,8 +1335,7 @@ class DetailerForEach:
             ordered_segs = segs[1]
 
         for seg in ordered_segs:
-            cropped_image = seg.cropped_image if seg.cropped_image is not None \
-                else crop_ndarray4(image.numpy(), seg.crop_region)
+            cropped_image = seg.cropped_image if seg.cropped_image is not None else crop_ndarray4(image.numpy(), seg.crop_region)
             cropped_image = to_tensor(cropped_image)
             mask = to_tensor(seg.cropped_mask)
             mask = tensor_gaussian_blur_mask(mask, feather)
@@ -1462,6 +1459,22 @@ def filter_segs_by_trigger(segs, trigger_high_off, trigger_low_off, crop_factor)
         image_area = (abs(segment.crop_region[2] - segment.crop_region[0])) * (abs(segment.crop_region[3] - segment.crop_region[1]))
         image_area = int((image_area / (crop_factor ** 2)))
         if ((trigger_high_off == 0) or (image_area <= trigger_high_off and trigger_high_off > 0)) and ((trigger_low_off == 0) or (image_area >= trigger_low_off and trigger_low_off > 0)):
+            remained_segs.append(segment)
+            remained_crops.append(segment.crop_region)
+
+    final_segs = final_segs + [remained_segs] + [remained_crops]
+    return final_segs
+
+def filter_segs_by_percent_trigger(segs, trigger_high_off, trigger_low_off, crop_factor, input_image_area):
+    remained_segs = []
+    remained_crops = []
+    final_segs = []
+    final_segs.append(segs[0])
+    for segment in segs[1]:
+        image_area = (abs(segment.crop_region[2] - segment.crop_region[0])) * (abs(segment.crop_region[3] - segment.crop_region[1]))
+        image_area = int((image_area / (crop_factor ** 2)))
+        image_area_percent = 100 / (input_image_area / image_area)
+        if ((trigger_high_off == 0) or (image_area_percent <= trigger_high_off and trigger_high_off > 0)) and ((trigger_low_off == 0) or (image_area_percent >= trigger_low_off and trigger_low_off > 0)):
             remained_segs.append(segment)
             remained_crops.append(segment.crop_region)
 

@@ -517,6 +517,7 @@ class PrimereCLIP:
             "required": {
                 "clip": ("CLIP", ),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -556,7 +557,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024"):
+    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
@@ -579,14 +580,19 @@ class PrimereCLIP:
         additional_negative = f'({additional_negative}:{int_style_neg_strength:.2f})' if additional_negative is not None and additional_negative != '' else ''
 
         negative_prompt = f'({negative_prompt}:{negative_strength:.2f})' if negative_prompt is not None and negative_prompt.strip(' ,;') != '' else ''
-        if copy_prompt_to_l == True:
-            sdxl_positive_l = positive_prompt
-            sdxl_negative_l = negative_prompt
 
         opt_pos_prompt = f'({opt_pos_prompt}:{opt_pos_strength:.2f})' if opt_pos_prompt is not None and opt_pos_prompt.strip(' ,;') != '' else ''
         opt_neg_prompt = f'({opt_neg_prompt}:{opt_neg_strength:.2f})' if opt_neg_prompt is not None and opt_neg_prompt.strip(' ,;') != '' else ''
         style_pos_prompt = f'({style_pos_prompt}:{style_pos_strength:.2f})' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
         style_neg_prompt = f'({style_neg_prompt}:{style_neg_strength:.2f})' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
+
+        if (style_pos_prompt is not None and style_pos_prompt != '') or (style_neg_prompt is not None and style_neg_prompt != '') or model_concept != "Normal":
+            copy_prompt_to_l = False
+
+        if copy_prompt_to_l == True:
+            sdxl_positive_l = positive_prompt
+            sdxl_negative_l = negative_prompt
+
         sdxl_positive_l = f'({sdxl_positive_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
         sdxl_negative_l = f'({sdxl_negative_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
 
@@ -689,8 +695,8 @@ class PrimereCLIP:
             return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "")
 
 class PrimereResolution:
-    RETURN_TYPES = ("INT", "INT",)
-    RETURN_NAMES = ("WIDTH", "HEIGHT",)
+    RETURN_TYPES = ("INT", "INT", "INT",)
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "SQUARE_SHAPE",)
     FUNCTION = "calculate_imagesize"
     CATEGORY = TREE_DASHBOARD
 
@@ -746,6 +752,7 @@ class PrimereResolution:
             sdxlmodel_res = turbo_res
 
         if model_version != 'SDXL_2048':
+            square_shape = basemodel_res
             match basemodel_res:
                 case 512:
                     model_version = 'BaseModel_768'
@@ -760,6 +767,7 @@ class PrimereResolution:
                 case 2048:
                     model_version = 'BaseModel_mod_2048'
         else:
+            square_shape = sdxlmodel_res
             match sdxlmodel_res:
                 case 512:
                     model_version = 'SDXLModel_mod_768'
@@ -777,7 +785,7 @@ class PrimereResolution:
         dimensions = utility.calculate_dimensions(self, ratio, orientation, round_to_standard, model_version, calculate_by_custom, custom_side_a, custom_side_b)
         dimension_x = dimensions[0]
         dimension_y = dimensions[1]
-        return (dimension_x, dimension_y,)
+        return (dimension_x, dimension_y, square_shape,)
 
 class PrimereResolutionMultiplier:
     RETURN_TYPES = ("INT", "INT", "FLOAT")

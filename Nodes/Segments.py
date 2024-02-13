@@ -11,11 +11,12 @@ from ..components import utility
 import torch
 from urllib.parse import urlparse
 from pathlib import Path
+from .modules.adv_encode import advanced_encode
 
 class PrimereImageSegments:
-    RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "TUPLE")
-    RETURN_NAMES = ("IMAGE", "IMAGE_SEGS", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "SEGMENT_SETTINGS")
-    OUTPUT_IS_LIST = (False, True, False, False, False, False, False, False)
+    RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")
+    RETURN_NAMES = ("IMAGE", "IMAGE_SEGS", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "IMAGE_MAX_PERCENT", "SEGMENT_SETTINGS", "COND+", "COND-")
+    OUTPUT_IS_LIST = (False, True, False, False, False, False, False, False, False, False, False)
     FUNCTION = "primere_segments"
     CATEGORY = TREE_SEGMENTS
 
@@ -105,7 +106,6 @@ class PrimereImageSegments:
         if os.path.isfile(FullFilePath) == False:
             ModelDownload = utility.downloader(FileUrl, FullFilePath)
 
-    # model_path = folder_paths.models_dir
     BBOX_DIR = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')
     SEGM_DIR = os.path.join(comfy_dir, 'models', 'ultralytics', 'segm')
     UL_DIR = os.path.join(comfy_dir, 'models', 'ultralytics')
@@ -130,14 +130,17 @@ class PrimereImageSegments:
     def INPUT_TYPES(cls):
         bboxs = ["bbox/"+x for x in cls.BBOX_LIST]
         segms = ["segm/"+x for x in cls.SEGM_LIST]
-        dinos = ["dino/" + x for x in cls.DINO_LIST]
+        dinos = ["dino/"+x for x in cls.DINO_LIST]
         sams = list(filter(lambda x: x.startswith('sam_vit'), folder_paths.get_filename_list("sams")))
 
         return {
             "required": {
                 "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
-                "trigger_high_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
-                "trigger_low_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
+                # "trigger_high_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
+                # "trigger_low_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
+                "trigger_high_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
+                "trigger_low_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
+
                 "bbox_segm_model_name": (bboxs + segms,),
                 "sam_model_name": (sams,),
                 "sam_device_mode": (["AUTO", "Prefer GPU", "CPU"],),
@@ -152,16 +155,20 @@ class PrimereImageSegments:
                 "dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
                 "crop_factor": ("FLOAT", {"default": 1.2, "min": 1.0, "max": 100, "step": 0.1}),
                 "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
-                # "labels": ("STRING", {"multiline": True, "default": "all", "placeholder": "List the types of segments to be allowed, separated by commas"}),
             },
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "square_shape": ("INT", {"default": 768, "forceInput": True}),
+                "segment_prompt_data": ("TUPLE", {"forceInput": True}),
                 "dino_serach_prompt": ("STRING", {"default": None, "forceInput": True}),
                 "dino_replace_prompt": ("STRING", {"default": None, "forceInput": True}),
             }
         }
 
-    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', dino_serach_prompt = None, dino_replace_prompt = None):
+    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, segment_prompt_data, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', square_shape = 768, dino_serach_prompt = None, dino_replace_prompt = None):
+        if segment_prompt_data is None:
+            segment_prompt_data = {}
+
         segment_settings = dict()
         segment_settings['bbox_segm_model_name'] = bbox_segm_model_name
         segment_settings['sam_model_name'] = sam_model_name
@@ -179,15 +186,12 @@ class PrimereImageSegments:
         empty_segs = [[image.shape[1], image.shape[2]], [], []]
 
         if use_segments == False:
-            return image, [image], None, None, empty_segs, [], 0, segment_settings
+            return image, [image], None, None, empty_segs, [], 0, 0, segment_settings, segment_prompt_data['cond_positive'], segment_prompt_data['cond_negative']
 
         image_size = [image.shape[2], image.shape[1]]
-        segment_settings['input_image_size'] = image_size
-
-        if model_version == 'SDXL_2048':
-            square_shape = 1024
-        else:
-            square_shape = 768
+        input_image_area = (image.shape[2] * image.shape[1])
+        segment_settings['input_image_size'] = [image.shape[2], image.shape[1]]
+        segment_settings['input_image_area'] = input_image_area
 
         if image.shape[2] * image.shape[1] > square_shape ** 2:
             if (image.shape[2] > image.shape[1]):
@@ -195,7 +199,7 @@ class PrimereImageSegments:
             else:
                 orientation = 'Vertical'
 
-            image_sides = sorted([image.shape[2], image.shape[1]])
+            image_sides = sorted(image_size)
             custom_side_b = round((image_sides[1] / image_sides[0]), 4)
             dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, False, model_version, True, 1, custom_side_b)
             new_width = dimensions[0]
@@ -247,21 +251,30 @@ class PrimereImageSegments:
             segs = detectors.filter_segs_by_label(segs, search_facial_features_yolo8x)
 
         if (trigger_high_off > 0) or (trigger_low_off > 0):
-            segs = detectors.filter_segs_by_trigger(segs, trigger_high_off, trigger_low_off, crop_factor)
+            segs = detectors.filter_segs_by_percent_trigger(segs, trigger_high_off, trigger_low_off, crop_factor, input_image_area)
 
         image_max_area = 0
+        image_max_area_percent = 0
         if (len(segs[2]) > 0):
             for image_segs in segs[2]:
                 image_area = (abs(image_segs[2] - image_segs[0])) * (abs(image_segs[3] - image_segs[1]))
                 if (image_area > image_max_area):
                     image_max_area = image_area
+                    image_max_area_percent = 100 / (input_image_area / image_max_area)
 
         image_max_area = int((image_max_area / (crop_factor**2)))
         segment_settings['crop_region'] = segs[2]
         segment_settings['image_size'] = [image.shape[2], image.shape[1]]
+        segment_settings['image_max_area'] = image_max_area
+        segment_settings['image_max_area_percent'] = image_max_area_percent
         input_img_segs = detectors.segmented_images(segs, image)
 
-        return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, segment_settings
+        if len(segment_prompt_data) == 7:
+            embeddings_final_pos, pooled_pos = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_positive'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+            embeddings_final_neg, pooled_neg = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_negative'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+            return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+        else:
+            return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, segment_prompt_data['cond_positive'], segment_prompt_data['cond_negative']
 
 class PrimereAnyDetailer:
     RETURN_TYPES = ("IMAGE", "IMAGE", "INT", "INT",)
@@ -278,11 +291,6 @@ class PrimereAnyDetailer:
                  "model": ("MODEL",),
                  "clip": ("CLIP",),
                  "vae": ("VAE",),
-                 # "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                 # "guided_size_multiplier": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 10.0, "step": 0.1}),
-                 # "guide_size": ("FLOAT", {"default": 256, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
-                 # "guide_size_for_box": ("BOOLEAN", {"default": True, "label_on": "bbox", "label_off": "crop_region"}),
-                 # "max_size": ("FLOAT", {"default": 768, "min": 64, "max": utility.MAX_RESOLUTION, "step": 8}),
                  "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
 
                  "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
@@ -297,30 +305,12 @@ class PrimereAnyDetailer:
                  "noise_mask": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
                  "force_inpaint": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
 
-                 # "bbox_threshold": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
-                 # "bbox_dilation": ("INT", {"default": 10, "min": -512, "max": 512, "step": 1}),
-                 # "bbox_crop_factor": ("FLOAT", {"default": 3.0, "min": 1.0, "max": 10, "step": 0.1}),
-
-                 # "sam_detection_hint": (["center-1", "horizontal-2", "vertical-2", "rect-4", "diamond-4", "mask-area", "mask-points", "mask-point-bbox", "none"],),
-                 # "sam_dilation": ("INT", {"default": 0, "min": -512, "max": 512, "step": 1}),
-                 # "sam_threshold": ("FLOAT", {"default": 0.93, "min": 0.0, "max": 1.0, "step": 0.01}),
-                 # "sam_bbox_expansion": ("INT", {"default": 0, "min": 0, "max": 1000, "step": 1}),
-                 # "sam_mask_hint_threshold": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 1.0, "step": 0.01}),
-                 # "sam_mask_hint_use_negative": (["False", "Small", "Outter"],),
-                 # "drop_size": ("INT", {"min": 1, "max": utility.MAX_RESOLUTION, "step": 1, "default": 10}),
-
-                 # "detector": ("DETECTOR", ),
-                 # "segs": ("SEGS",),
                  "segment_settings": ("TUPLE",),
-                 # "wildcard": ("STRING", {"multiline": True, "dynamicPrompts": False}),
                  "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
             },
             "optional": {
                 "segs": ("SEGS",),
                 "detector": ("DETECTOR",),
-                # "sam_model_opt": ("SAM_MODEL", ),
-                # "segm_detector": ("SEGM_DETECTOR", ),
-                # "detailer_hook": ("DETAILER_HOOK",)
 
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "concept_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
@@ -333,14 +323,30 @@ class PrimereAnyDetailer:
     @staticmethod
     def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler_name,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
-                     # bbox_threshold, bbox_dilation, bbox_crop_factor,
-                     # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-                     # sam_mask_hint_use_negative, drop_size, bbox_detector,
                      segment_settings, detector, segs,
-                     # segm_detector=None, sam_model_opt=None,
                      model_concept, cycle = 1):
 
-        max_size = guide_size * 1.25
+        # base_multiplier = 1
+        # if segment_settings['image_max_area_percent'] > 0:
+        #     base_multiplier = round((100 / segment_settings['image_max_area_percent']) / 50, 1)
+        # print(base_multiplier)
+
+        if guide_size in range(0, 300):
+            max_size = round(guide_size * 3, 2)
+            cycle = cycle * 2
+        elif guide_size in range(301, 600):
+            max_size = round(guide_size * 2, 2)
+            cycle = cycle * 2
+        elif guide_size in range(601, 2000):
+            max_size = round(guide_size * 1.5, 2)
+        else:
+            max_size = round(guide_size * 1.2, 2)
+
+        if model_concept == "Turbo":
+            cycle = 1
+            guide_size = round(guide_size * 3, 2)
+            max_size = round(max_size * (3 * 2), 2)
+
         detailer_hook = None
         wildcard_opt = None
         refiner_ratio = None
@@ -373,7 +379,6 @@ class PrimereAnyDetailer:
             cropped_enhanced_alpha = []
             cnet_pil_list = []
 
-        # Mask Generator
         mask = detectors.segs_to_combined_mask(segs)
 
         if len(cropped_enhanced) == 0:
@@ -387,13 +392,9 @@ class PrimereAnyDetailer:
 
         return enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list
 
-    def any_detailer(self, image, model, clip, vae,
-                     # guide_size, guide_size_for_box,
-                     seed, steps, cfg, sampler_name, scheduler_name,
+    def any_detailer(self, image, model, clip, vae, seed,
+                     steps, cfg, sampler_name, scheduler_name,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
-                     # bbox_threshold, bbox_dilation, bbox_crop_factor,
-                     # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-                     # sam_mask_hint_use_negative, drop_size, bbox_detector,
                      segment_settings, detector = None, segs = None, cycle = 1,
                      model_concept = "Normal", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8):
 
@@ -430,14 +431,7 @@ class PrimereAnyDetailer:
             else:
                 guide_size = round(math.sqrt(full_area), 2)
 
-            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(
-                single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name,
-                positive, negative, denoise, feather, noise_mask, force_inpaint,
-                segment_settings, detector, segs, model_concept, cycle=cycle
-                # bbox_threshold, bbox_dilation, bbox_crop_factor,
-                # sam_detection_hint, sam_dilation, sam_threshold, sam_bbox_expansion, sam_mask_hint_threshold,
-                # sam_mask_hint_use_negative, drop_size, bbox_detector, segment_settings, segs, segm_detector, sam_model_opt, cycle=cycle
-            )
+            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle=cycle)
 
             result_img = torch.cat((result_img, enhanced_img), dim=0) if result_img is not None else enhanced_img
             result_mask = torch.cat((result_mask, mask), dim=0) if result_mask is not None else mask
@@ -445,5 +439,4 @@ class PrimereAnyDetailer:
             result_cropped_enhanced_alpha.extend(cropped_enhanced_alpha)
             result_cnet_images.extend(cnet_pil_list)
 
-        # pipe = (model, clip, vae, positive, negative, wildcard, bbox_detector, segm_detector, sam_model_opt, detailer_hook, None, None, None, None)
-        return result_img, result_cropped_enhanced, segment_settings['image_size'][0], segment_settings['image_size'][1] #, result_cropped_enhanced_alpha, result_mask, pipe, result_cnet_images
+        return result_img, result_cropped_enhanced, segment_settings['image_size'][0], segment_settings['image_size'][1]

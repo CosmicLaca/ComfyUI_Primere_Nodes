@@ -72,8 +72,8 @@ class PrimereDoublePrompt:
         return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation)
 
 class PrimereRefinerPrompt:
-    RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "COND+", "COND-")
+    RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING", "TUPLE")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "COND+", "COND-", "PROMPT_DATA")
     FUNCTION = "refiner_prompt"
     CATEGORY = TREE_INPUTS
 
@@ -162,7 +162,16 @@ class PrimereRefinerPrompt:
         embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
         embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
 
-        return final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+        prompt_tuple = {}
+        prompt_tuple['final_positive'] = final_positive
+        prompt_tuple['final_negative'] = final_negative
+        prompt_tuple['clip'] = clip
+        prompt_tuple['token_normalization'] = token_normalization
+        prompt_tuple['weight_interpretation'] = weight_interpretation
+        prompt_tuple['cond_positive'] = [[embeddings_final_pos, {"pooled_output": pooled_pos}]]
+        prompt_tuple['cond_negative'] = [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+
+        return final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], prompt_tuple
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
