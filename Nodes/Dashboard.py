@@ -517,7 +517,6 @@ class PrimereCLIP:
             "required": {
                 "clip": ("CLIP", ),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -532,6 +531,7 @@ class PrimereCLIP:
                 # "affect_pooled": ("BOOLEAN", {"default": False}),
             },
             "optional": {
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lora_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lycoris_keywords": ("MODEL_KEYWORD", {"forceInput": True}),

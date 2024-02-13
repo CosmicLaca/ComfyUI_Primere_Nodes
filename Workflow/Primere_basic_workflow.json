@@ -1,6 +1,6 @@
 {
-  "last_node_id": 61,
-  "last_link_id": 209,
+  "last_node_id": 63,
+  "last_link_id": 230,
   "nodes": [
     {
       "id": 4,
@@ -67,7 +67,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "SFW Woman",
+        "Architechture Interior",
         true,
         true,
         false,
@@ -144,7 +144,7 @@
       "widgets_values": [
         "{creepy|angry} {cat|dog|pig|lion|elephant} walking in the street of {big city|village|park|hill}, snow and winter",
         "human, summer, sunny, man, woman, girl, nsfw, nude, nudity, porn",
-        "",
+        "Primere",
         "None",
         "None"
       ],
@@ -173,8 +173,8 @@
             17,
             18,
             137,
-            165,
-            190
+            190,
+            225
           ],
           "shape": 3,
           "slot_index": 0
@@ -425,7 +425,7 @@
         "euler_ancestral",
         "normal",
         4,
-        0.99
+        1
       ],
       "color": "#145ea9",
       "bgcolor": "#004a95"
@@ -437,10 +437,10 @@
         1688,
         -43
       ],
-      "size": [
-        272.2500000000002,
-        58
-      ],
+      "size": {
+        "0": 272.25,
+        "1": 58
+      },
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -620,7 +620,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            147
+            211
           ],
           "shape": 3,
           "slot_index": 0
@@ -756,7 +756,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            185
+            228
           ],
           "shape": 3,
           "slot_index": 0
@@ -765,7 +765,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            186
+            229
           ],
           "shape": 3,
           "slot_index": 1
@@ -774,7 +774,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            187
+            226
           ],
           "shape": 3,
           "slot_index": 2
@@ -783,7 +783,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            188
+            227
           ],
           "shape": 3,
           "slot_index": 3
@@ -792,9 +792,10 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            189,
             196,
-            198
+            198,
+            222,
+            223
           ],
           "shape": 3,
           "slot_index": 4
@@ -870,7 +871,7 @@
       },
       "widgets_values": [
         "",
-        1012026750560379,
+        34268922450903,
         "randomize"
       ],
       "color": "#145414",
@@ -925,7 +926,7 @@
       },
       "widgets_values": [
         "",
-        586081323586356,
+        667785299872634,
         "randomize"
       ],
       "color": "#145414",
@@ -980,7 +981,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            200
+            224
           ],
           "shape": 3,
           "slot_index": 0
@@ -989,7 +990,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            201
+            210
           ],
           "shape": 3,
           "slot_index": 1
@@ -1009,7 +1010,7 @@
           "type": "STRING",
           "links": [
             203,
-            204
+            212
           ],
           "shape": 3,
           "slot_index": 3
@@ -1064,7 +1065,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            25
+            213
           ],
           "shape": 3,
           "slot_index": 0
@@ -1073,7 +1074,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            26
+            214
           ],
           "shape": 3,
           "slot_index": 1
@@ -1135,7 +1136,7 @@
           "type": "INT",
           "links": [
             192,
-            194
+            215
           ],
           "shape": 3,
           "slot_index": 0
@@ -1145,10 +1146,16 @@
           "type": "INT",
           "links": [
             193,
-            195
+            216
           ],
           "shape": 3,
           "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1162,7 +1169,7 @@
         false,
         "Vertical",
         true,
-        550842619830372,
+        156050444898677,
         "randomize",
         false,
         1.6,
@@ -1223,7 +1230,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            164
+            221
           ],
           "shape": 3
         },
@@ -1242,38 +1249,38 @@
       "widgets_values": [
         512,
         512,
-        false,
+        true,
         "brownian_fractal",
-        false,
+        true,
         1,
         0.5,
         1.5,
-        false,
+        true,
         1,
         0.8,
         1.4,
-        963689296055588,
+        408817333132011,
         "randomize",
-        false,
+        true,
         "cpu",
         false,
-        457651223194966,
+        922784113369518,
         "randomize"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
     },
     {
-      "id": 14,
+      "id": 62,
       "type": "PrimereCLIPEncoder",
       "pos": [
-        2163,
+        2162,
         93
       ],
-      "size": {
-        "0": 329.5599365234375,
-        "1": 748.0679931640625
-      },
+      "size": [
+        333.52952522427313,
+        750.2066639332922
+      ],
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1281,13 +1288,12 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 201,
-          "slot_index": 0
+          "link": 210
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 147
+          "link": 211
         },
         {
           "name": "lora_keywords",
@@ -1312,7 +1318,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 204,
+          "link": 212,
           "widget": {
             "name": "model_version"
           }
@@ -1320,7 +1326,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 25,
+          "link": 213,
           "widget": {
             "name": "positive_prompt"
           }
@@ -1328,9 +1334,17 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 26,
+          "link": 214,
           "widget": {
             "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 223,
+          "widget": {
+            "name": "model_concept"
           }
         },
         {
@@ -1384,7 +1398,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 194,
+          "link": 215,
           "widget": {
             "name": "width"
           }
@@ -1392,7 +1406,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 195,
+          "link": 216,
           "widget": {
             "name": "height"
           }
@@ -1403,7 +1417,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            171
+            219
           ],
           "shape": 3,
           "slot_index": 0
@@ -1412,7 +1426,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            205
+            220
           ],
           "shape": 3,
           "slot_index": 1
@@ -1420,30 +1434,26 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
+          "links": null,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
+          "links": null,
+          "shape": 3
         },
         {
           "name": "PROMPT L+",
           "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 4
+          "links": null,
+          "shape": 3
         },
         {
           "name": "PROMPT L-",
           "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 5
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1453,15 +1463,16 @@
         "BaseModel_1024",
         "",
         "",
-        1,
-        true,
-        "PHOTO",
-        1.1,
-        "BETTER_IMAGES",
         1.2,
+        false,
+        "PHOTO",
+        1,
+        "BETTER_IMAGES",
+        1,
         true,
         "mean",
         "comfy++",
+        "Normal",
         "",
         1,
         "",
@@ -1472,7 +1483,7 @@
         1,
         "",
         "",
-        false,
+        true,
         1,
         1024,
         1024
@@ -1508,16 +1519,16 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 49,
+      "id": 63,
       "type": "PrimereKSampler",
       "pos": [
-        2501,
-        174.3057856283897
+        2500,
+        174
       ],
-      "size": {
-        "0": 322.87255859375,
-        "1": 238
-      },
+      "size": [
+        324.7420107102371,
+        238
+      ],
       "flags": {},
       "order": 19,
       "mode": 0,
@@ -1525,27 +1536,27 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 200
+          "link": 224
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 171
+          "link": 219
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 205
+          "link": 220
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 164
+          "link": 221
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 189,
+          "link": 222,
           "widget": {
             "name": "model_concept"
           }
@@ -1553,31 +1564,15 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 165,
+          "link": 225,
           "widget": {
             "name": "seed"
           }
         },
         {
-          "name": "steps",
-          "type": "INT",
-          "link": 187,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 188,
-          "widget": {
-            "name": "cfg"
-          }
-        },
-        {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 185,
+          "link": 228,
           "widget": {
             "name": "sampler_name"
           }
@@ -1585,9 +1580,25 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 186,
+          "link": 229,
           "widget": {
             "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 226,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 227,
+          "widget": {
+            "name": "cfg"
           }
         }
       ],
@@ -1596,7 +1607,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            170
+            230
           ],
           "shape": 3,
           "slot_index": 0
@@ -1606,7 +1617,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        894192261549471,
+        1107427023807751,
         "randomize",
         20,
         8,
@@ -1636,7 +1647,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 170
+          "link": 230
         },
         {
           "name": "vae",
@@ -1669,10 +1680,10 @@
         2866,
         48
       ],
-      "size": {
-        "0": 712.2599487304688,
-        "1": 806.3679809570312
-      },
+      "size": [
+        747.5659716796877,
+        854.6353674316408
+      ],
       "flags": {},
       "order": 21,
       "mode": 0,
@@ -1820,22 +1831,6 @@
       "INT"
     ],
     [
-      25,
-      8,
-      0,
-      14,
-      7,
-      "STRING"
-    ],
-    [
-      26,
-      8,
-      1,
-      14,
-      8,
-      "STRING"
-    ],
-    [
       37,
       16,
       0,
@@ -1866,46 +1861,6 @@
       41,
       0,
       "CHECKPOINT_NAME"
-    ],
-    [
-      147,
-      41,
-      0,
-      14,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
-      164,
-      39,
-      0,
-      49,
-      3,
-      "LATENT"
-    ],
-    [
-      165,
-      10,
-      0,
-      49,
-      5,
-      "INT"
-    ],
-    [
-      170,
-      49,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
-      171,
-      14,
-      0,
-      49,
-      1,
-      "CONDITIONING"
     ],
     [
       173,
@@ -2004,46 +1959,6 @@
       "FLOAT"
     ],
     [
-      185,
-      53,
-      0,
-      49,
-      8,
-      "COMBO"
-    ],
-    [
-      186,
-      53,
-      1,
-      49,
-      9,
-      "COMBO"
-    ],
-    [
-      187,
-      53,
-      2,
-      49,
-      6,
-      "INT"
-    ],
-    [
-      188,
-      53,
-      3,
-      49,
-      7,
-      "FLOAT"
-    ],
-    [
-      189,
-      53,
-      4,
-      49,
-      4,
-      "STRING"
-    ],
-    [
       190,
       10,
       0,
@@ -2065,22 +1980,6 @@
       1,
       39,
       2,
-      "INT"
-    ],
-    [
-      194,
-      54,
-      0,
-      14,
-      15,
-      "INT"
-    ],
-    [
-      195,
-      54,
-      1,
-      14,
-      16,
       "INT"
     ],
     [
@@ -2116,22 +2015,6 @@
       "VAE"
     ],
     [
-      200,
-      58,
-      0,
-      49,
-      0,
-      "MODEL"
-    ],
-    [
-      201,
-      58,
-      1,
-      14,
-      0,
-      "CLIP"
-    ],
-    [
       202,
       58,
       2,
@@ -2148,20 +2031,156 @@
       "STRING"
     ],
     [
-      204,
+      210,
+      58,
+      1,
+      62,
+      0,
+      "CLIP"
+    ],
+    [
+      211,
+      41,
+      0,
+      62,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      212,
       58,
       3,
-      14,
+      62,
       6,
       "STRING"
     ],
     [
-      205,
-      14,
+      213,
+      8,
+      0,
+      62,
+      7,
+      "STRING"
+    ],
+    [
+      214,
+      8,
       1,
-      49,
+      62,
+      8,
+      "STRING"
+    ],
+    [
+      215,
+      54,
+      0,
+      62,
+      16,
+      "INT"
+    ],
+    [
+      216,
+      54,
+      1,
+      62,
+      17,
+      "INT"
+    ],
+    [
+      219,
+      62,
+      0,
+      63,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      220,
+      62,
+      1,
+      63,
       2,
       "CONDITIONING"
+    ],
+    [
+      221,
+      39,
+      0,
+      63,
+      3,
+      "LATENT"
+    ],
+    [
+      222,
+      53,
+      4,
+      63,
+      4,
+      "STRING"
+    ],
+    [
+      223,
+      53,
+      4,
+      62,
+      9,
+      "STRING"
+    ],
+    [
+      224,
+      58,
+      0,
+      63,
+      0,
+      "MODEL"
+    ],
+    [
+      225,
+      10,
+      0,
+      63,
+      5,
+      "INT"
+    ],
+    [
+      226,
+      53,
+      2,
+      63,
+      8,
+      "INT"
+    ],
+    [
+      227,
+      53,
+      3,
+      63,
+      9,
+      "FLOAT"
+    ],
+    [
+      228,
+      53,
+      0,
+      63,
+      6,
+      "COMBO"
+    ],
+    [
+      229,
+      53,
+      1,
+      63,
+      7,
+      "COMBO"
+    ],
+    [
+      230,
+      63,
+      0,
+      16,
+      0,
+      "LATENT"
     ]
   ],
   "groups": [
@@ -2194,8 +2213,8 @@
       "bounding": [
         1811,
         20,
-        1022,
-        830
+        1034,
+        880
       ],
       "color": "#A88",
       "font_size": 24,
