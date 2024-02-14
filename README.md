@@ -69,15 +69,6 @@ Very basic workflow with less nodes, but using Comfy nodes too, maybe no need to
 
 <hr>
 
-# Compare attached workflows
-
-<a href="./Workflow/readme_details/howto_minmalwf.md" target="_blank"><img src="./Workflow/readme_images/howto_minmalwf.png" height="150px"></a>
-<a href="./Workflow/readme_details/howto_basicwf.md" target="_blank"><img src="./Workflow/readme_images/howto_basicwf.png" height="150px"></a>
-<a href="./Workflow/readme_details/howto_advwf.md" target="_blank"><img src="./Workflow/readme_images/howto_advwf.png" height="150px"></a>
-<a href="./Workflow/readme_details/howto_finalwf.md" target="_blank"><img src="./Workflow/readme_images/howto_finalwf.png" height="150px"></a>
-
-<hr>
-
 # Nodes in the pack by submenus:
 
 ## Visuals:
