@@ -62,10 +62,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 <hr>
 
-## About the simple basic workflow **Primere_basic_workflow.json**:
-Very basic workflow with less nodes, but using Comfy nodes too, maybe no need to download 3rd party nodes and models if you have right installed and updated ComfyUI:
-
-<a href="./Workflow/readme_images/nodelist_basic.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_basic.jpg" height="250px"></a>
+<a href="./Workflow/readme_details/WFComparison.md" target="_blank"><img src="./Workflow/readme_images/WFComparison.png" height="150px"></a>
 
 <hr>
 
