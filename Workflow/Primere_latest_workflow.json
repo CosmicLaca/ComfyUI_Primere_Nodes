@@ -101,7 +101,7 @@
         "Node name for S&R": "UpscaleModelLoader"
       },
       "widgets_values": [
-        "SwinIR\\SwinIR-M_x3.pth"
+        "SwinIR\\SwinIR-M_x8.pth"
       ],
       "color": "#232",
       "bgcolor": "#353"
