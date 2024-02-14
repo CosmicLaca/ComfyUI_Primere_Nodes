@@ -5,7 +5,36 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <a href="./Workflow/readme_images/latest_workflow.png" target="_blank"><img src="./Workflow/readme_images/latest_workflow.jpg" width="400px"></a>
 <hr>
 
-## Do it before first run, or the example workflow will be failed in your environment:
+## Special features in attached most complex workflow **Primere_latest_workflow.json**:
+- Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
+- No need to set nodes or workflow between SD and SDXL checkpoints
+- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt, same settings under the .csv Styles prompt loader node
+- You can randomize the image orientation if using batch mode
+- One button LCM and Turbo mode (see example workflow), the LCM mode download required SD and SDXL LCM models at first usage
+- Save image and .json and/or .txt file with process details, but these details saved to image as EXIF too
+- Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts like in A1111, example .csv included
+- Random noise generator for latent image, with special function to generate different but consistent images with locked seed 
+- Additional and easy editable styles included in the text encoder as list
+- Resolution selector by side ratios only, editable ratio source in external file, and auto detect checkpoint version for right final size
+- Image size can be convert to "standard" (x16) values, fully customizable side ratios at the bottom of the resolution selector node
+- Original image size multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and for Turbo checkpoints
+- Not just multiply original resolution by simple integer as multiplier, but can be define the final resolution by megapixels for all source image sizes
+- Remove previously included networks from prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included additional networks or change to different networks by nodes, or using SDXL checkpoint and Loras have to be changed to SDXL compatible version 
+- Embedding handler for A1111 compatible prompts (or .csv styles), this node convert A1111 Embeddings to ComfyUI
+- Use more than one prompt or style inputs for testing, compare and developing prompts, and select any by 'Prompt Switch' node
+- Special image meta/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images re-using same or different settings. With switches you can change or keep the original seed/model/size/etc... to workflow settings
+- Check/debug generation details by output nodes as text
+- Workflow and nodes support Lycoris in dedicated node, no need to copy them to Loras path
+- Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
+- Detailers support LCM and Turbo concepts
+- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
+- Midjourney art-style prompts can be attached to the original prompt
+
+## For the **Primere_latest_workflow** workflow needed 3rd party nodes, see the screenshot, the green is Primire, the red is 3rd party. Use 'Install missing cistom nodes' in Comfy menu or found git repo by name and clone.
+
+<a href="./Workflow/readme_images/nodelist_latest.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_latest.jpg" height="600px"></a>
+
+## Do it before first run, or the example workflow/nodes will be failed in your environment:
 
 **Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes if the previous workflow failed because nodes changed by develpment. This node contains most of developed nodes, but with 3rd party nodes and models required**
 
@@ -30,33 +59,6 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually with invalid input value. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
 
 11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
-
-## Special features in attached most complex workflow **Primere_latest_workflow.json**:
-- Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
-- No need to switch nodes or workflow between SD and SDXL mode
-- You can select model, subpath and orientation under the prompt input overwrite the system settings, same settings under the .csv Styles loader node
-- You can randomize the image orientation if using batch mode
-- One button LCM mode (see example workflow), the node download required SD and SDXL LCM models at first usage
-- Save .json and/or .txt file with process details, but these details saved to image as EXIF too
-- Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts, example .csv included
-- Random noise generator for latent image, with special finction to generate different, but consistent images with locked seed 
-- Additional and easy editable styles included in the text encoder as list
-- Resolution selector by side ratios only, editable ratio source in external file, and auto detect checkpoint version for right final size
-- Image size can be convert to "standard" (x16) values, fully customizable side ratios at the bottom of the resolution selector node
-- Original image size multiplied to upscaler by two several ratios, one for SD and another one for SDXL models
-- Remove previously included networks from prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included additional networks or change to different networks by nodes, or using SDXL checkpoint and Loras have to be changed to SDXL compatible version 
-- Embedding handler for A1111 compatible prompts (or .csv styles), this node convert A1111 Embeddings to ComfyUI
-- Use more than one prompt or style inputs for testing, and select any by 'Prompt Switch' node
-- Special image meta/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images using same or different settings. With switches you can change/keep the original seed/model/size/etc... to workflow settings
-- Check/debug generation details
-- Workflow and nodes support Lycoris in dedicated node
-- Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
-- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
-- Midjourney art-style prompt can be attached to the original prompt
-
-## For the **Primere_latest_workflow** workflow needed 3rd party nodes, see the screenshot, the green is Primire, the red is 3rd party. Use 'Install missing cistom nodes' in Comfy menu or found git repo by name and clone.
-
-<a href="./Workflow/readme_images/nodelist_latest.jpg" target="_blank"><img src="./Workflow/readme_images/nodelist_latest.jpg" height="600px"></a>
 
 <hr>
 
