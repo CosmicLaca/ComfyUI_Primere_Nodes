@@ -21,6 +21,7 @@ import comfy.sd
 import comfy.utils
 from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
+import comfy_extras.nodes_upscale_model as nodes_upscale_model
 
 class PrimereSamplers:
     CATEGORY = TREE_DASHBOARD
@@ -792,10 +793,11 @@ class PrimereResolution:
         return (dimension_x, dimension_y, square_shape,)
 
 class PrimereResolutionMultiplier:
-    RETURN_TYPES = ("INT", "INT", "FLOAT")
-    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO")
+    RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO", "IMAGE")
     FUNCTION = "multiply_imagesize"
     CATEGORY = TREE_DASHBOARD
+    upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
 
     @ classmethod
     def INPUT_TYPES(cls):
@@ -811,19 +813,27 @@ class PrimereResolutionMultiplier:
             "optional": {
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "triggered_prescale": ("BOOLEAN", {"default": False}),
+                "image": ("IMAGE", {"forceInput": True}),
+                "area_trigger_mpx": ("FLOAT", {"default": 0.60, "min": 0.01, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
+                "area_target_mpx": ("FLOAT", {"default": 1.05, "min": 0.25, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
+                "upscale_model": (['None'] + folder_paths.get_filename_list("upscale_models"), {"default": 'None'}),
+                "upscale_method": (cls.upscale_methods, {"default": 'bicubic'}),
             }
         }
 
-    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, multiply_turbo: float, model_version: str = "BaseModel_1024", model_concept: str = "Normal"):
+    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, multiply_turbo: float, model_version: str = "BaseModel_1024", model_concept: str = "Normal", triggered_prescale = False, image = None, area_trigger_mpx = 0.60, area_target_mpx = 1.05, upscale_model = 'None', upscale_method = 'bicubic'):
+        if use_multiplier == False:
+            return (width, height, 1, image)
+
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
                 is_sdxl = 1
 
-        if use_multiplier == False:
-            multiply_sd = 1
-            multiply_sdxl = 1
-            multiply_turbo = 1
+        if image is not None:
+            width = image.shape[2]
+            height = image.shape[1]
 
         if (is_sdxl == 1):
             dimension_x = round(width * multiply_sdxl)
@@ -839,14 +849,51 @@ class PrimereResolutionMultiplier:
             dimension_y = round(height * multiply_turbo)
             ratio = round(multiply_turbo, 2)
 
-        return (dimension_x, dimension_y, ratio)
+        if triggered_prescale == True and use_multiplier == True:
+            upscale_to_mpx = (dimension_x * dimension_y) / (1024 * 1024)
+            area_trigger = area_trigger_mpx * (1000 * 1000)
+            area_target = area_target_mpx * (1024 * 1024)
+            area = width * height
+            if area_trigger >= area:
+                sourceMPXTrigger = area
+                differenceTrigger = area_target / sourceMPXTrigger
+                squareDiffTrigger = math.sqrt(differenceTrigger)
+                if image is not None:
+                    if upscale_model == 'None':
+                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
+                    else:
+                        loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
+                        prescaledImage = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, image)[0]
+
+                    image = prescaledImage
+                    width = prescaledImage.shape[2]
+                    height = prescaledImage.shape[1]
+                    newArea = width * height
+
+                    if newArea > area_target:
+                        differenceTrigger = area_target / newArea
+                        squareDiffTrigger = math.sqrt(differenceTrigger)
+                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
+                        image = prescaledImage
+                        width = prescaledImage.shape[2]
+                        height = prescaledImage.shape[1]
+
+                    sourceMPX = (width * height) / (1024 * 1024)
+                    difference = upscale_to_mpx / sourceMPX
+                    squareDiff = math.sqrt(difference)
+                    dimension_x = round(width * squareDiff)
+                    dimension_y = round(height * squareDiff)
+                    ratio = round(squareDiff, 2)
+
+        return (dimension_x, dimension_y, ratio, image)
 
 
 class PrimereResolutionMultiplierMPX:
-    RETURN_TYPES = ("INT", "INT", "FLOAT")
-    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO")
+    RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO", "IMAGE")
     FUNCTION = "multiply_imagesize_mpx"
     CATEGORY = TREE_DASHBOARD
+    upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -856,21 +903,61 @@ class PrimereResolutionMultiplierMPX:
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
                 "upscale_to_mpx": ("FLOAT", {"default": 12.00, "min": 0.01, "max": 48.00, "step": 0.01}),
+            },
+            "optional": {
+                "triggered_prescale": ("BOOLEAN", {"default": False}),
+                "image": ("IMAGE", {"forceInput": True}),
+                "area_trigger_mpx": ("FLOAT", {"default": 0.60, "min": 0.01, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
+                "area_target_mpx": ("FLOAT", {"default": 1.05, "min": 0.25, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
+                "upscale_model": (['None'] + folder_paths.get_filename_list("upscale_models"), {"default": 'None'}),
+                "upscale_method": (cls.upscale_methods, {"default": 'bicubic'}),
             }
         }
 
-    def multiply_imagesize_mpx(self, width: int, height: int, use_multiplier: bool, upscale_to_mpx: int):
+    def multiply_imagesize_mpx(self, width: int, height: int, use_multiplier: bool, upscale_to_mpx: int, triggered_prescale = False, image = None, area_trigger_mpx = 0.60, area_target_mpx = 1.05, upscale_model = 'None', upscale_method = 'bicubic'):
         if use_multiplier == False or upscale_to_mpx < 0.01:
-            return (width, height, 1)
+            return (width, height, 1, image)
 
-        sourceMPX = (width * height) / 1000000
+        if image is not None:
+            width = image.shape[2]
+            height = image.shape[1]
+
+        if triggered_prescale == True and use_multiplier == True:
+            area_trigger = area_trigger_mpx * (1000 * 1000)
+            area_target = area_target_mpx * (1024 * 1024)
+            area = width * height
+            if area_trigger >= area:
+                sourceMPXTrigger = area
+                differenceTrigger = area_target / sourceMPXTrigger
+                squareDiffTrigger = math.sqrt(differenceTrigger)
+                if image is not None:
+                    if upscale_model == 'None':
+                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
+                    else:
+                        loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
+                        prescaledImage = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, image)[0]
+
+                    image = prescaledImage
+                    width = prescaledImage.shape[2]
+                    height = prescaledImage.shape[1]
+                    newArea = width * height
+
+                    if newArea > area_target:
+                        differenceTrigger = area_target / newArea
+                        squareDiffTrigger = math.sqrt(differenceTrigger)
+                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
+                        image = prescaledImage
+                        width = prescaledImage.shape[2]
+                        height = prescaledImage.shape[1]
+
+        sourceMPX = (width * height) / (1024 * 1024)
         difference = upscale_to_mpx / sourceMPX
         squareDiff = math.sqrt(difference)
         dimension_x = round(width * squareDiff)
         dimension_y = round(height * squareDiff)
         ratio = round(squareDiff, 2)
 
-        return (dimension_x, dimension_y, ratio)
+        return (dimension_x, dimension_y, ratio, image)
 
 class PrimereStepsCfg:
   RETURN_TYPES = ("INT", "FLOAT")

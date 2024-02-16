@@ -11,7 +11,7 @@ from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')

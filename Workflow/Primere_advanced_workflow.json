@@ -1,6 +1,6 @@
 {
-  "last_node_id": 87,
-  "last_link_id": 327,
+  "last_node_id": 90,
+  "last_link_id": 341,
   "nodes": [
     {
       "id": 4,
@@ -155,8 +155,8 @@
       "id": 51,
       "type": "UpscaleModelLoader",
       "pos": [
-        2848,
-        321
+        2850,
+        452
       ],
       "size": {
         "0": 330.50860595703125,
@@ -215,9 +215,9 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            161,
             190,
-            207
+            207,
+            330
           ],
           "shape": 3,
           "slot_index": 1
@@ -1001,7 +1001,8 @@
             267,
             299,
             301,
-            319
+            319,
+            331
           ],
           "shape": 3,
           "slot_index": 4
@@ -1077,7 +1078,7 @@
       },
       "widgets_values": [
         "",
-        909988300686168,
+        336169697390151,
         "randomize"
       ],
       "color": "#145414",
@@ -1132,7 +1133,7 @@
       },
       "widgets_values": [
         "",
-        195608673002421,
+        228784194136761,
         "randomize"
       ],
       "color": "#145414",
@@ -1397,9 +1398,9 @@
           "type": "INT",
           "links": [
             320,
-            322,
             324,
-            326
+            326,
+            336
           ],
           "shape": 3,
           "slot_index": 0
@@ -1409,9 +1410,9 @@
           "type": "INT",
           "links": [
             321,
-            323,
             325,
-            327
+            327,
+            337
           ],
           "shape": 3,
           "slot_index": 1
@@ -1437,7 +1438,7 @@
         false,
         1.6,
         2.8,
-        683989162442505,
+        528035498627384,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1524,103 +1525,16 @@
         1,
         0.8,
         1.4,
-        129060138033237,
+        217304124256765,
         "randomize",
         true,
         "cpu",
         false,
-        454595345786577,
+        783389310840565,
         "randomize"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 49,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        2848.3400439453126,
-        89.29990234374964
-      ],
-      "size": {
-        "0": 329.50860595703125,
-        "1": 194
-      },
-      "flags": {
-        "pinned": true
-      },
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 322,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 323,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 161,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            165
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            166
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [
-            167
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        512,
-        512,
-        true,
-        4,
-        3.2,
-        5,
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
     },
     {
       "id": 79,
@@ -1634,7 +1548,7 @@
         "1": 749.517578125
       },
       "flags": {},
-      "order": 24,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1863,15 +1777,15 @@
       "id": 19,
       "type": "PreviewImage",
       "pos": [
-        1819.2397509765617,
-        596.2399588775634
+        1821,
+        596
       ],
-      "size": {
-        "0": 335.4447021484375,
-        "1": 246
-      },
+      "size": [
+        332.1864376856274,
+        246
+      ],
       "flags": {},
-      "order": 25,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1898,7 +1812,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1985,7 +1899,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        161026638993733,
+        405582822287070,
         "randomize",
         20,
         8,
@@ -2009,7 +1923,7 @@
         "1": 203.63023376464844
       },
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -2040,7 +1954,7 @@
         "1": 203.63023376464844
       },
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2071,7 +1985,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2244,7 +2158,7 @@
       "widgets_values": [
         "",
         "",
-        1026,
+        1013,
         "randomize",
         "",
         "",
@@ -2276,7 +2190,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2297,7 +2211,7 @@
           "type": "IMAGE",
           "links": [
             37,
-            173
+            338
           ],
           "shape": 3,
           "slot_index": 0
@@ -2321,7 +2235,7 @@
         "1": 741.81298828125
       },
       "flags": {},
-      "order": 31,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2351,7 +2265,7 @@
         "1": 300.7713928222656
       },
       "flags": {},
-      "order": 32,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2367,11 +2281,123 @@
       "bgcolor": "#408080"
     },
     {
+      "id": 89,
+      "type": "PrimereResolutionMultiplier",
+      "pos": [
+        2849,
+        87
+      ],
+      "size": [
+        328.280979245862,
+        330
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 338
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 336,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 337,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 330,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 331,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            340
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            333
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [
+            334
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            341
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplier"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        4,
+        3.2,
+        4,
+        "BaseModel_1024",
+        "Normal",
+        false,
+        0.6,
+        3,
+        "None",
+        "bicubic"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
       "id": 50,
       "type": "UltimateSDUpscale",
       "pos": [
-        3193,
-        89
+        3192,
+        87
       ],
       "size": {
         "0": 304.6524658203125,
@@ -2384,7 +2410,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 173
+          "link": 341
         },
         {
           "name": "model",
@@ -2422,7 +2448,7 @@
         {
           "name": "tile_width",
           "type": "INT",
-          "link": 165,
+          "link": 340,
           "widget": {
             "name": "tile_width"
           }
@@ -2430,7 +2456,7 @@
         {
           "name": "tile_height",
           "type": "INT",
-          "link": 166,
+          "link": 333,
           "widget": {
             "name": "tile_height"
           }
@@ -2438,7 +2464,7 @@
         {
           "name": "upscale_by",
           "type": "FLOAT",
-          "link": 167,
+          "link": 334,
           "widget": {
             "name": "upscale_by"
           }
@@ -2497,7 +2523,7 @@
       },
       "widgets_values": [
         2,
-        453488398874015,
+        705483571264605,
         "randomize",
         20,
         8,
@@ -2817,52 +2843,12 @@
       "CHECKPOINT_NAME"
     ],
     [
-      161,
-      3,
-      1,
-      49,
-      2,
-      "STRING"
-    ],
-    [
       164,
       51,
       0,
       50,
       5,
       "UPSCALE_MODEL"
-    ],
-    [
-      165,
-      49,
-      0,
-      50,
-      7,
-      "INT"
-    ],
-    [
-      166,
-      49,
-      1,
-      50,
-      8,
-      "INT"
-    ],
-    [
-      167,
-      49,
-      2,
-      50,
-      9,
-      "FLOAT"
-    ],
-    [
-      173,
-      16,
-      0,
-      50,
-      0,
-      "IMAGE"
     ],
     [
       178,
@@ -3465,22 +3451,6 @@
       "INT"
     ],
     [
-      322,
-      87,
-      0,
-      49,
-      0,
-      "INT"
-    ],
-    [
-      323,
-      87,
-      1,
-      49,
-      1,
-      "INT"
-    ],
-    [
       324,
       87,
       0,
@@ -3511,6 +3481,78 @@
       57,
       14,
       "INT"
+    ],
+    [
+      330,
+      3,
+      1,
+      89,
+      3,
+      "STRING"
+    ],
+    [
+      331,
+      71,
+      4,
+      89,
+      4,
+      "STRING"
+    ],
+    [
+      333,
+      89,
+      1,
+      50,
+      8,
+      "INT"
+    ],
+    [
+      334,
+      89,
+      2,
+      50,
+      9,
+      "FLOAT"
+    ],
+    [
+      336,
+      87,
+      0,
+      89,
+      1,
+      "INT"
+    ],
+    [
+      337,
+      87,
+      1,
+      89,
+      2,
+      "INT"
+    ],
+    [
+      338,
+      16,
+      0,
+      89,
+      0,
+      "IMAGE"
+    ],
+    [
+      340,
+      89,
+      0,
+      50,
+      7,
+      "INT"
+    ],
+    [
+      341,
+      89,
+      3,
+      50,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
