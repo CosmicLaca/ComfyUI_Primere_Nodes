@@ -7,26 +7,27 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Special features in attached most complex workflow **Primere_latest_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
-- No need to set nodes or workflow between SD and SDXL checkpoints
-- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt, same settings under the .csv Styles prompt loader node
+- No need to set/switch nodes or workflow between SD and SDXL checkpoints
+- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt node, same settings under the .csv prompt loader node
 - You can randomize the image orientation if using batch mode
 - One button LCM and Turbo mode (see example workflow), the LCM mode download required SD and SDXL LCM models at first usage
-- Save image and .json and/or .txt file with process details, but these details saved to image as EXIF too
-- Read original A1111 style.csv file, handle dynamic prompts and additional networks from the prompts like in A1111, example .csv included
-- Random noise generator for latent image, with special function to generate different but consistent images with locked seed 
-- Additional and easy editable styles included in the text encoder as list
-- Resolution selector by side ratios only, editable ratio source in external file, and auto detect checkpoint version for right final size
-- Image size can be convert to "standard" (x16) values, fully customizable side ratios at the bottom of the resolution selector node
-- Original image size multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and for Turbo checkpoints
-- Not just multiply original resolution by simple integer as multiplier, but can be define the final resolution by megapixels for all source image sizes
-- Remove previously included networks from prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included additional networks or change to different networks by nodes, or using SDXL checkpoint and Loras have to be changed to SDXL compatible version 
+- Save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF too
+- Read original A1111 styles.csv file, handle dynamic prompts and additional networks from the text content of prompts like in A1111, example dynamic styles.csv included
+- Random noise generator for latent image, with special function to generate different but consistent images with locked seed with adjustable difference between min and max values 
+- Additional and easy editable image styles included in the text encoder as list
+- Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
+- Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node
+- Original image size multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and third for Turbo checkpoints
+- Not just multiply original resolution by integer as multiplier, but can be define the final resolution by megapixels ffrom any image sizes
+- Image size multiplier can solve low memory error problem if using Ultimate SD Upscaler 
+- Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included networks or want to change to different networks, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
 - Embedding handler for A1111 compatible prompts (or .csv styles), this node convert A1111 Embeddings to ComfyUI
-- Use more than one prompt or style inputs for testing, compare and developing prompts, and select any by 'Prompt Switch' node
-- Special image meta/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images re-using same or different settings. With switches you can change or keep the original seed/model/size/etc... to workflow settings
-- Check/debug generation details by output nodes as text
+- Use more than one prompt or style inputs for testing, comparison and developing new prompts, and select any by 'Prompt Switch' node
+- Special image META/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images and re-using them with same or different settings. With switches you can change or keep the original embedd seed/model/size/etc... to workflow settings
+- Realtime check/debug generation details by nodes as text
 - Workflow and nodes support Lycoris in dedicated node, no need to copy them to Loras path
-- Detailers and refiners for face, eye, hands, mouth, fashion wear, etc...
-- Detailers support LCM and Turbo concepts
+- Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result
+- Detailers automatically detect and support LCM and Turbo concepts
 - Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
 - Midjourney art-style prompts can be attached to the original prompt
 
@@ -34,29 +35,31 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Do it before first run, or the example workflow / nodes will be failed in your local environment:
 
-**Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull changes if the previous workflow failed because nodes changed by develpment. This node contains most of developed nodes, but with 3rd party nodes and models required**
+**Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull if the previous workflow failed because nodes changed by develpment. This node contains most of developed nodes, but 3rd party nodes and models required**
 
 1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually).
 
-2; If started, use the Primere_latest_workflow or Primere_basic_workflow on the 'Workflow' folder for first try, all separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
+2; If nodepack started, use the Primere_latest_workflow or Primere_basic_workflow on the 'Workflow' folder for first try. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
-3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is a really basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
+3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or the minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
 4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
-5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 style .csv file if you want to use your custom 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
+5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 .csv file if you want to use your custom 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
 
 6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values on all input fields from your own environment.
 
 7; Choose your own image from your machine to the 'Primere Exif Reader'.
 
-8; **Update your Comfy to latest version** if workflow failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version only.
+8; **Update your Comfy to latest version** if workflow failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
 
-9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved workflow if required. **'Fix node (recreate)'** menu will keep previous connections.
+9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved custom workflow if required. **'Fix node (recreate)'** menu will keep previous connections.
 
 10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually with invalid input value. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
 
 11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
+
+12; Don't overwrite attached example workflows, because the git pull will write back to the original. Ff you modify, save as them to another name and path. 
 
 <hr>
 
@@ -394,13 +397,27 @@ This node generate 'empty' latent image, but with several noise settings, what c
 ### Primere Resolution Multiplier:
 Multiply the base image size for upscaling. Important to use 'model_version' and 'model_concept' if you want to use several multipliers for Turbo, SD and SDXL models. Just switch off 'use_multiplier' on this node if you don't need to resize the original image.
 
-<a href="./Workflow/readme_images/presmul.jpg" target="_blank"><img src="./Workflow/readme_images/presmul.jpg" height="140px"></a>
+If your upscaler failed becuse low memory error, try to switch on 'triggered_prescale' and set right values to the input fields under this switch. This function resize the source image before upscaling to right size:
+
+- **area_trigger_mpx:** the value of the image area in megapixels when the 'pre-scale' process run. For example if your original image based on 512px, the source image area in megapixels = 0.26. If you set this value to 0.55, your 512 based images will be processed, but 768 (0.58 mpx) and larger pictures will be ignored.
+- **area_target_mpx:** the value to resize the source image before sending to the upscaler in megapixels. If you use this function, and for example want to upscale your 512 based image to 6-8 times larger but the upscaler failed, resize the source to 2mpx (or 3mpx) before upscaling.
+- **upscale_model:** set the upscale model instead of interpolation (upscale_method input). **Warning: the selected upscale model will resize your source image by fix ratio. For example '4x-UltraSharp' will resize you image by ratio 4 to 4 times larger.**
+- **upscale_method:** if you don't want to use upscale_model, what mean set the previous combo to 'None', here you can seleect the interpolation method, the source image will be resize to the value of 'area_target_mpx' input.
+
+<a href="./Workflow/readme_images/presmul.jpg" target="_blank"><img src="./Workflow/readme_images/presmul.jpg" height="200px"></a>
 <hr>
 
 ### Primere Resolution MPX:
 Multiply the base image size for upscaling. This node upscale original images to the value of megapixels (upscale_to_mpx). No need to use model concepts or versions, just the original image size needed. Just switch off 'use_multiplier' on this node if you don't need to resize the original image.
 
-<a href="./Workflow/readme_images/presmulmpx.jpg" target="_blank"><img src="./Workflow/readme_images/presmulmpx.jpg" height="120px"></a>
+If your upscaler failed becuse low memory error, try to switch on 'triggered_prescale' and set right values to the input fields under this switch. This function resize the source image before upscaling to right size:
+
+- **area_trigger_mpx:** the value of the image area in megapixels when the 'pre-scale' process run. For example if your original image based on 512px, the source image area in megapixels = 0.26. If you set this value to 0.55, your 512 based images will be processed, but 768 (0.58 mpx) and larger pictures will be ignored.
+- **area_target_mpx:** the value to resize the source image before sending to the upscaler in megapixels. If you use this function, and for example want to upscale your 512 based image to 10-12 megapixels or larger but the upscaler failed, resize the source to 2 mpx (or 3-4 mpx) before upscaling.
+- **upscale_model:** set the upscale model instead of interpolation (upscale_method input). **Warning: the selected upscale model will resize your source image by fix ratio. For example '4x-UltraSharp' will resize you image by ratio 4 to 4 times larger.**
+- **upscale_method:** if you don't want to use upscale_model, what mean set the previous combo to 'None', here you can seleect the interpolation method, the source image will be resize to the value of 'area_target_mpx' input.
+
+<a href="./Workflow/readme_images/presmulmpx.jpg" target="_blank"><img src="./Workflow/readme_images/presmulmpx.jpg" height="180px"></a>
 <hr>
 
 ### Primere Prompt Cleaner:
