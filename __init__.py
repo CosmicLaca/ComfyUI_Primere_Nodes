@@ -84,6 +84,7 @@ NODE_CLASS_MAPPINGS = {
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
+    "PrimereEmotionsStyles": Styles.PrimereEmotionsStyles,
 
     "PrimereVisualCKPT": Visuals.PrimereVisualCKPT,
     "PrimereVisualLORA": Visuals.PrimereVisualLORA,
@@ -143,6 +144,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",
+    "PrimereEmotionsStyles": "Primere Emotions Styles",
 
     "PrimereVisualCKPT": "Primere Visual CKPT Selector",
     "PrimereVisualLORA": "Primere Visual LORA Selector",

@@ -1,0 +1,78 @@
+[Love]
+   [Love.N_1]
+      MainStyle = "Love"
+      SubStyle = "Lust"
+      Positive = "Lust is a psychological force producing intense desire for something, or circumstance while already having a significant amount of the desired object. Lust can take any form such as the lust for sexuality, money, or power. It can take such mundane forms as the lust for food as distinct from the need for food or lust for redolence."
+   [Love.N_2]
+      MainStyle = "Love"
+      SubStyle = "Sexual desire"
+      Positive = "Sexual desire is an emotion and motivational state characterized by an interest in sexual objects or activities, or by a drive to seek out sexual objects or to engage in sexual activities. It is an aspect of sexuality, which varies significantly from one person to another and also fluctuates depending on circumstances."
+   [Love.N_3]
+      MainStyle = "Love"
+      SubStyle = "Longing"
+      Positive = "Longing an earnest and deep, not greatly passionate, but rather melancholic desire. A wistful or melancholy longing."
+   [Love.N_4]
+      MainStyle = "Love"
+      SubStyle = "Affection"
+      Positive = "Affection or fondness is a disposition or state of mind or body commonly linked to a feeling or type of love. It has led to multiple branches in philosophy and psychology that discuss emotion, disease, influence, and state of being. Affection denotes more than mere goodwill or friendship."
+   [Love.N_5]
+      MainStyle = "Love"
+      SubStyle = "Reciprocal liking"
+      Positive = "Reciprocal liking, also known as reciprocity of attraction, is the act of a person feeling an attraction to someone only upon learning or becoming aware of that person's attraction to themselves. Reciprocal liking has a significant impact on human attraction and the formation of relationships. People that reciprocally have a liking for each other typically initiate or develop a friendship or romantic relationship. Feelings of admiration, affection, love, and respect are characteristics for reciprocal liking between the two individuals."
+   [Love.N_6]
+      MainStyle = "Love"
+      SubStyle = "Caring"
+      Positive = "Kind, sensitive, or empathetic."
+   [Love.N_7]
+      MainStyle = "Love"
+      SubStyle = "Tenderness"
+      Positive = "A tendency to express warm, compassionate feelings."
+   [Love.N_8]
+      MainStyle = "Love"
+      SubStyle = "Sentimentality"
+      Positive = "Sentimentality originally indicated the reliance on feelings as a guide to truth, but in current usage the term commonly connotes a reliance on shallow, uncomplicated emotions at the expense of reason."
+   [Love.N_9]
+      MainStyle = "Love"
+      SubStyle = "Passion"
+      Positive = "Passion is a term used to denote strong and intractable or barely controllable emotion or inclination with respect to a particular person or thing. Passion range from eager interest in, or admiration for, an idea, proposal, or cause to enthusiastic enjoyment of an interest or activity; to strong attraction, excitement, or emotion towards a person."
+   [Love.N_10]
+      MainStyle = "Love"
+      SubStyle = "Infatuation"
+      Positive = "Infatuation or being smitten is the state of being carried away by an unreasoned passion, usually towards another person for whom one has developed strong romantic feelings. Infatuation can be distinguished from romantic love only when looking back on a particular case of being attracted to a person. Infatuation may also develop into a mature love."
+[Melancholic]
+   [Melancholic.N_1]
+      MainStyle = "Melancholic"
+      SubStyle = "Melancholia"
+      Positive = "Melancholia describes a condition characterized by markedly depressed mood, bodily complaints, and sometimes hallucinations and delusions. Melancholia includes all mental illness, which he divides into different types."
+   [Melancholic.N_2]
+      MainStyle = "Melancholic"
+      SubStyle = "Saudade"
+      Positive = "Saudade is an emotional state of melancholic or profoundly nostalgic longing for a beloved yet absent something or someone. It is often associated with a repressed understanding that one might never encounter the object of longing ever again. It is a recollection of feelings, experiences, places, or events, often elusive, that cause a sense of separation from the exciting, pleasant, or joyous sensations they once caused."
+   [Melancholic.N_3]
+      MainStyle = "Melancholic"
+      SubStyle = "Grief"
+      Positive = "Grief is the response to the loss of something deemed important, particularly to the loss of someone or some living thing that has died, to which a bond or affection was formed. Although conventionally focused on the emotional response to loss, grief also has physical, cognitive, behavioral, social, cultural, spiritual and philosophical dimensions. While the terms are often used interchangeably, bereavement refers to the state of loss, while grief is the reaction to that loss."
+   [Melancholic.N_4]
+      MainStyle = "Melancholic"
+      SubStyle = "Han"
+      Positive = "Han or haan is a concept of an emotion, variously described as some form of grief or resentment, among others, that is said to be an essential element of Korean identity by some, and a modern post-colonial identity by others."
+   [Melancholic.N_5]
+      MainStyle = "Melancholic"
+      SubStyle = "Hiraeth"
+      Positive = "It is a mixture of longing, yearning, nostalgia, wistfulness or an earnest desire."
+   [Melancholic.N_6]
+      MainStyle = "Melancholic"
+      SubStyle = "Mono no aware"
+      Positive = "Mono no aware the pathos of things', empathy toward things, a sensitivity to ephemera. Transience of things, and both a transient gentle sadness or wistfulness at their passing as well as a longer, deeper gentle sadness about this state being the reality of life."
+   [Melancholic.N_7]
+      MainStyle = "Melancholic"
+      SubStyle = "Nostalgia"
+      Positive = "Nostalgia is a sentimentality for the past, typically for a period or place with happy personal associations. Nostalgia is associated with a longing for the past, personalities, possibilities, and events, especially the good old days or a warm childhood."
+   [Melancholic.N_8]
+      MainStyle = "Melancholic"
+      SubStyle = "Sehnsucht"
+      Positive = "Sehnsucht longing, desire, yearning, or craving. Some psychologists use the word to represent thoughts and feelings about all facets of life that are unfinished or imperfect, paired with a yearning for ideal alternative experiences."
+[Melancholic.N_9]
+      MainStyle = "Melancholic"
+      SubStyle = "Good old days"
+      Positive = "Good old days is reference a time considered by the speaker to be better than the current era. It is a form of nostalgia which can reflect homesickness or yearning for long-gone moments. There is a predisposition, caused by cognitive biases such as rosy retrospection, a form of survivorship bias, for people to view the past more favourably and future more negatively."

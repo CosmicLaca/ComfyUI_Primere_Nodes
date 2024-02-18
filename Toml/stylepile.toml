@@ -1,24 +1,27 @@
-[art-type.None]
-positive = ''
-negative = ''
 [art-type.3d-rendering]
-positive = 'Professional 3D rendering,CGSociety,ArtStation'
-negative = '((Wireframe)),Polygons,Screenshot,Character design,Software,UI'
+    StyleName = "3d-rendering"
+    Positive = 'Professional 3D rendering,CGSociety,ArtStation'
+    Negative = '((Wireframe)),Polygons,Screenshot,Character design,Software,UI'
 [art-type.digital-artwork]
-positive = 'Digital Artwork,CGSociety,ArtStation'
-negative = 'Scribbles,Low quality,Low rated,Mediocre,3D rendering,Screenshot,Software,UI'
+    StyleName = "digital-artwork"
+    Positive = 'Digital Artwork,CGSociety,ArtStation'
+    Negative = 'Scribbles,Low quality,Low rated,Mediocre,3D rendering,Screenshot,Software,UI'
 [art-type.drawing]
-positive = 'Drawing'
-negative = 'Low quality,Photo,Artifacts,Table,Paper,Pencils,Pages,Wall'
+    StyleName = "drawing"
+    Positive = 'Drawing'
+    Negative = 'Low quality,Photo,Artifacts,Table,Paper,Pencils,Pages,Wall'
 [art-type.painting]
-positive = 'Painting'
-negative = 'Low quality,Bad composition,Faded,(Photo:1.5),(Frame:1.3)'
+    StyleName = "painting"
+    Positive = 'Painting'
+    Negative = 'Low quality,Bad composition,Faded,(Photo:1.5),(Frame:1.3)'
 [art-type.photo]
-positive = 'Photo,Highly Detailed'
-negative = 'Low rated,Phone,Wedding,Frame,Painting,tumblr'
+    StyleName = "photo"
+    Positive = 'Photo, Highly Detailed'
+    Negative = 'Low rated,Phone,Wedding,Frame,Painting,tumblr'
 [art-type.vector-art]
-positive = 'Vector art'
-negative = '(Watermark:1.5),(Text:1.3)'
+    StyleName = "vector-art"
+    Positive = 'Vector art'
+    Negative = '(Watermark:1.5),(Text:1.3)'
 [concepts]
 concepts = [
     "Acclaimed",
