@@ -17,6 +17,8 @@ from pathlib import Path
 import random
 import string
 from .modules.adv_encode import advanced_encode
+from ..components import stylehandler
+from .Styles import StyleParser
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
@@ -199,11 +201,14 @@ class PrimereStyleLoader:
     @classmethod
     def INPUT_TYPES(cls):
         STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+        STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+        STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
 
-        try:
-            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.csv"))
-        except Exception:
-            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.example.csv"))
+        if Path(STYLE_FILE).is_file() == True:
+            STYLE_SOURCE = STYLE_FILE
+        else:
+            STYLE_SOURCE = STYLE_FILE_EXAMPLE
+        cls.styles_csv = cls.load_styles_csv(STYLE_SOURCE)
 
         return {
             "required": {
@@ -887,3 +892,64 @@ class PrimereLycorisKeywordMerger:
                 model_keyword = [model_keyword_3, placement]
 
         return (model_keyword,)
+
+class PrimerePromptOrganizer:
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("STYLE+", "STYLE-", "SUBPATH", "MODEL", "ORIENTATION")
+    FUNCTION = "prompt_organizer"
+    CATEGORY = TREE_INPUTS
+
+    @ classmethod
+    def INPUT_TYPES(cls):
+        DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
+        STYLE_FILE = os.path.join(DEF_TOML_DIR, "prompts.toml")
+        STYLE_FILE_EXAMPLE = os.path.join(DEF_TOML_DIR, "prompts.example.toml")
+
+        if Path(STYLE_FILE).is_file() == True:
+            STYLE_SOURCE = STYLE_FILE
+        else:
+            STYLE_SOURCE = STYLE_FILE_EXAMPLE
+        STYLE_RESULT = stylehandler.toml2node(STYLE_SOURCE, False, ['prefered_model', 'prefered_orientation'])
+
+        additionalDict = {
+                "use_subpath": ("BOOLEAN", {"default": False}),
+                "use_model": ("BOOLEAN", {"default": False}),
+                "use_orientation": ("BOOLEAN", {"default": False}),
+            }
+
+        MERGED_REQ = utility.merge_dict(additionalDict, STYLE_RESULT[0])
+        INPUT_DICT_FINAL = {'required': MERGED_REQ}
+        cls.STYLE_PROMPTS_POS = STYLE_RESULT[1]
+        cls.STYLE_PROMPTS_NEG = STYLE_RESULT[2]
+        cls.RAW_STYLE = STYLE_RESULT[3]
+
+        cls.INPUT_DICT_RESULT = INPUT_DICT_FINAL
+        return cls.INPUT_DICT_RESULT
+
+    def prompt_organizer(self, opt_pos_style = None, opt_neg_style = None, use_subpath = False, use_model = False, use_orientation = False, **kwargs):
+        input_data = kwargs
+        original = self
+        style_text_result = StyleParser(opt_pos_style, opt_neg_style, input_data, original)
+
+        prefered_subpath = None
+        prefered_model = None
+        prefered_orientation = None
+
+        if use_subpath == True or use_model == True or use_orientation == True:
+            for inputKey, inputValue in input_data.items():
+                if inputValue != 'None':
+                    DataKey = inputKey.upper()
+                    if DataKey in self.RAW_STYLE:
+                        DataSection = self.RAW_STYLE[DataKey]
+                        ValueList = inputValue.split('::')
+                        for DataSectionKey, DataSectionDict in DataSection.items():
+                            SectionName = DataSectionDict['Name']
+                            if SectionName == ValueList[-1]:
+                                if DataSectionDict['prefered_subpath'] != '' and use_subpath == True:
+                                    prefered_subpath = DataSectionDict['prefered_subpath']
+                                if DataSectionDict['prefered_model'] != '' and use_model == True:
+                                    prefered_model = DataSectionDict['prefered_model']
+                                if DataSectionDict['prefered_orientation'] != '' and use_orientation == True:
+                                    prefered_orientation = DataSectionDict['prefered_orientation']
+
+        return (style_text_result[0], style_text_result[1], prefered_subpath, prefered_model, prefered_orientation)

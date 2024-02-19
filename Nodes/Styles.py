@@ -101,8 +101,8 @@ class PrimereEmotionsStyles:
         return (style_text_result[0], style_text_result[1],)
 
 def StyleParser(opt_pos_style, opt_neg_style, input_data, original):
-    opt_pos_style = f'({opt_pos_style})' if opt_pos_style is not None and opt_pos_style.strip(' ,;') != '' else ''
-    opt_neg_style = f'({opt_neg_style})' if opt_neg_style is not None and opt_neg_style.strip(' ,;') != '' else ''
+    opt_pos_style = f'{opt_pos_style}' if opt_pos_style is not None and opt_pos_style.strip(' ,;') != '' else ''
+    opt_neg_style = f'{opt_neg_style}' if opt_neg_style is not None and opt_neg_style.strip(' ,;') != '' else ''
 
     final_style_string_pos = ''
     final_style_string_neg = ''
@@ -117,12 +117,10 @@ def StyleParser(opt_pos_style, opt_neg_style, input_data, original):
                 style_strength = input_data.get(strength_key)
                 style_prompt_pos = input_data.get(inputKey)
 
-            if style_strength != 1:
-                style_string_pos = f'({style_prompt_pos}:{style_strength:.2f})' if style_prompt_pos is not None and style_prompt_pos != 'None' and style_prompt_pos.strip(
-                    ' ,;') != '' else ''
+            if style_strength != 1 and style_strength is not None:
+                style_string_pos = f'({style_prompt_pos}:{style_strength:.2f})' if style_prompt_pos is not None and style_prompt_pos != 'None' and style_prompt_pos.strip(' ,;') != '' else ''
             else:
-                style_string_pos = f'({style_prompt_pos})' if style_prompt_pos is not None and style_prompt_pos != 'None' and style_prompt_pos.strip(
-                    ' ,;') != '' else ''
+                style_string_pos = f'{style_prompt_pos}' if style_prompt_pos is not None and style_prompt_pos != 'None' and style_prompt_pos.strip(' ,;') != '' else ''
             final_style_string_pos += style_string_pos + ', '
 
             if (inputValue != 'None' and inputValue in original.STYLE_PROMPTS_NEG):
@@ -132,12 +130,10 @@ def StyleParser(opt_pos_style, opt_neg_style, input_data, original):
             else:
                 style_prompt_neg = None
 
-            if style_strength != 1:
-                style_string_neg = f'({style_prompt_neg}:{style_strength:.2f})' if style_prompt_neg is not None and style_prompt_neg != 'None' and style_prompt_neg.strip(
-                    ' ,;') != '' else ''
+            if style_strength != 1 and style_strength is not None:
+                style_string_neg = f'({style_prompt_neg}:{style_strength:.2f})' if style_prompt_neg is not None and style_prompt_neg != 'None' and style_prompt_neg.strip(' ,;') != '' else ''
             else:
-                style_string_neg = f'({style_prompt_neg})' if style_prompt_neg is not None and style_prompt_neg != 'None' and style_prompt_neg.strip(
-                    ' ,;') != '' else ''
+                style_string_neg = f'{style_prompt_neg}' if style_prompt_neg is not None and style_prompt_neg != 'None' and style_prompt_neg.strip(' ,;') != '' else ''
             final_style_string_neg += style_string_neg + ', '
 
     positive_text = f'{opt_pos_style}, {final_style_string_pos}'.strip(' ,;').replace(", , ", ", ").replace(", , ",", ").replace(", , ", ", ").replace(", , ", ", ")

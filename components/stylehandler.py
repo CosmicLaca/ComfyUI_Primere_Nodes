@@ -5,7 +5,7 @@ def get_all_styles(toml_path: str):
         style_def_neg = tomli.load(f)
     return style_def_neg
 
-def toml2node(tomlpath):
+def toml2node(tomlpath, add_stength = True, exclude_names = []):
     STYLE = get_all_styles(tomlpath)
     STYLES = ['None']
     INPUT_DICT = {}
@@ -20,7 +20,7 @@ def toml2node(tomlpath):
 
         for Key in KeyList:
             if Key in STYLE[STYLE_ONE]:
-                if len(list(STYLE[STYLE_ONE].keys())) > 0 and isinstance(STYLE[STYLE_ONE][Key], dict) == True:
+                if len(list(STYLE[STYLE_ONE].keys())) > 0 and isinstance(STYLE[STYLE_ONE][Key], dict):
                     if len(list(STYLE[STYLE_ONE][Key].keys())) > 0:
                         LAST_KEY = list(STYLE[STYLE_ONE][Key].keys())[-1]
                         SECONT_TO_LAST_KEY = list(STYLE[STYLE_ONE][Key].keys())[-2]
@@ -28,19 +28,20 @@ def toml2node(tomlpath):
                         PROMPT_POS = ""
                         PROMPT_NEG = ""
                         for StyleKey in STYLE[STYLE_ONE][Key].keys():
-                            if StyleKey != LAST_KEY and StyleKey.lower() != 'positive' and StyleKey.lower() != 'negative':
-                                LISTVALUE = LISTVALUE + STYLE[STYLE_ONE][Key][StyleKey] + '::'
-                                LISTVALUE = LISTVALUE.replace('::::', '::')
-                            else:
-                                if LAST_KEY.lower() == 'positive' and StyleKey.lower() == 'positive':
-                                    PROMPT_POS = STYLE[STYLE_ONE][Key][StyleKey]
-                                if LAST_KEY.lower() == 'negative' and StyleKey.lower() == 'negative':
-                                    PROMPT_NEG = STYLE[STYLE_ONE][Key][StyleKey]
+                            if StyleKey not in exclude_names:
+                                if StyleKey != LAST_KEY and StyleKey.lower() != 'positive' and StyleKey.lower() != 'negative':
+                                    LISTVALUE = LISTVALUE + STYLE[STYLE_ONE][Key][StyleKey] + '::'
+                                    LISTVALUE = LISTVALUE.replace('::::', '::')
+                                else:
+                                    if LAST_KEY.lower() == 'positive' and StyleKey.lower() == 'positive':
+                                        PROMPT_POS = STYLE[STYLE_ONE][Key][StyleKey]
+                                    if LAST_KEY.lower() == 'negative' and StyleKey.lower() == 'negative':
+                                        PROMPT_NEG = STYLE[STYLE_ONE][Key][StyleKey]
 
-                                if SECONT_TO_LAST_KEY.lower() == 'positive' and StyleKey.lower() == 'positive':
-                                    PROMPT_POS = STYLE[STYLE_ONE][Key][StyleKey]
-                                if SECONT_TO_LAST_KEY.lower() == 'negative' and StyleKey.lower() == 'negative':
-                                    PROMPT_NEG = STYLE[STYLE_ONE][Key][StyleKey]
+                                    if SECONT_TO_LAST_KEY.lower() == 'positive' and StyleKey.lower() == 'positive':
+                                        PROMPT_POS = STYLE[STYLE_ONE][Key][StyleKey]
+                                    if SECONT_TO_LAST_KEY.lower() == 'negative' and StyleKey.lower() == 'negative':
+                                        PROMPT_NEG = STYLE[STYLE_ONE][Key][StyleKey]
 
                         LISTVALUE = LISTVALUE.strip(':')
                         LIST.append(LISTVALUE)
@@ -51,6 +52,7 @@ def toml2node(tomlpath):
                     STYLES = (['None'] + sorted(STYLE[Key][Key]),)
 
             INPUT_DICT[STYLE_KEY] = STYLES
-            INPUT_DICT[STYLE_KEY + '_strength'] = STRENGHT
+            if add_stength == True:
+                INPUT_DICT[STYLE_KEY + '_strength'] = STRENGHT
 
-    return (INPUT_DICT, LIST_DICT_POS, LIST_DICT_NEG,)
+    return (INPUT_DICT, LIST_DICT_POS, LIST_DICT_NEG, STYLE,)

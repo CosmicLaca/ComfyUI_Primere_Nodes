@@ -1,13 +1,13 @@
 {
-  "last_node_id": 90,
-  "last_link_id": 341,
+  "last_node_id": 91,
+  "last_link_id": 347,
   "nodes": [
     {
       "id": 4,
       "type": "PrimereVisualStyle",
       "pos": [
-        26,
-        489
+        -318.4921188297171,
+        490.39474092737163
       ],
       "size": {
         "0": 360.3917236328125,
@@ -81,8 +81,8 @@
       "id": 1,
       "type": "PrimerePrompt",
       "pos": [
-        28.113382586669896,
-        91.1530190124512
+        -316.37873624304723,
+        92.54775993982285
       ],
       "size": {
         "0": 358.3917236328125,
@@ -95,9 +95,7 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
-          "links": [
-            1
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 0
         },
@@ -567,126 +565,53 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 5,
-      "type": "PrimerePromptSwitch",
+      "id": 91,
+      "type": "PrimerePromptOrganizer",
       "pos": [
-        398.11338258667007,
-        91.1530190124512
+        49,
+        93
       ],
-      "size": {
-        "0": 273,
-        "1": 338
-      },
+      "size": [
+        339.91952489427274,
+        426
+      ],
       "flags": {},
       "order": 11,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt_pos_1",
-          "type": "STRING",
-          "link": 1
-        },
-        {
-          "name": "prompt_neg_1",
-          "type": "STRING",
-          "link": 2
-        },
-        {
-          "name": "subpath_1",
-          "type": "STRING",
-          "link": 3
-        },
-        {
-          "name": "model_1",
-          "type": "STRING",
-          "link": 4
-        },
-        {
-          "name": "orientation_1",
-          "type": "STRING",
-          "link": 5
-        },
-        {
-          "name": "prompt_pos_2",
-          "type": "STRING",
-          "link": 6
-        },
-        {
-          "name": "prompt_neg_2",
-          "type": "STRING",
-          "link": 7
-        },
-        {
-          "name": "subpath_2",
-          "type": "STRING",
-          "link": 8
-        },
-        {
-          "name": "model_2",
-          "type": "STRING",
-          "link": 9
-        },
-        {
-          "name": "orientation_2",
-          "type": "STRING",
-          "link": 10
-        },
-        {
-          "name": "prompt_pos_3",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "prompt_neg_3",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "subpath_3",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_3",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "orientation_3",
-          "type": "STRING",
-          "link": null
-        }
-      ],
       "outputs": [
         {
-          "name": "PROMPT+",
+          "name": "STYLE+",
           "type": "STRING",
           "links": [
-            11
+            342
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
-          "name": "PROMPT-",
+          "name": "STYLE-",
           "type": "STRING",
           "links": [
-            12
+            343
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
           "links": [
-            312
+            344
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 2
         },
         {
           "name": "MODEL",
           "type": "STRING",
           "links": [
-            196
+            345,
+            346
           ],
           "shape": 3,
           "slot_index": 3
@@ -695,23 +620,29 @@
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [
-            197
+            347
           ],
           "shape": 3,
           "slot_index": 4
-        },
-        {
-          "name": "SELECTED_INDEX",
-          "type": "INT",
-          "links": null,
-          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimerePromptSwitch"
+        "Node name for S&R": "PrimerePromptOrganizer"
       },
       "widgets_values": [
-        2
+        false,
+        false,
+        false,
+        "Architechture::Minimal interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -1030,111 +961,176 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 6,
-      "type": "PrimereDynamicParser",
+      "id": 5,
+      "type": "PrimerePromptSwitch",
       "pos": [
-        398,
-        466
+        404,
+        95
       ],
-      "size": {
-        "0": 274.1334533691406,
-        "1": 54
-      },
+      "size": [
+        274.17572324137996,
+        438
+      ],
       "flags": {},
       "order": 16,
       "mode": 0,
       "inputs": [
         {
-          "name": "dyn_prompt",
+          "name": "prompt_pos_1",
           "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "dyn_prompt"
-          },
-          "slot_index": 0
+          "link": 345
         },
         {
-          "name": "seed",
-          "type": "INT",
-          "link": 17,
-          "widget": {
-            "name": "seed"
-          }
+          "name": "prompt_neg_1",
+          "type": "STRING",
+          "link": 2
+        },
+        {
+          "name": "subpath_1",
+          "type": "STRING",
+          "link": 3
+        },
+        {
+          "name": "model_1",
+          "type": "STRING",
+          "link": 4
+        },
+        {
+          "name": "orientation_1",
+          "type": "STRING",
+          "link": 5
+        },
+        {
+          "name": "prompt_pos_2",
+          "type": "STRING",
+          "link": 6
+        },
+        {
+          "name": "prompt_neg_2",
+          "type": "STRING",
+          "link": 7
+        },
+        {
+          "name": "subpath_2",
+          "type": "STRING",
+          "link": 8
+        },
+        {
+          "name": "model_2",
+          "type": "STRING",
+          "link": 9
+        },
+        {
+          "name": "orientation_2",
+          "type": "STRING",
+          "link": 10
+        },
+        {
+          "name": "prompt_pos_3",
+          "type": "STRING",
+          "link": 342
+        },
+        {
+          "name": "prompt_neg_3",
+          "type": "STRING",
+          "link": 343
+        },
+        {
+          "name": "subpath_3",
+          "type": "STRING",
+          "link": 344
+        },
+        {
+          "name": "model_3",
+          "type": "STRING",
+          "link": 346
+        },
+        {
+          "name": "orientation_3",
+          "type": "STRING",
+          "link": 347
+        },
+        {
+          "name": "prompt_pos_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "prompt_neg_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "subpath_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "orientation_4",
+          "type": "STRING",
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT",
+          "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            13
+            11
           ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
-      },
-      "widgets_values": [
-        "",
-        336169697390151,
-        "randomize"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 7,
-      "type": "PrimereDynamicParser",
-      "pos": [
-        397,
-        557
-      ],
-      "size": {
-        "0": 275.1334533691406,
-        "1": 54
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 12,
-          "widget": {
-            "name": "dyn_prompt"
-          },
-          "slot_index": 0
+          "shape": 3
         },
         {
-          "name": "seed",
-          "type": "INT",
-          "link": 18,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT",
+          "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            14
+            12
+          ],
+          "shape": 3
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            312
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            196
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            197
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "SELECTED_INDEX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        "",
-        228784194136761,
-        "randomize"
+        2
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -1151,7 +1147,7 @@
         "1": 78
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1206,7 +1202,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1291,14 +1287,69 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 8,
-      "type": "PrimereEmbeddingHandler",
+      "id": 6,
+      "type": "PrimereDynamicParser",
       "pos": [
-        395,
-        647
+        -312.4921188297171,
+        786.9947401644322
       ],
       "size": {
-        "0": 277.1334533691406,
+        "0": 274.1334533691406,
+        "1": 54
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 11,
+          "widget": {
+            "name": "dyn_prompt"
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 17,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [
+        "",
+        795408003336609,
+        "randomize"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 7,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        -313.4921188297171,
+        880.9947401644322
+      ],
+      "size": {
+        "0": 275.1334533691406,
         "1": 54
       },
       "flags": {},
@@ -1306,48 +1357,41 @@
       "mode": 0,
       "inputs": [
         {
-          "name": "positive_prompt",
+          "name": "dyn_prompt",
           "type": "STRING",
-          "link": 13,
+          "link": 12,
           "widget": {
-            "name": "positive_prompt"
-          }
+            "name": "dyn_prompt"
+          },
+          "slot_index": 0
         },
         {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 14,
+          "name": "seed",
+          "type": "INT",
+          "link": 18,
           "widget": {
-            "name": "negative_prompt"
+            "name": "seed"
           }
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT+",
+          "name": "PROMPT",
           "type": "STRING",
           "links": [
-            287
+            14
           ],
           "shape": 3,
           "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            288
-          ],
-          "shape": 3,
-          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereEmbeddingHandler"
+        "Node name for S&R": "PrimereDynamicParser"
       },
       "widgets_values": [
         "",
-        ""
+        191122675793280,
+        "randomize"
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -1438,13 +1482,75 @@
         false,
         1.6,
         2.8,
-        528035498627384,
+        1019698015290060,
         "randomize",
         "BaseModel_1024",
         "Normal"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 8,
+      "type": "PrimereEmbeddingHandler",
+      "pos": [
+        393,
+        910
+      ],
+      "size": {
+        "0": 277.1334533691406,
+        "1": 54
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 13,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 14,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            287
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            288
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmbeddingHandler"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
     },
     {
       "id": 39,
@@ -1458,7 +1564,7 @@
         "1": 471
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1525,12 +1631,12 @@
         1,
         0.8,
         1.4,
-        217304124256765,
+        1004603024381157,
         "randomize",
         true,
         "cpu",
         false,
-        783389310840565,
+        818744766857863,
         "randomize"
       ],
       "color": "#941414",
@@ -1548,7 +1654,7 @@
         "1": 749.517578125
       },
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1780,12 +1886,12 @@
         1821,
         596
       ],
-      "size": [
-        332.1864376856274,
-        246
-      ],
+      "size": {
+        "0": 332.1864318847656,
+        "1": 246
+      },
       "flags": {},
-      "order": 24,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1812,7 +1918,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1899,7 +2005,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        405582822287070,
+        718946969763690,
         "randomize",
         20,
         8,
@@ -1923,7 +2029,7 @@
         "1": 203.63023376464844
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1937,7 +2043,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "minimalist interior, colorful beautiful (small modern office:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury metal desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -1954,7 +2060,7 @@
         "1": 203.63023376464844
       },
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -1968,7 +2074,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
+        "(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
@@ -1985,7 +2091,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 28,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2158,7 +2264,7 @@
       "widgets_values": [
         "",
         "",
-        1013,
+        1603,
         "randomize",
         "",
         "",
@@ -2190,7 +2296,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2235,7 +2341,7 @@
         "1": 741.81298828125
       },
       "flags": {},
-      "order": 30,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2248,7 +2354,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
+        "{\n    \"positive\": \"minimalist interior, colorful beautiful (small modern office:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury metal desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2265,7 +2371,7 @@
         "1": 300.7713928222656
       },
       "flags": {},
-      "order": 31,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2287,12 +2393,12 @@
         2849,
         87
       ],
-      "size": [
-        328.280979245862,
-        330
-      ],
+      "size": {
+        "0": 328.2809753417969,
+        "1": 330
+      },
       "flags": {},
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2404,7 +2510,7 @@
         "1": 558
       },
       "flags": {},
-      "order": 33,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2523,7 +2629,7 @@
       },
       "widgets_values": [
         2,
-        705483571264605,
+        1112924826075358,
         "randomize",
         20,
         8,
@@ -2558,7 +2664,7 @@
         "1": 646.7664794921875
       },
       "flags": {},
-      "order": 34,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2585,7 +2691,7 @@
         "1": 530
       },
       "flags": {},
-      "order": 35,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2658,7 +2764,7 @@
         "1": 528.1915893554688
       },
       "flags": {},
-      "order": 36,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2682,14 +2788,6 @@
     }
   ],
   "links": [
-    [
-      1,
-      1,
-      0,
-      5,
-      0,
-      "*"
-    ],
     [
       2,
       1,
@@ -3553,6 +3651,54 @@
       50,
       0,
       "IMAGE"
+    ],
+    [
+      342,
+      91,
+      0,
+      5,
+      10,
+      "STRING"
+    ],
+    [
+      343,
+      91,
+      1,
+      5,
+      11,
+      "STRING"
+    ],
+    [
+      344,
+      91,
+      2,
+      5,
+      12,
+      "STRING"
+    ],
+    [
+      345,
+      91,
+      3,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      346,
+      91,
+      3,
+      5,
+      13,
+      "STRING"
+    ],
+    [
+      347,
+      91,
+      4,
+      5,
+      14,
+      "STRING"
     ]
   ],
   "groups": [
@@ -3571,10 +3717,10 @@
     {
       "title": "Prompt",
       "bounding": [
-        20,
-        21,
-        664,
-        738
+        -324,
+        22,
+        1010,
+        950
       ],
       "color": "#8A8",
       "font_size": 24,

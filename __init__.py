@@ -54,7 +54,6 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLatentNoise": Dashboard.PrimereFractalLatent,
     "PrimereCLIPEncoder": Dashboard.PrimereCLIP,
     "PrimereResolution": Dashboard.PrimereResolution,
-
     "PrimereClearPrompt": Dashboard.PrimereClearPrompt,
     "PrimereLCMSelector": Dashboard.PrimereLCMSelector,
     "PrimereModelConceptSelector": Dashboard.PrimereModelConceptSelector,
@@ -75,6 +74,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLycorisStackMerger": Inputs.PrimereLycorisStackMerger,
     "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
     "PrimereRefinerPrompt": Inputs.PrimereRefinerPrompt,
+    "PrimerePromptOrganizer": Inputs.PrimerePromptOrganizer,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -135,6 +135,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLycorisStackMerger": 'Primere Lycoris Stack Merger',
     "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
     "PrimereRefinerPrompt": "Primere Refiner Prompt",
+    "PrimerePromptOrganizer": "Primere Prompt Organizer",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

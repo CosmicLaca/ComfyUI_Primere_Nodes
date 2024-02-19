@@ -1,0 +1,74 @@
+[ARCHITECHTURE]
+   [ARCHITECHTURE.N_5]
+      prefered_subpath = "Architechture"
+      Name = "Exterior"
+      prefered_model = ""
+      prefered_orientation = ""
+      Positive = "((((outdoor)))), colorful {modern|luxury|minimalist|vintage|simple|old style|abandoned} {office|residential|industrial} (((building))), {glass|metal|concrete|brick|gray|colorful} wall, {wide|small} street, {city|capital|small city|village}, exterior photography, perfect lights"
+      Negative = "vegetable, text, man, woman, interior"
+   [ARCHITECHTURE.N_6]
+      prefered_subpath = "Architechture"
+      Name = "Interior"
+      prefered_model = ""
+      prefered_orientation = "Horizontal"
+      Positive = "inside of a {futuristic|retro|avantgard|modern|french|italian|London|Paris|Roma|luxury|village|rustic|minimalist|simple|cheap|penthouse} design style, ((({bedroom|living room|kitchen|office room|computer room}))), interior estate photography, modern {glass|metal|plastic} table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
+      Negative = ""
+   [ARCHITECHTURE.N_7]
+      prefered_subpath = "Architechture"
+      Name = "Minimal interior"
+      prefered_model = ""
+      prefered_orientation = "Horizontal"
+      Positive = "minimalist interior, colorful beautiful ({large|small|huge} {modern|retro|old style|abandoned, messy|futuristic} {bedroom|hall|kitchen|office|auto garage}:1.4), Bauhaus modern {minimalist|difficult} furniture, (abstract paint of female portrait on the wall:1.4), luxury {glassy|platina|silver|gold|wood|metal|plastic} desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography"
+      Negative = "cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale"
+   [ARCHITECHTURE.N_8]
+      prefered_subpath = "Architechture"
+      Name = "Mountain architect"
+      prefered_model = ""
+      prefered_orientation = ""
+      Positive = "exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)"
+      Negative = "watermark, person, text, china style, indian style"
+[ART]
+   [ART.N_11]
+      prefered_subpath = "Art"
+      Name = "Turbulent Lady"
+      prefered_model = ""
+      prefered_orientation = ""
+      Positive = "(A towering {high|low|strong} wave rises from turbulent waters, transparent opaque form taking the lithe silhouette of a {dancing|posing|standing|running} beautiful (sexy:0.8) {blonde|red|brown|black|silver|golden} long hair lady:1.3) in transparent beautiful fashion wear. BREAK Intricate lights and subtle colors shimmer through its translucent opaque {light|dark|natural}-{green|blue|red|yellow|white|orange|gold|brown|colorful|blue and white|white and red|orange and green|red and blue} depths as {sunny|rainy|winds|quiet wind|storm|heavy storm, thunder, lightning}, (movements cause dynamic splashes:1.2). {Cinematic|natural|sunny} lighting bathes the luminous figure against a blurred storm backdrop, while {warm|cold|red|orange|yellow|gold|blue} {night sunset|morning sunrise} tones bring contrasting warmth to the ephemeral vision of fluid form meeting fluctuating force. {full body|distance|nature|half body|portrait|face|closeup portrait} artistic photography"
+      Negative = "text, sex, nide, nudity, watermark, bad image, child, children, childish"
+   [ART.N_15]
+      prefered_subpath = "Art"
+      Name = "Animal-human portraits"
+      prefered_model = "animalHumanHybrids_v10.safetensors"
+      prefered_orientation = "Vertical"
+      Positive = "(beautiful {30|35|40|45|50|55} year old {cat|dog|monkey|lynx|snake|alligator|mice|lion|panther|tiger|horse|rabbit|eagle|dragon}-{woman|man} hybrid {standing|siting|posing|running}), {half body|portrait|closeup} {outdoor|indoor} color photography, fully clothed, wear elegant top, front view, perfect face, {unhappy|happy|sad|funny|scared|wondering|interested|thinker|serious|cheerful} mood, close view, natural background, perfect lights, perfect colors, realistic photo, professional photography, detailed photorealistic, kkw-photoreal,  <lora:creaturesPortraits_v1.0:0.6>"
+      Negative = "porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, (add_nsfw:1.2), FastNegativeEmbeddingStrong, black and white"
+[SCI-FI]
+   [SCI-FI.N_50]
+      prefered_subpath = "Sci-fi"
+      Name = "Mechanical robot"
+      prefered_model = ""
+      prefered_orientation = "Vertical"
+      Positive = "{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights"
+      Negative = "draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman"
+   [SCI-FI.N_53]
+      prefered_subpath = "Sci-fi"
+      Name = "Humanoid robot"
+      prefered_model = ""
+      prefered_orientation = "Vertical"
+      Positive = "(metallic {solid|soft|liquid} {iron|platina|gold|silver|rusty iron} mechanical robot-human {male|female|sexy female|sex-robot female} hybrid {face|half-body} photo), ({dead|lightning|blue|red|black|broken|glowing|lightning|burning|stormy} eyes:1.25), (The head of robot half-{metal|plastic|glass|liquid|soft|rusty|platina|diamond} and half-human skin with material and liquid), ({reflective|matte} {hard|soft|liquid|broken} mechanical electronic surface on skin), ({transparent|red|green|blue|colorful} liquid flowing down on his face), {Closeup face|face|head|half body|full body} realistic professional emotional photography. (Futuristic modern extreme sci-fi theme), (blur background), ({scary horror|friendly|lovely|emotion} situation). (The robot face and body is {new|old|abandoned|rusty|damaged and bleeding|half|broken|sick|opened|bloody scratched}). ({difficult|minimalist|damaged parts|blood|electronic circuits|fire|smoke|electrical sparks and discharges} on the robot head and body:1.25). (Clearly visible human {brain|blood vascular|musculature|meat|nerve|electric fibers|wires|microprocessors|heart|brain|lung} {in|within} the robot:1.2)"
+      Negative = "child childish retro old retro"
+[OTHER]
+   [OTHER.N_2]
+      prefered_subpath = ""
+      Name = "Beast in the beauty saloon"
+      prefered_model = ""
+      prefered_orientation = ""
+      Positive = "((ugly creepy dirty with a hairy wounded face, horrific, scary (male beast sitting on a chair in the {luxury|retro|old|abandoned|futuristic} beauty saloon:1.2, {angry|friendly|natural|quiet} mood), {large|middle sized|small} fancy mirror in his back on the wall, perfect mirrored ray-traced image in the mirror), (closeup half body photography of the beast on the left of image)), and ((a beautiful long hair blonde female {make-up artist|hair dresser|cosmetician} is working on it, {frightened|lovely|erotic|flirting|satisfied|quiet} mood, trying to make the beast look better with {makeup|hairdresser|barber} tools. The woman has {makeup|hairdresser|cosmetician|barber}-tools in her hands to apply to the {face|body|head|hair} of beast:1.3), (the woman is a beautiful sexy 40 year old with middle size breasts, large neckline, wear red shiny silk luxury sexy tight fitting clothes and small necklace. She watching the face of the beast on the right of image)), Photorealistic highly detailed, (professional makeup lifetime magazine fashion photography, perfect lights, perfect ray-traced image in the mirror, film grain:1.3)"
+      Negative = "watermark text child childish nsfw nude nudity porn draw illustration movie, (lot of lamps)"
+   [OTHER.N_4]
+      prefered_subpath = ""
+      Name = "Portrait"
+      prefered_model = ""
+      prefered_orientation = "Vertical"
+      Positive = "closeup portrait of beautiful 38 year old woman, long blonde hair, indoor portrait photography, detailed face, detailed skin, perfect light, perfect shadow, studio photography, detailed eye, (beautiful perfect eyes, detailed, high detailed, highly detailed glossy eyes, high detailed skin, skin pores, High Quality, Intricately Detailed, Hyper-Realistic, perfect shadows, detailed iris, symmetrical circular eyes reflecting the environment:1.2)"
+      Negative = "porn, sex, nude, nudity, child, childish, draw, illustration, telephoto, earrings, necklace, nsfw, bra, lingerie, underwear, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, blur, out of focus, double head, cartoon, anime, 3d, painting, b&w, alien, hard light, wobbly iris, square iris, dumb eyes, painted, figured, noise, tattoo, tears, decoration, ornamentation, ornaments, sunglasses, glasses, pores"

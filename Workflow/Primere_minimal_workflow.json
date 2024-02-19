@@ -1,6 +1,6 @@
 {
-  "last_node_id": 51,
-  "last_link_id": 198,
+  "last_node_id": 52,
+  "last_link_id": 203,
   "nodes": [
     {
       "id": 3,
@@ -47,8 +47,8 @@
       "id": 4,
       "type": "PrimereVisualStyle",
       "pos": [
-        26,
-        489
+        680.6467291814633,
+        923.9153383567118
       ],
       "size": {
         "0": 360.3917236328125,
@@ -122,8 +122,8 @@
       "id": 1,
       "type": "PrimerePrompt",
       "pos": [
-        28.113382586669896,
-        91.1530190124512
+        682.7601117681334,
+        526.0683573691631
       ],
       "size": {
         "0": 358.3917236328125,
@@ -320,6 +320,88 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 52,
+      "type": "PrimerePromptOrganizer",
+      "pos": [
+        1055.6467291814627,
+        527.9153383567118
+      ],
+      "size": [
+        388.2765096181498,
+        654.3583761712465
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            199
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            200
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            201
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            202
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            203
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePromptOrganizer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        "Architechture::Minimal interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
       "id": 44,
       "type": "PrimereCKPTLoader",
       "pos": [
@@ -331,7 +413,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -419,15 +501,15 @@
       "id": 5,
       "type": "PrimerePromptSwitch",
       "pos": [
-        398.11338258667007,
-        91.1530190124512
+        1517.6467291814622,
+        528.9153383567118
       ],
-      "size": {
-        "0": 273,
-        "1": 338
-      },
+      "size": [
+        277,
+        438
+      ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -483,25 +565,50 @@
         {
           "name": "prompt_pos_3",
           "type": "STRING",
-          "link": null
+          "link": 199
         },
         {
           "name": "prompt_neg_3",
           "type": "STRING",
-          "link": null
+          "link": 200
         },
         {
           "name": "subpath_3",
           "type": "STRING",
-          "link": null
+          "link": 201
         },
         {
           "name": "model_3",
           "type": "STRING",
-          "link": null
+          "link": 202
         },
         {
           "name": "orientation_3",
+          "type": "STRING",
+          "link": 203
+        },
+        {
+          "name": "prompt_pos_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "prompt_neg_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "subpath_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "orientation_4",
           "type": "STRING",
           "link": null
         }
@@ -569,7 +676,7 @@
         "1": 351.97613525390625
       },
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -639,7 +746,7 @@
         false,
         1.6,
         2.8,
-        7364624729992,
+        118602786274359,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -651,15 +758,15 @@
       "id": 6,
       "type": "PrimereDynamicParser",
       "pos": [
-        399,
-        463
+        1518.6467291814622,
+        1121.915338356712
       ],
       "size": {
         "0": 274.12115478515625,
         "1": 54
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -696,7 +803,7 @@
       },
       "widgets_values": [
         "",
-        938124658348832,
+        698389806275478,
         "randomize"
       ],
       "color": "#145414",
@@ -706,15 +813,15 @@
       "id": 7,
       "type": "PrimereDynamicParser",
       "pos": [
-        398,
-        551
+        1518,
+        1033
       ],
       "size": {
         "0": 275.12115478515625,
         "1": 54
       },
       "flags": {},
-      "order": 10,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -751,7 +858,7 @@
       },
       "widgets_values": [
         "",
-        544180022739359,
+        164061508444739,
         "randomize"
       ],
       "color": "#145414",
@@ -769,7 +876,7 @@
         "1": 471
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -836,12 +943,12 @@
         1,
         0.8,
         1.4,
-        312228356723026,
+        73081541643414,
         "randomize",
         true,
         "cpu",
         false,
-        757713060979306,
+        476229291362696,
         "randomize"
       ],
       "color": "#941414",
@@ -851,15 +958,15 @@
       "id": 8,
       "type": "PrimereEmbeddingHandler",
       "pos": [
-        397,
-        639
+        1517,
+        1212
       ],
       "size": {
         "0": 277.4871826171875,
         "1": 54
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -921,7 +1028,7 @@
         "1": 246
       },
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -948,7 +1055,7 @@
         "1": 750.2728881835938
       },
       "flags": {},
-      "order": 14,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1169,7 +1276,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 15,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -1256,7 +1363,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        979235234144451,
+        467270482332259,
         "randomize",
         20,
         8,
@@ -1280,7 +1387,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 16,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1324,7 +1431,7 @@
         "1": 806.3679809570312
       },
       "flags": {},
-      "order": 17,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1676,6 +1783,46 @@
       50,
       17,
       "INT"
+    ],
+    [
+      199,
+      52,
+      0,
+      5,
+      10,
+      "STRING"
+    ],
+    [
+      200,
+      52,
+      1,
+      5,
+      11,
+      "STRING"
+    ],
+    [
+      201,
+      52,
+      2,
+      5,
+      12,
+      "STRING"
+    ],
+    [
+      202,
+      52,
+      3,
+      5,
+      13,
+      "STRING"
+    ],
+    [
+      203,
+      52,
+      4,
+      5,
+      14,
+      "STRING"
     ]
   ],
   "groups": [
@@ -1684,8 +1831,8 @@
       "bounding": [
         694,
         20,
-        1110,
-        829
+        1108,
+        430
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -1694,10 +1841,10 @@
     {
       "title": "Prompt",
       "bounding": [
-        20,
-        21,
-        664,
-        827
+        675,
+        456,
+        1127,
+        820
       ],
       "color": "#8A8",
       "font_size": 24,
