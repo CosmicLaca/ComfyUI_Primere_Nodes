@@ -1039,14 +1039,43 @@ def tensor_resize(image, w: int, h: int):
     else:
         return general_tensor_resize(image, w, h)
 
+def vae_encode_crop_pixels(pixels):
+    x = (pixels.shape[1] // 8) * 8
+    y = (pixels.shape[2] // 8) * 8
+    if pixels.shape[1] != x or pixels.shape[2] != y:
+        x_offset = (pixels.shape[1] % 8) // 2
+        y_offset = (pixels.shape[2] % 8) // 2
+        pixels = pixels[:, x_offset:x + x_offset, y_offset:y + y_offset, :]
+        return pixels
+
+def encode_latent(vae, pixels):
+    t = vae.encode(pixels[:,:,:,:3])
+    return ({"samples": t},)
+
+'''
+def vae_encode_crop_pixels_sd(self, pixels):
+    x = (pixels.shape[1] // self.downscale_ratio) * self.downscale_ratio
+    y = (pixels.shape[2] // self.downscale_ratio) * self.downscale_ratio
+    if pixels.shape[1] != x or pixels.shape[2] != y:
+        x_offset = (pixels.shape[1] % self.downscale_ratio) // 2
+        y_offset = (pixels.shape[2] % self.downscale_ratio) // 2
+        pixels = pixels[:, x_offset:x + x_offset, y_offset:y + y_offset, :]
+    return pixels
+'''
+
+'''
+    pixels = nodes.VAEEncode.vae_encode_crop_pixels(pixels)
+    t = vae.encode(pixels[:, :, :, :3])
+'''
+
 def to_latent_image(pixels, vae):
     x = pixels.shape[1]
     y = pixels.shape[2]
     if pixels.shape[1] != x or pixels.shape[2] != y:
         pixels = pixels[:, :x, :y, :]
-    pixels = nodes.VAEEncode.vae_encode_crop_pixels(pixels)
-    t = vae.encode(pixels[:, :, :, :3])
-    return {"samples": t}
+    pixels = vae_encode_crop_pixels(pixels)
+    result = encode_latent(vae, pixels)
+    return result[0] # {"samples": t}
 
 def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise,
                      refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
