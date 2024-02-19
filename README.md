@@ -13,6 +13,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - One button LCM and Turbo mode (see example workflow), the LCM mode download required SD and SDXL LCM models at first usage
 - Save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF too
 - Read original A1111 styles.csv file, handle dynamic prompts and additional networks from the text content of prompts like in A1111, example dynamic styles.csv included
+- Not just .csv usefil as prompt source, organize your prompts to .toml file, and use the file content on dedicated prompt organizer node
 - Random noise generator for latent image, with special function to generate different but consistent images with locked seed with adjustable difference between min and max values 
 - Additional and easy editable image styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
@@ -30,6 +31,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Detailers automatically detect and support LCM and Turbo concepts
 - Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
 - Midjourney art-style prompts can be attached to the original prompt
+- Emotions as style
 
 <hr>
 
@@ -233,6 +235,22 @@ Style (.csv) file reader, compatible with A1111 syles.csv, but little more than 
 - You can enable/disable these additional settings by switches if already entered to csv but want to use system settings instead, no need to delete if you failed or want to try with dashboard settings instead.
 
 <a href="./Workflow/readme_images/pstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pstyles.jpg" height="120px"></a>
+<hr>
+
+### Primere Prompt Organizer
+Prompts and additional data must be stored in the .toml file. This node dynamically read and organize the custom file content. The example file with data schema is on the path **Toml/prompts.example.toml**, just rename to the **prompts.toml** end edit/include your own prommpt.
+- [HEADER_NAME] is the main header.
+- [HEADER_NAME.N_x] it the second level header. The string after dor 'N_x' is not important, but must be unique under same first level header, where the 'x' is an unique number.
+- **prefered_subpath** optional data, if 'use_subpath' is true on the node, the image saver will use this string as subdirectory.
+- **Name** required data for prompt list combo.
+- **prefered_model** optionald ata, if you have 'must use' model for the prompt.
+- **prefered_orientation** optional data, if you prefer vertical or horizontal orientation for your prompt.
+- **Positive** required, the positive prompt.
+- **Negative** optional, the negative prompt.
+
+Follow the file schema for your own prompts but don't forget to rename the attached example file to prompts.toml.
+
+<a href="./Workflow/readme_images/ppromptorganizer.jpg" target="_blank"><img src="./Workflow/readme_images/ppromptorganizer.jpg" height="220px"></a>
 <hr>
 
 ### Primere Dynamic:
@@ -485,6 +503,13 @@ Style collection from Midjourney. You can attach art-style prompt to your origin
 Example images about the result of this style node. The left-top image is the original without any style, all others styled by this one, using SD1.5 model, same seed, same prompt:
 
 <a href="./Workflow/readme_images/mjmontage.jpg" target="_blank"><img src="./Workflow/readme_images/mjmontage.jpg" height="300px"></a>
+
+<hr>
+
+### Primere Emotions Styles:
+Style collection of emotions. You can attach emotion-style to your original prompt, and get your result in several emotion style. The source content will be update frquently to more emotions.
+
+<a href="./Workflow/readme_images/pstyleemo.jpg" target="_blank"><img src="./Workflow/readme_images/pstyleemo.jpg" height="280px"></a>
 
 <hr>
 
