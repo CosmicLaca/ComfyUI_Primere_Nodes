@@ -511,6 +511,10 @@ Style collection of emotions. You can attach emotion-style to your original prom
 
 <a href="./Workflow/readme_images/pstyleemo.jpg" target="_blank"><img src="./Workflow/readme_images/pstyleemo.jpg" height="280px"></a>
 
+Example images about the result of this style node. The left-top image is the original without any style, all others styled by this one, using SDXL model, same seed, same prompt:
+
+<a href="./Workflow/readme_images/emomontage.jpg" target="_blank"><img src="./Workflow/readme_images/emomontage.jpg" height="300px"></a>
+
 <hr>
 
 ## Submenu :: Networks:
