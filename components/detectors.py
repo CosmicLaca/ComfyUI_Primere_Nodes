@@ -1048,10 +1048,6 @@ def vae_encode_crop_pixels(pixels):
         pixels = pixels[:, x_offset:x + x_offset, y_offset:y + y_offset, :]
         return pixels
 
-def encode_latent(vae, pixels):
-    t = vae.encode(pixels[:,:,:,:3])
-    return ({"samples": t},)
-
 '''
 def vae_encode_crop_pixels_sd(self, pixels):
     x = (pixels.shape[1] // self.downscale_ratio) * self.downscale_ratio
@@ -1074,8 +1070,8 @@ def to_latent_image(pixels, vae):
     if pixels.shape[1] != x or pixels.shape[2] != y:
         pixels = pixels[:, :x, :y, :]
     pixels = vae_encode_crop_pixels(pixels)
-    result = encode_latent(vae, pixels)
-    return result[0] # {"samples": t}
+    t = vae.encode(pixels[:,:,:,:3])
+    return {"samples":t}
 
 def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise,
                      refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
