@@ -1047,7 +1047,7 @@ def vae_encode_crop_pixels(pixels):
         x_offset = (pixels.shape[1] % 8) // 2
         y_offset = (pixels.shape[2] % 8) // 2
         pixels = pixels[:, x_offset:x + x_offset, y_offset:y + y_offset, :]
-        return pixels
+    return pixels
 
 '''
 def vae_encode_crop_pixels_sd(self, pixels):
@@ -1071,6 +1071,7 @@ def to_latent_image(pixels, vae):
     y = pixels.shape[2]
     if pixels.shape[1] != x or pixels.shape[2] != y:
         pixels = pixels[:, :x, :y, :]
+
     pixels = vae_encode_crop_pixels(pixels)
     t = vae.encode(pixels[:, :, :, :3])
     return {"samples":t}
