@@ -1,4 +1,8 @@
 [Love]
+   [Love.N_0]
+      MainStyle = "Love"
+      SubStyle = ""
+      Positive = "Love to like another adult very much and be romantically and sexually attracted to them, or to have strong feelings of liking a friend or person in your family."
    [Love.N_1]
       MainStyle = "Love"
       SubStyle = "Lust"
@@ -40,6 +44,10 @@
       SubStyle = "Infatuation"
       Positive = "Infatuation or being smitten is the state of being carried away by an unreasoned passion, usually towards another person for whom one has developed strong romantic feelings. Infatuation can be distinguished from romantic love only when looking back on a particular case of being attracted to a person. Infatuation may also develop into a mature love."
 [Melancholic]
+   [Melancholic.N_0]
+      MainStyle = "Melancholic"
+      SubStyle = ""
+      Positive = "Melancholic expressing feelings of sadness, unhappy, sad or sorry. Melancholic depressive significantly more often in-patients, had more severe depression, and a lower level of functional capacity."
    [Melancholic.N_1]
       MainStyle = "Melancholic"
       SubStyle = "Melancholia"
@@ -72,7 +80,97 @@
       MainStyle = "Melancholic"
       SubStyle = "Sehnsucht"
       Positive = "Sehnsucht longing, desire, yearning, or craving. Some psychologists use the word to represent thoughts and feelings about all facets of life that are unfinished or imperfect, paired with a yearning for ideal alternative experiences."
-[Melancholic.N_9]
+   [Melancholic.N_9]
       MainStyle = "Melancholic"
       SubStyle = "Good old days"
       Positive = "Good old days is reference a time considered by the speaker to be better than the current era. It is a form of nostalgia which can reflect homesickness or yearning for long-gone moments. There is a predisposition, caused by cognitive biases such as rosy retrospection, a form of survivorship bias, for people to view the past more favourably and future more negatively."
+[Joy]
+   [Joy.N_0]
+      MainStyle = "Joy"
+      SubStyle = ""
+      Positive = "Joy, great happiness is a positive and pleasant emotion, emotion evoked by well-being, success, or good fortune or by the prospect of possessing what desires delight, a state of happiness or felicity."
+   [Joy.N_1]
+      MainStyle = "Joy"
+      SubStyle = "Happyness"
+      Positive = "Happiness is a positive and pleasant emotion, Overall appreciation of life as-a-whole, ranging from contentment to intense joy. Moments of happiness may be triggered by positive life experiences or thoughts, but sometimes it may arise from no obvious cause. Feeling of an emotion affect such as pleasure or joy, or of a more general sense of emotional condition."
+   [Joy.N_2]
+      MainStyle = "Joy"
+      SubStyle = "Bliss"
+      Positive = "Perfect happiness, joy, goodness, kindness, overall appreciation of life as-a-whole, ranging from contentment to intense joy."
+   [Joy.N_3]
+      MainStyle = "Joy"
+      SubStyle = "Gaiety"
+      Positive = "Gaiety, happiness, excitement, pleasure."
+   [Joy.N_4]
+      MainStyle = "Joy"
+      SubStyle = "Glee"
+      Positive = "Joy, happiness, great delight, especially own good fortune. A state of enjoyable exuberance."
+   [Joy.N_5]
+      MainStyle = "Joy"
+      SubStyle = "Jolliness"
+      Positive = "Jolliness is a characteristic of being happy and lighthearted. Feeling jolly and jovial and full of good humor."
+   [Joy.N_6]
+      MainStyle = "Joy"
+      SubStyle = "Enjoyment"
+      Positive = "Enjoyment, enjoying anything. enjoyable state of mind, activity that gives pleasure."
+   [Joy.N_7]
+      MainStyle = "Joy"
+      SubStyle = "Jubilation"
+      Positive = "Feeling of great happiness, especially because of a success."
+   [Joy.N_8]
+      MainStyle = "Joy"
+      SubStyle = "Satisfaction"
+      Positive = "Satisfaction, a pleasant feeling that you get when you receive something you wanted, or when you have done something you wanted to do, fulfilment of a need or desire, pleasure obtained by such fulfillment, source of such gratification."
+   [Joy.N_9]
+      MainStyle = "Joy"
+      SubStyle = "Ecstasy"
+      Positive = "Ecstasy, a state of overwhelming emotion, a state of extreme happiness, especially when feeling pleasure, loss of self-control and sometimes a temporary loss of consciousness, subjective experience of total involvement of the subject with an object of their awareness"
+   [Joy.N_10]
+      MainStyle = "Joy"
+      SubStyle = "Euphoria"
+      Positive = "Euphoria, experience or affect of pleasure or excitement and intense feelings of well-being and happiness, a feeling of well-being or elation, extreme happiness, sometimes more than is reasonable in a particular situation."
+   [Joy.N_11]
+      MainStyle = "Joy"
+      SubStyle = "Zest"
+      Positive = "Zest is discrete strengths people possess. Having zest means treating life as an adventure and feeling motivated in challenging situations. People with zest display enthusiasm, excitement, and energy as they tackle life's tasks."
+   [Joy.N_12]
+      MainStyle = "Joy"
+      SubStyle = "Zeal"
+      Positive = "Zeal, the fervour or tireless devotion for a person, cause, or ideal and determination in its furtherance, diligent enthusiasm, powerful interest, fervour or tireless devotion"
+   [Joy.N_13]
+      MainStyle = "Joy"
+      SubStyle = "Thrill"
+      Positive = "Thrill, a feeling of extreme excitement, usually caused by something pleasant, the thrill of winning."
+   [Joy.N_14]
+      MainStyle = "Joy"
+      SubStyle = "Exhilaration"
+      Positive = "Exhilaration, excitement and happiness, a feeling of being excited, or an exciting event."
+   [Joy.N_15]
+      MainStyle = "Joy"
+      SubStyle = "Optimism"
+      Positive = "Optimism, is an attitude reflecting a belief or hope that the outcome of some specific endeavor, or outcomes in general, will be positive, favorable, and desirable, expect the best possible outcome from any given situation, it reflects that future conditions will work out for the best."
+   [Joy.N_16]
+      MainStyle = "Joy"
+      SubStyle = "Enthusiasm"
+      Positive = "Enthusiasm, intense enjoyment, interest, or approval expressed by a person, playfulness, inventiveness, optimism, zest, verve, and high energy. A feeling of energetic interest in a particular subject or activity and an eagerness to be involved in it."
+   [Joy.N_17]
+      MainStyle = "Joy"
+      SubStyle = "Thrall"
+      Positive = "Thrall, Enthrallment, it has a lot of power to control you."
+   [Joy.N_18]
+      MainStyle = "Joy"
+      SubStyle = "Rapture"
+      Positive = "Rapture, extreme pleasure and happiness or excitement."
+[Surprise]
+   [Surprise.N_1]
+      MainStyle = "Surprise"
+      SubStyle = ""
+      Positive = "Surprise, the feeling caused by something unexpected happening."
+   [Surprise.N_2]
+      MainStyle = "Surprise"
+      SubStyle = "Amazement"
+      Positive = "Amazement, to cause someone to be extremely surprised, condition of being amazed, a state of overwhelming wonder, as from surprise or sudden fear, horror, or admiration; astonishment. A particular feeling of wonder, surprise, fear, or horror"
+   [Surprise.N_3]
+      MainStyle = "Surprise"
+      SubStyle = "Astonishment"
+      Positive = "Astonishment, feeling or experience of being astonished, great surprise, something very surprising, very great surprise, amazement."

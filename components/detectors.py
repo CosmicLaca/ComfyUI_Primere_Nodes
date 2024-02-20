@@ -1065,13 +1065,14 @@ def vae_encode_crop_pixels_sd(self, pixels):
     t = vae.encode(pixels[:, :, :, :3])
 '''
 
+#  itt hibás:
 def to_latent_image(pixels, vae):
     x = pixels.shape[1]
     y = pixels.shape[2]
     if pixels.shape[1] != x or pixels.shape[2] != y:
         pixels = pixels[:, :x, :y, :]
     pixels = vae_encode_crop_pixels(pixels)
-    t = vae.encode(pixels[:,:,:,:3])
+    t = vae.encode(pixels[:, :, :, :3])
     return {"samples":t}
 
 def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise,

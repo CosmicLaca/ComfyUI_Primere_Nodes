@@ -1,6 +1,6 @@
 {
-  "last_node_id": 62,
-  "last_link_id": 225,
+  "last_node_id": 63,
+  "last_link_id": 227,
   "nodes": [
     {
       "id": 4,
@@ -199,10 +199,10 @@
         702.8476042799265,
         91.4171916525597
       ],
-      "size": [
-        465.42125083155213,
-        128.8551467574369
-      ],
+      "size": {
+        "0": 465.4212646484375,
+        "1": 128.8551483154297
+      },
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -236,84 +236,18 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 53,
-      "type": "PrimereEmotionsStyles",
-      "pos": [
-        1828,
-        1361
-      ],
-      "size": [
-        368.6233742453833,
-        150
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_pos_style"
-          }
-        },
-        {
-          "name": "opt_neg_style",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_neg_style"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            171
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            172
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereEmotionsStyles"
-      },
-      "widgets_values": [
-        "Love::Caring",
-        1,
-        "None",
-        0.8,
-        "",
-        ""
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
       "id": 57,
       "type": "PrimereSamplersSteps",
       "pos": [
         1039,
         621
       ],
-      "size": [
-        302.3999938964844,
-        190
-      ],
+      "size": {
+        "0": 302.3999938964844,
+        "1": 190
+      },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "outputs": [
         {
@@ -373,12 +307,12 @@
         1347,
         623
       ],
-      "size": [
-        319.20001220703125,
-        190
-      ],
+      "size": {
+        "0": 319.20001220703125,
+        "1": 190
+      },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "outputs": [
         {
@@ -438,12 +372,12 @@
         703,
         620
       ],
-      "size": [
-        327.6000061035156,
-        190
-      ],
+      "size": {
+        "0": 327.6000061035156,
+        "1": 190
+      },
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "outputs": [
         {
@@ -503,12 +437,12 @@
         1592,
         -43
       ],
-      "size": [
-        451,
-        58
-      ],
+      "size": {
+        "0": 451,
+        "1": 58
+      },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "properties": {
         "text": ""
@@ -717,13 +651,13 @@
         "1": 390
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "opt_pos_style",
           "type": "STRING",
-          "link": 171,
+          "link": 226,
           "widget": {
             "name": "opt_pos_style"
           }
@@ -731,7 +665,7 @@
         {
           "name": "opt_neg_style",
           "type": "STRING",
-          "link": 172,
+          "link": 227,
           "widget": {
             "name": "opt_neg_style"
           }
@@ -788,12 +722,12 @@
         1345,
         848
       ],
-      "size": [
-        320.5003212026679,
-        278
-      ],
+      "size": {
+        "0": 320.5003356933594,
+        "1": 278
+      },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -971,10 +905,10 @@
         397,
         465
       ],
-      "size": [
-        275.55817735493974,
-        54
-      ],
+      "size": {
+        "0": 275.55816650390625,
+        "1": 54
+      },
       "flags": {},
       "order": 13,
       "mode": 0,
@@ -1024,10 +958,10 @@
         396,
         553
       ],
-      "size": [
-        277.58449359140116,
-        54
-      ],
+      "size": {
+        "0": 277.5845031738281,
+        "1": 54
+      },
       "flags": {},
       "order": 14,
       "mode": 0,
@@ -1082,7 +1016,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 15,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -1161,12 +1095,12 @@
         1183,
         256
       ],
-      "size": [
-        281.11123693911827,
-        186
-      ],
+      "size": {
+        "0": 281.1112365722656,
+        "1": 186
+      },
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1257,10 +1191,10 @@
         395,
         643
       ],
-      "size": [
-        280.1239679460932,
-        54
-      ],
+      "size": {
+        "0": 280.12396240234375,
+        "1": 54
+      },
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1317,10 +1251,10 @@
         1474,
         91
       ],
-      "size": [
-        318.6917805067658,
-        377.6765071655126
-      ],
+      "size": {
+        "0": 318.6917724609375,
+        "1": 377.676513671875
+      },
       "flags": {},
       "order": 18,
       "mode": 0,
@@ -1407,10 +1341,10 @@
         2161,
         92
       ],
-      "size": [
-        333.1334670573401,
-        734
-      ],
+      "size": {
+        "0": 333.1334533691406,
+        "1": 734
+      },
       "flags": {},
       "order": 19,
       "mode": 0,
@@ -1718,10 +1652,10 @@
         2501,
         175
       ],
-      "size": [
-        323.333667890136,
-        238
-      ],
+      "size": {
+        "0": 323.33367919921875,
+        "1": 238
+      },
       "flags": {},
       "order": 21,
       "mode": 0,
@@ -1919,6 +1853,76 @@
       },
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 63,
+      "type": "PrimereEmotionsStyles",
+      "pos": [
+        1828,
+        1361
+      ],
+      "size": [
+        370.5511779785156,
+        282.72174072265625
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_pos_style"
+          }
+        },
+        {
+          "name": "opt_neg_style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_neg_style"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            226
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            227
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmotionsStyles"
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "",
+        ""
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     }
   ],
   "links": [
@@ -2095,22 +2099,6 @@
       49,
       1,
       50,
-      1,
-      "STRING"
-    ],
-    [
-      171,
-      53,
-      0,
-      49,
-      0,
-      "STRING"
-    ],
-    [
-      172,
-      53,
-      1,
-      49,
       1,
       "STRING"
     ],
@@ -2449,6 +2437,22 @@
       55,
       6,
       "STRING"
+    ],
+    [
+      226,
+      63,
+      0,
+      49,
+      0,
+      "STRING"
+    ],
+    [
+      227,
+      63,
+      1,
+      49,
+      1,
+      "STRING"
     ]
   ],
   "groups": [
@@ -2494,7 +2498,7 @@
         1814,
         860,
         1020,
-        670
+        859
       ],
       "color": "#b58b2a",
       "font_size": 24,
