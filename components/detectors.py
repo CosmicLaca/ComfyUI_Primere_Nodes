@@ -17,6 +17,7 @@ import torchvision
 import math
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import glob
+# from comfy.sd import VAE
 
 # from .local_groundingdino.datasets import transforms as T
 # from .local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict

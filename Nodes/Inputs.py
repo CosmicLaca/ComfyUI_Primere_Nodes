@@ -895,7 +895,7 @@ class PrimereLycorisKeywordMerger:
 
 class PrimerePromptOrganizer:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("STYLE+", "STYLE-", "SUBPATH", "MODEL", "ORIENTATION")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION")
     FUNCTION = "prompt_organizer"
     CATEGORY = TREE_INPUTS
 
