@@ -10,4 +10,3 @@ Requests
 tomli
 torch
 ultralytics
-urllib
