@@ -380,7 +380,7 @@ class PrimereMetaCollector:
                 "steps": ('INT', {"forceInput": True, "default": 12}),
                 "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": ""}),
                 "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
-                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "prefered_model": ("STRING", {"default": "", "forceInput": True}),
                 "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
             },
@@ -389,7 +389,7 @@ class PrimereMetaCollector:
     def load_process_meta(self, positive="", negative="", seed=1, positive_l="", negative_l="", positive_r="",
                           negative_r="", model_hash="", model_name="", model_version="BaseModel_1024",
                           sampler_name="euler", scheduler_name="normal", width=512, height=512, cfg_scale=7,
-                          steps=12, vae_name_sd="", vae_name_sdxl="", is_lcm=0, prefered_model="",
+                          steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", prefered_model="",
                           prefered_orientation=""):
 
         if prefered_orientation == 'Random':
@@ -415,7 +415,7 @@ class PrimereMetaCollector:
         data_json['cfg_scale'] = cfg_scale
         data_json['steps'] = steps
         data_json['model_version'] = model_version
-        data_json['is_lcm'] = is_lcm
+        data_json['model_concept'] = model_concept
         data_json['vae_name'] = vae_name_sd
         data_json['prefered_model'] = prefered_model
         data_json['prefered_orientation'] = prefered_orientation

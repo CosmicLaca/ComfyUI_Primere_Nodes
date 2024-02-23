@@ -1,6 +1,6 @@
 {
-  "last_node_id": 91,
-  "last_link_id": 347,
+  "last_node_id": 93,
+  "last_link_id": 385,
   "nodes": [
     {
       "id": 4,
@@ -203,8 +203,8 @@
           "type": "CHECKPOINT_NAME",
           "links": [
             146,
-            184,
-            237
+            237,
+            368
           ],
           "shape": 3,
           "slot_index": 0
@@ -213,9 +213,9 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            190,
             207,
-            330
+            330,
+            376
           ],
           "shape": 3,
           "slot_index": 1
@@ -252,7 +252,7 @@
           "type": "VAE_NAME",
           "links": [
             203,
-            210
+            369
           ],
           "shape": 3,
           "slot_index": 0
@@ -288,7 +288,7 @@
           "type": "VAE_NAME",
           "links": [
             204,
-            211
+            370
           ],
           "shape": 3,
           "slot_index": 0
@@ -543,10 +543,10 @@
             17,
             18,
             137,
-            187,
             270,
             294,
-            317
+            317,
+            373
           ],
           "shape": 3,
           "slot_index": 0
@@ -571,10 +571,10 @@
         49,
         93
       ],
-      "size": [
-        339.91952489427274,
-        426
-      ],
+      "size": {
+        "0": 339.9195251464844,
+        "1": 426
+      },
       "flags": {},
       "order": 11,
       "mode": 0,
@@ -886,8 +886,8 @@
           "type": "COMBO",
           "links": [
             272,
-            276,
-            297
+            297,
+            377
           ],
           "shape": 3,
           "slot_index": 0
@@ -897,8 +897,8 @@
           "type": "COMBO",
           "links": [
             273,
-            277,
-            298
+            298,
+            378
           ],
           "shape": 3,
           "slot_index": 1
@@ -908,8 +908,8 @@
           "type": "INT",
           "links": [
             274,
-            278,
-            295
+            295,
+            382
           ],
           "shape": 3,
           "slot_index": 2
@@ -919,8 +919,8 @@
           "type": "FLOAT",
           "links": [
             275,
-            279,
-            296
+            296,
+            381
           ],
           "shape": 3,
           "slot_index": 3
@@ -933,7 +933,8 @@
             299,
             301,
             319,
-            331
+            331,
+            383
           ],
           "shape": 3,
           "slot_index": 4
@@ -967,10 +968,10 @@
         404,
         95
       ],
-      "size": [
-        274.17572324137996,
-        438
-      ],
+      "size": {
+        "0": 274.17572021484375,
+        "1": 438
+      },
       "flags": {},
       "order": 16,
       "mode": 0,
@@ -1105,7 +1106,7 @@
           "name": "MODEL",
           "type": "STRING",
           "links": [
-            196
+            365
           ],
           "shape": 3,
           "slot_index": 3
@@ -1114,7 +1115,7 @@
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [
-            197
+            366
           ],
           "shape": 3,
           "slot_index": 4
@@ -1335,7 +1336,7 @@
       },
       "widgets_values": [
         "",
-        795408003336609,
+        786075626782932,
         "randomize"
       ],
       "color": "#145414",
@@ -1390,7 +1391,7 @@
       },
       "widgets_values": [
         "",
-        191122675793280,
+        992746698715861,
         "randomize"
       ],
       "color": "#145414",
@@ -1443,8 +1444,8 @@
           "links": [
             320,
             324,
-            326,
-            336
+            336,
+            379
           ],
           "shape": 3,
           "slot_index": 0
@@ -1455,8 +1456,8 @@
           "links": [
             321,
             325,
-            327,
-            337
+            337,
+            380
           ],
           "shape": 3,
           "slot_index": 1
@@ -1482,7 +1483,7 @@
         false,
         1.6,
         2.8,
-        1019698015290060,
+        136935671509607,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1631,12 +1632,12 @@
         1,
         0.8,
         1.4,
-        1004603024381157,
+        176900356780044,
         "randomize",
         true,
         "cpu",
         false,
-        818744766857863,
+        947321785063005,
         "randomize"
       ],
       "color": "#941414",
@@ -1651,7 +1652,7 @@
       ],
       "size": {
         "0": 330.657470703125,
-        "1": 749.517578125
+        "1": 758
       },
       "flags": {},
       "order": 24,
@@ -1810,7 +1811,7 @@
           "type": "STRING",
           "links": [
             304,
-            306
+            371
           ],
           "shape": 3,
           "slot_index": 2
@@ -1819,8 +1820,8 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            307,
-            315
+            315,
+            372
           ],
           "shape": 3,
           "slot_index": 3
@@ -1829,7 +1830,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            308
+            374
           ],
           "shape": 3,
           "slot_index": 4
@@ -1838,7 +1839,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            309
+            375
           ],
           "shape": 3,
           "slot_index": 5
@@ -1873,6 +1874,7 @@
         "",
         true,
         1,
+        1024,
         1024,
         1024
       ],
@@ -2005,7 +2007,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        718946969763690,
+        80617041694916,
         "randomize",
         20,
         8,
@@ -2043,7 +2045,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "minimalist interior, colorful beautiful (small modern office:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury metal desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -2074,22 +2076,22 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
+        "(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
     },
     {
-      "id": 57,
+      "id": 93,
       "type": "PrimereMetaCollector",
       "pos": [
         3527,
         617
       ],
-      "size": {
-        "0": 307.54803466796875,
-        "1": 414
-      },
+      "size": [
+        309.17382834177624,
+        414
+      ],
       "flags": {},
       "order": 29,
       "mode": 0,
@@ -2097,22 +2099,22 @@
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 184
+          "link": 368
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 210
+          "link": 369
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 211
+          "link": 370
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 306,
+          "link": 371,
           "widget": {
             "name": "positive"
           }
@@ -2120,7 +2122,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 307,
+          "link": 372,
           "widget": {
             "name": "negative"
           }
@@ -2128,7 +2130,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 187,
+          "link": 373,
           "widget": {
             "name": "seed"
           }
@@ -2136,7 +2138,7 @@
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": 308,
+          "link": 374,
           "widget": {
             "name": "positive_l"
           }
@@ -2144,7 +2146,7 @@
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 309,
+          "link": 375,
           "widget": {
             "name": "negative_l"
           }
@@ -2168,7 +2170,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 190,
+          "link": 376,
           "widget": {
             "name": "model_version"
           }
@@ -2176,7 +2178,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 276,
+          "link": 377,
           "widget": {
             "name": "sampler_name"
           }
@@ -2184,7 +2186,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 277,
+          "link": 378,
           "widget": {
             "name": "scheduler_name"
           }
@@ -2192,7 +2194,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 326,
+          "link": 379,
           "widget": {
             "name": "width"
           }
@@ -2200,7 +2202,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 327,
+          "link": 380,
           "widget": {
             "name": "height"
           }
@@ -2208,7 +2210,7 @@
         {
           "name": "cfg_scale",
           "type": "FLOAT",
-          "link": 279,
+          "link": 381,
           "widget": {
             "name": "cfg_scale"
           }
@@ -2216,23 +2218,23 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 278,
+          "link": 382,
           "widget": {
             "name": "steps"
           }
         },
         {
-          "name": "is_lcm",
-          "type": "INT",
-          "link": null,
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 383,
           "widget": {
-            "name": "is_lcm"
+            "name": "model_concept"
           }
         },
         {
           "name": "prefered_model",
           "type": "STRING",
-          "link": 196,
+          "link": 365,
           "widget": {
             "name": "prefered_model"
           }
@@ -2240,7 +2242,7 @@
         {
           "name": "prefered_orientation",
           "type": "STRING",
-          "link": 197,
+          "link": 366,
           "widget": {
             "name": "prefered_orientation"
           }
@@ -2251,8 +2253,8 @@
           "name": "METADATA",
           "type": "TUPLE",
           "links": [
-            201,
-            311
+            384,
+            385
           ],
           "shape": 3,
           "slot_index": 0
@@ -2264,7 +2266,7 @@
       "widgets_values": [
         "",
         "",
-        1603,
+        78,
         "randomize",
         "",
         "",
@@ -2277,7 +2279,7 @@
         512,
         7,
         12,
-        0,
+        "Normal",
         "",
         ""
       ],
@@ -2333,8 +2335,8 @@
       "id": 58,
       "type": "PrimereAnyOutput",
       "pos": [
-        3845,
-        618
+        3843,
+        617
       ],
       "size": {
         "0": 611.3242797851562,
@@ -2347,14 +2349,14 @@
         {
           "name": "input",
           "type": "*",
-          "link": 201
+          "link": 385
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"minimalist interior, colorful beautiful (small modern office:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury metal desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
+        "{\n    \"positive\": \"inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2629,7 +2631,7 @@
       },
       "widgets_values": [
         2,
-        1112924826075358,
+        157192686589067,
         "randomize",
         20,
         8,
@@ -2702,7 +2704,7 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 311
+          "link": 384
         },
         {
           "name": "prefered_subpath",
@@ -2957,54 +2959,6 @@
       "IMAGE"
     ],
     [
-      184,
-      3,
-      0,
-      57,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      187,
-      10,
-      0,
-      57,
-      5,
-      "INT"
-    ],
-    [
-      190,
-      3,
-      1,
-      57,
-      10,
-      "STRING"
-    ],
-    [
-      196,
-      5,
-      3,
-      57,
-      18,
-      "STRING"
-    ],
-    [
-      197,
-      5,
-      4,
-      57,
-      19,
-      "STRING"
-    ],
-    [
-      201,
-      57,
-      0,
-      58,
-      0,
-      "*"
-    ],
-    [
       203,
       61,
       0,
@@ -3051,22 +3005,6 @@
       50,
       4,
       "VAE"
-    ],
-    [
-      210,
-      61,
-      0,
-      57,
-      1,
-      "VAE_NAME"
-    ],
-    [
-      211,
-      62,
-      0,
-      57,
-      2,
-      "VAE_NAME"
     ],
     [
       237,
@@ -3245,38 +3183,6 @@
       "FLOAT"
     ],
     [
-      276,
-      71,
-      0,
-      57,
-      11,
-      "COMBO"
-    ],
-    [
-      277,
-      71,
-      1,
-      57,
-      12,
-      "COMBO"
-    ],
-    [
-      278,
-      71,
-      2,
-      57,
-      16,
-      "INT"
-    ],
-    [
-      279,
-      71,
-      3,
-      57,
-      15,
-      "FLOAT"
-    ],
-    [
       284,
       73,
       1,
@@ -3429,52 +3335,12 @@
       "*"
     ],
     [
-      306,
-      79,
-      2,
-      57,
-      3,
-      "STRING"
-    ],
-    [
-      307,
-      79,
-      3,
-      57,
-      4,
-      "STRING"
-    ],
-    [
-      308,
-      79,
-      4,
-      57,
-      6,
-      "STRING"
-    ],
-    [
-      309,
-      79,
-      5,
-      57,
-      7,
-      "STRING"
-    ],
-    [
       310,
       50,
       0,
       82,
       0,
       "IMAGE"
-    ],
-    [
-      311,
-      57,
-      0,
-      82,
-      1,
-      "TUPLE"
     ],
     [
       312,
@@ -3562,22 +3428,6 @@
       1,
       79,
       17,
-      "INT"
-    ],
-    [
-      326,
-      87,
-      0,
-      57,
-      13,
-      "INT"
-    ],
-    [
-      327,
-      87,
-      1,
-      57,
-      14,
       "INT"
     ],
     [
@@ -3699,6 +3549,166 @@
       5,
       14,
       "STRING"
+    ],
+    [
+      365,
+      5,
+      3,
+      93,
+      18,
+      "STRING"
+    ],
+    [
+      366,
+      5,
+      4,
+      93,
+      19,
+      "STRING"
+    ],
+    [
+      368,
+      3,
+      0,
+      93,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      369,
+      61,
+      0,
+      93,
+      1,
+      "VAE_NAME"
+    ],
+    [
+      370,
+      62,
+      0,
+      93,
+      2,
+      "VAE_NAME"
+    ],
+    [
+      371,
+      79,
+      2,
+      93,
+      3,
+      "STRING"
+    ],
+    [
+      372,
+      79,
+      3,
+      93,
+      4,
+      "STRING"
+    ],
+    [
+      373,
+      10,
+      0,
+      93,
+      5,
+      "INT"
+    ],
+    [
+      374,
+      79,
+      4,
+      93,
+      6,
+      "STRING"
+    ],
+    [
+      375,
+      79,
+      5,
+      93,
+      7,
+      "STRING"
+    ],
+    [
+      376,
+      3,
+      1,
+      93,
+      10,
+      "STRING"
+    ],
+    [
+      377,
+      71,
+      0,
+      93,
+      11,
+      "COMBO"
+    ],
+    [
+      378,
+      71,
+      1,
+      93,
+      12,
+      "COMBO"
+    ],
+    [
+      379,
+      87,
+      0,
+      93,
+      13,
+      "INT"
+    ],
+    [
+      380,
+      87,
+      1,
+      93,
+      14,
+      "INT"
+    ],
+    [
+      381,
+      71,
+      3,
+      93,
+      15,
+      "FLOAT"
+    ],
+    [
+      382,
+      71,
+      2,
+      93,
+      16,
+      "INT"
+    ],
+    [
+      383,
+      71,
+      4,
+      93,
+      17,
+      "STRING"
+    ],
+    [
+      384,
+      93,
+      0,
+      82,
+      1,
+      "TUPLE"
+    ],
+    [
+      385,
+      93,
+      0,
+      58,
+      0,
+      "*"
     ]
   ],
   "groups": [

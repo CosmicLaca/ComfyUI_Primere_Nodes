@@ -1,6 +1,6 @@
 {
-  "last_node_id": 508,
-  "last_link_id": 1660,
+  "last_node_id": 510,
+  "last_link_id": 1719,
   "nodes": [
     {
       "id": 88,
@@ -21,7 +21,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            807
+            1662
           ],
           "shape": 3,
           "slot_index": 0
@@ -56,7 +56,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            808
+            1663
           ],
           "shape": 3,
           "slot_index": 0
@@ -200,7 +200,7 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            806
+            1661
           ],
           "shape": 3,
           "slot_index": 0
@@ -209,8 +209,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            811,
-            1621
+            1621,
+            1666
           ],
           "shape": 3,
           "slot_index": 1
@@ -321,10 +321,10 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            814,
             1027,
-            1186,
-            1620
+            1620,
+            1669,
+            1699
           ],
           "shape": 3,
           "slot_index": 0
@@ -1023,10 +1023,10 @@
         1253,
         -6
       ],
-      "size": [
-        339.94146082771067,
-        246
-      ],
+      "size": {
+        "0": 339.94146728515625,
+        "1": 246
+      },
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1250,11 +1250,11 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1270,
             1401,
             1403,
             1405,
-            1582
+            1582,
+            1667
           ],
           "shape": 3,
           "slot_index": 0
@@ -1263,11 +1263,11 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1271,
             1402,
             1404,
             1406,
-            1583
+            1583,
+            1668
           ],
           "shape": 3,
           "slot_index": 1
@@ -1276,8 +1276,8 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1272,
-            1393
+            1393,
+            1673
           ],
           "shape": 3,
           "slot_index": 2
@@ -1286,8 +1286,8 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1273,
-            1338
+            1338,
+            1672
           ],
           "shape": 3,
           "slot_index": 3
@@ -1299,7 +1299,8 @@
             1278,
             1311,
             1339,
-            1622
+            1622,
+            1717
           ],
           "shape": 3,
           "slot_index": 4
@@ -1573,7 +1574,7 @@
           "type": "STRING",
           "links": [
             414,
-            809
+            1664
           ],
           "shape": 3,
           "slot_index": 0
@@ -1583,7 +1584,7 @@
           "type": "STRING",
           "links": [
             415,
-            810
+            1665
           ],
           "shape": 3,
           "slot_index": 1
@@ -1601,7 +1602,7 @@
           "name": "MODEL",
           "type": "STRING",
           "links": [
-            820
+            1675
           ],
           "shape": 3,
           "slot_index": 3
@@ -1610,7 +1611,7 @@
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [
-            821
+            1676
           ],
           "shape": 3,
           "slot_index": 4
@@ -1833,7 +1834,7 @@
             1391,
             1392,
             1581,
-            1601
+            1719
           ],
           "shape": 3,
           "label": "STRING",
@@ -1891,7 +1892,7 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            1625
+            1670
           ],
           "shape": 3,
           "slot_index": 0
@@ -1900,7 +1901,7 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            1626
+            1671
           ],
           "shape": 3,
           "slot_index": 1
@@ -1929,7 +1930,7 @@
         false,
         1.6,
         2.8,
-        371684259192946,
+        909664272411564,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1963,7 +1964,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)"
+        "{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1994,7 +1995,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "watermark, person, text, china style, indian style"
+        "draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2076,16 +2077,16 @@
       "bgcolor": "#5f4e34"
     },
     {
-      "id": 321,
+      "id": 510,
       "type": "PrimereMetaRead",
       "pos": [
-        721.1239675332694,
-        -9.082650744225315
+        721,
+        -11
       ],
-      "size": {
-        "0": 504.64862060546875,
-        "1": 1247.798583984375
-      },
+      "size": [
+        505.40117376325,
+        1246.0007659243015
+      ],
       "flags": {},
       "order": 29,
       "mode": 0,
@@ -2093,22 +2094,22 @@
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 806
+          "link": 1661
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 807
+          "link": 1662
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 808
+          "link": 1663
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 809,
+          "link": 1664,
           "widget": {
             "name": "positive"
           }
@@ -2116,7 +2117,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 810,
+          "link": 1665,
           "widget": {
             "name": "negative"
           }
@@ -2156,7 +2157,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 811,
+          "link": 1666,
           "widget": {
             "name": "model_version"
           }
@@ -2164,7 +2165,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 1270,
+          "link": 1667,
           "widget": {
             "name": "sampler_name"
           }
@@ -2172,7 +2173,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 1271,
+          "link": 1668,
           "widget": {
             "name": "scheduler_name"
           }
@@ -2180,7 +2181,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 814,
+          "link": 1669,
           "widget": {
             "name": "seed"
           }
@@ -2188,7 +2189,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1625,
+          "link": 1670,
           "widget": {
             "name": "width"
           }
@@ -2196,7 +2197,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1626,
+          "link": 1671,
           "widget": {
             "name": "height"
           }
@@ -2204,7 +2205,7 @@
         {
           "name": "cfg_scale",
           "type": "FLOAT",
-          "link": 1273,
+          "link": 1672,
           "widget": {
             "name": "cfg_scale"
           }
@@ -2212,24 +2213,23 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 1272,
+          "link": 1673,
           "widget": {
             "name": "steps"
           }
         },
         {
-          "name": "is_lcm",
-          "type": "INT",
-          "link": null,
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 1717,
           "widget": {
-            "name": "is_lcm"
-          },
-          "slot_index": 17
+            "name": "model_concept"
+          }
         },
         {
           "name": "prefered_model",
           "type": "STRING",
-          "link": 820,
+          "link": 1675,
           "widget": {
             "name": "prefered_model"
           }
@@ -2237,7 +2237,7 @@
         {
           "name": "prefered_orientation",
           "type": "STRING",
-          "link": 821,
+          "link": 1676,
           "widget": {
             "name": "prefered_orientation"
           }
@@ -2248,7 +2248,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            824
+            1679
           ],
           "shape": 3,
           "slot_index": 0
@@ -2257,7 +2257,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            825
+            1680
           ],
           "shape": 3,
           "slot_index": 1
@@ -2290,8 +2290,8 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            848,
-            1274
+            1684,
+            1686
           ],
           "shape": 3,
           "slot_index": 6
@@ -2300,8 +2300,8 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            843,
-            1309
+            1700,
+            1704
           ],
           "shape": 3,
           "slot_index": 7
@@ -2310,8 +2310,8 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            845,
-            1308
+            1701,
+            1705
           ],
           "shape": 3,
           "slot_index": 8
@@ -2320,10 +2320,10 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            860,
-            861,
-            862,
-            1303
+            1681,
+            1682,
+            1698,
+            1708
           ],
           "shape": 3,
           "slot_index": 9
@@ -2332,9 +2332,9 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            1182,
-            1606,
-            1634
+            1690,
+            1693,
+            1696
           ],
           "shape": 3,
           "slot_index": 10
@@ -2343,9 +2343,9 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            1183,
-            1607,
-            1635
+            1691,
+            1694,
+            1697
           ],
           "shape": 3,
           "slot_index": 11
@@ -2354,8 +2354,8 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            836,
-            1310
+            1702,
+            1706
           ],
           "shape": 3,
           "slot_index": 12
@@ -2364,8 +2364,8 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            834,
-            1304
+            1703,
+            1707
           ],
           "shape": 3,
           "slot_index": 13
@@ -2380,10 +2380,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            828,
-            829,
-            830,
-            1277
+            1711,
+            1712,
+            1713,
+            1714
           ],
           "shape": 3,
           "slot_index": 15
@@ -2392,7 +2392,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            1276
+            1715
           ],
           "shape": 3,
           "slot_index": 16
@@ -2401,7 +2401,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            1275
+            1716
           ],
           "shape": 3,
           "slot_index": 17
@@ -2410,8 +2410,8 @@
           "name": "METADATA",
           "type": "TUPLE",
           "links": [
-            827,
-            1410
+            1683,
+            1710
           ],
           "shape": 3,
           "slot_index": 18
@@ -2433,7 +2433,7 @@
         false,
         true,
         false,
-        "Image_20243001_082207_226950363950984_3696x2544_1.jpg",
+        "00000-20230602220747-1580545713.jpg",
         "image",
         "",
         "",
@@ -2444,18 +2444,18 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1420,
+        773,
         "randomize",
         512,
         512,
         7,
         12,
-        0,
+        "Normal",
         "",
         ""
       ],
-      "color": "#2d07ae",
-      "bgcolor": "#411bc2"
+      "color": "#5530d5",
+      "bgcolor": "#411cc1"
     },
     {
       "id": 472,
@@ -2518,7 +2518,7 @@
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 848
+          "link": 1684
         }
       ],
       "outputs": [
@@ -2546,60 +2546,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 106,
-      "type": "PrimereDynamicParser",
-      "pos": [
-        21.1239675332692,
-        80.91734925577471
-      ],
-      "size": {
-        "0": 262.75347900390625,
-        "1": 54
-      },
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 825,
-          "widget": {
-            "name": "dyn_prompt"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 860,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT",
-          "type": "STRING",
-          "links": [
-            739
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
-      },
-      "widgets_values": [
-        "",
-        1006648247080791,
-        "randomize"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 105,
       "type": "PrimereDynamicParser",
       "pos": [
@@ -2611,13 +2557,13 @@
         "1": 54
       },
       "flags": {},
-      "order": 33,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 824,
+          "link": 1679,
           "widget": {
             "name": "dyn_prompt"
           }
@@ -2625,7 +2571,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 861,
+          "link": 1681,
           "widget": {
             "name": "seed"
           }
@@ -2648,11 +2594,65 @@
       },
       "widgets_values": [
         "",
-        378559255057544,
+        61226312845267,
         "randomize"
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 106,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        21.1239675332692,
+        80.91734925577471
+      ],
+      "size": {
+        "0": 262.75347900390625,
+        "1": 54
+      },
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 1680,
+          "widget": {
+            "name": "dyn_prompt"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1682,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            739
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [
+        "",
+        960983951111909,
+        "randomize"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 444,
@@ -2672,22 +2672,22 @@
         {
           "name": "ckpt_name",
           "type": "CHECKPOINT_NAME",
-          "link": 1274
+          "link": 1686
         },
         {
           "name": "loaded_model",
           "type": "MODEL",
-          "link": 1275
+          "link": 1716
         },
         {
           "name": "loaded_clip",
           "type": "CLIP",
-          "link": 1276
+          "link": 1715
         },
         {
           "name": "loaded_vae",
           "type": "VAE",
-          "link": 1277
+          "link": 1714
         },
         {
           "name": "model_concept",
@@ -2769,7 +2769,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 827,
+          "link": 1683,
           "dir": 3
         }
       ],
@@ -2777,7 +2777,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 639086904517729,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"is_lcm\": 0,\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"exterior, extreme architecture, (huge old style terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor morning winter professional architectural photography), beautiful nature on alien word, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 639086904517729,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7.5,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"futuristic difficult half-human plastic robot, face portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -3011,7 +3011,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1182,
+          "link": 1690,
           "widget": {
             "name": "width"
           }
@@ -3019,7 +3019,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1183,
+          "link": 1691,
           "widget": {
             "name": "height"
           }
@@ -3027,7 +3027,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 1186,
+          "link": 1699,
           "widget": {
             "name": "noise_seed"
           }
@@ -3067,12 +3067,12 @@
         1,
         0.8,
         1.4,
-        329804100856824,
+        136939897976083,
         "randomize",
         true,
         "cpu",
         false,
-        833109503379696,
+        731397306388962,
         "randomize"
       ],
       "color": "#941414",
@@ -4507,7 +4507,7 @@
         1.3,
         0,
         0,
-        459441311403886,
+        10787637361081,
         "randomize",
         "mean",
         "comfy++",
@@ -4610,7 +4610,7 @@
         1.3,
         0,
         0,
-        191857961511208,
+        876689774140153,
         "randomize",
         "mean",
         "A1111",
@@ -4713,7 +4713,7 @@
         0.7000000000000001,
         0.35000000000000003,
         0.2,
-        302001198304077,
+        46115390374164,
         "randomize",
         "length+mean",
         "down_weight",
@@ -4818,7 +4818,7 @@
         1.2,
         0.3,
         0.2,
-        474340813588610,
+        662686376610298,
         "randomize",
         "mean",
         "down_weight",
@@ -4900,7 +4900,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1601,
+          "link": 1719,
           "widget": {
             "name": "model_concept"
           }
@@ -4956,7 +4956,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1606,
+          "link": 1696,
           "widget": {
             "name": "width"
           }
@@ -4964,7 +4964,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1607,
+          "link": 1697,
           "widget": {
             "name": "height"
           }
@@ -5049,13 +5049,14 @@
         1,
         "",
         1,
-        "",
+        false,
         1,
-        "",
         1,
-        "",
+        1,
+        1,
         "",
         true,
+        1,
         1,
         1024,
         1024
@@ -5109,7 +5110,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 1303,
+          "link": 1698,
           "widget": {
             "name": "seed"
           }
@@ -5117,7 +5118,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 1304,
+          "link": 1703,
           "widget": {
             "name": "steps"
           }
@@ -5125,7 +5126,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 1310,
+          "link": 1702,
           "widget": {
             "name": "cfg"
           }
@@ -5133,7 +5134,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 1309,
+          "link": 1700,
           "widget": {
             "name": "sampler_name"
           }
@@ -5141,7 +5142,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 1308,
+          "link": 1701,
           "widget": {
             "name": "scheduler_name"
           }
@@ -5162,7 +5163,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1041982172062633,
+        406968084360535,
         "randomize",
         20,
         8,
@@ -5201,7 +5202,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (huge old style terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor morning winter professional architectural photography), beautiful nature on alien word, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (:0.6), ((Photo, Highly Detailed:1.20), (Kodachrome:0.70), Ultra detailed, (Futurism:0.80), Charles Demuth precisionist realism, capturing the beauty of industrial America with exacting detail), design"
+        "futuristic difficult half-human plastic robot, face portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights, Charles Demuth precisionist realism, capturing the beauty of industrial America with exacting detail, (Photo, Highly Detailed:1.20), (Kodachrome:0.70), Ultra detailed, (Futurism:0.80), design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5233,7 +5234,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20), ((Low rated,Phone,Wedding,Frame,Painting,tumblr:1.20))"
+        "(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20), ((Low rated,Phone,Wedding,Frame,Painting,tumblr:1.20)), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language:1.20)"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -5325,7 +5326,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 830,
+          "link": 1712,
           "slot_index": 1
         }
       ],
@@ -5424,7 +5425,7 @@
       ],
       "size": {
         "0": 391.8502197265625,
-        "1": 546
+        "1": 594
       },
       "flags": {},
       "order": 72,
@@ -5454,14 +5455,6 @@
           "link": 1522,
           "widget": {
             "name": "square_shape"
-          }
-        },
-        {
-          "name": "dino_serach_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_serach_prompt"
           }
         },
         {
@@ -5758,7 +5751,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1085081402081045,
+        1024691786744572,
         "randomize",
         "heun",
         "simple",
@@ -5787,7 +5780,7 @@
       ],
       "size": {
         "0": 342.12060546875,
-        "1": 546
+        "1": 594
       },
       "flags": {},
       "order": 75,
@@ -5817,14 +5810,6 @@
           "link": 1533,
           "widget": {
             "name": "square_shape"
-          }
-        },
-        {
-          "name": "dino_serach_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_serach_prompt"
           }
         },
         {
@@ -6151,7 +6136,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        920225215359611,
+        101404105402927,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6180,7 +6165,7 @@
       ],
       "size": {
         "0": 340.390869140625,
-        "1": 546
+        "1": 594
       },
       "flags": {},
       "order": 79,
@@ -6210,14 +6195,6 @@
           "link": 1543,
           "widget": {
             "name": "square_shape"
-          }
-        },
-        {
-          "name": "dino_serach_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_serach_prompt"
           }
         },
         {
@@ -6543,7 +6520,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        183575058234822,
+        1046377772442493,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6572,7 +6549,7 @@
       ],
       "size": {
         "0": 339.63525390625,
-        "1": 546
+        "1": 594
       },
       "flags": {},
       "order": 83,
@@ -6602,14 +6579,6 @@
           "link": 1553,
           "widget": {
             "name": "square_shape"
-          }
-        },
-        {
-          "name": "dino_serach_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_serach_prompt"
           }
         },
         {
@@ -6935,7 +6904,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        745538071315572,
+        279462054245413,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6978,7 +6947,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1634,
+          "link": 1693,
           "widget": {
             "name": "width"
           }
@@ -6986,7 +6955,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1635,
+          "link": 1694,
           "widget": {
             "name": "height"
           }
@@ -6997,8 +6966,8 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            1636,
-            1639
+            1639,
+            1692
           ],
           "shape": 3,
           "slot_index": 0
@@ -7101,7 +7070,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 828
+          "link": 1713
         },
         {
           "name": "width",
@@ -7195,7 +7164,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 829
+          "link": 1711
         },
         {
           "name": "upscale_model",
@@ -7205,7 +7174,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 862,
+          "link": 1708,
           "widget": {
             "name": "seed"
           }
@@ -7213,7 +7182,7 @@
         {
           "name": "tile_width",
           "type": "INT",
-          "link": 1636,
+          "link": 1692,
           "widget": {
             "name": "tile_width"
           }
@@ -7237,7 +7206,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 843,
+          "link": 1704,
           "widget": {
             "name": "sampler_name"
           },
@@ -7246,7 +7215,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 845,
+          "link": 1705,
           "widget": {
             "name": "scheduler"
           },
@@ -7255,7 +7224,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 834,
+          "link": 1707,
           "widget": {
             "name": "steps"
           },
@@ -7264,7 +7233,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 836,
+          "link": 1706,
           "widget": {
             "name": "cfg"
           },
@@ -7288,7 +7257,7 @@
       },
       "widgets_values": [
         2.1,
-        215584302672417,
+        431038455809009,
         "randomize",
         7,
         6.5,
@@ -7361,7 +7330,7 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 1410
+          "link": 1710
         },
         {
           "name": "prefered_subpath",
@@ -7977,190 +7946,6 @@
       "CLIP"
     ],
     [
-      806,
-      248,
-      0,
-      321,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      807,
-      88,
-      0,
-      321,
-      1,
-      "VAE_NAME"
-    ],
-    [
-      808,
-      89,
-      0,
-      321,
-      2,
-      "VAE_NAME"
-    ],
-    [
-      809,
-      137,
-      0,
-      321,
-      3,
-      "STRING"
-    ],
-    [
-      810,
-      137,
-      1,
-      321,
-      4,
-      "STRING"
-    ],
-    [
-      811,
-      248,
-      1,
-      321,
-      9,
-      "STRING"
-    ],
-    [
-      814,
-      90,
-      0,
-      321,
-      12,
-      "INT"
-    ],
-    [
-      820,
-      137,
-      3,
-      321,
-      18,
-      "STRING"
-    ],
-    [
-      821,
-      137,
-      4,
-      321,
-      19,
-      "STRING"
-    ],
-    [
-      824,
-      321,
-      0,
-      105,
-      0,
-      "STRING"
-    ],
-    [
-      825,
-      321,
-      1,
-      106,
-      0,
-      "STRING"
-    ],
-    [
-      827,
-      321,
-      18,
-      114,
-      0,
-      "*"
-    ],
-    [
-      828,
-      321,
-      15,
-      155,
-      1,
-      "VAE"
-    ],
-    [
-      829,
-      321,
-      15,
-      156,
-      4,
-      "VAE"
-    ],
-    [
-      830,
-      321,
-      15,
-      103,
-      1,
-      "VAE"
-    ],
-    [
-      834,
-      321,
-      13,
-      156,
-      12,
-      "INT"
-    ],
-    [
-      836,
-      321,
-      12,
-      156,
-      13,
-      "FLOAT"
-    ],
-    [
-      843,
-      321,
-      7,
-      156,
-      10,
-      "COMBO"
-    ],
-    [
-      845,
-      321,
-      8,
-      156,
-      11,
-      "COMBO"
-    ],
-    [
-      848,
-      321,
-      6,
-      244,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      860,
-      321,
-      9,
-      106,
-      1,
-      "INT"
-    ],
-    [
-      861,
-      321,
-      9,
-      105,
-      1,
-      "INT"
-    ],
-    [
-      862,
-      321,
-      9,
-      156,
-      6,
-      "INT"
-    ],
-    [
       1027,
       90,
       0,
@@ -8313,36 +8098,12 @@
       "MODEL"
     ],
     [
-      1182,
-      321,
-      10,
-      413,
-      1,
-      "INT"
-    ],
-    [
-      1183,
-      321,
-      11,
-      413,
-      2,
-      "INT"
-    ],
-    [
       1185,
       413,
       1,
       27,
       0,
       "IMAGE"
-    ],
-    [
-      1186,
-      90,
-      0,
-      413,
-      3,
-      "INT"
     ],
     [
       1253,
@@ -8415,70 +8176,6 @@
       436,
       10,
       "FLOAT"
-    ],
-    [
-      1270,
-      436,
-      0,
-      321,
-      10,
-      "COMBO"
-    ],
-    [
-      1271,
-      436,
-      1,
-      321,
-      11,
-      "COMBO"
-    ],
-    [
-      1272,
-      436,
-      2,
-      321,
-      16,
-      "INT"
-    ],
-    [
-      1273,
-      436,
-      3,
-      321,
-      15,
-      "FLOAT"
-    ],
-    [
-      1274,
-      321,
-      6,
-      444,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      1275,
-      321,
-      17,
-      444,
-      1,
-      "MODEL"
-    ],
-    [
-      1276,
-      321,
-      16,
-      444,
-      2,
-      "CLIP"
-    ],
-    [
-      1277,
-      321,
-      15,
-      444,
-      3,
-      "VAE"
     ],
     [
       1278,
@@ -8641,52 +8338,12 @@
       "LATENT"
     ],
     [
-      1303,
-      321,
-      9,
-      441,
-      5,
-      "INT"
-    ],
-    [
-      1304,
-      321,
-      13,
-      441,
-      6,
-      "INT"
-    ],
-    [
       1307,
       441,
       0,
       103,
       0,
       "LATENT"
-    ],
-    [
-      1308,
-      321,
-      8,
-      441,
-      9,
-      "COMBO"
-    ],
-    [
-      1309,
-      321,
-      7,
-      441,
-      8,
-      "COMBO"
-    ],
-    [
-      1310,
-      321,
-      12,
-      441,
-      7,
-      "FLOAT"
     ],
     [
       1311,
@@ -8983,14 +8640,6 @@
       350,
       1,
       "INT"
-    ],
-    [
-      1410,
-      321,
-      18,
-      462,
-      1,
-      "TUPLE"
     ],
     [
       1411,
@@ -9481,14 +9130,6 @@
       "STRING"
     ],
     [
-      1601,
-      452,
-      0,
-      498,
-      9,
-      "STRING"
-    ],
-    [
       1602,
       107,
       0,
@@ -9503,22 +9144,6 @@
       498,
       8,
       "STRING"
-    ],
-    [
-      1606,
-      321,
-      10,
-      498,
-      16,
-      "INT"
-    ],
-    [
-      1607,
-      321,
-      11,
-      498,
-      17,
-      "INT"
     ],
     [
       1608,
@@ -9631,46 +9256,6 @@
       472,
       0,
       "*"
-    ],
-    [
-      1625,
-      501,
-      0,
-      321,
-      13,
-      "INT"
-    ],
-    [
-      1626,
-      501,
-      1,
-      321,
-      14,
-      "INT"
-    ],
-    [
-      1634,
-      321,
-      10,
-      504,
-      1,
-      "INT"
-    ],
-    [
-      1635,
-      321,
-      11,
-      504,
-      2,
-      "INT"
-    ],
-    [
-      1636,
-      504,
-      0,
-      156,
-      7,
-      "INT"
     ],
     [
       1637,
@@ -9807,6 +9392,398 @@
       415,
       1,
       "STRING"
+    ],
+    [
+      1661,
+      248,
+      0,
+      510,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1662,
+      88,
+      0,
+      510,
+      1,
+      "VAE_NAME"
+    ],
+    [
+      1663,
+      89,
+      0,
+      510,
+      2,
+      "VAE_NAME"
+    ],
+    [
+      1664,
+      137,
+      0,
+      510,
+      3,
+      "STRING"
+    ],
+    [
+      1665,
+      137,
+      1,
+      510,
+      4,
+      "STRING"
+    ],
+    [
+      1666,
+      248,
+      1,
+      510,
+      9,
+      "STRING"
+    ],
+    [
+      1667,
+      436,
+      0,
+      510,
+      10,
+      "COMBO"
+    ],
+    [
+      1668,
+      436,
+      1,
+      510,
+      11,
+      "COMBO"
+    ],
+    [
+      1669,
+      90,
+      0,
+      510,
+      12,
+      "INT"
+    ],
+    [
+      1670,
+      501,
+      0,
+      510,
+      13,
+      "INT"
+    ],
+    [
+      1671,
+      501,
+      1,
+      510,
+      14,
+      "INT"
+    ],
+    [
+      1672,
+      436,
+      3,
+      510,
+      15,
+      "FLOAT"
+    ],
+    [
+      1673,
+      436,
+      2,
+      510,
+      16,
+      "INT"
+    ],
+    [
+      1675,
+      137,
+      3,
+      510,
+      18,
+      "STRING"
+    ],
+    [
+      1676,
+      137,
+      4,
+      510,
+      19,
+      "STRING"
+    ],
+    [
+      1679,
+      510,
+      0,
+      105,
+      0,
+      "STRING"
+    ],
+    [
+      1680,
+      510,
+      1,
+      106,
+      0,
+      "STRING"
+    ],
+    [
+      1681,
+      510,
+      9,
+      105,
+      1,
+      "INT"
+    ],
+    [
+      1682,
+      510,
+      9,
+      106,
+      1,
+      "INT"
+    ],
+    [
+      1683,
+      510,
+      18,
+      114,
+      0,
+      "*"
+    ],
+    [
+      1684,
+      510,
+      6,
+      244,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1686,
+      510,
+      6,
+      444,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1690,
+      510,
+      10,
+      413,
+      1,
+      "INT"
+    ],
+    [
+      1691,
+      510,
+      11,
+      413,
+      2,
+      "INT"
+    ],
+    [
+      1692,
+      504,
+      0,
+      156,
+      7,
+      "INT"
+    ],
+    [
+      1693,
+      510,
+      10,
+      504,
+      1,
+      "INT"
+    ],
+    [
+      1694,
+      510,
+      11,
+      504,
+      2,
+      "INT"
+    ],
+    [
+      1696,
+      510,
+      10,
+      498,
+      16,
+      "INT"
+    ],
+    [
+      1697,
+      510,
+      11,
+      498,
+      17,
+      "INT"
+    ],
+    [
+      1698,
+      510,
+      9,
+      441,
+      5,
+      "INT"
+    ],
+    [
+      1699,
+      90,
+      0,
+      413,
+      3,
+      "INT"
+    ],
+    [
+      1700,
+      510,
+      7,
+      441,
+      8,
+      "COMBO"
+    ],
+    [
+      1701,
+      510,
+      8,
+      441,
+      9,
+      "COMBO"
+    ],
+    [
+      1702,
+      510,
+      12,
+      441,
+      7,
+      "FLOAT"
+    ],
+    [
+      1703,
+      510,
+      13,
+      441,
+      6,
+      "INT"
+    ],
+    [
+      1704,
+      510,
+      7,
+      156,
+      10,
+      "COMBO"
+    ],
+    [
+      1705,
+      510,
+      8,
+      156,
+      11,
+      "COMBO"
+    ],
+    [
+      1706,
+      510,
+      12,
+      156,
+      13,
+      "FLOAT"
+    ],
+    [
+      1707,
+      510,
+      13,
+      156,
+      12,
+      "INT"
+    ],
+    [
+      1708,
+      510,
+      9,
+      156,
+      6,
+      "INT"
+    ],
+    [
+      1710,
+      510,
+      18,
+      462,
+      1,
+      "TUPLE"
+    ],
+    [
+      1711,
+      510,
+      15,
+      156,
+      4,
+      "VAE"
+    ],
+    [
+      1712,
+      510,
+      15,
+      103,
+      1,
+      "VAE"
+    ],
+    [
+      1713,
+      510,
+      15,
+      155,
+      1,
+      "VAE"
+    ],
+    [
+      1714,
+      510,
+      15,
+      444,
+      3,
+      "VAE"
+    ],
+    [
+      1715,
+      510,
+      16,
+      444,
+      2,
+      "CLIP"
+    ],
+    [
+      1716,
+      510,
+      17,
+      444,
+      1,
+      "MODEL"
+    ],
+    [
+      1717,
+      436,
+      4,
+      510,
+      17,
+      "STRING"
+    ],
+    [
+      1719,
+      452,
+      0,
+      498,
+      9,
+      "STRING"
     ]
   ],
   "groups": [
@@ -9851,8 +9828,8 @@
       "bounding": [
         1246,
         -81,
-        1098,
-        1857
+        1105,
+        671
       ],
       "color": "#b58b2a",
       "font_size": 24,

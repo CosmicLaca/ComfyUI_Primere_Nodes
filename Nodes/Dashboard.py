@@ -121,8 +121,8 @@ class PrimereVAELoader:
         return nodes.VAELoader.load_vae(self, vae_name)
 
 class PrimereLCMSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "INT")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "IS_LCM")
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
     FUNCTION = "select_lcm_mode"
     CATEGORY = TREE_DASHBOARD
 
@@ -143,15 +143,15 @@ class PrimereLCMSelector:
         }
 
     def select_lcm_mode(self, use_lcm = False, sampler_name = 'euler', scheduler_name = 'normal', lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', cfg_scale = 7, steps = 12, lcm_cfg_scale = 1.2, lcm_steps = 6):
-        lcm_mode = 0
+        model_concept = "Normal"
         if use_lcm == True:
             sampler_name = lcm_sampler_name
             scheduler_name = lcm_scheduler_name
             steps = lcm_steps
             cfg_scale = lcm_cfg_scale
-            lcm_mode = 1
+            model_concept = "LCM"
 
-        return (sampler_name, scheduler_name, steps, cfg_scale, lcm_mode,)
+        return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
 class PrimereModelConceptSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
@@ -545,6 +545,7 @@ class PrimereCLIP:
                 "opt_neg_prompt": ("STRING", {"forceInput": True}),
                 "opt_neg_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
 
+                "style_position": ("BOOLEAN", {"default": False, "label_on": "Top", "label_off": "Bottom"}),
                 "style_pos_prompt": ("STRING", {"forceInput": True}),
                 "style_pos_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "style_neg_prompt": ("STRING", {"forceInput": True}),
@@ -559,7 +560,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
@@ -585,8 +586,16 @@ class PrimereCLIP:
 
         opt_pos_prompt = f'({opt_pos_prompt}:{opt_pos_strength:.2f})' if opt_pos_prompt is not None and opt_pos_prompt.strip(' ,;') != '' else ''
         opt_neg_prompt = f'({opt_neg_prompt}:{opt_neg_strength:.2f})' if opt_neg_prompt is not None and opt_neg_prompt.strip(' ,;') != '' else ''
-        style_pos_prompt = f'({style_pos_prompt}:{style_pos_strength:.2f})' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
-        style_neg_prompt = f'({style_neg_prompt}:{style_neg_strength:.2f})' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
+
+        if style_pos_strength != 1:
+            style_pos_prompt = f'({style_pos_prompt}:{style_pos_strength:.2f})' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
+        else:
+            style_pos_prompt = f'{style_pos_prompt}' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
+
+        if style_neg_prompt != 1:
+            style_neg_prompt = f'({style_neg_prompt}:{style_neg_strength:.2f})' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
+        else:
+            style_neg_prompt = f'{style_neg_prompt}' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
 
         if (style_pos_prompt is not None and style_pos_prompt != '') or (style_neg_prompt is not None and style_neg_prompt != '') or model_concept != "Normal":
             copy_prompt_to_l = False
@@ -595,11 +604,25 @@ class PrimereCLIP:
             sdxl_positive_l = positive_prompt
             sdxl_negative_l = negative_prompt
 
-        sdxl_positive_l = f'({sdxl_positive_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
-        sdxl_negative_l = f'({sdxl_negative_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
+        if sdxl_l_strength != 1:
+            sdxl_positive_l = f'({sdxl_positive_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
+            sdxl_negative_l = f'({sdxl_negative_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
+        else:
+            sdxl_positive_l = f'{sdxl_positive_l}'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
+            sdxl_negative_l = f'{sdxl_negative_l}'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
 
-        positive_text = f'{positive_prompt}, {opt_pos_prompt}, {style_pos_prompt}, {additional_positive}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
-        negative_text = f'{negative_prompt}, {opt_neg_prompt}, {style_neg_prompt}, {additional_negative}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
+        if (style_pos_prompt.startswith('((') and style_pos_prompt.endswith('))')):
+            style_pos_prompt = '(' + style_pos_prompt.strip('()') + ')'
+
+        if (style_neg_prompt.startswith('((') and style_neg_prompt.endswith('))')):
+            style_neg_prompt = '(' + style_neg_prompt.strip('()') + ')'
+
+        if style_position == False:
+            positive_text = f'{positive_prompt}, {opt_pos_prompt}, {style_pos_prompt}, {additional_positive}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
+            negative_text = f'{negative_prompt}, {opt_neg_prompt}, {style_neg_prompt}, {additional_negative}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
+        else:
+            positive_text = f'{style_pos_prompt}, {opt_pos_prompt}, {positive_prompt}, {additional_positive}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
+            negative_text = f'{style_neg_prompt}, {opt_neg_prompt}, {negative_prompt}, {additional_negative}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
 
         if model_keywords is not None:
             mkw_list = list(filter(None, model_keywords))

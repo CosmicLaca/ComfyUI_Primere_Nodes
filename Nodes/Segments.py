@@ -160,12 +160,12 @@ class PrimereImageSegments:
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "square_shape": ("INT", {"default": 768, "forceInput": True}),
                 "segment_prompt_data": ("TUPLE", {"forceInput": True}),
-                "dino_serach_prompt": ("STRING", {"default": None, "forceInput": True}),
+                "dino_search_prompt": ("STRING", {"default": None, "forceInput": True}),
                 "dino_replace_prompt": ("STRING", {"default": None, "forceInput": True}),
             }
         }
 
-    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, segment_prompt_data, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', square_shape = 768, dino_serach_prompt = None, dino_replace_prompt = None):
+    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, segment_prompt_data, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', square_shape = 768, dino_search_prompt = None, dino_replace_prompt = None):
         if segment_prompt_data is None:
             segment_prompt_data = {}
 

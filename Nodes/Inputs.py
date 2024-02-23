@@ -421,7 +421,7 @@ class PrimereMetaRead:
                 "steps": ('INT', {"forceInput": True, "default": 12}),
                 "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": ""}),
                 "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
-                "is_lcm": ("INT", {"default": 0, "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "prefered_model": ("STRING", {"default": "", "forceInput": True}),
                 "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
             },
@@ -429,7 +429,7 @@ class PrimereMetaRead:
 
     def load_image_meta(self, use_exif, use_decoded_dyn, use_model, model_hash_check, use_sampler, use_seed, use_size, recount_size, use_cfg_scale, use_steps, use_exif_vae, force_model_vae, image,
                         positive="", negative="", positive_l="", negative_l="", positive_r="", negative_r="",
-                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", is_lcm=0, prefered_model="", prefered_orientation=""):
+                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", prefered_model="", prefered_orientation=""):
 
         if prefered_orientation == 'Random':
             if (seed % 2) == 0:
@@ -454,7 +454,7 @@ class PrimereMetaRead:
         data_json['cfg_scale'] = cfg_scale
         data_json['steps'] = steps
         data_json['model_version'] = model_version
-        data_json['is_lcm'] = is_lcm
+        data_json['model_concept'] = model_concept
         data_json['vae_name'] = vae_name_sd
         data_json['force_model_vae'] = force_model_vae
         data_json['prefered_model'] = prefered_model
@@ -551,7 +551,7 @@ class PrimereMetaRead:
 
                         data_json['is_sdxl'] = is_sdxl
 
-                    if use_sampler == True and data_json['is_lcm'] == 0 and (reader.parameter["cfg_scale"] >= 3 and reader.parameter["steps"] >= 9):
+                    if use_sampler == True and data_json['model_concept'] == 'Normal' and (reader.parameter["cfg_scale"] >= 3 and reader.parameter["steps"] >= 9):
                         if 'sampler' in reader.parameter:
                             sampler_name_exif = reader.parameter["sampler"]
                             samplers = exif_data_checker.check_sampler_from_exif(sampler_name_exif.lower(), sampler_name, scheduler_name)
@@ -565,11 +565,11 @@ class PrimereMetaRead:
                         if 'seed' in reader.parameter:
                             data_json['seed'] = reader.parameter["seed"]
 
-                    if use_cfg_scale == True and data_json['is_lcm'] == 0 and reader.parameter["cfg_scale"] >= 3:
+                    if use_cfg_scale == True and data_json['model_concept'] == 'Normal' and reader.parameter["cfg_scale"] >= 3:
                         if 'cfg_scale' in reader.parameter:
                             data_json['cfg_scale'] = reader.parameter["cfg_scale"]
 
-                    if use_steps == True and data_json['is_lcm'] == 0 and reader.parameter["steps"] >= 9:
+                    if use_steps == True and data_json['model_concept'] == 'Normal' and reader.parameter["steps"] >= 9:
                         if 'steps' in reader.parameter:
                             data_json['steps'] = reader.parameter["steps"]
 

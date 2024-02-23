@@ -453,6 +453,88 @@
       "color": "#c09430"
     },
     {
+      "id": 66,
+      "type": "PrimerePromptOrganizer",
+      "pos": [
+        21,
+        92
+      ],
+      "size": {
+        "0": 367.7401123046875,
+        "1": 441.61724853515625
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            238
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            239
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [
+            240
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [
+            241
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [
+            242
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePromptOrganizer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        "Architechture::Minimal interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
       "id": 41,
       "type": "PrimereModelKeyword",
       "pos": [
@@ -681,6 +763,173 @@
       "bgcolor": "#000080"
     },
     {
+      "id": 5,
+      "type": "PrimerePromptSwitch",
+      "pos": [
+        397,
+        94
+      ],
+      "size": {
+        "0": 272.9855651855469,
+        "1": 438
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt_pos_1",
+          "type": "STRING",
+          "link": 1
+        },
+        {
+          "name": "prompt_neg_1",
+          "type": "STRING",
+          "link": 2
+        },
+        {
+          "name": "subpath_1",
+          "type": "STRING",
+          "link": 3
+        },
+        {
+          "name": "model_1",
+          "type": "STRING",
+          "link": 4
+        },
+        {
+          "name": "orientation_1",
+          "type": "STRING",
+          "link": 5
+        },
+        {
+          "name": "prompt_pos_2",
+          "type": "STRING",
+          "link": 6
+        },
+        {
+          "name": "prompt_neg_2",
+          "type": "STRING",
+          "link": 7
+        },
+        {
+          "name": "subpath_2",
+          "type": "STRING",
+          "link": 8
+        },
+        {
+          "name": "model_2",
+          "type": "STRING",
+          "link": 9
+        },
+        {
+          "name": "orientation_2",
+          "type": "STRING",
+          "link": 10
+        },
+        {
+          "name": "prompt_pos_3",
+          "type": "STRING",
+          "link": 238
+        },
+        {
+          "name": "prompt_neg_3",
+          "type": "STRING",
+          "link": 239
+        },
+        {
+          "name": "subpath_3",
+          "type": "STRING",
+          "link": 240
+        },
+        {
+          "name": "model_3",
+          "type": "STRING",
+          "link": 241
+        },
+        {
+          "name": "orientation_3",
+          "type": "STRING",
+          "link": 242
+        },
+        {
+          "name": "prompt_pos_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "prompt_neg_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "subpath_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "orientation_4",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            11
+          ],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            12
+          ],
+          "shape": 3
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SELECTED_INDEX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePromptSwitch"
+      },
+      "widgets_values": [
+        2
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
       "id": 58,
       "type": "PrimereCKPTLoader",
       "pos": [
@@ -825,7 +1074,7 @@
       },
       "widgets_values": [
         "",
-        3801988605159,
+        726720164729028,
         "randomize"
       ],
       "color": "#145414",
@@ -880,7 +1129,7 @@
       },
       "widgets_values": [
         "",
-        650859899447905,
+        456545989494652,
         "randomize"
       ],
       "color": "#145414",
@@ -968,7 +1217,7 @@
         false,
         1.6,
         2.8,
-        401051223173078,
+        756917719219185,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1117,12 +1366,12 @@
         1,
         0.8,
         1.4,
-        124177673876372,
+        1069293355074870,
         "randomize",
         true,
         "cpu",
         false,
-        321779816600359,
+        840250624910237,
         "randomize"
       ],
       "color": "#941414",
@@ -1137,7 +1386,7 @@
       ],
       "size": {
         "0": 333.5295104980469,
-        "1": 750.2066650390625
+        "1": 758
       },
       "flags": {},
       "order": 18,
@@ -1335,13 +1584,14 @@
         1,
         "",
         1,
-        "",
+        true,
         1,
-        "",
         1,
-        "",
+        1,
+        1,
         "",
         true,
+        1,
         1,
         1024,
         1024
@@ -1475,7 +1725,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        938413079157123,
+        1102973776864722,
         "randomize",
         20,
         8,
@@ -1557,255 +1807,6 @@
       },
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 5,
-      "type": "PrimerePromptSwitch",
-      "pos": [
-        397,
-        94
-      ],
-      "size": [
-        272.9855517578126,
-        438
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt_pos_1",
-          "type": "STRING",
-          "link": 1
-        },
-        {
-          "name": "prompt_neg_1",
-          "type": "STRING",
-          "link": 2
-        },
-        {
-          "name": "subpath_1",
-          "type": "STRING",
-          "link": 3
-        },
-        {
-          "name": "model_1",
-          "type": "STRING",
-          "link": 4
-        },
-        {
-          "name": "orientation_1",
-          "type": "STRING",
-          "link": 5
-        },
-        {
-          "name": "prompt_pos_2",
-          "type": "STRING",
-          "link": 6
-        },
-        {
-          "name": "prompt_neg_2",
-          "type": "STRING",
-          "link": 7
-        },
-        {
-          "name": "subpath_2",
-          "type": "STRING",
-          "link": 8
-        },
-        {
-          "name": "model_2",
-          "type": "STRING",
-          "link": 9
-        },
-        {
-          "name": "orientation_2",
-          "type": "STRING",
-          "link": 10
-        },
-        {
-          "name": "prompt_pos_3",
-          "type": "STRING",
-          "link": 238
-        },
-        {
-          "name": "prompt_neg_3",
-          "type": "STRING",
-          "link": 239
-        },
-        {
-          "name": "subpath_3",
-          "type": "STRING",
-          "link": 240
-        },
-        {
-          "name": "model_3",
-          "type": "STRING",
-          "link": 241
-        },
-        {
-          "name": "orientation_3",
-          "type": "STRING",
-          "link": 242
-        },
-        {
-          "name": "prompt_pos_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "prompt_neg_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "subpath_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "orientation_4",
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            11
-          ],
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            12
-          ],
-          "shape": 3
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "SELECTED_INDEX",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePromptSwitch"
-      },
-      "widgets_values": [
-        2
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 66,
-      "type": "PrimerePromptOrganizer",
-      "pos": [
-        21,
-        92
-      ],
-      "size": [
-        367.7401261763139,
-        441.61723605069244
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            238
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            239
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            240
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            241
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            242
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePromptOrganizer"
-      },
-      "widgets_values": [
-        false,
-        false,
-        false,
-        "Architechture::Minimal interior",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
     }
   ],
   "links": [
