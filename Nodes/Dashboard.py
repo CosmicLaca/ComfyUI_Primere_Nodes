@@ -163,7 +163,7 @@ class PrimereModelConceptSelector:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_concept":(["Normal", "LCM", "Turbo"], {"default": "Normal"}),
+                "model_concept":(["Normal", "LCM", "Turbo", "Cascade", "Lightning"], {"default": "Normal"}),
                 "normal_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
                 "normal_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
                 "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
@@ -179,13 +179,25 @@ class PrimereModelConceptSelector:
                 "turbo_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
                 "turbo_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.15}),
                 "turbo_steps": ('INT', {"forceInput": True, "default": 2}),
+
+                "cascade_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler_ancestral"}),
+                "cascade_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
+                "cascade_cfg_scale": ('FLOAT', {"forceInput": True, "default": 4}),
+                "cascade_steps": ('INT', {"forceInput": True, "default": 20}),
+
+                "lightning_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "dpmpp_sde"}),
+                "lightning_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
+                "lightning_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
+                "lightning_steps": ('INT', {"forceInput": True, "default": 6}),
             }
         }
 
     def select_model_concept(self, model_concept = 'Normal',
                              normal_sampler_name = 'euler', normal_scheduler_name = 'normal', normal_cfg_scale = 7, normal_steps = 12,
                              lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', lcm_cfg_scale = 1.2, lcm_steps = 6,
-                             turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2):
+                             turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2,
+                             cascade_sampler_name = 'euler_ancestral', cascade_scheduler_name = "simple", cascade_cfg_scale = 4, cascade_steps = 20,
+                             lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6):
 
         match model_concept:
             case 'Normal':
@@ -205,6 +217,18 @@ class PrimereModelConceptSelector:
                 scheduler_name = turbo_scheduler_name
                 steps = turbo_steps
                 cfg_scale = turbo_cfg_scale
+
+            case 'Cascade':
+                sampler_name = cascade_sampler_name
+                scheduler_name = cascade_scheduler_name
+                steps = cascade_steps
+                cfg_scale = cascade_cfg_scale
+
+            case 'Lightning':
+                sampler_name = lightning_sampler_name
+                scheduler_name = lightning_scheduler_name
+                steps = lightning_steps
+                cfg_scale = lightning_cfg_scale
 
         return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
