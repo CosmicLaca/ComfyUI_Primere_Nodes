@@ -746,7 +746,7 @@
         false,
         1.6,
         2.8,
-        1104406411990079,
+        957349953197661,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -803,7 +803,7 @@
       },
       "widgets_values": [
         "",
-        689729240829321,
+        94372523136447,
         "randomize"
       ],
       "color": "#145414",
@@ -858,7 +858,7 @@
       },
       "widgets_values": [
         "",
-        699137283339078,
+        259654700896933,
         "randomize"
       ],
       "color": "#145414",
@@ -933,22 +933,22 @@
       "widgets_values": [
         512,
         512,
-        true,
-        "brownian_fractal",
-        true,
+        false,
+        "blue",
+        false,
         1,
         0.5,
         1.5,
-        true,
+        false,
         1,
         0.8,
         1.4,
-        207312711080972,
+        620069089455712,
         "randomize",
-        true,
+        false,
         "cpu",
         false,
-        1125135333226400,
+        27053301579217,
         "randomize"
       ],
       "color": "#941414",
@@ -1364,7 +1364,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        862219093754979,
+        1063441456896150,
         "randomize",
         20,
         8,

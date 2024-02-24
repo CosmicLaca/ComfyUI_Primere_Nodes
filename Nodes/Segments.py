@@ -331,23 +331,26 @@ class PrimereAnyDetailer:
         #     base_multiplier = round((100 / segment_settings['image_max_area_percent']) / 50, 1)
         # print(base_multiplier)
 
-        # max_size = round(guide_size * 1.2, 2)
+        max_size = round(guide_size * 1.2, 2)
 
+        '''
         if guide_size in range(0, 300):
-            max_size = round(guide_size * 1.8, 2)
+            max_size = round(guide_size * 1.3, 2)
             cycle = cycle * 2
         elif guide_size in range(301, 600):
-            max_size = round(guide_size * 1.6, 2)
+            max_size = round(guide_size * 1.2, 2)
             cycle = cycle * 2
         elif guide_size in range(601, 2000):
-            max_size = round(guide_size * 1.4, 2)
+            max_size = round(guide_size * 1.1, 2)
         else:
-            max_size = round(guide_size * 1.2, 2)
+            max_size = round(guide_size * 1.0, 2)
 
         if model_concept == "Turbo":
             cycle = 1
-            guide_size = round(guide_size * 1.8, 2)
-            max_size = round(max_size * (1.8 * 2), 2)
+            # guide_size = round(guide_size * 1.4, 2)
+            # max_size = round(max_size * (1.4 * 2), 2)
+            max_size = round(guide_size * 1.3, 2)
+        '''
 
         detailer_hook = None
         wildcard_opt = None
