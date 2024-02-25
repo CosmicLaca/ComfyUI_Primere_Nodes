@@ -1116,7 +1116,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
     if model_concept == 'Turbo':
         guide_size = guide_size * 1.8
 
-    max_size = guide_size * 1.2
+    max_size = guide_size * 1.4
 
     '''
     print('--------------3---------------')
@@ -1405,7 +1405,7 @@ class DetailerForEach:
             # for multiplier in multiplierList:
 
             SegmentedRelative = (segment_settings['image_size'][0] * segment_settings['image_size'][1]) / (cropped_image.shape[1] * cropped_image.shape[2])
-            multiplier = round((math.sqrt((SegmentedRelative / 8)) / 2) + 1, 2)
+            multiplier = round((math.sqrt((SegmentedRelative / 7)) / 2) + 1, 2)
 
             if multiplier < 1:
                 multiplier = 1

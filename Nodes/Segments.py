@@ -258,6 +258,7 @@ class PrimereImageSegments:
         if (len(segs[2]) > 0):
             for image_segs in segs[2]:
                 image_area = (abs(image_segs[2] - image_segs[0])) * (abs(image_segs[3] - image_segs[1]))
+                image_area = int((image_area / (crop_factor ** 2)))
                 if (image_area > image_max_area):
                     image_max_area = image_area
                     image_max_area_percent = 100 / (input_image_area / image_max_area)
