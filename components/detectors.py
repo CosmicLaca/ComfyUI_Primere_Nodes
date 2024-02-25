@@ -1107,12 +1107,29 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
     return refined_latent
 
 def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max_size, bbox, seed, steps, cfg,
-                   sampler_name,
-                   scheduler, positive, negative, denoise, noise_mask, force_inpaint,
-                   wildcard_opt=None, wildcard_opt_concat_mode=None,
-                   detailer_hook=None,
+                   sampler_name, scheduler, positive, negative, denoise, noise_mask, force_inpaint, segment_settings, multiplier,
+                   wildcard_opt=None, wildcard_opt_concat_mode=None, detailer_hook=None,
                    refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
                    refiner_negative=None, control_net_wrapper=None, model_concept = "Normal", cycle=1):
+
+    guide_size = max(image.shape[1], image.shape[2]) * multiplier
+    if model_concept == 'Turbo':
+        guide_size = guide_size * 1.8
+
+    max_size = guide_size * 1.2
+
+    '''
+    print('--------------3---------------')
+    print('Multiplier: ' + str(multiplier))
+    print('Guided size: ' + str(guide_size))
+    print('Model concept: ' + model_concept)
+    print('Image H: ' + str(image.shape[1]))
+    print('Image W: ' + str(image.shape[2]))
+    print('Segment area: ' + str(image.shape[1] * image.shape[2]))
+    print('Image size / Segment area: ' + str((segment_settings['image_size'][0] * segment_settings['image_size'][1]) / (image.shape[1] * image.shape[2])))
+    print(segment_settings)
+    print('--------------3---------------')
+    '''
 
     if noise_mask is not None and len(noise_mask.shape) == 3:
         noise_mask = noise_mask.squeeze(0)
@@ -1176,7 +1193,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
     upscaled_mask = None
     if noise_mask is not None:
         noise_mask = torch.from_numpy(noise_mask)
-        upscaled_mask = torch.nn.functional.interpolate(noise_mask.unsqueeze(0).unsqueeze(0), size=(new_h, new_w), mode='bilinear', align_corners=False)
+        upscaled_mask = torch.nn.functional.interpolate(noise_mask.unsqueeze(0).unsqueeze(0), size=(new_h, new_w), mode='bicubic', align_corners=False)
         upscaled_mask = upscaled_mask.squeeze(0).squeeze(0)
         latent_image['noise_mask'] = upscaled_mask
 
@@ -1329,7 +1346,7 @@ def tensor_putalpha(image, mask):
 
 class DetailerForEach:
     def do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
-                  sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint,
+                  sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings,
                   wildcard_opt=None, detailer_hook=None,
                   refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, model_concept="Normal", cycle=1):
 
@@ -1383,10 +1400,22 @@ class DetailerForEach:
             else:
                 wildcard_item = None
 
+            # for dev only!!!!
+            # multiplierList = np.arange(0.6, 3.2, 0.2).tolist()
+            # for multiplier in multiplierList:
+
+            SegmentedRelative = (segment_settings['image_size'][0] * segment_settings['image_size'][1]) / (cropped_image.shape[1] * cropped_image.shape[2])
+            multiplier = round((math.sqrt((SegmentedRelative / 8)) / 2) + 1, 2)
+
+            if multiplier < 1:
+                multiplier = 1
+            if multiplier > 6:
+                multiplier = 6
+
             enhanced_image, cnet_pil = enhance_detail(cropped_image, model, clip, vae, guide_size,
                                                            guide_size_for_bbox, max_size,
                                                            seg.bbox, seed, steps, cfg, sampler_name, scheduler,
-                                                           positive, negative, denoise, cropped_mask, force_inpaint,
+                                                           positive, negative, denoise, cropped_mask, force_inpaint, segment_settings, multiplier,
                                                            wildcard_opt=wildcard_item,
                                                            wildcard_opt_concat_mode=wildcard_concat_mode,
                                                            detailer_hook=detailer_hook,
@@ -1394,6 +1423,7 @@ class DetailerForEach:
                                                            refiner_clip=refiner_clip, refiner_positive=refiner_positive,
                                                            refiner_negative=refiner_negative,
                                                            control_net_wrapper=seg.control_net_wrapper, model_concept=model_concept, cycle=cycle)
+
 
             if cnet_pil is not None:
                 cnet_pil_list.append(cnet_pil)

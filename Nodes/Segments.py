@@ -326,31 +326,7 @@ class PrimereAnyDetailer:
                      segment_settings, detector, segs,
                      model_concept, cycle = 1):
 
-        # base_multiplier = 1
-        # if segment_settings['image_max_area_percent'] > 0:
-        #     base_multiplier = round((100 / segment_settings['image_max_area_percent']) / 50, 1)
-        # print(base_multiplier)
-
-        max_size = round(guide_size * 1.2, 2)
-
-        '''
-        if guide_size in range(0, 300):
-            max_size = round(guide_size * 1.3, 2)
-            cycle = cycle * 2
-        elif guide_size in range(301, 600):
-            max_size = round(guide_size * 1.2, 2)
-            cycle = cycle * 2
-        elif guide_size in range(601, 2000):
-            max_size = round(guide_size * 1.1, 2)
-        else:
-            max_size = round(guide_size * 1.0, 2)
-
-        if model_concept == "Turbo":
-            cycle = 1
-            # guide_size = round(guide_size * 1.4, 2)
-            # max_size = round(max_size * (1.4 * 2), 2)
-            max_size = round(guide_size * 1.3, 2)
-        '''
+        max_size = round(guide_size * 1.1, 2)
 
         detailer_hook = None
         wildcard_opt = None
@@ -373,8 +349,8 @@ class PrimereAnyDetailer:
             enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs =  detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox,
                                                                                                                                       max_size, seed, steps, cfg,
                                                                                                                                    sampler_name, scheduler_name, positive, negative, denoise,
-                                                                                                                                  feather, noise_mask, force_inpaint,
-                                                                                                                                 wildcard_opt, detailer_hook,
+                                                                                                                                  feather, noise_mask, force_inpaint, segment_settings,
+                                                                                                                                            wildcard_opt, detailer_hook,
                                                                                                                                             refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip,
                                                                                                                                             refiner_positive=refiner_positive, refiner_negative=refiner_negative,
                                                                                                                                             model_concept=model_concept, cycle=cycle)
@@ -428,7 +404,7 @@ class PrimereAnyDetailer:
                 size_2 =(abs(image_segs[3] - image_segs[1]))
                 part_area = size_1 * size_2
                 area_diff = full_area / part_area
-                guided_size_multiplier = round(math.pow(area_diff, (1/3.4)), 2)
+                guided_size_multiplier = round(math.pow(area_diff, (1/4.0)), 2)
                 if size_1 > size_2:
                    guide_size = size_1 * guided_size_multiplier
                 else:

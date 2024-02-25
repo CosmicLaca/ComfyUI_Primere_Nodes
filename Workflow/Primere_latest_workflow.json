@@ -138,7 +138,7 @@
       },
       "widgets_values": [
         "Sci-fi Mechanical robot",
-        false,
+        true,
         true,
         true,
         false,
@@ -2329,7 +2329,7 @@
         false,
         1.6,
         2.8,
-        984017729032870,
+        22399787754193,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2705,7 +2705,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1601,
+        967,
         "randomize",
         512,
         512,
@@ -2855,7 +2855,7 @@
       },
       "widgets_values": [
         "",
-        1056154725390960,
+        56507517225566,
         "randomize"
       ],
       "color": "#232",
@@ -2909,7 +2909,7 @@
       },
       "widgets_values": [
         "",
-        449122314128132,
+        446237446807196,
         "randomize"
       ],
       "color": "#322",
@@ -3036,7 +3036,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"lcm\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 233979137544103,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 1.1500000000000001,\n    \"steps\": 8,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"LCM\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"futuristic difficult half-human rusty iron robot, half body portrait, light in eyes, alien world in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"sampler_name\": \"lcm\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 233979137544103,\n    \"width\": 862,\n    \"height\": 1216,\n    \"cfg_scale\": 1.1500000000000001,\n    \"steps\": 8,\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"LCM\",\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"futuristic difficult half-human rusty iron robot, half body portrait, light in eyes, alien world in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -3236,12 +3236,12 @@
         1,
         0.8,
         1.4,
-        688956516305859,
+        742129377910141,
         "randomize",
         false,
         "cpu",
         false,
-        238498885116639,
+        355722910399359,
         "randomize"
       ],
       "color": "#941414",
@@ -5080,11 +5080,11 @@
       "widgets_values": [
         "face, natural skin, realistic photo quality detailed, high resolution, nicely proportioned, smooth image",
         "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.6)",
-        1.2,
+        1,
         1.1,
         0,
         0,
-        681713116380526,
+        54112170223357,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5093,109 +5093,6 @@
       ],
       "color": "#b08851",
       "bgcolor": "#9c743d"
-    },
-    {
-      "id": 359,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        6521,
-        -757
-      ],
-      "size": {
-        "0": 368.94873046875,
-        "1": 545.6480712890625
-      },
-      "flags": {},
-      "order": 66,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1071
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1407,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 1055,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 1058,
-          "widget": {
-            "name": "negative_original"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "PROMPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            1851
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Refiner Prompt - EYES",
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "(detailed natural realistic photo quality sharp eyes:1.5), BREAK perfect angle,  BREAK perfect size pupil and eye, BREAK perfect eye color and high details, BREAK perfect thin detailed eyelash and mascilla, duplicated eyes, BREAK ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
-        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.3), nicely proportioned, BREAK (sharp shadows and lights)",
-        1.3,
-        1.3,
-        0,
-        0,
-        279712371421864,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#ab6847",
-      "bgcolor": "#975433"
     },
     {
       "id": 364,
@@ -5284,13 +5181,13 @@
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "detailed realistic human mouth, (highly detailed lower and upper lips:0.5) red mouth, sharpen and smooth, high resolution, nicely proportioned",
+        "detailed realistic mouth, (highly detailed lower and upper lips:0.8) sharpen and smooth, high resolution, nicely proportioned",
         "deformed mouth, deformed ugly dark teeth, bad shadows, unsharp, (blurred, blurry, vague:1.2), (purple, gray, black-and-white, white lights, reflections, filled swollen stuffy inflated, cracked, split in two, hard lights, high contrast lights:1.4), unnatural mood, sharp shadows and lights",
         1.1,
         1.1,
         0,
         0,
-        679671418236680,
+        760619467178771,
         "randomize",
         "mean",
         "A1111",
@@ -5395,7 +5292,7 @@
         1.2,
         0,
         0.2,
-        773814940789729,
+        200353510573375,
         "randomize",
         "mean",
         "down_weight",
@@ -5504,7 +5401,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        298562546711029,
+        241506802808054,
         "randomize",
         20,
         8,
@@ -6101,7 +5998,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        187679827324229,
+        1114228416434460,
         "randomize",
         "heun",
         "simple",
@@ -6495,7 +6392,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        191729864920213,
+        968832768096531,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6888,13 +6785,13 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        777080176793772,
+        554108224575888,
         "randomize",
         "dpmpp_sde",
         "karras",
         22,
         8,
-        0.42,
+        0.49,
         10,
         true,
         false,
@@ -7282,7 +7179,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        377624162096619,
+        15159578857672,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7635,7 +7532,7 @@
       },
       "widgets_values": [
         2.1,
-        138126707930908,
+        562945105868986,
         "randomize",
         7,
         6.5,
@@ -7792,6 +7689,109 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 359,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        6521,
+        -757
+      ],
+      "size": {
+        "0": 368.94873046875,
+        "1": 545.6480712890625
+      },
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1071
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1407,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1055,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1058,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            1851
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "(detailed natural realistic photo quality sharp eyes:1.2), BREAK perfect angle,  BREAK perfect size pupil and eye, BREAK perfect eye color and high details, BREAK perfect thin detailed eyelash and mascilla, duplicated eyes, BREAK ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
+        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.3), nicely proportioned, BREAK (sharp shadows and lights)",
+        1,
+        1,
+        0,
+        0,
+        773859044387347,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#ab6847",
+      "bgcolor": "#975433"
     }
   ],
   "links": [
