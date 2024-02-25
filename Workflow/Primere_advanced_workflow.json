@@ -1,6 +1,6 @@
 {
-  "last_node_id": 94,
-  "last_link_id": 430,
+  "last_node_id": 95,
+  "last_link_id": 440,
   "nodes": [
     {
       "id": 4,
@@ -203,8 +203,8 @@
           "type": "CHECKPOINT_NAME",
           "links": [
             146,
-            237,
-            368
+            368,
+            431
           ],
           "shape": 3,
           "slot_index": 0
@@ -237,7 +237,7 @@
       "type": "PrimereVAE",
       "pos": [
         1039,
-        706
+        818
       ],
       "size": {
         "0": 314.3837585449219,
@@ -273,7 +273,7 @@
       "type": "PrimereVAE",
       "pos": [
         1038,
-        798
+        912
       ],
       "size": {
         "0": 315.3836669921875,
@@ -331,7 +331,7 @@
       "type": "PrimereSamplersSteps",
       "pos": [
         704,
-        479
+        545
       ],
       "size": {
         "0": 327.6000061035156,
@@ -396,7 +396,7 @@
       "type": "PrimereSamplersSteps",
       "pos": [
         1040,
-        480
+        592
       ],
       "size": {
         "0": 315,
@@ -460,8 +460,8 @@
       "id": 76,
       "type": "PrimereSamplersSteps",
       "pos": [
-        706,
-        704
+        704,
+        772
       ],
       "size": {
         "0": 324.4176025390625,
@@ -556,7 +556,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        625074013724605,
+        87785514712267,
         null,
         null,
         null
@@ -696,13 +696,13 @@
       "id": 59,
       "type": "PrimereVAELoader",
       "pos": [
-        1038,
-        1005
+        704,
+        998
       ],
-      "size": [
-        316.3535141870145,
-        26
-      ],
+      "size": {
+        "0": 316.353515625,
+        "1": 26
+      },
       "flags": {},
       "order": 13,
       "mode": 0,
@@ -734,13 +734,13 @@
       "id": 63,
       "type": "PrimereVAELoader",
       "pos": [
-        1037,
-        1066
+        702,
+        1057
       ],
-      "size": [
-        317.3535141870145,
-        26
-      ],
+      "size": {
+        "0": 317.353515625,
+        "1": 26
+      },
       "flags": {},
       "order": 14,
       "mode": 0,
@@ -772,13 +772,13 @@
       "id": 94,
       "type": "PrimereModelConceptSelector",
       "pos": [
-        1362,
-        480
+        1368,
+        581
       ],
-      "size": [
-        429.1621667442853,
-        438
-      ],
+      "size": {
+        "0": 429.16217041015625,
+        "1": 510
+      },
       "flags": {},
       "order": 15,
       "mode": 0,
@@ -993,15 +993,27 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            398,
             399,
             401,
             411,
             416,
-            429
+            429,
+            432
           ],
           "shape": 3,
           "slot_index": 4
+        },
+        {
+          "name": "LIGHTNING_SELECTOR",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LIGHTNING_MODEL_STEP",
+          "type": "INT",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1009,9 +1021,9 @@
       },
       "widgets_values": [
         "Normal",
-        "euler",
-        "normal",
-        7,
+        "SAFETENSOR",
+        8,
+        true,
         12,
         "lcm",
         "sgm_uniform",
@@ -1026,6 +1038,9 @@
         4,
         20,
         "dpmpp_sde",
+        "simple",
+        1.2,
+        6,
         "simple",
         1.2,
         6
@@ -1212,8 +1227,8 @@
       "id": 60,
       "type": "PrimereVAESelector",
       "pos": [
-        1038,
-        890
+        1036,
+        1007
       ],
       "size": {
         "0": 315,
@@ -1247,8 +1262,8 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            209,
-            423
+            439,
+            440
           ],
           "shape": 3,
           "slot_index": 0
@@ -1264,16 +1279,16 @@
       "bgcolor": "#004080"
     },
     {
-      "id": 73,
+      "id": 95,
       "type": "PrimereCKPTLoader",
       "pos": [
-        1181,
+        1183,
         256
       ],
-      "size": {
-        "0": 285.7804870605469,
-        "1": 186
-      },
+      "size": [
+        287.20001220703125,
+        226
+      ],
       "flags": {},
       "order": 18,
       "mode": 0,
@@ -1281,7 +1296,7 @@
         {
           "name": "ckpt_name",
           "type": "CHECKPOINT_NAME",
-          "link": 237
+          "link": 431
         },
         {
           "name": "loaded_model",
@@ -1301,9 +1316,25 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 398,
+          "link": 432,
           "widget": {
             "name": "model_concept"
+          }
+        },
+        {
+          "name": "lightning_selector",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "lightning_selector"
+          }
+        },
+        {
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "lightning_model_step"
           }
         }
       ],
@@ -1312,8 +1343,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            271,
-            422
+            435,
+            436
           ],
           "shape": 3,
           "slot_index": 0
@@ -1322,7 +1353,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            284
+            437
           ],
           "shape": 3,
           "slot_index": 1
@@ -1331,7 +1362,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            244
+            438
           ],
           "shape": 3,
           "slot_index": 2
@@ -1340,8 +1371,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            318,
-            430
+            433,
+            434
           ],
           "shape": 3,
           "slot_index": 3
@@ -1351,10 +1382,12 @@
         "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        true,
+        false,
         1,
         1,
-        "Normal"
+        "Normal",
+        "SAFETENSOR",
+        8
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1408,7 +1441,7 @@
       },
       "widgets_values": [
         "",
-        966580501640177,
+        1125604751075367,
         "randomize"
       ],
       "color": "#145414",
@@ -1463,7 +1496,7 @@
       },
       "widgets_values": [
         "",
-        989831779190417,
+        339547533079257,
         "randomize"
       ],
       "color": "#145414",
@@ -1495,7 +1528,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 318,
+          "link": 433,
           "widget": {
             "name": "model_version"
           }
@@ -1555,7 +1588,7 @@
         false,
         1.6,
         2.8,
-        112510282657403,
+        457693901105424,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1643,7 +1676,7 @@
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 244
+          "link": 438
         },
         {
           "name": "width",
@@ -1704,12 +1737,12 @@
         1,
         0.8,
         1.4,
-        735351693678362,
+        378162071472549,
         "randomize",
         false,
         "cpu",
         false,
-        501811862930340,
+        369798024108220,
         "randomize"
       ],
       "color": "#941414",
@@ -1733,7 +1766,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 284
+          "link": 437
         },
         {
           "name": "model_keywords",
@@ -1763,7 +1796,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 430,
+          "link": 434,
           "widget": {
             "name": "model_version"
           }
@@ -1998,7 +2031,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 422
+          "link": 435
         },
         {
           "name": "positive",
@@ -2079,7 +2112,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        964104445963827,
+        1108215793508297,
         "randomize",
         20,
         8,
@@ -2117,7 +2150,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "inside of a London design style, (((computer room))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -2338,7 +2371,7 @@
       "widgets_values": [
         "",
         "",
-        301,
+        1298,
         "randomize",
         "",
         "",
@@ -2381,7 +2414,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 423,
+          "link": 439,
           "slot_index": 1
         }
       ],
@@ -2428,7 +2461,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"inside of a luxury design style, (((bedroom))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"normal\",\n    \"seed\": 625074013724605,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 8.0,\n    \"steps\": 20,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
+        "{\n    \"positive\": \"inside of a London design style, (((computer room))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"lcm\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 87785514712267,\n    \"width\": 658,\n    \"height\": 896,\n    \"cfg_scale\": 1.18,\n    \"steps\": 8,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"LCM\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2595,7 +2628,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 271
+          "link": 436
         },
         {
           "name": "positive",
@@ -2610,7 +2643,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 209
+          "link": 440
         },
         {
           "name": "upscale_model",
@@ -2703,7 +2736,7 @@
       },
       "widgets_values": [
         2,
-        743827446599778,
+        820884034263289,
         "randomize",
         20,
         8,
@@ -3063,52 +3096,12 @@
       "VAE"
     ],
     [
-      209,
-      60,
-      0,
-      50,
-      4,
-      "VAE"
-    ],
-    [
-      237,
-      3,
-      0,
-      73,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      244,
-      73,
-      2,
-      39,
-      0,
-      "VAE"
-    ],
-    [
       270,
       10,
       0,
       50,
       6,
       "INT"
-    ],
-    [
-      271,
-      73,
-      0,
-      50,
-      1,
-      "MODEL"
-    ],
-    [
-      284,
-      73,
-      1,
-      79,
-      0,
-      "CLIP"
     ],
     [
       285,
@@ -3229,14 +3222,6 @@
       87,
       0,
       "INT"
-    ],
-    [
-      318,
-      73,
-      3,
-      87,
-      1,
-      "STRING"
     ],
     [
       320,
@@ -3567,14 +3552,6 @@
       "INT"
     ],
     [
-      398,
-      94,
-      4,
-      73,
-      4,
-      "STRING"
-    ],
-    [
       399,
       94,
       4,
@@ -3711,22 +3688,6 @@
       "FLOAT"
     ],
     [
-      422,
-      73,
-      0,
-      80,
-      0,
-      "MODEL"
-    ],
-    [
-      423,
-      60,
-      0,
-      16,
-      1,
-      "VAE"
-    ],
-    [
       424,
       3,
       1,
@@ -3775,12 +3736,84 @@
       "STRING"
     ],
     [
-      430,
-      73,
+      431,
+      3,
+      0,
+      95,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      432,
+      94,
+      4,
+      95,
+      4,
+      "STRING"
+    ],
+    [
+      433,
+      95,
+      3,
+      87,
+      1,
+      "STRING"
+    ],
+    [
+      434,
+      95,
       3,
       79,
       6,
       "STRING"
+    ],
+    [
+      435,
+      95,
+      0,
+      80,
+      0,
+      "MODEL"
+    ],
+    [
+      436,
+      95,
+      0,
+      50,
+      1,
+      "MODEL"
+    ],
+    [
+      437,
+      95,
+      1,
+      79,
+      0,
+      "CLIP"
+    ],
+    [
+      438,
+      95,
+      2,
+      39,
+      0,
+      "VAE"
+    ],
+    [
+      439,
+      60,
+      0,
+      16,
+      1,
+      "VAE"
+    ],
+    [
+      440,
+      60,
+      0,
+      50,
+      4,
+      "VAE"
     ]
   ],
   "groups": [

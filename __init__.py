@@ -10,36 +10,35 @@ from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
+import shutil
 
 __version__ = "0.2.1"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
+frontend_source = os.path.join(here, 'front_end')
+is_frontend_symlinked = False
 
-
-if os.path.exists(frontend_target) == False:
-    frontend_source = os.path.join(here, 'front_end')
-    src = Path(frontend_source).as_posix()
-    dst = Path(frontend_target).as_posix()
-
+if os.path.isdir(frontend_target) == True:
     try:
-        if os.name == "nt":
-            import _winapi
-            _winapi.CreateJunction(src, dst)
-        else:
-            os.symlink(Path(frontend_source).as_posix(), Path(frontend_target).as_posix())
-        print(f"Primere front-end folder symlinked to {frontend_target}")
-
+        is_link = os.readlink(frontend_target)
+        is_frontend_symlinked = True
     except OSError:
-        print(f"Failed to create frint-end symlink to {frontend_target}, trying to copy it")
+        is_frontend_symlinked = False
+
+    if is_frontend_symlinked == True:
         try:
-            import shutil
+            os.unlink(frontend_target)
             shutil.copytree(frontend_source, frontend_target)
-            print(f"Successfully copied {frontend_source} to {frontend_target}")
-        except Exception as e:
-            print(f"Failed to symlink and copy {frontend_source} to {frontend_target}. Please copy the folder manually.")
-    except Exception as e:
-        print(f"Failed to create symlink to {frontend_target}. Please copy the folder manually.")
+            print('Primere front-end changed from symlink to real directory.')
+        except Exception:
+            print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete symlink: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+else:
+    try:
+        shutil.copytree(frontend_source, frontend_target)
+        print('Primere front-end copied to target directory.')
+    except Exception:
+        print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,

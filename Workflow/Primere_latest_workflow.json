@@ -1,12 +1,12 @@
 {
-  "last_node_id": 582,
-  "last_link_id": 1953,
+  "last_node_id": 583,
+  "last_link_id": 1967,
   "nodes": [
     {
       "id": 89,
       "type": "PrimereVAE",
       "pos": [
-        2372,
+        2292,
         -942
       ],
       "size": {
@@ -151,7 +151,7 @@
       "id": 248,
       "type": "PrimereVisualCKPT",
       "pos": [
-        2375,
+        2295,
         -1400
       ],
       "size": {
@@ -272,7 +272,7 @@
       "id": 90,
       "type": "PrimereSeed",
       "pos": [
-        2917.14357734375,
+        2837.14357734375,
         -1399.4458445312512
       ],
       "size": {
@@ -537,7 +537,7 @@
       "id": 438,
       "type": "PrimereSamplersSteps",
       "pos": [
-        3910.14357734375,
+        3830.14357734375,
         -1398.4458445312512
       ],
       "size": {
@@ -602,7 +602,7 @@
       "id": 437,
       "type": "PrimereSamplersSteps",
       "pos": [
-        3571,
+        3491,
         -1399
       ],
       "size": {
@@ -667,7 +667,7 @@
       "id": 439,
       "type": "PrimereSamplersSteps",
       "pos": [
-        4222.143577343749,
+        4142.143577343749,
         -1398.4458445312512
       ],
       "size": {
@@ -882,7 +882,7 @@
       "id": 88,
       "type": "PrimereVAE",
       "pos": [
-        2373,
+        2293,
         -1035
       ],
       "size": {
@@ -1000,7 +1000,7 @@
       "id": 565,
       "type": "PrimereSamplersSteps",
       "pos": [
-        3569,
+        3489,
         -941
       ],
       "size": {
@@ -1127,7 +1127,7 @@
       "id": 563,
       "type": "PrimereSamplersSteps",
       "pos": [
-        3571,
+        3491,
         -1170
       ],
       "size": {
@@ -1192,7 +1192,7 @@
       "id": 564,
       "type": "PrimereSamplersSteps",
       "pos": [
-        4080,
+        4000,
         -1171
       ],
       "size": {
@@ -1715,12 +1715,12 @@
       "id": 574,
       "type": "PrimereModelConceptSelector",
       "pos": [
-        4548,
+        4470,
         -1398
       ],
       "size": {
-        "0": 330.3202209472656,
-        "1": 438
+        "0": 379.6000061035156,
+        "1": 510
       },
       "flags": {},
       "order": 24,
@@ -1942,6 +1942,24 @@
           ],
           "shape": 3,
           "slot_index": 4
+        },
+        {
+          "name": "LIGHTNING_SELECTOR",
+          "type": "STRING",
+          "links": [
+            1966
+          ],
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "LIGHTNING_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            1967
+          ],
+          "shape": 3,
+          "slot_index": 6
         }
       ],
       "properties": {
@@ -1949,9 +1967,9 @@
       },
       "widgets_values": [
         "Normal",
-        "euler",
-        "normal",
-        7,
+        "SAFETENSOR",
+        8,
+        true,
         12,
         "lcm",
         "sgm_uniform",
@@ -1966,6 +1984,9 @@
         4,
         20,
         "dpmpp_sde",
+        "simple",
+        1.2,
+        6,
         "simple",
         1.2,
         6
@@ -2232,8 +2253,8 @@
             1828,
             1930,
             1933,
-            1934,
-            1935
+            1935,
+            1958
           ],
           "shape": 3,
           "label": "STRING",
@@ -2250,7 +2271,7 @@
       "id": 501,
       "type": "PrimereResolution",
       "pos": [
-        3238,
+        3158,
         -1399
       ],
       "size": {
@@ -2329,7 +2350,7 @@
         false,
         1.6,
         2.8,
-        22399787754193,
+        794650979691312,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2552,7 +2573,7 @@
           "type": "CHECKPOINT_NAME",
           "links": [
             1801,
-            1802
+            1954
           ],
           "shape": 3,
           "slot_index": 6
@@ -2644,7 +2665,7 @@
             1803,
             1804,
             1805,
-            1806
+            1957
           ],
           "shape": 3,
           "slot_index": 15
@@ -2653,7 +2674,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            1807
+            1956
           ],
           "shape": 3,
           "slot_index": 16
@@ -2662,7 +2683,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            1808
+            1955
           ],
           "shape": 3,
           "slot_index": 17
@@ -2705,7 +2726,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        967,
+        671,
         "randomize",
         512,
         512,
@@ -2765,7 +2786,7 @@
       "id": 244,
       "type": "PrimereModelKeyword",
       "pos": [
-        2373,
+        2293,
         -1235
       ],
       "size": {
@@ -2855,7 +2876,7 @@
       },
       "widgets_values": [
         "",
-        56507517225566,
+        690435171612246,
         "randomize"
       ],
       "color": "#232",
@@ -2909,22 +2930,22 @@
       },
       "widgets_values": [
         "",
-        446237446807196,
+        730715679381085,
         "randomize"
       ],
       "color": "#322",
       "bgcolor": "#533"
     },
     {
-      "id": 444,
+      "id": 583,
       "type": "PrimereCKPTLoader",
       "pos": [
-        2919,
-        -1234
+        2836,
+        -1232
       ],
       "size": {
-        "0": 309.4692687988281,
-        "1": 186
+        "0": 312.8615417480469,
+        "1": 226
       },
       "flags": {},
       "order": 37,
@@ -2933,29 +2954,45 @@
         {
           "name": "ckpt_name",
           "type": "CHECKPOINT_NAME",
-          "link": 1802
+          "link": 1954
         },
         {
           "name": "loaded_model",
           "type": "MODEL",
-          "link": 1808
+          "link": 1955
         },
         {
           "name": "loaded_clip",
           "type": "CLIP",
-          "link": 1807
+          "link": 1956
         },
         {
           "name": "loaded_vae",
           "type": "VAE",
-          "link": 1806
+          "link": 1957
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1934,
+          "link": 1958,
           "widget": {
             "name": "model_concept"
+          }
+        },
+        {
+          "name": "lightning_selector",
+          "type": "STRING",
+          "link": 1966,
+          "widget": {
+            "name": "lightning_selector"
+          }
+        },
+        {
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": 1967,
+          "widget": {
+            "name": "lightning_model_step"
           }
         }
       ],
@@ -2964,7 +3001,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            1837
+            1961
           ],
           "shape": 3,
           "slot_index": 0
@@ -2973,7 +3010,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            1889
+            1963
           ],
           "shape": 3,
           "slot_index": 1
@@ -2982,8 +3019,8 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            1287,
-            1294
+            1964,
+            1965
           ],
           "shape": 3,
           "slot_index": 2
@@ -2992,7 +3029,7 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            1279
+            1959
           ],
           "shape": 3,
           "slot_index": 3
@@ -3005,7 +3042,9 @@
         false,
         1,
         1,
-        "Normal"
+        "Normal",
+        "SAFETENSOR",
+        8
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -3036,7 +3075,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"sampler_name\": \"lcm\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 233979137544103,\n    \"width\": 862,\n    \"height\": 1216,\n    \"cfg_scale\": 1.1500000000000001,\n    \"steps\": 8,\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"LCM\",\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"futuristic difficult half-human rusty iron robot, half body portrait, light in eyes, alien world in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"BestAll\\\\photon_v1.safetensors\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"seed\": 233979137544103,\n    \"width\": 614,\n    \"height\": 960,\n    \"cfg_scale\": 7,\n    \"steps\": 30,\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 0,\n    \"dynamic_positive\": \"futuristic difficult half-human rusty iron robot, half body portrait, light in eyes, alien world in the background, extremely detailed, realistic photography, perfect lights\",\n    \"dynamic_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -3059,12 +3098,12 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 1837
+          "link": 1961
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 1889
+          "link": 1963
         },
         {
           "name": "positive_prompt",
@@ -3175,7 +3214,7 @@
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 1287
+          "link": 1964
         },
         {
           "name": "width",
@@ -3236,12 +3275,12 @@
         1,
         0.8,
         1.4,
-        742129377910141,
+        1054613850731320,
         "randomize",
         false,
         "cpu",
         false,
-        355722910399359,
+        394207128494474,
         "randomize"
       ],
       "color": "#941414",
@@ -3265,7 +3304,7 @@
         {
           "name": "value",
           "type": "*",
-          "link": 1294,
+          "link": 1965,
           "label": " "
         }
       ],
@@ -3308,7 +3347,7 @@
         {
           "name": "value",
           "type": "*",
-          "link": 1279,
+          "link": 1959,
           "label": " "
         }
       ],
@@ -4925,7 +4964,7 @@
         1.2,
         "BETTER_IMAGES",
         0.75,
-        true,
+        false,
         "mean",
         "comfy++",
         "Normal",
@@ -5084,7 +5123,7 @@
         1.1,
         0,
         0,
-        54112170223357,
+        1047902374517797,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5093,6 +5132,109 @@
       ],
       "color": "#b08851",
       "bgcolor": "#9c743d"
+    },
+    {
+      "id": 359,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        6521,
+        -757
+      ],
+      "size": {
+        "0": 368.94873046875,
+        "1": 545.6480712890625
+      },
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1071
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1407,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 1055,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 1058,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            1851
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "(detailed natural realistic photo quality sharp eyes:1.2), BREAK perfect angle,  BREAK perfect size pupil and eye, BREAK perfect eye color and high details, BREAK perfect thin detailed eyelash and mascilla, duplicated eyes, BREAK ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
+        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.3), nicely proportioned, BREAK (sharp shadows and lights)",
+        1,
+        1,
+        0,
+        0,
+        565034786255930,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#ab6847",
+      "bgcolor": "#975433"
     },
     {
       "id": 364,
@@ -5187,7 +5329,7 @@
         1.1,
         0,
         0,
-        760619467178771,
+        539128774970020,
         "randomize",
         "mean",
         "A1111",
@@ -5292,7 +5434,7 @@
         1.2,
         0,
         0.2,
-        200353510573375,
+        912572252693324,
         "randomize",
         "mean",
         "down_weight",
@@ -5401,7 +5543,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        241506802808054,
+        506959053544112,
         "randomize",
         20,
         8,
@@ -5998,7 +6140,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1114228416434460,
+        871135113300090,
         "randomize",
         "heun",
         "simple",
@@ -6392,7 +6534,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        968832768096531,
+        556953353920761,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6785,7 +6927,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        554108224575888,
+        386140592513284,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7179,7 +7321,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        15159578857672,
+        71257861286135,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7532,7 +7674,7 @@
       },
       "widgets_values": [
         2.1,
-        562945105868986,
+        272551249709894,
         "randomize",
         7,
         6.5,
@@ -7586,11 +7728,11 @@
       "id": 462,
       "type": "PrimereMetaSave",
       "pos": [
-        4887,
+        4859,
         -1398
       ],
       "size": {
-        "0": 323.5218505859375,
+        "0": 351.5281677246094,
         "1": 530
       },
       "flags": {},
@@ -7689,109 +7831,6 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 359,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        6521,
-        -757
-      ],
-      "size": {
-        "0": 368.94873046875,
-        "1": 545.6480712890625
-      },
-      "flags": {},
-      "order": 66,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1071
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1407,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_original",
-          "type": "STRING",
-          "link": 1055,
-          "widget": {
-            "name": "positive_original"
-          }
-        },
-        {
-          "name": "negative_original",
-          "type": "STRING",
-          "link": 1058,
-          "widget": {
-            "name": "negative_original"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "PROMPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            1851
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "title": "Primere Refiner Prompt - EYES",
-      "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
-      },
-      "widgets_values": [
-        "(detailed natural realistic photo quality sharp eyes:1.2), BREAK perfect angle,  BREAK perfect size pupil and eye, BREAK perfect eye color and high details, BREAK perfect thin detailed eyelash and mascilla, duplicated eyes, BREAK ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
-        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.3), nicely proportioned, BREAK (sharp shadows and lights)",
-        1,
-        1,
-        0,
-        0,
-        773859044387347,
-        "randomize",
-        "mean",
-        "comfy++",
-        "",
-        ""
-      ],
-      "color": "#ab6847",
-      "bgcolor": "#975433"
     }
   ],
   "links": [
@@ -8460,14 +8499,6 @@
       "INT"
     ],
     [
-      1279,
-      444,
-      3,
-      445,
-      0,
-      "*"
-    ],
-    [
       1280,
       445,
       0,
@@ -8516,14 +8547,6 @@
       "STRING"
     ],
     [
-      1287,
-      444,
-      2,
-      413,
-      0,
-      "VAE"
-    ],
-    [
       1288,
       445,
       0,
@@ -8552,14 +8575,6 @@
       445,
       0,
       371,
-      0,
-      "*"
-    ],
-    [
-      1294,
-      444,
-      2,
-      370,
       0,
       "*"
     ],
@@ -9284,14 +9299,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      1802,
-      562,
-      6,
-      444,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
       1803,
       562,
       15,
@@ -9314,30 +9321,6 @@
       155,
       1,
       "VAE"
-    ],
-    [
-      1806,
-      562,
-      15,
-      444,
-      3,
-      "VAE"
-    ],
-    [
-      1807,
-      562,
-      16,
-      444,
-      2,
-      "CLIP"
-    ],
-    [
-      1808,
-      562,
-      17,
-      444,
-      1,
-      "MODEL"
     ],
     [
       1809,
@@ -9514,14 +9497,6 @@
       441,
       2,
       "CONDITIONING"
-    ],
-    [
-      1837,
-      444,
-      0,
-      313,
-      0,
-      "MODEL"
     ],
     [
       1840,
@@ -9852,14 +9827,6 @@
       "*"
     ],
     [
-      1889,
-      444,
-      1,
-      313,
-      1,
-      "CLIP"
-    ],
-    [
       1891,
       305,
       1,
@@ -10116,14 +10083,6 @@
       "STRING"
     ],
     [
-      1934,
-      452,
-      0,
-      444,
-      4,
-      "STRING"
-    ],
-    [
       1935,
       452,
       0,
@@ -10242,6 +10201,102 @@
       568,
       0,
       "IMAGE"
+    ],
+    [
+      1954,
+      562,
+      6,
+      583,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1955,
+      562,
+      17,
+      583,
+      1,
+      "MODEL"
+    ],
+    [
+      1956,
+      562,
+      16,
+      583,
+      2,
+      "CLIP"
+    ],
+    [
+      1957,
+      562,
+      15,
+      583,
+      3,
+      "VAE"
+    ],
+    [
+      1958,
+      452,
+      0,
+      583,
+      4,
+      "STRING"
+    ],
+    [
+      1959,
+      583,
+      3,
+      445,
+      0,
+      "*"
+    ],
+    [
+      1961,
+      583,
+      0,
+      313,
+      0,
+      "MODEL"
+    ],
+    [
+      1963,
+      583,
+      1,
+      313,
+      1,
+      "CLIP"
+    ],
+    [
+      1964,
+      583,
+      2,
+      413,
+      0,
+      "VAE"
+    ],
+    [
+      1965,
+      583,
+      2,
+      370,
+      0,
+      "*"
+    ],
+    [
+      1966,
+      574,
+      5,
+      583,
+      5,
+      "STRING"
+    ],
+    [
+      1967,
+      574,
+      6,
+      583,
+      6,
+      "INT"
     ]
   ],
   "groups": [
@@ -10260,10 +10315,10 @@
     {
       "title": "Dashboard",
       "bounding": [
-        2360,
+        2280,
         -1473,
-        2861,
-        746
+        2941,
+        747
       ],
       "color": "#006ceb",
       "font_size": 24,

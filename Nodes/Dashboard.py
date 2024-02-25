@@ -59,7 +59,7 @@ class PrimereSamplersSteps:
         }
 
     def get_sampler_step(self, sampler_name, scheduler_name, steps = 12, cfg = 7):
-        return sampler_name, scheduler_name, steps, cfg
+        return sampler_name, scheduler_name, steps, round(cfg, 2)
 
 
 class PrimereVAE:
@@ -154,8 +154,8 @@ class PrimereLCMSelector:
         return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
 class PrimereModelConceptSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP")
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
@@ -164,6 +164,10 @@ class PrimereModelConceptSelector:
         return {
             "required": {
                 "model_concept":(["Normal", "LCM", "Turbo", "Cascade", "Lightning"], {"default": "Normal"}),
+                "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "SAFETENSOR"}),
+                "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
+                "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
+
                 "normal_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
                 "normal_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
                 "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
@@ -192,7 +196,7 @@ class PrimereModelConceptSelector:
             }
         }
 
-    def select_model_concept(self, model_concept = 'Normal',
+    def select_model_concept(self, model_concept = 'Normal', lightning_selector = "SAFETENSOR", lightning_model_step = 8, lightning_sampler = False,
                              normal_sampler_name = 'euler', normal_scheduler_name = 'normal', normal_cfg_scale = 7, normal_steps = 12,
                              lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', lcm_cfg_scale = 1.2, lcm_steps = 6,
                              turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2,
@@ -225,12 +229,22 @@ class PrimereModelConceptSelector:
                 cfg_scale = cascade_cfg_scale
 
             case 'Lightning':
-                sampler_name = lightning_sampler_name
-                scheduler_name = lightning_scheduler_name
-                steps = lightning_steps
-                cfg_scale = lightning_cfg_scale
+                if lightning_sampler == False:
+                    sampler_name = lightning_sampler_name
+                    scheduler_name = lightning_scheduler_name
+                    steps = lightning_steps
+                    cfg_scale = lightning_cfg_scale
+                else:
+                    sampler_name = 'euler'
+                    scheduler_name = 'sgm_uniform'
+                    steps = lightning_model_step
+                    cfg_scale = 1
 
-        return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
+        if model_concept != 'Lightning':
+            lightning_selector = None
+            lightning_model_step = None
+
+        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step)
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
@@ -252,13 +266,58 @@ class PrimereCKPTLoader:
             },
             "optional": {
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
+                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
+
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
                 "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, model_concept = "Normal", loaded_model = None, loaded_clip = None, loaded_vae = None):
+    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, model_concept = "Normal", lightning_selector = 'SAFETENSOR', lightning_model_step = 8, loaded_model = None, loaded_clip = None, loaded_vae = None):
+        lora_name = None
+        unet_name = None
+        lightningModeValid = False
+
+        # print('==============================')
+        # print('Model concept: ' + model_concept)
+
+        if model_concept == 'Lightning':
+            if lightning_selector == 'SAFETENSOR':
+                allCheckpoints = folder_paths.get_filename_list("checkpoints")
+                allLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), allCheckpoints))
+                if len(allLightning) > 0:
+                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLightning))
+                    if len(finalLightning) > 0:
+                        lightningModeValid = True
+                        ckpt_name = finalLightning[0]
+
+            if lightning_selector == 'LORA':
+                LoraList = folder_paths.get_filename_list("loras")
+                if len(LoraList) > 0:
+                    allLoraLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), LoraList))
+                    if len(allLoraLightning) > 0:
+                        finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLoraLightning))
+                        if len(finalLightning) > 0:
+                            lightningModeValid = True
+                            lora_name = finalLightning[0]
+
+            if lightning_selector == 'UNET':
+                UnetList = folder_paths.get_filename_list("unet")
+                if len(UnetList) > 0:
+                    allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
+                    if len(allUnetLightning) > 0:
+                        finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
+                        if len(finalLightning) > 0:
+                            lightningModeValid = True
+                            unet_name = finalLightning[0]
+
+        # print('Checkpoint: ' + ckpt_name)
+        # print('Lora: ' + str(lora_name))
+        # print('Unet: ' + str(unet_name))
+        # print('Ligntnng step: ' + str(lightning_model_step))
+
         path = Path(ckpt_name)
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
@@ -357,6 +416,17 @@ class PrimereCKPTLoader:
 
                     OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
                     OUTPUT_CLIP = CLIP_LORA
+
+        if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
+            OUTPUT_MODEL =  nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
+
+        if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
+            OUTPUT_MODEL =  nodes.UNETLoader.load_unet(self, unet_name)[0]
+
+        if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
+            OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
+            # print('Model discrete x0')
+        # print('==============================')
 
         return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (LOADED_CHECKPOINT[2],) + (MODEL_VERSION,)
 
@@ -1022,7 +1092,7 @@ class PrimereStepsCfg:
     }
 
   def steps_cfg(self, steps = 12, cfg = 7):
-    return (steps, cfg,)
+    return (steps, round(cfg, 2),)
 
 class PrimereClearPrompt:
   RETURN_TYPES = ("STRING", "STRING")
