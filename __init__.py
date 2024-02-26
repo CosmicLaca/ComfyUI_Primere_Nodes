@@ -60,6 +60,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereResolutionMultiplierMPX": Dashboard.PrimereResolutionMultiplierMPX,
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
+    "PrimereConceptDataTuple": Dashboard.PrimereConceptDataTuple,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -121,6 +122,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereResolutionMultiplierMPX": "Primere Resolution MPX",
     "PrimereNetworkTagLoader": 'Primere Network Tag Loader',
     "PrimereModelKeyword": "Primere Model Keyword",
+    "PrimereConceptDataTuple": "Primere Concept Tuple",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

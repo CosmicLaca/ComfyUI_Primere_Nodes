@@ -11,7 +11,6 @@ import folder_paths
 import hashlib
 from .modules.image_meta_reader import ImageExifReader
 from .modules import exif_data_checker
-import nodes
 from ..components import utility
 from pathlib import Path
 import random
@@ -19,6 +18,8 @@ import string
 from .modules.adv_encode import advanced_encode
 from ..components import stylehandler
 from .Styles import StyleParser
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
+import nodes
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
@@ -381,9 +382,10 @@ class PrimereMetaRead:
             variant_end = "}",
             wildcard_wrap = "__"
         )
+        self.loaded_lora = None
 
     @classmethod
-    def INPUT_TYPES(s):
+    def INPUT_TYPES(cls):
         input_dir = folder_paths.get_input_directory()
         files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
 
@@ -422,6 +424,7 @@ class PrimereMetaRead:
                 "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": ""}),
                 "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "prefered_model": ("STRING", {"default": "", "forceInput": True}),
                 "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
             },
@@ -429,7 +432,7 @@ class PrimereMetaRead:
 
     def load_image_meta(self, use_exif, use_decoded_dyn, use_model, model_hash_check, use_sampler, use_seed, use_size, recount_size, use_cfg_scale, use_steps, use_exif_vae, force_model_vae, image,
                         positive="", negative="", positive_l="", negative_l="", positive_r="", negative_r="",
-                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", prefered_model="", prefered_orientation=""):
+                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", concept_data = None, prefered_model="", prefered_orientation=""):
 
         if prefered_orientation == 'Random':
             if (seed % 2) == 0:
@@ -697,7 +700,42 @@ class PrimereMetaRead:
                     data_json['width'] = height
                     data_json['height'] = width
 
-            return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
+            LOADED_MODEL = LOADED_CHECKPOINT[0]
+
+            if model_concept == 'Lightning':
+                lightning_selector = 'SAFETENSOR'
+                lightning_model_step = 8
+
+                if concept_data is not None:
+                    if 'lightning_selector' in concept_data:
+                        lightning_selector = concept_data['lightning_selector']
+                    if 'lightning_model_step' in concept_data:
+                        lightning_model_step = concept_data['lightning_model_step']
+
+                ModelConceptChanges = utility.ModelConceptNames(data_json['model_name'], model_concept, lightning_selector, lightning_model_step)
+                data_json['model_name'] = ModelConceptChanges['ckpt_name']
+                lora_name = ModelConceptChanges['lora_name']
+                unet_name = ModelConceptChanges['unet_name']
+                lightningModeValid = ModelConceptChanges['lightningModeValid']
+
+                is_sdxl = 0
+                modelname_only = Path(data_json['model_name']).stem
+                model_version = utility.get_value_from_cache('model_version', modelname_only)
+                if model_version is None:
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    utility.add_value_to_cache('model_version', modelname_only, model_version)
+
+                data_json['model_version'] = model_version
+                match model_version:
+                    case 'SDXL_2048':
+                        is_sdxl = 1
+                data_json['is_sdxl'] = is_sdxl
+
+                if lightningModeValid == True:
+                    LOADED_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, LOADED_CHECKPOINT[0], lora_name, unet_name)
+
+            return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_MODEL, data_json)
 
     @classmethod
     def IS_CHANGED(cls, image):

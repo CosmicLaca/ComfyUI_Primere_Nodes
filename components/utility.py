@@ -17,6 +17,9 @@ from torchvision.transforms import InterpolationMode
 import torchvision.transforms.functional as F
 from urllib.parse import urlparse
 import requests
+import folder_paths
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
+import nodes
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
@@ -605,3 +608,52 @@ def downloader(from_url, to_path):
         else:
             print('ERROR: Cannot download ' + TargetFilename)
             return False
+
+def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step):
+    lora_name = None
+    unet_name = None
+    lightningModeValid = False
+
+    if model_concept == 'Lightning':
+        if lightning_selector == 'SAFETENSOR':
+            allCheckpoints = folder_paths.get_filename_list("checkpoints")
+            allLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), allCheckpoints))
+            if len(allLightning) > 0:
+                finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLightning))
+                if len(finalLightning) > 0:
+                    lightningModeValid = True
+                    ckpt_name = finalLightning[0]
+
+        if lightning_selector == 'LORA':
+            LoraList = folder_paths.get_filename_list("loras")
+            if len(LoraList) > 0:
+                allLoraLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), LoraList))
+                if len(allLoraLightning) > 0:
+                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLoraLightning))
+                    if len(finalLightning) > 0:
+                        lightningModeValid = True
+                        lora_name = finalLightning[0]
+
+        if lightning_selector == 'UNET':
+            UnetList = folder_paths.get_filename_list("unet")
+            if len(UnetList) > 0:
+                allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
+                if len(allUnetLightning) > 0:
+                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
+                    if len(finalLightning) > 0:
+                        lightningModeValid = True
+                        unet_name = finalLightning[0]
+
+    return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid}
+
+def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name):
+    if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
+        OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
+
+    if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
+        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
+
+    if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
+        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
+
+    return OUTPUT_MODEL

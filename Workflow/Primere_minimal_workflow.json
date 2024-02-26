@@ -445,14 +445,6 @@
           }
         },
         {
-          "name": "lightning_selector",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "lightning_selector"
-          }
-        },
-        {
           "name": "lightning_model_step",
           "type": "INT",
           "link": null,
@@ -508,9 +500,7 @@
         true,
         1,
         1,
-        "Normal",
-        "SAFETENSOR",
-        8
+        "Normal"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -764,7 +754,7 @@
         false,
         1.6,
         2.8,
-        1125231661117667,
+        1124789551657228,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -821,7 +811,7 @@
       },
       "widgets_values": [
         "",
-        754346857599057,
+        141421713543623,
         "randomize"
       ],
       "color": "#145414",
@@ -876,7 +866,7 @@
       },
       "widgets_values": [
         "",
-        59681063713086,
+        757673898985799,
         "randomize"
       ],
       "color": "#145414",
@@ -961,7 +951,7 @@
         1,
         0.8,
         1.4,
-        1077344879588377,
+        751670525041212,
         "randomize",
         false,
         "cpu",
@@ -1382,7 +1372,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        262989684954334,
+        424950611829189,
         "randomize",
         20,
         8,

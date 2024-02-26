@@ -266,8 +266,7 @@ class PrimereCKPTLoader:
             },
             "optional": {
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
-                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
+                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
 
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
@@ -275,48 +274,18 @@ class PrimereCKPTLoader:
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, model_concept = "Normal", lightning_selector = 'SAFETENSOR', lightning_model_step = 8, loaded_model = None, loaded_clip = None, loaded_vae = None):
-        lora_name = None
-        unet_name = None
-        lightningModeValid = False
+    def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip, model_concept = "Normal", concept_data = None, lightning_selector = 'SAFETENSOR', lightning_model_step = 8, loaded_model = None, loaded_clip = None, loaded_vae = None):
+        if concept_data is not None:
+            if 'lightning_selector' in concept_data:
+                lightning_selector = concept_data['lightning_selector']
+            if 'lightning_model_step' in concept_data:
+                lightning_model_step = concept_data['lightning_model_step']
 
-        # print('==============================')
-        # print('Model concept: ' + model_concept)
-
-        if model_concept == 'Lightning':
-            if lightning_selector == 'SAFETENSOR':
-                allCheckpoints = folder_paths.get_filename_list("checkpoints")
-                allLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), allCheckpoints))
-                if len(allLightning) > 0:
-                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLightning))
-                    if len(finalLightning) > 0:
-                        lightningModeValid = True
-                        ckpt_name = finalLightning[0]
-
-            if lightning_selector == 'LORA':
-                LoraList = folder_paths.get_filename_list("loras")
-                if len(LoraList) > 0:
-                    allLoraLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), LoraList))
-                    if len(allLoraLightning) > 0:
-                        finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLoraLightning))
-                        if len(finalLightning) > 0:
-                            lightningModeValid = True
-                            lora_name = finalLightning[0]
-
-            if lightning_selector == 'UNET':
-                UnetList = folder_paths.get_filename_list("unet")
-                if len(UnetList) > 0:
-                    allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
-                    if len(allUnetLightning) > 0:
-                        finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
-                        if len(finalLightning) > 0:
-                            lightningModeValid = True
-                            unet_name = finalLightning[0]
-
-        # print('Checkpoint: ' + ckpt_name)
-        # print('Lora: ' + str(lora_name))
-        # print('Unet: ' + str(unet_name))
-        # print('Ligntnng step: ' + str(lightning_model_step))
+        ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step)
+        ckpt_name = ModelConceptChanges['ckpt_name']
+        lora_name = ModelConceptChanges['lora_name']
+        unet_name = ModelConceptChanges['unet_name']
+        lightningModeValid = ModelConceptChanges['lightningModeValid']
 
         path = Path(ckpt_name)
         ModelName = path.stem
@@ -417,16 +386,8 @@ class PrimereCKPTLoader:
                     OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
                     OUTPUT_CLIP = CLIP_LORA
 
-        if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-            OUTPUT_MODEL =  nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
-
-        if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
-            OUTPUT_MODEL =  nodes.UNETLoader.load_unet(self, unet_name)[0]
-
-        if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
-            OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
-            # print('Model discrete x0')
-        # print('==============================')
+        if model_concept == "Lightning" and lightningModeValid == True and loaded_model is None:
+            OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
         return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (LOADED_CHECKPOINT[2],) + (MODEL_VERSION,)
 
@@ -1390,3 +1351,21 @@ class PrimereModelKeyword:
                     model_keyword = [keywords, model_keyword_placement]
 
         return (model_keyword,)
+
+class PrimereConceptDataTuple:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("CONCEPT_DATA",)
+    FUNCTION = "load_concept_collector"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
+                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
+            },
+        }
+
+    def load_concept_collector(self, **kwargs):
+        return (kwargs,)
