@@ -44,7 +44,10 @@ def remove_quotes(string):
 def add_quotes(string):
     return '"' + str(string) + '"'
 
-def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: bool, model_version: str, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float):
+def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: bool, model_version: str, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, custom_standards=None):
+    if custom_standards is None:
+        custom_standards = []
+
     DEFAULT_RES = 768
 
     match model_version:
@@ -81,7 +84,11 @@ def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: 
         side_base = round(math.sqrt(result_y))
         side_a = round(ratio_1 * side_base)
         if round_to_standard == True:
-            side_a = min(STANDARD_SIDES, key=lambda x: abs(side_a - x))
+            if len(custom_standards) > 1 and custom_standards is not None:
+                side_a = min(custom_standards, key=lambda x: abs(side_a - x))
+            else:
+                side_a = min(STANDARD_SIDES, key=lambda x: abs(side_a - x))
+
         side_b = round(FullPixels / side_a)
         return sorted([side_a, side_b], reverse=True)
 
@@ -141,6 +148,9 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
                     promptstring_temp = promptstring_temp.replace(MatchedString, "")
 
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
+
+def clear_cascade(prompt):
+    return re.sub("(\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
 
 def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
     valid_networks = []
@@ -657,3 +667,15 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
     return OUTPUT_MODEL
+
+def getLatentSize(samples):
+    for tensor in samples['samples'][0]:
+        if isinstance(tensor, torch.Tensor):
+            shape = tensor.shape
+            tensor_height = shape[-2]
+            tensor_width = shape[-1]
+            return (tensor_width, tensor_height)
+        else:
+            return (None, None)
+
+    return (None, None)

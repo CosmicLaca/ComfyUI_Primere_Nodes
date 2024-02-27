@@ -358,15 +358,20 @@ class PrimereVAESelector:
             "required": {
                 "vae_sd": ("VAE",),
                 "vae_sdxl": ("VAE",),
+                "vae_cascade": ("VAE",),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
             }
         }
 
-    def primere_vae_selector(self, vae_sd, vae_sdxl, model_version = "BaseModel_1024"):
-        if model_version == 'SDXL_2048':
-            return (vae_sdxl, )
-        else:
-            return (vae_sd, )
+    def primere_vae_selector(self, vae_sd, vae_sdxl, vae_cascade, model_version = "BaseModel_1024", model_concept = 'Normal'):
+        match model_concept:
+            case 'Cascade':
+                return (vae_cascade,)
+        match model_version:
+            case 'SDXL_2048':
+                return (vae_sdxl,)
+        return (vae_sd,)
 
 class PrimereMetaRead:
     CATEGORY = TREE_INPUTS
