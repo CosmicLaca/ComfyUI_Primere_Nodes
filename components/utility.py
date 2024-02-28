@@ -83,6 +83,7 @@ def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: 
         result_y = result_x / ratio_1
         side_base = round(math.sqrt(result_y))
         side_a = round(ratio_1 * side_base)
+        side_b = round(FullPixels / side_a)
         if round_to_standard == True:
             if len(custom_standards) > 1 and custom_standards is not None:
                 side_a = min(custom_standards, key=lambda x: abs(side_a - x))
