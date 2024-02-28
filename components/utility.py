@@ -22,7 +22,7 @@ import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
-STANDARD_SIDES = [64, 80, 96, 128, 144, 160, 192, 256, 320, 368, 400, 480, 512, 560, 640, 704, 768, 832, 896, 960, 1024, 1088, 1152, 1216, 1280, 1344, 1408, 1472, 1536, 1600, 1664, 1728, 1792, 1856, 1920, 1984, 2048]
+STANDARD_SIDES = np.arange(64, 2048, 16).tolist()
 MAX_RESOLUTION = 8192
 
 def merge_str_to_tuple(item1, item2):
@@ -86,10 +86,13 @@ def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: 
         if round_to_standard == True:
             if len(custom_standards) > 1 and custom_standards is not None:
                 side_a = min(custom_standards, key=lambda x: abs(side_a - x))
+                side_b = round(FullPixels / side_a)
+                side_b = min(custom_standards, key=lambda x: abs(x - side_b))
             else:
                 side_a = min(STANDARD_SIDES, key=lambda x: abs(side_a - x))
+                side_b = round(FullPixels / side_a)
+                side_b = min(STANDARD_SIDES, key=lambda x: abs(x - side_b))
 
-        side_b = round(FullPixels / side_a)
         return sorted([side_a, side_b], reverse=True)
 
     if (calculate_by_custom == True and isinstance(custom_side_a, (int, float)) and isinstance(custom_side_b, (int, float)) and custom_side_a >= 1 and custom_side_b >= 1):

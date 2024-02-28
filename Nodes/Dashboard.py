@@ -603,6 +603,7 @@ class PrimereCLIP:
     RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-")
     FUNCTION = "clip_encode"
     CATEGORY = TREE_DASHBOARD
+    # CLIPLIST = folder_paths.get_filename_list("clip")
 
     @staticmethod
     def get_default_neg(toml_path: str):
@@ -621,6 +622,7 @@ class PrimereCLIP:
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
+                # "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
                 "int_style_pos": (['None'] + sorted(list(cls.default_pos.keys())),),
@@ -660,7 +662,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':
@@ -776,6 +778,9 @@ class PrimereCLIP:
 
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
+
+        # if custom_clip_model != 'None' and model_concept != 'Cascade':
+        #     clip = nodes.CLIPLoader.load_clip(self, custom_clip_model, 'stable_diffusion')[0]
 
         if (adv_encode == True):
             if (is_sdxl == 0):

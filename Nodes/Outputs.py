@@ -478,7 +478,7 @@ class PrimereKSampler:
                 else:
                     orientation = 'Horizontal'
 
-                cascade_standards = [42, 84, 126, 168, 210, 252, 294, 336, 378, 420, 462, 504, 546, 588, 630, 672, 714, 756, 798, 840, 882, 924, 966, 1008, 1050, 1092, 1134, 1176, 1218, 1260, 1302, 1344, 1386, 1428, 1470, 1512, 1554, 1596, 1638, 1680]
+                cascade_standards = np.arange(64, 4200, 16).tolist()
                 dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
                 dimension_x = dimensions[0]
                 dimension_y = dimensions[1]
