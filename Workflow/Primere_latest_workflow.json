@@ -1,6 +1,6 @@
 {
   "last_node_id": 586,
-  "last_link_id": 2046,
+  "last_link_id": 2047,
   "nodes": [
     {
       "id": 89,
@@ -186,7 +186,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SDXL\\sd_xl_turbo_1.0_fp16.safetensors",
+        "BestAll\\photon_v1.safetensors",
         false,
         true
       ],
@@ -1996,7 +1996,7 @@
         "SAFETENSOR",
         8,
         true,
-        "Cascade",
+        "Normal",
         "SAFETENSOR",
         8,
         true,
@@ -2217,10 +2217,10 @@
         4001,
         -942
       ],
-      "size": [
-        459.7209496501682,
-        134
-      ],
+      "size": {
+        "0": 459.720947265625,
+        "1": 134
+      },
       "flags": {},
       "order": 29,
       "mode": 0,
@@ -2382,7 +2382,7 @@
         false,
         1.6,
         2.8,
-        306258557674228,
+        607138442056937,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2397,10 +2397,10 @@
         728,
         -9
       ],
-      "size": [
-        490.2314453125,
-        1245.478759765625
-      ],
+      "size": {
+        "0": 490.2314453125,
+        "1": 1245.478759765625
+      },
       "flags": {},
       "order": 31,
       "mode": 0,
@@ -2710,7 +2710,6 @@
           "type": "VAE",
           "links": [
             2012,
-            2015,
             2016,
             2017
           ],
@@ -2773,7 +2772,7 @@
         "BaseModel_1024",
         "euler",
         "normal",
-        1090,
+        672,
         "randomize",
         512,
         512,
@@ -2923,7 +2922,7 @@
       },
       "widgets_values": [
         "",
-        372060516379193,
+        765974877449269,
         "randomize"
       ],
       "color": "#232",
@@ -2977,7 +2976,7 @@
       },
       "widgets_values": [
         "",
-        37722437449929,
+        541933088855362,
         "randomize"
       ],
       "color": "#322",
@@ -3077,10 +3076,10 @@
         2838,
         -1234
       ],
-      "size": [
-        309.53408558972296,
-        206
-      ],
+      "size": {
+        "0": 309.5340881347656,
+        "1": 206
+      },
       "flags": {},
       "order": 38,
       "mode": 0,
@@ -3143,7 +3142,8 @@
           "type": "VAE",
           "links": [
             1979,
-            1984
+            1984,
+            2047
           ],
           "shape": 3,
           "slot_index": 2
@@ -3196,7 +3196,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"SDXL\\\\sd_xl_turbo_1.0_fp16.safetensors\",\n    \"sampler_name\": \"euler_ancestral\",\n    \"scheduler_name\": \"simple\",\n    \"seed\": 381381980818785,\n    \"width\": 848,\n    \"height\": 1232,\n    \"cfg_scale\": 4,\n    \"steps\": 20,\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Cascade\",\n    \"vae_name\": \"sdxl_vae.safetensors\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"exterior, extreme architecture, (large abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor starry night Apocalypse professional architectural photography), beautiful nature on space, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": \"\",\n    \"negative_r\": \"\",\n    \"model_hash\": \"\",\n    \"model_name\": \"Lightning\\\\sdxl_lightning_8step.safetensors\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"sgm_uniform\",\n    \"seed\": 381381980818785,\n    \"width\": 640,\n    \"height\": 928,\n    \"cfg_scale\": 1,\n    \"steps\": 8,\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Lightning\",\n    \"vae_name\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"force_model_vae\": false,\n    \"prefered_model\": null,\n    \"prefered_orientation\": null,\n    \"is_sdxl\": 1,\n    \"dynamic_positive\": \"exterior, extreme architecture, (large abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor starry night Apocalypse professional architectural photography), beautiful nature on space, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"dynamic_negative\": \"watermark, person, text, china style, indian style\"\n}"
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
@@ -3396,12 +3396,12 @@
         1,
         0.8,
         1.4,
-        899482029309356,
+        408778420933787,
         "randomize",
         false,
         "cpu",
         false,
-        940550165135914,
+        884341335431755,
         "randomize"
       ],
       "color": "#941414",
@@ -5246,7 +5246,7 @@
         1.1,
         0,
         0,
-        707038321689199,
+        965539005215097,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5349,7 +5349,7 @@
         1,
         0,
         0,
-        819982734043375,
+        1085854607127003,
         "randomize",
         "mean",
         "comfy++",
@@ -5452,7 +5452,7 @@
         1.1,
         0,
         0,
-        115612754297251,
+        1028758446637737,
         "randomize",
         "mean",
         "A1111",
@@ -5557,7 +5557,7 @@
         1.2,
         0,
         0.2,
-        778571736891142,
+        821025508305243,
         "randomize",
         "mean",
         "down_weight",
@@ -5666,7 +5666,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        503036605048422,
+        621732533673454,
         "randomize",
         20,
         8,
@@ -5829,7 +5829,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 2015,
+          "link": 2047,
           "slot_index": 1
         }
       ],
@@ -6263,7 +6263,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        271945163127568,
+        62957309930786,
         "randomize",
         "heun",
         "simple",
@@ -6657,7 +6657,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        574844810297028,
+        120363437959289,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7050,7 +7050,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        984983506845433,
+        645257619078115,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7444,7 +7444,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        24776240858169,
+        1086504578200640,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7797,7 +7797,7 @@
       },
       "widgets_values": [
         2.1,
-        107190704195184,
+        344231788779458,
         "randomize",
         7,
         6.5,
@@ -10222,14 +10222,6 @@
       "MODEL"
     ],
     [
-      2015,
-      586,
-      15,
-      103,
-      1,
-      "VAE"
-    ],
-    [
       2016,
       586,
       15,
@@ -10460,6 +10452,14 @@
       457,
       11,
       "COMBO"
+    ],
+    [
+      2047,
+      584,
+      2,
+      103,
+      1,
+      "VAE"
     ]
   ],
   "groups": [
