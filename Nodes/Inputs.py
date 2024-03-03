@@ -349,7 +349,8 @@ class PrimereEmbeddingHandler:
                 text = text.replace(embedding_name, 'embedding:' + embedding_name)
             if any((reg.match(item)) for item in new_word_list):
                 if any(item for item in matchlist if item.startswith(embedding_name)) == True:
-                    text = text.replace(embedding_name, 'embedding:' + embedding_name)
+                    if f'embedding:{embedding_name}' not in text:
+                        text = text.replace(embedding_name, 'embedding:' + embedding_name)
 
         return text
 
