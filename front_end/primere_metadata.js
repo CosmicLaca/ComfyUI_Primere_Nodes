@@ -9,3 +9,12 @@ app.registerExtension({
 		}
 	},
 });
+
+app.registerExtension({
+	name: "Primere.PrimereMetaHandler",
+	async beforeRegisterNodeDef(nodeType, nodeData, app) {
+		if (nodeData.name === "PrimereMetaHandler") {
+			nodeData.input.required.upload = ["IMAGEUPLOAD"];
+		}
+	},
+});

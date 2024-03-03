@@ -42,7 +42,6 @@ class PrimereMetaSave:
                 "images": ("IMAGE",),
                 "output_path": ("STRING", {"default": '[time(%Y-%m-%d)]', "multiline": False}),
                 "subpath": (["None", "Dev", "Test", "Production", "Preview", "NewModel", "Project", "Portfolio", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
-                "prefered_subpath": ("STRING", {"default": "", "forceInput": True}),
                 "add_modelname_to_path": ("BOOLEAN", {"default": False}),
                 "filename_prefix": ("STRING", {"default": "ComfyUI"}),
                 "filename_delimiter": ("STRING", {"default": "_"}),
@@ -61,7 +60,6 @@ class PrimereMetaSave:
                 "save_info_to_txt": ("BOOLEAN", {"default": False}),
             },
             "optional": {
-                "prefered_subpath": ("STRING", {"default": "", "forceInput": True}),
                 "image_metadata": ('TUPLE', {"forceInput": True}),
             },
             "hidden": {
@@ -73,7 +71,7 @@ class PrimereMetaSave:
                          output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
-                         png_embed_workflow=False, image_embed_exif=False, prefered_subpath=None, save_image=True):
+                         png_embed_workflow=False, image_embed_exif=False, save_image=True):
 
         if save_image == False:
             saved_info = "*** Image saver switched OFF, image not saved. ***"
@@ -123,18 +121,20 @@ class PrimereMetaSave:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
             ModelPath = Path(image_metadata['model_name'])
-            if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
-                subpath = prefered_subpath
+            # if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
+            #    subpath = prefered_subpath
+            if 'prefered' in image_metadata and type(image_metadata['prefered']).__name__ == 'dict' and len(image_metadata['prefered']) > 0 and 'subpath' in image_metadata['prefered'] and image_metadata['prefered']['subpath'] is not None and len(image_metadata['prefered']['subpath'].strip()) > 0:
+                subpath = image_metadata['prefered']['subpath']
 
             if subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
             else:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
         else:
-            if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
+            if 'prefered' in image_metadata and type(image_metadata['prefered']).__name__ == 'dict' and len(image_metadata['prefered']) > 0 and 'subpath' in image_metadata['prefered'] and image_metadata['prefered']['subpath'] is not None and len(image_metadata['prefered']['subpath'].strip()) > 0:
                 path = Path(output_path)
                 ModelStartPath = output_path.replace(path.stem, '')
-                subpath = prefered_subpath
+                subpath = image_metadata['prefered']['subpath']
                 output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
 
         if output_path.strip() != '':
@@ -359,83 +359,52 @@ class PrimereMetaCollector:
     RETURN_NAMES = ("METADATA",)
     FUNCTION = "load_process_meta"
 
-    @classmethod
-    def INPUT_TYPES(s):
-        return {
-            "required": {
-                "positive": ('STRING', {"forceInput": True, "default": ""}),
-                "negative": ('STRING', {"forceInput": True, "default": ""}),
+    INPUT_DICT = {
+        "required": {
+                "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
+                "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
+            }, "optional": {
                 "seed": ('INT', {"forceInput": True, "default": 1}),
-            },
-            "optional": {
-                "positive_l": ('STRING', {"forceInput": True, "default": ""}),
-                "negative_l": ('STRING', {"forceInput": True, "default": ""}),
-                "positive_r": ('STRING', {"forceInput": True, "default": ""}),
-                "negative_r": ('STRING', {"forceInput": True, "default": ""}),
-                "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": ""}),
+                "positive_l": ('STRING', {"forceInput": True, "default": None}),
+                "negative_l": ('STRING', {"forceInput": True, "default": None}),
+                "positive_r": ('STRING', {"forceInput": True, "default": None}),
+                "negative_r": ('STRING', {"forceInput": True, "default": None}),
+                "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
-                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-                "seed": ('INT', {"forceInput": True, "default": 1}),
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
+                "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
-                "cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
+                "model_shapes": ('TUPLE', {"forceInput": True, "default": None}),
+                "cfg": ('FLOAT', {"forceInput": True, "default": 7}),
                 "steps": ('INT', {"forceInput": True, "default": 12}),
-                "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": ""}),
-                "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-                "prefered_model": ("STRING", {"default": "", "forceInput": True}),
-                "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
+                "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
+                "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
+                "prefered": ("TUPLE", {"default": None, "forceInput": True})
             },
         }
 
-    def load_process_meta(self, positive="", negative="", seed=1, positive_l="", negative_l="", positive_r="",
-                          negative_r="", model_hash="", model_name="", model_version="BaseModel_1024",
-                          sampler_name="euler", scheduler_name="normal", width=512, height=512, cfg_scale=7,
-                          steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", prefered_model="",
-                          prefered_orientation=""):
+    @classmethod
+    def INPUT_TYPES(cls):
+        return cls.INPUT_DICT
 
-        if prefered_orientation == 'Random':
-            if (seed % 2) == 0:
-                prefered_orientation = "Horizontal"
-            else:
-                prefered_orientation = "Vertical"
 
+    def load_process_meta(self,  *args, **kwargs):
         data_json = {}
-        data_json['positive'] = positive.replace('ADDROW ', '').replace('ADDCOL ', '').replace('ADDCOMM ', '').replace('\n', ' ')
-        data_json['negative'] = negative.replace('\n', ' ')
-        data_json['positive_l'] = positive_l
-        data_json['negative_l'] = negative_l
-        data_json['positive_r'] = positive_r
-        data_json['negative_r'] = negative_r
-        data_json['model_hash'] = model_hash
-        data_json['model_name'] = model_name
-        data_json['sampler_name'] = sampler_name
-        data_json['scheduler_name'] = scheduler_name
-        data_json['seed'] = seed
-        data_json['width'] = width
-        data_json['height'] = height
-        data_json['cfg_scale'] = cfg_scale
-        data_json['steps'] = steps
-        data_json['model_version'] = model_version
-        data_json['model_concept'] = model_concept
-        data_json['vae_name'] = vae_name_sd
-        data_json['prefered_model'] = prefered_model
-        data_json['prefered_orientation'] = prefered_orientation
 
-        is_sdxl = 0
-        match model_version:
-            case 'SDXL_2048':
-                is_sdxl = 1
-        data_json['is_sdxl'] = is_sdxl
+        for key, value in self.INPUT_DICT.items():
+            for key_l2, value_l2 in value.items():
+                if 'default' in value_l2[1]:
+                    default_value = value_l2[1]['default']
+                else:
+                    default_value = None
 
-        if (is_sdxl == 1):
-            data_json['vae_name'] = vae_name_sdxl
-        else:
-            data_json['vae_name'] = vae_name_sd
-
-        if (data_json['vae_name'] == ""):
-            data_json['vae_name'] = folder_paths.get_filename_list("vae")[0]
+                if key_l2 not in kwargs:
+                    data_json[key_l2] = default_value
+                else:
+                    data_json[key_l2] = kwargs[key_l2]
 
         return (data_json,)
 
@@ -470,6 +439,7 @@ class PrimereKSampler:
             sampler = comfy.samplers.sampler_object(sampler_name)
             turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
             samples = (turbo_samples[0],)
+
         if (model_concept == "Cascade"):
             if type(model).__name__ == 'list':
                 latent_size = utility.getLatentSize(latent_image)
@@ -478,8 +448,9 @@ class PrimereKSampler:
                 else:
                     orientation = 'Horizontal'
 
-                cascade_standards = np.arange(64, 4200, 16).tolist()
-                dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
+                # cascade_standards = utility.CASCADE_SIDES
+                # dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
+                dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
                 dimension_x = dimensions[0]
                 dimension_y = dimensions[1]
 

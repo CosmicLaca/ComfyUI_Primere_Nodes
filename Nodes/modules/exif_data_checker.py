@@ -43,8 +43,7 @@ def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_ha
             if match_model_hash == model_hash_exif:
                 model_name = valid_model
             else:
-                print(
-                    'Model name:' + model_name_exif + ' not available by hashcheck, using system source: ' + model_name)
+                print('Model name:' + model_name_exif + ' not available by hashcheck, using system source: ' + model_name)
         else:
             model_name = valid_model
     else:

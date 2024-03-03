@@ -8,13 +8,16 @@ from PIL import Image
 from .exif.automatic1111 import Automatic1111
 from .exif.primere import Primere
 from .exif.comfyui import ComfyUI
+from .exif_data_checker import check_sampler_from_exif
+from .exif_data_checker import check_model_from_exif
+from codecs import encode, decode
 
-# OopCompanion:suppressRename
 class ImageExifReader:
     def __init__(self, file):
         self._raw = ""
         self._parser = {}
         self._parameter = {}
+        self._original = ""
         self._tool = ""
         self.read_data(file)
 
@@ -31,6 +34,7 @@ class ImageExifReader:
             is_primere = p2metadata.read_exif()
             if 'Exif.Image.ImageDescription' in is_primere:
                 primere_exif_string = is_primere.get('Exif.Image.ImageDescription').strip()
+                self._original = primere_exif_string
                 if is_json(primere_exif_string) == True:
                     json_object = json.loads(primere_exif_string)
                     # keysList = {'positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r', 'seed', 'model_hash', 'model_name', 'sampler_name'}
@@ -39,23 +43,29 @@ class ImageExifReader:
                     self._parser = Primere(info=json_object)
             else:
                 if f.format == "PNG":
+                    self._original = f.info
                     if "parameters" in f.info:
-                        print('A11')
                         self._tool = "Automatic1111"
                         self._parser = Automatic1111(info=f.info)
                     elif "prompt" in f.info:
-                        print('Comfy')
                         self._tool = "ComfyUI"
-                        self._parser = ComfyUI(info=f.info)
+                        try:
+                            self._parser = ComfyUI(info=f.info)
+                        except Exception:
+                            self._parser = {}
 
                 elif f.format == "JPEG" or f.format == "WEBP":
-                    exif = piexif.load(f.info.get("exif")) or {}
-                    self._raw = piexif.helper.UserComment.load(
-                        exif.get("Exif").get(piexif.ExifIFD.UserComment)
-                    )
-                    if is_json(self._raw) != True:
-                        self._tool = "Automatic1111"
-                        self._parser = Automatic1111(raw=self._raw)
+                    try:
+                        exif = piexif.load(f.info.get("exif")) or {}
+                        self._raw = piexif.helper.UserComment.load(
+                            exif.get("Exif").get(piexif.ExifIFD.UserComment)
+                        )
+                        self._original = self._raw
+                        if is_json(self._raw) != True:
+                            self._tool = "Automatic1111"
+                            self._parser = Automatic1111(raw=self._raw)
+                    except Exception:
+                        print('Exif data cannot read from selected image.')
 
     @property
     def parser(self):
@@ -64,3 +74,32 @@ class ImageExifReader:
     @property
     def tool(self):
         return self._tool
+
+    @property
+    def original(self):
+        return self._original
+
+def compatibility_handler(data, meta_source):
+    EXCHANGE_KEYS = {'model_name': 'model', 'cfg_scale': 'cfg', 'sampler_name': 'sampler', 'scheduler_name': 'scheduler', 'vae_name': 'vae', 'dynamic_positive': 'decoded_positive', 'dynamic_negative': 'decoded_negative'}
+    MODEL_HASH = 'no_hash_data'
+
+    for datakey, dataval in data.copy().items():
+        if datakey in EXCHANGE_KEYS:
+            newKey = EXCHANGE_KEYS[datakey]
+            data[newKey] = dataval
+            del data[datakey]
+
+        match datakey:
+            case "sampler" | "sampler_name":
+                # if meta_source == 'Automatic1111':
+                sampler_name_exif = dataval
+                samplers = check_sampler_from_exif(sampler_name_exif.lower(), None, None)
+                data['sampler'] = samplers['sampler']
+                data['scheduler'] = samplers['scheduler']
+            case "model" | "model_name":
+                model_name_exif = dataval
+                if 'model_hash' in data:
+                    MODEL_HASH = data['model_hash']
+                data['model'] = check_model_from_exif(MODEL_HASH, model_name_exif, dataval, False)
+
+    return data

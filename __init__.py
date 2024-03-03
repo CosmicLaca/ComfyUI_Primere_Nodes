@@ -11,13 +11,18 @@ from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
 import shutil
+from datetime import datetime
+from .components import utility
 
-__version__ = "0.2.1"
+__version__ = "0.5.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
 frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
+
+ClientTime = datetime.now()
+UpdateRequired = '2024-03-02 20:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -33,6 +38,28 @@ if os.path.isdir(frontend_target) == True:
             print('Primere front-end changed from symlink to real directory.')
         except Exception:
             print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete symlink: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+    else:
+        LastFrontend = utility.get_value_from_cache('dates', 'frontend_update')
+        if LastFrontend == None:
+            try:
+                shutil.rmtree(frontend_target)
+                shutil.copytree(frontend_source, frontend_target)
+                print('[Primere front-end update] - Primere front-end files updated to latest version.')
+                utility.add_value_to_cache('dates', 'frontend_update', str(ClientTime))
+            except Exception:
+                print('[ERROR] - Cannnot update Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+        else:
+            newupdate = datetime.strptime(UpdateRequired, '%Y-%m-%d %H:%M:%S')
+            lastupdate = datetime.strptime(LastFrontend, '%Y-%m-%d %H:%M:%S.%f')
+            if lastupdate < newupdate:
+                try:
+                    shutil.rmtree(frontend_target)
+                    shutil.copytree(frontend_source, frontend_target)
+                    print('[Primere front-end update] - Primere front-end files updated to latest version.')
+                    updated = utility.update_value_in_cache('dates', 'frontend_update', str(ClientTime))
+                except Exception:
+                    print('[ERROR] - Cannnot update Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+
 else:
     try:
         shutil.copytree(frontend_source, frontend_target)
@@ -75,6 +102,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
     "PrimereRefinerPrompt": Inputs.PrimereRefinerPrompt,
     "PrimerePromptOrganizer": Inputs.PrimerePromptOrganizer,
+    "PrimereMetaHandler": Inputs.PrimereMetaHandler,
+    "PrimereMetaDistributor": Inputs.PrimereMetaDistributor,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -127,7 +156,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",
     "PrimereDynamicParser": "Primere Dynamic",
-    "PrimereVAESelector": "Primere VAE Selector",
+    "PrimereVAESelector": "Primere VAE Version Selector",
     "PrimereMetaRead": "Primere Exif Reader",
     "PrimereEmbeddingHandler": "Primere Embedding Handler",
     "PrimereLoraStackMerger": "Primere Lora Stack Merger",
@@ -137,6 +166,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
     "PrimereRefinerPrompt": "Primere Refiner Prompt",
     "PrimerePromptOrganizer": "Primere Prompt Organizer",
+    "PrimereMetaHandler": "Primere Image Recycler",
+    "PrimereMetaDistributor": "Primere Meta Distributor",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

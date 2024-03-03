@@ -10,6 +10,7 @@ import comfy.samplers
 import folder_paths
 import hashlib
 from .modules.image_meta_reader import ImageExifReader
+from .modules.image_meta_reader import compatibility_handler
 from .modules import exif_data_checker
 from ..components import utility
 from pathlib import Path
@@ -20,10 +21,11 @@ from ..components import stylehandler
 from .Styles import StyleParser
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
+from .modules.exif_data_checker import check_model_from_exif
 
 class PrimereDoublePrompt:
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
     FUNCTION = "get_prompt"
     CATEGORY = TREE_INPUTS
 
@@ -72,7 +74,9 @@ class PrimereDoublePrompt:
             orientations = ["Horizontal", "Vertical"]
             orientation = random.choice(orientations)
 
-        return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation)
+        prefered = {'subpath': subpath, 'model': model, 'orientation': orientation}
+
+        return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation, prefered)
 
 class PrimereRefinerPrompt:
     RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING", "TUPLE")
@@ -177,8 +181,8 @@ class PrimereRefinerPrompt:
         return final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], prompt_tuple
 
 class PrimereStyleLoader:
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
     FUNCTION = "load_csv"
     CATEGORY = TREE_INPUTS
 
@@ -251,6 +255,7 @@ class PrimereStyleLoader:
         subp_type = type(prefered_subpath).__name__
         model_type = type(prefered_model).__name__
         orientation_type = type(prefered_orientation).__name__
+
         if (pos_type != 'str'):
             positive_prompt = ''
         if (neg_type != 'str'):
@@ -276,7 +281,9 @@ class PrimereStyleLoader:
         if use_orientation == False:
             prefered_orientation = None
 
-        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation)
+        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+
+        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation, prefered)
 
 class PrimereDynParser:
     RETURN_TYPES = ("STRING",)
@@ -372,6 +379,424 @@ class PrimereVAESelector:
             case 'SDXL_2048':
                 return (vae_sdxl,)
         return (vae_sd,)
+
+class PrimereMetaHandler:
+    CATEGORY = TREE_INPUTS
+    RETURN_TYPES = ("TUPLE", "TUPLE", "IMAGE")
+    RETURN_NAMES = ("WORKFLOW_TUPLE", "ORIGINAL_EXIF", "LOADED_IMAGE")
+    FUNCTION = "image_meta_handler"
+
+    def __init__(self):
+        wildcard_dir = os.path.join(PRIMERE_ROOT, 'wildcards')
+        self._wildcard_manager = WildcardManager(wildcard_dir)
+        self._parser_config = ParserConfig(
+            variant_start = "{",
+            variant_end = "}",
+            wildcard_wrap = "__"
+        )
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        input_dir = folder_paths.get_input_directory()
+        files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
+
+        return {
+            "required": {
+                "data_source": ("BOOLEAN", {"default": False, "label_on": "Use image meta", "label_off": "Use workflow settings"}),
+                "prompt_surce": ("BOOLEAN", {"default": True, "label_on": "Meta prompt", "label_off": "Workflow prompt"}),
+                "prompt_state": ("BOOLEAN", {"default": False, "label_on": "Use decoded prompt", "label_off": "Use dynamic prompt"}),
+                "model": ("BOOLEAN", {"default": True, "label_on": "Meta model", "label_off": "Workflow model"}),
+                "model_hash_check": ("BOOLEAN", {"default": False, "label_on": "Check model hash", "label_off": "Use model name"}),
+                "sampler": ("BOOLEAN", {"default": True, "label_on": "Meta sampler", "label_off": "Workflow sampler"}),
+                "scheduler": ("BOOLEAN", {"default": True, "label_on": "Meta scheduler", "label_off": "Workflow scheduler"}),
+                "cfg": ("BOOLEAN", {"default": True, "label_on": "Meta CFG", "label_off": "Workflow CFG"}),
+                "steps": ("BOOLEAN", {"default": True, "label_on": "Meta steps", "label_off": "Workflow steps"}),
+                "seed": ("BOOLEAN", {"default": True, "label_on": "Meta seed", "label_off": "Workflow seed"}),
+                "image_size": ("BOOLEAN", {"default": True, "label_on": "Meta size", "label_off": "Workflow size"}),
+                "recount_image": ("BOOLEAN", {"default": False, "label_on": "Round to Standard", "label_off": "Accurate image size"}),
+                "vae": ("BOOLEAN", {"default": True, "label_on": "Meta VAE", "label_off": "Workflow VAE"}),
+                "force_vae": ("BOOLEAN", {"default": False, "label_on": "Baked VAE", "label_off": "Custom VAE"}),
+                "model_concept": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "prefered": ("BOOLEAN", {"default": False, "label_on": "From meta", "label_off": "From workflow"}),
+                "use_prefered": ("BOOLEAN", {"default": False, "label_on": "Use prefered settings", "label_off": "Cancel prefered settings"}),
+
+                "image": (sorted(files),),
+            },
+            "optional": {
+                "workflow_tuple": ("TUPLE", {"default": None}),
+            },
+        }
+
+    def image_meta_handler(self, *args, **kwargs):
+        workflow_tuple = None
+        original_exif = None
+        is_sdxl = 0
+
+        SORT_LIST = ['exif_status', 'exif_data_count', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'model',
+                     'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
+                     'cfg', 'seed', 'width', 'height', 'size_string', 'prefered', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
+                     'vae_name_sd', 'vae_name_sdxl']
+
+        image_path = folder_paths.get_annotated_filepath(kwargs['image'])
+
+        if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and kwargs['data_source'] == False:
+            workflow_tuple = kwargs['workflow_tuple']
+            workflow_tuple['exif_status'] = 'OFF'
+
+            '''
+            if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and 'width' in kwargs['workflow_tuple'] and 'height' in kwargs['workflow_tuple']:
+                wf_square_shape = utility.get_square_shape(kwargs['workflow_tuple']['width'], kwargs['workflow_tuple']['height'])
+            else:
+                wf_square_shape = utility.STANDARD_SIDES[1]
+            '''
+
+            if 'prefered' in workflow_tuple:
+                prefred_settings = workflow_tuple['prefered']
+                if len(prefred_settings) > 0:
+                    for prefkey, prefval in prefred_settings.items():
+                        if prefval is not None:
+                            match prefkey:
+                                case "model":
+                                    ValidModel = check_model_from_exif(None, prefval, prefval, False)
+                                    workflow_tuple['model'] = ValidModel
+
+                                case "orientation":
+                                    origW = workflow_tuple['width']
+                                    origH = workflow_tuple['height']
+                                    if prefval == 'Vertical':
+                                        if origW > origH:
+                                            workflow_tuple['width'] = origH
+                                            workflow_tuple['height'] = origW
+                                    else:
+                                        if origW < origH:
+                                            workflow_tuple['width'] = origH
+                                            workflow_tuple['height'] = origW
+                                    workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+
+                    modelname_only = Path((workflow_tuple['model'])).stem
+                    model_version = utility.get_value_from_cache('model_version', modelname_only)
+                    if model_version is None:
+                        checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
+                        model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
+                        model_file = Path(model_full_path)
+                        if model_file.is_file() == True:
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            utility.add_value_to_cache('model_version', modelname_only, model_version)
+
+                    workflow_tuple['model_version'] = model_version
+                    if 'model_shapes' in workflow_tuple:
+                        wf_square_shape = workflow_tuple['model_shapes']['SD']
+                    else:
+                        wf_square_shape = 768
+                    match model_version:
+                        case 'SDXL_2048':
+                            is_sdxl = 1
+                            if 'model_shapes' in workflow_tuple:
+                                wf_square_shape = workflow_tuple['model_shapes']['SDXL']
+                            else:
+                                wf_square_shape = 1024
+                    workflow_tuple['is_sdxl'] = is_sdxl
+
+                    if workflow_tuple['width'] > workflow_tuple['height']:
+                        orientation = 'Horizontal'
+                    else:
+                        orientation = 'Vertical'
+                    # image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
+                    # custom_side_b = round((image_sides[1] / image_sides[0]), 4)
+                    # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, workflow_tuple['model_version'], True, 1, custom_side_b)
+
+                    dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, workflow_tuple['width'], workflow_tuple['height'], 'STANDARD')
+                    workflow_tuple['width'] = dimensions[0]
+                    workflow_tuple['height'] = dimensions[1]
+                    workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+
+            if 'positive' in workflow_tuple and 'seed' in workflow_tuple and workflow_tuple['positive'] != '':
+                workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
+            if 'negative' in workflow_tuple and 'seed' in workflow_tuple and workflow_tuple['negative'] !=  '':
+                workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
+
+        elif kwargs['data_source'] == True:
+            if os.path.isfile(image_path):
+                readerResult = ImageExifReader(image_path)
+                if type(readerResult.parser).__name__ == 'dict':
+                    print('Reader tool return empty, using workflow settings')
+                    if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None:
+                        workflow_tuple = kwargs['workflow_tuple']
+                        workflow_tuple['exif_status'] = 'FAILED'
+                else:
+                    reader = readerResult.parser
+                    workflow_tuple = reader.parameter
+                    original_exif = readerResult.original
+                    exif_data_count = len(workflow_tuple)
+                    workflow_tuple['meta_source'] = reader.__class__.__name__
+                    workflow_tuple = compatibility_handler(workflow_tuple, workflow_tuple['meta_source'])
+                    workflow_tuple['exif_status'] = 'SUCCEED'
+                    workflow_tuple['exif_data_count'] = exif_data_count
+
+                    if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None:
+                        workflow_tuple['wf'] = {}
+                        for inputkey, inputfval in kwargs['workflow_tuple'].items():
+                            if inputkey not in workflow_tuple:
+                                workflow_tuple['wf'][inputkey] = inputfval
+
+            if workflow_tuple is not None:
+                if len(workflow_tuple) >= 1 and 'workflow_tuple' in kwargs:
+                    if kwargs['workflow_tuple'] is not None and len(kwargs['workflow_tuple']) >= 1:
+                        for controlkey, controlval in kwargs.items():
+
+                            match controlkey:
+                                case "prompt_surce":
+                                    if controlval == False:
+                                        if 'positive' in kwargs['workflow_tuple']:
+                                            workflow_tuple['positive'] = kwargs['workflow_tuple']['positive']
+                                            if 'decoded_positive' not in workflow_tuple and 'seed' in workflow_tuple and  'positive' in workflow_tuple:
+                                                workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
+                                        if 'negative' in kwargs['workflow_tuple']:
+                                            workflow_tuple['negative'] = kwargs['workflow_tuple']['negative']
+                                            if 'decoded_negative' not in workflow_tuple and 'seed' in workflow_tuple  and 'negative' in workflow_tuple:
+                                                workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
+
+                                case "model":
+                                    if controlval == False:
+                                        if 'model' in kwargs['workflow_tuple']:
+                                            workflow_tuple['model'] = kwargs['workflow_tuple']['model']
+
+                                case "sampler":
+                                    if controlval == False:
+                                        if 'sampler' in kwargs['workflow_tuple']:
+                                            workflow_tuple['sampler'] = kwargs['workflow_tuple']['sampler']
+
+                                case "scheduler":
+                                    if controlval == False:
+                                        if 'scheduler' in kwargs['workflow_tuple']:
+                                            workflow_tuple['scheduler'] = kwargs['workflow_tuple']['scheduler']
+
+                                case "cfg":
+                                    if controlval == False:
+                                        if 'cfg' in kwargs['workflow_tuple']:
+                                            workflow_tuple['cfg'] = kwargs['workflow_tuple']['cfg']
+
+                                case "steps":
+                                    if controlval == False:
+                                        if 'steps' in kwargs['workflow_tuple']:
+                                            workflow_tuple['steps'] = kwargs['workflow_tuple']['steps']
+
+                                case "seed":
+                                    if controlval == False:
+                                        if 'seed' in kwargs['workflow_tuple']:
+                                            workflow_tuple['seed'] = kwargs['workflow_tuple']['seed']
+
+                                case "image_size":
+                                    if controlval == False:
+                                        if 'width' in kwargs['workflow_tuple'] and 'height' in kwargs['workflow_tuple']:
+                                            workflow_tuple['width'] = kwargs['workflow_tuple']['width']
+                                            workflow_tuple['height'] = kwargs['workflow_tuple']['height']
+                                            workflow_tuple['size_string'] = str(kwargs['workflow_tuple']['width']) + 'x' + str(kwargs['workflow_tuple']['height'])
+
+                                case "vae":
+                                    if controlval == False:
+                                        if 'vae' in kwargs['workflow_tuple']:
+                                            workflow_tuple['vae'] = kwargs['workflow_tuple']['vae']
+
+                                case "force_vae":
+                                    if controlval == True:
+                                        workflow_tuple['vae'] = 'Baked VAE'
+
+                                case "model_concept":
+                                    if controlval == False:
+                                        if 'model_concept' in kwargs['workflow_tuple']:
+                                            workflow_tuple['model_concept'] = kwargs['workflow_tuple']['model_concept']
+                                        if 'concept_data' in kwargs['workflow_tuple']:
+                                            workflow_tuple['concept_data'] = kwargs['workflow_tuple']['concept_data']
+
+                                case "prompt_state":
+                                    if controlval == True:
+                                        workflow_tuple['prompt_state'] = 'Decoded'
+                                    else:
+                                        workflow_tuple['prompt_state'] = 'Dynamic'
+
+                                case "prefered":
+                                    if controlval == False:
+                                        if 'prefered' in kwargs['workflow_tuple']:
+                                            workflow_tuple['prefered'] = kwargs['workflow_tuple']['prefered']
+
+                                case "use_prefered":
+                                    if controlval == True:
+                                        if 'prefered' in workflow_tuple:
+                                            if workflow_tuple['prefered']['model'] is not None:
+                                                ValidModel = check_model_from_exif(None, workflow_tuple['prefered']['model'], workflow_tuple['prefered']['model'], False)
+                                                workflow_tuple['model'] = ValidModel
+                                            if workflow_tuple['prefered']['orientation'] is not None:
+                                                origW = workflow_tuple['width']
+                                                origH = workflow_tuple['height']
+                                                if workflow_tuple['prefered']['orientation'] == 'Vertical':
+                                                    if origW > origH:
+                                                        workflow_tuple['width'] = origH
+                                                        workflow_tuple['height'] = origW
+                                                else:
+                                                    if origW < origH:
+                                                        workflow_tuple['width'] = origH
+                                                        workflow_tuple['height'] = origW
+                                                workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+                else:
+                    if 'decoded_positive' not in workflow_tuple and 'seed' in workflow_tuple and 'positive' in workflow_tuple:
+                        workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
+                    if 'decoded_negative' not in workflow_tuple and 'seed' in workflow_tuple and 'negative' in workflow_tuple:
+                        workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
+                    if kwargs['prompt_state'] == True and 'decoded_positive' in workflow_tuple:
+                        workflow_tuple['prompt_state'] = 'Decoded'
+                    else:
+                        workflow_tuple['prompt_state'] = 'Dynamic'
+
+                if 'model' not in workflow_tuple:
+                    if 'wf' in workflow_tuple and 'model' in workflow_tuple['wf']:
+                        workflow_tuple['model'] = workflow_tuple['wf']['model']
+
+                is_sdxl = 0
+                if 'model' in workflow_tuple:
+                    modelname_only = Path((workflow_tuple['model'])).stem
+                    model_version = utility.get_value_from_cache('model_version', modelname_only)
+                    if model_version is None:
+                        checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
+                        model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
+                        model_file = Path(model_full_path)
+                        if model_file.is_file() == True:
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            utility.add_value_to_cache('model_version', modelname_only, model_version)
+                        else:
+                            allcheckpoints = folder_paths.get_filename_list("checkpoints")
+                            modelname_only = Path((allcheckpoints[0])).stem
+                            workflow_tuple['model'] = allcheckpoints[0]
+                            model_version = utility.get_value_from_cache('model_version', modelname_only)
+                            if model_version is None:
+                                checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
+                                model_full_path = checkpointpaths + os.sep + allcheckpoints[0]
+                                model_file = Path(model_full_path)
+                                if model_file.is_file() == True:
+                                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                                    utility.add_value_to_cache('model_version', modelname_only, model_version)
+                                else:
+                                    model_version = 'BaseModel_1024'
+
+                    workflow_tuple['model_version'] = model_version
+                    if 'model_shapes' in workflow_tuple:
+                        wf_square_shape = workflow_tuple['model_shapes']['SD']
+                    else:
+                        wf_square_shape = 768
+                    match model_version:
+                        case 'SDXL_2048':
+                            is_sdxl = 1
+                            if 'model_shapes' in workflow_tuple:
+                                wf_square_shape = workflow_tuple['model_shapes']['SDXL']
+                            else:
+                                wf_square_shape = 1024
+                    workflow_tuple['is_sdxl'] = is_sdxl
+
+                if kwargs['recount_image'] == True and 'width' in workflow_tuple and 'height' in workflow_tuple:
+                    if workflow_tuple['width'] > workflow_tuple['height']:
+                        orientation = 'Horizontal'
+                    else:
+                        orientation = 'Vertical'
+                    image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
+                    custom_side_b = round((image_sides[1] / image_sides[0]), 4)
+                    # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, workflow_tuple['model_version'], True, 1, custom_side_b)
+                    dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, workflow_tuple['width'], workflow_tuple['height'], 'STANDARD')
+                    workflow_tuple['width'] = dimensions[0]
+                    workflow_tuple['height'] = dimensions[1]
+                    workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+
+
+                if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None:
+                    if (is_sdxl == 1):
+                        if 'vae_name_sdxl' in kwargs['workflow_tuple'] and kwargs['workflow_tuple']['vae_name_sdxl'] is not None:
+                            workflow_tuple['vae'] = kwargs['workflow_tuple']['vae_name_sdxl']
+                    else:
+                        if 'vae_name_sd' in kwargs['workflow_tuple'] and kwargs['workflow_tuple']['vae_name_sd'] is not None:
+                            workflow_tuple['vae'] = kwargs['workflow_tuple']['vae_name_sd']
+
+                if 'vae' not in workflow_tuple or workflow_tuple['vae'] == "" or workflow_tuple['vae'] is None:
+                    if kwargs['force_vae'] == True:
+                        workflow_tuple['vae'] = 'Baked VAE'
+                    else:
+                        workflow_tuple['vae'] = 'External VAE'
+
+        if kwargs['force_vae'] == True and kwargs['vae'] == False:
+            workflow_tuple['vae'] = 'Baked VAE'
+
+        if workflow_tuple is not None and 'positive' in workflow_tuple:
+            PosPromptType = type(workflow_tuple['positive']).__name__
+            if PosPromptType is not None and PosPromptType != 'str':
+                workflow_tuple['positive'] = 'Red sportcar racing'
+
+        if workflow_tuple is not None and 'negative' in workflow_tuple:
+            NegPromptType = type(workflow_tuple['negative']).__name__
+            if NegPromptType is not None and NegPromptType != 'str':
+                workflow_tuple['negative'] = 'Cute cat, nsfw, nude, nudity, porn'
+
+        def DictSort(element):
+            if element in SORT_LIST:
+                return SORT_LIST.index(element)
+            else:
+                return len(SORT_LIST)
+
+        if workflow_tuple is not None and len(workflow_tuple) >= 1:
+            workflow_tuple = dict(sorted(workflow_tuple.items(), key=lambda pair: DictSort(pair[0])))
+            workflow_tuple['setup_states'] = kwargs
+            if 'workflow_tuple' in workflow_tuple['setup_states']:
+                del workflow_tuple['setup_states']['workflow_tuple']
+
+        image_file = Path(image_path)
+        if 'image' in kwargs and image_file.is_file() == True:
+            img = nodes.LoadImage.load_image(self, kwargs['image'])[0]
+        else:
+            img = None
+
+        return (workflow_tuple, original_exif, img, )
+
+class PrimereMetaDistributor:
+    CATEGORY = TREE_INPUTS
+    RETURN_TYPES = ("STRING", "STRING",  "STRING", "STRING", "STRING", "STRING", "CHECKPOINT_NAME", "STRING", "STRING", "TUPLE", "VAE_NAME", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "INT", "INT", "INT")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-", "PROMPT R+", "PROMPT R-", "MODEL", "MODEL_VERSION", "MODEL_CONCEPT", "CONCEPT_DATA", "VAE", "SAMPLER", "SCHEDULER", "STEPS", "CFG", "SEED", "WIDTH", "HEIGHT")
+    FUNCTION = "expand_meta"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "workflow_tuple": ("TUPLE", {"default": None}),
+            },
+        }
+
+    def expand_meta(self, workflow_tuple):
+        PROCESSED_KEYS = ['positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r',
+                          'model', 'model_version', 'model_concept', 'concept_data', 'vae', 'sampler', 'scheduler', 'steps', 'cfg', 'seed', 'width', 'height']
+        OUTPUT_TUPLE = []
+
+        if workflow_tuple is not None and type(workflow_tuple).__name__ == 'dict':
+            for outputkeys in PROCESSED_KEYS:
+                if outputkeys in workflow_tuple:
+                    output_value = workflow_tuple[outputkeys]
+                    if output_value == "":
+                        output_value = None
+                    OUTPUT_TUPLE.append(output_value)
+                else:
+                    MISSING_VALUES = None
+                    match outputkeys:
+                        case "vae":
+                            if 'model_version' in workflow_tuple:
+                                if workflow_tuple['model_version'] == 'SDXL_2048':
+                                    if 'vae_name_sdxl' in workflow_tuple:
+                                        MISSING_VALUES = workflow_tuple['vae_name_sdxl']
+                                else:
+                                    if 'vae_name_sd' in workflow_tuple:
+                                        MISSING_VALUES = workflow_tuple['vae_name_sd']
+
+                    OUTPUT_TUPLE.append(MISSING_VALUES)
+
+        return OUTPUT_TUPLE
 
 class PrimereMetaRead:
     CATEGORY = TREE_INPUTS
@@ -556,7 +981,6 @@ class PrimereMetaRead:
                         match model_version:
                             case 'SDXL_2048':
                                 is_sdxl = 1
-
                         data_json['is_sdxl'] = is_sdxl
 
                     if use_sampler == True and data_json['model_concept'] == 'Normal' and (reader.parameter["cfg_scale"] >= 3 and reader.parameter["steps"] >= 9):
@@ -614,9 +1038,11 @@ class PrimereMetaRead:
                             else:
                                 orientation = 'Vertical'
 
+                            wf_square_shape = utility.get_square_shape(data_json['width'], data_json['height'])
                             image_sides = sorted([data_json['width'], data_json['height']])
                             custom_side_b = round((image_sides[1] / image_sides[0]), 4)
-                            dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, 1, model_version, True, 1, custom_side_b)
+                            # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, model_version, True, 1, custom_side_b)
+                            dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, True, True, 1, custom_side_b, 'STANDARD')
                             data_json['width'] = dimensions[0]
                             data_json['height'] = dimensions[1]
 
@@ -742,14 +1168,6 @@ class PrimereMetaRead:
 
             return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_MODEL, data_json)
 
-    @classmethod
-    def IS_CHANGED(cls, image):
-        image_path = folder_paths.get_annotated_filepath(image)
-        m = hashlib.sha256()
-        with open(image_path, 'rb') as f:
-            m.update(f.read())
-        return m.digest().hex()
-
 class PrimereLoraStackMerger:
     RETURN_TYPES = ("LORA_STACK",)
     RETURN_NAMES = ("LORA_STACK",)
@@ -780,16 +1198,14 @@ class PrimereLoraKeywordMerger:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-            "required": {
-                "lora_keyword_SD": ("MODEL_KEYWORD",),
-                "lora_keyword_SDXL": ("MODEL_KEYWORD",),
-            },
             "optional": {
-                "lora_keyword_tagloader": ("MODEL_KEYWORD",),
+                "lora_keyword_SD": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
+                "lora_keyword_SDXL": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
+                "lora_keyword_tagloader": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
             },
         }
 
-    def lora_keyword_merger(self, lora_keyword_SD, lora_keyword_SDXL, lora_keyword_tagloader):
+    def lora_keyword_merger(self, lora_keyword_SD = None, lora_keyword_SDXL = None, lora_keyword_tagloader = None):
         model_keyword = [None, None]
 
         if lora_keyword_SD is not None:
@@ -901,16 +1317,14 @@ class PrimereLycorisKeywordMerger:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-            "required": {
-                "lycoris_keyword_SD": ("MODEL_KEYWORD",),
-                "lycoris_keyword_SDXL": ("MODEL_KEYWORD",),
-            },
             "optional": {
-                "lycoris_keyword_tagloader": ("MODEL_KEYWORD",),
+                "lycoris_keyword_SD": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
+                "lycoris_keyword_SDXL": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
+                "lycoris_keyword_tagloader": ("MODEL_KEYWORD", {"forceInput": True, "default": None}),
             },
         }
 
-    def lycoris_keyword_merger(self, lycoris_keyword_SD, lycoris_keyword_SDXL, lycoris_keyword_tagloader):
+    def lycoris_keyword_merger(self, lycoris_keyword_SD = None, lycoris_keyword_SDXL = None, lycoris_keyword_tagloader = None):
         model_keyword = [None, None]
 
         if lycoris_keyword_SD is not None:
@@ -937,8 +1351,8 @@ class PrimereLycorisKeywordMerger:
         return (model_keyword,)
 
 class PrimerePromptOrganizer:
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
     FUNCTION = "prompt_organizer"
     CATEGORY = TREE_INPUTS
 
@@ -995,4 +1409,6 @@ class PrimerePromptOrganizer:
                                 if DataSectionDict['prefered_orientation'] != '' and use_orientation == True:
                                     prefered_orientation = DataSectionDict['prefered_orientation']
 
-        return (style_text_result[0], style_text_result[1], prefered_subpath, prefered_model, prefered_orientation)
+        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+
+        return (style_text_result[0], style_text_result[1], prefered_subpath, prefered_model, prefered_orientation, prefered)

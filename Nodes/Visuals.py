@@ -379,8 +379,8 @@ class PrimereVisualHypernetwork:
         return (model_hypernetwork, hnetwork_stack,)
 
 class PrimereVisualStyle:
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
     FUNCTION = "load_visual_csv"
     CATEGORY = TREE_VISUALS
 
@@ -477,7 +477,9 @@ class PrimereVisualStyle:
         if use_orientation == False:
             prefered_orientation = None
 
-        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation)
+        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+
+        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation, prefered)
 
 class PrimereVisualLYCORIS:
     RETURN_TYPES = ("MODEL", "CLIP", "LYCORIS_STACK", "MODEL_KEYWORD")

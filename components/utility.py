@@ -23,7 +23,9 @@ import nodes
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = np.arange(64, 2048, 16).tolist()
+CASCADE_SIDES = np.arange(64, 4200, 16).tolist()
 MAX_RESOLUTION = 8192
+VALID_SHAPES = [512, 768, 1024, 1280, 1600, 2048]
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
@@ -111,6 +113,45 @@ def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: 
     dimension_x = dimensions[0]
     dimension_y = dimensions[1]
     return (dimension_x, dimension_y,)
+
+def get_square_shape(shape_a, shape_b):
+    area = shape_a * shape_b
+    square = math.sqrt(area)
+    standard_square = min(VALID_SHAPES, key=lambda x: abs(square - x))
+    return standard_square
+
+def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str = 'Vertical', round_to_standard: bool = False, calculate_by_custom: bool = False, custom_side_a: float = 1, custom_side_b: float = 1, standard:str = 'STANDARD'):
+    def calculate_dim(ratio_1: float, ratio_2: float, square: int):
+        FullPixels = square ** 2
+        result_x = FullPixels / ratio_2
+        result_y = result_x / ratio_1
+        side_base = round(math.sqrt(result_y))
+        side_a = round(ratio_1 * side_base)
+        side_b = round(FullPixels / side_a)
+
+        if round_to_standard == True:
+            STANDARD_LIST = STANDARD_SIDES
+            if standard == 'CASCADE':
+                STANDARD_LIST = CASCADE_SIDES
+            side_a = min(STANDARD_LIST, key=lambda x: abs(side_a - x))
+            side_b = round(FullPixels / side_a)
+            side_b = min(STANDARD_LIST, key=lambda x: abs(x - side_b))
+
+        return sorted([side_a, side_b], reverse=True)
+
+    if (calculate_by_custom == True and isinstance(custom_side_a, (int, float)) and isinstance(custom_side_b, (int, float)) and custom_side_a >= 1 and custom_side_b >= 1):
+        ratio_x = custom_side_a
+        ratio_y = custom_side_b
+    else:
+        RatioLabel = self.ratioNames[rationame]
+        ratio_x = self.sd_ratios[RatioLabel]['side_x']
+        ratio_y = self.sd_ratios[RatioLabel]['side_y']
+
+    dimensions = calculate_dim(ratio_x, ratio_y, square)
+    if (orientation == 'Vertical'):
+        dimensions = sorted(dimensions)
+
+    return dimensions
 
 def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
     promptstring_temp = promptstring
@@ -380,6 +421,31 @@ def get_value_from_cache(category, key):
                 return None
     else:
         return None
+
+def update_value_in_cache(category, key, value):
+    cacheData = {category: {key: value}}
+    json_object = json.dumps(cacheData, indent=4)
+    ifCacheExist = os.path.isfile(cache_file)
+    if ifCacheExist == True:
+        with open(cache_file, 'r') as openfile:
+            try:
+                saved_cache = json.load(openfile)
+                if category in saved_cache and key in saved_cache[category]:
+                    saved_cache[category][key] = value
+                else:
+                    saved_cache.update(cacheData)
+
+                newJsonObject = json.dumps(saved_cache, indent=4)
+                with open(cache_file, "w", encoding='utf-8') as outfile:
+                    outfile.write(newJsonObject)
+                return True
+
+            except ValueError as e:
+                return None
+    else:
+        with open(cache_file, "w", encoding='utf-8') as outfile:
+            outfile.write(json_object)
+        return True
 
 def add_value_to_cache(category, key, value):
     cacheData = {category: {key: value}}

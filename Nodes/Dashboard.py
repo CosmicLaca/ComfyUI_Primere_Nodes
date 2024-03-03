@@ -113,11 +113,18 @@ class PrimereVAELoader:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "vae_name": ("VAE_NAME",)
+                "vae_name": ("VAE_NAME",),
+                "baked_vae": ("VAE",)
             },
         }
 
-    def load_primere_vae(self, vae_name, ):
+    def load_primere_vae(self, vae_name, baked_vae,):
+        if (vae_name == 'Baked VAE'):
+            return (baked_vae,)
+
+        if (vae_name == 'External VAE'):
+            vae_name = folder_paths.get_filename_list("vae")[0]
+
         return nodes.VAELoader.load_vae(self, vae_name)
 
 class PrimereLCMSelector:
@@ -443,8 +450,10 @@ class AnyType(str):
 class PrimerePromptSwitch:
     any_typ = AnyType("*")
 
-    RETURN_TYPES = (any_typ, any_typ, any_typ, any_typ, any_typ, "INT")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "SELECTED_INDEX")
+    # RETURN_TYPES = (any_typ, any_typ, any_typ, any_typ, any_typ, "INT", "TUPLE")
+    # RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "SELECTED_INDEX", "PREFERED")
+    RETURN_TYPES = (any_typ, any_typ, "INT", "TUPLE")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SELECTED_INDEX", "PREFERED")
     FUNCTION = "promptswitch"
     CATEGORY = TREE_DASHBOARD
 
@@ -459,9 +468,10 @@ class PrimerePromptSwitch:
             "optional": {
                 "prompt_pos_1": (any_typ,),
                 "prompt_neg_1": (any_typ,),
-                "subpath_1": (any_typ,),
-                "model_1": (any_typ,),
-                "orientation_1": (any_typ,),
+                "prefered_1": (any_typ,),
+                # "subpath_1": (any_typ,),
+                # "model_1": (any_typ,),
+                # "orientation_1": (any_typ,),
             },
         }
 
@@ -469,10 +479,12 @@ class PrimerePromptSwitch:
         selected_index = int(kwargs['select'])
         input_namep = f"prompt_pos_{selected_index}"
         input_namen = f"prompt_neg_{selected_index}"
-        input_subpath = f"subpath_{selected_index}"
-        input_model = f"model_{selected_index}"
-        input_orientation = f"orientation_{selected_index}"
+        input_prefered = f"prefered_{selected_index}"
+        # input_subpath = f"subpath_{selected_index}"
+        # input_model = f"model_{selected_index}"
+        # input_orientation = f"orientation_{selected_index}"
 
+        '''
         if input_subpath not in kwargs:
             kwargs[input_subpath] = None
 
@@ -482,11 +494,16 @@ class PrimerePromptSwitch:
         if input_orientation not in kwargs:
             kwargs[input_orientation] = None
 
+        prefered = {'subpath': kwargs[input_subpath], 'model': kwargs[input_model], 'orientation': kwargs[input_orientation]}
+        '''
+
         if input_namep in kwargs:
-            return (kwargs[input_namep], kwargs[input_namen], kwargs[input_subpath], kwargs[input_model], kwargs[input_orientation], selected_index)
+            # return (kwargs[input_namep], kwargs[input_namen], kwargs[input_subpath], kwargs[input_model], kwargs[input_orientation], selected_index, prefered)
+            return (kwargs[input_namep], kwargs[input_namen], selected_index, kwargs[input_prefered])
         else:
             print(f"PrimerePromptSwitch: invalid select index (ignored)")
-            return (None, None, None, None, None, selected_index)
+            # return (None, None, None, None, None, selected_index)
+            return (None, None, selected_index, None)
 
 class PrimereSeed:
   RETURN_TYPES = ("INT",)
@@ -841,8 +858,8 @@ class PrimereCLIP:
             return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "")
 
 class PrimereResolution:
-    RETURN_TYPES = ("INT", "INT", "INT",)
-    RETURN_NAMES = ("WIDTH", "HEIGHT", "SQUARE_SHAPE",)
+    RETURN_TYPES = ("INT", "INT", "INT", "TUPLE",)
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "SQUARE_SHAPE", "MODEL_SHAPES")
     FUNCTION = "calculate_imagesize"
     CATEGORY = TREE_DASHBOARD
 
@@ -868,9 +885,9 @@ class PrimereResolution:
             "required": {
                 "ratio": (list(namelist.keys()),),
                 # "force_768_SD1x": ("BOOLEAN", {"default": True}),
-                "basemodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 768}),
-                "sdxlmodel_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 1024}),
-                "turbo_res": ([512, 768, 1024, 1280, 1600, 2048], {"default": 512}),
+                "basemodel_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
+                "sdxlmodel_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
+                "turbo_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[0]}),
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
@@ -896,45 +913,21 @@ class PrimereResolution:
             else:
                 orientation = "Vertical"
 
-        if model_concept == "Turbo":
-            basemodel_res = turbo_res
-            sdxlmodel_res = turbo_res
-
         if model_version != 'SDXL_2048':
             square_shape = basemodel_res
-            match basemodel_res:
-                case 512:
-                    model_version = 'BaseModel_768'
-                case 768:
-                    model_version = 'BaseModel_1024'
-                case 1024:
-                    model_version = 'BaseModel_mod_1024'
-                case 1280:
-                    model_version = 'BaseModel_mod_1280'
-                case 1600:
-                    model_version = 'BaseModel_mod_1600'
-                case 2048:
-                    model_version = 'BaseModel_mod_2048'
         else:
             square_shape = sdxlmodel_res
-            match sdxlmodel_res:
-                case 512:
-                    model_version = 'SDXLModel_mod_768'
-                case 768:
-                    model_version = 'SDXLModel_mod_1024'
-                case 1024:
-                    model_version = 'SDXL_2048'
-                case 1280:
-                    model_version = 'SDXLModel_mod_1280'
-                case 1600:
-                    model_version = 'SDXLModel_mod_1600'
-                case 2048:
-                    model_version = 'SDXLModel_mod_2048'
 
-        dimensions = utility.calculate_dimensions(self, ratio, orientation, round_to_standard, model_version, calculate_by_custom, custom_side_a, custom_side_b)
+        if model_concept == "Turbo":
+            square_shape = turbo_res
+
+        dimensions = utility.get_dimensions_by_shape(self, ratio, square_shape, orientation, round_to_standard, calculate_by_custom, custom_side_a, custom_side_b, 'STANDARD')
         dimension_x = dimensions[0]
         dimension_y = dimensions[1]
-        return (dimension_x, dimension_y, square_shape,)
+
+        MODEL_SHAPES = {'SD': basemodel_res, 'SDXL': sdxlmodel_res, 'TURBO': turbo_res}
+
+        return (dimension_x, dimension_y, square_shape, MODEL_SHAPES)
 
 class PrimereResolutionMultiplier:
     RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")

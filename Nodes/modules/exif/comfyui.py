@@ -46,14 +46,29 @@ class ComfyUI(BaseFormat):
         PositiveID = None
         NegativeID = None
 
-        if 'latent_image' in flow:
-            SizeID = flow['latent_image'][0]
-        if 'model' in flow:
-            ModelID = flow['model'][0]
-        if 'positive' in flow:
-            PositiveID = flow['positive'][0]
-        if 'negative' in flow:
-            NegativeID = flow['negative'][0]
+        try:
+            if 'latent_image' in flow:
+                SizeID = flow['latent_image'][0]
+        except Exception:
+            SizeID = None
+
+        try:
+            if 'model' in flow:
+                ModelID = flow['model'][0]
+        except Exception:
+            ModelID = None
+
+        try:
+            if 'positive' in flow:
+                PositiveID = flow['positive'][0]
+        except Exception:
+            PositiveID = None
+
+        try:
+            if 'negative' in flow:
+                NegativeID = flow['negative'][0]
+        except Exception:
+            NegativeID = None
 
         FINAL_DICT = {}
         FINAL_DICT['negative'] = ""
@@ -108,9 +123,7 @@ class ComfyUI(BaseFormat):
         match prompt[end_node]["class_type"]:
             case node_type if node_type in SAVE_IMAGE_TYPE:
                 try:
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["images"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["images"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     node += last_node
                 except:
@@ -118,12 +131,8 @@ class ComfyUI(BaseFormat):
             case node_type if node_type in KSAMPLER_TYPES:
                 try:
                     flow = inputs
-                    last_flow1, last_node1 = self._comfy_traverse(
-                        prompt, inputs["model"][0]
-                    )
-                    last_flow2, last_node2 = self._comfy_traverse(
-                        prompt, inputs["latent_image"][0]
-                    )
+                    last_flow1, last_node1 = self._comfy_traverse(prompt, inputs["model"][0])
+                    last_flow2, last_node2 = self._comfy_traverse(prompt, inputs["latent_image"][0])
                     positive = self._comfy_traverse(prompt, inputs["positive"][0])
                     if isinstance(positive, str):
                         self._positive = positive
@@ -138,13 +147,9 @@ class ComfyUI(BaseFormat):
                     # handle "CR Seed"
                     if inputs.get("seed") and isinstance(inputs.get("seed"), list):
                         seed = {"seed": self._comfy_traverse(prompt, inputs["seed"][0])}
-                    elif inputs.get("noise_seed") and isinstance(
-                            inputs.get("noise_seed"), list
-                    ):
+                    elif inputs.get("noise_seed") and isinstance(inputs.get("noise_seed"), list):
                         seed = {
-                            "noise_seed": self._comfy_traverse(
-                                prompt, inputs["noise_seed"][0]
-                            )
+                            "noise_seed": self._comfy_traverse(prompt, inputs["noise_seed"][0])
                         }
                     if seed:
                         flow.update(seed)
@@ -172,12 +177,8 @@ class ComfyUI(BaseFormat):
                             if isinstance(inputs["text_g"], list):
                                 text_g = int(inputs["text_g"][0])
                                 text_l = int(inputs["text_l"][0])
-                                prompt_styler_g = self._comfy_traverse(
-                                    prompt, str(text_g)
-                                )
-                                prompt_styler_l = self._comfy_traverse(
-                                    prompt, str(text_l)
-                                )
+                                prompt_styler_g = self._comfy_traverse(prompt, str(text_g))
+                                prompt_styler_l = self._comfy_traverse(prompt, str(text_l))
                                 self._positive_sdxl["Clip G"] = prompt_styler_g[0]
                                 self._positive_sdxl["Clip L"] = prompt_styler_l[0]
                                 self._negative_sdxl["Clip G"] = prompt_styler_g[1]
@@ -204,9 +205,7 @@ class ComfyUI(BaseFormat):
             case "LoraLoader":
                 try:
                     flow = inputs
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["model"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["model"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     node += last_node
                 except:
@@ -218,9 +217,7 @@ class ComfyUI(BaseFormat):
                     print("comfyUI CheckpointLoader error")
             case node_type if node_type in VAE_ENCODE_TYPE:
                 try:
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["pixels"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["pixels"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     node += last_node
                 except:
@@ -238,9 +235,7 @@ class ComfyUI(BaseFormat):
                     elif isinstance(negative, dict):
                         self._negative_sdxl.update(negative)
 
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["image"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["image"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     node += last_node
                 except:
@@ -248,9 +243,7 @@ class ComfyUI(BaseFormat):
             case "ImageScale":
                 try:
                     flow = inputs
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["image"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["image"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     node += last_node
                 except:
@@ -263,9 +256,7 @@ class ComfyUI(BaseFormat):
             case "ImageUpscaleWithModel":
                 try:
                     flow = inputs
-                    last_flow, last_node = self._comfy_traverse(
-                        prompt, inputs["image"][0]
-                    )
+                    last_flow, last_node = self._comfy_traverse(prompt, inputs["image"][0])
                     model = self._comfy_traverse(prompt, inputs["upscale_model"][0])
                     flow = utility.merge_dict(flow, last_flow)
                     flow = utility.merge_dict(flow, model)
@@ -274,12 +265,8 @@ class ComfyUI(BaseFormat):
                     print("comfyUI UpscaleModel error")
             case "ConditioningCombine":
                 try:
-                    last_flow1, last_node1 = self._comfy_traverse(
-                        prompt, inputs["conditioning_1"][0]
-                    )
-                    last_flow2, last_node2 = self._comfy_traverse(
-                        prompt, inputs["conditioning_2"][0]
-                    )
+                    last_flow1, last_node1 = self._comfy_traverse(prompt, inputs["conditioning_1"][0])
+                    last_flow2, last_node2 = self._comfy_traverse(prompt, inputs["conditioning_2"][0])
                     flow = utility.merge_dict(flow, last_flow1)
                     flow = utility.merge_dict(flow, last_flow2)
                     node += last_node1 + last_node2
@@ -301,25 +288,15 @@ class ComfyUI(BaseFormat):
                     last_flow = {}
                     last_node = []
                     if inputs.get("samples"):
-                        last_flow, last_node = self._comfy_traverse(
-                            prompt, inputs["samples"][0]
-                        )
+                        last_flow, last_node = self._comfy_traverse(prompt, inputs["samples"][0])
                     elif inputs.get("image") and isinstance(inputs.get("image"), list):
-                        last_flow, last_node = self._comfy_traverse(
-                            prompt, inputs["image"][0]
-                        )
+                        last_flow, last_node = self._comfy_traverse(prompt, inputs["image"][0])
                     elif inputs.get("model"):
-                        last_flow, last_node = self._comfy_traverse(
-                            prompt, inputs["model"][0]
-                        )
+                        last_flow, last_node = self._comfy_traverse(prompt, inputs["model"][0])
                     elif inputs.get("clip"):
-                        last_flow, last_node = self._comfy_traverse(
-                            prompt, inputs["clip"][0]
-                        )
+                        last_flow, last_node = self._comfy_traverse(prompt, inputs["clip"][0])
                     elif inputs.get("samples_from"):
-                        last_flow, last_node = self._comfy_traverse(
-                            prompt, inputs["samples_from"][0]
-                        )
+                        last_flow, last_node = self._comfy_traverse(prompt, inputs["samples_from"][0])
                     elif inputs.get("conditioning"):
                         result = self._comfy_traverse(prompt, inputs["conditioning"][0])
                         if isinstance(result, str):

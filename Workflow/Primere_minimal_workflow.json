@@ -1,6 +1,6 @@
 {
-  "last_node_id": 55,
-  "last_link_id": 210,
+  "last_node_id": 56,
+  "last_link_id": 226,
   "nodes": [
     {
       "id": 3,
@@ -44,155 +44,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 4,
-      "type": "PrimereVisualStyle",
-      "pos": [
-        681,
-        969
-      ],
-      "size": {
-        "0": 360.3917236328125,
-        "1": 258
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            6
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            7
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            8
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            9
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            10
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualStyle"
-      },
-      "widgets_values": [
-        "Architechture Interior",
-        true,
-        true,
-        false,
-        false,
-        false
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 1,
-      "type": "PrimerePrompt",
-      "pos": [
-        682.7601117681334,
-        571.0683573691631
-      ],
-      "size": {
-        "0": 358.3917236328125,
-        "1": 359.32012939453125
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            1
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            2
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [
-            3
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [
-            4
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [
-            5
-          ],
-          "shape": 3,
-          "slot_index": 4
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "{creepy|angry} {cat|dog|pig|lion|elephant} walking in the street of {big city|village|park|hill}, snow and winter",
-        "human, summer, sunny, man, woman, girl, nsfw",
-        "",
-        "None",
-        "None"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
       "id": 10,
       "type": "PrimereSeed",
       "pos": [
@@ -204,7 +55,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -240,12 +91,12 @@
         1670,
         -61
       ],
-      "size": {
-        "0": 244.4199981689453,
-        "1": 72.5999984741211
-      },
+      "size": [
+        341,
+        68
+      ],
       "flags": {},
-      "order": 4,
+      "order": 2,
       "mode": 0,
       "properties": {
         "text": ""
@@ -253,7 +104,8 @@
       "widgets_values": [
         "Primere minimal workflow"
       ],
-      "color": "#c09430"
+      "color": "#c09430",
+      "bgcolor": "#653"
     },
     {
       "id": 48,
@@ -267,7 +119,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 5,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -312,7 +164,7 @@
       },
       "widgets_values": [
         "euler",
-        "karras",
+        "normal",
         20,
         8
       ],
@@ -320,25 +172,103 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 1,
+      "type": "PrimerePrompt",
+      "pos": [
+        683,
+        573
+      ],
+      "size": {
+        "0": 358.3917236328125,
+        "1": 359.32012939453125
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            214
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            215
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PREFERED",
+          "type": "STRING",
+          "links": [
+            216
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "title": "Primere Prompt - SWITCH #1",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "{creepy|angry} {cat|dog|pig|lion|elephant} walking in the street of {big city|village|park|hill}, snow and winter",
+        "human, summer, sunny, man, woman, girl, nsfw",
+        "",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
       "id": 52,
       "type": "PrimerePromptOrganizer",
       "pos": [
-        1055.6467291814627,
-        572.9153383567118
+        1056,
+        573
       ],
       "size": {
         "0": 388.2765197753906,
         "1": 654.3583984375
       },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "outputs": [
         {
           "name": "STYLE+",
           "type": "STRING",
           "links": [
-            199
+            217
           ],
           "shape": 3,
           "slot_index": 0
@@ -347,7 +277,7 @@
           "name": "STYLE-",
           "type": "STRING",
           "links": [
-            200
+            218
           ],
           "shape": 3,
           "slot_index": 1
@@ -355,31 +285,35 @@
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": [
-            201
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 2
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": [
-            202
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": [
-            203
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 4
+        },
+        {
+          "name": "PREFERED",
+          "type": "STRING",
+          "links": [
+            219
+          ],
+          "shape": 3,
+          "slot_index": 5
         }
       ],
+      "title": "Primere Prompt Organizer -  - SWITCH #2",
       "properties": {
         "Node name for S&R": "PrimerePromptOrganizer"
       },
@@ -397,6 +331,85 @@
         "None",
         "None",
         "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 4,
+      "type": "PrimereVisualStyle",
+      "pos": [
+        681,
+        969
+      ],
+      "size": {
+        "0": 360.3917236328125,
+        "1": 278
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            220
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            221
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PREFERED",
+          "type": "STRING",
+          "links": [
+            222
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "title": "Primere Visual Style Selector -  - SWITCH #3",
+      "properties": {
+        "Node name for S&R": "PrimereVisualStyle"
+      },
+      "widgets_values": [
+        "Architechture Interior",
+        true,
+        true,
+        false,
+        false,
+        false
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -442,14 +455,6 @@
           "link": null,
           "widget": {
             "name": "model_concept"
-          }
-        },
-        {
-          "name": "lightning_model_step",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "lightning_model_step"
           }
         }
       ],
@@ -506,15 +511,15 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 5,
+      "id": 56,
       "type": "PrimerePromptSwitch",
       "pos": [
-        1517.6467291814622,
-        573.9153383567118
+        1456,
+        573
       ],
       "size": {
-        "0": 277,
-        "1": 438
+        "0": 336.92425537109375,
+        "1": 278
       },
       "flags": {},
       "order": 8,
@@ -523,77 +528,47 @@
         {
           "name": "prompt_pos_1",
           "type": "STRING",
-          "link": 1
+          "link": 214
         },
         {
           "name": "prompt_neg_1",
           "type": "STRING",
-          "link": 2
+          "link": 215
         },
         {
-          "name": "subpath_1",
+          "name": "prefered_1",
           "type": "STRING",
-          "link": 3
-        },
-        {
-          "name": "model_1",
-          "type": "STRING",
-          "link": 4
-        },
-        {
-          "name": "orientation_1",
-          "type": "STRING",
-          "link": 5
+          "link": 216
         },
         {
           "name": "prompt_pos_2",
           "type": "STRING",
-          "link": 6
+          "link": 217
         },
         {
           "name": "prompt_neg_2",
           "type": "STRING",
-          "link": 7
+          "link": 218
         },
         {
-          "name": "subpath_2",
+          "name": "prefered_2",
           "type": "STRING",
-          "link": 8
-        },
-        {
-          "name": "model_2",
-          "type": "STRING",
-          "link": 9
-        },
-        {
-          "name": "orientation_2",
-          "type": "STRING",
-          "link": 10
+          "link": 219
         },
         {
           "name": "prompt_pos_3",
           "type": "STRING",
-          "link": 199
+          "link": 220
         },
         {
           "name": "prompt_neg_3",
           "type": "STRING",
-          "link": 200
+          "link": 221
         },
         {
-          "name": "subpath_3",
+          "name": "prefered_3",
           "type": "STRING",
-          "link": 201
-        },
-        {
-          "name": "model_3",
-          "type": "STRING",
-          "link": 202
-        },
-        {
-          "name": "orientation_3",
-          "type": "STRING",
-          "link": 203
+          "link": 222
         },
         {
           "name": "prompt_pos_4",
@@ -606,17 +581,7 @@
           "link": null
         },
         {
-          "name": "subpath_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "orientation_4",
+          "name": "prefered_4",
           "type": "STRING",
           "link": null
         }
@@ -626,39 +591,29 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            11
+            225
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            12
+            224
           ],
-          "shape": 3
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "slot_index": 1
         },
         {
           "name": "SELECTED_INDEX",
-          "type": "INT",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PREFERED",
+          "type": "TUPLE",
           "links": null,
           "shape": 3
         }
@@ -667,7 +622,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        2
+        3
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -738,6 +693,12 @@
           "type": "INT",
           "links": null,
           "shape": 3
+        },
+        {
+          "name": "MODEL_SHAPES",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
@@ -754,7 +715,7 @@
         false,
         1.6,
         2.8,
-        1124789551657228,
+        24905600591467,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -780,7 +741,7 @@
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 11,
+          "link": 225,
           "widget": {
             "name": "dyn_prompt"
           },
@@ -800,7 +761,7 @@
           "name": "PROMPT",
           "type": "STRING",
           "links": [
-            13
+            226
           ],
           "shape": 3,
           "slot_index": 0
@@ -811,7 +772,7 @@
       },
       "widgets_values": [
         "",
-        141421713543623,
+        311909884924756,
         "randomize"
       ],
       "color": "#145414",
@@ -835,7 +796,7 @@
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 12,
+          "link": 224,
           "widget": {
             "name": "dyn_prompt"
           },
@@ -866,7 +827,7 @@
       },
       "widgets_values": [
         "",
-        757673898985799,
+        509177391538430,
         "randomize"
       ],
       "color": "#145414",
@@ -951,7 +912,7 @@
         1,
         0.8,
         1.4,
-        751670525041212,
+        454181278017364,
         "randomize",
         false,
         "cpu",
@@ -980,7 +941,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 13,
+          "link": 226,
           "widget": {
             "name": "positive_prompt"
           }
@@ -1372,7 +1333,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        424950611829189,
+        718514777460348,
         "randomize",
         20,
         8,
@@ -1457,110 +1418,6 @@
     }
   ],
   "links": [
-    [
-      1,
-      1,
-      0,
-      5,
-      0,
-      "*"
-    ],
-    [
-      2,
-      1,
-      1,
-      5,
-      1,
-      "STRING"
-    ],
-    [
-      3,
-      1,
-      2,
-      5,
-      2,
-      "STRING"
-    ],
-    [
-      4,
-      1,
-      3,
-      5,
-      3,
-      "STRING"
-    ],
-    [
-      5,
-      1,
-      4,
-      5,
-      4,
-      "STRING"
-    ],
-    [
-      6,
-      4,
-      0,
-      5,
-      5,
-      "STRING"
-    ],
-    [
-      7,
-      4,
-      1,
-      5,
-      6,
-      "STRING"
-    ],
-    [
-      8,
-      4,
-      2,
-      5,
-      7,
-      "STRING"
-    ],
-    [
-      9,
-      4,
-      3,
-      5,
-      8,
-      "STRING"
-    ],
-    [
-      10,
-      4,
-      4,
-      5,
-      9,
-      "STRING"
-    ],
-    [
-      11,
-      5,
-      0,
-      6,
-      0,
-      "STRING"
-    ],
-    [
-      12,
-      5,
-      1,
-      7,
-      0,
-      "STRING"
-    ],
-    [
-      13,
-      6,
-      0,
-      8,
-      0,
-      "STRING"
-    ],
     [
       14,
       7,
@@ -1738,46 +1595,6 @@
       "INT"
     ],
     [
-      199,
-      52,
-      0,
-      5,
-      10,
-      "STRING"
-    ],
-    [
-      200,
-      52,
-      1,
-      5,
-      11,
-      "STRING"
-    ],
-    [
-      201,
-      52,
-      2,
-      5,
-      12,
-      "STRING"
-    ],
-    [
-      202,
-      52,
-      3,
-      5,
-      13,
-      "STRING"
-    ],
-    [
-      203,
-      52,
-      4,
-      5,
-      14,
-      "STRING"
-    ],
-    [
       204,
       3,
       0,
@@ -1831,6 +1648,102 @@
       3,
       50,
       6,
+      "STRING"
+    ],
+    [
+      214,
+      1,
+      0,
+      56,
+      0,
+      "STRING"
+    ],
+    [
+      215,
+      1,
+      1,
+      56,
+      1,
+      "STRING"
+    ],
+    [
+      216,
+      1,
+      5,
+      56,
+      2,
+      "STRING"
+    ],
+    [
+      217,
+      52,
+      0,
+      56,
+      3,
+      "STRING"
+    ],
+    [
+      218,
+      52,
+      1,
+      56,
+      4,
+      "STRING"
+    ],
+    [
+      219,
+      52,
+      5,
+      56,
+      5,
+      "STRING"
+    ],
+    [
+      220,
+      4,
+      0,
+      56,
+      6,
+      "STRING"
+    ],
+    [
+      221,
+      4,
+      1,
+      56,
+      7,
+      "STRING"
+    ],
+    [
+      222,
+      4,
+      5,
+      56,
+      8,
+      "STRING"
+    ],
+    [
+      224,
+      56,
+      1,
+      7,
+      0,
+      "STRING"
+    ],
+    [
+      225,
+      56,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      226,
+      6,
+      0,
+      8,
+      0,
       "STRING"
     ]
   ],
