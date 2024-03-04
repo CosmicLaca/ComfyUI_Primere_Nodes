@@ -3,6 +3,7 @@ import difflib
 import folder_paths
 import comfy.samplers
 import os
+import numpy as np
 
 def get_model_hash(filename):
     hash_sha256 = hashlib.sha256()
@@ -20,17 +21,16 @@ def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_ha
     allcheckpoints = folder_paths.get_filename_list("checkpoints")
     source_model_name = model_name_exif.split('_', 1)[-1]
 
-    cutoff_list = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+    cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
     is_found = []
-
     for trycut in cutoff_list:
-        is_found = difflib.get_close_matches(model_name_exif, allcheckpoints, cutoff=trycut)
+        is_found = difflib.get_close_matches(source_model_name, allcheckpoints, cutoff=round(trycut, 2))
         if len(is_found) == 1:
             break
 
     if len(is_found) != 1:
         for trycut in cutoff_list:
-            is_found = difflib.get_close_matches(source_model_name, allcheckpoints, cutoff=trycut)
+            is_found = difflib.get_close_matches(model_name_exif, allcheckpoints, cutoff=round(trycut, 2))
             if len(is_found) == 1:
                 break
 
@@ -47,7 +47,12 @@ def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_ha
         else:
             model_name = valid_model
     else:
-        print('Model name:' + model_name_exif + ' not available by diffcheck, using system source: ' + model_name)
+        if len(is_found) == 0:
+            print('Model name:' + model_name_exif + ' not available by diffcheck, using system source: ' + model_name)
+        if len(is_found) > 0:
+            print('Model name:' + model_name_exif + ' more than one results by diffcheck, using first found: ' + str(is_found[0]))
+            model_name = is_found[0]
+
     return model_name
 
 
@@ -83,7 +88,7 @@ def check_sampler_from_exif(sampler_name_exif, sampler_name, scheduler_name):
         if any((match := substring) in sampler_name_exif for substring in comfy_schedulers):
             scheduler_name = match
         else:
-            cutoff_list_schedulers = [0.7, 0.6, 0.5, 0.4]
+            cutoff_list_schedulers = list(np.around(np.arange(0.4, 0.75, 0.05).tolist(), 2))[::-1] # [0.7, 0.6, 0.5, 0.4]
             for trycut in cutoff_list_schedulers:
                 is_found_scheduler = difflib.get_close_matches(sampler_name_exif, comfy_schedulers, cutoff=trycut)
 

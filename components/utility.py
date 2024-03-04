@@ -361,7 +361,7 @@ def get_model_keywords(filename, modelhash, model_name):
             selected_ckpt = keywords[keywords['#model_hash'] == modelhash]['filename.ckpt'].values
             basename = Path(model_name).stem
 
-            cutoff_list = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+            cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
             is_found = []
             model_name_kw = None
 
@@ -383,7 +383,7 @@ def get_model_keywords(filename, modelhash, model_name):
         return None
 
 def get_closest_element(value, list):
-    cutoff_list = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+    cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
     is_found = None
 
     for trycut in cutoff_list:

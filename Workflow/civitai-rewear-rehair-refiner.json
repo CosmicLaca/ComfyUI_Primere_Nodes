@@ -1,6 +1,6 @@
 {
   "last_node_id": 142,
-  "last_link_id": 425,
+  "last_link_id": 423,
   "nodes": [
     {
       "id": 1,
@@ -68,7 +68,8 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            390
+            390,
+            410
           ],
           "shape": 3,
           "slot_index": 1
@@ -103,7 +104,9 @@
           "type": "INT",
           "links": [
             383,
-            405
+            405,
+            407,
+            420
           ],
           "shape": 3,
           "slot_index": 0
@@ -173,7 +176,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            387
+            387,
+            412
           ],
           "shape": 3,
           "slot_index": 0
@@ -183,7 +187,9 @@
           "type": "CLIP",
           "links": [
             388,
-            394
+            394,
+            406,
+            413
           ],
           "shape": 3,
           "slot_index": 1
@@ -192,7 +198,8 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            389
+            389,
+            414
           ],
           "shape": 3,
           "slot_index": 2
@@ -216,6 +223,104 @@
       ]
     },
     {
+      "id": 139,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        720,
+        1192
+      ],
+      "size": [
+        579.9000335693361,
+        577.9000061035156
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 406
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 407,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            408
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "(dark-{black|brown|red|green|blue|pink}:1.3) curly hair",
+        "blurred, cap, face",
+        1,
+        1,
+        1,
+        1,
+        1045319503856664,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ]
+    },
+    {
       "id": 135,
       "type": "PrimereImageSegments",
       "pos": [
@@ -227,7 +332,7 @@
         642
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -399,7 +504,7 @@
         315
       ],
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -425,7 +530,7 @@
         530
       ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -527,7 +632,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            399
+            399,
+            409
           ],
           "shape": 3,
           "slot_index": 0
@@ -558,7 +664,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1001075368110141,
+        404496368254515,
         "randomize",
         "euler",
         "simple",
@@ -588,7 +694,7 @@
         936
       ],
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -603,6 +709,179 @@
       }
     },
     {
+      "id": 137,
+      "type": "PrimereImageSegments",
+      "pos": [
+        1334,
+        1198
+      ],
+      "size": [
+        468.5999755859375,
+        642
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 409
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 408
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 410,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "square_shape"
+          }
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            411
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            422
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": [
+            417
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            418
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": null,
+          "shape": 3,
+          "slot_index": 7
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            419
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            415
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            416
+          ],
+          "shape": 3,
+          "slot_index": 10
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        true,
+        0,
+        0,
+        "segm/hair_yolov8n-seg_60.pt",
+        "sam_vit_b_01ec64.pth",
+        "AUTO",
+        "person",
+        "vest_dress",
+        "eye",
+        0.5,
+        9,
+        1.2000000000000002,
+        10,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ]
+    },
+    {
       "id": 59,
       "type": "PreviewImage",
       "pos": [
@@ -614,13 +893,254 @@
         304
       ],
       "flags": {},
-      "order": 9,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
           "link": 401,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 142,
+      "type": "PreviewImage",
+      "pos": [
+        1880,
+        1670
+      ],
+      "size": {
+        "0": 232,
+        "1": 315
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 422,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 138,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        1917,
+        1078
+      ],
+      "size": [
+        426,
+        530
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 411
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 412
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 413
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 414
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 415
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 416
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 419
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 418
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": 417
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 420,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            421
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            423
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        301945573879400,
+        "randomize",
+        "euler",
+        "normal",
+        25,
+        8,
+        0.73,
+        10,
+        true,
+        false,
+        1,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ]
+    },
+    {
+      "id": 140,
+      "type": "PreviewImage",
+      "pos": [
+        2401,
+        1036
+      ],
+      "size": {
+        "0": 852,
+        "1": 936
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 421,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 141,
+      "type": "PreviewImage",
+      "pos": [
+        2150,
+        1670
+      ],
+      "size": {
+        "0": 230,
+        "1": 304
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 423,
           "slot_index": 0
         }
       ],
@@ -718,7 +1238,7 @@
         1.2,
         1,
         1,
-        967302491110248,
+        727811173948866,
         "randomize",
         "mean",
         "comfy++",
@@ -879,6 +1399,150 @@
       136,
       14,
       "INT"
+    ],
+    [
+      406,
+      134,
+      1,
+      139,
+      0,
+      "CLIP"
+    ],
+    [
+      407,
+      48,
+      0,
+      139,
+      1,
+      "INT"
+    ],
+    [
+      408,
+      139,
+      4,
+      137,
+      1,
+      "TUPLE"
+    ],
+    [
+      409,
+      136,
+      0,
+      137,
+      0,
+      "IMAGE"
+    ],
+    [
+      410,
+      45,
+      1,
+      137,
+      2,
+      "STRING"
+    ],
+    [
+      411,
+      137,
+      0,
+      138,
+      0,
+      "IMAGE"
+    ],
+    [
+      412,
+      134,
+      0,
+      138,
+      1,
+      "MODEL"
+    ],
+    [
+      413,
+      134,
+      1,
+      138,
+      2,
+      "CLIP"
+    ],
+    [
+      414,
+      134,
+      2,
+      138,
+      3,
+      "VAE"
+    ],
+    [
+      415,
+      137,
+      9,
+      138,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      416,
+      137,
+      10,
+      138,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      417,
+      137,
+      2,
+      138,
+      8,
+      "DETECTOR"
+    ],
+    [
+      418,
+      137,
+      4,
+      138,
+      7,
+      "SEGS"
+    ],
+    [
+      419,
+      137,
+      8,
+      138,
+      6,
+      "TUPLE"
+    ],
+    [
+      420,
+      48,
+      0,
+      138,
+      14,
+      "INT"
+    ],
+    [
+      421,
+      138,
+      0,
+      140,
+      0,
+      "IMAGE"
+    ],
+    [
+      422,
+      137,
+      1,
+      142,
+      0,
+      "IMAGE"
+    ],
+    [
+      423,
+      138,
+      1,
+      141,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],
