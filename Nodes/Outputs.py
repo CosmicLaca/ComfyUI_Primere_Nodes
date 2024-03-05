@@ -434,38 +434,40 @@ class PrimereKSampler:
             }
 
     def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, model_concept = "Normal", denoise=1.0):
-        if (model_concept == "Turbo"):
-            sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
-            sampler = comfy.samplers.sampler_object(sampler_name)
-            turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-            samples = (turbo_samples[0],)
+        match model_concept:
+            case "Turbo":
+                sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
+                sampler = comfy.samplers.sampler_object(sampler_name)
+                turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                samples = (turbo_samples[0],)
 
-        if (model_concept == "Cascade"):
-            if type(model).__name__ == 'list':
-                latent_size = utility.getLatentSize(latent_image)
-                if (latent_size[0] < latent_size[1]):
-                    orientation = 'Vertical'
+            case "Cascade":
+                if type(model).__name__ == 'list':
+                    latent_size = utility.getLatentSize(latent_image)
+                    if (latent_size[0] < latent_size[1]):
+                        orientation = 'Vertical'
+                    else:
+                        orientation = 'Horizontal'
+
+                    # cascade_standards = utility.CASCADE_SIDES
+                    # dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
+                    dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
+                    dimension_x = dimensions[0]
+                    dimension_y = dimensions[1]
+
+                    height = dimension_y
+                    width = dimension_x
+                    compression = 42
+                    if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
+                        c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
+                        b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
+                        samples_c = common_ksampler(model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
+                        conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
+                        samples = common_ksampler(model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
                 else:
-                    orientation = 'Horizontal'
+                    samples = latent_image
+            case _:
+                samples = common_ksampler(model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
 
-                # cascade_standards = utility.CASCADE_SIDES
-                # dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
-                dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
-                dimension_x = dimensions[0]
-                dimension_y = dimensions[1]
-
-                height = dimension_y
-                width = dimension_x
-                compression = 42
-                if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
-                    c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
-                    b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
-                    samples_c = common_ksampler(model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
-                    conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
-                    samples = common_ksampler(model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
-            else:
-                samples = latent_image
-        else:
-            samples = common_ksampler(model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
 
         return samples
