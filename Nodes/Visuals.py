@@ -13,7 +13,6 @@ import chardet
 import pandas
 import re
 from ..utils import comfy_dir
-# import comfy_extras.nodes_hypernetwork as comfy_extras
 
 class PrimereVisualCKPT:
     RETURN_TYPES = ("CHECKPOINT_NAME", "STRING")

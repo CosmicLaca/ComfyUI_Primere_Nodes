@@ -15,7 +15,6 @@ def get_model_hash(filename):
 
     return hash_sha256.hexdigest()[0:10]
 
-
 def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_hash_check):
     checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
     allcheckpoints = folder_paths.get_filename_list("checkpoints")
@@ -77,7 +76,7 @@ def check_sampler_from_exif(sampler_name_exif, sampler_name, scheduler_name):
     is_found_sampler = []
     is_found_scheduler = []
 
-    cutoff_list_samplers = [1, 0.9, 0.8, 0.7, 0.6]
+    cutoff_list_samplers = list(np.around(np.arange(0.6, 1.05, 0.1).tolist(), 2))[::-1]
     for trycut in cutoff_list_samplers:
         is_found_sampler = difflib.get_close_matches(sampler_name_exif_for_cutoff, comfy_samplers, cutoff=trycut)
 
@@ -88,7 +87,7 @@ def check_sampler_from_exif(sampler_name_exif, sampler_name, scheduler_name):
         if any((match := substring) in sampler_name_exif for substring in comfy_schedulers):
             scheduler_name = match
         else:
-            cutoff_list_schedulers = list(np.around(np.arange(0.4, 0.75, 0.05).tolist(), 2))[::-1] # [0.7, 0.6, 0.5, 0.4]
+            cutoff_list_schedulers = list(np.around(np.arange(0.4, 0.8, 0.1).tolist(), 2))[::-1]
             for trycut in cutoff_list_schedulers:
                 is_found_scheduler = difflib.get_close_matches(sampler_name_exif, comfy_schedulers, cutoff=trycut)
 
@@ -112,7 +111,7 @@ def comfy_samplers2a11(comfy_sampler, comfy_scheduler):
 
 def check_vae_exif(vae_name_exif, vae_name):
     comfy_vaes = folder_paths.get_filename_list("vae")
-    cutoff_list = [1, 0.9, 0.8, 0.7]
+    cutoff_list = list(np.around(np.arange(0.7, 1.05, 0.1).tolist(), 2))[::-1]
     is_found = []
 
     for trycut in cutoff_list:

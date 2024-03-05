@@ -202,7 +202,6 @@ class PrimereImageSegments:
             wf_square_shape = utility.get_square_shape(image.shape[1], image.shape[2])
             image_sides = sorted(image_size)
             custom_side_b = round((image_sides[1] / image_sides[0]), 4)
-            # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, False, model_version, True, 1, custom_side_b)
             dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, 1, custom_side_b, 'STANDARD')
             new_width = dimensions[0]
             new_height = dimensions[1]

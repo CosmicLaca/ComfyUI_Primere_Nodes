@@ -8,7 +8,6 @@ import chardet
 import pandas
 import comfy.samplers
 import folder_paths
-import hashlib
 from .modules.image_meta_reader import ImageExifReader
 from .modules.image_meta_reader import compatibility_handler
 from .modules import exif_data_checker
@@ -19,7 +18,6 @@ import string
 from .modules.adv_encode import advanced_encode
 from ..components import stylehandler
 from .Styles import StyleParser
-import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
 from .modules.exif_data_checker import check_model_from_exif
 
@@ -444,13 +442,6 @@ class PrimereMetaHandler:
             workflow_tuple = kwargs['workflow_tuple']
             workflow_tuple['exif_status'] = 'OFF'
 
-            '''
-            if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and 'width' in kwargs['workflow_tuple'] and 'height' in kwargs['workflow_tuple']:
-                wf_square_shape = utility.get_square_shape(kwargs['workflow_tuple']['width'], kwargs['workflow_tuple']['height'])
-            else:
-                wf_square_shape = utility.STANDARD_SIDES[1]
-            '''
-
             if 'prefered' in workflow_tuple:
                 prefred_settings = workflow_tuple['prefered']
                 if len(prefred_settings) > 0:
@@ -503,9 +494,6 @@ class PrimereMetaHandler:
                         orientation = 'Horizontal'
                     else:
                         orientation = 'Vertical'
-                    # image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
-                    # custom_side_b = round((image_sides[1] / image_sides[0]), 4)
-                    # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, workflow_tuple['model_version'], True, 1, custom_side_b)
 
                     dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, workflow_tuple['width'], workflow_tuple['height'], 'STANDARD')
                     workflow_tuple['width'] = dimensions[0]
@@ -701,14 +689,11 @@ class PrimereMetaHandler:
                         orientation = 'Horizontal'
                     else:
                         orientation = 'Vertical'
-                    # image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
-                    # custom_side_b = round((image_sides[1] / image_sides[0]), 4)
-                    # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, workflow_tuple['model_version'], True, 1, custom_side_b)
+
                     dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, workflow_tuple['width'], workflow_tuple['height'], 'STANDARD')
                     workflow_tuple['width'] = dimensions[0]
                     workflow_tuple['height'] = dimensions[1]
                     workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
-
 
                 if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None:
                     if (is_sdxl == 1):

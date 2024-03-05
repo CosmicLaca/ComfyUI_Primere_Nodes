@@ -9,7 +9,6 @@ import os
 import random
 from pathlib import Path
 from ..utils import comfy_dir
-# import comfy_extras.nodes_hypernetwork as comfy_extras
 
 class PrimereLORA:
     RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "MODEL_KEYWORD")

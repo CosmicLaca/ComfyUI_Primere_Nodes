@@ -23,9 +23,9 @@ import nodes
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
-CASCADE_SIDES = np.arange(64, 2049, 16).tolist() # [42, 84, 126, 168, 210, 252, 294, 336, 378, 420, 462, 504, 546, 588, 630, 672, 714, 756, 798, 840, 882, 924, 966, 1008, 1050, 1092, 1134, 1176, 1218, 1260, 1302, 1344, 1386, 1428, 1470, 1512, 1554, 1596, 1638, 1680]
+CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
-VALID_SHAPES = np.arange(512, 2049, 256).tolist() # [512, 768, 1024, 1280, 1600, 2048]
+VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
@@ -45,76 +45,6 @@ def remove_quotes(string):
 
 def add_quotes(string):
     return '"' + str(string) + '"'
-
-'''
-def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: bool, model_version: str, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, custom_standards=None):
-    if custom_standards is None:
-        custom_standards = []
-
-    DEFAULT_RES = 768
-
-    match model_version:
-        case 'BaseModel_768':
-            DEFAULT_RES = 512
-        case 'BaseModel_1024':
-            DEFAULT_RES = 768
-        case 'BaseModel_mod_1024':
-            DEFAULT_RES = 1024
-        case 'BaseModel_mod_1280':
-            DEFAULT_RES = 1280
-        case 'BaseModel_mod_1600':
-            DEFAULT_RES = 1600
-        case 'BaseModel_mod_2048':
-            DEFAULT_RES = 2048
-
-        case 'SDXL_2048':
-            DEFAULT_RES = 1024
-        case 'SDXLModel_mod_768':
-            DEFAULT_RES = 512
-        case 'SDXLModel_mod_1024':
-            DEFAULT_RES = 768
-        case 'SDXLModel_mod_1280':
-            DEFAULT_RES = 1280
-        case 'SDXLModel_mod_1600':
-            DEFAULT_RES = 1600
-        case 'SDXLModel_mod_2048':
-            DEFAULT_RES = 2048
-
-    def calculate(ratio_1: float, ratio_2: float, side: int):
-        FullPixels = side ** 2
-        result_x = FullPixels / ratio_2
-        result_y = result_x / ratio_1
-        side_base = round(math.sqrt(result_y))
-        side_a = round(ratio_1 * side_base)
-        side_b = round(FullPixels / side_a)
-        if round_to_standard == True:
-            if len(custom_standards) > 1 and custom_standards is not None:
-                side_a = min(custom_standards, key=lambda x: abs(side_a - x))
-                side_b = round(FullPixels / side_a)
-                side_b = min(custom_standards, key=lambda x: abs(x - side_b))
-            else:
-                side_a = min(STANDARD_SIDES, key=lambda x: abs(side_a - x))
-                side_b = round(FullPixels / side_a)
-                side_b = min(STANDARD_SIDES, key=lambda x: abs(x - side_b))
-
-        return sorted([side_a, side_b], reverse=True)
-
-    if (calculate_by_custom == True and isinstance(custom_side_a, (int, float)) and isinstance(custom_side_b, (int, float)) and custom_side_a >= 1 and custom_side_b >= 1):
-        ratio_x = custom_side_a
-        ratio_y = custom_side_b
-    else:
-        RatioLabel = self.ratioNames[ratio]
-        ratio_x = self.sd_ratios[RatioLabel]['side_x']
-        ratio_y = self.sd_ratios[RatioLabel]['side_y']
-
-    dimensions = calculate(ratio_x, ratio_y, DEFAULT_RES)
-    if (orientation == 'Vertical'):
-        dimensions = sorted(dimensions)
-
-    dimension_x = dimensions[0]
-    dimension_y = dimensions[1]
-    return (dimension_x, dimension_y,)
-'''
 
 def get_square_shape(shape_a, shape_b):
     area = shape_a * shape_b
@@ -364,7 +294,7 @@ def get_model_keywords(filename, modelhash, model_name):
             selected_ckpt = keywords[keywords['#model_hash'] == modelhash]['filename.ckpt'].values
             basename = Path(model_name).stem
 
-            cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+            cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1]
             is_found = []
             model_name_kw = None
 
@@ -386,7 +316,7 @@ def get_model_keywords(filename, modelhash, model_name):
         return None
 
 def get_closest_element(value, list):
-    cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+    cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1]
     is_found = None
 
     for trycut in cutoff_list:

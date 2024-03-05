@@ -117,10 +117,10 @@ class PrimereMetaSave:
         if output_path.endswith("ComfyUI/output") or output_path.endswith("ComfyUI\output"):
             base_output = ""
 
-        if add_modelname_to_path == True and 'model_name' in image_metadata:
+        if add_modelname_to_path == True and 'model' in image_metadata:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
-            ModelPath = Path(image_metadata['model_name'])
+            ModelPath = Path(image_metadata['model'])
             # if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
             #    subpath = prefered_subpath
             if 'prefered' in image_metadata and type(image_metadata['prefered']).__name__ == 'dict' and len(image_metadata['prefered']) > 0 and 'subpath' in image_metadata['prefered'] and image_metadata['prefered']['subpath'] is not None and len(image_metadata['prefered']['subpath'].strip()) > 0:
@@ -188,12 +188,12 @@ class PrimereMetaSave:
         try:
             output_file = os.path.abspath(os.path.join(output_path, file))
 
-            exif_metadata_A11 = None
-            if 'positive' in image_metadata and 'negative' in image_metadata:
-                a11samplername = exif_data_checker.comfy_samplers2a11(image_metadata['sampler_name'], image_metadata['scheduler_name'])
-                exif_metadata_A11 = f"""{image_metadata['positive']}
-Negative prompt: {image_metadata['negative']}
-Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {str(image_metadata['cfg_scale'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model_name']}, VAE: {image_metadata['vae_name']}"""
+#            exif_metadata_A11 = None
+#             if 'positive' in image_metadata and 'negative' in image_metadata:
+#                a11samplername = exif_data_checker.comfy_samplers2a11(image_metadata['sampler'], image_metadata['scheduler'])
+#                exif_metadata_A11 = f"""{image_metadata['positive']}
+# Negative prompt: {image_metadata['negative']}
+# Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {str(image_metadata['cfg'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model']}, VAE: {image_metadata['vae']}"""
 
             exif_metadata_json = image_metadata
 
@@ -205,8 +205,8 @@ Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {st
                 img.save(output_file, quality=quality, optimize=True)
                 if image_embed_exif == True:
                     metadata = pyexiv2.Image(output_file)
-                    if exif_metadata_A11 is not None:
-                        metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
+#                     if exif_metadata_A11 is not None:
+#                        metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
                     metadata.modify_exif({'Exif.Image.ImageDescription': json.dumps(exif_metadata_json)})
                     print(f"Image file saved with exif: {output_file}")
                 else:
@@ -390,7 +390,6 @@ class PrimereMetaCollector:
     def INPUT_TYPES(cls):
         return cls.INPUT_DICT
 
-
     def load_process_meta(self,  *args, **kwargs):
         data_json = {}
 
@@ -449,8 +448,6 @@ class PrimereKSampler:
                     else:
                         orientation = 'Horizontal'
 
-                    # cascade_standards = utility.CASCADE_SIDES
-                    # dimensions = utility.calculate_dimensions(self, 'Square [1:1]', orientation, True, 'SDXL_2048', True, latent_size[0], latent_size[1], cascade_standards)
                     dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
                     dimension_x = dimensions[0]
                     dimension_y = dimensions[1]
@@ -468,6 +465,5 @@ class PrimereKSampler:
                     samples = latent_image
             case _:
                 samples = common_ksampler(model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
-
 
         return samples

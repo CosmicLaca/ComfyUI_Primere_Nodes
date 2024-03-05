@@ -450,8 +450,6 @@ class AnyType(str):
 class PrimerePromptSwitch:
     any_typ = AnyType("*")
 
-    # RETURN_TYPES = (any_typ, any_typ, any_typ, any_typ, any_typ, "INT", "TUPLE")
-    # RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "SELECTED_INDEX", "PREFERED")
     RETURN_TYPES = (any_typ, any_typ, "INT", "TUPLE")
     RETURN_NAMES = ("PROMPT+", "PROMPT-", "SELECTED_INDEX", "PREFERED")
     FUNCTION = "promptswitch"
@@ -469,9 +467,6 @@ class PrimerePromptSwitch:
                 "prompt_pos_1": (any_typ,),
                 "prompt_neg_1": (any_typ,),
                 "prefered_1": (any_typ,),
-                # "subpath_1": (any_typ,),
-                # "model_1": (any_typ,),
-                # "orientation_1": (any_typ,),
             },
         }
 
@@ -480,29 +475,11 @@ class PrimerePromptSwitch:
         input_namep = f"prompt_pos_{selected_index}"
         input_namen = f"prompt_neg_{selected_index}"
         input_prefered = f"prefered_{selected_index}"
-        # input_subpath = f"subpath_{selected_index}"
-        # input_model = f"model_{selected_index}"
-        # input_orientation = f"orientation_{selected_index}"
-
-        '''
-        if input_subpath not in kwargs:
-            kwargs[input_subpath] = None
-
-        if input_model not in kwargs:
-            kwargs[input_model] = None
-
-        if input_orientation not in kwargs:
-            kwargs[input_orientation] = None
-
-        prefered = {'subpath': kwargs[input_subpath], 'model': kwargs[input_model], 'orientation': kwargs[input_orientation]}
-        '''
 
         if input_namep in kwargs:
-            # return (kwargs[input_namep], kwargs[input_namen], kwargs[input_subpath], kwargs[input_model], kwargs[input_orientation], selected_index, prefered)
             return (kwargs[input_namep], kwargs[input_namen], selected_index, kwargs[input_prefered])
         else:
             print(f"PrimerePromptSwitch: invalid select index (ignored)")
-            # return (None, None, None, None, None, selected_index)
             return (None, None, selected_index, None)
 
 class PrimereSeed:
@@ -796,9 +773,6 @@ class PrimereCLIP:
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
 
-        # if custom_clip_model != 'None' and model_concept != 'Cascade':
-        #     clip = nodes.CLIPLoader.load_clip(self, custom_clip_model, 'stable_diffusion')[0]
-
         if (adv_encode == True):
             if (is_sdxl == 0):
 
@@ -884,7 +858,6 @@ class PrimereResolution:
         return {
             "required": {
                 "ratio": (list(namelist.keys()),),
-                # "force_768_SD1x": ("BOOLEAN", {"default": True}),
                 "basemodel_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
                 "sdxlmodel_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
                 "turbo_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[0]}),
