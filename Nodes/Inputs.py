@@ -701,8 +701,8 @@ class PrimereMetaHandler:
                         orientation = 'Horizontal'
                     else:
                         orientation = 'Vertical'
-                    image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
-                    custom_side_b = round((image_sides[1] / image_sides[0]), 4)
+                    # image_sides = sorted([workflow_tuple['width'], workflow_tuple['height']])
+                    # custom_side_b = round((image_sides[1] / image_sides[0]), 4)
                     # dimensions = utility.calculate_dimensions(self, "Square [1:1]", orientation, True, workflow_tuple['model_version'], True, 1, custom_side_b)
                     dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, workflow_tuple['width'], workflow_tuple['height'], 'STANDARD')
                     workflow_tuple['width'] = dimensions[0]
@@ -736,6 +736,37 @@ class PrimereMetaHandler:
             NegPromptType = type(workflow_tuple['negative']).__name__
             if NegPromptType is not None and NegPromptType != 'str':
                 workflow_tuple['negative'] = 'Cute cat, nsfw, nude, nudity, porn'
+
+        if ('model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Cascade'):
+            if ('vae' not in workflow_tuple or ('vae' in workflow_tuple and workflow_tuple['vae'] != 'Baked VAE')):
+                if 'concept_data' in workflow_tuple and 'cascade_stage_a' in workflow_tuple['concept_data']:
+                    if workflow_tuple['concept_data']['cascade_stage_a'] is not None:
+                        workflow_tuple['vae'] = workflow_tuple['concept_data']['cascade_stage_a']
+                        workflow_tuple['is_sdxl'] = 1
+                        workflow_tuple['model_version'] = 'SDXL_2048'
+
+                        if workflow_tuple['width'] > workflow_tuple['height']:
+                            orientation = 'Horizontal'
+                        else:
+                            orientation = 'Vertical'
+
+                        dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', workflow_tuple['model_shapes']['SDXL'], orientation, True, True, workflow_tuple['width'], workflow_tuple['height'], 'CASCADE')
+                        workflow_tuple['width'] = dimensions[0]
+                        workflow_tuple['height'] = dimensions[1]
+                        workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+            else:
+                workflow_tuple['is_sdxl'] = 1
+                workflow_tuple['model_version'] = 'SDXL_2048'
+
+                if workflow_tuple['width'] > workflow_tuple['height']:
+                    orientation = 'Horizontal'
+                else:
+                    orientation = 'Vertical'
+
+                dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', workflow_tuple['model_shapes']['SDXL'], orientation, True, True, workflow_tuple['width'], workflow_tuple['height'], 'CASCADE')
+                workflow_tuple['width'] = dimensions[0]
+                workflow_tuple['height'] = dimensions[1]
+                workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
 
         def DictSort(element):
             if element in SORT_LIST:

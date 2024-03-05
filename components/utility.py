@@ -22,10 +22,10 @@ import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
-STANDARD_SIDES = np.arange(64, 2048, 16).tolist()
-CASCADE_SIDES = np.arange(64, 4200, 16).tolist()
+STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
+CASCADE_SIDES = np.arange(64, 2049, 16).tolist() # [42, 84, 126, 168, 210, 252, 294, 336, 378, 420, 462, 504, 546, 588, 630, 672, 714, 756, 798, 840, 882, 924, 966, 1008, 1050, 1092, 1134, 1176, 1218, 1260, 1302, 1344, 1386, 1428, 1470, 1512, 1554, 1596, 1638, 1680]
 MAX_RESOLUTION = 8192
-VALID_SHAPES = [512, 768, 1024, 1280, 1600, 2048]
+VALID_SHAPES = np.arange(512, 2049, 256).tolist() # [512, 768, 1024, 1280, 1600, 2048]
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
@@ -46,6 +46,7 @@ def remove_quotes(string):
 def add_quotes(string):
     return '"' + str(string) + '"'
 
+'''
 def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: bool, model_version: str, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, custom_standards=None):
     if custom_standards is None:
         custom_standards = []
@@ -113,6 +114,7 @@ def calculate_dimensions(self, ratio: str, orientation: str, round_to_standard: 
     dimension_x = dimensions[0]
     dimension_y = dimensions[1]
     return (dimension_x, dimension_y,)
+'''
 
 def get_square_shape(shape_a, shape_b):
     area = shape_a * shape_b
@@ -123,11 +125,9 @@ def get_square_shape(shape_a, shape_b):
 def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str = 'Vertical', round_to_standard: bool = False, calculate_by_custom: bool = False, custom_side_a: float = 1, custom_side_b: float = 1, standard:str = 'STANDARD'):
     def calculate_dim(ratio_1: float, ratio_2: float, square: int):
         FullPixels = square ** 2
-        result_x = FullPixels / ratio_2
-        result_y = result_x / ratio_1
-        side_base = round(math.sqrt(result_y))
-        side_a = round(ratio_1 * side_base)
-        side_b = round(FullPixels / side_a)
+        ratio = ratio_2 / ratio_1
+        side_a = math.sqrt(FullPixels * ratio)
+        side_b = side_a /  ratio
 
         if round_to_standard == True:
             STANDARD_LIST = STANDARD_SIDES
@@ -136,6 +136,9 @@ def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str =
             side_a = min(STANDARD_LIST, key=lambda x: abs(side_a - x))
             side_b = round(FullPixels / side_a)
             side_b = min(STANDARD_LIST, key=lambda x: abs(x - side_b))
+
+        side_a = round(side_a)
+        side_b = round(side_b)
 
         return sorted([side_a, side_b], reverse=True)
 
