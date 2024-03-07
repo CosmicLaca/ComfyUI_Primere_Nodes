@@ -20,7 +20,7 @@
 - Click to image preview to visit original output size
 
 <table>
-    <tr><th width="100px">Workflow name</th><th>SD/SDXL</th><th>Dynamic</th><th>LCM</th><th>Turbo</th><th>Upscale<br>~6 mpx</th><th>Save</th><th>Refiners<br>4 refiners</th><th>Meta</th><th>Styles</th><th>Networks</th><th>VAE</th><th>RTX 3060/12</th><th>SD<br>Photon V1</th><th>SDXL<br>batchCOREALISMXL</th><th>SD LCM<br>Photon V1</th><th>SDXL LCM<br>batchCOREALISMXL</th><th>Turbo<br>sd_xl_turbo 1.0</th></tr>
+    <tr><th nowrap>Workflow name</th><th nowrap>SD/SDXL</th><th nowrap>Dynamic</th><th nowrap>LCM</th><th nowrap>Turbo</th><th nowrap>Upscale<br>~6 mpx</th><th nowrap>Save</th><th nowrap>Refiners<br>4 refiners</th><th nowrap>Meta</th><th nowrap>Styles</th><th nowrap>Networks</th><th nowrap>VAE</th><th nowrap>RTX 3060/12</th><th nowrap>SD<br>Photon V1</th><th nowrap>SDXL<br>batchCOREALISMXL</th><th nowrap>SD LCM<br>Photon V1</th><th nowrap>SDXL LCM<br>batchCOREALISMXL</th><th nowrap>Turbo<br>sd_xl_turbo 1.0</th></tr>
     <tr>
         <td>Minimal</td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
