@@ -20,7 +20,7 @@
 - Click to image preview to visit original output size
 
 <table>
-    <tr><th>Workflow name</th><th>SD/SDXL</th><th>Dynamic</th><th>LCM</th><th>Turbo</th><th>Upscale<br>~6 mpx</th><th>Save</th><th>Refiners<br>4 refiners</th><th>Meta</th><th>Styles</th><th>Networks</th><th>VAE</th><th>RTX 3060/12</th><th>SD<br>Photon V1</th><th>SDXL<br>batchCOREALISMXL</th><th>SD LCM<br>Photon V1</th><th>SDXL LCM<br>batchCOREALISMXL</th><th>Turbo<br>sd_xl_turbo 1.0</th></tr>
+    <tr><th style="min-width:100px">Workflow name</th><th style="min-width:100px">SD/SDXL</th><th style="min-width:100px">Dynamic</th><th style="min-width:100px">LCM</th><th style="min-width:100px">Turbo</th><th style="min-width:100px">Upscale<br>~6 mpx</th><th style="min-width:100px">Save</th><th style="min-width:100px">Refiners<br>4 refiners</th><th style="min-width:100px">Meta</th><th style="min-width:100px">Styles</th><th style="min-width:100px">Networks</th><th style="min-width:100px">VAE</th><th style="min-width:100px">RTX 3060/12</th><th style="min-width:100px">SD<br>Photon V1</th><th style="min-width:100px">SDXL<br>batchCOREALISMXL</th><th style="min-width:100px">SD LCM<br>Photon V1</th><th style="min-width:100px">SDXL LCM<br>batchCOREALISMXL</th><th style="min-width:100px">Turbo<br>sd_xl_turbo 1.0</th></tr>
     <tr>
         <td>Minimal</td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
