@@ -34,7 +34,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td>SD: 9 sec<br>SDXL: 20 sec</td>
+        <td nowrap>SD: 9 sec<br>SDXL: 20 sec</td>
         <td><a href="../readme_images/example-minimal-sd-raw.jpg"><img src="../readme_images/example-minimal-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-minimal-sdxl-raw.jpg"><img src="../readme_images/example-minimal-sdxl.jpg" height="60 px"></a></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
@@ -54,7 +54,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td>SD: 9 sec<br>SD LCM: 7 sec<br>SDXL: 20 sec<br>SDXL LCM: 9 sec<br>Turbo: 2 sec</td>
+        <td nowrap>SD: 9 sec<br>SD LCM: 7 sec<br>SDXL: 20 sec<br>SDXL LCM: 9 sec<br>Turbo: 2 sec</td>
         <td><a href="../readme_images/example-basic-sd-raw.jpg"><img src="../readme_images/example-basic-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxl-raw.jpg"><img src="../readme_images/example-basic-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdlcm-raw.jpg"><img src="../readme_images/example-basic-sdlcm.jpg" height="60 px"></a></td>
@@ -74,7 +74,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td><u>Upscaled:</u><br>SD: 29 sec<br>SD LCM: 25 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec</td>
+        <td nowrap><u>Upscaled:</u><br>SD: 29 sec<br>SD LCM: 25 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec</td>
         <td><a href="../readme_images/example-advanced-sd-raw.jpg"><img src="../readme_images/example-advanced-sd.jpg" height="120 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdxl-raw.jpg"><img src="../readme_images/example-advanced-sdxl.jpg" height="120 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdlcm-raw.jpg"><img src="../readme_images/example-advanced-sdlcm.jpg" height="120 px"></a></td>
@@ -94,7 +94,7 @@
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td><u>Upscaled: 6 mpx</u><br>SD: 70 sec<br>SD LCM: 43 sec<br>SDXL: 215 sec<br>SDXL LCM: 120 sec<br>Turbo: 103 sec</td>
+        <td nowrap><u>Upscaled: 6 mpx</u><br>SD: 70 sec<br>SD LCM: 43 sec<br>SDXL: 215 sec<br>SDXL LCM: 120 sec<br>Turbo: 103 sec</td>
         <td><a href="../readme_images/example-latest-sd-raw.jpg"><img src="../readme_images/example-latest-sd.jpg" height="120 px"></a></td>
         <td><a href="../readme_images/example-latest-sdxl-raw.jpg"><img src="../readme_images/example-latest-sdxl.jpg" height="120 px"></a></td>
         <td><a href="../readme_images/example-latest-sdlcm-raw.jpg"><img src="../readme_images/example-latest-sdlcm.jpg" height="120 px"></a></td>
