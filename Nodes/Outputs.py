@@ -12,7 +12,8 @@ from pathlib import Path
 import datetime
 import comfy.samplers
 from .modules import exif_data_checker
-from nodes import common_ksampler
+# from nodes import common_ksampler
+import nodes
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import torch
@@ -440,6 +441,8 @@ class PrimereKSampler:
                 turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                 samples = (turbo_samples[0],)
 
+                return samples
+
             case "Cascade":
                 if type(model).__name__ == 'list':
                     latent_size = utility.getLatentSize(latent_image)
@@ -458,12 +461,15 @@ class PrimereKSampler:
                     if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
                         c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
                         b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
-                        samples_c = common_ksampler(model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
+                        samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
+                        # sample(self, model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise=1.0):
                         conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
-                        samples = common_ksampler(model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+                        samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+
+                        return samples
                 else:
                     samples = latent_image
+                    return samples
             case _:
-                samples = common_ksampler(model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
-
-        return samples
+                samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                return samples

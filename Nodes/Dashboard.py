@@ -321,17 +321,14 @@ class PrimereCKPTLoader:
 
         if model_concept == "Cascade" and cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
             MODEL_VERSION = 'SDXL_2048'
-            is_sdxl = 1
 
-            OUTPUT_VAE = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
+            OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
+            OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
+            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c)[0]
+            MODEL_B_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_b)[0]
 
-            MODEL_B = nodes.UNETLoader.load_unet(self, cascade_stage_b)[0]
-            MODEL_C = nodes.UNETLoader.load_unet(self, cascade_stage_c)[0]
-
-            OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
-            OUTPUT_MODEL = [MODEL_B, MODEL_C]
-
-            return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
+            OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
+            return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
 
         ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step)
         ckpt_name = ModelConceptChanges['ckpt_name']
@@ -657,6 +654,9 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+        if model_concept == 'Cascade' or model_concept == 'Turbo':
+            model_version = 'SDXL_2048'
+
         is_sdxl = 0
         match model_version:
             case 'SDXL_2048':

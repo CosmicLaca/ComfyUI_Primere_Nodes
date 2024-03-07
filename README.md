@@ -5,45 +5,41 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <a href="./Workflow/readme_images/latest_workflow.png" target="_blank"><img src="./Workflow/readme_images/latest_workflow.jpg" width="400px"></a>
 <hr>
 
-## Special features in attached most complex workflow **Primere_latest_workflow.json**:
-- Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the result
-- No need to set/switch nodes or workflow between SD and SDXL checkpoints
-- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt node, same settings under the .csv prompt loader node
-- You can randomize the image orientation if using batch mode
-- One button LCM and Turbo mode (see example workflow), the LCM mode download required SD and SDXL LCM models at first usage
-- Save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF too
-- Read original A1111 styles.csv file, handle dynamic prompts and additional networks from the text content of prompts like in A1111, example dynamic styles.csv included
-- Not just .csv usefil as prompt source, organize your prompts to .toml file, and use the file content on dedicated prompt organizer node
+## Features of attached complex workflow **Primere_latest_workflow.json**:
+- Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the model version
+- No need to set/switch any nodes or workflow between SD and SDXL checkpoints
+- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt node, same features under the .csv prompt loader node and the Prompt organizer
+- You can randomize the image orientation if using Comfy's batch queue mode
+- One button Normal, LCM, Turbo, Cascade and Lightning mode (see example workflows), the LCM mode download required SD and SDXL LCM models at first usage, other concepts need models already downloaded. Test workflow: **civitai-modelconcepts.json**
+- Save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF (otherwords meta) too
+- Read original A1111 styles.csv file, handle dynamic prompts and additional networks (Embedding, Lora, Lycoris, Hypernetwork) from the text content of prompts like in A1111, example dynamic styles.csv included for testing
+- Not just .csv useful as prompt source, organize your prompts to .toml file, and use the file content on dedicated Prompt organizer node, example .toml file included
 - Random noise generator for latent image, with special function to generate different but consistent images with locked seed with adjustable difference between min and max values 
-- Additional and easy editable image styles included in the text encoder as list
+- Additional and easy editable image/art styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
-- Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node
-- Original image size multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and third for Turbo checkpoints
-- Not just multiply original resolution by integer as multiplier, but can be define the final resolution by megapixels ffrom any image sizes
-- Image size multiplier can solve low memory error problem if using Ultimate SD Upscaler 
+- Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node, several base resolution for model concepts
+- Original image size can be multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and third for Turbo checkpoints
+- Not just multiply original resolution by integer as multiplier, but can be define the final resolution by target megapixels from any source image sizes. Image resolution multiplier can solve low memory error problem if using Ultimate SD Upscaler 
 - Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included networks or want to change to different networks, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
-- Embedding handler for A1111 compatible prompts (or .csv styles), this node convert A1111 Embeddings to ComfyUI
-- Use more than one prompt or style inputs for testing, comparison and developing new prompts, and select any by 'Prompt Switch' node
-- Special image META/EXIF reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images and re-using them with same or different settings. With switches you can change or keep the original embedd seed/model/size/etc... to workflow settings
-- Realtime check/debug generation details by nodes as text
+- Use more than one prompt or style inputs nodes for testing, compare and developing new prompts, and select any by 'Prompt Switch' node
+- Special image META/EXIF/PNGINFO reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images and re-using them with same or different settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
 - Workflow and nodes support Lycoris in dedicated node, no need to copy them to Loras path
-- Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result
+- Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result, included test workflow: **civitai-all-refiner.json**
 - Detailers automatically detect and support LCM and Turbo concepts
-- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path
-- Midjourney art-style prompts can be attached to the original prompt
-- Emotions as style
+- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path, see readme details under "Visual"
+- Midjourney art-style prompts can be attached to the original prompt, Emotions as style in separated node
 
 <hr>
 
-## Do it before first run, or the example workflow / nodes will be failed in your local environment:
+## Do it before first run, or the example workflows / nodes will be failed in your local environment:
 
 **Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull if the previous workflow failed because nodes changed by develpment. This node contains most of developed nodes, but 3rd party nodes and models required**
 
-1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing libs manually).
+1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing Python libs manually).
 
-2; If nodepack started, use the Primere_latest_workflow or Primere_basic_workflow on the 'Workflow' folder for first try. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
+2; If nodepack started, use the Primere_minimal_workflow and Primere_basic_workflow on the 'Workflow' folder for first try. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
-3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_basic_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or the minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
+3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_minimal_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
 4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
@@ -51,17 +47,17 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values on all input fields from your own environment.
 
-7; Choose your own image from your machine to the 'Primere Exif Reader'.
+7; Choose your own image from your machine to the 'Primere Exif Reader' or 'Primere Image Recycler'.
 
 8; **Update your Comfy to latest version** if workflow failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
 
 9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved custom workflow if required. **'Fix node (recreate)'** menu will keep previous connections.
 
-10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually with invalid input value. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
+10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually by invalid/deprecated/missing input values. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
 
-11; Remove dynamic prompts from the filled prompt input nodes I used before the example workflow saved and pushed. Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have wildcard files, just copy them to the 'wildcards' folder.
+11; Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have custom wildcard files, just copy/symlink them to the 'wildcards' folder.
 
-12; Don't overwrite attached example workflows, because the git pull will write back to the original. Ff you modify, save as them to another name and path. 
+12; Don't overwrite attached example workflows, because the git pull will write back to the original. If you modify, save as them to another name and path. 
 
 <hr>
 
@@ -94,11 +90,11 @@ Unfortunately the result is not perfect :(. You must check the version labels on
 <hr>
 Example of visual checkpoint selector if preview available:
 
-<a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="300px"></a>
+<a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="340px"></a>
 <hr>
 
 ### Primere Visual CKPT selector:
-**Visual selector for checkpoints**. You must mirror your original checkpoint subdirs **(not the checkpoint files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
+**Visual selector for checkpoints**. You must mirror (replicate) your original checkpoint subdirs **(not the checkpoint files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
 As extra features you can enable/disable modal with 'show_modal' switch, and exclude files and paths from modal starts with . (point) character if show_hidden switch is off.
 
 <a href="./Workflow/readme_images/pvmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvmodal.jpg" height="120px"></a>
@@ -165,6 +161,7 @@ Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models
 <hr>
 
 ### Tips for use detailer nodes:
+- Check the example workflows: **civitai-all-refiner.json**, civitai-face-refiner.json, civitai-hair-refiner.json, civitai-hand-refiner.json, civitai-rewear-refiner.json, civitai-rewear-rehair-refiner.json
 - For hands, faces, persons, hair and skins just use specific models without labels (keywords). 
 - Another contents, for example cars or animals use universal model like **yolov8s** and don't forget to select right label from bottom list.
 - Large faces don't need refiner or detailer because just change the good face to another one (or crerating new worst). If you create closeup portrait, just switch off (or trigger by size) the face detailer.
@@ -225,7 +222,7 @@ Detailer group exaple included to the **Primere_latest_workflow.json** you can t
 
 If you set these fields, (where 'None' mean not set and use dashboard settings) the workflow will use all of these settings for rendering your prompt instead of settings in 'Dashboard' group.
 
-<a href="./Workflow/readme_images/pprompt.jpg" target="_blank"><img src="./Workflow/readme_images/pprompt.jpg" height="130px"></a>
+<a href="./Workflow/readme_images/pprompt.jpg" target="_blank"><img src="./Workflow/readme_images/pprompt.jpg" height="180px"></a>
 <hr>
 
 ### Primere Styles:
@@ -234,7 +231,7 @@ Style (.csv) file reader, compatible with A1111 syles.csv, but little more than 
 - If you fill these 3 optional columns in the style.csv, the rendering process will use them. **These last 3 fields are optional**, if you leave empty the style will be rendering with system 'dashboard' settings, if fill and enable to use at the bottom switches of node, dashboard settings will be overwritten.
 - You can enable/disable these additional settings by switches if already entered to csv but want to use system settings instead, no need to delete if you failed or want to try with dashboard settings instead.
 
-<a href="./Workflow/readme_images/pstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pstyles.jpg" height="120px"></a>
+<a href="./Workflow/readme_images/pstyles.jpg" target="_blank"><img src="./Workflow/readme_images/pstyles.jpg" height="160px"></a>
 <hr>
 
 ### Primere Prompt Organizer
@@ -250,7 +247,7 @@ Prompts and additional data must be stored in the .toml file. This node dynamica
 
 Follow the file schema for your own prompts but don't forget to rename the attached example file to prompts.toml.
 
-<a href="./Workflow/readme_images/ppromptorganizer.jpg" target="_blank"><img src="./Workflow/readme_images/ppromptorganizer.jpg" height="220px"></a>
+<a href="./Workflow/readme_images/ppromptorganizer.jpg" target="_blank"><img src="./Workflow/readme_images/ppromptorganizer.jpg" height="280px"></a>
 <hr>
 
 ### Primere Dynamic:
@@ -260,17 +257,30 @@ Follow the file schema for your own prompts but don't forget to rename the attac
 <a href="./Workflow/readme_images/pdynamic.jpg" target="_blank"><img src="./Workflow/readme_images/pdynamic.jpg" height="80px"></a>
 <hr>
 
+### Primere image recycler:
+- This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
+
+<a href="./Workflow/readme_images/pimgrecycler.jpg" target="_blank"><img src="./Workflow/readme_images/pimgrecycler.jpg" height="340px"></a>
+
+- The node input needed 2 anther node. One is 'Primere meta collector'. Connect your wirkflow settings to the inputs of this node, the output must be conencted to the image recycler node.
+- The second helper node is 'Primere meta distributor'. Connect this node input to the output of image recycler, then you will get back the workflow settings.
+- These 2 additional nodes helps to use switches on image recycler to choose you want to use workflow settings or image meta for new generation process.
+- Check example workflow: **civitai-image-recycler.json**
+
+<a href="./Workflow/readme_images/pmetadistribitions.jpg" target="_blank"><img src="./Workflow/readme_images/pmetadistribitions.jpg" height="320px"></a>
+
+<hr>
+
 ### Primere exif reader:
 - This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
-- This is important (the most important) node in the attached 'Primere_latest_workflow.json' workflow, it has a central settings distribution role, not just read the exif data.
-- The reader is tested with A1111 'jpg' and 'png' and Comfy 'jpg' and 'png'. Another exif parsers will be included soon, but if you send me AI generated image contains exif/metadata what failed to read, I will do parser/debug for that.
+- This node is the alternate version of Primere image recycler.
 
 This node output sending lot of data to the workflow from exif/meta or pnginfo if it's included to selected image, like model name, vae and sampler name or settings. Use this node to distribute settings, and simple off the 'use_exif' switch if you don't want to render image by this node, then you can use your own prompts and dashboard settings instead.
 
 **Use several settings of switches what exif/meta data you want/don't want to use for new image rendering.** If switch off something, dashboard settings (this is why must be connected this node input) will be used instead of image included exif/meta.
 #### For this node inputs connect all of your dashboard settings, like in the example workflow. If you switch off the exif reader with 'use_exif' switch, or ignore specified data for example the model, the input values will be used instead of image meta. The example workflow help to analize how to use this node.
 
-<a href="./Workflow/readme_images/pexif.jpg" target="_blank"><img src="./Workflow/readme_images/pexif.jpg" height="250px"></a>
+<a href="./Workflow/readme_images/pexif.jpg" target="_blank"><img src="./Workflow/readme_images/pexif.jpg" height="300px"></a>
 <hr>
 
 ### Primere Embedding Handler:
@@ -339,9 +349,9 @@ Use this node to switch on/off LCM mode in whole rendering process. Wire two sam
 <hr>
 
 ### Primere Model Concept Selector:
-Use this node to switch between Normal, LCM and Turbo modes in whole rendering process. Wire three sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
+Use this node to switch between Normal, LCM, Cascade, Lightning and Turbo modes in whole rendering process. Wire sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo, Lightning, and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
 
-<a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="240px"></a>
+<a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="300px"></a>
 <hr>
 
 ### Primere VAE Selector:
@@ -388,7 +398,7 @@ This node generate 'empty' latent image, but with several noise settings, what c
 - If you freeze seed (on the dashboard group) and set the min and max values of generation details on this node, you will get small differences by your noise values (primary by alpha_exponent and modulator if randomized)
 - If the difference not big enought switch on 'extra_variation' and set 'control_after_generate' to 'randomize' or 'increment' or 'decrement'. You can get different but consistent images with these settings **if the dasboard seed locked** 
 
-<a href="./Workflow/readme_images/platent.jpg" target="_blank"><img src="./Workflow/readme_images/platent.jpg" height="240px"></a>
+<a href="./Workflow/readme_images/platent.jpg" target="_blank"><img src="./Workflow/readme_images/platent.jpg" height="280px"></a>
 <hr>
 
 ### Primere Prompt Encoder:
@@ -451,7 +461,7 @@ This node loads addtional networks (Lora, Lycoris and Hypernetwork) to the CLIP 
 **Hypernetwork is harmful, because can run any code on your computer, so set 'process_hypernetwork' to False on this node or download them from reliable source only**
 **If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork tags will be ignored, but your computer stay safe.
 
-<a href="./Workflow/readme_images/pnettagload.jpg" target="_blank"><img src="./Workflow/readme_images/pnettagload.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/pnettagload.jpg" target="_blank"><img src="./Workflow/readme_images/pnettagload.jpg" height="280px"></a>
 <hr>
 
 ### Primere Model Keyword
@@ -465,7 +475,7 @@ This node loads model keyword. You can read and use model keywords to send direc
 ### Primere Meta Saver:
 This node save the image, but with/without metadata, and save meta to .json/.txt file if you want. Get metadata from the Exif reader node only, and use optional 'prefered_subpath' input if you want to overwrite the node settings by several prompt input nodes. Set 'output_path' input correctly, depending your system.
 
-<a href="./Workflow/readme_images/pimgsaver.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaver.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/pimgsaver.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaver.jpg" height="260px"></a>
 <hr>
 
 ### Primere Any Debug:
@@ -483,7 +493,7 @@ Use this node in the workflow if you don't need Primere Meta Reader node. This n
 <hr>
 
 ### Primere KSampler:
-KSampler, no difference between this node and Comfy's KSampler, but by the 'model_concept' input this node automatically handle Turbo mode, no need another workflow or node.
+KSampler, no difference between this node and Comfy's KSampler, but by the 'model_concept' input this node automatically handle Turbo nd Cascade modes, no need another workflow or extra node.
 
 <a href="./Workflow/readme_images/pksampler.jpg" target="_blank"><img src="./Workflow/readme_images/pksampler.jpg" height="220px"></a>
 <hr>
@@ -527,21 +537,21 @@ Lora stack for 6 loras. Important to use 'stack_version' list. Here you can sele
 - You can choose Lora keyword placement, which and how many keywords select if more than one available, how many keyword use if more than one available, select in queue or random, and set the keyword weight in the prompt.
 - Lora keyword is much better than to keep lora tag in the prompt.
 
-<a href="./Workflow/readme_images/plora.jpg" target="_blank"><img src="./Workflow/readme_images/plora.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/plora.jpg" target="_blank"><img src="./Workflow/readme_images/plora.jpg" height="260px"></a>
 <hr>
 
 ### Primere LYCORIS
 Lycoris files have dedicated node, wirking similar than the LORA stack. See example workflow, or use as LORA.
 If you already have downloaded LyCORIS files, you must simlynk or copy to the path **ComfyUI\models\lycoris\**. I remcommend simlynk the original source instead of copyying.
 
-<a href="./Workflow/readme_images/plyco.jpg" target="_blank"><img src="./Workflow/readme_images/plyco.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/plyco.jpg" target="_blank"><img src="./Workflow/readme_images/plyco.jpg" height="260px"></a>
 <hr>
 
 ### Primere Embedding
 Select textual inversion called Embedding for your prompt. You have to use 2 several versions of this one, one for SD, and another one for SDXL checkpoints. Important to use 'model_version' input and 'stack_version' list, working similar than in the Lora stack. 
 You can choose embedding placement in the prompt.
 
-<a href="./Workflow/readme_images/pembed.jpg" target="_blank"><img src="./Workflow/readme_images/pembed.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/pembed.jpg" target="_blank"><img src="./Workflow/readme_images/pembed.jpg" height="260px"></a>
 <hr>
 
 ### Primere Hypernetwork
@@ -549,7 +559,7 @@ Use hypernetwork if you already have by this node. **Hypernetwork is harmful, be
 **If you have hypernetwork files from unknown source, set 'safe_load' switch to true.** With this settings sometime your hypernetwork settings will be ignored, but your computer stay safe.
 Hypernetworks don't need seperated SD and SDXL sources, use only one stack for all, and set 'stack_version' to 'Any'. 
 
-<a href="./Workflow/readme_images/phyper.jpg" target="_blank"><img src="./Workflow/readme_images/phyper.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/phyper.jpg" target="_blank"><img src="./Workflow/readme_images/phyper.jpg" height="220px"></a>
 <hr>
 
 # Contact:
