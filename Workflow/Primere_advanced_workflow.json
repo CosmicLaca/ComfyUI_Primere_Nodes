@@ -135,13 +135,13 @@
       "id": 72,
       "type": "PrimereSamplersSteps",
       "pos": [
-        660.0413520749936,
-        794.9978231052023
+        660,
+        764
       ],
-      "size": {
-        "0": 327.6000061035156,
-        "1": 190
-      },
+      "size": [
+        379.0209271524958,
+        190
+      ],
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -1119,9 +1119,9 @@
         8,
         true,
         "Normal",
-        "SAFETENSOR",
+        "LORA",
         8,
-        true,
+        false,
         "Stable-Cascade\\stage_a.safetensors",
         "Stable-Cascade\\stage_b_bf16.safetensors",
         "Stable-Cascade\\stage_c_bf16.safetensors",
@@ -1450,7 +1450,7 @@
       },
       "widgets_values": [
         "",
-        722649226667200,
+        150707102648938,
         "randomize"
       ],
       "color": "#145414",
@@ -1505,7 +1505,7 @@
       },
       "widgets_values": [
         "",
-        529004244082419,
+        559395471869468,
         "randomize"
       ],
       "color": "#541414",
@@ -1773,10 +1773,10 @@
         1044,
         733
       ],
-      "size": {
-        "0": 167.3653564453125,
-        "1": 46
-      },
+      "size": [
+        342.0331145529451,
+        46
+      ],
       "flags": {},
       "order": 25,
       "mode": 0,
@@ -1904,7 +1904,7 @@
         false,
         1.6,
         2.8,
-        596220881965214,
+        1058949823932391,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2060,12 +2060,12 @@
         1,
         0.8,
         1.4,
-        350346381818690,
+        565023432503224,
         "randomize",
         true,
         "cpu",
         false,
-        201455034663021,
+        625951543153344,
         "randomize"
       ],
       "color": "#941414",
@@ -2435,7 +2435,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        912574639559090,
+        478628220346232,
         "randomize",
         20,
         8,
@@ -2516,10 +2516,10 @@
         3530,
         697
       ],
-      "size": [
-        348.5658691406252,
-        434
-      ],
+      "size": {
+        "0": 348.56585693359375,
+        "1": 434
+      },
       "flags": {},
       "order": 34,
       "mode": 0,
@@ -2693,7 +2693,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1383,
+        1677,
         "randomize",
         "",
         "",
@@ -2781,7 +2781,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"minimalist interior, colorful beautiful (large old style kitchen:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury plastic desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 1120589213563657,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"prefered\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"minimalist interior, colorful beautiful (large old style kitchen:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury plastic desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 1120589213563657,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"LCM\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"lcm\",\n    \"scheduler\": \"sgm_uniform\",\n    \"width\": 896,\n    \"height\": 1168,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 1.18,\n    \"steps\": 8,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"prefered\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2908,7 +2908,7 @@
         "Node name for S&R": "PrimereResolutionMultiplier"
       },
       "widgets_values": [
-        false,
+        true,
         512,
         512,
         4,
@@ -3056,7 +3056,7 @@
       },
       "widgets_values": [
         2,
-        1013631102217329,
+        288129580697266,
         "randomize",
         20,
         8,
@@ -3113,10 +3113,10 @@
         3523,
         52
       ],
-      "size": [
-        357.7658203125002,
-        530.108074951172
-      ],
+      "size": {
+        "0": 357.76580810546875,
+        "1": 530.1080932617188
+      },
       "flags": {},
       "order": 41,
       "mode": 0,

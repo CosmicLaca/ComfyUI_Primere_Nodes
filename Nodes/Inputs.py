@@ -709,6 +709,9 @@ class PrimereMetaHandler:
                     else:
                         workflow_tuple['vae'] = 'External VAE'
 
+        if kwargs['seed'] == False and 'workflow_tuple' not in kwargs:
+            workflow_tuple['seed'] = random.randint(1, 0xffffffffffffffff)
+
         if kwargs['force_vae'] == True and kwargs['vae'] == False:
             workflow_tuple['vae'] = 'Baked VAE'
 
@@ -771,7 +774,7 @@ class PrimereMetaHandler:
         else:
             img = None
 
-        return (workflow_tuple, original_exif, img, )
+        return (workflow_tuple, original_exif, img,)
 
 class PrimereMetaDistributor:
     CATEGORY = TREE_INPUTS
