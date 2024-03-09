@@ -22,7 +22,8 @@ frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
 ClientTime = datetime.now()
-UpdateRequired = '2024-03-02 20:00:00'
+UpdateRequired = '2024-03-08 20:00:00'
+# IsDev = utility.get_value_from_cache('setup', 'is_dev')
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -110,6 +111,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereTextOutput": Outputs.PrimereTextOutput,
     "PrimereMetaCollector": Outputs.PrimereMetaCollector,
     "PrimereKSampler": Outputs.PrimereKSampler,
+    "PrimerePreviewImage": Outputs.PrimerePreviewImage,
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
@@ -174,6 +176,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereTextOutput": "Primere Text Ouput",
     "PrimereMetaCollector": "Primere Meta Collector",
     "PrimereKSampler": "Primere KSampler",
+    "PrimerePreviewImage": "Primere Preview Image",
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",

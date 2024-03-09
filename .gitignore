@@ -10,3 +10,4 @@ Nodes/.cache
 Workflow/Primere_final_workflow.json
 Workflow/Primere_final_workflow-temp.json
 Toml/prompts.toml
+ghtoken.txt

@@ -11,13 +11,13 @@ from PIL import Image
 from pathlib import Path
 import datetime
 import comfy.samplers
-from .modules import exif_data_checker
-# from nodes import common_ksampler
+import random
 import nodes
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import torch
 from ..components import utility
+from comfy.cli_args import args
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -473,3 +473,27 @@ class PrimereKSampler:
             case _:
                 samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
                 return samples
+
+class PrimerePreviewImage(nodes.SaveImage):
+    CATEGORY = TREE_OUTPUTS
+    image_path = folder_paths.get_temp_directory()
+
+    def __init__(self):
+        self.output_dir = folder_paths.get_temp_directory()
+        self.type = "temp"
+        self.prefix_append = "_temp_" + ''.join(random.choice("abcdefghijklmnopqrstupvxyz") for x in range(5))
+        self.compress_level = 1
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                # "preview_target": (['Checkpoint', 'Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
+                # "convert": ("BOOLEAN", {"default": True, "label_on": "Convert to preview", "label_off": "Save as original"}),
+                "images": ("IMAGE", ),
+            },
+            "hidden": {
+                "prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO",
+                "image_path": (cls.image_path,),
+            },
+        }
