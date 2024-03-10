@@ -315,12 +315,12 @@ def get_model_keywords(filename, modelhash, model_name):
     else:
         return None
 
-def get_closest_element(value, list):
+def get_closest_element(value, netlist):
     cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1]
     is_found = None
 
     for trycut in cutoff_list:
-        is_found = difflib.get_close_matches(value, list, cutoff=trycut)
+        is_found = difflib.get_close_matches(value, netlist, cutoff=trycut)
         if len(is_found) >= 1:
             return is_found[0]
 
