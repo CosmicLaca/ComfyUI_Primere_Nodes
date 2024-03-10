@@ -499,6 +499,9 @@ class PrimerePreviewImage():
 
                 "images": ("IMAGE", ),
             },
+            "optional": {
+                "image_metadata": ('TUPLE', {"forceInput": True}),
+            },
             "hidden": {
                 "prompt": "PROMPT",
                 "extra_pnginfo": "EXTRA_PNGINFO",
