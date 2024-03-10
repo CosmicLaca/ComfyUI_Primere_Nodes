@@ -474,8 +474,12 @@ class PrimereKSampler:
                 samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
                 return samples
 
-class PrimerePreviewImage(nodes.SaveImage):
+class PrimerePreviewImage():
     CATEGORY = TREE_OUTPUTS
+    RETURN_TYPES = ()
+    OUTPUT_NODE = True
+    FUNCTION = "preview_img_saver"
+
     image_path = folder_paths.get_temp_directory()
 
     def __init__(self):
@@ -488,12 +492,26 @@ class PrimerePreviewImage(nodes.SaveImage):
     def INPUT_TYPES(cls):
         return {
             "required": {
-                # "preview_target": (['Checkpoint', 'Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
-                # "convert": ("BOOLEAN", {"default": True, "label_on": "Convert to preview", "label_off": "Save as original"}),
+                "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
+                "image_resize": ("BOOLEAN", {"default": True, "label_on": "Resize to preview", "label_off": "Save original size"}),
+                "image_type": ("BOOLEAN", {"default": True, "label_on": "Sava as JPG", "label_off": "Save as PNG"}),
+                "largest_side": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
+
                 "images": ("IMAGE", ),
             },
             "hidden": {
-                "prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT",
+                "extra_pnginfo": "EXTRA_PNGINFO",
                 "image_path": (cls.image_path,),
+                "id": "UNIQUE_ID",
             },
         }
+
+    def preview_img_saver(self, images, *args, **kwargs):
+        self.output_dir = folder_paths.get_output_directory()
+        self.type = "output"
+        # self.prefix_append = ""
+        self.compress_level = 4
+
+        results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
+        return results
