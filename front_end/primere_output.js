@@ -1,4 +1,5 @@
 import { app } from "/scripts/app.js";
+import { api } from "/scripts/api.js";
 import { ComfyWidgets } from "/scripts/widgets.js";
 
 let hasShownAlertForUpdatingInt = false;
@@ -11,6 +12,14 @@ let Convert = true;
 let IMGType = true;
 let MaxSide = -1;
 let buttontitle = 'Save image as...'
+const PathByType = {
+    'Checkpoint': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\checkpoints\\',
+    'CSV Prompt': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\styles\\',
+    'Lora': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\loras\\',
+    'Lycoris': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\lycoris\\',
+    'Hypernetwork': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\hypernetworks\\',
+    'Embedding': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\embeddings\\'
+}
 
 app.registerExtension({
     name: "Primere.PrimereOutputs",
@@ -38,6 +47,8 @@ app.registerExtension({
 app.registerExtension({
     name: "Primere.PrimerePreviewImage",
     async init(app) {
+        let callbackfunct = null;
+
         function PreviewHandler() {
             let head = document.getElementsByTagName('HEAD')[0];
             let js1 = document.createElement("script");
@@ -52,12 +63,12 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
-            if (node.type == 'PrimereMetaCollector') {
-                console.log('====== eeeeeeeeeeeeeeeeeeeee ======');
-                console.log(node.type)
-                console.log(node);
-                console.log('====== eeeeeeeeeeeeeeeeeeeee ======');
-            }
+            //if (node.type == 'PrimereMetaCollector') {
+            //    console.log('====== eeeeeeeeeeeeeeeeeeeee ======');
+            //   console.log(node.type)
+            //    console.log(node);
+            //    console.log('====== eeeeeeeeeeeeeeeeeeeee ======');
+            //}
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -127,6 +138,13 @@ app.registerExtension({
             }
             return lcg.call(this, node, pos, event, active_widget);
         }
+
+        function apply_list(Selected) {
+            if (Selected && typeof callbackfunct == 'function') {
+                callbackfunct(Selected);
+                return false;
+            }
+        }
     },
 
     async setup(app) {
@@ -143,6 +161,12 @@ app.registerExtension({
                 //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
                 //console.log(nodeData)
             }
+
+            function myMessageHandler(event) {
+                alert(JSON.stringify(event.detail.workflow));
+            }
+            // in setup()
+            api.addEventListener("my-message-handle", myMessageHandler);
 
             //console.log('---------------------------------')
             //console.log(nodeData)
@@ -216,7 +240,7 @@ class PreviewSaver {
 
         var imgMime = "image/png";
         var extension = 'png';
-        if (IMGType === true) {
+        if (IMGType === true || Convert === true) {
             imgMime = "image/jpeg";
             extension = 'jpg';
         }
@@ -236,6 +260,7 @@ class PreviewSaver {
                 var file = dataURLtoFile(reader.result, ImageName);
                 loadImage(file, function(img) {
                     var resampledOriginalImage = img.toDataURL(imgMime, 0.6);
+                    //getHandle();
                     downloadImage(resampledOriginalImage, extension, PreviewTarget);
                 },
                 {
@@ -282,7 +307,7 @@ function ButtonLabelCreator(node) {
         INIT_IMGSIZE_STRING = " resizing to " + MaxSide + 'px';
     }
     if (Convert === true) {
-        buttontitle = 'Save image to your ' + PreviewTarget + ' folder for visual modal preview';
+        buttontitle = 'Save image to:  [' + PathByType[PreviewTarget] + ']  folder.';
     } else {
         buttontitle = 'Save image without resizing' + INIT_IMGTYPE_STRING + INIT_IMGSIZE_STRING;
     }
@@ -309,10 +334,25 @@ function PrimerePreviewSaverWidget(node, inputName) {
     node.addWidget("button", buttontitle, null, () => {
         //node.p_painter.list_objects_panel__items.innerHTML = "";
         //node.p_painter.clearCanvas();
-        node.PreviewSaver = new PreviewSaver(node);
-        //alert('megnyomtuk');
+        //node.PreviewSaver = new PreviewSaver(node);
+        send_message('valami legyen....')
+        alert('megnyomtuk');
     });
-
 
     return {widget: widget};
 }
+
+function send_message(message) {
+    alert('itt küldi');
+    const body = new FormData();
+    body.append('something',message);
+    api.fetchApi("/custom_url_test", { method: "GET", body, });
+}
+
+/* async function getHandle() {
+    const handle = await window.showSaveFilePicker({
+      startIn: 'pictures'
+    });
+    return handle
+} */
+

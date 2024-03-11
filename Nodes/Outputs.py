@@ -7,7 +7,7 @@ import time
 import numpy as np
 import pyexiv2
 from PIL.PngImagePlugin import PngInfo
-from PIL import Image
+from PIL import Image, PngImagePlugin
 from pathlib import Path
 import datetime
 import comfy.samplers
@@ -18,6 +18,7 @@ import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import torch
 from ..components import utility
 from comfy.cli_args import args
+from server import PromptServer
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -500,7 +501,7 @@ class PrimerePreviewImage():
                 "images": ("IMAGE", ),
             },
             "optional": {
-                "image_metadata": ('TUPLE', {"forceInput": True}),
+                # "image_metadata": ('TUPLE', {"forceInput": True}),
             },
             "hidden": {
                 "prompt": "PROMPT",
@@ -515,6 +516,17 @@ class PrimerePreviewImage():
         self.type = "output"
         # self.prefix_append = ""
         self.compress_level = 4
+
+
+        VISUAL_DATA = {}
+        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualStyle']
+        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        for NODE_ITEMS in WORKFLOWDATA:
+            if NODE_ITEMS['type'] == 'PrimereCKPT':
+                print(NODE_ITEMS['widgets_values'][0])
+
+        workflow = {"workflow": WORKFLOWDATA}
+        PromptServer.instance.send_sync("my-message-handle", workflow)
 
         results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
         return results
