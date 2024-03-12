@@ -17,7 +17,7 @@ import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import torch
 from ..components import utility
-from comfy.cli_args import args
+from itertools import compress
 from server import PromptServer
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
@@ -500,9 +500,6 @@ class PrimerePreviewImage():
 
                 "images": ("IMAGE", ),
             },
-            "optional": {
-                # "image_metadata": ('TUPLE', {"forceInput": True}),
-            },
             "hidden": {
                 "prompt": "PROMPT",
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -517,16 +514,45 @@ class PrimerePreviewImage():
         # self.prefix_append = ""
         self.compress_level = 4
 
+        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereLORA', 'PrimereEmbedding', 'PrimereHypernetwork', 'PrimereLYCORIS', 'PrimereStyleLoader']
+        VISUAL_NODE_FILENAMES = ['PrimereVisualCKPT', 'PrimereCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS', 'PrimereLORA', 'PrimereEmbedding', 'PrimereHypernetwork', 'PrimereLYCORIS']
+        WIDGET_DATA = {
+            "PrimereVisualCKPT": [0],
+            "PrimereCKPT": [0],
+            "PrimereStyleLoader": [0],
+            "PrimereVisualStyle": [0],
+            "PrimereLORA": [4, 8, 12, 16, 20, 24],
+            "PrimereVisualLORA": [6, 10, 14, 18, 22, 26],
+            "PrimereVisualEmbedding": [5, 9, 13, 17, 21, 25],
+            "PrimereEmbedding": [3, 7, 11, 15, 19, 23],
+            "PrimereVisualHypernetwork": [6, 9, 12, 15, 18, 21],
+            "PrimereHypernetwork": [4, 7, 10, 13, 16, 19],
+            "PrimereVisualLYCORIS": [6, 10, 14, 18, 22, 26],
+            "PrimereLYCORIS": [4, 8, 12, 16, 20, 24],
+        }
 
-        VISUAL_DATA = {}
-        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualStyle']
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        VISUAL_DATA = {}
         for NODE_ITEMS in WORKFLOWDATA:
-            if NODE_ITEMS['type'] == 'PrimereCKPT':
-                print(NODE_ITEMS['widgets_values'][0])
+            ITEM_TYPE = NODE_ITEMS['type']
+            if ITEM_TYPE in VISUAL_NODE_NAMES:
+                ITEM_VALUES = NODE_ITEMS['widgets_values']
+                if ITEM_TYPE in WIDGET_DATA:
+                    REQUIRED_DATA_LISTINDEX = WIDGET_DATA[ITEM_TYPE]
+                    WIDGET_STATES = [True]
+                    if len(REQUIRED_DATA_LISTINDEX) > 1:
+                        SWITCH_LIST = list(map(lambda x: x + -1, REQUIRED_DATA_LISTINDEX))
+                        WIDGET_STATES = list(map(ITEM_VALUES.__getitem__, SWITCH_LIST))
 
-        workflow = {"workflow": WORKFLOWDATA}
-        PromptServer.instance.send_sync("my-message-handle", workflow)
+                    VALID_WIDGET_VALUES = list(map(ITEM_VALUES.__getitem__, REQUIRED_DATA_LISTINDEX))
+                    REUIRED_WIDGETS = list(compress(VALID_WIDGET_VALUES, WIDGET_STATES))
+                    REPLACED_WIDGETS = [widg.replace(' ', '_') for widg in REUIRED_WIDGETS]
+                    if ITEM_TYPE in VISUAL_NODE_FILENAMES:
+                        REPLACED_WIDGETS = [Path(widg).stem for widg in REPLACED_WIDGETS]
+
+                    VISUAL_DATA[ITEM_TYPE] = REPLACED_WIDGETS
+
+        PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
         results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
         return results

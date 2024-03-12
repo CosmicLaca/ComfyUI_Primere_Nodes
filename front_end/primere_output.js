@@ -12,6 +12,7 @@ let Convert = true;
 let IMGType = true;
 let MaxSide = -1;
 let buttontitle = 'Save image as...'
+
 const PathByType = {
     'Checkpoint': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\checkpoints\\',
     'CSV Prompt': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\styles\\',
@@ -19,6 +20,14 @@ const PathByType = {
     'Lycoris': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\lycoris\\',
     'Hypernetwork': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\hypernetworks\\',
     'Embedding': '\\custom_nodes\\ComfyUI_Primere_Nodes\\front_end\\images\\embeddings\\'
+}
+const NodenameByType = {
+    'Checkpoint': 'PrimereVisualCKPT',
+    'CSV Prompt': 'PrimereVisualStyle',
+    'Lora': 'PrimereVisualLORA',
+    'Lycoris': 'PrimereVisualLYCORIS',
+    'Hypernetwork': 'PrimereVisualHypernetwork',
+    'Embedding': 'PrimereVisualEmbedding'
 }
 
 app.registerExtension({
@@ -92,6 +101,7 @@ app.registerExtension({
             var y = pos[1] - node.pos[1];
             var width = node.size[0];
             var that = this;
+
             buttontitle = ButtonLabelCreator(node);
 
             console.log('ooooooooooooooooooooo')
@@ -157,16 +167,8 @@ app.registerExtension({
                 ImagePath = nodeData.input.hidden['image_path'][0]
             }
             if (nodeData.input.hasOwnProperty('optional') === true) {
-                //WorkflowData = nodeData.input.optional['image_metadata'][0]
-                //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-                //console.log(nodeData)
-            }
 
-            function myMessageHandler(event) {
-                alert(JSON.stringify(event.detail.workflow));
             }
-            // in setup()
-            api.addEventListener("my-message-handle", myMessageHandler);
 
             //console.log('---------------------------------')
             //console.log(nodeData)
@@ -188,6 +190,16 @@ app.registerExtension({
         }
     },
 });
+
+api.addEventListener("getVisualTargets", VisualDataReceiver);
+function VisualDataReceiver(event) {
+    //alert(JSON.stringify(event.detail));
+    WorkflowData = event.detail
+    console.log('----------- ÚJ KÉP ----------------------')
+    console.log(WorkflowData)
+    console.log('----------- ÚJ KÉP ----------------------')
+    //reloadCombos(WorkflowData)
+}
 
 function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(','),
@@ -307,7 +319,7 @@ function ButtonLabelCreator(node) {
         INIT_IMGSIZE_STRING = " resizing to " + MaxSide + 'px';
     }
     if (Convert === true) {
-        buttontitle = 'Save image to:  [' + PathByType[PreviewTarget] + ']  folder.';
+        buttontitle = 'Save image as:  [' + WorkflowData[NodenameByType[PreviewTarget]][0] + '.jpg] to ' + PreviewTarget + ' folder.';
     } else {
         buttontitle = 'Save image without resizing' + INIT_IMGTYPE_STRING + INIT_IMGSIZE_STRING;
     }
@@ -334,19 +346,19 @@ function PrimerePreviewSaverWidget(node, inputName) {
     node.addWidget("button", buttontitle, null, () => {
         //node.p_painter.list_objects_panel__items.innerHTML = "";
         //node.p_painter.clearCanvas();
-        //node.PreviewSaver = new PreviewSaver(node);
-        send_message('valami legyen....')
-        alert('megnyomtuk');
+        node.PreviewSaver = new PreviewSaver(node);
+        sendPOSTmessage('valami legyen átadva....')
+        //alert('megnyomtuk');
     });
 
     return {widget: widget};
 }
 
-function send_message(message) {
-    alert('itt küldi');
+function sendPOSTmessage(message) {
+    //alert('itt küldi');
     const body = new FormData();
-    body.append('something',message);
-    api.fetchApi("/custom_url_test", { method: "GET", body, });
+    body.append('something', message);
+    api.fetchApi("/primere_post", { method: "POST", body, });
 }
 
 /* async function getHandle() {

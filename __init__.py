@@ -10,6 +10,8 @@ from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
+from .components import primereserver
+
 import shutil
 from datetime import datetime
 from .components import utility
