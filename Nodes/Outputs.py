@@ -481,7 +481,7 @@ class PrimerePreviewImage():
     OUTPUT_NODE = True
     FUNCTION = "preview_img_saver"
 
-    image_path = folder_paths.get_temp_directory()
+    image_path = folder_paths.get_output_directory()
 
     def __init__(self):
         self.output_dir = folder_paths.get_temp_directory()

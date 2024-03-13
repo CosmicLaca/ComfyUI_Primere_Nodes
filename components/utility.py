@@ -20,12 +20,23 @@ import requests
 import folder_paths
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
+from ..utils import comfy_dir
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
 CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(512, 2049, 256).tolist()
+PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "Primere", "images")
+
+PREVIEW_PATH_BY_TYPE = {
+    "Checkpoint": os.path.join(PREVIEW_ROOT, "checkpoints"),
+    "CSV Prompt": os.path.join(PREVIEW_ROOT, "styles"),
+    "Lora": os.path.join(PREVIEW_ROOT, "loras"),
+    "Lycoris": os.path.join(PREVIEW_ROOT, "lycoris"),
+    "Hypernetwork": os.path.join(PREVIEW_ROOT, "hypernetworks"),
+    "Embedding": os.path.join(PREVIEW_ROOT, "embeddings"),
+}
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
