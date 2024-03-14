@@ -30,55 +30,40 @@ routes = PromptServer.instance.routes
 @routes.post('/primere_preview_post')
 async def primere_preview_post(request):
     post = await request.post()
-    # print(json.loads(post.get('previewdata')))
-    # {'PreviewTarget': 'CSV Prompt', 'extension': 'jpg', 'ImageName': 'ComfyUI_temp_pmzjp_00078_.png', 'ImagePath': 'H:\\ComfyUI\\temp', 'SaveImageName': 'Beast_in_the_beauty_saloon', 'maxWidth': 350, 'maxHeight': 250}
-    print('==============================')
+    PreviewSaveResponse = None
 
-    PREVIEW_DATA = json.loads(post.get('previewdata'))
-    print(PREVIEW_DATA)
-    IMG_SOURCE = os.path.join(PREVIEW_DATA['ImagePath'], PREVIEW_DATA['ImageName'])
-    print(IMG_SOURCE)
-    PRW_TYPE = PREVIEW_DATA['PreviewTarget']
-    print(PRW_TYPE)
-    CONVERSION = utility.PREVIEW_PATH_BY_TYPE
-    print(CONVERSION)
+    PREVIEW_DATA = json.loads(post.get('previewdata')) # {'PreviewTarget': 'Checkpoint', 'PreviewTargetOriginal': 'Sci-fi\\colorful_v30.safetensors', 'extension': 'jpg', 'ImageName': 'ComfyUI_temp_pmzjp_00092_.png', 'ImagePath': 'H:\\ComfyUI\\output', 'SaveImageName': 'colorful_v30', 'maxWidth': 220, 'maxHeight': 220}
+    IMG_SOURCE = os.path.join(PREVIEW_DATA['ImagePath'], PREVIEW_DATA['ImageName']) # H:\ComfyUI\output\ComfyUI_temp_pmzjp_00092_.png
+    PRW_TYPE = PREVIEW_DATA['PreviewTarget'] # Checkpoint
+    CONVERSION = utility.PREVIEW_PATH_BY_TYPE # {'Checkpoint': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\checkpoints', 'CSV Prompt': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\styles', 'Lora': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\loras', 'Lycoris': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\lycoris', 'Hypernetwork': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\hypernetworks', 'Embedding': 'H:\\ComfyUI\\web\\extensions\\Primere\\images\\embeddings'}
     TARGET_DIR = CONVERSION[PRW_TYPE]
-    TARGET_FILE = os.path.join(CONVERSION[PRW_TYPE], PREVIEW_DATA['SaveImageName'] + '_000test.' + PREVIEW_DATA['extension'])
-    print(TARGET_FILE)
-    print('------------------------------')
-    print(IMG_SOURCE)
-    if os.path.isfile(IMG_SOURCE):
-        print('létezik a source')
-    print('------------------------------')
-    print(CONVERSION[PRW_TYPE])
-    if os.path.isdir(CONVERSION[PRW_TYPE]):
-        print('létezik a target dir')
-    print('------------------------------')
-    print(TARGET_FILE)
-    if os.path.isfile(TARGET_FILE):
-        print('létezik a target file')
-    print('------------------------------')
-    print(TARGET_DIR)
-    if os.path.isfile(TARGET_DIR):
-        print('létezik a target DIR')
+    if os.path.isfile(IMG_SOURCE) and os.path.exists(IMG_SOURCE): # H:\ComfyUI\output\ComfyUI_temp_pmzjp_00092_.png
+        path, filename = os.path.split(PREVIEW_DATA['PreviewTargetOriginal']) # Sci-fi
+        FULL_TARGET_PATH = os.path.join(TARGET_DIR, path) # H:\ComfyUI\web\extensions\Primere\images\checkpoints\Sci-fi
 
-    print('=================================')
+        TARGET_FILE = os.path.join(TARGET_DIR, path, PREVIEW_DATA['SaveImageName'] + '_000_test.' + PREVIEW_DATA['extension']) # H:\ComfyUI\web\extensions\Primere\images\checkpoints\Sci-fi\colorful_v30_000_test.jpg
+        if os.path.isfile(TARGET_FILE):
+            PreviewSaveResponse = "Preview file for " + PREVIEW_DATA['PreviewTargetOriginal'] + " replaced with current preview for " + PREVIEW_DATA['PreviewTarget'] + "."
+        else:
+            PreviewSaveResponse = "Preview file for " + PREVIEW_DATA['PreviewTargetOriginal'] + " created and saved for " + PREVIEW_DATA['PreviewTarget'] + "."
 
-    if os.path.isfile(IMG_SOURCE) and os.path.isdir(CONVERSION[PRW_TYPE]):
-        prw_img = Image.open(IMG_SOURCE).convert("RGB")
-        print('======= **** ============= **** =============')
-        width, height = prw_img.size
-        print(width)
-        print(height)
-        newsize = (PREVIEW_DATA['maxWidth'], PREVIEW_DATA['maxHeight'])
-        print('------------------------------')
-        print(newsize)
-        prw_img_resized = prw_img.resize(newsize)
-        width, height = prw_img_resized.size
-        print('------------------------------')
-        print(width)
-        print(height)
-        prw_img_resized.save(TARGET_FILE, quality = 60, optimize = True)
+        if not os.path.isdir(FULL_TARGET_PATH): # H:\ComfyUI\web\extensions\Primere\images\checkpoints\Sci-fi
+            Path(str(FULL_TARGET_PATH)).mkdir(parents = True, exist_ok = True)
 
+        if os.path.isfile(IMG_SOURCE) and os.path.isdir(FULL_TARGET_PATH):
+            try:
+                prw_img = Image.open(IMG_SOURCE).convert("RGB")
+                newsize = (PREVIEW_DATA['maxWidth'], PREVIEW_DATA['maxHeight'])
+                prw_img_resized = prw_img.resize(newsize)
+                # prw_img_resized.save(TARGET_FILE, quality = 50, optimize = True)
+            except Exception:
+                PreviewSaveResponse = 'ERROR: Cannot save target image to: ' + str(FULL_TARGET_PATH) + ' for ' + PREVIEW_DATA['PreviewTarget'] + "."
+        else:
+            PreviewSaveResponse = 'ERROR: Cannot save target image to: ' + str(FULL_TARGET_PATH) + ' for ' + PREVIEW_DATA['PreviewTarget'] + "."
+    else:
+        PreviewSaveResponse = 'ERROR: Source file: ' + str(IMG_SOURCE) + ' does not exist. Cannot save preview for ' + ' for ' + PREVIEW_DATA['PreviewTarget'] + "."
+
+    if PreviewSaveResponse is not None:
+        PromptServer.instance.send_sync("PreviewSaveResponse", PreviewSaveResponse)
 
     return web.json_response({})

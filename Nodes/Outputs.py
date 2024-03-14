@@ -493,10 +493,10 @@ class PrimerePreviewImage():
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
-                "image_resize": ("BOOLEAN", {"default": True, "label_on": "Resize to preview", "label_off": "Save original size"}),
-                "image_type": ("BOOLEAN", {"default": True, "label_on": "Sava as JPG", "label_off": "Save as PNG"}),
+                "image_resize": ("BOOLEAN", {"default": True, "label_on": "Save as preview", "label_off": "Save as..."}),
+                "image_type": ("BOOLEAN", {"default": True, "label_on": "Save as JPG", "label_off": "Save as PNG"}),
                 "largest_side": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
+                "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
 
                 "images": ("IMAGE", ),
             },
@@ -514,21 +514,15 @@ class PrimerePreviewImage():
         # self.prefix_append = ""
         self.compress_level = 4
 
-        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereLORA', 'PrimereEmbedding', 'PrimereHypernetwork', 'PrimereLYCORIS', 'PrimereStyleLoader']
-        VISUAL_NODE_FILENAMES = ['PrimereVisualCKPT', 'PrimereCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS', 'PrimereLORA', 'PrimereEmbedding', 'PrimereHypernetwork', 'PrimereLYCORIS']
+        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS']
+        VISUAL_NODE_FILENAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS']
         WIDGET_DATA = {
             "PrimereVisualCKPT": [0],
-            "PrimereCKPT": [0],
-            "PrimereStyleLoader": [0],
             "PrimereVisualStyle": [0],
-            "PrimereLORA": [4, 8, 12, 16, 20, 24],
             "PrimereVisualLORA": [6, 10, 14, 18, 22, 26],
             "PrimereVisualEmbedding": [5, 9, 13, 17, 21, 25],
-            "PrimereEmbedding": [3, 7, 11, 15, 19, 23],
             "PrimereVisualHypernetwork": [6, 9, 12, 15, 18, 21],
-            "PrimereHypernetwork": [4, 7, 10, 13, 16, 19],
             "PrimereVisualLYCORIS": [6, 10, 14, 18, 22, 26],
-            "PrimereLYCORIS": [4, 8, 12, 16, 20, 24],
         }
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
@@ -546,6 +540,7 @@ class PrimerePreviewImage():
 
                     VALID_WIDGET_VALUES = list(map(ITEM_VALUES.__getitem__, REQUIRED_DATA_LISTINDEX))
                     REUIRED_WIDGETS = list(compress(VALID_WIDGET_VALUES, WIDGET_STATES))
+                    VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
                     REPLACED_WIDGETS = [widg.replace(' ', '_') for widg in REUIRED_WIDGETS]
                     if ITEM_TYPE in VISUAL_NODE_FILENAMES:
                         REPLACED_WIDGETS = [Path(widg).stem for widg in REPLACED_WIDGETS]

@@ -66,6 +66,10 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
+            //console.log('--------------------------')
+            //console.log(node)
+            //console.log('--------------------------')
+
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
             }
@@ -93,20 +97,17 @@ app.registerExtension({
                 var widget_width = w.width || width;
                 var widget_name = node.widgets[i].name;
 
-                console.log('++++++ --- ++++++++');
-                console.log(widget_name);
-                console.log(w.type)
-                console.log(w)
-                console.log('++++++ --- ++++++++');
-
                 if (w.name == 'preview_target') {
                     //node.widgets[i].value = 'target change';
+                }
+                if (w.name == 'target_selection') {
+                    //node.widgets[i].options.values = ["egyik", "masik", "harmadik", "negyedik"];
                 }
                 if (w.name == 'image_resize') {
                     //node.widgets[i].value = 'convert change';
                 }
                 if (w.type == 'button') {
-                    w.name = buttontitle
+                    w.name = buttontitle;
                 }
 
                 if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
@@ -143,6 +144,12 @@ app.registerExtension({
     },
 });
 
+api.addEventListener("PreviewSaveResponse", PreviewSaveResponse);
+function PreviewSaveResponse(event) {
+    var ResponseText = event.detail;
+    alert(ResponseText);
+}
+
 api.addEventListener("getVisualTargets", VisualDataReceiver);
 function VisualDataReceiver(event) {
     WorkflowData = event.detail
@@ -160,11 +167,17 @@ function VisualDataReceiver(event) {
         if (wln.type == 'button') {
             wln.name = buttontitle
         }
+
+        if (wln.name == 'target_selection') {
+            var targetsel = ["egyik", "masik", "harmadik", "negyedik"];
+            wln.options.values = targetsel;
+            wln.value = targetsel[0];
+        }
+        console.log('--------------- www --------------')
+        console.log(WorkflowData)
+        console.log('--------------- www --------------')
+        // New image loaded
     }
-    console.log('----------- ÚJ KÉP ----------------------')
-    console.log(WorkflowData)
-    console.log(buttontitle)
-    console.log('----------- ÚJ KÉP ----------------------')
 }
 
 function dataURLtoFile(dataurl, filename) {
@@ -197,23 +210,12 @@ function downloadImage(url, extension, PreviewTarget) {
 
 class PreviewSaver {
     constructor(node) {
-        console.log('-------- start -------------');
-        // console.log(node['imgs'][0]['src']);
-        // console.log(node['images'][0]['filename']);
-        //console.log(ImagePath)
-        console.log(PreviewTarget);
-        console.log(Convert);
-        console.log(IMGType);
-        console.log(MaxSide);
-        console.log(WorkflowData);
-        console.log('-------- end -------------');
-
         var maxWidth = null;
         var maxHeight = null;
 
         if (Convert === true) {
-            maxWidth = 350;
-            maxHeight = 250;
+            maxWidth = 400;
+            maxHeight = 220;
         }
 
         var imgMime = "image/png";
@@ -248,13 +250,28 @@ class PreviewSaver {
             reader.onloadend = () => {
                 var file = dataURLtoFile(reader.result, ImageName);
                 loadImage(file, function(img) {
-                    var resampledOriginalImage = img.toDataURL(imgMime, 0.6);
-                    if (Convert === false) {
-                        downloadImage(resampledOriginalImage, extension, SaveImageName);
+                    if (typeof img.toDataURL === "function") {
+                        var resampledOriginalImage = img.toDataURL(imgMime, 0.6);
+                        if (Convert === false) {
+                            downloadImage(resampledOriginalImage, extension, SaveImageName);
+                        } else {
+                            var resampledWidth = img.width;
+                            var resampledHeight = img.height;
+                            var PreviewTargetOriginal = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'][0];
+
+                            sendPOSTmessage(JSON.stringify({
+                                "PreviewTarget": PreviewTarget,
+                                "PreviewTargetOriginal": PreviewTargetOriginal,
+                                "extension": extension,
+                                "ImageName": ImageName,
+                                "ImagePath": ImagePath,
+                                "SaveImageName": SaveImageName,
+                                "maxWidth": resampledWidth,
+                                "maxHeight": resampledHeight
+                            }));
+                        }
                     } else {
-                        var resampledWidth = img.width;
-                        var resampledHeight = img.height;
-                        sendPOSTmessage(JSON.stringify({"PreviewTarget": PreviewTarget, "extension": extension, "ImageName": ImageName, "ImagePath": ImagePath, "SaveImageName": SaveImageName, "maxWidth": resampledWidth, "maxHeight": resampledHeight}));
+                        alert('Source image: ' + ImageName + ' doesnt exist, maybe deleted.')
                     }
                 },
                 {
@@ -324,6 +341,7 @@ function ButtonLabelCreator(node) {
 }
 
 function PrimerePreviewSaverWidget(node, inputName) {
+    // node load
     node.name = inputName;
     const widget = {
         type: "preview_saver_widget",
@@ -331,14 +349,20 @@ function PrimerePreviewSaverWidget(node, inputName) {
         callback: () => {},
     };
 
+    node.addWidget("combo", "target_selection", 'egyik', () => {
+    },{
+        values: ["egyik"],
+    });
+
     node.addWidget("button", buttontitle, null, () => {
         if (SaveIsValid === true) {
             node.PreviewSaver = new PreviewSaver(node);
         } else {
             alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
         }
-        //alert('pushed...');
+        // button clicked
     });
+
     LoadedNode = node;
     return {widget: widget};
 }
