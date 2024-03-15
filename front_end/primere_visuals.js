@@ -1,6 +1,6 @@
 import { app } from "/scripts/app.js";
 
-const realPath = "extensions/Primere";
+const realPath = "extensions/PrimerePreviews";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
 const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS', 'PrimereVisualEmbedding']
 let lastDirObject = {};

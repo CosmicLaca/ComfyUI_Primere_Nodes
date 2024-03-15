@@ -8,13 +8,16 @@ let WorkflowData = {};
 const realPath = "extensions/Primere";
 
 let PreviewTarget = 'Checkpoint';
-let Convert = true;
+let PreviewTargetPreviousState = PreviewTarget;
+let SaveMode = true;
 let IMGType = true;
 let MaxSide = -1;
 let buttontitle = 'Image not available for save. Please load one.'
 let SaveIsValid = false;
 let TargetFileName = null;
 let LoadedNode = null;
+let TargetSelValues = ["select target..."];
+let SelectedTarget = null;
 
 const NodenameByType = {
     'Checkpoint': 'PrimereVisualCKPT',
@@ -66,9 +69,9 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
-            //console.log('--------------------------')
-            //console.log(node)
-            //console.log('--------------------------')
+            //console.log('--------- event.type -----------------')
+            //console.log(event.type)
+            //console.log('---------- event.type ----------------')
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -86,7 +89,8 @@ app.registerExtension({
             var y = pos[1] - node.pos[1];
             var width = node.size[0];
 
-            buttontitle = ButtonLabelCreator(node);
+            //buttontitle = ButtonLabelCreator(node);
+            TargetSelValues = TargetListCreator(node)
 
             for (var i = 0; i < node.widgets.length; ++i) {
                 var w = node.widgets[i];
@@ -100,24 +104,29 @@ app.registerExtension({
                 if (w.name == 'preview_target') {
                     //node.widgets[i].value = 'target change';
                 }
-                if (w.name == 'target_selection') {
-                    //node.widgets[i].options.values = ["egyik", "masik", "harmadik", "negyedik"];
+                if (w.name == 'image_save_as') {
+                    //node.widgets[i].value = 'SaveMode change';
                 }
-                if (w.name == 'image_resize') {
-                    //node.widgets[i].value = 'convert change';
+                if (w.name == 'target_selection') {
+                    node.widgets[i].options.values = TargetSelValues;
+                    if (PreviewTarget !== PreviewTargetPreviousState) {
+                        node.widgets[i].value = TargetSelValues[0];
+                    }
+                    PreviewTargetPreviousState = PreviewTarget;
                 }
                 if (w.type == 'button') {
+                    buttontitle = ButtonLabelCreator(node);
                     w.name = buttontitle;
                 }
 
-                if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
-                    continue
+                //if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
+                //    continue
 
-                if (w == active_widget || (x > 6 && x < widget_width - 12 && y > w.last_y && y < w.last_y + widget_height)) {
-                    var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
-                    if (delta)
-                        continue;
-                }
+                //if (w == active_widget || (x > 6 && x < widget_width - 12 && y > w.last_y && y < w.last_y + widget_height)) {
+                //    var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
+                //    if (delta)
+                //        continue;
+                //}
             }
             return lcg.call(this, node, pos, event, active_widget);
         }
@@ -159,23 +168,30 @@ function VisualDataReceiver(event) {
         SaveIsValid = false;
     }
 
-    buttontitle = ButtonLabelCreator(LoadedNode);
+    //buttontitle = ButtonLabelCreator(LoadedNode);
+    TargetSelValues = TargetListCreator(LoadedNode)
+
     for (var iln = 0; iln < LoadedNode.widgets.length; ++iln) {
         var wln = LoadedNode.widgets[iln];
         if (!wln || wln.disabled)
             continue;
+
+        if (wln.name == 'target_selection') {
+            //console.log('--------------- www --------------')
+            //console.log(WorkflowData)
+            //console.log(WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'])
+            //console.log(TargetSelValues)
+            //console.log('--------------- www --------------')
+
+            wln.options.values = TargetSelValues;
+            wln.value = TargetSelValues[0];
+        }
+
         if (wln.type == 'button') {
+            buttontitle = ButtonLabelCreator(LoadedNode);
             wln.name = buttontitle
         }
 
-        if (wln.name == 'target_selection') {
-            var targetsel = ["egyik", "masik", "harmadik", "negyedik"];
-            wln.options.values = targetsel;
-            wln.value = targetsel[0];
-        }
-        console.log('--------------- www --------------')
-        console.log(WorkflowData)
-        console.log('--------------- www --------------')
         // New image loaded
     }
 }
@@ -213,19 +229,19 @@ class PreviewSaver {
         var maxWidth = null;
         var maxHeight = null;
 
-        if (Convert === true) {
+        if (SaveMode === true) {
             maxWidth = 400;
             maxHeight = 220;
         }
 
         var imgMime = "image/png";
         var extension = 'png';
-        if (IMGType === true || Convert === true) {
+        if (IMGType === true || SaveMode === true) {
             imgMime = "image/jpeg";
             extension = 'jpg';
         }
 
-        if (MaxSide >= 64 && Convert === false) {
+        if (MaxSide >= 64 && SaveMode === false) {
             maxWidth = MaxSide;
             maxHeight = MaxSide;
         }
@@ -252,16 +268,16 @@ class PreviewSaver {
                 loadImage(file, function(img) {
                     if (typeof img.toDataURL === "function") {
                         var resampledOriginalImage = img.toDataURL(imgMime, 0.6);
-                        if (Convert === false) {
+                        if (SaveMode === false) {
                             downloadImage(resampledOriginalImage, extension, SaveImageName);
                         } else {
                             var resampledWidth = img.width;
                             var resampledHeight = img.height;
-                            var PreviewTargetOriginal = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'][0];
+                            //var PreviewTargetOriginal = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'][0];
 
                             sendPOSTmessage(JSON.stringify({
                                 "PreviewTarget": PreviewTarget,
-                                "PreviewTargetOriginal": PreviewTargetOriginal,
+                                "PreviewTargetOriginal": SelectedTarget,
                                 "extension": extension,
                                 "ImageName": ImageName,
                                 "ImagePath": ImagePath,
@@ -289,21 +305,38 @@ class PreviewSaver {
     }
 }
 
+function TargetListCreator(node) {
+    buttontitle = ButtonLabelCreator(node);
+    if (WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'] !== undefined) {
+        TargetSelValues = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL']; //["egyik", "masik", "harmadik", "negyedik"];
+    } else {
+        TargetSelValues = ['ERROR: Cannot list target for ' + PreviewTarget]
+    }
+    return TargetSelValues;
+}
+
 function ButtonLabelCreator(node) {
     for (var px = 0; px < node.widgets.length; ++px) {
        if (node.widgets[px].name == 'preview_target') {
            PreviewTarget = node.widgets[px].value;
        }
-       if (node.widgets[px].name == 'image_resize') {
-           Convert = node.widgets[px].value;
+       if (node.widgets[px].name == 'image_save_as') {
+           SaveMode = node.widgets[px].value;
        }
        if (node.widgets[px].name == 'image_type') {
            IMGType = node.widgets[px].value;
        }
-       if (node.widgets[px].name == 'largest_side') {
+       if (node.widgets[px].name == 'image_resize') {
            MaxSide = node.widgets[px].value;
        }
+       if (node.widgets[px].name == 'target_selection') {
+           SelectedTarget = node.widgets[px].value;
+       }
     }
+
+    //console.log("SelectedTarget")
+    //console.log(SelectedTarget)
+    //console.log("SelectedTarget")
 
     var INIT_IMGTYPE_STRING = "";
     var INIT_IMGSIZE_STRING = "";
@@ -323,13 +356,29 @@ function ButtonLabelCreator(node) {
     if (Object.keys(WorkflowData).length < 1) {
         buttontitle = 'Image not available for save. Please load one.';
     } else {
-        if (Convert === true) {
-            if (WorkflowData[NodenameByType[PreviewTarget]].length < 1) {
-                buttontitle = 'No resource selected for preview target: ' + PreviewTarget;
+        if (SaveMode === true) {
+            if (WorkflowData[NodenameByType[PreviewTarget]] !== undefined) {
+                if (WorkflowData[NodenameByType[PreviewTarget]].length < 1) {
+                    buttontitle = 'No resource selected for preview target: ' + PreviewTarget;
+                } else {
+                    SaveIsValid = true;
+                    //TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][0];
+
+                    let checkpoint_new = SelectedTarget.replaceAll('\\', '/');
+                    let dotLastIndex = checkpoint_new.lastIndexOf('.');
+                    if (dotLastIndex > 1) {
+                        var finalName = checkpoint_new.substring(0, dotLastIndex);
+                    } else {
+                        var finalName = checkpoint_new;
+                    }
+
+                    let pathLastIndex = finalName.lastIndexOf('/');
+                    let TargetFileName = finalName.substring(pathLastIndex + 1);
+
+                    buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to ' + PreviewTarget + ' folder.';
+                }
             } else {
-                SaveIsValid = true;
-                TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][0];
-                buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to ' + PreviewTarget + ' folder.';
+                buttontitle = 'Required node: ' + NodenameByType[PreviewTarget] + ' not available in workflow for target: ' + PreviewTarget;
             }
         } else {
             SaveIsValid = true;
@@ -349,9 +398,9 @@ function PrimerePreviewSaverWidget(node, inputName) {
         callback: () => {},
     };
 
-    node.addWidget("combo", "target_selection", 'egyik', () => {
+    node.addWidget("combo", "target_selection", 'select target...', () => {
     },{
-        values: ["egyik"],
+        values: ["select target..."],
     });
 
     node.addWidget("button", buttontitle, null, () => {

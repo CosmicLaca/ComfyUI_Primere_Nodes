@@ -493,9 +493,9 @@ class PrimerePreviewImage():
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "image_resize": ("BOOLEAN", {"default": True, "label_on": "Save as preview", "label_off": "Save as..."}),
+                "image_save_as": ("BOOLEAN", {"default": True, "label_on": "Save as preview", "label_off": "Save as any..."}),
                 "image_type": ("BOOLEAN", {"default": True, "label_on": "Save as JPG", "label_off": "Save as PNG"}),
-                "largest_side": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
+                "image_resize": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
 
                 "images": ("IMAGE", ),

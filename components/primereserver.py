@@ -55,7 +55,7 @@ async def primere_preview_post(request):
                 prw_img = Image.open(IMG_SOURCE).convert("RGB")
                 newsize = (PREVIEW_DATA['maxWidth'], PREVIEW_DATA['maxHeight'])
                 prw_img_resized = prw_img.resize(newsize)
-                # prw_img_resized.save(TARGET_FILE, quality = 50, optimize = True)
+                prw_img_resized.save(TARGET_FILE, quality = 50, optimize = True)
             except Exception:
                 PreviewSaveResponse = 'ERROR: Cannot save target image to: ' + str(FULL_TARGET_PATH) + ' for ' + PREVIEW_DATA['PreviewTarget'] + "."
         else:
