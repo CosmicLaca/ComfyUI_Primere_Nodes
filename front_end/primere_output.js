@@ -10,8 +10,9 @@ const realPath = "extensions/Primere";
 let PreviewTarget = 'Checkpoint';
 let PreviewTargetPreviousState = PreviewTarget;
 let SaveMode = true;
-let IMGType = true;
+let IMGType = 'jpeg';
 let MaxSide = -1;
+let TargetQuality = 95;
 let buttontitle = 'Image not available for save. Please load one.'
 let SaveIsValid = false;
 let TargetFileName = null;
@@ -234,11 +235,20 @@ class PreviewSaver {
             maxHeight = 220;
         }
 
-        var imgMime = "image/png";
-        var extension = 'png';
-        if (IMGType === true || SaveMode === true) {
-            imgMime = "image/jpeg";
-            extension = 'jpg';
+        var imgMime = "image/jpeg";
+        var extension = 'jpg';
+
+        if (SaveMode === true) {
+            if (IMGType === 'jpeg') {
+                imgMime = "image/jpeg";
+                extension = 'jpg';
+            } else if (IMGType === 'png') {
+                imgMime = "image/png";
+                extension = 'png';
+            } else if (IMGType === 'webp') {
+                imgMime = "image/webp";
+                extension = 'webp';
+            }
         }
 
         if (MaxSide >= 64 && SaveMode === false) {
@@ -267,7 +277,7 @@ class PreviewSaver {
                 var file = dataURLtoFile(reader.result, ImageName);
                 loadImage(file, function(img) {
                     if (typeof img.toDataURL === "function") {
-                        var resampledOriginalImage = img.toDataURL(imgMime, 0.6);
+                        var resampledOriginalImage = img.toDataURL(imgMime, TargetQuality);
                         if (SaveMode === false) {
                             downloadImage(resampledOriginalImage, extension, SaveImageName);
                         } else {
@@ -283,11 +293,12 @@ class PreviewSaver {
                                 "ImagePath": ImagePath,
                                 "SaveImageName": SaveImageName,
                                 "maxWidth": resampledWidth,
-                                "maxHeight": resampledHeight
+                                "maxHeight": resampledHeight,
+                                "TargetQuality": TargetQuality
                             }));
                         }
                     } else {
-                        alert('Source image: ' + ImageName + ' doesnt exist, maybe deleted.')
+                        alert('Source image: ' + ImageName + ' does not exist, maybe deleted.')
                     }
                 },
                 {
@@ -295,9 +306,10 @@ class PreviewSaver {
                     maxHeight: maxHeight,
                     canvas: true,
                     pixelRatio: 1,
-                    downsamplingRatio: 0.6,
+                    downsamplingRatio: TargetQuality,
                     orientation: true,
-                    imageSmoothingEnabled: 1
+                    imageSmoothingEnabled: 1,
+                    imageSmoothingQuality: 'high'
                 });
             };
             reader.readAsDataURL(blob);
@@ -308,7 +320,7 @@ class PreviewSaver {
 function TargetListCreator(node) {
     buttontitle = ButtonLabelCreator(node);
     if (WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'] !== undefined) {
-        TargetSelValues = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL']; //["egyik", "masik", "harmadik", "negyedik"];
+        TargetSelValues = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'];
     } else {
         TargetSelValues = ['ERROR: Cannot list target for ' + PreviewTarget]
     }
@@ -332,19 +344,14 @@ function ButtonLabelCreator(node) {
        if (node.widgets[px].name == 'target_selection') {
            SelectedTarget = node.widgets[px].value;
        }
+       if (node.widgets[px].name == 'image_quality') {
+           TargetQuality = node.widgets[px].value;
+       }
     }
-
-    //console.log("SelectedTarget")
-    //console.log(SelectedTarget)
-    //console.log("SelectedTarget")
 
     var INIT_IMGTYPE_STRING = "";
     var INIT_IMGSIZE_STRING = "";
-    if (IMGType === true) {
-        INIT_IMGTYPE_STRING = ' JPG format'
-    } else {
-        INIT_IMGTYPE_STRING = ' PNG format'
-    }
+    INIT_IMGTYPE_STRING = IMGType.toUpperCase() + ' format';
     if (MaxSide < 64) {
         INIT_IMGSIZE_STRING = " at original size";
     } else {
@@ -373,7 +380,7 @@ function ButtonLabelCreator(node) {
             }
         } else {
             SaveIsValid = true;
-            buttontitle = 'Save image as' + INIT_IMGTYPE_STRING + INIT_IMGSIZE_STRING;
+            buttontitle = 'Save image as' + INIT_IMGTYPE_STRING + INIT_IMGSIZE_STRING + ' QTY: ' + TargetQuality + '%';
         }
     }
 
