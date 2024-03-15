@@ -1,6 +1,7 @@
 import { app } from "/scripts/app.js";
 
-const realPath = "extensions/PrimerePreviews";
+const realPath = "extensions/Primere";
+const prwPath = "extensions/PrimerePreviews";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
 const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS', 'PrimereVisualEmbedding']
 let lastDirObject = {};
@@ -45,8 +46,8 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     let previewName = finalName + '.jpg';
 
     var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
-    var imgsrc = realPath + '/images/' + ModelType + '/' + previewName;
-    var missingimgsrc = realPath + '/images/missing.jpg';
+    var imgsrc = prwPath + '/images/' + ModelType + '/' + previewName;
+    var missingimgsrc = prwPath + '/images/missing.jpg';
 
 	var card = document.createElement("div");
 	card.classList.add('visual-ckpt', 'version-' + versionString);

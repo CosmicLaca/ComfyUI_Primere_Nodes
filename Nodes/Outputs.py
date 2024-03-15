@@ -494,8 +494,10 @@ class PrimerePreviewImage():
         return {
             "required": {
                 "image_save_as": ("BOOLEAN", {"default": True, "label_on": "Save as preview", "label_off": "Save as any..."}),
-                "image_type": ("BOOLEAN", {"default": True, "label_on": "Save as JPG", "label_off": "Save as PNG"}),
+                # "image_type": ("BOOLEAN", {"default": True, "label_on": "Save as JPG", "label_off": "Save as PNG"}),
+                "image_type": (['jpeg', 'png', 'webp'], {"default": "jpeg"}),
                 "image_resize": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
+                "image_quality": ("INT",  {"default": 95,"min": 10, "max": 100, "step": 5}),
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
 
                 "images": ("IMAGE", ),

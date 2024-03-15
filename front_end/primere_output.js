@@ -362,19 +362,10 @@ function ButtonLabelCreator(node) {
                     buttontitle = 'No resource selected for preview target: ' + PreviewTarget;
                 } else {
                     SaveIsValid = true;
-                    //TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][0];
-
-                    let checkpoint_new = SelectedTarget.replaceAll('\\', '/');
-                    let dotLastIndex = checkpoint_new.lastIndexOf('.');
-                    if (dotLastIndex > 1) {
-                        var finalName = checkpoint_new.substring(0, dotLastIndex);
-                    } else {
-                        var finalName = checkpoint_new;
+                    var targetIndex = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'].indexOf(SelectedTarget);
+                    if (targetIndex > -1) {
+                        TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][targetIndex];
                     }
-
-                    let pathLastIndex = finalName.lastIndexOf('/');
-                    let TargetFileName = finalName.substring(pathLastIndex + 1);
-
                     buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to ' + PreviewTarget + ' folder.';
                 }
             } else {
