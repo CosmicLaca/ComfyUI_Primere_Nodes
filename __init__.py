@@ -26,15 +26,6 @@ is_frontend_symlinked = False
 
 ClientTime = datetime.now()
 UpdateRequired = '2024-03-15 20:00:00'
-# IsDev = utility.get_value_from_cache('setup', 'is_dev')
-
-# if os.path.isdir(frontend_preview_target) == False:
-#    Path(os.path.join(frontend_preview_target, "images")).mkdir(parents = True, exist_ok = True)
-
-if os.path.isdir(frontend_preview_target) == False:
-    deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
-    if os.path.isdir(deprecated_prw_images) == True:
-        shutil.move(deprecated_prw_images, frontend_preview_target)
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -78,6 +69,11 @@ else:
         print('Primere front-end copied to target directory.')
     except Exception:
         print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+
+if os.path.isdir(frontend_preview_target) == False:
+    deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
+    if os.path.isdir(deprecated_prw_images) == True:
+        shutil.move(deprecated_prw_images, frontend_preview_target)
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
