@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from .components import primereserver
 from .utils import comfy_dir
 from .utils import here
 
@@ -10,13 +11,12 @@ from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
-from .components import primereserver
 
 import shutil
 from datetime import datetime
 from .components import utility
 
-__version__ = "0.5.0"
+__version__ = "0.5.5"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -25,8 +25,16 @@ frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
 ClientTime = datetime.now()
-UpdateRequired = '2024-03-13 20:00:00'
+UpdateRequired = '2024-03-15 20:00:00'
 # IsDev = utility.get_value_from_cache('setup', 'is_dev')
+
+if os.path.isdir(frontend_preview_target) == False:
+    Path(frontend_preview_target).mkdir(parents = True, exist_ok = True)
+
+if os.path.isdir(frontend_preview_target) == True:
+    deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
+    if os.path.isdir(deprecated_prw_images) == True:
+        shutil.move(deprecated_prw_images, frontend_preview_target)
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -70,14 +78,6 @@ else:
         print('Primere front-end copied to target directory.')
     except Exception:
         print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
-
-if os.path.isdir(frontend_preview_target) == False:
-    Path(frontend_preview_target).mkdir(parents = True, exist_ok = True)
-
-if os.path.isdir(frontend_preview_target) == True:
-    deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
-    if os.path.isdir(deprecated_prw_images) == True:
-        shutil.move(deprecated_prw_images, frontend_preview_target)
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
@@ -187,7 +187,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereTextOutput": "Primere Text Ouput",
     "PrimereMetaCollector": "Primere Meta Collector",
     "PrimereKSampler": "Primere KSampler",
-    "PrimerePreviewImage": "Primere Preview Image",
+    "PrimerePreviewImage": "Primere Image Preview and Save as...",
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",

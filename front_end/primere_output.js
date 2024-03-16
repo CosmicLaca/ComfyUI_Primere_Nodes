@@ -73,6 +73,15 @@ app.registerExtension({
             //console.log('--------- event.type -----------------')
             //console.log(event.type)
             //console.log('---------- event.type ----------------')
+            /* node.onWidgetChanged = function(name, value, old_value){
+                alert('changed? ---')
+                console.log('------------ ch ---------------')
+                console.log(node)
+                console.log(name)
+                console.log(value)
+                console.log(old_value)
+                console.log('------------ ch ---------------')
+            }; */
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -89,9 +98,14 @@ app.registerExtension({
             var x = pos[0] - node.pos[0];
             var y = pos[1] - node.pos[1];
             var width = node.size[0];
+            var that = this;
+            var ref_window = this.getCanvasWindow();
+            var combo_hit= false
 
-            //buttontitle = ButtonLabelCreator(node);
             TargetSelValues = TargetListCreator(node)
+
+            let target_id = 0;
+            let button_id = 0;
 
             for (var i = 0; i < node.widgets.length; ++i) {
                 var w = node.widgets[i];
@@ -109,26 +123,67 @@ app.registerExtension({
                     //node.widgets[i].value = 'SaveMode change';
                 }
                 if (w.name == 'target_selection') {
+                    target_id = i;
                     node.widgets[i].options.values = TargetSelValues;
                     if (PreviewTarget !== PreviewTargetPreviousState) {
                         node.widgets[i].value = TargetSelValues[0];
                     }
-                    PreviewTargetPreviousState = PreviewTarget;
+                    //PreviewTargetPreviousState = PreviewTarget;
                 }
                 if (w.type == 'button') {
+                    button_id = i;
                     buttontitle = ButtonLabelCreator(node);
                     w.name = buttontitle;
                 }
 
-                //if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
-                //    continue
+                if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
+                    continue
 
-                //if (w == active_widget || (x > 6 && x < widget_width - 12 && y > w.last_y && y < w.last_y + widget_height)) {
-                //    var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
-                //    if (delta)
-                //        continue;
-                //}
+                if (w == active_widget || (x > 6 && x < widget_width - 12 && y > w.last_y && y < w.last_y + widget_height)) {
+                    var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
+                    if (delta)
+                        continue;
+
+                    combo_hit = true;
+					var values = w.options.values;
+					if (values && values.constructor === Function) {
+						values = w.options.values(w, node);
+					}
+
+                    if (typeof values != 'undefined') {
+                        var values_list = values.constructor === Array ? values : Object.keys(values);
+                        var text_values = values != values_list ? Object.values(values) : values;
+
+                        function inner_clicked(v, option, event) {
+                            if (values != values_list)
+                                v = text_values.indexOf(v);
+                            this.value = v;
+                            that.dirty_canvas = true;
+                            TargetSelValues = TargetListCreator(node)
+
+                            node.widgets[target_id].options.values = TargetSelValues;
+                            if (PreviewTarget !== PreviewTargetPreviousState) {
+                                node.widgets[target_id].value = TargetSelValues[0];
+                            }
+                            //PreviewTargetPreviousState = PreviewTarget;
+
+                            buttontitle = ButtonLabelCreator(node);
+                            node.widgets[button_id].name = buttontitle;
+                            return false;
+                        }
+
+                        new LiteGraph.ContextMenu(values, {
+                            scale: Math.max(1, this.ds.scale),
+                            event: event,
+                            className: "dark",
+                            callback: inner_clicked.bind(w),
+                            node: node,
+                            widget: w,
+                        }, ref_window);
+                    }
+                }
             }
+            PreviewTargetPreviousState = PreviewTarget;
             return lcg.call(this, node, pos, event, active_widget);
         }
     },
@@ -238,7 +293,7 @@ class PreviewSaver {
         var imgMime = "image/jpeg";
         var extension = 'jpg';
 
-        if (SaveMode === true) {
+        if (SaveMode === false) {
             if (IMGType === 'jpeg') {
                 imgMime = "image/jpeg";
                 extension = 'jpg';
@@ -263,7 +318,7 @@ class PreviewSaver {
 
         var ImageSource = node['imgs'][0]['src'];
         var ImageName = node['images'][0]['filename'];
-        var SaveImageName = 'PreviewImage_' + SizeStringFN + (Math.random() + 1).toString(36).substring(5);
+        var SaveImageName = 'PreviewImage_' + SizeStringFN + '_QTY' + TargetQuality + '_' + (Math.random() + 1).toString(36).substring(5);
 
         if (TargetFileName !== null) {
             SaveImageName = TargetFileName;
@@ -283,7 +338,6 @@ class PreviewSaver {
                         } else {
                             var resampledWidth = img.width;
                             var resampledHeight = img.height;
-                            //var PreviewTargetOriginal = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'][0];
 
                             sendPOSTmessage(JSON.stringify({
                                 "PreviewTarget": PreviewTarget,
@@ -358,6 +412,10 @@ function ButtonLabelCreator(node) {
         INIT_IMGSIZE_STRING = " resized to " + MaxSide + 'px';
     }
 
+    if (IMGType == 'png') {
+        TargetQuality = 100;
+    }
+
     TargetFileName = null;
     SaveIsValid = false;
     if (Object.keys(WorkflowData).length < 1) {
@@ -366,21 +424,21 @@ function ButtonLabelCreator(node) {
         if (SaveMode === true) {
             if (WorkflowData[NodenameByType[PreviewTarget]] !== undefined) {
                 if (WorkflowData[NodenameByType[PreviewTarget]].length < 1) {
-                    buttontitle = 'No resource selected for preview target: ' + PreviewTarget;
+                    buttontitle = 'No resource selected for preview target: [' + PreviewTarget + ']';
                 } else {
                     SaveIsValid = true;
                     var targetIndex = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'].indexOf(SelectedTarget);
                     if (targetIndex > -1) {
                         TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][targetIndex];
                     }
-                    buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to ' + PreviewTarget + ' folder.';
+                    buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.';
                 }
             } else {
-                buttontitle = 'Required node: ' + NodenameByType[PreviewTarget] + ' not available in workflow for target: ' + PreviewTarget;
+                buttontitle = 'Required node: [' + NodenameByType[PreviewTarget] + '] not available in workflow for target: [' + PreviewTarget + ']';
             }
         } else {
             SaveIsValid = true;
-            buttontitle = 'Save image as' + INIT_IMGTYPE_STRING + INIT_IMGSIZE_STRING + ' QTY: ' + TargetQuality + '%';
+            buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
         }
     }
 
@@ -395,6 +453,15 @@ function PrimerePreviewSaverWidget(node, inputName) {
         name: `w${inputName}`,
         callback: () => {},
     };
+
+    /* node.onWidgetChanged = function(name, value, old_value){
+        alert('changed? +++')
+        console.log('------------ ch ---------------')
+        console.log(name)
+        console.log(value)
+        console.log(old_value)
+        console.log('------------ ch ---------------')
+    }; */
 
     node.addWidget("combo", "target_selection", 'select target...', () => {
     },{

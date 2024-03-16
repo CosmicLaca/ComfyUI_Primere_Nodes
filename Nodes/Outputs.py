@@ -542,12 +542,20 @@ class PrimerePreviewImage():
 
                     VALID_WIDGET_VALUES = list(map(ITEM_VALUES.__getitem__, REQUIRED_DATA_LISTINDEX))
                     REUIRED_WIDGETS = list(compress(VALID_WIDGET_VALUES, WIDGET_STATES))
-                    VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
+                    # VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
                     REPLACED_WIDGETS = [widg.replace(' ', '_') for widg in REUIRED_WIDGETS]
                     if ITEM_TYPE in VISUAL_NODE_FILENAMES:
                         REPLACED_WIDGETS = [Path(widg).stem for widg in REPLACED_WIDGETS]
 
-                    VISUAL_DATA[ITEM_TYPE] = REPLACED_WIDGETS
+                    if ITEM_TYPE in VISUAL_DATA.keys():
+                        VISUAL_DATA[ITEM_TYPE] = VISUAL_DATA[ITEM_TYPE] + REPLACED_WIDGETS
+                        VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] + REUIRED_WIDGETS
+                    else:
+                        VISUAL_DATA[ITEM_TYPE] = REPLACED_WIDGETS
+                        VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
+
+                    VISUAL_DATA[ITEM_TYPE] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE]) if i not in VISUAL_DATA[ITEM_TYPE][:n]]
+                    VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE + '_ORIGINAL']) if i not in VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'][:n]]
 
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
