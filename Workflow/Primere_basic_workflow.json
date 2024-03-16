@@ -1,6 +1,6 @@
 {
-  "last_node_id": 76,
-  "last_link_id": 340,
+  "last_node_id": 79,
+  "last_link_id": 341,
   "nodes": [
     {
       "id": 10,
@@ -1293,7 +1293,7 @@
       },
       "widgets_values": [
         "",
-        670497860255960,
+        391060721824005,
         "randomize"
       ],
       "color": "#145414",
@@ -1348,7 +1348,7 @@
       },
       "widgets_values": [
         "",
-        356257286684585,
+        325855168098316,
         "randomize"
       ],
       "color": "#145414",
@@ -1605,7 +1605,7 @@
         false,
         1.6,
         2.8,
-        140701572817504,
+        596802628423131,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1692,7 +1692,7 @@
         1,
         0.8,
         1.4,
-        480575262418396,
+        7517495410917,
         "randomize",
         false,
         "cpu",
@@ -2051,7 +2051,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        731133449891928,
+        442169651699459,
         "randomize",
         20,
         8,
@@ -2095,7 +2095,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            37
+            341
           ],
           "shape": 3,
           "slot_index": 0
@@ -2108,16 +2108,16 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 17,
-      "type": "PreviewImage",
+      "id": 79,
+      "type": "PrimerePreviewImage",
       "pos": [
         2961,
         52
       ],
-      "size": {
-        "0": 747.5659790039062,
-        "1": 854.6353759765625
-      },
+      "size": [
+        961.2978112086776,
+        1075.1735661561822
+      ],
       "flags": {},
       "order": 25,
       "mode": 0,
@@ -2125,12 +2125,21 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 37
+          "link": 341
         }
       ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PrimerePreviewImage"
       },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
       "color": "#549494",
       "bgcolor": "#408080"
     }
@@ -2167,14 +2176,6 @@
       7,
       1,
       "INT"
-    ],
-    [
-      37,
-      16,
-      0,
-      17,
-      0,
-      "IMAGE"
     ],
     [
       137,
@@ -2727,6 +2728,14 @@
       76,
       8,
       "STRING"
+    ],
+    [
+      341,
+      16,
+      0,
+      79,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [

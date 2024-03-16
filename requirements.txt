@@ -10,3 +10,4 @@ Requests
 tomli
 torch
 ultralytics
+aiohttp

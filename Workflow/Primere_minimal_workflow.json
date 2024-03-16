@@ -1,6 +1,6 @@
 {
-  "last_node_id": 56,
-  "last_link_id": 226,
+  "last_node_id": 57,
+  "last_link_id": 227,
   "nodes": [
     {
       "id": 3,
@@ -37,7 +37,7 @@
       },
       "widgets_values": [
         "BestAll\\photon_v1.safetensors",
-        false,
+        true,
         true
       ],
       "color": "#1414ff",
@@ -91,10 +91,10 @@
         1670,
         -61
       ],
-      "size": [
-        341,
-        68
-      ],
+      "size": {
+        "0": 341,
+        "1": 68
+      },
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -343,7 +343,7 @@
         969
       ],
       "size": {
-        "0": 360.3917236328125,
+        "0": 369.6000061035156,
         "1": 278
       },
       "flags": {},
@@ -715,7 +715,7 @@
         false,
         1.6,
         2.8,
-        24905600591467,
+        38150581142292,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -772,7 +772,7 @@
       },
       "widgets_values": [
         "",
-        311909884924756,
+        425296217372726,
         "randomize"
       ],
       "color": "#145414",
@@ -827,7 +827,7 @@
       },
       "widgets_values": [
         "",
-        509177391538430,
+        404285700082448,
         "randomize"
       ],
       "color": "#145414",
@@ -912,7 +912,7 @@
         1,
         0.8,
         1.4,
-        454181278017364,
+        822078531811366,
         "randomize",
         false,
         "cpu",
@@ -1231,7 +1231,7 @@
         1024,
         1024
       ],
-      "color": "#6c0000",
+      "color": "#941414",
       "bgcolor": "#800000"
     },
     {
@@ -1333,7 +1333,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        718514777460348,
+        80174752414158,
         "randomize",
         20,
         8,
@@ -1377,7 +1377,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            37
+            227
           ],
           "shape": 3,
           "slot_index": 0
@@ -1390,15 +1390,15 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 17,
-      "type": "PreviewImage",
+      "id": 57,
+      "type": "PrimerePreviewImage",
       "pos": [
-        2866,
-        48
+        2868,
+        49
       ],
       "size": {
-        "0": 712.2599487304688,
-        "1": 806.3679809570312
+        "0": 949,
+        "1": 1153
       },
       "flags": {},
       "order": 18,
@@ -1407,12 +1407,21 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 37
+          "link": 227
         }
       ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PrimerePreviewImage"
       },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
       "color": "#549494",
       "bgcolor": "#408080"
     }
@@ -1441,14 +1450,6 @@
       7,
       1,
       "INT"
-    ],
-    [
-      37,
-      16,
-      0,
-      17,
-      0,
-      "IMAGE"
     ],
     [
       137,
@@ -1745,6 +1746,14 @@
       8,
       0,
       "STRING"
+    ],
+    [
+      227,
+      16,
+      0,
+      57,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [

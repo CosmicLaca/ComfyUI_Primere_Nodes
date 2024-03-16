@@ -1,6 +1,6 @@
 {
-  "last_node_id": 112,
-  "last_link_id": 552,
+  "last_node_id": 113,
+  "last_link_id": 553,
   "nodes": [
     {
       "id": 51,
@@ -1451,7 +1451,7 @@
       },
       "widgets_values": [
         "",
-        772191313120347,
+        264151833724918,
         "randomize"
       ],
       "color": "#145414",
@@ -1506,7 +1506,7 @@
       },
       "widgets_values": [
         "",
-        89626155943199,
+        570956248809831,
         "randomize"
       ],
       "color": "#541414",
@@ -1906,7 +1906,7 @@
         false,
         1.6,
         2.8,
-        6730168309963,
+        821528355502955,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1921,10 +1921,10 @@
         -361,
         809
       ],
-      "size": [
-        363.10663864399385,
-        568.4389797700783
-      ],
+      "size": {
+        "0": 363.10662841796875,
+        "1": 568.43896484375
+      },
       "flags": {},
       "order": 27,
       "mode": 0,
@@ -2032,10 +2032,10 @@
         11,
         577
       ],
-      "size": [
-        336.040771484375,
-        238
-      ],
+      "size": {
+        "0": 336.040771484375,
+        "1": 238
+      },
       "flags": {},
       "order": 28,
       "mode": 0,
@@ -2259,12 +2259,12 @@
         1,
         0.8,
         1.4,
-        31894723118589,
+        796920645817005,
         "randomize",
         true,
         "cpu",
         false,
-        477364158447069,
+        358134921082364,
         "randomize"
       ],
       "color": "#941414",
@@ -2634,7 +2634,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        636557708922371,
+        115881342217241,
         "randomize",
         20,
         8,
@@ -2892,7 +2892,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        61,
+        1289,
         "randomize",
         "",
         "",
@@ -3243,8 +3243,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            178,
-            535
+            535,
+            553
           ],
           "shape": 3,
           "slot_index": 0
@@ -3255,7 +3255,7 @@
       },
       "widgets_values": [
         2,
-        1056464355681722,
+        1118958164820462,
         "randomize",
         20,
         8,
@@ -3279,33 +3279,6 @@
       "bgcolor": "#804000"
     },
     {
-      "id": 53,
-      "type": "PreviewImage",
-      "pos": [
-        2841,
-        696
-      ],
-      "size": {
-        "0": 668.347412109375,
-        "1": 646.7664794921875
-      },
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 178
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#549494",
-      "bgcolor": "#408080"
-    },
-    {
       "id": 110,
       "type": "PrimereMetaSave",
       "pos": [
@@ -3317,7 +3290,7 @@
         "1": 530.1080932617188
       },
       "flags": {},
-      "order": 43,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3368,6 +3341,42 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 113,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2841,
+        694
+      ],
+      "size": [
+        668.9924712607408,
+        798.9865263631518
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 553
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "webp",
+        0,
+        95,
+        "Checkpoint",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     },
     {
       "id": 56,
@@ -3476,14 +3485,6 @@
       50,
       5,
       "UPSCALE_MODEL"
-    ],
-    [
-      178,
-      50,
-      0,
-      53,
-      0,
-      "IMAGE"
     ],
     [
       203,
@@ -4500,6 +4501,14 @@
       52,
       0,
       "*"
+    ],
+    [
+      553,
+      50,
+      0,
+      113,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [

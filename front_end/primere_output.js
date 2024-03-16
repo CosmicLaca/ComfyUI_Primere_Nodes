@@ -407,9 +407,9 @@ function ButtonLabelCreator(node) {
     var INIT_IMGSIZE_STRING = "";
     INIT_IMGTYPE_STRING = IMGType.toUpperCase() + ' format';
     if (MaxSide < 64) {
-        INIT_IMGSIZE_STRING = " at original size";
+        INIT_IMGSIZE_STRING = "at original size";
     } else {
-        INIT_IMGSIZE_STRING = " resized to " + MaxSide + 'px';
+        INIT_IMGSIZE_STRING = "resized to " + MaxSide + 'px';
     }
 
     if (IMGType == 'png') {

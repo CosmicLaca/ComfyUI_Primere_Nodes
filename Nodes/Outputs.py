@@ -493,8 +493,7 @@ class PrimerePreviewImage():
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "image_save_as": ("BOOLEAN", {"default": True, "label_on": "Save as preview", "label_off": "Save as any..."}),
-                # "image_type": ("BOOLEAN", {"default": True, "label_on": "Save as JPG", "label_off": "Save as PNG"}),
+                "image_save_as": ("BOOLEAN", {"default": False, "label_on": "Save as preview", "label_off": "Save as any..."}),
                 "image_type": (['jpeg', 'png', 'webp'], {"default": "jpeg"}),
                 "image_resize": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
                 "image_quality": ("INT",  {"default": 95,"min": 10, "max": 100, "step": 5}),
@@ -513,7 +512,6 @@ class PrimerePreviewImage():
     def preview_img_saver(self, images, *args, **kwargs):
         self.output_dir = folder_paths.get_output_directory()
         self.type = "output"
-        # self.prefix_append = ""
         self.compress_level = 4
 
         VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS']
@@ -542,7 +540,6 @@ class PrimerePreviewImage():
 
                     VALID_WIDGET_VALUES = list(map(ITEM_VALUES.__getitem__, REQUIRED_DATA_LISTINDEX))
                     REUIRED_WIDGETS = list(compress(VALID_WIDGET_VALUES, WIDGET_STATES))
-                    # VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
                     REPLACED_WIDGETS = [widg.replace(' ', '_') for widg in REUIRED_WIDGETS]
                     if ITEM_TYPE in VISUAL_NODE_FILENAMES:
                         REPLACED_WIDGETS = [Path(widg).stem for widg in REPLACED_WIDGETS]
