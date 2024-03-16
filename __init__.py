@@ -28,10 +28,10 @@ ClientTime = datetime.now()
 UpdateRequired = '2024-03-15 20:00:00'
 # IsDev = utility.get_value_from_cache('setup', 'is_dev')
 
-if os.path.isdir(frontend_preview_target) == False:
-    Path(os.path.join(frontend_preview_target, "images")).mkdir(parents = True, exist_ok = True)
+# if os.path.isdir(frontend_preview_target) == False:
+#    Path(os.path.join(frontend_preview_target, "images")).mkdir(parents = True, exist_ok = True)
 
-if os.path.isdir(frontend_preview_target) == True:
+if os.path.isdir(frontend_preview_target) == False:
     deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
     if os.path.isdir(deprecated_prw_images) == True:
         shutil.move(deprecated_prw_images, frontend_preview_target)
