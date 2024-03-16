@@ -7,26 +7,26 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Features of attached complex workflow **Primere_latest_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the model version
-- No need to set/switch any nodes or workflow between SD and SDXL checkpoints
-- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt node, same features under the .csv prompt loader node and the Prompt organizer
+- No need to set/switch any nodes or workflow between SD and SDXL checkpoints, not just checkpoints, but change between model concepts need only 1 click like LCM, Turbo, Cascade and Lightning. Test workflow: **civitai-modelconcepts.json**
+- You can select prefered model, subpath and orientation under the prompt input to overwrite the system settings by prompt, same features under the .csv prompt loader node and the automatic Prompt organizer
 - You can randomize the image orientation if using Comfy's batch queue mode
-- One button Normal, LCM, Turbo, Cascade and Lightning mode (see example workflows), the LCM mode download required SD and SDXL LCM models at first usage, other concepts need models already downloaded. Test workflow: **civitai-modelconcepts.json**
-- Save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF (otherwords meta) too
+- Auto save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF (otherwords meta) too
+- Custom image saver (image type, resolution, and quality) with standard save as dialog on Image preview node, with automatic 1 click preview saver feature
 - Read original A1111 styles.csv file, handle dynamic prompts and additional networks (Embedding, Lora, Lycoris, Hypernetwork) from the text content of prompts like in A1111, example dynamic styles.csv included for testing
-- Not just .csv useful as prompt source, organize your prompts to .toml file, and use the file content on dedicated Prompt organizer node, example .toml file included
+- Not just .csv useful as prompt source, organize your prompts to .toml file, and use the file content on dedicated Prompt organizer node. Example .toml file included, customize after rename
 - Random noise generator for latent image, with special function to generate different but consistent images with locked seed with adjustable difference between min and max values 
 - Additional and easy editable image/art styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
-- Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node, several base resolution for model concepts
+- Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node, different base resolution settings for several model concepts
 - Original image size can be multiplied to upscaler by three several ratios, one for SD and another one for SDXL models and third for Turbo checkpoints
 - Not just multiply original resolution by integer as multiplier, but can be define the final resolution by target megapixels from any source image sizes. Image resolution multiplier can solve low memory error problem if using Ultimate SD Upscaler 
-- Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use it if the used model incompatible with them, or if you want to try your prompt without included networks or want to change to different networks, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
-- Use more than one prompt or style inputs nodes for testing, compare and developing new prompts, and select any by 'Prompt Switch' node
-- Special image META/EXIF/PNGINFO reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg, never was easier to recycle your older A1111 or ComfyUI images and re-using them with same or different settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
-- Workflow and nodes support Lycoris in dedicated node, no need to copy them to Loras path
+- Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use network remover if the selected model incompatible with them or if you want to try your prompt without included networks or want to change to different networks, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
+- Use more than one prompt or style inputs nodes for testing, compare and developing new prompts, and select any by 1 click at the bottom of 'Prompt Switch' node
+- Special image META/EXIF/PNGINFO reader, which handle model name and samplers from A1111/ComfyUI .png or .jpg. Never was easier to recycle your older A1111 or ComfyUI images and re-using them with same or different workflow settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
+- Workflow and nodes support Lycoris in dedicated node, no need to copy and mix them to Loras path
 - Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result, included test workflow: **civitai-all-refiner.json**
 - Detailers automatically detect and support LCM and Turbo concepts
-- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path, see readme details under "Visual"
+- Visual (select element by preview image) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks, and saved Styles. You only have to create preview images to right name and path, see readme details under "Visual", or use 1 click preview creator helper
 - Midjourney art-style prompts can be attached to the original prompt, Emotions as style in separated node
 
 <hr>
@@ -37,27 +37,23 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing Python libs manually).
 
-2; If nodepack started, use the Primere_minimal_workflow and Primere_basic_workflow on the 'Workflow' folder for first try. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
+2; If nodepack started, use the Primere_minimal_workflow and Primere_basic_workflow from the 'Workflow' folder for first test. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
 3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_minimal_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
 4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
-5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 .csv file if you want to use your custom 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for example prompts included.
+5; Rename 'styles.example.csv' on the 'stylecsv' folder to 'syles.csv' or copy here your own A1111 .csv file if you want to use your custom 'Primere Styles' node. If you keep or rename the original 'styles.example.csv', you will see image previews for included example prompts.
 
-6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change right values on all input fields from your own environment.
+6; **Set existing values for all combos from your own environment.** Checkpoint, Lora, Lycoris, Style, Embedding, Upscale model, Detailer models, Primere Image Meta Saver and Hypernetwork selectors will be failed if not change to right values on all input fields from your own environment.
 
-7; Choose your own image from your machine to the 'Primere Exif Reader' or 'Primere Image Recycler'.
+7; **Update your Comfy to latest version** if nodes failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
 
-8; **Update your Comfy to latest version** if workflow failed. I always do it before development, so my nodes and the workflow compatible with latest Comfy version.
+8; Sometime the node development changes existing nodes, so the previous workflow failed after pull, usually by invalid/deprecated/missing input values. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
 
-9; I develop my nodes and workflow continously, so do git pull from master branch once a week, and refresh nodes in saved custom workflow if required. **'Fix node (recreate)'** menu will keep previous connections.
+9; Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have your own or downloaded custom wildcard files, just copy/symlink all to the 'wildcards' folder.
 
-10; Sometime the node development change existing nodes, so the previous workflow failed after pull, usually by invalid/deprecated/missing input values. Then use right-click + **'Fix node (recreate)' menu** and maybe need to rewire changed nodes, or load the attached example workflows again if updated.
-
-11; Maybe you have missing wildcard files (https://civitai.com/tag/wildcard), and sometime the wildcard decoder sending error if source file not found. If you have custom wildcard files, just copy/symlink them to the 'wildcards' folder.
-
-12; Don't overwrite attached example workflows, because the git pull will write back to the original. If you modify, save as them to another name and path. 
+10; Don't overwrite attached example workflows, because the git pull will write back to the original. If you modify, save as them to another name and path. 
 
 <hr>
 
@@ -71,10 +67,10 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ### Before you save your own previews, just set 'show_modal' input to 'false'
 
-Here are same functions similar like in **Inputs** submenu, but the selection (for example checkpoints, loras, lycoris, embeddings, styles from style.csv and hypernetworks) **possible by image previews on modal**. Very similar than in several themes of A1111, but you must create previews to right path.
-You have to create and save images as previews to the right path and name, deails later. Previews can be **only .jpg** format with .jpg extension. 
-Don't use large files because the modal loading time. The preview height in visual selector modal is only 220px, so don't use upscaled or original images as preview. Downsize your previews height to 250-300 px, and set jpg image quality to ~50% for faster loading. ACDSee do it automatically at Tools->Batch->Resize menu if you already have large images, if you generate new, just set the upscaler under the 1 (0.4 for SD and 0.2 for SDXL is good enought, while set the jpeg quality to ~50-60 in the image saver node).
-Checkpoint and additional networks files have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time just read back from cached json. About automatic mass version caching read more later.
+**Visual** submenu contains similar functions like within **Inputs** and **Networks** submenu, but the selection (for example checkpoints, loras, lycoris, embeddings, styles from style.csv and hypernetworks) **possible by image previews on modal**. Very similar than in several themes of A1111, but you must create previews to right path.
+Create and save images as previews to the right path and name, deails later. Previews can be **only .jpg** format with .jpg extension. 
+Don't use large files because the long modal loading time. The preview height in visual selector modal is only 220px, so don't use upscaled or original images as preview. Downsize your previews height to max 250-300 px, and set jpg image quality to ~50% for faster loading. ACDSee do it automatically at Tools->Batch->Resize menu if you already have large images, if you generate new, just set the upscaler under the 1 (0.4 for SD and 0.2 for SDXL is good enought, while set the jpeg quality to ~50-60 in the image saver node).
+Checkpoint and additional networks files have a badge with SD or SDXL version. The version info is cached, so only one time needed to read and store, so the very first loading time little longer. When you use your checkpoint or networks first time, the version info will be saved to the 'Nodes\.cache\.cache.json' file, next time just read back from cached json. About automatic mass version caching read more later.
 
 **If you need version info of all your files for visual modal badges, you can use helper files from the 'terminal_helpers' subdir:**
 - Open terminal/command window, and activate your comfy venv. This is the most important step before run command line helpers.
@@ -92,6 +88,17 @@ Example of visual checkpoint selector if preview available:
 
 <a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="340px"></a>
 <hr>
+
+### Use one click helper to save your generated image on modal:
+
+<a href="./Workflow/readme_images/pimgsaveas.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas.jpg" height="400px"></a>
+
+#### This node look like a simple image preview, but with **Save as...** feature
+- With **image_save_as** swich you can select **Save as preview** mode, what is the 1 click feature to create preview for visual selectors.
+- Wait while the node contains your generated image.
+- Set **preview_target** by your requirements (Checkpoints, Styles, Loras, Lycoris, Embedding and Hypernetworks). This is depending on the node names what using visual modals for selections. You must use these nodes in the workflow if you use 1 click preview saver.
+- Set **target_selection** from the several values of selected **preview_target**. These values readed from whole workflow when the node contains image.
+- Push the button if no error messages in the upper combos. Wait for the response dialog and if all right your image saved as modal priview at right format and size.
 
 ### Primere Visual CKPT selector:
 **Visual selector for checkpoints**. You must mirror (replicate) your original checkpoint subdirs **(not the checkpoint files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
@@ -471,6 +478,20 @@ This node loads model keyword. You can read and use model keywords to send direc
 <hr>
 
 ## Submenu :: Outputs:
+
+### Primere Image Preview and Save as...
+This node is image preview, but with save as feature.
+- The node must contiains generated image.
+- **image_save_as:** [Save as any...] will give you standard save to... dialog for image saving. Then you can choose target folder and name for the file. [Save as preview] setting mean 1 click preview saver for nodes using visual selection modals.
+- **image_type:** Usable for [Save as any...] setting, choose image type like jpeg, png, and webp
+- **image_resize:** Set the larges value is image side in pixel. The image will keep the original side ratios. **0** mean no change the original size.
+- **image_quality:** Image quailty in percent for jpeg and webp images if choose [Save as any...] at the top
+- **preview_target:** If use [Save as preview] feature on the top, you can choose node with visual selection modal. Checkpoint, CSV Prompt, Lora, Lycoris, Hypernetwork and Embedding available. Selected visual node **must be used** in workflow.
+- **target_selection:** if [preview_target] choosed, and the selected node availale, here you can select node values. 
+- The button will open save as dialog if [Save as any...] selected, or will save preview for visual modal automatically renamed and resized to right value for **preview_target** and **target_selection** settings. **This feature overwite previous image if available without question.**   
+
+<a href="./Workflow/readme_images/pimgsaveas2.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas2.jpg" height="280px"></a>
+<hr>
 
 ### Primere Meta Saver:
 This node save the image, but with/without metadata, and save meta to .json/.txt file if you want. Get metadata from the Exif reader node only, and use optional 'prefered_subpath' input if you want to overwrite the node settings by several prompt input nodes. Set 'output_path' input correctly, depending your system.
