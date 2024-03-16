@@ -20,7 +20,7 @@ __version__ = "0.5.5"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
-frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews', "images")
+frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews')
 frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
@@ -29,7 +29,7 @@ UpdateRequired = '2024-03-15 20:00:00'
 # IsDev = utility.get_value_from_cache('setup', 'is_dev')
 
 if os.path.isdir(frontend_preview_target) == False:
-    Path(frontend_preview_target).mkdir(parents = True, exist_ok = True)
+    Path(os.path.join(frontend_preview_target, "images")).mkdir(parents = True, exist_ok = True)
 
 if os.path.isdir(frontend_preview_target) == True:
     deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
