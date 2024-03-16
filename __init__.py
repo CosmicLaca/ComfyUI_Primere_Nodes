@@ -73,7 +73,7 @@ else:
 if os.path.isdir(frontend_preview_target) == False:
     deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
     if os.path.isdir(deprecated_prw_images) == True:
-        shutil.move(deprecated_prw_images, frontend_preview_target)
+        shutil.move(deprecated_prw_images, os.path.join(frontend_preview_target, 'images'))
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
