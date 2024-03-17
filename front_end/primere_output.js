@@ -6,6 +6,7 @@ let hasShownAlertForUpdatingInt = false;
 let ImagePath = null;
 let WorkflowData = {};
 const realPath = "extensions/Primere";
+const prwPath = "extensions/PrimerePreviews";
 
 let PreviewTarget = 'Checkpoint';
 let PreviewTargetPreviousState = PreviewTarget;
@@ -19,6 +20,8 @@ let TargetFileName = null;
 let LoadedNode = null;
 let TargetSelValues = ["select target..."];
 let SelectedTarget = null;
+let PreviewExist = false;
+let PrwSaveMode = 'Overwrite';
 
 const NodenameByType = {
     'Checkpoint': 'PrimereVisualCKPT',
@@ -27,6 +30,15 @@ const NodenameByType = {
     'Lycoris': 'PrimereVisualLYCORIS',
     'Hypernetwork': 'PrimereVisualHypernetwork',
     'Embedding': 'PrimereVisualEmbedding'
+}
+
+const NodesubdirByType = {
+    'Checkpoint': 'checkpoints',
+    'CSV Prompt': 'styles',
+    'Lora': 'loras',
+    'Lycoris': 'lycoris',
+    'Hypernetwork': 'hypernetworks',
+    'Embedding': 'embeddings'
 }
 
 app.registerExtension({
@@ -348,7 +360,8 @@ class PreviewSaver {
                                 "SaveImageName": SaveImageName,
                                 "maxWidth": resampledWidth,
                                 "maxHeight": resampledHeight,
-                                "TargetQuality": TargetQuality
+                                "TargetQuality": TargetQuality,
+                                "PrwSaveMode": PrwSaveMode
                             }));
                         }
                     } else {
@@ -382,6 +395,8 @@ function TargetListCreator(node) {
 }
 
 function ButtonLabelCreator(node) {
+    PreviewExist = false;
+
     for (var px = 0; px < node.widgets.length; ++px) {
        if (node.widgets[px].name == 'preview_target') {
            PreviewTarget = node.widgets[px].value;
@@ -400,6 +415,9 @@ function ButtonLabelCreator(node) {
        }
        if (node.widgets[px].name == 'image_quality') {
            TargetQuality = node.widgets[px].value;
+       }
+      if (node.widgets[px].name == 'preview_save_mode') {
+           PrwSaveMode = node.widgets[px].value;
        }
     }
 
@@ -431,7 +449,49 @@ function ButtonLabelCreator(node) {
                     if (targetIndex > -1) {
                         TargetFileName = WorkflowData[NodenameByType[PreviewTarget]][targetIndex];
                     }
-                    buttontitle = 'Save preview as:  [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.';
+
+                    let prwpath_new = SelectedTarget.replaceAll('\\', '/');
+                    let dotLastIndex = prwpath_new.lastIndexOf('.');
+                    if (dotLastIndex > 1) {
+                        var finalName = prwpath_new.substring(0, dotLastIndex);
+                    } else {
+                        var finalName = prwpath_new;
+                    }
+                    finalName = finalName.replaceAll(' ', "_");
+                    let previewName = finalName + '.jpg';
+                    var imgsrc = prwPath + '/images/' + NodesubdirByType[PreviewTarget] + '/' + previewName;
+
+                    let loadImage = src =>
+                      new Promise((resolve, reject) => {
+                        let img_check = new Image();
+                        img_check.onload = () => resolve(img_check);
+                        img_check.onerror = reject;
+                        img_check.src = src;
+                        console.log('*** *** ***');
+                        console.log(img_check.height);
+                        console.log('*** *** ***');
+                        if (img_check.height > 0) {
+                            PreviewExist = true;
+                        }
+                    });
+
+                    loadImage(imgsrc).then(image_prw_test =>
+                        image_prw_test.complete
+                    );
+
+                    var imgExistLink = "";
+                    if (PreviewExist === true) {
+                        let splittedMode = PrwSaveMode.split(' ');
+                        var prw_mode = '';
+                        splittedMode.forEach(n => {
+                          prw_mode += n[0]
+                        });
+                        imgExistLink = ' [' + prw_mode.toUpperCase() + ']';
+                    } else {
+                        imgExistLink = ' [C]';
+                    }
+
+                    buttontitle = 'Save preview as: [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.' + imgExistLink;
                 }
             } else {
                 buttontitle = 'Required node: [' + NodenameByType[PreviewTarget] + '] not available in workflow for target: [' + PreviewTarget + ']';

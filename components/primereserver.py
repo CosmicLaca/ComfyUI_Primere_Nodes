@@ -31,6 +31,7 @@ routes = PromptServer.instance.routes
 async def primere_preview_post(request):
     post = await request.post()
     PreviewSaveResponse = None
+    SAVE_MODE = 'Create'
 
     PREVIEW_DATA = json.loads(post.get('previewdata')) # {'PreviewTarget': 'Checkpoint', 'PreviewTargetOriginal': 'Sci-fi\\colorful_v30.safetensors', 'extension': 'jpg', 'ImageName': 'ComfyUI_temp_pmzjp_00092_.png', 'ImagePath': 'H:\\ComfyUI\\output', 'SaveImageName': 'colorful_v30', 'maxWidth': 220, 'maxHeight': 220}
     IMG_SOURCE = os.path.join(PREVIEW_DATA['ImagePath'], PREVIEW_DATA['ImageName']) # H:\ComfyUI\output\ComfyUI_temp_pmzjp_00092_.png
@@ -43,9 +44,9 @@ async def primere_preview_post(request):
 
         TARGET_FILE = os.path.join(TARGET_DIR, path, PREVIEW_DATA['SaveImageName'] + '.' + PREVIEW_DATA['extension']) # H:\ComfyUI\web\extensions\Primere\images\checkpoints\Sci-fi\colorful_v30_000_test.jpg
         if os.path.isfile(TARGET_FILE):
-            PreviewSaveResponse = "Preview file for " + PREVIEW_DATA['PreviewTargetOriginal'] + " replaced with current preview for " + PREVIEW_DATA['PreviewTarget'] + "."
-        else:
-            PreviewSaveResponse = "Preview file for " + PREVIEW_DATA['PreviewTargetOriginal'] + " created and saved for " + PREVIEW_DATA['PreviewTarget'] + "."
+            SAVE_MODE = PREVIEW_DATA['PrwSaveMode']
+
+        PreviewSaveResponse = "Preview file for " + PREVIEW_DATA['PreviewTargetOriginal'] + " used [" + SAVE_MODE + "] mode and saved for " + PREVIEW_DATA['PreviewTarget'] + "."
 
         if not os.path.isdir(FULL_TARGET_PATH): # H:\ComfyUI\web\extensions\Primere\images\checkpoints\Sci-fi
             Path(str(FULL_TARGET_PATH)).mkdir(parents = True, exist_ok = True)
@@ -55,7 +56,29 @@ async def primere_preview_post(request):
                 prw_img = Image.open(IMG_SOURCE).convert("RGB")
                 newsize = (PREVIEW_DATA['maxWidth'], PREVIEW_DATA['maxHeight'])
                 prw_img_resized = prw_img.resize(newsize)
-                prw_img_resized.save(TARGET_FILE, quality = 50, optimize = True)
+
+                if os.path.isfile(TARGET_FILE):
+                    match SAVE_MODE:
+                        case "Overwrite":
+                            prw_img_resized.save(TARGET_FILE, quality=50, optimize=True)
+                        case "Keep":
+                            PreviewSaveResponse = "Preview file not saved for [" + filename + "] because image already exist and selected [" + SAVE_MODE + "] mode."
+                        case "Join horizontal":
+                            prw_img_exist = Image.open(TARGET_FILE)
+                            joined_img = utility.ImageConcat(prw_img_exist, prw_img, 1)
+                            joined_img.save(TARGET_FILE, quality = 50, optimize = True)
+
+                        case "Join vertical":
+                            prw_img_exist = Image.open(TARGET_FILE)
+                            joined_img = utility.ImageConcat(prw_img_exist, prw_img, 0)
+                            if joined_img.size[1] > 250:
+                                heigth_ratio = joined_img.size[1] / 220
+                                new_width = round(joined_img.size[0] / heigth_ratio)
+                                joined_img = joined_img.resize([new_width, 220])
+                            joined_img.save(TARGET_FILE, quality = 50, optimize = True)
+                else:
+                    prw_img_resized.save(TARGET_FILE, quality = 50, optimize = True)
+
             except Exception:
                 PreviewSaveResponse = 'ERROR: Cannot save target image to: ' + str(FULL_TARGET_PATH) + ' for ' + PREVIEW_DATA['PreviewTarget'] + "."
         else:

@@ -693,3 +693,32 @@ def getLatentSize(samples):
             return (None, None)
 
     return (None, None)
+
+def MatchDimensions(width_1, height_1, width_2, height_2, axis_value):
+    if axis_value == 1:
+        rate = height_2 / height_1
+        new_heigth = height_1
+        new_width = width_2 / rate
+    else:
+        rate = width_2 / width_1
+        new_width = width_1
+        new_heigth = height_2 / rate
+
+    return [round(new_width), round(new_heigth)]
+
+def ImageConcat(image1, image2, axis_value):
+    image1_size = image1.size
+    image2_size = image2.size
+    new_image_dim = MatchDimensions(image1_size[0], image1_size[1], image2_size[0], image2_size[1], axis_value)
+    img2_resized = image2.resize(new_image_dim)
+
+    if axis_value == 1:
+        new_image = Image.new('RGB', (new_image_dim[0] + image1_size[0], image1_size[1]), (250, 250, 250))
+        new_image.paste(image1, (0, 0))
+        new_image.paste(img2_resized, (image1_size[0], 0))
+    else:
+        new_image = Image.new('RGB', (image1_size[0], new_image_dim[1] + image1_size[1]), (250, 250, 250))
+        new_image.paste(image1, (0, 0))
+        new_image.paste(img2_resized, (0, image1_size[1]))
+
+    return new_image

@@ -25,7 +25,7 @@ frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
 ClientTime = datetime.now()
-UpdateRequired = '2024-03-15 20:00:00'
+UpdateRequired = '2024-03-17 20:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:

@@ -498,6 +498,7 @@ class PrimerePreviewImage():
                 "image_resize": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
                 "image_quality": ("INT",  {"default": 95,"min": 10, "max": 100, "step": 5}),
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
+                "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
 
                 "images": ("IMAGE", ),
             },
