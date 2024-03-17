@@ -37,7 +37,7 @@
       },
       "widgets_values": [
         "BestAll\\photon_v1.safetensors",
-        true,
+        false,
         true
       ],
       "color": "#1414ff",
