@@ -1451,7 +1451,7 @@
       },
       "widgets_values": [
         "",
-        264151833724918,
+        1054290652506417,
         "randomize"
       ],
       "color": "#145414",
@@ -1506,7 +1506,7 @@
       },
       "widgets_values": [
         "",
-        570956248809831,
+        532416680428949,
         "randomize"
       ],
       "color": "#541414",
@@ -1906,7 +1906,7 @@
         false,
         1.6,
         2.8,
-        821528355502955,
+        1124983329494399,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2259,12 +2259,12 @@
         1,
         0.8,
         1.4,
-        796920645817005,
+        161035754340495,
         "randomize",
         true,
         "cpu",
         false,
-        358134921082364,
+        972792062389311,
         "randomize"
       ],
       "color": "#941414",
@@ -2634,7 +2634,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        115881342217241,
+        92547669853929,
         "randomize",
         20,
         8,
@@ -2892,7 +2892,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1289,
+        774,
         "randomize",
         "",
         "",
@@ -3255,7 +3255,7 @@
       },
       "widgets_values": [
         2,
-        1118958164820462,
+        203376375060654,
         "randomize",
         20,
         8,
@@ -3349,10 +3349,10 @@
         2841,
         694
       ],
-      "size": [
-        668.9924712607408,
-        798.9865263631518
-      ],
+      "size": {
+        "0": 668.9924926757812,
+        "1": 798.9865112304688
+      },
       "flags": {},
       "order": 43,
       "mode": 0,
@@ -3368,10 +3368,11 @@
       },
       "widgets_values": [
         false,
-        "webp",
+        "jpeg",
         0,
         95,
         "Checkpoint",
+        "Overwrite",
         "BestAll\\photon_v1.safetensors",
         null
       ],

@@ -715,7 +715,7 @@
         false,
         1.6,
         2.8,
-        38150581142292,
+        208666849732455,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -772,7 +772,7 @@
       },
       "widgets_values": [
         "",
-        425296217372726,
+        774266153259972,
         "randomize"
       ],
       "color": "#145414",
@@ -827,7 +827,7 @@
       },
       "widgets_values": [
         "",
-        404285700082448,
+        790769955521277,
         "randomize"
       ],
       "color": "#145414",
@@ -912,7 +912,7 @@
         1,
         0.8,
         1.4,
-        822078531811366,
+        719242728251447,
         "randomize",
         false,
         "cpu",
@@ -1333,7 +1333,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        80174752414158,
+        759623959834924,
         "randomize",
         20,
         8,
@@ -1393,8 +1393,8 @@
       "id": 57,
       "type": "PrimerePreviewImage",
       "pos": [
-        2868,
-        49
+        2865,
+        50
       ],
       "size": {
         "0": 949,
@@ -1419,6 +1419,7 @@
         0,
         95,
         "Checkpoint",
+        "Overwrite",
         "BestAll\\photon_v1.safetensors",
         null
       ],
