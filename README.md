@@ -11,9 +11,9 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - You can select preferred model, subpath and orientation under the prompt input to overwrite the system settings by prompt, same features under the .csv prompt loader node and the automatic Prompt organizer
 - You can randomize the image orientation if using Comfy's batch queue mode
 - Auto save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF (otherworldly meta) too
-- Custom image saver (image type, resolution, and quality) with standard save as dialog on Image preview node, with automatic 1 click preview saver feature
+- Custom image saver (image type, resolution, and quality) with standard save as dialog on Image preview node, and with semi-automatic 1 click preview saver feature for visual selectors
 - Read original A1111 styles.csv file, handle dynamic prompts and additional networks (Embedding, Lora, Lycoris, Hypernetwork) from the text content of prompts like in A1111, example dynamic styles.csv included for testing
-- Not just .csv useful as prompt source, organize your prompts to .toml file, and use the file content on dedicated Prompt organizer node. Example .toml file included, customize after rename
+- Not just .csv useful as prompt source, organize your prompts to .toml file, and use the file content on dedicated Prompt organizer node. Example .toml file included, customize after renamed
 - Random noise generator for latent image, with special function to generate different but consistent images with locked seed with adjustable difference between min and max values 
 - Additional and easy editable image/art styles included in the text encoder as list
 - Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
@@ -89,16 +89,18 @@ Example of visual checkpoint selector if preview available:
 <a href="./Workflow/readme_images/pvisualmodal.jpg" target="_blank"><img src="./Workflow/readme_images/pvisualmodal.jpg" height="340px"></a>
 <hr>
 
-### Use one click helper to save your generated image on modal:
+### Use one click automatic helper to save your generated image for modal:
 
-<a href="./Workflow/readme_images/pimgsaveas.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas.jpg" height="400px"></a>
+<a href="./Workflow/readme_images/pimgsaveas.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas.jpg" height="420px"></a>
 
 #### This node look like a simple image preview, but with **Save as...** feature
 - With **image_save_as** switch you can select **Save as preview** mode, what is the 1 click feature to create preview for visual selectors.
 - Wait while the node contains your generated image.
 - Set **preview_target** by your requirements (Checkpoints, Styles, Loras, Lycoris, Embedding and Hypernetworks). This is depending on the node names what using visual modals for selections. You must use these nodes in the workflow if you use 1 click preview saver.
 - Set **target_selection** from the several values of selected **preview_target**. These values read from whole workflow when the node contains image.
-- Push the button if no error messages in the upper combos. Wait for the response dialog and if all right your image saved as modal preview at right format and size.
+- Set **preview_save_mode** to overwrite, keep, concat horizontal, concat vertical to your existing preview.
+- Check the last characters on the button between **[?]**. C mean button push will create new preview, O overwrite existing, K keep existing and ignore save, JV join vertically new image to existing, JH join horizontally new image to existing preview.
+- Push the button if no error messages in the upper combos and in the button. Wait for the response dialog and if all right your image saved as modal preview at right format and size.
 
 ### Primere Visual CKPT selector:
 **Visual selector for checkpoints**. You must mirror (replicate) your original checkpoint subdirs **(not the checkpoint files!)** to ComfyUI\custom_nodes\ComfyUI_Primere_Nodes\front_end\images\checkpoints\ path but only the preview images needed, same name as the checkpoint but with .jpg only extension.
@@ -487,10 +489,12 @@ This node is image preview, but with save as feature.
 - **image_resize:** Set the larges value is image side in pixel. The image will keep the original side ratios. **0** mean no change the original size.
 - **image_quality:** Image quality in percent for jpeg and webp images if choose [Save as any...] at the top
 - **preview_target:** If use [Save as preview] feature on the top, you can choose node with visual selection modal. Checkpoint, CSV Prompt, Lora, Lycoris, Hypernetwork and Embedding available. Selected visual node **must be used** in workflow.
-- **target_selection:** if [preview_target] selected, and the node available, here you can select node values. 
+- **preview_save_mode** If preview already available, you can set Overwrite, Keep (cancel save and keep original), Join horizontal or Join vertical mode to existing preview. If no preview available Creating mode will save your first image.
+- **target_selection:** if [preview_target] selected, and the node available, here you can select node values.
+- Check the end of button text. [C] mean create new preview, [0] mean overwrite existing, [K] mean keep existing and cancel save, [JH] mean join horizontal, [JV] mean join vertical new image to existing one. 
 - The button will open save as dialog if [Save as any...] selected, or will save preview for visual modal automatically renamed and resized to right value for **preview_target** and **target_selection** settings. **This feature overwrite previous image if available without question.**   
 
-<a href="./Workflow/readme_images/pimgsaveas2.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas2.jpg" height="280px"></a>
+<a href="./Workflow/readme_images/pimgsaveas2.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaveas2.jpg" height="300px"></a>
 <hr>
 
 ### Primere Meta Saver:
