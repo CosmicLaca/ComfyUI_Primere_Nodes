@@ -38,6 +38,11 @@ PREVIEW_PATH_BY_TYPE = {
     "Embedding": os.path.join(PREVIEW_ROOT, "embeddings"),
 }
 
+WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'model',
+             'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
+             'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
+             'vae_name_sd', 'vae_name_sdxl']
+
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
         item1 = (item1,)

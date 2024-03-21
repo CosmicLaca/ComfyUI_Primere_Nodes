@@ -379,7 +379,7 @@ class PrimereVisualHypernetwork:
 
 class PrimereVisualStyle:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
     FUNCTION = "load_visual_csv"
     CATEGORY = TREE_VISUALS
 
@@ -432,53 +432,53 @@ class PrimereVisualStyle:
             negative_prompt = ''
 
         try:
-            prefered_subpath = self.styles_csv[self.styles_csv['name'] == styles]['prefered_subpath'].values[0]
+            preferred_subpath = self.styles_csv[self.styles_csv['name'] == styles]['preferred_subpath'].values[0]
         except Exception:
-            prefered_subpath = ''
+            preferred_subpath = ''
 
         try:
-            prefered_model = self.styles_csv[self.styles_csv['name'] == styles]['prefered_model'].values[0]
+            preferred_model = self.styles_csv[self.styles_csv['name'] == styles]['preferred_model'].values[0]
         except Exception:
-            prefered_model = ''
+            preferred_model = ''
 
         try:
-            prefered_orientation = self.styles_csv[self.styles_csv['name'] == styles]['prefered_orientation'].values[0]
+            preferred_orientation = self.styles_csv[self.styles_csv['name'] == styles]['preferred_orientation'].values[0]
         except Exception:
-            prefered_orientation = ''
+            preferred_orientation = ''
 
         pos_type = type(positive_prompt).__name__
         neg_type = type(negative_prompt).__name__
-        subp_type = type(prefered_subpath).__name__
-        model_type = type(prefered_model).__name__
-        orientation_type = type(prefered_orientation).__name__
+        subp_type = type(preferred_subpath).__name__
+        model_type = type(preferred_model).__name__
+        orientation_type = type(preferred_orientation).__name__
         if (pos_type != 'str'):
             positive_prompt = ''
         if (neg_type != 'str'):
             negative_prompt = ''
         if (subp_type != 'str'):
-            prefered_subpath = ''
+            preferred_subpath = ''
         if (model_type != 'str'):
-            prefered_model = ''
+            preferred_model = ''
         if (orientation_type != 'str'):
-            prefered_orientation = ''
+            preferred_orientation = ''
 
-        if len(prefered_subpath.strip()) < 1:
-            prefered_subpath = None
-        if len(prefered_model.strip()) < 1:
-            prefered_model = None
-        if len(prefered_orientation.strip()) < 1:
-            prefered_orientation = None
+        if len(preferred_subpath.strip()) < 1:
+            preferred_subpath = None
+        if len(preferred_model.strip()) < 1:
+            preferred_model = None
+        if len(preferred_orientation.strip()) < 1:
+            preferred_orientation = None
 
         if use_subpath == False:
-            prefered_subpath = None
+            preferred_subpath = None
         if use_model == False:
-            prefered_model = None
+            preferred_model = None
         if use_orientation == False:
-            prefered_orientation = None
+            preferred_orientation = None
 
-        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+        preferred = {'subpath': preferred_subpath, 'model': preferred_model, 'orientation': preferred_orientation}
 
-        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation, prefered)
+        return (positive_prompt, negative_prompt, preferred_subpath, preferred_model, preferred_orientation, preferred)
 
 class PrimereVisualLYCORIS:
     RETURN_TYPES = ("MODEL", "CLIP", "LYCORIS_STACK", "MODEL_KEYWORD")

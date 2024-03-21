@@ -420,7 +420,7 @@
           "shape": 3
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             164
@@ -494,7 +494,7 @@
           "shape": 3
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             167
@@ -576,7 +576,7 @@
           "shape": 3
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             175
@@ -988,7 +988,7 @@
           "link": 163
         },
         {
-          "name": "prefered_1",
+          "name": "preferred_1",
           "type": "STRING",
           "link": 164
         },
@@ -1003,7 +1003,7 @@
           "link": 166
         },
         {
-          "name": "prefered_2",
+          "name": "preferred_2",
           "type": "STRING",
           "link": 167
         },
@@ -1018,7 +1018,7 @@
           "link": 174
         },
         {
-          "name": "prefered_3",
+          "name": "preferred_3",
           "type": "STRING",
           "link": 175
         },
@@ -1033,7 +1033,7 @@
           "link": null
         },
         {
-          "name": "prefered_4",
+          "name": "preferred_4",
           "type": "STRING",
           "link": null
         }
@@ -1064,7 +1064,7 @@
           "shape": 3
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "TUPLE",
           "links": null,
           "shape": 3

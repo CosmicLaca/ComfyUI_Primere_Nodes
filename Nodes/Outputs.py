@@ -123,20 +123,20 @@ class PrimereMetaSave:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
             ModelPath = Path(image_metadata['model'])
-            # if prefered_subpath is not None and len(prefered_subpath.strip()) > 0:
-            #    subpath = prefered_subpath
-            if 'prefered' in image_metadata and type(image_metadata['prefered']).__name__ == 'dict' and len(image_metadata['prefered']) > 0 and 'subpath' in image_metadata['prefered'] and image_metadata['prefered']['subpath'] is not None and len(image_metadata['prefered']['subpath'].strip()) > 0:
-                subpath = image_metadata['prefered']['subpath']
+            # if preferred_subpath is not None and len(preferred_subpath.strip()) > 0:
+            #    subpath = preferred_subpath
+            if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
+                subpath = image_metadata['preferred']['subpath']
 
             if subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
             else:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
         else:
-            if 'prefered' in image_metadata and type(image_metadata['prefered']).__name__ == 'dict' and len(image_metadata['prefered']) > 0 and 'subpath' in image_metadata['prefered'] and image_metadata['prefered']['subpath'] is not None and len(image_metadata['prefered']['subpath'].strip()) > 0:
+            if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 path = Path(output_path)
                 ModelStartPath = output_path.replace(path.stem, '')
-                subpath = image_metadata['prefered']['subpath']
+                subpath = image_metadata['preferred']['subpath']
                 output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
 
         if output_path.strip() != '':
@@ -366,7 +366,7 @@ class PrimereMetaCollector:
                 "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
                 "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
             }, "optional": {
-                "seed": ('INT', {"forceInput": True, "default": 1}),
+                # "seed": ('INT', {"forceInput": True, "default": 1}),
                 "positive_l": ('STRING', {"forceInput": True, "default": None}),
                 "negative_l": ('STRING', {"forceInput": True, "default": None}),
                 "positive_r": ('STRING', {"forceInput": True, "default": None}),
@@ -384,7 +384,7 @@ class PrimereMetaCollector:
                 "steps": ('INT', {"forceInput": True, "default": 12}),
                 "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
                 "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
-                "prefered": ("TUPLE", {"default": None, "forceInput": True})
+                "preferred": ("TUPLE", {"default": None, "forceInput": True})
             },
         }
 

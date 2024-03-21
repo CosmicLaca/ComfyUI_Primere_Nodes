@@ -226,7 +226,7 @@
           "slot_index": 4
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             216
@@ -304,7 +304,7 @@
           "slot_index": 4
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             219
@@ -390,7 +390,7 @@
           "slot_index": 4
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "STRING",
           "links": [
             222
@@ -536,7 +536,7 @@
           "link": 215
         },
         {
-          "name": "prefered_1",
+          "name": "preferred_1",
           "type": "STRING",
           "link": 216
         },
@@ -551,7 +551,7 @@
           "link": 218
         },
         {
-          "name": "prefered_2",
+          "name": "preferred_2",
           "type": "STRING",
           "link": 219
         },
@@ -566,7 +566,7 @@
           "link": 221
         },
         {
-          "name": "prefered_3",
+          "name": "preferred_3",
           "type": "STRING",
           "link": 222
         },
@@ -581,7 +581,7 @@
           "link": null
         },
         {
-          "name": "prefered_4",
+          "name": "preferred_4",
           "type": "STRING",
           "link": null
         }
@@ -612,7 +612,7 @@
           "shape": 3
         },
         {
-          "name": "PREFERED",
+          "name": "PREFERRED",
           "type": "TUPLE",
           "links": null,
           "shape": 3

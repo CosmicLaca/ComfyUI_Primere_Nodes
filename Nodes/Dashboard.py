@@ -448,7 +448,7 @@ class PrimerePromptSwitch:
     any_typ = AnyType("*")
 
     RETURN_TYPES = (any_typ, any_typ, "INT", "TUPLE")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SELECTED_INDEX", "PREFERED")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SELECTED_INDEX", "PREFERRED")
     FUNCTION = "promptswitch"
     CATEGORY = TREE_DASHBOARD
 
@@ -463,7 +463,7 @@ class PrimerePromptSwitch:
             "optional": {
                 "prompt_pos_1": (any_typ,),
                 "prompt_neg_1": (any_typ,),
-                "prefered_1": (any_typ,),
+                "preferred_1": (any_typ,),
             },
         }
 
@@ -471,10 +471,10 @@ class PrimerePromptSwitch:
         selected_index = int(kwargs['select'])
         input_namep = f"prompt_pos_{selected_index}"
         input_namen = f"prompt_neg_{selected_index}"
-        input_prefered = f"prefered_{selected_index}"
+        input_preferred = f"preferred_{selected_index}"
 
         if input_namep in kwargs:
-            return (kwargs[input_namep], kwargs[input_namen], selected_index, kwargs[input_prefered])
+            return (kwargs[input_namep], kwargs[input_namen], selected_index, kwargs[input_preferred])
         else:
             print(f"PrimerePromptSwitch: invalid select index (ignored)")
             return (None, None, selected_index, None)

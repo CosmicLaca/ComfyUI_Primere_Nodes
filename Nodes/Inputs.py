@@ -23,7 +23,7 @@ from .modules.exif_data_checker import check_model_from_exif
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
     FUNCTION = "get_prompt"
     CATEGORY = TREE_INPUTS
 
@@ -72,9 +72,9 @@ class PrimereDoublePrompt:
             orientations = ["Horizontal", "Vertical"]
             orientation = random.choice(orientations)
 
-        prefered = {'subpath': subpath, 'model': model, 'orientation': orientation}
+        preferred = {'subpath': subpath, 'model': model, 'orientation': orientation}
 
-        return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation, prefered)
+        return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation, preferred)
 
 class PrimereRefinerPrompt:
     RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING", "TUPLE")
@@ -180,7 +180,7 @@ class PrimereRefinerPrompt:
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
     FUNCTION = "load_csv"
     CATEGORY = TREE_INPUTS
 
@@ -234,54 +234,54 @@ class PrimereStyleLoader:
             negative_prompt = ''
 
         try:
-            prefered_subpath = self.styles_csv[self.styles_csv['name'] == styles]['prefered_subpath'].values[0]
+            preferred_subpath = self.styles_csv[self.styles_csv['name'] == styles]['preferred_subpath'].values[0]
         except Exception:
-            prefered_subpath = ''
+            preferred_subpath = ''
 
         try:
-            prefered_model = self.styles_csv[self.styles_csv['name'] == styles]['prefered_model'].values[0]
+            preferred_model = self.styles_csv[self.styles_csv['name'] == styles]['preferred_model'].values[0]
         except Exception:
-            prefered_model = ''
+            preferred_model = ''
 
         try:
-            prefered_orientation = self.styles_csv[self.styles_csv['name'] == styles]['prefered_orientation'].values[0]
+            preferred_orientation = self.styles_csv[self.styles_csv['name'] == styles]['preferred_orientation'].values[0]
         except Exception:
-            prefered_orientation = ''
+            preferred_orientation = ''
 
         pos_type = type(positive_prompt).__name__
         neg_type = type(negative_prompt).__name__
-        subp_type = type(prefered_subpath).__name__
-        model_type = type(prefered_model).__name__
-        orientation_type = type(prefered_orientation).__name__
+        subp_type = type(preferred_subpath).__name__
+        model_type = type(preferred_model).__name__
+        orientation_type = type(preferred_orientation).__name__
 
         if (pos_type != 'str'):
             positive_prompt = ''
         if (neg_type != 'str'):
             negative_prompt = ''
         if (subp_type != 'str'):
-            prefered_subpath = ''
+            preferred_subpath = ''
         if (model_type != 'str'):
-            prefered_model = ''
+            preferred_model = ''
         if (orientation_type != 'str'):
-            prefered_orientation = ''
+            preferred_orientation = ''
 
-        if len(prefered_subpath.strip()) < 1:
-            prefered_subpath = None
-        if len(prefered_model.strip()) < 1:
-            prefered_model = None
-        if len(prefered_orientation.strip()) < 1:
-            prefered_orientation = None
+        if len(preferred_subpath.strip()) < 1:
+            preferred_subpath = None
+        if len(preferred_model.strip()) < 1:
+            preferred_model = None
+        if len(preferred_orientation.strip()) < 1:
+            preferred_orientation = None
 
         if use_subpath == False:
-            prefered_subpath = None
+            preferred_subpath = None
         if use_model == False:
-            prefered_model = None
+            preferred_model = None
         if use_orientation == False:
-            prefered_orientation = None
+            preferred_orientation = None
 
-        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+        preferred = {'subpath': preferred_subpath, 'model': preferred_model, 'orientation': preferred_orientation}
 
-        return (positive_prompt, negative_prompt, prefered_subpath, prefered_model, prefered_orientation, prefered)
+        return (positive_prompt, negative_prompt, preferred_subpath, preferred_model, preferred_orientation, preferred)
 
 class PrimereDynParser:
     RETURN_TYPES = ("STRING",)
@@ -416,8 +416,8 @@ class PrimereMetaHandler:
                 "vae": ("BOOLEAN", {"default": True, "label_on": "Meta VAE", "label_off": "Workflow VAE"}),
                 "force_vae": ("BOOLEAN", {"default": False, "label_on": "Baked VAE", "label_off": "Custom VAE"}),
                 "model_concept": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
-                "prefered": ("BOOLEAN", {"default": False, "label_on": "From meta", "label_off": "From workflow"}),
-                "use_prefered": ("BOOLEAN", {"default": False, "label_on": "Use prefered settings", "label_off": "Cancel prefered settings"}),
+                "preferred": ("BOOLEAN", {"default": False, "label_on": "From meta", "label_off": "From workflow"}),
+                "use_preferred": ("BOOLEAN", {"default": False, "label_on": "Use preferred settings", "label_off": "Cancel preferred settings"}),
 
                 "image": (sorted(files),),
             },
@@ -431,19 +431,14 @@ class PrimereMetaHandler:
         original_exif = None
         is_sdxl = 0
 
-        SORT_LIST = ['exif_status', 'exif_data_count', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'model',
-                     'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
-                     'cfg', 'seed', 'width', 'height', 'size_string', 'prefered', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
-                     'vae_name_sd', 'vae_name_sdxl']
-
         image_path = folder_paths.get_annotated_filepath(kwargs['image'])
 
         if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and kwargs['data_source'] == False:
             workflow_tuple = kwargs['workflow_tuple']
             workflow_tuple['exif_status'] = 'OFF'
 
-            if 'prefered' in workflow_tuple:
-                prefred_settings = workflow_tuple['prefered']
+            if 'preferred' in workflow_tuple:
+                prefred_settings = workflow_tuple['preferred']
                 if len(prefred_settings) > 0:
                     for prefkey, prefval in prefred_settings.items():
                         if prefval is not None:
@@ -477,14 +472,14 @@ class PrimereMetaHandler:
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
                     workflow_tuple['model_version'] = model_version
-                    if 'model_shapes' in workflow_tuple:
+                    if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
                         wf_square_shape = workflow_tuple['model_shapes']['SD']
                     else:
                         wf_square_shape = 768
                     match model_version:
                         case 'SDXL_2048':
                             is_sdxl = 1
-                            if 'model_shapes' in workflow_tuple:
+                            if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
                                 wf_square_shape = workflow_tuple['model_shapes']['SDXL']
                             else:
                                 wf_square_shape = 1024
@@ -605,21 +600,21 @@ class PrimereMetaHandler:
                                     else:
                                         workflow_tuple['prompt_state'] = 'Dynamic'
 
-                                case "prefered":
+                                case "preferred":
                                     if controlval == False:
-                                        if 'prefered' in kwargs['workflow_tuple']:
-                                            workflow_tuple['prefered'] = kwargs['workflow_tuple']['prefered']
+                                        if 'preferred' in kwargs['workflow_tuple']:
+                                            workflow_tuple['preferred'] = kwargs['workflow_tuple']['preferred']
 
-                                case "use_prefered":
+                                case "use_preferred":
                                     if controlval == True:
-                                        if 'prefered' in workflow_tuple:
-                                            if workflow_tuple['prefered']['model'] is not None:
-                                                ValidModel = check_model_from_exif(None, workflow_tuple['prefered']['model'], workflow_tuple['prefered']['model'], False)
+                                        if 'preferred' in workflow_tuple:
+                                            if workflow_tuple['preferred']['model'] is not None:
+                                                ValidModel = check_model_from_exif(None, workflow_tuple['preferred']['model'], workflow_tuple['preferred']['model'], False)
                                                 workflow_tuple['model'] = ValidModel
-                                            if workflow_tuple['prefered']['orientation'] is not None:
+                                            if workflow_tuple['preferred']['orientation'] is not None:
                                                 origW = workflow_tuple['width']
                                                 origH = workflow_tuple['height']
-                                                if workflow_tuple['prefered']['orientation'] == 'Vertical':
+                                                if workflow_tuple['preferred']['orientation'] == 'Vertical':
                                                     if origW > origH:
                                                         workflow_tuple['width'] = origH
                                                         workflow_tuple['height'] = origW
@@ -671,14 +666,14 @@ class PrimereMetaHandler:
                                     model_version = 'BaseModel_1024'
 
                     workflow_tuple['model_version'] = model_version
-                    if 'model_shapes' in workflow_tuple:
+                    if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
                         wf_square_shape = workflow_tuple['model_shapes']['SD']
                     else:
                         wf_square_shape = 768
                     match model_version:
                         case 'SDXL_2048':
                             is_sdxl = 1
-                            if 'model_shapes' in workflow_tuple:
+                            if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
                                 wf_square_shape = workflow_tuple['model_shapes']['SDXL']
                             else:
                                 wf_square_shape = 1024
@@ -757,10 +752,10 @@ class PrimereMetaHandler:
                 workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
 
         def DictSort(element):
-            if element in SORT_LIST:
-                return SORT_LIST.index(element)
+            if element in utility.WORKFLOW_SORT_LIST:
+                return utility.WORKFLOW_SORT_LIST.index(element)
             else:
-                return len(SORT_LIST)
+                return len(utility.WORKFLOW_SORT_LIST)
 
         if workflow_tuple is not None and len(workflow_tuple) >= 1:
             workflow_tuple = dict(sorted(workflow_tuple.items(), key=lambda pair: DictSort(pair[0])))
@@ -792,7 +787,9 @@ class PrimereMetaDistributor:
 
     def expand_meta(self, workflow_tuple):
         PROCESSED_KEYS = ['positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r',
-                          'model', 'model_version', 'model_concept', 'concept_data', 'vae', 'sampler', 'scheduler', 'steps', 'cfg', 'seed', 'width', 'height']
+                          'model', 'model_version', 'model_concept', 'concept_data', 'vae',
+                          'sampler', 'scheduler', 'steps', 'cfg',
+                          'seed', 'width', 'height']
         OUTPUT_TUPLE = []
 
         if workflow_tuple is not None and type(workflow_tuple).__name__ == 'dict':
@@ -817,6 +814,102 @@ class PrimereMetaDistributor:
                     OUTPUT_TUPLE.append(MISSING_VALUES)
 
         return OUTPUT_TUPLE
+
+class PrimereMetaDistributorStage2:
+    CATEGORY = TREE_INPUTS
+    RETURN_TYPES = ("INT", "INT", "INT", "TUPLE")
+    RETURN_NAMES = ("SEED", "WIDTH", "HEIGHT", "WORKFLOW_TUPLE")
+    FUNCTION = "expand_meta_2"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "width": ('INT', {"forceInput": True, "default": 512}),
+                "height": ('INT', {"forceInput": True, "default": 512}),
+                "rnd_orientation": ("BOOLEAN", {"default": False}),
+
+                "workflow_tuple": ("TUPLE", {"default": None}),
+            },
+        }
+    def expand_meta_2(self, workflow_tuple, seed, width, height, rnd_orientation):
+        PROCESSED_KEYS = ['setup_states']
+        OUTPUT_TUPLE = []
+        IMG_WIDTH = width
+        IMG_HEIGHT = height
+        EXT_SEED = seed
+
+        if workflow_tuple is not None and type(workflow_tuple).__name__ == 'dict' and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
+            for outputkeys in PROCESSED_KEYS:
+                if outputkeys in workflow_tuple:
+                    match outputkeys:
+                        case "setup_states":
+                            RECYCLER_SETUP = workflow_tuple['setup_states']
+                            if 'seed' in RECYCLER_SETUP:
+                                if RECYCLER_SETUP['seed'] == True and 'seed' in workflow_tuple and workflow_tuple['seed'] > 1:
+                                    OUTPUT_TUPLE.append(workflow_tuple['seed'])
+                                    seed = workflow_tuple['seed']
+                                else:
+                                    OUTPUT_TUPLE.append(seed)
+                            if 'image_size' in RECYCLER_SETUP:
+                                if RECYCLER_SETUP['image_size'] == True and 'width' in workflow_tuple and 'height' in workflow_tuple:
+                                    IMG_WIDTH = workflow_tuple['width']
+                                    IMG_HEIGHT = workflow_tuple['height']
+        else:
+            OUTPUT_TUPLE.append(seed)
+
+        model_version = workflow_tuple['model_version']
+        if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
+            wf_square_shape = workflow_tuple['model_shapes']['SD']
+        else:
+            wf_square_shape = 768
+        match model_version:
+            case 'SDXL_2048':
+                if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
+                    wf_square_shape = workflow_tuple['model_shapes']['SDXL']
+                else:
+                    wf_square_shape = 1024
+
+        if IMG_WIDTH > IMG_HEIGHT:
+            orientation = 'Horizontal'
+        else:
+            orientation = 'Vertical'
+
+        LEGACY_DIMENSIONS = [IMG_WIDTH, IMG_HEIGHT]
+        if rnd_orientation == True:
+            random.seed(EXT_SEED)
+            random.shuffle(LEGACY_DIMENSIONS)
+            # if (seed % 2) == 0:
+            #    LEGACY_DIMENSIONS = [IMG_HEIGHT, IMG_WIDTH]
+        standard_name = 'STANDARD'
+        if ('model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Cascade'):
+            standard_name = 'CASCADE'
+
+        dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, LEGACY_DIMENSIONS[0], LEGACY_DIMENSIONS[1], standard_name)
+        LEGACY_DIMENSIONS[0] = dimensions[0]
+        LEGACY_DIMENSIONS[1] = dimensions[1]
+
+        OUTPUT_TUPLE.append(LEGACY_DIMENSIONS[0])
+        OUTPUT_TUPLE.append(LEGACY_DIMENSIONS[1])
+
+        workflow_tuple['seed'] = seed
+        workflow_tuple['width'] = LEGACY_DIMENSIONS[0]
+        workflow_tuple['height'] = LEGACY_DIMENSIONS[1]
+        workflow_tuple['size_string'] = str(LEGACY_DIMENSIONS[0]) + 'x' + str(LEGACY_DIMENSIONS[1])
+
+        def DictSort(element):
+            if element in utility.WORKFLOW_SORT_LIST:
+                return utility.WORKFLOW_SORT_LIST.index(element)
+            else:
+                return len(utility.WORKFLOW_SORT_LIST)
+
+        if workflow_tuple is not None and len(workflow_tuple) >= 1:
+            workflow_tuple = dict(sorted(workflow_tuple.items(), key=lambda pair: DictSort(pair[0])))
+
+        OUTPUT_TUPLE.append(workflow_tuple)
+        return OUTPUT_TUPLE
+
 
 class PrimereMetaRead:
     CATEGORY = TREE_INPUTS
@@ -875,20 +968,20 @@ class PrimereMetaRead:
                 "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": ""}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
-                "prefered_model": ("STRING", {"default": "", "forceInput": True}),
-                "prefered_orientation": ("STRING", {"default": "", "forceInput": True}),
+                "preferred_model": ("STRING", {"default": "", "forceInput": True}),
+                "preferred_orientation": ("STRING", {"default": "", "forceInput": True}),
             },
         }
 
     def load_image_meta(self, use_exif, use_decoded_dyn, use_model, model_hash_check, use_sampler, use_seed, use_size, recount_size, use_cfg_scale, use_steps, use_exif_vae, force_model_vae, image,
                         positive="", negative="", positive_l="", negative_l="", positive_r="", negative_r="",
-                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", concept_data = None, prefered_model="", prefered_orientation=""):
+                        model_hash="", model_name="", model_version="BaseModel_1024", sampler_name="euler", scheduler_name="normal", seed=1, width=512, height=512, cfg_scale=7, steps=12, vae_name_sd="", vae_name_sdxl="", model_concept="Normal", concept_data = None, preferred_model="", preferred_orientation=""):
 
-        if prefered_orientation == 'Random':
+        if preferred_orientation == 'Random':
             if (seed % 2) == 0:
-                prefered_orientation = "Horizontal"
+                preferred_orientation = "Horizontal"
             else:
-                prefered_orientation = "Vertical"
+                preferred_orientation = "Vertical"
 
         data_json = {}
         data_json['positive'] = positive.replace('ADDROW ', '').replace('ADDCOL ', '').replace('ADDCOMM ', '').replace('\n', ' ')
@@ -910,8 +1003,8 @@ class PrimereMetaRead:
         data_json['model_concept'] = model_concept
         data_json['vae_name'] = vae_name_sd
         data_json['force_model_vae'] = force_model_vae
-        data_json['prefered_model'] = prefered_model
-        data_json['prefered_orientation'] = prefered_orientation
+        data_json['preferred_model'] = preferred_model
+        data_json['preferred_orientation'] = preferred_orientation
         LOADED_CHECKPOINT = []
 
         is_sdxl = 0
@@ -1107,8 +1200,8 @@ class PrimereMetaRead:
 
         else:
             print('Exif reader off')
-            if prefered_model is not None and len(prefered_model.strip()) > 0:
-                data_json['model_name'] = exif_data_checker.check_model_from_exif("no_hash_data", prefered_model, prefered_model, False)
+            if preferred_model is not None and len(preferred_model.strip()) > 0:
+                data_json['model_name'] = exif_data_checker.check_model_from_exif("no_hash_data", preferred_model, preferred_model, False)
 
                 is_sdxl = 0
                 modelname_only = Path(data_json['model_name']).stem
@@ -1143,11 +1236,11 @@ class PrimereMetaRead:
             data_json['dynamic_positive'] = utility.DynPromptDecoder(self, data_json['positive'], seed)
             data_json['dynamic_negative'] = utility.DynPromptDecoder(self, data_json['negative'], seed)
 
-            if prefered_orientation is not None and len(prefered_orientation.strip()) > 0:
-                if prefered_orientation == 'Vertical' and (data_json['width'] > data_json['height']):
+            if preferred_orientation is not None and len(preferred_orientation.strip()) > 0:
+                if preferred_orientation == 'Vertical' and (data_json['width'] > data_json['height']):
                     data_json['width'] = height
                     data_json['height'] = width
-                if prefered_orientation == 'Horizontal' and (data_json['height'] > data_json['width']):
+                if preferred_orientation == 'Horizontal' and (data_json['height'] > data_json['width']):
                     data_json['width'] = height
                     data_json['height'] = width
 
@@ -1372,7 +1465,7 @@ class PrimereLycorisKeywordMerger:
 
 class PrimerePromptOrganizer:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERED")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
     FUNCTION = "prompt_organizer"
     CATEGORY = TREE_INPUTS
 
@@ -1386,7 +1479,7 @@ class PrimerePromptOrganizer:
             STYLE_SOURCE = STYLE_FILE
         else:
             STYLE_SOURCE = STYLE_FILE_EXAMPLE
-        STYLE_RESULT = stylehandler.toml2node(STYLE_SOURCE, False, ['prefered_model', 'prefered_orientation'])
+        STYLE_RESULT = stylehandler.toml2node(STYLE_SOURCE, False, ['preferred_model', 'preferred_orientation'])
 
         additionalDict = {
                 "use_subpath": ("BOOLEAN", {"default": False}),
@@ -1408,9 +1501,9 @@ class PrimerePromptOrganizer:
         original = self
         style_text_result = StyleParser(opt_pos_style, opt_neg_style, input_data, original)
 
-        prefered_subpath = None
-        prefered_model = None
-        prefered_orientation = None
+        preferred_subpath = None
+        preferred_model = None
+        preferred_orientation = None
 
         if use_subpath == True or use_model == True or use_orientation == True:
             for inputKey, inputValue in input_data.items():
@@ -1422,13 +1515,13 @@ class PrimerePromptOrganizer:
                         for DataSectionKey, DataSectionDict in DataSection.items():
                             SectionName = DataSectionDict['Name']
                             if SectionName == ValueList[-1]:
-                                if DataSectionDict['prefered_subpath'] != '' and use_subpath == True:
-                                    prefered_subpath = DataSectionDict['prefered_subpath']
-                                if DataSectionDict['prefered_model'] != '' and use_model == True:
-                                    prefered_model = DataSectionDict['prefered_model']
-                                if DataSectionDict['prefered_orientation'] != '' and use_orientation == True:
-                                    prefered_orientation = DataSectionDict['prefered_orientation']
+                                if DataSectionDict['preferred_subpath'] != '' and use_subpath == True:
+                                    preferred_subpath = DataSectionDict['preferred_subpath']
+                                if DataSectionDict['preferred_model'] != '' and use_model == True:
+                                    preferred_model = DataSectionDict['preferred_model']
+                                if DataSectionDict['preferred_orientation'] != '' and use_orientation == True:
+                                    preferred_orientation = DataSectionDict['preferred_orientation']
 
-        prefered = {'subpath': prefered_subpath, 'model': prefered_model, 'orientation': prefered_orientation}
+        preferred = {'subpath': preferred_subpath, 'model': preferred_model, 'orientation': preferred_orientation}
 
-        return (style_text_result[0], style_text_result[1], prefered_subpath, prefered_model, prefered_orientation, prefered)
+        return (style_text_result[0], style_text_result[1], preferred_subpath, preferred_model, preferred_orientation, preferred)

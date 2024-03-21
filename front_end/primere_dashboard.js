@@ -7,7 +7,7 @@ app.registerExtension({
         if (nodeData.name == 'PrimerePromptSwitch') {
             var input_name_pos = "prompt_pos_";
             var input_name_neg = "prompt_neg_";
-            var input_name_pre = "prefered_";
+            var input_name_pre = "preferred_";
             // var input_name_mod = "model_";
             // var input_name_ori = "orientation_";
             var n = 0;

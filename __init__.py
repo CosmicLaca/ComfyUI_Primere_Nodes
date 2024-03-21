@@ -16,7 +16,7 @@ import shutil
 from datetime import datetime
 from .components import utility
 
-__version__ = "0.5.5"
+__version__ = "0.5.6"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -25,7 +25,7 @@ frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
 ClientTime = datetime.now()
-UpdateRequired = '2024-03-17 20:00:00'
+UpdateRequired = '2024-03-21 01:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -112,6 +112,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimerePromptOrganizer": Inputs.PrimerePromptOrganizer,
     "PrimereMetaHandler": Inputs.PrimereMetaHandler,
     "PrimereMetaDistributor": Inputs.PrimereMetaDistributor,
+    "PrimereMetaDistributorStage2": Inputs.PrimereMetaDistributorStage2,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -177,6 +178,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimerePromptOrganizer": "Primere Prompt Organizer",
     "PrimereMetaHandler": "Primere Image Recycler",
     "PrimereMetaDistributor": "Primere Meta Distributor",
+    "PrimereMetaDistributorStage2": "Primere Meta Distributor Stage 2",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",
