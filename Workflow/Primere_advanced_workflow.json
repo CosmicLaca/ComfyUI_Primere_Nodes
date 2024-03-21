@@ -1,6 +1,6 @@
 {
-  "last_node_id": 113,
-  "last_link_id": 553,
+  "last_node_id": 114,
+  "last_link_id": 573,
   "nodes": [
     {
       "id": 51,
@@ -56,7 +56,7 @@
           "type": "VAE_NAME",
           "links": [
             203,
-            522
+            557
           ],
           "shape": 3,
           "slot_index": 0
@@ -92,7 +92,7 @@
           "type": "VAE_NAME",
           "links": [
             204,
-            523
+            558
           ],
           "shape": 3,
           "slot_index": 0
@@ -350,8 +350,7 @@
             137,
             270,
             317,
-            417,
-            509
+            417
           ],
           "shape": 3,
           "slot_index": 0
@@ -795,7 +794,7 @@
           "links": [
             146,
             456,
-            519
+            554
           ],
           "shape": 3,
           "slot_index": 0
@@ -1002,7 +1001,7 @@
           "links": [
             404,
             418,
-            527
+            566
           ],
           "shape": 3,
           "slot_index": 0
@@ -1013,7 +1012,7 @@
           "links": [
             406,
             419,
-            528
+            567
           ],
           "shape": 3,
           "slot_index": 1
@@ -1024,7 +1023,7 @@
           "links": [
             408,
             454,
-            531
+            571
           ],
           "shape": 3,
           "slot_index": 2
@@ -1035,7 +1034,7 @@
           "links": [
             410,
             421,
-            532
+            570
           ],
           "shape": 3,
           "slot_index": 3
@@ -1050,8 +1049,8 @@
             429,
             457,
             484,
-            526,
-            551
+            551,
+            565
           ],
           "shape": 3,
           "slot_index": 4
@@ -1252,7 +1251,7 @@
           "name": "PREFERRED",
           "type": "TUPLE",
           "links": [
-            524
+            559
           ],
           "shape": 3,
           "slot_index": 3
@@ -1382,7 +1381,7 @@
           "type": "TUPLE",
           "links": [
             476,
-            520
+            555
           ],
           "shape": 3,
           "slot_index": 0
@@ -1451,7 +1450,7 @@
       },
       "widgets_values": [
         "",
-        1054290652506417,
+        418510880581875,
         "randomize"
       ],
       "color": "#145414",
@@ -1506,7 +1505,7 @@
       },
       "widgets_values": [
         "",
-        532416680428949,
+        656896516775414,
         "randomize"
       ],
       "color": "#541414",
@@ -1600,8 +1599,8 @@
             466,
             468,
             483,
-            525,
-            550
+            550,
+            564
           ],
           "shape": 3,
           "slot_index": 3
@@ -1859,7 +1858,7 @@
             320,
             324,
             336,
-            529
+            568
           ],
           "shape": 3,
           "slot_index": 0
@@ -1871,7 +1870,7 @@
             321,
             325,
             337,
-            530
+            569
           ],
           "shape": 3,
           "slot_index": 1
@@ -1886,7 +1885,7 @@
           "name": "MODEL_SHAPES",
           "type": "TUPLE",
           "links": [
-            521
+            556
           ],
           "shape": 3,
           "slot_index": 3
@@ -1906,7 +1905,7 @@
         false,
         1.6,
         2.8,
-        1124983329494399,
+        323723273386148,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2259,12 +2258,12 @@
         1,
         0.8,
         1.4,
-        161035754340495,
+        286328894301178,
         "randomize",
         true,
         "cpu",
         false,
-        972792062389311,
+        182810455726178,
         "randomize"
       ],
       "color": "#941414",
@@ -2437,8 +2436,8 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            507,
-            552
+            552,
+            560
           ],
           "shape": 3,
           "slot_index": 2
@@ -2447,8 +2446,8 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            508,
-            533
+            533,
+            561
           ],
           "shape": 3,
           "slot_index": 3
@@ -2457,7 +2456,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            510
+            562
           ],
           "shape": 3,
           "slot_index": 4
@@ -2466,7 +2465,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            511
+            563
           ],
           "shape": 3,
           "slot_index": 5
@@ -2634,7 +2633,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        92547669853929,
+        451871245153923,
         "randomize",
         20,
         8,
@@ -2709,16 +2708,16 @@
       "bgcolor": "#400000"
     },
     {
-      "id": 106,
+      "id": 114,
       "type": "PrimereMetaCollector",
       "pos": [
         3530,
         697
       ],
-      "size": {
-        "0": 348.56585693359375,
-        "1": 434
-      },
+      "size": [
+        346.7880859375,
+        414
+      ],
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -2726,37 +2725,37 @@
         {
           "name": "model",
           "type": "CHECKPOINT_NAME",
-          "link": 519
+          "link": 554
         },
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 520
+          "link": 555
         },
         {
           "name": "model_shapes",
           "type": "TUPLE",
-          "link": 521
+          "link": 556
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 522
+          "link": 557
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 523
+          "link": 558
         },
         {
           "name": "preferred",
           "type": "TUPLE",
-          "link": 524
+          "link": 559
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 507,
+          "link": 560,
           "widget": {
             "name": "positive"
           }
@@ -2764,23 +2763,15 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 508,
+          "link": 561,
           "widget": {
             "name": "negative"
           }
         },
         {
-          "name": "seed",
-          "type": "INT",
-          "link": 509,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
           "name": "positive_l",
           "type": "STRING",
-          "link": 510,
+          "link": 562,
           "widget": {
             "name": "positive_l"
           }
@@ -2788,7 +2779,7 @@
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 511,
+          "link": 563,
           "widget": {
             "name": "negative_l"
           }
@@ -2812,7 +2803,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 525,
+          "link": 564,
           "widget": {
             "name": "model_version"
           }
@@ -2820,7 +2811,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 526,
+          "link": 565,
           "widget": {
             "name": "model_concept"
           }
@@ -2828,7 +2819,7 @@
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 527,
+          "link": 566,
           "widget": {
             "name": "sampler"
           }
@@ -2836,7 +2827,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 528,
+          "link": 567,
           "widget": {
             "name": "scheduler"
           }
@@ -2844,7 +2835,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 529,
+          "link": 568,
           "widget": {
             "name": "width"
           }
@@ -2852,7 +2843,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 530,
+          "link": 569,
           "widget": {
             "name": "height"
           }
@@ -2860,7 +2851,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 532,
+          "link": 570,
           "widget": {
             "name": "cfg"
           }
@@ -2868,7 +2859,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 531,
+          "link": 571,
           "widget": {
             "name": "steps"
           }
@@ -2879,8 +2870,8 @@
           "name": "METADATA",
           "type": "TUPLE",
           "links": [
-            517,
-            536
+            572,
+            573
           ],
           "shape": 3,
           "slot_index": 0
@@ -2892,8 +2883,6 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        774,
-        "randomize",
         "",
         "",
         "",
@@ -2973,14 +2962,14 @@
         {
           "name": "input",
           "type": "*",
-          "link": 517
+          "link": 572
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"minimalist interior, colorful beautiful (large old style kitchen:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury plastic desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 1120589213563657,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"minimalist interior, colorful beautiful (large old style kitchen:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury plastic desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3255,7 +3244,7 @@
       },
       "widgets_values": [
         2,
-        203376375060654,
+        24069040878901,
         "randomize",
         20,
         8,
@@ -3301,7 +3290,7 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 536
+          "link": 573
         }
       ],
       "outputs": [
@@ -3408,7 +3397,7 @@
       },
       "widgets_values": [
         "",
-        "*** Image saver switched OFF, image not saved. ***"
+        ":: Time to save: 2024-03-21 19:41:51\n:: Output file: H:\\ComfyUI\\output\\PHOTON_V1\\Project\\2024-03-21\\ComfyUI_20242103_194151_2688x3520_01.jpg\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: minimalist interior, colorful beautiful (large old style kitchen:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury plastic desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)\n:: NEGATIVE: (cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\n:: POSITIVE_R: None\n:: NEGATIVE_R: None\n:: MODEL: BestAll\\photon_v1.safetensors\n:: MODEL_VERSION: BaseModel_768\n:: MODEL_CONCEPT: Normal\n:: CONCEPT_DATA: {'lightning_selector': None, 'lightning_model_step': None, 'cascade_stage_a': None, 'cascade_stage_b': None, 'cascade_stage_c': None, 'cascade_clip': None}\n:: SAMPLER: euler\n:: SCHEDULER: normal\n:: WIDTH: 672\n:: HEIGHT: 880\n:: MODEL_SHAPES: {'SD': 768, 'SDXL': 1024, 'TURBO': 512}\n:: CFG: 8.0\n:: STEPS: 20\n:: VAE_NAME_SD: vae-ft-mse-840000-ema-pruned.ckpt\n:: VAE_NAME_SDXL: sdxl_vae.safetensors\n:: PREFERRED: {'subpath': None, 'model': None, 'orientation': None}\n:: SAVED_IMAGE_WIDTH: 2688\n:: SAVED_IMAGE_HEIGTH: 3520\n:: UPSCALER_RATIO: From: 672x880 to: 2688x3520 Ratio: 4.0\n"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -4208,166 +4197,6 @@
       "STRING"
     ],
     [
-      507,
-      79,
-      2,
-      106,
-      6,
-      "STRING"
-    ],
-    [
-      508,
-      79,
-      3,
-      106,
-      7,
-      "STRING"
-    ],
-    [
-      509,
-      10,
-      0,
-      106,
-      8,
-      "INT"
-    ],
-    [
-      510,
-      79,
-      4,
-      106,
-      9,
-      "STRING"
-    ],
-    [
-      511,
-      79,
-      5,
-      106,
-      10,
-      "STRING"
-    ],
-    [
-      517,
-      106,
-      0,
-      58,
-      0,
-      "*"
-    ],
-    [
-      519,
-      3,
-      0,
-      106,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      520,
-      100,
-      0,
-      106,
-      1,
-      "TUPLE"
-    ],
-    [
-      521,
-      87,
-      3,
-      106,
-      2,
-      "TUPLE"
-    ],
-    [
-      522,
-      61,
-      0,
-      106,
-      3,
-      "VAE_NAME"
-    ],
-    [
-      523,
-      62,
-      0,
-      106,
-      4,
-      "VAE_NAME"
-    ],
-    [
-      524,
-      105,
-      3,
-      106,
-      5,
-      "TUPLE"
-    ],
-    [
-      525,
-      98,
-      3,
-      106,
-      13,
-      "STRING"
-    ],
-    [
-      526,
-      94,
-      4,
-      106,
-      14,
-      "STRING"
-    ],
-    [
-      527,
-      94,
-      0,
-      106,
-      15,
-      "COMBO"
-    ],
-    [
-      528,
-      94,
-      1,
-      106,
-      16,
-      "COMBO"
-    ],
-    [
-      529,
-      87,
-      0,
-      106,
-      17,
-      "INT"
-    ],
-    [
-      530,
-      87,
-      1,
-      106,
-      18,
-      "INT"
-    ],
-    [
-      531,
-      94,
-      2,
-      106,
-      20,
-      "INT"
-    ],
-    [
-      532,
-      94,
-      3,
-      106,
-      19,
-      "FLOAT"
-    ],
-    [
       533,
       79,
       3,
@@ -4382,14 +4211,6 @@
       110,
       0,
       "IMAGE"
-    ],
-    [
-      536,
-      106,
-      0,
-      110,
-      1,
-      "TUPLE"
     ],
     [
       537,
@@ -4510,6 +4331,166 @@
       113,
       0,
       "IMAGE"
+    ],
+    [
+      554,
+      3,
+      0,
+      114,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      555,
+      100,
+      0,
+      114,
+      1,
+      "TUPLE"
+    ],
+    [
+      556,
+      87,
+      3,
+      114,
+      2,
+      "TUPLE"
+    ],
+    [
+      557,
+      61,
+      0,
+      114,
+      3,
+      "VAE_NAME"
+    ],
+    [
+      558,
+      62,
+      0,
+      114,
+      4,
+      "VAE_NAME"
+    ],
+    [
+      559,
+      105,
+      3,
+      114,
+      5,
+      "TUPLE"
+    ],
+    [
+      560,
+      79,
+      2,
+      114,
+      6,
+      "STRING"
+    ],
+    [
+      561,
+      79,
+      3,
+      114,
+      7,
+      "STRING"
+    ],
+    [
+      562,
+      79,
+      4,
+      114,
+      8,
+      "STRING"
+    ],
+    [
+      563,
+      79,
+      5,
+      114,
+      9,
+      "STRING"
+    ],
+    [
+      564,
+      98,
+      3,
+      114,
+      12,
+      "STRING"
+    ],
+    [
+      565,
+      94,
+      4,
+      114,
+      13,
+      "STRING"
+    ],
+    [
+      566,
+      94,
+      0,
+      114,
+      14,
+      "COMBO"
+    ],
+    [
+      567,
+      94,
+      1,
+      114,
+      15,
+      "COMBO"
+    ],
+    [
+      568,
+      87,
+      0,
+      114,
+      16,
+      "INT"
+    ],
+    [
+      569,
+      87,
+      1,
+      114,
+      17,
+      "INT"
+    ],
+    [
+      570,
+      94,
+      3,
+      114,
+      18,
+      "FLOAT"
+    ],
+    [
+      571,
+      94,
+      2,
+      114,
+      19,
+      "INT"
+    ],
+    [
+      572,
+      114,
+      0,
+      58,
+      0,
+      "*"
+    ],
+    [
+      573,
+      114,
+      0,
+      110,
+      1,
+      "TUPLE"
     ]
   ],
   "groups": [

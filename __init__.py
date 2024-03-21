@@ -15,6 +15,7 @@ from .Nodes import Segments
 import shutil
 from datetime import datetime
 from .components import utility
+import time
 
 __version__ = "0.5.6"
 
@@ -25,6 +26,7 @@ frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
 ClientTime = datetime.now()
+# ClientTime = time.gmtime()
 UpdateRequired = '2024-03-21 01:00:00'
 
 if os.path.isdir(frontend_target) == True:

@@ -385,15 +385,6 @@ class PrimereMetaHandler:
     RETURN_NAMES = ("WORKFLOW_TUPLE", "ORIGINAL_EXIF", "LOADED_IMAGE")
     FUNCTION = "image_meta_handler"
 
-    def __init__(self):
-        wildcard_dir = os.path.join(PRIMERE_ROOT, 'wildcards')
-        self._wildcard_manager = WildcardManager(wildcard_dir)
-        self._parser_config = ParserConfig(
-            variant_start = "{",
-            variant_end = "}",
-            wildcard_wrap = "__"
-        )
-
     @classmethod
     def INPUT_TYPES(cls):
         input_dir = folder_paths.get_input_directory()
@@ -495,11 +486,6 @@ class PrimereMetaHandler:
                     workflow_tuple['height'] = dimensions[1]
                     workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
 
-            if 'positive' in workflow_tuple and 'seed' in workflow_tuple and workflow_tuple['positive'] != '':
-                workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
-            if 'negative' in workflow_tuple and 'seed' in workflow_tuple and workflow_tuple['negative'] !=  '':
-                workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
-
         elif kwargs['data_source'] == True:
             if os.path.isfile(image_path):
                 readerResult = ImageExifReader(image_path)
@@ -530,17 +516,6 @@ class PrimereMetaHandler:
                         for controlkey, controlval in kwargs.items():
 
                             match controlkey:
-                                case "prompt_surce":
-                                    if controlval == False:
-                                        if 'positive' in kwargs['workflow_tuple']:
-                                            workflow_tuple['positive'] = kwargs['workflow_tuple']['positive']
-                                            if 'decoded_positive' not in workflow_tuple and 'seed' in workflow_tuple and  'positive' in workflow_tuple:
-                                                workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
-                                        if 'negative' in kwargs['workflow_tuple']:
-                                            workflow_tuple['negative'] = kwargs['workflow_tuple']['negative']
-                                            if 'decoded_negative' not in workflow_tuple and 'seed' in workflow_tuple  and 'negative' in workflow_tuple:
-                                                workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
-
                                 case "model":
                                     if controlval == False:
                                         if 'model' in kwargs['workflow_tuple']:
@@ -565,11 +540,6 @@ class PrimereMetaHandler:
                                     if controlval == False:
                                         if 'steps' in kwargs['workflow_tuple']:
                                             workflow_tuple['steps'] = kwargs['workflow_tuple']['steps']
-
-                                case "seed":
-                                    if controlval == False:
-                                        if 'seed' in kwargs['workflow_tuple']:
-                                            workflow_tuple['seed'] = kwargs['workflow_tuple']['seed']
 
                                 case "image_size":
                                     if controlval == False:
@@ -597,6 +567,10 @@ class PrimereMetaHandler:
                                 case "prompt_state":
                                     if controlval == True:
                                         workflow_tuple['prompt_state'] = 'Decoded'
+                                        if 'decoded_positive' in workflow_tuple:
+                                            workflow_tuple['positive'] = workflow_tuple['decoded_positive']
+                                        if 'decoded_negative' in workflow_tuple:
+                                            workflow_tuple['negative'] = workflow_tuple['decoded_negative']
                                     else:
                                         workflow_tuple['prompt_state'] = 'Dynamic'
 
@@ -623,15 +597,6 @@ class PrimereMetaHandler:
                                                         workflow_tuple['width'] = origH
                                                         workflow_tuple['height'] = origW
                                                 workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
-                else:
-                    if 'decoded_positive' not in workflow_tuple and 'seed' in workflow_tuple and 'positive' in workflow_tuple:
-                        workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
-                    if 'decoded_negative' not in workflow_tuple and 'seed' in workflow_tuple and 'negative' in workflow_tuple:
-                        workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
-                    if kwargs['prompt_state'] == True and 'decoded_positive' in workflow_tuple:
-                        workflow_tuple['prompt_state'] = 'Decoded'
-                    else:
-                        workflow_tuple['prompt_state'] = 'Dynamic'
 
                 if 'model' not in workflow_tuple:
                     if 'wf' in workflow_tuple and 'model' in workflow_tuple['wf']:
@@ -821,6 +786,15 @@ class PrimereMetaDistributorStage2:
     RETURN_NAMES = ("SEED", "WIDTH", "HEIGHT", "WORKFLOW_TUPLE")
     FUNCTION = "expand_meta_2"
 
+    def __init__(self):
+        wildcard_dir = os.path.join(PRIMERE_ROOT, 'wildcards')
+        self._wildcard_manager = WildcardManager(wildcard_dir)
+        self._parser_config = ParserConfig(
+            variant_start = "{",
+            variant_end = "}",
+            wildcard_wrap = "__"
+        )
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -828,17 +802,23 @@ class PrimereMetaDistributorStage2:
                 "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
-                "rnd_orientation": ("BOOLEAN", {"default": False}),
+                # "rnd_orientation": ("BOOLEAN", {"default": False}),
 
                 "workflow_tuple": ("TUPLE", {"default": None}),
             },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "id": "UNIQUE_ID",
+            },
+
         }
-    def expand_meta_2(self, workflow_tuple, seed, width, height, rnd_orientation):
+    def expand_meta_2(self, workflow_tuple, seed, width, height, **kwargs):
         PROCESSED_KEYS = ['setup_states']
         OUTPUT_TUPLE = []
         IMG_WIDTH = width
         IMG_HEIGHT = height
         EXT_SEED = seed
+        prompt_state_setup = False
 
         if workflow_tuple is not None and type(workflow_tuple).__name__ == 'dict' and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             for outputkeys in PROCESSED_KEYS:
@@ -856,6 +836,8 @@ class PrimereMetaDistributorStage2:
                                 if RECYCLER_SETUP['image_size'] == True and 'width' in workflow_tuple and 'height' in workflow_tuple:
                                     IMG_WIDTH = workflow_tuple['width']
                                     IMG_HEIGHT = workflow_tuple['height']
+                            if 'prompt_state' in RECYCLER_SETUP:
+                                prompt_state_setup = RECYCLER_SETUP['prompt_state']
         else:
             OUTPUT_TUPLE.append(seed)
 
@@ -875,20 +857,23 @@ class PrimereMetaDistributorStage2:
             orientation = 'Horizontal'
         else:
             orientation = 'Vertical'
-
         LEGACY_DIMENSIONS = [IMG_WIDTH, IMG_HEIGHT]
-        if rnd_orientation == True:
-            random.seed(EXT_SEED)
-            random.shuffle(LEGACY_DIMENSIONS)
-            # if (seed % 2) == 0:
-            #    LEGACY_DIMENSIONS = [IMG_HEIGHT, IMG_WIDTH]
+
         standard_name = 'STANDARD'
         if ('model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Cascade'):
             standard_name = 'CASCADE'
 
         dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', wf_square_shape, orientation, False, True, LEGACY_DIMENSIONS[0], LEGACY_DIMENSIONS[1], standard_name)
-        LEGACY_DIMENSIONS[0] = dimensions[0]
-        LEGACY_DIMENSIONS[1] = dimensions[1]
+        LEGACY_DIMENSIONS = dimensions
+
+        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        rnd_orientation = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereResolution', 4)
+
+        if rnd_orientation == True:
+            random.seed(EXT_SEED)
+            random.shuffle(LEGACY_DIMENSIONS)
+            # if (seed % 2) == 0:
+            #    LEGACY_DIMENSIONS = [IMG_HEIGHT, IMG_WIDTH]
 
         OUTPUT_TUPLE.append(LEGACY_DIMENSIONS[0])
         OUTPUT_TUPLE.append(LEGACY_DIMENSIONS[1])
@@ -903,6 +888,15 @@ class PrimereMetaDistributorStage2:
                 return utility.WORKFLOW_SORT_LIST.index(element)
             else:
                 return len(utility.WORKFLOW_SORT_LIST)
+
+        if 'seed' in workflow_tuple and 'positive' in workflow_tuple:
+            workflow_tuple['decoded_positive'] = utility.DynPromptDecoder(self, workflow_tuple['positive'], workflow_tuple['seed'])
+        if 'seed' in workflow_tuple and 'negative' in workflow_tuple:
+            workflow_tuple['decoded_negative'] = utility.DynPromptDecoder(self, workflow_tuple['negative'], workflow_tuple['seed'])
+        if prompt_state_setup == True and 'decoded_positive' in workflow_tuple:
+            workflow_tuple['prompt_state'] = 'Decoded'
+        else:
+            workflow_tuple['prompt_state'] = 'Dynamic'
 
         if workflow_tuple is not None and len(workflow_tuple) >= 1:
             workflow_tuple = dict(sorted(workflow_tuple.items(), key=lambda pair: DictSort(pair[0])))

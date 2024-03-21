@@ -503,7 +503,6 @@ class PrimerePreviewImage():
                 "images": ("IMAGE", ),
             },
             "hidden": {
-                "prompt": "PROMPT",
                 "extra_pnginfo": "EXTRA_PNGINFO",
                 "image_path": (cls.image_path,),
                 "id": "UNIQUE_ID",

@@ -727,3 +727,14 @@ def ImageConcat(image1, image2, axis_value):
         new_image.paste(img2_resized, (0, image1_size[1]))
 
     return new_image
+
+def getDataFromWorkflow(workflow, nodeName, dataIndex):
+    result = None
+
+    for NODE_ITEMS in workflow:
+        ITEM_TYPE = NODE_ITEMS['type']
+        if ITEM_TYPE == nodeName:
+            ITEM_VALUES = NODE_ITEMS['widgets_values']
+            result = ITEM_VALUES[dataIndex]
+
+    return result
