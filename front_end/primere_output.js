@@ -119,6 +119,21 @@ app.registerExtension({
             let target_id = 0;
             let button_id = 0;
 
+            for (var its = 0; its < node.widgets.length; ++its) {
+                var wts = node.widgets[its];
+                if (!wts || wts.disabled)
+                    continue;
+
+                if (wts.name == 'target_selection') {
+                    target_id = its;
+                    node.widgets[its].options.values = TargetSelValues;
+                    if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
+                        node.widgets[its].value = TargetSelValues[0];
+                    }
+                    //PreviewTargetPreviousState = PreviewTarget;
+                }
+            }
+
             for (var i = 0; i < node.widgets.length; ++i) {
                 var w = node.widgets[i];
                 if (!w || w.disabled)
@@ -126,23 +141,16 @@ app.registerExtension({
 
                 var widget_height = w.computeSize ? w.computeSize(width)[1] : LiteGraph.NODE_WIDGET_HEIGHT;
                 var widget_width = w.width || width;
-                var widget_name = node.widgets[i].name;
+                //var widget_name = node.widgets[i].name;
 
                 if (w.name == 'preview_target') {
                     //node.widgets[i].value = 'target change';
-                    var selected_preview_target = node.widgets[i].value
+                    //var selected_preview_target = node.widgets[i].value
                 }
                 if (w.name == 'image_save_as') {
                     //node.widgets[i].value = 'SaveMode change';
                 }
-                if (w.name == 'target_selection') {
-                    target_id = i;
-                    node.widgets[i].options.values = TargetSelValues;
-                    if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
-                        node.widgets[i].value = TargetSelValues[0];
-                    }
-                    //PreviewTargetPreviousState = PreviewTarget;
-                }
+
                 if (w.type == 'button') {
                     button_id = i;
                     buttontitle = ButtonLabelCreator(node);
@@ -158,10 +166,10 @@ app.registerExtension({
                         continue;
 
                     combo_hit = true;
-					var values = w.options.values;
-					if (values && values.constructor === Function) {
-						values = w.options.values(w, node);
-					}
+                    var values = w.options.values;
+                    if (values && values.constructor === Function) {
+                        values = w.options.values(w, node);
+                    }
 
                     if (typeof values != 'undefined') {
                         var values_list = values.constructor === Array ? values : Object.keys(values);
@@ -259,13 +267,13 @@ function VisualDataReceiver(event) {
         }
 
         if (wln.type == 'button') {
-            async function getFirstState(wln) {
-                await sleep(100);
+            async function getFirstState(wln, LoadedNode) {
+                await sleep(150);
                 buttontitle = ButtonLabelCreator(LoadedNode);
                 await sleep(150);
                 wln.name = buttontitle
             }
-            getFirstState(wln);
+            getFirstState(wln, LoadedNode);
         }
 
         // New image loaded
@@ -504,10 +512,6 @@ function ButtonLabelCreator(node) {
                     //}
 
                     var imgExistLink = "";
-                    console.log('PreviewExist')
-                    console.log(imgsrc)
-                    console.log(PreviewExist)
-                    console.log('PreviewExist')
                     if (PreviewExist === true) {
                         let splittedMode = PrwSaveMode.split(' ');
                         var prw_mode = '';
