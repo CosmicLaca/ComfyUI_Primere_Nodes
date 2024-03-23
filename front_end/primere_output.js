@@ -259,8 +259,13 @@ function VisualDataReceiver(event) {
         }
 
         if (wln.type == 'button') {
-            buttontitle = ButtonLabelCreator(LoadedNode);
-            wln.name = buttontitle
+            async function getFirstState(wln) {
+                await sleep(100);
+                buttontitle = ButtonLabelCreator(LoadedNode);
+                await sleep(150);
+                wln.name = buttontitle
+            }
+            getFirstState(wln);
         }
 
         // New image loaded
@@ -403,32 +408,40 @@ function TargetListCreator(node) {
     return TargetSelValues;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function ButtonLabelCreator(node) {
     PreviewExist = false;
 
-    for (var px = 0; px < node.widgets.length; ++px) {
-       if (node.widgets[px].name == 'preview_target') {
-           PreviewTarget = node.widgets[px].value;
-       }
-       if (node.widgets[px].name == 'image_save_as') {
-           SaveMode = node.widgets[px].value;
-       }
-       if (node.widgets[px].name == 'image_type') {
-           IMGType = node.widgets[px].value;
-       }
-       if (node.widgets[px].name == 'image_resize') {
-           MaxSide = node.widgets[px].value;
-       }
-       if (node.widgets[px].name == 'target_selection') {
-           SelectedTarget = node.widgets[px].value;
-       }
-       if (node.widgets[px].name == 'image_quality') {
-           TargetQuality = node.widgets[px].value;
-       }
-      if (node.widgets[px].name == 'preview_save_mode') {
-           PrwSaveMode = node.widgets[px].value;
-       }
-    }
+    //async function parseInputs() {
+    //    await sleep(300);
+        for (var px = 0; px < node.widgets.length; ++px) {
+            if (node.widgets[px].name == 'preview_target') {
+                PreviewTarget = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'image_save_as') {
+                SaveMode = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'image_type') {
+                IMGType = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'image_resize') {
+                MaxSide = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'target_selection') {
+                SelectedTarget = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'image_quality') {
+                TargetQuality = node.widgets[px].value;
+            }
+            if (node.widgets[px].name == 'preview_save_mode') {
+                PrwSaveMode = node.widgets[px].value;
+            }
+        }
+    //}
+    //parseInputs();
 
     var INIT_IMGTYPE_STRING = "";
     var INIT_IMGSIZE_STRING = "";
@@ -471,19 +484,24 @@ function ButtonLabelCreator(node) {
                     var imgsrc = prwPath + '/images/' + NodesubdirByType[PreviewTarget] + '/' + previewName;
 
                     let loadImage = src =>
-                      new Promise((resolve, reject) => {
-                        let img_check = new Image();
-                        img_check.onload = () => resolve(img_check);
-                        img_check.onerror = reject;
-                        img_check.src = src;
-                        if (img_check.height > 0) {
-                            PreviewExist = true;
-                        }
-                    });
+                        new Promise((resolve, reject) => {
+                            let img_check = new Image();
+                            img_check.onload = () => resolve(img_check);
+                            img_check.onerror = reject;
+                            img_check.src = src;
+                            if (img_check.height > 0) {
+                                PreviewExist = true;
+                            }
+                        });
 
+                    //async function checkImageExist() {
+                    //    console.log('asleep 1')
+                    //    await sleep(2000);
+                    //    console.log('asleep 2')
                     loadImage(imgsrc).then(image_prw_test =>
                         image_prw_test.complete
                     );
+                    //}
 
                     var imgExistLink = "";
                     console.log('PreviewExist')
