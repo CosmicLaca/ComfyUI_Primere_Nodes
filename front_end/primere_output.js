@@ -130,6 +130,7 @@ app.registerExtension({
 
                 if (w.name == 'preview_target') {
                     //node.widgets[i].value = 'target change';
+                    var selected_preview_target = node.widgets[i].value
                 }
                 if (w.name == 'image_save_as') {
                     //node.widgets[i].value = 'SaveMode change';
@@ -137,7 +138,7 @@ app.registerExtension({
                 if (w.name == 'target_selection') {
                     target_id = i;
                     node.widgets[i].options.values = TargetSelValues;
-                    if (PreviewTarget !== PreviewTargetPreviousState) {
+                    if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
                         node.widgets[i].value = TargetSelValues[0];
                     }
                     //PreviewTargetPreviousState = PreviewTarget;
@@ -174,7 +175,7 @@ app.registerExtension({
                             TargetSelValues = TargetListCreator(node)
 
                             node.widgets[target_id].options.values = TargetSelValues;
-                            if (PreviewTarget !== PreviewTargetPreviousState) {
+                            if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
                                 node.widgets[target_id].value = TargetSelValues[0];
                             }
                             //PreviewTargetPreviousState = PreviewTarget;
@@ -252,7 +253,9 @@ function VisualDataReceiver(event) {
             //console.log('--------------- www --------------')
 
             wln.options.values = TargetSelValues;
-            wln.value = TargetSelValues[0];
+            if (TargetSelValues.length > 0) {
+                wln.value = TargetSelValues[0];
+            }
         }
 
         if (wln.type == 'button') {
@@ -386,9 +389,15 @@ class PreviewSaver {
 
 function TargetListCreator(node) {
     buttontitle = ButtonLabelCreator(node);
+
     if (WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'] !== undefined) {
         TargetSelValues = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'];
+        if (TargetSelValues.length == 0) {
+            SaveIsValid = false;
+            TargetSelValues = ['ERROR: Cannot list target for ' + PreviewTarget]
+        }
     } else {
+        SaveIsValid = false;
         TargetSelValues = ['ERROR: Cannot list target for ' + PreviewTarget]
     }
     return TargetSelValues;
@@ -440,7 +449,7 @@ function ButtonLabelCreator(node) {
         buttontitle = 'Image not available for save. Please load one.';
     } else {
         if (SaveMode === true) {
-            if (WorkflowData[NodenameByType[PreviewTarget]] !== undefined) {
+            if (WorkflowData[NodenameByType[PreviewTarget]] !== undefined && SelectedTarget !== undefined) {
                 if (WorkflowData[NodenameByType[PreviewTarget]].length < 1) {
                     buttontitle = 'No resource selected for preview target: [' + PreviewTarget + ']';
                 } else {
@@ -467,9 +476,6 @@ function ButtonLabelCreator(node) {
                         img_check.onload = () => resolve(img_check);
                         img_check.onerror = reject;
                         img_check.src = src;
-                        console.log('*** *** ***');
-                        console.log(img_check.height);
-                        console.log('*** *** ***');
                         if (img_check.height > 0) {
                             PreviewExist = true;
                         }
@@ -480,6 +486,10 @@ function ButtonLabelCreator(node) {
                     );
 
                     var imgExistLink = "";
+                    console.log('PreviewExist')
+                    console.log(imgsrc)
+                    console.log(PreviewExist)
+                    console.log('PreviewExist')
                     if (PreviewExist === true) {
                         let splittedMode = PrwSaveMode.split(' ');
                         var prw_mode = '';

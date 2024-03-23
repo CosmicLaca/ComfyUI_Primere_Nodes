@@ -11,3 +11,4 @@ tomli
 torch
 ultralytics
 aiohttp
+pytz

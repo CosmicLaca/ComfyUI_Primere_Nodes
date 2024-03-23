@@ -15,7 +15,8 @@ from .Nodes import Segments
 import shutil
 from datetime import datetime
 from .components import utility
-import time
+# import time
+import pytz
 
 __version__ = "0.5.6"
 
@@ -25,9 +26,9 @@ frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews')
 frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
-ClientTime = datetime.now()
+ClientTime = str(datetime.strptime(str(datetime.now(pytz.timezone('GMT0'))), '%Y-%m-%d %H:%M:%S.%f+00:00'))
 # ClientTime = time.gmtime()
-UpdateRequired = '2024-03-21 01:00:00'
+UpdateRequired = '2024-03-23 16:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:
