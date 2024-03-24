@@ -161,8 +161,8 @@ class PrimereLCMSelector:
         return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
 class PrimereModelConceptSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP")
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT", "STRING", "STRING", "STRING", "STRING", "FLOAT", "FLOAT")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP", "PLAYGROUND_SIGMA_MAX", "PLAYGROUND_SIGMA_MIN")
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
@@ -179,16 +179,18 @@ class PrimereModelConceptSelector:
                 "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
                 "normal_steps": ('INT', {"forceInput": True, "default": 12}),
 
-                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning"], {"default": "Normal"}),
+                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning", "Playground"], {"default": "Normal"}),
                 "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "SAFETENSOR"}),
                 "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
-                "lightning_sampler": (
-                "BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
+                "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
 
                 "cascade_stage_a": (cls.VAELIST,),
                 "cascade_stage_b": (cls.UNETLIST,),
                 "cascade_stage_c": (cls.UNETLIST,),
                 "cascade_clip": (cls.CLIPLIST,),
+
+                "playground_sigma_max": ("FLOAT", {"default": 120.0, "min": 0.0, "max": 1000.0, "step": 0.001, "round": False}),
+                "playground_sigma_min": ("FLOAT", {"default": 0.002, "min": 0.0, "max": 1000.0, "step": 0.001, "round": False}),
             },
             "optional": {
                 "lcm_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "lcm"}),
@@ -210,6 +212,11 @@ class PrimereModelConceptSelector:
                 "lightning_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
                 "lightning_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
                 "lightning_steps": ('INT', {"forceInput": True, "default": 6}),
+
+                "playground_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "playground_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+                "playground_cfg_scale": ('FLOAT', {"forceInput": True, "default": 3}),
+                "playground_steps": ('INT', {"forceInput": True, "default": 50}),
             }
         }
 
@@ -219,7 +226,8 @@ class PrimereModelConceptSelector:
                              lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', lcm_cfg_scale = 1.2, lcm_steps = 6,
                              turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2,
                              cascade_sampler_name = 'euler_ancestral', cascade_scheduler_name = "simple", cascade_cfg_scale = 4, cascade_steps = 20,
-                             lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6):
+                             lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6,
+                             playground_sampler_name = 'euler', playground_scheduler_name = 'normal', playground_cfg_scale = 3, playground_steps = 50, playground_sigma_max = 120, playground_sigma_min = 0.002):
 
         sampler_name = normal_sampler_name
         scheduler_name = normal_scheduler_name
@@ -263,6 +271,12 @@ class PrimereModelConceptSelector:
                     steps = lightning_model_step
                     cfg_scale = 1
 
+            case 'Playground':
+                sampler_name = playground_sampler_name
+                scheduler_name = playground_scheduler_name
+                steps = playground_steps
+                cfg_scale = playground_cfg_scale
+
         if model_concept != 'Lightning':
             lightning_selector = None
             lightning_model_step = None
@@ -273,7 +287,7 @@ class PrimereModelConceptSelector:
             cascade_stage_c = None
             cascade_clip = None
 
-        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip)
+        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip, playground_sigma_max, playground_sigma_min)
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
@@ -307,6 +321,7 @@ class PrimereCKPTLoader:
                           model_concept = "Normal", concept_data = None,
                           lightning_selector = 'SAFETENSOR', lightning_model_step = 8,
                           cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
+                          playground_sigma_max = 120, playground_sigma_min = 0.002,
                           loaded_model = None, loaded_clip = None, loaded_vae = None):
 
         if concept_data is not None:
@@ -323,6 +338,11 @@ class PrimereCKPTLoader:
                 cascade_stage_c = concept_data['cascade_stage_c']
             if 'cascade_clip' in concept_data:
                 cascade_clip = concept_data['cascade_clip']
+
+            if 'playground_sigma_max' in concept_data:
+                playground_sigma_max = concept_data['playground_sigma_max']
+            if 'playground_sigma_min' in concept_data:
+                playground_sigma_min = concept_data['playground_sigma_min']
 
         if model_concept == "Cascade" and cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
             MODEL_VERSION = 'SDXL_2048'
@@ -442,6 +462,9 @@ class PrimereCKPTLoader:
 
         if model_concept == "Lightning" and lightningModeValid == True and loaded_model is None:
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name)
+
+        if model_concept == "Playground":
+            OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
 
         return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (LOADED_CHECKPOINT[2],) + (MODEL_VERSION,)
 
@@ -1420,6 +1443,9 @@ class PrimereConceptDataTuple:
                 "cascade_stage_b": ("STRING", {"forceInput": True}),
                 "cascade_stage_c": ("STRING", {"forceInput": True}),
                 "cascade_clip": ("STRING", {"forceInput": True}),
+
+                "playground_sigma_max": ("FLOAT", {"forceInput": True}),
+                "playground_sigma_min": ("FLOAT", {"forceInput": True}),
             },
         }
 
