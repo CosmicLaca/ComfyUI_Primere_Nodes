@@ -1,12 +1,12 @@
 {
-  "last_node_id": 88,
-  "last_link_id": 276,
+  "last_node_id": 133,
+  "last_link_id": 621,
   "nodes": [
     {
       "id": 9,
       "type": "PrimereVisualStyle",
       "pos": [
-        1966,
+        1968,
         87
       ],
       "size": {
@@ -70,7 +70,7 @@
       "widgets_values": [
         "Architechture Interior",
         true,
-        true,
+        false,
         false,
         false,
         false
@@ -832,43 +832,6 @@
       "bgcolor": "#000080"
     },
     {
-      "id": 22,
-      "type": "PrimereSeed",
-      "pos": [
-        2324.2424020255885,
-        -312.0657094795599
-      ],
-      "size": {
-        "0": 373.7126159667969,
-        "1": 130
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            48
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        -1,
-        null,
-        null,
-        null
-      ],
-      "color": "#141494",
-      "bgcolor": "#000080"
-    },
-    {
       "id": 18,
       "type": "PrimereVisualCKPT",
       "pos": [
@@ -880,7 +843,7 @@
         "1": 126
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "outputs": [
         {
@@ -908,7 +871,7 @@
       },
       "widgets_values": [
         "BestAll\\photon_v1.safetensors",
-        true,
+        false,
         true
       ],
       "color": "#141494",
@@ -926,7 +889,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "outputs": [
         {
@@ -991,7 +954,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "outputs": [
         {
@@ -1056,7 +1019,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "outputs": [
         {
@@ -1121,7 +1084,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "outputs": [
         {
@@ -1186,7 +1149,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "outputs": [
         {
@@ -1251,7 +1214,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "outputs": [
         {
@@ -1285,7 +1248,7 @@
         "1": 580.0934448242188
       },
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -1345,11 +1308,48 @@
       "bgcolor": "#925f38"
     },
     {
+      "id": 22,
+      "type": "PrimereSeed",
+      "pos": [
+        2324.2424020255885,
+        -312.0657094795599
+      ],
+      "size": {
+        "0": 373.7126159667969,
+        "1": 130
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            48
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        914164256542237,
+        null,
+        null,
+        null
+      ],
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
       "id": 10,
       "type": "PrimerePromptSwitch",
       "pos": [
         2422,
-        85.90191883953223
+        86
       ],
       "size": {
         "0": 341.5111389160156,
@@ -1575,8 +1575,8 @@
       "id": 39,
       "type": "PrimereModelConceptSelector",
       "pos": [
-        3570.8182705965924,
-        -678.2725330699573
+        3571,
+        -678
       ],
       "size": {
         "0": 505.55413818359375,
@@ -1858,7 +1858,7 @@
         7,
         12,
         "Normal",
-        "LORA",
+        "CUSTOM",
         8,
         false,
         "Stable-Cascade\\stage_a.safetensors",
@@ -1980,7 +1980,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)"
+        "inside of a {futuristic|retro|avantgard|modern|french|italian|London|Paris|Roma|luxury|village|rustic|minimalist|simple|cheap|penthouse} design style, ((({bedroom|living room|kitchen|office room|computer room}))), interior estate photography, modern {glass|metal|plastic} table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -2010,7 +2010,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "watermark, person, text, china style, indian style"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -2077,7 +2077,9 @@
         {
           "name": "SQUARE_SHAPE",
           "type": "INT",
-          "links": null,
+          "links": [
+            501
+          ],
           "shape": 3,
           "slot_index": 2
         },
@@ -2100,12 +2102,12 @@
         1024,
         512,
         false,
-        "Vertical",
+        "Horizontal",
         false,
         false,
         1.6,
         2.8,
-        770874006340733,
+        250320160069624,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2287,6 +2289,49 @@
       "bgcolor": "#925f38"
     },
     {
+      "id": 133,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        4932,
+        1144
+      ],
+      "size": [
+        90.92136210321769,
+        26
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 501,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            515,
+            533,
+            568,
+            603
+          ],
+          "shape": 3,
+          "label": "INT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
       "id": 25,
       "type": "PrimereMetaCollector",
       "pos": [
@@ -2298,7 +2343,7 @@
         "1": 414
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -2489,7 +2534,7 @@
         "1": 438
       },
       "flags": {},
-      "order": 30,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2565,7 +2610,7 @@
         "1": 1235.8433837890625
       },
       "flags": {},
-      "order": 31,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2629,15 +2674,15 @@
       "id": 15,
       "type": "PrimereMetaDistributor",
       "pos": [
-        3803.2986626743273,
-        84.17355645392549
+        3804,
+        84
       ],
       "size": {
         "0": 275.6723937988281,
         "1": 366
       },
       "flags": {},
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2705,7 +2750,8 @@
           "links": [
             148,
             149,
-            150
+            150,
+            620
           ],
           "shape": 3,
           "slot_index": 7
@@ -2717,7 +2763,9 @@
             84,
             85,
             121,
-            151
+            151,
+            476,
+            619
           ],
           "shape": 3,
           "slot_index": 8
@@ -2745,7 +2793,11 @@
           "type": "COMBO",
           "links": [
             87,
-            204
+            204,
+            519,
+            521,
+            555,
+            617
           ],
           "shape": 3,
           "slot_index": 11
@@ -2755,7 +2807,11 @@
           "type": "COMBO",
           "links": [
             88,
-            203
+            203,
+            520,
+            522,
+            556,
+            618
           ],
           "shape": 3,
           "slot_index": 12
@@ -2764,8 +2820,9 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            89,
-            205
+            205,
+            493,
+            614
           ],
           "shape": 3,
           "slot_index": 13
@@ -2775,7 +2832,8 @@
           "type": "FLOAT",
           "links": [
             90,
-            206
+            206,
+            613
           ],
           "shape": 3,
           "slot_index": 14
@@ -2783,8 +2841,9 @@
         {
           "name": "SEED",
           "type": "INT",
-          "links": null,
-          "shape": 3
+          "links": [],
+          "shape": 3,
+          "slot_index": 15
         },
         {
           "name": "WIDTH",
@@ -2823,7 +2882,7 @@
         "1": 161.1301727294922
       },
       "flags": {},
-      "order": 33,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2857,6 +2916,127 @@
       "bgcolor": "#800000"
     },
     {
+      "id": 125,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5494,
+        1411
+      ],
+      "size": [
+        86.30447330956304,
+        26
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 620,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            517,
+            565,
+            566,
+            602
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#149494",
+      "bgcolor": "#008080"
+    },
+    {
+      "id": 70,
+      "type": "PrimereTextOutput",
+      "pos": [
+        7107,
+        -1374
+      ],
+      "size": {
+        "0": 1408.70751953125,
+        "1": 612.4589233398438
+      },
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 476,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        "Normal"
+      ],
+      "color": "#002c6c",
+      "bgcolor": "#004080"
+    },
+    {
+      "id": 130,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        4933,
+        1256
+      ],
+      "size": [
+        93.64689004157208,
+        26
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 619,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            518,
+            532,
+            551,
+            552
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#a25b14",
+      "bgcolor": "#8e4700"
+    },
+    {
       "id": 30,
       "type": "PrimereCKPTLoader",
       "pos": [
@@ -2868,7 +3048,7 @@
         "1": 206
       },
       "flags": {},
-      "order": 34,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2940,13 +3120,13 @@
           "type": "STRING",
           "links": [
             83,
-            269,
             270,
             271,
             272,
             273,
             274,
-            275
+            275,
+            336
           ],
           "shape": 3,
           "slot_index": 3
@@ -2956,7 +3136,7 @@
         "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        false,
+        true,
         1,
         1,
         "Normal"
@@ -2965,18 +3145,105 @@
       "bgcolor": "#000080"
     },
     {
+      "id": 132,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        4935,
+        1334
+      ],
+      "size": [
+        89.78412607239443,
+        26
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 614,
+          "label": " ",
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            513,
+            528,
+            545,
+            554
+          ],
+          "shape": 3,
+          "label": "INT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#d37414",
+      "bgcolor": "#bf6000"
+    },
+    {
+      "id": 131,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        4932,
+        1413
+      ],
+      "size": [
+        94.37123016734768,
+        26
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 613,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "FLOAT",
+          "links": [
+            514,
+            529,
+            546,
+            553
+          ],
+          "shape": 3,
+          "label": "FLOAT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#d37414",
+      "bgcolor": "#bf6000"
+    },
+    {
       "id": 24,
       "type": "PrimereMetaDistributorStage2",
       "pos": [
-        3802.2986626743273,
-        488.17355645392547
+        3802,
+        488
       ],
       "size": {
         "0": 277.43243408203125,
         "1": 94
       },
       "flags": {},
-      "order": 35,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3015,10 +3282,11 @@
           "type": "INT",
           "links": [
             71,
-            86,
             132,
             133,
-            201
+            201,
+            495,
+            608
           ],
           "shape": 3,
           "slot_index": 0
@@ -3060,7 +3328,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        593682691517865,
+        340792679620381,
         "randomize",
         512,
         512
@@ -3080,7 +3348,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 36,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3099,9 +3367,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            207,
             209,
-            218
+            218,
+            330,
+            621
           ],
           "shape": 3,
           "slot_index": 0
@@ -3125,7 +3394,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 37,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3214,7 +3483,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 38,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3303,7 +3572,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 39,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3328,7 +3597,7 @@
           "name": "PROMPT",
           "type": "STRING",
           "links": [
-            136
+            484
           ],
           "shape": 3,
           "slot_index": 0
@@ -3340,7 +3609,7 @@
       },
       "widgets_values": [
         "",
-        62001008575608,
+        620595477750173,
         "randomize"
       ],
       "color": "#232",
@@ -3358,7 +3627,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 40,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3395,11 +3664,58 @@
       },
       "widgets_values": [
         "",
-        862712108738059,
+        70306042647199,
         "randomize"
       ],
       "color": "#322",
       "bgcolor": "#533"
+    },
+    {
+      "id": 126,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5191,
+        1144
+      ],
+      "size": [
+        86.84452754893209,
+        26
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 608,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            507,
+            512,
+            526,
+            527,
+            543,
+            544,
+            561,
+            562
+          ],
+          "shape": 3,
+          "label": "INT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
     },
     {
       "id": 34,
@@ -3413,7 +3729,7 @@
         "1": 454
       },
       "flags": {},
-      "order": 41,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3482,13 +3798,13 @@
         1,
         0.8,
         1.4,
-        258280217415903,
+        149873870561070,
         "randomize",
-        true,
+        false,
         "cpu",
-        true,
-        347501857532530,
-        "randomize"
+        false,
+        496555491702270,
+        "fixed"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -3501,11 +3817,11 @@
         -722
       ],
       "size": {
-        "0": 1792.4635009765625,
-        "1": 1271.9638671875
+        "0": 1491.1717529296875,
+        "1": 1276.1387939453125
       },
       "flags": {},
-      "order": 42,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3519,10 +3835,53 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"positive\": \"exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"watermark, person, text, china style, indian style\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"exterior, extreme architecture, (huge futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening Apocalypse professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (:0.6)\",\n    \"decoded_negative\": \"watermark, person, text, china style, indian style\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 36151258924671,\n    \"width\": 635,\n    \"height\": 928,\n    \"size_string\": \"635x928\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"Image_20242103_190740_126329356745970_2848x2216_1.jpg\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"positive\": \"inside of a {futuristic|retro|avantgard|modern|french|italian|London|Paris|Roma|luxury|village|rustic|minimalist|simple|cheap|penthouse} design style, ((({bedroom|living room|kitchen|office room|computer room}))), interior estate photography, modern {glass|metal|plastic} table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"inside of a London design style, (((kitchen))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen\",\n    \"decoded_negative\": \"\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 914164256542237,\n    \"width\": 928,\n    \"height\": 635,\n    \"size_string\": \"928x635\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"Image_20242103_190740_126329356745970_2848x2216_1.jpg\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
+    },
+    {
+      "id": 124,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5192,
+        1413
+      ],
+      "size": [
+        85.98230912277631,
+        26
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 621,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "VAE",
+          "links": [
+            511,
+            525,
+            542,
+            560
+          ],
+          "shape": 3,
+          "label": "VAE",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 79,
@@ -3536,7 +3895,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 43,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3598,7 +3957,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 44,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3612,7 +3971,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 136,
+          "link": 484,
           "widget": {
             "name": "positive_prompt"
           }
@@ -3685,7 +4044,7 @@
         "1": 269.832763671875
       },
       "flags": {},
-      "order": 45,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -3712,7 +4071,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 46,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -3800,7 +4159,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 47,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -3916,7 +4275,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 48,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -3941,7 +4300,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            164
+            485
           ],
           "shape": 3,
           "slot_index": 0
@@ -3978,7 +4337,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 49,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -3994,7 +4353,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 269,
+          "link": 336,
           "widget": {
             "name": "model_version"
           }
@@ -4091,7 +4450,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 50,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4105,7 +4464,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 164,
+          "link": 485,
           "widget": {
             "name": "positive_prompt"
           }
@@ -4132,7 +4491,8 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            146
+            333,
+            611
           ],
           "shape": 3,
           "slot_index": 0
@@ -4141,7 +4501,8 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            147
+            147,
+            612
           ],
           "shape": 3,
           "slot_index": 1
@@ -4178,7 +4539,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 51,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4280,6 +4641,92 @@
       "bgcolor": "#004000"
     },
     {
+      "id": 127,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5492,
+        1250
+      ],
+      "size": [
+        88.02881343533409,
+        26
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 611,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            505,
+            530,
+            549,
+            563
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 128,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5495,
+        1336
+      ],
+      "size": [
+        85.0288134353359,
+        26
+      ],
+      "flags": {},
+      "order": 61,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 612,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            506,
+            531,
+            550,
+            564
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 82,
       "type": "PrimereVisualLYCORIS",
       "pos": [
@@ -4291,7 +4738,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 52,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -4405,7 +4852,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 53,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4453,7 +4900,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 54,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4491,7 +4938,8 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            267
+            491,
+            610
           ],
           "shape": 3,
           "slot_index": 1
@@ -4567,7 +5015,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 55,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -4589,7 +5037,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            268
+            489,
+            609
           ],
           "shape": 3,
           "slot_index": 0
@@ -4606,7 +5055,7 @@
       },
       "widgets_values": [
         "BaseModel_1024",
-        true,
+        false,
         "Any",
         false,
         true,
@@ -4633,6 +5082,53 @@
       "bgcolor": "#994d00"
     },
     {
+      "id": 123,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5191,
+        1335
+      ],
+      "size": [
+        88.70729151810974,
+        26
+      ],
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 610,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "CLIP",
+          "links": [
+            508,
+            510,
+            524,
+            535,
+            540,
+            541,
+            557,
+            558
+          ],
+          "shape": 3,
+          "label": "CLIP",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
       "id": 81,
       "type": "PrimereLycorisKeywordMerger",
       "pos": [
@@ -4644,7 +5140,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 56,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -4681,6 +5177,463 @@
       "bgcolor": "#0000fb"
     },
     {
+      "id": 122,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5195,
+        1252
+      ],
+      "size": [
+        85.22501449820629,
+        26
+      ],
+      "flags": {},
+      "order": 68,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 609,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "MODEL",
+          "links": [
+            509,
+            523,
+            539,
+            559
+          ],
+          "shape": 3,
+          "label": "MODEL",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 94,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        8553.71458571797,
+        -1318.0442073467505
+      ],
+      "size": {
+        "0": 365.7091369628906,
+        "1": 546.12939453125
+      },
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 508
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 507,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 505,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 506,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            305
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "face, natural skin, realistic photo quality detailed, high resolution, nicely proportioned, smooth image",
+        "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.3),text watermark bad",
+        1.2,
+        1.1,
+        0,
+        0,
+        476976976739569,
+        "randomize",
+        "length+mean",
+        "down_weight",
+        "",
+        ""
+      ],
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 98,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        8559.71458571797,
+        -673.0442073467508
+      ],
+      "size": {
+        "0": 366.3209228515625,
+        "1": 544.1044311523438
+      },
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 535
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 526,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 530,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 531,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            308
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "(detailed natural realistic photo quality sharp eyes:1.2), perfect angle, perfect size pupil and eye, perfect eye color and high details, perfect thin detailed eyelash and mascilla, duplicated eyes, ultra detailed, high resolution, perfect eye geometry, nicely proportioned, 8k",
+        "deformed eyes, bad eyes, bad colors, unsharp, (blurred, blurry, vague:1.2), nicely proportioned, (sharp shadows and lights), text watermark bad",
+        1.1,
+        1,
+        0,
+        0,
+        716363211419893,
+        "randomize",
+        "mean",
+        "comfy++",
+        "",
+        ""
+      ],
+      "color": "#ab6847",
+      "bgcolor": "#975433"
+    },
+    {
+      "id": 101,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        8560.71458571797,
+        -27.044207346750458
+      ],
+      "size": {
+        "0": 366.9735412597656,
+        "1": 546.0383911132812
+      },
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 540
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 543,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 549,
+          "widget": {
+            "name": "positive_original"
+          }
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 550,
+          "widget": {
+            "name": "negative_original"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            343
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - MOUTH",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "detailed realistic mouth, highly detailed lower and upper lips, sharpen and smooth, high resolution, nicely proportioned,text watermark bad",
+        "deformed mouth, deformed ugly dark teeth, bad shadows, unsharp, (blurred, blurry, vague:1.2), (purple, gray, black-and-white, white lights, reflections, filled swollen stuffy inflated, cracked, split in two, hard lights, high contrast lights:1.1), unnatural mood, sharp shadows and lights",
+        1.1,
+        1.1,
+        0,
+        0,
+        136933301628067,
+        "randomize",
+        "mean",
+        "A1111",
+        "",
+        ""
+      ],
+      "color": "#9e523f",
+      "bgcolor": "#8a3e2b"
+    },
+    {
+      "id": 95,
+      "type": "PrimereRefinerPrompt",
+      "pos": [
+        8557,
+        600
+      ],
+      "size": {
+        "0": 369.9740295410156,
+        "1": 547.9640502929688
+      },
+      "flags": {},
+      "order": 72,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 557
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 561,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_original",
+          "type": "STRING",
+          "link": 563,
+          "widget": {
+            "name": "positive_original"
+          },
+          "slot_index": 2
+        },
+        {
+          "name": "negative_original",
+          "type": "STRING",
+          "link": 564,
+          "widget": {
+            "name": "negative_original"
+          },
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [],
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            601
+          ],
+          "shape": 3,
+          "slot_index": 4
+        }
+      ],
+      "title": "Primere Refiner Prompt - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereRefinerPrompt"
+      },
+      "widgets_values": [
+        "perfect hands, hand only, natural detailed skin, perfect fingers, detailed hand, ultra detailed, realistic quality, high resolution, smooth, nicely proportioned",
+        "Deformed, bad anatomy, noisy, turbid, fragmented, muddled, disfigured, mutation, mutated, weird hands, broken fingers, extra fingers, missing fingers, mutated, bad nails, deformed nails, bad hand, blur, blurred, long fingers, tangled fingers, (blurred, blurry, face, mouth, eye, vague, jpeg artifacts, tattoo, pattern:1.3), bad shadows, text watermark bad",
+        1,
+        1.2,
+        0,
+        0.2,
+        1004249084282186,
+        "randomize",
+        "mean",
+        "down_weight",
+        "",
+        ""
+      ],
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
       "id": 36,
       "type": "PrimereCLIPEncoder",
       "pos": [
@@ -4692,13 +5645,13 @@
         "1": 758
       },
       "flags": {},
-      "order": 57,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 267,
+          "link": 491,
           "slot_index": 0
         },
         {
@@ -4737,7 +5690,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 146,
+          "link": 333,
           "widget": {
             "name": "positive_prompt"
           }
@@ -4929,13 +5882,13 @@
         "1": 238
       },
       "flags": {},
-      "order": 58,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 268
+          "link": 489
         },
         {
           "name": "positive",
@@ -4963,7 +5916,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 86,
+          "link": 495,
           "widget": {
             "name": "seed"
           }
@@ -4987,7 +5940,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 89,
+          "link": 493,
           "widget": {
             "name": "steps"
           }
@@ -5015,7 +5968,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        844278155356796,
+        417855647383847,
         "randomize",
         20,
         8,
@@ -5031,15 +5984,15 @@
       "id": 54,
       "type": "PrimereAnyOutput",
       "pos": [
-        5620,
-        600
+        5616,
+        602
       ],
       "size": {
-        "0": 886.3875122070312,
-        "1": 436.44439697265625
+        "0": 666.8181762695312,
+        "1": 560.9939575195312
       },
       "flags": {},
-      "order": 59,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -5053,7 +6006,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (huge futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening embedding:Apocalypse professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (:0.6), design"
+        "inside of a London design style, (((kitchen))), interior estate photography, modern metal table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen, design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5062,15 +6015,15 @@
       "id": 55,
       "type": "PrimereAnyOutput",
       "pos": [
-        6520,
-        600
+        6294,
+        602
       ],
       "size": {
-        "0": 578.0875244140625,
-        "1": 434.44439697265625
+        "0": 419.11614990234375,
+        "1": 556.8958129882812
       },
       "flags": {},
-      "order": 60,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5084,7 +6037,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20)"
+        ""
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -5093,15 +6046,15 @@
       "id": 56,
       "type": "PrimereAnyOutput",
       "pos": [
-        5620,
-        1075
+        5605,
+        1200
       ],
       "size": {
-        "0": 883.3875122070312,
-        "1": 260.744384765625
+        "0": 681.2332153320312,
+        "1": 258.73876953125
       },
       "flags": {},
-      "order": 61,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5124,15 +6077,15 @@
       "id": 57,
       "type": "PrimereAnyOutput",
       "pos": [
-        6520,
-        1075
+        6298,
+        1201
       ],
       "size": {
-        "0": 578.4783935546875,
-        "1": 260.6839904785156
+        "0": 413.75048828125,
+        "1": 259.104736328125
       },
       "flags": {},
-      "order": 62,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5154,15 +6107,15 @@
       "id": 32,
       "type": "VAEDecode",
       "pos": [
-        5253.767598301913,
-        -681.4711328932078
+        5254,
+        -681
       ],
       "size": {
         "0": 323.5520324707031,
         "1": 46
       },
       "flags": {},
-      "order": 63,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -5174,7 +6127,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 207
+          "link": 330
         }
       ],
       "outputs": [
@@ -5182,8 +6135,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            113,
-            190
+            447,
+            503
           ],
           "shape": 3,
           "slot_index": 0
@@ -5207,13 +6160,13 @@
         "1": 335.5428771972656
       },
       "flags": {},
-      "order": 64,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 113
+          "link": 447
         }
       ],
       "properties": {
@@ -5221,6 +6174,1592 @@
       },
       "color": "#941414",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 129,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5497.91289575664,
+        1141.9155176297033
+      ],
+      "size": [
+        82.16659500918468,
+        26
+      ],
+      "flags": {},
+      "order": 81,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 503,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "IMAGE",
+          "links": [
+            504
+          ],
+          "shape": 3,
+          "label": "IMAGE",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
+      "id": 106,
+      "type": "PrimereImageSegments",
+      "pos": [
+        8930.71458571797,
+        -1318.0442073467505
+      ],
+      "size": {
+        "0": 389.9672546386719,
+        "1": 546
+      },
+      "flags": {},
+      "order": 82,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 504,
+          "slot_index": 0
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 305
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 517,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": 515,
+          "widget": {
+            "name": "square_shape"
+          }
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            348
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            372
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            353
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            352
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            354
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            355
+          ],
+          "shape": 3,
+          "slot_index": 10
+        }
+      ],
+      "title": "Primere Image Segments - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        false,
+        2.7,
+        0,
+        "bbox/face_yolov8m.pt",
+        "sam_vit_b_01ec64.pth",
+        "Prefer GPU",
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.75,
+        2,
+        1.4000000000000001,
+        5,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ],
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 92,
+      "type": "PreviewImage",
+      "pos": [
+        9683,
+        -1318
+      ],
+      "size": {
+        "0": 262.8738098144531,
+        "1": 253.89134216308594
+      },
+      "flags": {},
+      "order": 83,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 372,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 105,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        9328.71458571797,
+        -1318.0442073467505
+      ],
+      "size": {
+        "0": 345.1365051269531,
+        "1": 546.3991088867188
+      },
+      "flags": {},
+      "order": 84,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 348
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 509
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 510
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 511
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 354
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 355
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 352
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 353
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 518,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": 519,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": 520,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": 513,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": 514,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 512,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            591
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            371
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        258345520868996,
+        "randomize",
+        "heun",
+        "simple",
+        30,
+        6,
+        0.38,
+        15,
+        true,
+        false,
+        1,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 107,
+      "type": "PrimereImageSegments",
+      "pos": [
+        8935.71458571797,
+        -673.0442073467508
+      ],
+      "size": {
+        "0": 385.46484375,
+        "1": 546
+      },
+      "flags": {},
+      "order": 85,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 591
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 308
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 565,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": 533,
+          "widget": {
+            "name": "square_shape"
+          }
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            349
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            374
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            357
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            356
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            358
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            359
+          ],
+          "shape": 3,
+          "slot_index": 10
+        }
+      ],
+      "title": "Primere Image Segments - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        false,
+        0,
+        0.13,
+        "segm/facial_features_yolo8x-seg.pt",
+        "sam_vit_b_01ec64.pth",
+        "Prefer GPU",
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.47000000000000003,
+        -1,
+        1.1,
+        5,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ],
+      "color": "#ab6847",
+      "bgcolor": "#975433"
+    },
+    {
+      "id": 90,
+      "type": "PreviewImage",
+      "pos": [
+        9684,
+        -1026
+      ],
+      "size": {
+        "0": 261.1209716796875,
+        "1": 252.9562530517578
+      },
+      "flags": {},
+      "order": 86,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 371
+        }
+      ],
+      "title": "Preview Image - REFINED FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 97,
+      "type": "PreviewImage",
+      "pos": [
+        9685,
+        -672
+      ],
+      "size": {
+        "0": 259.96881103515625,
+        "1": 253.62490844726562
+      },
+      "flags": {},
+      "order": 87,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 374,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL EYES",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#ab6847",
+      "bgcolor": "#975433"
+    },
+    {
+      "id": 102,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        9328.71458571797,
+        -673.0442073467508
+      ],
+      "size": {
+        "0": 345.26104736328125,
+        "1": 546.66650390625
+      },
+      "flags": {},
+      "order": 88,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 349
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 523,
+          "slot_index": 1
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 524
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 525
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 358
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 359
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 356
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 357
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 532,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": 521,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": 522,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": 528,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": 529,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 527,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            346
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            373
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - EYES",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        195601770123184,
+        "randomize",
+        "euler_ancestral",
+        "normal",
+        30,
+        9,
+        0.49,
+        6,
+        true,
+        false,
+        1,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#ab6847",
+      "bgcolor": "#975433"
+    },
+    {
+      "id": 108,
+      "type": "PrimereImageSegments",
+      "pos": [
+        8937.71458571797,
+        -27.044207346750458
+      ],
+      "size": {
+        "0": 382.3495178222656,
+        "1": 546
+      },
+      "flags": {},
+      "order": 89,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 346
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 343
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 566,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": 568,
+          "widget": {
+            "name": "square_shape"
+          }
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            350
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            596
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            363
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": [],
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            362
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            360
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            361
+          ],
+          "shape": 3,
+          "slot_index": 10
+        }
+      ],
+      "title": "Primere Image Segments - MOUTH",
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        false,
+        0.53,
+        0.2,
+        "segm/facial_features_yolo8x-seg.pt",
+        "sam_vit_b_01ec64.pth",
+        "Prefer GPU",
+        "person",
+        "short_sleeved_shirt",
+        "mouth",
+        0.47000000000000003,
+        3,
+        1.3,
+        5,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ],
+      "color": "#9e523f",
+      "bgcolor": "#8a3e2b"
+    },
+    {
+      "id": 96,
+      "type": "PreviewImage",
+      "pos": [
+        9686,
+        -381
+      ],
+      "size": {
+        "0": 259.4094543457031,
+        "1": 254.34019470214844
+      },
+      "flags": {},
+      "order": 90,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 373
+        }
+      ],
+      "title": "Preview Image - REFINED EYES",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#ab6847",
+      "bgcolor": "#975433"
+    },
+    {
+      "id": 100,
+      "type": "PreviewImage",
+      "pos": [
+        9685.71458571797,
+        -26.044207346750458
+      ],
+      "size": {
+        "0": 259.6923828125,
+        "1": 252.16758728027344
+      },
+      "flags": {},
+      "order": 91,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 596,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL MOUTH",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a2533f",
+      "bgcolor": "#8e3f2b"
+    },
+    {
+      "id": 103,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        9327.71458571797,
+        -26.044207346750458
+      ],
+      "size": {
+        "0": 347.8287658691406,
+        "1": 544.3558349609375
+      },
+      "flags": {},
+      "order": 92,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 350
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 539
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 541
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 542
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 360
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 361
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 362
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 363
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 551,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": 617,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": 618,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": 545,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": 546,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 544,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            598
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            376
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - MOUTH",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        72228963739718,
+        "randomize",
+        "dpmpp_sde",
+        "karras",
+        22,
+        8,
+        0.49,
+        12,
+        true,
+        false,
+        1,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#a2533f",
+      "bgcolor": "#8e3f2b"
+    },
+    {
+      "id": 109,
+      "type": "PrimereImageSegments",
+      "pos": [
+        8937.71458571797,
+        599.9557926532491
+      ],
+      "size": {
+        "0": 383.9832763671875,
+        "1": 548.2047729492188
+      },
+      "flags": {},
+      "order": 93,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 598
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 601
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 602,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": 603,
+          "widget": {
+            "name": "square_shape"
+          }
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          }
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            597
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            600
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            607
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            606
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            604
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            605
+          ],
+          "shape": 3,
+          "slot_index": 10
+        }
+      ],
+      "title": "Primere Image Segments - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        false,
+        5,
+        0,
+        "bbox/hand_yolov8n.pt",
+        "sam_vit_b_01ec64.pth",
+        "Prefer GPU",
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.65,
+        -1,
+        1.1,
+        8,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ],
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
+      "id": 99,
+      "type": "PreviewImage",
+      "pos": [
+        9686.71458571797,
+        265.9557926532494
+      ],
+      "size": {
+        "0": 257.8348083496094,
+        "1": 252.90768432617188
+      },
+      "flags": {},
+      "order": 94,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 376
+        }
+      ],
+      "title": "Preview Image - REFINED MOUTH",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a2533f",
+      "bgcolor": "#8e3f2b"
+    },
+    {
+      "id": 93,
+      "type": "PreviewImage",
+      "pos": [
+        9685,
+        600
+      ],
+      "size": {
+        "0": 259.43194580078125,
+        "1": 253.6001434326172
+      },
+      "flags": {},
+      "order": 95,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 600,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - ORIGINAL HANDS",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
+      "id": 104,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        9330,
+        600
+      ],
+      "size": {
+        "0": 346.13470458984375,
+        "1": 549.1561279296875
+      },
+      "flags": {},
+      "order": 96,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 597
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 559
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 558
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 560
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 604
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 605
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 606
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 607
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 552,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": 555,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": 556,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": 554,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": 553,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 562,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            599
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            594
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - HANDS",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        158391290477756,
+        "randomize",
+        "dpmpp_sde",
+        "karras",
+        30,
+        7,
+        0.44,
+        10,
+        true,
+        false,
+        1,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
     },
     {
       "id": 63,
@@ -5234,13 +7773,13 @@
         "1": 262
       },
       "flags": {},
-      "order": 65,
+      "order": 97,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 190
+          "link": 599
         },
         {
           "name": "width",
@@ -5294,8 +7833,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            184,
-            217
+            573,
+            575
           ],
           "shape": 3,
           "slot_index": 3
@@ -5319,24 +7858,131 @@
       "bgcolor": "#044639"
     },
     {
+      "id": 91,
+      "type": "PreviewImage",
+      "pos": [
+        9685,
+        891
+      ],
+      "size": {
+        "0": 259.3764343261719,
+        "1": 258.1561279296875
+      },
+      "flags": {},
+      "order": 98,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 594,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - REFINED HANDS",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
+      "id": 65,
+      "type": "ttN hiresfixScale",
+      "pos": [
+        6313,
+        -1330
+      ],
+      "size": {
+        "0": 385.3913879394531,
+        "1": 262
+      },
+      "flags": {},
+      "order": 99,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 573
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 218
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 220,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 221,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ttN hiresfixScale",
+        "ttNnodeVersion": "1.0.3"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth",
+        true,
+        "bicubic",
+        "to Width/Height",
+        50,
+        1024,
+        1024,
+        1024,
+        "disabled",
+        "Hide",
+        "ComfyUI",
+        false
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
       "id": 61,
       "type": "UltimateSDUpscale",
       "pos": [
-        6000.647810181481,
-        -1330.9036980793046
+        6001,
+        -1331
       ],
       "size": {
         "0": 298.666259765625,
         "1": 558
       },
       "flags": {},
-      "order": 66,
+      "order": 100,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 184
+          "link": 575
         },
         {
           "name": "model",
@@ -5437,8 +8083,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            192,
-            225
+            577,
+            578
           ],
           "shape": 3,
           "slot_index": 0
@@ -5449,7 +8095,7 @@
       },
       "widgets_values": [
         2.1,
-        935192965965146,
+        407269152127120,
         "randomize",
         7,
         6.5,
@@ -5473,84 +8119,6 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 65,
-      "type": "ttN hiresfixScale",
-      "pos": [
-        6312.647810181481,
-        -1329.9036980793046
-      ],
-      "size": {
-        "0": 385.3913879394531,
-        "1": 262
-      },
-      "flags": {},
-      "order": 67,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 217
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 218
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 220,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 221,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ttN hiresfixScale",
-        "ttNnodeVersion": "1.0.3"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth",
-        true,
-        "nearest-exact",
-        "to Width/Height",
-        50,
-        1024,
-        1024,
-        1024,
-        "disabled",
-        "Hide",
-        "ComfyUI",
-        false
-      ],
-      "color": "#236121",
-      "bgcolor": "#0f4d0d"
-    },
-    {
       "id": 33,
       "type": "PrimerePreviewImage",
       "pos": [
@@ -5562,20 +8130,20 @@
         "1": 1273.90625
       },
       "flags": {},
-      "order": 68,
+      "order": 101,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 192
+          "link": 577
         }
       ],
       "properties": {
         "Node name for S&R": "PrimerePreviewImage"
       },
       "widgets_values": [
-        false,
+        true,
         "jpeg",
         0,
         95,
@@ -5599,13 +8167,13 @@
         "1": 610.7568359375
       },
       "flags": {},
-      "order": 69,
+      "order": 102,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 225
+          "link": 578
         },
         {
           "name": "image_metadata",
@@ -5617,9 +8185,7 @@
         {
           "name": "SAVED_INFO",
           "type": "STRING",
-          "links": [
-            226
-          ],
+          "links": [],
           "shape": 3,
           "slot_index": 0
         }
@@ -5650,41 +8216,6 @@
       ],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 70,
-      "type": "PrimereTextOutput",
-      "pos": [
-        7107,
-        -1374
-      ],
-      "size": {
-        "0": 1412.487548828125,
-        "1": 613.2568359375
-      },
-      "flags": {},
-      "order": 70,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 226,
-          "widget": {
-            "name": "text"
-          },
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        ":: Time to save: 2024-03-21 21:29:41\n:: Output file: h:\\AIPICS\\Comfy\\PHOTON_V1\\Dev\\2024-03-Week-12\\Image_20242103_212940_36151258924671_2080x3048_1.jpg\n\n:: PROCESS INFO ::\n------------------\n:: EXIF_STATUS: OFF\n:: POSITIVE: exterior, extreme architecture, ({huge|large|small|friendly} {futuristic|modern|luxury|old style|retro|horror|Retro_Futuristic|abandoned|style-abandoned2|wooden|concrete|metallic|glassy|home|office building|castle} terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor {daytime|night|morning|evening|starry night|stormy, thunder, lightning} {|Summer|summer|Winter|winter|Spring|spring|Autumn|autumn|Apocalypse} professional architectural photography), beautiful nature on {Earth|Moon|Mars|Venus|Saturn|space|nature|huge spaceship|alien word}, large hill, (snow on hill:0.7), (a frightening sight:1.3), small {pool|swimming pool|lake}, (solar panels:0.6), ({volcano in the background with smoke and fire|forest with trees|huge rocky mountain, stones|}:0.6)\n:: POSITIVE_L: None\n:: POSITIVE_R: None\n:: NEGATIVE: watermark, person, text, china style, indian style\n:: NEGATIVE_L: None\n:: NEGATIVE_R: None\n:: PROMPT_STATE: Dynamic\n:: DECODED_POSITIVE: exterior, extreme architecture, (huge futuristic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor evening Apocalypse professional architectural photography), beautiful nature on huge spaceship, large hill, (snow on hill:0.7), (a frightening sight:1.3), small lake, (solar panels:0.6), (:0.6)\n:: DECODED_NEGATIVE: watermark, person, text, china style, indian style\n:: MODEL: BestAll\\photon_v1.safetensors\n:: MODEL_CONCEPT: Normal\n:: CONCEPT_DATA: {'lightning_selector': None, 'lightning_model_step': None, 'cascade_stage_a': None, 'cascade_stage_b': None, 'cascade_stage_c': None, 'cascade_clip': None}\n:: MODEL_VERSION: BaseModel_768\n:: IS_SDXL: 0\n:: VAE_NAME_SD: vae-ft-mse-840000-ema-pruned.ckpt\n:: VAE_NAME_SDXL: sdxl_vae.safetensors\n:: SAMPLER: dpmpp_sde\n:: SCHEDULER: karras\n:: STEPS: 30\n:: CFG: 7\n:: SEED: 36151258924671\n:: WIDTH: 635\n:: HEIGHT: 928\n:: SIZE_STRING: 635x928\n:: PREFERRED: {'subpath': None, 'model': None, 'orientation': None}\n:: MODEL_SHAPES: {'SD': 768, 'SDXL': 1024, 'TURBO': 512}\n:: SETUP_STATES: {'data_source': False, 'prompt_surce': True, 'prompt_state': False, 'model': True, 'model_hash_check': False, 'sampler': True, 'scheduler': True, 'cfg': True, 'steps': True, 'seed': True, 'image_size': True, 'recount_image': False, 'vae': True, 'force_vae': False, 'model_concept': False, 'preferred': False, 'use_preferred': False, 'image': 'Image_20242103_190740_126329356745970_2848x2216_1.jpg'}\n:: SAVED_IMAGE_WIDTH: 2080\n:: SAVED_IMAGE_HEIGTH: 3048\n:: UPSCALER_RATIO: From: 635x928 to: 2080x3048 Ratio: 3.3\n"
-      ],
-      "color": "#002c6c",
-      "bgcolor": "#004080"
     }
   ],
   "links": [
@@ -6153,14 +8684,6 @@
       "STRING"
     ],
     [
-      86,
-      24,
-      0,
-      31,
-      5,
-      "INT"
-    ],
-    [
       87,
       15,
       11,
@@ -6175,14 +8698,6 @@
       31,
       7,
       "COMBO"
-    ],
-    [
-      89,
-      15,
-      13,
-      31,
-      8,
-      "INT"
     ],
     [
       90,
@@ -6369,14 +8884,6 @@
       "VAE_NAME"
     ],
     [
-      113,
-      32,
-      0,
-      46,
-      0,
-      "IMAGE"
-    ],
-    [
       114,
       39,
       5,
@@ -6529,14 +9036,6 @@
       "INT"
     ],
     [
-      136,
-      48,
-      0,
-      51,
-      1,
-      "STRING"
-    ],
-    [
       137,
       49,
       0,
@@ -6566,14 +9065,6 @@
       1,
       50,
       1,
-      "STRING"
-    ],
-    [
-      146,
-      53,
-      0,
-      36,
-      7,
       "STRING"
     ],
     [
@@ -6654,14 +9145,6 @@
       0,
       50,
       0,
-      "STRING"
-    ],
-    [
-      164,
-      50,
-      0,
-      53,
-      1,
       "STRING"
     ],
     [
@@ -6761,14 +9244,6 @@
       "*"
     ],
     [
-      184,
-      63,
-      3,
-      61,
-      0,
-      "IMAGE"
-    ],
-    [
       185,
       62,
       0,
@@ -6799,22 +9274,6 @@
       61,
       9,
       "FLOAT"
-    ],
-    [
-      190,
-      32,
-      0,
-      63,
-      0,
-      "IMAGE"
-    ],
-    [
-      192,
-      61,
-      0,
-      33,
-      0,
-      "IMAGE"
     ],
     [
       195,
@@ -6889,14 +9348,6 @@
       "FLOAT"
     ],
     [
-      207,
-      37,
-      0,
-      32,
-      1,
-      "VAE"
-    ],
-    [
       209,
       37,
       0,
@@ -6911,14 +9362,6 @@
       61,
       1,
       "MODEL"
-    ],
-    [
-      217,
-      63,
-      3,
-      65,
-      0,
-      "IMAGE"
     ],
     [
       218,
@@ -6943,22 +9386,6 @@
       65,
       3,
       "INT"
-    ],
-    [
-      225,
-      61,
-      0,
-      72,
-      0,
-      "IMAGE"
-    ],
-    [
-      226,
-      72,
-      0,
-      70,
-      0,
-      "STRING"
     ],
     [
       227,
@@ -7209,30 +9636,6 @@
       "CLIP"
     ],
     [
-      267,
-      83,
-      1,
-      36,
-      0,
-      "CLIP"
-    ],
-    [
-      268,
-      80,
-      0,
-      31,
-      0,
-      "MODEL"
-    ],
-    [
-      269,
-      30,
-      3,
-      74,
-      2,
-      "STRING"
-    ],
-    [
       270,
       30,
       3,
@@ -7287,6 +9690,998 @@
       80,
       0,
       "MODEL"
+    ],
+    [
+      305,
+      94,
+      4,
+      106,
+      1,
+      "TUPLE"
+    ],
+    [
+      308,
+      98,
+      4,
+      107,
+      1,
+      "TUPLE"
+    ],
+    [
+      330,
+      37,
+      0,
+      32,
+      1,
+      "VAE"
+    ],
+    [
+      333,
+      53,
+      0,
+      36,
+      7,
+      "STRING"
+    ],
+    [
+      336,
+      30,
+      3,
+      74,
+      2,
+      "STRING"
+    ],
+    [
+      343,
+      101,
+      4,
+      108,
+      1,
+      "TUPLE"
+    ],
+    [
+      346,
+      102,
+      0,
+      108,
+      0,
+      "IMAGE"
+    ],
+    [
+      348,
+      106,
+      0,
+      105,
+      0,
+      "IMAGE"
+    ],
+    [
+      349,
+      107,
+      0,
+      102,
+      0,
+      "IMAGE"
+    ],
+    [
+      350,
+      108,
+      0,
+      103,
+      0,
+      "IMAGE"
+    ],
+    [
+      352,
+      106,
+      8,
+      105,
+      6,
+      "TUPLE"
+    ],
+    [
+      353,
+      106,
+      4,
+      105,
+      7,
+      "SEGS"
+    ],
+    [
+      354,
+      106,
+      9,
+      105,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      355,
+      106,
+      10,
+      105,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      356,
+      107,
+      8,
+      102,
+      6,
+      "TUPLE"
+    ],
+    [
+      357,
+      107,
+      4,
+      102,
+      7,
+      "SEGS"
+    ],
+    [
+      358,
+      107,
+      9,
+      102,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      359,
+      107,
+      10,
+      102,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      360,
+      108,
+      9,
+      103,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      361,
+      108,
+      10,
+      103,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      362,
+      108,
+      8,
+      103,
+      6,
+      "TUPLE"
+    ],
+    [
+      363,
+      108,
+      4,
+      103,
+      7,
+      "SEGS"
+    ],
+    [
+      371,
+      105,
+      1,
+      90,
+      0,
+      "IMAGE"
+    ],
+    [
+      372,
+      106,
+      1,
+      92,
+      0,
+      "IMAGE"
+    ],
+    [
+      373,
+      102,
+      1,
+      96,
+      0,
+      "IMAGE"
+    ],
+    [
+      374,
+      107,
+      1,
+      97,
+      0,
+      "IMAGE"
+    ],
+    [
+      376,
+      103,
+      1,
+      99,
+      0,
+      "IMAGE"
+    ],
+    [
+      447,
+      32,
+      0,
+      46,
+      0,
+      "IMAGE"
+    ],
+    [
+      476,
+      15,
+      8,
+      70,
+      0,
+      "STRING"
+    ],
+    [
+      484,
+      48,
+      0,
+      51,
+      1,
+      "STRING"
+    ],
+    [
+      485,
+      50,
+      0,
+      53,
+      1,
+      "STRING"
+    ],
+    [
+      489,
+      80,
+      0,
+      31,
+      0,
+      "MODEL"
+    ],
+    [
+      491,
+      83,
+      1,
+      36,
+      0,
+      "CLIP"
+    ],
+    [
+      493,
+      15,
+      13,
+      31,
+      8,
+      "INT"
+    ],
+    [
+      495,
+      24,
+      0,
+      31,
+      5,
+      "INT"
+    ],
+    [
+      501,
+      23,
+      2,
+      133,
+      0,
+      "*"
+    ],
+    [
+      503,
+      32,
+      0,
+      129,
+      0,
+      "*"
+    ],
+    [
+      504,
+      129,
+      0,
+      106,
+      0,
+      "IMAGE"
+    ],
+    [
+      505,
+      127,
+      0,
+      94,
+      2,
+      "STRING"
+    ],
+    [
+      506,
+      128,
+      0,
+      94,
+      3,
+      "STRING"
+    ],
+    [
+      507,
+      126,
+      0,
+      94,
+      1,
+      "INT"
+    ],
+    [
+      508,
+      123,
+      0,
+      94,
+      0,
+      "CLIP"
+    ],
+    [
+      509,
+      122,
+      0,
+      105,
+      1,
+      "MODEL"
+    ],
+    [
+      510,
+      123,
+      0,
+      105,
+      2,
+      "CLIP"
+    ],
+    [
+      511,
+      124,
+      0,
+      105,
+      3,
+      "VAE"
+    ],
+    [
+      512,
+      126,
+      0,
+      105,
+      14,
+      "INT"
+    ],
+    [
+      513,
+      132,
+      0,
+      105,
+      12,
+      "INT"
+    ],
+    [
+      514,
+      131,
+      0,
+      105,
+      13,
+      "FLOAT"
+    ],
+    [
+      515,
+      133,
+      0,
+      106,
+      3,
+      "INT"
+    ],
+    [
+      517,
+      125,
+      0,
+      106,
+      2,
+      "STRING"
+    ],
+    [
+      518,
+      130,
+      0,
+      105,
+      9,
+      "STRING"
+    ],
+    [
+      519,
+      15,
+      11,
+      105,
+      10,
+      "COMBO"
+    ],
+    [
+      520,
+      15,
+      12,
+      105,
+      11,
+      "COMBO"
+    ],
+    [
+      521,
+      15,
+      11,
+      102,
+      10,
+      "COMBO"
+    ],
+    [
+      522,
+      15,
+      12,
+      102,
+      11,
+      "COMBO"
+    ],
+    [
+      523,
+      122,
+      0,
+      102,
+      1,
+      "MODEL"
+    ],
+    [
+      524,
+      123,
+      0,
+      102,
+      2,
+      "CLIP"
+    ],
+    [
+      525,
+      124,
+      0,
+      102,
+      3,
+      "VAE"
+    ],
+    [
+      526,
+      126,
+      0,
+      98,
+      1,
+      "INT"
+    ],
+    [
+      527,
+      126,
+      0,
+      102,
+      14,
+      "INT"
+    ],
+    [
+      528,
+      132,
+      0,
+      102,
+      12,
+      "INT"
+    ],
+    [
+      529,
+      131,
+      0,
+      102,
+      13,
+      "FLOAT"
+    ],
+    [
+      530,
+      127,
+      0,
+      98,
+      2,
+      "STRING"
+    ],
+    [
+      531,
+      128,
+      0,
+      98,
+      3,
+      "STRING"
+    ],
+    [
+      532,
+      130,
+      0,
+      102,
+      9,
+      "STRING"
+    ],
+    [
+      533,
+      133,
+      0,
+      107,
+      3,
+      "INT"
+    ],
+    [
+      535,
+      123,
+      0,
+      98,
+      0,
+      "CLIP"
+    ],
+    [
+      539,
+      122,
+      0,
+      103,
+      1,
+      "MODEL"
+    ],
+    [
+      540,
+      123,
+      0,
+      101,
+      0,
+      "CLIP"
+    ],
+    [
+      541,
+      123,
+      0,
+      103,
+      2,
+      "CLIP"
+    ],
+    [
+      542,
+      124,
+      0,
+      103,
+      3,
+      "VAE"
+    ],
+    [
+      543,
+      126,
+      0,
+      101,
+      1,
+      "INT"
+    ],
+    [
+      544,
+      126,
+      0,
+      103,
+      14,
+      "INT"
+    ],
+    [
+      545,
+      132,
+      0,
+      103,
+      12,
+      "INT"
+    ],
+    [
+      546,
+      131,
+      0,
+      103,
+      13,
+      "FLOAT"
+    ],
+    [
+      549,
+      127,
+      0,
+      101,
+      2,
+      "STRING"
+    ],
+    [
+      550,
+      128,
+      0,
+      101,
+      3,
+      "STRING"
+    ],
+    [
+      551,
+      130,
+      0,
+      103,
+      9,
+      "STRING"
+    ],
+    [
+      552,
+      130,
+      0,
+      104,
+      9,
+      "STRING"
+    ],
+    [
+      553,
+      131,
+      0,
+      104,
+      13,
+      "FLOAT"
+    ],
+    [
+      554,
+      132,
+      0,
+      104,
+      12,
+      "INT"
+    ],
+    [
+      555,
+      15,
+      11,
+      104,
+      10,
+      "COMBO"
+    ],
+    [
+      556,
+      15,
+      12,
+      104,
+      11,
+      "COMBO"
+    ],
+    [
+      557,
+      123,
+      0,
+      95,
+      0,
+      "CLIP"
+    ],
+    [
+      558,
+      123,
+      0,
+      104,
+      2,
+      "CLIP"
+    ],
+    [
+      559,
+      122,
+      0,
+      104,
+      1,
+      "MODEL"
+    ],
+    [
+      560,
+      124,
+      0,
+      104,
+      3,
+      "VAE"
+    ],
+    [
+      561,
+      126,
+      0,
+      95,
+      1,
+      "INT"
+    ],
+    [
+      562,
+      126,
+      0,
+      104,
+      14,
+      "INT"
+    ],
+    [
+      563,
+      127,
+      0,
+      95,
+      2,
+      "STRING"
+    ],
+    [
+      564,
+      128,
+      0,
+      95,
+      3,
+      "STRING"
+    ],
+    [
+      565,
+      125,
+      0,
+      107,
+      2,
+      "STRING"
+    ],
+    [
+      566,
+      125,
+      0,
+      108,
+      2,
+      "STRING"
+    ],
+    [
+      568,
+      133,
+      0,
+      108,
+      3,
+      "INT"
+    ],
+    [
+      573,
+      63,
+      3,
+      65,
+      0,
+      "IMAGE"
+    ],
+    [
+      575,
+      63,
+      3,
+      61,
+      0,
+      "IMAGE"
+    ],
+    [
+      577,
+      61,
+      0,
+      33,
+      0,
+      "IMAGE"
+    ],
+    [
+      578,
+      61,
+      0,
+      72,
+      0,
+      "IMAGE"
+    ],
+    [
+      591,
+      105,
+      0,
+      107,
+      0,
+      "IMAGE"
+    ],
+    [
+      594,
+      104,
+      1,
+      91,
+      0,
+      "IMAGE"
+    ],
+    [
+      596,
+      108,
+      1,
+      100,
+      0,
+      "IMAGE"
+    ],
+    [
+      597,
+      109,
+      0,
+      104,
+      0,
+      "IMAGE"
+    ],
+    [
+      598,
+      103,
+      0,
+      109,
+      0,
+      "IMAGE"
+    ],
+    [
+      599,
+      104,
+      0,
+      63,
+      0,
+      "IMAGE"
+    ],
+    [
+      600,
+      109,
+      1,
+      93,
+      0,
+      "IMAGE"
+    ],
+    [
+      601,
+      95,
+      4,
+      109,
+      1,
+      "TUPLE"
+    ],
+    [
+      602,
+      125,
+      0,
+      109,
+      2,
+      "STRING"
+    ],
+    [
+      603,
+      133,
+      0,
+      109,
+      3,
+      "INT"
+    ],
+    [
+      604,
+      109,
+      9,
+      104,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      605,
+      109,
+      10,
+      104,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      606,
+      109,
+      8,
+      104,
+      6,
+      "TUPLE"
+    ],
+    [
+      607,
+      109,
+      4,
+      104,
+      7,
+      "SEGS"
+    ],
+    [
+      608,
+      24,
+      0,
+      126,
+      0,
+      "*"
+    ],
+    [
+      609,
+      80,
+      0,
+      122,
+      0,
+      "*"
+    ],
+    [
+      610,
+      83,
+      1,
+      123,
+      0,
+      "*"
+    ],
+    [
+      611,
+      53,
+      0,
+      127,
+      0,
+      "*"
+    ],
+    [
+      612,
+      53,
+      1,
+      128,
+      0,
+      "*"
+    ],
+    [
+      613,
+      15,
+      14,
+      131,
+      0,
+      "*"
+    ],
+    [
+      614,
+      15,
+      13,
+      132,
+      0,
+      "*"
+    ],
+    [
+      617,
+      15,
+      11,
+      103,
+      10,
+      "COMBO"
+    ],
+    [
+      618,
+      15,
+      12,
+      103,
+      11,
+      "COMBO"
+    ],
+    [
+      619,
+      15,
+      8,
+      130,
+      0,
+      "*"
+    ],
+    [
+      620,
+      15,
+      7,
+      125,
+      0,
+      "*"
+    ],
+    [
+      621,
+      37,
+      0,
+      124,
+      0,
+      "*"
     ]
   ],
   "groups": [
@@ -7407,6 +10802,30 @@
         1096
       ],
       "color": "#8A8",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Detailers, Refiners, Inpaint",
+      "bounding": [
+        8531,
+        -1402,
+        1440,
+        2579
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Data distribution",
+      "bounding": [
+        4914,
+        1094,
+        679,
+        361
+      ],
+      "color": "#b58b2a",
       "font_size": 24,
       "locked": false
     }
