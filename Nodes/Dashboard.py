@@ -221,6 +221,11 @@ class PrimereModelConceptSelector:
                              cascade_sampler_name = 'euler_ancestral', cascade_scheduler_name = "simple", cascade_cfg_scale = 4, cascade_steps = 20,
                              lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6):
 
+        sampler_name = normal_sampler_name
+        scheduler_name = normal_scheduler_name
+        steps = normal_steps
+        cfg_scale = normal_cfg_scale
+
         match model_concept:
             case 'Normal':
                 sampler_name = normal_sampler_name
@@ -529,7 +534,7 @@ class PrimereFractalLatent:
                 # "variation_seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
                 # "variation_increment": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 1.0, "step": 0.01}),
                 # "variation_strength": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
-                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                # "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
             },
             "optional": {
                 "optional_vae": ("VAE",),
@@ -541,7 +546,10 @@ class PrimereFractalLatent:
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, seed, rand_device, device, optional_vae = None, extra_variation = False):
+    def IS_CHANGED(self, **kwargs):
+        return float('NaN')
+
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, extra_variation = False):
         if extra_variation == True:
             rand_device = True
             rand_alpha_exponent = True
@@ -551,7 +559,7 @@ class PrimereFractalLatent:
             alpha_exp_rand_max = 7.00
             modulator_rand_min = 0.10
             modulator_rand_max = 2.00
-            noise_seed = seed
+            # noise_seed = seed
 
         if rand_noise_type == True:
             pln = PowerLawNoise(device)
@@ -614,6 +622,7 @@ class PrimereCLIP:
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 # "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
+                "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
                 "int_style_pos": (['None'] + sorted(list(cls.default_pos.keys())),),
@@ -653,7 +662,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+    def clip_encode(self, clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
         if model_concept == 'Cascade' or model_concept == 'Turbo':
             model_version = 'SDXL_2048'
 
@@ -772,6 +781,9 @@ class PrimereCLIP:
 
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
+
+        if (last_layer < 0):
+            clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
 
         if (adv_encode == True):
             if (is_sdxl == 0):
