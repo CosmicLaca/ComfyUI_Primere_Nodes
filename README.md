@@ -5,9 +5,9 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <a href="./Workflow/readme_images/latest_workflow.png" target="_blank"><img src="./Workflow/readme_images/latest_workflow.jpg" width="400px"></a>
 <hr>
 
-## Features of attached complex workflow **Primere_latest_workflow.json**:
+## Features of attached complex workflow **Primere_full_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the model version
-- No need to set/switch any nodes or workflow between SD and SDXL checkpoints, not just checkpoints, but change between model concepts need only 1 click like LCM, Turbo, Cascade and Lightning. Test workflow: **civitai-modelconcepts.json**
+- No need to set/switch any nodes or workflow between SD and SDXL checkpoints, not just checkpoints, but change between model concepts only 1 click like LCM, Turbo, Cascade, Playground and Lightning. Test workflow: **civitai-modelconcepts.json**
 - You can select preferred model, subpath and orientation under the prompt input to overwrite the system settings by prompt, same features under the .csv prompt loader node and the automatic Prompt organizer
 - You can randomize the image orientation if using Comfy's batch queue mode
 - Auto save image and .json and/or .txt file with workflow details, but these details saved to image as EXIF (otherworldly meta) too
@@ -33,13 +33,13 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Do it before first run, or the example workflows / nodes will be failed in your local environment:
 
-**Try load 'Primere_latest_workflow.json' from the 'Workflow' folder, specially after git pull if the previous workflow failed because nodes changed by development. This node contains most of developed nodes, but 3rd party nodes and models required**
+**Try load 'Primere_full_workflow.json' from the 'Workflow' folder, specially after git pull if the previous workflow failed because nodes changed by development. This node contains most of developed nodes, but 3rd party nodes and models required**
 
 1; Install missing Python libraries if not start for first try. **Activate Comfy venv** and use 'pip install -r requirements.txt' at the root folder of Primere nodes (or check error messages and install missing Python libs manually).
 
 2; If node-pack started, use the Primere_minimal_workflow and Primere_basic_workflow from the 'Workflow' folder for first test. All separated nodes visible under the 'Primere Nodes' submenu if you need nodes for custom workflow. If some other nodes missing and red in workflow, download or delete unloaded 3rd party nodes.
 
-3; The **Primere_latest_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_minimal_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
+3; The **Primere_full_workflow.json** is the most complex workflow, using most of developed nodes. But the **Primere_minimal_workflow.json** is simple basic workflow with less required nodes. If the complex latest workflow not start or failed, please test out the basic or minimal instead. If you save own workflow with older developed nodes, try 'Fix node (recreate)' menu on right-click after git pull. 
 
 4; Set the right path for image saving in the node 'Primere Image Meta Saver' on 'output_path' input.
 
@@ -214,9 +214,9 @@ For hand fixer I set trigger_high_off to 5, because if the hand's area is larger
 
 ### Primere Any Detailer:
 This node create detailed/refined output by input image and segs. Node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved, maybe connected to the next refiner.
-Detailer group example included to the **Primere_latest_workflow.json** you can to check it for your own ideas and settings, or test only detailers in attached **civitai-[what]-refiner.json** files.
+Detailer group example included to the **Primere_full_workflow.json** you can to check it for your own ideas and settings, or test only detailers in attached **civitai-[what]-refiner.json** files.
 
-#### Detailer automatically handle Normal, LCM and Turbo model concepts if the 'model_concept' and 'concept_*' nodes used. Check the Primere_latest_workflow how to automatically control this node for all 3 concepts. Fpr normal mode, you can set samples to anything else, different from the original image creation settings.
+#### Detailer automatically handle Normal, LCM and Turbo model concepts if the 'model_concept' and 'concept_*' nodes used. Check the Primere_full_workflow how to automatically control this node for all 3 concepts. Fpr normal mode, you can set samples to anything else, different from the original image creation settings.
 
 <a href="./Workflow/readme_images/panydetailer.jpg" target="_blank"><img src="./Workflow/readme_images/panydetailer.jpg" height="380px"></a>
 <hr>

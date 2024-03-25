@@ -188,7 +188,7 @@
         <td><a href="../readme_images/example-advanced-lightning-custom-6-raw.jpg"><img src="../readme_images/example-advanced-lightning-custom-6.jpg" height="60 px"></a></td>
     </tr>
     <tr>
-        <td>Latest</td>
+        <td>Full</td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
