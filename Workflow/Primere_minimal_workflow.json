@@ -1,6 +1,6 @@
 {
-  "last_node_id": 57,
-  "last_link_id": 227,
+  "last_node_id": 58,
+  "last_link_id": 235,
   "nodes": [
     {
       "id": 3,
@@ -415,102 +415,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 54,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        702,
-        253
-      ],
-      "size": {
-        "0": 469,
-        "1": 226
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 204
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            205
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            206
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            207,
-            208
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            209,
-            210
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        true,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 56,
       "type": "PrimerePromptSwitch",
       "pos": [
@@ -673,7 +577,7 @@
           "type": "INT",
           "links": [
             195,
-            197
+            232
           ],
           "shape": 3,
           "slot_index": 0
@@ -683,7 +587,7 @@
           "type": "INT",
           "links": [
             196,
-            198
+            233
           ],
           "shape": 3,
           "slot_index": 1
@@ -715,7 +619,7 @@
         false,
         1.6,
         2.8,
-        239659826523090,
+        771221615220553,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -772,7 +676,7 @@
       },
       "widgets_values": [
         "",
-        277032499757154,
+        455511273848213,
         "randomize"
       ],
       "color": "#145414",
@@ -827,7 +731,7 @@
       },
       "widgets_values": [
         "",
-        775187645164788,
+        1109009457784734,
         "randomize"
       ],
       "color": "#145414",
@@ -841,8 +745,8 @@
         93
       ],
       "size": {
-        "0": 332,
-        "1": 471
+        "0": 333.8106689453125,
+        "1": 406
       },
       "flags": {},
       "order": 12,
@@ -912,13 +816,11 @@
         1,
         0.8,
         1.4,
-        683068240598225,
+        182661972582542,
         "randomize",
         false,
         "cpu",
-        false,
-        602033319650363,
-        "fixed"
+        false
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -960,7 +862,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            187
+            230
           ],
           "shape": 3,
           "slot_index": 0
@@ -969,7 +871,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            188
+            231
           ],
           "shape": 3,
           "slot_index": 1
@@ -986,42 +888,15 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 19,
-      "type": "PreviewImage",
-      "pos": [
-        1822.2397509765617,
-        598.2399588775634
-      ],
-      "size": {
-        "0": 335.4447021484375,
-        "1": 246
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 139
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 50,
+      "id": 58,
       "type": "PrimereCLIPEncoder",
       "pos": [
         2165,
         93
       ],
       "size": {
-        "0": 330.52294921875,
-        "1": 758
+        "0": 333.3734130859375,
+        "1": 782
       },
       "flags": {},
       "order": 15,
@@ -1030,7 +905,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 206
+          "link": 228
         },
         {
           "name": "model_keywords",
@@ -1060,7 +935,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 210,
+          "link": 229,
           "widget": {
             "name": "model_version"
           }
@@ -1068,7 +943,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 187,
+          "link": 230,
           "widget": {
             "name": "positive_prompt"
           }
@@ -1076,7 +951,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 188,
+          "link": 231,
           "widget": {
             "name": "negative_prompt"
           }
@@ -1140,7 +1015,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 197,
+          "link": 232,
           "widget": {
             "name": "width"
           }
@@ -1148,7 +1023,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 198,
+          "link": 233,
           "widget": {
             "name": "height"
           }
@@ -1159,7 +1034,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            191
+            234
           ],
           "shape": 3,
           "slot_index": 0
@@ -1168,7 +1043,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            192
+            235
           ],
           "shape": 3,
           "slot_index": 1
@@ -1205,28 +1080,29 @@
         "BaseModel_1024",
         "",
         "",
+        0,
         1.2,
-        true,
-        "PHOTO_SFW",
-        1.1,
-        "BETTER_IMAGES",
-        1.2,
-        true,
-        "mean",
-        "comfy++",
+        false,
+        "None",
+        1,
+        "None",
+        1,
+        false,
+        "none",
+        "comfy",
         "Normal",
         "",
         1,
         "",
         1,
-        true,
-        1,
-        1,
-        1,
+        false,
+        "",
         1,
         "",
-        true,
         1,
+        "",
+        "",
+        true,
         1,
         1024,
         1024
@@ -1257,12 +1133,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 191
+          "link": 234
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 192
+          "link": 235
         },
         {
           "name": "latent_image",
@@ -1333,7 +1209,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1068122998149428,
+        586460111202094,
         "randomize",
         20,
         8,
@@ -1425,6 +1301,129 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        1822,
+        536
+      ],
+      "size": {
+        "0": 334.86895751953125,
+        "1": 338.9780578613281
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 139
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 54,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        702,
+        253
+      ],
+      "size": {
+        "0": 471.88604736328125,
+        "1": 186
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 204
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            205
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            228
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            207,
+            208
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            209,
+            229
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -1525,38 +1524,6 @@
       "FLOAT"
     ],
     [
-      187,
-      8,
-      0,
-      50,
-      7,
-      "STRING"
-    ],
-    [
-      188,
-      8,
-      1,
-      50,
-      8,
-      "STRING"
-    ],
-    [
-      191,
-      50,
-      0,
-      47,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      192,
-      50,
-      1,
-      47,
-      2,
-      "CONDITIONING"
-    ],
-    [
       193,
       10,
       0,
@@ -1581,22 +1548,6 @@
       "INT"
     ],
     [
-      197,
-      51,
-      0,
-      50,
-      16,
-      "INT"
-    ],
-    [
-      198,
-      51,
-      1,
-      50,
-      17,
-      "INT"
-    ],
-    [
       204,
       3,
       0,
@@ -1611,14 +1562,6 @@
       47,
       0,
       "MODEL"
-    ],
-    [
-      206,
-      54,
-      1,
-      50,
-      0,
-      "CLIP"
     ],
     [
       207,
@@ -1642,14 +1585,6 @@
       3,
       51,
       1,
-      "STRING"
-    ],
-    [
-      210,
-      54,
-      3,
-      50,
-      6,
       "STRING"
     ],
     [
@@ -1755,6 +1690,70 @@
       57,
       0,
       "IMAGE"
+    ],
+    [
+      228,
+      54,
+      1,
+      58,
+      0,
+      "CLIP"
+    ],
+    [
+      229,
+      54,
+      3,
+      58,
+      6,
+      "STRING"
+    ],
+    [
+      230,
+      8,
+      0,
+      58,
+      7,
+      "STRING"
+    ],
+    [
+      231,
+      8,
+      1,
+      58,
+      8,
+      "STRING"
+    ],
+    [
+      232,
+      51,
+      0,
+      58,
+      16,
+      "INT"
+    ],
+    [
+      233,
+      51,
+      1,
+      58,
+      17,
+      "INT"
+    ],
+    [
+      234,
+      58,
+      0,
+      47,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      235,
+      58,
+      1,
+      47,
+      2,
+      "CONDITIONING"
     ]
   ],
   "groups": [
@@ -1787,8 +1786,8 @@
       "bounding": [
         1814,
         21,
-        1040,
-        837
+        1047,
+        872
       ],
       "color": "#A88",
       "font_size": 24,
