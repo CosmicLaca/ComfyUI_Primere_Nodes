@@ -21,6 +21,7 @@ import folder_paths
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
 from ..utils import comfy_dir
+import collections
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
@@ -738,3 +739,31 @@ def getDataFromWorkflow(workflow, nodeName, dataIndex):
             result = ITEM_VALUES[dataIndex]
 
     return result
+
+def collect_state(extra_pnginfo, prompt):
+    workflow = extra_pnginfo["workflow"]
+    results = {}
+    if "links" in workflow:
+        results["__links"] = workflow["links"]
+    for node in workflow["nodes"]:
+        node_id = str(node["id"])
+        name = node["type"]
+        if "Debug" in name or "Show" in name or "Function" in name or "Evaluate" in name:
+            continue
+
+        if "widgets_values" in node and "inputs" not in node:
+            results[node_id] = node["widgets_values"]
+        elif node_id in prompt:
+            values = prompt[node_id]
+            if "inputs" in values:
+                results[node_id] = {}
+                for widget in values["inputs"].items():
+                    (n, v) = widget
+                    if type(v) is not str and isinstance(v, collections.abc.Sequence):
+                        continue
+                    results[node_id][n] = v
+        elif "widgets_values" in node:
+            results[node_id] = node["widgets_values"]
+
+    result = json.dumps(results, sort_keys=True)
+    return hashlib.sha256(result.encode()).hexdigest()

@@ -17,6 +17,7 @@ import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import torch
 from ..components import utility
+from ..components import latentnoise
 from itertools import compress
 from server import PromptServer
 
@@ -414,6 +415,16 @@ class PrimereKSampler:
     RETURN_TYPES =("LATENT",)
     RETURN_NAMES = ("LATENT",)
     FUNCTION = "pk_sampler"
+
+    def __init__(self):
+        self.state_hash = False
+        self.count = 0
+
+    @classmethod
+    def IS_CHANGED(cls, **kwargs):
+        if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT':
+            return float("NaN")
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -428,13 +439,28 @@ class PrimereKSampler:
                     "negative": ("CONDITIONING", ),
                     "latent_image": ("LATENT", ),
                     "denoise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                    "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                    "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
                 },
                 "optional": {
                     "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                },
+                "hidden": {
+                    "extra_pnginfo": "EXTRA_PNGINFO",
+                    "prompt": "PROMPT"
                 }
             }
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, model_concept = "Normal", denoise=1.0):
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, device = 'DEFAULT'):
+        def check_state(self, extra_pnginfo, prompt):
+            old = self.state_hash
+            self.state_hash = utility.collect_state(extra_pnginfo, prompt)
+            if self.state_hash == old:
+                self.count += 1
+                return self.count
+            self.count = 0
+            return self.count
+
         match model_concept:
             case "Turbo":
                 sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
@@ -472,6 +498,11 @@ class PrimereKSampler:
                     samples = latent_image
                     return samples
             case _:
+                if variation_extender > 0 or device != 'DEFAULT':
+                    variation_seed = int(check_state(self, extra_pnginfo, prompt)) + seed
+                    samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
+                    return samples
+
                 samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
                 return samples
 

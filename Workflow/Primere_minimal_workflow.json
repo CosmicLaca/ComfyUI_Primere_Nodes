@@ -1,6 +1,6 @@
 {
-  "last_node_id": 58,
-  "last_link_id": 235,
+  "last_node_id": 59,
+  "last_link_id": 245,
   "nodes": [
     {
       "id": 3,
@@ -44,47 +44,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 10,
-      "type": "PrimereSeed",
-      "pos": [
-        1181,
-        89
-      ],
-      "size": {
-        "0": 286.2294616699219,
-        "1": 130
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            17,
-            18,
-            137,
-            178,
-            193
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        935486373092635,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 43,
       "type": "Note",
       "pos": [
@@ -96,7 +55,7 @@
         "1": 68
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "properties": {
         "text": ""
@@ -106,70 +65,6 @@
       ],
       "color": "#c09430",
       "bgcolor": "#653"
-    },
-    {
-      "id": 48,
-      "type": "PrimereSamplersSteps",
-      "pos": [
-        1183,
-        255
-      ],
-      "size": {
-        "0": 283.98760986328125,
-        "1": 190
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            179
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            180
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            181
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            182
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
-      },
-      "widgets_values": [
-        "euler",
-        "normal",
-        20,
-        8
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 1,
@@ -183,7 +78,7 @@
         "1": 359.32012939453125
       },
       "flags": {},
-      "order": 4,
+      "order": 2,
       "mode": 0,
       "outputs": [
         {
@@ -261,7 +156,7 @@
         "1": 654.3583984375
       },
       "flags": {},
-      "order": 5,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -347,7 +242,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 6,
+      "order": 4,
       "mode": 0,
       "outputs": [
         {
@@ -413,6 +308,207 @@
       ],
       "color": "#145414",
       "bgcolor": "#004000"
+    },
+    {
+      "id": 10,
+      "type": "PrimereSeed",
+      "pos": [
+        1181,
+        89
+      ],
+      "size": {
+        "0": 286.2294616699219,
+        "1": 130
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            17,
+            18,
+            137,
+            193,
+            241
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        935486373092635,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 48,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1183,
+        255
+      ],
+      "size": {
+        "0": 283.98760986328125,
+        "1": 190
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            242
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            243
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            244
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            245
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        20,
+        8
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 54,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        702,
+        253
+      ],
+      "size": {
+        "0": 471.88604736328125,
+        "1": 186
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 204
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            236
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            228
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            207,
+            208
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            209,
+            229
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 56,
@@ -619,7 +715,7 @@
         false,
         1.6,
         2.8,
-        771221615220553,
+        369597768907229,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -676,7 +772,7 @@
       },
       "widgets_values": [
         "",
-        455511273848213,
+        796510991971679,
         "randomize"
       ],
       "color": "#145414",
@@ -731,7 +827,7 @@
       },
       "widgets_values": [
         "",
-        1109009457784734,
+        403072188252120,
         "randomize"
       ],
       "color": "#145414",
@@ -787,7 +883,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            177
+            239
           ],
           "shape": 3
         },
@@ -816,7 +912,7 @@
         1,
         0.8,
         1.4,
-        182661972582542,
+        1117566850898458,
         "randomize",
         false,
         "cpu",
@@ -886,6 +982,33 @@
       ],
       "color": "#145414",
       "bgcolor": "#004000"
+    },
+    {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        1822,
+        536
+      ],
+      "size": {
+        "0": 334.86895751953125,
+        "1": 338.9780578613281
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 139
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 58,
@@ -1034,7 +1157,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            234
+            237
           ],
           "shape": 3,
           "slot_index": 0
@@ -1043,7 +1166,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            235
+            238
           ],
           "shape": 3,
           "slot_index": 1
@@ -1111,15 +1234,15 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 47,
+      "id": 59,
       "type": "PrimereKSampler",
       "pos": [
         2505,
         176
       ],
       "size": {
-        "0": 322.49444580078125,
-        "1": 238
+        "0": 342.3786926269531,
+        "1": 286
       },
       "flags": {},
       "order": 16,
@@ -1128,22 +1251,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 205
+          "link": 236
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 234
+          "link": 237
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 235
+          "link": 238
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 177
+          "link": 239
         },
         {
           "name": "model_concept",
@@ -1156,7 +1279,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 178,
+          "link": 241,
           "widget": {
             "name": "seed"
           }
@@ -1164,7 +1287,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 179,
+          "link": 242,
           "widget": {
             "name": "sampler_name"
           }
@@ -1172,7 +1295,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 180,
+          "link": 243,
           "widget": {
             "name": "scheduler_name"
           }
@@ -1180,7 +1303,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 181,
+          "link": 244,
           "widget": {
             "name": "steps"
           }
@@ -1188,7 +1311,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 182,
+          "link": 245,
           "widget": {
             "name": "cfg"
           }
@@ -1199,7 +1322,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            174
+            240
           ],
           "shape": 3,
           "slot_index": 0
@@ -1209,13 +1332,15 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        586460111202094,
+        934560791647962,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         1,
+        0,
+        "DEFAULT",
         "Normal"
       ],
       "color": "#941414",
@@ -1229,7 +1354,7 @@
         94
       ],
       "size": {
-        "0": 324.198974609375,
+        "0": 342.0126647949219,
         "1": 46
       },
       "flags": {},
@@ -1239,7 +1364,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 174
+          "link": 240
         },
         {
           "name": "vae",
@@ -1301,129 +1426,6 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 19,
-      "type": "PreviewImage",
-      "pos": [
-        1822,
-        536
-      ],
-      "size": {
-        "0": 334.86895751953125,
-        "1": 338.9780578613281
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 139
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 54,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        702,
-        253
-      ],
-      "size": {
-        "0": 471.88604736328125,
-        "1": 186
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 204
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            205
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            228
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            207,
-            208
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            209,
-            229
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        true,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -1468,62 +1470,6 @@
       "IMAGE"
     ],
     [
-      174,
-      47,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
-      177,
-      39,
-      0,
-      47,
-      3,
-      "LATENT"
-    ],
-    [
-      178,
-      10,
-      0,
-      47,
-      5,
-      "INT"
-    ],
-    [
-      179,
-      48,
-      0,
-      47,
-      6,
-      "COMBO"
-    ],
-    [
-      180,
-      48,
-      1,
-      47,
-      7,
-      "COMBO"
-    ],
-    [
-      181,
-      48,
-      2,
-      47,
-      8,
-      "INT"
-    ],
-    [
-      182,
-      48,
-      3,
-      47,
-      9,
-      "FLOAT"
-    ],
-    [
       193,
       10,
       0,
@@ -1554,14 +1500,6 @@
       54,
       0,
       "CHECKPOINT_NAME"
-    ],
-    [
-      205,
-      54,
-      0,
-      47,
-      0,
-      "MODEL"
     ],
     [
       207,
@@ -1740,20 +1678,84 @@
       "INT"
     ],
     [
-      234,
+      236,
+      54,
+      0,
+      59,
+      0,
+      "MODEL"
+    ],
+    [
+      237,
       58,
       0,
-      47,
+      59,
       1,
       "CONDITIONING"
     ],
     [
-      235,
+      238,
       58,
       1,
-      47,
+      59,
       2,
       "CONDITIONING"
+    ],
+    [
+      239,
+      39,
+      0,
+      59,
+      3,
+      "LATENT"
+    ],
+    [
+      240,
+      59,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      241,
+      10,
+      0,
+      59,
+      5,
+      "INT"
+    ],
+    [
+      242,
+      48,
+      0,
+      59,
+      6,
+      "COMBO"
+    ],
+    [
+      243,
+      48,
+      1,
+      59,
+      7,
+      "COMBO"
+    ],
+    [
+      244,
+      48,
+      2,
+      59,
+      8,
+      "INT"
+    ],
+    [
+      245,
+      48,
+      3,
+      59,
+      9,
+      "FLOAT"
     ]
   ],
   "groups": [

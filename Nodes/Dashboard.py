@@ -17,6 +17,7 @@ from pathlib import Path
 import re
 import requests
 from ..components import hypernetwork
+from ..components import latentnoise
 import comfy.sd
 import comfy.utils
 from ..utils import comfy_dir
@@ -526,21 +527,18 @@ class PrimereSeed:
 
 
 class PrimereFractalLatent:
-    def __init__(self):
-        pass
+    # def __init__(self):
+    #    pass
 
     @classmethod
     def INPUT_TYPES(cls):
         pln = PowerLawNoise('cpu')
         return {
             "required": {
-                # "batch_size": ("INT", {"default": 1, "max": 64, "min": 1, "step": 1}),
                 "width": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
                 "height": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
-                # "resampling": (["nearest-exact", "bilinear", "area", "bicubic", "bislerp"],),
                 "rand_noise_type": ("BOOLEAN", {"default": False}),
                 "noise_type": (pln.get_noise_types(),),
-                # "scale": ("FLOAT", {"default": 1.0, "max": 1024.0, "min": 0.01, "step": 0.001}),
                 "rand_alpha_exponent": ("BOOLEAN", {"default": True}),
                 "alpha_exponent": ("FLOAT", {"default": 1.0, "max": 12.0, "min": -12.0, "step": 0.001}),
                 "alpha_exp_rand_min": ("FLOAT", {"default": 0.5, "max": 12.0, "min": -12.0, "step": 0.001}),
@@ -553,11 +551,7 @@ class PrimereFractalLatent:
                 "rand_device": ("BOOLEAN", {"default": False}),
                 "device": (["cpu", "cuda"],),
 
-                "extra_variation": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
-                # "variation_seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                # "variation_increment": ("FLOAT", {"default": 0.01, "min": 0.01, "max": 1.0, "step": 0.01}),
-                # "variation_strength": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
-                # "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "expand_random_limits": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
             },
             "optional": {
                 "optional_vae": ("VAE",),
@@ -570,10 +564,11 @@ class PrimereFractalLatent:
     CATEGORY = TREE_DASHBOARD
 
     def IS_CHANGED(self, **kwargs):
-        return float('NaN')
+        if kwargs['expand_random_limits'] == True or kwargs['rand_noise_type'] == True or kwargs['rand_device'] == True or kwargs['rand_alpha_exponent'] == True or kwargs['rand_modulator'] == True:
+            return float('NaN')
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, extra_variation = False):
-        if extra_variation == True:
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, expand_random_limits = False, fine_variation_strength = 0):
+        if expand_random_limits == True:
             rand_device = True
             rand_alpha_exponent = True
             rand_modulator = True
@@ -591,7 +586,7 @@ class PrimereFractalLatent:
         if rand_device == True:
             device = random.choice(["cpu", "cuda"])
 
-        if extra_variation == True and (noise_type == 'white' or noise_type == 'violet'):
+        if expand_random_limits == True and (noise_type == 'white' or noise_type == 'violet'):
             alpha_exp_rand_min = 0.00
 
         power_law = PowerLawNoise(device = device)

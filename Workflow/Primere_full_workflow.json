@@ -1,6 +1,6 @@
 {
-  "last_node_id": 144,
-  "last_link_id": 714,
+  "last_node_id": 145,
+  "last_link_id": 725,
   "nodes": [
     {
       "id": 9,
@@ -1416,10 +1416,10 @@
         5618,
         -1486
       ],
-      "size": [
-        361.78999999999996,
-        58
-      ],
+      "size": {
+        "0": 361.7900085449219,
+        "1": 58
+      },
       "flags": {},
       "order": 22,
       "mode": 0,
@@ -1751,7 +1751,7 @@
         false,
         1.6,
         2.8,
-        411780326955108,
+        729710512708418,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2921,11 +2921,11 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            84,
             121,
             151,
             619,
-            645
+            645,
+            719
           ],
           "shape": 3,
           "slot_index": 8
@@ -2952,12 +2952,12 @@
           "name": "SAMPLER",
           "type": "COMBO",
           "links": [
-            87,
             204,
             519,
             521,
             555,
-            617
+            617,
+            721
           ],
           "shape": 3,
           "slot_index": 11
@@ -2966,12 +2966,12 @@
           "name": "SCHEDULER",
           "type": "COMBO",
           "links": [
-            88,
             203,
             520,
             522,
             556,
-            618
+            618,
+            722
           ],
           "shape": 3,
           "slot_index": 12
@@ -2981,8 +2981,8 @@
           "type": "INT",
           "links": [
             205,
-            493,
-            614
+            614,
+            723
           ],
           "shape": 3,
           "slot_index": 13
@@ -2991,9 +2991,9 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            90,
             206,
-            613
+            613,
+            724
           ],
           "shape": 3,
           "slot_index": 14
@@ -3409,9 +3409,9 @@
             132,
             133,
             201,
-            495,
             608,
-            662
+            662,
+            720
           ],
           "shape": 3,
           "slot_index": 0
@@ -3453,7 +3453,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        397795274327548,
+        107962606696350,
         "randomize",
         512,
         512
@@ -3734,7 +3734,7 @@
       },
       "widgets_values": [
         "",
-        550402290552624,
+        496217833092969,
         "randomize"
       ],
       "color": "#232",
@@ -3789,7 +3789,7 @@
       },
       "widgets_values": [
         "",
-        437358559802432,
+        226651597061296,
         "randomize"
       ],
       "color": "#322",
@@ -3892,7 +3892,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            664
+            718
           ],
           "shape": 3,
           "slot_index": 0
@@ -3923,7 +3923,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        580830664171040,
+        796232482340827,
         "randomize",
         false,
         "cpu",
@@ -5160,8 +5160,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            489,
-            609
+            609,
+            715
           ],
           "shape": 3,
           "slot_index": 0
@@ -5435,7 +5435,7 @@
         1.1,
         0,
         0,
-        1074524589841984,
+        540552438383998,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5538,7 +5538,7 @@
         1,
         0,
         0,
-        1000515445632939,
+        562059828846532,
         "randomize",
         "mean",
         "comfy++",
@@ -5641,7 +5641,7 @@
         1.1,
         0,
         0,
-        979280583065232,
+        591641277833658,
         "randomize",
         "mean",
         "A1111",
@@ -5746,7 +5746,7 @@
         1.2,
         0,
         0.2,
-        942201633486703,
+        1065732649856641,
         "randomize",
         "mean",
         "down_weight",
@@ -5903,8 +5903,8 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            650,
-            656
+            656,
+            716
           ],
           "shape": 3,
           "slot_index": 0
@@ -5913,8 +5913,8 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            651,
-            657
+            657,
+            717
           ],
           "shape": 3,
           "slot_index": 1
@@ -5994,16 +5994,16 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 31,
+      "id": 145,
       "type": "PrimereKSampler",
       "pos": [
         5253.767598301913,
         -601.4711328932078
       ],
-      "size": {
-        "0": 322.5079345703125,
-        "1": 238
-      },
+      "size": [
+        331.4186258169466,
+        286
+      ],
       "flags": {},
       "order": 75,
       "mode": 0,
@@ -6011,27 +6011,27 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 489
+          "link": 715
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 650
+          "link": 716
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 651
+          "link": 717
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 664
+          "link": 718
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 84,
+          "link": 719,
           "widget": {
             "name": "model_concept"
           }
@@ -6039,7 +6039,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 495,
+          "link": 720,
           "widget": {
             "name": "seed"
           }
@@ -6047,7 +6047,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 87,
+          "link": 721,
           "widget": {
             "name": "sampler_name"
           }
@@ -6055,7 +6055,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 88,
+          "link": 722,
           "widget": {
             "name": "scheduler_name"
           }
@@ -6063,7 +6063,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 493,
+          "link": 723,
           "widget": {
             "name": "steps"
           }
@@ -6071,7 +6071,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 90,
+          "link": 724,
           "widget": {
             "name": "cfg"
           }
@@ -6082,22 +6082,25 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            66
+            725
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        944346334923840,
+        609194244861578,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         1,
+        0.05,
+        "CPU",
         "Normal"
       ],
       "color": "#941414",
@@ -6233,10 +6236,10 @@
         5254,
         -681
       ],
-      "size": {
-        "0": 323.5520324707031,
-        "1": 46
-      },
+      "size": [
+        331.1862241188592,
+        46
+      ],
       "flags": {},
       "order": 80,
       "mode": 0,
@@ -6244,7 +6247,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 66,
+          "link": 725,
           "slot_index": 0
         },
         {
@@ -6275,13 +6278,13 @@
       "id": 46,
       "type": "PreviewImage",
       "pos": [
-        5253.767598301913,
-        -326.4711328932076
+        5253,
+        -281
       ],
-      "size": {
-        "0": 324.85369873046875,
-        "1": 335.5428771972656
-      },
+      "size": [
+        332.0493207026957,
+        379.6461935658757
+      ],
       "flags": {},
       "order": 81,
       "mode": 0,
@@ -6684,7 +6687,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        177338113254971,
+        682387675412283,
         "randomize",
         "heun",
         "simple",
@@ -7078,7 +7081,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        954101454824091,
+        975543125697095,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7471,7 +7474,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1098795991702142,
+        728221254917898,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7864,7 +7867,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        292152045650775,
+        532178966081306,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8218,7 +8221,7 @@
       },
       "widgets_values": [
         2.1,
-        457562934271148,
+        679326494853221,
         "randomize",
         7,
         6.5,
@@ -8285,10 +8288,10 @@
         6721,
         -1374
       ],
-      "size": [
-        376.0033977918383,
-        610.1962093637007
-      ],
+      "size": {
+        "0": 376.0033874511719,
+        "1": 610.1962280273438
+      },
       "flags": {},
       "order": 103,
       "mode": 0,
@@ -8722,46 +8725,6 @@
       30,
       0,
       "CHECKPOINT_NAME"
-    ],
-    [
-      66,
-      31,
-      0,
-      32,
-      0,
-      "LATENT"
-    ],
-    [
-      84,
-      15,
-      8,
-      31,
-      4,
-      "STRING"
-    ],
-    [
-      87,
-      15,
-      11,
-      31,
-      6,
-      "COMBO"
-    ],
-    [
-      88,
-      15,
-      12,
-      31,
-      7,
-      "COMBO"
-    ],
-    [
-      90,
-      15,
-      14,
-      31,
-      9,
-      "FLOAT"
     ],
     [
       111,
@@ -9596,30 +9559,6 @@
       "STRING"
     ],
     [
-      489,
-      80,
-      0,
-      31,
-      0,
-      "MODEL"
-    ],
-    [
-      493,
-      15,
-      13,
-      31,
-      8,
-      "INT"
-    ],
-    [
-      495,
-      24,
-      0,
-      31,
-      5,
-      "INT"
-    ],
-    [
       501,
       23,
       2,
@@ -10436,22 +10375,6 @@
       "INT"
     ],
     [
-      650,
-      138,
-      0,
-      31,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      651,
-      138,
-      1,
-      31,
-      2,
-      "CONDITIONING"
-    ],
-    [
       652,
       138,
       2,
@@ -10538,14 +10461,6 @@
       35,
       0,
       "IMAGE"
-    ],
-    [
-      664,
-      139,
-      0,
-      31,
-      3,
-      "LATENT"
     ],
     [
       671,
@@ -10882,6 +10797,94 @@
       70,
       0,
       "STRING"
+    ],
+    [
+      715,
+      80,
+      0,
+      145,
+      0,
+      "MODEL"
+    ],
+    [
+      716,
+      138,
+      0,
+      145,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      717,
+      138,
+      1,
+      145,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      718,
+      139,
+      0,
+      145,
+      3,
+      "LATENT"
+    ],
+    [
+      719,
+      15,
+      8,
+      145,
+      4,
+      "STRING"
+    ],
+    [
+      720,
+      24,
+      0,
+      145,
+      5,
+      "INT"
+    ],
+    [
+      721,
+      15,
+      11,
+      145,
+      6,
+      "COMBO"
+    ],
+    [
+      722,
+      15,
+      12,
+      145,
+      7,
+      "COMBO"
+    ],
+    [
+      723,
+      15,
+      13,
+      145,
+      8,
+      "INT"
+    ],
+    [
+      724,
+      15,
+      14,
+      145,
+      9,
+      "FLOAT"
+    ],
+    [
+      725,
+      145,
+      0,
+      32,
+      0,
+      "LATENT"
     ]
   ],
   "groups": [
