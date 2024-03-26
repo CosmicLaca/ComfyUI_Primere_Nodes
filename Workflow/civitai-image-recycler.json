@@ -1,6 +1,6 @@
 {
   "last_node_id": 14,
-  "last_link_id": 50,
+  "last_link_id": 56,
   "nodes": [
     {
       "id": 1,
@@ -186,28 +186,36 @@
         {
           "name": "SAMPLER",
           "type": "COMBO",
-          "links": [],
+          "links": [
+            51
+          ],
           "shape": 3,
           "slot_index": 11
         },
         {
           "name": "SCHEDULER",
           "type": "COMBO",
-          "links": [],
+          "links": [
+            54
+          ],
           "shape": 3,
           "slot_index": 12
         },
         {
           "name": "STEPS",
           "type": "INT",
-          "links": [],
+          "links": [
+            55
+          ],
           "shape": 3,
           "slot_index": 13
         },
         {
           "name": "CFG",
           "type": "FLOAT",
-          "links": [],
+          "links": [
+            56
+          ],
           "shape": 3,
           "slot_index": 14
         },
@@ -215,7 +223,8 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            22
+            52,
+            53
           ],
           "shape": 3,
           "slot_index": 15
@@ -376,10 +385,10 @@
         1769,
         700
       ],
-      "size": [
-        359.3300378417971,
-        782
-      ],
+      "size": {
+        "0": 359.3300476074219,
+        "1": 782
+      },
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -674,7 +683,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 22,
+          "link": 52,
           "widget": {
             "name": "noise_seed"
           }
@@ -713,7 +722,7 @@
         1,
         0.8,
         1.4,
-        216870058400124,
+        933167228365428,
         "randomize",
         true,
         "cpu",
@@ -727,10 +736,10 @@
         2162,
         1065
       ],
-      "size": [
-        557.6999999999998,
-        408.10000000000014
-      ],
+      "size": {
+        "0": 557.7000122070312,
+        "1": 408.1000061035156
+      },
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -750,7 +759,7 @@
       },
       "widgets_values": [
         "",
-        ""
+        "Golden Yellow luxury slow European big modern futuristic spaceship in the highway of small city, racing, professional car photography"
       ]
     },
     {
@@ -760,10 +769,10 @@
         2763,
         1060
       ],
-      "size": [
-        566.3809577941897,
-        413.28816528320317
-      ],
+      "size": {
+        "0": 566.3809814453125,
+        "1": 413.2881774902344
+      },
       "flags": {},
       "order": 8,
       "mode": 0,
@@ -794,8 +803,8 @@
         198
       ],
       "size": [
-        314.65003784179726,
-        330
+        333.8629180908197,
+        286
       ],
       "flags": {},
       "order": 9,
@@ -828,6 +837,46 @@
           "widget": {
             "name": "model_concept"
           }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 53,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 51,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 54,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 55,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 56,
+          "widget": {
+            "name": "cfg"
+          }
         }
       ],
       "outputs": [
@@ -845,14 +894,14 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        815890093391842,
+        735053506994241,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         1,
-        0,
+        0.22,
         "DEFAULT",
         "Normal"
       ]
@@ -1014,14 +1063,6 @@
       "INT"
     ],
     [
-      22,
-      2,
-      15,
-      9,
-      3,
-      "INT"
-    ],
-    [
       31,
       8,
       0,
@@ -1148,6 +1189,54 @@
       14,
       0,
       "STRING"
+    ],
+    [
+      51,
+      2,
+      11,
+      11,
+      6,
+      "COMBO"
+    ],
+    [
+      52,
+      2,
+      15,
+      9,
+      3,
+      "INT"
+    ],
+    [
+      53,
+      2,
+      15,
+      11,
+      5,
+      "INT"
+    ],
+    [
+      54,
+      2,
+      12,
+      11,
+      7,
+      "COMBO"
+    ],
+    [
+      55,
+      2,
+      13,
+      11,
+      8,
+      "INT"
+    ],
+    [
+      56,
+      2,
+      14,
+      11,
+      9,
+      "FLOAT"
     ]
   ],
   "groups": [],
