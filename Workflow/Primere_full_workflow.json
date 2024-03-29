@@ -1,6 +1,6 @@
 {
-  "last_node_id": 145,
-  "last_link_id": 725,
+  "last_node_id": 146,
+  "last_link_id": 736,
   "nodes": [
     {
       "id": 9,
@@ -1410,29 +1410,6 @@
       "bgcolor": "#002448"
     },
     {
-      "id": 144,
-      "type": "Note",
-      "pos": [
-        5618,
-        -1486
-      ],
-      "size": {
-        "0": 361.7900085449219,
-        "1": 58
-      },
-      "flags": {},
-      "order": 22,
-      "mode": 0,
-      "properties": {
-        "text": ""
-      },
-      "widgets_values": [
-        "Primere full workflow"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 10,
       "type": "PrimerePromptSwitch",
       "pos": [
@@ -1751,7 +1728,7 @@
         false,
         1.6,
         2.8,
-        729710512708418,
+        290930749928535,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2760,277 +2737,6 @@
       "bgcolor": "#533"
     },
     {
-      "id": 17,
-      "type": "PrimereMetaHandler",
-      "pos": [
-        3167.745738506847,
-        207.5793003363633
-      ],
-      "size": {
-        "0": 625.8974609375,
-        "1": 1235.8433837890625
-      },
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 59
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WORKFLOW_TUPLE",
-          "type": "TUPLE",
-          "links": [
-            39,
-            45
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "ORIGINAL_EXIF",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "LOADED_IMAGE",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaHandler"
-      },
-      "widgets_values": [
-        false,
-        true,
-        false,
-        true,
-        false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        true,
-        false,
-        false,
-        false,
-        false,
-        "Image_20242103_190740_126329356745970_2848x2216_1.jpg",
-        "image"
-      ],
-      "color": "#541414",
-      "bgcolor": "#400000"
-    },
-    {
-      "id": 15,
-      "type": "PrimereMetaDistributor",
-      "pos": [
-        3804.4470758325197,
-        207.40574388243778
-      ],
-      "size": {
-        "0": 275.6723937988281,
-        "1": 366
-      },
-      "flags": {},
-      "order": 35,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 39
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            130
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            131
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            64,
-            159
-          ],
-          "shape": 3,
-          "slot_index": 6
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            148,
-            149,
-            150,
-            620
-          ],
-          "shape": 3,
-          "slot_index": 7
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": [
-            121,
-            151,
-            619,
-            645,
-            719
-          ],
-          "shape": 3,
-          "slot_index": 8
-        },
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            122
-          ],
-          "shape": 3,
-          "slot_index": 9
-        },
-        {
-          "name": "VAE",
-          "type": "VAE_NAME",
-          "links": [
-            112
-          ],
-          "shape": 3,
-          "slot_index": 10
-        },
-        {
-          "name": "SAMPLER",
-          "type": "COMBO",
-          "links": [
-            204,
-            519,
-            521,
-            555,
-            617,
-            721
-          ],
-          "shape": 3,
-          "slot_index": 11
-        },
-        {
-          "name": "SCHEDULER",
-          "type": "COMBO",
-          "links": [
-            203,
-            520,
-            522,
-            556,
-            618,
-            722
-          ],
-          "shape": 3,
-          "slot_index": 12
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            205,
-            614,
-            723
-          ],
-          "shape": 3,
-          "slot_index": 13
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            206,
-            613,
-            724
-          ],
-          "shape": 3,
-          "slot_index": 14
-        },
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [],
-          "shape": 3,
-          "slot_index": 15
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            175
-          ],
-          "shape": 3,
-          "slot_index": 16
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            176
-          ],
-          "shape": 3,
-          "slot_index": 17
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaDistributor"
-      },
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 40,
       "type": "PrimereModelKeyword",
       "pos": [
@@ -3357,111 +3063,6 @@
       "bgcolor": "#bf6000"
     },
     {
-      "id": 24,
-      "type": "PrimereMetaDistributorStage2",
-      "pos": [
-        3802.4470758325197,
-        611.4057438824378
-      ],
-      "size": {
-        "0": 277.43243408203125,
-        "1": 94
-      },
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 45
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 48,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 175,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 176,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            132,
-            133,
-            201,
-            608,
-            662,
-            720
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            195,
-            648,
-            660
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            196,
-            649,
-            661
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "WORKFLOW_TUPLE",
-          "type": "TUPLE",
-          "links": [
-            227,
-            713
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaDistributorStage2"
-      },
-      "widgets_values": [
-        107962606696350,
-        "randomize",
-        512,
-        512
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 37,
       "type": "PrimereVAELoader",
       "pos": [
@@ -3734,7 +3335,7 @@
       },
       "widgets_values": [
         "",
-        496217833092969,
+        566762904789739,
         "randomize"
       ],
       "color": "#232",
@@ -3789,7 +3390,7 @@
       },
       "widgets_values": [
         "",
-        226651597061296,
+        279866699150017,
         "randomize"
       ],
       "color": "#322",
@@ -3892,7 +3493,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            718
+            729
           ],
           "shape": 3,
           "slot_index": 0
@@ -3923,7 +3524,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        796232482340827,
+        621348338012532,
         "randomize",
         false,
         "cpu",
@@ -3958,7 +3559,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"playground_sigma_max\": 120,\n        \"playground_sigma_min\": 0.002\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 1104804793479345,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"Image_20242103_190740_126329356745970_2848x2216_1.jpg\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"playground_sigma_max\": 120,\n        \"playground_sigma_min\": 0.002\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 1104804793479345,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -5161,7 +4762,7 @@
           "type": "MODEL",
           "links": [
             609,
-            715
+            726
           ],
           "shape": 3,
           "slot_index": 0
@@ -5435,7 +5036,7 @@
         1.1,
         0,
         0,
-        540552438383998,
+        943013978130908,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5538,7 +5139,7 @@
         1,
         0,
         0,
-        562059828846532,
+        178641787634506,
         "randomize",
         "mean",
         "comfy++",
@@ -5641,7 +5242,7 @@
         1.1,
         0,
         0,
-        591641277833658,
+        266783608316806,
         "randomize",
         "mean",
         "A1111",
@@ -5746,7 +5347,7 @@
         1.2,
         0,
         0.2,
-        1065732649856641,
+        77424386888212,
         "randomize",
         "mean",
         "down_weight",
@@ -5904,7 +5505,7 @@
           "type": "CONDITIONING",
           "links": [
             656,
-            716
+            727
           ],
           "shape": 3,
           "slot_index": 0
@@ -5914,7 +5515,7 @@
           "type": "CONDITIONING",
           "links": [
             657,
-            717
+            728
           ],
           "shape": 3,
           "slot_index": 1
@@ -5989,119 +5590,6 @@
         1,
         1024,
         1024
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 145,
-      "type": "PrimereKSampler",
-      "pos": [
-        5253.767598301913,
-        -601.4711328932078
-      ],
-      "size": [
-        331.4186258169466,
-        286
-      ],
-      "flags": {},
-      "order": 75,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 715
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 716
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 717
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 718
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 719,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 720,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 721,
-          "widget": {
-            "name": "sampler_name"
-          }
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 722,
-          "widget": {
-            "name": "scheduler_name"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 723,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 724,
-          "widget": {
-            "name": "cfg"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            725
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereKSampler"
-      },
-      "widgets_values": [
-        609194244861578,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1,
-        0.05,
-        "CPU",
-        "Normal"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -6236,10 +5724,10 @@
         5254,
         -681
       ],
-      "size": [
-        331.1862241188592,
-        46
-      ],
+      "size": {
+        "0": 331.18621826171875,
+        "1": 46
+      },
       "flags": {},
       "order": 80,
       "mode": 0,
@@ -6247,7 +5735,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 725,
+          "link": 736,
           "slot_index": 0
         },
         {
@@ -6270,33 +5758,6 @@
       ],
       "properties": {
         "Node name for S&R": "VAEDecode"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 46,
-      "type": "PreviewImage",
-      "pos": [
-        5253,
-        -281
-      ],
-      "size": [
-        332.0493207026957,
-        379.6461935658757
-      ],
-      "flags": {},
-      "order": 81,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 447
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
       },
       "color": "#941414",
       "bgcolor": "#800000"
@@ -6687,7 +6148,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        682387675412283,
+        52630065033658,
         "randomize",
         "heun",
         "simple",
@@ -7081,7 +6542,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        975543125697095,
+        415034169214279,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7474,7 +6935,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        728221254917898,
+        35681122050548,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7867,7 +7328,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        532178966081306,
+        69157118358946,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8221,7 +7682,7 @@
       },
       "widgets_values": [
         2.1,
-        679326494853221,
+        923235078595741,
         "randomize",
         7,
         6.5,
@@ -8379,6 +7840,546 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 46,
+      "type": "PreviewImage",
+      "pos": [
+        5253,
+        -255
+      ],
+      "size": [
+        332.15397569525885,
+        354.9284822046975
+      ],
+      "flags": {},
+      "order": 81,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 447
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 24,
+      "type": "PrimereMetaDistributorStage2",
+      "pos": [
+        3802.4470758325197,
+        611.4057438824378
+      ],
+      "size": {
+        "0": 277.43243408203125,
+        "1": 94
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 45
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 48,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 175,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 176,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            132,
+            133,
+            201,
+            608,
+            662,
+            731
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            195,
+            648,
+            660
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            196,
+            649,
+            661
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": [
+            227,
+            713
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaDistributorStage2"
+      },
+      "widgets_values": [
+        640256351262150,
+        "randomize",
+        512,
+        512
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 15,
+      "type": "PrimereMetaDistributor",
+      "pos": [
+        3804.4470758325197,
+        207.40574388243778
+      ],
+      "size": {
+        "0": 275.6723937988281,
+        "1": 366
+      },
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            130
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            131
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            64,
+            159
+          ],
+          "shape": 3,
+          "slot_index": 6
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            148,
+            149,
+            150,
+            620
+          ],
+          "shape": 3,
+          "slot_index": 7
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            121,
+            151,
+            619,
+            645,
+            730
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            122
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "VAE",
+          "type": "VAE_NAME",
+          "links": [
+            112
+          ],
+          "shape": 3,
+          "slot_index": 10
+        },
+        {
+          "name": "SAMPLER",
+          "type": "COMBO",
+          "links": [
+            204,
+            519,
+            521,
+            555,
+            617,
+            732
+          ],
+          "shape": 3,
+          "slot_index": 11
+        },
+        {
+          "name": "SCHEDULER",
+          "type": "COMBO",
+          "links": [
+            203,
+            520,
+            522,
+            556,
+            618,
+            733
+          ],
+          "shape": 3,
+          "slot_index": 12
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            205,
+            614,
+            734
+          ],
+          "shape": 3,
+          "slot_index": 13
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            206,
+            613,
+            735
+          ],
+          "shape": 3,
+          "slot_index": 14
+        },
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 15
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            175
+          ],
+          "shape": 3,
+          "slot_index": 16
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            176
+          ],
+          "shape": 3,
+          "slot_index": 17
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaDistributor"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 146,
+      "type": "PrimereKSampler",
+      "pos": [
+        5253.767598301913,
+        -601.4711328932078
+      ],
+      "size": [
+        330.6350625924442,
+        310
+      ],
+      "flags": {},
+      "order": 75,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 726
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 727
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 728
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 729
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 730,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 731,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 732,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 733,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 734,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 735,
+          "widget": {
+            "name": "cfg"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            736
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        672134943665605,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        0,
+        0,
+        "DEFAULT",
+        "Normal"
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 17,
+      "type": "PrimereMetaHandler",
+      "pos": [
+        3167.745738506847,
+        207.5793003363633
+      ],
+      "size": {
+        "0": 625.8974609375,
+        "1": 1235.8433837890625
+      },
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": [
+            39,
+            45
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "ORIGINAL_EXIF",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LOADED_IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaHandler"
+      },
+      "widgets_values": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        "example.png",
+        "image"
+      ],
+      "color": "#541414",
+      "bgcolor": "#400000"
+    },
+    {
+      "id": 144,
+      "type": "Note",
+      "pos": [
+        5618,
+        -1486
+      ],
+      "size": {
+        "0": 361.7900085449219,
+        "1": 58
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere full workflow"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -10799,88 +10800,88 @@
       "STRING"
     ],
     [
-      715,
+      726,
       80,
       0,
-      145,
+      146,
       0,
       "MODEL"
     ],
     [
-      716,
+      727,
       138,
       0,
-      145,
+      146,
       1,
       "CONDITIONING"
     ],
     [
-      717,
+      728,
       138,
       1,
-      145,
+      146,
       2,
       "CONDITIONING"
     ],
     [
-      718,
+      729,
       139,
       0,
-      145,
+      146,
       3,
       "LATENT"
     ],
     [
-      719,
+      730,
       15,
       8,
-      145,
+      146,
       4,
       "STRING"
     ],
     [
-      720,
+      731,
       24,
       0,
-      145,
+      146,
       5,
       "INT"
     ],
     [
-      721,
+      732,
       15,
       11,
-      145,
+      146,
       6,
       "COMBO"
     ],
     [
-      722,
+      733,
       15,
       12,
-      145,
+      146,
       7,
       "COMBO"
     ],
     [
-      723,
+      734,
       15,
       13,
-      145,
+      146,
       8,
       "INT"
     ],
     [
-      724,
+      735,
       15,
       14,
-      145,
+      146,
       9,
       "FLOAT"
     ],
     [
-      725,
-      145,
+      736,
+      146,
       0,
       32,
       0,
