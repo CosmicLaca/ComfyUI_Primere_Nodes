@@ -1,48 +1,7 @@
 {
-  "last_node_id": 59,
-  "last_link_id": 245,
+  "last_node_id": 60,
+  "last_link_id": 255,
   "nodes": [
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        701,
-        88
-      ],
-      "size": {
-        "0": 471.04998779296875,
-        "1": 129.93345642089844
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            204
-          ],
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
     {
       "id": 43,
       "type": "Note",
@@ -55,7 +14,7 @@
         "1": 68
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "properties": {
         "text": ""
@@ -78,7 +37,7 @@
         "1": 359.32012939453125
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -145,276 +104,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 52,
-      "type": "PrimerePromptOrganizer",
-      "pos": [
-        1056,
-        573
-      ],
-      "size": {
-        "0": 388.2765197753906,
-        "1": 654.3583984375
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            217
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            218
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            219
-          ],
-          "shape": 3,
-          "slot_index": 5
-        }
-      ],
-      "title": "Primere Prompt Organizer -  - SWITCH #2",
-      "properties": {
-        "Node name for S&R": "PrimerePromptOrganizer"
-      },
-      "widgets_values": [
-        false,
-        false,
-        false,
-        "Architechture::Minimal interior",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 4,
-      "type": "PrimereVisualStyle",
-      "pos": [
-        681,
-        969
-      ],
-      "size": {
-        "0": 369.6000061035156,
-        "1": 278
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            220
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            221
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            222
-          ],
-          "shape": 3,
-          "slot_index": 5
-        }
-      ],
-      "title": "Primere Visual Style Selector -  - SWITCH #3",
-      "properties": {
-        "Node name for S&R": "PrimereVisualStyle"
-      },
-      "widgets_values": [
-        "Architechture Interior",
-        true,
-        true,
-        false,
-        false,
-        false
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 10,
-      "type": "PrimereSeed",
-      "pos": [
-        1181,
-        89
-      ],
-      "size": {
-        "0": 286.2294616699219,
-        "1": 130
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            17,
-            18,
-            137,
-            193,
-            241
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        935486373092635,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 48,
-      "type": "PrimereSamplersSteps",
-      "pos": [
-        1183,
-        255
-      ],
-      "size": {
-        "0": 283.98760986328125,
-        "1": 190
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            242
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            243
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            244
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            245
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
-      },
-      "widgets_values": [
-        "euler",
-        "normal",
-        20,
-        8
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 54,
       "type": "PrimereCKPTLoader",
       "pos": [
@@ -426,7 +115,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -463,7 +152,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            236
+            246
           ],
           "shape": 3,
           "slot_index": 0
@@ -522,7 +211,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -639,7 +328,7 @@
         "1": 351.97613525390625
       },
       "flags": {},
-      "order": 9,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -715,7 +404,7 @@
         false,
         1.6,
         2.8,
-        369597768907229,
+        614980714925938,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -735,7 +424,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -772,7 +461,7 @@
       },
       "widgets_values": [
         "",
-        796510991971679,
+        907381658348096,
         "randomize"
       ],
       "color": "#145414",
@@ -790,7 +479,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -827,7 +516,7 @@
       },
       "widgets_values": [
         "",
-        403072188252120,
+        442660132420983,
         "randomize"
       ],
       "color": "#145414",
@@ -845,7 +534,7 @@
         "1": 406
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -883,7 +572,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            239
+            249
           ],
           "shape": 3
         },
@@ -912,7 +601,7 @@
         1,
         0.8,
         1.4,
-        1117566850898458,
+        732863611100527,
         "randomize",
         false,
         "cpu",
@@ -933,7 +622,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -995,7 +684,7 @@
         "1": 338.9780578613281
       },
       "flags": {},
-      "order": 14,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1022,7 +711,7 @@
         "1": 782
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -1157,7 +846,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            237
+            247
           ],
           "shape": 3,
           "slot_index": 0
@@ -1166,7 +855,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            238
+            248
           ],
           "shape": 3,
           "slot_index": 1
@@ -1234,119 +923,6 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 59,
-      "type": "PrimereKSampler",
-      "pos": [
-        2505,
-        176
-      ],
-      "size": {
-        "0": 342.3786926269531,
-        "1": 286
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 236
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 237
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 238
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 239
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 241,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 242,
-          "widget": {
-            "name": "sampler_name"
-          }
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 243,
-          "widget": {
-            "name": "scheduler_name"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 244,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 245,
-          "widget": {
-            "name": "cfg"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            240
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereKSampler"
-      },
-      "widgets_values": [
-        934560791647962,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1,
-        0,
-        "DEFAULT",
-        "Normal"
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
       "id": 16,
       "type": "VAEDecode",
       "pos": [
@@ -1364,7 +940,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 240
+          "link": 255
         },
         {
           "name": "vae",
@@ -1387,6 +963,390 @@
       "properties": {
         "Node name for S&R": "VAEDecode"
       },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 52,
+      "type": "PrimerePromptOrganizer",
+      "pos": [
+        1056,
+        573
+      ],
+      "size": {
+        "0": 388.2765197753906,
+        "1": 654.3583984375
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            217
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            218
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            219
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "title": "Primere Prompt Organizer -  - SWITCH #2",
+      "properties": {
+        "Node name for S&R": "PrimerePromptOrganizer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        "Architechture::Minimal interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 4,
+      "type": "PrimereVisualStyle",
+      "pos": [
+        681,
+        969
+      ],
+      "size": {
+        "0": 369.6000061035156,
+        "1": 278
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            220
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            221
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            222
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "title": "Primere Visual Style Selector -  - SWITCH #3",
+      "properties": {
+        "Node name for S&R": "PrimereVisualStyle"
+      },
+      "widgets_values": [
+        "Architechture Interior",
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 10,
+      "type": "PrimereSeed",
+      "pos": [
+        1181,
+        89
+      ],
+      "size": {
+        "0": 286.2294616699219,
+        "1": 130
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            17,
+            18,
+            137,
+            193,
+            250
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        935486373092635,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 48,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1183,
+        255
+      ],
+      "size": {
+        "0": 283.98760986328125,
+        "1": 190
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            251
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            252
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            253
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            254
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        20,
+        8
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 60,
+      "type": "PrimereKSampler",
+      "pos": [
+        2505,
+        176
+      ],
+      "size": [
+        341.00912842647267,
+        310
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 246
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 247
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 248
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 249
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 250,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 251,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 252,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 253,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 254,
+          "widget": {
+            "name": "cfg"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            255
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        287293814637662,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        0,
+        0,
+        "DEFAULT",
+        "Normal"
+      ],
       "color": "#941414",
       "bgcolor": "#800000"
     },
@@ -1426,6 +1386,47 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        701,
+        88
+      ],
+      "size": {
+        "0": 471.04998779296875,
+        "1": 129.93345642089844
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            204
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -1678,84 +1679,84 @@
       "INT"
     ],
     [
-      236,
+      246,
       54,
       0,
-      59,
+      60,
       0,
       "MODEL"
     ],
     [
-      237,
+      247,
       58,
       0,
-      59,
+      60,
       1,
       "CONDITIONING"
     ],
     [
-      238,
+      248,
       58,
       1,
-      59,
+      60,
       2,
       "CONDITIONING"
     ],
     [
-      239,
+      249,
       39,
       0,
-      59,
+      60,
       3,
       "LATENT"
     ],
     [
-      240,
-      59,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
-      241,
+      250,
       10,
       0,
-      59,
+      60,
       5,
       "INT"
     ],
     [
-      242,
+      251,
       48,
       0,
-      59,
+      60,
       6,
       "COMBO"
     ],
     [
-      243,
+      252,
       48,
       1,
-      59,
+      60,
       7,
       "COMBO"
     ],
     [
-      244,
+      253,
       48,
       2,
-      59,
+      60,
       8,
       "INT"
     ],
     [
-      245,
+      254,
       48,
       3,
-      59,
+      60,
       9,
       "FLOAT"
+    ],
+    [
+      255,
+      60,
+      0,
+      16,
+      0,
+      "LATENT"
     ]
   ],
   "groups": [

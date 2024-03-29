@@ -1,6 +1,6 @@
 {
-  "last_node_id": 119,
-  "last_link_id": 654,
+  "last_node_id": 120,
+  "last_link_id": 678,
   "nodes": [
     {
       "id": 51,
@@ -457,41 +457,6 @@
       "bgcolor": "#3575ae"
     },
     {
-      "id": 103,
-      "type": "PrimereVAE",
-      "pos": [
-        662,
-        670
-      ],
-      "size": {
-        "0": 377.3240661621094,
-        "1": 58
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "VAE_NAME",
-          "type": "VAE_NAME",
-          "links": [
-            485
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Primere VAE Selector - CASCADE",
-      "properties": {
-        "Node name for S&R": "PrimereVAE"
-      },
-      "widgets_values": [
-        "Stable-Cascade\\stage_a.safetensors"
-      ],
-      "color": "#145494",
-      "bgcolor": "#004080"
-    },
-    {
       "id": 1,
       "type": "PrimerePrompt",
       "pos": [
@@ -503,7 +468,7 @@
         "1": 359.32012939453125
       },
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "outputs": [
         {
@@ -580,7 +545,7 @@
         "1": 446
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "outputs": [
         {
@@ -665,7 +630,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "outputs": [
         {
@@ -732,51 +697,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        661.0413520749936,
-        89.99782310520223
-      ],
-      "size": {
-        "0": 467.5840759277344,
-        "1": 128.78175354003906
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            456,
-            554
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 118,
       "type": "PrimereSamplersSteps",
       "pos": [
@@ -788,7 +708,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 14,
+      "order": 12,
       "mode": 0,
       "outputs": [
         {
@@ -853,13 +773,13 @@
         "1": 174
       },
       "flags": {},
-      "order": 15,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
           "name": "lightning_selector",
           "type": "STRING",
-          "link": null,
+          "link": 671,
           "widget": {
             "name": "lightning_selector"
           }
@@ -867,7 +787,7 @@
         {
           "name": "lightning_model_step",
           "type": "INT",
-          "link": null,
+          "link": 672,
           "widget": {
             "name": "lightning_model_step"
           }
@@ -875,7 +795,7 @@
         {
           "name": "cascade_stage_a",
           "type": "STRING",
-          "link": null,
+          "link": 673,
           "widget": {
             "name": "cascade_stage_a"
           }
@@ -883,7 +803,7 @@
         {
           "name": "cascade_stage_b",
           "type": "STRING",
-          "link": null,
+          "link": 674,
           "widget": {
             "name": "cascade_stage_b"
           }
@@ -891,7 +811,7 @@
         {
           "name": "cascade_stage_c",
           "type": "STRING",
-          "link": null,
+          "link": 675,
           "widget": {
             "name": "cascade_stage_c"
           }
@@ -899,7 +819,7 @@
         {
           "name": "cascade_clip",
           "type": "STRING",
-          "link": null,
+          "link": 676,
           "widget": {
             "name": "cascade_clip"
           }
@@ -907,7 +827,7 @@
         {
           "name": "playground_sigma_max",
           "type": "FLOAT",
-          "link": null,
+          "link": 677,
           "widget": {
             "name": "playground_sigma_max"
           }
@@ -915,7 +835,7 @@
         {
           "name": "playground_sigma_min",
           "type": "FLOAT",
-          "link": null,
+          "link": 678,
           "widget": {
             "name": "playground_sigma_min"
           }
@@ -961,7 +881,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -1126,7 +1046,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -1163,7 +1083,7 @@
       },
       "widgets_values": [
         "",
-        753275174883327,
+        1095556628561663,
         "randomize"
       ],
       "color": "#145414",
@@ -1181,7 +1101,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1218,7 +1138,7 @@
       },
       "widgets_values": [
         "",
-        216293324052935,
+        295816896564165,
         "randomize"
       ],
       "color": "#541414",
@@ -1236,7 +1156,7 @@
         "1": 206
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1343,7 +1263,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1395,49 +1315,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 104,
-      "type": "PrimereVAELoader",
-      "pos": [
-        1045,
-        651
-      ],
-      "size": {
-        "0": 166.3192901611328,
-        "1": 46
-      },
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae_name",
-          "type": "VAE_NAME",
-          "link": 485
-        },
-        {
-          "name": "baked_vae",
-          "type": "VAE",
-          "link": 490
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            486
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVAELoader"
-      },
-      "color": "#145494",
-      "bgcolor": "#004080"
-    },
-    {
       "id": 59,
       "type": "PrimereVAELoader",
       "pos": [
@@ -1449,7 +1326,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1492,7 +1369,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1535,7 +1412,7 @@
         "1": 334
       },
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -1618,7 +1495,7 @@
         false,
         1.6,
         2.8,
-        128357125508518,
+        272966888521240,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1638,7 +1515,7 @@
         "1": 568.43896484375
       },
       "flags": {},
-      "order": 28,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1666,7 +1543,7 @@
           "type": "MODEL",
           "links": [
             542,
-            644
+            655
           ],
           "shape": 3,
           "slot_index": 0
@@ -1824,75 +1701,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 101,
-      "type": "PrimereVAESelector",
-      "pos": [
-        1047,
-        501
-      ],
-      "size": {
-        "0": 334.7551574707031,
-        "1": 114
-      },
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae_sd",
-          "type": "VAE",
-          "link": 481
-        },
-        {
-          "name": "vae_sdxl",
-          "type": "VAE",
-          "link": 482
-        },
-        {
-          "name": "vae_cascade",
-          "type": "VAE",
-          "link": 486
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 483,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 640,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            487,
-            489
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVAESelector"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#145494",
-      "bgcolor": "#004080"
-    },
-    {
       "id": 39,
       "type": "PrimereLatentNoise",
       "pos": [
@@ -1942,7 +1750,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            647
+            658
           ],
           "shape": 3
         },
@@ -1971,250 +1779,11 @@
         1,
         0.8,
         1.4,
-        100126141977697,
+        398634723955061,
         "randomize",
         true,
         "cpu",
         true
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 115,
-      "type": "PrimereCLIPEncoder",
-      "pos": [
-        2162,
-        91
-      ],
-      "size": {
-        "0": 331.67840576171875,
-        "1": 782
-      },
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 574
-        },
-        {
-          "name": "model_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": 575
-        },
-        {
-          "name": "lora_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": null
-        },
-        {
-          "name": "lycoris_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": null
-        },
-        {
-          "name": "embedding_pos",
-          "type": "EMBEDDING",
-          "link": null
-        },
-        {
-          "name": "embedding_neg",
-          "type": "EMBEDDING",
-          "link": null
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 576,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 577,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 578,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "opt_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_pos_prompt"
-          }
-        },
-        {
-          "name": "opt_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_neg_prompt"
-          }
-        },
-        {
-          "name": "style_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_pos_prompt"
-          }
-        },
-        {
-          "name": "style_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_neg_prompt"
-          }
-        },
-        {
-          "name": "sdxl_positive_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_positive_l"
-          }
-        },
-        {
-          "name": "sdxl_negative_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_negative_l"
-          }
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 580,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 581,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            631,
-            645
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            632,
-            646
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            584,
-            623
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            585,
-            624
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": [
-            625
-          ],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": [
-            626
-          ],
-          "shape": 3,
-          "slot_index": 5
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCLIPEncoder"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        0,
-        1.2,
-        false,
-        "None",
-        1,
-        "None",
-        1,
-        false,
-        "none",
-        "comfy",
-        "Normal",
-        "",
-        1,
-        "",
-        1,
-        false,
-        "",
-        1,
-        "",
-        1,
-        "",
-        "",
-        true,
-        1,
-        1024,
-        1024
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -2243,119 +1812,6 @@
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 119,
-      "type": "PrimereKSampler",
-      "pos": [
-        2500,
-        174
-      ],
-      "size": [
-        323.7235852383442,
-        286
-      ],
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 644
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 645
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 646
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 647
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 648,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 650,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 651,
-          "widget": {
-            "name": "sampler_name"
-          }
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 652,
-          "widget": {
-            "name": "scheduler_name"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 653,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 654,
-          "widget": {
-            "name": "cfg"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            649
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereKSampler"
-      },
-      "widgets_values": [
-        89365624548453,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1,
-        0,
-        "DEFAULT",
-        "Normal"
-      ],
       "color": "#941414",
       "bgcolor": "#800000"
     },
@@ -2614,81 +2070,6 @@
       "bgcolor": "#400040"
     },
     {
-      "id": 16,
-      "type": "VAEDecode",
-      "pos": [
-        2501,
-        92
-      ],
-      "size": {
-        "0": 324.198974609375,
-        "1": 46
-      },
-      "flags": {},
-      "order": 38,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 649
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 487,
-          "slot_index": 1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            37,
-            338
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 58,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        3887,
-        699
-      ],
-      "size": {
-        "0": 611.3242797851562,
-        "1": 741.81298828125
-      },
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 572
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"positive\": \"minimalist interior, colorful beautiful (small abandoned, messy auto garage:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury gold desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {},\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 89,
       "type": "PrimereResolutionMultiplier",
       "pos": [
@@ -2931,7 +2312,7 @@
       },
       "widgets_values": [
         2,
-        9724196346599,
+        455177882339048,
         "randomize",
         20,
         8,
@@ -3094,11 +2475,11 @@
       "type": "PreviewImage",
       "pos": [
         2500,
-        495
+        520
       ],
       "size": [
-        323.2921206677156,
-        377.88076805873095
+        326.341666585844,
+        351.96286393685375
       ],
       "flags": {},
       "order": 40,
@@ -3128,7 +2509,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 16,
+      "order": 13,
       "mode": 0,
       "outputs": [
         {
@@ -3140,7 +2521,7 @@
             137,
             270,
             317,
-            650
+            660
           ],
           "shape": 3,
           "slot_index": 0
@@ -3159,6 +2540,312 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 120,
+      "type": "PrimereKSampler",
+      "pos": [
+        2500,
+        174
+      ],
+      "size": [
+        326.22564697265625,
+        310
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 655
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 656
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 657
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 658
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 659,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 660,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 661,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 662,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 663,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 664,
+          "widget": {
+            "name": "cfg"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            667
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        809489985004888,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        0,
+        0,
+        "DEFAULT",
+        "Normal"
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [
+        2501,
+        92
+      ],
+      "size": {
+        "0": 324.198974609375,
+        "1": 46
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 667
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 668,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            37,
+            338
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 101,
+      "type": "PrimereVAESelector",
+      "pos": [
+        1047,
+        501
+      ],
+      "size": {
+        "0": 334.7551574707031,
+        "1": 114
+      },
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae_sd",
+          "type": "VAE",
+          "link": 481
+        },
+        {
+          "name": "vae_sdxl",
+          "type": "VAE",
+          "link": 482
+        },
+        {
+          "name": "vae_cascade",
+          "type": "VAE",
+          "link": 669
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 483,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 640,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            489,
+            668
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVAESelector"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "Normal"
+      ],
+      "color": "#145494",
+      "bgcolor": "#004080"
+    },
+    {
+      "id": 104,
+      "type": "PrimereVAELoader",
+      "pos": [
+        1045,
+        651
+      ],
+      "size": {
+        "0": 166.3192901611328,
+        "1": 46
+      },
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae_name",
+          "type": "VAE_NAME",
+          "link": 670
+        },
+        {
+          "name": "baked_vae",
+          "type": "VAE",
+          "link": 490
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            669
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVAELoader"
+      },
+      "color": "#145494",
+      "bgcolor": "#004080"
+    },
+    {
+      "id": 103,
+      "type": "PrimereVAE",
+      "pos": [
+        662,
+        670
+      ],
+      "size": {
+        "0": 377.3240661621094,
+        "1": 58
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "VAE_NAME",
+          "type": "VAE_NAME",
+          "links": [
+            670
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Primere VAE Selector - CASCADE",
+      "properties": {
+        "Node name for S&R": "PrimereVAE"
+      },
+      "widgets_values": [
+        "Stable-Cascade\\stage_a.safetensors"
+      ],
+      "color": "#145494",
+      "bgcolor": "#004080"
+    },
+    {
       "id": 117,
       "type": "PrimereModelConceptSelector",
       "pos": [
@@ -3170,7 +2857,7 @@
         "1": 734
       },
       "flags": {},
-      "order": 19,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -3373,7 +3060,7 @@
           "links": [
             618,
             633,
-            651
+            661
           ],
           "shape": 3,
           "slot_index": 0
@@ -3384,7 +3071,7 @@
           "links": [
             615,
             619,
-            652
+            662
           ],
           "shape": 3,
           "slot_index": 1
@@ -3395,7 +3082,7 @@
           "links": [
             616,
             620,
-            653
+            663
           ],
           "shape": 3,
           "slot_index": 2
@@ -3406,7 +3093,7 @@
           "links": [
             617,
             621,
-            654
+            664
           ],
           "shape": 3,
           "slot_index": 3
@@ -3419,7 +3106,8 @@
             640,
             641,
             643,
-            648
+            659,
+            665
           ],
           "shape": 3,
           "slot_index": 4
@@ -3427,50 +3115,74 @@
         {
           "name": "LIGHTNING_SELECTOR",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            671
+          ],
+          "shape": 3,
+          "slot_index": 5
         },
         {
           "name": "LIGHTNING_MODEL_STEP",
           "type": "INT",
-          "links": null,
-          "shape": 3
+          "links": [
+            672
+          ],
+          "shape": 3,
+          "slot_index": 6
         },
         {
           "name": "CASCADE_STAGE_A",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            673
+          ],
+          "shape": 3,
+          "slot_index": 7
         },
         {
           "name": "CASCADE_STAGE_B",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            674
+          ],
+          "shape": 3,
+          "slot_index": 8
         },
         {
           "name": "CASCADE_STAGE_C",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            675
+          ],
+          "shape": 3,
+          "slot_index": 9
         },
         {
           "name": "CASCADE_CLIP",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            676
+          ],
+          "shape": 3,
+          "slot_index": 10
         },
         {
           "name": "PLAYGROUND_SIGMA_MAX",
           "type": "FLOAT",
-          "links": null,
-          "shape": 3
+          "links": [
+            677
+          ],
+          "shape": 3,
+          "slot_index": 11
         },
         {
           "name": "PLAYGROUND_SIGMA_MIN",
           "type": "FLOAT",
-          "links": null,
-          "shape": 3
+          "links": [
+            678
+          ],
+          "shape": 3,
+          "slot_index": 12
         }
       ],
       "properties": {
@@ -3514,6 +3226,320 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        661.0413520749936,
+        89.99782310520223
+      ],
+      "size": {
+        "0": 467.5840759277344,
+        "1": 128.78175354003906
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            456,
+            554
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 115,
+      "type": "PrimereCLIPEncoder",
+      "pos": [
+        2162,
+        91
+      ],
+      "size": {
+        "0": 331.67840576171875,
+        "1": 782
+      },
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 574
+        },
+        {
+          "name": "model_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 575
+        },
+        {
+          "name": "lora_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": null
+        },
+        {
+          "name": "lycoris_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": null
+        },
+        {
+          "name": "embedding_pos",
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "embedding_neg",
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 576,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 577,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 578,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 665,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "opt_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_pos_prompt"
+          }
+        },
+        {
+          "name": "opt_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_neg_prompt"
+          }
+        },
+        {
+          "name": "style_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_pos_prompt"
+          }
+        },
+        {
+          "name": "style_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_neg_prompt"
+          }
+        },
+        {
+          "name": "sdxl_positive_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "sdxl_positive_l"
+          }
+        },
+        {
+          "name": "sdxl_negative_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "sdxl_negative_l"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 580,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 581,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            631,
+            656
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            632,
+            657
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            584,
+            623
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            585,
+            624
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": [
+            625
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": [
+            626
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCLIPEncoder"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "",
+        "",
+        0,
+        1.2,
+        false,
+        "None",
+        1,
+        "None",
+        1,
+        true,
+        "mean",
+        "comfy++",
+        "Normal",
+        "",
+        1,
+        "",
+        1,
+        false,
+        "",
+        1,
+        "",
+        1,
+        "",
+        "",
+        true,
+        1,
+        1024,
+        1024
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 58,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        3888,
+        698
+      ],
+      "size": {
+        "0": 611.3242797851562,
+        "1": 741.81298828125
+      },
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 572
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"positive\": \"minimalist interior, colorful beautiful (small abandoned, messy auto garage:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury gold desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"playground_sigma_max\": 120.0,\n        \"playground_sigma_min\": 0.002\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
     }
   ],
   "links": [
@@ -3740,30 +3766,6 @@
       101,
       3,
       "STRING"
-    ],
-    [
-      485,
-      103,
-      0,
-      104,
-      0,
-      "VAE_NAME"
-    ],
-    [
-      486,
-      104,
-      0,
-      101,
-      2,
-      "VAE"
-    ],
-    [
-      487,
-      101,
-      0,
-      16,
-      1,
-      "VAE"
     ],
     [
       488,
@@ -4478,91 +4480,187 @@
       "STRING"
     ],
     [
-      644,
+      655,
       111,
       0,
-      119,
+      120,
       0,
       "MODEL"
     ],
     [
-      645,
+      656,
       115,
       0,
-      119,
+      120,
       1,
       "CONDITIONING"
     ],
     [
-      646,
+      657,
       115,
       1,
-      119,
+      120,
       2,
       "CONDITIONING"
     ],
     [
-      647,
+      658,
       39,
       0,
-      119,
+      120,
       3,
       "LATENT"
     ],
     [
-      648,
+      659,
       117,
       4,
-      119,
+      120,
       4,
       "STRING"
     ],
     [
-      649,
-      119,
+      660,
+      10,
+      0,
+      120,
+      5,
+      "INT"
+    ],
+    [
+      661,
+      117,
+      0,
+      120,
+      6,
+      "COMBO"
+    ],
+    [
+      662,
+      117,
+      1,
+      120,
+      7,
+      "COMBO"
+    ],
+    [
+      663,
+      117,
+      2,
+      120,
+      8,
+      "INT"
+    ],
+    [
+      664,
+      117,
+      3,
+      120,
+      9,
+      "FLOAT"
+    ],
+    [
+      665,
+      117,
+      4,
+      115,
+      9,
+      "STRING"
+    ],
+    [
+      667,
+      120,
       0,
       16,
       0,
       "LATENT"
     ],
     [
-      650,
-      10,
+      668,
+      101,
       0,
-      119,
-      5,
-      "INT"
-    ],
-    [
-      651,
-      117,
-      0,
-      119,
-      6,
-      "COMBO"
-    ],
-    [
-      652,
-      117,
+      16,
       1,
-      119,
-      7,
-      "COMBO"
+      "VAE"
     ],
     [
-      653,
-      117,
+      669,
+      104,
+      0,
+      101,
       2,
-      119,
-      8,
+      "VAE"
+    ],
+    [
+      670,
+      103,
+      0,
+      104,
+      0,
+      "VAE_NAME"
+    ],
+    [
+      671,
+      117,
+      5,
+      116,
+      0,
+      "STRING"
+    ],
+    [
+      672,
+      117,
+      6,
+      116,
+      1,
       "INT"
     ],
     [
-      654,
+      673,
       117,
+      7,
+      116,
+      2,
+      "STRING"
+    ],
+    [
+      674,
+      117,
+      8,
+      116,
       3,
-      119,
+      "STRING"
+    ],
+    [
+      675,
+      117,
       9,
+      116,
+      4,
+      "STRING"
+    ],
+    [
+      676,
+      117,
+      10,
+      116,
+      5,
+      "STRING"
+    ],
+    [
+      677,
+      117,
+      11,
+      116,
+      6,
+      "FLOAT"
+    ],
+    [
+      678,
+      117,
+      12,
+      116,
+      7,
       "FLOAT"
     ]
   ],

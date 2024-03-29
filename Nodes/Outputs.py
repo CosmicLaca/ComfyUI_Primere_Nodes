@@ -422,7 +422,7 @@ class PrimereKSampler:
 
     @classmethod
     def IS_CHANGED(cls, **kwargs):
-        if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT':
+        if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0:
             return float("NaN")
 
     @classmethod
@@ -440,6 +440,7 @@ class PrimereKSampler:
                     "latent_image": ("LATENT", ),
                     "denoise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
                     "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                    "variation_batch_step": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
                     "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
                 },
                 "optional": {
@@ -451,7 +452,11 @@ class PrimereKSampler:
                 }
             }
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, device = 'DEFAULT'):
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, variation_batch_step = 0, device = 'DEFAULT'):
+        samples = latent_image
+        variation_extender_original = variation_extender
+        variation_batch_step_original = variation_batch_step
+
         def check_state(self, extra_pnginfo, prompt):
             old = self.state_hash
             self.state_hash = utility.collect_state(extra_pnginfo, prompt)
@@ -461,14 +466,15 @@ class PrimereKSampler:
             self.count = 0
             return self.count
 
+        batch_counter = int(check_state(self, extra_pnginfo, prompt)) + 1
+
         match model_concept:
             case "Turbo":
                 sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
                 sampler = comfy.samplers.sampler_object(sampler_name)
                 turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                 samples = (turbo_samples[0],)
-
-                return samples
+                # return samples
 
             case "Cascade":
                 if type(model).__name__ == 'list':
@@ -489,22 +495,40 @@ class PrimereKSampler:
                         c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
                         b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
                         samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
-                        # sample(self, model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise=1.0):
                         conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
                         samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
-
-                        return samples
-                else:
-                    samples = latent_image
-                    return samples
+                        # return samples
             case _:
-                if variation_extender > 0 or device != 'DEFAULT':
-                    variation_seed = int(check_state(self, extra_pnginfo, prompt)) + seed
-                    samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
-                    return samples
+                if variation_batch_step_original > 0:
+                    if batch_counter > 0:
+                        variation_batch_step = variation_batch_step_original * batch_counter
 
-                samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
-                return samples
+                    variation_extender = round(variation_extender_original + variation_batch_step, 2)
+
+                if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
+                    if (variation_extender > 1):
+                        random.seed(batch_counter)
+                        variation_extender = round(random.uniform(0.01, 1.00), 2)
+                    if variation_batch_step == 0:
+                        variation_seed = batch_counter + seed
+                    else:
+                        variation_seed = seed
+                    samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
+                else:
+                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                    # return samples
+
+        return samples
+
+    '''
+        if variation_batch_step > 0:
+            variation_extender = variation_extender + (batch_counter * variation_batch_step)
+
+        if variation_extender > 0 or device != 'DEFAULT':
+            variation_seed = batch_counter + seed
+            samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, samples, denoise, variation_seed, variation_extender)[0]
+            # return samples    
+    '''
 
 class PrimerePreviewImage():
     CATEGORY = TREE_OUTPUTS
