@@ -12,3 +12,4 @@ torch
 ultralytics
 aiohttp
 pytz
+segment_anything
