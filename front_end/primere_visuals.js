@@ -49,7 +49,7 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     var imgsrc = prwPath + '/images/' + ModelType + '/' + previewName;
     var missingimgsrc = prwPath + '/images/missing.jpg';
 
-    let supportedImageExtensions = [ '.preview.jpg', '.jpeg', '.preview.jpeg', '.png', '.preview.png'];
+    let supportedImageExtensions = ['.preview.jpg', '.jpeg', '.preview.jpeg', '.png', '.preview.png'];
     let alternativeImgSources = []
     for (let ending of supportedImageExtensions) {
         var alternativeImgSrc = prwPath + '/images/' + ModelType + '/' + finalName + ending;
@@ -70,13 +70,13 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
             card_html += '<img src="' + img.src + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
             card.innerHTML = card_html;
             container.appendChild(card);
-            console.log('Image loaded successfully with image source: ' + img.src + ' ...')
+            // console.log('Image loaded successfully with image source: ' + img.src + ' ...')
         }
         currentAttempt = 0;
     };
 
     img.onerror = () => {
-        console.error('Image error detected with image source: ' + img.src + '. Attempting alternative image sources');
+        // console.error('Image error detected with image source: ' + img.src + '. Attempting alternative image sources');
         if (currentAttempt < alternativeImgSources.length) {
             currentAttempt++;
             img.src = alternativeImgSources[currentAttempt - 1];
