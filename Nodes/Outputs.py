@@ -5,7 +5,7 @@ import re
 import json
 import time
 import numpy as np
-import piexif
+import pyexiv2
 from PIL.PngImagePlugin import PngInfo
 from PIL import Image, PngImagePlugin
 from pathlib import Path
@@ -207,14 +207,11 @@ class PrimereMetaSave:
             else:
                 img.save(output_file, quality=quality, optimize=True)
                 if image_embed_exif == True:
-                    try:
-                        exif_dict = piexif.load(output_file)
-                        exif_dict["Exif"][piexif.ExifIFD.UserComment] = piexif.helper.UserComment.dump(json.dumps(exif_metadata_json), encoding="unicode")
-                        exif_bytes = piexif.dump(exif_dict)
-                        piexif.insert(exif_bytes, output_file)
-                        print(f"Image file saved with exif: {output_file}")
-                    except Exception as e:
-                        print(f"Error saving EXIF data: {e}")
+                    metadata = pyexiv2.Image(output_file)
+#                     if exif_metadata_A11 is not None:
+#                        metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
+                    metadata.modify_exif({'Exif.Image.ImageDescription': json.dumps(exif_metadata_json)})
+                    print(f"Image file saved with exif: {output_file}")
                 else:
                     if extension == 'webp':
                         img.save(output_file, quality=quality, exif=metadata)

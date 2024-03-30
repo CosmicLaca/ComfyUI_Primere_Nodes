@@ -49,14 +49,6 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     var imgsrc = prwPath + '/images/' + ModelType + '/' + previewName;
     var missingimgsrc = prwPath + '/images/missing.jpg';
 
-    let supportedImageExtensions = [ '.preview.jpg', '.jpeg', '.preview.jpeg', '.png', '.preview.png'];
-    let alternativeImgSources = []
-    for (let ending of supportedImageExtensions) {
-        var alternativeImgSrc = prwPath + '/images/' + ModelType + '/' + finalName + ending;
-        alternativeImgSources.push(alternativeImgSrc);
-    }
-    let currentAttempt = 0;
-
 	var card = document.createElement("div");
 	card.classList.add('visual-ckpt', 'version-' + versionString);
     if (SelectedModel === checkpoint) {
@@ -64,35 +56,22 @@ function createCardElement(checkpoint, container, SelectedModel, ModelType) {
     }
 
     const img = new Image();
+    img.src = imgsrc;
     img.onload = () => {
         const width = img.width;
         if (width > 0) {
-            card_html += '<img src="' + img.src + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
+            card_html += '<img src="' + imgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
             card.innerHTML = card_html;
             container.appendChild(card);
-            console.log('Image loaded successfully with image source: ' + img.src + ' ...')
         }
-        currentAttempt = 0;
     };
 
     img.onerror = () => {
-        console.error('Image error detected with image source: ' + img.src + '. Attempting alternative image sources');
-        if (currentAttempt < alternativeImgSources.length) {
-            currentAttempt++;
-            img.src = alternativeImgSources[currentAttempt - 1];
-        } else {
-            card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
-            card.innerHTML = card_html;
-            container.appendChild(card);
-            currentAttempt = 0;
-        }
-        // card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
-        // card.innerHTML = card_html;
-        // container.appendChild(card);
+        card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
+        card.innerHTML = card_html;
+        container.appendChild(card);
     };
-    img.src = imgsrc;
 }
-
 
 app.registerExtension({
     name: "Primere.VisualMenu",
