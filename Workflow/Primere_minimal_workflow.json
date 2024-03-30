@@ -404,7 +404,7 @@
         false,
         1.6,
         2.8,
-        614980714925938,
+        453129688705689,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -461,7 +461,7 @@
       },
       "widgets_values": [
         "",
-        907381658348096,
+        349300778450373,
         "randomize"
       ],
       "color": "#145414",
@@ -516,7 +516,7 @@
       },
       "widgets_values": [
         "",
-        442660132420983,
+        143159882070681,
         "randomize"
       ],
       "color": "#145414",
@@ -601,7 +601,7 @@
         1,
         0.8,
         1.4,
-        732863611100527,
+        480865383285734,
         "randomize",
         false,
         "cpu",
@@ -1143,7 +1143,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "outputs": [
         {
@@ -1184,7 +1184,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "outputs": [
         {
@@ -1243,10 +1243,10 @@
         2505,
         176
       ],
-      "size": [
-        341.00912842647267,
-        310
-      ],
+      "size": {
+        "0": 341.0091247558594,
+        "1": 310
+      },
       "flags": {},
       "order": 16,
       "mode": 0,
@@ -1335,7 +1335,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        287293814637662,
+        611373743978229,
         "randomize",
         20,
         8,
@@ -1381,7 +1381,7 @@
         95,
         "Checkpoint",
         "Overwrite",
-        "BestAll\\photon_v1.safetensors",
+        "SDXL\\batchCOREALISMXL_v40.safetensors",
         null
       ],
       "color": "#549494",
@@ -1399,7 +1399,7 @@
         "1": 129.93345642089844
       },
       "flags": {},
-      "order": 4,
+      "order": 6,
       "mode": 0,
       "outputs": [
         {
