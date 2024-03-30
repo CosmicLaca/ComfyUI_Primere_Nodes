@@ -23,7 +23,7 @@ import nodes
 from ..utils import comfy_dir
 import collections
 
-SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp"]
+SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
 CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
