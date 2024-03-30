@@ -1,7 +1,287 @@
 {
-  "last_node_id": 17,
-  "last_link_id": 73,
+  "last_node_id": 14,
+  "last_link_id": 56,
   "nodes": [
+    {
+      "id": 1,
+      "type": "PrimereMetaHandler",
+      "pos": [
+        60,
+        93
+      ],
+      "size": {
+        "0": 794.3366088867188,
+        "1": 1014.8226318359375
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": [
+            1,
+            3
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "ORIGINAL_EXIF",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LOADED_IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaHandler"
+      },
+      "widgets_values": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        "civitai-recycler02.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PrimereMetaDistributor",
+      "pos": [
+        903,
+        93
+      ],
+      "size": {
+        "0": 355.20001220703125,
+        "1": 366
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            41
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            42
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 6
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            40
+          ],
+          "shape": 3,
+          "slot_index": 7
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            10,
+            38,
+            43
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "VAE",
+          "type": "VAE_NAME",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 10
+        },
+        {
+          "name": "SAMPLER",
+          "type": "COMBO",
+          "links": [
+            51
+          ],
+          "shape": 3,
+          "slot_index": 11
+        },
+        {
+          "name": "SCHEDULER",
+          "type": "COMBO",
+          "links": [
+            54
+          ],
+          "shape": 3,
+          "slot_index": 12
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            55
+          ],
+          "shape": 3,
+          "slot_index": 13
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            56
+          ],
+          "shape": 3,
+          "slot_index": 14
+        },
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            52,
+            53
+          ],
+          "shape": 3,
+          "slot_index": 15
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            18,
+            44
+          ],
+          "shape": 3,
+          "slot_index": 16
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            21,
+            45
+          ],
+          "shape": 3,
+          "slot_index": 17
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaDistributor"
+      }
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        901,
+        515
+      ],
+      "size": {
+        "0": 840,
+        "1": 863
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 15,\n    \"positive\": \"Golden Yellow luxury slow European big modern futuristic spaceship in the highway of small city, racing, professional car photography\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"model_hash\": \"ec41bd2a82\",\n    \"vae\": \"Baked VAE\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 9.0,\n    \"seed\": 1255477315,\n    \"width\": 768,\n    \"height\": 512,\n    \"size_string\": \"768x512\",\n    \"face_restoration\": \"GFPGAN\",\n    \"cfg_rescale\": 0.0,\n    \"npw_weight\": 1.2,\n    \"antiburn\": 5,\n    \"version\": \"v1.3.1-1-gcbe17997\",\n    \"meta_source\": \"Automatic1111\",\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": false,\n        \"force_vae\": true,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"civitai-recycler02.jpg\"\n    }\n}"
+      ]
+    },
     {
       "id": 3,
       "type": "PrimereCKPTLoader",
@@ -56,7 +336,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            57
+            34
           ],
           "shape": 3,
           "slot_index": 0
@@ -99,416 +379,18 @@
       ]
     },
     {
-      "id": 5,
-      "type": "PrimereVAELoader",
-      "pos": [
-        1824,
-        88
-      ],
-      "size": {
-        "0": 210,
-        "1": 46
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae_name",
-          "type": "VAE_NAME",
-          "link": 13
-        },
-        {
-          "name": "baked_vae",
-          "type": "VAE",
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            14
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVAELoader"
-      }
-    },
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        2164,
-        91
-      ],
-      "size": {
-        "0": 210,
-        "1": 46
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 67
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 14
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            31
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      }
-    },
-    {
-      "id": 10,
-      "type": "PreviewImage",
-      "pos": [
-        2499,
-        96
-      ],
-      "size": {
-        "0": 824,
-        "1": 915
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 31
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 15,
-      "type": "PrimereKSampler",
-      "pos": [
-        2136,
-        198
-      ],
-      "size": [
-        336.7839562282088,
-        310
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 57
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 58
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 59
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 60
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 61,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 62,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 63,
-          "widget": {
-            "name": "sampler_name"
-          }
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 64,
-          "widget": {
-            "name": "scheduler_name"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 65,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 66,
-          "widget": {
-            "name": "cfg"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            67
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereKSampler"
-      },
-      "widgets_values": [
-        52154358787414,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1,
-        0,
-        0,
-        "DEFAULT",
-        "Normal"
-      ]
-    },
-    {
-      "id": 9,
-      "type": "PrimereLatentNoise",
-      "pos": [
-        1770,
-        185
-      ],
-      "size": [
-        334.89959716796875,
-        406
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "optional_vae",
-          "type": "VAE",
-          "link": 17
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 18,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 21,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "noise_seed",
-          "type": "INT",
-          "link": 52,
-          "widget": {
-            "name": "noise_seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENTS",
-          "type": "LATENT",
-          "links": [
-            60
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PREVIEWS",
-          "type": "IMAGE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
-      },
-      "widgets_values": [
-        512,
-        512,
-        true,
-        "white",
-        true,
-        1,
-        0.5,
-        1.5,
-        true,
-        1,
-        0.8,
-        1.4,
-        232082463234631,
-        "randomize",
-        true,
-        "cpu",
-        false
-      ]
-    },
-    {
-      "id": 4,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        901,
-        515
-      ],
-      "size": [
-        661.8995971679688,
-        1069.7315063476562
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 16,\n    \"positive\": \"({human|alien|monster} {scientist|doctor} {operate|repair} {human brain|mechanical tools|microprocessor|electrical circuit} to the head of {damaged|broken|healthy|new} mechanical {platina|glass|plastic|metal|iron|rusty iron} {robot|human|monster}:1.2), ({difficult|creepy|rusty|detailed|implanted} {futuristic|cyberpunk|retro-futuristic|old|alien} robot), (robot-{human|alien|animal} hybrid:1.2), (futuristic medical room:1.3), (robot lying horizontally in operating table:1.2), (computers, large computer screens:1.3), photo realistic, extremely detailed, professional sfw character art\",\n    \"negative\": \"draw, text, kid, illustration, lowres, mask, nsfw, erotic, erotica, nude, nudity, tits\",\n    \"model\": \"BestAll\\\\Deliberate_v2.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"model_hash\": \"9aba26abdf\",\n    \"vae\": \"Baked VAE\",\n    \"sampler\": \"euler_ancestral\",\n    \"scheduler\": \"normal\",\n    \"steps\": 60,\n    \"cfg\": 9.0,\n    \"seed\": 2170050681,\n    \"width\": 768,\n    \"height\": 512,\n    \"size_string\": \"768x512\",\n    \"face_restoration\": \"GFPGAN\",\n    \"cfg_rescale\": 0.0,\n    \"npw_weight\": 1.2,\n    \"antiburn\": 5,\n    \"version\": \"v1.3.1\",\n    \"meta_source\": \"Automatic1111\",\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": false,\n        \"force_vae\": true,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"20230607-223908.png\"\n    }\n}"
-      ]
-    },
-    {
-      "id": 14,
-      "type": "PrimereTextOutput",
-      "pos": [
-        3082,
-        1080
-      ],
-      "size": {
-        "0": 566.3809814453125,
-        "1": 413.2881774902344
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 50,
-          "widget": {
-            "name": "text"
-          },
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        "(draw, text, kid, illustration, lowres, mask, nsfw, erotic, erotica, nude, nudity, tits)"
-      ]
-    },
-    {
-      "id": 13,
-      "type": "PrimereTextOutput",
-      "pos": [
-        2483,
-        1074
-      ],
-      "size": {
-        "0": 557.7000122070312,
-        "1": 408.1000061035156
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 49,
-          "widget": {
-            "name": "text"
-          },
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        "(alien doctor repair microprocessor to the head of new mechanical plastic human:1.2), (creepy old robot), (robot-human hybrid:1.2), (futuristic medical room:1.3), (robot lying horizontally in operating table:1.2), (computers, large computer screens:1.3), photo realistic, extremely detailed, professional sfw character art"
-      ]
-    },
-    {
       "id": 12,
       "type": "PrimereCLIPEncoder",
       "pos": [
-        2098,
-        699
+        1769,
+        700
       ],
       "size": {
         "0": 359.3300476074219,
         "1": 782
       },
       "flags": {},
-      "order": 8,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -552,7 +434,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 69,
+          "link": 41,
           "widget": {
             "name": "positive_prompt"
           }
@@ -560,7 +442,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 71,
+          "link": 42,
           "widget": {
             "name": "negative_prompt"
           }
@@ -643,7 +525,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            58
+            47
           ],
           "shape": 3,
           "slot_index": 0
@@ -652,7 +534,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            59
+            48
           ],
           "shape": 3,
           "slot_index": 1
@@ -722,362 +604,373 @@
       ]
     },
     {
-      "id": 16,
-      "type": "PrimereDynamicParser",
+      "id": 5,
+      "type": "PrimereVAELoader",
       "pos": [
-        1727,
-        785
+        1824,
+        88
       ],
-      "size": [
-        232,
-        54
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 68,
-          "widget": {
-            "name": "dyn_prompt"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 72,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT",
-          "type": "STRING",
-          "links": [
-            69
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+      "size": {
+        "0": 210,
+        "1": 46
       },
-      "widgets_values": [
-        "",
-        458086361507334,
-        "randomize"
-      ]
-    },
-    {
-      "id": 17,
-      "type": "PrimereDynamicParser",
-      "pos": [
-        1729,
-        881
-      ],
-      "size": [
-        232,
-        54
-      ],
       "flags": {},
       "order": 5,
       "mode": 0,
       "inputs": [
         {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 70,
-          "widget": {
-            "name": "dyn_prompt"
-          }
+          "name": "vae_name",
+          "type": "VAE_NAME",
+          "link": 13
         },
         {
-          "name": "seed",
-          "type": "INT",
-          "link": 73,
-          "widget": {
-            "name": "seed"
-          }
+          "name": "baked_vae",
+          "type": "VAE",
+          "link": 12
         }
       ],
       "outputs": [
-        {
-          "name": "PROMPT",
-          "type": "STRING",
-          "links": [
-            71
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
-      },
-      "widgets_values": [
-        "",
-        196634341523794,
-        "randomize"
-      ]
-    },
-    {
-      "id": 2,
-      "type": "PrimereMetaDistributor",
-      "pos": [
-        903,
-        93
-      ],
-      "size": {
-        "0": 355.20001220703125,
-        "1": 366
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            68
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            70
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            2
-          ],
-          "shape": 3,
-          "slot_index": 6
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            40
-          ],
-          "shape": 3,
-          "slot_index": 7
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": [
-            10,
-            43,
-            61
-          ],
-          "shape": 3,
-          "slot_index": 8
-        },
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            11
-          ],
-          "shape": 3,
-          "slot_index": 9
-        },
         {
           "name": "VAE",
-          "type": "VAE_NAME",
+          "type": "VAE",
           "links": [
-            13
+            14
           ],
           "shape": 3,
-          "slot_index": 10
-        },
-        {
-          "name": "SAMPLER",
-          "type": "COMBO",
-          "links": [
-            63
-          ],
-          "shape": 3,
-          "slot_index": 11
-        },
-        {
-          "name": "SCHEDULER",
-          "type": "COMBO",
-          "links": [
-            64
-          ],
-          "shape": 3,
-          "slot_index": 12
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            65
-          ],
-          "shape": 3,
-          "slot_index": 13
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            66
-          ],
-          "shape": 3,
-          "slot_index": 14
-        },
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            52,
-            62,
-            72,
-            73
-          ],
-          "shape": 3,
-          "slot_index": 15
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            18,
-            44
-          ],
-          "shape": 3,
-          "slot_index": 16
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            21,
-            45
-          ],
-          "shape": 3,
-          "slot_index": 17
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaDistributor"
+        "Node name for S&R": "PrimereVAELoader"
       }
     },
     {
-      "id": 1,
-      "type": "PrimereMetaHandler",
+      "id": 9,
+      "type": "PrimereLatentNoise",
       "pos": [
-        60,
-        93
+        1766,
+        198
       ],
       "size": {
-        "0": 794.3366088867188,
-        "1": 1014.8226318359375
+        "0": 314,
+        "1": 454
       },
       "flags": {},
-      "order": 0,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": null
+          "name": "optional_vae",
+          "type": "VAE",
+          "link": 17
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 18,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 21,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "link": 52,
+          "widget": {
+            "name": "noise_seed"
+          }
         }
       ],
       "outputs": [
         {
-          "name": "WORKFLOW_TUPLE",
-          "type": "TUPLE",
+          "name": "LATENTS",
+          "type": "LATENT",
           "links": [
-            1,
-            3
+            37
           ],
           "shape": 3,
           "slot_index": 0
         },
         {
-          "name": "ORIGINAL_EXIF",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "LOADED_IMAGE",
+          "name": "PREVIEWS",
           "type": "IMAGE",
           "links": null,
           "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaHandler"
+        "Node name for S&R": "PrimereLatentNoise"
       },
       "widgets_values": [
+        512,
+        512,
         true,
+        "white",
         true,
-        false,
+        1,
+        0.5,
+        1.5,
         true,
-        false,
+        1,
+        0.8,
+        1.4,
+        933167228365428,
+        "randomize",
         true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        false,
-        true,
-        false,
-        false,
-        false,
-        "20230607-223908.png",
-        "image"
+        "cpu",
+        false
       ]
+    },
+    {
+      "id": 13,
+      "type": "PrimereTextOutput",
+      "pos": [
+        2162,
+        1065
+      ],
+      "size": {
+        "0": 557.7000122070312,
+        "1": 408.1000061035156
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 49,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        "Golden Yellow luxury slow European big modern futuristic spaceship in the highway of small city, racing, professional car photography"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "PrimereTextOutput",
+      "pos": [
+        2763,
+        1060
+      ],
+      "size": {
+        "0": 566.3809814453125,
+        "1": 413.2881774902344
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 50,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 11,
+      "type": "PrimereKSampler",
+      "pos": [
+        2136,
+        198
+      ],
+      "size": [
+        333.8629180908197,
+        286
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 34
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 47
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 48
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 37
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 38,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 53,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 51,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 54,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 55,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 56,
+          "widget": {
+            "name": "cfg"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            46
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        735053506994241,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        0.22,
+        "DEFAULT",
+        "Normal"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        2164,
+        91
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 46
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            31
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 10,
+      "type": "PreviewImage",
+      "pos": [
+        2499,
+        96
+      ],
+      "size": {
+        "0": 824,
+        "1": 915
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 31
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
     }
   ],
   "links": [
@@ -1178,6 +1071,30 @@
       "IMAGE"
     ],
     [
+      34,
+      3,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      37,
+      9,
+      0,
+      11,
+      3,
+      "LATENT"
+    ],
+    [
+      38,
+      2,
+      8,
+      11,
+      4,
+      "STRING"
+    ],
+    [
       39,
       3,
       1,
@@ -1191,6 +1108,22 @@
       7,
       12,
       6,
+      "STRING"
+    ],
+    [
+      41,
+      2,
+      0,
+      12,
+      7,
+      "STRING"
+    ],
+    [
+      42,
+      2,
+      1,
+      12,
+      8,
       "STRING"
     ],
     [
@@ -1218,6 +1151,30 @@
       "INT"
     ],
     [
+      46,
+      11,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      47,
+      12,
+      0,
+      11,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      48,
+      12,
+      1,
+      11,
+      2,
+      "CONDITIONING"
+    ],
+    [
       49,
       12,
       2,
@@ -1234,6 +1191,14 @@
       "STRING"
     ],
     [
+      51,
+      2,
+      11,
+      11,
+      6,
+      "COMBO"
+    ],
+    [
       52,
       2,
       15,
@@ -1242,140 +1207,36 @@
       "INT"
     ],
     [
-      57,
-      3,
-      0,
-      15,
-      0,
-      "MODEL"
-    ],
-    [
-      58,
-      12,
-      0,
-      15,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      59,
-      12,
-      1,
-      15,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      60,
-      9,
-      0,
-      15,
-      3,
-      "LATENT"
-    ],
-    [
-      61,
-      2,
-      8,
-      15,
-      4,
-      "STRING"
-    ],
-    [
-      62,
+      53,
       2,
       15,
-      15,
+      11,
       5,
       "INT"
     ],
     [
-      63,
-      2,
-      11,
-      15,
-      6,
-      "COMBO"
-    ],
-    [
-      64,
+      54,
       2,
       12,
-      15,
+      11,
       7,
       "COMBO"
     ],
     [
-      65,
+      55,
       2,
       13,
-      15,
+      11,
       8,
       "INT"
     ],
     [
-      66,
+      56,
       2,
       14,
-      15,
+      11,
       9,
       "FLOAT"
-    ],
-    [
-      67,
-      15,
-      0,
-      8,
-      0,
-      "LATENT"
-    ],
-    [
-      68,
-      2,
-      0,
-      16,
-      0,
-      "STRING"
-    ],
-    [
-      69,
-      16,
-      0,
-      12,
-      7,
-      "STRING"
-    ],
-    [
-      70,
-      2,
-      1,
-      17,
-      0,
-      "STRING"
-    ],
-    [
-      71,
-      17,
-      0,
-      12,
-      8,
-      "STRING"
-    ],
-    [
-      72,
-      2,
-      15,
-      16,
-      1,
-      "INT"
-    ],
-    [
-      73,
-      2,
-      15,
-      17,
-      1,
-      "INT"
     ]
   ],
   "groups": [],
