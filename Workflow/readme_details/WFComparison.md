@@ -7,14 +7,14 @@
 - SD model: Photon V1
 - SDXL model: batchCOREALISMXL v40
 - Turbo model: sd_xl_turbo 1.0 (Stability)
-- GPU: RTX 3060 / 12 GB - 24GB RAM, Intel i5 3GHz. RTX 4090 / 16 running about half time.
+- GPU: RTX 3060 12GB, 32GB RAM, GIGABYTE B760 with 12th Gen Intel(R) Core(TM) i5-12400F 3GHz, WD Blue m.2 SSD. (RTX 4090 / 16 running about half time).
 - SD resolution: 768
 - SDXL resolution: 1024
 - Turbo resolution: 512
 - Lightning resolution: 1024
 - Cascade resolution: 1024
-- Running time: 2nd run
-- Upscaler: Ultimate SD upscaler. 4x for SD (768 x 4), 3.2x for SDXL (1024 x 3.2), 4x for Turbo (512 x 4). Always used and measured when available.
+- Running time measurement: 2nd run after new model load. First run win model load depending the speed ofyour SSD
+- Upscaler: Ultimate SD upscaler. 4x for SD (768 x 4), 3.2x for SDXL (1024 x 3.2), 4x for Turbo (512 x 4). Always used and measured when available in the workflow
 - Custom VAE always used (and loaded) if exist in workflow
 - Refiners/detailers: face, hand, eye, mouth. always used if available in workflow
 - Networks support Lora, Lycoris, Embedding and Hypernetworks for SD and SDXL
@@ -85,7 +85,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td nowrap>SD: 8 sec<br>SDXL: 20 sec</td>
+        <td nowrap>SD: 7 sec<br>SDXL: 35 sec</td>
         <td><a href="../readme_images/example-minimal-sd-raw.jpg"><img src="../readme_images/example-minimal-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-minimal-sdxl-raw.jpg"><img src="../readme_images/example-minimal-sdxl.jpg" height="60 px"></a></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
@@ -124,7 +124,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td nowrap>SD: 8 sec<br>SD LCM: 4 sec<br>SDXL: 22 sec<br>SDXL LCM: 12 sec<br>Turbo: 2 sec<br>Cascade: 31 sec<br>Lightning (Lora 8): 9 sec</td>
+        <td nowrap>SD: 8 sec<br>SD LCM: 6 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec</td>
         <td><a href="../readme_images/example-basic-sd-raw.jpg"><img src="../readme_images/example-basic-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxl-raw.jpg"><img src="../readme_images/example-basic-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdlcm-raw.jpg"><img src="../readme_images/example-basic-sdlcm.jpg" height="60 px"></a></td>
@@ -163,7 +163,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td nowrap><u>Upscaled:</u><br>SD: 29 sec<br>SD LCM: 25 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec</td>
+        <td nowrap><u>Upscaled:</u><br>SD: 40 sec<br>SD LCM: 39 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec</td>
         <td><a href="../readme_images/example-advanced-sd-raw.jpg"><img src="../readme_images/example-advanced-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdxl-raw.jpg"><img src="../readme_images/example-advanced-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdlcm-raw.jpg"><img src="../readme_images/example-advanced-sdlcm.jpg" height="60 px"></a></td>
