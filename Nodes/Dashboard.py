@@ -23,6 +23,7 @@ import comfy.utils
 from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
+from comfy_extras.chainner_models import model_loading
 
 class PrimereSamplers:
     CATEGORY = TREE_DASHBOARD
@@ -1443,3 +1444,24 @@ class PrimereConceptDataTuple:
 
     def load_concept_collector(self, **kwargs):
         return (kwargs,)
+
+class PrimereUpscaleModel:
+    RETURN_TYPES = ("UPSCALE_MODEL", folder_paths.get_filename_list("upscale_models"),)
+    RETURN_NAMES = ("UPSCALE_MODEL", 'MODEL_NAME',)
+    FUNCTION = "load_upscaler"
+    CATEGORY = TREE_DASHBOARD
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "model_name": (folder_paths.get_filename_list("upscale_models"), ),
+            }
+        }
+
+    def load_upscaler(self, model_name):
+        model_path = folder_paths.get_full_path("upscale_models", model_name)
+        sd = comfy.utils.load_torch_file(model_path, safe_load=True)
+        if "module.layers.0.residual_group.blocks.0.norm1.weight" in sd:
+            sd = comfy.utils.state_dict_prefix_replace(sd, {"module.":""})
+        out = model_loading.load_state_dict(sd).eval()
+        return (out, model_name,)

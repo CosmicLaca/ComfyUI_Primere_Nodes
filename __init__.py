@@ -99,6 +99,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
     "PrimereConceptDataTuple": Dashboard.PrimereConceptDataTuple,
+    "PrimereUpscaleModel": Dashboard.PrimereUpscaleModel,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -165,6 +166,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereNetworkTagLoader": 'Primere Network Tag Loader',
     "PrimereModelKeyword": "Primere Model Keyword",
     "PrimereConceptDataTuple": "Primere Concept Tuple",
+    "PrimereUpscaleModel": "Primere Upscale Models",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

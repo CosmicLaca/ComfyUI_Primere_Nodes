@@ -1,6 +1,6 @@
 {
   "last_node_id": 87,
-  "last_link_id": 451,
+  "last_link_id": 452,
   "nodes": [
     {
       "id": 50,
@@ -869,7 +869,7 @@
       },
       "widgets_values": [
         "",
-        224061966927785,
+        527542795396367,
         "randomize"
       ],
       "color": "#145414",
@@ -924,7 +924,7 @@
       },
       "widgets_values": [
         "",
-        139257782145208,
+        982941371990817,
         "randomize"
       ],
       "color": "#145414",
@@ -1127,7 +1127,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": null,
+          "link": 452,
           "widget": {
             "name": "model_concept"
           }
@@ -1181,7 +1181,7 @@
         false,
         1.6,
         2.8,
-        187545824167581,
+        614475002736822,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1268,7 +1268,7 @@
         1,
         0.8,
         1.4,
-        970305609805222,
+        786190176374342,
         "randomize",
         false,
         "cpu",
@@ -1347,43 +1347,6 @@
       },
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 79,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        2961,
-        52
-      ],
-      "size": {
-        "0": 961.2977905273438,
-        "1": 1075.173583984375
-      },
-      "flags": {},
-      "order": 26,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 341
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
     },
     {
       "id": 10,
@@ -1525,7 +1488,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1038554389354944,
+        833369088419733,
         "randomize",
         20,
         8,
@@ -1853,6 +1816,43 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 79,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2961,
+        52
+      ],
+      "size": {
+        "0": 961.2977905273438,
+        "1": 1075.173583984375
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 341
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        256,
+        50,
+        "Checkpoint",
+        "Overwrite",
+        "SDXL\\sd_xl_turbo_1.0_fp16.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
       "id": 3,
       "type": "PrimereVisualCKPT",
       "pos": [
@@ -2146,7 +2146,8 @@
           "links": [
             443,
             444,
-            451
+            451,
+            452
           ],
           "shape": 3,
           "slot_index": 4
@@ -2862,6 +2863,14 @@
       4,
       71,
       5,
+      "STRING"
+    ],
+    [
+      452,
+      86,
+      4,
+      65,
+      2,
       "STRING"
     ]
   ],

@@ -1,6 +1,6 @@
 {
-  "last_node_id": 123,
-  "last_link_id": 747,
+  "last_node_id": 124,
+  "last_link_id": 749,
   "nodes": [
     {
       "id": 61,
@@ -811,7 +811,7 @@
       },
       "widgets_values": [
         "",
-        788918490467028,
+        478263719263189,
         "randomize"
       ],
       "color": "#145414",
@@ -866,7 +866,7 @@
       },
       "widgets_values": [
         "",
-        1110807690038849,
+        1096878231643426,
         "randomize"
       ],
       "color": "#541414",
@@ -1020,109 +1020,6 @@
       },
       "color": "#145494",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 87,
-      "type": "PrimereResolution",
-      "pos": [
-        1433.8593785309597,
-        91.63418691496119
-      ],
-      "size": {
-        "0": 359.5334777832031,
-        "1": 334
-      },
-      "flags": {},
-      "order": 27,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 317,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 468,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            320,
-            336,
-            568,
-            580
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            321,
-            337,
-            569,
-            581
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_SHAPES",
-          "type": "TUPLE",
-          "links": [
-            556
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Portrait [9:7]",
-        768,
-        1024,
-        512,
-        true,
-        "Horizontal",
-        true,
-        false,
-        1.6,
-        2.8,
-        655204615227695,
-        "randomize",
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 111,
@@ -1399,7 +1296,7 @@
         1,
         0.8,
         1.4,
-        307021836818068,
+        194314296135040,
         "randomize",
         true,
         "cpu",
@@ -1461,7 +1358,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)"
+        "exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), (interriordesign:0.5)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -1954,7 +1851,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        487915573964095,
+        964147918278729,
         "randomize",
         20,
         8,
@@ -2422,7 +2319,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Lightning\",\n    \"concept_data\": {\n        \"lightning_selector\": \"LORA\",\n        \"lightning_model_step\": 8,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"sgm_uniform\",\n    \"width\": 896,\n    \"height\": 1168,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 1,\n    \"steps\": 8,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), (interriordesign:0.5)\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2678,43 +2575,507 @@
         95,
         "Checkpoint",
         "Overwrite",
-        "SDXL\\batchCOREALISMXL_v40.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#549494",
       "bgcolor": "#408080"
     },
     {
-      "id": 51,
-      "type": "UpscaleModelLoader",
+      "id": 3,
+      "type": "PrimereVisualCKPT",
       "pos": [
-        2848.613218834839,
-        453.3868441076662
+        661.0413520749936,
+        89.99782310520223
       ],
       "size": {
-        "0": 330.50860595703125,
-        "1": 58
+        "0": 467.5840759277344,
+        "1": 128.78175354003906
       },
       "flags": {},
       "order": 14,
       "mode": 0,
       "outputs": [
         {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": [],
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            456,
+            554
+          ],
           "shape": 3,
           "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "UpscaleModelLoader"
+        "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth"
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 98,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        1139,
+        258
+      ],
+      "size": {
+        "0": 283.30560302734375,
+        "1": 206
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 456
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": 709
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 720,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            538
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            539
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            488,
+            490,
+            491,
+            492,
+            742
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            466,
+            468,
+            483,
+            550,
+            564,
+            576
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        false,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 89,
+      "type": "PrimereResolutionMultiplier",
+      "pos": [
+        2847.613218834839,
+        88.38684410766622
+      ],
+      "size": {
+        "0": 328.2809753417969,
+        "1": 330
+      },
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 338
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 336,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 337,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 466,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 734,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            743
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            744
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            741
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplier"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        4,
+        3.2,
+        4,
+        "BaseModel_1024",
+        "Normal",
+        false,
+        0.6,
+        3,
+        "None",
+        "bicubic"
       ],
       "color": "#945414",
       "bgcolor": "#804000"
+    },
+    {
+      "id": 123,
+      "type": "ttN hiresfixScale",
+      "pos": [
+        3187,
+        88
+      ],
+      "size": {
+        "0": 306.9448547363281,
+        "1": 258
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 741
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 742
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 743,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 744,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_name",
+          "type": "COMBO",
+          "link": 748,
+          "widget": {
+            "name": "model_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            746,
+            747
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ttN hiresfixScale",
+        "ttNnodeVersion": "1.0.3"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth",
+        true,
+        "bicubic",
+        "to Width/Height",
+        50,
+        1024,
+        1024,
+        1024,
+        "disabled",
+        "Hide",
+        "ComfyUI",
+        false
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 124,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        2851,
+        454
+      ],
+      "size": {
+        "0": 326.16796875,
+        "1": 78
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "links": [
+            748
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereUpscaleModel"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR-M_x8.pth"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 87,
+      "type": "PrimereResolution",
+      "pos": [
+        1433.8593785309597,
+        91.63418691496119
+      ],
+      "size": {
+        "0": 359.5334777832031,
+        "1": 334
+      },
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 317,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 468,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 749,
+          "widget": {
+            "name": "model_concept"
+          },
+          "slot_index": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            320,
+            336,
+            568,
+            580
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            321,
+            337,
+            569,
+            581
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_SHAPES",
+          "type": "TUPLE",
+          "links": [
+            556
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Portrait [9:7]",
+        768,
+        1024,
+        512,
+        true,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8,
+        845179297546816,
+        "randomize",
+        "BaseModel_1024",
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 122,
@@ -2974,7 +3335,8 @@
             720,
             727,
             729,
-            734
+            734,
+            749
           ],
           "shape": 3,
           "slot_index": 4
@@ -3073,349 +3435,6 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        661.0413520749936,
-        89.99782310520223
-      ],
-      "size": {
-        "0": 467.5840759277344,
-        "1": 128.78175354003906
-      },
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            456,
-            554
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 98,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        1139,
-        258
-      ],
-      "size": {
-        "0": 283.30560302734375,
-        "1": 206
-      },
-      "flags": {},
-      "order": 22,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 456
-        },
-        {
-          "name": "concept_data",
-          "type": "TUPLE",
-          "link": 709
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 720,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            538
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            539
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            488,
-            490,
-            491,
-            492,
-            742
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            466,
-            468,
-            483,
-            550,
-            564,
-            576
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        false,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 89,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        2847.613218834839,
-        88.38684410766622
-      ],
-      "size": {
-        "0": 328.2809753417969,
-        "1": 330
-      },
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 338
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 336,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 337,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 466,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 734,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            743
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            744
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            741
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        true,
-        512,
-        512,
-        4,
-        3.2,
-        4,
-        "BaseModel_1024",
-        "Normal",
-        false,
-        0.6,
-        3,
-        "None",
-        "bicubic"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 123,
-      "type": "ttN hiresfixScale",
-      "pos": [
-        3187,
-        88
-      ],
-      "size": [
-        305.99403452660135,
-        262
-      ],
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 741
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 742
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 743,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 744,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            746,
-            747
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ttN hiresfixScale"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth",
-        true,
-        "bicubic",
-        "to Width/Height",
-        50,
-        1024,
-        1024,
-        1024,
-        "disabled",
-        "Hide",
-        "ComfyUI",
-        false
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
     }
   ],
   "links": [
@@ -4442,6 +4461,22 @@
       113,
       0,
       "IMAGE"
+    ],
+    [
+      748,
+      124,
+      1,
+      123,
+      4,
+      "COMBO"
+    ],
+    [
+      749,
+      122,
+      4,
+      87,
+      2,
+      "STRING"
     ]
   ],
   "groups": [
