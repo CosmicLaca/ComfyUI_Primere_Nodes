@@ -1,6 +1,6 @@
 {
-  "last_node_id": 148,
-  "last_link_id": 775,
+  "last_node_id": 149,
+  "last_link_id": 777,
   "nodes": [
     {
       "id": 9,
@@ -1157,40 +1157,6 @@
       "bgcolor": "#0000ee"
     },
     {
-      "id": 62,
-      "type": "UpscaleModelLoader",
-      "pos": [
-        5626.647810181481,
-        -1028.9036980793046
-      ],
-      "size": {
-        "0": 360.01971435546875,
-        "1": 58
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": [
-            185
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UpscaleModelLoader"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR-M_x8.pth"
-      ],
-      "color": "#003900",
-      "bgcolor": "#0f4d0d"
-    },
-    {
       "id": 22,
       "type": "PrimereSeed",
       "pos": [
@@ -1202,7 +1168,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "outputs": [
         {
@@ -1239,7 +1205,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "outputs": [
         {
@@ -1611,7 +1577,7 @@
         false,
         1.6,
         2.8,
-        545267882219008,
+        773827638875989,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1631,7 +1597,7 @@
         "1": 246
       },
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -2742,7 +2708,7 @@
       },
       "widgets_values": [
         "",
-        809595868521504,
+        28460662638226,
         "randomize"
       ],
       "color": "#232",
@@ -2797,7 +2763,7 @@
       },
       "widgets_values": [
         "",
-        468462240356693,
+        167128811552336,
         "randomize"
       ],
       "color": "#322",
@@ -2931,7 +2897,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        471156067376207,
+        522927057420985,
         "randomize",
         false,
         "cpu",
@@ -4443,7 +4409,7 @@
         1.1,
         0,
         0,
-        217383048617113,
+        842626354949023,
         "randomize",
         "length+mean",
         "down_weight",
@@ -4546,7 +4512,7 @@
         1,
         0,
         0,
-        12086998041178,
+        99443730560829,
         "randomize",
         "mean",
         "comfy++",
@@ -4649,7 +4615,7 @@
         1.1,
         0,
         0,
-        977459944713852,
+        876136891481002,
         "randomize",
         "mean",
         "A1111",
@@ -4754,7 +4720,7 @@
         1.2,
         0,
         0.2,
-        228705268717267,
+        267684669721747,
         "randomize",
         "mean",
         "down_weight",
@@ -5384,7 +5350,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        479291331132357,
+        964733520568008,
         "randomize",
         "heun",
         "simple",
@@ -5608,7 +5574,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        354795335306073,
+        964028508815612,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -5831,7 +5797,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        935220667200678,
+        956326830001013,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6054,7 +6020,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        847591977297512,
+        112771870247559,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6326,7 +6292,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        920505232227022,
+        436604545175670,
         "randomize",
         512,
         512
@@ -6632,7 +6598,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        568072061540671,
+        126813313813387,
         "randomize",
         20,
         8,
@@ -6731,7 +6697,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "properties": {
         "text": ""
@@ -7513,43 +7479,6 @@
       "bgcolor": "#925a2e"
     },
     {
-      "id": 33,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        5611,
-        -722
-      ],
-      "size": {
-        "0": 1101.7958984375,
-        "1": 1273.90625
-      },
-      "flags": {},
-      "order": 102,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 775
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "SDXL\\sd_xl_turbo_1.0_fp16.safetensors",
-        null
-      ],
-      "color": "#1414b4",
-      "bgcolor": "#0000a0"
-    },
-    {
       "id": 63,
       "type": "PrimereResolutionMultiplierMPX",
       "pos": [
@@ -7688,7 +7617,7 @@
         {
           "name": "upscale_model",
           "type": "UPSCALE_MODEL",
-          "link": 185
+          "link": 776
         },
         {
           "name": "seed",
@@ -7773,7 +7702,7 @@
       },
       "widgets_values": [
         2.1,
-        1086827325768418,
+        738255483879565,
         "randomize",
         7,
         6.5,
@@ -7803,10 +7732,10 @@
         6313,
         -1330
       ],
-      "size": {
-        "0": 385.3913879394531,
-        "1": 262
-      },
+      "size": [
+        385.3913879394531,
+        262
+      ],
       "flags": {},
       "order": 99,
       "mode": 0,
@@ -7835,6 +7764,14 @@
           "link": 221,
           "widget": {
             "name": "height"
+          }
+        },
+        {
+          "name": "model_name",
+          "type": "COMBO",
+          "link": 777,
+          "widget": {
+            "name": "model_name"
           }
         }
       ],
@@ -7876,6 +7813,86 @@
       ],
       "color": "#236121",
       "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 149,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        5628,
+        -1028
+      ],
+      "size": [
+        359.9755078124999,
+        78
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": [
+            776
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "links": [
+            777
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereUpscaleModel"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth"
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 33,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        5611,
+        -722
+      ],
+      "size": {
+        "0": 1101.7958984375,
+        "1": 1273.90625
+      },
+      "flags": {},
+      "order": 102,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 775
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "SDXL\\sd_xl_turbo_1.0_fp16.safetensors",
+        null
+      ],
+      "color": "#1414b4",
+      "bgcolor": "#0000a0"
     },
     {
       "id": 147,
@@ -8239,7 +8256,7 @@
         "1": 126
       },
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "outputs": [
         {
@@ -8842,14 +8859,6 @@
       24,
       3,
       "INT"
-    ],
-    [
-      185,
-      62,
-      0,
-      61,
-      5,
-      "UPSCALE_MODEL"
     ],
     [
       186,
@@ -10762,6 +10771,22 @@
       33,
       0,
       "IMAGE"
+    ],
+    [
+      776,
+      149,
+      0,
+      61,
+      5,
+      "UPSCALE_MODEL"
+    ],
+    [
+      777,
+      149,
+      1,
+      65,
+      4,
+      "COMBO"
     ]
   ],
   "groups": [
