@@ -853,6 +853,10 @@ class PrimereMetaDistributorStage2:
                 else:
                     wf_square_shape = 1024
 
+        if ('model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Turbo'):
+            if 'model_shapes' in workflow_tuple and workflow_tuple['model_shapes'] is not None:
+                wf_square_shape = workflow_tuple['model_shapes']['TURBO']
+
         if IMG_WIDTH > IMG_HEIGHT:
             orientation = 'Horizontal'
         else:

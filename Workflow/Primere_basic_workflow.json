@@ -869,7 +869,7 @@
       },
       "widgets_values": [
         "",
-        456427242076712,
+        224061966927785,
         "randomize"
       ],
       "color": "#145414",
@@ -924,7 +924,7 @@
       },
       "widgets_values": [
         "",
-        763759122802027,
+        139257782145208,
         "randomize"
       ],
       "color": "#145414",
@@ -1181,7 +1181,7 @@
         false,
         1.6,
         2.8,
-        224672878582231,
+        187545824167581,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1268,7 +1268,7 @@
         1,
         0.8,
         1.4,
-        752823577286597,
+        970305609805222,
         "randomize",
         false,
         "cpu",
@@ -1379,7 +1379,7 @@
         95,
         "Checkpoint",
         "Overwrite",
-        "Playground\\playground_base.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#549494",
@@ -1525,7 +1525,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        48407860669899,
+        1038554389354944,
         "randomize",
         20,
         8,
@@ -1770,10 +1770,10 @@
         1457,
         461
       ],
-      "size": [
-        436.07913832231,
-        134
-      ],
+      "size": {
+        "0": 436.0791320800781,
+        "1": 134
+      },
       "flags": {},
       "order": 17,
       "mode": 0,
@@ -1853,16 +1853,59 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        688.2476164869578,
+        91.4171916525597
+      ],
+      "size": {
+        "0": 464.1010437011719,
+        "1": 128.1556854248047
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            281
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 86,
       "type": "PrimereModelConceptSelector",
       "pos": [
         1456,
         637
       ],
-      "size": [
-        436.2444673648547,
-        711.1328483140171
-      ],
+      "size": {
+        "0": 436.2444763183594,
+        "1": 711.1328735351562
+      },
       "flags": {},
       "order": 13,
       "mode": 0,
@@ -2176,7 +2219,7 @@
         8,
         false,
         "Stable-Cascade\\stage_a.safetensors",
-        "Stable-Cascade\\stage_b_bf16.safetensors",
+        "Stable-Cascade\\stage_b.safetensors",
         "Stable-Cascade\\stage_c.safetensors",
         "cascade_clip.safetensors",
         "lcm",
@@ -2199,49 +2242,6 @@
         "normal",
         3,
         50
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        688.2476164869578,
-        91.4171916525597
-      ],
-      "size": {
-        "0": 464.1010437011719,
-        "1": 128.1556854248047
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            281
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"

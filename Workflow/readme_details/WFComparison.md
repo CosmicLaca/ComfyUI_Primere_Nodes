@@ -124,7 +124,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td nowrap>SD: 8 sec<br>SD LCM: 6 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec</td>
+        <td nowrap>SD: 7 sec<br>SD LCM: 3 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec</td>
         <td><a href="../readme_images/example-basic-sd-raw.jpg"><img src="../readme_images/example-basic-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxl-raw.jpg"><img src="../readme_images/example-basic-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdlcm-raw.jpg"><img src="../readme_images/example-basic-sdlcm.jpg" height="60 px"></a></td>
@@ -163,7 +163,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td nowrap><u>Upscaled:</u><br>SD: 40 sec<br>SD LCM: 39 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec</td>
+        <td nowrap><u>Upscaled to ~10mpx:</u><br>SD: 40 sec<br>SD LCM: 39 sec<br>SDXL: 67 sec<br>SDXL LCM: 52 sec<br>Turbo: 46 sec<br>Cascade: 110 sec<br>Lightning (Lora 8): 76 sec</td>
         <td><a href="../readme_images/example-advanced-sd-raw.jpg"><img src="../readme_images/example-advanced-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdxl-raw.jpg"><img src="../readme_images/example-advanced-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-sdlcm-raw.jpg"><img src="../readme_images/example-advanced-sdlcm.jpg" height="60 px"></a></td>
@@ -202,7 +202,7 @@
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td nowrap><u>Upscaled: 6 mpx</u><br>SD: 70 sec<br>SD LCM: 43 sec<br>SDXL: 215 sec<br>SDXL LCM: 120 sec<br>Turbo: 103 sec</td>
+        <td nowrap><u>Upscaled to 6 mpx<br>+ 4 detailers</u><br>SD: 166 sec<br>SD LCM: 100 sec<br>SDXL: 330 sec<br>SDXL LCM: 160 sec<br>Turbo: 103 sec</td>
         <td><a href="../readme_images/example-latest-sd-raw.jpg"><img src="../readme_images/example-latest-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdxl-raw.jpg"><img src="../readme_images/example-latest-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdlcm-raw.jpg"><img src="../readme_images/example-latest-sdlcm.jpg" height="60 px"></a></td>

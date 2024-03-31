@@ -1,41 +1,7 @@
 {
-  "last_node_id": 122,
-  "last_link_id": 734,
+  "last_node_id": 123,
+  "last_link_id": 747,
   "nodes": [
-    {
-      "id": 51,
-      "type": "UpscaleModelLoader",
-      "pos": [
-        2848.613218834839,
-        453.3868441076662
-      ],
-      "size": {
-        "0": 330.50860595703125,
-        "1": 58
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": [
-            164
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UpscaleModelLoader"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR-M_x8.pth"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
     {
       "id": 61,
       "type": "PrimereVAE",
@@ -48,7 +14,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -84,7 +50,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -120,7 +86,7 @@
         "1": 67.76859283447266
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "properties": {
         "text": ""
@@ -143,7 +109,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -208,7 +174,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "outputs": [
         {
@@ -273,7 +239,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "outputs": [
         {
@@ -338,7 +304,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "outputs": [
         {
@@ -403,7 +369,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "outputs": [
         {
@@ -468,7 +434,7 @@
         "1": 359.32012939453125
       },
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "outputs": [
         {
@@ -534,91 +500,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 91,
-      "type": "PrimerePromptOrganizer",
-      "pos": [
-        6.957073395329563,
-        90.86841923245487
-      ],
-      "size": {
-        "0": 339.9195251464844,
-        "1": 446
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            497
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            498
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            499
-          ],
-          "shape": 3,
-          "slot_index": 5
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePromptOrganizer"
-      },
-      "widgets_values": [
-        false,
-        false,
-        false,
-        "Architechture::Minimal interior",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
       "id": 4,
       "type": "PrimereVisualStyle",
       "pos": [
@@ -630,7 +511,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 11,
+      "order": 9,
       "mode": 0,
       "outputs": [
         {
@@ -708,7 +589,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 12,
+      "order": 10,
       "mode": 0,
       "outputs": [
         {
@@ -773,7 +654,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 16,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -893,7 +774,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 19,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -930,7 +811,7 @@
       },
       "widgets_values": [
         "",
-        510447957706001,
+        788918490467028,
         "randomize"
       ],
       "color": "#145414",
@@ -948,7 +829,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
@@ -985,118 +866,11 @@
       },
       "widgets_values": [
         "",
-        527863849385812,
+        1110807690038849,
         "randomize"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
-    },
-    {
-      "id": 98,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        1139,
-        258
-      ],
-      "size": {
-        "0": 283.30560302734375,
-        "1": 206
-      },
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 456
-        },
-        {
-          "name": "concept_data",
-          "type": "TUPLE",
-          "link": 709
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 720,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            538
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            539
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            488,
-            490,
-            491,
-            492
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            466,
-            468,
-            483,
-            550,
-            564,
-            576
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        false,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 8,
@@ -1110,7 +884,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1173,7 +947,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1216,7 +990,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1259,7 +1033,7 @@
         "1": 334
       },
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1342,7 +1116,7 @@
         false,
         1.6,
         2.8,
-        505255493289584,
+        655204615227695,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1362,7 +1136,7 @@
         "1": 568.43896484375
       },
       "flags": {},
-      "order": 24,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -1389,7 +1163,6 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            542,
             655
           ],
           "shape": 3,
@@ -1626,7 +1399,7 @@
         1,
         0.8,
         1.4,
-        944988180245536,
+        307021836818068,
         "randomize",
         true,
         "cpu",
@@ -1688,7 +1461,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "minimalist interior, colorful beautiful (small abandoned, messy auto garage:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury gold desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography, (design:0.5)"
+        "exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -1719,7 +1492,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20)"
+        "(watermark, person, text, china style, indian style:1.20)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
@@ -1917,272 +1690,6 @@
       "bgcolor": "#400040"
     },
     {
-      "id": 89,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        2847.613218834839,
-        88.38684410766622
-      ],
-      "size": {
-        "0": 328.2809753417969,
-        "1": 330
-      },
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 338
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 336,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 337,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 466,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 734,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            340
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            333
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [
-            334
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            341
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        true,
-        512,
-        512,
-        4,
-        3.2,
-        4,
-        "BaseModel_1024",
-        "Normal",
-        false,
-        0.6,
-        3,
-        "None",
-        "bicubic"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 50,
-      "type": "UltimateSDUpscale",
-      "pos": [
-        3190.613218834839,
-        88.38684410766622
-      ],
-      "size": {
-        "0": 304.6524658203125,
-        "1": 558
-      },
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 341
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 542
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 631
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 632
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 489
-        },
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 164
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 270,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "tile_width",
-          "type": "INT",
-          "link": 340,
-          "widget": {
-            "name": "tile_width"
-          }
-        },
-        {
-          "name": "tile_height",
-          "type": "INT",
-          "link": 333,
-          "widget": {
-            "name": "tile_height"
-          }
-        },
-        {
-          "name": "upscale_by",
-          "type": "FLOAT",
-          "link": 334,
-          "widget": {
-            "name": "upscale_by"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 711,
-          "widget": {
-            "name": "sampler_name"
-          },
-          "slot_index": 10
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "link": 713,
-          "widget": {
-            "name": "scheduler"
-          },
-          "slot_index": 11
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 715,
-          "widget": {
-            "name": "steps"
-          },
-          "slot_index": 12
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 717,
-          "widget": {
-            "name": "cfg"
-          },
-          "slot_index": 13
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            535,
-            553
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UltimateSDUpscale"
-      },
-      "widgets_values": [
-        2,
-        680633248526711,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
-        1,
-        "None",
-        512,
-        512,
-        1,
-        0,
-        "None",
-        1,
-        64,
-        8,
-        16,
-        true,
-        false
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
       "id": 110,
       "type": "PrimereMetaSave",
       "pos": [
@@ -2200,7 +1707,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 535
+          "link": 746
         },
         {
           "name": "image_metadata",
@@ -2245,43 +1752,6 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
-    },
-    {
-      "id": 113,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        2841,
-        694
-      ],
-      "size": {
-        "0": 668.3807983398438,
-        "1": 835.2546997070312
-      },
-      "flags": {},
-      "order": 44,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 553
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "Playground\\playground_base.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
     },
     {
       "id": 56,
@@ -2356,7 +1826,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 13,
+      "order": 11,
       "mode": 0,
       "outputs": [
         {
@@ -2366,7 +1836,6 @@
             17,
             18,
             137,
-            270,
             317,
             660
           ],
@@ -2485,7 +1954,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        264442594464140,
+        487915573964095,
         "randomize",
         20,
         8,
@@ -2597,7 +2066,6 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            489,
             668
           ],
           "shape": 3,
@@ -2626,7 +2094,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 25,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -2669,7 +2137,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 14,
+      "order": 12,
       "mode": 0,
       "outputs": [
         {
@@ -2839,7 +2307,6 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            631,
             656
           ],
           "shape": 3,
@@ -2849,7 +2316,6 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            632,
             657
           ],
           "shape": 3,
@@ -2956,7 +2422,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"minimalist interior, colorful beautiful (small abandoned, messy auto garage:1.4), Bauhaus modern difficult furniture, (abstract paint of female portrait on the wall:1.4), luxury gold desk, leather sofa in the corner, beautiful large windows, small messy desk in the corner with computer screen, old books papers notes and color pencils, professional interior photography\",\n    \"negative\": \"(cute animal, draw, low quality, illustration, man, woman, human, text, watermark, greyscale:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"Playground\\\\playground_base.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Playground\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 896,\n    \"height\": 1168,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 4,\n    \"steps\": 35,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Lightning\",\n    \"concept_data\": {\n        \"lightning_selector\": \"LORA\",\n        \"lightning_model_step\": 8,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"sgm_uniform\",\n    \"width\": 896,\n    \"height\": 1168,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 1,\n    \"steps\": 8,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -2968,12 +2434,12 @@
         1432,
         461
       ],
-      "size": [
-        359.9979003906251,
-        134
-      ],
+      "size": {
+        "0": 359.9978942871094,
+        "1": 134
+      },
       "flags": {},
-      "order": 21,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -3052,18 +2518,217 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 41,
+      "type": "PrimereModelKeyword",
+      "pos": [
+        660.8593785309592,
+        255.63418691496116
+      ],
+      "size": {
+        "0": 468.95831298828125,
+        "1": 186.38485717773438
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 146
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            575
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelKeyword"
+      },
+      "widgets_values": [
+        true,
+        "Last",
+        "Random select",
+        1,
+        0.5
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 91,
+      "type": "PrimerePromptOrganizer",
+      "pos": [
+        7,
+        91
+      ],
+      "size": {
+        "0": 339.9195251464844,
+        "1": 446
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            497
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            498
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            499
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePromptOrganizer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        "Architechture::Mountain architect",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 113,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2842,
+        693
+      ],
+      "size": {
+        "0": 668.3807983398438,
+        "1": 835.2546997070312
+      },
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 747
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "SDXL\\batchCOREALISMXL_v40.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 51,
+      "type": "UpscaleModelLoader",
+      "pos": [
+        2848.613218834839,
+        453.3868441076662
+      ],
+      "size": {
+        "0": 330.50860595703125,
+        "1": 58
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UpscaleModelLoader"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
       "id": 122,
       "type": "PrimereModelConceptSelector",
       "pos": [
         1400,
         638
       ],
-      "size": [
-        397.9979003906251,
-        686
-      ],
+      "size": {
+        "0": 397.9978942871094,
+        "1": 686
+      },
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -3265,7 +2930,6 @@
           "type": "COMBO",
           "links": [
             710,
-            711,
             730
           ],
           "shape": 3,
@@ -3276,7 +2940,6 @@
           "type": "COMBO",
           "links": [
             712,
-            713,
             731
           ],
           "shape": 3,
@@ -3287,7 +2950,6 @@
           "type": "INT",
           "links": [
             714,
-            715,
             733
           ],
           "shape": 3,
@@ -3298,7 +2960,6 @@
           "type": "FLOAT",
           "links": [
             716,
-            717,
             732
           ],
           "shape": 3,
@@ -3382,12 +3043,12 @@
         7,
         12,
         "Normal",
-        "SAFETENSOR",
+        "LORA",
         8,
-        false,
-        "Opendalle.fp16.safetensors",
-        "Lightning\\sdxl_lightning_1step_unet_x0.pth",
-        "Lightning\\sdxl_lightning_1step_unet_x0.pth",
+        true,
+        "Stable-Cascade\\stage_a.safetensors",
+        "Stable-Cascade\\stage_b.safetensors",
+        "Stable-Cascade\\stage_c.safetensors",
         "cascade_clip.safetensors",
         "lcm",
         "sgm_uniform",
@@ -3409,51 +3070,6 @@
         "normal",
         3,
         50
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 41,
-      "type": "PrimereModelKeyword",
-      "pos": [
-        660.8593785309592,
-        255.63418691496116
-      ],
-      "size": {
-        "0": 468.95831298828125,
-        "1": 186.38485717773438
-      },
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 146
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            575
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelKeyword"
-      },
-      "widgets_values": [
-        true,
-        "Last",
-        "Random select",
-        1,
-        0.5
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -3502,6 +3118,304 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 98,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        1139,
+        258
+      ],
+      "size": {
+        "0": 283.30560302734375,
+        "1": 206
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 456
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": 709
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 720,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            538
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            539
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            488,
+            490,
+            491,
+            492,
+            742
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            466,
+            468,
+            483,
+            550,
+            564,
+            576
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        false,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 89,
+      "type": "PrimereResolutionMultiplier",
+      "pos": [
+        2847.613218834839,
+        88.38684410766622
+      ],
+      "size": {
+        "0": 328.2809753417969,
+        "1": 330
+      },
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 338
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 336,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 337,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 466,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 734,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            743
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            744
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            741
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplier"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        4,
+        3.2,
+        4,
+        "BaseModel_1024",
+        "Normal",
+        false,
+        0.6,
+        3,
+        "None",
+        "bicubic"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 123,
+      "type": "ttN hiresfixScale",
+      "pos": [
+        3187,
+        88
+      ],
+      "size": [
+        305.99403452660135,
+        262
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 741
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 742
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 743,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 744,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            746,
+            747
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ttN hiresfixScale"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth",
+        true,
+        "bicubic",
+        "to Width/Height",
+        50,
+        1024,
+        1024,
+        1024,
+        "disabled",
+        "Hide",
+        "ComfyUI",
+        false
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     }
   ],
   "links": [
@@ -3570,14 +3484,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      164,
-      51,
-      0,
-      50,
-      5,
-      "UPSCALE_MODEL"
-    ],
-    [
       203,
       61,
       0,
@@ -3592,14 +3498,6 @@
       63,
       0,
       "VAE_NAME"
-    ],
-    [
-      270,
-      10,
-      0,
-      50,
-      6,
-      "INT"
     ],
     [
       317,
@@ -3626,22 +3524,6 @@
       "INT"
     ],
     [
-      333,
-      89,
-      1,
-      50,
-      8,
-      "INT"
-    ],
-    [
-      334,
-      89,
-      2,
-      50,
-      9,
-      "FLOAT"
-    ],
-    [
       336,
       87,
       0,
@@ -3662,22 +3544,6 @@
       16,
       0,
       89,
-      0,
-      "IMAGE"
-    ],
-    [
-      340,
-      89,
-      0,
-      50,
-      7,
-      "INT"
-    ],
-    [
-      341,
-      89,
-      3,
-      50,
       0,
       "IMAGE"
     ],
@@ -3735,14 +3601,6 @@
       2,
       39,
       0,
-      "VAE"
-    ],
-    [
-      489,
-      101,
-      0,
-      50,
-      4,
       "VAE"
     ],
     [
@@ -3858,14 +3716,6 @@
       "STRING"
     ],
     [
-      535,
-      50,
-      0,
-      110,
-      0,
-      "IMAGE"
-    ],
-    [
       537,
       110,
       0,
@@ -3888,14 +3738,6 @@
       111,
       1,
       "CLIP"
-    ],
-    [
-      542,
-      111,
-      0,
-      50,
-      1,
-      "MODEL"
     ],
     [
       544,
@@ -3928,14 +3770,6 @@
       112,
       0,
       "STRING"
-    ],
-    [
-      553,
-      50,
-      0,
-      113,
-      0,
-      "IMAGE"
     ],
     [
       554,
@@ -4120,22 +3954,6 @@
       114,
       9,
       "STRING"
-    ],
-    [
-      631,
-      115,
-      0,
-      50,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      632,
-      115,
-      1,
-      50,
-      3,
-      "CONDITIONING"
     ],
     [
       655,
@@ -4418,27 +4236,11 @@
       "COMBO"
     ],
     [
-      711,
-      122,
-      0,
-      50,
-      10,
-      "COMBO"
-    ],
-    [
       712,
       122,
       1,
       120,
       7,
-      "COMBO"
-    ],
-    [
-      713,
-      122,
-      1,
-      50,
-      11,
       "COMBO"
     ],
     [
@@ -4450,27 +4252,11 @@
       "INT"
     ],
     [
-      715,
-      122,
-      2,
-      50,
-      12,
-      "INT"
-    ],
-    [
       716,
       122,
       3,
       120,
       9,
-      "FLOAT"
-    ],
-    [
-      717,
-      122,
-      3,
-      50,
-      13,
       "FLOAT"
     ],
     [
@@ -4608,6 +4394,54 @@
       89,
       4,
       "STRING"
+    ],
+    [
+      741,
+      89,
+      3,
+      123,
+      0,
+      "IMAGE"
+    ],
+    [
+      742,
+      98,
+      2,
+      123,
+      1,
+      "VAE"
+    ],
+    [
+      743,
+      89,
+      0,
+      123,
+      2,
+      "INT"
+    ],
+    [
+      744,
+      89,
+      1,
+      123,
+      3,
+      "INT"
+    ],
+    [
+      746,
+      123,
+      1,
+      110,
+      0,
+      "IMAGE"
+    ],
+    [
+      747,
+      123,
+      1,
+      113,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
