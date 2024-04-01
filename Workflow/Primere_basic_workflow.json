@@ -869,7 +869,7 @@
       },
       "widgets_values": [
         "",
-        527542795396367,
+        965821049894743,
         "randomize"
       ],
       "color": "#145414",
@@ -924,7 +924,7 @@
       },
       "widgets_values": [
         "",
-        982941371990817,
+        125033393634913,
         "randomize"
       ],
       "color": "#145414",
@@ -1181,7 +1181,7 @@
         false,
         1.6,
         2.8,
-        614475002736822,
+        997758765458785,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1268,7 +1268,7 @@
         1,
         0.8,
         1.4,
-        786190176374342,
+        177551992828279,
         "randomize",
         false,
         "cpu",
@@ -1488,7 +1488,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        833369088419733,
+        414709259328787,
         "randomize",
         20,
         8,
@@ -1842,58 +1842,15 @@
       "widgets_values": [
         false,
         "jpeg",
-        256,
-        50,
+        0,
+        90,
         "Checkpoint",
         "Overwrite",
-        "SDXL\\sd_xl_turbo_1.0_fp16.safetensors",
+        "Playground\\playground_base.safetensors",
         null
       ],
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        688.2476164869578,
-        91.4171916525597
-      ],
-      "size": {
-        "0": 464.1010437011719,
-        "1": 128.1556854248047
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            281
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 86,
@@ -2243,6 +2200,49 @@
         "normal",
         3,
         50
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        688.2476164869578,
+        91.4171916525597
+      ],
+      "size": {
+        "0": 464.1010437011719,
+        "1": 128.1556854248047
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            281
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"

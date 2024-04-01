@@ -4,15 +4,18 @@
 - Normal Sampler (SD, SDXL): euler/karras, 20 steps, CFG: 8
 - LCM Sampler (SD, SDXL): lcm/sgm_uniform, 8 steps, CFG: 1.18
 - Turbo Sampler: euler_anchestral, 4 steps, CFG: 1
+- Playground Sampler: dpmpp_sde/simple, 35 steps, CFG: 4
 - SD model: Photon V1
 - SDXL model: batchCOREALISMXL v40
 - Turbo model: sd_xl_turbo 1.0 (Stability)
+- Playground model: playground base (Official) 
 - GPU: RTX 3060 12GB, 32GB RAM, GIGABYTE B760 with 12th Gen Intel(R) Core(TM) i5-12400F 3GHz, WD Blue m.2 SSD. (RTX 4090 / 16 running about half time).
 - SD resolution: 768
 - SDXL resolution: 1024
-- Turbo resolution: 512
+- Turbo resolution: 512 (because the official model)
 - Lightning resolution: 1024
 - Cascade resolution: 1024
+- Playground resolution: 1024
 - Running time measurement: 2nd run after new model load. First run win model load depending the speed ofyour SSD
 - Upscaler: Ultimate SD upscaler. 4x for SD (768 x 4), 3.2x for SDXL (1024 x 3.2), 4x for Turbo (512 x 4). Always used and measured when available in the workflow
 - Custom VAE always used (and loaded) if exist in workflow
@@ -29,6 +32,7 @@
         <th nowrap rowspan="3">L.C.M.<br>SD / SDXL</th>
         <th nowrap rowspan="3">Turbo</th>
         <th nowrap rowspan="3">Cascade</th>
+        <th nowrap rowspan="3">Playground</th>
         <th nowrap rowspan="3">Lightning<br>1,2,4,8 steps</th>
         <th nowrap rowspan="3">Upscale<br>to ~6mpx</th>
         <th nowrap rowspan="3">Image save</th>
@@ -44,6 +48,7 @@
         <th nowrap rowspan="3">SDXL LCM (1024)<br>batchCOREALISMXL</th>
         <th nowrap rowspan="3">Turbo (512)<br>sd_xl_turbo_1.0</th>
         <th nowrap rowspan="3">Cascade (1024)</th>
+        <th nowrap rowspan="3">Playground (1024)</th>
         <th nowrap colspan="16">Lightning (1024)</th>
     </tr>
     <tr>
@@ -85,9 +90,11 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
+        <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td nowrap>SD: 7 sec<br>SDXL: 35 sec</td>
         <td><a href="../readme_images/example-minimal-sd-raw.jpg"><img src="../readme_images/example-minimal-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-minimal-sdxl-raw.jpg"><img src="../readme_images/example-minimal-sdxl.jpg" height="60 px"></a></td>
+        <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
@@ -117,6 +124,7 @@
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
+        <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
@@ -124,13 +132,14 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td nowrap>SD: 7 sec<br>SD LCM: 3 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec</td>
+        <td nowrap>SD: 7 sec<br>SD LCM: 3 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec<br>Playground: 173 sec</td>
         <td><a href="../readme_images/example-basic-sd-raw.jpg"><img src="../readme_images/example-basic-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxl-raw.jpg"><img src="../readme_images/example-basic-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdlcm-raw.jpg"><img src="../readme_images/example-basic-sdlcm.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxllcm-raw.jpg"><img src="../readme_images/example-basic-sdxllcm.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-turbo-raw.jpg"><img src="../readme_images/example-basic-turbo.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-cascade-raw.jpg"><img src="../readme_images/example-basic-cascade.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-basic-playground-raw.jpg"><img src="../readme_images/example-basic-playground.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-lightning-safetensor-1-raw.jpg"><img src="../readme_images/example-basic-lightning-safetensor-1.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-lightning-safetensor-2-raw.jpg"><img src="../readme_images/example-basic-lightning-safetensor-2.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-lightning-safetensor-4-raw.jpg"><img src="../readme_images/example-basic-lightning-safetensor-4.jpg" height="60 px"></a></td>
@@ -158,6 +167,7 @@
         <td><img src="../readme_images/green-yes.png" height="26px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
+        <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
@@ -170,6 +180,7 @@
         <td><a href="../readme_images/example-advanced-sdxllcm-raw.jpg"><img src="../readme_images/example-advanced-sdxllcm.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-turbo-raw.jpg"><img src="../readme_images/example-advanced-turbo.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-cascade-raw.jpg"><img src="../readme_images/example-advanced-cascade.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-advanced-playground-raw.jpg"><img src="../readme_images/example-advanced-playground.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-lightning-safetensor-1-raw.jpg"><img src="../readme_images/example-advanced-lightning-safetensor-1.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-lightning-safetensor-2-raw.jpg"><img src="../readme_images/example-advanced-lightning-safetensor-2.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-advanced-lightning-safetensor-4-raw.jpg"><img src="../readme_images/example-advanced-lightning-safetensor-4.jpg" height="60 px"></a></td>
@@ -202,28 +213,30 @@
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td nowrap><u>Upscaled to 6 mpx<br>+ 4 detailers</u><br>SD: 166 sec<br>SD LCM: 100 sec<br>SDXL: 330 sec<br>SDXL LCM: 160 sec<br>Turbo: 103 sec</td>
+        <td><img src="../readme_images/green-yes.png" height="30 px"></td>
+        <td nowrap><u>Upscaled to 6 mpx<br>+ 4 detailers</u><br>SD: 166 sec<br>SD LCM: 100 sec<br>SDXL: 330 sec<br>SDXL LCM: 160 sec<br>Turbo: 103 sec<br>Cascade: 144 sec</td>
         <td><a href="../readme_images/example-latest-sd-raw.jpg"><img src="../readme_images/example-latest-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdxl-raw.jpg"><img src="../readme_images/example-latest-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdlcm-raw.jpg"><img src="../readme_images/example-latest-sdlcm.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdxllcm-raw.jpg"><img src="../readme_images/example-latest-sdxllcm.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-turbo-raw.jpg"><img src="../readme_images/example-latest-turbo.jpg" height="60 px"></a></td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
-        <td>soon</td>
+        <td><a href="../readme_images/example-latest-cascade-raw.jpg"><img src="../readme_images/example-latest-cascade.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-playground-raw.jpg"><img src="../readme_images/example-latest-playground.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-1-raw.jpg"><img src="../readme_images/example-latest-lightning-1.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-2-raw.jpg"><img src="../readme_images/example-latest-lightning-2.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-4-raw.jpg"><img src="../readme_images/example-latest-lightning-4.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-8-raw.jpg"><img src="../readme_images/example-latest-lightning-8.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-6-raw.jpg"><img src="../readme_images/example-latest-lightning-6.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-lora-2-raw.jpg"><img src="../readme_images/example-latest-lightning-lora-2.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-lora-4-raw.jpg"><img src="../readme_images/example-latest-lightning-lora-4.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-lora-8-raw.jpg"><img src="../readme_images/example-latest-lightning-lora-8.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-lora-6-raw.jpg"><img src="../readme_images/example-latest-lightning-lora-6.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-unet-1-raw.jpg"><img src="../readme_images/example-latest-lightning-unet-1.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-unet-2-raw.jpg"><img src="../readme_images/example-latest-lightning-unet-2.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-unet-4-raw.jpg"><img src="../readme_images/example-latest-lightning-unet-4.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-unet-8-raw.jpg"><img src="../readme_images/example-latest-lightning-unet-8.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-unet-6-raw.jpg"><img src="../readme_images/example-latest-lightning-unet-6.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-custom-8-raw.jpg"><img src="../readme_images/example-latest-lightning-custom-8.jpg" height="60 px"></a></td>
+        <td><a href="../readme_images/example-latest-lightning-custom-6-raw.jpg"><img src="../readme_images/example-latest-lightning-custom-6.jpg" height="60 px"></a></td>
     </tr>
 </table>

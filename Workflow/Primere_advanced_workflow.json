@@ -811,7 +811,7 @@
       },
       "widgets_values": [
         "",
-        817285046111299,
+        996697262662664,
         "randomize"
       ],
       "color": "#145414",
@@ -866,7 +866,7 @@
       },
       "widgets_values": [
         "",
-        639686946991156,
+        752963946989131,
         "randomize"
       ],
       "color": "#541414",
@@ -1296,7 +1296,7 @@
         1,
         0.8,
         1.4,
-        1106065268638166,
+        1056012247040835,
         "randomize",
         true,
         "cpu",
@@ -1851,7 +1851,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        79448827127271,
+        936891481272377,
         "randomize",
         20,
         8,
@@ -2623,116 +2623,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 89,
-      "type": "PrimereResolutionMultiplier",
-      "pos": [
-        2847.613218834839,
-        88.38684410766622
-      ],
-      "size": {
-        "0": 328.2809753417969,
-        "1": 330
-      },
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 338
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 336,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 337,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 466,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 734,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            743
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            744
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            741
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplier"
-      },
-      "widgets_values": [
-        true,
-        512,
-        512,
-        4,
-        3.2,
-        4,
-        "BaseModel_1024",
-        "Normal",
-        false,
-        0.6,
-        3,
-        "None",
-        "bicubic"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
       "id": 123,
       "type": "ttN hiresfixScale",
       "pos": [
@@ -2917,7 +2807,7 @@
         false,
         1.6,
         2.8,
-        604223785435315,
+        129997375342313,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2950,50 +2840,10 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"SDXL\\\\sd_xl_turbo_1.0_fp16.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Turbo\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler_ancestral\",\n    \"scheduler\": \"normal\",\n    \"width\": 448,\n    \"height\": 592,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 1,\n    \"steps\": 4,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6)\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"Playground\\\\playground_base.safetensors\",\n    \"model_version\": \"SDXL_2048\",\n    \"model_concept\": \"Playground\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 896,\n    \"height\": 1168,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 4,\n    \"steps\": 35,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
-    },
-    {
-      "id": 124,
-      "type": "PrimereUpscaleModel",
-      "pos": [
-        2851,
-        454
-      ],
-      "size": {
-        "0": 326.16796875,
-        "1": 78
-      },
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_NAME",
-          "type": "COMBO",
-          "links": [
-            748
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereUpscaleModel"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
     },
     {
       "id": 113,
@@ -3031,6 +2881,156 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 89,
+      "type": "PrimereResolutionMultiplier",
+      "pos": [
+        2847.613218834839,
+        88.38684410766622
+      ],
+      "size": {
+        "0": 328.2809753417969,
+        "1": 330
+      },
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 338
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 336,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 337,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 466,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 734,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            743
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            744
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            741
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplier"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        4,
+        3.2,
+        4,
+        "BaseModel_1024",
+        "Normal",
+        true,
+        1.2,
+        5,
+        "None",
+        "bicubic"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 124,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        2851,
+        454
+      ],
+      "size": {
+        "0": 326.16796875,
+        "1": 78
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "links": [
+            748
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereUpscaleModel"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR-M_x2.pth"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     },
     {
       "id": 122,
@@ -3403,7 +3403,7 @@
         "1": 128.78175354003906
       },
       "flags": {},
-      "order": 14,
+      "order": 15,
       "mode": 0,
       "outputs": [
         {
