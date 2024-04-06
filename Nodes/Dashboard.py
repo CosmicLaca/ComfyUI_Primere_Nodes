@@ -1436,9 +1436,6 @@ class PrimereConceptDataTuple:
                 "cascade_stage_b": ("STRING", {"forceInput": True}),
                 "cascade_stage_c": ("STRING", {"forceInput": True}),
                 "cascade_clip": ("STRING", {"forceInput": True}),
-
-                # "playground_sigma_max": ("FLOAT", {"forceInput": True}),
-                # "playground_sigma_min": ("FLOAT", {"forceInput": True}),
             },
         }
 
@@ -1459,9 +1456,5 @@ class PrimereUpscaleModel:
         }
 
     def load_upscaler(self, model_name):
-        model_path = folder_paths.get_full_path("upscale_models", model_name)
-        sd = comfy.utils.load_torch_file(model_path, safe_load=True)
-        if "module.layers.0.residual_group.blocks.0.norm1.weight" in sd:
-            sd = comfy.utils.state_dict_prefix_replace(sd, {"module.":""})
-        out = model_loading.load_state_dict(sd).eval()
+        out = nodes_upscale_model.UpscaleModelLoader.load_model(self, model_name)[0]
         return (out, model_name,)

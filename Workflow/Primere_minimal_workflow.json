@@ -1,6 +1,6 @@
 {
-  "last_node_id": 60,
-  "last_link_id": 255,
+  "last_node_id": 64,
+  "last_link_id": 271,
   "nodes": [
     {
       "id": 43,
@@ -102,102 +102,6 @@
       ],
       "color": "#145414",
       "bgcolor": "#004000"
-    },
-    {
-      "id": 54,
-      "type": "PrimereCKPTLoader",
-      "pos": [
-        702,
-        253
-      ],
-      "size": {
-        "0": 471.88604736328125,
-        "1": 186
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 204
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            246
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            228
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            207,
-            208
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            209,
-            229
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        true,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 56,
@@ -328,7 +232,7 @@
         "1": 351.97613525390625
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -404,7 +308,7 @@
         false,
         1.6,
         2.8,
-        453129688705689,
+        581403626596861,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -424,7 +328,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -461,7 +365,7 @@
       },
       "widgets_values": [
         "",
-        349300778450373,
+        1038337268062385,
         "randomize"
       ],
       "color": "#145414",
@@ -479,7 +383,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 10,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -516,7 +420,7 @@
       },
       "widgets_values": [
         "",
-        143159882070681,
+        75034935659184,
         "randomize"
       ],
       "color": "#145414",
@@ -534,7 +438,7 @@
         "1": 406
       },
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -601,7 +505,7 @@
         1,
         0.8,
         1.4,
-        480865383285734,
+        702572035315009,
         "randomize",
         false,
         "cpu",
@@ -609,68 +513,6 @@
       ],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 8,
-      "type": "PrimereEmbeddingHandler",
-      "pos": [
-        1517,
-        1257
-      ],
-      "size": {
-        "0": 277.4871826171875,
-        "1": 54
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 226,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 14,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            230
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            231
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereEmbeddingHandler"
-      },
-      "widgets_values": [
-        "",
-        ""
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
     },
     {
       "id": 19,
@@ -684,7 +526,7 @@
         "1": 338.9780578613281
       },
       "flags": {},
-      "order": 15,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -700,229 +542,6 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 58,
-      "type": "PrimereCLIPEncoder",
-      "pos": [
-        2165,
-        93
-      ],
-      "size": {
-        "0": 333.3734130859375,
-        "1": 782
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 228
-        },
-        {
-          "name": "model_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": null
-        },
-        {
-          "name": "lora_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": null
-        },
-        {
-          "name": "lycoris_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": null
-        },
-        {
-          "name": "embedding_pos",
-          "type": "EMBEDDING",
-          "link": null
-        },
-        {
-          "name": "embedding_neg",
-          "type": "EMBEDDING",
-          "link": null
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 229,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 230,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 231,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "opt_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_pos_prompt"
-          }
-        },
-        {
-          "name": "opt_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_neg_prompt"
-          }
-        },
-        {
-          "name": "style_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_pos_prompt"
-          }
-        },
-        {
-          "name": "style_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_neg_prompt"
-          }
-        },
-        {
-          "name": "sdxl_positive_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_positive_l"
-          }
-        },
-        {
-          "name": "sdxl_negative_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_negative_l"
-          }
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 232,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 233,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            247
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            248
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCLIPEncoder"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        0,
-        1.2,
-        false,
-        "None",
-        1,
-        "None",
-        1,
-        false,
-        "none",
-        "comfy",
-        "Normal",
-        "",
-        1,
-        "",
-        1,
-        false,
-        "",
-        1,
-        "",
-        1,
-        "",
-        "",
-        true,
-        1,
-        1024,
-        1024
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
       "id": 16,
       "type": "VAEDecode",
       "pos": [
@@ -934,7 +553,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 17,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1237,6 +856,43 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 57,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2870,
+        55
+      ],
+      "size": {
+        "0": 949,
+        "1": 1153
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 227
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
       "id": 60,
       "type": "PrimereKSampler",
       "pos": [
@@ -1248,13 +904,13 @@
         "1": 310
       },
       "flags": {},
-      "order": 16,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 246
+          "link": 257
         },
         {
           "name": "positive",
@@ -1335,7 +991,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        611373743978229,
+        523270723662679,
         "randomize",
         20,
         8,
@@ -1351,41 +1007,635 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 57,
-      "type": "PrimerePreviewImage",
+      "id": 8,
+      "type": "PrimereEmbeddingHandler",
       "pos": [
-        2870,
-        55
+        1517,
+        1257
       ],
       "size": {
-        "0": 949,
-        "1": 1153
+        "0": 277.4871826171875,
+        "1": 54
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 226,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 14,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            260,
+            263
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            264
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmbeddingHandler"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 58,
+      "type": "PrimereCLIPEncoder",
+      "pos": [
+        2165,
+        93
+      ],
+      "size": {
+        "0": 333.3734130859375,
+        "1": 782
       },
       "flags": {},
       "order": 18,
       "mode": 0,
       "inputs": [
         {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 227
+          "name": "clip",
+          "type": "CLIP",
+          "link": 259
+        },
+        {
+          "name": "model_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 270
+        },
+        {
+          "name": "lora_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 261
+        },
+        {
+          "name": "lycoris_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 262
+        },
+        {
+          "name": "embedding_pos",
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "embedding_neg",
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 268,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 266,
+          "widget": {
+            "name": "positive_prompt"
+          },
+          "slot_index": 7
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 267,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "opt_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_pos_prompt"
+          }
+        },
+        {
+          "name": "opt_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_neg_prompt"
+          }
+        },
+        {
+          "name": "style_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_pos_prompt"
+          }
+        },
+        {
+          "name": "style_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_neg_prompt"
+          }
+        },
+        {
+          "name": "sdxl_positive_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "sdxl_positive_l"
+          }
+        },
+        {
+          "name": "sdxl_negative_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "sdxl_negative_l"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 232,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 233,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            247
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            248
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
+        "Node name for S&R": "PrimereCLIPEncoder"
       },
       "widgets_values": [
-        false,
-        "jpeg",
+        "BaseModel_1024",
+        "",
+        "",
         0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "SDXL\\batchCOREALISMXL_v40.safetensors",
-        null
+        1.2,
+        false,
+        "None",
+        1,
+        "None",
+        1,
+        false,
+        "none",
+        "comfy",
+        "Normal",
+        "",
+        1,
+        "",
+        1,
+        false,
+        "",
+        1,
+        "",
+        1,
+        "",
+        "",
+        true,
+        1,
+        1024,
+        1024
       ],
-      "color": "#549494",
-      "bgcolor": "#408080"
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 54,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        702,
+        253
+      ],
+      "size": {
+        "0": 471.88604736328125,
+        "1": 186
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 204
+        },
+        {
+          "name": "loaded_model",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            256
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            258
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            207,
+            208
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            209,
+            268,
+            269
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 61,
+      "type": "PrimereNetworkTagLoader",
+      "pos": [
+        1828.9727814891048,
+        974.8684745455653
+      ],
+      "size": [
+        361.0999694824218,
+        562
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 256
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 258
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 260,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            257
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            259
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "LORA_STACK",
+          "type": "LORA_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HYPERNETWORK_STACK",
+          "type": "HYPERNETWORK_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            261
+          ],
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            262
+          ],
+          "shape": 3,
+          "slot_index": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereNetworkTagLoader"
+      },
+      "widgets_values": [
+        "",
+        true,
+        true,
+        true,
+        true,
+        false,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 62,
+      "type": "PrimereClearPrompt",
+      "pos": [
+        2198,
+        976
+      ],
+      "size": [
+        315,
+        294
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 269,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 263,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 264,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            266
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            267
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereClearPrompt"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "",
+        "",
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        "Normal"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 63,
+      "type": "PrimereModelKeyword",
+      "pos": [
+        2198,
+        1307
+      ],
+      "size": {
+        "0": 315,
+        "1": 154
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 271
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            270
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelKeyword"
+      },
+      "widgets_values": [
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     },
     {
       "id": 3,
@@ -1406,9 +1656,11 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            204
+            204,
+            271
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         },
         {
           "name": "MODEL_VERSION",
@@ -1631,38 +1883,6 @@
       "IMAGE"
     ],
     [
-      228,
-      54,
-      1,
-      58,
-      0,
-      "CLIP"
-    ],
-    [
-      229,
-      54,
-      3,
-      58,
-      6,
-      "STRING"
-    ],
-    [
-      230,
-      8,
-      0,
-      58,
-      7,
-      "STRING"
-    ],
-    [
-      231,
-      8,
-      1,
-      58,
-      8,
-      "STRING"
-    ],
-    [
       232,
       51,
       0,
@@ -1677,14 +1897,6 @@
       58,
       17,
       "INT"
-    ],
-    [
-      246,
-      54,
-      0,
-      60,
-      0,
-      "MODEL"
     ],
     [
       247,
@@ -1757,6 +1969,126 @@
       16,
       0,
       "LATENT"
+    ],
+    [
+      256,
+      54,
+      0,
+      61,
+      0,
+      "MODEL"
+    ],
+    [
+      257,
+      61,
+      0,
+      60,
+      0,
+      "MODEL"
+    ],
+    [
+      258,
+      54,
+      1,
+      61,
+      1,
+      "CLIP"
+    ],
+    [
+      259,
+      61,
+      1,
+      58,
+      0,
+      "CLIP"
+    ],
+    [
+      260,
+      8,
+      0,
+      61,
+      2,
+      "STRING"
+    ],
+    [
+      261,
+      61,
+      5,
+      58,
+      2,
+      "MODEL_KEYWORD"
+    ],
+    [
+      262,
+      61,
+      6,
+      58,
+      3,
+      "MODEL_KEYWORD"
+    ],
+    [
+      263,
+      8,
+      0,
+      62,
+      1,
+      "STRING"
+    ],
+    [
+      264,
+      8,
+      1,
+      62,
+      2,
+      "STRING"
+    ],
+    [
+      266,
+      62,
+      0,
+      58,
+      7,
+      "STRING"
+    ],
+    [
+      267,
+      62,
+      1,
+      58,
+      8,
+      "STRING"
+    ],
+    [
+      268,
+      54,
+      3,
+      58,
+      6,
+      "STRING"
+    ],
+    [
+      269,
+      54,
+      3,
+      62,
+      0,
+      "STRING"
+    ],
+    [
+      270,
+      63,
+      0,
+      58,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      271,
+      3,
+      0,
+      63,
+      0,
+      "CHECKPOINT_NAME"
     ]
   ],
   "groups": [
@@ -1793,6 +2125,18 @@
         872
       ],
       "color": "#A88",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Network loader",
+      "bounding": [
+        1813,
+        902,
+        714,
+        647
+      ],
+      "color": "#804000",
       "font_size": 24,
       "locked": false
     }

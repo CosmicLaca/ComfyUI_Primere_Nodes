@@ -9,7 +9,7 @@
 - SDXL model: batchCOREALISMXL v40
 - Turbo model: sd_xl_turbo 1.0 (Stability)
 - Playground model: playground base (Official) 
-- GPU: RTX 3060 12GB, 32GB RAM, GIGABYTE B760 with 12th Gen Intel(R) Core(TM) i5-12400F 3GHz, WD Blue m.2 SSD. (RTX 4090 / 16 running about half time).
+- GPU: RTX 3060 12GB - Driver: V531.61, 32GB RAM, GIGABYTE B760 with 12th Gen Intel(R) Core(TM) i5-12400F 3GHz, WD Blue m.2 SSD. (RTX 4090 / 16 running about half time).
 - SD resolution: 768
 - SDXL resolution: 1024
 - Turbo resolution: 512 (because the official model)
@@ -132,7 +132,7 @@
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
         <td><img src="../readme_images/red-no.png" height="26px"></td>
-        <td nowrap>SD: 7 sec<br>SD LCM: 3 sec<br>SDXL: 36 sec<br>SDXL LCM: 21 sec<br>Turbo: 21 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec<br>Playground: 173 sec</td>
+        <td nowrap>SD: 7 sec<br>SD LCM: 3 sec<br>SDXL: 9 sec<br>SDXL LCM: 4 sec<br>Turbo: 2 sec<br>Cascade: 52 sec<br>Lightning (Lora 8): 18 sec<br>Playground: 79 sec</td>
         <td><a href="../readme_images/example-basic-sd-raw.jpg"><img src="../readme_images/example-basic-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdxl-raw.jpg"><img src="../readme_images/example-basic-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-basic-sdlcm-raw.jpg"><img src="../readme_images/example-basic-sdlcm.jpg" height="60 px"></a></td>
@@ -214,7 +214,7 @@
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
         <td><img src="../readme_images/green-yes.png" height="30 px"></td>
-        <td nowrap><u>Upscaled to 6 mpx<br>+ 4 detailers</u><br>SD: 166 sec<br>SD LCM: 100 sec<br>SDXL: 330 sec<br>SDXL LCM: 160 sec<br>Turbo: 103 sec<br>Cascade: 144 sec</td>
+        <td nowrap><u>Upscaled to 6 mpx<br>+ 4 detailers</u><br>SD: 150 sec<br>SD LCM: 100 sec<br>SDXL: 330 sec<br>SDXL LCM: 160 sec<br>Turbo: 103 sec<br>Cascade: 144 sec</td>
         <td><a href="../readme_images/example-latest-sd-raw.jpg"><img src="../readme_images/example-latest-sd.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdxl-raw.jpg"><img src="../readme_images/example-latest-sdxl.jpg" height="60 px"></a></td>
         <td><a href="../readme_images/example-latest-sdlcm-raw.jpg"><img src="../readme_images/example-latest-sdlcm.jpg" height="60 px"></a></td>
