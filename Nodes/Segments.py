@@ -64,7 +64,12 @@ class PrimereImageSegments:
     BBOX_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')
     SEGM_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'segm')
     GDINO_PATH = os.path.join(comfy_dir, 'models', 'grounding-dino')
+    # SAMS_PATH = os.path.join(comfy_dir, 'models', 'sams')
+
     SAMS_PATH = os.path.join(comfy_dir, 'models', 'sams')
+    folder_paths.add_model_folder_path("sams", SAMS_PATH)
+    SAMS_FULL_LIST = folder_paths.get_filename_list("sams")
+    SAMS_LIST = folder_paths.filter_files_extensions(SAMS_FULL_LIST, ['.pth'])
 
     if os.path.exists(BBOX_PATH) == False:
         Path(BBOX_PATH).mkdir(parents=True, exist_ok=True)
@@ -131,7 +136,7 @@ class PrimereImageSegments:
         bboxs = ["bbox/"+x for x in cls.BBOX_LIST]
         segms = ["segm/"+x for x in cls.SEGM_LIST]
         dinos = ["dino/"+x for x in cls.DINO_LIST]
-        sams = list(filter(lambda x: x.startswith('sam_vit'), folder_paths.get_filename_list("sams")))
+        sams = list(filter(lambda x: x.startswith('sam_vit'), cls.SAMS_LIST))
 
         return {
             "required": {
