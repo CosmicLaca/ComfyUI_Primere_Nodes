@@ -1,4 +1,5 @@
 import { app } from "/scripts/app.js";
+import { api } from "/scripts/api.js";
 
 const realPath = "extensions/Primere";
 const prwPath = "extensions/PrimerePreviews";
@@ -241,6 +242,7 @@ app.registerExtension({
         function apply_modal(Selected) {
             if (Selected && typeof callbackfunct == 'function') {
                 callbackfunct(Selected);
+                sendPOSTModelName(Selected);
                 return false;
             }
         }
@@ -562,3 +564,9 @@ app.registerExtension({
         }
     },
 });
+
+function sendPOSTModelName(modelName) {
+    const body = new FormData();
+    body.append('modelName', modelName);
+    api.fetchApi("/primere_keyword_parser", {method: "POST", body,});
+}

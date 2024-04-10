@@ -1,6 +1,6 @@
 {
   "last_node_id": 64,
-  "last_link_id": 271,
+  "last_link_id": 272,
   "nodes": [
     {
       "id": 43,
@@ -102,488 +102,6 @@
       ],
       "color": "#145414",
       "bgcolor": "#004000"
-    },
-    {
-      "id": 56,
-      "type": "PrimerePromptSwitch",
-      "pos": [
-        1456,
-        573
-      ],
-      "size": {
-        "0": 336.92425537109375,
-        "1": 278
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt_pos_1",
-          "type": "STRING",
-          "link": 214
-        },
-        {
-          "name": "prompt_neg_1",
-          "type": "STRING",
-          "link": 215
-        },
-        {
-          "name": "preferred_1",
-          "type": "STRING",
-          "link": 216
-        },
-        {
-          "name": "prompt_pos_2",
-          "type": "STRING",
-          "link": 217
-        },
-        {
-          "name": "prompt_neg_2",
-          "type": "STRING",
-          "link": 218
-        },
-        {
-          "name": "preferred_2",
-          "type": "STRING",
-          "link": 219
-        },
-        {
-          "name": "prompt_pos_3",
-          "type": "STRING",
-          "link": 220
-        },
-        {
-          "name": "prompt_neg_3",
-          "type": "STRING",
-          "link": 221
-        },
-        {
-          "name": "preferred_3",
-          "type": "STRING",
-          "link": 222
-        },
-        {
-          "name": "prompt_pos_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "prompt_neg_4",
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "preferred_4",
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            225
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            224
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SELECTED_INDEX",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PREFERRED",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePromptSwitch"
-      },
-      "widgets_values": [
-        3
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 51,
-      "type": "PrimereResolution",
-      "pos": [
-        1474,
-        89
-      ],
-      "size": {
-        "0": 321.6076965332031,
-        "1": 351.97613525390625
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 193,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 209,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            195,
-            232
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            196,
-            233
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_SHAPES",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "Photo [19:13]",
-        768,
-        1024,
-        512,
-        false,
-        "Horizontal",
-        true,
-        false,
-        1.6,
-        2.8,
-        581403626596861,
-        "randomize",
-        "BaseModel_1024",
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 6,
-      "type": "PrimereDynamicParser",
-      "pos": [
-        1518.6467291814622,
-        1166.915338356712
-      ],
-      "size": {
-        "0": 274.12115478515625,
-        "1": 54
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 225,
-          "widget": {
-            "name": "dyn_prompt"
-          },
-          "slot_index": 0
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 17,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT",
-          "type": "STRING",
-          "links": [
-            226
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
-      },
-      "widgets_values": [
-        "",
-        1038337268062385,
-        "randomize"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 7,
-      "type": "PrimereDynamicParser",
-      "pos": [
-        1518,
-        1078
-      ],
-      "size": {
-        "0": 275.12115478515625,
-        "1": 54
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "dyn_prompt",
-          "type": "STRING",
-          "link": 224,
-          "widget": {
-            "name": "dyn_prompt"
-          },
-          "slot_index": 0
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 18,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT",
-          "type": "STRING",
-          "links": [
-            14
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
-      },
-      "widgets_values": [
-        "",
-        75034935659184,
-        "randomize"
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
-      "id": 39,
-      "type": "PrimereLatentNoise",
-      "pos": [
-        1823,
-        93
-      ],
-      "size": {
-        "0": 333.8106689453125,
-        "1": 406
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "optional_vae",
-          "type": "VAE",
-          "link": 207
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 195,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 196,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "noise_seed",
-          "type": "INT",
-          "link": 137,
-          "widget": {
-            "name": "noise_seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENTS",
-          "type": "LATENT",
-          "links": [
-            249
-          ],
-          "shape": 3
-        },
-        {
-          "name": "PREVIEWS",
-          "type": "IMAGE",
-          "links": [
-            139
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
-      },
-      "widgets_values": [
-        512,
-        512,
-        false,
-        "blue",
-        false,
-        1,
-        0.5,
-        1.5,
-        false,
-        1,
-        0.8,
-        1.4,
-        702572035315009,
-        "randomize",
-        false,
-        "cpu",
-        false
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 19,
-      "type": "PreviewImage",
-      "pos": [
-        1822,
-        536
-      ],
-      "size": {
-        "0": 334.86895751953125,
-        "1": 338.9780578613281
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 139
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 16,
-      "type": "VAEDecode",
-      "pos": [
-        2504,
-        94
-      ],
-      "size": {
-        "0": 342.0126647949219,
-        "1": 46
-      },
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 255
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 208,
-          "slot_index": 1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            227
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
     },
     {
       "id": 52,
@@ -856,76 +374,199 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 57,
-      "type": "PrimerePreviewImage",
+      "id": 3,
+      "type": "PrimereVisualCKPT",
       "pos": [
-        2870,
-        55
+        701,
+        88
       ],
       "size": {
-        "0": 949,
-        "1": 1153
+        "0": 471.04998779296875,
+        "1": 129.93345642089844
       },
       "flags": {},
-      "order": 21,
+      "order": 6,
       "mode": 0,
-      "inputs": [
+      "outputs": [
         {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 227
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            204,
+            271
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
+        "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
         "BestAll\\photon_v1.safetensors",
-        null
+        false,
+        true
       ],
-      "color": "#549494",
-      "bgcolor": "#408080"
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
-      "id": 60,
-      "type": "PrimereKSampler",
+      "id": 56,
+      "type": "PrimerePromptSwitch",
       "pos": [
-        2505,
-        176
+        1456,
+        573
       ],
       "size": {
-        "0": 341.0091247558594,
-        "1": 310
+        "0": 336.92425537109375,
+        "1": 278
       },
       "flags": {},
-      "order": 19,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
-          "name": "model",
+          "name": "prompt_pos_1",
+          "type": "STRING",
+          "link": 214
+        },
+        {
+          "name": "prompt_neg_1",
+          "type": "STRING",
+          "link": 215
+        },
+        {
+          "name": "preferred_1",
+          "type": "STRING",
+          "link": 216
+        },
+        {
+          "name": "prompt_pos_2",
+          "type": "STRING",
+          "link": 217
+        },
+        {
+          "name": "prompt_neg_2",
+          "type": "STRING",
+          "link": 218
+        },
+        {
+          "name": "preferred_2",
+          "type": "STRING",
+          "link": 219
+        },
+        {
+          "name": "prompt_pos_3",
+          "type": "STRING",
+          "link": 220
+        },
+        {
+          "name": "prompt_neg_3",
+          "type": "STRING",
+          "link": 221
+        },
+        {
+          "name": "preferred_3",
+          "type": "STRING",
+          "link": 222
+        },
+        {
+          "name": "prompt_pos_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "prompt_neg_4",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "preferred_4",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            225
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            224
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SELECTED_INDEX",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PREFERRED",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePromptSwitch"
+      },
+      "widgets_values": [
+        3
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 54,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        702,
+        253
+      ],
+      "size": {
+        "0": 471.88604736328125,
+        "1": 186
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 204
+        },
+        {
+          "name": "loaded_model",
           "type": "MODEL",
-          "link": 257
+          "link": null
         },
         {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 247
+          "name": "loaded_clip",
+          "type": "CLIP",
+          "link": null
         },
         {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 248
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 249
+          "name": "loaded_vae",
+          "type": "VAE",
+          "link": null
         },
         {
           "name": "model_concept",
@@ -934,77 +575,311 @@
           "widget": {
             "name": "model_concept"
           }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 250,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 251,
-          "widget": {
-            "name": "sampler_name"
-          }
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 252,
-          "widget": {
-            "name": "scheduler_name"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 253,
-          "widget": {
-            "name": "steps"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 254,
-          "widget": {
-            "name": "cfg"
-          }
         }
       ],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "MODEL",
+          "type": "MODEL",
           "links": [
-            255
+            256
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            258
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            207,
+            208
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            209,
+            268,
+            269
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true,
+        1,
+        1,
+        "Normal"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 63,
+      "type": "PrimereModelKeyword",
+      "pos": [
+        2198,
+        1307
+      ],
+      "size": {
+        "0": 315,
+        "1": 154
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 271
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            272
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereKSampler"
+        "Node name for S&R": "PrimereModelKeyword"
       },
       "widgets_values": [
-        523270723662679,
-        "randomize",
-        20,
-        8,
-        "euler",
-        "normal",
+        true,
+        "Last",
         1,
-        0,
-        0,
-        "DEFAULT",
+        1,
+        "design"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 6,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        1518.6467291814622,
+        1166.915338356712
+      ],
+      "size": {
+        "0": 274.12115478515625,
+        "1": 54
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 225,
+          "widget": {
+            "name": "dyn_prompt"
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 17,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            226
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [
+        "",
+        663973726728658,
+        "randomize"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 7,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        1518,
+        1078
+      ],
+      "size": {
+        "0": 275.12115478515625,
+        "1": 54
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 224,
+          "widget": {
+            "name": "dyn_prompt"
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 18,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [
+        "",
+        1029374245302452,
+        "randomize"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 51,
+      "type": "PrimereResolution",
+      "pos": [
+        1474,
+        89
+      ],
+      "size": {
+        "0": 321.6076965332031,
+        "1": 351.97613525390625
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 193,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 209,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            195,
+            232
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            196,
+            233
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_SHAPES",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "Photo [19:13]",
+        768,
+        1024,
+        512,
+        false,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8,
+        697700726117534,
+        "randomize",
+        "BaseModel_1024",
         "Normal"
       ],
-      "color": "#941414",
-      "bgcolor": "#800000"
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     },
     {
       "id": 8,
@@ -1070,6 +945,323 @@
       "bgcolor": "#004000"
     },
     {
+      "id": 39,
+      "type": "PrimereLatentNoise",
+      "pos": [
+        1823,
+        93
+      ],
+      "size": {
+        "0": 333.8106689453125,
+        "1": 406
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "optional_vae",
+          "type": "VAE",
+          "link": 207
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 195,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 196,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "link": 137,
+          "widget": {
+            "name": "noise_seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENTS",
+          "type": "LATENT",
+          "links": [
+            249
+          ],
+          "shape": 3
+        },
+        {
+          "name": "PREVIEWS",
+          "type": "IMAGE",
+          "links": [
+            139
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLatentNoise"
+      },
+      "widgets_values": [
+        512,
+        512,
+        false,
+        "blue",
+        false,
+        1,
+        0.5,
+        1.5,
+        false,
+        1,
+        0.8,
+        1.4,
+        555297738646072,
+        "randomize",
+        false,
+        "cpu",
+        false
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 61,
+      "type": "PrimereNetworkTagLoader",
+      "pos": [
+        1828.9727814891048,
+        974.8684745455653
+      ],
+      "size": {
+        "0": 361.0999755859375,
+        "1": 562
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 256
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 258
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 260,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            257
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            259
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "LORA_STACK",
+          "type": "LORA_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HYPERNETWORK_STACK",
+          "type": "HYPERNETWORK_STACK",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            261
+          ],
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            262
+          ],
+          "shape": 3,
+          "slot_index": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereNetworkTagLoader"
+      },
+      "widgets_values": [
+        "",
+        true,
+        true,
+        true,
+        true,
+        false,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 62,
+      "type": "PrimereClearPrompt",
+      "pos": [
+        2198,
+        976
+      ],
+      "size": {
+        "0": 315,
+        "1": 294
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 269,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 263,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 264,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            266
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            267
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereClearPrompt"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "",
+        "",
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        "Normal"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        1822,
+        536
+      ],
+      "size": {
+        "0": 334.86895751953125,
+        "1": 338.9780578613281
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 139
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
       "id": 58,
       "type": "PrimereCLIPEncoder",
       "pos": [
@@ -1092,7 +1284,7 @@
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 270
+          "link": 272
         },
         {
           "name": "lora_keywords",
@@ -1294,256 +1486,39 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 54,
-      "type": "PrimereCKPTLoader",
+      "id": 60,
+      "type": "PrimereKSampler",
       "pos": [
-        702,
-        253
+        2505,
+        176
       ],
       "size": {
-        "0": 471.88604736328125,
-        "1": 186
+        "0": 341.0091247558594,
+        "1": 310
       },
       "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 204
-        },
-        {
-          "name": "loaded_model",
-          "type": "MODEL",
-          "link": null
-        },
-        {
-          "name": "loaded_clip",
-          "type": "CLIP",
-          "link": null
-        },
-        {
-          "name": "loaded_vae",
-          "type": "VAE",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            256
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            258
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            207,
-            208
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            209,
-            268,
-            269
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
-      },
-      "widgets_values": [
-        true,
-        1,
-        1,
-        "Normal"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 61,
-      "type": "PrimereNetworkTagLoader",
-      "pos": [
-        1828.9727814891048,
-        974.8684745455653
-      ],
-      "size": [
-        361.0999694824218,
-        562
-      ],
-      "flags": {},
-      "order": 15,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 256
+          "link": 257
         },
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 258
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 247
         },
         {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 260,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            257
-          ],
-          "shape": 3,
-          "slot_index": 0
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 248
         },
         {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            259
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "LORA_STACK",
-          "type": "LORA_STACK",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "LYCORIS_STACK",
-          "type": "LYCORIS_STACK",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "HYPERNETWORK_STACK",
-          "type": "HYPERNETWORK_STACK",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "LORA_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            261
-          ],
-          "shape": 3,
-          "slot_index": 5
-        },
-        {
-          "name": "LYCORIS_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            262
-          ],
-          "shape": 3,
-          "slot_index": 6
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereNetworkTagLoader"
-      },
-      "widgets_values": [
-        "",
-        true,
-        true,
-        true,
-        true,
-        false,
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 62,
-      "type": "PrimereClearPrompt",
-      "pos": [
-        2198,
-        976
-      ],
-      "size": [
-        315,
-        294
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 269,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 263,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 264,
-          "widget": {
-            "name": "negative_prompt"
-          }
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 249
         },
         {
           "name": "model_concept",
@@ -1552,133 +1527,158 @@
           "widget": {
             "name": "model_concept"
           }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 250,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 251,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 252,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 253,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 254,
+          "widget": {
+            "name": "cfg"
+          }
         }
       ],
       "outputs": [
         {
-          "name": "PROMPT+",
-          "type": "STRING",
+          "name": "LATENT",
+          "type": "LATENT",
           "links": [
-            266
+            255
           ],
           "shape": 3,
           "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            267
-          ],
-          "shape": 3,
-          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereClearPrompt"
+        "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        false,
-        false,
-        true,
-        true,
-        true,
-        true,
+        408677439834601,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1,
+        0,
+        0,
+        "DEFAULT",
         "Normal"
       ],
-      "color": "#945414",
-      "bgcolor": "#804000"
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
-      "id": 63,
-      "type": "PrimereModelKeyword",
+      "id": 16,
+      "type": "VAEDecode",
       "pos": [
-        2198,
-        1307
+        2504,
+        94
       ],
       "size": {
-        "0": 315,
-        "1": 154
+        "0": 342.0126647949219,
+        "1": 46
       },
       "flags": {},
-      "order": 9,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
-          "name": "model_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 271
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            270
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelKeyword"
-      },
-      "widgets_values": [
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        701,
-        88
-      ],
-      "size": {
-        "0": 471.04998779296875,
-        "1": 129.93345642089844
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            204,
-            271
-          ],
-          "shape": 3,
-          "slot_index": 0
+          "name": "samples",
+          "type": "LATENT",
+          "link": 255
         },
         {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
+          "name": "vae",
+          "type": "VAE",
+          "link": 208,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            227
+          ],
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
+        "Node name for S&R": "VAEDecode"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 57,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2870,
+        55
+      ],
+      "size": {
+        "0": 949,
+        "1": 1153
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 227
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
       },
       "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
         false,
-        true
+        "jpeg",
+        0,
+        90,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
       ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -2075,20 +2075,20 @@
       "STRING"
     ],
     [
-      270,
-      63,
-      0,
-      58,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
       271,
       3,
       0,
       63,
       0,
       "CHECKPOINT_NAME"
+    ],
+    [
+      272,
+      63,
+      0,
+      58,
+      1,
+      "MODEL_KEYWORD"
     ]
   ],
   "groups": [

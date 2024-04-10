@@ -733,10 +733,13 @@ def getDataFromWorkflow(workflow, nodeName, dataIndex):
     result = None
 
     for NODE_ITEMS in workflow:
-        ITEM_TYPE = NODE_ITEMS['type']
-        if ITEM_TYPE == nodeName:
-            ITEM_VALUES = NODE_ITEMS['widgets_values']
-            result = ITEM_VALUES[dataIndex]
+        if 'type' in NODE_ITEMS:
+            ITEM_TYPE = NODE_ITEMS['type']
+            if ITEM_TYPE == nodeName:
+                if 'widgets_values' in NODE_ITEMS:
+                    ITEM_VALUES = NODE_ITEMS['widgets_values']
+                    if len(ITEM_VALUES) >= dataIndex + 1:
+                        result = ITEM_VALUES[dataIndex]
 
     return result
 

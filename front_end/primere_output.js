@@ -82,18 +82,6 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
-            //console.log('--------- event.type -----------------')
-            //console.log(event.type)
-            //console.log('---------- event.type ----------------')
-            /* node.onWidgetChanged = function(name, value, old_value){
-                alert('changed? ---')
-                console.log('------------ ch ---------------')
-                console.log(node)
-                console.log(name)
-                console.log(value)
-                console.log(old_value)
-                console.log('------------ ch ---------------')
-            }; */
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -130,7 +118,6 @@ app.registerExtension({
                     if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
                         node.widgets[its].value = TargetSelValues[0];
                     }
-                    //PreviewTargetPreviousState = PreviewTarget;
                 }
             }
 
@@ -141,15 +128,6 @@ app.registerExtension({
 
                 var widget_height = w.computeSize ? w.computeSize(width)[1] : LiteGraph.NODE_WIDGET_HEIGHT;
                 var widget_width = w.width || width;
-                //var widget_name = node.widgets[i].name;
-
-                if (w.name == 'preview_target') {
-                    //node.widgets[i].value = 'target change';
-                    //var selected_preview_target = node.widgets[i].value
-                }
-                if (w.name == 'image_save_as') {
-                    //node.widgets[i].value = 'SaveMode change';
-                }
 
                 if (w.type == 'button') {
                     button_id = i;
@@ -178,15 +156,16 @@ app.registerExtension({
                         function inner_clicked(v, option, event) {
                             if (values != values_list)
                                 v = text_values.indexOf(v);
+
                             this.value = v;
                             that.dirty_canvas = true;
+
                             TargetSelValues = TargetListCreator(node)
 
                             node.widgets[target_id].options.values = TargetSelValues;
                             if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
                                 node.widgets[target_id].value = TargetSelValues[0];
                             }
-                            //PreviewTargetPreviousState = PreviewTarget;
 
                             buttontitle = ButtonLabelCreator(node);
                             node.widgets[button_id].name = buttontitle;
@@ -201,6 +180,8 @@ app.registerExtension({
                             node: node,
                             widget: w,
                         }, ref_window);
+                    } else {
+                        //return false;
                     }
                 }
             }
@@ -209,18 +190,10 @@ app.registerExtension({
         }
     },
 
-    async setup(app) {
-
-    },
-
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "PrimerePreviewImage") {
             if (nodeData.input.hasOwnProperty('hidden') === true) {
                 ImagePath = nodeData.input.hidden['image_path'][0]
-            }
-
-            if (nodeData.input.hasOwnProperty('optional') === true) {
-
             }
 
             nodeType.prototype.onNodeCreated = function () {
@@ -245,7 +218,6 @@ function VisualDataReceiver(event) {
         SaveIsValid = false;
     }
 
-    //buttontitle = ButtonLabelCreator(LoadedNode);
     TargetSelValues = TargetListCreator(LoadedNode)
 
     for (var iln = 0; iln < LoadedNode.widgets.length; ++iln) {
@@ -254,12 +226,6 @@ function VisualDataReceiver(event) {
             continue;
 
         if (wln.name == 'target_selection') {
-            //console.log('--------------- www --------------')
-            //console.log(WorkflowData)
-            //console.log(WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'])
-            //console.log(TargetSelValues)
-            //console.log('--------------- www --------------')
-
             wln.options.values = TargetSelValues;
             if (TargetSelValues.length > 0) {
                 wln.value = TargetSelValues[0];
@@ -275,7 +241,6 @@ function VisualDataReceiver(event) {
             }
             getFirstState(wln, LoadedNode);
         }
-
         // New image loaded
     }
 }
@@ -423,33 +388,29 @@ function sleep(ms) {
 function ButtonLabelCreator(node) {
     PreviewExist = false;
 
-    //async function parseInputs() {
-    //    await sleep(300);
-        for (var px = 0; px < node.widgets.length; ++px) {
-            if (node.widgets[px].name == 'preview_target') {
-                PreviewTarget = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'image_save_as') {
-                SaveMode = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'image_type') {
-                IMGType = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'image_resize') {
-                MaxSide = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'target_selection') {
-                SelectedTarget = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'image_quality') {
-                TargetQuality = node.widgets[px].value;
-            }
-            if (node.widgets[px].name == 'preview_save_mode') {
-                PrwSaveMode = node.widgets[px].value;
-            }
+    for (var px = 0; px < node.widgets.length; ++px) {
+        if (node.widgets[px].name == 'preview_target') {
+            PreviewTarget = node.widgets[px].value;
         }
-    //}
-    //parseInputs();
+        if (node.widgets[px].name == 'image_save_as') {
+            SaveMode = node.widgets[px].value;
+        }
+        if (node.widgets[px].name == 'image_type') {
+            IMGType = node.widgets[px].value;
+        }
+        if (node.widgets[px].name == 'image_resize') {
+            MaxSide = node.widgets[px].value;
+        }
+        if (node.widgets[px].name == 'target_selection') {
+            SelectedTarget = node.widgets[px].value;
+        }
+        if (node.widgets[px].name == 'image_quality') {
+            TargetQuality = node.widgets[px].value;
+        }
+        if (node.widgets[px].name == 'preview_save_mode') {
+            PrwSaveMode = node.widgets[px].value;
+        }
+    }
 
     var INIT_IMGTYPE_STRING = "";
     var INIT_IMGSIZE_STRING = "";
@@ -502,14 +463,9 @@ function ButtonLabelCreator(node) {
                             }
                         });
 
-                    //async function checkImageExist() {
-                    //    console.log('asleep 1')
-                    //    await sleep(2000);
-                    //    console.log('asleep 2')
                     loadImage(imgsrc).then(image_prw_test =>
                         image_prw_test.complete
                     );
-                    //}
 
                     var imgExistLink = "";
                     if (PreviewExist === true) {

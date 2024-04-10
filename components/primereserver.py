@@ -5,6 +5,8 @@ import os
 from PIL import Image
 from server import PromptServer
 from aiohttp import web
+import folder_paths
+from ..components.tree import PRIMERE_ROOT
 
 '''
 # http://127.0.0.1:8188/primere/getdata/ez az adat
@@ -88,5 +90,28 @@ async def primere_preview_post(request):
 
     if PreviewSaveResponse is not None:
         PromptServer.instance.send_sync("PreviewSaveResponse", PreviewSaveResponse)
+
+    return web.json_response({})
+
+
+routes2 = PromptServer.instance.routes
+@routes2.post('/primere_keyword_parser')
+async def primere_keyword_parser(request):
+    post = await request.post()
+    model_name = post.get('modelName')
+    if model_name is not None:
+        keyword_list = ['None']
+        ckpt_path = folder_paths.get_full_path("checkpoints", model_name)
+        ModelKvHash = utility.get_model_hash(ckpt_path)
+        if ModelKvHash is not None:
+            KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'model-keyword.txt')
+            keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, model_name)
+            if keywords is not None and isinstance(keywords, str) == True:
+                if keywords.find('|') > 1:
+                    keyword_list = ['None', "Select in order", "Random select"] + keywords.split("|")
+                else:
+                    keyword_list = ['None', "Select in order", "Random select"] + [keywords]
+
+        PromptServer.instance.send_sync("ModelKeywordResponse", keyword_list)
 
     return web.json_response({})
