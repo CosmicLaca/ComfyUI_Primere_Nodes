@@ -68,7 +68,7 @@ app.registerExtension({
     name: "Primere.PrimerePreviewImage",
     async init(app) {
 
-        function PreviewHandler() {
+        function PreviewHandler(app) {
             let head = document.getElementsByTagName('HEAD')[0];
             let js1 = document.createElement("script");
             js1.src = realPath + "/vendor/LoadImage/load-image.js";
@@ -76,12 +76,31 @@ app.registerExtension({
             let js2 = document.createElement("script");
             js2.src = realPath + "/vendor/LoadImage/load-image-scale.js";
             head.appendChild(js2);
+
+            $(document).on("click", 'div.graphdialog button', function(e) {
+                for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
+                    var wts_1 = app.canvas.visible_nodes[its_1];
+                    if (wts_1.type == 'PrimerePreviewImage') {
+                        buttontitle = ButtonLabelCreator(wts_1);
+                        for (var its_2 = 0; its_2 < wts_1.widgets.length; ++its_2) {
+                            var wts_2 = wts_1.widgets[its_2];
+                            if (wts_2.type == 'button') {
+                                wts_2.name = buttontitle;
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        PreviewHandler();
+        PreviewHandler(app);
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
+            //if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
+            if (event.type == 'pointermove') {
+                return lcg.call(this, node, pos, event, active_widget);
+            }
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -236,7 +255,7 @@ function VisualDataReceiver(event) {
             async function getFirstState(wln, LoadedNode) {
                 await sleep(150);
                 buttontitle = ButtonLabelCreator(LoadedNode);
-                await sleep(150);
+                await sleep(200);
                 wln.name = buttontitle
             }
             getFirstState(wln, LoadedNode);

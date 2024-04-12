@@ -2,6 +2,7 @@ import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
 let LoadedNodeKey = null;
+let CKPTLoaderName = null;
 
 app.registerExtension({
     name: "Primere.PrimereKeywords",
@@ -18,7 +19,7 @@ app.registerExtension({
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
-            if (node.type != 'PrimereCKPT' && node.type != 'PrimereVisualCKPT') {
+            if (node.type != CKPTLoaderName) {
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
@@ -84,7 +85,8 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "PrimereCKPT" || nodeData.name === 'PrimereVisualCKPT') {
             nodeType.prototype.onNodeCreated = function () {
-                PrimereModelChange.apply(this, [this, 'PrimereKeywordHandler']);
+                CKPTLoaderName = nodeData.name;
+                PrimereModelChange.apply(this, [this, CKPTLoaderName]);
             };
         }
 
@@ -115,8 +117,6 @@ function PrimereKeywordList(node, inputName) {
     return {widget: widget};
 }
 function PrimereModelChange(node, inputName) {
-    node.name = inputName;
-
     node.onWidgetChanged = function(name, value, old_value){
         if (name == 'base_model') {
             sendPOSTModelName(value)
