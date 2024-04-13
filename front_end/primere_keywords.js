@@ -78,9 +78,23 @@ app.registerExtension({
         }
     },
 
-    /* async setup(app) {
-
-    }, */
+    async setup(app) {
+        await sleep(100);
+        for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
+            var wts_1 = app.canvas.visible_nodes[its_1];
+            if (wts_1.type == CKPTLoaderName) {
+                for (var its_2 = 0; its_2 < wts_1.widgets.length; ++its_2) {
+                    var wts_2 = wts_1.widgets[its_2];
+                    if (wts_2.name == 'base_model') {
+                        var modelvalue = wts_2.value;
+                        if (typeof modelvalue != 'undefined') {
+                            sendPOSTModelName(wts_2.value)
+                        }
+                    }
+                }
+            }
+        }
+    },
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeData.name === "PrimereCKPT" || nodeData.name === 'PrimereVisualCKPT') {
@@ -98,6 +112,9 @@ app.registerExtension({
     },
 });
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function PrimereKeywordList(node, inputName) {
     node.name = inputName;
