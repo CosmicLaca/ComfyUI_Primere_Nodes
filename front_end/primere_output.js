@@ -97,9 +97,8 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
-            //if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
-            if (event.type == 'pointermove') {
-                return lcg.call(this, node, pos, event, active_widget);
+            if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
+                return false;
             }
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
