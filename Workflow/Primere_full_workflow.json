@@ -1,6 +1,6 @@
 {
-  "last_node_id": 149,
-  "last_link_id": 778,
+  "last_node_id": 150,
+  "last_link_id": 798,
   "nodes": [
     {
       "id": 9,
@@ -1263,7 +1263,7 @@
       "type": "PrimereEmotionsStyles",
       "pos": [
         4900.652138139198,
-        837.7595566794652
+        849.3958842496003
       ],
       "size": {
         "0": 354.4839782714844,
@@ -2022,7 +2022,7 @@
       "type": "PrimereMidjourneyStyles",
       "pos": [
         4900.652138139198,
-        217.7595566794653
+        229.39588424960021
       ],
       "size": {
         "0": 355.19140625,
@@ -2253,7 +2253,7 @@
         false,
         1.6,
         2.8,
-        150351228350394,
+        759836492571735,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2355,7 +2355,7 @@
       "type": "PrimereStylePile",
       "pos": [
         5265.652138139198,
-        217.7595566794653
+        229.39588424960021
       ],
       "size": {
         "0": 315,
@@ -2387,7 +2387,7 @@
           "name": "STYLE+",
           "type": "STRING",
           "links": [
-            646
+            789
           ],
           "shape": 3,
           "slot_index": 0
@@ -2396,7 +2396,7 @@
           "name": "STYLE-",
           "type": "STRING",
           "links": [
-            647
+            790
           ],
           "shape": 3,
           "slot_index": 1
@@ -2825,8 +2825,8 @@
             121,
             151,
             619,
-            645,
-            730
+            730,
+            788
           ],
           "shape": 3,
           "slot_index": 8
@@ -2957,7 +2957,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            778
+            780
           ],
           "shape": 3,
           "slot_index": 0
@@ -3152,7 +3152,7 @@
             274,
             275,
             336,
-            642
+            785
           ],
           "shape": 3,
           "slot_index": 3
@@ -3322,8 +3322,8 @@
           "type": "INT",
           "links": [
             195,
-            648,
-            660
+            660,
+            791
           ],
           "shape": 3,
           "slot_index": 1
@@ -3333,8 +3333,8 @@
           "type": "INT",
           "links": [
             196,
-            649,
-            661
+            661,
+            792
           ],
           "shape": 3,
           "slot_index": 2
@@ -3354,7 +3354,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        377087115012844,
+        893318654690885,
         "randomize",
         512,
         512
@@ -3635,7 +3635,7 @@
       },
       "widgets_values": [
         "",
-        170237243718062,
+        93239308538381,
         "randomize"
       ],
       "color": "#232",
@@ -3690,7 +3690,7 @@
       },
       "widgets_values": [
         "",
-        993507748744822,
+        1017427638930156,
         "randomize"
       ],
       "color": "#322",
@@ -3824,7 +3824,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        179567541023918,
+        858699728504170,
         "randomize",
         false,
         "cpu",
@@ -3948,7 +3948,7 @@
           "name": "EMBEDDING+",
           "type": "EMBEDDING",
           "links": [
-            640
+            783
           ],
           "shape": 3,
           "slot_index": 0
@@ -3957,7 +3957,7 @@
           "name": "EMBEDDING-",
           "type": "EMBEDDING",
           "links": [
-            641
+            784
           ],
           "shape": 3,
           "slot_index": 1
@@ -4516,7 +4516,7 @@
           "type": "STRING",
           "links": [
             611,
-            643
+            786
           ],
           "shape": 3,
           "slot_index": 0
@@ -4526,7 +4526,7 @@
           "type": "STRING",
           "links": [
             612,
-            644
+            787
           ],
           "shape": 3,
           "slot_index": 1
@@ -4668,8 +4668,8 @@
       "id": 127,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
-        5494.507850652704,
-        1277.597353688046
+        5495,
+        1278
       ],
       "size": [
         88.02881343533409,
@@ -4900,7 +4900,7 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            638
+            781
           ],
           "shape": 3,
           "slot_index": 0
@@ -4963,7 +4963,7 @@
           "type": "CLIP",
           "links": [
             610,
-            636
+            779
           ],
           "shape": 3,
           "slot_index": 1
@@ -5188,7 +5188,7 @@
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            639
+            782
           ],
           "shape": 3,
           "slot_index": 0
@@ -5336,7 +5336,7 @@
         1.1,
         0,
         0,
-        951189849880138,
+        258067648895164,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5439,7 +5439,7 @@
         1,
         0,
         0,
-        282274482137083,
+        1055991058081658,
         "randomize",
         "mean",
         "comfy++",
@@ -5542,7 +5542,7 @@
         1.1,
         0,
         0,
-        298741473943870,
+        18497461815516,
         "randomize",
         "mean",
         "A1111",
@@ -5647,7 +5647,7 @@
         1.2,
         0,
         0.2,
-        751072868137118,
+        639548726178119,
         "randomize",
         "mean",
         "down_weight",
@@ -5658,16 +5658,16 @@
       "bgcolor": "#925a2e"
     },
     {
-      "id": 138,
+      "id": 150,
       "type": "PrimereCLIPEncoder",
       "pos": [
         4843.767598301913,
         -681.4711328932078
       ],
-      "size": {
-        "0": 398.2323913574219,
-        "1": 782
-      },
+      "size": [
+        397.6423138074624,
+        806
+      ],
       "flags": {},
       "order": 73,
       "mode": 0,
@@ -5675,37 +5675,37 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 636
+          "link": 779
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 778
+          "link": 780
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 638
+          "link": 781
         },
         {
           "name": "lycoris_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 639
+          "link": 782
         },
         {
           "name": "embedding_pos",
           "type": "EMBEDDING",
-          "link": 640
+          "link": 783
         },
         {
           "name": "embedding_neg",
           "type": "EMBEDDING",
-          "link": 641
+          "link": 784
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 642,
+          "link": 785,
           "widget": {
             "name": "model_version"
           }
@@ -5713,7 +5713,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 643,
+          "link": 786,
           "widget": {
             "name": "positive_prompt"
           }
@@ -5721,7 +5721,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 644,
+          "link": 787,
           "widget": {
             "name": "negative_prompt"
           }
@@ -5729,7 +5729,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 645,
+          "link": 788,
           "widget": {
             "name": "model_concept"
           }
@@ -5753,7 +5753,7 @@
         {
           "name": "style_pos_prompt",
           "type": "STRING",
-          "link": 646,
+          "link": 789,
           "widget": {
             "name": "style_pos_prompt"
           }
@@ -5761,7 +5761,7 @@
         {
           "name": "style_neg_prompt",
           "type": "STRING",
-          "link": 647,
+          "link": 790,
           "widget": {
             "name": "style_neg_prompt"
           }
@@ -5785,7 +5785,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 648,
+          "link": 791,
           "widget": {
             "name": "width"
           }
@@ -5793,7 +5793,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 649,
+          "link": 792,
           "widget": {
             "name": "height"
           }
@@ -5804,8 +5804,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            656,
-            727
+            793
           ],
           "shape": 3,
           "slot_index": 0
@@ -5814,8 +5813,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            657,
-            728
+            794
           ],
           "shape": 3,
           "slot_index": 1
@@ -5824,7 +5822,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            652
+            795
           ],
           "shape": 3,
           "slot_index": 2
@@ -5833,7 +5831,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            653
+            796
           ],
           "shape": 3,
           "slot_index": 3
@@ -5842,7 +5840,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            654
+            797
           ],
           "shape": 3,
           "slot_index": 4
@@ -5851,7 +5849,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            655
+            798
           ],
           "shape": 3,
           "slot_index": 5
@@ -5864,12 +5862,13 @@
         "BaseModel_1024",
         "",
         "",
+        false,
         0,
         1.2,
         false,
-        "PHOTO_SFW",
+        "None",
         1,
-        "BETTER_IMAGES",
+        "None",
         1,
         true,
         "mean",
@@ -5917,12 +5916,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 727
+          "link": 793
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 728
+          "link": 794
         },
         {
           "name": "latent_image",
@@ -5993,7 +5992,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        663305611435555,
+        665882678609593,
         "randomize",
         20,
         8,
@@ -6026,7 +6025,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 652
+          "link": 795
         }
       ],
       "title": "Primere Any Debug - PROMPT+",
@@ -6057,7 +6056,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 653
+          "link": 796
         }
       ],
       "title": "Primere Any Debug - PROMPT-",
@@ -6088,7 +6087,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 654
+          "link": 797
         }
       ],
       "title": "Primere Any Debug - PROMPT L+",
@@ -6119,7 +6118,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 655
+          "link": 798
         }
       ],
       "properties": {
@@ -6589,7 +6588,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        821826471003057,
+        571572102919506,
         "randomize",
         "heun",
         "simple",
@@ -6983,7 +6982,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        768570872088011,
+        406463443236139,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7376,7 +7375,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        97854855785450,
+        968931417753419,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7769,7 +7768,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        705249507922989,
+        997961381906959,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8031,12 +8030,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 656
+          "link": null
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 657
+          "link": null
         },
         {
           "name": "vae",
@@ -8131,7 +8130,7 @@
       },
       "widgets_values": [
         2.1,
-        54131715466972,
+        734629841152038,
         "randomize",
         7,
         6.5,
@@ -10149,158 +10148,6 @@
       "*"
     ],
     [
-      636,
-      83,
-      1,
-      138,
-      0,
-      "CLIP"
-    ],
-    [
-      638,
-      76,
-      0,
-      138,
-      2,
-      "MODEL_KEYWORD"
-    ],
-    [
-      639,
-      81,
-      0,
-      138,
-      3,
-      "MODEL_KEYWORD"
-    ],
-    [
-      640,
-      79,
-      0,
-      138,
-      4,
-      "EMBEDDING"
-    ],
-    [
-      641,
-      79,
-      1,
-      138,
-      5,
-      "EMBEDDING"
-    ],
-    [
-      642,
-      30,
-      3,
-      138,
-      6,
-      "STRING"
-    ],
-    [
-      643,
-      53,
-      0,
-      138,
-      7,
-      "STRING"
-    ],
-    [
-      644,
-      53,
-      1,
-      138,
-      8,
-      "STRING"
-    ],
-    [
-      645,
-      15,
-      8,
-      138,
-      9,
-      "STRING"
-    ],
-    [
-      646,
-      12,
-      0,
-      138,
-      12,
-      "STRING"
-    ],
-    [
-      647,
-      12,
-      1,
-      138,
-      13,
-      "STRING"
-    ],
-    [
-      648,
-      24,
-      1,
-      138,
-      16,
-      "INT"
-    ],
-    [
-      649,
-      24,
-      2,
-      138,
-      17,
-      "INT"
-    ],
-    [
-      652,
-      138,
-      2,
-      54,
-      0,
-      "*"
-    ],
-    [
-      653,
-      138,
-      3,
-      55,
-      0,
-      "*"
-    ],
-    [
-      654,
-      138,
-      4,
-      56,
-      0,
-      "*"
-    ],
-    [
-      655,
-      138,
-      5,
-      57,
-      0,
-      "*"
-    ],
-    [
-      656,
-      138,
-      0,
-      61,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      657,
-      138,
-      1,
-      61,
-      3,
-      "CONDITIONING"
-    ],
-    [
       659,
       30,
       2,
@@ -10371,22 +10218,6 @@
       146,
       0,
       "MODEL"
-    ],
-    [
-      727,
-      138,
-      0,
-      146,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      728,
-      138,
-      1,
-      146,
-      2,
-      "CONDITIONING"
     ],
     [
       729,
@@ -10781,12 +10612,164 @@
       "COMBO"
     ],
     [
-      778,
+      779,
+      83,
+      1,
+      150,
+      0,
+      "CLIP"
+    ],
+    [
+      780,
       40,
       0,
-      138,
+      150,
       1,
       "MODEL_KEYWORD"
+    ],
+    [
+      781,
+      76,
+      0,
+      150,
+      2,
+      "MODEL_KEYWORD"
+    ],
+    [
+      782,
+      81,
+      0,
+      150,
+      3,
+      "MODEL_KEYWORD"
+    ],
+    [
+      783,
+      79,
+      0,
+      150,
+      4,
+      "EMBEDDING"
+    ],
+    [
+      784,
+      79,
+      1,
+      150,
+      5,
+      "EMBEDDING"
+    ],
+    [
+      785,
+      30,
+      3,
+      150,
+      6,
+      "STRING"
+    ],
+    [
+      786,
+      53,
+      0,
+      150,
+      7,
+      "STRING"
+    ],
+    [
+      787,
+      53,
+      1,
+      150,
+      8,
+      "STRING"
+    ],
+    [
+      788,
+      15,
+      8,
+      150,
+      9,
+      "STRING"
+    ],
+    [
+      789,
+      12,
+      0,
+      150,
+      12,
+      "STRING"
+    ],
+    [
+      790,
+      12,
+      1,
+      150,
+      13,
+      "STRING"
+    ],
+    [
+      791,
+      24,
+      1,
+      150,
+      16,
+      "INT"
+    ],
+    [
+      792,
+      24,
+      2,
+      150,
+      17,
+      "INT"
+    ],
+    [
+      793,
+      150,
+      0,
+      146,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      794,
+      150,
+      1,
+      146,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      795,
+      150,
+      2,
+      54,
+      0,
+      "*"
+    ],
+    [
+      796,
+      150,
+      3,
+      55,
+      0,
+      "*"
+    ],
+    [
+      797,
+      150,
+      4,
+      56,
+      0,
+      "*"
+    ],
+    [
+      798,
+      150,
+      5,
+      57,
+      0,
+      "*"
     ]
   ],
   "groups": [
@@ -10843,8 +10826,8 @@
       "bounding": [
         4104,
         -756,
-        1492,
-        874
+        1493,
+        891
       ],
       "color": "#804040",
       "font_size": 24,
@@ -10890,9 +10873,9 @@
       "title": "Styling",
       "bounding": [
         4352,
-        133,
-        1245,
-        969
+        145,
+        1244,
+        960
       ],
       "color": "#b1762f",
       "font_size": 24,

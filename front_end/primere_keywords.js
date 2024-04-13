@@ -143,22 +143,24 @@ function PrimereModelChange(node, inputName) {
 
 api.addEventListener("ModelKeywordResponse", ModelKeywordResponse);
 function ModelKeywordResponse(event) {
-    var ResponseText = event.detail;
-    for (var iln = 0; iln < LoadedNodeKey.widgets.length; ++iln) {
-        var wln = LoadedNodeKey.widgets[iln];
-        if (!wln || wln.disabled)
-            continue;
+    if (LoadedNodeKey != null) {
+        var ResponseText = event.detail;
+        for (var iln = 0; iln < LoadedNodeKey.widgets.length; ++iln) {
+            var wln = LoadedNodeKey.widgets[iln];
+            if (!wln || wln.disabled)
+                continue;
 
-        if (wln.name == 'select_keyword') {
-            wln.options.values = ResponseText;
-            if (typeof ResponseText[3] === 'undefined') {
-                if (typeof ResponseText[1] === 'undefined') {
-                    wln.value = ResponseText[0];
+            if (wln.name == 'select_keyword') {
+                wln.options.values = ResponseText;
+                if (typeof ResponseText[3] === 'undefined') {
+                    if (typeof ResponseText[1] === 'undefined') {
+                        wln.value = ResponseText[0];
+                    } else {
+                        wln.value = ResponseText[1];
+                    }
                 } else {
-                    wln.value = ResponseText[1];
+                    wln.value = ResponseText[3];
                 }
-            } else {
-                wln.value = ResponseText[3];
             }
         }
     }

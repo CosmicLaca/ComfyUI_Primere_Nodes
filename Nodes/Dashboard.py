@@ -17,13 +17,13 @@ from pathlib import Path
 import re
 import requests
 from ..components import hypernetwork
-from ..components import latentnoise
+from ..components import clipping
 import comfy.sd
 import comfy.utils
 from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
-from comfy_extras.chainner_models import model_loading
+from comfy import model_management
 
 class PrimereSamplers:
     CATEGORY = TREE_DASHBOARD
@@ -638,6 +638,7 @@ class PrimereCLIP:
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 # "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
+                "use_long_clip": ("BOOLEAN", {"default": True}),
                 "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
@@ -678,7 +679,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
         if model_concept == 'Cascade' or model_concept == 'Turbo':
             model_version = 'SDXL_2048'
 
@@ -797,6 +798,50 @@ class PrimereCLIP:
 
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
+
+        if (use_long_clip == True):
+            LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
+            if os.path.exists(LONGCLIPL_PATH) == False:
+                Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
+            clipFiles = folder_paths.get_filename_list("clip")
+
+            if 'longclip-L.pt' not in clipFiles:
+                FileUrl = 'https://huggingface.co/BeichenZhang/LongCLIP-L/resolve/main/longclip-L.pt?download=true'
+                FullFilePath = os.path.join(LONGCLIPL_PATH, 'longclip-L.pt')
+                ModelDownload = utility.downloader(FileUrl, FullFilePath)
+                if (ModelDownload == True):
+                    clipFiles = folder_paths.get_filename_list("clip")
+
+            if 'longclip-L.pt' in clipFiles:
+                if (is_sdxl == 0):
+                        class EmptyClass:
+                            pass
+                        clip_target = EmptyClass()
+                        clip_path = folder_paths.get_full_path("clip", 'longclip-L.pt')
+                        clip_target.params = {"version": clip_path}
+                        clip_target.clip = clipping.SDLongClipModel
+                        clip_target.tokenizer = clipping.SDLongTokenizer
+                        embedding_directory = folder_paths.get_folder_paths("embeddings")
+                        clip = comfy.sd.CLIP(clip_target, embedding_directory=embedding_directory)
+                        adv_encode = False
+                else:
+                    clip_clone = clip.clone()
+                    clip_path = folder_paths.get_full_path("clip", 'longclip-L.pt')
+                    load_device = model_management.text_encoder_device()
+                    device = model_management.text_encoder_offload_device()
+                    dtype = model_management.text_encoder_dtype(load_device)
+                    clip_l = clipping.SDLongClipModel(version=clip_path, layer="hidden", layer_idx=-2, device=device, dtype=dtype, layer_norm_hidden_state=False)
+                    sdxl_long_clip_model = clipping.SDXLLongClipModel()
+                    sdxl_long_clip_model.clip_l = clip_l
+                    sdxl_long_clip_model.clip_g = clip_clone.cond_stage_model.clip_g
+                    clip_clone.cond_stage_model = sdxl_long_clip_model
+                    embedding_directory = folder_paths.get_folder_paths("embeddings")
+                    long_tokenizer = clipping.SDXLLongTokenizer()
+                    tokenizer_clip_l = clipping.SDLongTokenizer(embedding_directory=embedding_directory)
+                    long_tokenizer.clip_l = tokenizer_clip_l
+                    long_tokenizer.clip_g = clip_clone.tokenizer.clip_g
+                    clip_clone.tokenizer = long_tokenizer
+                    clip = clip_clone
 
         if (last_layer < 0):
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
