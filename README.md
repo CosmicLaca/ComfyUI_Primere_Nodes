@@ -408,11 +408,12 @@ This node generate 'empty' latent image, but with several noise settings, what c
 <hr>
 
 ### Primere Prompt Encoder:
-- This node compatible booth SD and SDXL models, important to use 'model_version' (SD, SDXL) and 'model_concept' (Normal, LCM, Turbo) inputs for correct working. Try several settings, you will get several results. 
-- Use included positive and negative styles, and check the best result in prompt and image outputs. 
+- This node compatible booth SD and SDXL models, important to use 'model_version' (SD, SDXL) and 'model_concept' (Normal, LCM, Turbo, Cascade, Lightning, Playground) inputs for correct working. Try several settings, you will get several results. 
+- Use positive and negative styles, and check the best result in prompt debugger and image outputs. 
 - If you getting error if use SD basemodel, you must update (git pull) your ComfyUI.
 - The style source of this node in external file at 'Toml/default_neg.toml' and 'Toml/default_pos.toml' files, what you can edit if you need changes.
-- Connect here the additional network keywords like in the example workflow.
+- Connect here additional network and checkpoint keywords (triggerwords) like in the example workflow.
+- Try out 'use_long_clip' switch to handle longer prompts better. Useful for SD1.x but working with SDXL checkpoints. Inform about the original concept from here: https://github.com/beichenzbc/Long-CLIP and found required clip model here: https://huggingface.co/BeichenZhang/LongCLIP-L/tree/main. The node will download this clip model (~1.7GB) to right path at very first usage.
 
 <a href="./Workflow/readme_images/pencoder.jpg" target="_blank"><img src="./Workflow/readme_images/pencoder.jpg" height="320px"></a>
 <hr>
