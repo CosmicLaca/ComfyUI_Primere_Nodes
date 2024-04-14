@@ -18,7 +18,7 @@ from .components import utility
 # import time
 import pytz
 
-__version__ = "0.5.6"
+__version__ = "0.6.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -28,7 +28,7 @@ is_frontend_symlinked = False
 
 ClientTime = str(datetime.strptime(str(datetime.now(pytz.timezone('GMT0'))), '%Y-%m-%d %H:%M:%S.%f+00:00'))
 # ClientTime = time.gmtime()
-UpdateRequired = '2024-04-13 18:00:00'
+UpdateRequired = '2024-04-13 15:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -124,6 +124,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereMetaCollector": Outputs.PrimereMetaCollector,
     "PrimereKSampler": Outputs.PrimereKSampler,
     "PrimerePreviewImage": Outputs.PrimerePreviewImage,
+    "PrimereAestheticCKPTScorer":Outputs.PrimereAestheticCKPTScorer,
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
@@ -191,6 +192,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereMetaCollector": "Primere Meta Collector",
     "PrimereKSampler": "Primere KSampler",
     "PrimerePreviewImage": "Primere Image Preview and Save as...",
+    "PrimereAestheticCKPTScorer": "Primere Aesthetic Scorer",
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",

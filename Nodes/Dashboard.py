@@ -618,7 +618,6 @@ class PrimereCLIP:
     RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-")
     FUNCTION = "clip_encode"
     CATEGORY = TREE_DASHBOARD
-    # CLIPLIST = folder_paths.get_filename_list("clip")
 
     @staticmethod
     def get_default_neg(toml_path: str):

@@ -1,6 +1,6 @@
 {
-  "last_node_id": 125,
-  "last_link_id": 768,
+  "last_node_id": 126,
+  "last_link_id": 769,
   "nodes": [
     {
       "id": 61,
@@ -889,6 +889,44 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 126,
+      "type": "PrimereAestheticCKPTScorer",
+      "pos": [
+        3189,
+        383
+      ],
+      "size": {
+        "0": 304.99700927734375,
+        "1": 168
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 769
+        },
+        {
+          "name": "workflow_data",
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAestheticCKPTScorer"
+      },
+      "widgets_values": [
+        true,
+        false,
+        false,
+        "721"
+      ],
+      "color": "#540054",
+      "bgcolor": "#680068"
+    },
+    {
       "id": 122,
       "type": "PrimereModelConceptSelector",
       "pos": [
@@ -1551,7 +1589,7 @@
       },
       "widgets_values": [
         "",
-        314524721914139,
+        518466617514816,
         "randomize"
       ],
       "color": "#145414",
@@ -1606,7 +1644,7 @@
       },
       "widgets_values": [
         "",
-        212937495102109,
+        795195504812044,
         "randomize"
       ],
       "color": "#541414",
@@ -2008,7 +2046,7 @@
         false,
         1.6,
         2.8,
-        838246412186075,
+        934068713331915,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2359,7 +2397,7 @@
         1,
         0.8,
         1.4,
-        667697006734352,
+        364716155962037,
         "randomize",
         true,
         "cpu",
@@ -2375,10 +2413,10 @@
         2162,
         91
       ],
-      "size": [
-        330.7115811434651,
-        806
-      ],
+      "size": {
+        "0": 330.7115783691406,
+        "1": 806
+      },
       "flags": {},
       "order": 32,
       "mode": 0,
@@ -2732,7 +2770,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        366201743596602,
+        900420875891890,
         "randomize",
         20,
         8,
@@ -3002,51 +3040,6 @@
       "bgcolor": "#400040"
     },
     {
-      "id": 16,
-      "type": "VAEDecode",
-      "pos": [
-        2501,
-        92
-      ],
-      "size": {
-        "0": 324.198974609375,
-        "1": 46
-      },
-      "flags": {},
-      "order": 38,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 667
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 668,
-          "slot_index": 1
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            37,
-            338
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
       "id": 58,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -3080,8 +3073,8 @@
       "id": 17,
       "type": "PreviewImage",
       "pos": [
-        2498,
-        515
+        2499,
+        521
       ],
       "size": {
         "0": 326.3416748046875,
@@ -3225,7 +3218,7 @@
         "1": 258
       },
       "flags": {},
-      "order": 42,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3314,7 +3307,7 @@
         "1": 530.1080932617188
       },
       "flags": {},
-      "order": 43,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3373,12 +3366,12 @@
         2842,
         693
       ],
-      "size": [
-        679.4173392637213,
-        851.3073096980434
-      ],
+      "size": {
+        "0": 679.4173583984375,
+        "1": 851.3073120117188
+      },
       "flags": {},
-      "order": 44,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3415,7 +3408,7 @@
         "1": 528.1915893554688
       },
       "flags": {},
-      "order": 45,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3436,6 +3429,52 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [
+        2501,
+        92
+      ],
+      "size": {
+        "0": 324.198974609375,
+        "1": 46
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 667
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 668,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            37,
+            338,
+            769
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "color": "#941414",
+      "bgcolor": "#800000"
     }
   ],
   "links": [
@@ -4478,6 +4517,14 @@
       120,
       2,
       "CONDITIONING"
+    ],
+    [
+      769,
+      16,
+      0,
+      126,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [

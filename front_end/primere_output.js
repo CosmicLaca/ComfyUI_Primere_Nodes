@@ -41,10 +41,12 @@ const NodesubdirByType = {
     'Embedding': 'embeddings'
 }
 
+const OutputToNode = ['PrimereAnyOutput', 'PrimereTextOutput', 'PrimereAestheticCKPTScorer'];
+
 app.registerExtension({
     name: "Primere.PrimereOutputs",
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (nodeData.name === "PrimereAnyOutput" || nodeData.name === "PrimereTextOutput") {
+        if (OutputToNode.includes(nodeData.name) === true) {
             const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
                 onNodeCreated ? onNodeCreated.apply(this, []) : undefined;

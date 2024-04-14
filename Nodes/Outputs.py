@@ -20,6 +20,9 @@ from ..components import utility
 from ..components import latentnoise
 from itertools import compress
 from server import PromptServer
+from ..utils import comfy_dir
+import clip
+from ..components.tree import PRIMERE_ROOT
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -613,3 +616,114 @@ class PrimerePreviewImage():
 
         results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
         return results
+
+class PrimereAestheticCKPTScorer():
+    CATEGORY = TREE_OUTPUTS
+    RETURN_TYPES = ()
+    OUTPUT_NODE = True
+    FUNCTION = "aesthetic_scorer"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "get_aesthetic_score": ("BOOLEAN", {"default": False}),
+                "add_to_checkpoint": ("BOOLEAN", {"default": False}),
+                "add_to_saved_prompt": ("BOOLEAN", {"default": False}),
+                "image": ("IMAGE", ),
+            },
+            "optional": {
+                "workflow_data": ('TUPLE', {"forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+            },
+        }
+
+    def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, workflow_data = None, **kwargs):
+        final_prediction = '*** Aesthetic scorer off ***'
+
+        if (get_aesthetic_score == True):
+            AESTHETIC_PATH = os.path.join(comfy_dir, 'models', 'aesthetic')
+            if os.path.exists(AESTHETIC_PATH) == False:
+                Path(AESTHETIC_PATH).mkdir(parents=True, exist_ok=True)
+            aestheticFiles = folder_paths.get_filename_list("aesthetic")
+
+            if 'chadscorer.pth' not in aestheticFiles:
+                FileUrl = 'https://huggingface.co/primerecomfydev/chadscorer/resolve/main/chadscorer.pth?download=true'
+                FullFilePath = os.path.join(AESTHETIC_PATH, 'chadscorer.pth')
+                ModelDownload = utility.downloader(FileUrl, FullFilePath)
+                if (ModelDownload == True):
+                    aestheticFiles = folder_paths.get_filename_list("aesthetic")
+
+            if 'chadscorer.pth' in aestheticFiles:
+                folder_paths.folder_names_and_paths["aesthetic"] = ([os.path.join(folder_paths.models_dir, "aesthetic")], folder_paths.supported_pt_extensions)
+                m_path = folder_paths.folder_names_and_paths["aesthetic"][0]
+                aesthetic_model = os.path.join(m_path[0], 'chadscorer.pth')
+                model = utility.MLP(768)
+                s = torch.load(aesthetic_model)
+                model.load_state_dict(s)
+                model.to("cuda")
+                model.eval()
+                device = "cuda"
+                model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
+                tensor_image = image[0]
+                img = (tensor_image * 255).to(torch.uint8).numpy()
+                pil_image = Image.fromarray(img, mode='RGB')
+                image2 = preprocess(pil_image).unsqueeze(0).to(device)
+                with torch.no_grad():
+                    image_features = model2.encode_image(image2)
+                    pass
+                im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
+                prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
+                final_prediction = int(float(prediction[0]) * 100)
+                del model
+
+                if (type(final_prediction) != 'str'):
+                    final_prediction = str(final_prediction)
+
+                if workflow_data is not None:
+                    if add_to_checkpoint == True:
+                        if 'model' in workflow_data:
+                            selected_model = workflow_data['model']
+                            modelname_only = Path(selected_model).stem
+                            model_ascore = utility.get_value_from_cache('model_ascores', modelname_only)
+                            if model_ascore is None:
+                                utility.add_value_to_cache('model_ascores', modelname_only, '1|' + final_prediction)
+                            else:
+                                model_ascore_list = model_ascore.split("|")
+                                counter = str(int(model_ascore_list[0]) + 1)
+                                score = str(int(model_ascore_list[1]) + int(final_prediction))
+                                utility.add_value_to_cache('model_ascores', modelname_only, counter + '|' + score)
+
+                    if (add_to_saved_prompt == True):
+                        if 'positive' in workflow_data:
+                            WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+                            selectedStyle = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereVisualStyle', 0)
+                            if (selectedStyle is None):
+                                selectedStyle = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereStyleLoader', 0)
+
+                            if selectedStyle is not None:
+                                STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+                                STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+                                STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+                                if Path(STYLE_FILE).is_file() == True:
+                                    STYLE_SOURCE = STYLE_FILE
+                                else:
+                                    STYLE_SOURCE = STYLE_FILE_EXAMPLE
+                                style_data = utility.load_external_csv(STYLE_SOURCE, 0)
+                                positive_prompt = style_data[style_data['name'] == selectedStyle]['prompt'].values[0]
+                                if (positive_prompt is not None):
+                                    if len(positive_prompt) > 100:
+                                        positive_prompt = positive_prompt[:100]
+                                    if positive_prompt in workflow_data['positive']:
+                                        style_ascore = utility.get_value_from_cache('style_ascores', selectedStyle)
+                                        if style_ascore is None:
+                                            utility.add_value_to_cache('style_ascores', selectedStyle, '1|' + final_prediction)
+                                        else:
+                                            style_ascore_list = style_ascore.split("|")
+                                            counter = str(int(style_ascore_list[0]) + 1)
+                                            score = str(int(style_ascore_list[1]) + int(final_prediction))
+                                            utility.add_value_to_cache('style_ascores', selectedStyle, counter + '|' + score)
+
+        return {"ui": {"text": (final_prediction,)}}

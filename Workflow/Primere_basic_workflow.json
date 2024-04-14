@@ -1,6 +1,6 @@
 {
-  "last_node_id": 91,
-  "last_link_id": 480,
+  "last_node_id": 92,
+  "last_link_id": 481,
   "nodes": [
     {
       "id": 50,
@@ -1306,7 +1306,7 @@
       },
       "widgets_values": [
         "",
-        793011590010855,
+        129355393316239,
         "randomize"
       ],
       "color": "#145414",
@@ -1361,7 +1361,7 @@
       },
       "widgets_values": [
         "",
-        886052204258824,
+        227907533556160,
         "randomize"
       ],
       "color": "#145414",
@@ -1825,7 +1825,7 @@
         false,
         1.6,
         2.8,
-        360503261153852,
+        481424742838739,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1998,7 +1998,7 @@
         1,
         0.8,
         1.4,
-        907487363967815,
+        873998887767769,
         "randomize",
         false,
         "cpu",
@@ -2014,10 +2014,10 @@
         2267.5502779644644,
         94.02629822416469
       ],
-      "size": [
-        334.2523343402222,
-        806
-      ],
+      "size": {
+        "0": 334.2523193359375,
+        "1": 806
+      },
       "flags": {},
       "order": 24,
       "mode": 0,
@@ -2357,7 +2357,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        580650721229476,
+        490198479824877,
         "randomize",
         20,
         8,
@@ -2404,7 +2404,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            341
+            341,
+            481
           ],
           "shape": 3,
           "slot_index": 0
@@ -2452,6 +2453,44 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 92,
+      "type": "PrimereAestheticCKPTScorer",
+      "pos": [
+        2609,
+        523
+      ],
+      "size": {
+        "0": 323.20916748046875,
+        "1": 168.00001525878906
+      },
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 481
+        },
+        {
+          "name": "workflow_data",
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAestheticCKPTScorer"
+      },
+      "widgets_values": [
+        true,
+        false,
+        false,
+        "621"
+      ],
+      "color": "#5d005d",
+      "bgcolor": "#710071"
     }
   ],
   "links": [
@@ -3150,6 +3189,14 @@
       85,
       2,
       "CONDITIONING"
+    ],
+    [
+      481,
+      16,
+      0,
+      92,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
