@@ -52,6 +52,24 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 <hr>
 
+## Last changes:
+- Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- **Aesthetic scorer** included to all attached workflows. 
+- **Long-clip** concept implemented to the Primere prompt encoder. Primary useful for SD1.x models (but working with SDXL too), if you  have long and difficult prompts. Read more: https://github.com/beichenzbc/Long-CLIP  
+- **Model trigger words** selector in the Primere model keyword node. When you load the checkpoint, node will collect trigger words to the combo list, and you can include one to the end or beginning of your prompt (with weight).
+
+## Future changes:
+- Aesthetic average values will be displayed on the preview images of visual selectors like checkpoints and saved prompts (visual style selector) as badge. Visual modal will be sorted by aesthetic average.
+- Aesthetic trigger for image saver will ingnore low scored images.
+- Image rating (small stars on images within galleries) will be saved to the image by aesthetic score.
+- Segmented refiners will be mesure the aesthetic score of results, and if the original segment is better, changes will be ignored.
+- Refiner nodes will be suport all new model concepts, like LCM, Lightning, Turbo, Cascade and Playload.
+- Trigger words will be listed for Lora-s and Lycoris stacks like listed for models.
+- Used loras and other network settings will be saved to image meta (for image recycler).
+- Finish Emotion styles node (sorry but the copypaste little boring).
+- Test to read preview images directly from the model / networks folders. If the reading speed of thousands of larger images not bad, I will include this solution to all Visual nodes (excluding Visual styles).
+- Youtube "how to use Primere nodepack" videos. I don't really like it, but I will start soon.
+
 # Nodes in the pack grouped by submenus:
 
 ## Submenu :: Visuals:
@@ -518,6 +536,15 @@ Use this node to display simple text (not tuples or dict).
 Use this node in the workflow if you don't need Primere Meta Reader node. This node collect required metadata for Primere Meta Saver, the data will be stored to .jpg exif or .png pnginfo, then you can read back and recycle your previous prompts and settings by Primere Meta Reader. Check 'Primere_advanced_workflow.json' how to use this node.
 
 <a href="./Workflow/readme_images/pmetacoll.jpg" target="_blank"><img src="./Workflow/readme_images/pmetacoll.jpg" height="250px"></a>
+<hr>
+
+### Primere Aesthetic Scorer:
+Get the aesthetic score of your generated image.
+- **get_aesthetic_score**: on/off switch for the node. At very first usage the node download required model to right path (3.5MB).
+- **add_to_checkpoint**: add score value to the checkpoint. Workflow data required for this function. If this switch is True, value will be saved to checkpoint name, and if using **visual checkpoint selector** the badge will show the average scores and sort the preview by score values. 
+- **add_to_saved_prompt**: add score value to the saved csv prompts. Workflow data required for this function. If this switch is True, value will be saved to prompt name, and if using **visual style loader** the badge will show the average scores and sort the preview by score values. 
+
+<a href="./Workflow/readme_images/pascorer.jpg" target="_blank"><img src="./Workflow/readme_images/pascorer.jpg" height="180px"></a>
 <hr>
 
 ### Primere KSampler:
