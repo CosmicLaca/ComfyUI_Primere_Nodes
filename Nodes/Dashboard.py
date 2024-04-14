@@ -799,7 +799,7 @@ class PrimereCLIP:
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
 
-        if (use_long_clip == True):
+        if (use_long_clip == True and model_concept != 'Cascade'):
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
