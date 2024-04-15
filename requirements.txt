@@ -13,3 +13,4 @@ ultralytics
 aiohttp
 pytz
 segment_anything
+pytorch_lightning
