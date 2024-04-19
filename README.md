@@ -25,6 +25,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result, included test workflow: **civitai-all-refiner.json**
 - Visual (select element by preview image instead of long list) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks and .csv prompts. You only have to create preview images to right name and path, see readme details under "Visual", or use 1 click preview creator
 - Midjourney art-style can be attached to the original prompt, Emotions as style in separated node
+- Aesthetic scorer automatically decide about the refiner's result can be changed to the image or not
 
 <hr>
 
@@ -61,6 +62,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - **Model trigger words** selector in the Primere model keyword node. When you load the checkpoint, node will collect trigger words to the combo list, and you can include one to the end or beginning of your prompt (with weight).
 
 ## Future changes:
+- The eye and the mouth color will be read from the original image and the refiner/detailer will detail segment with same color
 - Aesthetic average values will be displayed on the preview images of visual selectors like checkpoints and saved prompts (visual style selector) as badge. Visual modal will be sorted by aesthetic average.
 - Aesthetic trigger for image saver will ingnore low scored images.
 - Image rating (small stars on images within galleries) will be saved to the image by aesthetic score.
