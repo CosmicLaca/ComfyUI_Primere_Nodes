@@ -12,6 +12,7 @@ import torch
 from urllib.parse import urlparse
 from pathlib import Path
 from .modules.adv_encode import advanced_encode
+import nodes
 
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")
@@ -141,8 +142,6 @@ class PrimereImageSegments:
         return {
             "required": {
                 "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
-                # "trigger_high_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
-                # "trigger_low_off": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION ** 2, "step": 100}),
                 "trigger_high_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
                 "trigger_low_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
 
@@ -314,6 +313,7 @@ class PrimereAnyDetailer:
 
                  "segment_settings": ("TUPLE",),
                  "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
+                 "use_aesthetic_scorer": ("BOOLEAN", {"default": False, "label_on": "ignore_if_worse", "label_off": "always_refine"}),
             },
             "optional": {
                 "segs": ("SEGS",),
@@ -329,9 +329,9 @@ class PrimereAnyDetailer:
 
     @staticmethod
     def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler_name,
-                     positive, negative, denoise, feather, noise_mask, force_inpaint,
-                     segment_settings, detector, segs,
-                     model_concept, cycle = 1):
+                      positive, negative, denoise, feather, noise_mask, force_inpaint,
+                      segment_settings, detector, segs,
+                      model_concept, cycle, use_aesthetic_scorer):
 
         max_size = round(guide_size * 1.1, 2)
 
@@ -353,14 +353,14 @@ class PrimereAnyDetailer:
                 segs = detectors.segs_bitwise_and_mask(segs, segm_mask)
 
         if len(segs[1]) > 0:
-            enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs =  detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox,
-                                                                                                                                      max_size, seed, steps, cfg,
-                                                                                                                                   sampler_name, scheduler_name, positive, negative, denoise,
-                                                                                                                                  feather, noise_mask, force_inpaint, segment_settings,
-                                                                                                                                            wildcard_opt, detailer_hook,
-                                                                                                                                            refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip,
-                                                                                                                                            refiner_positive=refiner_positive, refiner_negative=refiner_negative,
-                                                                                                                                            model_concept=model_concept, cycle=cycle)
+            enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs = detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox,
+                                                                                                                                     max_size, seed, steps, cfg,
+                                                                                                                                     sampler_name, scheduler_name, positive, negative, denoise,
+                                                                                                                                     feather, noise_mask, force_inpaint, segment_settings,
+                                                                                                                                     wildcard_opt, detailer_hook,
+                                                                                                                                     refiner_ratio=refiner_ratio, refiner_model=refiner_model, refiner_clip=refiner_clip,
+                                                                                                                                     refiner_positive=refiner_positive, refiner_negative=refiner_negative,
+                                                                                                                                     model_concept=model_concept, cycle=cycle, use_aesthetic_scorer=use_aesthetic_scorer)
         else:
             enhanced_img = image
             cropped_enhanced = []
@@ -370,7 +370,10 @@ class PrimereAnyDetailer:
         mask = detectors.segs_to_combined_mask(segs)
 
         if len(cropped_enhanced) == 0:
-            cropped_enhanced = [detectors.empty_pil_tensor()]
+            SEGMENT_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'Nodes')
+            SEGMENT_OFF_IMAGE = os.path.join(SEGMENT_IMAGE_PATH, "segment_notfound.jpg")
+            notfound_img = utility.ImageLoaderFromPath(SEGMENT_OFF_IMAGE)
+            cropped_enhanced = [notfound_img] #[detectors.empty_pil_tensor()]
 
         if len(cropped_enhanced_alpha) == 0:
             cropped_enhanced_alpha = [detectors.empty_pil_tensor()]
@@ -384,10 +387,15 @@ class PrimereAnyDetailer:
                      steps, cfg, sampler_name, scheduler_name,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
                      segment_settings, detector = None, segs = None, cycle = 1,
-                     model_concept = "Normal", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8):
+                     model_concept = "Normal", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8, use_aesthetic_scorer = False):
 
         if segment_settings['use_segments'] == False:
-            return image, [image], 0, 0
+            SEGMENT_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'Nodes')
+            SEGMENT_OFF_IMAGE = os.path.join(SEGMENT_IMAGE_PATH, "segment_off.jpg")
+            off_img = utility.ImageLoaderFromPath(SEGMENT_OFF_IMAGE)
+            if off_img is None:
+                off_img = image
+            return image, [off_img], 0, 0
 
         if model_concept != "Normal":
             sampler_name = concept_sampler_name
@@ -419,7 +427,7 @@ class PrimereAnyDetailer:
             else:
                 guide_size = round(math.sqrt(full_area), 2)
 
-            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle=cycle)
+            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle, use_aesthetic_scorer)
 
             result_img = torch.cat((result_img, enhanced_img), dim=0) if result_img is not None else enhanced_img
             result_mask = torch.cat((result_mask, mask), dim=0) if result_mask is not None else mask

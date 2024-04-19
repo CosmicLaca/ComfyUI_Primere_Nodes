@@ -16,7 +16,11 @@ import threading
 import torchvision
 import math
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
-import glob
+from ..Nodes import Outputs
+from ..components.tree import PRIMERE_ROOT
+from ..components import utility
+import comfy_extras.nodes_mask as nodes_mask
+
 # from comfy.sd import VAE
 
 # from .local_groundingdino.datasets import transforms as T
@@ -1210,13 +1214,10 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
         if detailer_hook is not None:
             if detailer_hook is not None:
                 detailer_hook.set_steps((i, cycle))
-
             refined_latent = detailer_hook.cycle_latent(refined_latent)
-
             model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = detailer_hook.pre_ksample(model, seed+i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)
         else:
             model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, upscaled_latent2, denoise2 = model, seed + i, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise
-
         refined_latent = ksampler_wrapper(model2, seed2, steps2, cfg2, sampler_name2, scheduler2, positive2, negative2, refined_latent, denoise2, refiner_ratio, refiner_model, refiner_clip, refiner_positive, refiner_negative, model_concept)
 
     if detailer_hook is not None:
@@ -1348,7 +1349,7 @@ class DetailerForEach:
     def do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox, max_size, seed, steps, cfg,
                   sampler_name, scheduler, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings,
                   wildcard_opt=None, detailer_hook=None,
-                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, model_concept="Normal", cycle=1):
+                  refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None, refiner_negative=None, model_concept="Normal", cycle=1, use_aesthetic_scorer=False):
 
         if len(image) > 1:
             raise Exception('[Primere] ERROR: does not allow image batches.')
@@ -1413,35 +1414,62 @@ class DetailerForEach:
                 multiplier = 6
 
             enhanced_image, cnet_pil = enhance_detail(cropped_image, model, clip, vae, guide_size,
-                                                           guide_size_for_bbox, max_size,
-                                                           seg.bbox, seed, steps, cfg, sampler_name, scheduler,
-                                                           positive, negative, denoise, cropped_mask, force_inpaint, segment_settings, multiplier,
-                                                           wildcard_opt=wildcard_item,
-                                                           wildcard_opt_concat_mode=wildcard_concat_mode,
-                                                           detailer_hook=detailer_hook,
-                                                           refiner_ratio=refiner_ratio, refiner_model=refiner_model,
-                                                           refiner_clip=refiner_clip, refiner_positive=refiner_positive,
-                                                           refiner_negative=refiner_negative,
-                                                           control_net_wrapper=seg.control_net_wrapper, model_concept=model_concept, cycle=cycle)
+                                                      guide_size_for_bbox, max_size,
+                                                      seg.bbox, seed, steps, cfg, sampler_name, scheduler,
+                                                      positive, negative, denoise, cropped_mask, force_inpaint, segment_settings, multiplier,
+                                                      wildcard_opt=wildcard_item,
+                                                      wildcard_opt_concat_mode=wildcard_concat_mode,
+                                                      detailer_hook=detailer_hook,
+                                                      refiner_ratio=refiner_ratio, refiner_model=refiner_model,
+                                                      refiner_clip=refiner_clip, refiner_positive=refiner_positive,
+                                                      refiner_negative=refiner_negative,
+                                                      control_net_wrapper=seg.control_net_wrapper, model_concept=model_concept, cycle=cycle)
 
+            original_score = 0
+            enhanced_score = 0
+            asthetic_hysteresis = 30
+            if use_aesthetic_scorer == True:
+                original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
+                enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])
 
             if cnet_pil is not None:
                 cnet_pil_list.append(cnet_pil)
 
             if not (enhanced_image is None):
-                # don't latent composite-> converting to latent caused poor quality
-                # use image paste
                 image = image.cpu()
+
+                original_enhanced_image = enhanced_image
+                SEGMENT_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'Nodes')
+                if (original_score > (enhanced_score + asthetic_hysteresis)):
+                    enhanced_image = cropped_image
+                    SEGMENT_BADGE = os.path.join(SEGMENT_IMAGE_PATH, "segment_ignored.jpg")
+                else:
+                    SEGMENT_BADGE = os.path.join(SEGMENT_IMAGE_PATH, "segment_passed.jpg")
+
                 enhanced_image = enhanced_image.cpu()
                 tensor_paste(image, enhanced_image, (seg.crop_region[0], seg.crop_region[1]), mask)
+
+                if use_aesthetic_scorer == True:
+                    enhanced_width = original_enhanced_image.shape[2]
+                    enhanced_heigth = original_enhanced_image.shape[1]
+
+                    divider = 4
+                    new_icon_width = round(enhanced_width / divider)
+                    if new_icon_width > enhanced_heigth / 2:
+                        new_icon_width = round(enhanced_heigth / (divider - 1))
+                    segment_ignored = utility.ImageLoaderFromPath(SEGMENT_BADGE, new_icon_width, new_icon_width)
+
+                    x = enhanced_width - new_icon_width
+                    y = 0
+                    original_enhanced_image = original_enhanced_image.clone().movedim(-1, 1)
+                    enhanced_image = nodes_mask.composite(original_enhanced_image, segment_ignored.movedim(-1, 1), x, y, None, 1, False).movedim(1, -1)
+
                 enhanced_list.append(enhanced_image)
 
             if not (enhanced_image is None):
-                # Convert enhanced_pil_alpha to RGBA mode
                 enhanced_image_alpha = tensor_convert_rgba(enhanced_image)
                 new_seg_image = enhanced_image.numpy()  # alpha should not be applied to seg_image
 
-                # Apply the mask
                 mask = tensor_resize(mask, *tensor_get_size(enhanced_image))
                 tensor_putalpha(enhanced_image_alpha, mask)
                 enhanced_alpha_list.append(enhanced_image_alpha)
@@ -1450,15 +1478,13 @@ class DetailerForEach:
 
             cropped_list.append(cropped_image)
 
-            new_seg = SEG(new_seg_image, seg.cropped_mask, seg.confidence, seg.crop_region, seg.bbox, seg.label,
-                          seg.control_net_wrapper)
+            new_seg = SEG(new_seg_image, seg.cropped_mask, seg.confidence, seg.crop_region, seg.bbox, seg.label, seg.control_net_wrapper)
             new_segs.append(new_seg)
 
         image_tensor = tensor_convert_rgb(image)
-
-        cropped_list.sort(key=lambda x: x.shape, reverse=True)
-        enhanced_list.sort(key=lambda x: x.shape, reverse=True)
-        enhanced_alpha_list.sort(key=lambda x: x.shape, reverse=True)
+        # cropped_list.sort(key=lambda x: x.shape, reverse=True)
+        # enhanced_list.sort(key=lambda x: x.shape, reverse=True)
+        # enhanced_alpha_list.sort(key=lambda x: x.shape, reverse=True)
 
         return image_tensor, cropped_list, enhanced_list, enhanced_alpha_list, cnet_pil_list, (segs[0], new_segs)
 

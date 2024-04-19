@@ -53,7 +53,9 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <hr>
 
 ## Last changes:
-- Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+#### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- **Segmented refiners** will mesure the aesthetic score of results, and if the original segment is better, changes will be ignored. Only in **Primere_full_workflow.json** workflow. Feature can switch off.
+- Friendly response icons in **segment refiners** if the detailer off or not found segment in the source image.
 - **Aesthetic scorer** included to all attached workflows. 
 - **Long-clip** concept implemented to the Primere prompt encoder. Primary useful for SD1.x models (but working with SDXL too), if you  have long and difficult prompts. Read more: https://github.com/beichenzbc/Long-CLIP  
 - **Model trigger words** selector in the Primere model keyword node. When you load the checkpoint, node will collect trigger words to the combo list, and you can include one to the end or beginning of your prompt (with weight).
@@ -62,7 +64,6 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Aesthetic average values will be displayed on the preview images of visual selectors like checkpoints and saved prompts (visual style selector) as badge. Visual modal will be sorted by aesthetic average.
 - Aesthetic trigger for image saver will ingnore low scored images.
 - Image rating (small stars on images within galleries) will be saved to the image by aesthetic score.
-- Segmented refiners will be mesure the aesthetic score of results, and if the original segment is better, changes will be ignored.
 - Refiner nodes will be suport all new model concepts, like LCM, Lightning, Turbo, Cascade and Playload.
 - Trigger words will be listed for Lora-s and Lycoris stacks like listed for models.
 - Used loras and other network settings will be saved to image meta (for image recycler).
@@ -228,12 +229,18 @@ For hand fixer I set trigger_high_off to 5, because if the hand's area is larger
 <hr>
 
 ### Primere Any Detailer:
-This node create detailed/refined output by input image and segs. Node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved, maybe connected to the next refiner.
-Detailer group example included to the **Primere_full_workflow.json** you can to check it for your own ideas and settings, or test only detailers in attached **civitai-[what]-refiner.json** files.
+This node create detailed/refined output by input image and segments. Node must be used together with Image Segments and Refiner Prompt. The output of this node can be upscaled or saved, maybe connected to the next refiner.
+Detailer group example included to the **Primere_full_workflow.json** you can check it for your own ideas and settings, or test only detailers in attached **civitai-[what]-refiner.json** files.
 
-#### Detailer automatically handle Normal, LCM and Turbo model concepts if the 'model_concept' and 'concept_*' nodes used. Check the Primere_full_workflow how to automatically control this node for all 3 concepts. Fpr normal mode, you can set samples to anything else, different from the original image creation settings.
+#### Detailer automatically handle Normal, LCM and Turbo model concepts if the 'model_concept' and 'concept_*' nodes used. Check the Primere_full_workflow how to automatically control this node for all 3 concepts. For normal mode, you can set samples to anything else, different from the original image creation settings.
 
 <a href="./Workflow/readme_images/panydetailer.jpg" target="_blank"><img src="./Workflow/readme_images/panydetailer.jpg" height="380px"></a>
+
+The node using aesthetic scorer to measure the quality of the detailed segment. If the **use_aesthetic_scorer** on (ignore_if_worse) the result will be ignored if the aesthetic score is lower than the original segment's score. The a-scorer model sometime failed, this is why the feature can be off (always_refine) so you can ignore this feature.
+If the score metered (ignore_if_worse), and the detailed segment's score is better than than the original, green badge show in the top-right corner, that the refined segment accepted. If the a-score of result lower than the original, red badge show in the corner, and the segmented part of image not changed to refined.
+
+<a href="./Workflow/readme_images/padetailer_example.jpg" target="_blank"><img src="./Workflow/readme_images/padetailer_example.jpg" height="300px"></a>
+
 <hr>
 
 ## Submenu :: Inputs:

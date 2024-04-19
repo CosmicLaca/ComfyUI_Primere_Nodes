@@ -12,7 +12,6 @@ from ..utils import cache_file
 import os
 import json
 import numpy as np
-from PIL import Image
 from torchvision.transforms import InterpolationMode
 import torchvision.transforms.functional as F
 from urllib.parse import urlparse
@@ -24,6 +23,7 @@ from ..utils import comfy_dir
 import collections
 import pytorch_lightning as pl
 import torch.nn as nn
+from PIL import Image, ImageOps, ImageSequence
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
@@ -812,3 +812,32 @@ def normalized(a, axis=-1, order=2):
     l2 = np.atleast_1d(np.linalg.norm(a, order, axis))
     l2[l2 == 0] = 1
     return a / np.expand_dims(l2, axis)
+
+def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
+    output_image = None
+
+    if Path(ImgPath).is_file() == True:
+        #try:
+        loaded_img = Image.open(ImgPath)
+        output_images = []
+        for i in ImageSequence.Iterator(loaded_img):
+            i = ImageOps.exif_transpose(i)
+            if i.mode == 'I':
+                i = i.point(lambda i: i * (1 / 255))
+            image = i.convert("RGB")
+            if new_width is not None and new_height is not None:
+                newsize = (new_width, new_height)
+                image = image.resize(newsize)
+            image = np.array(image).astype(np.float32) / 255.0
+            image = torch.from_numpy(image)[None,]
+            output_images.append(image)
+        if len(output_images) > 1:
+            output_image = torch.cat(output_images, dim=0)
+        else:
+            output_image = output_images[0]
+
+        #except Exception:
+        #    print('[Primere Error]: error loading image from path: ' + ImgPath)
+        #    output_image = None
+
+    return output_image

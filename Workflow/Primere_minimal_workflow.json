@@ -724,7 +724,7 @@
       },
       "widgets_values": [
         "",
-        422097322209769,
+        636402502684314,
         "randomize"
       ],
       "color": "#145414",
@@ -779,7 +779,7 @@
       },
       "widgets_values": [
         "",
-        809997722965374,
+        798381124197252,
         "randomize"
       ],
       "color": "#145414",
@@ -873,7 +873,7 @@
         false,
         1.6,
         2.8,
-        268705271409997,
+        90995882162185,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1023,7 +1023,7 @@
         1,
         0.8,
         1.4,
-        782316499921173,
+        242258049340592,
         "randomize",
         false,
         "cpu",
@@ -1584,7 +1584,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        760978944812623,
+        1089729015963368,
         "randomize",
         20,
         8,
@@ -1705,6 +1705,14 @@
           "name": "workflow_data",
           "type": "TUPLE",
           "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCORE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {

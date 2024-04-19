@@ -619,7 +619,8 @@ class PrimerePreviewImage():
 
 class PrimereAestheticCKPTScorer():
     CATEGORY = TREE_OUTPUTS
-    RETURN_TYPES = ()
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("SCORE",)
     OUTPUT_NODE = True
     FUNCTION = "aesthetic_scorer"
 
@@ -726,4 +727,4 @@ class PrimereAestheticCKPTScorer():
                                             score = str(int(style_ascore_list[1]) + int(final_prediction))
                                             utility.add_value_to_cache('style_ascores', selectedStyle, counter + '|' + score)
 
-        return {"ui": {"text": (final_prediction,)}}
+        return {"ui": {"text": [final_prediction]}, "result": (final_prediction,)}

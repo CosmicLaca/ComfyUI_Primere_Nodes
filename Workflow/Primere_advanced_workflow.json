@@ -914,6 +914,14 @@
           "link": null
         }
       ],
+      "outputs": [
+        {
+          "name": "SCORE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
       "properties": {
         "Node name for S&R": "PrimereAestheticCKPTScorer"
       },
@@ -921,7 +929,7 @@
         true,
         false,
         false,
-        "721"
+        "719"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -1589,7 +1597,7 @@
       },
       "widgets_values": [
         "",
-        518466617514816,
+        887868773717392,
         "randomize"
       ],
       "color": "#145414",
@@ -1644,7 +1652,7 @@
       },
       "widgets_values": [
         "",
-        795195504812044,
+        261972662783616,
         "randomize"
       ],
       "color": "#541414",
@@ -2046,7 +2054,7 @@
         false,
         1.6,
         2.8,
-        934068713331915,
+        636747699549319,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2397,7 +2405,7 @@
         1,
         0.8,
         1.4,
-        364716155962037,
+        873369718291821,
         "randomize",
         true,
         "cpu",
@@ -2770,7 +2778,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        900420875891890,
+        299957137786519,
         "randomize",
         20,
         8,
