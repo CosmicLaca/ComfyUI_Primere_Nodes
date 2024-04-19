@@ -646,16 +646,19 @@ class PrimereAestheticCKPTScorer():
 
         if (get_aesthetic_score == True):
             AESTHETIC_PATH = os.path.join(comfy_dir, 'models', 'aesthetic')
+            folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
             if os.path.exists(AESTHETIC_PATH) == False:
                 Path(AESTHETIC_PATH).mkdir(parents=True, exist_ok=True)
-            aestheticFiles = folder_paths.get_filename_list("aesthetic")
+            AESTH_FULL_LIST = folder_paths.get_filename_list("aesthetic")
+            aestheticFiles = folder_paths.filter_files_extensions(AESTH_FULL_LIST, ['.pth'])
 
             if 'chadscorer.pth' not in aestheticFiles:
                 FileUrl = 'https://huggingface.co/primerecomfydev/chadscorer/resolve/main/chadscorer.pth?download=true'
                 FullFilePath = os.path.join(AESTHETIC_PATH, 'chadscorer.pth')
                 ModelDownload = utility.downloader(FileUrl, FullFilePath)
                 if (ModelDownload == True):
-                    aestheticFiles = folder_paths.get_filename_list("aesthetic")
+                    AESTH_FULL_LIST = folder_paths.get_filename_list("aesthetic")
+                    aestheticFiles = folder_paths.filter_files_extensions(AESTH_FULL_LIST, ['.pth'])
 
             if 'chadscorer.pth' in aestheticFiles:
                 folder_paths.folder_names_and_paths["aesthetic"] = ([os.path.join(folder_paths.models_dir, "aesthetic")], folder_paths.supported_pt_extensions)

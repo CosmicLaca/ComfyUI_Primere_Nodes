@@ -32,3 +32,4 @@ tqdm
 transformers
 ultralytics
 yapf
+openai-clip
