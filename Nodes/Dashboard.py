@@ -1,6 +1,7 @@
 import math
 from ..components.tree import TREE_DASHBOARD
 from ..components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_DEPRECATED
 import comfy.samplers
 import folder_paths
 import nodes
@@ -26,7 +27,7 @@ import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
 
 class PrimereSamplers:
-    CATEGORY = TREE_DASHBOARD
+    CATEGORY = TREE_DEPRECATED
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS)
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME")
     FUNCTION = "get_sampler"
@@ -62,7 +63,6 @@ class PrimereSamplersSteps:
 
     def get_sampler_step(self, sampler_name, scheduler_name, steps = 12, cfg = 7):
         return sampler_name, scheduler_name, steps, round(cfg, 2)
-
 
 class PrimereVAE:
     RETURN_TYPES = ("VAE_NAME",)
@@ -133,7 +133,7 @@ class PrimereLCMSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
     FUNCTION = "select_lcm_mode"
-    CATEGORY = TREE_DASHBOARD
+    CATEGORY = TREE_DEPRECATED
 
     @classmethod
     def INPUT_TYPES(s):
@@ -312,7 +312,6 @@ class PrimereCKPTLoader:
             "optional": {
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
-
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
                 "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
@@ -525,8 +524,6 @@ class PrimereSeed:
 
 
 class PrimereFractalLatent:
-    # def __init__(self):
-    #    pass
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -548,7 +545,6 @@ class PrimereFractalLatent:
                 "noise_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "rand_device": ("BOOLEAN", {"default": False}),
                 "device": (["cpu", "cuda"],),
-
                 "expand_random_limits": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
             },
             "optional": {
@@ -575,7 +571,6 @@ class PrimereFractalLatent:
             alpha_exp_rand_max = 7.00
             modulator_rand_min = 0.10
             modulator_rand_max = 2.00
-            # noise_seed = seed
 
         if rand_noise_type == True:
             pln = PowerLawNoise(device)
@@ -648,7 +643,6 @@ class PrimereCLIP:
                 "adv_encode": ("BOOLEAN", {"default": False}),
                 "token_normalization": (["none", "mean", "length", "length+mean"],),
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
-                # "affect_pooled": ("BOOLEAN", {"default": False}),
             },
             "optional": {
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
@@ -978,7 +972,7 @@ class PrimereResolutionMultiplier:
     RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")
     RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO", "IMAGE")
     FUNCTION = "multiply_imagesize"
-    CATEGORY = TREE_DASHBOARD
+    CATEGORY = TREE_DEPRECATED
     upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
 
     @ classmethod
@@ -1145,7 +1139,7 @@ class PrimereStepsCfg:
   RETURN_TYPES = ("INT", "FLOAT")
   RETURN_NAMES = ("STEPS", "CFG")
   FUNCTION = "steps_cfg"
-  CATEGORY = TREE_DASHBOARD
+  CATEGORY = TREE_DEPRECATED
 
   @classmethod
   def INPUT_TYPES(cls):

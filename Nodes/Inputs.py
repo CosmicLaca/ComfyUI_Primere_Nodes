@@ -1,5 +1,6 @@
 from ..components.tree import TREE_INPUTS
 from ..components.tree import PRIMERE_ROOT
+from ..components.tree import TREE_DEPRECATED
 import os
 import re
 from dynamicprompts.parser.parse import ParserConfig
@@ -910,7 +911,7 @@ class PrimereMetaDistributorStage2:
 
 
 class PrimereMetaRead:
-    CATEGORY = TREE_INPUTS
+    CATEGORY = TREE_DEPRECATED
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "CHECKPOINT_NAME", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "INT", "INT", "FLOAT", "INT", "VAE_NAME", "VAE", "CLIP", "MODEL", "TUPLE")
     RETURN_NAMES = ("PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-", "REFINER+", "REFINER-", "MODEL_NAME", "SAMPLER_NAME", "SCHEDULER_NAME", "SEED", "WIDTH", "HEIGHT", "CFG", "STEPS", "VAE_NAME", "VAE",  "CLIP", "MODEL", "METADATA")
     FUNCTION = "load_image_meta"
@@ -1347,7 +1348,6 @@ class PrimereEmbeddingKeywordMerger:
     RETURN_NAMES = ("EMBEDDING+", "EMBEDDING-")
     FUNCTION = "embedding_keyword_merger"
     CATEGORY = TREE_INPUTS
-
 
     @classmethod
     def INPUT_TYPES(cls):

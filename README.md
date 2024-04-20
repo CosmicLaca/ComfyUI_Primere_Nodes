@@ -55,6 +55,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Some nodes moved to **deprecated** subtree. Nodes can be used but not developed in the future.
 - **Segmented refiners** will mesure the aesthetic score of results, and if the original segment is better, changes will be ignored. Only in **Primere_full_workflow.json** workflow. Feature can switch off.
 - Friendly response icons in **segment refiners** if the detailer off or not found segment in the source image.
 - **Aesthetic scorer** included to all attached workflows. 
@@ -304,18 +305,6 @@ Follow the file schema for your own prompts but don't forget to rename the attac
 
 <hr>
 
-### Primere exif reader:
-- This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
-- This node is the alternate version of Primere image recycler.
-
-This node output sending lot of data to the workflow from exif/meta or pnginfo if it's included to selected image, like model name, vae and sampler name or settings. Use this node to distribute settings, and simple off the 'use_exif' switch if you don't want to render image by this node, then you can use your own prompts and dashboard settings instead.
-
-**Use several settings of switches what exif/meta data you want/don't want to use for new image rendering.** If switch off something, dashboard settings (this is why must be connected this node input) will be used instead of image included exif/meta.
-#### For this node inputs connect all of your dashboard settings, like in the example workflow. If you switch off the exif reader with 'use_exif' switch, or ignore specified data for example the model, the input values will be used instead of image meta. The example workflow help to analyze how to use this node.
-
-<a href="./Workflow/readme_images/pexif.jpg" target="_blank"><img src="./Workflow/readme_images/pexif.jpg" height="300px"></a>
-<hr>
-
 ### Primere Embedding Handler:
 This node convert A1111 embeddings to Comfy embeddings. Use after dynamically decoded prompts (booth text and style). **No need to modify manually styles.csv from A1111 if you use this node.**
 
@@ -356,29 +345,11 @@ For more info about usage see **"Segments"** submenu.
 <hr>
 
 ## Submenu :: Dashboard:
-### Primere Sampler Selector:
-Select sampler and scheduler in separated node, and wire outputs to the sampler (through exif reader input in the example workflow). This is useful to separate from other nodes, and for LCM and Turbo modes you need three several sampler settings. (see the example workflow, and try to understand LCM and Turbo setting)
-
-<a href="./Workflow/readme_images/psampler.jpg" target="_blank"><img src="./Workflow/readme_images/psampler.jpg" height="80px"></a>
-<hr>
-
-### Primere Steps & Cfg:
-Use this separated node for sampler/meta reader inputs. If you use LCM and Turbo modes, you need 3 with several settings of this node. See and test the attached example workflow.
-
-<a href="./Workflow/readme_images/psteps.jpg" target="_blank"><img src="./Workflow/readme_images/psteps.jpg" height="80px"></a>
-<hr>
-
 ### Primere Samplers & Steps & Cfg:
 Use this separated node for sampler/meta reader inputs. If you use LCM and Turbo modes, you need 3 with different settings of this node. See and test the attached example workflow.
 This node the merged version of previous two: 'Primere Sampler Selector' and 'Primere Steps & Cfg'
 
 <a href="./Workflow/readme_images/psamcfgsel.jpg" target="_blank"><img src="./Workflow/readme_images/psamcfgsel.jpg" height="140px"></a>
-<hr>
-
-### Primere LCM Selector:
-Use this node to switch on/off LCM mode in whole rendering process. Wire two sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings), and connect this node output to the sampler/exif reader, like in the example workflow. The 'IS_LCM' output important for CKPT loader and the Exif reader for correct rendering.
-
-<a href="./Workflow/readme_images/plcm.jpg" target="_blank"><img src="./Workflow/readme_images/plcm.jpg" height="150px"></a>
 <hr>
 
 ### Primere Model Concept Selector:
@@ -454,19 +425,6 @@ This node generate 'empty' latent image, but with several noise settings, what c
 - Set the model base resolution to 512, 768, 1024, 1280, 1600, or 2048, both SD, SDXL and Turbo, but in separated inputs. The official setting is 512 SD, but I like 768 instead, and 1024 for SDXL. The Turbo resolution depending on your use model.
 
 <a href="./Workflow/readme_images/pres.jpg" target="_blank"><img src="./Workflow/readme_images/pres.jpg" height="180px"></a>
-<hr>
-
-### Primere Resolution Multiplier:
-Multiply the base image size for upscaling. Important to use 'model_version' and 'model_concept' if you want to use several multipliers for Turbo, SD and SDXL models. Just switch off 'use_multiplier' on this node if you don't need to resize the original image.
-
-If your upscaler failed because low memory error, try to switch on 'triggered_prescale' and set right values to the input fields under this switch. This function resize the source image before upscaling to right size:
-
-- **area_trigger_mpx:** the value of the image area in megapixels when the 'pre-scale' process run. For example if your original image based on 512px, the source image area in megapixels = 0.26. If you set this value to 0.55, your 512 based images will be processed, but 768 (0.58 mpx) and larger pictures will be ignored.
-- **area_target_mpx:** the value to resize the source image before sending to the upscaler in megapixels. If you use this function, and for example want to upscale your 512 based image to 6-8 times larger but the upscaler failed, resize the source to 2mpx (or 3mpx) before upscaling.
-- **upscale_model:** set the upscale model instead of interpolation (upscale_method input). **Warning: the selected upscale model will resize your source image by fix ratio. For example '4x-UltraSharp' will resize you image by ratio 4 to 4 times larger.**
-- **upscale_method:** if you don't want to use upscale_model, what mean set the previous combo to 'None', here you can select the interpolation method, the source image will be resize to the value of 'area_target_mpx' input.
-
-<a href="./Workflow/readme_images/presmul.jpg" target="_blank"><img src="./Workflow/readme_images/presmul.jpg" height="200px"></a>
 <hr>
 
 ### Primere Resolution MPX:
@@ -624,6 +582,65 @@ Use hypernetwork if you already have by this node. **Hypernetwork is harmful, be
 Hypernetworks don't need seperated SD and SDXL sources, use only one stack for all, and set 'stack_version' to 'Any'. 
 
 <a href="./Workflow/readme_images/phyper.jpg" target="_blank"><img src="./Workflow/readme_images/phyper.jpg" height="220px"></a>
+<hr>
+
+## Submenu :: Deprecated:
+### Primere Resolution Multiplier:
+
+**Use Primere Resolution MPX instead**
+
+Multiply the base image size for upscaling. Important to use 'model_version' and 'model_concept' if you want to use several multipliers for Turbo, SD and SDXL models. Just switch off 'use_multiplier' on this node if you don't need to resize the original image.
+
+If your upscaler failed because low memory error, try to switch on 'triggered_prescale' and set right values to the input fields under this switch. This function resize the source image before upscaling to right size:
+
+- **area_trigger_mpx:** the value of the image area in megapixels when the 'pre-scale' process run. For example if your original image based on 512px, the source image area in megapixels = 0.26. If you set this value to 0.55, your 512 based images will be processed, but 768 (0.58 mpx) and larger pictures will be ignored.
+- **area_target_mpx:** the value to resize the source image before sending to the upscaler in megapixels. If you use this function, and for example want to upscale your 512 based image to 6-8 times larger but the upscaler failed, resize the source to 2mpx (or 3mpx) before upscaling.
+- **upscale_model:** set the upscale model instead of interpolation (upscale_method input). **Warning: the selected upscale model will resize your source image by fix ratio. For example '4x-UltraSharp' will resize you image by ratio 4 to 4 times larger.**
+- **upscale_method:** if you don't want to use upscale_model, what mean set the previous combo to 'None', here you can select the interpolation method, the source image will be resize to the value of 'area_target_mpx' input.
+
+<a href="./Workflow/readme_images/presmul.jpg" target="_blank"><img src="./Workflow/readme_images/presmul.jpg" height="200px"></a>
+<hr>
+
+### Primere LCM Selector:
+
+**Use Primere Model Concept Selector instead**
+
+Use this node to switch on/off LCM mode in whole rendering process. Wire two sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings), and connect this node output to the sampler/exif reader, like in the example workflow. The 'IS_LCM' output important for CKPT loader and the Exif reader for correct rendering.
+
+<a href="./Workflow/readme_images/plcm.jpg" target="_blank"><img src="./Workflow/readme_images/plcm.jpg" height="150px"></a>
+<hr>
+
+### Primere Sampler Selector:
+
+**Use Primere Samplers & Steps & Cfg instead**
+
+Select sampler and scheduler in separated node, and wire outputs to the sampler (through exif reader input in the example workflow). This is useful to separate from other nodes, and for LCM and Turbo modes you need three several sampler settings. (see the example workflow, and try to understand LCM and Turbo setting)
+
+<a href="./Workflow/readme_images/psampler.jpg" target="_blank"><img src="./Workflow/readme_images/psampler.jpg" height="80px"></a>
+<hr>
+
+### Primere Steps & Cfg:
+
+**Use Primere Samplers & Steps & Cfg instead**
+
+Use this separated node for sampler/meta reader inputs. If you use LCM and Turbo modes, you need 3 with several settings of this node. See and test the attached example workflow.
+
+<a href="./Workflow/readme_images/psteps.jpg" target="_blank"><img src="./Workflow/readme_images/psteps.jpg" height="80px"></a>
+<hr>
+
+### Primere exif reader:
+
+**Use Primere image recycler instead**
+
+- This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
+- This node is the alternate version of Primere image recycler.
+
+This node output sending lot of data to the workflow from exif/meta or pnginfo if it's included to selected image, like model name, vae and sampler name or settings. Use this node to distribute settings, and simple off the 'use_exif' switch if you don't want to render image by this node, then you can use your own prompts and dashboard settings instead.
+
+**Use several settings of switches what exif/meta data you want/don't want to use for new image rendering.** If switch off something, dashboard settings (this is why must be connected this node input) will be used instead of image included exif/meta.
+#### For this node inputs connect all of your dashboard settings, like in the example workflow. If you switch off the exif reader with 'use_exif' switch, or ignore specified data for example the model, the input values will be used instead of image meta. The example workflow help to analyze how to use this node.
+
+<a href="./Workflow/readme_images/pexif.jpg" target="_blank"><img src="./Workflow/readme_images/pexif.jpg" height="300px"></a>
 <hr>
 
 # Contact:
