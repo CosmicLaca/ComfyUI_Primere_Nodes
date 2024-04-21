@@ -1,6 +1,6 @@
 {
-  "last_node_id": 162,
-  "last_link_id": 520,
+  "last_node_id": 171,
+  "last_link_id": 568,
   "nodes": [
     {
       "id": 1,
@@ -37,7 +37,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "ORIGINAL_INPUT (1).png",
+        "civitai-handrefiner.png",
         "image"
       ],
       "color": "#232",
@@ -113,10 +113,10 @@
             457,
             475,
             500,
-            515,
-            516,
-            517,
-            518
+            530,
+            542,
+            554,
+            567
           ],
           "shape": 3,
           "slot_index": 0
@@ -126,7 +126,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        905453192399078,
+        563138241815318,
         null,
         null,
         null
@@ -141,10 +141,10 @@
         1473,
         359
       ],
-      "size": [
-        389.94110107421875,
-        206
-      ],
+      "size": {
+        "0": 389.94110107421875,
+        "1": 206
+      },
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -188,10 +188,10 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            451,
-            471,
-            480,
-            511
+            522,
+            534,
+            546,
+            558
           ],
           "shape": 3,
           "slot_index": 0
@@ -200,14 +200,14 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            452,
             458,
             459,
-            472,
             476,
-            481,
-            512,
-            514
+            514,
+            523,
+            535,
+            547,
+            559
           ],
           "shape": 3,
           "slot_index": 1
@@ -216,10 +216,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            453,
-            473,
-            482,
-            513
+            524,
+            536,
+            548,
+            560
           ],
           "shape": 3,
           "slot_index": 2
@@ -250,10 +250,10 @@
         792,
         729
       ],
-      "size": [
-        471.94110107421875,
-        633.3858642578125
-      ],
+      "size": {
+        "0": 471.94110107421875,
+        "1": 633.3858642578125
+      },
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -333,7 +333,7 @@
         1,
         1,
         1,
-        881631701313966,
+        1056018861389938,
         "randomize",
         "length",
         "comfy++",
@@ -350,10 +350,10 @@
         2494,
         330
       ],
-      "size": [
-        399.94110107421875,
-        505.3858642578125
-      ],
+      "size": {
+        "0": 399.94110107421875,
+        "1": 505.3858642578125
+      },
       "flags": {},
       "order": 5,
       "mode": 0,
@@ -433,7 +433,7 @@
         1,
         1,
         1,
-        452025153637376,
+        998752624516125,
         "randomize",
         "length",
         "comfy++",
@@ -450,10 +450,10 @@
         3410,
         328
       ],
-      "size": [
-        394.941162109375,
-        457.3858642578125
-      ],
+      "size": {
+        "0": 394.941162109375,
+        "1": 457.3858642578125
+      },
       "flags": {},
       "order": 6,
       "mode": 0,
@@ -533,7 +533,7 @@
         1,
         1,
         1,
-        923061831763864,
+        85901307776459,
         "randomize",
         "length",
         "comfy++",
@@ -550,10 +550,10 @@
         4324,
         322
       ],
-      "size": [
-        403.941162109375,
-        465.3858642578125
-      ],
+      "size": {
+        "0": 403.941162109375,
+        "1": 465.3858642578125
+      },
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -633,7 +633,7 @@
         1.1,
         1,
         1,
-        637521368318380,
+        124115645510416,
         "randomize",
         "length",
         "comfy++",
@@ -650,10 +650,10 @@
         1331,
         742
       ],
-      "size": [
-        468.5999755859375,
-        642
-      ],
+      "size": {
+        "0": 468.5999755859375,
+        "1": 642
+      },
       "flags": {},
       "order": 8,
       "mode": 0,
@@ -706,7 +706,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            445
+            521
           ],
           "shape": 3,
           "slot_index": 0
@@ -721,7 +721,7 @@
           "name": "DETECTOR",
           "type": "DETECTOR",
           "links": [
-            446
+            529
           ],
           "shape": 3,
           "slot_index": 2
@@ -736,7 +736,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            447
+            528
           ],
           "shape": 3,
           "slot_index": 4
@@ -763,7 +763,7 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            448
+            527
           ],
           "shape": 3,
           "slot_index": 8
@@ -772,7 +772,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            449
+            525
           ],
           "shape": 3,
           "slot_index": 9
@@ -781,7 +781,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            450
+            526
           ],
           "shape": 3,
           "slot_index": 10
@@ -813,15 +813,15 @@
       "bgcolor": "#533"
     },
     {
-      "id": 152,
+      "id": 164,
       "type": "PrimereAnyDetailer",
       "pos": [
         1911,
         359
       ],
       "size": [
-        405.5999755859375,
-        578
+        474,
+        554
       ],
       "flags": {},
       "order": 9,
@@ -830,47 +830,47 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 445
+          "link": 521
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 451
+          "link": 522
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 452
+          "link": 523
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 453
+          "link": 524
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 449
+          "link": 525
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 450
+          "link": 526
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 448
+          "link": 527
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 447
+          "link": 528
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 446
+          "link": 529
         },
         {
           "name": "model_concept",
@@ -915,7 +915,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 515,
+          "link": 530,
           "widget": {
             "name": "seed"
           }
@@ -926,7 +926,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            461
+            531
           ],
           "shape": 3,
           "slot_index": 0
@@ -935,7 +935,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            444
+            532
           ],
           "shape": 6,
           "slot_index": 1
@@ -957,7 +957,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        362989667966229,
+        736574790088551,
         "randomize",
         "euler",
         "normal",
@@ -968,14 +968,15 @@
         true,
         false,
         1,
+        true,
         "Normal",
         "euler",
         "normal",
         4,
         1
       ],
-      "color": "#322",
-      "bgcolor": "#533"
+      "color": "#002c00",
+      "bgcolor": "#004000"
     },
     {
       "id": 155,
@@ -984,10 +985,10 @@
         2497,
         908
       ],
-      "size": [
-        381.941162109375,
-        625.3858642578125
-      ],
+      "size": {
+        "0": 381.941162109375,
+        "1": 625.3858642578125
+      },
       "flags": {},
       "order": 10,
       "mode": 0,
@@ -995,7 +996,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 461
+          "link": 531
         },
         {
           "name": "segment_prompt_data",
@@ -1040,7 +1041,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            465
+            545
           ],
           "shape": 3,
           "slot_index": 0
@@ -1055,7 +1056,7 @@
           "name": "DETECTOR",
           "type": "DETECTOR",
           "links": [
-            468
+            553
           ],
           "shape": 3,
           "slot_index": 2
@@ -1071,7 +1072,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            470
+            552
           ],
           "shape": 3,
           "slot_index": 4
@@ -1098,7 +1099,7 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            469
+            551
           ],
           "shape": 3,
           "slot_index": 8
@@ -1107,7 +1108,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            520
+            549
           ],
           "shape": 3,
           "slot_index": 9
@@ -1116,7 +1117,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            519
+            550
           ],
           "shape": 3,
           "slot_index": 10
@@ -1154,10 +1155,10 @@
         1933,
         989
       ],
-      "size": [
-        360.930908203125,
-        433.3359680175781
-      ],
+      "size": {
+        "0": 360.930908203125,
+        "1": 433.3359680175781
+      },
       "flags": {},
       "order": 11,
       "mode": 0,
@@ -1165,7 +1166,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 444,
+          "link": 532,
           "slot_index": 0
         }
       ],
@@ -1176,15 +1177,15 @@
       "bgcolor": "#533"
     },
     {
-      "id": 156,
+      "id": 168,
       "type": "PrimereAnyDetailer",
       "pos": [
-        2941,
-        406
+        2924,
+        334
       ],
       "size": [
-        415.941162109375,
-        558
+        429.0263671875,
+        554
       ],
       "flags": {},
       "order": 12,
@@ -1193,47 +1194,47 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 465
+          "link": 545
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 471
+          "link": 546
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 472
+          "link": 547
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 473
+          "link": 548
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 520
+          "link": 549
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 519
+          "link": 550
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 469
+          "link": 551
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 470
+          "link": 552
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 468
+          "link": 553
         },
         {
           "name": "model_concept",
@@ -1278,7 +1279,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 516,
+          "link": 554,
           "widget": {
             "name": "seed"
           }
@@ -1289,7 +1290,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            493
+            555
           ],
           "shape": 3,
           "slot_index": 0
@@ -1298,7 +1299,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            474
+            556
           ],
           "shape": 6,
           "slot_index": 1
@@ -1320,7 +1321,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        92184042743363,
+        202101562426744,
         "randomize",
         "euler",
         "normal",
@@ -1331,14 +1332,15 @@
         true,
         false,
         1,
+        false,
         "Normal",
         "euler",
         "normal",
         4,
         1
       ],
-      "color": "#432",
-      "bgcolor": "#653"
+      "color": "#af6214",
+      "bgcolor": "#9b4e00"
     },
     {
       "id": 159,
@@ -1347,10 +1349,10 @@
         3427,
         885
       ],
-      "size": [
-        394.941162109375,
-        546
-      ],
+      "size": {
+        "0": 394.941162109375,
+        "1": 546
+      },
       "flags": {},
       "order": 13,
       "mode": 0,
@@ -1358,7 +1360,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 493
+          "link": 555
         },
         {
           "name": "segment_prompt_data",
@@ -1403,7 +1405,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            494
+            533
           ],
           "shape": 3,
           "slot_index": 0
@@ -1418,7 +1420,7 @@
           "name": "DETECTOR",
           "type": "DETECTOR",
           "links": [
-            497
+            541
           ],
           "shape": 3,
           "slot_index": 2
@@ -1433,7 +1435,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            498
+            540
           ],
           "shape": 3,
           "slot_index": 4
@@ -1460,7 +1462,7 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            499
+            539
           ],
           "shape": 3,
           "slot_index": 8
@@ -1469,7 +1471,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            495
+            537
           ],
           "shape": 3,
           "slot_index": 9
@@ -1478,7 +1480,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            496
+            538
           ],
           "shape": 3,
           "slot_index": 10
@@ -1527,7 +1529,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 474,
+          "link": 556,
           "slot_index": 0
         }
       ],
@@ -1538,15 +1540,15 @@
       "bgcolor": "#653"
     },
     {
-      "id": 158,
+      "id": 166,
       "type": "PrimereAnyDetailer",
       "pos": [
         3859,
         316
       ],
       "size": [
-        405.5999755859375,
-        578
+        444,
+        554
       ],
       "flags": {},
       "order": 15,
@@ -1555,47 +1557,47 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 494
+          "link": 533
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 480
+          "link": 534
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 481
+          "link": 535
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 482
+          "link": 536
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 495
+          "link": 537
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 496
+          "link": 538
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 499
+          "link": 539
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 498
+          "link": 540
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 497
+          "link": 541
         },
         {
           "name": "model_concept",
@@ -1640,7 +1642,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 517,
+          "link": 542,
           "widget": {
             "name": "seed"
           }
@@ -1651,7 +1653,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            503
+            543
           ],
           "shape": 3,
           "slot_index": 0
@@ -1660,7 +1662,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            483
+            544
           ],
           "shape": 6,
           "slot_index": 1
@@ -1682,10 +1684,10 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        21553365781793,
+        416029075261618,
         "randomize",
         "euler",
-        "simple",
+        "normal",
         30,
         7,
         0.43,
@@ -1693,14 +1695,15 @@
         true,
         false,
         1,
+        true,
         "Normal",
         "euler",
         "normal",
         4,
         1
       ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159"
+      "color": "#003985",
+      "bgcolor": "#004d99"
     },
     {
       "id": 161,
@@ -1709,10 +1712,10 @@
         4322,
         871
       ],
-      "size": [
-        468.5999755859375,
-        642
-      ],
+      "size": {
+        "0": 468.5999755859375,
+        "1": 642
+      },
       "flags": {},
       "order": 16,
       "mode": 0,
@@ -1720,7 +1723,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 503
+          "link": 543
         },
         {
           "name": "segment_prompt_data",
@@ -1765,7 +1768,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            505
+            557
           ],
           "shape": 3,
           "slot_index": 0
@@ -1780,7 +1783,7 @@
           "name": "DETECTOR",
           "type": "DETECTOR",
           "links": [
-            506
+            565
           ],
           "shape": 3,
           "slot_index": 2
@@ -1795,7 +1798,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            507
+            564
           ],
           "shape": 3,
           "slot_index": 4
@@ -1822,7 +1825,7 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            508
+            563
           ],
           "shape": 3,
           "slot_index": 8
@@ -1831,7 +1834,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            509
+            561
           ],
           "shape": 3,
           "slot_index": 9
@@ -1840,7 +1843,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            510
+            562
           ],
           "shape": 3,
           "slot_index": 10
@@ -1889,7 +1892,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 483,
+          "link": 544,
           "slot_index": 0
         }
       ],
@@ -1900,15 +1903,15 @@
       "bgcolor": "#3f5159"
     },
     {
-      "id": 162,
+      "id": 170,
       "type": "PrimereAnyDetailer",
       "pos": [
         4870,
         322
       ],
       "size": [
-        405.5999755859375,
-        578
+        429.0263671875,
+        554
       ],
       "flags": {},
       "order": 18,
@@ -1917,47 +1920,47 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 505
+          "link": 557
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 511
+          "link": 558
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 512
+          "link": 559
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 513
+          "link": 560
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 509
+          "link": 561
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 510
+          "link": 562
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 508
+          "link": 563
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 507
+          "link": 564
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 506
+          "link": 565
         },
         {
           "name": "model_concept",
@@ -2002,7 +2005,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 518,
+          "link": 567,
           "widget": {
             "name": "seed"
           }
@@ -2013,7 +2016,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            502
+            566
           ],
           "shape": 3,
           "slot_index": 0
@@ -2021,8 +2024,11 @@
         {
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
-          "links": null,
-          "shape": 6
+          "links": [
+            568
+          ],
+          "shape": 6,
+          "slot_index": 1
         },
         {
           "name": "WIDTH",
@@ -2041,25 +2047,26 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        373622672088759,
+        190228260927887,
         "randomize",
         "euler",
         "simple",
-        30,
+        20,
         7.5,
         0.72,
         15,
         true,
         false,
         1,
+        true,
         "Normal",
         "euler",
         "normal",
         4,
         1
       ],
-      "color": "#323",
-      "bgcolor": "#535"
+      "color": "#4800a5",
+      "bgcolor": "#5c00b9"
     },
     {
       "id": 146,
@@ -2068,10 +2075,10 @@
         5338,
         316
       ],
-      "size": [
-        682.9389250468757,
-        1016.3414829062503
-      ],
+      "size": {
+        "0": 682.9389038085938,
+        "1": 1016.3414916992188
+      },
       "flags": {},
       "order": 19,
       "mode": 0,
@@ -2079,7 +2086,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 502,
+          "link": 566,
           "slot_index": 0
         }
       ],
@@ -2088,6 +2095,33 @@
       },
       "color": "#223",
       "bgcolor": "#335"
+    },
+    {
+      "id": 171,
+      "type": "PreviewImage",
+      "pos": [
+        4871,
+        983
+      ],
+      "size": {
+        "0": 406.87164306640625,
+        "1": 386.33184814453125
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 568,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#422342"
     }
   ],
   "links": [
@@ -2132,86 +2166,6 @@
       "TUPLE"
     ],
     [
-      444,
-      152,
-      1,
-      58,
-      0,
-      "IMAGE"
-    ],
-    [
-      445,
-      150,
-      0,
-      152,
-      0,
-      "IMAGE"
-    ],
-    [
-      446,
-      150,
-      2,
-      152,
-      8,
-      "DETECTOR"
-    ],
-    [
-      447,
-      150,
-      4,
-      152,
-      7,
-      "SEGS"
-    ],
-    [
-      448,
-      150,
-      8,
-      152,
-      6,
-      "TUPLE"
-    ],
-    [
-      449,
-      150,
-      9,
-      152,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      450,
-      150,
-      10,
-      152,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      451,
-      151,
-      0,
-      152,
-      1,
-      "MODEL"
-    ],
-    [
-      452,
-      151,
-      1,
-      152,
-      2,
-      "CLIP"
-    ],
-    [
-      453,
-      151,
-      2,
-      152,
-      3,
-      "VAE"
-    ],
-    [
       457,
       48,
       0,
@@ -2236,14 +2190,6 @@
       "CLIP"
     ],
     [
-      461,
-      152,
-      0,
-      155,
-      0,
-      "IMAGE"
-    ],
-    [
       462,
       45,
       1,
@@ -2258,70 +2204,6 @@
       155,
       1,
       "TUPLE"
-    ],
-    [
-      465,
-      155,
-      0,
-      156,
-      0,
-      "IMAGE"
-    ],
-    [
-      468,
-      155,
-      2,
-      156,
-      8,
-      "DETECTOR"
-    ],
-    [
-      469,
-      155,
-      8,
-      156,
-      6,
-      "TUPLE"
-    ],
-    [
-      470,
-      155,
-      4,
-      156,
-      7,
-      "SEGS"
-    ],
-    [
-      471,
-      151,
-      0,
-      156,
-      1,
-      "MODEL"
-    ],
-    [
-      472,
-      151,
-      1,
-      156,
-      2,
-      "CLIP"
-    ],
-    [
-      473,
-      151,
-      2,
-      156,
-      3,
-      "VAE"
-    ],
-    [
-      474,
-      156,
-      1,
-      135,
-      0,
-      "IMAGE"
     ],
     [
       475,
@@ -2340,38 +2222,6 @@
       "CLIP"
     ],
     [
-      480,
-      151,
-      0,
-      158,
-      1,
-      "MODEL"
-    ],
-    [
-      481,
-      151,
-      1,
-      158,
-      2,
-      "CLIP"
-    ],
-    [
-      482,
-      151,
-      2,
-      158,
-      3,
-      "VAE"
-    ],
-    [
-      483,
-      158,
-      1,
-      139,
-      0,
-      "IMAGE"
-    ],
-    [
       491,
       45,
       1,
@@ -2385,62 +2235,6 @@
       4,
       159,
       1,
-      "TUPLE"
-    ],
-    [
-      493,
-      156,
-      0,
-      159,
-      0,
-      "IMAGE"
-    ],
-    [
-      494,
-      159,
-      0,
-      158,
-      0,
-      "IMAGE"
-    ],
-    [
-      495,
-      159,
-      9,
-      158,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      496,
-      159,
-      10,
-      158,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      497,
-      159,
-      2,
-      158,
-      8,
-      "DETECTOR"
-    ],
-    [
-      498,
-      159,
-      4,
-      158,
-      7,
-      "SEGS"
-    ],
-    [
-      499,
-      159,
-      8,
-      158,
-      6,
       "TUPLE"
     ],
     [
@@ -2460,100 +2254,12 @@
       "STRING"
     ],
     [
-      502,
-      162,
-      0,
-      146,
-      0,
-      "IMAGE"
-    ],
-    [
-      503,
-      158,
-      0,
-      161,
-      0,
-      "IMAGE"
-    ],
-    [
       504,
       160,
       4,
       161,
       1,
       "TUPLE"
-    ],
-    [
-      505,
-      161,
-      0,
-      162,
-      0,
-      "IMAGE"
-    ],
-    [
-      506,
-      161,
-      2,
-      162,
-      8,
-      "DETECTOR"
-    ],
-    [
-      507,
-      161,
-      4,
-      162,
-      7,
-      "SEGS"
-    ],
-    [
-      508,
-      161,
-      8,
-      162,
-      6,
-      "TUPLE"
-    ],
-    [
-      509,
-      161,
-      9,
-      162,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      510,
-      161,
-      10,
-      162,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      511,
-      151,
-      0,
-      162,
-      1,
-      "MODEL"
-    ],
-    [
-      512,
-      151,
-      1,
-      162,
-      2,
-      "CLIP"
-    ],
-    [
-      513,
-      151,
-      2,
-      162,
-      3,
-      "VAE"
     ],
     [
       514,
@@ -2564,52 +2270,388 @@
       "CLIP"
     ],
     [
-      515,
-      48,
+      521,
+      150,
       0,
-      152,
-      14,
-      "INT"
+      164,
+      0,
+      "IMAGE"
     ],
     [
-      516,
-      48,
+      522,
+      151,
       0,
-      156,
-      14,
-      "INT"
+      164,
+      1,
+      "MODEL"
     ],
     [
-      517,
-      48,
-      0,
-      158,
-      14,
-      "INT"
+      523,
+      151,
+      1,
+      164,
+      2,
+      "CLIP"
     ],
     [
-      518,
-      48,
-      0,
-      162,
-      14,
-      "INT"
+      524,
+      151,
+      2,
+      164,
+      3,
+      "VAE"
     ],
     [
-      519,
-      155,
+      525,
+      150,
+      9,
+      164,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      526,
+      150,
       10,
-      156,
+      164,
       5,
       "CONDITIONING"
     ],
     [
-      520,
+      527,
+      150,
+      8,
+      164,
+      6,
+      "TUPLE"
+    ],
+    [
+      528,
+      150,
+      4,
+      164,
+      7,
+      "SEGS"
+    ],
+    [
+      529,
+      150,
+      2,
+      164,
+      8,
+      "DETECTOR"
+    ],
+    [
+      530,
+      48,
+      0,
+      164,
+      14,
+      "INT"
+    ],
+    [
+      531,
+      164,
+      0,
       155,
+      0,
+      "IMAGE"
+    ],
+    [
+      532,
+      164,
+      1,
+      58,
+      0,
+      "IMAGE"
+    ],
+    [
+      533,
+      159,
+      0,
+      166,
+      0,
+      "IMAGE"
+    ],
+    [
+      534,
+      151,
+      0,
+      166,
+      1,
+      "MODEL"
+    ],
+    [
+      535,
+      151,
+      1,
+      166,
+      2,
+      "CLIP"
+    ],
+    [
+      536,
+      151,
+      2,
+      166,
+      3,
+      "VAE"
+    ],
+    [
+      537,
+      159,
       9,
-      156,
+      166,
       4,
       "CONDITIONING"
+    ],
+    [
+      538,
+      159,
+      10,
+      166,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      539,
+      159,
+      8,
+      166,
+      6,
+      "TUPLE"
+    ],
+    [
+      540,
+      159,
+      4,
+      166,
+      7,
+      "SEGS"
+    ],
+    [
+      541,
+      159,
+      2,
+      166,
+      8,
+      "DETECTOR"
+    ],
+    [
+      542,
+      48,
+      0,
+      166,
+      14,
+      "INT"
+    ],
+    [
+      543,
+      166,
+      0,
+      161,
+      0,
+      "IMAGE"
+    ],
+    [
+      544,
+      166,
+      1,
+      139,
+      0,
+      "IMAGE"
+    ],
+    [
+      545,
+      155,
+      0,
+      168,
+      0,
+      "IMAGE"
+    ],
+    [
+      546,
+      151,
+      0,
+      168,
+      1,
+      "MODEL"
+    ],
+    [
+      547,
+      151,
+      1,
+      168,
+      2,
+      "CLIP"
+    ],
+    [
+      548,
+      151,
+      2,
+      168,
+      3,
+      "VAE"
+    ],
+    [
+      549,
+      155,
+      9,
+      168,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      550,
+      155,
+      10,
+      168,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      551,
+      155,
+      8,
+      168,
+      6,
+      "TUPLE"
+    ],
+    [
+      552,
+      155,
+      4,
+      168,
+      7,
+      "SEGS"
+    ],
+    [
+      553,
+      155,
+      2,
+      168,
+      8,
+      "DETECTOR"
+    ],
+    [
+      554,
+      48,
+      0,
+      168,
+      14,
+      "INT"
+    ],
+    [
+      555,
+      168,
+      0,
+      159,
+      0,
+      "IMAGE"
+    ],
+    [
+      556,
+      168,
+      1,
+      135,
+      0,
+      "IMAGE"
+    ],
+    [
+      557,
+      161,
+      0,
+      170,
+      0,
+      "IMAGE"
+    ],
+    [
+      558,
+      151,
+      0,
+      170,
+      1,
+      "MODEL"
+    ],
+    [
+      559,
+      151,
+      1,
+      170,
+      2,
+      "CLIP"
+    ],
+    [
+      560,
+      151,
+      2,
+      170,
+      3,
+      "VAE"
+    ],
+    [
+      561,
+      161,
+      9,
+      170,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      562,
+      161,
+      10,
+      170,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      563,
+      161,
+      8,
+      170,
+      6,
+      "TUPLE"
+    ],
+    [
+      564,
+      161,
+      4,
+      170,
+      7,
+      "SEGS"
+    ],
+    [
+      565,
+      161,
+      2,
+      170,
+      8,
+      "DETECTOR"
+    ],
+    [
+      566,
+      170,
+      0,
+      146,
+      0,
+      "IMAGE"
+    ],
+    [
+      567,
+      48,
+      0,
+      170,
+      14,
+      "INT"
+    ],
+    [
+      568,
+      170,
+      1,
+      171,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],

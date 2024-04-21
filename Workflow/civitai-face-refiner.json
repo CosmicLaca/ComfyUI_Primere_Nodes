@@ -1,6 +1,6 @@
 {
-  "last_node_id": 142,
-  "last_link_id": 425,
+  "last_node_id": 145,
+  "last_link_id": 437,
   "nodes": [
     {
       "id": 1,
@@ -103,7 +103,7 @@
           "type": "INT",
           "links": [
             407,
-            420
+            437
           ],
           "shape": 3,
           "slot_index": 0
@@ -173,7 +173,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            412
+            427
           ],
           "shape": 3,
           "slot_index": 0
@@ -183,7 +183,7 @@
           "type": "CLIP",
           "links": [
             406,
-            413
+            428
           ],
           "shape": 3,
           "slot_index": 1
@@ -192,7 +192,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            414
+            429
           ],
           "shape": 3,
           "slot_index": 2
@@ -305,7 +305,7 @@
         1,
         1,
         1,
-        783934042842185,
+        188866318563198,
         "randomize",
         "mean",
         "comfy++",
@@ -317,8 +317,8 @@
       "id": 137,
       "type": "PrimereImageSegments",
       "pos": [
-        1365,
-        475
+        1368,
+        477
       ],
       "size": {
         "0": 468.5999755859375,
@@ -376,7 +376,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            411
+            426
           ],
           "shape": 3,
           "slot_index": 0
@@ -394,7 +394,7 @@
           "name": "DETECTOR",
           "type": "DETECTOR",
           "links": [
-            417
+            434
           ],
           "shape": 3,
           "slot_index": 2
@@ -410,7 +410,7 @@
           "name": "SEGS",
           "type": "SEGS",
           "links": [
-            418
+            433
           ],
           "shape": 3,
           "slot_index": 4
@@ -439,7 +439,7 @@
           "name": "SEGMENT_SETTINGS",
           "type": "TUPLE",
           "links": [
-            419
+            432
           ],
           "shape": 3,
           "slot_index": 8
@@ -448,7 +448,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            415
+            430
           ],
           "shape": 3,
           "slot_index": 9
@@ -457,7 +457,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            416
+            431
           ],
           "shape": 3,
           "slot_index": 10
@@ -513,16 +513,16 @@
       }
     },
     {
-      "id": 138,
+      "id": 145,
       "type": "PrimereAnyDetailer",
       "pos": [
-        1950,
-        355
+        1925,
+        305
       ],
-      "size": {
-        "0": 426,
-        "1": 530
-      },
+      "size": [
+        463,
+        554
+      ],
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -530,47 +530,47 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 411
+          "link": 426
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 412
+          "link": 427
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 413
+          "link": 428
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 414
+          "link": 429
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 415
+          "link": 430
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 416
+          "link": 431
         },
         {
           "name": "segment_settings",
           "type": "TUPLE",
-          "link": 419
+          "link": 432
         },
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 418
+          "link": 433
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": 417
+          "link": 434
         },
         {
           "name": "model_concept",
@@ -615,7 +615,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 420,
+          "link": 437,
           "widget": {
             "name": "seed"
           }
@@ -626,7 +626,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            421
+            435
           ],
           "shape": 3,
           "slot_index": 0
@@ -635,7 +635,7 @@
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
           "links": [
-            423
+            436
           ],
           "shape": 6,
           "slot_index": 1
@@ -657,7 +657,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        63595822550083,
+        581366603182289,
         "randomize",
         "euler",
         "normal",
@@ -668,6 +668,7 @@
         true,
         false,
         1,
+        true,
         "Normal",
         "euler",
         "normal",
@@ -693,7 +694,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 421,
+          "link": 435,
           "slot_index": 0
         }
       ],
@@ -719,7 +720,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 423,
+          "link": 436,
           "slot_index": 0
         }
       ],
@@ -770,106 +771,10 @@
       "STRING"
     ],
     [
-      411,
-      137,
-      0,
-      138,
-      0,
-      "IMAGE"
-    ],
-    [
-      412,
-      134,
-      0,
-      138,
-      1,
-      "MODEL"
-    ],
-    [
-      413,
-      134,
-      1,
-      138,
-      2,
-      "CLIP"
-    ],
-    [
-      414,
-      134,
-      2,
-      138,
-      3,
-      "VAE"
-    ],
-    [
-      415,
-      137,
-      9,
-      138,
-      4,
-      "CONDITIONING"
-    ],
-    [
-      416,
-      137,
-      10,
-      138,
-      5,
-      "CONDITIONING"
-    ],
-    [
-      417,
-      137,
-      2,
-      138,
-      8,
-      "DETECTOR"
-    ],
-    [
-      418,
-      137,
-      4,
-      138,
-      7,
-      "SEGS"
-    ],
-    [
-      419,
-      137,
-      8,
-      138,
-      6,
-      "TUPLE"
-    ],
-    [
-      420,
-      48,
-      0,
-      138,
-      14,
-      "INT"
-    ],
-    [
-      421,
-      138,
-      0,
-      140,
-      0,
-      "IMAGE"
-    ],
-    [
       422,
       137,
       1,
       142,
-      0,
-      "IMAGE"
-    ],
-    [
-      423,
-      138,
-      1,
-      141,
       0,
       "IMAGE"
     ],
@@ -880,6 +785,102 @@
       137,
       0,
       "IMAGE"
+    ],
+    [
+      426,
+      137,
+      0,
+      145,
+      0,
+      "IMAGE"
+    ],
+    [
+      427,
+      134,
+      0,
+      145,
+      1,
+      "MODEL"
+    ],
+    [
+      428,
+      134,
+      1,
+      145,
+      2,
+      "CLIP"
+    ],
+    [
+      429,
+      134,
+      2,
+      145,
+      3,
+      "VAE"
+    ],
+    [
+      430,
+      137,
+      9,
+      145,
+      4,
+      "CONDITIONING"
+    ],
+    [
+      431,
+      137,
+      10,
+      145,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      432,
+      137,
+      8,
+      145,
+      6,
+      "TUPLE"
+    ],
+    [
+      433,
+      137,
+      4,
+      145,
+      7,
+      "SEGS"
+    ],
+    [
+      434,
+      137,
+      2,
+      145,
+      8,
+      "DETECTOR"
+    ],
+    [
+      435,
+      145,
+      0,
+      140,
+      0,
+      "IMAGE"
+    ],
+    [
+      436,
+      145,
+      1,
+      141,
+      0,
+      "IMAGE"
+    ],
+    [
+      437,
+      48,
+      0,
+      145,
+      14,
+      "INT"
     ]
   ],
   "groups": [],
