@@ -686,7 +686,7 @@ class PrimereMetaHandler:
             if NegPromptType is not None and NegPromptType != 'str':
                 workflow_tuple['negative'] = 'Cute cat, nsfw, nude, nudity, porn'
 
-        if ('model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Cascade'):
+        if (workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Cascade'):
             if ('vae' not in workflow_tuple or ('vae' in workflow_tuple and workflow_tuple['vae'] != 'Baked VAE')):
                 if 'concept_data' in workflow_tuple and 'cascade_stage_a' in workflow_tuple['concept_data']:
                     if workflow_tuple['concept_data']['cascade_stage_a'] is not None:
