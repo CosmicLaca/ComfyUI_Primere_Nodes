@@ -41,10 +41,10 @@ PREVIEW_PATH_BY_TYPE = {
     "Embedding": os.path.join(PREVIEW_ROOT, "embeddings"),
 }
 
-WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'model',
-             'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
-             'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
-             'vae_name_sd', 'vae_name_sdxl']
+WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'meta_source', 'pic2story', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'pic2story_positive',
+                      'model', 'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
+                      'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
+                      'vae_name_sd', 'vae_name_sdxl']
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
@@ -641,6 +641,12 @@ def downloader(from_url, to_path):
             print('ERROR: Cannot download ' + TargetFilename)
             return False
 
+def hf_downloader(repo_id, model_local_dir):
+    from huggingface_hub import snapshot_download
+    model_path = f"{model_local_dir}/{repo_id.split('/')[-1]}"
+    snapshot_download(repo_id=repo_id, local_dir=model_path, local_dir_use_symlinks=True, max_workers=1)
+    return model_path
+
 def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step):
     lora_name = None
     unet_name = None
@@ -841,3 +847,87 @@ def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
         #    output_image = None
 
     return output_image
+
+def tensor_to_image(tensor):
+    tensor = tensor.cpu()
+    image_np = tensor.squeeze().mul(255).clamp(0, 255).byte().numpy()
+    image = Image.fromarray(image_np, mode='RGB')
+    return image
+
+def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_result = True):
+    story_out = None
+    from transformers import BlipProcessor, BlipForConditionalGeneration
+    import torch
+
+    os.environ['TRANSFORMERS_OFFLINE'] = "1"
+    processor = BlipProcessor.from_pretrained(repo_id)
+    pil_image = tensor_to_image(img)
+
+    try:
+        model = BlipForConditionalGeneration.from_pretrained(repo_id, torch_dtype=torch.float16).to("cuda")
+        if type(prompts) == str:
+            inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda", torch.float16)
+            out = model.generate(**inputs)
+            story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+
+        elif type(prompts).__name__ == 'list':
+            for prompt in prompts:
+                inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda", torch.float16)
+                out = model.generate(**inputs)
+                Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                if story_out is not None:
+                    story_out = story_out + Processed
+                else:
+                    story_out = Processed
+
+    except Exception:
+        print('Pic2Story Float 16 failed')
+
+    if type(story_out) != str:
+        try:
+            model = BlipForConditionalGeneration.from_pretrained(repo_id).to("cuda")
+            if type(prompts) == str:
+                inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda")
+                out = model.generate(**inputs)
+                story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+
+            elif type(prompts).__name__ == 'list':
+                for prompt in prompts:
+                    inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda")
+                    out = model.generate(**inputs)
+                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                    if story_out is not None:
+                        story_out = story_out + Processed
+                    else:
+                        story_out = Processed
+
+        except Exception:
+            print('Pic2Story GPU failed')
+
+    if type(story_out) != str:
+        try:
+            model = BlipForConditionalGeneration.from_pretrained(repo_id)
+            if type(prompts) == str:
+                inputs = processor(pil_image, prompts, return_tensors="pt")
+                out = model.generate(**inputs)
+                story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+
+            elif type(prompts).__name__ == 'list':
+                for prompt in prompts:
+                    inputs = processor(pil_image, prompt, return_tensors="pt")
+                    out = model.generate(**inputs)
+                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                    if story_out is not None:
+                        story_out = story_out + Processed
+                    else:
+                        story_out = Processed
+
+        except Exception:
+            print('Pic2Story CPU failed')
+
+    if type(story_out) == str:
+        if clean_same_result == True:
+            story_out = ' '.join(dict.fromkeys(story_out.split()))
+        return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ')
+    else:
+        return story_out

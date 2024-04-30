@@ -20,7 +20,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Multiply original resolution by integer, but can be define the final resolution by target megapixels from any image sizes. Image resolution multiplier can solve low memory error problem if using Ultimate SD Upscaler 
 - Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use network remover if the selected model incompatible with them or if you want to try your prompt without included networks or want to change to different, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
 - Use more than one prompt or style input nodes for testing and developing prompts, select any by 1 click at the 'Prompt Switch' node
-- Special image META/EXIF/PNGINFO reader, which handle model name and samplers from A1111 and ComfyUI .png or .jpg. Never was easier to recycle your older A1111 and ComfyUI images and re-using them with same or different workflow settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
+- Special image META/EXIF/PNGINFO/PIC2PROMPT reader, which handle model name and samplers from A1111 and ComfyUI .png or .jpg. Never was easier to recycle your older A1111 and ComfyUI images and re-using them with same or different workflow settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
 - Workflow and nodes support Lycoris in dedicated node, no need to copy Lycoris files to Loras path
 - Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result, included test workflow: **civitai-all-refiner.json**
 - Visual (select element by preview image instead of long list) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks and .csv prompts. You only have to create preview images to right name and path, see readme details under "Visual", or use 1 click preview creator
@@ -55,6 +55,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Image recycler node read images without meta, using Pic2Story model to generate prompt from picture only 
 - Some nodes moved to **deprecated** subtree. Nodes can be used but not developed in the future.
 - **Segmented refiners** will mesure the aesthetic score of results, and if the original segment is better, changes will be ignored. Only in **Primere_full_workflow.json** workflow. Feature can switch off.
 - Friendly response icons in **segment refiners** if the detailer off or not found segment in the source image.
@@ -293,6 +294,7 @@ Follow the file schema for your own prompts but don't forget to rename the attac
 
 ### Primere image recycler:
 - This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
+- The **prompt_source** input can be switch to **Pic2Story** mode, what creating prompt from the loaded image without reading metdata.
 
 <a href="./Workflow/readme_images/pimgrecycler.jpg" target="_blank"><img src="./Workflow/readme_images/pimgrecycler.jpg" height="340px"></a>
 

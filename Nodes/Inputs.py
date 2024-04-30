@@ -394,7 +394,7 @@ class PrimereMetaHandler:
         return {
             "required": {
                 "data_source": ("BOOLEAN", {"default": False, "label_on": "Use image meta", "label_off": "Use workflow settings"}),
-                "prompt_surce": ("BOOLEAN", {"default": True, "label_on": "Meta prompt", "label_off": "Workflow prompt"}),
+                "prompt_surce": ("BOOLEAN", {"default": True, "label_on": "Meta or workflow", "label_off": "Pic2story model"}),
                 "prompt_state": ("BOOLEAN", {"default": False, "label_on": "Use decoded prompt", "label_off": "Use dynamic prompt"}),
                 "model": ("BOOLEAN", {"default": True, "label_on": "Meta model", "label_off": "Workflow model"}),
                 "model_hash_check": ("BOOLEAN", {"default": False, "label_on": "Check model hash", "label_off": "Use model name"}),
@@ -723,17 +723,36 @@ class PrimereMetaHandler:
             else:
                 return len(utility.WORKFLOW_SORT_LIST)
 
+        image_file = Path(image_path)
+        if 'image' in kwargs and image_file.is_file() == True:
+            img = nodes.LoadImage.load_image(self, kwargs['image'])[0]
+
+            if kwargs['prompt_surce'] == False and workflow_tuple is None:
+                workflow_tuple = {}
+                workflow_tuple['exif_status'] = 'FAILED'
+
+            if kwargs['prompt_surce'] != False and workflow_tuple is not None:
+                workflow_tuple['pic2story'] = 'OFF'
+
+            if kwargs['prompt_surce'] == False and workflow_tuple is not None:
+                repo_id = "abhijit2111/Pic2Story"
+                prompts = ['Image of', 'Image creation style is', 'Colours on the picture']
+
+                story_out = utility.Pic2Story(repo_id, img, prompts, True, True)
+                if type(story_out) == str:
+                    workflow_tuple['pic2story'] = 'SUCCEED'
+                    workflow_tuple['pic2story_positive'] = story_out
+                else:
+                    workflow_tuple['pic2story'] = 'FAILED'
+
+        else:
+            img = None
+
         if workflow_tuple is not None and len(workflow_tuple) >= 1:
             workflow_tuple = dict(sorted(workflow_tuple.items(), key=lambda pair: DictSort(pair[0])))
             workflow_tuple['setup_states'] = kwargs
             if 'workflow_tuple' in workflow_tuple['setup_states']:
                 del workflow_tuple['setup_states']['workflow_tuple']
-
-        image_file = Path(image_path)
-        if 'image' in kwargs and image_file.is_file() == True:
-            img = nodes.LoadImage.load_image(self, kwargs['image'])[0]
-        else:
-            img = None
 
         return (workflow_tuple, original_exif, img,)
 
@@ -752,7 +771,7 @@ class PrimereMetaDistributor:
         }
 
     def expand_meta(self, workflow_tuple):
-        PROCESSED_KEYS = ['positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r',
+        PROCESSED_KEYS = ['pic2story', 'positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r',
                           'model', 'model_version', 'model_concept', 'concept_data', 'vae',
                           'sampler', 'scheduler', 'steps', 'cfg',
                           'seed', 'width', 'height']
@@ -761,10 +780,27 @@ class PrimereMetaDistributor:
         if workflow_tuple is not None and type(workflow_tuple).__name__ == 'dict':
             for outputkeys in PROCESSED_KEYS:
                 if outputkeys in workflow_tuple:
-                    output_value = workflow_tuple[outputkeys]
-                    if output_value == "":
-                        output_value = None
-                    OUTPUT_TUPLE.append(output_value)
+                    match outputkeys:
+                        case "pic2story":
+                            if workflow_tuple[outputkeys] == 'SUCCEED' and 'pic2story_positive' in workflow_tuple:
+                                workflow_tuple['positive'] = workflow_tuple['pic2story_positive']
+                                workflow_tuple['prompt_state'] = 'Dynamic'
+                                workflow_tuple['exif_status'] = 'OFF'
+                                if 'decoded_positive' in workflow_tuple:
+                                    del workflow_tuple['decoded_positive']
+                                if 'decoded_negative' in workflow_tuple:
+                                    del workflow_tuple['decoded_negative']
+                                if 'pic2story_positive' in workflow_tuple:
+                                    del workflow_tuple['pic2story_positive']
+                                if 'exif_data_count' in workflow_tuple:
+                                    del workflow_tuple['exif_data_count']
+                                if 'meta_source' in workflow_tuple:
+                                    del workflow_tuple['meta_source']
+                        case _:
+                            output_value = workflow_tuple[outputkeys]
+                            if output_value == "":
+                                output_value = None
+                            OUTPUT_TUPLE.append(output_value)
                 else:
                     MISSING_VALUES = None
                     match outputkeys:

@@ -33,3 +33,4 @@ transformers
 ultralytics
 yapf
 openai-clip
+huggingface_hub
