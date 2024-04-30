@@ -55,6 +55,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Nvidia AlignYourSteps support on sampler: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/
 - Image recycler node read images without meta, using Pic2Story model to generate prompt from picture only 
 - Some nodes moved to **deprecated** subtree. Nodes can be used but not developed in the future.
 - **Segmented refiners** will mesure the aesthetic score of results, and if the original segment is better, changes will be ignored. Only in **Primere_full_workflow.json** workflow. Feature can switch off.
@@ -518,6 +519,7 @@ Get the aesthetic score of your generated image.
 
 ### Primere KSampler:
 Sampler using the 'model_concept' input this node automatically handle Turbo and Cascade modes, no need another workflow or extra node. You can select device (CPU or GPU), and use 'variation_extender' input for new image with very less (adjustable) difference from previous one (if seed and other details freezed). This settings can be used in queued workflow.
+- One button support of Nvidia AlignYourStpes: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/
 
 <a href="./Workflow/readme_images/pksampler.jpg" target="_blank"><img src="./Workflow/readme_images/pksampler.jpg" height="220px"></a>
 <hr>
