@@ -473,79 +473,68 @@ class PrimereKSampler:
 
         batch_counter = int(check_state(self, extra_pnginfo, prompt)) + 1
 
-        if align_your_steps == True:
-            modelname_only = model
-            model_version = utility.get_value_from_cache('model_version', modelname_only)
-            match model_version:
-                case 'SDXL_2048':
-                    model_type = 'SDXL'
-                case _:
-                    model_type = 'SD1'
+        match model_concept:
+            case "Turbo":
+                sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
+                sampler = comfy.samplers.sampler_object(sampler_name)
+                turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                samples = (turbo_samples[0],)
 
-            sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
-            sampler = comfy.samplers.sampler_object(sampler_name)
-            AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-            samples = (AYS_samples[0],)
-        else:
-            match model_concept:
-                case "Turbo":
-                    sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
-                    sampler = comfy.samplers.sampler_object(sampler_name)
-                    turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-                    samples = (turbo_samples[0],)
+            case "Cascade":
+                if type(model).__name__ == 'list':
+                    latent_size = utility.getLatentSize(latent_image)
+                    if (latent_size[0] < latent_size[1]):
+                        orientation = 'Vertical'
+                    else:
+                        orientation = 'Horizontal'
 
-                case "Cascade":
-                    if type(model).__name__ == 'list':
-                        latent_size = utility.getLatentSize(latent_image)
-                        if (latent_size[0] < latent_size[1]):
-                            orientation = 'Vertical'
-                        else:
-                            orientation = 'Horizontal'
+                    dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
+                    dimension_x = dimensions[0]
+                    dimension_y = dimensions[1]
 
-                        dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
-                        dimension_x = dimensions[0]
-                        dimension_y = dimensions[1]
+                    height = dimension_y
+                    width = dimension_x
+                    compression = 42
+                    if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
+                        c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
+                        b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
+                        samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
+                        conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
+                        samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+            case _:
+                if variation_batch_step_original > 0:
+                    if batch_counter > 0:
+                        variation_batch_step = variation_batch_step_original * batch_counter
 
-                        height = dimension_y
-                        width = dimension_x
-                        compression = 42
-                        if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
-                            c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
-                            b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
-                            samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
-                            conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
-                            samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
-                            # return samples
-                case _:
-                    if variation_batch_step_original > 0:
-                        if batch_counter > 0:
-                            variation_batch_step = variation_batch_step_original * batch_counter
+                    variation_extender = round(variation_extender_original + variation_batch_step, 2)
 
-                        variation_extender = round(variation_extender_original + variation_batch_step, 2)
+                if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
+                    if (variation_extender > 1):
+                        random.seed(batch_counter)
+                        variation_extender = round(random.uniform(0.01, 1.00), 2)
+                    if variation_batch_step == 0:
+                        variation_seed = batch_counter + seed
+                    else:
+                        variation_seed = seed
+                    samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
+                else:
+                    if align_your_steps == True:
+                        modelname_only = model
+                        model_version = utility.get_value_from_cache('model_version', modelname_only)
+                        match model_version:
+                            case 'SDXL_2048':
+                                model_type = 'SDXL'
+                            case _:
+                                model_type = 'SD1'
 
-                    if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
-                        if (variation_extender > 1):
-                            random.seed(batch_counter)
-                            variation_extender = round(random.uniform(0.01, 1.00), 2)
-                        if variation_batch_step == 0:
-                            variation_seed = batch_counter + seed
-                        else:
-                            variation_seed = seed
-                        samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
+                        sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
+                        sampler = comfy.samplers.sampler_object(sampler_name)
+                        AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                        samples = (AYS_samples[0],)
                     else:
                         samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
 
         return samples
-
-    '''
-        if variation_batch_step > 0:
-            variation_extender = variation_extender + (batch_counter * variation_batch_step)
-
-        if variation_extender > 0 or device != 'DEFAULT':
-            variation_seed = batch_counter + seed
-            samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, samples, denoise, variation_seed, variation_extender)[0]
-            # return samples    
-    '''
 
 class PrimerePreviewImage():
     CATEGORY = TREE_OUTPUTS
