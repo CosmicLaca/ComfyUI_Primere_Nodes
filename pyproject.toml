@@ -1,0 +1,15 @@
+[project]
+name = "comfyui_primere_nodes"
+description = "This extension provides various utility nodes. Inputs(prompt, styles, dynamic, merger, ...), Outputs(style pile), Dashboard(selectors, loader, switch, ...), Networks(LORA, Embedding, Hypernetwork), Visuals(visual selectors, )"
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["Pillow", "PyYAML", "Requests", "addict", "aiohttp", "chardet", "clip", "dynamicprompts", "ftfy", "ipdb", "numpy", "opencv_contrib_python", "opencv_python", "opencv_python_headless", "pandas", "pefile", "piexif", "pipreqs", "pycocotools", "pyexiv2", "pytorch_lightning", "pytz", "regex", "segment_anything", "setuptools", "supervision", "timm", "tomli", "torch", "torchvision", "tqdm", "transformers", "ultralytics", "yapf", "openai-clip", "huggingface_hub"]
+
+[project.urls]
+Repository = "https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI_Primere_Nodes"
+Icon = ""
