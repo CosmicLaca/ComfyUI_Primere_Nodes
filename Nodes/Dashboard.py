@@ -99,7 +99,7 @@ class PrimereCKPT:
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
-            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model, output_vae=True, output_clip=True)
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model)
             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
@@ -163,8 +163,8 @@ class PrimereLCMSelector:
         return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
 class PrimereModelConceptSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP")
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT", "STRING", "STRING", "STRING", "STRING", "STRING", "INT")
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP", "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP")
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
@@ -181,10 +181,14 @@ class PrimereModelConceptSelector:
                 "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
                 "normal_steps": ('INT', {"forceInput": True, "default": 12}),
 
-                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning", "Playground"], {"default": "Normal"}),
+                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning", "Playground", "Hyper-SD"], {"default": "Normal"}),
                 "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "SAFETENSOR"}),
                 "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
                 "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
+
+                "hypersd_selector": (["UNET", "LORA"], {"default": "LORA"}),
+                "hypersd_model_step": ([1, 2, 4, 8], {"default": 8}),
+                "hypersd_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
 
                 "cascade_stage_a": (cls.VAELIST,),
                 "cascade_stage_b": (cls.UNETLIST,),
@@ -219,17 +223,25 @@ class PrimereModelConceptSelector:
                 "playground_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
                 "playground_cfg_scale": ('FLOAT', {"forceInput": True, "default": 3}),
                 "playground_steps": ('INT', {"forceInput": True, "default": 50}),
+
+                "hypersd_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "dpmpp_sde"}),
+                "hypersd_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
+                "hypersd_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
+                "hypersd_steps": ('INT', {"forceInput": True, "default": 6}),
             }
         }
 
     def select_model_concept(self, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
-                             model_concept = 'Normal', lightning_selector = "SAFETENSOR", lightning_model_step = 8, lightning_sampler = False,
+                             model_concept = 'Normal',
+                             lightning_selector = "SAFETENSOR", lightning_model_step = 8, lightning_sampler = False,
+                             hypersd_selector="LORA", hypersd_model_step=8, hypersd_sampler=False,
                              normal_sampler_name = 'euler', normal_scheduler_name = 'normal', normal_cfg_scale = 7, normal_steps = 12,
                              lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', lcm_cfg_scale = 1.2, lcm_steps = 6,
                              turbo_sampler_name = 'dpmpp_sde', turbo_scheduler_name = "karras", turbo_cfg_scale = 1.15, turbo_steps = 2,
                              cascade_sampler_name = 'euler_ancestral', cascade_scheduler_name = "simple", cascade_cfg_scale = 4, cascade_steps = 20,
                              lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6,
-                             playground_sampler_name = 'euler', playground_scheduler_name = 'normal', playground_cfg_scale = 3, playground_steps = 50):
+                             playground_sampler_name = 'euler', playground_scheduler_name = 'normal', playground_cfg_scale = 3, playground_steps = 50,
+                             hypersd_sampler_name = 'dpmpp_sde', hypersd_scheduler_name = "simple", hypersd_cfg_scale = 1.2, hypersd_steps = 6,):
 
         sampler_name = normal_sampler_name
         scheduler_name = normal_scheduler_name
@@ -279,9 +291,25 @@ class PrimereModelConceptSelector:
                 steps = playground_steps
                 cfg_scale = playground_cfg_scale
 
+            case 'Hyper-SD':
+                if hypersd_sampler == False:
+                    sampler_name = hypersd_sampler_name
+                    scheduler_name = hypersd_scheduler_name
+                    steps = hypersd_steps
+                    cfg_scale = hypersd_cfg_scale
+                else:
+                    sampler_name = 'euler'
+                    scheduler_name = 'sgm_uniform'
+                    steps = hypersd_model_step
+                    cfg_scale = 1
+
         if model_concept != 'Lightning':
             lightning_selector = None
             lightning_model_step = None
+
+        if model_concept != 'Hyper-SD':
+            hypersd_selector = None
+            hypersd_model_step = None
 
         if model_concept != 'Cascade':
             cascade_stage_a = None
@@ -289,7 +317,7 @@ class PrimereModelConceptSelector:
             cascade_stage_c = None
             cascade_clip = None
 
-        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip)
+        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip, hypersd_selector, hypersd_model_step,)
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
@@ -321,6 +349,7 @@ class PrimereCKPTLoader:
     def load_primere_ckpt(self, ckpt_name, use_yaml, strength_lcm_model, strength_lcm_clip,
                           model_concept = "Normal", concept_data = None,
                           lightning_selector = 'SAFETENSOR', lightning_model_step = 8,
+                          hypersd_selector = 'LORA', hypersd_model_step = 8,
                           cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
                           loaded_model = None, loaded_clip = None, loaded_vae = None):
 
@@ -332,6 +361,11 @@ class PrimereCKPTLoader:
                 lightning_selector = concept_data['lightning_selector']
             if 'lightning_model_step' in concept_data:
                 lightning_model_step = concept_data['lightning_model_step']
+
+            if 'hypersd_selector' in concept_data:
+                hypersd_selector = concept_data['hypersd_selector']
+            if 'hypersd_model_step' in concept_data:
+                hypersd_model_step = concept_data['hypersd_model_step']
 
             if 'cascade_stage_a' in concept_data:
                 cascade_stage_a = concept_data['cascade_stage_a']
@@ -353,7 +387,7 @@ class PrimereCKPTLoader:
             OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
             return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
 
-        ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step)
+        ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step)
         ckpt_name = ModelConceptChanges['ckpt_name']
         lora_name = ModelConceptChanges['lora_name']
         unet_name = ModelConceptChanges['unet_name']
@@ -376,16 +410,25 @@ class PrimereCKPTLoader:
                 try:
                     LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
                 except Exception:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name, output_vae=True, output_clip=True)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
             else:
-                LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name, output_vae=True, output_clip=True)
+                LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
 
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         OUTPUT_CLIP = LOADED_CHECKPOINT[1]
+
         MODEL_VERSION = utility.get_value_from_cache('model_version', ModelName)
         if MODEL_VERSION is None:
             MODEL_VERSION = utility.getCheckpointVersion(OUTPUT_MODEL)
             utility.add_value_to_cache('model_version', ModelName, MODEL_VERSION)
+
+        hyperModeValid = False
+        if model_concept == "Hyper-SD":
+            ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, MODEL_VERSION)
+            # ckpt_name = ModelConceptChanges['ckpt_name']
+            lora_name = ModelConceptChanges['lora_name']
+            unet_name = ModelConceptChanges['unet_name']
+            hyperModeValid = ModelConceptChanges['hyperModeValid']
 
         def lcm(self, model, zsnr=False):
             m = model.clone()
@@ -460,6 +503,9 @@ class PrimereCKPTLoader:
 
         if model_concept == "Lightning" and lightningModeValid == True and loaded_model is None:
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name)
+
+        if model_concept == "Hyper-SD" and hyperModeValid == True and loaded_model is None:
+            OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
         if model_concept == "Playground":
             OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
@@ -1495,6 +1541,9 @@ class PrimereConceptDataTuple:
                 "cascade_stage_b": ("STRING", {"forceInput": True}),
                 "cascade_stage_c": ("STRING", {"forceInput": True}),
                 "cascade_clip": ("STRING", {"forceInput": True}),
+
+                "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
+                "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
             },
         }
 

@@ -501,6 +501,15 @@ class PrimereKSampler:
                         samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
                         conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
                         samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+
+            case "Hyper-SD":
+                SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta = 0.8)
+                model = SamplingDiscreteResults[0]
+                sampler = SamplingDiscreteResults[1]
+                sigmas = SamplingDiscreteResults[2]
+                hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
+                samples = (hyper_lora_samples[0],)
+
             case _:
                 if variation_batch_step_original > 0:
                     if batch_counter > 0:

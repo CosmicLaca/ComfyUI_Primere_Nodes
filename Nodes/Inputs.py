@@ -459,7 +459,7 @@ class PrimereMetaHandler:
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
                         if model_file.is_file() == True:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
                             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
@@ -612,7 +612,7 @@ class PrimereMetaHandler:
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
                         if model_file.is_file() == True:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
                             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
                         else:
@@ -625,7 +625,7 @@ class PrimereMetaHandler:
                                 model_full_path = checkpointpaths + os.sep + allcheckpoints[0]
                                 model_file = Path(model_full_path)
                                 if model_file.is_file() == True:
-                                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'], output_vae=False, output_clip=False)
+                                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
                                     model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                                     utility.add_value_to_cache('model_version', modelname_only, model_version)
                                 else:
@@ -1064,10 +1064,10 @@ class PrimereMetaRead:
                 if (type(readerResult.parser).__name__ == 'dict'):
                     print('Reader tool return empty, using node input')
                     if (force_model_vae == True):
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, model_name, output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, model_name)
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                         realvae = LOADED_CHECKPOINT[2]
 
                     return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
@@ -1090,10 +1090,10 @@ class PrimereMetaRead:
                 if (readerResult.tool == ''):
                     print('Reader tool return empty, using node input')
                     if (force_model_vae == True):
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, model_name, output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, model_name)
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                         realvae = LOADED_CHECKPOINT[2]
 
                     return (positive, negative, positive_l, negative_l, positive_r, negative_r, model_name, sampler_name, scheduler_name, seed, width, height, cfg_scale, steps, data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
@@ -1121,7 +1121,7 @@ class PrimereMetaRead:
                         modelname_only = Path((data_json['model_name'])).stem
                         model_version = utility.get_value_from_cache('model_version', modelname_only)
                         if model_version is None:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
@@ -1165,7 +1165,7 @@ class PrimereMetaRead:
                         if len(LOADED_CHECKPOINT) == 3:
                             realvae = LOADED_CHECKPOINT[2]
                         else:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                             realvae = LOADED_CHECKPOINT[2]
                     else:
                         if use_exif_vae == True:
@@ -1203,7 +1203,7 @@ class PrimereMetaRead:
                             data_json['dynamic_negative'] = reader.parameter['dynamic_negative']
 
                     if len(LOADED_CHECKPOINT) != 3:
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
 
                     return (data_json['positive'], data_json['negative'], data_json['positive_l'], data_json['negative_l'], data_json['positive_r'], data_json['negative_r'], data_json['model_name'], data_json['sampler_name'], data_json['scheduler_name'], data_json['seed'], data_json['width'], data_json['height'], data_json['cfg_scale'], data_json['steps'], data_json['vae_name'], realvae, LOADED_CHECKPOINT[1], LOADED_CHECKPOINT[0], data_json)
 
@@ -1213,7 +1213,7 @@ class PrimereMetaRead:
                         if len(LOADED_CHECKPOINT) == 3:
                             realvae = LOADED_CHECKPOINT[2]
                         else:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                             realvae = LOADED_CHECKPOINT[2]
                     else:
                         realvae = nodes.VAELoader.load_vae(self, data_json['vae_name'])[0]
@@ -1226,7 +1226,7 @@ class PrimereMetaRead:
                     if len(LOADED_CHECKPOINT) == 3:
                         realvae = LOADED_CHECKPOINT[2]
                     else:
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                         realvae = LOADED_CHECKPOINT[2]
                 else:
                     realvae = nodes.VAELoader.load_vae(self, data_json['vae_name'])[0]
@@ -1242,7 +1242,7 @@ class PrimereMetaRead:
                 modelname_only = Path(data_json['model_name']).stem
                 model_version = utility.get_value_from_cache('model_version', modelname_only)
                 if model_version is None:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                     model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                     utility.add_value_to_cache('model_version', modelname_only, model_version)
 
@@ -1256,11 +1256,11 @@ class PrimereMetaRead:
                 if len(LOADED_CHECKPOINT) == 3:
                     realvae = LOADED_CHECKPOINT[2]
                 else:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                     realvae = LOADED_CHECKPOINT[2]
             else:
                 if len(LOADED_CHECKPOINT) != 3:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=False, output_clip=True)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
 
                 if (is_sdxl == 1):
                     data_json['vae_name'] = vae_name_sdxl
@@ -1301,7 +1301,7 @@ class PrimereMetaRead:
                 modelname_only = Path(data_json['model_name']).stem
                 model_version = utility.get_value_from_cache('model_version', modelname_only)
                 if model_version is None:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'], output_vae=True, output_clip=True)
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
                     model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
                     utility.add_value_to_cache('model_version', modelname_only, model_version)
 

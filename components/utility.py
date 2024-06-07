@@ -25,6 +25,13 @@ import pytorch_lightning as pl
 import torch.nn as nn
 from PIL import Image, ImageOps, ImageSequence
 
+from comfy.k_diffusion.sampling import default_noise_sampler
+from comfy.ldm.modules.diffusionmodules.util import make_beta_schedule
+from comfy.model_sampling import EPS
+from comfy.samplers import KSAMPLER, calculate_sigmas
+from comfy_extras.nodes_model_advanced import ModelSamplingDiscreteDistilled
+from tqdm.auto import trange
+
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
 CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
@@ -647,10 +654,11 @@ def hf_downloader(repo_id, model_local_dir):
     snapshot_download(repo_id=repo_id, local_dir=model_path, local_dir_use_symlinks=True, max_workers=1)
     return model_path
 
-def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step):
+def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, model_version = 'SDXL_2048'):
     lora_name = None
     unet_name = None
     lightningModeValid = False
+    hyperModeValid = False
 
     if model_concept == 'Lightning':
         if lightning_selector == 'SAFETENSOR':
@@ -677,12 +685,34 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
             if len(UnetList) > 0:
                 allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
                 if len(allUnetLightning) > 0:
-                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
+                    finalLightning = list(filter(lambda a: str(hypersd_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
                     if len(finalLightning) > 0:
                         lightningModeValid = True
                         unet_name = finalLightning[0]
 
-    return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid}
+    if model_concept == 'Hyper-SD':
+        if hypersd_selector == 'LORA':
+            LoraList = folder_paths.get_filename_list("loras")
+            if len(LoraList) > 0:
+                if model_version == 'SDXL_2048':
+                    allLoraHyper = list(filter(lambda a: 'Hyper-SDXL-'.casefold() in a.casefold(), LoraList))
+                else:
+                    allLoraHyper = list(filter(lambda a: 'Hyper-SD15-'.casefold() in a.casefold(), LoraList))
+                if len(allLoraHyper) > 0:
+                    finalHyper = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLoraHyper))
+                    if len(finalHyper) > 0:
+                        hyperModeValid = True
+                        lora_name = finalHyper[0]
+
+        if hypersd_selector == 'UNET':
+            UnetList = folder_paths.get_filename_list("unet")
+            if len(UnetList) > 0:
+                allUnetHyper = list(filter(lambda a: 'Hyper-SDXL-1step-Unet-Comfyui'.casefold() in a.casefold(), UnetList))
+                if len(allUnetHyper) > 0:
+                    hyperModeValid = True
+                    unet_name = allUnetHyper[0]
+
+    return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid, 'hyperModeValid': hyperModeValid}
 
 def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name):
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
@@ -694,7 +724,66 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
     if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
+    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
+        OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
+
+    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'UNET' and lora_name is not None:
+        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
+
     return OUTPUT_MODEL
+
+class ModelSamplingDiscreteDistilledTCD(ModelSamplingDiscreteDistilled, EPS):
+    def __init__(self, model_config=None):
+        super().__init__(model_config)
+        sampling_settings = model_config.sampling_settings if model_config is not None else {}
+
+        beta_schedule = sampling_settings.get("beta_schedule", "linear")
+        linear_start = sampling_settings.get("linear_start", 0.00085)
+        linear_end = sampling_settings.get("linear_end", 0.012)
+
+        betas = make_beta_schedule(
+            beta_schedule, n_timestep=1000, linear_start=linear_start, linear_end=linear_end, cosine_s=8e-3
+        )
+        alphas = 1.0 - betas
+        alphas_cumprod = torch.cumprod(alphas, dim=0, dtype=torch.float32)
+        self.register_buffer("alphas_cumprod", alphas_cumprod.clone().detach())
+
+@torch.no_grad()
+def sample_tcd(model, x, sigmas, extra_args=None, callback=None, disable=None, noise_sampler=None, eta=0.3, alpha_prod_s: torch.Tensor = None):
+    extra_args = {} if extra_args is None else extra_args
+    noise_sampler = default_noise_sampler(x) if noise_sampler is None else noise_sampler
+    s_in = x.new_ones([x.shape[0]])
+    beta_prod_s = 1 - alpha_prod_s
+    for i in trange(len(sigmas) - 1, disable=disable):
+        denoised = model(x, sigmas[i] * s_in, **extra_args)
+        eps = (x - denoised) / sigmas[i]
+        denoised = alpha_prod_s[i + 1].sqrt() * denoised + beta_prod_s[i + 1].sqrt() * eps
+        if callback is not None:
+            callback({"x": x, "i": i, "sigma": sigmas[i], "sigma_hat": sigmas[i], "denoised": denoised})
+        x = denoised
+        if eta > 0 and sigmas[i + 1] > 0:
+            noise = noise_sampler(sigmas[i], sigmas[i + 1])
+            x = x / alpha_prod_s[i+1].sqrt() + noise * (sigmas[i+1]**2 + 1 - 1/alpha_prod_s[i+1]).sqrt()
+    return x
+def TCDModelSamplingDiscrete(self, model, steps=4, scheduler="simple", denoise=1.0, eta=0.3):
+    m = model.clone()
+    ms = ModelSamplingDiscreteDistilledTCD(model.model.model_config)
+
+    total_steps = steps
+    if denoise <= 0.0:
+        # raise error ?
+        sigmas = torch.FloatTensor([])
+    elif denoise <= 1.0:
+        total_steps = int(steps / denoise)
+        sigmas = calculate_sigmas(ms, scheduler, total_steps).cpu()
+        sigmas = sigmas[-(steps + 1) :]
+    m.add_object_patch("model_sampling", ms)
+
+    timesteps_s = torch.floor((1 - eta) * ms.timestep(sigmas)).to(dtype=torch.long).detach()
+    timesteps_s[-1] = 0
+    alpha_prod_s = ms.alphas_cumprod[timesteps_s]
+    sampler = KSAMPLER(sample_tcd, extra_options={"eta": eta, "alpha_prod_s": alpha_prod_s}, inpaint_options={})
+    return (m, sampler, sigmas)
 
 def getLatentSize(samples):
     for tensor in samples['samples'][0]:

@@ -39,7 +39,7 @@ class PrimereVisualCKPT:
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
-            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model, output_vae=True, output_clip=True)
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model)
             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
