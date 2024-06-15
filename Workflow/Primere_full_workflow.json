@@ -1,13 +1,13 @@
 {
-  "last_node_id": 160,
-  "last_link_id": 929,
+  "last_node_id": 161,
+  "last_link_id": 937,
   "nodes": [
     {
       "id": 9,
       "type": "PrimereVisualStyle",
       "pos": [
-        1966.5163360648191,
-        262.76577735169104
+        1963.659913408569,
+        424.796014070441
       ],
       "size": {
         "0": 435.4545593261719,
@@ -82,8 +82,8 @@
       "id": 11,
       "type": "PrimerePromptOrganizer",
       "pos": [
-        1962.5008427680516,
-        578.6811341491724
+        1959.6444201118015,
+        740.711370867922
       ],
       "size": {
         "0": 435.814208984375,
@@ -1441,18 +1441,83 @@
       "bgcolor": "#000080"
     },
     {
+      "id": 161,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        3156,
+        21
+      ],
+      "size": [
+        398.4143631748393,
+        190
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            930
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            931
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            932
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            933
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - HYPER-SD",
+      "properties": {
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_2s_ancestral",
+        "simple",
+        6,
+        1
+      ],
+      "color": "#007dc3",
+      "bgcolor": "#0091d7"
+    },
+    {
       "id": 10,
       "type": "PrimerePromptSwitch",
       "pos": [
-        2420.5163360648194,
-        261.76577735169104
+        2417.6599134085695,
+        423.796014070441
       ],
       "size": {
         "0": 341.5111389160156,
         "1": 761.2509765625
       },
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1752,6 +1817,549 @@
       "bgcolor": "#925f38"
     },
     {
+      "id": 159,
+      "type": "PrimereModelConceptSelector",
+      "pos": [
+        3565,
+        -678
+      ],
+      "size": {
+        "0": 512.0411376953125,
+        "1": 838
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "normal_sampler_name",
+          "type": "COMBO",
+          "link": 869,
+          "widget": {
+            "name": "normal_sampler_name"
+          }
+        },
+        {
+          "name": "normal_scheduler_name",
+          "type": "COMBO",
+          "link": 870,
+          "widget": {
+            "name": "normal_scheduler_name"
+          }
+        },
+        {
+          "name": "normal_cfg_scale",
+          "type": "FLOAT",
+          "link": 871,
+          "widget": {
+            "name": "normal_cfg_scale"
+          }
+        },
+        {
+          "name": "normal_steps",
+          "type": "INT",
+          "link": 872,
+          "widget": {
+            "name": "normal_steps"
+          }
+        },
+        {
+          "name": "lcm_sampler_name",
+          "type": "COMBO",
+          "link": 873,
+          "widget": {
+            "name": "lcm_sampler_name"
+          }
+        },
+        {
+          "name": "lcm_scheduler_name",
+          "type": "COMBO",
+          "link": 874,
+          "widget": {
+            "name": "lcm_scheduler_name"
+          }
+        },
+        {
+          "name": "lcm_cfg_scale",
+          "type": "FLOAT",
+          "link": 875,
+          "widget": {
+            "name": "lcm_cfg_scale"
+          }
+        },
+        {
+          "name": "lcm_steps",
+          "type": "INT",
+          "link": 876,
+          "widget": {
+            "name": "lcm_steps"
+          }
+        },
+        {
+          "name": "turbo_sampler_name",
+          "type": "COMBO",
+          "link": 877,
+          "widget": {
+            "name": "turbo_sampler_name"
+          }
+        },
+        {
+          "name": "turbo_scheduler_name",
+          "type": "COMBO",
+          "link": 878,
+          "widget": {
+            "name": "turbo_scheduler_name"
+          }
+        },
+        {
+          "name": "turbo_cfg_scale",
+          "type": "FLOAT",
+          "link": 879,
+          "widget": {
+            "name": "turbo_cfg_scale"
+          }
+        },
+        {
+          "name": "turbo_steps",
+          "type": "INT",
+          "link": 880,
+          "widget": {
+            "name": "turbo_steps"
+          }
+        },
+        {
+          "name": "cascade_sampler_name",
+          "type": "COMBO",
+          "link": 881,
+          "widget": {
+            "name": "cascade_sampler_name"
+          }
+        },
+        {
+          "name": "cascade_scheduler_name",
+          "type": "COMBO",
+          "link": 882,
+          "widget": {
+            "name": "cascade_scheduler_name"
+          }
+        },
+        {
+          "name": "cascade_cfg_scale",
+          "type": "FLOAT",
+          "link": 883,
+          "widget": {
+            "name": "cascade_cfg_scale"
+          }
+        },
+        {
+          "name": "cascade_steps",
+          "type": "INT",
+          "link": 884,
+          "widget": {
+            "name": "cascade_steps"
+          }
+        },
+        {
+          "name": "lightning_sampler_name",
+          "type": "COMBO",
+          "link": 885,
+          "widget": {
+            "name": "lightning_sampler_name"
+          }
+        },
+        {
+          "name": "lightning_scheduler_name",
+          "type": "COMBO",
+          "link": 886,
+          "widget": {
+            "name": "lightning_scheduler_name"
+          }
+        },
+        {
+          "name": "lightning_cfg_scale",
+          "type": "FLOAT",
+          "link": 887,
+          "widget": {
+            "name": "lightning_cfg_scale"
+          }
+        },
+        {
+          "name": "lightning_steps",
+          "type": "INT",
+          "link": 888,
+          "widget": {
+            "name": "lightning_steps"
+          }
+        },
+        {
+          "name": "playground_sampler_name",
+          "type": "COMBO",
+          "link": 889,
+          "widget": {
+            "name": "playground_sampler_name"
+          }
+        },
+        {
+          "name": "playground_scheduler_name",
+          "type": "COMBO",
+          "link": 890,
+          "widget": {
+            "name": "playground_scheduler_name"
+          }
+        },
+        {
+          "name": "playground_cfg_scale",
+          "type": "FLOAT",
+          "link": 891,
+          "widget": {
+            "name": "playground_cfg_scale"
+          }
+        },
+        {
+          "name": "playground_steps",
+          "type": "INT",
+          "link": 892,
+          "widget": {
+            "name": "playground_steps"
+          }
+        },
+        {
+          "name": "hypersd_sampler_name",
+          "type": "COMBO",
+          "link": 930,
+          "widget": {
+            "name": "hypersd_sampler_name"
+          }
+        },
+        {
+          "name": "hypersd_scheduler_name",
+          "type": "COMBO",
+          "link": 931,
+          "widget": {
+            "name": "hypersd_scheduler_name"
+          }
+        },
+        {
+          "name": "hypersd_cfg_scale",
+          "type": "FLOAT",
+          "link": 933,
+          "widget": {
+            "name": "hypersd_cfg_scale"
+          }
+        },
+        {
+          "name": "hypersd_steps",
+          "type": "INT",
+          "link": 932,
+          "widget": {
+            "name": "hypersd_steps"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            913
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            914
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            916
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            915
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            917,
+            927
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "LIGHTNING_SELECTOR",
+          "type": "STRING",
+          "links": [
+            894
+          ],
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "LIGHTNING_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            895
+          ],
+          "shape": 3,
+          "slot_index": 6
+        },
+        {
+          "name": "CASCADE_STAGE_A",
+          "type": "STRING",
+          "links": [
+            896
+          ],
+          "shape": 3,
+          "slot_index": 7
+        },
+        {
+          "name": "CASCADE_STAGE_B",
+          "type": "STRING",
+          "links": [
+            897
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "CASCADE_STAGE_C",
+          "type": "STRING",
+          "links": [
+            898
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "CASCADE_CLIP",
+          "type": "STRING",
+          "links": [
+            899
+          ],
+          "shape": 3,
+          "slot_index": 10
+        },
+        {
+          "name": "HYPER-SD_SELECTOR",
+          "type": "STRING",
+          "links": [
+            900
+          ],
+          "shape": 3,
+          "slot_index": 11
+        },
+        {
+          "name": "HYPER-SD_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            901
+          ],
+          "shape": 3,
+          "slot_index": 12
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelConceptSelector"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        7,
+        12,
+        "Normal",
+        "LORA",
+        8,
+        false,
+        "LORA",
+        8,
+        false,
+        "Stable-Cascade\\stage_a.safetensors",
+        "Stable-Cascade\\stage_b_bf16.safetensors",
+        "Stable-Cascade\\stage_c_bf16.safetensors",
+        "cascade_clip.safetensors",
+        "lcm",
+        "sgm_uniform",
+        1.2,
+        6,
+        "dpmpp_sde",
+        "normal",
+        1.15,
+        2,
+        "euler_ancestral",
+        "simple",
+        4,
+        20,
+        "dpmpp_sde",
+        "simple",
+        1.2,
+        6,
+        "euler",
+        "normal",
+        3,
+        50,
+        "dpmpp_sde",
+        "simple",
+        1.2,
+        6
+      ],
+      "color": "#447575",
+      "bgcolor": "#306161"
+    },
+    {
+      "id": 58,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1945.14357734375,
+        1656.0302367187496
+      ],
+      "size": {
+        "0": 838.9322509765625,
+        "1": 490.54376220703125
+      },
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 171
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 59,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1950,
+        2022
+      ],
+      "size": {
+        "0": 837.7005615234375,
+        "1": 277.8055419921875
+      },
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 172
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "nsfw, porn, nude, nudity, child, childish, boring"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 12,
+      "type": "PrimereStylePile",
+      "pos": [
+        5265.652138139198,
+        229.39588424960021
+      ],
+      "size": {
+        "0": 315,
+        "1": 438
+      },
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "type": "STRING",
+          "link": 231,
+          "widget": {
+            "name": "opt_pos_style"
+          }
+        },
+        {
+          "name": "opt_neg_style",
+          "type": "STRING",
+          "link": 232,
+          "widget": {
+            "name": "opt_neg_style"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            789
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            790
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereStylePile"
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1.2,
+        "None",
+        1.2,
+        "None",
+        1,
+        "None",
+        1,
+        "",
+        ""
+      ],
+      "color": "#a6734c",
+      "bgcolor": "#925f38"
+    },
+    {
       "id": 23,
       "type": "PrimereResolution",
       "pos": [
@@ -1763,7 +2371,7 @@
         "1": 334
       },
       "flags": {},
-      "order": 28,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -1843,7 +2451,7 @@
         false,
         1.6,
         2.8,
-        994556841040295,
+        633945534729804,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1852,140 +2460,111 @@
       "bgcolor": "#000080"
     },
     {
-      "id": 58,
-      "type": "PrimereAnyOutput",
+      "id": 160,
+      "type": "PrimereConceptDataTuple",
       "pos": [
-        1948,
-        1494
+        2327,
+        -145
       ],
       "size": {
-        "0": 838.9322509765625,
-        "1": 490.54376220703125
+        "0": 368.171142578125,
+        "1": 174
       },
       "flags": {},
-      "order": 26,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
-          "name": "input",
-          "type": "*",
-          "link": 171
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 59,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        1950,
-        2022
-      ],
-      "size": {
-        "0": 837.7005615234375,
-        "1": 277.8055419921875
-      },
-      "flags": {},
-      "order": 27,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 172
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "nsfw, porn, nude, nudity, child, childish, boring"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 12,
-      "type": "PrimereStylePile",
-      "pos": [
-        5265.652138139198,
-        229.39588424960021
-      ],
-      "size": {
-        "0": 315,
-        "1": 438
-      },
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
+          "name": "lightning_selector",
           "type": "STRING",
-          "link": 231,
+          "link": 894,
           "widget": {
-            "name": "opt_pos_style"
+            "name": "lightning_selector"
           }
         },
         {
-          "name": "opt_neg_style",
-          "type": "STRING",
-          "link": 232,
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": 895,
           "widget": {
-            "name": "opt_neg_style"
+            "name": "lightning_model_step"
+          }
+        },
+        {
+          "name": "cascade_stage_a",
+          "type": "STRING",
+          "link": 896,
+          "widget": {
+            "name": "cascade_stage_a"
+          }
+        },
+        {
+          "name": "cascade_stage_b",
+          "type": "STRING",
+          "link": 897,
+          "widget": {
+            "name": "cascade_stage_b"
+          }
+        },
+        {
+          "name": "cascade_stage_c",
+          "type": "STRING",
+          "link": 898,
+          "widget": {
+            "name": "cascade_stage_c"
+          }
+        },
+        {
+          "name": "cascade_clip",
+          "type": "STRING",
+          "link": 899,
+          "widget": {
+            "name": "cascade_clip"
+          }
+        },
+        {
+          "name": "hypersd_selector",
+          "type": "STRING",
+          "link": 900,
+          "widget": {
+            "name": "hypersd_selector"
+          }
+        },
+        {
+          "name": "hypersd_model_step",
+          "type": "INT",
+          "link": 901,
+          "widget": {
+            "name": "hypersd_model_step"
           }
         }
       ],
       "outputs": [
         {
-          "name": "STYLE+",
-          "type": "STRING",
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
           "links": [
-            789
+            926
           ],
           "shape": 3,
           "slot_index": 0
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            790
-          ],
-          "shape": 3,
-          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereStylePile"
+        "Node name for S&R": "PrimereConceptDataTuple"
       },
       "widgets_values": [
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1.2,
-        "None",
-        1.2,
-        "None",
-        1,
-        "None",
-        1,
+        "SAFETENSOR",
+        8,
         "",
-        ""
+        "",
+        "",
+        "",
+        "LORA",
+        8
       ],
-      "color": "#a6734c",
-      "bgcolor": "#925f38"
+      "color": "#141494",
+      "bgcolor": "#000080"
     },
     {
       "id": 133,
@@ -1999,7 +2578,7 @@
         26
       ],
       "flags": {},
-      "order": 31,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2034,15 +2613,15 @@
       "id": 25,
       "type": "PrimereMetaCollector",
       "pos": [
-        2809.5361514228016,
-        264.10324572046386
+        2811.4643627509263,
+        426.13348243921394
       ],
       "size": {
         "0": 346.1827697753906,
         "1": 414
       },
       "flags": {},
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2225,15 +2804,15 @@
       "id": 17,
       "type": "PrimereMetaHandler",
       "pos": [
-        3164.5361514228016,
-        263.10324572046386
+        3166.4643627509263,
+        425.13348243921394
       ],
       "size": {
         "0": 625.8974609375,
         "1": 1235.8433837890625
       },
       "flags": {},
-      "order": 33,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2294,6 +2873,207 @@
       "bgcolor": "#400000"
     },
     {
+      "id": 15,
+      "type": "PrimereMetaDistributor",
+      "pos": [
+        3803.165700076599,
+        424.9599259852884
+      ],
+      "size": {
+        "0": 275.6723937988281,
+        "1": 366
+      },
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            130
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            131
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R+",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT R-",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            64,
+            159
+          ],
+          "shape": 3,
+          "slot_index": 6
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            148,
+            149,
+            150,
+            620
+          ],
+          "shape": 3,
+          "slot_index": 7
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            121,
+            619,
+            788,
+            902,
+            903,
+            904,
+            937
+          ],
+          "shape": 3,
+          "slot_index": 8
+        },
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            122
+          ],
+          "shape": 3,
+          "slot_index": 9
+        },
+        {
+          "name": "VAE",
+          "type": "VAE_NAME",
+          "links": [
+            112
+          ],
+          "shape": 3,
+          "slot_index": 10
+        },
+        {
+          "name": "SAMPLER",
+          "type": "COMBO",
+          "links": [
+            810,
+            826,
+            842,
+            858,
+            918,
+            919
+          ],
+          "shape": 3,
+          "slot_index": 11
+        },
+        {
+          "name": "SCHEDULER",
+          "type": "COMBO",
+          "links": [
+            811,
+            827,
+            843,
+            859,
+            920,
+            921
+          ],
+          "shape": 3,
+          "slot_index": 12
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            614,
+            922,
+            923
+          ],
+          "shape": 3,
+          "slot_index": 13
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            613,
+            924,
+            925
+          ],
+          "shape": 3,
+          "slot_index": 14
+        },
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [],
+          "shape": 3,
+          "slot_index": 15
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            175
+          ],
+          "shape": 3,
+          "slot_index": 16
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            176
+          ],
+          "shape": 3,
+          "slot_index": 17
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaDistributor"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 40,
       "type": "PrimereModelKeyword",
       "pos": [
@@ -2305,7 +3085,7 @@
         "1": 161.1301727294922
       },
       "flags": {},
-      "order": 35,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2350,7 +3130,7 @@
         26
       ],
       "flags": {},
-      "order": 36,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2393,7 +3173,7 @@
         26
       ],
       "flags": {},
-      "order": 37,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -2436,7 +3216,7 @@
         "1": 206
       },
       "flags": {},
-      "order": 38,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2544,7 +3324,7 @@
         26
       ],
       "flags": {},
-      "order": 39,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -2588,7 +3368,7 @@
         26
       ],
       "flags": {},
-      "order": 40,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -2623,15 +3403,15 @@
       "id": 24,
       "type": "PrimereMetaDistributorStage2",
       "pos": [
-        3799.2374887484743,
-        666.9296892665392
+        3801.165700076599,
+        828.9599259852887
       ],
       "size": {
         "0": 277.43243408203125,
         "1": 94
       },
       "flags": {},
-      "order": 41,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -2717,7 +3497,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        563602436055118,
+        14347591966343,
         "randomize",
         512,
         512
@@ -2737,7 +3517,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 42,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -2783,7 +3563,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 43,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -2872,7 +3652,7 @@
         "1": 770
       },
       "flags": {},
-      "order": 44,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -2953,15 +3733,15 @@
       "id": 48,
       "type": "PrimereDynamicParser",
       "pos": [
-        2810.2374887484743,
-        716.9296892665391
+        2812.165700076599,
+        878.9599259852886
       ],
       "size": {
         "0": 345.90313720703125,
         "1": 54
       },
       "flags": {},
-      "order": 45,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -2998,7 +3778,7 @@
       },
       "widgets_values": [
         "",
-        798817966744239,
+        171980372465374,
         "randomize"
       ],
       "color": "#232",
@@ -3008,15 +3788,15 @@
       "id": 49,
       "type": "PrimereDynamicParser",
       "pos": [
-        2810.2374887484743,
-        807.9296892665391
+        2812.165700076599,
+        969.9599259852886
       ],
       "size": {
         "0": 345.90545654296875,
         "1": 54
       },
       "flags": {},
-      "order": 46,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -3053,7 +3833,7 @@
       },
       "widgets_values": [
         "",
-        647809439643949,
+        39651284236328,
         "randomize"
       ],
       "color": "#322",
@@ -3071,7 +3851,7 @@
         26
       ],
       "flags": {},
-      "order": 47,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3118,7 +3898,7 @@
         "1": 406
       },
       "flags": {},
-      "order": 48,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -3187,7 +3967,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        298358722568639,
+        296239630224565,
         "randomize",
         false,
         "cpu",
@@ -3208,7 +3988,7 @@
         "1": 1276.1387939453125
       },
       "flags": {},
-      "order": 49,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3222,7 +4002,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 1104804793479345,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_concept\": \"Hyper-SD\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": \"UNET\",\n        \"hypersd_model_step\": 8\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"lcm\",\n    \"scheduler\": \"simple\",\n    \"steps\": 1,\n    \"cfg\": 1,\n    \"seed\": 1104804793479345,\n    \"width\": 897,\n    \"height\": 1169,\n    \"size_string\": \"897x1169\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -3239,7 +4019,7 @@
         26
       ],
       "flags": {},
-      "order": 50,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3282,7 +4062,7 @@
         "1": 86
       },
       "flags": {},
-      "order": 51,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -3333,6 +4113,94 @@
       "bgcolor": "#c40062"
     },
     {
+      "id": 51,
+      "type": "PrimereClearPrompt",
+      "pos": [
+        2811.165700076599,
+        1059.9599259852891
+      ],
+      "size": {
+        "0": 344.91552734375,
+        "1": 238
+      },
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 149,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 484,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 137,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 903,
+          "widget": {
+            "name": "model_concept"
+          },
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            138
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            139
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "title": "Primere Prompt Cleaner - SD",
+      "properties": {
+        "Node name for S&R": "PrimereClearPrompt"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "",
+        "",
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        "Normal"
+      ],
+      "color": "#146d98",
+      "bgcolor": "#005984"
+    },
+    {
       "id": 35,
       "type": "PreviewImage",
       "pos": [
@@ -3344,7 +4212,7 @@
         "1": 338.87738037109375
       },
       "flags": {},
-      "order": 53,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -3363,15 +4231,15 @@
       "id": 38,
       "type": "PrimereClearPrompt",
       "pos": [
-        2809.2374887484743,
-        1170.9296892665388
+        2811.165700076599,
+        1332.9599259852882
       ],
       "size": {
         "0": 345.5814208984375,
         "1": 238
       },
       "flags": {},
-      "order": 54,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -3459,7 +4327,7 @@
         "1": 562
       },
       "flags": {},
-      "order": 55,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -3567,15 +4435,15 @@
       "id": 50,
       "type": "PrimereEmbeddingHandler",
       "pos": [
-        2808.2374887484743,
-        1443.929689266539
+        2810.165700076599,
+        1605.9599259852885
       ],
       "size": {
         "0": 346.65631103515625,
         "1": 54
       },
       "flags": {},
-      "order": 56,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -3637,7 +4505,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -3739,6 +4607,95 @@
       "bgcolor": "#004040"
     },
     {
+      "id": 53,
+      "type": "PrimereClearPrompt",
+      "pos": [
+        3799.165700076599,
+        961.9599259852886
+      ],
+      "size": {
+        "0": 279.6650390625,
+        "1": 238
+      },
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 148,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 485,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 165,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 902,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            611,
+            786
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            612,
+            787
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "title": "Primere Prompt Cleaner - FINAL",
+      "properties": {
+        "Node name for S&R": "PrimereClearPrompt"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "",
+        "",
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        "Normal"
+      ],
+      "color": "#1474d3",
+      "bgcolor": "#0060bf"
+    },
+    {
       "id": 75,
       "type": "PrimereVisualLORA",
       "pos": [
@@ -3750,7 +4707,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 59,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -3863,7 +4820,7 @@
         26
       ],
       "flags": {},
-      "order": 60,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -3906,7 +4863,7 @@
         26
       ],
       "flags": {},
-      "order": 61,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -3949,7 +4906,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 62,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4063,7 +5020,7 @@
         "1": 72.18949127197266
       },
       "flags": {},
-      "order": 63,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4111,7 +5068,7 @@
         "1": 886
       },
       "flags": {},
-      "order": 64,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -4226,7 +5183,7 @@
         "1": 582
       },
       "flags": {},
-      "order": 65,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -4304,7 +5261,7 @@
         26
       ],
       "flags": {},
-      "order": 66,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -4351,7 +5308,7 @@
         "1": 73.9448013305664
       },
       "flags": {},
-      "order": 67,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -4399,7 +5356,7 @@
         26
       ],
       "flags": {},
-      "order": 68,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -4442,7 +5399,7 @@
         "1": 546.12939453125
       },
       "flags": {},
-      "order": 69,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -4523,7 +5480,7 @@
         1.1,
         0,
         0,
-        288234539305999,
+        710301158576830,
         "randomize",
         "length+mean",
         "down_weight",
@@ -4545,7 +5502,7 @@
         "1": 544.1044311523438
       },
       "flags": {},
-      "order": 70,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -4626,7 +5583,7 @@
         1,
         0,
         0,
-        875048087689733,
+        151548531604069,
         "randomize",
         "mean",
         "comfy++",
@@ -4648,7 +5605,7 @@
         "1": 546.0383911132812
       },
       "flags": {},
-      "order": 71,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -4729,7 +5686,7 @@
         1.1,
         0,
         0,
-        1051659903616233,
+        526101900679394,
         "randomize",
         "mean",
         "A1111",
@@ -4751,7 +5708,7 @@
         "1": 547.9640502929688
       },
       "flags": {},
-      "order": 72,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -4834,7 +5791,7 @@
         1.2,
         0,
         0.2,
-        1111003030391668,
+        962740878038204,
         "randomize",
         "mean",
         "down_weight",
@@ -4856,7 +5813,7 @@
         "1": 806
       },
       "flags": {},
-      "order": 73,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -5094,7 +6051,7 @@
         "1": 334
       },
       "flags": {},
-      "order": 74,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -5120,7 +6077,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 730,
+          "link": 937,
           "widget": {
             "name": "model_concept"
           }
@@ -5181,7 +6138,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1040845431738994,
+        73576243907379,
         "randomize",
         20,
         8,
@@ -5209,7 +6166,7 @@
         "1": 560.9939575195312
       },
       "flags": {},
-      "order": 75,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -5223,7 +6180,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, embedding:Extreme, (Futurism:1.20), (Pastel Colors:1.20), design"
+        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, (Futurism:1.20), (Pastel Colors:1.20)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5240,7 +6197,7 @@
         "1": 556.8958129882812
       },
       "flags": {},
-      "order": 76,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -5271,7 +6228,7 @@
         "1": 281.78662109375
       },
       "flags": {},
-      "order": 77,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5302,7 +6259,7 @@
         "1": 282.81298828125
       },
       "flags": {},
-      "order": 78,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -5332,7 +6289,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 79,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -5378,7 +6335,7 @@
         "1": 354.9284973144531
       },
       "flags": {},
-      "order": 80,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -5405,7 +6362,7 @@
         26
       ],
       "flags": {},
-      "order": 81,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -5445,7 +6402,7 @@
         "1": 168
       },
       "flags": {},
-      "order": 82,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -5474,7 +6431,7 @@
         true,
         false,
         false,
-        "721"
+        "777"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -5491,7 +6448,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 83,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -5662,7 +6619,7 @@
         "1": 253.89134216308594
       },
       "flags": {},
-      "order": 84,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -5680,6 +6637,173 @@
       "bgcolor": "#9c743d"
     },
     {
+      "id": 155,
+      "type": "PrimereAnyDetailer",
+      "pos": [
+        9328,
+        -1318
+      ],
+      "size": {
+        "0": 346.8058776855469,
+        "1": 554
+      },
+      "flags": {},
+      "order": 86,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 801
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 802
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 803
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 804
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 805
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 806
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 807
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 808
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 928,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": 810,
+          "widget": {
+            "name": "concept_sampler_name"
+          }
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": 811,
+          "widget": {
+            "name": "concept_scheduler_name"
+          }
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": 812,
+          "widget": {
+            "name": "concept_steps"
+          }
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": 813,
+          "widget": {
+            "name": "concept_cfg"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 814,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            816
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            815
+          ],
+          "shape": 6,
+          "slot_index": 1
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        801006659721467,
+        "randomize",
+        "heun",
+        "simple",
+        30,
+        6,
+        0.38,
+        15,
+        true,
+        false,
+        1,
+        true,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#b08851",
+      "bgcolor": "#9c743d"
+    },
+    {
       "id": 107,
       "type": "PrimereImageSegments",
       "pos": [
@@ -5691,7 +6815,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 86,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -5861,7 +6985,7 @@
         "1": 252.9562530517578
       },
       "flags": {},
-      "order": 87,
+      "order": 88,
       "mode": 0,
       "inputs": [
         {
@@ -5889,7 +7013,7 @@
         "1": 253.62490844726562
       },
       "flags": {},
-      "order": 88,
+      "order": 89,
       "mode": 0,
       "inputs": [
         {
@@ -5918,7 +7042,7 @@
         "1": 554
       },
       "flags": {},
-      "order": 89,
+      "order": 90,
       "mode": 0,
       "inputs": [
         {
@@ -6052,7 +7176,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        67432982683856,
+        988294005407733,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -6085,7 +7209,7 @@
         "1": 546
       },
       "flags": {},
-      "order": 90,
+      "order": 91,
       "mode": 0,
       "inputs": [
         {
@@ -6255,7 +7379,7 @@
         "1": 254.34019470214844
       },
       "flags": {},
-      "order": 91,
+      "order": 92,
       "mode": 0,
       "inputs": [
         {
@@ -6283,7 +7407,7 @@
         "1": 252.16758728027344
       },
       "flags": {},
-      "order": 92,
+      "order": 93,
       "mode": 0,
       "inputs": [
         {
@@ -6312,7 +7436,7 @@
         "1": 554
       },
       "flags": {},
-      "order": 93,
+      "order": 94,
       "mode": 0,
       "inputs": [
         {
@@ -6446,7 +7570,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1107126820645754,
+        1111141277854968,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -6479,7 +7603,7 @@
         "1": 548.2047729492188
       },
       "flags": {},
-      "order": 94,
+      "order": 95,
       "mode": 0,
       "inputs": [
         {
@@ -6649,7 +7773,7 @@
         "1": 252.90768432617188
       },
       "flags": {},
-      "order": 95,
+      "order": 96,
       "mode": 0,
       "inputs": [
         {
@@ -6677,7 +7801,7 @@
         "1": 253.6001434326172
       },
       "flags": {},
-      "order": 96,
+      "order": 97,
       "mode": 0,
       "inputs": [
         {
@@ -6695,1566 +7819,6 @@
       "bgcolor": "#925a2e"
     },
     {
-      "id": 63,
-      "type": "PrimereResolutionMultiplierMPX",
-      "pos": [
-        5626.647810181481,
-        -1330.9036980793046
-      ],
-      "size": {
-        "0": 360.2424011230469,
-        "1": 262
-      },
-      "flags": {},
-      "order": 98,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 864
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 195,
-          "widget": {
-            "name": "width"
-          },
-          "slot_index": 1
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 196,
-          "widget": {
-            "name": "height"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            186,
-            220
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            187,
-            221
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": [
-            188
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            573,
-            575
-          ],
-          "shape": 3,
-          "slot_index": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplierMPX"
-      },
-      "widgets_values": [
-        true,
-        512,
-        512,
-        6,
-        true,
-        0.55,
-        3,
-        "None",
-        "bicubic"
-      ],
-      "color": "#185a4d",
-      "bgcolor": "#044639"
-    },
-    {
-      "id": 91,
-      "type": "PreviewImage",
-      "pos": [
-        9685,
-        891
-      ],
-      "size": {
-        "0": 259.3764343261719,
-        "1": 258.1561279296875
-      },
-      "flags": {},
-      "order": 99,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 863,
-          "slot_index": 0
-        }
-      ],
-      "title": "Preview Image - REFINED HANDS",
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "color": "#a66e42",
-      "bgcolor": "#925a2e"
-    },
-    {
-      "id": 65,
-      "type": "ttN hiresfixScale",
-      "pos": [
-        6313,
-        -1330
-      ],
-      "size": {
-        "0": 385.3913879394531,
-        "1": 330
-      },
-      "flags": {},
-      "order": 100,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 573
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 218
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 220,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 221,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "model_name",
-          "type": "COMBO",
-          "link": 777,
-          "widget": {
-            "name": "model_name"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ttN hiresfixScale",
-        "ttNnodeVersion": "1.0.3"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth",
-        true,
-        "bicubic",
-        "to Width/Height",
-        50,
-        1024,
-        1024,
-        1024,
-        "disabled",
-        "Hide",
-        "ComfyUI",
-        false
-      ],
-      "color": "#236121",
-      "bgcolor": "#0f4d0d"
-    },
-    {
-      "id": 61,
-      "type": "UltimateSDUpscale",
-      "pos": [
-        6001,
-        -1331
-      ],
-      "size": {
-        "0": 298.666259765625,
-        "1": 558
-      },
-      "flags": {},
-      "order": 101,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 575
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 212
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 867
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 868
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 209
-        },
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 776
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 201,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "tile_width",
-          "type": "INT",
-          "link": 186,
-          "widget": {
-            "name": "tile_width"
-          }
-        },
-        {
-          "name": "tile_height",
-          "type": "INT",
-          "link": 187,
-          "widget": {
-            "name": "tile_height"
-          }
-        },
-        {
-          "name": "upscale_by",
-          "type": "FLOAT",
-          "link": 188,
-          "widget": {
-            "name": "upscale_by"
-          }
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 919,
-          "widget": {
-            "name": "sampler_name"
-          },
-          "slot_index": 10
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "link": 921,
-          "widget": {
-            "name": "scheduler"
-          },
-          "slot_index": 11
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 923,
-          "widget": {
-            "name": "steps"
-          },
-          "slot_index": 12
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 924,
-          "widget": {
-            "name": "cfg"
-          },
-          "slot_index": 13
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            865,
-            866
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UltimateSDUpscale"
-      },
-      "widgets_values": [
-        2.1,
-        55949516657560,
-        "randomize",
-        7,
-        6.5,
-        "dpmpp_sde",
-        "karras",
-        1,
-        "None",
-        512,
-        512,
-        1,
-        0,
-        "None",
-        1,
-        64,
-        8,
-        16,
-        false,
-        false
-      ],
-      "color": "#003900",
-      "bgcolor": "#0f4d0d"
-    },
-    {
-      "id": 143,
-      "type": "PrimereMetaSave",
-      "pos": [
-        6721,
-        -1374
-      ],
-      "size": {
-        "0": 376.0033874511719,
-        "1": 610.1962280273438
-      },
-      "flags": {},
-      "order": 102,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 865
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 713
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            714
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        "[time(%Y-%m-%d)]",
-        "Test",
-        true,
-        "ComfyUI",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        true,
-        true,
-        95,
-        "false",
-        true,
-        true
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
-      "id": 33,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        5611,
-        -722
-      ],
-      "size": {
-        "0": 1101.7958984375,
-        "1": 1273.90625
-      },
-      "flags": {},
-      "order": 103,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 866
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        80,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#1414b4",
-      "bgcolor": "#0000a0"
-    },
-    {
-      "id": 70,
-      "type": "PrimereTextOutput",
-      "pos": [
-        7107,
-        -1374
-      ],
-      "size": {
-        "0": 1408.70751953125,
-        "1": 612.4589233398438
-      },
-      "flags": {},
-      "order": 104,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 714,
-          "widget": {
-            "name": "text"
-          },
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        "*** Image saver switched OFF, image not saved. ***"
-      ],
-      "color": "#002c6c",
-      "bgcolor": "#004080"
-    },
-    {
-      "id": 53,
-      "type": "PrimereClearPrompt",
-      "pos": [
-        3797.2374887484743,
-        799.9296892665391
-      ],
-      "size": {
-        "0": 279.6650390625,
-        "1": 238
-      },
-      "flags": {},
-      "order": 58,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 148,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 485,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 165,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 902,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            611,
-            786
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            612,
-            787
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "title": "Primere Prompt Cleaner - FINAL",
-      "properties": {
-        "Node name for S&R": "PrimereClearPrompt"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        false,
-        false,
-        false,
-        true,
-        true,
-        true,
-        "Normal"
-      ],
-      "color": "#1474d3",
-      "bgcolor": "#0060bf"
-    },
-    {
-      "id": 51,
-      "type": "PrimereClearPrompt",
-      "pos": [
-        2809.2374887484743,
-        897.9296892665391
-      ],
-      "size": {
-        "0": 344.91552734375,
-        "1": 238
-      },
-      "flags": {},
-      "order": 52,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 149,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 484,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 137,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 903,
-          "widget": {
-            "name": "model_concept"
-          },
-          "slot_index": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            138
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            139
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "title": "Primere Prompt Cleaner - SD",
-      "properties": {
-        "Node name for S&R": "PrimereClearPrompt"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        "Normal"
-      ],
-      "color": "#146d98",
-      "bgcolor": "#005984"
-    },
-    {
-      "id": 15,
-      "type": "PrimereMetaDistributor",
-      "pos": [
-        3801.2374887484743,
-        262.92968926653833
-      ],
-      "size": {
-        "0": 275.6723937988281,
-        "1": 366
-      },
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 39
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            130
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            131
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R+",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT R-",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            64,
-            159
-          ],
-          "shape": 3,
-          "slot_index": 6
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            148,
-            149,
-            150,
-            620
-          ],
-          "shape": 3,
-          "slot_index": 7
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": [
-            121,
-            619,
-            730,
-            788,
-            902,
-            903,
-            904
-          ],
-          "shape": 3,
-          "slot_index": 8
-        },
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            122
-          ],
-          "shape": 3,
-          "slot_index": 9
-        },
-        {
-          "name": "VAE",
-          "type": "VAE_NAME",
-          "links": [
-            112
-          ],
-          "shape": 3,
-          "slot_index": 10
-        },
-        {
-          "name": "SAMPLER",
-          "type": "COMBO",
-          "links": [
-            810,
-            826,
-            842,
-            858,
-            918,
-            919
-          ],
-          "shape": 3,
-          "slot_index": 11
-        },
-        {
-          "name": "SCHEDULER",
-          "type": "COMBO",
-          "links": [
-            811,
-            827,
-            843,
-            859,
-            920,
-            921
-          ],
-          "shape": 3,
-          "slot_index": 12
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            614,
-            922,
-            923
-          ],
-          "shape": 3,
-          "slot_index": 13
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            613,
-            924,
-            925
-          ],
-          "shape": 3,
-          "slot_index": 14
-        },
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [],
-          "shape": 3,
-          "slot_index": 15
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            175
-          ],
-          "shape": 3,
-          "slot_index": 16
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            176
-          ],
-          "shape": 3,
-          "slot_index": 17
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaDistributor"
-      },
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 160,
-      "type": "PrimereConceptDataTuple",
-      "pos": [
-        2327,
-        -145
-      ],
-      "size": [
-        368.1711361733451,
-        174
-      ],
-      "flags": {},
-      "order": 29,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "lightning_selector",
-          "type": "STRING",
-          "link": 894,
-          "widget": {
-            "name": "lightning_selector"
-          }
-        },
-        {
-          "name": "lightning_model_step",
-          "type": "INT",
-          "link": 895,
-          "widget": {
-            "name": "lightning_model_step"
-          }
-        },
-        {
-          "name": "cascade_stage_a",
-          "type": "STRING",
-          "link": 896,
-          "widget": {
-            "name": "cascade_stage_a"
-          }
-        },
-        {
-          "name": "cascade_stage_b",
-          "type": "STRING",
-          "link": 897,
-          "widget": {
-            "name": "cascade_stage_b"
-          }
-        },
-        {
-          "name": "cascade_stage_c",
-          "type": "STRING",
-          "link": 898,
-          "widget": {
-            "name": "cascade_stage_c"
-          }
-        },
-        {
-          "name": "cascade_clip",
-          "type": "STRING",
-          "link": 899,
-          "widget": {
-            "name": "cascade_clip"
-          }
-        },
-        {
-          "name": "hypersd_selector",
-          "type": "STRING",
-          "link": 900,
-          "widget": {
-            "name": "hypersd_selector"
-          }
-        },
-        {
-          "name": "hypersd_model_step",
-          "type": "INT",
-          "link": 901,
-          "widget": {
-            "name": "hypersd_model_step"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            926
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereConceptDataTuple"
-      },
-      "widgets_values": [
-        "SAFETENSOR",
-        8,
-        "",
-        "",
-        "",
-        "",
-        "LORA",
-        8
-      ],
-      "color": "#141494",
-      "bgcolor": "#000080"
-    },
-    {
-      "id": 159,
-      "type": "PrimereModelConceptSelector",
-      "pos": [
-        3565,
-        -678
-      ],
-      "size": [
-        512.041136173345,
-        838
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "normal_sampler_name",
-          "type": "COMBO",
-          "link": 869,
-          "widget": {
-            "name": "normal_sampler_name"
-          }
-        },
-        {
-          "name": "normal_scheduler_name",
-          "type": "COMBO",
-          "link": 870,
-          "widget": {
-            "name": "normal_scheduler_name"
-          }
-        },
-        {
-          "name": "normal_cfg_scale",
-          "type": "FLOAT",
-          "link": 871,
-          "widget": {
-            "name": "normal_cfg_scale"
-          }
-        },
-        {
-          "name": "normal_steps",
-          "type": "INT",
-          "link": 872,
-          "widget": {
-            "name": "normal_steps"
-          }
-        },
-        {
-          "name": "lcm_sampler_name",
-          "type": "COMBO",
-          "link": 873,
-          "widget": {
-            "name": "lcm_sampler_name"
-          }
-        },
-        {
-          "name": "lcm_scheduler_name",
-          "type": "COMBO",
-          "link": 874,
-          "widget": {
-            "name": "lcm_scheduler_name"
-          }
-        },
-        {
-          "name": "lcm_cfg_scale",
-          "type": "FLOAT",
-          "link": 875,
-          "widget": {
-            "name": "lcm_cfg_scale"
-          }
-        },
-        {
-          "name": "lcm_steps",
-          "type": "INT",
-          "link": 876,
-          "widget": {
-            "name": "lcm_steps"
-          }
-        },
-        {
-          "name": "turbo_sampler_name",
-          "type": "COMBO",
-          "link": 877,
-          "widget": {
-            "name": "turbo_sampler_name"
-          }
-        },
-        {
-          "name": "turbo_scheduler_name",
-          "type": "COMBO",
-          "link": 878,
-          "widget": {
-            "name": "turbo_scheduler_name"
-          }
-        },
-        {
-          "name": "turbo_cfg_scale",
-          "type": "FLOAT",
-          "link": 879,
-          "widget": {
-            "name": "turbo_cfg_scale"
-          }
-        },
-        {
-          "name": "turbo_steps",
-          "type": "INT",
-          "link": 880,
-          "widget": {
-            "name": "turbo_steps"
-          }
-        },
-        {
-          "name": "cascade_sampler_name",
-          "type": "COMBO",
-          "link": 881,
-          "widget": {
-            "name": "cascade_sampler_name"
-          }
-        },
-        {
-          "name": "cascade_scheduler_name",
-          "type": "COMBO",
-          "link": 882,
-          "widget": {
-            "name": "cascade_scheduler_name"
-          }
-        },
-        {
-          "name": "cascade_cfg_scale",
-          "type": "FLOAT",
-          "link": 883,
-          "widget": {
-            "name": "cascade_cfg_scale"
-          }
-        },
-        {
-          "name": "cascade_steps",
-          "type": "INT",
-          "link": 884,
-          "widget": {
-            "name": "cascade_steps"
-          }
-        },
-        {
-          "name": "lightning_sampler_name",
-          "type": "COMBO",
-          "link": 885,
-          "widget": {
-            "name": "lightning_sampler_name"
-          }
-        },
-        {
-          "name": "lightning_scheduler_name",
-          "type": "COMBO",
-          "link": 886,
-          "widget": {
-            "name": "lightning_scheduler_name"
-          }
-        },
-        {
-          "name": "lightning_cfg_scale",
-          "type": "FLOAT",
-          "link": 887,
-          "widget": {
-            "name": "lightning_cfg_scale"
-          }
-        },
-        {
-          "name": "lightning_steps",
-          "type": "INT",
-          "link": 888,
-          "widget": {
-            "name": "lightning_steps"
-          }
-        },
-        {
-          "name": "playground_sampler_name",
-          "type": "COMBO",
-          "link": 889,
-          "widget": {
-            "name": "playground_sampler_name"
-          }
-        },
-        {
-          "name": "playground_scheduler_name",
-          "type": "COMBO",
-          "link": 890,
-          "widget": {
-            "name": "playground_scheduler_name"
-          }
-        },
-        {
-          "name": "playground_cfg_scale",
-          "type": "FLOAT",
-          "link": 891,
-          "widget": {
-            "name": "playground_cfg_scale"
-          }
-        },
-        {
-          "name": "playground_steps",
-          "type": "INT",
-          "link": 892,
-          "widget": {
-            "name": "playground_steps"
-          }
-        },
-        {
-          "name": "hypersd_sampler_name",
-          "type": "COMBO",
-          "link": null,
-          "widget": {
-            "name": "hypersd_sampler_name"
-          }
-        },
-        {
-          "name": "hypersd_scheduler_name",
-          "type": "COMBO",
-          "link": null,
-          "widget": {
-            "name": "hypersd_scheduler_name"
-          }
-        },
-        {
-          "name": "hypersd_cfg_scale",
-          "type": "FLOAT",
-          "link": null,
-          "widget": {
-            "name": "hypersd_cfg_scale"
-          }
-        },
-        {
-          "name": "hypersd_steps",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "hypersd_steps"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            913
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            914
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            916
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            915
-          ],
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": [
-            917,
-            927
-          ],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "LIGHTNING_SELECTOR",
-          "type": "STRING",
-          "links": [
-            894
-          ],
-          "shape": 3,
-          "slot_index": 5
-        },
-        {
-          "name": "LIGHTNING_MODEL_STEP",
-          "type": "INT",
-          "links": [
-            895
-          ],
-          "shape": 3,
-          "slot_index": 6
-        },
-        {
-          "name": "CASCADE_STAGE_A",
-          "type": "STRING",
-          "links": [
-            896
-          ],
-          "shape": 3,
-          "slot_index": 7
-        },
-        {
-          "name": "CASCADE_STAGE_B",
-          "type": "STRING",
-          "links": [
-            897
-          ],
-          "shape": 3,
-          "slot_index": 8
-        },
-        {
-          "name": "CASCADE_STAGE_C",
-          "type": "STRING",
-          "links": [
-            898
-          ],
-          "shape": 3,
-          "slot_index": 9
-        },
-        {
-          "name": "CASCADE_CLIP",
-          "type": "STRING",
-          "links": [
-            899
-          ],
-          "shape": 3,
-          "slot_index": 10
-        },
-        {
-          "name": "HYPER-SD_SELECTOR",
-          "type": "STRING",
-          "links": [
-            900
-          ],
-          "shape": 3,
-          "slot_index": 11
-        },
-        {
-          "name": "HYPER-SD_MODEL_STEP",
-          "type": "INT",
-          "links": [
-            901
-          ],
-          "shape": 3,
-          "slot_index": 12
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelConceptSelector"
-      },
-      "widgets_values": [
-        "euler",
-        "normal",
-        7,
-        12,
-        "Normal",
-        "LORA",
-        8,
-        false,
-        "LORA",
-        8,
-        false,
-        "Stable-Cascade\\stage_a.safetensors",
-        "Stable-Cascade\\stage_b_bf16.safetensors",
-        "Stable-Cascade\\stage_c_bf16.safetensors",
-        "cascade_clip.safetensors",
-        "lcm",
-        "sgm_uniform",
-        1.2,
-        6,
-        "dpmpp_sde",
-        "normal",
-        1.15,
-        2,
-        "euler_ancestral",
-        "simple",
-        4,
-        20,
-        "dpmpp_sde",
-        "simple",
-        1.2,
-        6,
-        "euler",
-        "normal",
-        3,
-        50,
-        "dpmpp_sde",
-        "simple",
-        1.2,
-        6
-      ],
-      "color": "#447575",
-      "bgcolor": "#306161"
-    },
-    {
-      "id": 155,
-      "type": "PrimereAnyDetailer",
-      "pos": [
-        9328,
-        -1318
-      ],
-      "size": {
-        "0": 346.8058776855469,
-        "1": 554
-      },
-      "flags": {},
-      "order": 85,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 801
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 802
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 803
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 804
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 805
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 806
-        },
-        {
-          "name": "segment_settings",
-          "type": "TUPLE",
-          "link": 807
-        },
-        {
-          "name": "segs",
-          "type": "SEGS",
-          "link": 808
-        },
-        {
-          "name": "detector",
-          "type": "DETECTOR",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 928,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "concept_sampler_name",
-          "type": "COMBO",
-          "link": 810,
-          "widget": {
-            "name": "concept_sampler_name"
-          }
-        },
-        {
-          "name": "concept_scheduler_name",
-          "type": "COMBO",
-          "link": 811,
-          "widget": {
-            "name": "concept_scheduler_name"
-          }
-        },
-        {
-          "name": "concept_steps",
-          "type": "INT",
-          "link": 812,
-          "widget": {
-            "name": "concept_steps"
-          }
-        },
-        {
-          "name": "concept_cfg",
-          "type": "FLOAT",
-          "link": 813,
-          "widget": {
-            "name": "concept_cfg"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 814,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            816
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CROPPED_REFINED",
-          "type": "IMAGE",
-          "links": [
-            815
-          ],
-          "shape": 6,
-          "slot_index": 1
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "title": "Primere Any Detailer - FACE",
-      "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
-      },
-      "widgets_values": [
-        475426039302414,
-        "randomize",
-        "heun",
-        "simple",
-        30,
-        6,
-        0.38,
-        15,
-        true,
-        false,
-        1,
-        true,
-        "Normal",
-        "euler",
-        "normal",
-        4,
-        1
-      ],
-      "color": "#b08851",
-      "bgcolor": "#9c743d"
-    },
-    {
       "id": 158,
       "type": "PrimereAnyDetailer",
       "pos": [
@@ -8266,7 +7830,7 @@
         "1": 554
       },
       "flags": {},
-      "order": 97,
+      "order": 98,
       "mode": 0,
       "inputs": [
         {
@@ -8400,7 +7964,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        379374298577355,
+        2133040129553,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8420,6 +7984,507 @@
       ],
       "color": "#7e461a",
       "bgcolor": "#925a2e"
+    },
+    {
+      "id": 63,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        5626.647810181481,
+        -1330.9036980793046
+      ],
+      "size": {
+        "0": 360.2424011230469,
+        "1": 262
+      },
+      "flags": {},
+      "order": 99,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 864
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 195,
+          "widget": {
+            "name": "width"
+          },
+          "slot_index": 1
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 196,
+          "widget": {
+            "name": "height"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            186,
+            220
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            187,
+            221
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": [
+            188
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            573,
+            575
+          ],
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        6,
+        true,
+        0.55,
+        3,
+        "None",
+        "bicubic"
+      ],
+      "color": "#185a4d",
+      "bgcolor": "#044639"
+    },
+    {
+      "id": 91,
+      "type": "PreviewImage",
+      "pos": [
+        9685,
+        891
+      ],
+      "size": {
+        "0": 259.3764343261719,
+        "1": 258.1561279296875
+      },
+      "flags": {},
+      "order": 100,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 863,
+          "slot_index": 0
+        }
+      ],
+      "title": "Preview Image - REFINED HANDS",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#a66e42",
+      "bgcolor": "#925a2e"
+    },
+    {
+      "id": 65,
+      "type": "ttN hiresfixScale",
+      "pos": [
+        6313,
+        -1330
+      ],
+      "size": {
+        "0": 385.3913879394531,
+        "1": 330
+      },
+      "flags": {},
+      "order": 101,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 573
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 218
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 220,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 221,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "model_name",
+          "type": "COMBO",
+          "link": 777,
+          "widget": {
+            "name": "model_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ttN hiresfixScale",
+        "ttNnodeVersion": "1.0.3"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth",
+        true,
+        "bicubic",
+        "to Width/Height",
+        50,
+        1024,
+        1024,
+        1024,
+        "disabled",
+        "Hide",
+        "ComfyUI",
+        false
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 61,
+      "type": "UltimateSDUpscale",
+      "pos": [
+        6001,
+        -1331
+      ],
+      "size": {
+        "0": 298.666259765625,
+        "1": 558
+      },
+      "flags": {},
+      "order": 102,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 575
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 212
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 867
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 868
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 209
+        },
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 776
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 201,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "tile_width",
+          "type": "INT",
+          "link": 186,
+          "widget": {
+            "name": "tile_width"
+          }
+        },
+        {
+          "name": "tile_height",
+          "type": "INT",
+          "link": 187,
+          "widget": {
+            "name": "tile_height"
+          }
+        },
+        {
+          "name": "upscale_by",
+          "type": "FLOAT",
+          "link": 188,
+          "widget": {
+            "name": "upscale_by"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 919,
+          "widget": {
+            "name": "sampler_name"
+          },
+          "slot_index": 10
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": 921,
+          "widget": {
+            "name": "scheduler"
+          },
+          "slot_index": 11
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 923,
+          "widget": {
+            "name": "steps"
+          },
+          "slot_index": 12
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 924,
+          "widget": {
+            "name": "cfg"
+          },
+          "slot_index": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            865,
+            866
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UltimateSDUpscale"
+      },
+      "widgets_values": [
+        2.1,
+        421908473322135,
+        "randomize",
+        7,
+        6.5,
+        "dpmpp_sde",
+        "karras",
+        1,
+        "None",
+        512,
+        512,
+        1,
+        0,
+        "None",
+        1,
+        64,
+        8,
+        16,
+        false,
+        false
+      ],
+      "color": "#003900",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 143,
+      "type": "PrimereMetaSave",
+      "pos": [
+        6721,
+        -1374
+      ],
+      "size": {
+        "0": 376.0033874511719,
+        "1": 610.1962280273438
+      },
+      "flags": {},
+      "order": 103,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 865
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 713
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            714
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        "[time(%Y-%m-%d)]",
+        "Test",
+        true,
+        "ComfyUI",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        true,
+        true,
+        95,
+        "false",
+        true,
+        true
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 33,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        5611,
+        -722
+      ],
+      "size": {
+        "0": 1101.7958984375,
+        "1": 1273.90625
+      },
+      "flags": {},
+      "order": 104,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 866
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        80,
+        "Checkpoint",
+        "Overwrite",
+        "SDXL\\batchCOREALISMXL_v40.safetensors",
+        null
+      ],
+      "color": "#1414b4",
+      "bgcolor": "#0000a0"
+    },
+    {
+      "id": 70,
+      "type": "PrimereTextOutput",
+      "pos": [
+        7107,
+        -1374
+      ],
+      "size": {
+        "0": 1408.70751953125,
+        "1": 612.4589233398438
+      },
+      "flags": {},
+      "order": 105,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 714,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        "*** Image saver switched OFF, image not saved. ***"
+      ],
+      "color": "#002c6c",
+      "bgcolor": "#004080"
     }
   ],
   "links": [
@@ -9808,14 +9873,6 @@
       "LATENT"
     ],
     [
-      730,
-      15,
-      8,
-      146,
-      4,
-      "STRING"
-    ],
-    [
       731,
       24,
       0,
@@ -10966,6 +11023,46 @@
       158,
       9,
       "STRING"
+    ],
+    [
+      930,
+      161,
+      0,
+      159,
+      24,
+      "COMBO"
+    ],
+    [
+      931,
+      161,
+      1,
+      159,
+      25,
+      "COMBO"
+    ],
+    [
+      932,
+      161,
+      2,
+      159,
+      27,
+      "INT"
+    ],
+    [
+      933,
+      161,
+      3,
+      159,
+      26,
+      "FLOAT"
+    ],
+    [
+      937,
+      15,
+      8,
+      146,
+      4,
+      "STRING"
     ]
   ],
   "groups": [
@@ -10996,8 +11093,8 @@
     {
       "title": "Prompt handling",
       "bounding": [
-        1948,
-        188,
+        1945,
+        350,
         839,
         1318
       ],
@@ -11008,8 +11105,8 @@
     {
       "title": "Image recycler",
       "bounding": [
-        2797,
-        188,
+        2799,
+        350,
         1296,
         1316
       ],
@@ -11046,8 +11143,8 @@
       "bounding": [
         2723,
         -756,
-        1370,
-        926
+        1368,
+        1091
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -11117,10 +11214,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6209213230591554,
+      "scale": 0.6830134553650706,
       "offset": {
-        "0": -2880.277849699667,
-        "1": 907.5585747250741
+        "0": -1848.254268813467,
+        "1": 1273.3444626207738
       }
     }
   },
