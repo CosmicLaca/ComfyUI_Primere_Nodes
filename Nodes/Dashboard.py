@@ -292,7 +292,12 @@ class PrimereModelConceptSelector:
                 cfg_scale = playground_cfg_scale
 
             case 'Hyper-SD':
-                if hypersd_sampler == False:
+                if hypersd_sampler == True and hypersd_selector == 'UNET':
+                    sampler_name = 'lcm'
+                    scheduler_name = hypersd_scheduler_name
+                    steps = 1
+                    cfg_scale = 1
+                elif hypersd_sampler == False:
                     sampler_name = hypersd_sampler_name
                     scheduler_name = hypersd_scheduler_name
                     steps = hypersd_steps
@@ -386,6 +391,15 @@ class PrimereCKPTLoader:
 
             OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
             return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
+
+        if model_concept == "Hyper-SD" and hypersd_selector == 'UNET':
+            MODEL_VERSION = 'SDXL_2048'
+            ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, MODEL_VERSION)
+            lora_name = ModelConceptChanges['lora_name']
+            unet_name = ModelConceptChanges['unet_name']
+            hyperModeValid = ModelConceptChanges['hyperModeValid']
+            OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, lora_name, unet_name)
+            return (OUTPUT_MODEL[0],) + (OUTPUT_MODEL[1],) + (OUTPUT_MODEL[2],) + (MODEL_VERSION,)
 
         ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step)
         ckpt_name = ModelConceptChanges['ckpt_name']

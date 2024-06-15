@@ -503,12 +503,20 @@ class PrimereKSampler:
                         samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
 
             case "Hyper-SD":
-                SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta = 0.8)
-                model = SamplingDiscreteResults[0]
-                sampler = SamplingDiscreteResults[1]
-                sigmas = SamplingDiscreteResults[2]
-                hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
-                samples = (hyper_lora_samples[0],)
+                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                HyperSDSelector = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 8)
+                if (HyperSDSelector == 'UNET'):
+                    sigmas = utility.get_hypersd_sigmas(model)
+                    sampler = comfy.samplers.sampler_object(sampler_name)
+                    hyper_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                    samples = (hyper_samples[0],)
+                else:
+                    SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta = 0.8)
+                    model = SamplingDiscreteResults[0]
+                    sampler = SamplingDiscreteResults[1]
+                    sigmas = SamplingDiscreteResults[2]
+                    hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
+                    samples = (hyper_lora_samples[0],)
 
             case _:
                 if variation_batch_step_original > 0:

@@ -699,7 +699,11 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                 else:
                     allLoraHyper = list(filter(lambda a: 'Hyper-SD15-'.casefold() in a.casefold(), LoraList))
                 if len(allLoraHyper) > 0:
-                    finalHyper = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allLoraHyper))
+                    pluralString = ''
+                    if (hypersd_model_step > 1):
+                        pluralString = 's'
+
+                    finalHyper = list(filter(lambda a: str(hypersd_model_step) + 'step' + pluralString + '-lora'.casefold() in a.casefold(), allLoraHyper))
                     if len(finalHyper) > 0:
                         hyperModeValid = True
                         lora_name = finalHyper[0]
@@ -727,10 +731,16 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
     if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
         OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
 
-    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'UNET' and lora_name is not None:
-        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
+    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
+        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, unet_name)
 
     return OUTPUT_MODEL
+
+def get_hypersd_sigmas(model):
+    timesteps = torch.tensor([800])
+    sigmas = model.model.model_sampling.sigma(timesteps)
+    sigmas = torch.cat([sigmas, sigmas.new_zeros([1])])
+    return (sigmas,)
 
 class ModelSamplingDiscreteDistilledTCD(ModelSamplingDiscreteDistilled, EPS):
     def __init__(self, model_config=None):
