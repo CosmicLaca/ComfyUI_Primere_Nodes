@@ -358,6 +358,7 @@ This node the merged version of previous two: 'Primere Sampler Selector' and 'Pr
 
 ### Primere Model Concept Selector:
 Use this node to switch between Normal, LCM, Cascade, Lightning, Playground, Hyper-SD and Turbo modes in whole rendering process. Use several sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo, Lightning, Playground and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
+**Hyper-SD UNET files must be saved to Comfy's unet path, not as checkpoint!**
 
 <a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="300px"></a>
 <hr>
