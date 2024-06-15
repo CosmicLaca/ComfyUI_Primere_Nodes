@@ -505,6 +505,15 @@ class PrimereMetaHandler:
                     workflow_tuple['exif_status'] = 'SUCCEED'
                     workflow_tuple['exif_data_count'] = exif_data_count
 
+                    if kwargs['prompt_state'] == True:
+                        workflow_tuple['prompt_state'] = 'Decoded'
+                        if 'decoded_positive' in workflow_tuple:
+                            workflow_tuple['positive'] = workflow_tuple['decoded_positive']
+                        if 'decoded_negative' in workflow_tuple:
+                            workflow_tuple['negative'] = workflow_tuple['decoded_negative']
+                    else:
+                        workflow_tuple['prompt_state'] = 'Dynamic'
+
                     if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None:
                         workflow_tuple['wf'] = {}
                         for inputkey, inputfval in kwargs['workflow_tuple'].items():
@@ -564,16 +573,6 @@ class PrimereMetaHandler:
                                             workflow_tuple['model_concept'] = kwargs['workflow_tuple']['model_concept']
                                         if 'concept_data' in kwargs['workflow_tuple']:
                                             workflow_tuple['concept_data'] = kwargs['workflow_tuple']['concept_data']
-
-                                case "prompt_state":
-                                    if controlval == True:
-                                        workflow_tuple['prompt_state'] = 'Decoded'
-                                        if 'decoded_positive' in workflow_tuple:
-                                            workflow_tuple['positive'] = workflow_tuple['decoded_positive']
-                                        if 'decoded_negative' in workflow_tuple:
-                                            workflow_tuple['negative'] = workflow_tuple['decoded_negative']
-                                    else:
-                                        workflow_tuple['prompt_state'] = 'Dynamic'
 
                                 case "preferred":
                                     if controlval == False:
