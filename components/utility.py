@@ -732,7 +732,8 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
         OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
 
     if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
-        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, unet_name)
+        unet_path = folder_paths.get_full_path("unet", unet_name)
+        OUTPUT_MODEL = comfy.sd.load_checkpoint_guess_config(unet_path)
 
     return OUTPUT_MODEL
 
