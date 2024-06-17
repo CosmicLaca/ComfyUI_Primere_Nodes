@@ -2,6 +2,8 @@ import torch
 from .long_clip_model import longclip
 from comfy.sd1_clip import load_embed, ClipTokenWeightEncoder
 from comfy.sd1_clip import token_weights, escape_important, unescape_important
+from comfy import model_management
+import comfy
 
 class SDLongClipModel(torch.nn.Module, ClipTokenWeightEncoder):
     LAYERS = [
@@ -313,3 +315,74 @@ class SDXLLongTokenizer:
 
     def untokenize(self, token_weight_pair):
         return self.clip_g.untokenize(token_weight_pair)
+
+class LONGCLIP:
+    def __init__(self, target=None, embedding_directory=None, no_init=False):
+        if no_init:
+            return
+        params = target.params.copy()
+        clip = target.clip
+        tokenizer = target.tokenizer
+
+        load_device = model_management.text_encoder_device()
+        offload_device = model_management.text_encoder_offload_device()
+        params['device'] = offload_device
+        params['dtype'] = model_management.text_encoder_dtype(load_device)
+
+        self.cond_stage_model = clip(**(params))
+
+        self.tokenizer = tokenizer(embedding_directory=embedding_directory)
+        self.patcher = comfy.model_patcher.ModelPatcher(self.cond_stage_model, load_device=load_device, offload_device=offload_device)
+        self.layer_idx = None
+
+    def clone(self):
+        n = LONGCLIP(no_init=True)
+        n.patcher = self.patcher.clone()
+        n.cond_stage_model = self.cond_stage_model
+        n.tokenizer = self.tokenizer
+        n.layer_idx = self.layer_idx
+        return n
+
+    def add_patches(self, patches, strength_patch=1.0, strength_model=1.0):
+        return self.patcher.add_patches(patches, strength_patch, strength_model)
+
+    def clip_layer(self, layer_idx):
+        self.layer_idx = layer_idx
+
+    def tokenize(self, text, return_word_ids=False):
+        return self.tokenizer.tokenize_with_weights(text, return_word_ids)
+
+    def encode_from_tokens(self, tokens, return_pooled=False):
+        self.cond_stage_model.reset_clip_options()
+
+        if self.layer_idx is not None:
+            self.cond_stage_model.set_clip_options({"layer": self.layer_idx})
+
+        if return_pooled == "unprojected":
+            self.cond_stage_model.set_clip_options({"projected_pooled": False})
+
+        self.load_model()
+        cond, pooled = self.cond_stage_model.encode_token_weights(tokens)
+        if return_pooled:
+            return cond, pooled
+        return cond
+
+    def encode(self, text):
+        tokens = self.tokenize(text)
+        return self.encode_from_tokens(tokens)
+
+    def load_sd(self, sd, full_model=False):
+        if full_model:
+            return self.cond_stage_model.load_state_dict(sd, strict=False)
+        else:
+            return self.cond_stage_model.load_sd(sd)
+
+    def get_sd(self):
+        return self.cond_stage_model.state_dict()
+
+    def load_model(self):
+        model_management.load_model_gpu(self.patcher)
+        return self.patcher
+
+    def get_key_patches(self):
+        return self.patcher.get_key_patches()

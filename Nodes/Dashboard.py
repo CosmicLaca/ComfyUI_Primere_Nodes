@@ -875,7 +875,8 @@ class PrimereCLIP:
                         clip_target.clip = clipping.SDLongClipModel
                         clip_target.tokenizer = clipping.SDLongTokenizer
                         embedding_directory = folder_paths.get_folder_paths("embeddings")
-                        clip = comfy.sd.CLIP(clip_target, embedding_directory=embedding_directory)
+                        # clip = comfy.sd.CLIP(clip_target, embedding_directory=embedding_directory)
+                        clip = clipping.LONGCLIP(clip_target, embedding_directory=embedding_directory)
                         adv_encode = False
                 else:
                     clip_clone = clip.clone()

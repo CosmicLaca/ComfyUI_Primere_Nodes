@@ -522,7 +522,6 @@ class PrimereKSampler:
                 if variation_batch_step_original > 0:
                     if batch_counter > 0:
                         variation_batch_step = variation_batch_step_original * batch_counter
-
                     variation_extender = round(variation_extender_original + variation_batch_step, 2)
 
                 if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
