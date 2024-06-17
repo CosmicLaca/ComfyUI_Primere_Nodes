@@ -24,6 +24,7 @@ from server import PromptServer
 from ..utils import comfy_dir
 import clip
 from ..components.tree import PRIMERE_ROOT
+from comfy.cli_args import args
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -70,7 +71,8 @@ class PrimereMetaSave:
                 "image_metadata": ('TUPLE', {"forceInput": True}),
             },
             "hidden": {
-                "prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"
+                "prompt": "PROMPT",
+                "extra_pnginfo": "EXTRA_PNGINFO"
             },
         }
 
@@ -174,13 +176,15 @@ class PrimereMetaSave:
         i = 255. * image.cpu().numpy()
         img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
 
-        metadata = PngInfo()
-        if png_embed_workflow == 'true':
-            if prompt is not None:
-                metadata.add_text("prompt", json.dumps(prompt))
-            if extra_pnginfo is not None:
-                for x in extra_pnginfo:
-                    metadata.add_text(x, json.dumps(extra_pnginfo[x]))
+        metadata = None
+        if not args.disable_metadata:
+            metadata = PngInfo()
+            if png_embed_workflow == True:
+                if prompt is not None:
+                    metadata.add_text("prompt", json.dumps(prompt))
+                if extra_pnginfo is not None:
+                    for x in extra_pnginfo:
+                        metadata.add_text(x, json.dumps(extra_pnginfo[x]))
 
         if overwrite_mode == 'prefix_as_filename':
             file = f"{filename_prefix}{file_extension}"

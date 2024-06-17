@@ -3,20 +3,24 @@ from ..exif.base_format import BaseFormat
 from ....components import utility
 
 # comfyui node types
-KSAMPLER_TYPES = ["KSampler", "KSamplerAdvanced"]
+KSAMPLER_TYPES = ["KSampler", "KSamplerAdvanced", "PrimereKSampler"]
 VAE_ENCODE_TYPE = ["VAEEncode", "VAEEncodeForInpaint"]
 CHECKPOINT_LOADER_TYPE = [
     "CheckpointLoader",
     "CheckpointLoaderSimple",
     "unCLIPCheckpointLoader",
     "Checkpoint Loader (Simple)",
+    "PrimereCKPTLoader",
+    "PrimereVisualCKPT",
+    "PrimereCKPT"
 ]
 CLIP_TEXT_ENCODE_TYPE = [
     "CLIPTextEncode",
     "CLIPTextEncodeSDXL",
     "CLIPTextEncodeSDXLRefiner",
+    "PrimereCLIPEncoder"
 ]
-SAVE_IMAGE_TYPE = ["SaveImage", "Image Save"]
+SAVE_IMAGE_TYPE = ["SaveImage", "Image Save", "PrimerePreviewImage"]
 
 class ComfyUI(BaseFormat):
     def __init__(self, info: dict = None, raw: str = ""):
@@ -74,6 +78,11 @@ class ComfyUI(BaseFormat):
         FINAL_DICT['negative'] = ""
         FINAL_DICT['positive'] = ""
 
+        if PositiveID == None:
+            PositiveID = '1'
+        if NegativeID == None:
+            NegativeID = '1'
+
         if PositiveID and NegativeID and 'text_g' in prompt_json[PositiveID]['inputs']:
             FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text_g']
             FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text_g']
@@ -82,7 +91,12 @@ class ComfyUI(BaseFormat):
             FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text']
             FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text']
 
-        if PositiveID == None or ('text_g' not in prompt_json[PositiveID]['inputs'] and 'text' not in prompt_json[PositiveID]['inputs']):
+        if PositiveID and 'positive_prompt' in prompt_json[PositiveID]['inputs']:
+            FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['positive_prompt']
+        if NegativeID and 'negative_prompt' in prompt_json[PositiveID]['inputs']:
+            FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['negative_prompt']
+
+        if PositiveID == None or ('text_g' not in prompt_json[PositiveID]['inputs'] and 'text' not in prompt_json[PositiveID]['inputs'] and 'positive_prompt' not in prompt_json[PositiveID]['inputs']):
             if hasattr(self, '_positive'):
                 FINAL_DICT['positive'] = self._positive
             if hasattr(self, '_negative'):
