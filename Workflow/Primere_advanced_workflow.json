@@ -1,6 +1,6 @@
 {
-  "last_node_id": 129,
-  "last_link_id": 822,
+  "last_node_id": 130,
+  "last_link_id": 825,
   "nodes": [
     {
       "id": 61,
@@ -895,10 +895,10 @@
         1397,
         1547
       ],
-      "size": [
-        395.90342768348705,
-        190
-      ],
+      "size": {
+        "0": 395.9034423828125,
+        "1": 190
+      },
       "flags": {},
       "order": 16,
       "mode": 0,
@@ -1583,7 +1583,7 @@
       },
       "widgets_values": [
         "",
-        541093312977185,
+        1082508699977496,
         "randomize"
       ],
       "color": "#145414",
@@ -1638,7 +1638,7 @@
       },
       "widgets_values": [
         "",
-        512918160379867,
+        1009239183320137,
         "randomize"
       ],
       "color": "#541414",
@@ -2258,7 +2258,7 @@
         false,
         1.6,
         2.8,
-        421705500384811,
+        419195354303152,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2499,7 +2499,7 @@
         1,
         0.8,
         1.4,
-        82343531511383,
+        403312250100256,
         "randomize",
         true,
         "cpu",
@@ -2873,7 +2873,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        32935738364674,
+        868833253697035,
         "randomize",
         20,
         8,
@@ -3115,7 +3115,7 @@
           "type": "TUPLE",
           "links": [
             572,
-            573
+            824
           ],
           "shape": 3,
           "slot_index": 0
@@ -3397,7 +3397,7 @@
         true,
         false,
         false,
-        "715"
+        "721"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3463,8 +3463,8 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            746,
-            747
+            747,
+            823
           ],
           "shape": 3,
           "slot_index": 1
@@ -3492,70 +3492,6 @@
       "bgcolor": "#804000"
     },
     {
-      "id": 110,
-      "type": "PrimereMetaSave",
-      "pos": [
-        3523,
-        52
-      ],
-      "size": {
-        "0": 357.76580810546875,
-        "1": 530.1080932617188
-      },
-      "flags": {},
-      "order": 45,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 746
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 573
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            537
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        "[time(%Y-%m-%d)]",
-        "Project",
-        true,
-        "ComfyUI",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        true,
-        true,
-        95,
-        "false",
-        true,
-        true
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 113,
       "type": "PrimerePreviewImage",
       "pos": [
@@ -3567,7 +3503,7 @@
         "1": 851.3073120117188
       },
       "flags": {},
-      "order": 46,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3610,7 +3546,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 537,
+          "link": 825,
           "widget": {
             "name": "text"
           }
@@ -3622,6 +3558,71 @@
       "widgets_values": [
         "",
         "*** Image saver switched OFF, image not saved. ***"
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
+      "id": 130,
+      "type": "PrimereMetaSave",
+      "pos": [
+        3523,
+        52
+      ],
+      "size": [
+        348.11722933637884,
+        534
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 823
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 824
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            825
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        "[time(%Y-%m-%d)]",
+        "Project",
+        true,
+        "ComfyUI",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        true,
+        true,
+        true,
+        95,
+        "false",
+        false,
+        false
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3925,14 +3926,6 @@
       "STRING"
     ],
     [
-      537,
-      110,
-      0,
-      56,
-      0,
-      "STRING"
-    ],
-    [
       538,
       98,
       0,
@@ -4053,14 +4046,6 @@
       "*"
     ],
     [
-      573,
-      114,
-      0,
-      110,
-      1,
-      "TUPLE"
-    ],
-    [
       655,
       111,
       0,
@@ -4147,14 +4132,6 @@
       123,
       3,
       "INT"
-    ],
-    [
-      746,
-      123,
-      1,
-      110,
-      0,
-      "IMAGE"
     ],
     [
       747,
@@ -4723,6 +4700,30 @@
       120,
       4,
       "STRING"
+    ],
+    [
+      823,
+      123,
+      1,
+      130,
+      0,
+      "IMAGE"
+    ],
+    [
+      824,
+      114,
+      0,
+      130,
+      1,
+      "TUPLE"
+    ],
+    [
+      825,
+      130,
+      0,
+      56,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -4778,10 +4779,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
+      "scale": 1.2100000000000002,
       "offset": {
-        "0": -10.945328509932965,
-        "1": 225.43632957396673
+        "0": -414.09243594795004,
+        "1": 165.39748659875988
       }
     }
   },

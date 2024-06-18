@@ -1,6 +1,6 @@
 {
-  "last_node_id": 161,
-  "last_link_id": 937,
+  "last_node_id": 162,
+  "last_link_id": 940,
   "nodes": [
     {
       "id": 9,
@@ -1447,10 +1447,10 @@
         3156,
         21
       ],
-      "size": [
-        398.4143631748393,
-        190
-      ],
+      "size": {
+        "0": 398.41436767578125,
+        "1": 190
+      },
       "flags": {},
       "order": 23,
       "mode": 0,
@@ -2451,7 +2451,7 @@
         false,
         1.6,
         2.8,
-        633945534729804,
+        1672650855407,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -3486,8 +3486,8 @@
           "type": "TUPLE",
           "links": [
             227,
-            713,
-            800
+            800,
+            939
           ],
           "shape": 3,
           "slot_index": 3
@@ -3497,7 +3497,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        14347591966343,
+        1123684185884756,
         "randomize",
         512,
         512
@@ -3778,7 +3778,7 @@
       },
       "widgets_values": [
         "",
-        171980372465374,
+        871869379700804,
         "randomize"
       ],
       "color": "#232",
@@ -3833,7 +3833,7 @@
       },
       "widgets_values": [
         "",
-        39651284236328,
+        711190884356560,
         "randomize"
       ],
       "color": "#322",
@@ -3967,7 +3967,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        296239630224565,
+        595442167920436,
         "randomize",
         false,
         "cpu",
@@ -4002,7 +4002,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_concept\": \"Hyper-SD\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": \"UNET\",\n        \"hypersd_model_step\": 8\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"lcm\",\n    \"scheduler\": \"simple\",\n    \"steps\": 1,\n    \"cfg\": 1,\n    \"seed\": 1104804793479345,\n    \"width\": 897,\n    \"height\": 1169,\n    \"size_string\": \"897x1169\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 1104804793479345,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -5480,7 +5480,7 @@
         1.1,
         0,
         0,
-        710301158576830,
+        1005023910179581,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5583,7 +5583,7 @@
         1,
         0,
         0,
-        151548531604069,
+        819214558505287,
         "randomize",
         "mean",
         "comfy++",
@@ -5686,7 +5686,7 @@
         1.1,
         0,
         0,
-        526101900679394,
+        195011739960537,
         "randomize",
         "mean",
         "A1111",
@@ -5791,7 +5791,7 @@
         1.2,
         0,
         0.2,
-        962740878038204,
+        526601865889271,
         "randomize",
         "mean",
         "down_weight",
@@ -6138,7 +6138,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        73576243907379,
+        676316497180436,
         "randomize",
         20,
         8,
@@ -6180,7 +6180,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, (Futurism:1.20), (Pastel Colors:1.20)"
+        "Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, embedding:Extreme, (Futurism:1.20), (Pastel Colors:1.20), design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -6431,7 +6431,7 @@
         true,
         false,
         false,
-        "777"
+        "721"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -6782,7 +6782,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        801006659721467,
+        179662852006204,
         "randomize",
         "heun",
         "simple",
@@ -7176,7 +7176,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        988294005407733,
+        131896508165320,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7570,7 +7570,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1111141277854968,
+        446205859613808,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7964,7 +7964,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        2133040129553,
+        408902504314392,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8315,8 +8315,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            865,
-            866
+            866,
+            938
           ],
           "shape": 3,
           "slot_index": 0
@@ -8327,7 +8327,7 @@
       },
       "widgets_values": [
         2.1,
-        421908473322135,
+        229398957979929,
         "randomize",
         7,
         6.5,
@@ -8351,70 +8351,6 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 143,
-      "type": "PrimereMetaSave",
-      "pos": [
-        6721,
-        -1374
-      ],
-      "size": {
-        "0": 376.0033874511719,
-        "1": 610.1962280273438
-      },
-      "flags": {},
-      "order": 103,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 865
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 713
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            714
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        "[time(%Y-%m-%d)]",
-        "Test",
-        true,
-        "ComfyUI",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        true,
-        true,
-        95,
-        "false",
-        true,
-        true
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
       "id": 33,
       "type": "PrimerePreviewImage",
       "pos": [
@@ -8426,7 +8362,7 @@
         "1": 1273.90625
       },
       "flags": {},
-      "order": 104,
+      "order": 103,
       "mode": 0,
       "inputs": [
         {
@@ -8445,11 +8381,76 @@
         80,
         "Checkpoint",
         "Overwrite",
-        "SDXL\\batchCOREALISMXL_v40.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#1414b4",
       "bgcolor": "#0000a0"
+    },
+    {
+      "id": 162,
+      "type": "PrimereMetaSave",
+      "pos": [
+        6721,
+        -1374
+      ],
+      "size": [
+        378.1050415407408,
+        613.4165056737417
+      ],
+      "flags": {},
+      "order": 104,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 938
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 939
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            940
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        "[time(%Y-%m-%d)]",
+        "Project",
+        false,
+        "ComfyUI",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        true,
+        true,
+        true,
+        95,
+        "false",
+        true,
+        true
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 70,
@@ -8469,7 +8470,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 714,
+          "link": 940,
           "widget": {
             "name": "text"
           },
@@ -9841,22 +9842,6 @@
       "STRING"
     ],
     [
-      713,
-      24,
-      3,
-      143,
-      1,
-      "TUPLE"
-    ],
-    [
-      714,
-      143,
-      0,
-      70,
-      0,
-      "STRING"
-    ],
-    [
       726,
       80,
       0,
@@ -10577,14 +10562,6 @@
       "IMAGE"
     ],
     [
-      865,
-      61,
-      0,
-      143,
-      0,
-      "IMAGE"
-    ],
-    [
       866,
       61,
       0,
@@ -11063,6 +11040,30 @@
       146,
       4,
       "STRING"
+    ],
+    [
+      938,
+      61,
+      0,
+      162,
+      0,
+      "IMAGE"
+    ],
+    [
+      939,
+      24,
+      3,
+      162,
+      1,
+      "TUPLE"
+    ],
+    [
+      940,
+      162,
+      0,
+      70,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -11214,10 +11215,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650706,
+      "scale": 1,
       "offset": {
-        "0": -1848.254268813467,
-        "1": 1273.3444626207738
+        "0": -4694.020142968238,
+        "1": 1702.6864244539815
       }
     }
   },
