@@ -61,10 +61,11 @@ class PrimereMetaSave:
                 "filename_number_start": ("BOOLEAN", {"default":False}),
                 "extension": (['png', 'jpeg', 'jpg', 'gif', 'tiff', 'webp'], {"default": "jpg"}),
                 "png_embed_workflow": ("BOOLEAN", {"default":False}),
+                "png_embed_data": ("BOOLEAN", {"default": False}),
                 "image_embed_exif": ("BOOLEAN", {"default":False}),
                 "quality": ("INT", {"default": 95, "min": 1, "max": 100, "step": 1}),
                 "overwrite_mode": (["false", "prefix_as_filename"],),
-                "save_mata_to_json": ("BOOLEAN", {"default": False}),
+                "save_meta_to_json": ("BOOLEAN", {"default": False}),
                 "save_info_to_txt": ("BOOLEAN", {"default": False}),
             },
             "optional": {
@@ -76,11 +77,11 @@ class PrimereMetaSave:
             },
         }
 
-    def save_images_meta(self, images, add_date_to_filename, add_time_to_filename, add_seed_to_filename, add_size_to_filename, save_mata_to_json, save_info_to_txt, image_metadata=None,
+    def save_images_meta(self, images, add_date_to_filename, add_time_to_filename, add_seed_to_filename, add_size_to_filename, save_meta_to_json, save_info_to_txt, image_metadata=None,
                          output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
-                         png_embed_workflow=False, image_embed_exif=False, save_image=True):
+                         png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, save_image=True):
 
         if save_image == False:
             saved_info = "*** Image saver switched OFF, image not saved. ***"
@@ -209,6 +210,8 @@ class PrimereMetaSave:
             exif_metadata_json = image_metadata
 
             if extension == 'png':
+                if png_embed_data == True:
+                    metadata.add_text("gendata", json.dumps(exif_metadata_json))
                 img.save(output_file, pnginfo=metadata, optimize=True)
             elif extension == 'webp':
                 img.save(output_file, quality=quality, exif=metadata)
@@ -227,7 +230,7 @@ class PrimereMetaSave:
                         img.save(output_file, quality=quality, optimize=True)
                         print(f"Image file saved without exif: {output_file}")
 
-            if save_mata_to_json:
+            if save_meta_to_json:
                 jsonfile = os.path.splitext(output_file)[0] + '.json'
                 with open(jsonfile, 'w', encoding='utf-8') as jf:
                     json.dump(exif_metadata_json, jf, ensure_ascii=False, indent=4)

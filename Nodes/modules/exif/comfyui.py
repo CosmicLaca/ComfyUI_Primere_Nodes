@@ -29,101 +29,97 @@ class ComfyUI(BaseFormat):
 
     def _comfy_png(self):
         prompt = self._info.get("prompt") or {}
+        gendata = self._info.get("gendata") or {}
+        gendata_json = json.loads(gendata)
         workflow = self._info.get("workflow") or {}
         prompt_json = json.loads(prompt)
 
-        # find end node of each flow
-        end_nodes = list(filter( lambda item: item[-1].get("class_type") in ["SaveImage"] + KSAMPLER_TYPES, prompt_json.items(),))
-        longest_flow = {}
-        longest_nodes = []
-        longest_flow_len = 0
+        if len(gendata_json) > 0:
+            FINAL_DICT = gendata_json
+            self._parameter = FINAL_DICT
+        else:
+            # find end node of each flow
+            end_nodes = list(filter( lambda item: item[-1].get("class_type") in ["SaveImage"] + KSAMPLER_TYPES, prompt_json.items(),))
+            longest_flow = {}
+            longest_nodes = []
+            longest_flow_len = 0
 
-        for end_node in end_nodes:
-            flow, nodes = self._comfy_traverse(prompt_json, str(end_node[0]))
-            if len(nodes) > longest_flow_len:
-                longest_flow = flow
-                longest_nodes = nodes
-                longest_flow_len = len(nodes)
+            for end_node in end_nodes:
+                flow, nodes = self._comfy_traverse(prompt_json, str(end_node[0]))
+                if len(nodes) > longest_flow_len:
+                    longest_flow = flow
+                    longest_nodes = nodes
+                    longest_flow_len = len(nodes)
 
-        SizeID = None
-        ModelID = None
-        PositiveID = None
-        NegativeID = None
-
-        try:
-            if 'latent_image' in flow:
-                SizeID = flow['latent_image'][0]
-        except Exception:
             SizeID = None
-
-        try:
-            if 'model' in flow:
-                ModelID = flow['model'][0]
-        except Exception:
             ModelID = None
-
-        try:
-            if 'positive' in flow:
-                PositiveID = flow['positive'][0]
-        except Exception:
             PositiveID = None
-
-        try:
-            if 'negative' in flow:
-                NegativeID = flow['negative'][0]
-        except Exception:
             NegativeID = None
 
-        FINAL_DICT = {}
-        FINAL_DICT['negative'] = ""
-        FINAL_DICT['positive'] = ""
+            try:
+                if 'latent_image' in flow:
+                    SizeID = flow['latent_image'][0]
+            except Exception:
+                SizeID = None
 
-        if PositiveID == None:
-            PositiveID = '1'
-        if NegativeID == None:
-            NegativeID = '1'
+            try:
+                if 'model' in flow:
+                    ModelID = flow['model'][0]
+            except Exception:
+                ModelID = None
 
-        if PositiveID and NegativeID and 'text_g' in prompt_json[PositiveID]['inputs']:
-            FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text_g']
-            FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text_g']
+            try:
+                if 'positive' in flow:
+                    PositiveID = flow['positive'][0]
+            except Exception:
+                PositiveID = None
 
-        if PositiveID and NegativeID and 'text' in prompt_json[PositiveID]['inputs']:
-            FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text']
-            FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text']
+            try:
+                if 'negative' in flow:
+                    NegativeID = flow['negative'][0]
+            except Exception:
+                NegativeID = None
 
-        if PositiveID and 'positive_prompt' in prompt_json[PositiveID]['inputs']:
-            FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['positive_prompt']
-        if NegativeID and 'negative_prompt' in prompt_json[PositiveID]['inputs']:
-            FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['negative_prompt']
+            FINAL_DICT = {}
+            FINAL_DICT['negative'] = ""
+            FINAL_DICT['positive'] = ""
 
-        if PositiveID == None or ('text_g' not in prompt_json[PositiveID]['inputs'] and 'text' not in prompt_json[PositiveID]['inputs'] and 'positive_prompt' not in prompt_json[PositiveID]['inputs']):
-            if hasattr(self, '_positive'):
-                FINAL_DICT['positive'] = self._positive
-            if hasattr(self, '_negative'):
-                FINAL_DICT['negative'] = self._negative
+            if PositiveID and NegativeID and 'text_g' in prompt_json[PositiveID]['inputs']:
+                FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text_g']
+                FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text_g']
 
-        if 'steps' in flow and type(flow['steps']) == int:
-            FINAL_DICT['steps'] = flow['steps']
-        if 'sampler_name' in flow and 'scheduler' in flow and type(flow['sampler_name']) == str and type(flow['scheduler']) == str:
-            FINAL_DICT['sampler'] = flow['sampler_name'] + ' ' + flow['scheduler']
-        if 'seed' in flow and type(flow['seed']) == int:
-            FINAL_DICT['seed'] = flow['seed']
-        if 'cfg' in flow and (type(flow['cfg']) == int or type(flow['cfg']) == float):
-            FINAL_DICT['cfg_scale'] = flow['cfg']
+            if PositiveID and NegativeID and 'text' in prompt_json[PositiveID]['inputs']:
+                FINAL_DICT['positive'] = prompt_json[PositiveID]['inputs']['text']
+                FINAL_DICT['negative'] = prompt_json[NegativeID]['inputs']['text']
 
-        if ModelID and 'ckpt_name' in prompt_json[ModelID]['inputs'] and type(prompt_json[ModelID]['inputs']['ckpt_name']) == str:
-            FINAL_DICT['model_name'] = prompt_json[ModelID]['inputs']['ckpt_name'] # flow['ckpt_name']
-        elif 'ckpt_name' in flow and type(flow['ckpt_name']) == str:
-            FINAL_DICT['model_name'] = flow['ckpt_name']
+            if PositiveID == None or ('text_g' not in prompt_json[PositiveID]['inputs'] and 'text' not in prompt_json[PositiveID]['inputs']):
+                if hasattr(self, '_positive'):
+                    FINAL_DICT['positive'] = self._positive
+                if hasattr(self, '_negative'):
+                    FINAL_DICT['negative'] = self._negative
 
-        if SizeID and 'width' in prompt_json[SizeID]['inputs'] and 'height' in prompt_json[SizeID]['inputs'] and type(prompt_json[SizeID]['inputs']['width']) == int:
-            origwidth = str(prompt_json[SizeID]['inputs']['width'])
-            origheight = str(prompt_json[SizeID]['inputs']['height'])
-            FINAL_DICT['width'] = int(origwidth)
-            FINAL_DICT['height'] = int(origheight)
-            FINAL_DICT['size_string'] = origwidth + 'x' + origheight
+            if 'steps' in flow and type(flow['steps']) == int:
+                FINAL_DICT['steps'] = flow['steps']
+            if 'sampler_name' in flow and 'scheduler' in flow and type(flow['sampler_name']) == str and type(flow['scheduler']) == str:
+                FINAL_DICT['sampler'] = flow['sampler_name'] + ' ' + flow['scheduler']
+            if 'seed' in flow and type(flow['seed']) == int:
+                FINAL_DICT['seed'] = flow['seed']
+            if 'cfg' in flow and (type(flow['cfg']) == int or type(flow['cfg']) == float):
+                FINAL_DICT['cfg_scale'] = flow['cfg']
 
-        self._parameter = FINAL_DICT
+            if ModelID and 'ckpt_name' in prompt_json[ModelID]['inputs'] and type(prompt_json[ModelID]['inputs']['ckpt_name']) == str:
+                FINAL_DICT['model_name'] = prompt_json[ModelID]['inputs']['ckpt_name'] # flow['ckpt_name']
+            elif 'ckpt_name' in flow and type(flow['ckpt_name']) == str:
+                FINAL_DICT['model_name'] = flow['ckpt_name']
+
+            if SizeID and 'width' in prompt_json[SizeID]['inputs'] and 'height' in prompt_json[SizeID]['inputs'] and type(prompt_json[SizeID]['inputs']['width']) == int:
+                origwidth = str(prompt_json[SizeID]['inputs']['width'])
+                origheight = str(prompt_json[SizeID]['inputs']['height'])
+                FINAL_DICT['width'] = int(origwidth)
+                FINAL_DICT['height'] = int(origheight)
+                FINAL_DICT['size_string'] = origwidth + 'x' + origheight
+
+            self._parameter = FINAL_DICT
 
     def _comfy_traverse(self, prompt, end_node):
         flow = {}
