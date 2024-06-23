@@ -1196,6 +1196,82 @@ class PrimereResolutionMultiplierMPX:
 
         return (dimension_x, dimension_y, ratio, image)
 
+class PrimereResolutionCoordinatorMPX:
+    RETURN_TYPES = ("INT", "INT", "INT", "INT", "IMAGE", "INT", "INT", "IMAGE", "INT", "INT")
+    RETURN_NAMES = ("REF_WIDTH", "REF_HEIGHT", "SLAVE_WIDTH", "SLAVE_HEIGHT", "RESIZED_REFERENCE", "REF_WIDTH_RES", "REF_HEIGHT_RES", "RESIZED_SLAVE", "SLAVE_WIDTH_RES", "SLAVE_HEIGHT_RES")
+    FUNCTION = "imagesize_coordinator"
+    CATEGORY = TREE_DASHBOARD
+    upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "use_resizer": ("BOOLEAN", {"default": True}),
+                "reference_image": ("IMAGE", {"forceInput": True}),
+                "slave_image": ("IMAGE", {"forceInput": True}),
+                "resize_to_mpx": ("FLOAT", {"default": 1.00, "min": 0.01, "max": 48.00, "step": 0.01}),
+                "keep_slave_ratio": ("BOOLEAN", {"default": False}),
+                "upscale_model": (['None'] + folder_paths.get_filename_list("upscale_models"), {"default": 'None'}),
+                "upscale_method": (cls.upscale_methods, {"default": 'lanczos'}),
+            }
+        }
+
+    def imagesize_coordinator(self, use_resizer, reference_image, slave_image, resize_to_mpx, keep_slave_ratio, upscale_model, upscale_method):
+        ref_width = 0
+        ref_height = 0
+        slave_width = 0
+        slave_height = 0
+
+        if reference_image is not None and slave_image is not None:
+            ref_width = reference_image.shape[2]
+            ref_height = reference_image.shape[1]
+            slave_width = slave_image.shape[2]
+            slave_height = slave_image.shape[1]
+
+        if use_resizer == True:
+            referenceMPX = (ref_width * ref_height) / (1024 * 1024)
+            referenceDifference = resize_to_mpx / referenceMPX
+            ref_squareDiff = math.sqrt(referenceDifference)
+            ref_width_resized = round(ref_width * ref_squareDiff)
+            ref_height_resized = round(ref_height * ref_squareDiff)
+            slaveMPX = (slave_width * slave_height) / (1024 * 1024)
+            slaveDifference = resize_to_mpx / slaveMPX
+            slave_squareDiff = math.sqrt(slaveDifference)
+
+            if keep_slave_ratio == True:
+                slave_width_resized = round(slave_width * slave_squareDiff)
+                slave_height_resized = round(slave_height * slave_squareDiff)
+            else:
+                slave_width_resized = ref_width_resized
+                slave_height_resized = ref_height_resized
+
+            if upscale_model == 'None':
+                reference_image = nodes.ImageScaleBy.upscale(self, reference_image, upscale_method, ref_squareDiff)[0]
+                if keep_slave_ratio == True:
+                    slave_image = nodes.ImageScaleBy.upscale(self, slave_image, upscale_method, slave_squareDiff)[0]
+                else:
+                    slave_image = nodes.ImageScale.upscale(self, slave_image, upscale_method, slave_width_resized, slave_height_resized, "disabled")[0]
+            else:
+                loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
+
+                reference_image_model = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, reference_image)[0]
+                reference_image = nodes.ImageScale.upscale(self, reference_image_model, upscale_method, ref_width_resized, ref_height_resized, "disabled")[0]
+
+                if keep_slave_ratio == True:
+                    slave_image_model = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, slave_image)[0]
+                    slave_image = nodes.ImageScaleBy.upscale(self, slave_image_model, upscale_method, slave_squareDiff)[0]
+
+                slave_image = nodes.ImageScale.upscale(self, slave_image, upscale_method, slave_width_resized, slave_height_resized, "disabled")[0]
+
+        else:
+            ref_width_resized = ref_width
+            ref_height_resized = ref_height
+            slave_width_resized = slave_width
+            slave_height_resized = slave_height
+
+        return (ref_width, ref_height, slave_width, slave_height, reference_image, ref_width_resized, ref_height_resized, slave_image, slave_width_resized, slave_height_resized)
+
 class PrimereStepsCfg:
   RETURN_TYPES = ("INT", "FLOAT")
   RETURN_NAMES = ("STEPS", "CFG")
