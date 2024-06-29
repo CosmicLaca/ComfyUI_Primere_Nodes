@@ -57,6 +57,7 @@ class SeedControl {
         }, { width: 50, serialize: false });
 
         this.lastSeedButton.disabled = true;
+
         this.seedWidget.serializeValue = async (node, index) => {
             const inputSeed = this.seedWidget.value;
             this.serializedCtx = {
@@ -68,7 +69,7 @@ class SeedControl {
                     if (inputSeed === SPECIAL_SEED_INCREMENT) {
                         this.serializedCtx.seedUsed = this.lastSeed + 1;
                     }
-                    else if (inputSeed === SPECIAL_SEED_INCREMENT) {
+                    else if (inputSeed === SPECIAL_SEED_DECREMENT) {
                         this.serializedCtx.seedUsed = this.lastSeed - 1;
                     }
                 }
