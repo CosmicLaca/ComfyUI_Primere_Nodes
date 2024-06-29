@@ -1,6 +1,6 @@
 {
-  "last_node_id": 130,
-  "last_link_id": 825,
+  "last_node_id": 131,
+  "last_link_id": 830,
   "nodes": [
     {
       "id": 61,
@@ -565,47 +565,6 @@
       "bgcolor": "#275783"
     },
     {
-      "id": 10,
-      "type": "PrimereSeed",
-      "pos": [
-        1139.8593785309597,
-        90.63418691496119
-      ],
-      "size": {
-        "0": 285.909423828125,
-        "1": 130
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            17,
-            18,
-            137,
-            317,
-            660
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        649352722629789,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 103,
       "type": "PrimereVAE",
       "pos": [
@@ -617,7 +576,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "outputs": [
         {
@@ -652,7 +611,7 @@
         "1": 446
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "outputs": [
         {
@@ -737,7 +696,7 @@
         "1": 78
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "outputs": [
         {
@@ -777,7 +736,7 @@
         "1": 278
       },
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "outputs": [
         {
@@ -855,7 +814,7 @@
         "1": 128.78175354003906
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "outputs": [
         {
@@ -900,7 +859,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "outputs": [
         {
@@ -1561,7 +1520,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 17,
+          "link": 827,
           "widget": {
             "name": "seed"
           }
@@ -1583,7 +1542,7 @@
       },
       "widgets_values": [
         "",
-        1082508699977496,
+        567040017208437,
         "randomize"
       ],
       "color": "#145414",
@@ -1616,7 +1575,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 18,
+          "link": 826,
           "widget": {
             "name": "seed"
           }
@@ -1638,7 +1597,7 @@
       },
       "widgets_values": [
         "",
-        1009239183320137,
+        136835890415693,
         "randomize"
       ],
       "color": "#541414",
@@ -2180,7 +2139,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 317,
+          "link": 828,
           "widget": {
             "name": "seed"
           }
@@ -2258,7 +2217,7 @@
         false,
         1.6,
         2.8,
-        419195354303152,
+        40759942829496,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2459,7 +2418,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 137,
+          "link": 830,
           "widget": {
             "name": "noise_seed"
           }
@@ -2499,7 +2458,7 @@
         1,
         0.8,
         1.4,
-        403312250100256,
+        14392779745942,
         "randomize",
         true,
         "cpu",
@@ -2820,7 +2779,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 660,
+          "link": 829,
           "widget": {
             "name": "seed"
           }
@@ -2873,7 +2832,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        868833253697035,
+        833820410159556,
         "randomize",
         20,
         8,
@@ -2915,7 +2874,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design"
+        "exterior, extreme architecture, (friendly abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (:0.6), design"
       ],
       "color": "#145454",
       "bgcolor": "#004040"
@@ -3214,7 +3173,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large glassy terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor stormy, thunder, lightning spring professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 672,\n    \"height\": 880,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (friendly abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 880,\n    \"height\": 672,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3397,7 +3356,7 @@
         true,
         false,
         false,
-        "721"
+        "638"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3529,50 +3488,16 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 56,
-      "type": "PrimereTextOutput",
-      "pos": [
-        3890,
-        53
-      ],
-      "size": {
-        "0": 613.0707397460938,
-        "1": 528.1915893554688
-      },
-      "flags": {},
-      "order": 47,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 825,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereTextOutput"
-      },
-      "widgets_values": [
-        "",
-        "*** Image saver switched OFF, image not saved. ***"
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 130,
       "type": "PrimereMetaSave",
       "pos": [
         3523,
         52
       ],
-      "size": [
-        348.11722933637884,
-        534
-      ],
+      "size": {
+        "0": 348.1172180175781,
+        "1": 534
+      },
       "flags": {},
       "order": 46,
       "mode": 0,
@@ -3626,6 +3551,87 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 56,
+      "type": "PrimereTextOutput",
+      "pos": [
+        3890,
+        53
+      ],
+      "size": {
+        "0": 613.0707397460938,
+        "1": 528.1915893554688
+      },
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 825,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        "*** Image saver switched OFF, image not saved. ***"
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
+      "id": 131,
+      "type": "Seed (rgthree)",
+      "pos": {
+        "0": 1140,
+        "1": 91,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        281.677015823941,
+        130
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            826,
+            827,
+            828,
+            829,
+            830
+          ],
+          "shape": 3,
+          "dir": 4,
+          "slot_index": 0
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ]
     }
   ],
   "links": [
@@ -3646,36 +3652,12 @@
       "STRING"
     ],
     [
-      17,
-      10,
-      0,
-      6,
-      1,
-      "INT"
-    ],
-    [
-      18,
-      10,
-      0,
-      7,
-      1,
-      "INT"
-    ],
-    [
       37,
       16,
       0,
       17,
       0,
       "IMAGE"
-    ],
-    [
-      137,
-      10,
-      0,
-      39,
-      3,
-      "INT"
     ],
     [
       139,
@@ -3708,14 +3690,6 @@
       63,
       0,
       "VAE_NAME"
-    ],
-    [
-      317,
-      10,
-      0,
-      87,
-      0,
-      "INT"
     ],
     [
       320,
@@ -4060,14 +4034,6 @@
       120,
       3,
       "LATENT"
-    ],
-    [
-      660,
-      10,
-      0,
-      120,
-      5,
-      "INT"
     ],
     [
       667,
@@ -4724,6 +4690,46 @@
       56,
       0,
       "STRING"
+    ],
+    [
+      826,
+      131,
+      0,
+      7,
+      1,
+      "INT"
+    ],
+    [
+      827,
+      131,
+      0,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      828,
+      131,
+      0,
+      87,
+      0,
+      "INT"
+    ],
+    [
+      829,
+      131,
+      0,
+      120,
+      5,
+      "INT"
+    ],
+    [
+      830,
+      131,
+      0,
+      39,
+      3,
+      "INT"
     ]
   ],
   "groups": [
@@ -4779,10 +4785,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.2100000000000002,
+      "scale": 0.8264462809917354,
       "offset": {
-        "0": -414.09243594795004,
-        "1": 165.39748659875988
+        "0": -1236.8492431640625,
+        "1": 424.15179443359375
       }
     }
   },

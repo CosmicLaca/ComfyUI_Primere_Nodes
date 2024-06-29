@@ -25,6 +25,7 @@ from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
+from datetime import datetime
 
 class PrimereSamplers:
     CATEGORY = TREE_DEPRECATED
@@ -565,23 +566,23 @@ class PrimerePromptSwitch:
             print(f"PrimerePromptSwitch: invalid select index (ignored)")
             return (None, None, selected_index, None)
 
+
 class PrimereSeed:
-  RETURN_TYPES = ("INT",)
-  RETURN_NAMES = ("SEED",)
-  FUNCTION = "seed"
-  CATEGORY = TREE_DASHBOARD
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("SEED",)
+    FUNCTION = "seed"
+    CATEGORY = TREE_DASHBOARD
 
-  @classmethod
-  def INPUT_TYPES(cls):
-    return {
-        "required": {
-            "seed": ("INT", {"default": -1, "min": -1, "max": 0xffffffffffffffff}),
-       },
-    }
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "seed": ("INT", {"default": -1, "min": -1125899906842624, "max": 1125899906842624}),
+            }
+        }
 
-  def seed(self, seed = 0):
-    return (seed,)
-
+    def seed(self, seed = -1):
+      return (seed,)
 
 class PrimereFractalLatent:
 

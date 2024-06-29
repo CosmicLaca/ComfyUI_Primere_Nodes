@@ -1,6 +1,6 @@
 {
-  "last_node_id": 162,
-  "last_link_id": 940,
+  "last_node_id": 163,
+  "last_link_id": 941,
   "nodes": [
     {
       "id": 9,
@@ -1157,43 +1157,6 @@
       "bgcolor": "#0000ee"
     },
     {
-      "id": 22,
-      "type": "PrimereSeed",
-      "pos": [
-        2324.2424020255885,
-        -312.0657094795599
-      ],
-      "size": {
-        "0": 373.7126159667969,
-        "1": 130
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            48
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        1104804793479345,
-        null,
-        null,
-        null
-      ],
-      "color": "#141494",
-      "bgcolor": "#000080"
-    },
-    {
       "id": 142,
       "type": "PrimereSamplersSteps",
       "pos": [
@@ -1205,7 +1168,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "outputs": [
         {
@@ -1270,7 +1233,7 @@
         "1": 246
       },
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1340,7 +1303,7 @@
         "1": 58
       },
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "properties": {
         "text": ""
@@ -1363,7 +1326,7 @@
         "1": 78
       },
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "outputs": [
         {
@@ -1406,7 +1369,7 @@
         "1": 126
       },
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "outputs": [
         {
@@ -1452,7 +1415,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 0,
       "outputs": [
         {
@@ -2451,117 +2414,10 @@
         false,
         1.6,
         2.8,
-        1672650855407,
+        870818163510294,
         "randomize",
         "BaseModel_1024",
         "Normal"
-      ],
-      "color": "#141494",
-      "bgcolor": "#000080"
-    },
-    {
-      "id": 160,
-      "type": "PrimereConceptDataTuple",
-      "pos": [
-        2327,
-        -145
-      ],
-      "size": {
-        "0": 368.171142578125,
-        "1": 174
-      },
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "lightning_selector",
-          "type": "STRING",
-          "link": 894,
-          "widget": {
-            "name": "lightning_selector"
-          }
-        },
-        {
-          "name": "lightning_model_step",
-          "type": "INT",
-          "link": 895,
-          "widget": {
-            "name": "lightning_model_step"
-          }
-        },
-        {
-          "name": "cascade_stage_a",
-          "type": "STRING",
-          "link": 896,
-          "widget": {
-            "name": "cascade_stage_a"
-          }
-        },
-        {
-          "name": "cascade_stage_b",
-          "type": "STRING",
-          "link": 897,
-          "widget": {
-            "name": "cascade_stage_b"
-          }
-        },
-        {
-          "name": "cascade_stage_c",
-          "type": "STRING",
-          "link": 898,
-          "widget": {
-            "name": "cascade_stage_c"
-          }
-        },
-        {
-          "name": "cascade_clip",
-          "type": "STRING",
-          "link": 899,
-          "widget": {
-            "name": "cascade_clip"
-          }
-        },
-        {
-          "name": "hypersd_selector",
-          "type": "STRING",
-          "link": 900,
-          "widget": {
-            "name": "hypersd_selector"
-          }
-        },
-        {
-          "name": "hypersd_model_step",
-          "type": "INT",
-          "link": 901,
-          "widget": {
-            "name": "hypersd_model_step"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            926
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereConceptDataTuple"
-      },
-      "widgets_values": [
-        "SAFETENSOR",
-        8,
-        "",
-        "",
-        "",
-        "",
-        "LORA",
-        8
       ],
       "color": "#141494",
       "bgcolor": "#000080"
@@ -3422,7 +3278,7 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 48,
+          "link": 941,
           "widget": {
             "name": "seed"
           }
@@ -3497,59 +3353,13 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        1123684185884756,
+        1025085456901386,
         "randomize",
         512,
         512
       ],
       "color": "#322",
       "bgcolor": "#533"
-    },
-    {
-      "id": 37,
-      "type": "PrimereVAELoader",
-      "pos": [
-        2327,
-        65
-      ],
-      "size": {
-        "0": 370.3049621582031,
-        "1": 46
-      },
-      "flags": {},
-      "order": 43,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae_name",
-          "type": "VAE_NAME",
-          "link": 112
-        },
-        {
-          "name": "baked_vae",
-          "type": "VAE",
-          "link": 111
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            209,
-            218,
-            330,
-            621
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVAELoader"
-      },
-      "color": "#141494",
-      "bgcolor": "#000080"
     },
     {
       "id": 77,
@@ -3778,7 +3588,7 @@
       },
       "widgets_values": [
         "",
-        871869379700804,
+        607053240708319,
         "randomize"
       ],
       "color": "#232",
@@ -3833,7 +3643,7 @@
       },
       "widgets_values": [
         "",
-        711190884356560,
+        911429881984896,
         "randomize"
       ],
       "color": "#322",
@@ -3967,7 +3777,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        595442167920436,
+        195762260511617,
         "randomize",
         false,
         "cpu",
@@ -4002,7 +3812,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 1104804793479345,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"Crew member in a spacious cockpit, surrounded by control panels and screens, Holographic projection suits, Countess, Short, Firm, Diamond-Shaped Face, Tan Skin, Brunette Hair, silver Eyes, Long Nose, Pouty Lips, Sharp Chin, Shoulder-Length Hair, Curly Hair, Braided Headband, small breasts, Huggie earrings, soft pink gloss lipstick, Photo, Highly Detailed, Extreme, (Futurism:1.20), (Pastel Colors:1.20),\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7,\n    \"seed\": 990678094078379,\n    \"width\": 671,\n    \"height\": 879,\n    \"size_string\": \"671x879\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -5480,7 +5290,7 @@
         1.1,
         0,
         0,
-        1005023910179581,
+        255694243256659,
         "randomize",
         "length+mean",
         "down_weight",
@@ -5583,7 +5393,7 @@
         1,
         0,
         0,
-        819214558505287,
+        617732598203886,
         "randomize",
         "mean",
         "comfy++",
@@ -5686,7 +5496,7 @@
         1.1,
         0,
         0,
-        195011739960537,
+        849699894386458,
         "randomize",
         "mean",
         "A1111",
@@ -5791,7 +5601,7 @@
         1.2,
         0,
         0.2,
-        526601865889271,
+        820555403702790,
         "randomize",
         "mean",
         "down_weight",
@@ -6138,7 +5948,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        676316497180436,
+        586724773292376,
         "randomize",
         20,
         8,
@@ -6431,7 +6241,7 @@
         true,
         false,
         false,
-        "721"
+        "752"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -6782,7 +6592,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        179662852006204,
+        718325700130254,
         "randomize",
         "heun",
         "simple",
@@ -7176,7 +6986,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        131896508165320,
+        169895361921866,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -7570,7 +7380,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        446205859613808,
+        54310703316936,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -7964,7 +7774,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        408902504314392,
+        479621829233019,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8327,7 +8137,7 @@
       },
       "widgets_values": [
         2.1,
-        229398957979929,
+        97254614355555,
         "randomize",
         7,
         6.5,
@@ -8394,10 +8204,10 @@
         6721,
         -1374
       ],
-      "size": [
-        378.1050415407408,
-        613.4165056737417
-      ],
+      "size": {
+        "0": 378.10504150390625,
+        "1": 613.41650390625
+      },
       "flags": {},
       "order": 104,
       "mode": 0,
@@ -8486,6 +8296,202 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 163,
+      "type": "Seed (rgthree)",
+      "pos": {
+        "0": 2325,
+        "1": -313,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        371.9807172746687,
+        130
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            941
+          ],
+          "shape": 3,
+          "dir": 4,
+          "slot_index": 0
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 37,
+      "type": "PrimereVAELoader",
+      "pos": [
+        2327,
+        65
+      ],
+      "size": [
+        370.60163859772774,
+        46
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae_name",
+          "type": "VAE_NAME",
+          "link": 112
+        },
+        {
+          "name": "baked_vae",
+          "type": "VAE",
+          "link": 111
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            209,
+            218,
+            330,
+            621
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVAELoader"
+      },
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
+      "id": 160,
+      "type": "PrimereConceptDataTuple",
+      "pos": [
+        2327,
+        -145
+      ],
+      "size": [
+        371.2225599207868,
+        174
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "lightning_selector",
+          "type": "STRING",
+          "link": 894,
+          "widget": {
+            "name": "lightning_selector"
+          }
+        },
+        {
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": 895,
+          "widget": {
+            "name": "lightning_model_step"
+          }
+        },
+        {
+          "name": "cascade_stage_a",
+          "type": "STRING",
+          "link": 896,
+          "widget": {
+            "name": "cascade_stage_a"
+          }
+        },
+        {
+          "name": "cascade_stage_b",
+          "type": "STRING",
+          "link": 897,
+          "widget": {
+            "name": "cascade_stage_b"
+          }
+        },
+        {
+          "name": "cascade_stage_c",
+          "type": "STRING",
+          "link": 898,
+          "widget": {
+            "name": "cascade_stage_c"
+          }
+        },
+        {
+          "name": "cascade_clip",
+          "type": "STRING",
+          "link": 899,
+          "widget": {
+            "name": "cascade_clip"
+          }
+        },
+        {
+          "name": "hypersd_selector",
+          "type": "STRING",
+          "link": 900,
+          "widget": {
+            "name": "hypersd_selector"
+          }
+        },
+        {
+          "name": "hypersd_model_step",
+          "type": "INT",
+          "link": 901,
+          "widget": {
+            "name": "hypersd_model_step"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            926
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereConceptDataTuple"
+      },
+      "widgets_values": [
+        "SAFETENSOR",
+        8,
+        "",
+        "",
+        "",
+        "",
+        "LORA",
+        8
+      ],
+      "color": "#141494",
+      "bgcolor": "#000080"
     }
   ],
   "links": [
@@ -8752,14 +8758,6 @@
       24,
       0,
       "TUPLE"
-    ],
-    [
-      48,
-      22,
-      0,
-      24,
-      1,
-      "INT"
     ],
     [
       49,
@@ -11064,6 +11062,14 @@
       70,
       0,
       "STRING"
+    ],
+    [
+      941,
+      163,
+      0,
+      24,
+      1,
+      "INT"
     ]
   ],
   "groups": [
@@ -11215,10 +11221,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 0.7513148009015777,
       "offset": {
-        "0": -4694.020142968238,
-        "1": 1702.6864244539815
+        "0": -3791.049072265625,
+        "1": 1677.46142578125
       }
     }
   },
