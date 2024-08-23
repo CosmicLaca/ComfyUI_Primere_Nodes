@@ -164,8 +164,8 @@ class PrimereImageSegments:
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "square_shape": ("INT", {"default": 768, "forceInput": True}),
                 "segment_prompt_data": ("TUPLE", {"forceInput": True}),
-                "dino_search_prompt": ("STRING", {"default": None, "forceInput": True}),
-                "dino_replace_prompt": ("STRING", {"default": None, "forceInput": True}),
+                "dino_search_prompt": ("STRING", {"forceInput": True}),
+                "dino_replace_prompt": ("STRING", {"forceInput": True}),
             }
         }
 

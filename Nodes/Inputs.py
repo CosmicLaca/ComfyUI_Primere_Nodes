@@ -99,8 +99,8 @@ class PrimereRefinerPrompt:
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
             },
             "optional": {
-                "positive_original": ("STRING", {"default": None, "forceInput": True}),
-                "negative_original": ("STRING", {"default": None, "forceInput": True}),
+                "positive_original": ("STRING", {"forceInput": True}),
+                "negative_original": ("STRING", {"forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",

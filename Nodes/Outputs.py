@@ -379,10 +379,10 @@ class PrimereMetaCollector:
                 "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
             }, "optional": {
                 # "seed": ('INT', {"forceInput": True, "default": 1}),
-                "positive_l": ('STRING', {"forceInput": True, "default": None}),
-                "negative_l": ('STRING', {"forceInput": True, "default": None}),
-                "positive_r": ('STRING', {"forceInput": True, "default": None}),
-                "negative_r": ('STRING', {"forceInput": True, "default": None}),
+                "positive_l": ('STRING', {"forceInput": True}),
+                "negative_l": ('STRING', {"forceInput": True}),
+                "positive_r": ('STRING', {"forceInput": True}),
+                "negative_r": ('STRING', {"forceInput": True}),
                 "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
@@ -404,7 +404,7 @@ class PrimereMetaCollector:
     def INPUT_TYPES(cls):
         return cls.INPUT_DICT
 
-    def load_process_meta(self,  *args, **kwargs):
+    def load_process_meta(self, *args, **kwargs):
         data_json = {}
 
         for key, value in self.INPUT_DICT.items():
