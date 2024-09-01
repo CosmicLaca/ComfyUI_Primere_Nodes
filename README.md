@@ -7,7 +7,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Features of attached complex workflow **Primere_full_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the model version
-- No need to set/switch any nodes or workflow between SD and SDXL checkpoints. Not just checkpoints, but change between model concepts only 1 click like Normal (SD/SDXL), LCM (SD/SDXL), Turbo, Cascade, Playground, Hyper-SD and Lightning. Test workflow: **civitai-modelconcepts.json**
+- No need to set/switch any nodes or workflow between SD and SDXL checkpoints. Not just checkpoints, but change between model concepts only 1 click like Normal (SD/SDXL), LCM (SD/SDXL), Turbo, Cascade, Playground, Hyper-SD, Flux and Lightning. Test workflow: **civitai-modelconcepts.json**
 - You can select preferred model, subpath and orientation on the prompt input to overwrite the system settings by prompt, same features under the .csv prompt loader node and the automatic Prompt organizer
 - You can randomize the image orientation if using Comfy's batch queue mode
 - Auto save the final image and .json and/or .txt file with workflow details, but these details saved to image as EXIF/PNGINFO (otherworldly meta) too
@@ -55,6 +55,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Flux support, 1 click selector
 - Hyper-SD support, 1 click selector
 - Nvidia AlignYourSteps support on sampler: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/
 - Image recycler node read images without meta, using Pic2Story model to generate prompt from picture only 
@@ -357,7 +358,7 @@ This node the merged version of previous two: 'Primere Sampler Selector' and 'Pr
 <hr>
 
 ### Primere Model Concept Selector:
-Use this node to switch between Normal, LCM, Cascade, Lightning, Playground, Hyper-SD and Turbo modes in whole rendering process. Use several sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo, Lightning, Playground and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
+Use this node to switch between Normal, LCM, Cascade, Lightning, Playground, Hyper-SD, Flux and Turbo modes in whole rendering process. Use several sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo, Lightning, Playground and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
 **Hyper-SD UNET files must be saved to Comfy's unet path, not as checkpoint!**
 
 <a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="300px"></a>
