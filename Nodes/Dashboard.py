@@ -464,8 +464,8 @@ class PrimereCKPTLoader:
 
             OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
             OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
-            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c)[0]
-            MODEL_B_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_b)[0]
+            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
+            MODEL_B_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_b, 'default')[0]
 
             OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
             return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
@@ -838,6 +838,11 @@ class PrimereCLIP:
             case 'SDXL_2048':
                 is_sdxl = 1
 
+        if model_concept == 'Flux':
+            adv_encode = False
+            use_long_clip = False
+            copy_prompt_to_l = False
+
         additional_positive = int_style_pos
         additional_negative = int_style_neg
         if int_style_pos == 'None' or use_int_style == False:
@@ -949,11 +954,7 @@ class PrimereCLIP:
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
 
-        if model_concept == 'Flux':
-            adv_encode = False
-            use_long_clip = False
-
-        if (use_long_clip == True and model_concept != 'Cascade'):
+        if use_long_clip == True and model_concept != 'Cascade' and model_concept != 'Flux':
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
