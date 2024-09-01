@@ -1,14 +1,22 @@
 {
-  "last_node_id": 131,
-  "last_link_id": 830,
+  "last_node_id": 136,
+  "last_link_id": 919,
   "nodes": [
     {
       "id": 61,
       "type": "PrimereVAE",
-      "pos": [
-        659.8593785309592,
-        477.63418691496116
-      ],
+      "pos": {
+        "0": 659.859375,
+        "1": 477.6341857910156,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 377.6019287109375,
         "1": 58
@@ -16,6 +24,7 @@
       "flags": {},
       "order": 0,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "VAE_NAME",
@@ -24,8 +33,8 @@
             203,
             557
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "title": "Primere VAE Selector - SD",
@@ -41,10 +50,18 @@
     {
       "id": 62,
       "type": "PrimereVAE",
-      "pos": [
-        660.8593785309592,
-        571.6341869149613
-      ],
+      "pos": {
+        "0": 660.859375,
+        "1": 571.6342163085938,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 378.4646911621094,
         "1": 58
@@ -52,6 +69,7 @@
       "flags": {},
       "order": 1,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "VAE_NAME",
@@ -60,8 +78,8 @@
             204,
             558
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "title": "Primere VAE Selector - SDXL",
@@ -77,10 +95,18 @@
     {
       "id": 69,
       "type": "Note",
-      "pos": [
-        1406,
-        -57
-      ],
+      "pos": {
+        "0": 1406,
+        "1": -57,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 382.6446228027344,
         "1": 67.76859283447266
@@ -88,6 +114,8 @@
       "flags": {},
       "order": 2,
       "mode": 0,
+      "inputs": [],
+      "outputs": [],
       "properties": {
         "text": ""
       },
@@ -100,10 +128,18 @@
     {
       "id": 72,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        660,
-        764
-      ],
+      "pos": {
+        "0": 660,
+        "1": 764,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 379.02093505859375,
         "1": 190
@@ -111,42 +147,43 @@
       "flags": {},
       "order": 3,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            770
+            841
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            771
+            842
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            773
+            844
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            772
+            843
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - NORMAL",
@@ -165,10 +202,18 @@
     {
       "id": 75,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        659.0413520749936,
-        1245.9978231052023
-      ],
+      "pos": {
+        "0": 659.0413818359375,
+        "1": 1245.997802734375,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 327.617919921875,
         "1": 190
@@ -176,42 +221,43 @@
       "flags": {},
       "order": 4,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            774
+            845
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            775
+            846
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            777
+            848
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            776
+            847
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - LCM",
@@ -230,10 +276,18 @@
     {
       "id": 76,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        661.0413520749936,
-        1019.9978231052023
-      ],
+      "pos": {
+        "0": 661.0413818359375,
+        "1": 1019.997802734375,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 324.4176025390625,
         "1": 190
@@ -241,42 +295,43 @@
       "flags": {},
       "order": 5,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            778
+            849
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            779
+            850
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            781
+            852
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            780
+            851
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - TURBO",
@@ -295,10 +350,18 @@
     {
       "id": 96,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        995,
-        1020
-      ],
+      "pos": {
+        "0": 995,
+        "1": 1020,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 385.8164367675781,
         "1": 190
@@ -306,42 +369,43 @@
       "flags": {},
       "order": 6,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            782
+            853
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            783
+            854
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            785
+            856
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            784
+            855
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - CASCADE :: C",
@@ -360,10 +424,18 @@
     {
       "id": 97,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        993,
-        1246
-      ],
+      "pos": {
+        "0": 993,
+        "1": 1246,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 388.8448486328125,
         "1": 190
@@ -371,42 +443,43 @@
       "flags": {},
       "order": 7,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            786
+            857
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            787
+            858
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            789
+            860
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            788
+            859
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - LIGHTNING",
@@ -425,10 +498,18 @@
     {
       "id": 1,
       "type": "PrimerePrompt",
-      "pos": [
-        -358.42166284771776,
-        90.41617917227772
-      ],
+      "pos": {
+        "0": -358.4216613769531,
+        "1": 90.41617584228516,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 358.3917236328125,
         "1": 359.32012939453125
@@ -436,6 +517,7 @@
       "flags": {},
       "order": 8,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "PROMPT+",
@@ -443,8 +525,8 @@
           "links": [
             494
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -452,29 +534,29 @@
           "links": [
             495
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "MODEL",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 4
+          "slot_index": 4,
+          "shape": 3
         },
         {
           "name": "PREFERRED",
@@ -482,8 +564,8 @@
           "links": [
             496
           ],
-          "shape": 3,
-          "slot_index": 5
+          "slot_index": 5,
+          "shape": 3
         }
       ],
       "properties": {
@@ -502,10 +584,18 @@
     {
       "id": 118,
       "type": "PrimereSamplersSteps",
-      "pos": [
-        993,
-        1474
-      ],
+      "pos": {
+        "0": 993,
+        "1": 1474,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 388.8448486328125,
         "1": 190
@@ -513,42 +603,43 @@
       "flags": {},
       "order": 9,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            790
+            861
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            791
+            862
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            793
+            864
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            792
+            863
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - PLAYGROUND",
@@ -567,10 +658,18 @@
     {
       "id": 103,
       "type": "PrimereVAE",
-      "pos": [
-        662,
-        670
-      ],
+      "pos": {
+        "0": 662,
+        "1": 670,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 377.3240661621094,
         "1": 58
@@ -578,6 +677,7 @@
       "flags": {},
       "order": 10,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "VAE_NAME",
@@ -585,8 +685,8 @@
           "links": [
             670
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "title": "Primere VAE Selector - CASCADE",
@@ -602,10 +702,18 @@
     {
       "id": 91,
       "type": "PrimerePromptOrganizer",
-      "pos": [
-        7,
-        91
-      ],
+      "pos": {
+        "0": 7,
+        "1": 91,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 339.9195251464844,
         "1": 446
@@ -613,6 +721,7 @@
       "flags": {},
       "order": 11,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "STYLE+",
@@ -620,8 +729,8 @@
           "links": [
             497
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "STYLE-",
@@ -629,29 +738,29 @@
           "links": [
             498
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "MODEL",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 4
+          "slot_index": 4,
+          "shape": 3
         },
         {
           "name": "PREFERRED",
@@ -659,8 +768,8 @@
           "links": [
             499
           ],
-          "shape": 3,
-          "slot_index": 5
+          "slot_index": 5,
+          "shape": 3
         }
       ],
       "properties": {
@@ -687,10 +796,18 @@
     {
       "id": 124,
       "type": "PrimereUpscaleModel",
-      "pos": [
-        2851,
-        454
-      ],
+      "pos": {
+        "0": 2851,
+        "1": 454,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 326.16796875,
         "1": 78
@@ -698,6 +815,7 @@
       "flags": {},
       "order": 12,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "UPSCALE_MODEL",
@@ -709,10 +827,10 @@
           "name": "MODEL_NAME",
           "type": "COMBO",
           "links": [
-            748
+            914
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         }
       ],
       "properties": {
@@ -727,10 +845,18 @@
     {
       "id": 4,
       "type": "PrimereVisualStyle",
-      "pos": [
-        -361,
-        488
-      ],
+      "pos": {
+        "0": -361,
+        "1": 488,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 360.3917236328125,
         "1": 278
@@ -738,6 +864,7 @@
       "flags": {},
       "order": 13,
       "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "PROMPT+",
@@ -745,8 +872,8 @@
           "links": [
             500
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -754,29 +881,29 @@
           "links": [
             501
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "MODEL",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
           "links": [],
-          "shape": 3,
-          "slot_index": 4
+          "slot_index": 4,
+          "shape": 3
         },
         {
           "name": "PREFERRED",
@@ -784,8 +911,8 @@
           "links": [
             502
           ],
-          "shape": 3,
-          "slot_index": 5
+          "slot_index": 5,
+          "shape": 3
         }
       ],
       "properties": {
@@ -803,100 +930,64 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        661,
-        90
-      ],
+      "id": 129,
+      "type": "PrimereSamplersSteps",
+      "pos": {
+        "0": 991,
+        "1": 1705,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
-        "0": 467.5840759277344,
-        "1": 128.78175354003906
+        "0": 388.0743713378906,
+        "1": 190
       },
       "flags": {},
       "order": 14,
       "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            456,
-            554
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 129,
-      "type": "PrimereSamplersSteps",
-      "pos": [
-        1397,
-        1547
-      ],
-      "size": {
-        "0": 395.9034423828125,
-        "1": 190
-      },
-      "flags": {},
-      "order": 15,
-      "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            818
+            865
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            819
+            866
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            820
+            868
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            821
+            867
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - HYPER-SD",
@@ -913,18 +1004,150 @@
       "bgcolor": "#0091d7"
     },
     {
+      "id": 134,
+      "type": "PrimereSamplersSteps",
+      "pos": {
+        "0": 658,
+        "1": 1474,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 327.99090576171875,
+        "1": 190
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            892
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            893
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            894
+          ],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            895
+          ],
+          "slot_index": 3,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - FLUX",
+      "properties": {
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "beta",
+        20,
+        1.1
+      ],
+      "color": "#25c5ff",
+      "bgcolor": "#11b1ff"
+    },
+    {
+      "id": 135,
+      "type": "PrimereSeed",
+      "pos": {
+        "0": 1139,
+        "1": 90,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 285.2718505859375,
+        "1": 130
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            905,
+            906,
+            907,
+            908,
+            909
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        863908266458242,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 105,
       "type": "PrimerePromptSwitch",
-      "pos": [
-        356,
-        92
-      ],
+      "pos": {
+        "0": 356,
+        "1": 92,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 276.6921691894531,
         "1": 278
       },
       "flags": {},
-      "order": 17,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -995,8 +1218,8 @@
           "links": [
             503
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -1004,8 +1227,8 @@
           "links": [
             504
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "SELECTED_INDEX",
@@ -1019,8 +1242,8 @@
           "links": [
             559
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1035,16 +1258,24 @@
     {
       "id": 41,
       "type": "PrimereModelKeyword",
-      "pos": [
-        660.8593785309592,
-        255.63418691496116
-      ],
+      "pos": {
+        "0": 660.859375,
+        "1": 255.63418579101562,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 468.95831298828125,
         "1": 186.38485717773438
       },
       "flags": {},
-      "order": 18,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1060,8 +1291,8 @@
           "links": [
             752
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1078,15 +1309,23 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 127,
+      "id": 133,
       "type": "PrimereModelConceptSelector",
-      "pos": [
-        1397,
-        672
-      ],
+      "pos": {
+        "0": 1396,
+        "1": 892,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 397.56500244140625,
-        "1": 838
+        "1": 1150
       },
       "flags": {},
       "order": 19,
@@ -1095,7 +1334,7 @@
         {
           "name": "normal_sampler_name",
           "type": "COMBO",
-          "link": 770,
+          "link": 841,
           "widget": {
             "name": "normal_sampler_name"
           }
@@ -1103,7 +1342,7 @@
         {
           "name": "normal_scheduler_name",
           "type": "COMBO",
-          "link": 771,
+          "link": 842,
           "widget": {
             "name": "normal_scheduler_name"
           }
@@ -1111,7 +1350,7 @@
         {
           "name": "normal_cfg_scale",
           "type": "FLOAT",
-          "link": 772,
+          "link": 843,
           "widget": {
             "name": "normal_cfg_scale"
           }
@@ -1119,7 +1358,7 @@
         {
           "name": "normal_steps",
           "type": "INT",
-          "link": 773,
+          "link": 844,
           "widget": {
             "name": "normal_steps"
           }
@@ -1127,7 +1366,7 @@
         {
           "name": "lcm_sampler_name",
           "type": "COMBO",
-          "link": 774,
+          "link": 845,
           "widget": {
             "name": "lcm_sampler_name"
           }
@@ -1135,7 +1374,7 @@
         {
           "name": "lcm_scheduler_name",
           "type": "COMBO",
-          "link": 775,
+          "link": 846,
           "widget": {
             "name": "lcm_scheduler_name"
           }
@@ -1143,7 +1382,7 @@
         {
           "name": "lcm_cfg_scale",
           "type": "FLOAT",
-          "link": 776,
+          "link": 847,
           "widget": {
             "name": "lcm_cfg_scale"
           }
@@ -1151,7 +1390,7 @@
         {
           "name": "lcm_steps",
           "type": "INT",
-          "link": 777,
+          "link": 848,
           "widget": {
             "name": "lcm_steps"
           }
@@ -1159,7 +1398,7 @@
         {
           "name": "turbo_sampler_name",
           "type": "COMBO",
-          "link": 778,
+          "link": 849,
           "widget": {
             "name": "turbo_sampler_name"
           }
@@ -1167,7 +1406,7 @@
         {
           "name": "turbo_scheduler_name",
           "type": "COMBO",
-          "link": 779,
+          "link": 850,
           "widget": {
             "name": "turbo_scheduler_name"
           }
@@ -1175,7 +1414,7 @@
         {
           "name": "turbo_cfg_scale",
           "type": "FLOAT",
-          "link": 780,
+          "link": 851,
           "widget": {
             "name": "turbo_cfg_scale"
           }
@@ -1183,7 +1422,7 @@
         {
           "name": "turbo_steps",
           "type": "INT",
-          "link": 781,
+          "link": 852,
           "widget": {
             "name": "turbo_steps"
           }
@@ -1191,7 +1430,7 @@
         {
           "name": "cascade_sampler_name",
           "type": "COMBO",
-          "link": 782,
+          "link": 853,
           "widget": {
             "name": "cascade_sampler_name"
           }
@@ -1199,7 +1438,7 @@
         {
           "name": "cascade_scheduler_name",
           "type": "COMBO",
-          "link": 783,
+          "link": 854,
           "widget": {
             "name": "cascade_scheduler_name"
           }
@@ -1207,7 +1446,7 @@
         {
           "name": "cascade_cfg_scale",
           "type": "FLOAT",
-          "link": 784,
+          "link": 855,
           "widget": {
             "name": "cascade_cfg_scale"
           }
@@ -1215,7 +1454,7 @@
         {
           "name": "cascade_steps",
           "type": "INT",
-          "link": 785,
+          "link": 856,
           "widget": {
             "name": "cascade_steps"
           }
@@ -1223,7 +1462,7 @@
         {
           "name": "lightning_sampler_name",
           "type": "COMBO",
-          "link": 786,
+          "link": 857,
           "widget": {
             "name": "lightning_sampler_name"
           }
@@ -1231,7 +1470,7 @@
         {
           "name": "lightning_scheduler_name",
           "type": "COMBO",
-          "link": 787,
+          "link": 858,
           "widget": {
             "name": "lightning_scheduler_name"
           }
@@ -1239,7 +1478,7 @@
         {
           "name": "lightning_cfg_scale",
           "type": "FLOAT",
-          "link": 788,
+          "link": 859,
           "widget": {
             "name": "lightning_cfg_scale"
           }
@@ -1247,7 +1486,7 @@
         {
           "name": "lightning_steps",
           "type": "INT",
-          "link": 789,
+          "link": 860,
           "widget": {
             "name": "lightning_steps"
           }
@@ -1255,7 +1494,7 @@
         {
           "name": "playground_sampler_name",
           "type": "COMBO",
-          "link": 790,
+          "link": 861,
           "widget": {
             "name": "playground_sampler_name"
           }
@@ -1263,7 +1502,7 @@
         {
           "name": "playground_scheduler_name",
           "type": "COMBO",
-          "link": 791,
+          "link": 862,
           "widget": {
             "name": "playground_scheduler_name"
           }
@@ -1271,7 +1510,7 @@
         {
           "name": "playground_cfg_scale",
           "type": "FLOAT",
-          "link": 792,
+          "link": 863,
           "widget": {
             "name": "playground_cfg_scale"
           }
@@ -1279,7 +1518,7 @@
         {
           "name": "playground_steps",
           "type": "INT",
-          "link": 793,
+          "link": 864,
           "widget": {
             "name": "playground_steps"
           }
@@ -1287,7 +1526,7 @@
         {
           "name": "hypersd_sampler_name",
           "type": "COMBO",
-          "link": 818,
+          "link": 865,
           "widget": {
             "name": "hypersd_sampler_name"
           }
@@ -1295,7 +1534,7 @@
         {
           "name": "hypersd_scheduler_name",
           "type": "COMBO",
-          "link": 819,
+          "link": 866,
           "widget": {
             "name": "hypersd_scheduler_name"
           }
@@ -1303,7 +1542,7 @@
         {
           "name": "hypersd_cfg_scale",
           "type": "FLOAT",
-          "link": 821,
+          "link": 867,
           "widget": {
             "name": "hypersd_cfg_scale"
           }
@@ -1311,9 +1550,41 @@
         {
           "name": "hypersd_steps",
           "type": "INT",
-          "link": 820,
+          "link": 868,
           "widget": {
             "name": "hypersd_steps"
+          }
+        },
+        {
+          "name": "flux_sampler_name",
+          "type": "COMBO",
+          "link": 892,
+          "widget": {
+            "name": "flux_sampler_name"
+          }
+        },
+        {
+          "name": "flux_scheduler_name",
+          "type": "COMBO",
+          "link": 893,
+          "widget": {
+            "name": "flux_scheduler_name"
+          }
+        },
+        {
+          "name": "flux_cfg_scale",
+          "type": "FLOAT",
+          "link": 895,
+          "widget": {
+            "name": "flux_cfg_scale"
+          }
+        },
+        {
+          "name": "flux_steps",
+          "type": "INT",
+          "link": 894,
+          "widget": {
+            "name": "flux_steps"
           }
         }
       ],
@@ -1322,128 +1593,196 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            802,
-            806
+            869,
+            870
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            803,
-            807
+            871,
+            872
           ],
-          "shape": 3,
-          "slot_index": 1
+          "shape": 3
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            804,
-            808
+            873,
+            874
           ],
-          "shape": 3,
-          "slot_index": 2
+          "shape": 3
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            805,
-            809
+            875,
+            876
           ],
-          "shape": 3,
-          "slot_index": 3
+          "shape": 3
         },
         {
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            810,
-            811,
-            812,
-            815,
-            816,
-            817,
-            822
+            877,
+            878,
+            879,
+            880,
+            881,
+            882,
+            883
           ],
-          "shape": 3,
-          "slot_index": 4
+          "shape": 3
         },
         {
           "name": "LIGHTNING_SELECTOR",
           "type": "STRING",
           "links": [
-            794
+            884
           ],
-          "shape": 3,
-          "slot_index": 5
+          "shape": 3
         },
         {
           "name": "LIGHTNING_MODEL_STEP",
           "type": "INT",
           "links": [
-            795
+            885
           ],
-          "shape": 3,
-          "slot_index": 6
+          "shape": 3
         },
         {
           "name": "CASCADE_STAGE_A",
           "type": "STRING",
           "links": [
-            796
+            886
           ],
-          "shape": 3,
-          "slot_index": 7
+          "shape": 3
         },
         {
           "name": "CASCADE_STAGE_B",
           "type": "STRING",
           "links": [
-            797
+            887
           ],
-          "shape": 3,
-          "slot_index": 8
+          "shape": 3
         },
         {
           "name": "CASCADE_STAGE_C",
           "type": "STRING",
           "links": [
-            798
+            888
           ],
-          "shape": 3,
-          "slot_index": 9
+          "shape": 3
         },
         {
           "name": "CASCADE_CLIP",
           "type": "STRING",
           "links": [
-            799
+            889
           ],
-          "shape": 3,
-          "slot_index": 10
+          "shape": 3
         },
         {
           "name": "HYPER-SD_SELECTOR",
           "type": "STRING",
           "links": [
-            800
+            890
           ],
-          "shape": 3,
-          "slot_index": 11
+          "shape": 3
         },
         {
           "name": "HYPER-SD_MODEL_STEP",
           "type": "INT",
           "links": [
-            801
+            891
           ],
-          "shape": 3,
-          "slot_index": 12
+          "shape": 3
+        },
+        {
+          "name": "FLUX_SELECTOR",
+          "type": "STRING",
+          "links": [
+            896
+          ],
+          "slot_index": 13,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_DIFFUSION_MODEL",
+          "type": "STRING",
+          "links": [
+            897
+          ],
+          "slot_index": 14,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_WEIGHT_TYPE",
+          "type": "STRING",
+          "links": [
+            898
+          ],
+          "slot_index": 15,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_GGUF_MODEL",
+          "type": "STRING",
+          "links": [
+            899
+          ],
+          "slot_index": 16,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            900
+          ],
+          "slot_index": 17,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_CLIP_L",
+          "type": "STRING",
+          "links": [
+            901
+          ],
+          "slot_index": 18,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_CLIP_GUIDANCE",
+          "type": "FLOAT",
+          "links": [
+            902
+          ],
+          "slot_index": 19,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_VAE",
+          "type": "STRING",
+          "links": [
+            903
+          ],
+          "slot_index": 20,
+          "shape": 3
+        },
+        {
+          "name": "FLUX_SAMPLER",
+          "type": "STRING",
+          "links": [
+            904
+          ],
+          "slot_index": 21,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1462,9 +1801,18 @@
         8,
         false,
         "Stable-Cascade\\stage_a.safetensors",
-        "Stable-Cascade\\stage_b_bf16.safetensors",
-        "Stable-Cascade\\stage_c_bf16.safetensors",
+        "Stable-Cascade\\stage_b.safetensors",
+        "Stable-Cascade\\stage_c.safetensors",
         "cascade_clip.safetensors",
+        "DIFFUSION",
+        "Flux\\flux1-dev-fp8.safetensors",
+        "fp8_e4m3fn",
+        "FLUX1\\flux1-dev-Q4_1.gguf",
+        "Flux\\t5xxl_fp8_e4m3fn.safetensors",
+        "Flux\\clip_l.safetensors",
+        3,
+        "flux-ae.sft",
+        "custom_advanced",
         "lcm",
         "sgm_uniform",
         1.2,
@@ -1488,7 +1836,11 @@
         "dpmpp_sde",
         "simple",
         1.2,
-        6
+        6,
+        "euler",
+        "simple",
+        1,
+        20
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1496,31 +1848,39 @@
     {
       "id": 6,
       "type": "PrimereDynamicParser",
-      "pos": [
-        -73,
-        1417
-      ],
+      "pos": {
+        "0": -73,
+        "1": 1417,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 274.1334533691406,
         "1": 54
       },
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
           "name": "dyn_prompt",
           "type": "STRING",
           "link": 503,
+          "slot_index": 0,
           "widget": {
             "name": "dyn_prompt"
-          },
-          "slot_index": 0
+          }
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 827,
+          "link": 908,
           "widget": {
             "name": "seed"
           }
@@ -1533,8 +1893,8 @@
           "links": [
             13
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1542,7 +1902,7 @@
       },
       "widgets_values": [
         "",
-        567040017208437,
+        374934180726412,
         "randomize"
       ],
       "color": "#145414",
@@ -1551,31 +1911,39 @@
     {
       "id": 7,
       "type": "PrimereDynamicParser",
-      "pos": [
-        -356,
-        1416
-      ],
+      "pos": {
+        "0": -356,
+        "1": 1416,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 275.1334533691406,
         "1": 54
       },
       "flags": {},
-      "order": 21,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
           "name": "dyn_prompt",
           "type": "STRING",
           "link": 504,
+          "slot_index": 0,
           "widget": {
             "name": "dyn_prompt"
-          },
-          "slot_index": 0
+          }
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 826,
+          "link": 909,
           "widget": {
             "name": "seed"
           }
@@ -1588,8 +1956,8 @@
           "links": [
             14
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1597,31 +1965,39 @@
       },
       "widgets_values": [
         "",
-        136835890415693,
+        6102483252699,
         "randomize"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
     },
     {
-      "id": 128,
+      "id": 132,
       "type": "PrimereConceptDataTuple",
-      "pos": [
-        1432,
-        461
-      ],
+      "pos": {
+        "0": 1432,
+        "1": 461,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 361.56500244140625,
-        "1": 174
+        "1": 390
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
           "name": "lightning_selector",
           "type": "STRING",
-          "link": 794,
+          "link": 884,
           "widget": {
             "name": "lightning_selector"
           }
@@ -1629,7 +2005,7 @@
         {
           "name": "lightning_model_step",
           "type": "INT",
-          "link": 795,
+          "link": 885,
           "widget": {
             "name": "lightning_model_step"
           }
@@ -1637,7 +2013,7 @@
         {
           "name": "cascade_stage_a",
           "type": "STRING",
-          "link": 796,
+          "link": 886,
           "widget": {
             "name": "cascade_stage_a"
           }
@@ -1645,7 +2021,7 @@
         {
           "name": "cascade_stage_b",
           "type": "STRING",
-          "link": 797,
+          "link": 887,
           "widget": {
             "name": "cascade_stage_b"
           }
@@ -1653,7 +2029,7 @@
         {
           "name": "cascade_stage_c",
           "type": "STRING",
-          "link": 798,
+          "link": 888,
           "widget": {
             "name": "cascade_stage_c"
           }
@@ -1661,7 +2037,7 @@
         {
           "name": "cascade_clip",
           "type": "STRING",
-          "link": 799,
+          "link": 889,
           "widget": {
             "name": "cascade_clip"
           }
@@ -1669,7 +2045,7 @@
         {
           "name": "hypersd_selector",
           "type": "STRING",
-          "link": 800,
+          "link": 890,
           "widget": {
             "name": "hypersd_selector"
           }
@@ -1677,9 +2053,81 @@
         {
           "name": "hypersd_model_step",
           "type": "INT",
-          "link": 801,
+          "link": 891,
           "widget": {
             "name": "hypersd_model_step"
+          }
+        },
+        {
+          "name": "flux_selector",
+          "type": "STRING",
+          "link": 896,
+          "widget": {
+            "name": "flux_selector"
+          }
+        },
+        {
+          "name": "flux_diffusion",
+          "type": "STRING",
+          "link": 897,
+          "widget": {
+            "name": "flux_diffusion"
+          }
+        },
+        {
+          "name": "flux_wight_dtype",
+          "type": "STRING",
+          "link": 898,
+          "widget": {
+            "name": "flux_wight_dtype"
+          }
+        },
+        {
+          "name": "flux_gguf",
+          "type": "STRING",
+          "link": 899,
+          "widget": {
+            "name": "flux_gguf"
+          }
+        },
+        {
+          "name": "flux_clip_t5xxl",
+          "type": "STRING",
+          "link": 900,
+          "widget": {
+            "name": "flux_clip_t5xxl"
+          }
+        },
+        {
+          "name": "flux_clip_l",
+          "type": "STRING",
+          "link": 901,
+          "widget": {
+            "name": "flux_clip_l"
+          }
+        },
+        {
+          "name": "flux_clip_guidance",
+          "type": "FLOAT",
+          "link": 902,
+          "widget": {
+            "name": "flux_clip_guidance"
+          }
+        },
+        {
+          "name": "flux_vae",
+          "type": "STRING",
+          "link": 903,
+          "widget": {
+            "name": "flux_vae"
+          }
+        },
+        {
+          "name": "flux_sampler",
+          "type": "STRING",
+          "link": 904,
+          "widget": {
+            "name": "flux_sampler"
           }
         }
       ],
@@ -1688,11 +2136,10 @@
           "name": "CONCEPT_DATA",
           "type": "TUPLE",
           "links": [
-            813,
-            814
+            839,
+            840
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
         }
       ],
       "properties": {
@@ -1706,7 +2153,16 @@
         "",
         "",
         "LORA",
-        8
+        8,
+        "DIFFUSION",
+        "",
+        "",
+        "",
+        "",
+        "",
+        3.5,
+        "",
+        ""
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1714,16 +2170,24 @@
     {
       "id": 8,
       "type": "PrimereEmbeddingHandler",
-      "pos": [
-        211,
-        1417
-      ],
+      "pos": {
+        "0": 211,
+        "1": 1417,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 417.9468688964844,
         "1": 54
       },
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1751,8 +2215,8 @@
             544,
             546
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -1760,8 +2224,8 @@
           "links": [
             547
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1777,16 +2241,24 @@
     {
       "id": 98,
       "type": "PrimereCKPTLoader",
-      "pos": [
-        1139,
-        258
-      ],
+      "pos": {
+        "0": 1139,
+        "1": 258,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 283.30560302734375,
         "1": 206
       },
       "flags": {},
-      "order": 24,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -1797,7 +2269,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 813
+          "link": 839
         },
         {
           "name": "loaded_model",
@@ -1817,7 +2289,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 815,
+          "link": 880,
           "widget": {
             "name": "model_concept"
           }
@@ -1830,8 +2302,8 @@
           "links": [
             538
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "CLIP",
@@ -1839,8 +2311,8 @@
           "links": [
             539
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "VAE",
@@ -1850,10 +2322,10 @@
             490,
             491,
             492,
-            742
+            911
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "MODEL_VERSION",
@@ -1866,8 +2338,8 @@
             564,
             753
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "properties": {
@@ -1885,16 +2357,24 @@
     {
       "id": 111,
       "type": "PrimereNetworkTagLoader",
-      "pos": [
-        -361,
-        809
-      ],
+      "pos": {
+        "0": -361,
+        "1": 809,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 363.10662841796875,
         "1": 568.43896484375
       },
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1923,8 +2403,8 @@
           "links": [
             655
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "CLIP",
@@ -1932,8 +2412,8 @@
           "links": [
             751
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "LORA_STACK",
@@ -1995,16 +2475,24 @@
     {
       "id": 104,
       "type": "PrimereVAELoader",
-      "pos": [
-        1045,
-        651
-      ],
+      "pos": {
+        "0": 1045,
+        "1": 651,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 166.3192901611328,
         "1": 46
       },
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -2025,8 +2513,8 @@
           "links": [
             669
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2038,16 +2526,24 @@
     {
       "id": 59,
       "type": "PrimereVAELoader",
-      "pos": [
-        1218,
-        653
-      ],
+      "pos": {
+        "0": 1218,
+        "1": 653,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 167.17726135253906,
         "1": 46
       },
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2068,8 +2564,8 @@
           "links": [
             481
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2081,16 +2577,24 @@
     {
       "id": 63,
       "type": "PrimereVAELoader",
-      "pos": [
-        1044,
-        733
-      ],
+      "pos": {
+        "0": 1044,
+        "1": 733,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 342.0331115722656,
         "1": 46
       },
       "flags": {},
-      "order": 28,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -2111,8 +2615,8 @@
           "links": [
             482
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2124,22 +2628,30 @@
     {
       "id": 87,
       "type": "PrimereResolution",
-      "pos": [
-        1434,
-        90
-      ],
+      "pos": {
+        "0": 1434,
+        "1": 90,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 359.5334777832031,
         "1": 334
       },
       "flags": {},
-      "order": 29,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
           "name": "seed",
           "type": "INT",
-          "link": 828,
+          "link": 907,
           "widget": {
             "name": "seed"
           }
@@ -2155,11 +2667,11 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 812,
+          "link": 879,
+          "slot_index": 2,
           "widget": {
             "name": "model_concept"
-          },
-          "slot_index": 2
+          }
         }
       ],
       "outputs": [
@@ -2172,8 +2684,8 @@
             568,
             757
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "HEIGHT",
@@ -2184,8 +2696,8 @@
             569,
             758
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "SQUARE_SHAPE",
@@ -2199,8 +2711,8 @@
           "links": [
             556
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2217,7 +2729,7 @@
         false,
         1.6,
         2.8,
-        40759942829496,
+        361140924473977,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2228,16 +2740,24 @@
     {
       "id": 112,
       "type": "PrimereClearPrompt",
-      "pos": [
-        11,
-        577
-      ],
+      "pos": {
+        "0": 11,
+        "1": 577,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 336.040771484375,
         "1": 238
       },
       "flags": {},
-      "order": 30,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -2267,7 +2787,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 816,
+          "link": 881,
           "widget": {
             "name": "model_concept"
           }
@@ -2280,8 +2800,8 @@
           "links": [
             754
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -2289,8 +2809,8 @@
           "links": [
             755
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2314,16 +2834,24 @@
     {
       "id": 101,
       "type": "PrimereVAESelector",
-      "pos": [
-        1047,
-        501
-      ],
+      "pos": {
+        "0": 1047,
+        "1": 501,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 334.7551574707031,
         "1": 114
       },
       "flags": {},
-      "order": 31,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -2352,7 +2880,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 817,
+          "link": 882,
           "widget": {
             "name": "model_concept"
           }
@@ -2363,10 +2891,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            668
+            919
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2382,16 +2910,24 @@
     {
       "id": 39,
       "type": "PrimereLatentNoise",
-      "pos": [
-        1822.2397509765617,
-        91.23995887756352
-      ],
+      "pos": {
+        "0": 1822.23974609375,
+        "1": 91.23995971679688,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 332.3477478027344,
         "1": 406
       },
       "flags": {},
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -2418,7 +2954,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 830,
+          "link": 905,
           "widget": {
             "name": "noise_seed"
           }
@@ -2458,7 +2994,7 @@
         1,
         0.8,
         1.4,
-        14392779745942,
+        407786753673421,
         "randomize",
         true,
         "cpu",
@@ -2470,16 +3006,24 @@
     {
       "id": 125,
       "type": "PrimereCLIPEncoder",
-      "pos": [
-        2162,
-        91
-      ],
+      "pos": {
+        "0": 2162,
+        "1": 91,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 330.7115783691406,
         "1": 806
       },
       "flags": {},
-      "order": 33,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -2616,8 +3160,8 @@
           "links": [
             767
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "COND-",
@@ -2625,8 +3169,8 @@
           "links": [
             768
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "PROMPT+",
@@ -2635,8 +3179,8 @@
             761,
             763
           ],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "PROMPT-",
@@ -2645,8 +3189,8 @@
             762,
             764
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         },
         {
           "name": "PROMPT L+",
@@ -2654,8 +3198,8 @@
           "links": [
             765
           ],
-          "shape": 3,
-          "slot_index": 4
+          "slot_index": 4,
+          "shape": 3
         },
         {
           "name": "PROMPT L-",
@@ -2663,8 +3207,8 @@
           "links": [
             766
           ],
-          "shape": 3,
-          "slot_index": 5
+          "slot_index": 5,
+          "shape": 3
         }
       ],
       "properties": {
@@ -2674,13 +3218,13 @@
         "BaseModel_1024",
         "",
         "",
-        false,
+        true,
         0,
         1.2,
         false,
-        "None",
+        "PHOTO_SFW",
         1,
-        "None",
+        "BETTER_IMAGES",
         1,
         true,
         "none",
@@ -2690,7 +3234,7 @@
         1,
         "",
         1,
-        false,
+        true,
         "",
         1,
         "",
@@ -2708,16 +3252,24 @@
     {
       "id": 19,
       "type": "PreviewImage",
-      "pos": [
-        1823,
-        532
-      ],
+      "pos": {
+        "0": 1823,
+        "1": 532,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 331.8764953613281,
         "1": 341.4046936035156
       },
       "flags": {},
-      "order": 34,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -2726,6 +3278,7 @@
           "link": 139
         }
       ],
+      "outputs": [],
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
@@ -2735,16 +3288,24 @@
     {
       "id": 120,
       "type": "PrimereKSampler",
-      "pos": [
-        2500,
-        174
-      ],
+      "pos": {
+        "0": 2500,
+        "1": 174,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 326.22564697265625,
         "1": 334
       },
       "flags": {},
-      "order": 35,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -2770,16 +3331,16 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 822,
+          "link": 883,
+          "slot_index": 4,
           "widget": {
             "name": "model_concept"
-          },
-          "slot_index": 4
+          }
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 829,
+          "link": 906,
           "widget": {
             "name": "seed"
           }
@@ -2787,7 +3348,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 802,
+          "link": 869,
           "widget": {
             "name": "sampler_name"
           }
@@ -2795,7 +3356,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 803,
+          "link": 871,
           "widget": {
             "name": "scheduler_name"
           }
@@ -2803,7 +3364,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 804,
+          "link": 873,
           "widget": {
             "name": "steps"
           }
@@ -2811,7 +3372,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 805,
+          "link": 875,
           "widget": {
             "name": "cfg"
           }
@@ -2822,17 +3383,17 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            667
+            917
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        833820410159556,
+        544493766892933,
         "randomize",
         20,
         8,
@@ -2842,7 +3403,7 @@
         0,
         0,
         "DEFAULT",
-        false,
+        true,
         "Normal"
       ],
       "color": "#941414",
@@ -2851,44 +3412,21 @@
     {
       "id": 52,
       "type": "PrimereAnyOutput",
-      "pos": [
-        1812,
-        940
-      ],
+      "pos": {
+        "0": 1812,
+        "1": 940,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 511.85791015625,
         "1": 602.1121826171875
-      },
-      "flags": {},
-      "order": 36,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 761
-        }
-      ],
-      "title": "Primere Any Debug - Prompt +",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "exterior, extreme architecture, (friendly abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (:0.6), design"
-      ],
-      "color": "#145454",
-      "bgcolor": "#004040"
-    },
-    {
-      "id": 54,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        2333,
-        942
-      ],
-      "size": {
-        "0": 499.7752685546875,
-        "1": 603.7650756835938
       },
       "flags": {},
       "order": 37,
@@ -2897,9 +3435,50 @@
         {
           "name": "input",
           "type": "*",
+          "link": 761
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - Prompt +",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design"
+      ],
+      "color": "#145454",
+      "bgcolor": "#004040"
+    },
+    {
+      "id": 54,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 2333,
+        "1": 942,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 499.7752685546875,
+        "1": 603.7650756835938
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
           "link": 762
         }
       ],
+      "outputs": [],
       "title": "Primere Any Debug - Prompt -",
       "properties": {
         "Node name for S&R": "PrimereAnyOutput"
@@ -2913,16 +3492,24 @@
     {
       "id": 114,
       "type": "PrimereMetaCollector",
-      "pos": [
-        3530,
-        697
-      ],
+      "pos": {
+        "0": 3530,
+        "1": 697,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 346.7880859375,
         "1": 414
       },
       "flags": {},
-      "order": 38,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -2933,7 +3520,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 814
+          "link": 840
         },
         {
           "name": "model_shapes",
@@ -3014,7 +3601,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 810,
+          "link": 877,
           "widget": {
             "name": "model_concept"
           }
@@ -3022,7 +3609,7 @@
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 806,
+          "link": 870,
           "widget": {
             "name": "sampler"
           }
@@ -3030,7 +3617,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 807,
+          "link": 872,
           "widget": {
             "name": "scheduler"
           }
@@ -3054,7 +3641,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 809,
+          "link": 876,
           "widget": {
             "name": "cfg"
           }
@@ -3062,7 +3649,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 808,
+          "link": 874,
           "widget": {
             "name": "steps"
           }
@@ -3076,8 +3663,8 @@
             572,
             824
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -3105,27 +3692,35 @@
     {
       "id": 16,
       "type": "VAEDecode",
-      "pos": [
-        2501,
-        92
-      ],
+      "pos": {
+        "0": 2501,
+        "1": 92,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 324.198974609375,
         "1": 46
       },
       "flags": {},
-      "order": 39,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 667
+          "link": 917
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 668,
+          "link": 919,
           "slot_index": 1
         }
       ],
@@ -3138,8 +3733,8 @@
             338,
             769
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -3151,16 +3746,24 @@
     {
       "id": 58,
       "type": "PrimereAnyOutput",
-      "pos": [
-        3888,
-        698
-      ],
+      "pos": {
+        "0": 3888,
+        "1": 698,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 611.3242797851562,
         "1": 741.81298828125
       },
       "flags": {},
-      "order": 40,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3169,11 +3772,12 @@
           "link": 572
         }
       ],
+      "outputs": [],
       "properties": {
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (friendly abandoned terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on Saturn, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 880,\n    \"height\": 672,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 880,\n    \"height\": 672,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3181,16 +3785,24 @@
     {
       "id": 17,
       "type": "PreviewImage",
-      "pos": [
-        2499,
-        543
-      ],
+      "pos": {
+        "0": 2499,
+        "1": 543,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 326.3416748046875,
         "1": 351.9628601074219
       },
       "flags": {},
-      "order": 41,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3199,6 +3811,7 @@
           "link": 37
         }
       ],
+      "outputs": [],
       "properties": {
         "Node name for S&R": "PreviewImage"
       },
@@ -3208,16 +3821,24 @@
     {
       "id": 89,
       "type": "PrimereResolutionMultiplier",
-      "pos": [
-        2847.613218834839,
-        88.38684410766622
-      ],
+      "pos": {
+        "0": 2847.61328125,
+        "1": 88.3868408203125,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 328.2809753417969,
         "1": 330
       },
       "flags": {},
-      "order": 42,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3252,7 +3873,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 811,
+          "link": 878,
           "widget": {
             "name": "model_concept"
           }
@@ -3263,35 +3884,35 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            743
+            912
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            744
+            913
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         },
         {
           "name": "UPSCALE_RATIO",
           "type": "FLOAT",
           "links": [],
-          "shape": 3,
-          "slot_index": 2
+          "slot_index": 2,
+          "shape": 3
         },
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            741
+            910
           ],
-          "shape": 3,
-          "slot_index": 3
+          "slot_index": 3,
+          "shape": 3
         }
       ],
       "properties": {
@@ -3318,16 +3939,24 @@
     {
       "id": 126,
       "type": "PrimereAestheticCKPTScorer",
-      "pos": [
-        3190,
-        463
-      ],
+      "pos": {
+        "0": 3189,
+        "1": 457,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 304.99700927734375,
         "1": 168
       },
       "flags": {},
-      "order": 43,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3356,40 +3985,56 @@
         true,
         false,
         false,
-        "638"
+        "731"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
     },
     {
-      "id": 123,
+      "id": 136,
       "type": "ttN hiresfixScale",
-      "pos": [
-        3187,
-        88
-      ],
+      "pos": {
+        "0": 3191,
+        "1": 90,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
-        "0": 306.9448547363281,
-        "1": 330
+        "0": 308.20660400390625,
+        "1": 258
       },
       "flags": {},
-      "order": 44,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 741
-        },
-        {
           "name": "vae",
           "type": "VAE",
-          "link": 742
+          "link": 911
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 910
+        },
+        {
+          "name": "model_name",
+          "type": "COMBO",
+          "link": 914,
+          "widget": {
+            "name": "model_name"
+          }
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 743,
+          "link": 912,
           "widget": {
             "name": "width"
           }
@@ -3397,17 +4042,9 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 744,
+          "link": 913,
           "widget": {
             "name": "height"
-          }
-        },
-        {
-          "name": "model_name",
-          "type": "COMBO",
-          "link": 748,
-          "widget": {
-            "name": "model_name"
           }
         }
       ],
@@ -3422,21 +4059,21 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            747,
-            823
+            915,
+            916
           ],
-          "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
         }
       ],
       "properties": {
         "Node name for S&R": "ttN hiresfixScale",
-        "ttNnodeVersion": "1.0.3"
+        "ttNnodeVersion": "1.1.0"
       },
       "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth",
+        "4x-UltraSharp.pth",
         true,
-        "bicubic",
+        "nearest-exact",
         "to Width/Height",
         50,
         1024,
@@ -3447,53 +4084,24 @@
         "ComfyUI",
         false
       ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 113,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        2842,
-        693
-      ],
-      "size": {
-        "0": 679.4173583984375,
-        "1": 851.3073120117188
-      },
-      "flags": {},
-      "order": 45,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 747
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
+      "color": "#232",
+      "bgcolor": "#353"
     },
     {
       "id": 130,
       "type": "PrimereMetaSave",
-      "pos": [
-        3523,
-        52
-      ],
+      "pos": {
+        "0": 3523,
+        "1": 52,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 348.1172180175781,
         "1": 534
@@ -3505,7 +4113,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 823
+          "link": 915
         },
         {
           "name": "image_metadata",
@@ -3520,8 +4128,8 @@
           "links": [
             825
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
@@ -3553,18 +4161,72 @@
       "bgcolor": "#400040"
     },
     {
+      "id": 113,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 2842,
+        "1": 693,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 679.4173583984375,
+        "1": 851.3073120117188
+      },
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 916
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
       "id": 56,
       "type": "PrimereTextOutput",
-      "pos": [
-        3890,
-        53
-      ],
+      "pos": {
+        "0": 3890,
+        "1": 53,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
       "size": {
         "0": 613.0707397460938,
         "1": 528.1915893554688
       },
       "flags": {},
-      "order": 47,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -3576,6 +4238,7 @@
           }
         }
       ],
+      "outputs": [],
       "properties": {
         "Node name for S&R": "PrimereTextOutput"
       },
@@ -3587,11 +4250,11 @@
       "bgcolor": "#400040"
     },
     {
-      "id": 131,
-      "type": "Seed (rgthree)",
+      "id": 3,
+      "type": "PrimereVisualCKPT",
       "pos": {
-        "0": 1140,
-        "1": 91,
+        "0": 661,
+        "1": 90,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -3601,37 +4264,44 @@
         "8": 0,
         "9": 0
       },
-      "size": [
-        281.677015823941,
-        130
-      ],
+      "size": {
+        "0": 467.5840759277344,
+        "1": 128.78175354003906
+      },
       "flags": {},
-      "order": 16,
+      "order": 17,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
-          "name": "SEED",
-          "type": "INT",
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
           "links": [
-            826,
-            827,
-            828,
-            829,
-            830
+            146,
+            456,
+            554
           ],
-          "shape": 3,
-          "dir": 4,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
         }
       ],
-      "properties": {},
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
       "widgets_values": [
-        -1,
-        null,
-        null,
-        null
-      ]
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -4036,22 +4706,6 @@
       "LATENT"
     ],
     [
-      667,
-      120,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
-      668,
-      101,
-      0,
-      16,
-      1,
-      "VAE"
-    ],
-    [
       669,
       104,
       0,
@@ -4066,54 +4720,6 @@
       104,
       0,
       "VAE_NAME"
-    ],
-    [
-      741,
-      89,
-      3,
-      123,
-      0,
-      "IMAGE"
-    ],
-    [
-      742,
-      98,
-      2,
-      123,
-      1,
-      "VAE"
-    ],
-    [
-      743,
-      89,
-      0,
-      123,
-      2,
-      "INT"
-    ],
-    [
-      744,
-      89,
-      1,
-      123,
-      3,
-      "INT"
-    ],
-    [
-      747,
-      123,
-      1,
-      113,
-      0,
-      "IMAGE"
-    ],
-    [
-      748,
-      124,
-      1,
-      123,
-      4,
-      "COMBO"
     ],
     [
       751,
@@ -4244,438 +4850,6 @@
       "IMAGE"
     ],
     [
-      770,
-      72,
-      0,
-      127,
-      0,
-      "COMBO"
-    ],
-    [
-      771,
-      72,
-      1,
-      127,
-      1,
-      "COMBO"
-    ],
-    [
-      772,
-      72,
-      3,
-      127,
-      2,
-      "FLOAT"
-    ],
-    [
-      773,
-      72,
-      2,
-      127,
-      3,
-      "INT"
-    ],
-    [
-      774,
-      75,
-      0,
-      127,
-      4,
-      "COMBO"
-    ],
-    [
-      775,
-      75,
-      1,
-      127,
-      5,
-      "COMBO"
-    ],
-    [
-      776,
-      75,
-      3,
-      127,
-      6,
-      "FLOAT"
-    ],
-    [
-      777,
-      75,
-      2,
-      127,
-      7,
-      "INT"
-    ],
-    [
-      778,
-      76,
-      0,
-      127,
-      8,
-      "COMBO"
-    ],
-    [
-      779,
-      76,
-      1,
-      127,
-      9,
-      "COMBO"
-    ],
-    [
-      780,
-      76,
-      3,
-      127,
-      10,
-      "FLOAT"
-    ],
-    [
-      781,
-      76,
-      2,
-      127,
-      11,
-      "INT"
-    ],
-    [
-      782,
-      96,
-      0,
-      127,
-      12,
-      "COMBO"
-    ],
-    [
-      783,
-      96,
-      1,
-      127,
-      13,
-      "COMBO"
-    ],
-    [
-      784,
-      96,
-      3,
-      127,
-      14,
-      "FLOAT"
-    ],
-    [
-      785,
-      96,
-      2,
-      127,
-      15,
-      "INT"
-    ],
-    [
-      786,
-      97,
-      0,
-      127,
-      16,
-      "COMBO"
-    ],
-    [
-      787,
-      97,
-      1,
-      127,
-      17,
-      "COMBO"
-    ],
-    [
-      788,
-      97,
-      3,
-      127,
-      18,
-      "FLOAT"
-    ],
-    [
-      789,
-      97,
-      2,
-      127,
-      19,
-      "INT"
-    ],
-    [
-      790,
-      118,
-      0,
-      127,
-      20,
-      "COMBO"
-    ],
-    [
-      791,
-      118,
-      1,
-      127,
-      21,
-      "COMBO"
-    ],
-    [
-      792,
-      118,
-      3,
-      127,
-      22,
-      "FLOAT"
-    ],
-    [
-      793,
-      118,
-      2,
-      127,
-      23,
-      "INT"
-    ],
-    [
-      794,
-      127,
-      5,
-      128,
-      0,
-      "STRING"
-    ],
-    [
-      795,
-      127,
-      6,
-      128,
-      1,
-      "INT"
-    ],
-    [
-      796,
-      127,
-      7,
-      128,
-      2,
-      "STRING"
-    ],
-    [
-      797,
-      127,
-      8,
-      128,
-      3,
-      "STRING"
-    ],
-    [
-      798,
-      127,
-      9,
-      128,
-      4,
-      "STRING"
-    ],
-    [
-      799,
-      127,
-      10,
-      128,
-      5,
-      "STRING"
-    ],
-    [
-      800,
-      127,
-      11,
-      128,
-      6,
-      "STRING"
-    ],
-    [
-      801,
-      127,
-      12,
-      128,
-      7,
-      "INT"
-    ],
-    [
-      802,
-      127,
-      0,
-      120,
-      6,
-      "COMBO"
-    ],
-    [
-      803,
-      127,
-      1,
-      120,
-      7,
-      "COMBO"
-    ],
-    [
-      804,
-      127,
-      2,
-      120,
-      8,
-      "INT"
-    ],
-    [
-      805,
-      127,
-      3,
-      120,
-      9,
-      "FLOAT"
-    ],
-    [
-      806,
-      127,
-      0,
-      114,
-      14,
-      "COMBO"
-    ],
-    [
-      807,
-      127,
-      1,
-      114,
-      15,
-      "COMBO"
-    ],
-    [
-      808,
-      127,
-      2,
-      114,
-      19,
-      "INT"
-    ],
-    [
-      809,
-      127,
-      3,
-      114,
-      18,
-      "FLOAT"
-    ],
-    [
-      810,
-      127,
-      4,
-      114,
-      13,
-      "STRING"
-    ],
-    [
-      811,
-      127,
-      4,
-      89,
-      4,
-      "STRING"
-    ],
-    [
-      812,
-      127,
-      4,
-      87,
-      2,
-      "STRING"
-    ],
-    [
-      813,
-      128,
-      0,
-      98,
-      1,
-      "TUPLE"
-    ],
-    [
-      814,
-      128,
-      0,
-      114,
-      1,
-      "TUPLE"
-    ],
-    [
-      815,
-      127,
-      4,
-      98,
-      5,
-      "STRING"
-    ],
-    [
-      816,
-      127,
-      4,
-      112,
-      3,
-      "STRING"
-    ],
-    [
-      817,
-      127,
-      4,
-      101,
-      4,
-      "STRING"
-    ],
-    [
-      818,
-      129,
-      0,
-      127,
-      24,
-      "COMBO"
-    ],
-    [
-      819,
-      129,
-      1,
-      127,
-      25,
-      "COMBO"
-    ],
-    [
-      820,
-      129,
-      2,
-      127,
-      27,
-      "INT"
-    ],
-    [
-      821,
-      129,
-      3,
-      127,
-      26,
-      "FLOAT"
-    ],
-    [
-      822,
-      127,
-      4,
-      120,
-      4,
-      "STRING"
-    ],
-    [
-      823,
-      123,
-      1,
-      130,
-      0,
-      "IMAGE"
-    ],
-    [
       824,
       114,
       0,
@@ -4692,44 +4866,644 @@
       "STRING"
     ],
     [
-      826,
-      131,
+      839,
+      132,
       0,
-      7,
+      98,
       1,
+      "TUPLE"
+    ],
+    [
+      840,
+      132,
+      0,
+      114,
+      1,
+      "TUPLE"
+    ],
+    [
+      841,
+      72,
+      0,
+      133,
+      0,
+      "COMBO"
+    ],
+    [
+      842,
+      72,
+      1,
+      133,
+      1,
+      "COMBO"
+    ],
+    [
+      843,
+      72,
+      3,
+      133,
+      2,
+      "FLOAT"
+    ],
+    [
+      844,
+      72,
+      2,
+      133,
+      3,
       "INT"
     ],
     [
-      827,
-      131,
+      845,
+      75,
       0,
+      133,
+      4,
+      "COMBO"
+    ],
+    [
+      846,
+      75,
+      1,
+      133,
+      5,
+      "COMBO"
+    ],
+    [
+      847,
+      75,
+      3,
+      133,
       6,
+      "FLOAT"
+    ],
+    [
+      848,
+      75,
+      2,
+      133,
+      7,
+      "INT"
+    ],
+    [
+      849,
+      76,
+      0,
+      133,
+      8,
+      "COMBO"
+    ],
+    [
+      850,
+      76,
+      1,
+      133,
+      9,
+      "COMBO"
+    ],
+    [
+      851,
+      76,
+      3,
+      133,
+      10,
+      "FLOAT"
+    ],
+    [
+      852,
+      76,
+      2,
+      133,
+      11,
+      "INT"
+    ],
+    [
+      853,
+      96,
+      0,
+      133,
+      12,
+      "COMBO"
+    ],
+    [
+      854,
+      96,
+      1,
+      133,
+      13,
+      "COMBO"
+    ],
+    [
+      855,
+      96,
+      3,
+      133,
+      14,
+      "FLOAT"
+    ],
+    [
+      856,
+      96,
+      2,
+      133,
+      15,
+      "INT"
+    ],
+    [
+      857,
+      97,
+      0,
+      133,
+      16,
+      "COMBO"
+    ],
+    [
+      858,
+      97,
+      1,
+      133,
+      17,
+      "COMBO"
+    ],
+    [
+      859,
+      97,
+      3,
+      133,
+      18,
+      "FLOAT"
+    ],
+    [
+      860,
+      97,
+      2,
+      133,
+      19,
+      "INT"
+    ],
+    [
+      861,
+      118,
+      0,
+      133,
+      20,
+      "COMBO"
+    ],
+    [
+      862,
+      118,
+      1,
+      133,
+      21,
+      "COMBO"
+    ],
+    [
+      863,
+      118,
+      3,
+      133,
+      22,
+      "FLOAT"
+    ],
+    [
+      864,
+      118,
+      2,
+      133,
+      23,
+      "INT"
+    ],
+    [
+      865,
+      129,
+      0,
+      133,
+      24,
+      "COMBO"
+    ],
+    [
+      866,
+      129,
+      1,
+      133,
+      25,
+      "COMBO"
+    ],
+    [
+      867,
+      129,
+      3,
+      133,
+      26,
+      "FLOAT"
+    ],
+    [
+      868,
+      129,
+      2,
+      133,
+      27,
+      "INT"
+    ],
+    [
+      869,
+      133,
+      0,
+      120,
+      6,
+      "COMBO"
+    ],
+    [
+      870,
+      133,
+      0,
+      114,
+      14,
+      "COMBO"
+    ],
+    [
+      871,
+      133,
+      1,
+      120,
+      7,
+      "COMBO"
+    ],
+    [
+      872,
+      133,
+      1,
+      114,
+      15,
+      "COMBO"
+    ],
+    [
+      873,
+      133,
+      2,
+      120,
+      8,
+      "INT"
+    ],
+    [
+      874,
+      133,
+      2,
+      114,
+      19,
+      "INT"
+    ],
+    [
+      875,
+      133,
+      3,
+      120,
+      9,
+      "FLOAT"
+    ],
+    [
+      876,
+      133,
+      3,
+      114,
+      18,
+      "FLOAT"
+    ],
+    [
+      877,
+      133,
+      4,
+      114,
+      13,
+      "STRING"
+    ],
+    [
+      878,
+      133,
+      4,
+      89,
+      4,
+      "STRING"
+    ],
+    [
+      879,
+      133,
+      4,
+      87,
+      2,
+      "STRING"
+    ],
+    [
+      880,
+      133,
+      4,
+      98,
+      5,
+      "STRING"
+    ],
+    [
+      881,
+      133,
+      4,
+      112,
+      3,
+      "STRING"
+    ],
+    [
+      882,
+      133,
+      4,
+      101,
+      4,
+      "STRING"
+    ],
+    [
+      883,
+      133,
+      4,
+      120,
+      4,
+      "STRING"
+    ],
+    [
+      884,
+      133,
+      5,
+      132,
+      0,
+      "STRING"
+    ],
+    [
+      885,
+      133,
+      6,
+      132,
       1,
       "INT"
     ],
     [
-      828,
-      131,
-      0,
-      87,
-      0,
+      886,
+      133,
+      7,
+      132,
+      2,
+      "STRING"
+    ],
+    [
+      887,
+      133,
+      8,
+      132,
+      3,
+      "STRING"
+    ],
+    [
+      888,
+      133,
+      9,
+      132,
+      4,
+      "STRING"
+    ],
+    [
+      889,
+      133,
+      10,
+      132,
+      5,
+      "STRING"
+    ],
+    [
+      890,
+      133,
+      11,
+      132,
+      6,
+      "STRING"
+    ],
+    [
+      891,
+      133,
+      12,
+      132,
+      7,
       "INT"
     ],
     [
-      829,
-      131,
+      892,
+      134,
+      0,
+      133,
+      28,
+      "COMBO"
+    ],
+    [
+      893,
+      134,
+      1,
+      133,
+      29,
+      "COMBO"
+    ],
+    [
+      894,
+      134,
+      2,
+      133,
+      31,
+      "INT"
+    ],
+    [
+      895,
+      134,
+      3,
+      133,
+      30,
+      "FLOAT"
+    ],
+    [
+      896,
+      133,
+      13,
+      132,
+      8,
+      "STRING"
+    ],
+    [
+      897,
+      133,
+      14,
+      132,
+      9,
+      "STRING"
+    ],
+    [
+      898,
+      133,
+      15,
+      132,
+      10,
+      "STRING"
+    ],
+    [
+      899,
+      133,
+      16,
+      132,
+      11,
+      "STRING"
+    ],
+    [
+      900,
+      133,
+      17,
+      132,
+      12,
+      "STRING"
+    ],
+    [
+      901,
+      133,
+      18,
+      132,
+      13,
+      "STRING"
+    ],
+    [
+      902,
+      133,
+      19,
+      132,
+      14,
+      "FLOAT"
+    ],
+    [
+      903,
+      133,
+      20,
+      132,
+      15,
+      "STRING"
+    ],
+    [
+      904,
+      133,
+      21,
+      132,
+      16,
+      "STRING"
+    ],
+    [
+      905,
+      135,
+      0,
+      39,
+      3,
+      "INT"
+    ],
+    [
+      906,
+      135,
       0,
       120,
       5,
       "INT"
     ],
     [
-      830,
-      131,
+      907,
+      135,
       0,
-      39,
+      87,
+      0,
+      "INT"
+    ],
+    [
+      908,
+      135,
+      0,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      909,
+      135,
+      0,
+      7,
+      1,
+      "INT"
+    ],
+    [
+      910,
+      89,
+      3,
+      136,
+      1,
+      "IMAGE"
+    ],
+    [
+      911,
+      98,
+      2,
+      136,
+      0,
+      "VAE"
+    ],
+    [
+      912,
+      89,
+      0,
+      136,
       3,
       "INT"
+    ],
+    [
+      913,
+      89,
+      1,
+      136,
+      4,
+      "INT"
+    ],
+    [
+      914,
+      124,
+      1,
+      136,
+      2,
+      "COMBO"
+    ],
+    [
+      915,
+      136,
+      1,
+      130,
+      0,
+      "IMAGE"
+    ],
+    [
+      916,
+      136,
+      1,
+      113,
+      0,
+      "IMAGE"
+    ],
+    [
+      917,
+      120,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      919,
+      101,
+      0,
+      16,
+      1,
+      "VAE"
     ]
   ],
   "groups": [
@@ -4738,8 +5512,8 @@
       "bounding": [
         652,
         20,
-        1151,
-        1729
+        1150,
+        2037
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -4785,11 +5559,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": {
-        "0": -1236.8492431640625,
-        "1": 424.15179443359375
-      }
+      "scale": 0.7513148009015777,
+      "offset": [
+        -967.5456338062793,
+        286.3288037225831
+      ]
     }
   },
   "version": 0.4

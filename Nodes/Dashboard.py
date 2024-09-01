@@ -838,10 +838,6 @@ class PrimereCLIP:
             case 'SDXL_2048':
                 is_sdxl = 1
 
-        if model_concept == 'Flux':
-            adv_encode = False
-            use_long_clip = False
-
         additional_positive = int_style_pos
         additional_negative = int_style_neg
         if int_style_pos == 'None' or use_int_style == False:
@@ -953,9 +949,18 @@ class PrimereCLIP:
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
 
+        if model_concept == 'Flux':
+            adv_encode = False
+            use_long_clip = False
+
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
-        if use_long_clip == True and model_concept != 'Cascade' and model_concept != 'Flux' and CONCEPT_SELECTOR != 'Cascade':
+
+        if CONCEPT_SELECTOR == 'Flux':
+            adv_encode = False
+            use_long_clip = False
+
+        if use_long_clip == True and model_concept != 'Cascade' and model_concept != 'Flux' and CONCEPT_SELECTOR != 'Cascade' and CONCEPT_SELECTOR != 'Flux':
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
@@ -1002,6 +1007,9 @@ class PrimereCLIP:
 
         if (last_layer < 0):
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
+
+        if CONCEPT_SELECTOR == 'Flux':
+            adv_encode = False
 
         if (adv_encode == True):
             if (is_sdxl == 0):
