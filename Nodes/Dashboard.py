@@ -11,7 +11,7 @@ from .modules.latent_noise import PowerLawNoise
 import random
 import os
 import tomli
-from .modules.adv_encode import advanced_encode, advanced_encode_XL
+from .modules.adv_encode import advanced_encode
 from nodes import MAX_RESOLUTION
 from ..components import utility
 from pathlib import Path
@@ -26,6 +26,8 @@ import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
 from datetime import datetime
+from ..components.gguf import nodes as gguf_nodes
+import comfy_extras.nodes_flux as nodes_flux
 
 class PrimereSamplers:
     CATEGORY = TREE_DEPRECATED
@@ -164,14 +166,29 @@ class PrimereLCMSelector:
         return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
 
 class PrimereModelConceptSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING", "STRING", "INT", "STRING", "STRING", "STRING", "STRING", "STRING", "INT")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT", "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP", "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP")
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT",
+                    "STRING",
+                    "STRING", "INT",
+                    "STRING", "STRING", "STRING", "STRING",
+                    "STRING", "INT",
+                    "STRING", "STRING", "STRING", "STRING","STRING", "STRING", "FLOAT", "STRING",  "STRING"
+                    )
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
+                    "MODEL_CONCEPT",
+                    "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP",
+                    "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
+                    "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP",
+                    "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER"
+                    )
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
     UNETLIST = folder_paths.get_filename_list("unet")
+    DIFFUSIONLIST = folder_paths.get_filename_list("diffusion_models")
+    GGUFLIST = folder_paths.get_filename_list("unet_gguf")
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
+    CLIPLIST += folder_paths.get_filename_list("clip_gguf")
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -182,7 +199,7 @@ class PrimereModelConceptSelector:
                 "normal_cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
                 "normal_steps": ('INT', {"forceInput": True, "default": 12}),
 
-                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning", "Playground", "Hyper-SD"], {"default": "Normal"}),
+                "model_concept": (["Normal", "LCM", "Turbo", "Cascade", "Lightning", "Playground", "Hyper-SD", "Flux"], {"default": "Normal"}),
                 "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "SAFETENSOR"}),
                 "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
                 "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
@@ -198,6 +215,16 @@ class PrimereModelConceptSelector:
 
                 # "playground_sigma_max": ("FLOAT", {"default": 120.0, "min": 0.0, "max": 1000.0, "step": 0.001, "round": False}),
                 # "playground_sigma_min": ("FLOAT", {"default": 0.002, "min": 0.0, "max": 1000.0, "step": 0.001, "round": False}),
+
+                "flux_selector": (["DIFFUSION", "GGUF", "SAFETENSOR"], {"default": "DIFFUSION"}),
+                "flux_diffusion": (cls.DIFFUSIONLIST,),
+                "flux_wight_dtype": (["default", "fp8_e4m3fn", "fp8_e5m2"],),
+                "flux_gguf": (cls.GGUFLIST,),
+                "flux_clip_t5xxl": (cls.CLIPLIST,),
+                "flux_clip_l": (cls.CLIPLIST,),
+                "flux_clip_guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
+                "flux_vae": (cls.VAELIST,),
+                "flux_sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
             },
             "optional": {
                 "lcm_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "lcm"}),
@@ -229,10 +256,16 @@ class PrimereModelConceptSelector:
                 "hypersd_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
                 "hypersd_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
                 "hypersd_steps": ('INT', {"forceInput": True, "default": 6}),
+
+                "flux_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+                "flux_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "simple"}),
+                "flux_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1}),
+                "flux_steps": ('INT', {"forceInput": True, "default": 20}),
             }
         }
 
     def select_model_concept(self, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
+                             flux_diffusion, flux_wight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae, flux_sampler = 'ksampler',
                              model_concept = 'Normal',
                              lightning_selector = "SAFETENSOR", lightning_model_step = 8, lightning_sampler = False,
                              hypersd_selector="LORA", hypersd_model_step=8, hypersd_sampler=False,
@@ -242,7 +275,8 @@ class PrimereModelConceptSelector:
                              cascade_sampler_name = 'euler_ancestral', cascade_scheduler_name = "simple", cascade_cfg_scale = 4, cascade_steps = 20,
                              lightning_sampler_name = 'dpmpp_sde', lightning_scheduler_name = "simple", lightning_cfg_scale = 1.2, lightning_steps = 6,
                              playground_sampler_name = 'euler', playground_scheduler_name = 'normal', playground_cfg_scale = 3, playground_steps = 50,
-                             hypersd_sampler_name = 'dpmpp_sde', hypersd_scheduler_name = "simple", hypersd_cfg_scale = 1.2, hypersd_steps = 6,):
+                             hypersd_sampler_name = 'dpmpp_sde', hypersd_scheduler_name = "simple", hypersd_cfg_scale = 1.2, hypersd_steps = 6,
+                             flux_selector = "DIFFUSION", flux_clip_guidance = 3.5, flux_sampler_name = 'euler', flux_scheduler_name = "simple", flux_cfg_scale = 1, flux_steps = 20,):
 
         sampler_name = normal_sampler_name
         scheduler_name = normal_scheduler_name
@@ -273,6 +307,12 @@ class PrimereModelConceptSelector:
                 scheduler_name = cascade_scheduler_name
                 steps = cascade_steps
                 cfg_scale = cascade_cfg_scale
+
+            case 'Flux':
+                sampler_name = flux_sampler_name
+                scheduler_name = flux_scheduler_name
+                steps = flux_steps
+                cfg_scale = flux_cfg_scale
 
             case 'Lightning':
                 if lightning_sampler == False:
@@ -323,7 +363,23 @@ class PrimereModelConceptSelector:
             cascade_stage_c = None
             cascade_clip = None
 
-        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept, lightning_selector, lightning_model_step, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip, hypersd_selector, hypersd_model_step,)
+        if model_concept != 'Flux':
+            flux_selector = None
+            flux_diffusion = None
+            flux_wight_dtype = None
+            flux_gguf = None
+            flux_clip_t5xxl = None
+            flux_clip_l = None
+            flux_clip_guidance = None
+            flux_vae = None
+            flux_sampler = None
+
+        return (sampler_name, scheduler_name, steps, round(cfg_scale, 2), model_concept,
+                lightning_selector, lightning_model_step,
+                cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
+                hypersd_selector, hypersd_model_step,
+                flux_selector, flux_diffusion, flux_wight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
+                )
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
@@ -357,7 +413,9 @@ class PrimereCKPTLoader:
                           lightning_selector = 'SAFETENSOR', lightning_model_step = 8,
                           hypersd_selector = 'LORA', hypersd_model_step = 8,
                           cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
-                          loaded_model = None, loaded_clip = None, loaded_vae = None):
+                          loaded_model = None, loaded_clip = None, loaded_vae = None,
+                          flux_selector = 'DIFFUSION', flux_diffusion = None, flux_wight_dtype = None, flux_gguf = None, flux_clip_t5xxl = None, flux_clip_l = None, flux_clip_guidance = None, flux_vae = None, flux_sampler = None
+                          ):
 
         playground_sigma_max = 120
         playground_sigma_min = 0.002
@@ -382,6 +440,25 @@ class PrimereCKPTLoader:
             if 'cascade_clip' in concept_data:
                 cascade_clip = concept_data['cascade_clip']
 
+            if 'flux_selector' in concept_data:
+                flux_selector = concept_data['flux_selector']
+            if 'flux_diffusion' in concept_data:
+                flux_diffusion = concept_data['flux_diffusion']
+            if 'flux_wight_dtype' in concept_data:
+                flux_wight_dtype = concept_data['flux_wight_dtype']
+            if 'flux_gguf' in concept_data:
+                flux_gguf = concept_data['flux_gguf']
+            if 'flux_clip_t5xxl' in concept_data:
+                flux_clip_t5xxl = concept_data['flux_clip_t5xxl']
+            if 'flux_clip_l' in concept_data:
+                flux_clip_l = concept_data['flux_clip_l']
+            if 'flux_clip_guidance' in concept_data:
+                flux_clip_guidance = concept_data['flux_clip_guidance']
+            if 'flux_vae' in concept_data:
+                flux_vae = concept_data['flux_vae']
+            if 'flux_sampler' in concept_data:
+                flux_sampler = concept_data['flux_sampler']
+
         if model_concept == "Cascade" and cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
             MODEL_VERSION = 'SDXL_2048'
 
@@ -392,6 +469,21 @@ class PrimereCKPTLoader:
 
             OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
             return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
+
+        if model_concept == "Flux" and flux_selector is not None and flux_diffusion is not None and flux_wight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
+            MODEL_VERSION = 'SDXL_2048'
+            match flux_selector:
+                case 'DIFFUSION':
+                    MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_wight_dtype)[0]
+                    DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                    return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
+                case 'GGUF':
+                    MODEL_GGUF = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
+                    CLIP_GGUF = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                    return (MODEL_GGUF,) + (CLIP_GGUF,) + (FLUX_VAE,) + (MODEL_VERSION,)
+                # case 'SAFETENSOR':
 
         if model_concept == "Hyper-SD" and hypersd_selector == 'UNET':
             MODEL_VERSION = 'SDXL_2048'
@@ -587,7 +679,7 @@ class PrimereSeed:
 class PrimereFractalLatent:
 
     @classmethod
-    def INPUT_TYPES(cls):
+    def INPUT_TYPES(s):
         pln = PowerLawNoise('cpu')
         return {
             "required": {
@@ -730,11 +822,15 @@ class PrimereCLIP:
                 "sdxl_l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT"
             }
         }
 
-    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
-        if model_concept == 'Cascade' or model_concept == 'Turbo':
+    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+        if model_concept == 'Cascade' or model_concept == 'Turbo' or model_concept == 'Flux':
             model_version = 'SDXL_2048'
 
         is_sdxl = 0
@@ -853,6 +949,10 @@ class PrimereCLIP:
         if (model_version == 'BaseModel_1024'):
             adv_encode = False
 
+        if model_concept == 'Flux':
+            adv_encode = False
+            use_long_clip = False
+
         if (use_long_clip == True and model_concept != 'Cascade'):
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
@@ -947,6 +1047,17 @@ class PrimereCLIP:
                 return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l)
 
         else:
+            if model_concept == 'Flux':
+                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
+                if FLUX_SAMPLER == 'ksampler':
+                    FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
+                    if FLUX_GUIDANCE is None:
+                        FLUX_GUIDANCE = 3.5
+                    CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, positive_text, FLUX_GUIDANCE)[0]
+                    CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+                    return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "")
+
             if model_concept == 'Cascade':
                 positive_text = utility.clear_cascade(positive_text)
                 negative_text = utility.clear_cascade(negative_text)
@@ -1636,6 +1747,16 @@ class PrimereConceptDataTuple:
 
                 "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
                 "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
+
+                "flux_selector": ("STRING", {"default": "DIFFUSION", "forceInput": True}),
+                "flux_diffusion": ("STRING", {"forceInput": True}),
+                "flux_wight_dtype": ("STRING", {"forceInput": True}),
+                "flux_gguf": ("STRING", {"forceInput": True}),
+                "flux_clip_t5xxl": ("STRING", {"forceInput": True}),
+                "flux_clip_l": ("STRING", {"forceInput": True}),
+                "flux_clip_guidance": ("FLOAT", {"default": 3.5, "forceInput": True}),
+                "flux_vae": ("STRING", {"forceInput": True}),
+                "flux_sampler": ("STRING", {"forceInput": True}),
             },
         }
 

@@ -34,3 +34,4 @@ ultralytics
 yapf
 openai-clip
 huggingface_hub
+gguf>=0.9.1

@@ -16,6 +16,7 @@ import nodes
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import comfy_extras.nodes_align_your_steps as nodes_align_your_steps
+import comfy_extras.nodes_flux as nodes_flux
 import torch
 from ..components import utility
 from ..components import latentnoise
@@ -524,6 +525,39 @@ class PrimereKSampler:
                     sigmas = SamplingDiscreteResults[2]
                     hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
                     samples = (hyper_lora_samples[0],)
+
+            case  'Flux':
+                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                FLUX_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 15)
+                FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
+
+                if FLUX_SELECTOR == 'DIFFUSION':
+                    if FLUX_SAMPLER == 'custom_advanced':
+                        FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
+                        if FLUX_GUIDANCE is None:
+                            FLUX_GUIDANCE = 3.5
+                        if FLUX_GUIDANCE <= 0:
+                            CONDITIONING_POS = positive
+                        else:
+                            CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
+                        FLUX_GUIDER = nodes_custom_sampler.BasicGuider.get_guider(self, model, CONDITIONING_POS)[0]
+                        FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model, scheduler_name, steps, denoise=denoise)[0]
+                        FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]
+                        sampler_object = comfy.samplers.sampler_object(sampler_name)
+                        samples = (nodes_custom_sampler.SamplerCustomAdvanced.sample(self, FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
+                    elif FLUX_SAMPLER == 'ksampler':
+                        FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
+                        CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
+                        CONDITIONING_NEG = nodes_flux.FluxGuidance.append(self, negative, FLUX_GUIDANCE)[0]
+                        samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, CONDITIONING_POS, CONDITIONING_NEG, latent_image, denoise=denoise)
+                    else:
+                        samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+
+                if FLUX_SELECTOR == 'GGUF':
+                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+
+                if FLUX_SELECTOR == 'SAFETENSOR':
+                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
 
             case _:
                 if variation_batch_step_original > 0:
