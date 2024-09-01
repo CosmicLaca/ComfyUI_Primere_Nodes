@@ -1547,61 +1547,6 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 18,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 1800,
-        "1": -682,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 515.4061279296875,
-        "1": 126
-      },
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            49
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            41,
-            674
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "SDXL\\batchCOREALISMXL_v40.safetensors",
-        false,
-        true
-      ],
-      "color": "#141494",
-      "bgcolor": "#000080"
-    },
-    {
       "id": 161,
       "type": "PrimereSamplersSteps",
       "pos": {
@@ -1621,7 +1566,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1695,7 +1640,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1769,7 +1714,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 24,
+      "order": 23,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2126,7 +2071,7 @@
       "id": 165,
       "type": "PrimereModelConceptSelector",
       "pos": {
-        "0": 3561,
+        "0": 3563,
         "1": -678,
         "2": 0,
         "3": 0,
@@ -2912,7 +2857,7 @@
         false,
         1.6,
         2.8,
-        480854916681116,
+        249892683589627,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -3702,7 +3647,7 @@
         "Last",
         1,
         1,
-        "None"
+        "design"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -4134,7 +4079,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        366575578202806,
+        219015298735171,
         "randomize",
         512,
         512
@@ -4447,7 +4392,7 @@
       },
       "widgets_values": [
         "",
-        239749150177027,
+        620200123079324,
         "randomize"
       ],
       "color": "#232",
@@ -4510,7 +4455,7 @@
       },
       "widgets_values": [
         "",
-        844532238993650,
+        251450239188020,
         "randomize"
       ],
       "color": "#322",
@@ -4660,7 +4605,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        169064840624664,
+        746603852368318,
         "randomize",
         true,
         "cpu",
@@ -4704,7 +4649,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_concept\": \"Flux\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": \"DIFFUSION\",\n        \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n        \"flux_wight_dtype\": \"fp8_e4m3fn\",\n        \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n        \"flux_clip_t5xxl\": \"Flux\\\\t5xxl_fp8_e4m3fn.safetensors\",\n        \"flux_clip_l\": \"Flux\\\\clip_l.safetensors\",\n        \"flux_clip_guidance\": 3.5,\n        \"flux_vae\": \"flux-ae.sft\",\n        \"flux_sampler\": \"ksampler\"\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"euler\",\n    \"scheduler\": \"simple\",\n    \"steps\": 25,\n    \"cfg\": 1.1,\n    \"seed\": 29758785466977,\n    \"width\": 1362,\n    \"height\": 770,\n    \"size_string\": \"1362x770\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -6343,7 +6288,7 @@
         1.1,
         0,
         0,
-        1060937558088602,
+        823020325802722,
         "randomize",
         "length+mean",
         "down_weight",
@@ -6454,7 +6399,7 @@
         1,
         0,
         0,
-        504223294377385,
+        978437142388398,
         "randomize",
         "mean",
         "comfy++",
@@ -6565,7 +6510,7 @@
         1.1,
         0,
         0,
-        810476435839893,
+        1010368870252422,
         "randomize",
         "mean",
         "A1111",
@@ -6678,7 +6623,7 @@
         1.2,
         0,
         0.2,
-        623653764729716,
+        292493634491578,
         "randomize",
         "mean",
         "down_weight",
@@ -7041,7 +6986,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        930149028110247,
+        789124186450290,
         "randomize",
         20,
         8,
@@ -7092,7 +7037,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus)"
+        "date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands, (Photorealistic, SFW, Hyperrealistic, Hyperdetailed, analog style, demure, detailed skin, matte skin, soft lighting, subsurface scattering, realistic, heavy shadow, masterpiece, best quality, ultra realistic, 8k, golden ratio, Intricate, High Detail, film photography, soft focus), design"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -7403,7 +7348,7 @@
         true,
         false,
         false,
-        "772"
+        "722"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -7779,7 +7724,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        743301642626304,
+        653067283668251,
         "randomize",
         "heun",
         "simple",
@@ -8207,7 +8152,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        151603844824273,
+        166541513718452,
         "randomize",
         "euler_ancestral",
         "normal",
@@ -8635,7 +8580,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        290745581511417,
+        21022017605743,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -9063,7 +9008,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        610305087255154,
+        937061746037805,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -9365,7 +9310,7 @@
       },
       "widgets_values": [
         2.1,
-        961989180837760,
+        6919661248235,
         "randomize",
         7,
         6.5,
@@ -9643,6 +9588,61 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
+    },
+    {
+      "id": 18,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 1800,
+        "1": -682,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 515.4061279296875,
+        "1": 126
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            49
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            41,
+            674
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#141494",
+      "bgcolor": "#000080"
     }
   ],
   "links": [
@@ -12476,10 +12476,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650707,
+      "scale": 1,
       "offset": [
-        -3789.55121179975,
-        1235.7611080176346
+        -4024.7938623805603,
+        900.3408396539163
       ]
     }
   },
