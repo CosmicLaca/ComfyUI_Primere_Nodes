@@ -948,6 +948,58 @@
       "bgcolor": "#0091d7"
     },
     {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 688.2476196289062,
+        "1": 91.41719055175781,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 464.1010437011719,
+        "1": 128.1556854248047
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            281
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 76,
       "type": "PrimerePromptSwitch",
       "pos": {
@@ -1558,8 +1610,8 @@
         8,
         false,
         "Stable-Cascade\\stage_a.safetensors",
-        "Stable-Cascade\\stage_b_lite_bf16.safetensors",
-        "Stable-Cascade\\stage_c_lite_bf16.safetensors",
+        "Stable-Cascade\\stage_b.safetensors",
+        "Stable-Cascade\\stage_c.safetensors",
         "cascade_clip.safetensors",
         "DIFFUSION",
         "Flux\\flux1-dev-fp8.safetensors",
@@ -1712,7 +1764,7 @@
       },
       "widgets_values": [
         "",
-        161000290035218,
+        291105487534634,
         "randomize"
       ],
       "color": "#145414",
@@ -1775,7 +1827,7 @@
       },
       "widgets_values": [
         "",
-        378603768219474,
+        965312014207506,
         "randomize"
       ],
       "color": "#145414",
@@ -2373,11 +2425,11 @@
         512,
         false,
         "Horizontal",
-        true,
+        false,
         false,
         1.6,
         2.8,
-        101966088614000,
+        553321358912520,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2566,7 +2618,7 @@
         1,
         0.8,
         1.4,
-        1001508335971764,
+        766566271340921,
         "randomize",
         false,
         "cpu",
@@ -2799,7 +2851,7 @@
         1,
         "",
         "",
-        false,
+        true,
         1,
         1024,
         1024
@@ -2847,8 +2899,8 @@
       "id": 85,
       "type": "PrimereKSampler",
       "pos": {
-        "0": 2610.55029296875,
-        "1": 176.0262908935547,
+        "0": 2611,
+        "1": 176,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -2950,7 +3002,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        561582547239986,
+        920379278832013,
         "randomize",
         20,
         8,
@@ -3114,62 +3166,10 @@
         true,
         false,
         false,
-        "570"
+        "578"
       ],
       "color": "#5d005d",
       "bgcolor": "#710071"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 688.2476196289062,
-        "1": 91.41719055175781,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 464.1010437011719,
-        "1": 128.1556854248047
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            281
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -4075,11 +4075,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650705,
-      "offset": {
-        "0": 31.150468826293945,
-        "1": 47.04512023925781
-      }
+      "scale": 0.8264462809917354,
+      "offset": [
+        -431.2710542771017,
+        159.49276632594604
+      ]
     }
   },
   "version": 0.4
