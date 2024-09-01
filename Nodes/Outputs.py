@@ -770,7 +770,11 @@ class PrimereAestheticCKPTScorer():
                             if selectedStyle is not None:
                                 STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
                                 STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
-                                STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+                                try:
+                                    STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+                                except Exception:
+                                    STYLE_FILE_EXAMPLE = STYLE_FILE
+
                                 if Path(STYLE_FILE).is_file() == True:
                                     STYLE_SOURCE = STYLE_FILE
                                 else:
