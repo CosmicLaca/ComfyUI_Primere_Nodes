@@ -165,8 +165,15 @@ class PrimereRefinerPrompt:
         final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed)
         final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed)
 
-        embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-        embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+        try:
+            embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+        except Exception:
+            tokens = clip.tokenize(final_positive)
+            embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+
+            tokens = clip.tokenize(final_negative)
+            embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
         prompt_tuple = {}
         prompt_tuple['final_positive'] = final_positive
@@ -804,13 +811,16 @@ class PrimereMetaDistributor:
                     MISSING_VALUES = None
                     match outputkeys:
                         case "vae":
-                            if 'model_version' in workflow_tuple:
-                                if workflow_tuple['model_version'] == 'SDXL_2048':
-                                    if 'vae_name_sdxl' in workflow_tuple:
-                                        MISSING_VALUES = workflow_tuple['vae_name_sdxl']
-                                else:
-                                    if 'vae_name_sd' in workflow_tuple:
-                                        MISSING_VALUES = workflow_tuple['vae_name_sd']
+                            if 'model_concept' in workflow_tuple and 'concept_data' in workflow_tuple and workflow_tuple['model_concept'] == 'Flux':
+                                    MISSING_VALUES = workflow_tuple['concept_data']['flux_vae']
+                            else:
+                                if 'model_version' in workflow_tuple:
+                                    if workflow_tuple['model_version'] == 'SDXL_2048':
+                                        if 'vae_name_sdxl' in workflow_tuple:
+                                            MISSING_VALUES = workflow_tuple['vae_name_sdxl']
+                                    else:
+                                        if 'vae_name_sd' in workflow_tuple:
+                                            MISSING_VALUES = workflow_tuple['vae_name_sd']
 
                     OUTPUT_TUPLE.append(MISSING_VALUES)
 
