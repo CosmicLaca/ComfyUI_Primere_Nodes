@@ -55,6 +55,8 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Renewed sampler with noise variant
+- Renewed detailer/refiner nodes
 - Flux support, 1 click selector
 - Hyper-SD support, 1 click selector
 - Nvidia AlignYourSteps support on sampler: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/

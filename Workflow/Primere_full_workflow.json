@@ -1,6 +1,6 @@
 {
   "last_node_id": 176,
-  "last_link_id": 1093,
+  "last_link_id": 1094,
   "nodes": [
     {
       "id": 9,
@@ -1588,7 +1588,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\realisticVisionV40.safetensors",
+        "BestAll\\photon_v1.safetensors",
         false,
         true
       ],
@@ -1630,7 +1630,8 @@
           "links": [
             1034,
             1040,
-            1045
+            1045,
+            1094
           ],
           "slot_index": 2,
           "shape": 3
@@ -2704,7 +2705,7 @@
         false,
         1.6,
         2.8,
-        221909107139078,
+        883955009948652,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2896,6 +2897,49 @@
         "",
         ""
       ],
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
+      "id": 133,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": {
+        "0": 4365.6474609375,
+        "1": 1168.974609375
+      },
+      "size": [
+        90.92136210321769,
+        26
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 501,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "INT",
+          "links": [
+            1090,
+            1091,
+            1092,
+            1093
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "INT"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
       "color": "#141494",
       "bgcolor": "#000080"
     },
@@ -3777,7 +3821,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        705283393478827,
+        178717320249196,
         "randomize",
         512,
         512
@@ -4058,7 +4102,7 @@
       },
       "widgets_values": [
         "",
-        1112392848177902,
+        374359480065352,
         "randomize"
       ],
       "color": "#232",
@@ -4113,7 +4157,7 @@
       },
       "widgets_values": [
         "",
-        707322217831061,
+        1090362155951305,
         "randomize"
       ],
       "color": "#322",
@@ -4247,7 +4291,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        916966788477505,
+        263456070990893,
         "randomize",
         true,
         "cpu",
@@ -4283,7 +4327,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\realisticVisionV40.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"example.png\"\n    }\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -5492,7 +5536,7 @@
         1,
         0,
         0,
-        402742270596268,
+        727791173723537,
         "randomize",
         "mean",
         "comfy++",
@@ -5673,7 +5717,7 @@
         1,
         0,
         0,
-        721388112954599,
+        683028639322162,
         "randomize",
         "mean",
         "comfy++",
@@ -5854,12 +5898,12 @@
         1,
         0,
         0,
-        34252069077016,
+        150172854486423,
         "randomize",
         "mean",
         "comfy++",
-        false,
-        false,
+        true,
+        true,
         true,
         true,
         false,
@@ -5883,10 +5927,10 @@
         "0": 9980,
         "1": -400
       },
-      "size": {
-        "0": 369.9740295410156,
-        "1": 858
-      },
+      "size": [
+        369.9740295410156,
+        858
+      ],
       "flags": {},
       "order": 70,
       "mode": 0,
@@ -5934,6 +5978,14 @@
           "link": 1084,
           "widget": {
             "name": "model_version"
+          }
+        },
+        {
+          "name": "refiner_model",
+          "type": "COMBO",
+          "link": 1094,
+          "widget": {
+            "name": "refiner_model"
           }
         }
       ],
@@ -6027,7 +6079,7 @@
         1,
         0,
         0,
-        43894838850077,
+        791352145692217,
         "randomize",
         "mean",
         "comfy++",
@@ -6702,7 +6754,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        413788760440305,
+        584699093445727,
         "randomize",
         20,
         8,
@@ -7001,7 +7053,7 @@
         true,
         false,
         false,
-        "716"
+        "709"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -7353,7 +7405,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        338885048497534,
+        856704276938329,
         "randomize",
         "euler",
         "simple",
@@ -7749,7 +7801,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        367834807585467,
+        18846076581070,
         "randomize",
         "euler",
         "normal",
@@ -8145,7 +8197,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1009371104465477,
+        1086477371394777,
         "randomize",
         "dpmpp_sde",
         "simple",
@@ -8541,7 +8593,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        812221856123780,
+        896900711200608,
         "randomize",
         "dpmpp_sde",
         "karras",
@@ -8819,7 +8871,7 @@
       },
       "widgets_values": [
         2.1,
-        634073413607011,
+        1110143840292447,
         "randomize",
         7,
         6.5,
@@ -8959,7 +9011,7 @@
         80,
         "Checkpoint",
         "Overwrite",
-        "BestAll\\realisticVisionV40.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#1414b4",
@@ -9065,49 +9117,6 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 133,
-      "type": "ReroutePrimitive|pysssss",
-      "pos": {
-        "0": 4365.6474609375,
-        "1": 1168.974609375
-      },
-      "size": [
-        90.92136210321769,
-        26
-      ],
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "*",
-          "link": 501,
-          "label": " "
-        }
-      ],
-      "outputs": [
-        {
-          "name": "*",
-          "type": "INT",
-          "links": [
-            1090,
-            1091,
-            1092,
-            1093
-          ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "INT"
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
-      },
-      "color": "#141494",
-      "bgcolor": "#000080"
     }
   ],
   "links": [
@@ -11718,6 +11727,14 @@
       108,
       3,
       "INT"
+    ],
+    [
+      1094,
+      173,
+      2,
+      176,
+      6,
+      "COMBO"
     ]
   ],
   "groups": [
@@ -11869,10 +11886,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.751314800901578,
+      "scale": 0.6830134553650705,
       "offset": {
-        "0": -3060.279296875,
-        "1": -8.713869094848633
+        "0": -7905.8564453125,
+        "1": 1719.01953125
       }
     }
   },

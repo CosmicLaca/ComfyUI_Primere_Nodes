@@ -1092,7 +1092,11 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
             turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
             refined_latent = turbo_samples[0]
         else:
-            refined_latent = nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
+            try:
+                # refined_latent = nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
+                refined_latent = nodes.KSampler.sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise=denoise)[0]
+            except Exception:
+                refined_latent = latent_image
     else:
         advanced_steps = math.floor(steps / denoise)
         start_at_step = advanced_steps - steps
