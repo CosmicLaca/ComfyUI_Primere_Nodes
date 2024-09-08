@@ -1093,8 +1093,7 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
             refined_latent = turbo_samples[0]
         else:
             try:
-                # refined_latent = nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
-                refined_latent = nodes.KSampler.sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise=denoise)[0]
+                refined_latent = nodes.KSampler().sample(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent_image, denoise)[0]
             except Exception:
                 refined_latent = latent_image
     else:
