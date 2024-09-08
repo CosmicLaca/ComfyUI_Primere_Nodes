@@ -18,7 +18,7 @@ from .components import utility
 # import time
 import pytz
 
-__version__ = "0.7.0"
+__version__ = "0.7.1"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
