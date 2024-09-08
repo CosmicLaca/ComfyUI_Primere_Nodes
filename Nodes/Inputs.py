@@ -128,6 +128,7 @@ class PrimereRefinerPrompt:
             },
             "optional": {
                 "clip": ("CLIP",),
+                "model": ("MODEL",),
                 "positive_original": ("STRING", {"forceInput": True}),
                 "negative_original": ("STRING", {"forceInput": True}),
                 "model_concept": ("STRING", {"forceInput": True, "default": 'Normal'}),
@@ -148,7 +149,7 @@ class PrimereRefinerPrompt:
             wildcard_wrap = "__"
         )
 
-    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Normal', model_version = 'BaseModel_1024', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
+    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, model =None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Normal', model_version = 'BaseModel_1024', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
                        process_sd = True, process_sdxl = True, process_sd3 = True, process_lcm = True, process_turbo = True, process_cascade = True, process_lightning = True, process_playground = True, process_hyper = True, process_flux = True):
         def refiner_debug_state(self, extra_pnginfo, id):
             workflow = extra_pnginfo["workflow"]
@@ -289,7 +290,56 @@ class PrimereRefinerPrompt:
                         else:
                             final_negative = final_negative + ', ' + embedding_string
 
-        if refiner_state == True:
+        if clip is not None and refiner_state == True:
+            if model is not None and refiner_network != 'None':
+                OUTPUT_MODEL = model
+                network_name = refiner_network
+                network_data = network_name.split('\\', 1)
+                network_path = network_data[1]
+
+                match network_data[0]:
+                    case "LORA":
+                        lora_path = folder_paths.get_full_path("loras", network_path)
+                        lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                        model_lora = OUTPUT_MODEL
+                        clip_lora = clip
+                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, refiner_network_weight, refiner_network_weight)
+                    case "LYCORIS":
+                        lycoris_path = folder_paths.get_full_path("lycoris", network_path)
+                        lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+                        model_lyco = OUTPUT_MODEL
+                        clip_lyco = clip
+                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, refiner_network_weight, refiner_network_weight)
+
+                    case "HYPERNETWORK":
+                        cloned_model = OUTPUT_MODEL
+                        hypernetwork_path = folder_paths.get_full_path("hypernetworks", network_path)
+                        model_hypernetwork = cloned_model.clone()
+
+                        try:
+                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, refiner_network_weight, False)
+                        except Exception:
+                            patch = None
+
+                        if patch is not None:
+                            model_hypernetwork.set_model_attn1_patch(patch)
+                            model_hypernetwork.set_model_attn2_patch(patch)
+                            OUTPUT_MODEL = model_hypernetwork
+
+                    case "EMBEDDING":
+                        embedd_name_path = network_path
+                        embedd_weight = refiner_network_weight
+                        embedd_neg = refiner_network_insertion
+                        embedd_name = Path(embedd_name_path).stem
+                        if (embedd_weight != 1):
+                            embedding_string = '(embedding:' + embedd_name + ':' + str(embedd_weight) + ')'
+                        else:
+                            embedding_string = 'embedding:' + embedd_name
+                        if embedd_neg == True:
+                            final_positive = final_positive + ', ' + embedding_string
+                        else:
+                            final_negative = final_negative + ', ' + embedding_string
+
             try:
                 embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
                 embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
