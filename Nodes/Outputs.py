@@ -690,18 +690,21 @@ class PrimereAestheticCKPTScorer():
                 model.to("cuda")
                 model.eval()
                 device = "cuda"
-                model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
-                tensor_image = image[0]
-                img = (tensor_image * 255).to(torch.uint8).numpy()
-                pil_image = Image.fromarray(img, mode='RGB')
-                image2 = preprocess(pil_image).unsqueeze(0).to(device)
-                with torch.no_grad():
-                    image_features = model2.encode_image(image2)
-                    pass
-                im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
-                prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
-                final_prediction = int(float(prediction[0]) * 100)
-                del model
+                try:
+                    model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
+                    tensor_image = image[0]
+                    img = (tensor_image * 255).to(torch.uint8).numpy()
+                    pil_image = Image.fromarray(img, mode='RGB')
+                    image2 = preprocess(pil_image).unsqueeze(0).to(device)
+                    with torch.no_grad():
+                        image_features = model2.encode_image(image2)
+                        pass
+                    im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
+                    prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
+                    final_prediction = int(float(prediction[0]) * 100)
+                    del model
+                except Exception:
+                    final_prediction = 0
 
                 if (type(final_prediction) != 'str'):
                     final_prediction = str(final_prediction)
