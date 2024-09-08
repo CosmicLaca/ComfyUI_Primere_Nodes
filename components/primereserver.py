@@ -101,17 +101,22 @@ async def primere_keyword_parser(request):
     model_name = post.get('modelName')
     if model_name is not None:
         keyword_list = ['None']
+        print('model_name')
+        print(model_name)
         ckpt_path = folder_paths.get_full_path("checkpoints", model_name)
-        ModelKvHash = utility.get_model_hash(ckpt_path)
-        if ModelKvHash is not None:
-            KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'model-keyword.txt')
-            keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, model_name)
-            if keywords is not None and isinstance(keywords, str) == True:
-                if keywords.find('|') > 1:
-                    keyword_list = ['None', "Select in order", "Random select"] + keywords.split("|")
-                else:
-                    keyword_list = ['None', "Select in order", "Random select"] + [keywords]
+        print('ckpt_path')
+        print(ckpt_path)
+        if os.path.isfile(ckpt_path):
+            ModelKvHash = utility.get_model_hash(ckpt_path)
+            if ModelKvHash is not None:
+                KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'model-keyword.txt')
+                keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, model_name)
+                if keywords is not None and isinstance(keywords, str) == True:
+                    if keywords.find('|') > 1:
+                        keyword_list = ['None', "Select in order", "Random select"] + keywords.split("|")
+                    else:
+                        keyword_list = ['None', "Select in order", "Random select"] + [keywords]
 
-        PromptServer.instance.send_sync("ModelKeywordResponse", keyword_list)
+            PromptServer.instance.send_sync("ModelKeywordResponse", keyword_list)
 
     return web.json_response({})

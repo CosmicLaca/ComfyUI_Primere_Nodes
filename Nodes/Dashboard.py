@@ -85,8 +85,8 @@ class PrimereVAE:
         return vae_model,
 
 class PrimereCKPT:
-    RETURN_TYPES = ("CHECKPOINT_NAME", "STRING",)
-    RETURN_NAMES = ("MODEL_NAME", "MODEL_VERSION",)
+    RETURN_TYPES = ("CHECKPOINT_NAME", "STRING", ['None'] + folder_paths.get_filename_list("checkpoints"),)
+    RETURN_NAMES = ("MODEL_NAME", "MODEL_VERSION", "MODEL")
     FUNCTION = "load_ckpt_list"
     CATEGORY = TREE_DASHBOARD
 
@@ -106,7 +106,7 @@ class PrimereCKPT:
             model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
-        return (base_model, model_version)
+        return (base_model, model_version, base_model)
 
 class PrimereVAELoader:
     RETURN_TYPES = ("VAE",)
@@ -710,6 +710,7 @@ class PrimereFractalLatent:
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
 
+    @classmethod
     def IS_CHANGED(self, **kwargs):
         if kwargs['expand_random_limits'] == True or kwargs['rand_noise_type'] == True or kwargs['rand_device'] == True or kwargs['rand_alpha_exponent'] == True or kwargs['rand_modulator'] == True:
             return float('NaN')

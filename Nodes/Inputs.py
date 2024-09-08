@@ -21,6 +21,8 @@ from ..components import stylehandler
 from .Styles import StyleParser
 import nodes
 from .modules.exif_data_checker import check_model_from_exif
+from ..utils import comfy_dir
+from ..components import hypernetwork
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -78,29 +80,58 @@ class PrimereDoublePrompt:
         return (rawResult[0].replace('\n', ' '), rawResult[1].replace('\n', ' '), subpath, model, orientation, preferred)
 
 class PrimereRefinerPrompt:
-    RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING", "TUPLE")
-    RETURN_NAMES = ("PROMPT+", "PROMPT-", "COND+", "COND-", "PROMPT_DATA")
+    RETURN_TYPES = ("STRING", "STRING", "CONDITIONING", "CONDITIONING", "TUPLE", "STRING", "INT", "MODEL", "CLIP", "VAE")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "COND+", "COND-", "PROMPT_DATA", "MODEL_VERSION", "SQUARE_SHAPE", "MODEL", "CLIP", "VAE")
     FUNCTION = "refiner_prompt"
     CATEGORY = TREE_INPUTS
 
     @classmethod
     def INPUT_TYPES(cls):
+        LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+        folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+        LyCORIS = folder_paths.get_filename_list("lycoris")
+        LyCORISList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
+
+        REFINER_LORA = ["LORA\\" + x for x in folder_paths.get_filename_list("loras")]
+        REFINER_LYCORIS = ["LYCORIS\\" + x for x in LyCORISList]
+        REFINER_EMBEDDING = ["EMBEDDING\\" + x for x in folder_paths.get_filename_list("embeddings")]
+        REFINER_HYPERNETWORK = ["HYPERNETWORK\\" + x for x in folder_paths.get_filename_list("hypernetworks")]
+
         return {
             "required": {
+                "refiner_model": (['None'] + folder_paths.get_filename_list("checkpoints"),),
+                "refiner_vae": (['None'] + folder_paths.get_filename_list("vae"),),
+                "refiner_network": (['None'] + REFINER_LORA + REFINER_LYCORIS + REFINER_EMBEDDING + REFINER_HYPERNETWORK,),
+                "refiner_network_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01, },),
+                "refiner_network_insertion": ("BOOLEAN", {"default": True, "label_on": "POSITIVE", "label_off": "NEGATIVE"}),
+
                 "positive_refiner": ("STRING", {"default": "", "multiline": True}),
                 "negative_refiner": ("STRING", {"default": "", "multiline": True}),
                 "positive_refiner_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "negative_refiner_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "positive_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "negative_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
-                "clip": ("CLIP",),
                 "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "token_normalization": (["none", "mean", "length", "length+mean"],),
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
+
+                "process_sd": ("BOOLEAN", {"default": True, "label_on": "PROCESS SD", "label_off": "IGNORE SD"}),
+                "process_sdxl": ("BOOLEAN", {"default": True, "label_on": "PROCESS SDXL", "label_off": "IGNORE SDXL"}),
+                "process_sd3": ("BOOLEAN", {"default": True, "label_on": "PROCESS SD3", "label_off": "IGNORE SD3"}),
+                "process_lcm": ("BOOLEAN", {"default": True, "label_on": "PROCESS LCM", "label_off": "IGNORE LCM"}),
+                "process_turbo": ("BOOLEAN", {"default": True, "label_on": "PROCESS TURBO", "label_off": "IGNORE TURBO"}),
+                "process_cascade": ("BOOLEAN", {"default": True, "label_on": "PROCESS CASCADE", "label_off": "IGNORE CASCADE"}),
+                "process_lightning": ("BOOLEAN", {"default": True, "label_on": "PROCESS LIGHTNING", "label_off": "IGNORE LIGHTNING"}),
+                "process_playground": ("BOOLEAN", {"default": True, "label_on": "PROCESS PLAYGROUND", "label_off": "IGNORE PLAYGROUND"}),
+                "process_hyper": ("BOOLEAN", {"default": True, "label_on": "PROCESS HYPER-SD", "label_off": "IGNORE HYPER-SD"}),
+                "process_flux": ("BOOLEAN", {"default": True, "label_on": "PROCESS FLUX", "label_off": "IGNORE FLUX"}),
             },
             "optional": {
+                "clip": ("CLIP",),
                 "positive_original": ("STRING", {"forceInput": True}),
                 "negative_original": ("STRING", {"forceInput": True}),
+                "model_concept": ("STRING", {"forceInput": True, "default": 'Normal'}),
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -117,7 +148,8 @@ class PrimereRefinerPrompt:
             wildcard_wrap = "__"
         )
 
-    def refiner_prompt(self, extra_pnginfo, id, clip, seed, token_normalization, weight_interpretation, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1):
+    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Normal', model_version = 'BaseModel_1024', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
+                       process_sd = True, process_sdxl = True, process_sd3 = True, process_lcm = True, process_turbo = True, process_cascade = True, process_lightning = True, process_playground = True, process_hyper = True, process_flux = True):
         def refiner_debug_state(self, extra_pnginfo, id):
             workflow = extra_pnginfo["workflow"]
             for node in workflow["nodes"]:
@@ -133,10 +165,47 @@ class PrimereRefinerPrompt:
         if not rawResult:
             rawResult = (positive_refiner, negative_refiner)
 
-        output_positive = rawResult[0].replace('\n', ' ')
-        output_negative = rawResult[1].replace('\n', ' ')
+        output_positive = rawResult[5].replace('\n', ' ')
+        output_negative = rawResult[6].replace('\n', ' ')
         final_positive = ""
         final_negative = ""
+        SQUARE_SHAPE = 768
+        OUTPUT_MODEL = None
+        OUTPUT_VAE = None
+        refiner_state = True
+        embeddings_final_pos = None
+        embeddings_final_neg = None
+        pooled_pos = None
+        pooled_neg = None
+
+        if model_concept == 'Normal':
+            if model_version == 'BaseModel_1024':
+                model_concept = 'SD'
+            else:
+                model_concept = 'SDXL'
+
+        MODEL_VERSION = model_version
+
+        if process_sd == False and model_concept == 'SD':
+            refiner_state = False
+        if process_sdxl == False and model_concept == 'SDXL':
+            refiner_state = False
+        if process_sd3 == False and model_concept == 'SD3':
+            refiner_state = False
+        if process_lcm == False and model_concept == 'LCM':
+            refiner_state = False
+        if process_turbo == False and model_concept == 'Turbo':
+            refiner_state = False
+        if process_cascade == False and model_concept == 'Cascade':
+            refiner_state = False
+        if process_lightning == False and model_concept == 'Lightning':
+            refiner_state = False
+        if process_playground == False and model_concept == 'Playground':
+            refiner_state = False
+        if process_hyper == False and model_concept == 'Hyper-SD':
+            refiner_state = False
+        if process_flux == False and model_concept == 'Flux':
+            refiner_state = False
 
         if positive_refiner_strength != 0:
             if positive_refiner_strength != 1:
@@ -165,17 +234,74 @@ class PrimereRefinerPrompt:
         final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed)
         final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed)
 
-        try:
-            embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-            embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-        except Exception:
-            tokens = clip.tokenize(final_positive)
-            embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+        if clip is None and refiner_state == True:
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model)
+            OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+            clip = LOADED_CHECKPOINT[1]
+            if refiner_vae != 'None':
+                OUTPUT_VAE = nodes.VAELoader.load_vae(self, refiner_vae)[0]
+            else:
+                OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
-            tokens = clip.tokenize(final_negative)
-            embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+            if refiner_network != 'None':
+                network_name = refiner_network
+                network_data = network_name.split('\\', 1)
+                network_path = network_data[1]
+
+                match network_data[0]:
+                    case "LORA":
+                        lora_path = folder_paths.get_full_path("loras", network_path)
+                        lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                        model_lora = OUTPUT_MODEL
+                        clip_lora = clip
+                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, refiner_network_weight, refiner_network_weight)
+                    case "LYCORIS":
+                        lycoris_path = folder_paths.get_full_path("lycoris", network_path)
+                        lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+                        model_lyco = OUTPUT_MODEL
+                        clip_lyco = clip
+                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, refiner_network_weight, refiner_network_weight)
+                    case "HYPERNETWORK":
+                        cloned_model = OUTPUT_MODEL
+                        hypernetwork_path = folder_paths.get_full_path("hypernetworks", network_path)
+                        model_hypernetwork = cloned_model.clone()
+
+                        try:
+                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, refiner_network_weight, False)
+                        except Exception:
+                            patch = None
+
+                        if patch is not None:
+                            model_hypernetwork.set_model_attn1_patch(patch)
+                            model_hypernetwork.set_model_attn2_patch(patch)
+                            OUTPUT_MODEL = model_hypernetwork
+                    case "EMBEDDING":
+                        embedd_name_path = network_path
+                        embedd_weight = refiner_network_weight
+                        embedd_neg = refiner_network_insertion
+                        embedd_name = Path(embedd_name_path).stem
+                        if (embedd_weight != 1):
+                            embedding_string = '(embedding:' + embedd_name + ':' + str(embedd_weight) + ')'
+                        else:
+                            embedding_string = 'embedding:' + embedd_name
+                        if embedd_neg == True:
+                            final_positive = final_positive + ', ' + embedding_string
+                        else:
+                            final_negative = final_negative + ', ' + embedding_string
+
+        if refiner_state == True:
+            try:
+                embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+                embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            except Exception:
+                tokens = clip.tokenize(final_positive)
+                embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+
+                tokens = clip.tokenize(final_negative)
+                embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
         prompt_tuple = {}
+        prompt_tuple['refiner_state'] = refiner_state
         prompt_tuple['final_positive'] = final_positive
         prompt_tuple['final_negative'] = final_negative
         prompt_tuple['clip'] = clip
@@ -183,8 +309,22 @@ class PrimereRefinerPrompt:
         prompt_tuple['weight_interpretation'] = weight_interpretation
         prompt_tuple['cond_positive'] = [[embeddings_final_pos, {"pooled_output": pooled_pos}]]
         prompt_tuple['cond_negative'] = [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+        prompt_tuple['refiner_model'] = refiner_model
+        prompt_tuple['refiner_vae'] = refiner_vae
+        prompt_tuple['refiner_network'] = refiner_network
+        prompt_tuple['refiner_network_weight'] = refiner_network_weight
+        prompt_tuple['refiner_network_insertion'] = refiner_network_insertion
+        prompt_tuple['model_version'] = MODEL_VERSION
+        prompt_tuple['square_shape'] = SQUARE_SHAPE
+        # prompt_tuple['output_model'] = OUTPUT_MODEL
+        # prompt_tuple['output_vae'] = OUTPUT_VAE
+        prompt_tuple['model_concept'] = model_concept
+        prompt_tuple['concept_processor'] = [process_sd, process_sdxl, process_sd3, process_lcm, process_turbo, process_cascade, process_lightning, process_playground, process_hyper, process_flux]
 
-        return final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], prompt_tuple
+        return (final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]],
+                prompt_tuple,
+                MODEL_VERSION, SQUARE_SHAPE,
+                OUTPUT_MODEL, clip, OUTPUT_VAE)
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -722,6 +862,13 @@ class PrimereMetaHandler:
                 workflow_tuple['width'] = dimensions[0]
                 workflow_tuple['height'] = dimensions[1]
                 workflow_tuple['size_string'] = str(workflow_tuple['width']) + 'x' + str(workflow_tuple['height'])
+
+        if (workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] == 'Flux'):
+            if 'concept_data' in workflow_tuple and 'flux_vae' in workflow_tuple['concept_data']:
+                if workflow_tuple['concept_data']['flux_vae'] is not None:
+                    workflow_tuple['vae'] = workflow_tuple['concept_data']['flux_vae']
+                    workflow_tuple['is_sdxl'] = 1
+                    workflow_tuple['model_version'] = 'SDXL_2048'
 
         def DictSort(element):
             if element in utility.WORKFLOW_SORT_LIST:

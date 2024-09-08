@@ -155,7 +155,7 @@ class PrimereEmbedding:
 
     @classmethod
     def INPUT_TYPES(self):
-        EmbeddingList =folder_paths.get_filename_list("embeddings")
+        EmbeddingList = folder_paths.get_filename_list("embeddings")
 
         return {
             "required": {

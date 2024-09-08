@@ -20,6 +20,7 @@ import comfy_extras.nodes_flux as nodes_flux
 import torch
 from ..components import utility
 from ..components import latentnoise
+from ..components import primeresamplers
 from itertools import compress
 from server import PromptServer
 from ..utils import comfy_dir
@@ -431,44 +432,47 @@ class PrimereKSampler:
     def __init__(self):
         self.state_hash = False
         self.count = 0
-
-    @classmethod
-    def IS_CHANGED(cls, **kwargs):
-        if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0:
-            return float("NaN")
+        self.noise_base = 0
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                    "model": ("MODEL", {"forceInput": True}),
-                    "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True}),
-                    "steps": ("INT", {"default": 20, "min": 1, "max": 10000, "forceInput": True}),
-                    "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0, "forceInput": True}),
-                    "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
-                    "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True}),
-                    "positive": ("CONDITIONING", ),
-                    "negative": ("CONDITIONING", ),
-                    "latent_image": ("LATENT", ),
-                    "denoise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
-                    "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
-                    "variation_batch_step": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
-                    "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
-                    "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
-                },
-                "optional": {
-                    "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-                },
-                "hidden": {
-                    "extra_pnginfo": "EXTRA_PNGINFO",
-                    "prompt": "PROMPT"
-                }
+                "model": ("MODEL", {"forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True}),
+                "steps": ("INT", {"default": 20, "min": 1, "max": 10000, "forceInput": True}),
+                "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0, "forceInput": True}),
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
+                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True}),
+                "positive": ("CONDITIONING", ),
+                "negative": ("CONDITIONING", ),
+                "latent_image": ("LATENT", ),
+                "denoise": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "variation_batch_step": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
+                "variation_level": ("BOOLEAN", {"default": False, "label_on": "Maximize", "label_off": "Off"}),
+                "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
+                "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
+            },
+            "optional": {
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT"
             }
+        }
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, variation_batch_step = 0, device = 'DEFAULT', align_your_steps = False):
+    @classmethod
+    def IS_CHANGED(self, **kwargs):
+        if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0 or kwargs['variation_level'] == True:
+            return float("NaN")
+
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
         samples = latent_image
         variation_extender_original = variation_extender
         variation_batch_step_original = variation_batch_step
+        variation_limit = 0.12
 
         def check_state(self, extra_pnginfo, prompt):
             old = self.state_hash
@@ -483,113 +487,69 @@ class PrimereKSampler:
 
         match model_concept:
             case "Turbo":
-                sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
-                sampler = comfy.samplers.sampler_object(sampler_name)
-                turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-                samples = (turbo_samples[0],)
+                samples = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)
 
             case "Cascade":
-                if type(model).__name__ == 'list':
-                    latent_size = utility.getLatentSize(latent_image)
-                    if (latent_size[0] < latent_size[1]):
-                        orientation = 'Vertical'
-                    else:
-                        orientation = 'Horizontal'
-
-                    dimensions = utility.get_dimensions_by_shape(self, 'Square [1:1]', 1024, orientation, True, True, latent_size[0], latent_size[1], 'CASCADE')
-                    dimension_x = dimensions[0]
-                    dimension_y = dimensions[1]
-
-                    height = dimension_y
-                    width = dimension_x
-                    compression = 42
-                    if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
-                        c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
-                        b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
-                        samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
-                        conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
-                        samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+                samples = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device,
+                                                          variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter)
 
             case "Hyper-SD":
-                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                HyperSDSelector = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 8)
-                if (HyperSDSelector == 'UNET'):
-                    sigmas = utility.get_hypersd_sigmas(model)
-                    sampler = comfy.samplers.sampler_object(sampler_name)
-                    hyper_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-                    samples = (hyper_samples[0],)
-                else:
-                    SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta = 0.8)
-                    model = SamplingDiscreteResults[0]
-                    sampler = SamplingDiscreteResults[1]
-                    sigmas = SamplingDiscreteResults[2]
-                    hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
-                    samples = (hyper_lora_samples[0],)
+                samples = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise)
 
             case  'Flux':
                 WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
                 FLUX_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 15)
                 FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
+                align_your_steps = False
 
                 if FLUX_SELECTOR == 'DIFFUSION':
                     if FLUX_SAMPLER == 'custom_advanced':
-                        FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
-                        if FLUX_GUIDANCE is None:
-                            FLUX_GUIDANCE = 3.5
-                        if FLUX_GUIDANCE <= 0:
-                            CONDITIONING_POS = positive
-                        else:
-                            CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
-                        FLUX_GUIDER = nodes_custom_sampler.BasicGuider.get_guider(self, model, CONDITIONING_POS)[0]
-                        FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model, scheduler_name, steps, denoise=denoise)[0]
-                        FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]
-                        sampler_object = comfy.samplers.sampler_object(sampler_name)
-                        samples = (nodes_custom_sampler.SamplerCustomAdvanced.sample(self, FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
+                        samples = primeresamplers.PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image)
                     elif FLUX_SAMPLER == 'ksampler':
                         FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
                         CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
                         CONDITIONING_NEG = nodes_flux.FluxGuidance.append(self, negative, FLUX_GUIDANCE)[0]
-                        samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, CONDITIONING_POS, CONDITIONING_NEG, latent_image, denoise=denoise)
+                        samples = primeresamplers.PKSampler(self, device, seed, model,
+                                                            steps, cfg, sampler_name, scheduler_name,
+                                                            CONDITIONING_POS, CONDITIONING_NEG,
+                                                            latent_image, denoise,
+                                                            variation_extender, variation_batch_step_original,
+                                                            batch_counter, variation_extender_original,
+                                                            variation_batch_step, variation_level, variation_limit,
+                                                            align_your_steps)
                     else:
-                        samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                        samples = primeresamplers.PKSampler(self, device, seed, model,
+                                                            steps, cfg, sampler_name, scheduler_name,
+                                                            positive, negative,
+                                                            latent_image, denoise,
+                                                            variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                            align_your_steps)
 
                 if FLUX_SELECTOR == 'GGUF':
-                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                    samples = primeresamplers.PKSampler(self, device, seed, model,
+                                                        steps, cfg, sampler_name, scheduler_name,
+                                                        positive, negative,
+                                                        latent_image, denoise,
+                                                        variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                        align_your_steps)
 
                 if FLUX_SELECTOR == 'SAFETENSOR':
-                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                    samples = primeresamplers.PKSampler(self, device, seed, model,
+                                                        steps, cfg, sampler_name, scheduler_name,
+                                                        positive, negative,
+                                                        latent_image, denoise,
+                                                        variation_extender, variation_batch_step_original,
+                                                        batch_counter, variation_extender_original,
+                                                        variation_batch_step, variation_level, variation_limit,
+                                                        align_your_steps)
 
             case _:
-                if variation_batch_step_original > 0:
-                    if batch_counter > 0:
-                        variation_batch_step = variation_batch_step_original * batch_counter
-                    variation_extender = round(variation_extender_original + variation_batch_step, 2)
-
-                if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
-                    if (variation_extender > 1):
-                        random.seed(batch_counter)
-                        variation_extender = round(random.uniform(0.01, 1.00), 2)
-                    if variation_batch_step == 0:
-                        variation_seed = batch_counter + seed
-                    else:
-                        variation_seed = seed
-                    samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
-                else:
-                    if align_your_steps == True:
-                        modelname_only = model
-                        model_version = utility.get_value_from_cache('model_version', modelname_only)
-                        match model_version:
-                            case 'SDXL_2048':
-                                model_type = 'SDXL'
-                            case _:
-                                model_type = 'SD1'
-
-                        sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
-                        sampler = comfy.samplers.sampler_object(sampler_name)
-                        AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-                        samples = (AYS_samples[0],)
-                    else:
-                        samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                samples = primeresamplers.PKSampler(self, device, seed, model,
+                                                    steps, cfg, sampler_name, scheduler_name,
+                                                    positive, negative,
+                                                    latent_image, denoise,
+                                                    variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                    align_your_steps)
 
         return samples
 

@@ -173,6 +173,9 @@ class PrimereImageSegments:
         if segment_prompt_data is None:
             segment_prompt_data = {}
 
+        if 'refiner_state' in segment_prompt_data and segment_prompt_data['refiner_state'] == False:
+            use_segments = False
+
         segment_settings = dict()
         segment_settings['bbox_segm_model_name'] = bbox_segm_model_name
         segment_settings['sam_model_name'] = sam_model_name
@@ -188,6 +191,7 @@ class PrimereImageSegments:
         segment_settings['trigger_high_off'] = trigger_high_off
         segment_settings['trigger_low_off'] = trigger_low_off
         empty_segs = [[image.shape[1], image.shape[2]], [], []]
+        segment_settings['refiner_state'] = use_segments
 
         if use_segments == False:
             return image, [image], None, None, empty_segs, [], 0, 0, segment_settings, segment_prompt_data['cond_positive'], segment_prompt_data['cond_negative']
