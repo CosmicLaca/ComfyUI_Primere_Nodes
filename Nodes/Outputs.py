@@ -51,8 +51,9 @@ class PrimereMetaSave:
                 "save_image": ("BOOLEAN", {"default": True}),
                 "images": ("IMAGE",),
                 "output_path": ("STRING", {"default": '[time(%Y-%m-%d)]', "multiline": False}),
-                "subpath": (["None", "Dev", "Test", "Production", "Preview", "NewModel", "Project", "Portfolio", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
+                "subpath": (["None", "Dev", "Test", "Serie", "Production", "Preview", "NewModel", "Project", "Portfolio", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
                 "add_modelname_to_path": ("BOOLEAN", {"default": False}),
+                "add_concept_to_path": ("BOOLEAN", {"default": False}),
                 "filename_prefix": ("STRING", {"default": "ComfyUI"}),
                 "filename_delimiter": ("STRING", {"default": "_"}),
                 "add_date_to_filename": ("BOOLEAN", {"default": True}),
@@ -80,7 +81,7 @@ class PrimereMetaSave:
         }
 
     def save_images_meta(self, images, add_date_to_filename, add_time_to_filename, add_seed_to_filename, add_size_to_filename, save_meta_to_json, save_info_to_txt, image_metadata=None,
-                         output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
+                         output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, add_concept_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
                          png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, save_image=True):
@@ -129,12 +130,29 @@ class PrimereMetaSave:
         if output_path.endswith("ComfyUI/output") or output_path.endswith("ComfyUI\output"):
             base_output = ""
 
+        if add_concept_to_path == True and 'model_concept' in image_metadata:
+            path = Path(output_path)
+            ConceptStartPath = output_path.replace(path.stem, '')
+            ConceptPath = image_metadata['model_concept']
+            if image_metadata['model_concept'] == 'Normal':
+                if 'model_version' in image_metadata:
+                    match image_metadata['model_version']:
+                        case 'SDXL_2048':
+                            ConceptPath = 'SDXL'
+                        case 'BaseModel_768':
+                            ConceptPath = 'SD'
+                        case 'SD3_1024':
+                            ConceptPath = 'SD3'
+                        case 'Stable_Zero123_768':
+                            ConceptPath = 'Stable_Zero'
+            ConceptPath = Path(ConceptPath)
+
+            output_path = ConceptStartPath + ConceptPath.stem.upper() + os.sep + path.stem
+
         if add_modelname_to_path == True and 'model' in image_metadata:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
             ModelPath = Path(image_metadata['model'])
-            # if preferred_subpath is not None and len(preferred_subpath.strip()) > 0:
-            #    subpath = preferred_subpath
             if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 subpath = image_metadata['preferred']['subpath']
 
@@ -425,8 +443,8 @@ class PrimereMetaCollector:
 
 class PrimereKSampler:
     CATEGORY = TREE_OUTPUTS
-    RETURN_TYPES =("LATENT",)
-    RETURN_NAMES = ("LATENT",)
+    RETURN_TYPES = ("LATENT", "TUPLE")
+    RETURN_NAMES = ("LATENT", "WORKFLOW_TUPLE")
     FUNCTION = "pk_sampler"
 
     def __init__(self):
@@ -456,6 +474,7 @@ class PrimereKSampler:
             },
             "optional": {
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "workflow_tuple": ("TUPLE", {"default": None}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -468,8 +487,9 @@ class PrimereKSampler:
         if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0 or kwargs['variation_level'] == True:
             return float("NaN")
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
-        samples = latent_image
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
+        samples_out = latent_image
+        out = latent_image.copy()
         variation_extender_original = variation_extender
         variation_batch_step_original = variation_batch_step
         variation_limit = 0.12
@@ -482,19 +502,58 @@ class PrimereKSampler:
                 return self.count
             self.count = 0
             return self.count
-
         batch_counter = int(check_state(self, extra_pnginfo, prompt)) + 1
+
+        def new_state():
+            random.seed(datetime.datetime.now().timestamp())
+            return random.randint(10, 0xffffffffffffffff)
+
+        def get_noise_extender(variation_limit, state_random):
+            random.seed(state_random)
+            noise_extender_low = round(random.uniform(0.00, variation_limit), 2)
+            noise_extender_high = round(random.uniform((1 - variation_limit), 1), 2)
+            noise_extender = random.choice([noise_extender_low, noise_extender_high])
+            return noise_extender
+
+        state_random = int(new_state())
+        noise_extender_ksampler = get_noise_extender(variation_limit, state_random)
+
+        random.seed(state_random)
+        noise_extender_cascade = round(random.uniform((1 - (variation_limit + 0.4)), 1), 2)
+
+        if variation_batch_step_original > 0:
+            if batch_counter > 0:
+                variation_batch_step = variation_batch_step_original * batch_counter
+            variation_extender = round(variation_extender_original + variation_batch_step, 2)
+            noise_extender_ksampler = variation_extender
+            noise_extender_cascade = variation_extender
+
+        elif variation_batch_step_original == 0 and variation_extender_original > 0:
+            variation_extender = variation_extender_original
+            if batch_counter > 1:
+                variation_extender = variation_extender_original + (batch_counter / 100)
+            noise_extender_ksampler = variation_extender
+            noise_extender_cascade = variation_extender
+
+        if variation_extender > 1:
+            random.seed(batch_counter)
+            variation_extender = round(random.uniform((1 - variation_limit), 1), 2)
+            noise_extender_ksampler = variation_extender
+            noise_extender_cascade = variation_extender
+
+        noise_constant = noise_extender_ksampler
 
         match model_concept:
             case "Turbo":
-                samples = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)
+                samples_out = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)
 
             case "Cascade":
-                samples = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device,
-                                                          variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter)
+                noise_constant = noise_extender_cascade
+                samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device,
+                                                              variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)
 
             case "Hyper-SD":
-                samples = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise)
+                samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise)
 
             case  'Flux':
                 WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
@@ -504,54 +563,67 @@ class PrimereKSampler:
 
                 if FLUX_SELECTOR == 'DIFFUSION':
                     if FLUX_SAMPLER == 'custom_advanced':
-                        samples = primeresamplers.PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image)
+                        samples_out = primeresamplers.PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image)
                     elif FLUX_SAMPLER == 'ksampler':
                         FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
                         CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
                         CONDITIONING_NEG = nodes_flux.FluxGuidance.append(self, negative, FLUX_GUIDANCE)[0]
-                        samples = primeresamplers.PKSampler(self, device, seed, model,
-                                                            steps, cfg, sampler_name, scheduler_name,
-                                                            CONDITIONING_POS, CONDITIONING_NEG,
-                                                            latent_image, denoise,
-                                                            variation_extender, variation_batch_step_original,
-                                                            batch_counter, variation_extender_original,
-                                                            variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps)
+                        samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                                                steps, cfg, sampler_name, scheduler_name,
+                                                                CONDITIONING_POS, CONDITIONING_NEG,
+                                                                latent_image, denoise,
+                                                                variation_extender, variation_batch_step_original,
+                                                                batch_counter, variation_extender_original,
+                                                                variation_batch_step, variation_level, variation_limit,
+                                                                align_your_steps, noise_extender_ksampler)
                     else:
-                        samples = primeresamplers.PKSampler(self, device, seed, model,
+                        samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                                                steps, cfg, sampler_name, scheduler_name,
+                                                                positive, negative,
+                                                                latent_image, denoise,
+                                                                variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                                align_your_steps, noise_extender_ksampler)
+
+                if FLUX_SELECTOR == 'GGUF':
+                    samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                             steps, cfg, sampler_name, scheduler_name,
                                                             positive, negative,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps)
+                                                            align_your_steps, noise_extender_ksampler)
 
-                if FLUX_SELECTOR == 'GGUF':
-                    samples = primeresamplers.PKSampler(self, device, seed, model,
+                if FLUX_SELECTOR == 'SAFETENSOR':
+                    samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                                            steps, cfg, sampler_name, scheduler_name,
+                                                            positive, negative,
+                                                            latent_image, denoise,
+                                                            variation_extender, variation_batch_step_original,
+                                                            batch_counter, variation_extender_original,
+                                                            variation_batch_step, variation_level, variation_limit,
+                                                            align_your_steps, noise_extender_ksampler)
+
+            case _:
+                samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                         steps, cfg, sampler_name, scheduler_name,
                                                         positive, negative,
                                                         latent_image, denoise,
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                        align_your_steps)
+                                                        align_your_steps, noise_extender_ksampler)
 
-                if FLUX_SELECTOR == 'SAFETENSOR':
-                    samples = primeresamplers.PKSampler(self, device, seed, model,
-                                                        steps, cfg, sampler_name, scheduler_name,
-                                                        positive, negative,
-                                                        latent_image, denoise,
-                                                        variation_extender, variation_batch_step_original,
-                                                        batch_counter, variation_extender_original,
-                                                        variation_batch_step, variation_level, variation_limit,
-                                                        align_your_steps)
+        if workflow_tuple is not None:
+            workflow_tuple['sampler_settings'] = {}
+            workflow_tuple['sampler_settings']['denoise'] = denoise
+            workflow_tuple['sampler_settings']['variation_extender_original'] = variation_extender_original
+            workflow_tuple['sampler_settings']['variation_batch_step_original'] = variation_batch_step_original
+            workflow_tuple['sampler_settings']['variation_level'] = variation_level
+            workflow_tuple['sampler_settings']['device'] = device
+            workflow_tuple['sampler_settings']['align_your_steps'] = align_your_steps
+            workflow_tuple['sampler_settings']['noise_constant'] = noise_constant
+            workflow_tuple['sampler_settings']['variation_seed'] = seed
+            workflow_tuple['sampler_settings']['batch_counter'] = batch_counter
 
-            case _:
-                samples = primeresamplers.PKSampler(self, device, seed, model,
-                                                    steps, cfg, sampler_name, scheduler_name,
-                                                    positive, negative,
-                                                    latent_image, denoise,
-                                                    variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                    align_your_steps)
-
-        return samples
+        out["samples"] = samples_out[0]["samples"]
+        return (out, workflow_tuple)
 
 class PrimerePreviewImage():
     CATEGORY = TREE_OUTPUTS

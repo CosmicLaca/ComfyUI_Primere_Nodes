@@ -702,11 +702,12 @@ class PrimereFractalLatent:
             },
             "optional": {
                 "optional_vae": ("VAE",),
+                "workflow_tuple": ("TUPLE", {"default": None}),
             }
         }
 
-    RETURN_TYPES = ("LATENT", "IMAGE")
-    RETURN_NAMES = ("LATENTS", "PREVIEWS")
+    RETURN_TYPES = ("LATENT", "IMAGE", "TUPLE")
+    RETURN_NAMES = ("LATENTS", "PREVIEWS", "WORKFLOW_TUPLE")
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
 
@@ -715,7 +716,7 @@ class PrimereFractalLatent:
         if kwargs['expand_random_limits'] == True or kwargs['rand_noise_type'] == True or kwargs['rand_device'] == True or kwargs['rand_alpha_exponent'] == True or kwargs['rand_modulator'] == True:
             return float('NaN')
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, expand_random_limits = False, fine_variation_strength = 0):
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, workflow_tuple = None, expand_random_limits = False):
         if expand_random_limits == True:
             rand_device = True
             rand_alpha_exponent = True
@@ -751,20 +752,27 @@ class PrimereFractalLatent:
         if optional_vae is None:
             latents = tensors.permute(0, 3, 1, 2)
             latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode = 'nearest-exact')
-            return {'samples': latents}, tensors
+            return {'samples': latents}, tensors, workflow_tuple
 
         encoder = nodes.VAEEncode()
         latents = []
         for tensor in tensors:
             tensor = tensor.unsqueeze(0)
             latents.append(encoder.encode(optional_vae, tensor)[0]['samples'])
-
         latents = torch.cat(latents)
-        return {'samples': latents}, tensors
+
+        if workflow_tuple is not None:
+            workflow_tuple['latent_data'] = {}
+            workflow_tuple['latent_data']['noise_type'] = noise_type
+            workflow_tuple['latent_data']['alpha_exponent'] = alpha_exponent
+            workflow_tuple['latent_data']['modulator'] = modulator
+            workflow_tuple['latent_data']['device'] = device
+
+        return {'samples': latents}, tensors, workflow_tuple
 
 class PrimereCLIP:
-    RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-")
+    RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING", "STRING", "STRING", "TUPLE")
+    RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "PROMPT L+", "PROMPT L-", "WORKFLOW_TUPLE")
     FUNCTION = "clip_encode"
     CATEGORY = TREE_DASHBOARD
 
@@ -823,6 +831,7 @@ class PrimereCLIP:
                 "sdxl_l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
+                "workflow_tuple": ("TUPLE", {"default": None}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -830,7 +839,10 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal"):
+    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
+        if workflow_tuple is None:
+            workflow_tuple = {}
+
         if model_concept == 'Cascade' or model_concept == 'Turbo' or model_concept == 'Flux':
             model_version = 'SDXL_2048'
 
@@ -1022,7 +1034,7 @@ class PrimereCLIP:
                 embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
                 embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
 
-                return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "")
+                return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
             else:
                 # embeddings_final_pos, pooled_pos = advanced_encode_XL(clip, sdxl_positive_l, positive_text, token_normalization, weight_interpretation, w_max = 1.0, clip_balance = sdxl_balance_l, apply_to_pooled = True)
                 # embeddings_final_neg, pooled_neg = advanced_encode_XL(clip, sdxl_negative_l, negative_text, token_normalization, weight_interpretation, w_max = 1.0, clip_balance = sdxl_balance_l, apply_to_pooled = True)
@@ -1055,7 +1067,7 @@ class PrimereCLIP:
                 cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled = True)
                 cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled = True)
 
-                return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l)
+                return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l, workflow_tuple)
 
         else:
             if model_concept == 'Flux':
@@ -1067,7 +1079,7 @@ class PrimereCLIP:
                         FLUX_GUIDANCE = 3.5
                     CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, positive_text, FLUX_GUIDANCE)[0]
                     CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
-                    return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "")
+                    return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
 
             if model_concept == 'Cascade':
                 positive_text = utility.clear_cascade(positive_text)
@@ -1079,7 +1091,46 @@ class PrimereCLIP:
             tokens = clip.tokenize(negative_text)
             cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
-            return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "")
+        if workflow_tuple is not None:
+            workflow_tuple['prompt_encoder'] = {}
+            workflow_tuple['prompt_encoder']['positive_prompt'] = positive_prompt
+            workflow_tuple['prompt_encoder']['negative_prompt'] = negative_prompt
+            workflow_tuple['prompt_encoder']['use_long_clip'] = use_long_clip
+            workflow_tuple['prompt_encoder']['last_layer'] = last_layer
+            workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
+            if use_int_style == True and int_style_pos != 'None':
+                workflow_tuple['prompt_encoder']['int_style_pos'] = int_style_pos
+                workflow_tuple['prompt_encoder']['int_style_pos_strength'] = int_style_pos_strength
+            if use_int_style == True and int_style_neg != 'None':
+                workflow_tuple['prompt_encoder']['int_style_neg'] = int_style_neg
+                workflow_tuple['prompt_encoder']['int_style_neg_strength'] = int_style_neg_strength
+            workflow_tuple['prompt_encoder']['adv_encode'] = adv_encode
+            workflow_tuple['prompt_encoder']['token_normalization'] = token_normalization
+            workflow_tuple['prompt_encoder']['weight_interpretation'] = weight_interpretation
+
+            workflow_tuple['prompt_encoder']['model_keywords'] = model_keywords
+            workflow_tuple['prompt_encoder']['lora_keywords'] = lora_keywords
+            workflow_tuple['prompt_encoder']['lycoris_keywords'] = lycoris_keywords
+            workflow_tuple['prompt_encoder']['embedding_pos'] = embedding_pos
+            workflow_tuple['prompt_encoder']['embedding_neg'] = embedding_neg
+
+            workflow_tuple['prompt_encoder']['opt_pos_prompt'] = opt_pos_prompt
+            workflow_tuple['prompt_encoder']['opt_pos_strength'] = opt_pos_strength
+            workflow_tuple['prompt_encoder']['opt_neg_prompt'] = opt_neg_prompt
+            workflow_tuple['prompt_encoder']['opt_neg_strength'] = opt_neg_strength
+
+            workflow_tuple['prompt_encoder']['style_position'] = style_position
+            workflow_tuple['prompt_encoder']['style_pos_prompt'] = style_pos_prompt
+            workflow_tuple['prompt_encoder']['style_pos_strength'] = style_pos_strength
+            workflow_tuple['prompt_encoder']['style_neg_prompt'] = style_neg_prompt
+            workflow_tuple['prompt_encoder']['style_neg_strength'] = style_neg_strength
+
+            workflow_tuple['prompt_encoder']['sdxl_positive_l'] = sdxl_positive_l
+            workflow_tuple['prompt_encoder']['sdxl_negative_l'] = sdxl_negative_l
+            workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
+            workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
+
+            return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT", "TUPLE",)

@@ -10,35 +10,22 @@ import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import comfy_extras.nodes_flux as nodes_flux
 
-def new_state():
-    random.seed(datetime.datetime.now().timestamp())
-    return random.randint(10, 0xffffffffffffffff)
-
-def get_noise_extender(variation_limit, state_random):
-    random.seed(state_random)
-    noise_extender_low = round(random.uniform(0.00, variation_limit), 2)
-    noise_extender_high = round(random.uniform((1 - variation_limit), 1), 2)
-    noise_extender = random.choice([noise_extender_low, noise_extender_high])
-    return noise_extender
-
 def PKSampler(self, device, seed, model,
               steps, cfg, sampler_name, scheduler_name,
               positive, negative,
               latent_image, denoise,
-              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps):
+              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender):
 
-    if variation_batch_step_original > 0:
+    '''if variation_batch_step_original > 0:
         if batch_counter > 0:
             variation_batch_step = variation_batch_step_original * batch_counter
-        variation_extender = round(variation_extender_original + variation_batch_step, 2)
+        variation_extender = round(variation_extender_original + variation_batch_step, 2)'''
 
     if variation_level == True:
-        state_random = int(new_state())
-        noise_extender = get_noise_extender(variation_limit, state_random)
         samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
     else:
         if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
-            if (variation_extender > 1):
+            '''if (variation_extender > 1):
                 random.seed(batch_counter)
                 noise_extender_low = round(random.uniform(0.00, variation_limit), 2)
                 noise_extender_high = round(random.uniform((1 - variation_limit), 1), 2)
@@ -46,8 +33,8 @@ def PKSampler(self, device, seed, model,
             if variation_batch_step == 0:
                 variation_seed = batch_counter + seed
             else:
-                variation_seed = seed
-            samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, variation_seed, variation_extender)
+                variation_seed = seed'''
+            samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
 
         else:
             if align_your_steps == True:
@@ -75,13 +62,17 @@ def PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, den
     samples = (turbo_samples[0],)
     return samples
 
-def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter):
+def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
+                    positive, negative,
+                    latent_image, denoise, device,
+                    variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender):
+
     samples = latent_image
 
-    if variation_batch_step_original > 0:
+    '''if variation_batch_step_original > 0:
         if batch_counter > 0:
             variation_batch_step = variation_batch_step_original * batch_counter
-        variation_extender = round(variation_extender_original + variation_batch_step, 2)
+        variation_extender = round(variation_extender_original + variation_batch_step, 2)'''
 
     if type(model).__name__ == 'list':
         latent_size = utility.getLatentSize(latent_image)
@@ -102,20 +93,17 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
             b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
 
             if variation_level == True:
-                state_random = int(new_state())
-                random.seed(state_random)
-                noise_extender = round(random.uniform((1 - (variation_limit + 0.4)), 1), 2)
                 samples_c = latentnoise.noisy_samples(model[1], device, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise, seed, noise_extender)[0]
             else:
                 if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
-                    if (variation_extender > 1):
+                    '''if (variation_extender > 1):
                         random.seed(batch_counter)
                         variation_extender = round(random.uniform((1 - variation_limit), 1), 2)
                     if variation_batch_step == 0:
                         variation_seed = batch_counter + seed
                     else:
-                        variation_seed = seed
-                    samples_c = latentnoise.noisy_samples(model[1], device, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise, variation_seed, variation_extender)[0]
+                        variation_seed = seed'''
+                    samples_c = latentnoise.noisy_samples(model[1], device, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise, seed, noise_extender)[0]
                 else:
                     samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
             conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]

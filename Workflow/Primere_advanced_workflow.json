@@ -1,6 +1,6 @@
 {
-  "last_node_id": 137,
-  "last_link_id": 930,
+  "last_node_id": 141,
+  "last_link_id": 965,
   "nodes": [
     {
       "id": 61,
@@ -969,11 +969,11 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            905,
             907,
             908,
             909,
-            925
+            934,
+            956
           ],
           "slot_index": 0,
           "shape": 3
@@ -1435,7 +1435,7 @@
           "type": "COMBO",
           "links": [
             870,
-            926
+            959
           ],
           "shape": 3
         },
@@ -1444,7 +1444,7 @@
           "type": "COMBO",
           "links": [
             872,
-            927
+            960
           ],
           "shape": 3
         },
@@ -1453,7 +1453,7 @@
           "type": "INT",
           "links": [
             874,
-            928
+            957
           ],
           "shape": 3
         },
@@ -1462,7 +1462,7 @@
           "type": "FLOAT",
           "links": [
             876,
-            929
+            958
           ],
           "shape": 3
         },
@@ -1476,7 +1476,7 @@
             880,
             881,
             882,
-            924
+            961
           ],
           "shape": 3
         },
@@ -1712,7 +1712,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            752
+            938
           ],
           "slot_index": 0,
           "shape": 3
@@ -1780,7 +1780,7 @@
       },
       "widgets_values": [
         "",
-        391134556867481,
+        893517986096744,
         "randomize"
       ],
       "color": "#145414",
@@ -1835,7 +1835,7 @@
       },
       "widgets_values": [
         "",
-        728804726438379,
+        510488198318730,
         "randomize"
       ],
       "color": "#541414",
@@ -2164,11 +2164,11 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            488,
             490,
             491,
             492,
-            911
+            911,
+            931
           ],
           "slot_index": 2,
           "shape": 3
@@ -2182,7 +2182,7 @@
             483,
             550,
             564,
-            753
+            939
           ],
           "slot_index": 3,
           "shape": 3
@@ -2239,7 +2239,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            920
+            952
           ],
           "slot_index": 0,
           "shape": 3
@@ -2248,7 +2248,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            751
+            937
           ],
           "slot_index": 1,
           "shape": 3
@@ -2485,10 +2485,10 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            320,
             336,
             568,
-            757
+            932,
+            942
           ],
           "slot_index": 0,
           "shape": 3
@@ -2497,10 +2497,10 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            321,
             337,
             569,
-            758
+            933,
+            943
           ],
           "slot_index": 1,
           "shape": 3
@@ -2535,7 +2535,7 @@
         false,
         1.6,
         2.8,
-        910434249538538,
+        1039812114763573,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2596,7 +2596,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            754
+            940
           ],
           "slot_index": 0,
           "shape": 3
@@ -2605,7 +2605,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            755
+            941
           ],
           "slot_index": 1,
           "shape": 3
@@ -2698,16 +2698,16 @@
       "bgcolor": "#004080"
     },
     {
-      "id": 39,
+      "id": 138,
       "type": "PrimereLatentNoise",
       "pos": {
         "0": 1822.23974609375,
         "1": 91.23995971679688
       },
-      "size": {
-        "0": 332.3477478027344,
-        "1": 406
-      },
+      "size": [
+        331.2617878901715,
+        426
+      ],
       "flags": {},
       "order": 33,
       "mode": 0,
@@ -2715,12 +2715,17 @@
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 488
+          "link": 931
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 320,
+          "link": 932,
           "widget": {
             "name": "width"
           }
@@ -2728,7 +2733,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 321,
+          "link": 933,
           "widget": {
             "name": "height"
           }
@@ -2736,7 +2741,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 905,
+          "link": 934,
           "widget": {
             "name": "noise_seed"
           }
@@ -2747,7 +2752,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            923
+            955
           ],
           "shape": 3
         },
@@ -2755,8 +2760,14 @@
           "name": "PREVIEWS",
           "type": "IMAGE",
           "links": [
-            139
+            936
           ],
+          "shape": 3
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null,
           "shape": 3
         }
       ],
@@ -2767,7 +2778,7 @@
         512,
         512,
         true,
-        "blue",
+        "white",
         true,
         1,
         0.5,
@@ -2776,9 +2787,9 @@
         1,
         0.8,
         1.4,
-        475085080890795,
+        1031032309456946,
         "randomize",
-        true,
+        false,
         "cpu",
         true
       ],
@@ -2786,16 +2797,16 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 125,
+      "id": 139,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 2162,
         "1": 91
       },
-      "size": {
-        "0": 330.7115783691406,
-        "1": 806
-      },
+      "size": [
+        330.3015339839212,
+        826
+      ],
       "flags": {},
       "order": 34,
       "mode": 0,
@@ -2803,12 +2814,12 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 751
+          "link": 937
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 752
+          "link": 938
         },
         {
           "name": "lora_keywords",
@@ -2831,9 +2842,14 @@
           "link": null
         },
         {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null
+        },
+        {
           "name": "model_version",
           "type": "STRING",
-          "link": 753,
+          "link": 939,
           "widget": {
             "name": "model_version"
           }
@@ -2841,7 +2857,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 754,
+          "link": 940,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2849,7 +2865,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 755,
+          "link": 941,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2913,7 +2929,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 757,
+          "link": 942,
           "widget": {
             "name": "width"
           }
@@ -2921,7 +2937,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 758,
+          "link": 943,
           "widget": {
             "name": "height"
           }
@@ -2932,56 +2948,56 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            921
+            953
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            922
+            954
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            761,
-            763
+            946,
+            947
           ],
-          "slot_index": 2,
           "shape": 3
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            762,
-            764
+            948,
+            949
           ],
-          "slot_index": 3,
           "shape": 3
         },
         {
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            765
+            950
           ],
-          "slot_index": 4,
           "shape": 3
         },
         {
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            766
+            951
           ],
-          "slot_index": 5,
+          "shape": 3
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null,
           "shape": 3
         }
       ],
@@ -2996,9 +3012,9 @@
         0,
         1.2,
         false,
-        "PHOTO_SFW",
+        "None",
         1,
-        "BETTER_IMAGES",
+        "None",
         1,
         true,
         "none",
@@ -3028,7 +3044,7 @@
       "type": "PreviewImage",
       "pos": {
         "0": 1823,
-        "1": 532
+        "1": 559
       },
       "size": {
         "0": 331.8764953613281,
@@ -3041,7 +3057,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 139
+          "link": 936
         }
       ],
       "outputs": [],
@@ -3052,16 +3068,16 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 137,
+      "id": 140,
       "type": "PrimereKSampler",
       "pos": {
         "0": 2500,
         "1": 174
       },
-      "size": {
-        "0": 326.22564697265625,
-        "1": 358
-      },
+      "size": [
+        323.8415339839207,
+        378
+      ],
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -3069,27 +3085,32 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 920
+          "link": 952
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 921
+          "link": 953
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 922
+          "link": 954
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 923
+          "link": 955
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 925,
+          "link": 956,
           "widget": {
             "name": "seed"
           }
@@ -3097,7 +3118,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 928,
+          "link": 957,
           "widget": {
             "name": "steps"
           }
@@ -3105,7 +3126,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 929,
+          "link": 958,
           "widget": {
             "name": "cfg"
           }
@@ -3113,7 +3134,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 926,
+          "link": 959,
           "widget": {
             "name": "sampler_name"
           }
@@ -3121,7 +3142,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 927,
+          "link": 960,
           "widget": {
             "name": "scheduler_name"
           }
@@ -3129,7 +3150,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 924,
+          "link": 961,
           "widget": {
             "name": "model_concept"
           }
@@ -3140,8 +3161,14 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            930
+            962
           ],
+          "shape": 3
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null,
           "shape": 3
         }
       ],
@@ -3149,7 +3176,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        994692945310630,
+        1076780912564457,
         "randomize",
         20,
         8,
@@ -3160,7 +3187,7 @@
         0,
         false,
         "DEFAULT",
-        true,
+        false,
         "Normal"
       ],
       "color": "#941414",
@@ -3184,7 +3211,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 761
+          "link": 946
         }
       ],
       "outputs": [],
@@ -3216,7 +3243,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 762
+          "link": 948
         }
       ],
       "outputs": [],
@@ -3278,7 +3305,7 @@
         {
           "name": "positive",
           "type": "STRING",
-          "link": 763,
+          "link": 947,
           "widget": {
             "name": "positive"
           }
@@ -3286,7 +3313,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 764,
+          "link": 949,
           "widget": {
             "name": "negative"
           }
@@ -3294,7 +3321,7 @@
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": 765,
+          "link": 950,
           "widget": {
             "name": "positive_l"
           }
@@ -3302,7 +3329,7 @@
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 766,
+          "link": 951,
           "widget": {
             "name": "negative_l"
           }
@@ -3394,7 +3421,7 @@
           "type": "TUPLE",
           "links": [
             572,
-            824
+            964
           ],
           "slot_index": 0,
           "shape": 3
@@ -3440,7 +3467,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 930
+          "link": 962
         },
         {
           "name": "vae",
@@ -3503,8 +3530,8 @@
       "id": 17,
       "type": "PreviewImage",
       "pos": {
-        "0": 2500,
-        "1": 567
+        "0": 2498,
+        "1": 588
       },
       "size": {
         "0": 326.3416748046875,
@@ -3678,7 +3705,7 @@
         true,
         false,
         false,
-        "608"
+        "726"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3744,8 +3771,8 @@
           "name": "image",
           "type": "IMAGE",
           "links": [
-            915,
-            916
+            916,
+            963
           ],
           "slot_index": 1,
           "shape": 3
@@ -3773,83 +3800,18 @@
       "bgcolor": "#353"
     },
     {
-      "id": 130,
-      "type": "PrimereMetaSave",
-      "pos": {
-        "0": 3523,
-        "1": 52
-      },
-      "size": {
-        "0": 348.1172180175781,
-        "1": 534
-      },
-      "flags": {},
-      "order": 46,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 915
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 824
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            825
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        "[time(%Y-%m-%d)]",
-        "Project",
-        true,
-        "ComfyUI",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        true,
-        true,
-        true,
-        95,
-        "false",
-        false,
-        false
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 113,
       "type": "PrimerePreviewImage",
       "pos": {
         "0": 2842,
         "1": 693
       },
-      "size": [
-        667.4992669430471,
-        895.5070495886257
-      ],
+      "size": {
+        "0": 667.499267578125,
+        "1": 895.507080078125
+      },
       "flags": {},
-      "order": 47,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -3876,6 +3838,71 @@
       "bgcolor": "#408080"
     },
     {
+      "id": 141,
+      "type": "PrimereMetaSave",
+      "pos": {
+        "0": 3523,
+        "1": 52
+      },
+      "size": {
+        "0": 348.1172180175781,
+        "1": 558
+      },
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 963
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 964
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            965
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        "[time(%Y-%m-%d)]",
+        "Project",
+        false,
+        false,
+        "ComfyUI",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        2,
+        false,
+        "jpg",
+        false,
+        false,
+        false,
+        95,
+        "false",
+        false,
+        false
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
       "id": 56,
       "type": "PrimereTextOutput",
       "pos": {
@@ -3893,7 +3920,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 825,
+          "link": 965,
           "widget": {
             "name": "text"
           }
@@ -3937,14 +3964,6 @@
       "IMAGE"
     ],
     [
-      139,
-      39,
-      1,
-      19,
-      0,
-      "IMAGE"
-    ],
-    [
       146,
       3,
       0,
@@ -3967,22 +3986,6 @@
       63,
       0,
       "VAE_NAME"
-    ],
-    [
-      320,
-      87,
-      0,
-      39,
-      1,
-      "INT"
-    ],
-    [
-      321,
-      87,
-      1,
-      39,
-      2,
-      "INT"
     ],
     [
       336,
@@ -4055,14 +4058,6 @@
       101,
       3,
       "STRING"
-    ],
-    [
-      488,
-      98,
-      2,
-      39,
-      0,
-      "VAE"
     ],
     [
       490,
@@ -4313,132 +4308,12 @@
       "VAE_NAME"
     ],
     [
-      751,
-      111,
-      1,
-      125,
-      0,
-      "CLIP"
-    ],
-    [
-      752,
-      41,
-      0,
-      125,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
-      753,
-      98,
-      3,
-      125,
-      6,
-      "STRING"
-    ],
-    [
-      754,
-      112,
-      0,
-      125,
-      7,
-      "STRING"
-    ],
-    [
-      755,
-      112,
-      1,
-      125,
-      8,
-      "STRING"
-    ],
-    [
-      757,
-      87,
-      0,
-      125,
-      16,
-      "INT"
-    ],
-    [
-      758,
-      87,
-      1,
-      125,
-      17,
-      "INT"
-    ],
-    [
-      761,
-      125,
-      2,
-      52,
-      0,
-      "*"
-    ],
-    [
-      762,
-      125,
-      3,
-      54,
-      0,
-      "*"
-    ],
-    [
-      763,
-      125,
-      2,
-      114,
-      6,
-      "STRING"
-    ],
-    [
-      764,
-      125,
-      3,
-      114,
-      7,
-      "STRING"
-    ],
-    [
-      765,
-      125,
-      4,
-      114,
-      8,
-      "STRING"
-    ],
-    [
-      766,
-      125,
-      5,
-      114,
-      9,
-      "STRING"
-    ],
-    [
       769,
       16,
       0,
       126,
       0,
       "IMAGE"
-    ],
-    [
-      824,
-      114,
-      0,
-      130,
-      1,
-      "TUPLE"
-    ],
-    [
-      825,
-      130,
-      0,
-      56,
-      0,
-      "STRING"
     ],
     [
       839,
@@ -4929,14 +4804,6 @@
       "STRING"
     ],
     [
-      905,
-      135,
-      0,
-      39,
-      3,
-      "INT"
-    ],
-    [
       907,
       135,
       0,
@@ -5001,14 +4868,6 @@
       "COMBO"
     ],
     [
-      915,
-      136,
-      1,
-      130,
-      0,
-      "IMAGE"
-    ],
-    [
       916,
       136,
       1,
@@ -5025,92 +4884,260 @@
       "VAE"
     ],
     [
-      920,
-      111,
-      0,
-      137,
-      0,
-      "MODEL"
-    ],
-    [
-      921,
-      125,
-      0,
-      137,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      922,
-      125,
-      1,
-      137,
+      931,
+      98,
       2,
-      "CONDITIONING"
-    ],
-    [
-      923,
-      39,
+      138,
       0,
-      137,
-      3,
-      "LATENT"
+      "VAE"
     ],
     [
-      924,
-      133,
+      932,
+      87,
+      0,
+      138,
+      2,
+      "INT"
+    ],
+    [
+      933,
+      87,
+      1,
+      138,
+      3,
+      "INT"
+    ],
+    [
+      934,
+      135,
+      0,
+      138,
       4,
-      137,
+      "INT"
+    ],
+    [
+      936,
+      138,
+      1,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      937,
+      111,
+      1,
+      139,
+      0,
+      "CLIP"
+    ],
+    [
+      938,
+      41,
+      0,
+      139,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      939,
+      98,
+      3,
+      139,
+      7,
+      "STRING"
+    ],
+    [
+      940,
+      112,
+      0,
+      139,
+      8,
+      "STRING"
+    ],
+    [
+      941,
+      112,
+      1,
+      139,
       9,
       "STRING"
     ],
     [
-      925,
-      135,
+      942,
+      87,
       0,
-      137,
-      4,
+      139,
+      17,
       "INT"
     ],
     [
-      926,
-      133,
-      0,
-      137,
-      7,
-      "COMBO"
-    ],
-    [
-      927,
-      133,
+      943,
+      87,
       1,
-      137,
-      8,
-      "COMBO"
+      139,
+      18,
+      "INT"
     ],
     [
-      928,
-      133,
+      946,
+      139,
       2,
-      137,
+      52,
+      0,
+      "*"
+    ],
+    [
+      947,
+      139,
+      2,
+      114,
+      6,
+      "STRING"
+    ],
+    [
+      948,
+      139,
+      3,
+      54,
+      0,
+      "*"
+    ],
+    [
+      949,
+      139,
+      3,
+      114,
+      7,
+      "STRING"
+    ],
+    [
+      950,
+      139,
+      4,
+      114,
+      8,
+      "STRING"
+    ],
+    [
+      951,
+      139,
+      5,
+      114,
+      9,
+      "STRING"
+    ],
+    [
+      952,
+      111,
+      0,
+      140,
+      0,
+      "MODEL"
+    ],
+    [
+      953,
+      139,
+      0,
+      140,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      954,
+      139,
+      1,
+      140,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      955,
+      138,
+      0,
+      140,
+      3,
+      "LATENT"
+    ],
+    [
+      956,
+      135,
+      0,
+      140,
       5,
       "INT"
     ],
     [
-      929,
+      957,
+      133,
+      2,
+      140,
+      6,
+      "INT"
+    ],
+    [
+      958,
       133,
       3,
-      137,
-      6,
+      140,
+      7,
       "FLOAT"
     ],
     [
-      930,
-      137,
+      959,
+      133,
+      0,
+      140,
+      8,
+      "COMBO"
+    ],
+    [
+      960,
+      133,
+      1,
+      140,
+      9,
+      "COMBO"
+    ],
+    [
+      961,
+      133,
+      4,
+      140,
+      10,
+      "STRING"
+    ],
+    [
+      962,
+      140,
       0,
       16,
       0,
       "LATENT"
+    ],
+    [
+      963,
+      136,
+      1,
+      141,
+      0,
+      "IMAGE"
+    ],
+    [
+      964,
+      114,
+      0,
+      141,
+      1,
+      "TUPLE"
+    ],
+    [
+      965,
+      141,
+      0,
+      56,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -5166,10 +5193,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
+      "scale": 0.7513148009015777,
       "offset": [
-        -1632.3314983480068,
-        191.24088429567203
+        -686.1537926456379,
+        289.4228384765074
       ]
     }
   },

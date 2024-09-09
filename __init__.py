@@ -18,7 +18,7 @@ from .components import utility
 # import time
 import pytz
 
-__version__ = "0.7.1"
+__version__ = "0.7.2"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -118,6 +118,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereMetaHandler": Inputs.PrimereMetaHandler,
     "PrimereMetaDistributor": Inputs.PrimereMetaDistributor,
     "PrimereMetaDistributorStage2": Inputs.PrimereMetaDistributorStage2,
+    "PrimereNetworkDataCollector": Inputs.PrimereNetworkDataCollector,
+    "PrimereMetaTupleCollector": Inputs.PrimereMetaTupleCollector,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -187,6 +189,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereMetaHandler": "Primere Image Recycler",
     "PrimereMetaDistributor": "Primere Meta Distributor",
     "PrimereMetaDistributorStage2": "Primere Meta Distributor Stage 2",
+    "PrimereNetworkDataCollector": "Primere Network Data Collector",
+    "PrimereMetaTupleCollector": "Primere Meta Tuple Collector",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

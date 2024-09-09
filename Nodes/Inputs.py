@@ -1765,3 +1765,51 @@ class PrimerePromptOrganizer:
         preferred = {'subpath': preferred_subpath, 'model': preferred_model, 'orientation': preferred_orientation}
 
         return (style_text_result[0], style_text_result[1], preferred_subpath, preferred_model, preferred_orientation, preferred)
+
+class PrimereNetworkDataCollector:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("NETWORK_DATA",)
+    FUNCTION = "network_tuple_collector"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "optional": {
+                "lora_sd": ("LORA_STACK", {"forceInput": True, "default": []}),
+                "lora_sdxl": ("LORA_STACK", {"forceInput": True, "default": []}),
+
+                "embedding_sd": ("EMBEDDING_STACK", {"forceInput": True, "default": []}),
+                "embedding_sdxl": ("EMBEDDING_STACK", {"forceInput": True, "default": []}),
+
+                "hypernetwork_sd": ("HYPERNETWORK_STACK", {"forceInput": True, "default": []}),
+                "hypernetwork_sdxl": ("HYPERNETWORK_STACK", {"forceInput": True, "default": []}),
+
+                "lycoris_sd": ("LYCORIS_STACK", {"forceInput": True, "default": []}),
+                "lycoris_sdxl": ("LYCORIS_STACK", {"forceInput": True, "default": []}),
+            },
+        }
+
+    def network_tuple_collector(self, **kwargs):
+        return (kwargs,)
+
+class PrimereMetaTupleCollector:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("FINAL_WORKFLOW_TUPLE",)
+    FUNCTION = "meta_tuple_collector"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
+                "network_data": ("TUPLE", {"forceInput": True, "default": []}),
+            },
+        }
+
+    def meta_tuple_collector(self, workflow_tuple, network_data):
+        meta_output = workflow_tuple
+        meta_output["network_data"] = {}
+        meta_output["network_data"] = network_data
+        return (meta_output,)
