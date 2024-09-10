@@ -127,7 +127,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereMetaCollector": Outputs.PrimereMetaCollector,
     "PrimereKSampler": Outputs.PrimereKSampler,
     "PrimerePreviewImage": Outputs.PrimerePreviewImage,
-    "PrimereAestheticCKPTScorer":Outputs.PrimereAestheticCKPTScorer,
+    "PrimereAestheticCKPTScorer": Outputs.PrimereAestheticCKPTScorer,
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,

@@ -1806,10 +1806,20 @@ class PrimereMetaTupleCollector:
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
                 "network_data": ("TUPLE", {"forceInput": True, "default": []}),
             },
+            "optional": {
+                "aesthetic_score": ("INT", {"forceInput": True, "default": 0}),
+            },
         }
 
-    def meta_tuple_collector(self, workflow_tuple, network_data):
+    def meta_tuple_collector(self, workflow_tuple, network_data, aesthetic_score = 0):
+        if (type(aesthetic_score).__name__ == 'int'):
+            aesthetic_score = str(aesthetic_score)
+        if (not aesthetic_score.isdigit()) or (int(aesthetic_score) < 1):
+            aesthetic_score = "*** Aesthetic scorer off ***"
+
         meta_output = workflow_tuple
         meta_output["network_data"] = {}
         meta_output["network_data"] = network_data
+        meta_output["aesthetic_score"] = aesthetic_score
+
         return (meta_output,)

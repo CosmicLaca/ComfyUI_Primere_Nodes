@@ -1,6 +1,6 @@
 {
-  "last_node_id": 141,
-  "last_link_id": 965,
+  "last_node_id": 143,
+  "last_link_id": 970,
   "nodes": [
     {
       "id": 61,
@@ -992,6 +992,52 @@
       "bgcolor": "#0000ff"
     },
     {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 661,
+        "1": 90
+      },
+      "size": {
+        "0": 467.5840759277344,
+        "1": 128.78175354003906
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            456,
+            554
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 105,
       "type": "PrimerePromptSwitch",
       "pos": {
@@ -1734,7 +1780,7 @@
       },
       "widgets_values": [
         "",
-        255262374464527,
+        719854517623116,
         "randomize"
       ],
       "color": "#145414",
@@ -1789,7 +1835,7 @@
       },
       "widgets_values": [
         "",
-        205598804300019,
+        576218469757305,
         "randomize"
       ],
       "color": "#541414",
@@ -2489,7 +2535,7 @@
         false,
         1.6,
         2.8,
-        82319469085870,
+        900919870818464,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2741,7 +2787,7 @@
         1,
         0.8,
         1.4,
-        243821838093495,
+        501968073807106,
         "randomize",
         false,
         "cpu",
@@ -3130,7 +3176,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        913997821725630,
+        595759526692321,
         "randomize",
         20,
         8,
@@ -3375,7 +3421,7 @@
           "type": "TUPLE",
           "links": [
             572,
-            964
+            967
           ],
           "slot_index": 0,
           "shape": 3
@@ -3437,7 +3483,7 @@
           "links": [
             37,
             338,
-            769
+            969
           ],
           "slot_index": 0,
           "shape": 3
@@ -3619,7 +3665,7 @@
       "bgcolor": "#804000"
     },
     {
-      "id": 126,
+      "id": 143,
       "type": "PrimereAestheticCKPTScorer",
       "pos": {
         "0": 3189,
@@ -3636,7 +3682,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 769
+          "link": 969
         },
         {
           "name": "workflow_data",
@@ -3649,6 +3695,7 @@
           "name": "SCORE",
           "type": "INT",
           "links": null,
+          "slot_index": 0,
           "shape": 3
         }
       ],
@@ -3659,7 +3706,7 @@
         true,
         false,
         false,
-        "633"
+        "669"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3726,7 +3773,7 @@
           "type": "IMAGE",
           "links": [
             916,
-            963
+            966
           ],
           "slot_index": 1,
           "shape": 3
@@ -3792,7 +3839,7 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 141,
+      "id": 142,
       "type": "PrimereMetaSave",
       "pos": {
         "0": 3523,
@@ -3800,7 +3847,7 @@
       },
       "size": {
         "0": 348.1172180175781,
-        "1": 558
+        "1": 582
       },
       "flags": {},
       "order": 47,
@@ -3809,12 +3856,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 963
+          "link": 966
         },
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 964
+          "link": 967
         }
       ],
       "outputs": [
@@ -3822,7 +3869,7 @@
           "name": "SAVED_INFO",
           "type": "STRING",
           "links": [
-            965
+            968
           ],
           "shape": 3
         }
@@ -3832,9 +3879,10 @@
       },
       "widgets_values": [
         false,
+        0,
         "[time(%Y-%m-%d)]",
         "Project",
-        false,
+        true,
         false,
         "ComfyUI",
         "_",
@@ -3874,7 +3922,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 965,
+          "link": 968,
           "widget": {
             "name": "text"
           }
@@ -3890,52 +3938,6 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 661,
-        "1": 90
-      },
-      "size": {
-        "0": 467.5840759277344,
-        "1": 128.78175354003906
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            456,
-            554
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -4306,14 +4308,6 @@
       104,
       0,
       "VAE_NAME"
-    ],
-    [
-      769,
-      16,
-      0,
-      126,
-      0,
-      "IMAGE"
     ],
     [
       839,
@@ -5116,52 +5110,48 @@
       "LATENT"
     ],
     [
-      963,
+      966,
       136,
       1,
-      141,
+      142,
       0,
       "IMAGE"
     ],
     [
-      964,
+      967,
       114,
       0,
-      141,
+      142,
       1,
       "TUPLE"
     ],
     [
-      965,
-      141,
+      968,
+      142,
       0,
       56,
       0,
       "STRING"
+    ],
+    [
+      969,
+      16,
+      0,
+      143,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
     {
-      "title": "Upscaler",
+      "title": "Dashboard settings",
       "bounding": [
-        2841,
-        19,
-        665,
-        635
+        652,
+        20,
+        1150,
+        2037
       ],
-      "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1811,
-        19,
-        1018,
-        934
-      ],
-      "color": "#A88",
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     },
@@ -5178,14 +5168,26 @@
       "flags": {}
     },
     {
-      "title": "Dashboard settings",
+      "title": "Encoder, sampler, decoder",
       "bounding": [
-        652,
-        20,
-        1150,
-        2037
+        1811,
+        19,
+        1018,
+        934
       ],
-      "color": "#3f789e",
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Upscaler",
+      "bounding": [
+        2841,
+        19,
+        665,
+        635
+      ],
+      "color": "#b58b2a",
       "font_size": 24,
       "flags": {}
     }
@@ -5193,10 +5195,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.948717100000002,
+      "scale": 0.9090909090909091,
       "offset": [
-        -2118.8763098365534,
-        -342.2293326197721
+        -1449.3335452810654,
+        114.40498347764547
       ]
     }
   },

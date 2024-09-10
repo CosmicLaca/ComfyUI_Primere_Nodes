@@ -49,6 +49,7 @@ class PrimereMetaSave:
         return {
             "required": {
                 "save_image": ("BOOLEAN", {"default": True}),
+                "aesthetic_trigger": ("INT", {"default": 0, "min": 0, "max": 1000, "step": 1}),
                 "images": ("IMAGE",),
                 "output_path": ("STRING", {"default": '[time(%Y-%m-%d)]', "multiline": False}),
                 "subpath": (["None", "Dev", "Test", "Serie", "Production", "Preview", "NewModel", "Project", "Portfolio", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
@@ -84,11 +85,20 @@ class PrimereMetaSave:
                          output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, add_concept_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
-                         png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, save_image=True):
+                         png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, save_image=True, aesthetic_trigger = 0):
 
         if save_image == False:
             saved_info = "*** Image saver switched OFF, image not saved. ***"
             return saved_info, {"ui": {"images": []}}
+
+        if 'aesthetic_score' in image_metadata:
+            if (type(image_metadata['aesthetic_score']).__name__ == 'int'):
+                image_metadata['aesthetic_score'] = str(image_metadata['aesthetic_score'])
+
+            if (image_metadata['aesthetic_score'].isdigit()) and int(image_metadata['aesthetic_score']) > 0:
+                if aesthetic_trigger > int(image_metadata['aesthetic_score']):
+                    saved_info = "*** Image ignored because aesthetic score: [" + str(image_metadata['aesthetic_score']) + "] less than trigger setting: [" + str(aesthetic_trigger) + "]. ***"
+                    return saved_info, {"ui": {"images": []}}
 
         delimiter = filename_delimiter
         number_padding = filename_number_padding
