@@ -7,20 +7,20 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Features of attached complex workflow **Primere_full_workflow.json**:
 - Automatically detect if SD or SDXL checkpoint loaded, and control the whole process (e.g. resolution) by the model version
-- No need to set/switch any nodes or workflow between SD and SDXL checkpoints. Not just checkpoints, but change between model concepts only 1 click like Normal (SD/SDXL), LCM (SD/SDXL), Turbo, Cascade, Playground, Hyper-SD, Flux and Lightning. Test workflow: **civitai-modelconcepts.json**
+- No need to set/switch any nodes or workflow between SD and SDXL checkpoints. Not just main checkpoints, but change between model concepts only 1 click like Normal (SD/SDXL), LCM (SD/SDXL), Turbo, Cascade, Playground, Hyper-SD, Flux and Lightning. Test workflow: **civitai-modelconcepts.json**
 - You can select preferred model, subpath and orientation on the prompt input to overwrite the system settings by prompt, same features under the .csv prompt loader node and the automatic Prompt organizer
-- You can randomize the image orientation if using Comfy's batch queue mode
-- Auto save the final image and .json and/or .txt file with workflow details, but these details saved to image as EXIF/PNGINFO (otherworldly meta) too
-- Custom image saver on the image preview (image type (jpg, png, webp), resolution (max side in pixels), and quality (for jpg and webp). Open standard save as dialog on Image preview node, and semi-automatic 1 click image saver feature for visual selectors
+- You can randomize the image orientation
+- Auto save the image with generation meta and .json and/or .txt file with workflow details, but these details saved to image as EXIF/PNGINFO (otherworldly meta) too
+- Custom image saver with the image preview (image type (jpg, png, webp), resolution (max side in pixels), and quality (for jpg and webp). Open standard save as dialog on Image preview node, and semi-automatic 1 click image saver feature for all visual selectors
 - Handle dynamic prompts and additional networks (Embedding, Lora, Lycoris, Hypernetwork) directly from prompts, example styles.csv included for testing
-- Not just .csv useful as prompt source, automatically organize your prompts from .toml file and use the file content on dedicated Prompt organizer node. Example .toml file included, customize after renamed
+- Not just .csv useful as prompt source, automatically organize your prompts from .toml file and use the file content on dedicated Prompt organizer node. Example .toml file included, customize after rename
 - Random noise generator for latent image, with special function to generate different but consistent images with locked seed using adjustable difference between min and max values 
 - Resolution selector by side ratios only, editable ratio source in external file, auto detect checkpoint version for right final size
 - Image size can be convert to "standard" (x16) values, fully customizable side ratios by float numbers at the bottom of the resolution selector node, different base resolution settings for several model concepts
 - Multiply original resolution by integer, but can be define the final resolution by target megapixels from any image sizes. Image resolution multiplier can solve low memory error problem if using Ultimate SD Upscaler 
 - Remove previously included networks from the content of prompts (Embedding, Lora, Lycoris and Hypernetwork), use network remover if the selected model incompatible with them or if you want to try your prompt without included networks or want to change to different, or using SDXL checkpoint and SD Loras have to be changed to SDXL compatible version 
-- Use more than one prompt or style input nodes for testing and developing prompts, select any by 1 click at the 'Prompt Switch' node
-- Special image META/EXIF/PNGINFO/PIC2PROMPT reader, which handle model name and samplers from A1111 and ComfyUI .png or .jpg. Never was easier to recycle your older A1111 and ComfyUI images and re-using them with same or different workflow settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
+- Use more than one prompt or style input nodes for testing and developing prompts, select by 1 click at the 'Prompt Switch' node
+- Special image META/EXIF/PNGINFO/PIC2PROMPT reader, which handle model name and samplers from A1111 and standard workflows from ComfyUI .png or .jpg. Never was easier to recycle your older A1111 and ComfyUI images and re-using them with same or different workflow settings. With switches you can change or keep the original meta seed/model/size/etc... to workflow settings. Test workflow: **civitai-image-recycler.json** 
 - Workflow and nodes support Lycoris in dedicated node, no need to copy Lycoris files to Loras path
 - Adjustable detailers and refiners for face, eye, hands, mouth, fashion wear, etc..., separated prompt input for detailers can be mixed to original for better result, included test workflow: **civitai-all-refiner.json**
 - Visual (select element by preview image instead of long list) loaders available for Checkpoints, Loras, Lycoris, Embedding, Hypernetworks and .csv prompts. You only have to create preview images to right name and path, see readme details under "Visual", or use 1 click preview creator
@@ -55,8 +55,10 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
-- Renewed sampler with noise variant
-- Renewed detailer/refiner nodes
+- Add model concept (SD, SDXL, Cascade, Flux, etc...) to the image save path
+- Trigger for aetshtetic score to control automtic image saver
+- Renewed sampler with random / serie of noise variant
+- Renewed detailer/refiner nodes, use external checkpoint and networks
 - Flux support, 1 click selector
 - Hyper-SD support, 1 click selector
 - Nvidia AlignYourSteps support on sampler: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/
@@ -64,11 +66,11 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - Some nodes moved to **deprecated** subtree. Nodes can be used but not developed in the future.
 - **Segmented refiners** will mesure the aesthetic score of results, and if the original segment is better, changes will be ignored. Only in **Primere_full_workflow.json** workflow. Feature can switch off.
 - Friendly response icons in **segment refiners** if the detailer off or not found segment in the source image.
-- **Aesthetic scorer** included to all attached workflows. 
 - **Long-clip** concept implemented to the Primere prompt encoder. Primary useful for SD1.x models (but working with SDXL too), if you  have long and difficult prompts. Read more: https://github.com/beichenzbc/Long-CLIP  
 - **Model trigger words** selector in the Primere model keyword node. When you load the checkpoint, node will collect trigger words to the combo list, and you can include one to the end or beginning of your prompt (with weight).
 
 ## Future changes:
+- Because image meta contains all required details (noise, tokens, last layer, etc...) image can be reproduced exactly by Image recycler node
 - The eye and the mouth color will be read from the original image and the refiner/detailer will detail segment with same color
 - Aesthetic average values will be displayed on the preview images of visual selectors like checkpoints and saved prompts (visual style selector) as badge. Visual modal will be sorted by aesthetic average.
 - Aesthetic trigger for image saver will ingnore low scored images.
@@ -223,7 +225,7 @@ This node select segs and bbox model, but for three models: **yolov8s**, **deepf
 Another models no need label. You can use these nodes for workflow result by new prompts, but you can use if the input is existing image only. Load/test attached **civitai-[what]-refiner.json** workflows how to use these nodes if you want to refine your existing images.
 You can On/Off this node anytime by switch and **triggers**, and you can play with available parameters.
 
-#### Triggers:
+#### Low/High Triggers:
 Two trigger input available on this node, **trigger_high_off** and **trigger_low_off**. These input fields are numerical inputs, mean the percentage of original image area. For example 10 in trigger mean, the segmented area is the 10 percent of original image. Both are designed to automatically switch on/off the node by the area of segmented image.
 The good trigger value depending on the segmented area compare to the source image. If you want to ignore segments smaller than 5% of input image, add 5 to **trigger_low_off** input, and segments under 5% of original pixels will be ignored. This is useful if the segment (for example mouth) too small to do correct refining.
 The **trigger_high_off** switch off the node if the segmented area higher percent than this field value. For example if the face is always good if larger than 10 percent of original image area, enter 10 to the **trigger_high_off** input, and the node will process segments only if the segmented area less than 10% of original.
@@ -338,6 +340,20 @@ With Lycoris stackers you can read model keywords. This node merge all selected 
 This node merge positive and negative SD and SDXL embedding tags, to send them to the prompt encoder.
 <hr>
 
+### Primere Network Data Collector:
+This node collect (and merge) settings of Lora, Lycoris, Embedding, Hypernetwork nodes for metada saving.
+
+<a href="./Workflow/readme_images/pndatacollector.jpg" target="_blank"><img src="./Workflow/readme_images/pndatacollector.jpg" height="120px"></a>
+
+<hr>
+
+### Primere Meta Tuple Collector:
+This node collect (and merge) all required data for image saver. Important to use if you want enjoy all node functions. Check attached full workflow how to use.
+
+<a href="./Workflow/readme_images/pmetatuplecollector.jpg" target="_blank"><img src="./Workflow/readme_images/pmetatuplecollector.jpg" height="80px"></a>
+
+<hr>
+
 ### Primere VAE selector:
 This node select between SD and SDXL VAE if model_version input is correct.
 
@@ -345,10 +361,16 @@ This node select between SD and SDXL VAE if model_version input is correct.
 <hr>
 
 ### Primere Refiner Prompt:
-Another dual prompt input, bur for refiners and detailers. You can connect original prompts too to this node, and set the weights of all inputs. Text and cond outputs are available.
+Another dual prompt input, but specially for refiners and detailers. You can connect original prompts too to this node, and set the weights of all inputs. Text and cond outputs are available.
+- Set refiner model
+- Set refiner network, Lora, Lycoris, Embedding, ot Hypernetwork
+- Set network's weigth
+- Set negative embedding to negative prompt
+- Enter refiner's prompt
+- Use switches at the bottom if you want to ignore refiner process by concept. For example if Flux and Cascade no need refiner, just switch off.
 For more info about usage see **"Segments"** submenu.
 
-<a href="./Workflow/readme_images/prefprompt.jpg" target="_blank"><img src="./Workflow/readme_images/prefprompt.jpg" height="200px"></a>
+<a href="./Workflow/readme_images/prefprompt.jpg" target="_blank"><img src="./Workflow/readme_images/prefprompt.jpg" height="500px"></a>
 <hr>
 
 ## Submenu :: Dashboard:
@@ -360,10 +382,10 @@ This node the merged version of previous two: 'Primere Sampler Selector' and 'Pr
 <hr>
 
 ### Primere Model Concept Selector:
-Use this node to switch between Normal, LCM, Cascade, Lightning, Playground, Hyper-SD, Flux and Turbo modes in whole rendering process. Use several sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must flow Turbo, Lightning, Playground and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
-**Hyper-SD UNET files must be saved to Comfy's unet path, not as checkpoint!**
+Use this node to switch between Normal, LCM, Cascade, Lightning, Playground, Hyper-SD, Flux and Turbo modes in whole rendering process. Use several sampler and cfg/steps settings to the inputs (one of them must be compatible with LCM settings, another must follow Turbo, Lightning, Playground and Cascade rules), and connect this node output to the sampler/exif reader, like in the example workflow. The 'MODEL_CONCEPT' output important for CKPT loader, Image refiners, and the Exif reader for correct rendering.
+**Hyper-SD and Flux UNET files must be saved to Comfy's unet path, not as checkpoint!**
 
-<a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="300px"></a>
+<a href="./Workflow/readme_images/pmodelconcept.jpg" target="_blank"><img src="./Workflow/readme_images/pmodelconcept.jpg" height="500px"></a>
 <hr>
 
 ### Primere VAE Selector:
@@ -406,20 +428,19 @@ Use only one seed input for all. A1111 look node, connect this one node to all o
 
 ### Primere Noise Latent:
 This node generate 'empty' latent image, but with several noise settings, what control the final images. **You can randomize these setting between min. and max. values using switches**, this cause small difference between generated images for same seed and settings, but you can freeze your noise and latent image if you disable variations of random noise generation.
-- You can generate several images with large difference with randomized dashboard seed
-- If you freeze seed (on the dashboard group) and set the min and max values of generation details on this node, you will get small differences by your noise values (primary by alpha_exponent and modulator if randomized)
-- If the difference not big enough switch on 'extra_variation' and set 'control_after_generate' to 'randomize' or 'increment' or 'decrement'. You can get different but consistent images with these settings **if the dashboard seed locked** 
+- You can generate several images with large difference with randomized main seed
+- If you freeze main seed (on the dashboard group) and set the min and max values of generation details on this node, you will get small differences by your noise values (primary by alpha_exponent, noise_type and modulator if randomized)
+- If the difference not big enough switch on 'expand_random_limits' You can get different but consistent images with these settings **if the dashboard seed locked** 
 
 <a href="./Workflow/readme_images/platent.jpg" target="_blank"><img src="./Workflow/readme_images/platent.jpg" height="280px"></a>
 <hr>
 
 ### Primere Prompt Encoder:
-- This node compatible booth SD and SDXL models, important to use 'model_version' (SD, SDXL) and 'model_concept' (Normal, LCM, Turbo, Cascade, Lightning, Playground) inputs for correct working. Try several settings, you will get several results. 
+- This node compatible booth SD and SDXL models, important to use 'model_version' (SD, SDXL) and 'model_concept' (Normal, LCM, Turbo, Cascade, Lightning, Playground, Flux) inputs for correct working. Try several settings, you will get several results. 
 - Use positive and negative styles, and check the best result in prompt debugger and image outputs. 
-- If you getting error if use SD basemodel, you must update (git pull) your ComfyUI.
 - The style source of this node in external file at 'Toml/default_neg.toml' and 'Toml/default_pos.toml' files, what you can edit if you need changes.
-- Connect here additional network and checkpoint keywords (triggerwords) like in the example workflow.
-- Try out 'use_long_clip' switch to handle longer prompts better. Useful for SD1.x but working with SDXL checkpoints. Inform about the original concept from here: https://github.com/beichenzbc/Long-CLIP and found required clip model here: https://huggingface.co/BeichenZhang/LongCLIP-L/tree/main. The node will download this clip model (~1.7GB) to right path at very first usage.
+- Connect additional network and checkpoint keywords (triggerwords) like in the example workflow. Triggerwords read by checkpoint/networks nodes.
+- Try out 'use_long_clip' switch to handle longer prompts better. Useful for SD1.x but working with SDXL checkpoints. Inform about the original concept from here: https://github.com/beichenzbc/Long-CLIP and found required clip model here: https://huggingface.co/BeichenZhang/LongCLIP-L/tree/main. The node will download required clip model (~1.7GB) to right path at very first usage.
 
 <a href="./Workflow/readme_images/pencoder.jpg" target="_blank"><img src="./Workflow/readme_images/pencoder.jpg" height="320px"></a>
 <hr>
@@ -495,8 +516,10 @@ This node is image preview, but with save as feature.
 
 ### Primere Meta Saver:
 This node save the image, but with/without metadata, and save meta to .json/.txt file if you want. Get metadata from the Exif reader node only, and use optional 'preferred_subpath' input if you want to overwrite the node settings by several prompt input nodes. Set 'output_path' input correctly, depending your system.
+- Add model concept and/or model name to saved file path as subdirectory (subfolder)
+- **aesthetic_trigger** value will ignore image if the aesthetic score lower than the setting. Have to send right data to image_meta input.
 
-<a href="./Workflow/readme_images/pimgsaver.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaver.jpg" height="260px"></a>
+<a href="./Workflow/readme_images/pimgsaver.jpg" target="_blank"><img src="./Workflow/readme_images/pimgsaver.jpg" height="320px"></a>
 <hr>
 
 ### Primere Any Debug:
@@ -523,10 +546,11 @@ Get the aesthetic score of your generated image.
 <hr>
 
 ### Primere KSampler:
-Sampler using the 'model_concept' input this node automatically handle Turbo and Cascade modes, no need another workflow or extra node. You can select device (CPU or GPU), and use 'variation_extender' input for new image with very less (adjustable) difference from previous one (if seed and other details freezed). This settings can be used in queued workflow.
+Sampler using the 'model_concept' input this node automatically handle Turbo, Flux and Cascade modes, no need another workflow or extra node. You can select device (CPU or GPU), and use 'variation_extender' input for images with very small (adjustable) difference from previous one (if seed and other details freezed). This settings can be used in queued workflow.
+- Switch on **variation_level** for random variant by controlled noise injection
 - One button support of Nvidia AlignYourStpes: https://research.nvidia.com/labs/toronto-ai/AlignYourSteps/
 
-<a href="./Workflow/readme_images/pksampler.jpg" target="_blank"><img src="./Workflow/readme_images/pksampler.jpg" height="220px"></a>
+<a href="./Workflow/readme_images/pksampler.jpg" target="_blank"><img src="./Workflow/readme_images/pksampler.jpg" height="280px"></a>
 <hr>
 
 ## Submenu :: Styles:
