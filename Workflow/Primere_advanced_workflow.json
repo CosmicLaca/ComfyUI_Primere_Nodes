@@ -992,52 +992,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 661,
-        "1": 90
-      },
-      "size": {
-        "0": 467.5840759277344,
-        "1": 128.78175354003906
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            456,
-            554
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 105,
       "type": "PrimerePromptSwitch",
       "pos": {
@@ -1780,7 +1734,7 @@
       },
       "widgets_values": [
         "",
-        893517986096744,
+        255262374464527,
         "randomize"
       ],
       "color": "#145414",
@@ -1835,7 +1789,7 @@
       },
       "widgets_values": [
         "",
-        510488198318730,
+        205598804300019,
         "randomize"
       ],
       "color": "#541414",
@@ -2525,7 +2479,7 @@
         "Node name for S&R": "PrimereResolution"
       },
       "widgets_values": [
-        "Portrait [9:7]",
+        "HD screen [16:9]",
         768,
         1024,
         512,
@@ -2535,7 +2489,7 @@
         false,
         1.6,
         2.8,
-        1039812114763573,
+        82319469085870,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2704,10 +2658,10 @@
         "0": 1822.23974609375,
         "1": 91.23995971679688
       },
-      "size": [
-        331.2617878901715,
-        426
-      ],
+      "size": {
+        "0": 331.26177978515625,
+        "1": 426
+      },
       "flags": {},
       "order": 33,
       "mode": 0,
@@ -2777,8 +2731,8 @@
       "widgets_values": [
         512,
         512,
-        true,
-        "white",
+        false,
+        "brownian_fractal",
         true,
         1,
         0.5,
@@ -2787,11 +2741,11 @@
         1,
         0.8,
         1.4,
-        1031032309456946,
+        243821838093495,
         "randomize",
         false,
         "cpu",
-        true
+        false
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -2803,10 +2757,10 @@
         "0": 2162,
         "1": 91
       },
-      "size": [
-        330.3015339839212,
-        826
-      ],
+      "size": {
+        "0": 330.3015441894531,
+        "1": 826
+      },
       "flags": {},
       "order": 34,
       "mode": 0,
@@ -3010,11 +2964,11 @@
         "",
         true,
         0,
-        1.2,
-        false,
+        1,
+        true,
         "None",
         1,
-        "None",
+        "LONG",
         1,
         true,
         "none",
@@ -3074,10 +3028,10 @@
         "0": 2500,
         "1": 174
       },
-      "size": [
-        323.8415339839207,
-        378
-      ],
+      "size": {
+        "0": 323.8415222167969,
+        "1": 378
+      },
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -3176,7 +3130,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1076780912564457,
+        913997821725630,
         "randomize",
         20,
         8,
@@ -3252,7 +3206,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20)"
+        "(watermark, person, text, china style, indian style), (bad anatomy, bad proportions, blurry, cloned face, cropped, deformed, dehydrated, disfigured, duplicate, error, extra arms, extra fingers, extra legs, extra limbs, fused fingers, gross proportions, jpeg artifacts, long neck, low quality, lowres, malformed limbs, missing arms, missing legs, morbid, mutated hands, mutation, mutilated, out of frame, poorly drawn face, poorly drawn hands, signature, text, too many fingers, ugly, username, watermark, worst quality)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
@@ -3521,7 +3475,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 880,\n    \"height\": 672,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style), (bad anatomy, bad proportions, blurry, cloned face, cropped, deformed, dehydrated, disfigured, duplicate, error, extra arms, extra fingers, extra legs, extra limbs, fused fingers, gross proportions, jpeg artifacts, long neck, low quality, lowres, malformed limbs, missing arms, missing legs, morbid, mutated hands, mutation, mutilated, out of frame, poorly drawn face, poorly drawn hands, signature, text, too many fingers, ugly, username, watermark, worst quality)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3705,7 +3659,7 @@
         true,
         false,
         false,
-        "726"
+        "633"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3936,6 +3890,52 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 661,
+        "1": 90
+      },
+      "size": {
+        "0": 467.5840759277344,
+        "1": 128.78175354003906
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            456,
+            554
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -5193,10 +5193,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 1.948717100000002,
       "offset": [
-        -686.1537926456379,
-        289.4228384765074
+        -2118.8763098365534,
+        -342.2293326197721
       ]
     }
   },

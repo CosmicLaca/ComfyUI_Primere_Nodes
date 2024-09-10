@@ -372,7 +372,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        663726094532783,
+        630221166459771,
         null,
         null,
         null
@@ -688,7 +688,7 @@
       },
       "widgets_values": [
         "",
-        921133019910476,
+        1123140630230541,
         "randomize"
       ],
       "color": "#145414",
@@ -743,7 +743,7 @@
       },
       "widgets_values": [
         "",
-        900919191883226,
+        721027704906319,
         "randomize"
       ],
       "color": "#145414",
@@ -827,7 +827,7 @@
         "Node name for S&R": "PrimereResolution"
       },
       "widgets_values": [
-        "Photo [19:13]",
+        "HD screen [16:9]",
         768,
         1024,
         512,
@@ -837,7 +837,7 @@
         false,
         1.6,
         2.8,
-        904708561939091,
+        403862610655527,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -915,10 +915,10 @@
         "0": 1823,
         "1": 93
       },
-      "size": [
-        332.92153398392156,
-        426
-      ],
+      "size": {
+        "0": 332.9215393066406,
+        "1": 426
+      },
       "flags": {},
       "order": 14,
       "mode": 0,
@@ -989,16 +989,16 @@
         512,
         512,
         false,
-        "blue",
-        true,
-        1,
+        "violet",
+        false,
         0.5,
+        0.4,
         1.5,
-        true,
-        1,
+        false,
+        0.9500000000000001,
         0.8,
         1.4,
-        68873680047809,
+        838940426726023,
         "randomize",
         false,
         "cpu",
@@ -1442,12 +1442,12 @@
         true,
         0,
         1.2,
-        false,
-        "None",
-        1,
-        "None",
-        1,
         true,
+        "None",
+        1,
+        "BETTER_IMAGES",
+        1.2,
+        false,
         "mean",
         "comfy++",
         "Normal",
@@ -1579,7 +1579,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        356847731548117,
+        1038816195253279,
         "randomize",
         20,
         8,
@@ -1673,7 +1673,7 @@
         90,
         "Checkpoint",
         "Overwrite",
-        "SDXL\\batchCOREALISMXL_v40.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#549494",
@@ -1684,7 +1684,7 @@
       "type": "PrimereAestheticCKPTScorer",
       "pos": {
         "0": 2507,
-        "1": 722
+        "1": 740
       },
       "size": {
         "0": 341.3660888671875,
@@ -1720,7 +1720,7 @@
         true,
         false,
         false,
-        "659"
+        "717"
       ],
       "color": "#2c002c",
       "bgcolor": "#400040"
@@ -2190,26 +2190,14 @@
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
+      "title": "Network loader",
       "bounding": [
-        694,
-        20,
-        1107,
-        470
+        1812,
+        931,
+        714,
+        647
       ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        675,
-        501,
-        1127,
-        820
-      ],
-      "color": "#8A8",
+      "color": "#804000",
       "font_size": 24,
       "flags": {}
     },
@@ -2226,14 +2214,26 @@
       "flags": {}
     },
     {
-      "title": "Network loader",
+      "title": "Prompt",
       "bounding": [
-        1812,
-        931,
-        714,
-        647
+        675,
+        501,
+        1127,
+        820
       ],
-      "color": "#804000",
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
+      "bounding": [
+        694,
+        20,
+        1107,
+        470
+      ],
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     }
@@ -2241,10 +2241,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917362,
+      "scale": 0.9090909090909091,
       "offset": [
-        -399.00153398392297,
-        360.70511120377944
+        -834.3141350359957,
+        288.4495837251022
       ]
     }
   },

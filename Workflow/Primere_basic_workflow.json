@@ -844,50 +844,6 @@
       "bgcolor": "#0091d7"
     },
     {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 688.2476196289062,
-        "1": 91.41719055175781
-      },
-      "size": {
-        "0": 464.1010437011719,
-        "1": 128.1556854248047
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            281
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 76,
       "type": "PrimerePromptSwitch",
       "pos": {
@@ -1620,7 +1576,7 @@
       },
       "widgets_values": [
         "",
-        674135950995178,
+        677862733691082,
         "randomize"
       ],
       "color": "#145414",
@@ -1675,7 +1631,7 @@
       },
       "widgets_values": [
         "",
-        256934709976630,
+        304165061337240,
         "randomize"
       ],
       "color": "#145414",
@@ -2237,7 +2193,7 @@
         false,
         1.6,
         2.8,
-        938508424949384,
+        871876392641925,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2338,10 +2294,10 @@
         "0": 1928,
         "1": 94
       },
-      "size": [
-        331.9815339839215,
-        426
-      ],
+      "size": {
+        "0": 331.9815368652344,
+        "1": 426
+      },
       "flags": {},
       "order": 25,
       "mode": 0,
@@ -2421,7 +2377,7 @@
         1,
         0.8,
         1.4,
-        989483974238059,
+        828242710037580,
         "randomize",
         false,
         "cpu",
@@ -2437,10 +2393,10 @@
         "0": 2267.55029296875,
         "1": 94.02629852294922
       },
-      "size": [
-        340.9112410151711,
-        826
-      ],
+      "size": {
+        "0": 340.9112548828125,
+        "1": 826
+      },
       "flags": {},
       "order": 26,
       "mode": 0,
@@ -2634,12 +2590,12 @@
         "",
         true,
         0,
-        1.2,
+        1,
         true,
         "PHOTO_SFW",
         1,
         "BETTER_IMAGES",
-        1,
+        1.2,
         true,
         "mean",
         "comfy++",
@@ -2695,13 +2651,13 @@
       "id": 102,
       "type": "PrimereKSampler",
       "pos": {
-        "0": 2611,
+        "0": 2616,
         "1": 176
       },
-      "size": [
-        326.58153398392096,
-        378
-      ],
+      "size": {
+        "0": 326.58154296875,
+        "1": 378
+      },
       "flags": {},
       "order": 28,
       "mode": 0,
@@ -2800,7 +2756,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        159143828672201,
+        192304065295502,
         "randomize",
         20,
         8,
@@ -2821,8 +2777,8 @@
       "id": 16,
       "type": "VAEDecode",
       "pos": {
-        "0": 2609.55029296875,
-        "1": 94.02629852294922
+        "0": 2618,
+        "1": 94
       },
       "size": {
         "0": 324.198974609375,
@@ -2904,8 +2860,8 @@
       "id": 92,
       "type": "PrimereAestheticCKPTScorer",
       "pos": {
-        "0": 2614,
-        "1": 731
+        "0": 2617,
+        "1": 754
       },
       "size": {
         "0": 323.20916748046875,
@@ -2941,10 +2897,54 @@
         true,
         false,
         false,
-        "581"
+        "591"
       ],
       "color": "#5d005d",
       "bgcolor": "#710071"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 688.2476196289062,
+        "1": 91.41719055175781
+      },
+      "size": {
+        "0": 464.1010437011719,
+        "1": 128.1556854248047
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            281
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -3799,26 +3799,14 @@
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
+      "title": "Network loader",
       "bounding": [
-        679,
-        20,
-        1228,
-        2054
+        -54,
+        788,
+        726,
+        657
       ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        -366,
-        19,
-        1038,
-        757
-      ],
-      "color": "#8A8",
+      "color": "#804000",
       "font_size": 24,
       "flags": {}
     },
@@ -3835,14 +3823,26 @@
       "flags": {}
     },
     {
-      "title": "Network loader",
+      "title": "Prompt",
       "bounding": [
-        -54,
-        788,
-        726,
-        657
+        -366,
+        19,
+        1038,
+        757
       ],
-      "color": "#804000",
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
+      "bounding": [
+        679,
+        20,
+        1228,
+        2054
+      ],
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     }
@@ -3850,10 +3850,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917362,
+      "scale": 0.9090909090909091,
       "offset": [
-        -399.00153398392297,
-        360.70511120377944
+        -1480.0306161506726,
+        229.6799983142694
       ]
     }
   },
