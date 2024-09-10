@@ -162,7 +162,19 @@ class PrimereMetaSave:
         if add_modelname_to_path == True and 'model' in image_metadata:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
+
+            if 'model_concept' in image_metadata:
+                match image_metadata['model_concept']:
+                    case 'Flux':
+                        if image_metadata['concept_data']['flux_selector'] == 'GGUF':
+                            image_metadata['model'] = image_metadata['concept_data']['flux_gguf']
+                        else:
+                            image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
+                    case 'Cascade':
+                        image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
+
             ModelPath = Path(image_metadata['model'])
+
             if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 subpath = image_metadata['preferred']['subpath']
 
