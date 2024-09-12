@@ -513,7 +513,6 @@ class PrimereKSampler:
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['sampler_setup'] == True:
-                    print('******************* xxxxxxxxxxxxx *************************')
                     variation_batch_step = 0
                     variation_level = False
                     denoise = workflow_tuple['sampler_settings']['denoise']
