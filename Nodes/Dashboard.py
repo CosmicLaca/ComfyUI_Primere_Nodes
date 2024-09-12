@@ -28,6 +28,7 @@ from comfy import model_management
 from datetime import datetime
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
+from .modules import long_clip
 
 class PrimereSamplers:
     CATEGORY = TREE_DEPRECATED
@@ -804,13 +805,13 @@ class PrimereCLIP:
 
         return {
             "required": {
-                "clip": ("CLIP", ),
+                "clip": ("CLIP", {"forceInput": True}),
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
-                "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
-                "use_long_clip": ("BOOLEAN", {"default": True}),
-                "custom_longclip_model": (['None'] + sorted(cls.CLIPLIST),),
+                "clip_mode": ("BOOLEAN", {"default": True, "label_on": "CLIP", "label_off": "Long-CLIP"}),
+                "clip_model": (['Default'] + sorted(cls.CLIPLIST),),
+                "longclip_model": (['Default'] + sorted(cls.CLIPLIST),),
                 "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
@@ -823,6 +824,7 @@ class PrimereCLIP:
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
             },
             "optional": {
+                "clip_raw": ("CLIP", {"forceInput": True}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lora_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
@@ -855,11 +857,11 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', custom_longclip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
+    def clip_encode(self, clip, clip_raw, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
-                    use_long_clip = workflow_tuple['prompt_encoder']['use_long_clip']
+                    clip_mode = workflow_tuple['prompt_encoder']['clip_mode']
                     last_layer = workflow_tuple['prompt_encoder']['last_layer']
                     negative_strength = workflow_tuple['prompt_encoder']['negative_strength']
                     adv_encode = workflow_tuple['prompt_encoder']['adv_encode']
@@ -867,8 +869,8 @@ class PrimereCLIP:
                     weight_interpretation = workflow_tuple['prompt_encoder']['weight_interpretation']
                     copy_prompt_to_l = workflow_tuple['prompt_encoder']['copy_prompt_to_l']
                     sdxl_l_strength = workflow_tuple['prompt_encoder']['sdxl_l_strength']
-                    custom_clip_model = workflow_tuple['prompt_encoder']['custom_clip_model']
-                    custom_longclip_model = workflow_tuple['prompt_encoder']['custom_longclip_model']
+                    clip_model = workflow_tuple['prompt_encoder']['clip_model']
+                    longclip_model = workflow_tuple['prompt_encoder']['longclip_model']
                 if workflow_tuple['setup_states']['clip_optional_prompts'] == True:
                     opt_pos_prompt = workflow_tuple['prompt_encoder']['opt_pos_prompt']
                     opt_pos_strength = workflow_tuple['prompt_encoder']['opt_pos_strength']
@@ -1010,81 +1012,51 @@ class PrimereCLIP:
 
         if model_concept == 'Flux':
             adv_encode = False
-            use_long_clip = False
+            # clip_mode = True
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
 
         if CONCEPT_SELECTOR == 'Flux':
             adv_encode = False
-            use_long_clip = False
+            # clip_mode = True
 
-        if use_long_clip == True:
+        if clip_mode == False:
+            if longclip_model == 'Default':
+                longclip_model = 'longclip-L.pt'
+
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
             clipFiles = folder_paths.get_filename_list("clip")
 
-            if 'longclip-L.pt' not in clipFiles:
+            if longclip_model not in clipFiles and longclip_model == 'Default':
                 FileUrl = 'https://huggingface.co/BeichenZhang/LongCLIP-L/resolve/main/longclip-L.pt?download=true'
                 FullFilePath = os.path.join(LONGCLIPL_PATH, 'longclip-L.pt')
                 ModelDownload = utility.downloader(FileUrl, FullFilePath)
                 if (ModelDownload == True):
                     clipFiles = folder_paths.get_filename_list("clip")
 
-            if 'longclip-L.pt' in clipFiles and custom_longclip_model == 'None' and model_concept != 'Cascade' and model_concept != 'Flux' and CONCEPT_SELECTOR != 'Cascade' and CONCEPT_SELECTOR != 'Flux':
-                if (is_sdxl == 0):
-                        class EmptyClass:
-                            pass
-                        clip_target = EmptyClass()
-                        clip_path = folder_paths.get_full_path("clip", 'longclip-L.pt')
-                        clip_target.params = {"version": clip_path}
-                        clip_target.clip = clipping.SDLongClipModel
-                        clip_target.tokenizer = clipping.SDLongTokenizer
-                        embedding_directory = folder_paths.get_folder_paths("embeddings")
-                        # clip = comfy.sd.CLIP(clip_target, embedding_directory=embedding_directory)
-                        clip = clipping.LONGCLIP(clip_target, embedding_directory=embedding_directory)
+            if longclip_model in clipFiles:
+                if model_concept == 'Normal' and CONCEPT_SELECTOR == 'Normal':
+                    if (is_sdxl == 0):
+                        clip = long_clip.SDLongClip.sd_longclip(self, longclip_model)[0]
                         adv_encode = False
-                else:
-                    clip_clone = clip.clone()
-                    clip_path = folder_paths.get_full_path("clip", 'longclip-L.pt')
-                    load_device = model_management.text_encoder_device()
-                    device = model_management.text_encoder_offload_device()
-                    dtype = model_management.text_encoder_dtype(load_device)
-                    clip_l = clipping.SDLongClipModel(version=clip_path, layer="hidden", layer_idx=-2, device=device, dtype=dtype, layer_norm_hidden_state=False)
-                    sdxl_long_clip_model = clipping.SDXLLongClipModel()
-                    sdxl_long_clip_model.clip_l = clip_l
-                    sdxl_long_clip_model.clip_g = clip_clone.cond_stage_model.clip_g
-                    clip_clone.cond_stage_model = sdxl_long_clip_model
-                    embedding_directory = folder_paths.get_folder_paths("embeddings")
-                    long_tokenizer = clipping.SDXLLongTokenizer()
-                    tokenizer_clip_l = clipping.SDLongTokenizer(embedding_directory=embedding_directory)
-                    long_tokenizer.clip_l = tokenizer_clip_l
-                    long_tokenizer.clip_g = clip_clone.tokenizer.clip_g
-                    clip_clone.tokenizer = long_tokenizer
-                    clip = clip_clone
-
-            elif custom_longclip_model != 'None':
-                print('========= custom_longclip_model ===========')
-                print(custom_longclip_model)
-        else:
-            if custom_clip_model != 'None':
-                print('========== custom_clip_model ============')
-                print(custom_clip_model)
+                    else:
+                        clip = long_clip.SDXLLongClip.sdxl_longclip(self, longclip_model, clip)[0]
+                if model_concept == 'Flux' and CONCEPT_SELECTOR == 'Flux':
+                    clip = long_clip.FluxLongClip.flux_longclip(self, longclip_model, clip)[0]
 
         if (last_layer < 0):
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
-
-        if CONCEPT_SELECTOR == 'Flux':
-            adv_encode = False
 
         if workflow_tuple is not None:
             workflow_tuple['prompt_encoder'] = {}
             # workflow_tuple['prompt_encoder']['positive_prompt'] = positive_prompt
             # workflow_tuple['prompt_encoder']['negative_prompt'] = negative_prompt
-            workflow_tuple['prompt_encoder']['custom_clip_model'] = custom_clip_model
-            workflow_tuple['prompt_encoder']['custom_longclip_model'] = custom_longclip_model
-            workflow_tuple['prompt_encoder']['use_long_clip'] = use_long_clip
+            workflow_tuple['prompt_encoder']['clip_model'] = clip_model
+            workflow_tuple['prompt_encoder']['longclip_model'] = longclip_model
+            workflow_tuple['prompt_encoder']['clip_mode'] = clip_mode
             workflow_tuple['prompt_encoder']['last_layer'] = last_layer
             workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
             if use_int_style == True and int_style_pos != 'None':
@@ -1120,26 +1092,37 @@ class PrimereCLIP:
             workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
             workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
 
+        if model_concept == 'Cascade':
+            positive_text = utility.clear_cascade(positive_text)
+            negative_text = utility.clear_cascade(negative_text)
 
-        if (adv_encode == True):
-            if (is_sdxl == 0):
+        if clip_model != 'Default' and clip_mode == True:
+            if is_sdxl == 1:
+                # adv_encode = False
+                clip_model_g = 'clip_g.safetensors'
+                clip_g_path = folder_paths.get_full_path("clip", clip_model_g)
+                if clip_g_path is not None:
+                    if model_concept == 'Flux':
+                        concept_type = 'flux'
+                    else:
+                        concept_type = 'sdxl'
+                    clip = nodes.DualCLIPLoader.load_clip(self, clip_model, clip_model_g, concept_type)[0]
+            else:
+                clip_path = folder_paths.get_full_path("clip", clip_model)
+                if clip_path is not None:
+                    if model_concept == 'Cascade':
+                        concept_type = 'stable_cascade'
+                    else:
+                        concept_type = 'stable_diffusion'
+                    clip = nodes.CLIPLoader.load_clip(self, clip_model, concept_type)[0]
 
-                if model_concept == 'Cascade':
-                    positive_text = utility.clear_cascade(positive_text)
-                    negative_text = utility.clear_cascade(negative_text)
-
+        if adv_encode == True:
+            if is_sdxl == 0:
                 embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
                 embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
 
                 return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
             else:
-                # embeddings_final_pos, pooled_pos = advanced_encode_XL(clip, sdxl_positive_l, positive_text, token_normalization, weight_interpretation, w_max = 1.0, clip_balance = sdxl_balance_l, apply_to_pooled = True)
-                # embeddings_final_neg, pooled_neg = advanced_encode_XL(clip, sdxl_negative_l, negative_text, token_normalization, weight_interpretation, w_max = 1.0, clip_balance = sdxl_balance_l, apply_to_pooled = True)
-                # return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]],[[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l)
-                if model_concept == 'Cascade':
-                    positive_text = utility.clear_cascade(positive_text)
-                    negative_text = utility.clear_cascade(negative_text)
-
                 tokens_p = clip.tokenize(positive_text)
                 if 'l' in clip.tokenize(sdxl_positive_l):
                     tokens_p["l"] = clip.tokenize(sdxl_positive_l)["l"]
@@ -1167,16 +1150,17 @@ class PrimereCLIP:
                 return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l, workflow_tuple)
 
         else:
-            if model_concept == 'Flux':
-                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
-                if FLUX_SAMPLER == 'ksampler':
-                    FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
-                    if FLUX_GUIDANCE is None:
-                        FLUX_GUIDANCE = 3.5
-                    CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, positive_text, FLUX_GUIDANCE)[0]
-                    CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
-                    return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
+            if clip_mode == True:
+                if model_concept == 'Flux':
+                    WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                    FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
+                    if FLUX_SAMPLER == 'ksampler':
+                        FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
+                        if FLUX_GUIDANCE is None:
+                            FLUX_GUIDANCE = 3.5
+                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, positive_text, FLUX_GUIDANCE)[0]
+                        CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+                        return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
 
             if model_concept == 'Cascade':
                 positive_text = utility.clear_cascade(positive_text)
