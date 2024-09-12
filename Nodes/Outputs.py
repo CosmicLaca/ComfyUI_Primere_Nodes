@@ -510,9 +510,10 @@ class PrimereKSampler:
             return float("NaN")
 
     def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
-        if workflow_tuple is not None and len(workflow_tuple) > 0:
+        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['sampler_setup'] == True:
+                    print('******************* xxxxxxxxxxxxx *************************')
                     variation_batch_step = 0
                     variation_level = False
                     denoise = workflow_tuple['sampler_settings']['denoise']

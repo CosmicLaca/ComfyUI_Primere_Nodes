@@ -718,7 +718,7 @@ class PrimereFractalLatent:
             return float('NaN')
 
     def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, workflow_tuple = None, expand_random_limits = False):
-        if workflow_tuple is not None and len(workflow_tuple) > 0:
+        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'latent_data' in workflow_tuple and len(workflow_tuple['latent_data']) > 0 and 'setup_states' in workflow_tuple and 'latent_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['latent_setup'] == True:
                     expand_random_limits = False
@@ -856,7 +856,7 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', custom_longclip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
-        if workflow_tuple is not None and len(workflow_tuple) > 0:
+        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
                     use_long_clip = workflow_tuple['prompt_encoder']['use_long_clip']
