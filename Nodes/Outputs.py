@@ -417,30 +417,30 @@ class PrimereMetaCollector:
 
     INPUT_DICT = {
         "required": {
-                "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
-                "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
-            }, "optional": {
-                # "seed": ('INT', {"forceInput": True, "default": 1}),
-                "positive_l": ('STRING', {"forceInput": True}),
-                "negative_l": ('STRING', {"forceInput": True}),
-                "positive_r": ('STRING', {"forceInput": True}),
-                "negative_r": ('STRING', {"forceInput": True}),
-                "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
-                "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
-                "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-                "width": ('INT', {"forceInput": True, "default": 512}),
-                "height": ('INT', {"forceInput": True, "default": 512}),
-                "model_shapes": ('TUPLE', {"forceInput": True, "default": None}),
-                "cfg": ('FLOAT', {"forceInput": True, "default": 7}),
-                "steps": ('INT', {"forceInput": True, "default": 12}),
-                "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
-                "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
-                "preferred": ("TUPLE", {"default": None, "forceInput": True})
-            },
-        }
+            "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
+            "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
+        }, "optional": {
+            # "seed": ('INT', {"forceInput": True, "default": 1}),
+            "positive_l": ('STRING', {"forceInput": True}),
+            "negative_l": ('STRING', {"forceInput": True}),
+            "positive_r": ('STRING', {"forceInput": True}),
+            "negative_r": ('STRING', {"forceInput": True}),
+            "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
+            "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+            "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+            "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
+            "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
+            "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
+            "width": ('INT', {"forceInput": True, "default": 512}),
+            "height": ('INT', {"forceInput": True, "default": 512}),
+            "model_shapes": ('TUPLE', {"forceInput": True, "default": None}),
+            "cfg": ('FLOAT', {"forceInput": True, "default": 7}),
+            "steps": ('INT', {"forceInput": True, "default": 12}),
+            "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
+            "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
+            "preferred": ("TUPLE", {"default": None, "forceInput": True})
+        },
+    }
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -510,6 +510,16 @@ class PrimereKSampler:
             return float("NaN")
 
     def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
+        if workflow_tuple is not None and len(workflow_tuple) > 0:
+            if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
+                if workflow_tuple['setup_states']['sampler_setup'] == True:
+                    variation_batch_step = 0
+                    variation_level = False
+                    denoise = workflow_tuple['sampler_settings']['denoise']
+                    device = workflow_tuple['sampler_settings']['device']
+                    align_your_steps = workflow_tuple['sampler_settings']['align_your_steps']
+                    variation_extender = workflow_tuple['sampler_settings']['noise_constant']
+
         samples_out = latent_image
         # out = latent_image.copy()
         variation_extender_original = variation_extender

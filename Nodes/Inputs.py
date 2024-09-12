@@ -23,6 +23,7 @@ import nodes
 from .modules.exif_data_checker import check_model_from_exif
 from ..utils import comfy_dir
 from ..components import hypernetwork
+import json
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -605,6 +606,18 @@ class PrimereMetaHandler:
                 "vae": ("BOOLEAN", {"default": True, "label_on": "Meta VAE", "label_off": "Workflow VAE"}),
                 "force_vae": ("BOOLEAN", {"default": False, "label_on": "Baked VAE", "label_off": "Custom VAE"}),
                 "model_concept": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+
+                "latent_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "lora_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "lycoris_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "embedding_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "hypernetwork_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "sampler_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "clip_encoder_setup": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "clip_optional_prompts": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "clip_style_prompts": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+                "clip_additional_keywords": ("BOOLEAN", {"default": False, "label_on": "Meta settings", "label_off": "Workflow settings"}),
+
                 "preferred": ("BOOLEAN", {"default": False, "label_on": "From meta", "label_off": "From workflow"}),
                 "use_preferred": ("BOOLEAN", {"default": False, "label_on": "Use preferred settings", "label_off": "Cancel preferred settings"}),
 
@@ -626,6 +639,10 @@ class PrimereMetaHandler:
             workflow_tuple = kwargs['workflow_tuple']
             workflow_tuple['exif_status'] = 'OFF'
 
+            wf_model_concept = None
+            if 'model_concept' in workflow_tuple:
+                wf_model_concept = workflow_tuple['model_concept']
+
             if 'preferred' in workflow_tuple:
                 prefred_settings = workflow_tuple['preferred']
                 if len(prefred_settings) > 0:
@@ -633,8 +650,9 @@ class PrimereMetaHandler:
                         if prefval is not None:
                             match prefkey:
                                 case "model":
-                                    ValidModel = check_model_from_exif(None, prefval, prefval, False)
-                                    workflow_tuple['model'] = ValidModel
+                                    if wf_model_concept == 'Normal':
+                                        ValidModel = check_model_from_exif(None, prefval, prefval, False)
+                                        workflow_tuple['model'] = ValidModel
 
                                 case "orientation":
                                     origW = workflow_tuple['width']
@@ -651,7 +669,7 @@ class PrimereMetaHandler:
 
                     modelname_only = Path((workflow_tuple['model'])).stem
                     model_version = utility.get_value_from_cache('model_version', modelname_only)
-                    if model_version is None:
+                    if model_version is None and (wf_model_concept == "Normal" or wf_model_concept is None):
                         checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
@@ -695,10 +713,16 @@ class PrimereMetaHandler:
                 else:
                     reader = readerResult.parser
                     workflow_tuple = reader.parameter
+
+                    meta_model_concept = None
+                    if 'model_concept' in workflow_tuple:
+                        meta_model_concept = workflow_tuple['model_concept']
+
                     original_exif = readerResult.original
                     exif_data_count = len(workflow_tuple)
                     workflow_tuple['meta_source'] = reader.__class__.__name__
-                    workflow_tuple = compatibility_handler(workflow_tuple, workflow_tuple['meta_source'])
+                    if meta_model_concept == "Normal" or meta_model_concept is None:
+                        workflow_tuple = compatibility_handler(workflow_tuple, workflow_tuple['meta_source'])
                     workflow_tuple['exif_status'] = 'SUCCEED'
                     workflow_tuple['exif_data_count'] = exif_data_count
 
@@ -799,11 +823,15 @@ class PrimereMetaHandler:
                     if 'wf' in workflow_tuple and 'model' in workflow_tuple['wf']:
                         workflow_tuple['model'] = workflow_tuple['wf']['model']
 
+                meta_model_concept = None
+                if 'model_concept' in workflow_tuple:
+                    meta_model_concept = workflow_tuple['model_concept']
+
                 is_sdxl = 0
                 if 'model' in workflow_tuple:
                     modelname_only = Path((workflow_tuple['model'])).stem
                     model_version = utility.get_value_from_cache('model_version', modelname_only)
-                    if model_version is None:
+                    if model_version is None and meta_model_concept == 'Normal':
                         checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
@@ -956,6 +984,12 @@ class PrimereMetaHandler:
             workflow_tuple['setup_states'] = kwargs
             if 'workflow_tuple' in workflow_tuple['setup_states']:
                 del workflow_tuple['setup_states']['workflow_tuple']
+
+        if type(original_exif).__name__ == 'str':
+            try:
+                original_exif = json.loads(original_exif)
+            except Exception:
+                original_exif = original_exif
 
         return (workflow_tuple, original_exif, img,)
 
@@ -1818,7 +1852,7 @@ class PrimereMetaTupleCollector:
             aesthetic_score = "*** Aesthetic scorer off ***"
 
         meta_output = workflow_tuple
-        meta_output["network_data"] = {}
+        # meta_output["network_data"] = {}
         meta_output["network_data"] = network_data
         meta_output["aesthetic_score"] = aesthetic_score
 

@@ -677,39 +677,40 @@ class PrimereSeed:
       return (seed,)
 
 class PrimereFractalLatent:
-
-    @classmethod
-    def INPUT_TYPES(s):
-        pln = PowerLawNoise('cpu')
-        return {
-            "required": {
-                "width": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
-                "height": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
-                "rand_noise_type": ("BOOLEAN", {"default": False}),
-                "noise_type": (pln.get_noise_types(),),
-                "rand_alpha_exponent": ("BOOLEAN", {"default": True}),
-                "alpha_exponent": ("FLOAT", {"default": 1.0, "max": 12.0, "min": -12.0, "step": 0.001}),
-                "alpha_exp_rand_min": ("FLOAT", {"default": 0.5, "max": 12.0, "min": -12.0, "step": 0.001}),
-                "alpha_exp_rand_max": ("FLOAT", {"default": 1.5, "max": 12.0, "min": -12.0, "step": 0.001}),
-                "rand_modulator": ("BOOLEAN", {"default": True}),
-                "modulator": ("FLOAT", {"default": 1.0, "max": 2.0, "min": 0.1, "step": 0.01}),
-                "modulator_rand_min": ("FLOAT", {"default": 0.8, "max": 2.0, "min": 0.1, "step": 0.01}),
-                "modulator_rand_max": ("FLOAT", {"default": 1.4, "max": 2.0, "min": 0.1, "step": 0.01}),
-                "noise_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
-                "rand_device": ("BOOLEAN", {"default": False}),
-                "device": (["cpu", "cuda"],),
-                "expand_random_limits": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
-            },
-            "optional": {
-                "optional_vae": ("VAE",),
-                "workflow_tuple": ("TUPLE", {"default": None}),
-            }
-        }
-
     RETURN_TYPES = ("LATENT", "IMAGE", "TUPLE")
     RETURN_NAMES = ("LATENTS", "PREVIEWS", "WORKFLOW_TUPLE")
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
+
+    pln = PowerLawNoise('cpu')
+    INPUT_DICT = {
+        "required": {
+            "width": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
+            "height": ("INT", {"default": 512, "max": 8192, "min": 64, "forceInput": True}),
+            "rand_noise_type": ("BOOLEAN", {"default": False}),
+            "noise_type": (pln.get_noise_types(),),
+            "rand_alpha_exponent": ("BOOLEAN", {"default": True}),
+            "alpha_exponent": ("FLOAT", {"default": 1.0, "max": 12.0, "min": -12.0, "step": 0.001}),
+            "alpha_exp_rand_min": ("FLOAT", {"default": 0.5, "max": 12.0, "min": -12.0, "step": 0.001}),
+            "alpha_exp_rand_max": ("FLOAT", {"default": 1.5, "max": 12.0, "min": -12.0, "step": 0.001}),
+            "rand_modulator": ("BOOLEAN", {"default": True}),
+            "modulator": ("FLOAT", {"default": 1.0, "max": 2.0, "min": 0.1, "step": 0.01}),
+            "modulator_rand_min": ("FLOAT", {"default": 0.8, "max": 2.0, "min": 0.1, "step": 0.01}),
+            "modulator_rand_max": ("FLOAT", {"default": 1.4, "max": 2.0, "min": 0.1, "step": 0.01}),
+            "noise_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+            "rand_device": ("BOOLEAN", {"default": False}),
+            "device": (["cpu", "cuda"],),
+            "expand_random_limits": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
+        },
+        "optional": {
+            "optional_vae": ("VAE",),
+            "workflow_tuple": ("TUPLE", {"default": None}),
+        }
+    }
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return cls.INPUT_DICT
 
     @classmethod
     def IS_CHANGED(self, **kwargs):
@@ -717,6 +718,19 @@ class PrimereFractalLatent:
             return float('NaN')
 
     def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, workflow_tuple = None, expand_random_limits = False):
+        if workflow_tuple is not None and len(workflow_tuple) > 0:
+            if 'latent_data' in workflow_tuple and len(workflow_tuple['latent_data']) > 0 and 'setup_states' in workflow_tuple and 'latent_setup' in workflow_tuple['setup_states']:
+                if workflow_tuple['setup_states']['latent_setup'] == True:
+                    expand_random_limits = False
+                    rand_device = False
+                    rand_alpha_exponent = False
+                    rand_modulator = False
+                    rand_noise_type = False
+                    noise_type = workflow_tuple['latent_data']['noise_type']
+                    device = workflow_tuple['latent_data']['device']
+                    alpha_exponent = workflow_tuple['latent_data']['alpha_exponent']
+                    modulator = workflow_tuple['latent_data']['modulator']
+
         if expand_random_limits == True:
             rand_device = True
             rand_alpha_exponent = True
@@ -786,6 +800,7 @@ class PrimereCLIP:
         DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
         cls.default_neg = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_neg.toml"))
         cls.default_pos = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_pos.toml"))
+        cls.CLIPLIST = folder_paths.get_filename_list("clip")
 
         return {
             "required": {
@@ -793,8 +808,9 @@ class PrimereCLIP:
                 "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
-                # "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
+                "custom_clip_model": (['None'] + sorted(cls.CLIPLIST),),
                 "use_long_clip": ("BOOLEAN", {"default": True}),
+                "custom_longclip_model": (['None'] + sorted(cls.CLIPLIST),),
                 "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
@@ -839,7 +855,37 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
+    def clip_encode(self, clip, use_long_clip, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", custom_clip_model = 'None', custom_longclip_model = 'None', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
+        if workflow_tuple is not None and len(workflow_tuple) > 0:
+            if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
+                if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
+                    use_long_clip = workflow_tuple['prompt_encoder']['use_long_clip']
+                    last_layer = workflow_tuple['prompt_encoder']['last_layer']
+                    negative_strength = workflow_tuple['prompt_encoder']['negative_strength']
+                    adv_encode = workflow_tuple['prompt_encoder']['adv_encode']
+                    token_normalization = workflow_tuple['prompt_encoder']['token_normalization']
+                    weight_interpretation = workflow_tuple['prompt_encoder']['weight_interpretation']
+                    copy_prompt_to_l = workflow_tuple['prompt_encoder']['copy_prompt_to_l']
+                    sdxl_l_strength = workflow_tuple['prompt_encoder']['sdxl_l_strength']
+                    custom_clip_model = workflow_tuple['prompt_encoder']['custom_clip_model']
+                    custom_longclip_model = workflow_tuple['prompt_encoder']['custom_longclip_model']
+                if workflow_tuple['setup_states']['clip_optional_prompts'] == True:
+                    opt_pos_prompt = workflow_tuple['prompt_encoder']['opt_pos_prompt']
+                    opt_pos_strength = workflow_tuple['prompt_encoder']['opt_pos_strength']
+                    opt_neg_prompt = workflow_tuple['prompt_encoder']['opt_neg_prompt']
+                    opt_neg_strength = workflow_tuple['prompt_encoder']['opt_neg_strength']
+                if workflow_tuple['setup_states']['clip_style_prompts'] == True:
+                    style_pos_prompt = workflow_tuple['prompt_encoder']['style_pos_prompt']
+                    style_pos_strength = workflow_tuple['prompt_encoder']['style_pos_strength']
+                    style_neg_prompt = workflow_tuple['prompt_encoder']['style_neg_prompt']
+                    style_neg_strength = workflow_tuple['prompt_encoder']['style_neg_strength']
+                    style_position = workflow_tuple['prompt_encoder']['style_position']
+                # if workflow_tuple['setup_states']['lora_setup'] == True:
+                # if workflow_tuple['setup_states']['lycoris_setup'] == True:
+                # if workflow_tuple['setup_states']['embedding_setup'] == True:
+                # if workflow_tuple['setup_states']['hypernetwork_setup'] == True:
+                # if workflow_tuple['setup_states']['clip_additional_keywords'] == True:
+
         if workflow_tuple is None:
             workflow_tuple = {}
 
@@ -973,7 +1019,7 @@ class PrimereCLIP:
             adv_encode = False
             use_long_clip = False
 
-        if use_long_clip == True and model_concept != 'Cascade' and model_concept != 'Flux' and CONCEPT_SELECTOR != 'Cascade' and CONCEPT_SELECTOR != 'Flux':
+        if use_long_clip == True:
             LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
@@ -986,7 +1032,7 @@ class PrimereCLIP:
                 if (ModelDownload == True):
                     clipFiles = folder_paths.get_filename_list("clip")
 
-            if 'longclip-L.pt' in clipFiles:
+            if 'longclip-L.pt' in clipFiles and custom_longclip_model == 'None' and model_concept != 'Cascade' and model_concept != 'Flux' and CONCEPT_SELECTOR != 'Cascade' and CONCEPT_SELECTOR != 'Flux':
                 if (is_sdxl == 0):
                         class EmptyClass:
                             pass
@@ -1018,11 +1064,62 @@ class PrimereCLIP:
                     clip_clone.tokenizer = long_tokenizer
                     clip = clip_clone
 
+            elif custom_longclip_model != 'None':
+                print('========= custom_longclip_model ===========')
+                print(custom_longclip_model)
+        else:
+            if custom_clip_model != 'None':
+                print('========== custom_clip_model ============')
+                print(custom_clip_model)
+
         if (last_layer < 0):
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
 
         if CONCEPT_SELECTOR == 'Flux':
             adv_encode = False
+
+        if workflow_tuple is not None:
+            workflow_tuple['prompt_encoder'] = {}
+            # workflow_tuple['prompt_encoder']['positive_prompt'] = positive_prompt
+            # workflow_tuple['prompt_encoder']['negative_prompt'] = negative_prompt
+            workflow_tuple['prompt_encoder']['custom_clip_model'] = custom_clip_model
+            workflow_tuple['prompt_encoder']['custom_longclip_model'] = custom_longclip_model
+            workflow_tuple['prompt_encoder']['use_long_clip'] = use_long_clip
+            workflow_tuple['prompt_encoder']['last_layer'] = last_layer
+            workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
+            if use_int_style == True and int_style_pos != 'None':
+                workflow_tuple['prompt_encoder']['int_style_pos'] = int_style_pos
+                workflow_tuple['prompt_encoder']['int_style_pos_strength'] = int_style_pos_strength
+            if use_int_style == True and int_style_neg != 'None':
+                workflow_tuple['prompt_encoder']['int_style_neg'] = int_style_neg
+                workflow_tuple['prompt_encoder']['int_style_neg_strength'] = int_style_neg_strength
+            workflow_tuple['prompt_encoder']['adv_encode'] = adv_encode
+            workflow_tuple['prompt_encoder']['token_normalization'] = token_normalization
+            workflow_tuple['prompt_encoder']['weight_interpretation'] = weight_interpretation
+
+            workflow_tuple['prompt_encoder']['model_keywords'] = model_keywords
+            workflow_tuple['prompt_encoder']['lora_keywords'] = lora_keywords
+            workflow_tuple['prompt_encoder']['lycoris_keywords'] = lycoris_keywords
+            workflow_tuple['prompt_encoder']['embedding_pos'] = embedding_pos
+            workflow_tuple['prompt_encoder']['embedding_neg'] = embedding_neg
+
+            workflow_tuple['prompt_encoder']['opt_pos_prompt'] = opt_pos_prompt
+            workflow_tuple['prompt_encoder']['opt_pos_strength'] = opt_pos_strength
+            workflow_tuple['prompt_encoder']['opt_neg_prompt'] = opt_neg_prompt
+            workflow_tuple['prompt_encoder']['opt_neg_strength'] = opt_neg_strength
+
+            workflow_tuple['prompt_encoder']['style_position'] = style_position
+            workflow_tuple['prompt_encoder']['style_pos_prompt'] = style_pos_prompt
+            workflow_tuple['prompt_encoder']['style_pos_strength'] = style_pos_strength
+            workflow_tuple['prompt_encoder']['style_neg_prompt'] = style_neg_prompt
+            workflow_tuple['prompt_encoder']['style_neg_strength'] = style_neg_strength
+
+            if copy_prompt_to_l == False:
+                workflow_tuple['prompt_encoder']['sdxl_positive_l'] = sdxl_positive_l
+                workflow_tuple['prompt_encoder']['sdxl_negative_l'] = sdxl_negative_l
+            workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
+            workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
+
 
         if (adv_encode == True):
             if (is_sdxl == 0):
@@ -1090,45 +1187,6 @@ class PrimereCLIP:
 
             tokens = clip.tokenize(negative_text)
             cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
-
-        if workflow_tuple is not None:
-            workflow_tuple['prompt_encoder'] = {}
-            workflow_tuple['prompt_encoder']['positive_prompt'] = positive_prompt
-            workflow_tuple['prompt_encoder']['negative_prompt'] = negative_prompt
-            workflow_tuple['prompt_encoder']['use_long_clip'] = use_long_clip
-            workflow_tuple['prompt_encoder']['last_layer'] = last_layer
-            workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
-            if use_int_style == True and int_style_pos != 'None':
-                workflow_tuple['prompt_encoder']['int_style_pos'] = int_style_pos
-                workflow_tuple['prompt_encoder']['int_style_pos_strength'] = int_style_pos_strength
-            if use_int_style == True and int_style_neg != 'None':
-                workflow_tuple['prompt_encoder']['int_style_neg'] = int_style_neg
-                workflow_tuple['prompt_encoder']['int_style_neg_strength'] = int_style_neg_strength
-            workflow_tuple['prompt_encoder']['adv_encode'] = adv_encode
-            workflow_tuple['prompt_encoder']['token_normalization'] = token_normalization
-            workflow_tuple['prompt_encoder']['weight_interpretation'] = weight_interpretation
-
-            workflow_tuple['prompt_encoder']['model_keywords'] = model_keywords
-            workflow_tuple['prompt_encoder']['lora_keywords'] = lora_keywords
-            workflow_tuple['prompt_encoder']['lycoris_keywords'] = lycoris_keywords
-            workflow_tuple['prompt_encoder']['embedding_pos'] = embedding_pos
-            workflow_tuple['prompt_encoder']['embedding_neg'] = embedding_neg
-
-            workflow_tuple['prompt_encoder']['opt_pos_prompt'] = opt_pos_prompt
-            workflow_tuple['prompt_encoder']['opt_pos_strength'] = opt_pos_strength
-            workflow_tuple['prompt_encoder']['opt_neg_prompt'] = opt_neg_prompt
-            workflow_tuple['prompt_encoder']['opt_neg_strength'] = opt_neg_strength
-
-            workflow_tuple['prompt_encoder']['style_position'] = style_position
-            workflow_tuple['prompt_encoder']['style_pos_prompt'] = style_pos_prompt
-            workflow_tuple['prompt_encoder']['style_pos_strength'] = style_pos_strength
-            workflow_tuple['prompt_encoder']['style_neg_prompt'] = style_neg_prompt
-            workflow_tuple['prompt_encoder']['style_neg_strength'] = style_neg_strength
-
-            workflow_tuple['prompt_encoder']['sdxl_positive_l'] = sdxl_positive_l
-            workflow_tuple['prompt_encoder']['sdxl_negative_l'] = sdxl_negative_l
-            workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
-            workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
 
             return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
 

@@ -1031,3 +1031,6 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_resu
         return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ')
     else:
         return story_out
+
+def TupleValueExcahnge(tuple_from, tuple_to):
+    return []

@@ -4,6 +4,7 @@ import folder_paths
 import comfy.samplers
 import os
 import numpy as np
+from pathlib import Path
 
 def get_model_hash(filename):
     hash_sha256 = hashlib.sha256()
@@ -16,9 +17,17 @@ def get_model_hash(filename):
     return hash_sha256.hexdigest()[0:10]
 
 def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_hash_check):
+    ckpt_path = folder_paths.get_full_path("checkpoints", model_name_exif)
+    if ckpt_path is not None:
+        if os.path.exists(ckpt_path):
+            return model_name_exif
+
     checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
     allcheckpoints = folder_paths.get_filename_list("checkpoints")
-    source_model_name = model_name_exif.split('_', 1)[-1]
+
+    source_model_name = model_name_exif
+    if '\\\\' not in model_name_exif:
+        source_model_name = model_name_exif.split('_', 1)[-1]
 
     cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1] # [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
     is_found = []
