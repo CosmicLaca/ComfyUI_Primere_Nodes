@@ -1,6 +1,6 @@
 {
-  "last_node_id": 210,
-  "last_link_id": 1287,
+  "last_node_id": 211,
+  "last_link_id": 1311,
   "nodes": [
     {
       "id": 9,
@@ -2678,7 +2678,7 @@
           "name": "STYLE+",
           "type": "STRING",
           "links": [
-            1275
+            1299
           ],
           "slot_index": 0,
           "shape": 3
@@ -2687,7 +2687,7 @@
           "name": "STYLE-",
           "type": "STRING",
           "links": [
-            1276
+            1300
           ],
           "slot_index": 1,
           "shape": 3
@@ -2809,7 +2809,7 @@
         false,
         1.6,
         2.8,
-        365918595378908,
+        268398454826270,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -3410,7 +3410,7 @@
             903,
             904,
             1235,
-            1274
+            1298
           ],
           "slot_index": 8,
           "shape": 3
@@ -3533,7 +3533,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            1265
+            1289
           ],
           "slot_index": 0,
           "shape": 3
@@ -3732,7 +3732,7 @@
             274,
             275,
             336,
-            1271
+            1295
           ],
           "slot_index": 3,
           "shape": 3
@@ -3898,7 +3898,7 @@
           "links": [
             195,
             1199,
-            1277
+            1301
           ],
           "slot_index": 1,
           "shape": 3
@@ -3909,7 +3909,7 @@
           "links": [
             196,
             1200,
-            1278
+            1302
           ],
           "slot_index": 2,
           "shape": 3
@@ -3929,7 +3929,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        364125250031049,
+        721064161542134,
         "randomize",
         512,
         512
@@ -4216,7 +4216,7 @@
       },
       "widgets_values": [
         "",
-        23148464022680,
+        816325020159345,
         "randomize"
       ],
       "color": "#232",
@@ -4271,7 +4271,7 @@
       },
       "widgets_values": [
         "",
-        201781634600428,
+        484555270552012,
         "randomize"
       ],
       "color": "#322",
@@ -4395,7 +4395,7 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            1270
+            1294
           ],
           "slot_index": 2,
           "shape": 3
@@ -4417,7 +4417,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        738592418761653,
+        520832587769861,
         "randomize",
         true,
         "cpu",
@@ -4505,7 +4505,7 @@
           "name": "EMBEDDING+",
           "type": "EMBEDDING",
           "links": [
-            1268
+            1292
           ],
           "slot_index": 0,
           "shape": 3
@@ -4514,7 +4514,7 @@
           "name": "EMBEDDING-",
           "type": "EMBEDDING",
           "links": [
-            1269
+            1293
           ],
           "slot_index": 1,
           "shape": 3
@@ -5077,7 +5077,7 @@
           "type": "STRING",
           "links": [
             611,
-            1272
+            1296
           ],
           "slot_index": 0,
           "shape": 3
@@ -5087,7 +5087,7 @@
           "type": "STRING",
           "links": [
             612,
-            1273
+            1297
           ],
           "slot_index": 1,
           "shape": 3
@@ -5466,7 +5466,7 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            1266
+            1290
           ],
           "slot_index": 0,
           "shape": 3
@@ -5629,7 +5629,7 @@
         1,
         0,
         0,
-        378899640459344,
+        1098810691246164,
         "randomize",
         "mean",
         "comfy++",
@@ -5802,7 +5802,7 @@
         1,
         0,
         0,
-        28439195153049,
+        359816401812306,
         "randomize",
         "mean",
         "comfy++",
@@ -5975,7 +5975,7 @@
         1,
         0,
         0,
-        555970234545179,
+        243605523378629,
         "randomize",
         "mean",
         "comfy++",
@@ -6148,7 +6148,7 @@
         1,
         0,
         0,
-        1065898175047492,
+        1096829701268482,
         "randomize",
         "mean",
         "comfy++",
@@ -6221,7 +6221,7 @@
           "type": "CLIP",
           "links": [
             610,
-            1264
+            1288
           ],
           "slot_index": 1,
           "shape": 3
@@ -6444,7 +6444,7 @@
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            1267
+            1291
           ],
           "slot_index": 0,
           "shape": 3
@@ -6568,7 +6568,7 @@
       "bgcolor": "#808040"
     },
     {
-      "id": 210,
+      "id": 211,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 4843,
@@ -6585,42 +6585,42 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 1264
+          "link": 1288
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 1265
+          "link": 1289
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 1266
+          "link": 1290
         },
         {
           "name": "lycoris_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 1267
+          "link": 1291
         },
         {
           "name": "embedding_pos",
           "type": "EMBEDDING",
-          "link": 1268
+          "link": 1292
         },
         {
           "name": "embedding_neg",
           "type": "EMBEDDING",
-          "link": 1269
+          "link": 1293
         },
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 1270
+          "link": 1294
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1271,
+          "link": 1295,
           "widget": {
             "name": "model_version"
           }
@@ -6628,7 +6628,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 1272,
+          "link": 1296,
           "widget": {
             "name": "positive_prompt"
           }
@@ -6636,7 +6636,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 1273,
+          "link": 1297,
           "widget": {
             "name": "negative_prompt"
           }
@@ -6644,7 +6644,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1274,
+          "link": 1298,
           "widget": {
             "name": "model_concept"
           }
@@ -6668,7 +6668,7 @@
         {
           "name": "style_pos_prompt",
           "type": "STRING",
-          "link": 1275,
+          "link": 1299,
           "widget": {
             "name": "style_pos_prompt"
           }
@@ -6676,7 +6676,7 @@
         {
           "name": "style_neg_prompt",
           "type": "STRING",
-          "link": 1276,
+          "link": 1300,
           "widget": {
             "name": "style_neg_prompt"
           }
@@ -6700,7 +6700,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 1277,
+          "link": 1301,
           "widget": {
             "name": "width"
           }
@@ -6708,7 +6708,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 1278,
+          "link": 1302,
           "widget": {
             "name": "height"
           }
@@ -6719,8 +6719,8 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            1279,
-            1280
+            1303,
+            1304
           ],
           "shape": 3
         },
@@ -6728,8 +6728,8 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            1281,
-            1282
+            1305,
+            1306
           ],
           "shape": 3
         },
@@ -6737,7 +6737,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            1283
+            1307
           ],
           "shape": 3
         },
@@ -6745,7 +6745,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            1284
+            1308
           ],
           "shape": 3
         },
@@ -6753,7 +6753,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            1285
+            1309
           ],
           "shape": 3
         },
@@ -6761,7 +6761,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            1286
+            1310
           ],
           "shape": 3
         },
@@ -6769,7 +6769,7 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            1287
+            1311
           ],
           "shape": 3
         }
@@ -6781,9 +6781,9 @@
         "BaseModel_1024",
         "",
         "",
-        "None",
         true,
-        "None",
+        "Default",
+        "Default",
         0,
         1.2,
         true,
@@ -6832,7 +6832,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 1283
+          "link": 1307
         }
       ],
       "outputs": [],
@@ -6864,7 +6864,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 1284
+          "link": 1308
         }
       ],
       "outputs": [],
@@ -6896,7 +6896,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 1285
+          "link": 1309
         }
       ],
       "outputs": [],
@@ -6928,7 +6928,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 1286
+          "link": 1310
         }
       ],
       "outputs": [],
@@ -6964,12 +6964,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 1280
+          "link": 1304
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 1282
+          "link": 1306
         },
         {
           "name": "latent_image",
@@ -6979,7 +6979,7 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 1287
+          "link": 1311
         },
         {
           "name": "seed",
@@ -7053,7 +7053,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        461871170057092,
+        384479814226427,
         "randomize",
         20,
         8,
@@ -7228,7 +7228,7 @@
         true,
         false,
         false,
-        "628"
+        "744"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -7634,7 +7634,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        242287095084664,
+        527747090716835,
         "randomize",
         "euler",
         "simple",
@@ -7682,7 +7682,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"latent_setup\": false,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": false,\n        \"clip_optional_prompts\": false,\n        \"clip_style_prompts\": false,\n        \"clip_additional_keywords\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"00000-20230612205704-3803273286.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 4.676,\n        \"modulator\": 0.29,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"custom_clip_model\": \"None\",\n        \"custom_longclip_model\": \"None\",\n        \"use_long_clip\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.09,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"628\"\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"latent_setup\": false,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": false,\n        \"clip_optional_prompts\": false,\n        \"clip_style_prompts\": false,\n        \"clip_additional_keywords\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"00000-20230612205704-3803273286.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 2.836,\n        \"modulator\": 1.02,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Default\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": true,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.06,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"744\"\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -8062,7 +8062,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        1042568802589773,
+        532593267466526,
         "randomize",
         "euler",
         "normal",
@@ -8458,7 +8458,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        186174458283933,
+        858190399528805,
         "randomize",
         "euler",
         "simple",
@@ -8854,7 +8854,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        366561691586403,
+        267536104989337,
         "randomize",
         "euler",
         "simple",
@@ -9029,12 +9029,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 1279
+          "link": 1303
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 1281
+          "link": 1305
         },
         {
           "name": "vae",
@@ -9132,7 +9132,7 @@
       },
       "widgets_values": [
         2.1,
-        948686771082906,
+        371731913768912,
         "randomize",
         7,
         6.5,
@@ -9241,6 +9241,44 @@
       "bgcolor": "#353"
     },
     {
+      "id": 33,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 5611,
+        "1": -722
+      },
+      "size": {
+        "0": 1101.7958984375,
+        "1": 1273.90625
+      },
+      "flags": {},
+      "order": 108,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 866
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        80,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#1414b4",
+      "bgcolor": "#0000a0"
+    },
+    {
       "id": 207,
       "type": "PrimereMetaSave",
       "pos": {
@@ -9341,44 +9379,6 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 33,
-      "type": "PrimerePreviewImage",
-      "pos": {
-        "0": 5611,
-        "1": -722
-      },
-      "size": {
-        "0": 1101.7958984375,
-        "1": 1273.90625
-      },
-      "flags": {},
-      "order": 108,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 866
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        80,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#1414b4",
-      "bgcolor": "#0000a0"
     }
   ],
   "links": [
@@ -11927,192 +11927,192 @@
       "TUPLE"
     ],
     [
-      1264,
+      1288,
       83,
       1,
-      210,
+      211,
       0,
       "CLIP"
     ],
     [
-      1265,
+      1289,
       40,
       0,
-      210,
+      211,
       1,
       "MODEL_KEYWORD"
     ],
     [
-      1266,
+      1290,
       76,
       0,
-      210,
+      211,
       2,
       "MODEL_KEYWORD"
     ],
     [
-      1267,
+      1291,
       81,
       0,
-      210,
+      211,
       3,
       "MODEL_KEYWORD"
     ],
     [
-      1268,
+      1292,
       79,
       0,
-      210,
+      211,
       4,
       "EMBEDDING"
     ],
     [
-      1269,
+      1293,
       79,
       1,
-      210,
+      211,
       5,
       "EMBEDDING"
     ],
     [
-      1270,
+      1294,
       201,
       2,
-      210,
+      211,
       6,
       "TUPLE"
     ],
     [
-      1271,
+      1295,
       30,
       3,
-      210,
+      211,
       7,
       "STRING"
     ],
     [
-      1272,
+      1296,
       53,
       0,
-      210,
+      211,
       8,
       "STRING"
     ],
     [
-      1273,
+      1297,
       53,
       1,
-      210,
+      211,
       9,
       "STRING"
     ],
     [
-      1274,
+      1298,
       15,
       8,
-      210,
+      211,
       10,
       "STRING"
     ],
     [
-      1275,
+      1299,
       12,
       0,
-      210,
+      211,
       13,
       "STRING"
     ],
     [
-      1276,
+      1300,
       12,
       1,
-      210,
+      211,
       14,
       "STRING"
     ],
     [
-      1277,
+      1301,
       24,
       1,
-      210,
+      211,
       17,
       "INT"
     ],
     [
-      1278,
+      1302,
       24,
       2,
-      210,
+      211,
       18,
       "INT"
     ],
     [
-      1279,
-      210,
+      1303,
+      211,
       0,
       61,
       2,
       "CONDITIONING"
     ],
     [
-      1280,
-      210,
+      1304,
+      211,
       0,
       204,
       1,
       "CONDITIONING"
     ],
     [
-      1281,
-      210,
+      1305,
+      211,
       1,
       61,
       3,
       "CONDITIONING"
     ],
     [
-      1282,
-      210,
+      1306,
+      211,
       1,
       204,
       2,
       "CONDITIONING"
     ],
     [
-      1283,
-      210,
+      1307,
+      211,
       2,
       54,
       0,
       "*"
     ],
     [
-      1284,
-      210,
+      1308,
+      211,
       3,
       55,
       0,
       "*"
     ],
     [
-      1285,
-      210,
+      1309,
+      211,
       4,
       56,
       0,
       "*"
     ],
     [
-      1286,
-      210,
+      1310,
+      211,
       5,
       57,
       0,
       "*"
     ],
     [
-      1287,
-      210,
+      1311,
+      211,
       6,
       204,
       4,
@@ -12121,122 +12121,14 @@
   ],
   "groups": [
     {
-      "title": "Data distribution",
+      "title": "Prompt development",
       "bounding": [
-        4352,
-        1194,
-        679,
-        361
+        -140,
+        572,
+        1922,
+        1314
       ],
       "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Detailers, Refiners, Inpaint",
-      "bounding": [
-        8537,
-        -1399,
-        2914,
-        1993
-      ],
-      "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Networks",
-      "bounding": [
-        1792,
-        -1866,
-        3384,
-        1096
-      ],
-      "color": "#8A8",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Styling",
-      "bounding": [
-        4352,
-        222,
-        1244,
-        960
-      ],
-      "color": "#b1762f",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Upscaler",
-      "bounding": [
-        5616,
-        -1404,
-        1093,
-        642
-      ],
-      "color": "#008000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Concept sampling",
-      "bounding": [
-        2723,
-        -756,
-        1367,
-        1233
-      ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Dashboard",
-      "bounding": [
-        1791,
-        -757,
-        921,
-        1096
-      ],
-      "color": "#408080",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Latent, Clipping, Sampling",
-      "bounding": [
-        4104,
-        -756,
-        1491,
-        967
-      ],
-      "color": "#804040",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Image recycler",
-      "bounding": [
-        2793,
-        494,
-        1296,
-        1316
-      ],
-      "color": "#A88",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt handling",
-      "bounding": [
-        1791,
-        352,
-        837,
-        883
-      ],
-      "color": "#8AA",
       "font_size": 24,
       "flags": {}
     },
@@ -12253,12 +12145,120 @@
       "flags": {}
     },
     {
-      "title": "Prompt development",
+      "title": "Prompt handling",
       "bounding": [
-        -140,
-        572,
-        1922,
-        1314
+        1791,
+        352,
+        837,
+        883
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Image recycler",
+      "bounding": [
+        2793,
+        494,
+        1296,
+        1316
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Latent, Clipping, Sampling",
+      "bounding": [
+        4104,
+        -756,
+        1491,
+        967
+      ],
+      "color": "#804040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard",
+      "bounding": [
+        1791,
+        -757,
+        921,
+        1096
+      ],
+      "color": "#408080",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Concept sampling",
+      "bounding": [
+        2723,
+        -756,
+        1367,
+        1233
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Upscaler",
+      "bounding": [
+        5616,
+        -1404,
+        1093,
+        642
+      ],
+      "color": "#008000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Styling",
+      "bounding": [
+        4352,
+        222,
+        1244,
+        960
+      ],
+      "color": "#b1762f",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Networks",
+      "bounding": [
+        1792,
+        -1866,
+        3384,
+        1096
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Detailers, Refiners, Inpaint",
+      "bounding": [
+        8537,
+        -1399,
+        2914,
+        1993
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Data distribution",
+      "bounding": [
+        4352,
+        1194,
+        679,
+        361
       ],
       "color": "#b58b2a",
       "font_size": 24,
@@ -12268,10 +12268,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 0.7513148009015777,
       "offset": [
-        -4642.586511394378,
-        975.9692518062338
+        -4279.392546594071,
+        1383.7473046565312
       ]
     }
   },

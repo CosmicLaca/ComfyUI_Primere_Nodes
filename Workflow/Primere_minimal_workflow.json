@@ -1,6 +1,6 @@
 {
-  "last_node_id": 76,
-  "last_link_id": 342,
+  "last_node_id": 78,
+  "last_link_id": 364,
   "nodes": [
     {
       "id": 43,
@@ -620,7 +620,7 @@
           "links": [
             209,
             269,
-            336
+            358
           ],
           "slot_index": 3,
           "shape": 3
@@ -642,8 +642,8 @@
       "id": 63,
       "type": "PrimereModelKeyword",
       "pos": {
-        "0": 2199.181884765625,
-        "1": 1394.1817626953125
+        "0": 2199.363525390625,
+        "1": 1395.908935546875
       },
       "size": {
         "0": 315,
@@ -664,7 +664,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            333
+            355
           ],
           "slot_index": 0,
           "shape": 3
@@ -732,7 +732,7 @@
       },
       "widgets_values": [
         "",
-        210689269644392,
+        880026888468794,
         "randomize"
       ],
       "color": "#145414",
@@ -787,7 +787,7 @@
       },
       "widgets_values": [
         "",
-        831789465806991,
+        918880743606747,
         "randomize"
       ],
       "color": "#145414",
@@ -839,7 +839,7 @@
           "type": "INT",
           "links": [
             327,
-            339
+            361
           ],
           "slot_index": 0,
           "shape": 3
@@ -849,7 +849,7 @@
           "type": "INT",
           "links": [
             328,
-            340
+            362
           ],
           "slot_index": 1,
           "shape": 3
@@ -881,7 +881,7 @@
         false,
         1.6,
         2.8,
-        742078035504580,
+        1004662327655153,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1042,7 +1042,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        136888432487569,
+        1118069845360984,
         "randomize",
         false,
         "cpu",
@@ -1055,8 +1055,8 @@
       "id": 61,
       "type": "PrimereNetworkTagLoader",
       "pos": {
-        "0": 1830.1546630859375,
-        "1": 1062.05029296875
+        "0": 1830.3363037109375,
+        "1": 1063.7774658203125
       },
       "size": {
         "0": 361.0999755859375,
@@ -1099,7 +1099,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            332
+            354
           ],
           "slot_index": 1,
           "shape": 3
@@ -1126,7 +1126,7 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            334
+            356
           ],
           "slot_index": 5,
           "shape": 3
@@ -1135,7 +1135,7 @@
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            335
+            357
           ],
           "slot_index": 6,
           "shape": 3
@@ -1171,8 +1171,8 @@
       "id": 62,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 2199.181884765625,
-        "1": 1063.1817626953125
+        "0": 2199.363525390625,
+        "1": 1064.908935546875
       },
       "size": {
         "0": 315,
@@ -1220,7 +1220,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            337
+            359
           ],
           "slot_index": 0,
           "shape": 3
@@ -1229,7 +1229,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            338
+            360
           ],
           "slot_index": 1,
           "shape": 3
@@ -1282,14 +1282,14 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 76,
+      "id": 78,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 2166,
         "1": 92
       },
       "size": [
-        335.1211665869814,
+        335.9908669211645,
         874
       ],
       "flags": {},
@@ -1299,22 +1299,22 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 332
+          "link": 354
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 333
+          "link": 355
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 334
+          "link": 356
         },
         {
           "name": "lycoris_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 335
+          "link": 357
         },
         {
           "name": "embedding_pos",
@@ -1334,7 +1334,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 336,
+          "link": 358,
           "widget": {
             "name": "model_version"
           }
@@ -1342,7 +1342,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 337,
+          "link": 359,
           "widget": {
             "name": "positive_prompt"
           }
@@ -1350,7 +1350,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 338,
+          "link": 360,
           "widget": {
             "name": "negative_prompt"
           }
@@ -1414,7 +1414,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 339,
+          "link": 361,
           "widget": {
             "name": "width"
           }
@@ -1422,7 +1422,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 340,
+          "link": 362,
           "widget": {
             "name": "height"
           }
@@ -1433,7 +1433,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            341
+            363
           ],
           "shape": 3
         },
@@ -1441,7 +1441,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            342
+            364
           ],
           "shape": 3
         },
@@ -1483,13 +1483,13 @@
         "BaseModel_1024",
         "",
         "",
-        "None",
         true,
-        "None",
+        "Default",
+        "Default",
         0,
         1.2,
-        false,
-        "PHOTO_SFW",
+        true,
+        "None",
         1,
         "BETTER_IMAGES",
         1,
@@ -1539,12 +1539,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 341
+          "link": 363
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 342
+          "link": 364
         },
         {
           "name": "latent_image",
@@ -1625,7 +1625,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        560160127428517,
+        517420617831863,
         "randomize",
         20,
         8,
@@ -1732,10 +1732,10 @@
         "0": 2509,
         "1": 795
       },
-      "size": [
-        342.1211665869814,
-        170.67408244892044
-      ],
+      "size": {
+        "0": 342.12115478515625,
+        "1": 170.67408752441406
+      },
       "flags": {},
       "order": 22,
       "mode": 0,
@@ -1766,7 +1766,7 @@
         true,
         false,
         false,
-        "732"
+        "704"
       ],
       "color": "#2c002c",
       "bgcolor": "#400040"
@@ -2102,88 +2102,88 @@
       "IMAGE"
     ],
     [
-      332,
+      354,
       61,
       1,
-      76,
+      78,
       0,
       "CLIP"
     ],
     [
-      333,
+      355,
       63,
       0,
-      76,
+      78,
       1,
       "MODEL_KEYWORD"
     ],
     [
-      334,
+      356,
       61,
       5,
-      76,
+      78,
       2,
       "MODEL_KEYWORD"
     ],
     [
-      335,
+      357,
       61,
       6,
-      76,
+      78,
       3,
       "MODEL_KEYWORD"
     ],
     [
-      336,
+      358,
       54,
       3,
-      76,
+      78,
       7,
       "STRING"
     ],
     [
-      337,
+      359,
       62,
       0,
-      76,
+      78,
       8,
       "STRING"
     ],
     [
-      338,
+      360,
       62,
       1,
-      76,
+      78,
       9,
       "STRING"
     ],
     [
-      339,
+      361,
       51,
       0,
-      76,
+      78,
       17,
       "INT"
     ],
     [
-      340,
+      362,
       51,
       1,
-      76,
+      78,
       18,
       "INT"
     ],
     [
-      341,
-      76,
+      363,
+      78,
       0,
       73,
       1,
       "CONDITIONING"
     ],
     [
-      342,
-      76,
+      364,
+      78,
       1,
       73,
       2,
@@ -2192,26 +2192,14 @@
   ],
   "groups": [
     {
-      "title": "Network loader",
+      "title": "Dashboard settings",
       "bounding": [
-        1814,
-        989,
-        714,
-        647
+        694,
+        20,
+        1107,
+        470
       ],
-      "color": "#804000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1814,
-        21,
-        1047,
-        958
-      ],
-      "color": "#A88",
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     },
@@ -2228,14 +2216,26 @@
       "flags": {}
     },
     {
-      "title": "Dashboard settings",
+      "title": "Encoder, sampler, decoder",
       "bounding": [
-        694,
-        20,
-        1107,
-        470
+        1814,
+        21,
+        1047,
+        958
       ],
-      "color": "#3f789e",
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Network loader",
+      "bounding": [
+        1814,
+        991,
+        714,
+        647
+      ],
+      "color": "#804000",
       "font_size": 24,
       "flags": {}
     }
@@ -2243,10 +2243,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
+      "scale": 1.1000000000000003,
       "offset": [
-        -870.6211665869813,
-        104.59258930400912
+        -1480.1726851029828,
+        -11.41483272205698
       ]
     }
   },

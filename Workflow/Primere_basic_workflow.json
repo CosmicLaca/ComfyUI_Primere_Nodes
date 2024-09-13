@@ -1,6 +1,6 @@
 {
-  "last_node_id": 105,
-  "last_link_id": 658,
+  "last_node_id": 106,
+  "last_link_id": 669,
   "nodes": [
     {
       "id": 50,
@@ -1552,7 +1552,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            649
+            660
           ],
           "slot_index": 0,
           "shape": 3
@@ -1620,7 +1620,7 @@
       },
       "widgets_values": [
         "",
-        764900579900373,
+        558771996361371,
         "randomize"
       ],
       "color": "#145414",
@@ -1675,7 +1675,7 @@
       },
       "widgets_values": [
         "",
-        260281020106170,
+        835945814542894,
         "randomize"
       ],
       "color": "#145414",
@@ -2015,7 +2015,7 @@
           "links": [
             288,
             457,
-            652
+            663
           ],
           "slot_index": 3,
           "shape": 3
@@ -2081,7 +2081,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            648
+            659
           ],
           "slot_index": 1,
           "shape": 3
@@ -2108,7 +2108,7 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            650
+            661
           ],
           "slot_index": 5,
           "shape": 3
@@ -2117,7 +2117,7 @@
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            651
+            662
           ],
           "slot_index": 6,
           "shape": 3
@@ -2195,7 +2195,7 @@
           "type": "INT",
           "links": [
             643,
-            655
+            666
           ],
           "slot_index": 0,
           "shape": 3
@@ -2205,7 +2205,7 @@
           "type": "INT",
           "links": [
             644,
-            656
+            667
           ],
           "slot_index": 1,
           "shape": 3
@@ -2237,7 +2237,7 @@
         false,
         1.6,
         2.8,
-        535762955951980,
+        485038328132934,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2298,7 +2298,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            653
+            664
           ],
           "slot_index": 0,
           "shape": 3
@@ -2307,7 +2307,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            654
+            665
           ],
           "slot_index": 1,
           "shape": 3
@@ -2421,7 +2421,7 @@
         1,
         0.8,
         1.4,
-        1076443712243859,
+        411929002725450,
         "randomize",
         false,
         "cpu",
@@ -2431,7 +2431,7 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 105,
+      "id": 106,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 2267.55029296875,
@@ -2448,22 +2448,22 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 648
+          "link": 659
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 649
+          "link": 660
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 650
+          "link": 661
         },
         {
           "name": "lycoris_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 651
+          "link": 662
         },
         {
           "name": "embedding_pos",
@@ -2483,7 +2483,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 652,
+          "link": 663,
           "widget": {
             "name": "model_version"
           }
@@ -2491,7 +2491,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 653,
+          "link": 664,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2499,7 +2499,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 654,
+          "link": 665,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2563,7 +2563,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 655,
+          "link": 666,
           "widget": {
             "name": "width"
           }
@@ -2571,7 +2571,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 656,
+          "link": 667,
           "widget": {
             "name": "height"
           }
@@ -2582,7 +2582,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            657
+            668
           ],
           "shape": 3
         },
@@ -2590,7 +2590,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            658
+            669
           ],
           "shape": 3
         },
@@ -2632,9 +2632,9 @@
         "BaseModel_1024",
         "",
         "",
-        "None",
         true,
-        "None",
+        "Default",
+        "Default",
         0,
         1.2,
         false,
@@ -2716,12 +2716,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 657
+          "link": 668
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 658
+          "link": 669
         },
         {
           "name": "latent_image",
@@ -2802,7 +2802,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        652209061283545,
+        248930273859141,
         "randomize",
         20,
         8,
@@ -2943,7 +2943,7 @@
         true,
         false,
         false,
-        "590"
+        "622"
       ],
       "color": "#5d005d",
       "bgcolor": "#710071"
@@ -3711,88 +3711,88 @@
       "IMAGE"
     ],
     [
-      648,
+      659,
       88,
       1,
-      105,
+      106,
       0,
       "CLIP"
     ],
     [
-      649,
+      660,
       41,
       0,
-      105,
+      106,
       1,
       "MODEL_KEYWORD"
     ],
     [
-      650,
+      661,
       88,
       5,
-      105,
+      106,
       2,
       "MODEL_KEYWORD"
     ],
     [
-      651,
+      662,
       88,
       6,
-      105,
+      106,
       3,
       "MODEL_KEYWORD"
     ],
     [
-      652,
+      663,
       71,
       3,
-      105,
+      106,
       7,
       "STRING"
     ],
     [
-      653,
+      664,
       89,
       0,
-      105,
+      106,
       8,
       "STRING"
     ],
     [
-      654,
+      665,
       89,
       1,
-      105,
+      106,
       9,
       "STRING"
     ],
     [
-      655,
+      666,
       65,
       0,
-      105,
+      106,
       17,
       "INT"
     ],
     [
-      656,
+      667,
       65,
       1,
-      105,
+      106,
       18,
       "INT"
     ],
     [
-      657,
-      105,
+      668,
+      106,
       0,
       102,
       1,
       "CONDITIONING"
     ],
     [
-      658,
-      105,
+      669,
+      106,
       1,
       102,
       2,
@@ -3801,26 +3801,14 @@
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
+      "title": "Network loader",
       "bounding": [
-        679,
-        20,
-        1228,
-        2054
+        -54,
+        788,
+        726,
+        657
       ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        -366,
-        19,
-        1038,
-        757
-      ],
-      "color": "#8A8",
+      "color": "#804000",
       "font_size": 24,
       "flags": {}
     },
@@ -3837,14 +3825,26 @@
       "flags": {}
     },
     {
-      "title": "Network loader",
+      "title": "Prompt",
       "bounding": [
-        -54,
-        788,
-        726,
-        657
+        -366,
+        19,
+        1038,
+        757
       ],
-      "color": "#804000",
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
+      "bounding": [
+        679,
+        20,
+        1228,
+        2054
+      ],
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     }
@@ -3852,10 +3852,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
+      "scale": 1.1000000000000003,
       "offset": [
-        -973.0003839423538,
-        352.830340543679
+        -1565.6272305575283,
+        10.40334909612484
       ]
     }
   },

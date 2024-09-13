@@ -1,6 +1,6 @@
 {
-  "last_node_id": 144,
-  "last_link_id": 985,
+  "last_node_id": 145,
+  "last_link_id": 1000,
   "nodes": [
     {
       "id": 61,
@@ -1712,7 +1712,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            972
+            987
           ],
           "slot_index": 0,
           "shape": 3
@@ -1780,7 +1780,7 @@
       },
       "widgets_values": [
         "",
-        339855306468377,
+        1050293334437469,
         "randomize"
       ],
       "color": "#145414",
@@ -1835,7 +1835,7 @@
       },
       "widgets_values": [
         "",
-        272819656104044,
+        158443953721589,
         "randomize"
       ],
       "color": "#541414",
@@ -2182,7 +2182,7 @@
             483,
             550,
             564,
-            973
+            988
           ],
           "slot_index": 3,
           "shape": 3
@@ -2248,7 +2248,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            971
+            986
           ],
           "slot_index": 1,
           "shape": 3
@@ -2488,7 +2488,7 @@
             336,
             568,
             932,
-            976
+            991
           ],
           "slot_index": 0,
           "shape": 3
@@ -2500,7 +2500,7 @@
             337,
             569,
             933,
-            977
+            992
           ],
           "slot_index": 1,
           "shape": 3
@@ -2535,7 +2535,7 @@
         false,
         1.6,
         2.8,
-        87846171332627,
+        402857792440513,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2596,7 +2596,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            974
+            989
           ],
           "slot_index": 0,
           "shape": 3
@@ -2605,7 +2605,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            975
+            990
           ],
           "slot_index": 1,
           "shape": 3
@@ -2787,7 +2787,7 @@
         1,
         0.8,
         1.4,
-        827304350463940,
+        768123214720763,
         "randomize",
         false,
         "cpu",
@@ -2797,7 +2797,7 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 144,
+      "id": 145,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 2162,
@@ -2814,12 +2814,12 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 971
+          "link": 986
         },
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 972
+          "link": 987
         },
         {
           "name": "lora_keywords",
@@ -2849,7 +2849,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 973,
+          "link": 988,
           "widget": {
             "name": "model_version"
           }
@@ -2857,7 +2857,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 974,
+          "link": 989,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2865,7 +2865,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 975,
+          "link": 990,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2929,7 +2929,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 976,
+          "link": 991,
           "widget": {
             "name": "width"
           }
@@ -2937,7 +2937,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 977,
+          "link": 992,
           "widget": {
             "name": "height"
           }
@@ -2948,7 +2948,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            978
+            993
           ],
           "shape": 3
         },
@@ -2956,7 +2956,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            979
+            994
           ],
           "shape": 3
         },
@@ -2964,8 +2964,8 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            980,
-            981
+            995,
+            996
           ],
           "shape": 3
         },
@@ -2973,8 +2973,8 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            982,
-            983
+            997,
+            998
           ],
           "shape": 3
         },
@@ -2982,7 +2982,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            984
+            999
           ],
           "shape": 3
         },
@@ -2990,7 +2990,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            985
+            1000
           ],
           "shape": 3
         },
@@ -3008,13 +3008,13 @@
         "BaseModel_1024",
         "",
         "",
-        "None",
         true,
-        "None",
+        "Default",
+        "Default",
         0,
         1.2,
-        false,
-        "PHOTO_SFW",
+        true,
+        "None",
         1,
         "BETTER_IMAGES",
         1,
@@ -3092,12 +3092,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 978
+          "link": 993
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 979
+          "link": 994
         },
         {
           "name": "latent_image",
@@ -3178,18 +3178,18 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        711601542159919,
+        1005912004271078,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         1,
-        0,
+        0.98,
         0,
         false,
         "DEFAULT",
-        false,
+        true,
         "Normal"
       ],
       "color": "#941414",
@@ -3213,7 +3213,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 980
+          "link": 995
         }
       ],
       "outputs": [],
@@ -3245,7 +3245,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 982
+          "link": 997
         }
       ],
       "outputs": [],
@@ -3254,7 +3254,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "(watermark, person, text, china style, indian style:1.20)"
+        "(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)"
       ],
       "color": "#541414",
       "bgcolor": "#400000"
@@ -3307,7 +3307,7 @@
         {
           "name": "positive",
           "type": "STRING",
-          "link": 981,
+          "link": 996,
           "widget": {
             "name": "positive"
           }
@@ -3315,7 +3315,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 983,
+          "link": 998,
           "widget": {
             "name": "negative"
           }
@@ -3323,7 +3323,7 @@
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": 984,
+          "link": 999,
           "widget": {
             "name": "positive_l"
           }
@@ -3331,7 +3331,7 @@
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 985,
+          "link": 1000,
           "widget": {
             "name": "negative_l"
           }
@@ -3523,7 +3523,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 30,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3708,7 +3708,7 @@
         true,
         false,
         false,
-        "651"
+        "715"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -5024,120 +5024,120 @@
       "IMAGE"
     ],
     [
-      971,
+      986,
       111,
       1,
-      144,
+      145,
       0,
       "CLIP"
     ],
     [
-      972,
+      987,
       41,
       0,
-      144,
+      145,
       1,
       "MODEL_KEYWORD"
     ],
     [
-      973,
+      988,
       98,
       3,
-      144,
+      145,
       7,
       "STRING"
     ],
     [
-      974,
+      989,
       112,
       0,
-      144,
+      145,
       8,
       "STRING"
     ],
     [
-      975,
+      990,
       112,
       1,
-      144,
+      145,
       9,
       "STRING"
     ],
     [
-      976,
+      991,
       87,
       0,
-      144,
+      145,
       17,
       "INT"
     ],
     [
-      977,
+      992,
       87,
       1,
-      144,
+      145,
       18,
       "INT"
     ],
     [
-      978,
-      144,
+      993,
+      145,
       0,
       140,
       1,
       "CONDITIONING"
     ],
     [
-      979,
-      144,
+      994,
+      145,
       1,
       140,
       2,
       "CONDITIONING"
     ],
     [
-      980,
-      144,
+      995,
+      145,
       2,
       52,
       0,
       "*"
     ],
     [
-      981,
-      144,
+      996,
+      145,
       2,
       114,
       6,
       "STRING"
     ],
     [
-      982,
-      144,
+      997,
+      145,
       3,
       54,
       0,
       "*"
     ],
     [
-      983,
-      144,
+      998,
+      145,
       3,
       114,
       7,
       "STRING"
     ],
     [
-      984,
-      144,
+      999,
+      145,
       4,
       114,
       8,
       "STRING"
     ],
     [
-      985,
-      144,
+      1000,
+      145,
       5,
       114,
       9,
@@ -5197,10 +5197,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650705,
+      "scale": 2.1435888100000073,
       "offset": [
-        -24.15552443821923,
-        513.7369322792171
+        -2124.049393162291,
+        -440.7749099545873
       ]
     }
   },

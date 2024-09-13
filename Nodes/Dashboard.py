@@ -824,7 +824,7 @@ class PrimereCLIP:
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
             },
             "optional": {
-                "clip_raw": ("CLIP", {"forceInput": True}),
+                # "clip_raw": ("CLIP", {"forceInput": True}),
                 "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lora_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
@@ -857,7 +857,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, clip_raw, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
+    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "BaseModel_1024", model_concept = "Normal", workflow_tuple = None):
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
@@ -1038,13 +1038,13 @@ class PrimereCLIP:
                     clipFiles = folder_paths.get_filename_list("clip")
 
             if longclip_model in clipFiles:
-                if model_concept == 'Normal' and CONCEPT_SELECTOR == 'Normal':
+                if model_concept == 'Normal' and (CONCEPT_SELECTOR == 'Normal' or CONCEPT_SELECTOR is None):
                     if (is_sdxl == 0):
                         clip = long_clip.SDLongClip.sd_longclip(self, longclip_model)[0]
                         adv_encode = False
                     else:
                         clip = long_clip.SDXLLongClip.sdxl_longclip(self, longclip_model, clip)[0]
-                if model_concept == 'Flux' and CONCEPT_SELECTOR == 'Flux':
+                if model_concept == 'Flux' and (CONCEPT_SELECTOR == 'Flux' or CONCEPT_SELECTOR is None):
                     clip = long_clip.FluxLongClip.flux_longclip(self, longclip_model, clip)[0]
 
         if (last_layer < 0):
