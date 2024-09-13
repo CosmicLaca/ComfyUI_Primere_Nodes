@@ -893,6 +893,7 @@ class PrimereCLIP:
 
         if model_concept == 'Cascade' or model_concept == 'Turbo' or model_concept == 'Flux':
             model_version = 'SDXL_2048'
+            clip_model = 'Default'
 
         is_sdxl = 0
         match model_version:
@@ -1012,6 +1013,7 @@ class PrimereCLIP:
 
         if model_concept == 'Flux':
             adv_encode = False
+            clip_model = 'Default'
             # clip_mode = True
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
@@ -1019,6 +1021,7 @@ class PrimereCLIP:
 
         if CONCEPT_SELECTOR == 'Flux':
             adv_encode = False
+            clip_model = 'Default'
             # clip_mode = True
 
         if clip_mode == False:
