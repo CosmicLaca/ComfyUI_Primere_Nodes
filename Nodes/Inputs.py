@@ -720,7 +720,10 @@ class PrimereMetaHandler:
 
                     original_exif = readerResult.original
                     exif_data_count = len(workflow_tuple)
-                    workflow_tuple['meta_source'] = reader.__class__.__name__
+                    try:
+                        workflow_tuple['meta_source'] = readerResult.tool
+                    except Exception:
+                        workflow_tuple['meta_source'] = reader.__class__.__name__
                     if meta_model_concept == "Normal" or meta_model_concept is None:
                         workflow_tuple = compatibility_handler(workflow_tuple, workflow_tuple['meta_source'])
                     workflow_tuple['exif_status'] = 'SUCCEED'
@@ -988,6 +991,17 @@ class PrimereMetaHandler:
         if type(original_exif).__name__ == 'str':
             try:
                 original_exif = json.loads(original_exif)
+            except Exception:
+                original_exif = original_exif
+
+        if type(original_exif).__name__ == 'dict':
+            try:
+                if 'prompt' in original_exif:
+                    original_exif['prompt'] = json.loads(original_exif['prompt'])
+                if 'workflow' in original_exif:
+                    original_exif['workflow'] = json.loads(original_exif['workflow'])
+                if 'gendata' in original_exif:
+                    original_exif['gendata'] = json.loads(original_exif['gendata'])
             except Exception:
                 original_exif = original_exif
 

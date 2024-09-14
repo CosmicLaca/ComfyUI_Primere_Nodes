@@ -1,6 +1,6 @@
 {
-  "last_node_id": 211,
-  "last_link_id": 1311,
+  "last_node_id": 213,
+  "last_link_id": 1331,
   "nodes": [
     {
       "id": 9,
@@ -791,7 +791,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            51
+            1318
           ],
           "slot_index": 0,
           "shape": 3
@@ -827,7 +827,7 @@
           "name": "VAE_NAME",
           "type": "VAE_NAME",
           "links": [
-            52
+            1319
           ],
           "slot_index": 0,
           "shape": 3
@@ -1616,7 +1616,7 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            49
+            1315
           ],
           "slot_index": 0,
           "shape": 3
@@ -1626,7 +1626,7 @@
           "type": "STRING",
           "links": [
             41,
-            674
+            1323
           ],
           "slot_index": 1,
           "shape": 3
@@ -1829,8 +1829,8 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            54,
-            171
+            171,
+            1321
           ],
           "slot_index": 0,
           "shape": 3
@@ -1839,8 +1839,8 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            55,
-            172
+            172,
+            1322
           ],
           "slot_index": 1,
           "shape": 3
@@ -1855,7 +1855,7 @@
           "name": "PREFERRED",
           "type": "TUPLE",
           "links": [
-            53
+            1320
           ],
           "slot_index": 3,
           "shape": 3
@@ -2231,7 +2231,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            979
+            1325
           ],
           "shape": 3
         },
@@ -2239,7 +2239,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            980
+            1326
           ],
           "shape": 3
         },
@@ -2247,7 +2247,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            981
+            1330
           ],
           "shape": 3
         },
@@ -2255,7 +2255,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            982
+            1329
           ],
           "shape": 3
         },
@@ -2263,8 +2263,8 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            983,
-            984
+            984,
+            1324
           ],
           "shape": 3
         },
@@ -2762,7 +2762,7 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            173
+            1327
           ],
           "slot_index": 0,
           "shape": 3
@@ -2771,7 +2771,7 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            174
+            1328
           ],
           "slot_index": 1,
           "shape": 3
@@ -2789,7 +2789,7 @@
           "name": "MODEL_SHAPES",
           "type": "TUPLE",
           "links": [
-            50
+            1317
           ],
           "slot_index": 3,
           "shape": 3
@@ -2809,7 +2809,7 @@
         false,
         1.6,
         2.8,
-        268398454826270,
+        582968580948553,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2974,7 +2974,7 @@
           "name": "CONCEPT_DATA",
           "type": "TUPLE",
           "links": [
-            950
+            1316
           ],
           "shape": 3
         }
@@ -3043,16 +3043,16 @@
       "bgcolor": "#000080"
     },
     {
-      "id": 25,
+      "id": 213,
       "type": "PrimereMetaCollector",
       "pos": {
         "0": 2805.13525390625,
         "1": 570.244140625
       },
-      "size": {
-        "0": 346.1827697753906,
-        "1": 414
-      },
+      "size": [
+        344.24543765913677,
+        434
+      ],
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -3060,37 +3060,37 @@
         {
           "name": "model",
           "type": "CHECKPOINT_NAME",
-          "link": 49
+          "link": 1315
         },
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 950
+          "link": 1316
         },
         {
           "name": "model_shapes",
           "type": "TUPLE",
-          "link": 50
+          "link": 1317
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 51
+          "link": 1318
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 52
+          "link": 1319
         },
         {
           "name": "preferred",
           "type": "TUPLE",
-          "link": 53
+          "link": 1320
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 54,
+          "link": 1321,
           "widget": {
             "name": "positive"
           }
@@ -3098,9 +3098,17 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 55,
+          "link": 1322,
           "widget": {
             "name": "negative"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
           }
         },
         {
@@ -3138,7 +3146,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 674,
+          "link": 1323,
           "widget": {
             "name": "model_version"
           }
@@ -3146,7 +3154,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 983,
+          "link": 1324,
           "widget": {
             "name": "model_concept"
           }
@@ -3154,7 +3162,7 @@
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 979,
+          "link": 1325,
           "widget": {
             "name": "sampler"
           }
@@ -3162,7 +3170,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 980,
+          "link": 1326,
           "widget": {
             "name": "scheduler"
           }
@@ -3170,7 +3178,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 173,
+          "link": 1327,
           "widget": {
             "name": "width"
           }
@@ -3178,7 +3186,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 174,
+          "link": 1328,
           "widget": {
             "name": "height"
           }
@@ -3186,7 +3194,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 982,
+          "link": 1329,
           "widget": {
             "name": "cfg"
           }
@@ -3194,7 +3202,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 981,
+          "link": 1330,
           "widget": {
             "name": "steps"
           }
@@ -3205,9 +3213,8 @@
           "name": "METADATA",
           "type": "TUPLE",
           "links": [
-            1261
+            1331
           ],
-          "slot_index": 0,
           "shape": 3
         }
       ],
@@ -3217,6 +3224,8 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
+        1466,
+        "randomize",
         "",
         "",
         "",
@@ -3251,7 +3260,7 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 1261
+          "link": 1331
         }
       ],
       "outputs": [
@@ -3308,7 +3317,7 @@
         false,
         false,
         false,
-        "00000-20230612205704-3803273286.jpg",
+        "00002-20230721155912-1209539307.jpg",
         "image"
       ],
       "color": "#541414",
@@ -3929,7 +3938,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        721064161542134,
+        832975628308275,
         "randomize",
         512,
         512
@@ -4171,8 +4180,8 @@
       "id": 48,
       "type": "PrimereDynamicParser",
       "pos": {
-        "0": 2805.836669921875,
-        "1": 1023.0699462890625
+        "0": 2805,
+        "1": 1040
       },
       "size": {
         "0": 345.90313720703125,
@@ -4216,7 +4225,7 @@
       },
       "widgets_values": [
         "",
-        816325020159345,
+        1097233418076604,
         "randomize"
       ],
       "color": "#232",
@@ -4226,8 +4235,8 @@
       "id": 49,
       "type": "PrimereDynamicParser",
       "pos": {
-        "0": 2805.836669921875,
-        "1": 1114.070068359375
+        "0": 2803,
+        "1": 1128
       },
       "size": {
         "0": 345.90545654296875,
@@ -4271,7 +4280,7 @@
       },
       "widgets_values": [
         "",
-        484555270552012,
+        216892274342358,
         "randomize"
       ],
       "color": "#322",
@@ -4417,7 +4426,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        520832587769861,
+        235361143917555,
         "randomize",
         true,
         "cpu",
@@ -4530,8 +4539,8 @@
       "id": 51,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 2804.836669921875,
-        "1": 1204.06982421875
+        "0": 2803,
+        "1": 1218
       },
       "size": {
         "0": 344.91552734375,
@@ -4646,8 +4655,8 @@
       "id": 38,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 2804.836669921875,
-        "1": 1477.06982421875
+        "0": 2803,
+        "1": 1491
       },
       "size": {
         "0": 345.5814208984375,
@@ -4850,8 +4859,8 @@
       "id": 50,
       "type": "PrimereEmbeddingHandler",
       "pos": {
-        "0": 2803.836669921875,
-        "1": 1750.06982421875
+        "0": 2804,
+        "1": 1766
       },
       "size": {
         "0": 346.65631103515625,
@@ -5629,7 +5638,7 @@
         1,
         0,
         0,
-        1098810691246164,
+        723915461380574,
         "randomize",
         "mean",
         "comfy++",
@@ -5802,7 +5811,7 @@
         1,
         0,
         0,
-        359816401812306,
+        63108133160945,
         "randomize",
         "mean",
         "comfy++",
@@ -5975,7 +5984,7 @@
         1,
         0,
         0,
-        243605523378629,
+        1014439554682227,
         "randomize",
         "mean",
         "comfy++",
@@ -6148,7 +6157,7 @@
         1,
         0,
         0,
-        1096829701268482,
+        706417730875775,
         "randomize",
         "mean",
         "comfy++",
@@ -7053,7 +7062,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        384479814226427,
+        367115704852159,
         "randomize",
         20,
         8,
@@ -7228,7 +7237,7 @@
         true,
         false,
         false,
-        "744"
+        "751"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -7444,7 +7453,7 @@
           "type": "TUPLE",
           "links": [
             1258,
-            1259
+            1313
           ],
           "shape": 3
         }
@@ -7634,7 +7643,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        527747090716835,
+        486739189394056,
         "randomize",
         "euler",
         "simple",
@@ -7682,7 +7691,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"latent_setup\": false,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": false,\n        \"clip_optional_prompts\": false,\n        \"clip_style_prompts\": false,\n        \"clip_additional_keywords\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"00000-20230612205704-3803273286.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 2.836,\n        \"modulator\": 1.02,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Default\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": true,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.06,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"744\"\n}"
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"latent_setup\": false,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": false,\n        \"clip_optional_prompts\": false,\n        \"clip_style_prompts\": false,\n        \"clip_additional_keywords\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"00002-20230721155912-1209539307.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"brownian_fractal\",\n        \"alpha_exponent\": -4.306,\n        \"modulator\": 1.59,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Default\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": true,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.98,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"751\"\n}"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -8062,7 +8071,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        532593267466526,
+        1077275412565012,
         "randomize",
         "euler",
         "normal",
@@ -8458,7 +8467,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        858190399528805,
+        1089434730001259,
         "randomize",
         "euler",
         "simple",
@@ -8854,7 +8863,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        267536104989337,
+        797785088411588,
         "randomize",
         "euler",
         "simple",
@@ -9121,7 +9130,7 @@
           "type": "IMAGE",
           "links": [
             866,
-            1253
+            1312
           ],
           "slot_index": 0,
           "shape": 3
@@ -9132,7 +9141,7 @@
       },
       "widgets_values": [
         2.1,
-        371731913768912,
+        1058715105129939,
         "randomize",
         7,
         6.5,
@@ -9279,7 +9288,7 @@
       "bgcolor": "#0000a0"
     },
     {
-      "id": 207,
+      "id": 212,
       "type": "PrimereMetaSave",
       "pos": {
         "0": 6721,
@@ -9296,12 +9305,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 1253
+          "link": 1312
         },
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 1259
+          "link": 1313
         }
       ],
       "outputs": [
@@ -9309,7 +9318,7 @@
           "name": "SAVED_INFO",
           "type": "STRING",
           "links": [
-            1255
+            1314
           ],
           "shape": 3
         }
@@ -9321,20 +9330,21 @@
         false,
         0,
         "[time(%Y-%m-%d)]",
-        "Project",
-        true,
+        "Dev",
         false,
-        "ComfyUI",
+        false,
+        "PrimereFull",
         "_",
         true,
         true,
         true,
         true,
-        2,
+        1,
         false,
         "jpg",
-        false,
-        false,
+        true,
+        true,
+        true,
         false,
         95,
         "false",
@@ -9362,7 +9372,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 1255,
+          "link": 1314,
           "slot_index": 0,
           "widget": {
             "name": "text"
@@ -9631,62 +9641,6 @@
       "STRING"
     ],
     [
-      49,
-      18,
-      0,
-      25,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      50,
-      23,
-      3,
-      25,
-      2,
-      "TUPLE"
-    ],
-    [
-      51,
-      19,
-      0,
-      25,
-      3,
-      "VAE_NAME"
-    ],
-    [
-      52,
-      20,
-      0,
-      25,
-      4,
-      "VAE_NAME"
-    ],
-    [
-      53,
-      10,
-      3,
-      25,
-      5,
-      "TUPLE"
-    ],
-    [
-      54,
-      10,
-      0,
-      25,
-      6,
-      "STRING"
-    ],
-    [
-      55,
-      10,
-      1,
-      25,
-      7,
-      "STRING"
-    ],
-    [
       64,
       15,
       6,
@@ -9869,22 +9823,6 @@
       59,
       0,
       "*"
-    ],
-    [
-      173,
-      23,
-      0,
-      25,
-      16,
-      "INT"
-    ],
-    [
-      174,
-      23,
-      1,
-      25,
-      17,
-      "INT"
     ],
     [
       175,
@@ -10335,14 +10273,6 @@
       "*"
     ],
     [
-      674,
-      18,
-      1,
-      25,
-      12,
-      "STRING"
-    ],
-    [
       776,
       149,
       0,
@@ -10429,14 +10359,6 @@
       61,
       13,
       "FLOAT"
-    ],
-    [
-      950,
-      164,
-      0,
-      25,
-      1,
-      "TUPLE"
     ],
     [
       951,
@@ -10661,46 +10583,6 @@
       165,
       27,
       "INT"
-    ],
-    [
-      979,
-      165,
-      0,
-      25,
-      14,
-      "COMBO"
-    ],
-    [
-      980,
-      165,
-      1,
-      25,
-      15,
-      "COMBO"
-    ],
-    [
-      981,
-      165,
-      2,
-      25,
-      19,
-      "INT"
-    ],
-    [
-      982,
-      165,
-      3,
-      25,
-      18,
-      "FLOAT"
-    ],
-    [
-      983,
-      165,
-      4,
-      25,
-      13,
-      "STRING"
     ],
     [
       984,
@@ -11847,22 +11729,6 @@
       "HYPERNETWORK_STACK"
     ],
     [
-      1253,
-      61,
-      0,
-      207,
-      0,
-      "IMAGE"
-    ],
-    [
-      1255,
-      207,
-      0,
-      70,
-      0,
-      "STRING"
-    ],
-    [
       1256,
       204,
       1,
@@ -11887,28 +11753,12 @@
       "*"
     ],
     [
-      1259,
-      208,
-      0,
-      207,
-      1,
-      "TUPLE"
-    ],
-    [
       1260,
       151,
       0,
       208,
       2,
       "INT"
-    ],
-    [
-      1261,
-      25,
-      0,
-      209,
-      0,
-      "TUPLE"
     ],
     [
       1262,
@@ -12117,126 +11967,178 @@
       204,
       4,
       "TUPLE"
+    ],
+    [
+      1312,
+      61,
+      0,
+      212,
+      0,
+      "IMAGE"
+    ],
+    [
+      1313,
+      208,
+      0,
+      212,
+      1,
+      "TUPLE"
+    ],
+    [
+      1314,
+      212,
+      0,
+      70,
+      0,
+      "STRING"
+    ],
+    [
+      1315,
+      18,
+      0,
+      213,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1316,
+      164,
+      0,
+      213,
+      1,
+      "TUPLE"
+    ],
+    [
+      1317,
+      23,
+      3,
+      213,
+      2,
+      "TUPLE"
+    ],
+    [
+      1318,
+      19,
+      0,
+      213,
+      3,
+      "VAE_NAME"
+    ],
+    [
+      1319,
+      20,
+      0,
+      213,
+      4,
+      "VAE_NAME"
+    ],
+    [
+      1320,
+      10,
+      3,
+      213,
+      5,
+      "TUPLE"
+    ],
+    [
+      1321,
+      10,
+      0,
+      213,
+      6,
+      "STRING"
+    ],
+    [
+      1322,
+      10,
+      1,
+      213,
+      7,
+      "STRING"
+    ],
+    [
+      1323,
+      18,
+      1,
+      213,
+      13,
+      "STRING"
+    ],
+    [
+      1324,
+      165,
+      4,
+      213,
+      14,
+      "STRING"
+    ],
+    [
+      1325,
+      165,
+      0,
+      213,
+      15,
+      "COMBO"
+    ],
+    [
+      1326,
+      165,
+      1,
+      213,
+      16,
+      "COMBO"
+    ],
+    [
+      1327,
+      23,
+      0,
+      213,
+      17,
+      "INT"
+    ],
+    [
+      1328,
+      23,
+      1,
+      213,
+      18,
+      "INT"
+    ],
+    [
+      1329,
+      165,
+      3,
+      213,
+      19,
+      "FLOAT"
+    ],
+    [
+      1330,
+      165,
+      2,
+      213,
+      20,
+      "INT"
+    ],
+    [
+      1331,
+      213,
+      0,
+      209,
+      0,
+      "TUPLE"
     ]
   ],
   "groups": [
     {
-      "title": "Prompt development",
-      "bounding": [
-        -140,
-        572,
-        1922,
-        1314
-      ],
-      "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt testing",
-      "bounding": [
-        -141,
-        -758,
-        1921,
-        1315
-      ],
-      "color": "#b06634",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt handling",
-      "bounding": [
-        1791,
-        352,
-        837,
-        883
-      ],
-      "color": "#8AA",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Image recycler",
-      "bounding": [
-        2793,
-        494,
-        1296,
-        1316
-      ],
-      "color": "#A88",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Latent, Clipping, Sampling",
-      "bounding": [
-        4104,
-        -756,
-        1491,
-        967
-      ],
-      "color": "#804040",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Dashboard",
-      "bounding": [
-        1791,
-        -757,
-        921,
-        1096
-      ],
-      "color": "#408080",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Concept sampling",
-      "bounding": [
-        2723,
-        -756,
-        1367,
-        1233
-      ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Upscaler",
-      "bounding": [
-        5616,
-        -1404,
-        1093,
-        642
-      ],
-      "color": "#008000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Styling",
+      "title": "Data distribution",
       "bounding": [
         4352,
-        222,
-        1244,
-        960
+        1194,
+        679,
+        361
       ],
-      "color": "#b1762f",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Networks",
-      "bounding": [
-        1792,
-        -1866,
-        3384,
-        1096
-      ],
-      "color": "#8A8",
+      "color": "#b58b2a",
       "font_size": 24,
       "flags": {}
     },
@@ -12253,12 +12155,120 @@
       "flags": {}
     },
     {
-      "title": "Data distribution",
+      "title": "Networks",
+      "bounding": [
+        1792,
+        -1866,
+        3384,
+        1096
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Styling",
       "bounding": [
         4352,
-        1194,
-        679,
-        361
+        222,
+        1244,
+        960
+      ],
+      "color": "#b1762f",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Upscaler",
+      "bounding": [
+        5616,
+        -1404,
+        1093,
+        642
+      ],
+      "color": "#008000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Concept sampling",
+      "bounding": [
+        2723,
+        -756,
+        1367,
+        1233
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard",
+      "bounding": [
+        1791,
+        -757,
+        921,
+        1096
+      ],
+      "color": "#408080",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Latent, Clipping, Sampling",
+      "bounding": [
+        4104,
+        -756,
+        1491,
+        967
+      ],
+      "color": "#804040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Image recycler",
+      "bounding": [
+        2793,
+        494,
+        1294,
+        1337
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt handling",
+      "bounding": [
+        1791,
+        352,
+        837,
+        883
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt testing",
+      "bounding": [
+        -141,
+        -758,
+        1921,
+        1315
+      ],
+      "color": "#b06634",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt development",
+      "bounding": [
+        -140,
+        572,
+        1922,
+        1314
       ],
       "color": "#b58b2a",
       "font_size": 24,
@@ -12268,10 +12278,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 1.3310000000000004,
       "offset": [
-        -4279.392546594071,
-        1383.7473046565312
+        -5558.249671073282,
+        1407.5184453384225
       ]
     }
   },

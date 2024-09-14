@@ -1,6 +1,6 @@
 {
-  "last_node_id": 145,
-  "last_link_id": 1000,
+  "last_node_id": 147,
+  "last_link_id": 1025,
   "nodes": [
     {
       "id": 61,
@@ -23,7 +23,7 @@
           "type": "VAE_NAME",
           "links": [
             203,
-            557
+            1007
           ],
           "slot_index": 0,
           "shape": 3
@@ -60,7 +60,7 @@
           "type": "VAE_NAME",
           "links": [
             204,
-            558
+            1008
           ],
           "slot_index": 0,
           "shape": 3
@@ -950,48 +950,6 @@
       "bgcolor": "#11b1ff"
     },
     {
-      "id": 135,
-      "type": "PrimereSeed",
-      "pos": {
-        "0": 1139,
-        "1": 90
-      },
-      "size": {
-        "0": 285.2718505859375,
-        "1": 130
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            907,
-            908,
-            909,
-            934,
-            956
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        863908266458242,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 3,
       "type": "PrimereVisualCKPT",
       "pos": {
@@ -1003,7 +961,7 @@
         "1": 128.78175354003906
       },
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1013,7 +971,7 @@
           "links": [
             146,
             456,
-            554
+            1004
           ],
           "slot_index": 0,
           "shape": 3
@@ -1142,7 +1100,7 @@
           "name": "PREFERRED",
           "type": "TUPLE",
           "links": [
-            559
+            1009
           ],
           "slot_index": 3,
           "shape": 3
@@ -1434,8 +1392,8 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            870,
-            959
+            959,
+            1016
           ],
           "shape": 3
         },
@@ -1443,8 +1401,8 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            872,
-            960
+            960,
+            1017
           ],
           "shape": 3
         },
@@ -1452,8 +1410,8 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            874,
-            957
+            957,
+            1021
           ],
           "shape": 3
         },
@@ -1461,8 +1419,8 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            876,
-            958
+            958,
+            1020
           ],
           "shape": 3
         },
@@ -1470,13 +1428,13 @@
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            877,
             878,
             879,
             880,
             881,
             882,
-            961
+            961,
+            1015
           ],
           "shape": 3
         },
@@ -1780,7 +1738,7 @@
       },
       "widgets_values": [
         "",
-        1050293334437469,
+        24523547471514,
         "randomize"
       ],
       "color": "#145414",
@@ -1835,7 +1793,7 @@
       },
       "widgets_values": [
         "",
-        158443953721589,
+        908229652192206,
         "randomize"
       ],
       "color": "#541414",
@@ -1999,7 +1957,7 @@
           "type": "TUPLE",
           "links": [
             839,
-            840
+            1005
           ],
           "shape": 3
         }
@@ -2181,8 +2139,8 @@
             468,
             483,
             550,
-            564,
-            988
+            988,
+            1014
           ],
           "slot_index": 3,
           "shape": 3
@@ -2486,9 +2444,9 @@
           "type": "INT",
           "links": [
             336,
-            568,
             932,
-            991
+            991,
+            1018
           ],
           "slot_index": 0,
           "shape": 3
@@ -2498,9 +2456,9 @@
           "type": "INT",
           "links": [
             337,
-            569,
             933,
-            992
+            992,
+            1019
           ],
           "slot_index": 1,
           "shape": 3
@@ -2515,7 +2473,7 @@
           "name": "MODEL_SHAPES",
           "type": "TUPLE",
           "links": [
-            556
+            1006
           ],
           "slot_index": 3,
           "shape": 3
@@ -2535,7 +2493,7 @@
         false,
         1.6,
         2.8,
-        402857792440513,
+        414705231953400,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2787,7 +2745,7 @@
         1,
         0.8,
         1.4,
-        768123214720763,
+        656227961658050,
         "randomize",
         false,
         "cpu",
@@ -2965,7 +2923,7 @@
           "type": "STRING",
           "links": [
             995,
-            996
+            1024
           ],
           "shape": 3
         },
@@ -2974,7 +2932,7 @@
           "type": "STRING",
           "links": [
             997,
-            998
+            1011
           ],
           "shape": 3
         },
@@ -2982,7 +2940,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            999
+            1012
           ],
           "shape": 3
         },
@@ -2990,7 +2948,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            1000
+            1013
           ],
           "shape": 3
         },
@@ -3178,7 +3136,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1005912004271078,
+        524105064623908,
         "randomize",
         20,
         8,
@@ -3260,198 +3218,6 @@
       "bgcolor": "#400000"
     },
     {
-      "id": 114,
-      "type": "PrimereMetaCollector",
-      "pos": {
-        "0": 3530,
-        "1": 697
-      },
-      "size": {
-        "0": 346.7880859375,
-        "1": 414
-      },
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "CHECKPOINT_NAME",
-          "link": 554
-        },
-        {
-          "name": "concept_data",
-          "type": "TUPLE",
-          "link": 840
-        },
-        {
-          "name": "model_shapes",
-          "type": "TUPLE",
-          "link": 556
-        },
-        {
-          "name": "vae_name_sd",
-          "type": "VAE_NAME",
-          "link": 557
-        },
-        {
-          "name": "vae_name_sdxl",
-          "type": "VAE_NAME",
-          "link": 558
-        },
-        {
-          "name": "preferred",
-          "type": "TUPLE",
-          "link": 559
-        },
-        {
-          "name": "positive",
-          "type": "STRING",
-          "link": 996,
-          "widget": {
-            "name": "positive"
-          }
-        },
-        {
-          "name": "negative",
-          "type": "STRING",
-          "link": 998,
-          "widget": {
-            "name": "negative"
-          }
-        },
-        {
-          "name": "positive_l",
-          "type": "STRING",
-          "link": 999,
-          "widget": {
-            "name": "positive_l"
-          }
-        },
-        {
-          "name": "negative_l",
-          "type": "STRING",
-          "link": 1000,
-          "widget": {
-            "name": "negative_l"
-          }
-        },
-        {
-          "name": "positive_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "positive_r"
-          }
-        },
-        {
-          "name": "negative_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "negative_r"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 564,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 877,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "sampler",
-          "type": "COMBO",
-          "link": 870,
-          "widget": {
-            "name": "sampler"
-          }
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "link": 872,
-          "widget": {
-            "name": "scheduler"
-          }
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 568,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 569,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 876,
-          "widget": {
-            "name": "cfg"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 874,
-          "widget": {
-            "name": "steps"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "METADATA",
-          "type": "TUPLE",
-          "links": [
-            572,
-            967
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
-      },
-      "widgets_values": [
-        "Red sportcar racing",
-        "Cute cat, nsfw, nude, nudity, porn",
-        "",
-        "",
-        "",
-        "",
-        "BaseModel_1024",
-        "Normal",
-        "euler",
-        "normal",
-        512,
-        512,
-        7,
-        12
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 16,
       "type": "VAEDecode",
       "pos": {
@@ -3515,7 +3281,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 572
+          "link": 1022
         }
       ],
       "outputs": [],
@@ -3775,7 +3541,7 @@
           "type": "IMAGE",
           "links": [
             916,
-            966
+            1001
           ],
           "slot_index": 1,
           "shape": 3
@@ -3841,7 +3607,7 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 142,
+      "id": 146,
       "type": "PrimereMetaSave",
       "pos": {
         "0": 3523,
@@ -3849,7 +3615,7 @@
       },
       "size": {
         "0": 348.1172180175781,
-        "1": 582
+        "1": 606
       },
       "flags": {},
       "order": 47,
@@ -3858,12 +3624,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 966
+          "link": 1001
         },
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 967
+          "link": 1023
         }
       ],
       "outputs": [
@@ -3871,7 +3637,7 @@
           "name": "SAVED_INFO",
           "type": "STRING",
           "links": [
-            968
+            1003
           ],
           "shape": 3
         }
@@ -3885,19 +3651,20 @@
         "[time(%Y-%m-%d)]",
         "Project",
         true,
-        false,
-        "ComfyUI",
+        true,
+        "PrimereAdvanced",
         "_",
         true,
         true,
         true,
         true,
-        2,
+        1,
         false,
         "jpg",
-        false,
-        false,
-        false,
+        true,
+        true,
+        true,
+        true,
         95,
         "false",
         false,
@@ -3924,7 +3691,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 968,
+          "link": 1003,
           "widget": {
             "name": "text"
           }
@@ -3940,6 +3707,250 @@
       ],
       "color": "#541454",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 147,
+      "type": "PrimereMetaCollector",
+      "pos": {
+        "0": 3530,
+        "1": 697
+      },
+      "size": [
+        338.3895317993547,
+        434
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CHECKPOINT_NAME",
+          "link": 1004
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": 1005
+        },
+        {
+          "name": "model_shapes",
+          "type": "TUPLE",
+          "link": 1006
+        },
+        {
+          "name": "vae_name_sd",
+          "type": "VAE_NAME",
+          "link": 1007
+        },
+        {
+          "name": "vae_name_sdxl",
+          "type": "VAE_NAME",
+          "link": 1008
+        },
+        {
+          "name": "preferred",
+          "type": "TUPLE",
+          "link": 1009
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 1024,
+          "widget": {
+            "name": "positive"
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 1011,
+          "widget": {
+            "name": "negative"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1025,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_l",
+          "type": "STRING",
+          "link": 1012,
+          "widget": {
+            "name": "positive_l"
+          }
+        },
+        {
+          "name": "negative_l",
+          "type": "STRING",
+          "link": 1013,
+          "widget": {
+            "name": "negative_l"
+          }
+        },
+        {
+          "name": "positive_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_r"
+          }
+        },
+        {
+          "name": "negative_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_r"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1014,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 1015,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "sampler",
+          "type": "COMBO",
+          "link": 1016,
+          "widget": {
+            "name": "sampler"
+          }
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": 1017,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 1018,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 1019,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 1020,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 1021,
+          "widget": {
+            "name": "steps"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            1022,
+            1023
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaCollector"
+      },
+      "widgets_values": [
+        "Red sportcar racing",
+        "Cute cat, nsfw, nude, nudity, porn",
+        1,
+        "randomize",
+        "",
+        "",
+        "",
+        "",
+        "BaseModel_1024",
+        "Normal",
+        "euler",
+        "normal",
+        512,
+        512,
+        7,
+        12
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
+      "id": 135,
+      "type": "PrimereSeed",
+      "pos": {
+        "0": 1139,
+        "1": 90
+      },
+      "size": {
+        "0": 285.2718505859375,
+        "1": 130
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            907,
+            908,
+            909,
+            934,
+            956,
+            1025
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        863908266458242,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -4224,78 +4235,6 @@
       "STRING"
     ],
     [
-      554,
-      3,
-      0,
-      114,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      556,
-      87,
-      3,
-      114,
-      2,
-      "TUPLE"
-    ],
-    [
-      557,
-      61,
-      0,
-      114,
-      3,
-      "VAE_NAME"
-    ],
-    [
-      558,
-      62,
-      0,
-      114,
-      4,
-      "VAE_NAME"
-    ],
-    [
-      559,
-      105,
-      3,
-      114,
-      5,
-      "TUPLE"
-    ],
-    [
-      564,
-      98,
-      3,
-      114,
-      12,
-      "STRING"
-    ],
-    [
-      568,
-      87,
-      0,
-      114,
-      16,
-      "INT"
-    ],
-    [
-      569,
-      87,
-      1,
-      114,
-      17,
-      "INT"
-    ],
-    [
-      572,
-      114,
-      0,
-      58,
-      0,
-      "*"
-    ],
-    [
       669,
       104,
       0,
@@ -4316,14 +4255,6 @@
       132,
       0,
       98,
-      1,
-      "TUPLE"
-    ],
-    [
-      840,
-      132,
-      0,
-      114,
       1,
       "TUPLE"
     ],
@@ -4550,46 +4481,6 @@
       133,
       27,
       "INT"
-    ],
-    [
-      870,
-      133,
-      0,
-      114,
-      14,
-      "COMBO"
-    ],
-    [
-      872,
-      133,
-      1,
-      114,
-      15,
-      "COMBO"
-    ],
-    [
-      874,
-      133,
-      2,
-      114,
-      19,
-      "INT"
-    ],
-    [
-      876,
-      133,
-      3,
-      114,
-      18,
-      "FLOAT"
-    ],
-    [
-      877,
-      133,
-      4,
-      114,
-      13,
-      "STRING"
     ],
     [
       878,
@@ -4992,30 +4883,6 @@
       "LATENT"
     ],
     [
-      966,
-      136,
-      1,
-      142,
-      0,
-      "IMAGE"
-    ],
-    [
-      967,
-      114,
-      0,
-      142,
-      1,
-      "TUPLE"
-    ],
-    [
-      968,
-      142,
-      0,
-      56,
-      0,
-      "STRING"
-    ],
-    [
       969,
       16,
       0,
@@ -5104,14 +4971,6 @@
       "*"
     ],
     [
-      996,
-      145,
-      2,
-      114,
-      6,
-      "STRING"
-    ],
-    [
       997,
       145,
       3,
@@ -5120,52 +4979,200 @@
       "*"
     ],
     [
-      998,
+      1001,
+      136,
+      1,
+      146,
+      0,
+      "IMAGE"
+    ],
+    [
+      1003,
+      146,
+      0,
+      56,
+      0,
+      "STRING"
+    ],
+    [
+      1004,
+      3,
+      0,
+      147,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      1005,
+      132,
+      0,
+      147,
+      1,
+      "TUPLE"
+    ],
+    [
+      1006,
+      87,
+      3,
+      147,
+      2,
+      "TUPLE"
+    ],
+    [
+      1007,
+      61,
+      0,
+      147,
+      3,
+      "VAE_NAME"
+    ],
+    [
+      1008,
+      62,
+      0,
+      147,
+      4,
+      "VAE_NAME"
+    ],
+    [
+      1009,
+      105,
+      3,
+      147,
+      5,
+      "TUPLE"
+    ],
+    [
+      1011,
       145,
       3,
-      114,
+      147,
       7,
       "STRING"
     ],
     [
-      999,
+      1012,
       145,
       4,
-      114,
-      8,
+      147,
+      9,
       "STRING"
     ],
     [
-      1000,
+      1013,
       145,
       5,
-      114,
-      9,
+      147,
+      10,
       "STRING"
+    ],
+    [
+      1014,
+      98,
+      3,
+      147,
+      13,
+      "STRING"
+    ],
+    [
+      1015,
+      133,
+      4,
+      147,
+      14,
+      "STRING"
+    ],
+    [
+      1016,
+      133,
+      0,
+      147,
+      15,
+      "COMBO"
+    ],
+    [
+      1017,
+      133,
+      1,
+      147,
+      16,
+      "COMBO"
+    ],
+    [
+      1018,
+      87,
+      0,
+      147,
+      17,
+      "INT"
+    ],
+    [
+      1019,
+      87,
+      1,
+      147,
+      18,
+      "INT"
+    ],
+    [
+      1020,
+      133,
+      3,
+      147,
+      19,
+      "FLOAT"
+    ],
+    [
+      1021,
+      133,
+      2,
+      147,
+      20,
+      "INT"
+    ],
+    [
+      1022,
+      147,
+      0,
+      58,
+      0,
+      "*"
+    ],
+    [
+      1023,
+      147,
+      0,
+      146,
+      1,
+      "TUPLE"
+    ],
+    [
+      1024,
+      145,
+      2,
+      147,
+      6,
+      "STRING"
+    ],
+    [
+      1025,
+      135,
+      0,
+      147,
+      8,
+      "INT"
     ]
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
+      "title": "Upscaler",
       "bounding": [
-        652,
-        20,
-        1150,
-        2037
+        2841,
+        19,
+        665,
+        635
       ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        -366,
-        20,
-        1010,
-        1470
-      ],
-      "color": "#8A8",
+      "color": "#b58b2a",
       "font_size": 24,
       "flags": {}
     },
@@ -5182,14 +5189,26 @@
       "flags": {}
     },
     {
-      "title": "Upscaler",
+      "title": "Prompt",
       "bounding": [
-        2841,
-        19,
-        665,
-        635
+        -366,
+        20,
+        1010,
+        1470
       ],
-      "color": "#b58b2a",
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
+      "bounding": [
+        652,
+        20,
+        1150,
+        2037
+      ],
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     }
@@ -5197,10 +5216,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 2.1435888100000073,
+      "scale": 0.7513148009015781,
       "offset": [
-        -2124.049393162291,
-        -440.7749099545873
+        -1153.1495317993563,
+        302.3972760291448
       ]
     }
   },

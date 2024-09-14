@@ -27,6 +27,7 @@ from ..utils import comfy_dir
 import clip
 from ..components.tree import PRIMERE_ROOT
 from comfy.cli_args import args
+from .modules import exif_data_checker
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -64,9 +65,10 @@ class PrimereMetaSave:
                 "filename_number_padding": ("INT", {"default": 2, "min": 1, "max": 9, "step": 1}),
                 "filename_number_start": ("BOOLEAN", {"default":False}),
                 "extension": (['png', 'jpeg', 'jpg', 'gif', 'tiff', 'webp'], {"default": "jpg"}),
-                "png_embed_workflow": ("BOOLEAN", {"default":False}),
+                "png_embed_workflow": ("BOOLEAN", {"default": False}),
                 "png_embed_data": ("BOOLEAN", {"default": False}),
-                "image_embed_exif": ("BOOLEAN", {"default":False}),
+                "image_embed_exif": ("BOOLEAN", {"default": False}),
+                "a1111_civitai_meta": ("BOOLEAN", {"default": False}),
                 "quality": ("INT", {"default": 95, "min": 1, "max": 100, "step": 1}),
                 "overwrite_mode": (["false", "prefix_as_filename"],),
                 "save_meta_to_json": ("BOOLEAN", {"default": False}),
@@ -85,7 +87,7 @@ class PrimereMetaSave:
                          output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, add_concept_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
-                         png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, save_image=True, aesthetic_trigger = 0):
+                         png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, a1111_civitai_meta=False, save_image=True, aesthetic_trigger = 0):
 
         if save_image == False:
             saved_info = "*** Image saver switched OFF, image not saved. ***"
@@ -239,26 +241,73 @@ class PrimereMetaSave:
             if os.path.exists(os.path.join(output_path, file)):
                 counter += 1
 
+        exif_metadata_A11 = None
+        try:
+            if 'positive' in image_metadata and 'negative' in image_metadata:
+                a11samplername = exif_data_checker.comfy_samplers2a11(image_metadata['sampler'], image_metadata['scheduler'])
+                image_metadata['vae'] = 'Baked VAE'
+                if 'model_hash' not in image_metadata:
+                    image_metadata['model_hash'] = 'unknown'
+                    if 'model' in image_metadata:
+                        checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
+                        model_full_path = checkpointpaths + os.sep + image_metadata['model']
+                        if os.path.isfile(model_full_path):
+                            image_metadata['model_hash'] = exif_data_checker.get_model_hash(model_full_path)
+
+                if 'is_sdxl' not in image_metadata:
+                    image_metadata['vae'] = 'Baked VAE'
+                else:
+                    if image_metadata['is_sdxl'] == 1:
+                        image_metadata['vae'] = image_metadata['vae_name_sdxl']
+                    else:
+                        image_metadata['vae'] = image_metadata['vae_name_sd']
+                    if image_metadata['vae'] is None:
+                        image_metadata['vae'] = 'Baked VAE'
+
+                exif_metadata_A11 = f"""{image_metadata['positive']}
+Negative prompt: {image_metadata['negative']}
+Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {str(image_metadata['cfg'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {Path((image_metadata['model'])).stem}, VAE: {image_metadata['vae']}"""
+        except Exception:
+            print('Cannot save A1111 compatible data')
+
         try:
             output_file = os.path.abspath(os.path.join(output_path, file))
-
-#            exif_metadata_A11 = None
-#             if 'positive' in image_metadata and 'negative' in image_metadata:
-#                a11samplername = exif_data_checker.comfy_samplers2a11(image_metadata['sampler'], image_metadata['scheduler'])
-#                exif_metadata_A11 = f"""{image_metadata['positive']}
-# Negative prompt: {image_metadata['negative']}
-# Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {str(image_metadata['cfg'])}, Seed: {str(image_metadata['seed'])}, Size: {str(image_metadata['width'])}x{str(image_metadata['height'])}, Model hash: {image_metadata['model_hash']}, Model: {image_metadata['model']}, VAE: {image_metadata['vae']}"""
-
             exif_metadata_json = image_metadata
-
             if extension == 'png':
                 if png_embed_data == True:
                     metadata.add_text("gendata", json.dumps(exif_metadata_json))
+                    print(f"{extension} Image file saved with description info: {output_file}")
+                #img.save(output_file, pnginfo=metadata, optimize=True)
+
+                if a1111_civitai_meta == True:
+                    if exif_metadata_A11:
+                        metadata.add_text("parameters", exif_metadata_A11)
+                        print(f"{extension} Image file saved with A1111 info: {output_file}")
                 img.save(output_file, pnginfo=metadata, optimize=True)
+                print(f"{extension} Image file saved with exif: {output_file}")
+
             elif extension == 'webp':
                 img.save(output_file, quality=quality, exif=metadata)
+                print(f"{extension} Image file saved with exif: {output_file}")
             else:
                 img.save(output_file, quality=quality, optimize=True)
+                metadata = pyexiv2.Image(output_file)
+                if image_embed_exif == True:
+                    metadata.modify_exif({'Exif.Image.ImageDescription': json.dumps(exif_metadata_json)})
+                    print(f"{extension} Image file saved with description exif: {output_file}")
+                if a1111_civitai_meta == True and exif_metadata_A11:
+                    metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
+                    print(f"{extension} Image file saved with A1111 exif: {output_file}")
+
+                if a1111_civitai_meta == False and image_embed_exif == False:
+                    if extension == 'webp':
+                        img.save(output_file, quality=quality, exif=metadata)
+                        print(f"{extension} Image file saved without exif: {output_file}")
+                    else:
+                        img.save(output_file, quality=quality, optimize=True)
+                        print(f"{extension} Image file saved without exif: {output_file}")
+
+                '''img.save(output_file, quality=quality, optimize=True)
                 if image_embed_exif == True:
                     metadata = pyexiv2.Image(output_file)
 #                     if exif_metadata_A11 is not None:
@@ -270,12 +319,13 @@ class PrimereMetaSave:
                         img.save(output_file, quality=quality, exif=metadata)
                     else:
                         img.save(output_file, quality=quality, optimize=True)
-                        print(f"Image file saved without exif: {output_file}")
+                        print(f"Image file saved without exif: {output_file}")'''
 
             if save_meta_to_json:
                 jsonfile = os.path.splitext(output_file)[0] + '.json'
                 with open(jsonfile, 'w', encoding='utf-8') as jf:
                     json.dump(exif_metadata_json, jf, ensure_ascii=False, indent=4)
+                    print(f"JSON file saved with generation data: {jsonfile}")
 
         except OSError as e:
             print(f'Unable to save file to: {output_file}')
@@ -314,8 +364,9 @@ class PrimereMetaSave:
 
         if save_info_to_txt:
             infofile = os.path.splitext(output_file)[0] + '.txt'
-            with open(infofile, 'w', encoding='utf-8', newline="") as infofile:
-                infofile.write(saved_info)
+            with open(infofile, 'w', encoding='utf-8', newline="") as inf:
+                inf.write(saved_info)
+                print(f"TXT file saved with generation data: {infofile}")
 
         return saved_info, {"ui": {"images": []}}
 
@@ -420,7 +471,7 @@ class PrimereMetaCollector:
             "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
             "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
         }, "optional": {
-            # "seed": ('INT', {"forceInput": True, "default": 1}),
+            "seed": ('INT', {"forceInput": True, "default": 1}),
             "positive_l": ('STRING', {"forceInput": True}),
             "negative_l": ('STRING', {"forceInput": True}),
             "positive_r": ('STRING', {"forceInput": True}),

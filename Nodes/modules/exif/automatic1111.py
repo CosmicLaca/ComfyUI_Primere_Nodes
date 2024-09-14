@@ -10,8 +10,6 @@ class Automatic1111(BaseFormat):
 
     def ProcessExif(self):
         exif_string = self._raw
-        # print(exif_string)
-
         EXIF_LABELS = {
             "positive":'Positive prompt',
             "negative":'Negative prompt',

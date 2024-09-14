@@ -29,8 +29,10 @@ class ComfyUI(BaseFormat):
 
     def _comfy_png(self):
         prompt = self._info.get("prompt") or {}
-        gendata = self._info.get("gendata") or {}
-        gendata_json = json.loads(gendata)
+        gendata_json = {}
+        if 'gendata' in self._info:
+            gendata = self._info.get("gendata") or {}
+            gendata_json = json.loads(gendata)
         workflow = self._info.get("workflow") or {}
         prompt_json = json.loads(prompt)
 

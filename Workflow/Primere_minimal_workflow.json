@@ -1,6 +1,6 @@
 {
-  "last_node_id": 78,
-  "last_link_id": 364,
+  "last_node_id": 84,
+  "last_link_id": 397,
   "nodes": [
     {
       "id": 43,
@@ -274,6 +274,52 @@
       "bgcolor": "#004000"
     },
     {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 702,
+        "1": 88
+      },
+      "size": {
+        "0": 471.04998779296875,
+        "1": 129.93345642089844
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            204,
+            271,
+            377
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "BestAll\\photon_v1.safetensors",
+        false,
+        true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 48,
       "type": "PrimereSamplersSteps",
       "pos": {
@@ -285,7 +331,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -293,7 +339,8 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            312
+            370,
+            382
           ],
           "slot_index": 0,
           "shape": 3
@@ -302,7 +349,8 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            313
+            313,
+            383
           ],
           "slot_index": 1,
           "shape": 3
@@ -311,7 +359,8 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            310
+            310,
+            387
           ],
           "slot_index": 2,
           "shape": 3
@@ -320,7 +369,8 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            311
+            311,
+            386
           ],
           "slot_index": 3,
           "shape": 3
@@ -350,7 +400,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -362,7 +412,8 @@
             292,
             294,
             309,
-            329
+            329,
+            388
           ],
           "slot_index": 0,
           "shape": 3
@@ -376,50 +427,6 @@
         null,
         null,
         null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 701,
-        "1": 88
-      },
-      "size": {
-        "0": 471.04998779296875,
-        "1": 129.93345642089844
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            204,
-            271
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -528,7 +535,10 @@
         {
           "name": "PREFERRED",
           "type": "TUPLE",
-          "links": null,
+          "links": [
+            378
+          ],
+          "slot_index": 3,
           "shape": 3
         }
       ],
@@ -620,7 +630,8 @@
           "links": [
             209,
             269,
-            358
+            358,
+            381
           ],
           "slot_index": 3,
           "shape": 3
@@ -732,7 +743,7 @@
       },
       "widgets_values": [
         "",
-        880026888468794,
+        396043507937775,
         "randomize"
       ],
       "color": "#145414",
@@ -787,7 +798,7 @@
       },
       "widgets_values": [
         "",
-        918880743606747,
+        227764056938106,
         "randomize"
       ],
       "color": "#145414",
@@ -839,7 +850,8 @@
           "type": "INT",
           "links": [
             327,
-            361
+            361,
+            384
           ],
           "slot_index": 0,
           "shape": 3
@@ -849,7 +861,8 @@
           "type": "INT",
           "links": [
             328,
-            362
+            362,
+            385
           ],
           "slot_index": 1,
           "shape": 3
@@ -881,7 +894,7 @@
         false,
         1.6,
         2.8,
-        1004662327655153,
+        195554554504307,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -1042,7 +1055,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        1118069845360984,
+        486470346011706,
         "randomize",
         false,
         "cpu",
@@ -1288,10 +1301,10 @@
         "0": 2166,
         "1": 92
       },
-      "size": [
-        335.9908669211645,
-        874
-      ],
+      "size": {
+        "0": 335.9908752441406,
+        "1": 874
+      },
       "flags": {},
       "order": 18,
       "mode": 0,
@@ -1448,26 +1461,38 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            394
+          ],
+          "shape": 3,
+          "slot_index": 2
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            395
+          ],
+          "shape": 3,
+          "slot_index": 3
         },
         {
           "name": "PROMPT L+",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            396
+          ],
+          "shape": 3,
+          "slot_index": 4
         },
         {
           "name": "PROMPT L-",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "links": [
+            397
+          ],
+          "shape": 3,
+          "slot_index": 5
         },
         {
           "name": "WORKFLOW_TUPLE",
@@ -1583,7 +1608,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 312,
+          "link": 370,
           "widget": {
             "name": "sampler_name"
           }
@@ -1625,7 +1650,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        517420617831863,
+        196739654180506,
         "randomize",
         20,
         8,
@@ -1643,6 +1668,207 @@
       "bgcolor": "#800000"
     },
     {
+      "id": 81,
+      "type": "PrimereMetaCollector",
+      "pos": {
+        "0": 3862.39990234375,
+        "1": 102
+      },
+      "size": {
+        "0": 432.51409912109375,
+        "1": 466.1705017089844
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CHECKPOINT_NAME",
+          "link": 377
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": null
+        },
+        {
+          "name": "model_shapes",
+          "type": "TUPLE",
+          "link": null
+        },
+        {
+          "name": "vae_name_sd",
+          "type": "VAE_NAME",
+          "link": null
+        },
+        {
+          "name": "vae_name_sdxl",
+          "type": "VAE_NAME",
+          "link": null
+        },
+        {
+          "name": "preferred",
+          "type": "TUPLE",
+          "link": 378
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 394,
+          "widget": {
+            "name": "positive"
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 395,
+          "widget": {
+            "name": "negative"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 388,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_l",
+          "type": "STRING",
+          "link": 396,
+          "widget": {
+            "name": "positive_l"
+          }
+        },
+        {
+          "name": "negative_l",
+          "type": "STRING",
+          "link": 397,
+          "widget": {
+            "name": "negative_l"
+          }
+        },
+        {
+          "name": "positive_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_r"
+          }
+        },
+        {
+          "name": "negative_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_r"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 381,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "sampler",
+          "type": "COMBO",
+          "link": 382,
+          "widget": {
+            "name": "sampler"
+          }
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": 383,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 384,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 385,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 386,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 387,
+          "widget": {
+            "name": "steps"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            391
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaCollector"
+      },
+      "widgets_values": [
+        "Red sportcar racing",
+        "Cute cat, nsfw, nude, nudity, porn",
+        519,
+        "randomize",
+        "",
+        "",
+        "",
+        "",
+        "BaseModel_1024",
+        "Normal",
+        "euler",
+        "normal",
+        512,
+        512,
+        7,
+        12
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
+    },
+    {
       "id": 16,
       "type": "VAEDecode",
       "pos": {
@@ -1654,7 +1880,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
@@ -1675,7 +1901,8 @@
           "type": "IMAGE",
           "links": [
             227,
-            284
+            284,
+            390
           ],
           "slot_index": 0,
           "shape": 3
@@ -1691,15 +1918,15 @@
       "id": 57,
       "type": "PrimerePreviewImage",
       "pos": {
-        "0": 2870,
-        "1": 55
+        "0": 2877,
+        "1": 53
       },
       "size": {
         "0": 949,
         "1": 1153
       },
       "flags": {},
-      "order": 21,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
@@ -1737,7 +1964,7 @@
         "1": 170.67408752441406
       },
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1766,10 +1993,113 @@
         true,
         false,
         false,
-        "704"
+        "688"
       ],
       "color": "#2c002c",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 83,
+      "type": "PrimereMetaSave",
+      "pos": {
+        "0": 3862.39990234375,
+        "1": 606
+      },
+      "size": {
+        "0": 434.2799987792969,
+        "1": 606
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 390
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 391
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            393
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        0,
+        "[time(%Y-%m-%d)]",
+        "Test",
+        true,
+        true,
+        "PrimereMinimal",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "png",
+        true,
+        true,
+        true,
+        true,
+        95,
+        "false",
+        false,
+        false
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
+    },
+    {
+      "id": 84,
+      "type": "PrimereTextOutput",
+      "pos": {
+        "0": 4310,
+        "1": 102
+      },
+      "size": {
+        "0": 765.8767700195312,
+        "1": 1108.580078125
+      },
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 393,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        "",
+        "*** Image saver switched OFF, image not saved. ***"
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
     }
   ],
   "links": [
@@ -2030,14 +2360,6 @@
       "FLOAT"
     ],
     [
-      312,
-      48,
-      0,
-      73,
-      8,
-      "COMBO"
-    ],
-    [
       313,
       48,
       1,
@@ -2188,9 +2510,165 @@
       73,
       2,
       "CONDITIONING"
+    ],
+    [
+      370,
+      48,
+      0,
+      73,
+      8,
+      "COMBO"
+    ],
+    [
+      377,
+      3,
+      0,
+      81,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      378,
+      56,
+      3,
+      81,
+      5,
+      "TUPLE"
+    ],
+    [
+      381,
+      54,
+      3,
+      81,
+      13,
+      "STRING"
+    ],
+    [
+      382,
+      48,
+      0,
+      81,
+      15,
+      "COMBO"
+    ],
+    [
+      383,
+      48,
+      1,
+      81,
+      16,
+      "COMBO"
+    ],
+    [
+      384,
+      51,
+      0,
+      81,
+      17,
+      "INT"
+    ],
+    [
+      385,
+      51,
+      1,
+      81,
+      18,
+      "INT"
+    ],
+    [
+      386,
+      48,
+      3,
+      81,
+      19,
+      "FLOAT"
+    ],
+    [
+      387,
+      48,
+      2,
+      81,
+      20,
+      "INT"
+    ],
+    [
+      388,
+      71,
+      0,
+      81,
+      8,
+      "INT"
+    ],
+    [
+      390,
+      16,
+      0,
+      83,
+      0,
+      "IMAGE"
+    ],
+    [
+      391,
+      81,
+      0,
+      83,
+      1,
+      "TUPLE"
+    ],
+    [
+      393,
+      83,
+      0,
+      84,
+      0,
+      "STRING"
+    ],
+    [
+      394,
+      78,
+      2,
+      81,
+      6,
+      "STRING"
+    ],
+    [
+      395,
+      78,
+      3,
+      81,
+      7,
+      "STRING"
+    ],
+    [
+      396,
+      78,
+      4,
+      81,
+      9,
+      "STRING"
+    ],
+    [
+      397,
+      78,
+      5,
+      81,
+      10,
+      "STRING"
     ]
   ],
   "groups": [
+    {
+      "title": "File saver",
+      "bounding": [
+        3842,
+        25,
+        1262,
+        1212
+      ],
+      "color": "#008040",
+      "font_size": 24,
+      "flags": {}
+    },
     {
       "title": "Dashboard settings",
       "bounding": [
@@ -2243,10 +2721,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.1000000000000003,
+      "scale": 0.8264462809917359,
       "offset": [
-        -1480.1726851029828,
-        -11.41483272205698
+        -1970.020531799355,
+        299.6142760291448
       ]
     }
   },

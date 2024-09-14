@@ -29,7 +29,7 @@ class ImageExifReader:
                 return False
             return True
 
-        with Image.open(file) as f:
+        with (Image.open(file) as f):
             p2metadata = pyexiv2.Image(file)
             is_primere = p2metadata.read_exif()
             if 'Exif.Image.ImageDescription' in is_primere:
@@ -37,20 +37,21 @@ class ImageExifReader:
                 self._original = primere_exif_string
                 if is_json(primere_exif_string) == True:
                     json_object = json.loads(primere_exif_string)
-                    # keysList = {'positive', 'negative', 'positive_l', 'negative_l', 'positive_r', 'negative_r', 'seed', 'model_hash', 'model_name', 'sampler_name'}
-                    # if not (keysList - json_object.keys()):
                     self._tool = "Primere"
                     self._parser = Primere(info=json_object)
             else:
                 if f.format == "PNG":
                     self._original = f.info
-                    if "parameters" in f.info:
-                        self._tool = "Automatic1111"
-                        self._parser = Automatic1111(info=f.info)
+                    if "gendata" in f.info:
+                        self._tool = "Primere"
+                        self._parser = Primere(info=f.info)
                     elif "prompt" in f.info:
                         self._tool = "ComfyUI"
+                        self._parser = ComfyUI(info=f.info)
+                    elif "parameters" in f.info:
+                        self._tool = "Automatic1111"
                         try:
-                            self._parser = ComfyUI(info=f.info)
+                            self._parser = Automatic1111(info=f.info)
                         except Exception:
                             self._parser = {}
 
