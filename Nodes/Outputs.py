@@ -53,7 +53,8 @@ class PrimereMetaSave:
                 "aesthetic_trigger": ("INT", {"default": 0, "min": 0, "max": 1000, "step": 1}),
                 "images": ("IMAGE",),
                 "output_path": ("STRING", {"default": '[time(%Y-%m-%d)]', "multiline": False}),
-                "subpath": (["None", "Dev", "Test", "Serie", "Production", "Preview", "NewModel", "Project", "Portfolio", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
+                "subpath": (["None", "Dev", "Test", "Serie", "Production", "Preview", "NewModel", "Project", "Portfolio", "Civitai", "Behance", "Facebook", "Instagram", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
+                "subpath_priority": ("BOOLEAN", {"default": False, "label_on": "Preferred", "label_off": "Selected subpath"}),
                 "add_modelname_to_path": ("BOOLEAN", {"default": False}),
                 "add_concept_to_path": ("BOOLEAN", {"default": False}),
                 "filename_prefix": ("STRING", {"default": "ComfyUI"}),
@@ -62,6 +63,7 @@ class PrimereMetaSave:
                 "add_time_to_filename": ("BOOLEAN", {"default": True}),
                 "add_seed_to_filename": ("BOOLEAN", {"default": True}),
                 "add_size_to_filename": ("BOOLEAN", {"default": True}),
+                "add_ascore_to_filename": ("BOOLEAN", {"default": True}),
                 "filename_number_padding": ("INT", {"default": 2, "min": 1, "max": 9, "step": 1}),
                 "filename_number_start": ("BOOLEAN", {"default":False}),
                 "extension": (['png', 'jpeg', 'jpg', 'gif', 'tiff', 'webp'], {"default": "jpg"}),
@@ -83,8 +85,8 @@ class PrimereMetaSave:
             },
         }
 
-    def save_images_meta(self, images, add_date_to_filename, add_time_to_filename, add_seed_to_filename, add_size_to_filename, save_meta_to_json, save_info_to_txt, image_metadata=None,
-                         output_path='[time(%Y-%m-%d)]', subpath='Project', add_modelname_to_path = False, add_concept_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
+    def save_images_meta(self, images, add_date_to_filename, add_time_to_filename, add_seed_to_filename, add_size_to_filename, add_ascore_to_filename, save_meta_to_json, save_info_to_txt, image_metadata=None,
+                         output_path='[time(%Y-%m-%d)]', subpath='Project', subpath_priority = False, add_modelname_to_path = False, add_concept_to_path = False, filename_prefix="ComfyUI", filename_delimiter='_',
                          extension='jpg', quality=95, prompt=None, extra_pnginfo=None,
                          overwrite_mode='false', filename_number_padding=2, filename_number_start=False,
                          png_embed_workflow=False, png_embed_data=False, image_embed_exif=False, a1111_civitai_meta=False, save_image=True, aesthetic_trigger = 0):
@@ -121,6 +123,10 @@ class PrimereMetaSave:
         if 'width' in image_metadata and 'height' in image_metadata:
             image_metadata['upscaler_ratio'] = 'From: ' + str(image_metadata['width']) + 'x' + str(image_metadata['height']) + ' to: '  + str(image_metadata['saved_image_width']) + 'x' + str(image_metadata['saved_image_heigth']) + ' Ratio: ' + str(round(round(image_metadata['saved_image_width'] / image_metadata['width'] / 0.05) * 0.05, 2))
 
+        if add_ascore_to_filename:
+            if 'aesthetic_score' in image_metadata:
+                if (image_metadata['aesthetic_score'].isdigit()) and int(image_metadata['aesthetic_score']) > 0:
+                    filename_prefix = filename_prefix + '_A' + str(image_metadata['aesthetic_score'])
         if add_date_to_filename:
             filename_prefix = filename_prefix + '_' + nowdate.strftime("%Y%d%m")
         if add_time_to_filename:
@@ -177,19 +183,27 @@ class PrimereMetaSave:
 
             ModelPath = Path(image_metadata['model'])
 
-            if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
+            if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 subpath = image_metadata['preferred']['subpath']
-
-            if subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
                 output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
             else:
-                output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
+                if subpath_priority == False and subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
+                    output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
+                else:
+                    output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
         else:
-            if 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
+            if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 path = Path(output_path)
                 ModelStartPath = output_path.replace(path.stem, '')
                 subpath = image_metadata['preferred']['subpath']
                 output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
+            else:
+                path = Path(output_path)
+                ModelStartPath = output_path.replace(path.stem, '')
+                if subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
+                    output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
+                else:
+                    output_path = ModelStartPath + os.sep + path.stem
 
         if output_path.strip() != '':
             if not os.path.isabs(output_path):
@@ -212,7 +226,6 @@ class PrimereMetaSave:
 
         file_extension = '.' + extension
         if file_extension not in ALLOWED_EXT:
-            # print(f"The extension `{extension}` is not valid. The valid formats are: {', '.join(sorted(ALLOWED_EXT))}")
             file_extension = "jpg"
 
         results = list()
@@ -306,20 +319,6 @@ Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {st
                     else:
                         img.save(output_file, quality=quality, optimize=True)
                         print(f"{extension} Image file saved without exif: {output_file}")
-
-                '''img.save(output_file, quality=quality, optimize=True)
-                if image_embed_exif == True:
-                    metadata = pyexiv2.Image(output_file)
-#                     if exif_metadata_A11 is not None:
-#                        metadata.modify_exif({'Exif.Photo.UserComment': 'charset=Unicode ' + exif_metadata_A11})
-                    metadata.modify_exif({'Exif.Image.ImageDescription': json.dumps(exif_metadata_json)})
-                    print(f"Image file saved with exif: {output_file}")
-                else:
-                    if extension == 'webp':
-                        img.save(output_file, quality=quality, exif=metadata)
-                    else:
-                        img.save(output_file, quality=quality, optimize=True)
-                        print(f"Image file saved without exif: {output_file}")'''
 
             if save_meta_to_json:
                 jsonfile = os.path.splitext(output_file)[0] + '.json'
