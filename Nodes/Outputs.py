@@ -488,7 +488,8 @@ class PrimereMetaCollector:
             "steps": ('INT', {"forceInput": True, "default": 12}),
             "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
             "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
-            "preferred": ("TUPLE", {"default": None, "forceInput": True})
+            "preferred": ("TUPLE", {"default": None, "forceInput": True}),
+            "aesthetic_score": ('INT', {"forceInput": True, "default": 0})
         },
     }
 

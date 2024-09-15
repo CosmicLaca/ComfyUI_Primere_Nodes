@@ -1,6 +1,6 @@
 {
-  "last_node_id": 147,
-  "last_link_id": 1025,
+  "last_node_id": 149,
+  "last_link_id": 1050,
   "nodes": [
     {
       "id": 61,
@@ -23,7 +23,7 @@
           "type": "VAE_NAME",
           "links": [
             203,
-            1007
+            1029
           ],
           "slot_index": 0,
           "shape": 3
@@ -60,7 +60,7 @@
           "type": "VAE_NAME",
           "links": [
             204,
-            1008
+            1030
           ],
           "slot_index": 0,
           "shape": 3
@@ -971,7 +971,7 @@
           "links": [
             146,
             456,
-            1004
+            1026
           ],
           "slot_index": 0,
           "shape": 3
@@ -991,6 +991,49 @@
         "BestAll\\photon_v1.safetensors",
         false,
         true
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 135,
+      "type": "PrimereSeed",
+      "pos": {
+        "0": 1139,
+        "1": 90
+      },
+      "size": {
+        "0": 285.2718505859375,
+        "1": 130
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            907,
+            908,
+            909,
+            934,
+            956,
+            1034
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        863908266458242,
+        null,
+        null,
+        null
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1100,7 +1143,7 @@
           "name": "PREFERRED",
           "type": "TUPLE",
           "links": [
-            1009
+            1031
           ],
           "slot_index": 3,
           "shape": 3
@@ -1393,7 +1436,7 @@
           "type": "COMBO",
           "links": [
             959,
-            1016
+            1039
           ],
           "shape": 3
         },
@@ -1402,7 +1445,7 @@
           "type": "COMBO",
           "links": [
             960,
-            1017
+            1040
           ],
           "shape": 3
         },
@@ -1411,7 +1454,7 @@
           "type": "INT",
           "links": [
             957,
-            1021
+            1044
           ],
           "shape": 3
         },
@@ -1420,7 +1463,7 @@
           "type": "FLOAT",
           "links": [
             958,
-            1020
+            1043
           ],
           "shape": 3
         },
@@ -1434,7 +1477,7 @@
             881,
             882,
             961,
-            1015
+            1038
           ],
           "shape": 3
         },
@@ -1738,7 +1781,7 @@
       },
       "widgets_values": [
         "",
-        24523547471514,
+        461955438459766,
         "randomize"
       ],
       "color": "#145414",
@@ -1793,7 +1836,7 @@
       },
       "widgets_values": [
         "",
-        908229652192206,
+        115630231234959,
         "randomize"
       ],
       "color": "#541414",
@@ -1957,7 +2000,7 @@
           "type": "TUPLE",
           "links": [
             839,
-            1005
+            1027
           ],
           "shape": 3
         }
@@ -2140,7 +2183,7 @@
             483,
             550,
             988,
-            1014
+            1037
           ],
           "slot_index": 3,
           "shape": 3
@@ -2446,7 +2489,7 @@
             336,
             932,
             991,
-            1018
+            1041
           ],
           "slot_index": 0,
           "shape": 3
@@ -2458,7 +2501,7 @@
             337,
             933,
             992,
-            1019
+            1042
           ],
           "slot_index": 1,
           "shape": 3
@@ -2473,7 +2516,7 @@
           "name": "MODEL_SHAPES",
           "type": "TUPLE",
           "links": [
-            1006
+            1028
           ],
           "slot_index": 3,
           "shape": 3
@@ -2493,7 +2536,7 @@
         false,
         1.6,
         2.8,
-        414705231953400,
+        512564116627057,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2745,7 +2788,7 @@
         1,
         0.8,
         1.4,
-        656227961658050,
+        1087819194754702,
         "randomize",
         false,
         "cpu",
@@ -2923,7 +2966,7 @@
           "type": "STRING",
           "links": [
             995,
-            1024
+            1032
           ],
           "shape": 3
         },
@@ -2932,7 +2975,7 @@
           "type": "STRING",
           "links": [
             997,
-            1011
+            1033
           ],
           "shape": 3
         },
@@ -2940,7 +2983,7 @@
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            1012
+            1035
           ],
           "shape": 3
         },
@@ -2948,7 +2991,7 @@
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            1013
+            1036
           ],
           "shape": 3
         },
@@ -3136,7 +3179,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        524105064623908,
+        297041294744294,
         "randomize",
         20,
         8,
@@ -3229,7 +3272,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 40,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -3264,37 +3307,6 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 58,
-      "type": "PrimereAnyOutput",
-      "pos": {
-        "0": 3888,
-        "1": 698
-      },
-      "size": {
-        "0": 611.3242797851562,
-        "1": 741.81298828125
-      },
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 1022
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    }\n}"
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 17,
       "type": "PreviewImage",
       "pos": {
@@ -3306,7 +3318,7 @@
         "1": 351.9628601074219
       },
       "flags": {},
-      "order": 42,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -3334,7 +3346,7 @@
         "1": 330
       },
       "flags": {},
-      "order": 43,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3444,7 +3456,7 @@
         "1": 168
       },
       "flags": {},
-      "order": 44,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -3462,7 +3474,9 @@
         {
           "name": "SCORE",
           "type": "INT",
-          "links": null,
+          "links": [
+            1050
+          ],
           "slot_index": 0,
           "shape": 3
         }
@@ -3474,7 +3488,7 @@
         true,
         false,
         false,
-        "715"
+        "665"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3491,7 +3505,7 @@
         "1": 258
       },
       "flags": {},
-      "order": 45,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -3541,7 +3555,7 @@
           "type": "IMAGE",
           "links": [
             916,
-            1001
+            1047
           ],
           "slot_index": 1,
           "shape": 3
@@ -3569,6 +3583,216 @@
       "bgcolor": "#353"
     },
     {
+      "id": 148,
+      "type": "PrimereMetaCollector",
+      "pos": {
+        "0": 3525,
+        "1": 743
+      },
+      "size": [
+        345.9321,
+        454
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CHECKPOINT_NAME",
+          "link": 1026
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": 1027
+        },
+        {
+          "name": "model_shapes",
+          "type": "TUPLE",
+          "link": 1028
+        },
+        {
+          "name": "vae_name_sd",
+          "type": "VAE_NAME",
+          "link": 1029
+        },
+        {
+          "name": "vae_name_sdxl",
+          "type": "VAE_NAME",
+          "link": 1030
+        },
+        {
+          "name": "preferred",
+          "type": "TUPLE",
+          "link": 1031
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 1032,
+          "widget": {
+            "name": "positive"
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 1033,
+          "widget": {
+            "name": "negative"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 1034,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "positive_l",
+          "type": "STRING",
+          "link": 1035,
+          "widget": {
+            "name": "positive_l"
+          }
+        },
+        {
+          "name": "negative_l",
+          "type": "STRING",
+          "link": 1036,
+          "widget": {
+            "name": "negative_l"
+          }
+        },
+        {
+          "name": "positive_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_r"
+          }
+        },
+        {
+          "name": "negative_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_r"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1037,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 1038,
+          "widget": {
+            "name": "model_concept"
+          }
+        },
+        {
+          "name": "sampler",
+          "type": "COMBO",
+          "link": 1039,
+          "widget": {
+            "name": "sampler"
+          }
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": 1040,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 1041,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 1042,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 1043,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 1044,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "aesthetic_score",
+          "type": "INT",
+          "link": 1050,
+          "widget": {
+            "name": "aesthetic_score"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            1045,
+            1048
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaCollector"
+      },
+      "widgets_values": [
+        "Red sportcar racing",
+        "Cute cat, nsfw, nude, nudity, porn",
+        1294,
+        "randomize",
+        "",
+        "",
+        "",
+        "",
+        "BaseModel_1024",
+        "Normal",
+        "euler",
+        "normal",
+        512,
+        512,
+        7,
+        12,
+        0
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
       "id": 113,
       "type": "PrimerePreviewImage",
       "pos": {
@@ -3580,7 +3804,7 @@
         "1": 895.507080078125
       },
       "flags": {},
-      "order": 46,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -3607,7 +3831,38 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 146,
+      "id": 58,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 3890,
+        "1": 743
+      },
+      "size": {
+        "0": 611.3242797851562,
+        "1": 741.81298828125
+      },
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 1045
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 863908266458242,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": \"665\",\n    \"saved_image_width\": 4096,\n    \"saved_image_heigth\": 2304,\n    \"upscaler_ratio\": \"From: 1024x576 to: 4096x2304 Ratio: 4.0\",\n    \"vae\": \"Baked VAE\",\n    \"model_hash\": \"ec41bd2a82\"\n}"
+      ],
+      "color": "#541454",
+      "bgcolor": "#400040"
+    },
+    {
+      "id": 149,
       "type": "PrimereMetaSave",
       "pos": {
         "0": 3523,
@@ -3615,7 +3870,7 @@
       },
       "size": {
         "0": 348.1172180175781,
-        "1": 606
+        "1": 654
       },
       "flags": {},
       "order": 47,
@@ -3624,12 +3879,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 1001
+          "link": 1047
         },
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 1023
+          "link": 1048
         }
       ],
       "outputs": [
@@ -3637,7 +3892,7 @@
           "name": "SAVED_INFO",
           "type": "STRING",
           "links": [
-            1003
+            1049
           ],
           "shape": 3
         }
@@ -3649,7 +3904,8 @@
         false,
         0,
         "[time(%Y-%m-%d)]",
-        "Project",
+        "Test",
+        true,
         true,
         true,
         "PrimereAdvanced",
@@ -3658,9 +3914,10 @@
         true,
         true,
         true,
-        1,
+        true,
+        2,
         false,
-        "jpg",
+        "png",
         true,
         true,
         true,
@@ -3680,10 +3937,10 @@
         "0": 3890,
         "1": 53
       },
-      "size": {
-        "0": 613.0707397460938,
-        "1": 528.1915893554688
-      },
+      "size": [
+        608.9321,
+        643.038
+      ],
       "flags": {},
       "order": 48,
       "mode": 0,
@@ -3691,7 +3948,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 1003,
+          "link": 1049,
           "widget": {
             "name": "text"
           }
@@ -3703,254 +3960,10 @@
       },
       "widgets_values": [
         "",
-        "*** Image saver switched OFF, image not saved. ***"
+        ":: Time to save: 2024-09-15 13:03:21\n:: Output file: H:\\ComfyUI\\output\\SD\\PHOTON_V1\\2024-09-15\\PrimereAdvanced_A665_20241509_130253_863908266458242_4096x2304_01.png\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\n:: NEGATIVE: (watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\n:: SEED: 863908266458242\n:: POSITIVE_R: None\n:: NEGATIVE_R: None\n:: MODEL: BestAll\\photon_v1.safetensors\n:: MODEL_VERSION: BaseModel_768\n:: MODEL_CONCEPT: Normal\n:: CONCEPT_DATA: {'lightning_selector': None, 'lightning_model_step': None, 'cascade_stage_a': None, 'cascade_stage_b': None, 'cascade_stage_c': None, 'cascade_clip': None, 'hypersd_selector': None, 'hypersd_model_step': None, 'flux_selector': None, 'flux_diffusion': None, 'flux_wight_dtype': None, 'flux_gguf': None, 'flux_clip_t5xxl': None, 'flux_clip_l': None, 'flux_clip_guidance': None, 'flux_vae': None, 'flux_sampler': None}\n:: SAMPLER: euler\n:: SCHEDULER: normal\n:: WIDTH: 1024\n:: HEIGHT: 576\n:: MODEL_SHAPES: {'SD': 768, 'SDXL': 1024, 'TURBO': 512}\n:: CFG: 8.0\n:: STEPS: 20\n:: VAE_NAME_SD: vae-ft-mse-840000-ema-pruned.safetensors\n:: VAE_NAME_SDXL: sdxl_vae.safetensors\n:: PREFERRED: {'subpath': None, 'model': None, 'orientation': None}\n:: AESTHETIC_SCORE: 665\n:: SAVED_IMAGE_WIDTH: 4096\n:: SAVED_IMAGE_HEIGTH: 2304\n:: UPSCALER_RATIO: From: 1024x576 to: 4096x2304 Ratio: 4.0\n:: VAE: Baked VAE\n:: MODEL_HASH: ec41bd2a82\n"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
-    },
-    {
-      "id": 147,
-      "type": "PrimereMetaCollector",
-      "pos": {
-        "0": 3530,
-        "1": 697
-      },
-      "size": [
-        338.3895317993547,
-        434
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "CHECKPOINT_NAME",
-          "link": 1004
-        },
-        {
-          "name": "concept_data",
-          "type": "TUPLE",
-          "link": 1005
-        },
-        {
-          "name": "model_shapes",
-          "type": "TUPLE",
-          "link": 1006
-        },
-        {
-          "name": "vae_name_sd",
-          "type": "VAE_NAME",
-          "link": 1007
-        },
-        {
-          "name": "vae_name_sdxl",
-          "type": "VAE_NAME",
-          "link": 1008
-        },
-        {
-          "name": "preferred",
-          "type": "TUPLE",
-          "link": 1009
-        },
-        {
-          "name": "positive",
-          "type": "STRING",
-          "link": 1024,
-          "widget": {
-            "name": "positive"
-          }
-        },
-        {
-          "name": "negative",
-          "type": "STRING",
-          "link": 1011,
-          "widget": {
-            "name": "negative"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 1025,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "positive_l",
-          "type": "STRING",
-          "link": 1012,
-          "widget": {
-            "name": "positive_l"
-          }
-        },
-        {
-          "name": "negative_l",
-          "type": "STRING",
-          "link": 1013,
-          "widget": {
-            "name": "negative_l"
-          }
-        },
-        {
-          "name": "positive_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "positive_r"
-          }
-        },
-        {
-          "name": "negative_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "negative_r"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 1014,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 1015,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "sampler",
-          "type": "COMBO",
-          "link": 1016,
-          "widget": {
-            "name": "sampler"
-          }
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "link": 1017,
-          "widget": {
-            "name": "scheduler"
-          }
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 1018,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 1019,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 1020,
-          "widget": {
-            "name": "cfg"
-          }
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 1021,
-          "widget": {
-            "name": "steps"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "METADATA",
-          "type": "TUPLE",
-          "links": [
-            1022,
-            1023
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
-      },
-      "widgets_values": [
-        "Red sportcar racing",
-        "Cute cat, nsfw, nude, nudity, porn",
-        1,
-        "randomize",
-        "",
-        "",
-        "",
-        "",
-        "BaseModel_1024",
-        "Normal",
-        "euler",
-        "normal",
-        512,
-        512,
-        7,
-        12
-      ],
-      "color": "#541454",
-      "bgcolor": "#400040"
-    },
-    {
-      "id": 135,
-      "type": "PrimereSeed",
-      "pos": {
-        "0": 1139,
-        "1": 90
-      },
-      "size": {
-        "0": 285.2718505859375,
-        "1": 130
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            907,
-            908,
-            909,
-            934,
-            956,
-            1025
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        863908266458242,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -4979,187 +4992,195 @@
       "*"
     ],
     [
-      1001,
-      136,
-      1,
-      146,
-      0,
-      "IMAGE"
-    ],
-    [
-      1003,
-      146,
-      0,
-      56,
-      0,
-      "STRING"
-    ],
-    [
-      1004,
+      1026,
       3,
       0,
-      147,
+      148,
       0,
       "CHECKPOINT_NAME"
     ],
     [
-      1005,
+      1027,
       132,
       0,
-      147,
+      148,
       1,
       "TUPLE"
     ],
     [
-      1006,
+      1028,
       87,
       3,
-      147,
+      148,
       2,
       "TUPLE"
     ],
     [
-      1007,
+      1029,
       61,
       0,
-      147,
+      148,
       3,
       "VAE_NAME"
     ],
     [
-      1008,
+      1030,
       62,
       0,
-      147,
+      148,
       4,
       "VAE_NAME"
     ],
     [
-      1009,
+      1031,
       105,
       3,
-      147,
+      148,
       5,
       "TUPLE"
     ],
     [
-      1011,
+      1032,
+      145,
+      2,
+      148,
+      6,
+      "STRING"
+    ],
+    [
+      1033,
       145,
       3,
-      147,
+      148,
       7,
       "STRING"
     ],
     [
-      1012,
+      1034,
+      135,
+      0,
+      148,
+      8,
+      "INT"
+    ],
+    [
+      1035,
       145,
       4,
-      147,
+      148,
       9,
       "STRING"
     ],
     [
-      1013,
+      1036,
       145,
       5,
-      147,
+      148,
       10,
       "STRING"
     ],
     [
-      1014,
+      1037,
       98,
       3,
-      147,
+      148,
       13,
       "STRING"
     ],
     [
-      1015,
+      1038,
       133,
       4,
-      147,
+      148,
       14,
       "STRING"
     ],
     [
-      1016,
+      1039,
       133,
       0,
-      147,
+      148,
       15,
       "COMBO"
     ],
     [
-      1017,
+      1040,
       133,
       1,
-      147,
+      148,
       16,
       "COMBO"
     ],
     [
-      1018,
+      1041,
       87,
       0,
-      147,
+      148,
       17,
       "INT"
     ],
     [
-      1019,
+      1042,
       87,
       1,
-      147,
+      148,
       18,
       "INT"
     ],
     [
-      1020,
+      1043,
       133,
       3,
-      147,
+      148,
       19,
       "FLOAT"
     ],
     [
-      1021,
+      1044,
       133,
       2,
-      147,
+      148,
       20,
       "INT"
     ],
     [
-      1022,
-      147,
+      1045,
+      148,
       0,
       58,
       0,
       "*"
     ],
     [
-      1023,
-      147,
+      1047,
+      136,
+      1,
+      149,
       0,
-      146,
+      "IMAGE"
+    ],
+    [
+      1048,
+      148,
+      0,
+      149,
       1,
       "TUPLE"
     ],
     [
-      1024,
-      145,
-      2,
-      147,
-      6,
+      1049,
+      149,
+      0,
+      56,
+      0,
       "STRING"
     ],
     [
-      1025,
-      135,
+      1050,
+      143,
       0,
-      147,
-      8,
+      148,
+      21,
       "INT"
     ]
   ],
@@ -5216,10 +5237,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015781,
+      "scale": 1,
       "offset": [
-        -1153.1495317993563,
-        302.3972760291448
+        -2183.0042036814425,
+        -1.0034545454543604
       ]
     }
   },
