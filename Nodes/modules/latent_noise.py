@@ -3,7 +3,6 @@ import torch.nn.functional as F
 import torch.nn as nn
 import torch.fft as fft
 import random
-from .latent_util import normalize
 
 class PowerLawNoise(nn.Module):
     def __init__(self, device='cpu'):
@@ -146,3 +145,16 @@ class PowerLawNoise(nn.Module):
         noise_image = noise_image.permute(0, 2, 3, 1).float()
 
         return noise_image.to(device="cpu")
+
+def normalize(latent, target_min=None, target_max=None):
+    min_val = latent.min()
+    max_val = latent.max()
+
+    if target_min is None:
+        target_min = min_val
+    if target_max is None:
+        target_max = max_val
+
+    normalized = (latent - min_val) / (max_val - min_val)
+    scaled = normalized * (target_max - target_min) + target_min
+    return scaled

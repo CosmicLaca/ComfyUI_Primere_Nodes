@@ -569,7 +569,10 @@ class PrimereKSampler:
                     denoise = workflow_tuple['sampler_settings']['denoise']
                     device = workflow_tuple['sampler_settings']['device']
                     align_your_steps = workflow_tuple['sampler_settings']['align_your_steps']
-                    variation_extender = workflow_tuple['sampler_settings']['noise_constant']
+                    if workflow_tuple['sampler_settings']['variation_level'] == True:
+                        variation_extender = workflow_tuple['sampler_settings']['noise_constant']
+                    else:
+                        variation_extender = workflow_tuple['sampler_settings']['variation_extender_original']
 
         samples_out = latent_image
         # out = latent_image.copy()

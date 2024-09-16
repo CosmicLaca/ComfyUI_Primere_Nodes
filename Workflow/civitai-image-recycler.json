@@ -1,13 +1,13 @@
 {
-  "last_node_id": 28,
-  "last_link_id": 196,
+  "last_node_id": 32,
+  "last_link_id": 230,
   "nodes": [
     {
       "id": 19,
       "type": "PrimereMetaHandler",
       "pos": {
-        "0": -25,
-        "1": -37
+        "0": -337,
+        "1": -14
       },
       "size": {
         "0": 802.5059814453125,
@@ -28,16 +28,19 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            148,
-            149
+            149,
+            224
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
           "name": "ORIGINAL_EXIF",
           "type": "TUPLE",
-          "links": null,
+          "links": [
+            230
+          ],
+          "slot_index": 1,
           "shape": 3
         },
         {
@@ -53,22 +56,32 @@
       "widgets_values": [
         true,
         true,
-        false,
-        true,
-        false,
-        true,
-        true,
-        true,
-        true,
         true,
         true,
         false,
         true,
+        true,
+        true,
+        true,
+        true,
+        true,
         false,
-        false,
-        false,
-        false,
+        true,
+        true,
+        true,
+        true,
+        true,
         "Image_20241109_114014_20141133468485_3512x2400_1.jpg",
+        "image",
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        "Image_20241409_202024_458111048054144_632x928_1.jpeg",
         "image"
       ]
     },
@@ -76,8 +89,8 @@
       "id": 26,
       "type": "PrimereMetaDistributor",
       "pos": {
-        "0": 808,
-        "1": -117
+        "0": 529,
+        "1": -85
       },
       "size": {
         "0": 355.20001220703125,
@@ -148,7 +161,7 @@
           "type": "STRING",
           "links": [
             155,
-            173
+            199
           ],
           "shape": 3
         },
@@ -158,8 +171,8 @@
           "links": [
             158,
             159,
-            176,
-            188
+            202,
+            220
           ],
           "shape": 3
         },
@@ -183,7 +196,7 @@
           "name": "SAMPLER",
           "type": "COMBO",
           "links": [
-            192
+            218
           ],
           "shape": 3
         },
@@ -191,7 +204,7 @@
           "name": "SCHEDULER",
           "type": "COMBO",
           "links": [
-            193
+            219
           ],
           "shape": 3
         },
@@ -199,7 +212,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            190
+            216
           ],
           "shape": 3
         },
@@ -207,7 +220,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            191
+            217
           ],
           "shape": 3
         },
@@ -215,8 +228,8 @@
           "name": "SEED",
           "type": "INT",
           "links": [
-            167,
-            189
+            215,
+            227
           ],
           "shape": 3
         },
@@ -224,8 +237,8 @@
           "name": "WIDTH",
           "type": "INT",
           "links": [
-            169,
-            177
+            203,
+            225
           ],
           "shape": 3
         },
@@ -233,8 +246,8 @@
           "name": "HEIGHT",
           "type": "INT",
           "links": [
-            171,
-            178
+            204,
+            226
           ],
           "shape": 3
         }
@@ -244,18 +257,47 @@
       }
     },
     {
+      "id": 32,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 533,
+        "1": 704
+      },
+      "size": {
+        "0": 979.1272583007812,
+        "1": 1271.1314697265625
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 230
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"decoded_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"model\": \"BestSci-fi\\\\rinamix3.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 458111048054144,\n    \"width\": 635,\n    \"height\": 928,\n    \"size_string\": \"635x928\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": false,\n        \"force_vae\": false,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": false,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"ComfyUI_00001_.png\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"white\",\n        \"alpha_exponent\": 4.037,\n        \"modulator\": 0.75,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": false,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            \"(analog style:1.1)\",\n            \"Last\"\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.1,\n        \"variation_seed\": 458111048054144,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"*** Aesthetic scorer off ***\",\n    \"saved_image_width\": 632,\n    \"saved_image_heigth\": 928,\n    \"upscaler_ratio\": \"From: 635x928 to: 632x928 Ratio: 1.0\",\n    \"vae\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"model_hash\": \"dedf1e6c80\"\n}"
+      ]
+    },
+    {
       "id": 20,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 1253,
-        "1": 138
+        "0": 1266,
+        "1": -46
       },
       "size": {
         "0": 324.0008850097656,
         "1": 238
       },
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
@@ -296,7 +338,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            174
+            200
           ],
           "shape": 3
         },
@@ -304,7 +346,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            175
+            201
           ],
           "shape": 3
         }
@@ -329,15 +371,15 @@
       "id": 24,
       "type": "PrimereCKPTLoader",
       "pos": {
-        "0": 809,
-        "1": 317
+        "0": 490,
+        "1": 339
       },
       "size": {
         "0": 369.4214782714844,
         "1": 206
       },
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -396,7 +438,7 @@
           "type": "VAE",
           "links": [
             141,
-            143
+            223
           ],
           "shape": 3
         },
@@ -411,7 +453,7 @@
         "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        false,
+        true,
         1,
         1,
         "Normal"
@@ -421,15 +463,15 @@
       "id": 17,
       "type": "PrimereNetworkTagLoader",
       "pos": {
-        "0": 842,
-        "1": 577
+        "0": 910,
+        "1": -59
       },
       "size": {
         "0": 315,
         "1": 586
       },
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -456,7 +498,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            184
+            210
           ],
           "slot_index": 0,
           "shape": 3
@@ -465,7 +507,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            172
+            197
           ],
           "slot_index": 1,
           "shape": 3
@@ -529,15 +571,15 @@
       "id": 5,
       "type": "PrimereVAELoader",
       "pos": {
-        "0": 1320,
-        "1": -85
+        "0": 1333,
+        "1": -148
       },
       "size": {
         "0": 210,
         "1": 46
       },
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -567,34 +609,34 @@
       }
     },
     {
-      "id": 25,
+      "id": 31,
       "type": "PrimereLatentNoise",
       "pos": {
-        "0": 1236,
-        "1": 582
+        "0": 1247,
+        "1": 230
       },
-      "size": [
-        333.2600000000002,
-        426
-      ],
+      "size": {
+        "0": 333.260009765625,
+        "1": 426
+      },
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 143
+          "link": 223
         },
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 148
+          "link": 224
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 169,
+          "link": 225,
           "widget": {
             "name": "width"
           }
@@ -602,7 +644,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 171,
+          "link": 226,
           "widget": {
             "name": "height"
           }
@@ -610,7 +652,7 @@
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 167,
+          "link": 227,
           "widget": {
             "name": "noise_seed"
           }
@@ -621,7 +663,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            187
+            228
           ],
           "shape": 3
         },
@@ -635,10 +677,9 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            183
+            229
           ],
-          "shape": 3,
-          "slot_index": 2
+          "shape": 3
         }
       ],
       "properties": {
@@ -657,7 +698,7 @@
         1,
         0.8,
         1.4,
-        0,
+        720217719095861,
         "randomize",
         false,
         "cpu",
@@ -665,24 +706,24 @@
       ]
     },
     {
-      "id": 27,
+      "id": 29,
       "type": "PrimereCLIPEncoder",
       "pos": {
         "0": 1642,
         "1": 573
       },
-      "size": [
-        388.46000000000004,
-        857.8400000000001
-      ],
+      "size": {
+        "0": 388.4599914550781,
+        "1": 874
+      },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 172
+          "link": 197
         },
         {
           "name": "model_keywords",
@@ -712,12 +753,12 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 183
+          "link": 229
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 173,
+          "link": 199,
           "widget": {
             "name": "model_version"
           }
@@ -725,7 +766,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 174,
+          "link": 200,
           "widget": {
             "name": "positive_prompt"
           }
@@ -733,7 +774,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 175,
+          "link": 201,
           "widget": {
             "name": "negative_prompt"
           }
@@ -741,7 +782,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 176,
+          "link": 202,
           "widget": {
             "name": "model_concept"
           }
@@ -797,7 +838,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 177,
+          "link": 203,
           "widget": {
             "name": "width"
           }
@@ -805,7 +846,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 178,
+          "link": 204,
           "widget": {
             "name": "height"
           }
@@ -816,7 +857,7 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            185
+            211
           ],
           "shape": 3
         },
@@ -824,7 +865,7 @@
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            186
+            212
           ],
           "shape": 3
         },
@@ -832,7 +873,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            181
+            207
           ],
           "shape": 3
         },
@@ -840,7 +881,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            182
+            208
           ],
           "shape": 3
         },
@@ -860,10 +901,9 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            195
+            214
           ],
-          "shape": 3,
-          "slot_index": 6
+          "shape": 3
         }
       ],
       "properties": {
@@ -874,6 +914,8 @@
         "",
         "",
         true,
+        "Default",
+        "Default",
         0,
         1.2,
         false,
@@ -914,13 +956,13 @@
         "1": 408.1000061035156
       },
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "text",
           "type": "STRING",
-          "link": 181,
+          "link": 207,
           "slot_index": 0,
           "widget": {
             "name": "text"
@@ -933,7 +975,7 @@
       },
       "widgets_values": [
         "",
-        "date in cofeebar with {sexy|average|homeless|rich elegant businesswoman|beautiful|model look} {25|30|35|40|45|50|55} year old {French|italian|norvegian|hungarian|american white|american black|mexican latina|latina|spanish|litvanian|german|escimo} woman, drinking coffee from {small|normal|large} {white|red|green|blue|normal} porcelain coffee cup, and glass of {beer|wine|Champagne|coke|limonade|cocktail|whiskey} at {indoor|outdoor|garden} desk of cosy {modern|retro|futurist|spaceship|luxury|poor, neglected} cofeebar at beautiful city, {hills|lake|ocean|large city|office building|forest|nature} at the background, {sunny|rainy|cold|windy|stormy|quiet|cloudy|nice|beautiful|pleasant} weather at season of {summer|winter|spring|autumn} at time of {morning|daytime|night|evening}, woman looking at {viewer|street}, having hot steaming coffee coffee in her {desk|hand}, {smoking cigarette|talking|laughing}, happy, smiling, flirting, sexi erotic face, natural breasts, beautiful sexy neckline, wear {light|dark}-{red|brown|green|white|black|yellow|pink|blue|cyan|purple|grey|elegant}-{red|brown|green|white|black|yellow|pink|blue|cyan|purple} {luxury|elegant|cool|short|transparent|silk|leather|jeans} top and {visible|hidden} bra, {long|short|curly|fashioned|painted|cropped shorn} {light|dark}-{red|black|brown|blonde|pink|blue} hair, nice blue eyes. Professional {sfw|nsfw} portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands"
+        "friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights, (analog style:1.1)"
       ]
     },
     {
@@ -948,13 +990,13 @@
         "1": 413.2881774902344
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "text",
           "type": "STRING",
-          "link": 182,
+          "link": 208,
           "slot_index": 0,
           "widget": {
             "name": "text"
@@ -967,11 +1009,11 @@
       },
       "widgets_values": [
         "",
-        "(child, childish, boring, watermark, text, logo, plastic mug, makeup, perfect skin:1.20)"
+        "(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20)"
       ]
     },
     {
-      "id": 28,
+      "id": 30,
       "type": "PrimereKSampler",
       "pos": {
         "0": 1670,
@@ -979,41 +1021,41 @@
       },
       "size": {
         "0": 323.2222595214844,
-        "1": 358
+        "1": 378
       },
       "flags": {},
-      "order": 10,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 184
+          "link": 210
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 185
+          "link": 211
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 186
+          "link": 212
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 187
+          "link": 228
         },
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 195
+          "link": 214
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 189,
+          "link": 215,
           "widget": {
             "name": "seed"
           }
@@ -1021,7 +1063,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 190,
+          "link": 216,
           "widget": {
             "name": "steps"
           }
@@ -1029,7 +1071,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 191,
+          "link": 217,
           "widget": {
             "name": "cfg"
           }
@@ -1037,7 +1079,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 192,
+          "link": 218,
           "widget": {
             "name": "sampler_name"
           }
@@ -1045,7 +1087,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 193,
+          "link": 219,
           "widget": {
             "name": "scheduler_name"
           }
@@ -1053,7 +1095,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 188,
+          "link": 220,
           "widget": {
             "name": "model_concept"
           }
@@ -1064,7 +1106,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            194
+            221
           ],
           "shape": 3
         },
@@ -1072,17 +1114,16 @@
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
           "links": [
-            196
+            222
           ],
-          "shape": 3,
-          "slot_index": 1
+          "shape": 3
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        0,
+        55927740297238,
         "randomize",
         20,
         8,
@@ -1101,21 +1142,21 @@
       "id": 8,
       "type": "VAEDecode",
       "pos": {
-        "0": 1718,
-        "1": -93
+        "0": 1829,
+        "1": -153
       },
       "size": {
         "0": 210,
         "1": 46
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 194
+          "link": 221
         },
         {
           "name": "vae",
@@ -1145,18 +1186,18 @@
         "0": 2100,
         "1": 800
       },
-      "size": [
-        1459.1800000000003,
-        1038.3400000000001
-      ],
+      "size": {
+        "0": 1459.1800537109375,
+        "1": 1038.3399658203125
+      },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 196
+          "link": 222
         }
       ],
       "outputs": [],
@@ -1164,7 +1205,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 32,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in cofeebar with {sexy|average|homeless|rich elegant businesswoman|beautiful|model look} {25|30|35|40|45|50|55} year old {French|italian|norvegian|hungarian|american white|american black|mexican latina|latina|spanish|litvanian|german|escimo} woman, drinking coffee from {small|normal|large} {white|red|green|blue|normal} porcelain coffee cup, and glass of {beer|wine|Champagne|coke|limonade|cocktail|whiskey} at {indoor|outdoor|garden} desk of cosy {modern|retro|futurist|spaceship|luxury|poor, neglected} cofeebar at beautiful city, {hills|lake|ocean|large city|office building|forest|nature} at the background, {sunny|rainy|cold|windy|stormy|quiet|cloudy|nice|beautiful|pleasant} weather at season of {summer|winter|spring|autumn} at time of {morning|daytime|night|evening}, woman looking at {viewer|street}, having hot steaming coffee coffee in her {desk|hand}, {smoking cigarette|talking|laughing}, happy, smiling, flirting, sexi erotic face, natural breasts, beautiful sexy neckline, wear {light|dark}-{red|brown|green|white|black|yellow|pink|blue|cyan|purple|grey|elegant}-{red|brown|green|white|black|yellow|pink|blue|cyan|purple} {luxury|elegant|cool|short|transparent|silk|leather|jeans} top and {visible|hidden} bra, {long|short|curly|fashioned|painted|cropped shorn} {light|dark}-{red|black|brown|blonde|pink|blue} hair, nice blue eyes. Professional {sfw|nsfw} portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"child, childish, boring, watermark, text, logo, plastic mug, makeup, perfect skin\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in cofeebar with beautiful 40 year old hungarian woman, drinking coffee from normal green porcelain coffee cup, and glass of Champagne at outdoor desk of cosy spaceship cofeebar at beautiful city, hills at the background, rainy weather at season of winter at time of night, woman looking at viewer, having hot steaming coffee coffee in her desk, smoking cigarette, happy, smiling, flirting, sexi erotic face, natural breasts, beautiful sexy neckline, wear dark-elegant-brown transparent top and hidden bra, long light-brown hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"child, childish, boring, watermark, text, logo, plastic mug, makeup, perfect skin\",\n    \"model\": \"SDXL\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"vae\": \"External VAE\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.ckpt\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"normal\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 563445045167746,\n    \"width\": 850,\n    \"height\": 1234,\n    \"size_string\": \"850x1234\",\n    \"preferred\": {\n        \"subpath\": \"Coffee\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 2400,\n    \"saved_image_heigth\": 3488,\n    \"upscaler_ratio\": \"From: 850x1234 to: 2400x3488 Ratio: 2.8\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"Image_20242908_200216_563445045167746_2400x3488_1.jpeg\"\n    }\n}"
+        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 39,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Decoded\",\n    \"decoded_positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"decoded_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"model\": \"BestSci-fi\\\\rinamix3.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"model_hash\": \"dedf1e6c80\",\n    \"vae\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 458111048054144,\n    \"width\": 635,\n    \"height\": 928,\n    \"size_string\": \"635x928\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 632,\n    \"saved_image_heigth\": 928,\n    \"upscaler_ratio\": \"From: 635x928 to: 632x928 Ratio: 1.0\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Image_20241409_202024_458111048054144_632x928_1.jpeg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"white\",\n        \"alpha_exponent\": 4.037,\n        \"modulator\": 0.75,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": false,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            \"(analog style:1.1)\",\n            \"Last\"\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.06,\n        \"variation_seed\": 458111048054144,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"*** Aesthetic scorer off ***\"\n}"
       ]
     },
     {
@@ -1179,7 +1220,7 @@
         "1": 915
       },
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -1234,22 +1275,6 @@
       5,
       1,
       "VAE"
-    ],
-    [
-      143,
-      24,
-      2,
-      25,
-      0,
-      "VAE"
-    ],
-    [
-      148,
-      19,
-      0,
-      25,
-      1,
-      "TUPLE"
     ],
     [
       149,
@@ -1332,210 +1357,234 @@
       "VAE_NAME"
     ],
     [
-      167,
-      26,
-      15,
-      25,
-      4,
-      "INT"
-    ],
-    [
-      169,
-      26,
-      16,
-      25,
-      2,
-      "INT"
-    ],
-    [
-      171,
-      26,
-      17,
-      25,
-      3,
-      "INT"
-    ],
-    [
-      172,
+      197,
       17,
       1,
-      27,
+      29,
       0,
       "CLIP"
     ],
     [
-      173,
+      199,
       26,
       7,
-      27,
+      29,
       7,
       "STRING"
     ],
     [
-      174,
+      200,
       20,
       0,
-      27,
+      29,
       8,
       "STRING"
     ],
     [
-      175,
+      201,
       20,
       1,
-      27,
+      29,
       9,
       "STRING"
     ],
     [
-      176,
+      202,
       26,
       8,
-      27,
+      29,
       10,
       "STRING"
     ],
     [
-      177,
+      203,
       26,
       16,
-      27,
+      29,
       17,
       "INT"
     ],
     [
-      178,
+      204,
       26,
       17,
-      27,
+      29,
       18,
       "INT"
     ],
     [
-      181,
-      27,
+      207,
+      29,
       2,
       13,
       0,
       "STRING"
     ],
     [
-      182,
-      27,
+      208,
+      29,
       3,
       14,
       0,
       "STRING"
     ],
     [
-      183,
-      25,
-      2,
-      27,
-      6,
-      "TUPLE"
-    ],
-    [
-      184,
+      210,
       17,
       0,
-      28,
+      30,
       0,
       "MODEL"
     ],
     [
-      185,
-      27,
+      211,
+      29,
       0,
-      28,
+      30,
       1,
       "CONDITIONING"
     ],
     [
-      186,
-      27,
+      212,
+      29,
       1,
-      28,
+      30,
       2,
       "CONDITIONING"
     ],
     [
-      187,
-      25,
-      0,
-      28,
-      3,
-      "LATENT"
-    ],
-    [
-      188,
-      26,
-      8,
-      28,
-      10,
-      "STRING"
-    ],
-    [
-      189,
-      26,
-      15,
-      28,
-      5,
-      "INT"
-    ],
-    [
-      190,
-      26,
-      13,
-      28,
+      214,
+      29,
       6,
-      "INT"
-    ],
-    [
-      191,
-      26,
-      14,
-      28,
-      7,
-      "FLOAT"
-    ],
-    [
-      192,
-      26,
-      11,
-      28,
-      8,
-      "COMBO"
-    ],
-    [
-      193,
-      26,
-      12,
-      28,
-      9,
-      "COMBO"
-    ],
-    [
-      194,
-      28,
-      0,
-      8,
-      0,
-      "LATENT"
-    ],
-    [
-      195,
-      27,
-      6,
-      28,
+      30,
       4,
       "TUPLE"
     ],
     [
-      196,
-      28,
+      215,
+      26,
+      15,
+      30,
+      5,
+      "INT"
+    ],
+    [
+      216,
+      26,
+      13,
+      30,
+      6,
+      "INT"
+    ],
+    [
+      217,
+      26,
+      14,
+      30,
+      7,
+      "FLOAT"
+    ],
+    [
+      218,
+      26,
+      11,
+      30,
+      8,
+      "COMBO"
+    ],
+    [
+      219,
+      26,
+      12,
+      30,
+      9,
+      "COMBO"
+    ],
+    [
+      220,
+      26,
+      8,
+      30,
+      10,
+      "STRING"
+    ],
+    [
+      221,
+      30,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      222,
+      30,
       1,
       4,
+      0,
+      "*"
+    ],
+    [
+      223,
+      24,
+      2,
+      31,
+      0,
+      "VAE"
+    ],
+    [
+      224,
+      19,
+      0,
+      31,
+      1,
+      "TUPLE"
+    ],
+    [
+      225,
+      26,
+      16,
+      31,
+      2,
+      "INT"
+    ],
+    [
+      226,
+      26,
+      17,
+      31,
+      3,
+      "INT"
+    ],
+    [
+      227,
+      26,
+      15,
+      31,
+      4,
+      "INT"
+    ],
+    [
+      228,
+      31,
+      0,
+      30,
+      3,
+      "LATENT"
+    ],
+    [
+      229,
+      31,
+      2,
+      29,
+      6,
+      "TUPLE"
+    ],
+    [
+      230,
+      19,
+      1,
+      32,
       0,
       "*"
     ]
@@ -1544,11 +1593,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": [
-        -114.14500000000045,
-        241.9309999999997
-      ]
+      "scale": 0.6830134553650705,
+      "offset": {
+        "0": 445.03485107421875,
+        "1": 338.7959899902344
+      }
     }
   },
   "version": 0.4

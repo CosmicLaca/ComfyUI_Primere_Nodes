@@ -871,6 +871,16 @@ class PrimereCLIP:
                     sdxl_l_strength = workflow_tuple['prompt_encoder']['sdxl_l_strength']
                     clip_model = workflow_tuple['prompt_encoder']['clip_model']
                     longclip_model = workflow_tuple['prompt_encoder']['longclip_model']
+                    if 'use_int_style' in workflow_tuple['prompt_encoder']:
+                        use_int_style = workflow_tuple['prompt_encoder']['use_int_style']
+                    if 'int_style_pos' in workflow_tuple['prompt_encoder']:
+                        int_style_pos = workflow_tuple['prompt_encoder']['int_style_pos']
+                    if 'int_style_pos_strength' in workflow_tuple['prompt_encoder']:
+                        int_style_pos_strength = workflow_tuple['prompt_encoder']['int_style_pos_strength']
+                    if 'int_style_neg' in workflow_tuple['prompt_encoder']:
+                        int_style_neg = workflow_tuple['prompt_encoder']['int_style_neg']
+                    if 'int_style_neg_strength' in workflow_tuple['prompt_encoder']:
+                        int_style_neg_strength = workflow_tuple['prompt_encoder']['int_style_neg_strength']
                 if workflow_tuple['setup_states']['clip_optional_prompts'] == True:
                     opt_pos_prompt = workflow_tuple['prompt_encoder']['opt_pos_prompt']
                     opt_pos_strength = workflow_tuple['prompt_encoder']['opt_pos_strength']
@@ -882,11 +892,12 @@ class PrimereCLIP:
                     style_neg_prompt = workflow_tuple['prompt_encoder']['style_neg_prompt']
                     style_neg_strength = workflow_tuple['prompt_encoder']['style_neg_strength']
                     style_position = workflow_tuple['prompt_encoder']['style_position']
-                # if workflow_tuple['setup_states']['lora_setup'] == True:
-                # if workflow_tuple['setup_states']['lycoris_setup'] == True:
-                # if workflow_tuple['setup_states']['embedding_setup'] == True:
-                # if workflow_tuple['setup_states']['hypernetwork_setup'] == True:
-                # if workflow_tuple['setup_states']['clip_additional_keywords'] == True:
+                if workflow_tuple['setup_states']['clip_additional_keywords'] == True:
+                    model_keywords = workflow_tuple['prompt_encoder']['model_keywords']
+                    lora_keywords = workflow_tuple['prompt_encoder']['lora_keywords']
+                    lycoris_keywords = workflow_tuple['prompt_encoder']['lycoris_keywords']
+                    embedding_pos = workflow_tuple['prompt_encoder']['embedding_pos']
+                    embedding_neg = workflow_tuple['prompt_encoder']['embedding_neg']
 
         if workflow_tuple is None:
             workflow_tuple = {}
@@ -1062,6 +1073,7 @@ class PrimereCLIP:
             workflow_tuple['prompt_encoder']['clip_mode'] = clip_mode
             workflow_tuple['prompt_encoder']['last_layer'] = last_layer
             workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
+            workflow_tuple['prompt_encoder']['use_int_style'] = use_int_style
             if use_int_style == True and int_style_pos != 'None':
                 workflow_tuple['prompt_encoder']['int_style_pos'] = int_style_pos
                 workflow_tuple['prompt_encoder']['int_style_pos_strength'] = int_style_pos_strength

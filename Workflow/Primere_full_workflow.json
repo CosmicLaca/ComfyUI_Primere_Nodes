@@ -1,6 +1,6 @@
 {
-  "last_node_id": 215,
-  "last_link_id": 1351,
+  "last_node_id": 222,
+  "last_link_id": 1401,
   "nodes": [
     {
       "id": 9,
@@ -1591,7 +1591,7 @@
         "Node name for S&R": "PrimereCKPT"
       },
       "widgets_values": [
-        "BestAll\\realisticVisionV60B1_v51VAE.safetensors"
+        "BestAll\\realisticDigital_v60.safetensors"
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -2809,7 +2809,7 @@
         false,
         1.6,
         2.8,
-        689085724387149,
+        1124281515622652,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -3049,10 +3049,10 @@
         "0": 2805.13525390625,
         "1": 570.244140625
       },
-      "size": [
-        343.5819497751936,
-        454
-      ],
+      "size": {
+        "0": 343.5819396972656,
+        "1": 454
+      },
       "flags": {},
       "order": 36,
       "mode": 0,
@@ -3232,7 +3232,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        807,
+        185,
         "randomize",
         "",
         "",
@@ -3301,7 +3301,14 @@
       "widgets_values": [
         false,
         true,
+        true,
+        true,
         false,
+        true,
+        true,
+        true,
+        true,
+        true,
         true,
         false,
         true,
@@ -3310,23 +3317,16 @@
         true,
         true,
         true,
-        false,
         true,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        "00002-20230721155912-1209539307.jpg",
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        "Image_20241509_174516_764267940815467_840x1232_1.jpg",
         "image"
       ],
       "color": "#541414",
@@ -3743,14 +3743,14 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            270,
-            271,
-            272,
-            273,
-            274,
-            275,
-            336,
-            1295
+            1295,
+            1354,
+            1361,
+            1368,
+            1375,
+            1381,
+            1385,
+            1390
           ],
           "slot_index": 3,
           "shape": 3
@@ -3937,7 +3937,14 @@
           "type": "TUPLE",
           "links": [
             800,
-            1237
+            1237,
+            1395,
+            1396,
+            1397,
+            1398,
+            1399,
+            1400,
+            1401
           ],
           "slot_index": 3,
           "shape": 3
@@ -3947,7 +3954,7 @@
         "Node name for S&R": "PrimereMetaDistributorStage2"
       },
       "widgets_values": [
-        29395181205674,
+        129567469514210,
         "randomize",
         512,
         512
@@ -4002,190 +4009,6 @@
       "bgcolor": "#000080"
     },
     {
-      "id": 77,
-      "type": "PrimereVisualEmbedding",
-      "pos": {
-        "0": 3783,
-        "1": -1787
-      },
-      "size": {
-        "0": 451.0870361328125,
-        "1": 770
-      },
-      "flags": {},
-      "order": 47,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 273,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
-          "links": [
-            255
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
-          "links": [
-            257
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING_STACK",
-          "type": "EMBEDDING_STACK",
-          "links": [
-            1245
-          ],
-          "slot_index": 2,
-          "shape": 3
-        }
-      ],
-      "title": "SD - Primere Visual Embedding Selector",
-      "properties": {
-        "Node name for S&R": "PrimereVisualEmbedding"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "SD",
-        false,
-        true,
-        false,
-        "Negative\\BadNegAnatomy.pt",
-        0.75,
-        true,
-        false,
-        "Photo\\kkw-photoreal.bin",
-        0.5,
-        false,
-        false,
-        "Style\\Winter.pt",
-        0.9,
-        false,
-        false,
-        "Style\\Spring.pt",
-        0.7000000000000001,
-        false,
-        false,
-        "Negative\\bhands-neg.pt",
-        0.6,
-        true,
-        false,
-        "Style\\Paintmagic.pt",
-        0.8,
-        false,
-        "First",
-        "First"
-      ],
-      "color": "#6c006c",
-      "bgcolor": "#800080"
-    },
-    {
-      "id": 78,
-      "type": "PrimereVisualEmbedding",
-      "pos": {
-        "0": 4239.412109375,
-        "1": -1786.6644287109375
-      },
-      "size": {
-        "0": 451.0313415527344,
-        "1": 770
-      },
-      "flags": {},
-      "order": 48,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 274,
-          "widget": {
-            "name": "model_version"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
-          "links": [
-            256
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
-          "links": [
-            258
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING_STACK",
-          "type": "EMBEDDING_STACK",
-          "links": [
-            1246
-          ],
-          "slot_index": 2,
-          "shape": 3
-        }
-      ],
-      "title": "SDXL - Primere Visual Embedding Selector",
-      "properties": {
-        "Node name for S&R": "PrimereVisualEmbedding"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "SDXL",
-        false,
-        true,
-        false,
-        "SDXL\\negativeXL_D.safetensors",
-        0.65,
-        true,
-        false,
-        "SDXL\\unaestheticXL_hk1.safetensors",
-        1,
-        false,
-        false,
-        "SDXL\\negativeXL_D.safetensors",
-        1,
-        true,
-        false,
-        "SDXL\\peopleneg.safetensors",
-        1,
-        false,
-        false,
-        "SDXL\\ImgFixerPre0.3.safetensors",
-        0.5,
-        false,
-        false,
-        "SDXL\\unaestheticXL_hk1.safetensors",
-        0.8,
-        false,
-        "First",
-        "First"
-      ],
-      "color": "#6c002c",
-      "bgcolor": "#800040"
-    },
-    {
       "id": 48,
       "type": "PrimereDynamicParser",
       "pos": {
@@ -4197,7 +4020,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 49,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -4234,7 +4057,7 @@
       },
       "widgets_values": [
         "",
-        435128294238832,
+        778023938831916,
         "randomize"
       ],
       "color": "#232",
@@ -4252,7 +4075,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 50,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -4289,7 +4112,7 @@
       },
       "widgets_values": [
         "",
-        502311726131873,
+        509410695609225,
         "randomize"
       ],
       "color": "#322",
@@ -4307,7 +4130,7 @@
         26
       ],
       "flags": {},
-      "order": 51,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -4354,7 +4177,7 @@
         "1": 426
       },
       "flags": {},
-      "order": 52,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -4435,7 +4258,7 @@
         1.1500000000000001,
         0.9,
         1.25,
-        868288374937537,
+        914418090268602,
         "randomize",
         true,
         "cpu",
@@ -4443,6 +4266,192 @@
       ],
       "color": "#941414",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 220,
+      "type": "PrimereVisualEmbedding",
+      "pos": {
+        "0": 3783,
+        "1": -1787
+      },
+      "size": {
+        "0": 451.0870361328125,
+        "1": 770
+      },
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1399
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1381,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            1382
+          ],
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            1383
+          ],
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING_STACK",
+          "type": "EMBEDDING_STACK",
+          "links": [
+            1384
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualEmbedding"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SD",
+        false,
+        true,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        false,
+        "Character\\21charturnerv2.pt",
+        1,
+        false,
+        "Last",
+        "Last"
+      ],
+      "color": "#6c006c",
+      "bgcolor": "#800080"
+    },
+    {
+      "id": 221,
+      "type": "PrimereVisualEmbedding",
+      "pos": {
+        "0": 4239.412109375,
+        "1": -1786.6644287109375
+      },
+      "size": {
+        "0": 451.0313415527344,
+        "1": 770
+      },
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1400
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 1385,
+          "widget": {
+            "name": "model_version"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            1386
+          ],
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            1387
+          ],
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING_STACK",
+          "type": "EMBEDDING_STACK",
+          "links": [
+            1388
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualEmbedding"
+      },
+      "widgets_values": [
+        "BaseModel_1024",
+        "SDXL",
+        false,
+        true,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        false,
+        "SDXL\\Arcpastel.safetensors",
+        1,
+        false,
+        "Last",
+        "Last"
+      ],
+      "color": "#6c002c",
+      "bgcolor": "#800040"
     },
     {
       "id": 124,
@@ -4483,68 +4492,6 @@
       "bgcolor": "#533"
     },
     {
-      "id": 79,
-      "type": "PrimereEmbeddingKeywordMerger",
-      "pos": {
-        "0": 3782.412109375,
-        "1": -980.6644897460938
-      },
-      "size": {
-        "0": 910.1212158203125,
-        "1": 86
-      },
-      "flags": {},
-      "order": 54,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "embedding_pos_SD",
-          "type": "EMBEDDING",
-          "link": 255
-        },
-        {
-          "name": "embedding_pos_SDXL",
-          "type": "EMBEDDING",
-          "link": 256
-        },
-        {
-          "name": "embedding_neg_SD",
-          "type": "EMBEDDING",
-          "link": 257
-        },
-        {
-          "name": "embedding_neg_SDXL",
-          "type": "EMBEDDING",
-          "link": 258
-        }
-      ],
-      "outputs": [
-        {
-          "name": "EMBEDDING+",
-          "type": "EMBEDDING",
-          "links": [
-            1292
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "EMBEDDING-",
-          "type": "EMBEDDING",
-          "links": [
-            1293
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereEmbeddingKeywordMerger"
-      },
-      "color": "#b0004e",
-      "bgcolor": "#c40062"
-    },
-    {
       "id": 51,
       "type": "PrimereClearPrompt",
       "pos": {
@@ -4556,7 +4503,7 @@
         "1": 238
       },
       "flags": {},
-      "order": 55,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -4644,7 +4591,7 @@
         "1": 338.87738037109375
       },
       "flags": {},
-      "order": 56,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4659,6 +4606,68 @@
       },
       "color": "#941414",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 79,
+      "type": "PrimereEmbeddingKeywordMerger",
+      "pos": {
+        "0": 3782.412109375,
+        "1": -980.6644897460938
+      },
+      "size": {
+        "0": 910.1212158203125,
+        "1": 86
+      },
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "embedding_pos_SD",
+          "type": "EMBEDDING",
+          "link": 1382
+        },
+        {
+          "name": "embedding_pos_SDXL",
+          "type": "EMBEDDING",
+          "link": 1386
+        },
+        {
+          "name": "embedding_neg_SD",
+          "type": "EMBEDDING",
+          "link": 1383
+        },
+        {
+          "name": "embedding_neg_SDXL",
+          "type": "EMBEDDING",
+          "link": 1387
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDDING+",
+          "type": "EMBEDDING",
+          "links": [
+            1292
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "EMBEDDING-",
+          "type": "EMBEDDING",
+          "links": [
+            1293
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereEmbeddingKeywordMerger"
+      },
+      "color": "#b0004e",
+      "bgcolor": "#c40062"
     },
     {
       "id": 38,
@@ -4787,7 +4796,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            265
+            1352
           ],
           "slot_index": 0,
           "shape": 3
@@ -4796,7 +4805,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            266
+            1353
           ],
           "slot_index": 1,
           "shape": 3
@@ -4871,10 +4880,10 @@
         "0": 3793,
         "1": 1383
       },
-      "size": [
-        280.7622036814437,
-        54
-      ],
+      "size": {
+        "0": 280.76220703125,
+        "1": 54
+      },
       "flags": {},
       "order": 59,
       "mode": 0,
@@ -4927,7 +4936,7 @@
       "bgcolor": "#01325f"
     },
     {
-      "id": 74,
+      "id": 216,
       "type": "PrimereVisualLORA",
       "pos": {
         "0": 1807,
@@ -4944,17 +4953,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 265
+          "link": 1352
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 266
+          "link": 1353
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1395
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 336,
+          "link": 1354,
           "widget": {
             "name": "model_version"
           }
@@ -4965,40 +4979,35 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            244
+            1359
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            245
+            1360
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
           "name": "LORA_STACK",
           "type": "LORA_STACK",
           "links": [
-            1241
+            1357
           ],
-          "slot_index": 2,
           "shape": 3
         },
         {
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            251
+            1358
           ],
-          "slot_index": 3,
           "shape": 3
         }
       ],
-      "title": "SD - Primere Visual LORA Selector",
       "properties": {
         "Node name for S&R": "PrimereVisualLORA"
       },
@@ -5010,31 +5019,31 @@
         false,
         false,
         "Style\\add_detail.safetensors",
-        1.2,
-        1.3,
-        false,
-        "Style\\Pencil_Sketch.safetensors",
-        1,
-        1.2,
-        false,
-        ".NSFW\\cowgirl_position-v2.safetensors",
-        1,
-        0.4,
-        false,
-        "noOne\\noOne25.safetensors",
         1,
         1,
         false,
-        "Design\\logo_v1.safetensors",
+        "Style\\add_detail.safetensors",
         1,
         1,
         false,
-        "Style\\Pencil_Sketch.safetensors",
+        "Style\\add_detail.safetensors",
+        1,
+        1,
+        false,
+        "Style\\add_detail.safetensors",
+        1,
+        1,
+        false,
+        "Style\\add_detail.safetensors",
+        1,
+        1,
+        false,
+        "Style\\add_detail.safetensors",
         1,
         1,
         true,
         "Last",
-        "Random select",
+        "Select in order",
         1,
         1
       ],
@@ -5131,7 +5140,7 @@
       "bgcolor": "#0060bf"
     },
     {
-      "id": 75,
+      "id": 217,
       "type": "PrimereVisualLORA",
       "pos": {
         "0": 2281.619140625,
@@ -5148,17 +5157,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 244
+          "link": 1359
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 245
+          "link": 1360
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1396
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 270,
+          "link": 1361,
           "widget": {
             "name": "model_version"
           }
@@ -5169,40 +5183,35 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            246
+            1366
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            247
+            1367
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
           "name": "LORA_STACK",
           "type": "LORA_STACK",
           "links": [
-            1242
+            1364
           ],
-          "slot_index": 2,
           "shape": 3
         },
         {
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            252
+            1365
           ],
-          "slot_index": 3,
           "shape": 3
         }
       ],
-      "title": "SDXL - Primere Visual LORA Selector",
       "properties": {
         "Node name for S&R": "PrimereVisualLORA"
       },
@@ -5213,32 +5222,32 @@
         true,
         false,
         false,
-        "SDXL\\DetailedEyes_V3.safetensors",
-        1.2,
-        1.2,
+        "SDXL\\add-detail.safetensors",
+        1,
+        1,
         false,
         "SDXL\\add-detail.safetensors",
-        2,
-        2,
+        1,
+        1,
         false,
-        "SDXL\\breasts_slider_v10.safetensors",
-        -3,
-        -2,
+        "SDXL\\add-detail.safetensors",
+        1,
+        1,
         false,
-        "SDXL\\betterfaces_v3.safetensors",
-        0.75,
-        0.7000000000000001,
+        "SDXL\\add-detail.safetensors",
+        1,
+        1,
         false,
-        "SDXL\\Helena.safetensors",
-        0.5,
-        0.6,
+        "SDXL\\add-detail.safetensors",
+        1,
+        1,
         false,
-        "SDXL\\Dalia.safetensors",
-        0.5,
-        0.7000000000000001,
+        "SDXL\\add-detail.safetensors",
+        1,
+        1,
         true,
-        "First",
-        "Random select",
+        "Last",
+        "Select in order",
         1,
         1
       ],
@@ -5332,7 +5341,7 @@
       "bgcolor": "#533"
     },
     {
-      "id": 82,
+      "id": 218,
       "type": "PrimereVisualLYCORIS",
       "pos": {
         "0": 2755,
@@ -5349,19 +5358,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 246,
-          "slot_index": 0
+          "link": 1366
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 247,
-          "slot_index": 1
+          "link": 1367
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1397
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 271,
+          "link": 1368,
           "widget": {
             "name": "model_version"
           }
@@ -5372,40 +5384,35 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            248
+            1373
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            249
+            1374
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
           "name": "LYCORIS_STACK",
           "type": "LYCORIS_STACK",
           "links": [
-            1243
+            1371
           ],
-          "slot_index": 2,
           "shape": 3
         },
         {
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            253
+            1372
           ],
-          "slot_index": 3,
           "shape": 3
         }
       ],
-      "title": "SD - Primere Visual LYCORIS Selector",
       "properties": {
         "Node name for S&R": "PrimereVisualLYCORIS"
       },
@@ -5416,32 +5423,32 @@
         true,
         false,
         false,
-        "Character\\kisslora.safetensors",
-        0.7000000000000001,
-        0.3,
-        false,
-        "Exterior\\miniatureWorldStyle_v10.safetensors",
-        0.8,
-        0.9500000000000001,
-        false,
-        "Photo\\selfiearm.safetensors",
+        "Character\\GoodHands-beta2.safetensors",
         1,
         1,
         false,
-        "Photo\\publicPhoto_v3.0.safetensors",
+        "Character\\GoodHands-beta2.safetensors",
         1,
         1,
         false,
-        "Wear\\VolleyballUniform_v20.safetensors",
+        "Character\\GoodHands-beta2.safetensors",
         1,
         1,
         false,
-        "Wear\\edgButterflyBarbarian.safetensors",
+        "Character\\GoodHands-beta2.safetensors",
+        1,
+        1,
+        false,
+        "Character\\GoodHands-beta2.safetensors",
+        1,
+        1,
+        false,
+        "Character\\GoodHands-beta2.safetensors",
         1,
         1,
         true,
-        "First",
-        "Random select",
+        "Last",
+        "Select in order",
         1,
         1
       ],
@@ -5466,12 +5473,12 @@
         {
           "name": "lora_keyword_SD",
           "type": "MODEL_KEYWORD",
-          "link": 251
+          "link": 1358
         },
         {
           "name": "lora_keyword_SDXL",
           "type": "MODEL_KEYWORD",
-          "link": 252
+          "link": 1365
         },
         {
           "name": "lora_keyword_tagloader",
@@ -5647,7 +5654,7 @@
         1,
         0,
         0,
-        379726096494962,
+        602889194927390,
         "randomize",
         "mean",
         "comfy++",
@@ -5820,7 +5827,7 @@
         1,
         0,
         0,
-        88066458369616,
+        241585430648892,
         "randomize",
         "mean",
         "comfy++",
@@ -5993,7 +6000,7 @@
         1,
         0,
         0,
-        978708802148840,
+        229692603861480,
         "randomize",
         "mean",
         "comfy++",
@@ -6166,7 +6173,7 @@
         1,
         0,
         0,
-        65617433972852,
+        866237035416627,
         "randomize",
         "mean",
         "comfy++",
@@ -6189,7 +6196,7 @@
       "bgcolor": "#925a2e"
     },
     {
-      "id": 83,
+      "id": 219,
       "type": "PrimereVisualLYCORIS",
       "pos": {
         "0": 3274.412109375,
@@ -6206,19 +6213,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 248,
-          "slot_index": 0
+          "link": 1373
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 249,
-          "slot_index": 1
+          "link": 1374
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1398
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 272,
+          "link": 1375,
           "widget": {
             "name": "model_version"
           }
@@ -6229,41 +6239,36 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            276
+            1389
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            610,
-            1288
+            1377,
+            1378
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
           "name": "LYCORIS_STACK",
           "type": "LYCORIS_STACK",
           "links": [
-            1244
+            1379
           ],
-          "slot_index": 2,
           "shape": 3
         },
         {
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            254
+            1380
           ],
-          "slot_index": 3,
           "shape": 3
         }
       ],
-      "title": "SDXL - Primere Visual LYCORIS Selector",
       "properties": {
         "Node name for S&R": "PrimereVisualLYCORIS"
       },
@@ -6274,32 +6279,32 @@
         true,
         false,
         false,
-        "Photo\\BikeMaker.safetensors",
-        0.5,
-        0.5,
-        false,
-        "SDXL\\cyberfuture.safetensors",
+        "SDXL\\4.AnimAl.safetensors",
         1,
         1,
         false,
-        ".NSFW\\CumOnTongue-000020.safetensors",
+        "SDXL\\4.AnimAl.safetensors",
         1,
         1,
         false,
-        "SDXL\\FF-Style-Dall-e-FFusion-Surrealism.safetensors",
+        "SDXL\\4.AnimAl.safetensors",
         1,
         1,
         false,
-        ".NSFW\\CumOnTongue-000020.safetensors",
+        "SDXL\\4.AnimAl.safetensors",
         1,
         1,
         false,
-        ".NSFW\\CumOnTongue-000020.safetensors",
+        "SDXL\\4.AnimAl.safetensors",
+        1,
+        1,
+        false,
+        "SDXL\\4.AnimAl.safetensors",
         1,
         1,
         true,
-        "First",
-        "Random select",
+        "Last",
+        "Select in order",
         1,
         1
       ],
@@ -6307,16 +6312,16 @@
       "bgcolor": "#0000a0"
     },
     {
-      "id": 80,
+      "id": 222,
       "type": "PrimereVisualHypernetwork",
       "pos": {
         "0": 4697,
         "1": -1787
       },
-      "size": {
-        "0": 462.353759765625,
-        "1": 582
-      },
+      "size": [
+        463.26909838776555,
+        602
+      ],
       "flags": {},
       "order": 72,
       "mode": 0,
@@ -6324,12 +6329,17 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 276
+          "link": 1389
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 1401
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 275,
+          "link": 1390,
           "widget": {
             "name": "model_version"
           }
@@ -6340,20 +6350,18 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            609,
-            1226
+            1391,
+            1392
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "HYPERNETWORK_STACK",
           "type": "HYPERNETWORK_STACK",
           "links": [
-            1247,
-            1248
+            1393,
+            1394
           ],
-          "slot_index": 1,
           "shape": 3
         }
       ],
@@ -6367,22 +6375,22 @@
         false,
         true,
         false,
-        "Photo\\ProjectPhoto.pt",
+        "Character\\Dr0ne.pt",
         1,
         false,
-        "Character\\matrixGirl02_v10.pt",
-        0.3,
-        false,
-        "Photo\\ladybreBaroqueA_v10.pt",
+        "Character\\Dr0ne.pt",
         1,
         false,
-        "Photo\\ExteriorDesign.pt",
-        1.2,
-        false,
-        "Character\\witchblade_10k.pt",
+        "Character\\Dr0ne.pt",
         1,
         false,
-        "Style\\LuisapAbstract.pt",
+        "Character\\Dr0ne.pt",
+        1,
+        false,
+        "Character\\Dr0ne.pt",
+        1,
+        false,
+        "Character\\Dr0ne.pt",
         1
       ],
       "color": "#853900",
@@ -6406,7 +6414,7 @@
         {
           "name": "value",
           "type": "*",
-          "link": 610,
+          "link": 1377,
           "label": " "
         }
       ],
@@ -6444,12 +6452,12 @@
         {
           "name": "lycoris_keyword_SD",
           "type": "MODEL_KEYWORD",
-          "link": 253
+          "link": 1372
         },
         {
           "name": "lycoris_keyword_SDXL",
           "type": "MODEL_KEYWORD",
-          "link": 254
+          "link": 1380
         },
         {
           "name": "lycoris_keyword_tagloader",
@@ -6492,7 +6500,7 @@
         {
           "name": "value",
           "type": "*",
-          "link": 609,
+          "link": 1391,
           "label": " "
         }
       ],
@@ -6530,42 +6538,42 @@
         {
           "name": "lora_sd",
           "type": "LORA_STACK",
-          "link": 1241
+          "link": 1357
         },
         {
           "name": "lora_sdxl",
           "type": "LORA_STACK",
-          "link": 1242
+          "link": 1364
         },
         {
           "name": "embedding_sd",
           "type": "EMBEDDING_STACK",
-          "link": 1245
+          "link": 1384
         },
         {
           "name": "embedding_sdxl",
           "type": "EMBEDDING_STACK",
-          "link": 1246
+          "link": 1388
         },
         {
           "name": "hypernetwork_sd",
           "type": "HYPERNETWORK_STACK",
-          "link": 1247
+          "link": 1393
         },
         {
           "name": "hypernetwork_sdxl",
           "type": "HYPERNETWORK_STACK",
-          "link": 1248
+          "link": 1394
         },
         {
           "name": "lycoris_sd",
           "type": "LYCORIS_STACK",
-          "link": 1243
+          "link": 1371
         },
         {
           "name": "lycoris_sdxl",
           "type": "LYCORIS_STACK",
-          "link": 1244
+          "link": 1379
         }
       ],
       "outputs": [
@@ -6603,7 +6611,7 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 1288
+          "link": 1378
         },
         {
           "name": "model_keywords",
@@ -6950,6 +6958,7 @@
         }
       ],
       "outputs": [],
+      "title": "Primere Any Debug - Prompt L-",
       "properties": {
         "Node name for S&R": "PrimereAnyOutput"
       },
@@ -6977,7 +6986,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 1226
+          "link": 1392
         },
         {
           "name": "positive",
@@ -7071,7 +7080,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        568363376022217,
+        914139717746946,
         "randomize",
         20,
         8,
@@ -7246,7 +7255,7 @@
         true,
         false,
         false,
-        "750"
+        "739"
       ],
       "color": "#520052",
       "bgcolor": "#660066"
@@ -7652,7 +7661,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        516490789610713,
+        926518502341329,
         "randomize",
         "euler",
         "simple",
@@ -7672,6 +7681,38 @@
       ],
       "color": "#886029",
       "bgcolor": "#9c743d"
+    },
+    {
+      "id": 29,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 6723,
+        "1": -674
+      },
+      "size": {
+        "0": 1454.8902587890625,
+        "1": 2153.1845703125
+      },
+      "flags": {},
+      "order": 91,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 1258
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - WORKFLOW",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"739\",\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Image_20241509_174516_764267940815467_840x1232_1.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 3.208,\n        \"modulator\": 0.14,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Default\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": true,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.96,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    }\n}"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
     },
     {
       "id": 186,
@@ -8048,7 +8089,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        727806204848699,
+        742333766595484,
         "randomize",
         "euler",
         "normal",
@@ -8444,7 +8485,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        507117754707502,
+        117730845510328,
         "randomize",
         "euler",
         "simple",
@@ -8840,7 +8881,7 @@
         "Node name for S&R": "PrimereAnyDetailer"
       },
       "widgets_values": [
-        87966040052953,
+        158434920377720,
         "randomize",
         "euler",
         "simple",
@@ -9118,7 +9159,7 @@
       },
       "widgets_values": [
         2.1,
-        926885370148085,
+        150052489153040,
         "randomize",
         7,
         6.5,
@@ -9340,10 +9381,10 @@
         "0": 7107,
         "1": -1374
       },
-      "size": [
-        1418.281203681443,
-        655.7034545454537
-      ],
+      "size": {
+        "0": 1418.28125,
+        "1": 655.7034301757812
+      },
       "flags": {},
       "order": 110,
       "mode": 0,
@@ -9368,38 +9409,6 @@
       ],
       "color": "#002c6c",
       "bgcolor": "#004080"
-    },
-    {
-      "id": 29,
-      "type": "PrimereAnyOutput",
-      "pos": {
-        "0": 6723,
-        "1": -674
-      },
-      "size": [
-        1454.8902036814443,
-        2153.184454545454
-      ],
-      "flags": {},
-      "order": 91,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 1258
-        }
-      ],
-      "outputs": [],
-      "title": "Primere Any Debug - WORKFLOW",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"date in drinkbar with average 40 year old norvegian woman, drinking caffee from small red elegant designed porcelain cup in garden of cosy cofeebar at beautiful village, ocean and hills at the background, quiet weather at season of summer at time of morning, woman looking at street, having hot steaming coffee in her hand, laughing, happy, smiling, flirting, beautiful sexy neckline, wear light-blue-brown luxury top and hidden bra, painted dark-blonde hair, nice blue eyes. Professional sfw portrait photography. high detailed skin with small blemishes, perfect nails, perfect hands\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 30,\n    \"cfg\": 7.0,\n    \"seed\": 29758785466977,\n    \"width\": 1024,\n    \"height\": 576,\n    \"size_string\": \"1024x576\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"750\",\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": false,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": false,\n        \"model_concept\": false,\n        \"latent_setup\": false,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": false,\n        \"clip_optional_prompts\": false,\n        \"clip_style_prompts\": false,\n        \"clip_additional_keywords\": false,\n        \"preferred\": false,\n        \"use_preferred\": false,\n        \"image\": \"00002-20230721155912-1209539307.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"brownian_fractal\",\n        \"alpha_exponent\": -0.628,\n        \"modulator\": 1.17,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Default\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"BETTER_IMAGES\",\n        \"int_style_neg_strength\": 1.0,\n        \"adv_encode\": true,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.04,\n        \"variation_seed\": 29758785466977,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    }\n}"
-      ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159"
     }
   ],
   "links": [
@@ -9948,118 +9957,6 @@
       "STRING"
     ],
     [
-      244,
-      74,
-      0,
-      75,
-      0,
-      "MODEL"
-    ],
-    [
-      245,
-      74,
-      1,
-      75,
-      1,
-      "CLIP"
-    ],
-    [
-      246,
-      75,
-      0,
-      82,
-      0,
-      "MODEL"
-    ],
-    [
-      247,
-      75,
-      1,
-      82,
-      1,
-      "CLIP"
-    ],
-    [
-      248,
-      82,
-      0,
-      83,
-      0,
-      "MODEL"
-    ],
-    [
-      249,
-      82,
-      1,
-      83,
-      1,
-      "CLIP"
-    ],
-    [
-      251,
-      74,
-      3,
-      76,
-      0,
-      "MODEL_KEYWORD"
-    ],
-    [
-      252,
-      75,
-      3,
-      76,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
-      253,
-      82,
-      3,
-      81,
-      0,
-      "MODEL_KEYWORD"
-    ],
-    [
-      254,
-      83,
-      3,
-      81,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
-      255,
-      77,
-      0,
-      79,
-      0,
-      "EMBEDDING"
-    ],
-    [
-      256,
-      78,
-      0,
-      79,
-      1,
-      "EMBEDDING"
-    ],
-    [
-      257,
-      77,
-      1,
-      79,
-      2,
-      "EMBEDDING"
-    ],
-    [
-      258,
-      78,
-      1,
-      79,
-      3,
-      "EMBEDDING"
-    ],
-    [
       261,
       52,
       5,
@@ -10074,86 +9971,6 @@
       81,
       2,
       "MODEL_KEYWORD"
-    ],
-    [
-      265,
-      52,
-      0,
-      74,
-      0,
-      "MODEL"
-    ],
-    [
-      266,
-      52,
-      1,
-      74,
-      1,
-      "CLIP"
-    ],
-    [
-      270,
-      30,
-      3,
-      75,
-      2,
-      "STRING"
-    ],
-    [
-      271,
-      30,
-      3,
-      82,
-      2,
-      "STRING"
-    ],
-    [
-      272,
-      30,
-      3,
-      83,
-      2,
-      "STRING"
-    ],
-    [
-      273,
-      30,
-      3,
-      77,
-      0,
-      "STRING"
-    ],
-    [
-      274,
-      30,
-      3,
-      78,
-      0,
-      "STRING"
-    ],
-    [
-      275,
-      30,
-      3,
-      80,
-      1,
-      "STRING"
-    ],
-    [
-      276,
-      83,
-      0,
-      80,
-      0,
-      "MODEL"
-    ],
-    [
-      336,
-      30,
-      3,
-      74,
-      2,
-      "STRING"
     ],
     [
       447,
@@ -10208,22 +10025,6 @@
       24,
       0,
       126,
-      0,
-      "*"
-    ],
-    [
-      609,
-      80,
-      0,
-      122,
-      0,
-      "*"
-    ],
-    [
-      610,
-      83,
-      1,
-      123,
       0,
       "*"
     ],
@@ -11596,14 +11397,6 @@
       "IMAGE"
     ],
     [
-      1226,
-      80,
-      0,
-      204,
-      0,
-      "MODEL"
-    ],
-    [
       1229,
       201,
       0,
@@ -11676,70 +11469,6 @@
       "TUPLE"
     ],
     [
-      1241,
-      74,
-      2,
-      205,
-      0,
-      "LORA_STACK"
-    ],
-    [
-      1242,
-      75,
-      2,
-      205,
-      1,
-      "LORA_STACK"
-    ],
-    [
-      1243,
-      82,
-      2,
-      205,
-      6,
-      "LYCORIS_STACK"
-    ],
-    [
-      1244,
-      83,
-      2,
-      205,
-      7,
-      "LYCORIS_STACK"
-    ],
-    [
-      1245,
-      77,
-      2,
-      205,
-      2,
-      "EMBEDDING_STACK"
-    ],
-    [
-      1246,
-      78,
-      2,
-      205,
-      3,
-      "EMBEDDING_STACK"
-    ],
-    [
-      1247,
-      80,
-      1,
-      205,
-      4,
-      "HYPERNETWORK_STACK"
-    ],
-    [
-      1248,
-      80,
-      1,
-      205,
-      5,
-      "HYPERNETWORK_STACK"
-    ],
-    [
       1256,
       204,
       1,
@@ -11786,14 +11515,6 @@
       15,
       0,
       "TUPLE"
-    ],
-    [
-      1288,
-      83,
-      1,
-      211,
-      0,
-      "CLIP"
     ],
     [
       1289,
@@ -12138,126 +11859,362 @@
       70,
       0,
       "STRING"
+    ],
+    [
+      1352,
+      52,
+      0,
+      216,
+      0,
+      "MODEL"
+    ],
+    [
+      1353,
+      52,
+      1,
+      216,
+      1,
+      "CLIP"
+    ],
+    [
+      1354,
+      30,
+      3,
+      216,
+      3,
+      "STRING"
+    ],
+    [
+      1357,
+      216,
+      2,
+      205,
+      0,
+      "LORA_STACK"
+    ],
+    [
+      1358,
+      216,
+      3,
+      76,
+      0,
+      "MODEL_KEYWORD"
+    ],
+    [
+      1359,
+      216,
+      0,
+      217,
+      0,
+      "MODEL"
+    ],
+    [
+      1360,
+      216,
+      1,
+      217,
+      1,
+      "CLIP"
+    ],
+    [
+      1361,
+      30,
+      3,
+      217,
+      3,
+      "STRING"
+    ],
+    [
+      1364,
+      217,
+      2,
+      205,
+      1,
+      "LORA_STACK"
+    ],
+    [
+      1365,
+      217,
+      3,
+      76,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      1366,
+      217,
+      0,
+      218,
+      0,
+      "MODEL"
+    ],
+    [
+      1367,
+      217,
+      1,
+      218,
+      1,
+      "CLIP"
+    ],
+    [
+      1368,
+      30,
+      3,
+      218,
+      3,
+      "STRING"
+    ],
+    [
+      1371,
+      218,
+      2,
+      205,
+      6,
+      "LYCORIS_STACK"
+    ],
+    [
+      1372,
+      218,
+      3,
+      81,
+      0,
+      "MODEL_KEYWORD"
+    ],
+    [
+      1373,
+      218,
+      0,
+      219,
+      0,
+      "MODEL"
+    ],
+    [
+      1374,
+      218,
+      1,
+      219,
+      1,
+      "CLIP"
+    ],
+    [
+      1375,
+      30,
+      3,
+      219,
+      3,
+      "STRING"
+    ],
+    [
+      1377,
+      219,
+      1,
+      123,
+      0,
+      "*"
+    ],
+    [
+      1378,
+      219,
+      1,
+      211,
+      0,
+      "CLIP"
+    ],
+    [
+      1379,
+      219,
+      2,
+      205,
+      7,
+      "LYCORIS_STACK"
+    ],
+    [
+      1380,
+      219,
+      3,
+      81,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      1381,
+      30,
+      3,
+      220,
+      1,
+      "STRING"
+    ],
+    [
+      1382,
+      220,
+      0,
+      79,
+      0,
+      "EMBEDDING"
+    ],
+    [
+      1383,
+      220,
+      1,
+      79,
+      2,
+      "EMBEDDING"
+    ],
+    [
+      1384,
+      220,
+      2,
+      205,
+      2,
+      "EMBEDDING_STACK"
+    ],
+    [
+      1385,
+      30,
+      3,
+      221,
+      1,
+      "STRING"
+    ],
+    [
+      1386,
+      221,
+      0,
+      79,
+      1,
+      "EMBEDDING"
+    ],
+    [
+      1387,
+      221,
+      1,
+      79,
+      3,
+      "EMBEDDING"
+    ],
+    [
+      1388,
+      221,
+      2,
+      205,
+      3,
+      "EMBEDDING_STACK"
+    ],
+    [
+      1389,
+      219,
+      0,
+      222,
+      0,
+      "MODEL"
+    ],
+    [
+      1390,
+      30,
+      3,
+      222,
+      2,
+      "STRING"
+    ],
+    [
+      1391,
+      222,
+      0,
+      122,
+      0,
+      "*"
+    ],
+    [
+      1392,
+      222,
+      0,
+      204,
+      0,
+      "MODEL"
+    ],
+    [
+      1393,
+      222,
+      1,
+      205,
+      4,
+      "HYPERNETWORK_STACK"
+    ],
+    [
+      1394,
+      222,
+      1,
+      205,
+      5,
+      "HYPERNETWORK_STACK"
+    ],
+    [
+      1395,
+      24,
+      3,
+      216,
+      2,
+      "TUPLE"
+    ],
+    [
+      1396,
+      24,
+      3,
+      217,
+      2,
+      "TUPLE"
+    ],
+    [
+      1397,
+      24,
+      3,
+      218,
+      2,
+      "TUPLE"
+    ],
+    [
+      1398,
+      24,
+      3,
+      219,
+      2,
+      "TUPLE"
+    ],
+    [
+      1399,
+      24,
+      3,
+      220,
+      0,
+      "TUPLE"
+    ],
+    [
+      1400,
+      24,
+      3,
+      221,
+      0,
+      "TUPLE"
+    ],
+    [
+      1401,
+      24,
+      3,
+      222,
+      1,
+      "TUPLE"
     ]
   ],
   "groups": [
     {
-      "title": "Prompt development",
-      "bounding": [
-        -140,
-        572,
-        1922,
-        1314
-      ],
-      "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt testing",
-      "bounding": [
-        -141,
-        -758,
-        1921,
-        1315
-      ],
-      "color": "#b06634",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt handling",
-      "bounding": [
-        1791,
-        352,
-        837,
-        883
-      ],
-      "color": "#8AA",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Image recycler",
-      "bounding": [
-        2793,
-        494,
-        1294,
-        1376
-      ],
-      "color": "#A88",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Latent, Clipping, Sampling",
-      "bounding": [
-        4104,
-        -756,
-        1491,
-        967
-      ],
-      "color": "#804040",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Dashboard",
-      "bounding": [
-        1791,
-        -757,
-        921,
-        1096
-      ],
-      "color": "#408080",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Concept sampling",
-      "bounding": [
-        2723,
-        -756,
-        1367,
-        1233
-      ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Upscaler",
-      "bounding": [
-        5616,
-        -1404,
-        1093,
-        642
-      ],
-      "color": "#008000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Styling",
+      "title": "Data distribution",
       "bounding": [
         4352,
-        222,
-        1244,
-        960
+        1194,
+        679,
+        361
       ],
-      "color": "#b1762f",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Networks",
-      "bounding": [
-        1792,
-        -1866,
-        3384,
-        1096
-      ],
-      "color": "#8A8",
+      "color": "#b58b2a",
       "font_size": 24,
       "flags": {}
     },
@@ -12274,12 +12231,120 @@
       "flags": {}
     },
     {
-      "title": "Data distribution",
+      "title": "Networks",
+      "bounding": [
+        1792,
+        -1866,
+        3384,
+        1096
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Styling",
       "bounding": [
         4352,
-        1194,
-        679,
-        361
+        222,
+        1244,
+        960
+      ],
+      "color": "#b1762f",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Upscaler",
+      "bounding": [
+        5616,
+        -1404,
+        1093,
+        642
+      ],
+      "color": "#008000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Concept sampling",
+      "bounding": [
+        2723,
+        -756,
+        1367,
+        1233
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard",
+      "bounding": [
+        1791,
+        -757,
+        921,
+        1096
+      ],
+      "color": "#408080",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Latent, Clipping, Sampling",
+      "bounding": [
+        4104,
+        -756,
+        1491,
+        967
+      ],
+      "color": "#804040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Image recycler",
+      "bounding": [
+        2793,
+        494,
+        1294,
+        1376
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt handling",
+      "bounding": [
+        1791,
+        352,
+        837,
+        883
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt testing",
+      "bounding": [
+        -141,
+        -758,
+        1921,
+        1315
+      ],
+      "color": "#b06634",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt development",
+      "bounding": [
+        -140,
+        572,
+        1922,
+        1314
       ],
       "color": "#b58b2a",
       "font_size": 24,
@@ -12289,10 +12354,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 1.1000000000000005,
       "offset": [
-        -4823.067213137585,
-        1105.9405973813307
+        -4306.231555811439,
+        846.404998366771
       ]
     }
   },

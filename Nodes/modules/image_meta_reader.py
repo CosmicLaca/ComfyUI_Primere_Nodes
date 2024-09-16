@@ -92,11 +92,11 @@ def compatibility_handler(data, meta_source):
 
         match datakey:
             case "sampler" | "sampler_name":
-                # if meta_source == 'Automatic1111':
-                sampler_name_exif = dataval
-                samplers = check_sampler_from_exif(sampler_name_exif.lower(), None, None)
-                data['sampler'] = samplers['sampler']
-                data['scheduler'] = samplers['scheduler']
+                if 'scheduler' not in data or meta_source == 'Automatic1111':
+                    sampler_name_exif = dataval
+                    samplers = check_sampler_from_exif(sampler_name_exif.lower(), None, None)
+                    data['sampler'] = samplers['sampler']
+                    data['scheduler'] = samplers['scheduler']
             case "model" | "model_name":
                 model_name_exif = dataval
                 if 'model_hash' in data:

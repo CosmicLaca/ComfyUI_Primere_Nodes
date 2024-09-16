@@ -1781,7 +1781,7 @@
       },
       "widgets_values": [
         "",
-        461955438459766,
+        366749902490478,
         "randomize"
       ],
       "color": "#145414",
@@ -1836,7 +1836,7 @@
       },
       "widgets_values": [
         "",
-        115630231234959,
+        44614952085099,
         "randomize"
       ],
       "color": "#541414",
@@ -2536,7 +2536,7 @@
         false,
         1.6,
         2.8,
-        512564116627057,
+        56213272163155,
         "randomize",
         "BaseModel_1024",
         "Normal"
@@ -2788,7 +2788,7 @@
         1,
         0.8,
         1.4,
-        1087819194754702,
+        892374798800614,
         "randomize",
         false,
         "cpu",
@@ -3179,7 +3179,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        297041294744294,
+        295465770668973,
         "randomize",
         20,
         8,
@@ -3488,7 +3488,7 @@
         true,
         false,
         false,
-        "665"
+        "688"
       ],
       "color": "#540054",
       "bgcolor": "#680068"
@@ -3589,10 +3589,10 @@
         "0": 3525,
         "1": 743
       },
-      "size": [
-        345.9321,
-        454
-      ],
+      "size": {
+        "0": 345.9320983886719,
+        "1": 454
+      },
       "flags": {},
       "order": 44,
       "mode": 0,
@@ -3773,7 +3773,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1294,
+        1333,
         "randomize",
         "",
         "",
@@ -3856,7 +3856,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 863908266458242,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": \"665\",\n    \"saved_image_width\": 4096,\n    \"saved_image_heigth\": 2304,\n    \"upscaler_ratio\": \"From: 1024x576 to: 4096x2304 Ratio: 4.0\",\n    \"vae\": \"Baked VAE\",\n    \"model_hash\": \"ec41bd2a82\"\n}"
+        "{\n    \"positive\": \"exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\",\n    \"negative\": \"(watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\",\n    \"seed\": 863908266458242,\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"positive_r\": null,\n    \"negative_r\": null,\n    \"model\": \"BestAll\\\\photon_v1.safetensors\",\n    \"model_version\": \"BaseModel_768\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"sampler\": \"euler\",\n    \"scheduler\": \"normal\",\n    \"width\": 1024,\n    \"height\": 576,\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"cfg\": 8.0,\n    \"steps\": 20,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": \"688\"\n}"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -3937,10 +3937,10 @@
         "0": 3890,
         "1": 53
       },
-      "size": [
-        608.9321,
-        643.038
-      ],
+      "size": {
+        "0": 608.93212890625,
+        "1": 643.0380249023438
+      },
       "flags": {},
       "order": 48,
       "mode": 0,
@@ -3960,7 +3960,7 @@
       },
       "widgets_values": [
         "",
-        ":: Time to save: 2024-09-15 13:03:21\n:: Output file: H:\\ComfyUI\\output\\SD\\PHOTON_V1\\2024-09-15\\PrimereAdvanced_A665_20241509_130253_863908266458242_4096x2304_01.png\n\n:: PROCESS INFO ::\n------------------\n:: POSITIVE: exterior, extreme architecture, (large metallic terrific impossible unreal architecture), (large house, wing-house in the side of high mountain:1.3), (professional outdoor night professional architectural photography), beautiful nature on nature, large hill, (snow on hill:0.7), (a frightening sight:1.3), small pool, (solar panels:0.6), (huge rocky mountain, stones:0.6), design\n:: NEGATIVE: (watermark, person, text, china style, indian style:1.20), (Amputee, Autograph, Bad anatomy, Bad illustration, Bad proportions, Beyond the borders, Blank background, Blurry, Body out of frame, Boring background, Branding, Cropped, Cut off, Deformed, Disfigured, Dismembered, Disproportioned, Distorted, Draft, Duplicate, Duplicated features, Extra arms, Extra fingers, Extra hands, Extra legs, Extra limbs, Fault, Flaw, Fused fingers, Grains, Grainy, Gross proportions, Hazy, Identifying mark, Improper scale, Incorrect physiology, Incorrect ratio, Indistinct, Kitsch, Logo, Long neck, Low quality, Low resolution, Macabre, Malformed, Mark, Misshapen, Missing arms, Missing fingers, Missing hands, Missing legs, Mistake, Morbid, Mutated hands, Mutation, Mutilated, Off-screen, Out of frame, Outside the picture, Pixelated, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Printed words, Render, Repellent, Replicate, Reproduce, Revolting dimensions, Script, Shortened, Sign, Signature, Split image, Squint, Storyboard, Text, Tiling, Trimmed, Ugly, Unfocused, Unattractive, Unnatural pose, Unreal engine, Unsightly, Watermark, Written language)\n:: SEED: 863908266458242\n:: POSITIVE_R: None\n:: NEGATIVE_R: None\n:: MODEL: BestAll\\photon_v1.safetensors\n:: MODEL_VERSION: BaseModel_768\n:: MODEL_CONCEPT: Normal\n:: CONCEPT_DATA: {'lightning_selector': None, 'lightning_model_step': None, 'cascade_stage_a': None, 'cascade_stage_b': None, 'cascade_stage_c': None, 'cascade_clip': None, 'hypersd_selector': None, 'hypersd_model_step': None, 'flux_selector': None, 'flux_diffusion': None, 'flux_wight_dtype': None, 'flux_gguf': None, 'flux_clip_t5xxl': None, 'flux_clip_l': None, 'flux_clip_guidance': None, 'flux_vae': None, 'flux_sampler': None}\n:: SAMPLER: euler\n:: SCHEDULER: normal\n:: WIDTH: 1024\n:: HEIGHT: 576\n:: MODEL_SHAPES: {'SD': 768, 'SDXL': 1024, 'TURBO': 512}\n:: CFG: 8.0\n:: STEPS: 20\n:: VAE_NAME_SD: vae-ft-mse-840000-ema-pruned.safetensors\n:: VAE_NAME_SDXL: sdxl_vae.safetensors\n:: PREFERRED: {'subpath': None, 'model': None, 'orientation': None}\n:: AESTHETIC_SCORE: 665\n:: SAVED_IMAGE_WIDTH: 4096\n:: SAVED_IMAGE_HEIGTH: 2304\n:: UPSCALER_RATIO: From: 1024x576 to: 4096x2304 Ratio: 4.0\n:: VAE: Baked VAE\n:: MODEL_HASH: ec41bd2a82\n"
+        "*** Image saver switched OFF, image not saved. ***"
       ],
       "color": "#541454",
       "bgcolor": "#400040"
@@ -5186,26 +5186,14 @@
   ],
   "groups": [
     {
-      "title": "Upscaler",
+      "title": "Dashboard settings",
       "bounding": [
-        2841,
-        19,
-        665,
-        635
+        652,
+        20,
+        1150,
+        2037
       ],
-      "color": "#b58b2a",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1811,
-        19,
-        1018,
-        961
-      ],
-      "color": "#A88",
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     },
@@ -5222,14 +5210,26 @@
       "flags": {}
     },
     {
-      "title": "Dashboard settings",
+      "title": "Encoder, sampler, decoder",
       "bounding": [
-        652,
-        20,
-        1150,
-        2037
+        1811,
+        19,
+        1018,
+        961
       ],
-      "color": "#3f789e",
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Upscaler",
+      "bounding": [
+        2841,
+        19,
+        665,
+        635
+      ],
+      "color": "#b58b2a",
       "font_size": 24,
       "flags": {}
     }
@@ -5237,10 +5237,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 0.7513148009015777,
       "offset": [
-        -2183.0042036814425,
-        -1.0034545454543604
+        -702.031533785014,
+        203.29967429080182
       ]
     }
   },
