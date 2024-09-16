@@ -653,7 +653,10 @@ class PrimereKSampler:
                     elif FLUX_SAMPLER == 'ksampler':
                         FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
                         CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
-                        CONDITIONING_NEG = nodes_flux.FluxGuidance.append(self, negative, FLUX_GUIDANCE)[0]
+                        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
+                            CONDITIONING_NEG = CONDITIONING_POS
+                        else:
+                            CONDITIONING_NEG = nodes_flux.FluxGuidance.append(self, negative, FLUX_GUIDANCE)[0]
                         samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                                 steps, cfg, sampler_name, scheduler_name,
                                                                 CONDITIONING_POS, CONDITIONING_NEG,

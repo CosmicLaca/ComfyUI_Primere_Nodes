@@ -1172,9 +1172,12 @@ class PrimereCLIP:
                     if FLUX_SAMPLER == 'ksampler':
                         FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
                         if FLUX_GUIDANCE is None:
-                            FLUX_GUIDANCE = 3.5
+                            FLUX_GUIDANCE = 1.7
                         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, positive_text, FLUX_GUIDANCE)[0]
-                        CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+                        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
+                            CONDITIONING_NEG = CONDITIONING_POS
+                        else:
+                            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
 
             if model_concept == 'Cascade':

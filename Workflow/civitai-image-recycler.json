@@ -6,13 +6,13 @@
       "id": 19,
       "type": "PrimereMetaHandler",
       "pos": {
-        "0": -337,
-        "1": -14
+        "0": -575,
+        "1": -147
       },
-      "size": {
-        "0": 802.5059814453125,
-        "1": 1357.39404296875
-      },
+      "size": [
+        551.705147792969,
+        1267.4349056250003
+      ],
       "flags": {},
       "order": 0,
       "mode": 0,
@@ -74,14 +74,14 @@
         "Image_20241109_114014_20141133468485_3512x2400_1.jpg",
         "image",
         true,
+        false,
         true,
         true,
         true,
         true,
         true,
         true,
-        true,
-        "Image_20241409_202024_458111048054144_632x928_1.jpeg",
+        "Public_A792_105942_367489654979589_1.png",
         "image"
       ]
     },
@@ -89,8 +89,8 @@
       "id": 26,
       "type": "PrimereMetaDistributor",
       "pos": {
-        "0": 529,
-        "1": -85
+        "0": 571,
+        "1": -117
       },
       "size": {
         "0": 355.20001220703125,
@@ -260,13 +260,13 @@
       "id": 32,
       "type": "PrimereAnyOutput",
       "pos": {
-        "0": 533,
-        "1": 704
+        "0": -15,
+        "1": -131
       },
-      "size": {
-        "0": 979.1272583007812,
-        "1": 1271.1314697265625
-      },
+      "size": [
+        579.1146977929693,
+        1292.5523456250007
+      ],
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -282,15 +282,15 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"decoded_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"model\": \"BestSci-fi\\\\rinamix3.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 458111048054144,\n    \"width\": 635,\n    \"height\": 928,\n    \"size_string\": \"635x928\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": false,\n        \"force_vae\": false,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": false,\n        \"lycoris_setup\": false,\n        \"embedding_setup\": false,\n        \"hypernetwork_setup\": false,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": false,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"ComfyUI_00001_.png\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"white\",\n        \"alpha_exponent\": 4.037,\n        \"modulator\": 0.75,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": false,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            \"(analog style:1.1)\",\n            \"Last\"\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.1,\n        \"variation_seed\": 458111048054144,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"*** Aesthetic scorer off ***\",\n    \"saved_image_width\": 632,\n    \"saved_image_heigth\": 928,\n    \"upscaler_ratio\": \"From: 635x928 to: 632x928 Ratio: 1.0\",\n    \"vae\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"model_hash\": \"dedf1e6c80\"\n}"
+        "{\n    \"gendata\": {\n        \"exif_status\": \"OFF\",\n        \"pic2story\": \"OFF\",\n        \"positive\": \"Abstract, {monochrome|colorful|artistic|modern} {ink|pencil|oil|realistic} illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent {geometric shapes|cubes|spheres|pyramids|several geometric forms|machines|things} - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of {red|green|blue|grey|light|dark} binary codes, which contrast starkly with the {soft|hard|sharp} {pastel|dark|light|realistic} colours. The fusion of {abstract|modern|retro|cyberpunk|steampunk|artistic|realism} and {surreal|modern|retro|cyberpunk|steampunk|artistic|realism|photo|modern|modernism} art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n        \"positive_l\": null,\n        \"positive_r\": null,\n        \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n        \"negative_l\": null,\n        \"negative_r\": null,\n        \"prompt_state\": \"Dynamic\",\n        \"decoded_positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n        \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n        \"model\": \"SDXL\\\\sdxlUnstableDiffusers_nihilmania.safetensors\",\n        \"model_concept\": \"Normal\",\n        \"concept_data\": {\n            \"lightning_selector\": null,\n            \"lightning_model_step\": null,\n            \"cascade_stage_a\": null,\n            \"cascade_stage_b\": null,\n            \"cascade_stage_c\": null,\n            \"cascade_clip\": null,\n            \"hypersd_selector\": null,\n            \"hypersd_model_step\": null,\n            \"flux_selector\": null,\n            \"flux_diffusion\": null,\n            \"flux_wight_dtype\": null,\n            \"flux_gguf\": null,\n            \"flux_clip_t5xxl\": null,\n            \"flux_clip_l\": null,\n            \"flux_clip_guidance\": null,\n            \"flux_vae\": null,\n            \"flux_sampler\": null\n        },\n        \"model_version\": \"SDXL_2048\",\n        \"is_sdxl\": 1,\n        \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n        \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n        \"sampler\": \"dpmpp_sde\",\n        \"scheduler\": \"karras\",\n        \"steps\": 35,\n        \"cfg\": 8.0,\n        \"seed\": 367489654979589,\n        \"width\": 810,\n        \"height\": 1295,\n        \"size_string\": \"810x1295\",\n        \"preferred\": {\n            \"subpath\": \"promptdev14\",\n            \"model\": null,\n            \"orientation\": null\n        },\n        \"model_shapes\": {\n            \"SD\": 768,\n            \"SDXL\": 1024,\n            \"TURBO\": 512\n        },\n        \"aesthetic_score\": \"792\",\n        \"setup_states\": {\n            \"data_source\": false,\n            \"prompt_surce\": true,\n            \"prompt_state\": true,\n            \"model\": true,\n            \"model_hash_check\": false,\n            \"sampler\": true,\n            \"scheduler\": true,\n            \"cfg\": true,\n            \"steps\": true,\n            \"seed\": true,\n            \"image_size\": true,\n            \"recount_image\": false,\n            \"vae\": true,\n            \"force_vae\": true,\n            \"model_concept\": true,\n            \"latent_setup\": true,\n            \"lora_setup\": true,\n            \"lycoris_setup\": true,\n            \"embedding_setup\": true,\n            \"hypernetwork_setup\": true,\n            \"sampler_setup\": true,\n            \"clip_encoder_setup\": true,\n            \"clip_optional_prompts\": true,\n            \"clip_style_prompts\": true,\n            \"clip_additional_keywords\": true,\n            \"preferred\": true,\n            \"use_preferred\": true,\n            \"image\": \"Image_20241509_174249_764267940815467_840x1232_1.jpg\"\n        },\n        \"latent_data\": {\n            \"noise_type\": \"blue\",\n            \"alpha_exponent\": 0.5,\n            \"modulator\": 1.25,\n            \"device\": \"cpu\"\n        },\n        \"prompt_encoder\": {\n            \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n            \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n            \"clip_mode\": true,\n            \"last_layer\": 0,\n            \"negative_strength\": 1.2,\n            \"use_int_style\": false,\n            \"adv_encode\": false,\n            \"token_normalization\": \"mean\",\n            \"weight_interpretation\": \"comfy++\",\n            \"model_keywords\": [\n                null,\n                null\n            ],\n            \"lora_keywords\": [\n                null,\n                null\n            ],\n            \"lycoris_keywords\": [\n                null,\n                null\n            ],\n            \"embedding_pos\": [\n                null,\n                null\n            ],\n            \"embedding_neg\": [\n                null,\n                null\n            ],\n            \"opt_pos_prompt\": \"\",\n            \"opt_pos_strength\": 1.0,\n            \"opt_neg_prompt\": \"\",\n            \"opt_neg_strength\": 1.0,\n            \"style_position\": false,\n            \"style_pos_prompt\": \"\",\n            \"style_pos_strength\": 1.0,\n            \"style_neg_prompt\": \"\",\n            \"style_neg_strength\": 1.0,\n            \"sdxl_positive_l\": \"\",\n            \"sdxl_negative_l\": \"\",\n            \"copy_prompt_to_l\": false,\n            \"sdxl_l_strength\": 1.0\n        },\n        \"sampler_settings\": {\n            \"denoise\": 1.0,\n            \"variation_extender_original\": 0.0,\n            \"variation_batch_step_original\": 0.0,\n            \"variation_level\": true,\n            \"device\": \"DEFAULT\",\n            \"align_your_steps\": true,\n            \"noise_constant\": 0.11,\n            \"variation_seed\": 367489654979589,\n            \"batch_counter\": 1\n        },\n        \"network_data\": {\n            \"lora_sd\": [],\n            \"lora_sdxl\": [],\n            \"embedding_sd\": [],\n            \"embedding_sdxl\": [],\n            \"hypernetwork_sd\": [],\n            \"hypernetwork_sdxl\": [],\n            \"lycoris_sd\": [],\n            \"lycoris_sdxl\": []\n        },\n        \"saved_image_width\": 1147,\n        \"saved_image_heigth\": 1828,\n        \"upscaler_ratio\": \"From: 810x1295 to: 1147x1828 Ratio: 1.4\",\n        \"vae\": \"sdxl_vae.safetensors\",\n        \"model_hash\": \"a47e380db3\"\n    },\n    \"parameters\": \"Abstract, {monochrome|colorful|artistic|modern} {ink|pencil|oil|realistic} illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent {geometric shapes|cubes|spheres|pyramids|several geometric forms|machines|things} - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of {red|green|blue|grey|light|dark} binary codes, which contrast starkly with the {soft|hard|sharp} {pastel|dark|light|realistic} colours. The fusion of {abstract|modern|retro|cyberpunk|steampunk|artistic|realism} and {surreal|modern|retro|cyberpunk|steampunk|artistic|realism|photo|modern|modernism} art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\\nNegative prompt: nsfw, porn, nude, nudity, child, childish, boring\\nSteps: 35, Sampler: DPM++ SDE Karras, CFG scale: 8.0, Seed: 367489654979589, Size: 810x1295, Model hash: a47e380db3, Model: sdxlUnstableDiffusers_nihilmania, VAE: sdxl_vae.safetensors\"\n}"
       ]
     },
     {
       "id": 20,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 1266,
-        "1": -46
+        "0": 952,
+        "1": -120
       },
       "size": {
         "0": 324.0008850097656,
@@ -371,8 +371,8 @@
       "id": 24,
       "type": "PrimereCKPTLoader",
       "pos": {
-        "0": 490,
-        "1": 339
+        "0": 566,
+        "1": 307
       },
       "size": {
         "0": 369.4214782714844,
@@ -463,8 +463,8 @@
       "id": 17,
       "type": "PrimereNetworkTagLoader",
       "pos": {
-        "0": 910,
-        "1": -59
+        "0": 572,
+        "1": 553
       },
       "size": {
         "0": 315,
@@ -571,8 +571,8 @@
       "id": 5,
       "type": "PrimereVAELoader",
       "pos": {
-        "0": 1333,
-        "1": -148
+        "0": 945,
+        "1": -217
       },
       "size": {
         "0": 210,
@@ -612,8 +612,8 @@
       "id": 31,
       "type": "PrimereLatentNoise",
       "pos": {
-        "0": 1247,
-        "1": 230
+        "0": 933,
+        "1": 153
       },
       "size": {
         "0": 333.260009765625,
@@ -688,7 +688,7 @@
       "widgets_values": [
         512,
         512,
-        false,
+        true,
         "white",
         true,
         1,
@@ -698,19 +698,19 @@
         1,
         0.8,
         1.4,
-        720217719095861,
+        353031570196288,
         "randomize",
-        false,
+        true,
         "cpu",
-        false
+        true
       ]
     },
     {
       "id": 29,
       "type": "PrimereCLIPEncoder",
       "pos": {
-        "0": 1642,
-        "1": 573
+        "0": 1299,
+        "1": -121
       },
       "size": {
         "0": 388.4599914550781,
@@ -975,7 +975,7 @@
       },
       "widgets_values": [
         "",
-        "friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights, (analog style:1.1)"
+        "Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image."
       ]
     },
     {
@@ -1009,15 +1009,15 @@
       },
       "widgets_values": [
         "",
-        "(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20)"
+        "(nsfw, porn, nude, nudity, child, childish, boring:1.20)"
       ]
     },
     {
       "id": 30,
       "type": "PrimereKSampler",
       "pos": {
-        "0": 1670,
-        "1": 140
+        "0": 952,
+        "1": 649
       },
       "size": {
         "0": 323.2222595214844,
@@ -1123,18 +1123,18 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        55927740297238,
+        736944258484632,
         "randomize",
         20,
         8,
         "euler",
         "normal",
         1,
-        0,
+        0.25,
         0,
         false,
         "DEFAULT",
-        false,
+        true,
         "Normal"
       ]
     },
@@ -1142,8 +1142,8 @@
       "id": 8,
       "type": "VAEDecode",
       "pos": {
-        "0": 1829,
-        "1": -153
+        "0": 1177,
+        "1": -229
       },
       "size": {
         "0": 210,
@@ -1183,8 +1183,8 @@
       "id": 4,
       "type": "PrimereAnyOutput",
       "pos": {
-        "0": 2100,
-        "1": 800
+        "0": 3562,
+        "1": -192
       },
       "size": {
         "0": 1459.1800537109375,
@@ -1205,20 +1205,20 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 39,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Decoded\",\n    \"decoded_positive\": \"friendly damaged half-human platina metal robot, full body portrait, light in eyes, hill in the background, extremely detailed, realistic photography, perfect lights\",\n    \"decoded_negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"model\": \"BestSci-fi\\\\rinamix3.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"BaseModel_768\",\n    \"is_sdxl\": 0,\n    \"model_hash\": \"dedf1e6c80\",\n    \"vae\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 458111048054144,\n    \"width\": 635,\n    \"height\": 928,\n    \"size_string\": \"635x928\",\n    \"preferred\": {\n        \"subpath\": null,\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 632,\n    \"saved_image_heigth\": 928,\n    \"upscaler_ratio\": \"From: 635x928 to: 632x928 Ratio: 1.0\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Image_20241409_202024_458111048054144_632x928_1.jpeg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"white\",\n        \"alpha_exponent\": 4.037,\n        \"modulator\": 0.75,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": false,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            \"(analog style:1.1)\",\n            \"Last\"\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"copy_prompt_to_l\": true,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.06,\n        \"variation_seed\": 458111048054144,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"aesthetic_score\": \"*** Aesthetic scorer off ***\"\n}"
+        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 39,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Decoded\",\n    \"decoded_positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"SDXL\\\\sdxlUnstableDiffusers_nihilmania.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"model_hash\": \"a47e380db3\",\n    \"vae\": \"sdxl_vae.safetensors\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 367489654979589,\n    \"width\": 810,\n    \"height\": 1295,\n    \"size_string\": \"810x1295\",\n    \"preferred\": {\n        \"subpath\": \"promptdev14\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 1147,\n    \"saved_image_heigth\": 1828,\n    \"upscaler_ratio\": \"From: 810x1295 to: 1147x1828 Ratio: 1.4\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"792\",\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Public_A792_105942_367489654979589_1.png\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"blue\",\n        \"alpha_exponent\": 0.5,\n        \"modulator\": 1.25,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"sdxl_positive_l\": \"\",\n        \"sdxl_negative_l\": \"\",\n        \"copy_prompt_to_l\": false,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.25,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": true,\n        \"noise_constant\": 0.25,\n        \"variation_seed\": 367489654979589,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    }\n}"
       ]
     },
     {
       "id": 10,
       "type": "PreviewImage",
       "pos": {
-        "0": 2090,
-        "1": -180
+        "0": 1717,
+        "1": -144
       },
-      "size": {
-        "0": 824,
-        "1": 915
-      },
+      "size": [
+        1183.1702877929697,
+        1393.4859056250004
+      ],
       "flags": {},
       "order": 14,
       "mode": 0,
@@ -1593,10 +1593,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650705,
+      "scale": 0.9090909090909091,
       "offset": {
-        "0": 445.03485107421875,
-        "1": 338.7959899902344
+        "0": 605.131103515625,
+        "1": 348.1523132324219
       }
     }
   },
