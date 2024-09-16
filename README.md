@@ -55,8 +55,10 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 ## Last changes:
 #### Usually after node changes have to reload/re-wire nodes within existing workflow, or open the latest workflows from the nodepack's **Workflow** folder.
+- Image recycler create pixel perfect same result like the original image, if metadata saved by Primere Meta Saver. Example: **Primere_full_workflow.json**
+- File saver's .png files compatible with A1111 and civitai
 - Add model concept (SD, SDXL, Cascade, Flux, etc...) to the image save path
-- Trigger for aetshtetic score to control automtic image saver
+- Trigger for aetshtetic score to control automatic image saver
 - Renewed sampler with random / serie of noise variant
 - Renewed detailer/refiner nodes, use external checkpoint and networks
 - Flux support, 1 click selector
@@ -70,16 +72,12 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 - **Model trigger words** selector in the Primere model keyword node. When you load the checkpoint, node will collect trigger words to the combo list, and you can include one to the end or beginning of your prompt (with weight).
 
 ## Future changes:
-- Because image meta contains all required details (noise, tokens, last layer, etc...) image can be reproduced exactly by Image recycler node
 - The eye and the mouth color will be read from the original image and the refiner/detailer will detail segment with same color
 - Aesthetic average values will be displayed on the preview images of visual selectors like checkpoints and saved prompts (visual style selector) as badge. Visual modal will be sorted by aesthetic average.
-- Aesthetic trigger for image saver will ingnore low scored images.
 - Image rating (small stars on images within galleries) will be saved to the image by aesthetic score.
-- Refiner nodes will be suport all new model concepts, like LCM, Lightning, Turbo, Cascade and Playload.
 - Trigger words will be listed for Lora-s and Lycoris stacks like listed for models.
-- Used loras and other network settings will be saved to image meta (for image recycler).
 - Finish Emotion styles node (sorry but the copypaste little boring).
-- Test to read preview images directly from the model / networks folders. If the reading speed of thousands of larger images not bad, I will include this solution to all Visual nodes (excluding Visual styles).
+- Preview images directly from the model / networks folders. If the reading speed of thousands of larger images not bad, I will include this solution to all Visual nodes (excluding Visual styles).
 - Youtube "how to use Primere nodepack" videos. I don't really like it, but I will start soon.
 
 # Nodes in the pack grouped by submenus:
@@ -189,6 +187,7 @@ Have to save these models to ComfyUI\models\ultralytics\segm\ and ComfyUI\models
 - Segmentation models for anime/cartoon: https://huggingface.co/RamRom/yolov8m_crop-anime-characters/tree/main, https://huggingface.co/AkitoP/Anime-yolov8-seg/tree/main
 - Segment anything: https://huggingface.co/ybelkada/segment-anything/tree/main/checkpoints
 - But the best if you use Comfy's model manager to download required models, use manual download if you nees something else
+- Here is bonus link, not downloaded automatically: https://huggingface.co/guon/hand-eyes/tree/main
 
 <hr>
 
@@ -295,13 +294,14 @@ Follow the file schema for your own prompts but don't forget to rename the attac
 ### Primere Dynamic:
 - This node render A1111 compatible dynamic prompts, including external wildcard files of A1111 dynamic prompt plugin. External files must be copied/symlinked to the 'wildcards' folder and use the '__filepath/of/file__' keyword within your prompt. Use this to decode all style.csv and double prompt inputs, because the output of prompt/style nodes not resolved by another comfy dynamic decoder/resolver.
 - Check the included workflow how to use this node.
+- Read the syntax guide if use: https://github.com/adieyal/sd-dynamic-prompts/blob/main/docs/SYNTAX.md
 
 <a href="./Workflow/readme_images/pdynamic.jpg" target="_blank"><img src="./Workflow/readme_images/pdynamic.jpg" height="80px"></a>
 <hr>
 
 ### Primere image recycler:
-- This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with results of all other custom workflows.
-- The **prompt_source** input can be switch to **Pic2Story** mode, what creating prompt from the loaded image without reading metdata.
+- This node read prompt-exif (called meta) from loaded image. Compatible with A1111 .jpg and .png, and usually with ComfyUI, but not with image of all custom workflows.
+- The **prompt_source** input can be switch to **Pic2Story** mode, creating prompt from the loaded image without reading metdata.
 
 <a href="./Workflow/readme_images/pimgrecycler.jpg" target="_blank"><img src="./Workflow/readme_images/pimgrecycler.jpg" height="340px"></a>
 
@@ -309,6 +309,8 @@ Follow the file schema for your own prompts but don't forget to rename the attac
 - The second helper node is 'Primere meta distributor'. Connect this node input to the output of image recycler, then you will get back the workflow settings.
 - These 2 additional nodes helps to use switches on image recycler to choose you want to use workflow settings or image meta for new generation process.
 - Check example workflow: **civitai-image-recycler.json**
+- **Primere_full_workflow.json** use this node.
+- Node can create pixel perfect same image as the source without extra nodes or workflow settings, if the source image created by Primere workflow ans saved by Primere file saver.
 
 <a href="./Workflow/readme_images/pmetadistribitions.jpg" target="_blank"><img src="./Workflow/readme_images/pmetadistribitions.jpg" height="320px"></a>
 
@@ -363,9 +365,9 @@ This node select between SD and SDXL VAE if model_version input is correct.
 ### Primere Refiner Prompt:
 Another dual prompt input, but specially for refiners and detailers. You can connect original prompts too to this node, and set the weights of all inputs. Text and cond outputs are available.
 - Set refiner model
-- Set refiner network, Lora, Lycoris, Embedding, ot Hypernetwork
+- Set refiner network, Lora, Lycoris, Embedding, or Hypernetwork
 - Set network's weigth
-- Set negative embedding to negative prompt
+- Set negative embedding to negative prompt if used
 - Enter refiner's prompt
 - Use switches at the bottom if you want to ignore refiner process by concept. For example if Flux and Cascade no need refiner, just switch off.
 For more info about usage see **"Segments"** submenu.
