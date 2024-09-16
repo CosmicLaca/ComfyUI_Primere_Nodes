@@ -1026,6 +1026,8 @@ class PrimereCLIP:
             adv_encode = False
             clip_model = 'Default'
             # clip_mode = True
+            last_layer = 0
+
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
@@ -1034,6 +1036,7 @@ class PrimereCLIP:
             adv_encode = False
             clip_model = 'Default'
             # clip_mode = True
+            last_layer = 0
 
         if clip_mode == False:
             if longclip_model == 'Default':
