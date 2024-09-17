@@ -29,6 +29,11 @@ from datetime import datetime
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
 from .modules import long_clip
+from .modules import networkhandler
+from .Networks import PrimereLORA
+from .Networks import PrimereEmbedding
+from .Networks import PrimereHypernetwork
+from .Networks import PrimereLYCORIS
 
 class PrimereSamplers:
     CATEGORY = TREE_DEPRECATED
@@ -1032,7 +1037,7 @@ class PrimereCLIP:
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
 
-        if CONCEPT_SELECTOR == 'Flux':
+        if CONCEPT_SELECTOR == 'Flux' and (model_concept == 'Flux' and model_concept is None):
             adv_encode = False
             clip_model = 'Default'
             # clip_mode = True
@@ -1603,6 +1608,11 @@ class PrimereNetworkTagLoader:
   RETURN_NAMES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "LORA_KEYWORD", "LYCORIS_KEYWORD")
   FUNCTION = "load_networks"
   CATEGORY = TREE_DASHBOARD
+  LORASCOUNT = PrimereLORA.LORASCOUNT
+  EMBCOUNT = PrimereEmbedding.EMBCOUNT
+  HNCOUNT = PrimereHypernetwork.HNCOUNT
+  LYCOSCOUNT = PrimereLYCORIS.LYCOSCOUNT
+
   @classmethod
   def INPUT_TYPES(s):
       return {
@@ -1629,10 +1639,54 @@ class PrimereNetworkTagLoader:
               "lycoris_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
               "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
               "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
+          },
+          "optional": {
+              "workflow_tuple": ("TUPLE", {"default": None}),
           }
       }
 
-  def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load = True):
+  def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load = True, workflow_tuple = None):
+      if workflow_tuple is not None and len(workflow_tuple) > 0 and 'setup_states' in workflow_tuple and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
+          concept = 'Normal'
+          stack_version = 'ANY'
+          if 'model_concept' in workflow_tuple:
+              concept = workflow_tuple['model_concept']
+          if 'model_version' in workflow_tuple:
+            if concept == 'Normal' and workflow_tuple['model_version'] == 'SDXL_2048':
+                stack_version = 'SDXL'
+            else:
+                stack_version = 'SD'
+
+          if 'setup_states' in workflow_tuple and 'network_data' in workflow_tuple:
+              if 'lora_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lora_setup'] == True:
+                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'lora', self.LORASCOUNT, True, stack_version)
+                  if len(loader) > 0:
+                    networkData = networkhandler.LoraHandler(self, loader, model, clip, [], False, lora_keywords_num, use_lora_keyword, lora_keyword_selection, lora_keyword_weight, lora_keyword_placement)
+                    model = networkData[0]
+                    clip = networkData[1]
+
+              if 'lycoris_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lycoris_setup'] == True:
+                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'lycoris', self.LYCOSCOUNT, True, stack_version)
+                  if len(loader) > 0:
+                    networkData = networkhandler.LycorisHandler(self, loader, model, clip, [], False, lycoris_keywords_num, use_lycoris_keyword, lycoris_keyword_selection, lycoris_keyword_weight, lycoris_keyword_placement)
+                    model = networkData[0]
+                    clip = networkData[1]
+
+              if 'embedding_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['embedding_setup'] == True:
+                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'embedding', self.EMBCOUNT, False, stack_version)
+                  if len(loader) > 0:
+                    networkData = networkhandler.EmbeddingHandler(self, loader, None, None)
+                    if networkData[0][0] is not None:
+                        positive_prompt = networkData[0][0] + ',  ' + positive_prompt
+                        tokens = clip.tokenize(positive_prompt)
+                        clip = clip.encode_from_tokens(tokens, return_pooled=False)
+
+              if 'hypernetwork_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['hypernetwork_setup'] == True:
+                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.HNCOUNT, False, stack_version)
+                  if len(loader) > 0:
+                      networkData = networkhandler.HypernetworkHandler(self, loader, model, hypernetwork_safe_load)
+                      model = networkData[0]
+
       NETWORK_START = []
 
       cloned_model = model

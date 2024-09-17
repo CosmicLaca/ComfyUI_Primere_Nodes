@@ -1,17 +1,17 @@
 {
-  "last_node_id": 32,
-  "last_link_id": 230,
+  "last_node_id": 34,
+  "last_link_id": 240,
   "nodes": [
     {
       "id": 19,
       "type": "PrimereMetaHandler",
       "pos": {
-        "0": -575,
-        "1": -147
+        "0": -169,
+        "1": -120
       },
       "size": [
-        551.705147792969,
-        1267.4349056250003
+        713.3402405426937,
+        1345.183740591457
       ],
       "flags": {},
       "order": 0,
@@ -29,7 +29,8 @@
           "type": "TUPLE",
           "links": [
             149,
-            224
+            224,
+            237
           ],
           "slot_index": 0,
           "shape": 3
@@ -72,18 +73,20 @@
         true,
         true,
         "Image_20241109_114014_20141133468485_3512x2400_1.jpg",
-        "image",
-        true,
-        false,
         true,
         true,
         true,
         true,
         true,
         true,
-        "Public_A792_105942_367489654979589_1.png",
+        true,
+        true,
+        true,
+        "Image_A651_20241609_180251_1081577591144915_808x1288_1.jpg",
         "image"
-      ]
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 26,
@@ -111,8 +114,8 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            150,
-            151
+            151,
+            234
           ],
           "shape": 3
         },
@@ -170,9 +173,9 @@
           "type": "STRING",
           "links": [
             158,
-            159,
             202,
-            220
+            220,
+            238
           ],
           "shape": 3
         },
@@ -180,16 +183,14 @@
           "name": "CONCEPT_DATA",
           "type": "TUPLE",
           "links": [
-            160
+            239
           ],
           "shape": 3
         },
         {
           "name": "VAE",
           "type": "VAE_NAME",
-          "links": [
-            161
-          ],
+          "links": [],
           "shape": 3
         },
         {
@@ -260,12 +261,12 @@
       "id": 32,
       "type": "PrimereAnyOutput",
       "pos": {
-        "0": -15,
-        "1": -131
+        "0": -166,
+        "1": 1269
       },
       "size": [
-        579.1146977929693,
-        1292.5523456250007
+        1844.6729008426937,
+        671.0039359914572
       ],
       "flags": {},
       "order": 2,
@@ -282,15 +283,17 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"gendata\": {\n        \"exif_status\": \"OFF\",\n        \"pic2story\": \"OFF\",\n        \"positive\": \"Abstract, {monochrome|colorful|artistic|modern} {ink|pencil|oil|realistic} illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent {geometric shapes|cubes|spheres|pyramids|several geometric forms|machines|things} - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of {red|green|blue|grey|light|dark} binary codes, which contrast starkly with the {soft|hard|sharp} {pastel|dark|light|realistic} colours. The fusion of {abstract|modern|retro|cyberpunk|steampunk|artistic|realism} and {surreal|modern|retro|cyberpunk|steampunk|artistic|realism|photo|modern|modernism} art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n        \"positive_l\": null,\n        \"positive_r\": null,\n        \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n        \"negative_l\": null,\n        \"negative_r\": null,\n        \"prompt_state\": \"Dynamic\",\n        \"decoded_positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n        \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n        \"model\": \"SDXL\\\\sdxlUnstableDiffusers_nihilmania.safetensors\",\n        \"model_concept\": \"Normal\",\n        \"concept_data\": {\n            \"lightning_selector\": null,\n            \"lightning_model_step\": null,\n            \"cascade_stage_a\": null,\n            \"cascade_stage_b\": null,\n            \"cascade_stage_c\": null,\n            \"cascade_clip\": null,\n            \"hypersd_selector\": null,\n            \"hypersd_model_step\": null,\n            \"flux_selector\": null,\n            \"flux_diffusion\": null,\n            \"flux_wight_dtype\": null,\n            \"flux_gguf\": null,\n            \"flux_clip_t5xxl\": null,\n            \"flux_clip_l\": null,\n            \"flux_clip_guidance\": null,\n            \"flux_vae\": null,\n            \"flux_sampler\": null\n        },\n        \"model_version\": \"SDXL_2048\",\n        \"is_sdxl\": 1,\n        \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n        \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n        \"sampler\": \"dpmpp_sde\",\n        \"scheduler\": \"karras\",\n        \"steps\": 35,\n        \"cfg\": 8.0,\n        \"seed\": 367489654979589,\n        \"width\": 810,\n        \"height\": 1295,\n        \"size_string\": \"810x1295\",\n        \"preferred\": {\n            \"subpath\": \"promptdev14\",\n            \"model\": null,\n            \"orientation\": null\n        },\n        \"model_shapes\": {\n            \"SD\": 768,\n            \"SDXL\": 1024,\n            \"TURBO\": 512\n        },\n        \"aesthetic_score\": \"792\",\n        \"setup_states\": {\n            \"data_source\": false,\n            \"prompt_surce\": true,\n            \"prompt_state\": true,\n            \"model\": true,\n            \"model_hash_check\": false,\n            \"sampler\": true,\n            \"scheduler\": true,\n            \"cfg\": true,\n            \"steps\": true,\n            \"seed\": true,\n            \"image_size\": true,\n            \"recount_image\": false,\n            \"vae\": true,\n            \"force_vae\": true,\n            \"model_concept\": true,\n            \"latent_setup\": true,\n            \"lora_setup\": true,\n            \"lycoris_setup\": true,\n            \"embedding_setup\": true,\n            \"hypernetwork_setup\": true,\n            \"sampler_setup\": true,\n            \"clip_encoder_setup\": true,\n            \"clip_optional_prompts\": true,\n            \"clip_style_prompts\": true,\n            \"clip_additional_keywords\": true,\n            \"preferred\": true,\n            \"use_preferred\": true,\n            \"image\": \"Image_20241509_174249_764267940815467_840x1232_1.jpg\"\n        },\n        \"latent_data\": {\n            \"noise_type\": \"blue\",\n            \"alpha_exponent\": 0.5,\n            \"modulator\": 1.25,\n            \"device\": \"cpu\"\n        },\n        \"prompt_encoder\": {\n            \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n            \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n            \"clip_mode\": true,\n            \"last_layer\": 0,\n            \"negative_strength\": 1.2,\n            \"use_int_style\": false,\n            \"adv_encode\": false,\n            \"token_normalization\": \"mean\",\n            \"weight_interpretation\": \"comfy++\",\n            \"model_keywords\": [\n                null,\n                null\n            ],\n            \"lora_keywords\": [\n                null,\n                null\n            ],\n            \"lycoris_keywords\": [\n                null,\n                null\n            ],\n            \"embedding_pos\": [\n                null,\n                null\n            ],\n            \"embedding_neg\": [\n                null,\n                null\n            ],\n            \"opt_pos_prompt\": \"\",\n            \"opt_pos_strength\": 1.0,\n            \"opt_neg_prompt\": \"\",\n            \"opt_neg_strength\": 1.0,\n            \"style_position\": false,\n            \"style_pos_prompt\": \"\",\n            \"style_pos_strength\": 1.0,\n            \"style_neg_prompt\": \"\",\n            \"style_neg_strength\": 1.0,\n            \"sdxl_positive_l\": \"\",\n            \"sdxl_negative_l\": \"\",\n            \"copy_prompt_to_l\": false,\n            \"sdxl_l_strength\": 1.0\n        },\n        \"sampler_settings\": {\n            \"denoise\": 1.0,\n            \"variation_extender_original\": 0.0,\n            \"variation_batch_step_original\": 0.0,\n            \"variation_level\": true,\n            \"device\": \"DEFAULT\",\n            \"align_your_steps\": true,\n            \"noise_constant\": 0.11,\n            \"variation_seed\": 367489654979589,\n            \"batch_counter\": 1\n        },\n        \"network_data\": {\n            \"lora_sd\": [],\n            \"lora_sdxl\": [],\n            \"embedding_sd\": [],\n            \"embedding_sdxl\": [],\n            \"hypernetwork_sd\": [],\n            \"hypernetwork_sdxl\": [],\n            \"lycoris_sd\": [],\n            \"lycoris_sdxl\": []\n        },\n        \"saved_image_width\": 1147,\n        \"saved_image_heigth\": 1828,\n        \"upscaler_ratio\": \"From: 810x1295 to: 1147x1828 Ratio: 1.4\",\n        \"vae\": \"sdxl_vae.safetensors\",\n        \"model_hash\": \"a47e380db3\"\n    },\n    \"parameters\": \"Abstract, {monochrome|colorful|artistic|modern} {ink|pencil|oil|realistic} illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent {geometric shapes|cubes|spheres|pyramids|several geometric forms|machines|things} - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of {red|green|blue|grey|light|dark} binary codes, which contrast starkly with the {soft|hard|sharp} {pastel|dark|light|realistic} colours. The fusion of {abstract|modern|retro|cyberpunk|steampunk|artistic|realism} and {surreal|modern|retro|cyberpunk|steampunk|artistic|realism|photo|modern|modernism} art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\\nNegative prompt: nsfw, porn, nude, nudity, child, childish, boring\\nSteps: 35, Sampler: DPM++ SDE Karras, CFG scale: 8.0, Seed: 367489654979589, Size: 810x1295, Model hash: a47e380db3, Model: sdxlUnstableDiffusers_nihilmania, VAE: sdxl_vae.safetensors\"\n}"
-      ]
+        "{\n    \"exif_status\": \"OFF\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"beautiful {25|30|35|40|45} years old nsfw sexy model woman flirting and posing for photographer, unique cool character {standing|posing|dancing|watching|walking|running|holding hand of her boyfriend|kissing her boyfriend|hug a cool man}, {half body|full body|closeup portrait|distance|closeup half-body} {nude|porn|nsfw|lingerie|pantie} sexy uncensored high fashion sexy photography, beautiful natural tightly standing upright breast, sexy neckline, {wear sexy clothes|full nude|wear luxury lingerie|leather|jeans}, {luxury|cool|dirty|goth rocker} {elegant|simple|silky|high fashion|cool|dirty} sexy top clothes {and bra|}, {wearing a big sexy hat to make her more attractive and flirting|poking her hand in her hair|watching the photographer|sexy looks|posing like a model|posing like a pornstar|wife|housewife|lover|}, front view, perfect {happy|satisfied|desired} face and mood, detailed eyes, natural {clean|sharp|blurry} background, perfect lights, perfect colors, detailed realistic sexy lingerie luxury fashion photo, {long|short} {straight|curly} {black|brown|white|pink|blue|blonde|red} hair, {professional|amateur|mobile|selfie} high-fashion nightwear photography {indoor|outdoor|photo studio|street|city|village|hill|lake|beach|interior bedroom|interior kitchen|interior living room|house} photography shot\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"child, childish, boring, sfw, prude\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Dynamic\",\n    \"decoded_positive\": \"beautiful 45 years old nsfw sexy model woman flirting and posing for photographer, unique cool character walking, closeup portrait pantie sexy uncensored high fashion sexy photography, beautiful natural tightly standing upright breast, sexy neckline, leather, cool high fashion sexy top clothes and bra, watching the photographer, front view, perfect satisfied face and mood, detailed eyes, natural clean background, perfect lights, perfect colors, detailed realistic sexy lingerie luxury fashion photo, long curly red hair, amateur high-fashion nightwear photography lake photography shot\",\n    \"decoded_negative\": \"child, childish, boring, sfw, prude\",\n    \"model\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"model_concept\": \"Flux\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": \"GGUF\",\n        \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n        \"flux_wight_dtype\": \"fp8_e4m3fn\",\n        \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n        \"flux_clip_t5xxl\": \"Flux\\\\t5-v1_1-xxl-encoder-Q4_K_M.gguf\",\n        \"flux_clip_l\": \"clip_l.safetensors\",\n        \"flux_clip_guidance\": 1.7000000000000002,\n        \"flux_vae\": \"flux-ae.sft\",\n        \"flux_sampler\": \"ksampler\"\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"vae\": \"sdxl_vae.safetensors\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"euler\",\n    \"scheduler\": \"beta\",\n    \"steps\": 25,\n    \"cfg\": 1.0,\n    \"seed\": 1081577591144915,\n    \"width\": 810,\n    \"height\": 1295,\n    \"size_string\": \"810x1295\",\n    \"preferred\": {\n        \"subpath\": \"NSFW\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"651\",\n    \"setup_states\": {\n        \"data_source\": false,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Image_20241509_174249_764267940815467_840x1232_1.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"blue\",\n        \"alpha_exponent\": 0.5,\n        \"modulator\": 1.25,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"sdxl_positive_l\": \"\",\n        \"sdxl_negative_l\": \"\",\n        \"copy_prompt_to_l\": false,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.91,\n        \"variation_seed\": 1081577591144915,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    },\n    \"saved_image_width\": 808,\n    \"saved_image_heigth\": 1288,\n    \"upscaler_ratio\": \"From: 810x1295 to: 808x1288 Ratio: 1.0\",\n    \"model_hash\": \"unknown\"\n}"
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     },
     {
       "id": 20,
       "type": "PrimereClearPrompt",
       "pos": {
-        "0": 952,
-        "1": -120
+        "0": 944,
+        "1": -123
       },
       "size": {
         "0": 324.0008850097656,
@@ -390,7 +393,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 160
+          "link": 239
         },
         {
           "name": "loaded_model",
@@ -410,7 +413,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 159,
+          "link": 238,
           "widget": {
             "name": "model_concept"
           }
@@ -421,7 +424,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            139
+            232
           ],
           "shape": 3
         },
@@ -429,7 +432,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            140
+            233
           ],
           "shape": 3
         },
@@ -437,10 +440,11 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            141,
-            223
+            223,
+            240
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 2
         },
         {
           "name": "MODEL_VERSION",
@@ -460,11 +464,11 @@
       ]
     },
     {
-      "id": 17,
+      "id": 34,
       "type": "PrimereNetworkTagLoader",
       "pos": {
         "0": 572,
-        "1": 553
+        "1": 564
       },
       "size": {
         "0": 315,
@@ -477,17 +481,22 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 139
+          "link": 232
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 140
+          "link": 233
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 237
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 150,
+          "link": 234,
           "widget": {
             "name": "positive_prompt"
           }
@@ -498,18 +507,16 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            210
+            235
           ],
-          "slot_index": 0,
           "shape": 3
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            197
+            236
           ],
-          "slot_index": 1,
           "shape": 3
         },
         {
@@ -568,59 +575,18 @@
       ]
     },
     {
-      "id": 5,
-      "type": "PrimereVAELoader",
-      "pos": {
-        "0": 945,
-        "1": -217
-      },
-      "size": {
-        "0": 210,
-        "1": 46
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "vae_name",
-          "type": "VAE_NAME",
-          "link": 161
-        },
-        {
-          "name": "baked_vae",
-          "type": "VAE",
-          "link": 141
-        }
-      ],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            14
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVAELoader"
-      }
-    },
-    {
       "id": 31,
       "type": "PrimereLatentNoise",
       "pos": {
-        "0": 933,
-        "1": 153
+        "0": 949,
+        "1": 163
       },
       "size": {
         "0": 333.260009765625,
         "1": 426
       },
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -698,32 +664,34 @@
         1,
         0.8,
         1.4,
-        353031570196288,
+        585143574103697,
         "randomize",
         true,
         "cpu",
         true
-      ]
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 29,
       "type": "PrimereCLIPEncoder",
       "pos": {
-        "0": 1299,
-        "1": -121
+        "0": 1302,
+        "1": 138
       },
       "size": {
         "0": 388.4599914550781,
         "1": 874
       },
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 197
+          "link": 236
         },
         {
           "name": "model_keywords",
@@ -942,21 +910,23 @@
         1,
         1024,
         1024
-      ]
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 13,
       "type": "PrimereTextOutput",
       "pos": {
-        "0": 2963,
-        "1": -184
+        "0": 1720,
+        "1": 1374
       },
-      "size": {
-        "0": 557.7000122070312,
-        "1": 408.1000061035156
-      },
+      "size": [
+        605.6469780426937,
+        256.1579170914574
+      ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -975,22 +945,24 @@
       },
       "widgets_values": [
         "",
-        "Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image."
-      ]
+        "beautiful 45 years old nsfw sexy model woman flirting and posing for photographer, unique cool character walking, closeup portrait pantie sexy uncensored high fashion sexy photography, beautiful natural tightly standing upright breast, sexy neckline, leather, cool high fashion sexy top clothes and bra, watching the photographer, front view, perfect satisfied face and mood, detailed eyes, natural clean background, perfect lights, perfect colors, detailed realistic sexy lingerie luxury fashion photo, long curly red hair, amateur high-fashion nightwear photography lake photography shot"
+      ],
+      "color": "#145454",
+      "bgcolor": "#004040"
     },
     {
       "id": 14,
       "type": "PrimereTextOutput",
       "pos": {
-        "0": 2970,
-        "1": 302
+        "0": 2351,
+        "1": 1376
       },
-      "size": {
-        "0": 566.3809814453125,
-        "1": 413.2881774902344
-      },
+      "size": [
+        533.9287857426939,
+        252.20919999145735
+      ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -1009,28 +981,30 @@
       },
       "widgets_values": [
         "",
-        "(nsfw, porn, nude, nudity, child, childish, boring:1.20)"
-      ]
+        "(child, childish, boring, sfw, prude:1.20)"
+      ],
+      "color": "#541414",
+      "bgcolor": "#400000"
     },
     {
       "id": 30,
       "type": "PrimereKSampler",
       "pos": {
-        "0": 952,
-        "1": 649
+        "0": 941,
+        "1": 638
       },
       "size": {
         "0": 323.2222595214844,
         "1": 378
       },
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 210
+          "link": 235
         },
         {
           "name": "positive",
@@ -1123,7 +1097,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        736944258484632,
+        1013538587162793,
         "randomize",
         20,
         8,
@@ -1136,21 +1110,23 @@
         "DEFAULT",
         true,
         "Normal"
-      ]
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     },
     {
       "id": 8,
       "type": "VAEDecode",
       "pos": {
-        "0": 1177,
-        "1": -229
+        "0": 1472,
+        "1": -111
       },
       "size": {
         "0": 210,
         "1": 46
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -1161,7 +1137,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": 14
+          "link": 240
         }
       ],
       "outputs": [
@@ -1169,7 +1145,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            31
+            231
           ],
           "slot_index": 0,
           "shape": 3
@@ -1183,15 +1159,15 @@
       "id": 4,
       "type": "PrimereAnyOutput",
       "pos": {
-        "0": 3562,
-        "1": -192
+        "0": 2908,
+        "1": -108
       },
       "size": {
-        "0": 1459.1800537109375,
-        "1": 1038.3399658203125
+        "0": 883.0093994140625,
+        "1": 1734.1953125
       },
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -1205,77 +1181,49 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 39,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Decoded\",\n    \"decoded_positive\": \"Abstract, colorful ink illustration featuring a central undulating shape, characterised by a subtle interplay of whispering lines and bold ink strokes, embodying the aesthetic a contest winner. These fluid and swirling linear elements blend seamlessly into a crystalline, surreal landscape, where translucent spheres - coalesce into logical structures that seem to float in an ethereal dreamscape. The geometry is accentuated by luminous traces of green binary codes, which contrast starkly with the sharp light colours. The fusion of steampunk and modern art forms seeks to elevate the visual experience, drawing inspiration from the imaginary realms of famouis artists captured in hyper-realistic detailed image.\",\n    \"decoded_negative\": \"nsfw, porn, nude, nudity, child, childish, boring\",\n    \"model\": \"SDXL\\\\sdxlUnstableDiffusers_nihilmania.safetensors\",\n    \"model_concept\": \"Normal\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": null,\n        \"flux_diffusion\": null,\n        \"flux_wight_dtype\": null,\n        \"flux_gguf\": null,\n        \"flux_clip_t5xxl\": null,\n        \"flux_clip_l\": null,\n        \"flux_clip_guidance\": null,\n        \"flux_vae\": null,\n        \"flux_sampler\": null\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"model_hash\": \"a47e380db3\",\n    \"vae\": \"sdxl_vae.safetensors\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"scheduler\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 8.0,\n    \"seed\": 367489654979589,\n    \"width\": 810,\n    \"height\": 1295,\n    \"size_string\": \"810x1295\",\n    \"preferred\": {\n        \"subpath\": \"promptdev14\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 1147,\n    \"saved_image_heigth\": 1828,\n    \"upscaler_ratio\": \"From: 810x1295 to: 1147x1828 Ratio: 1.4\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"792\",\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": false,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Public_A792_105942_367489654979589_1.png\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"blue\",\n        \"alpha_exponent\": 0.5,\n        \"modulator\": 1.25,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"ViT-L-14-BEST-smooth-GmP-TE-only-HF-format.safetensors\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"sdxl_positive_l\": \"\",\n        \"sdxl_negative_l\": \"\",\n        \"copy_prompt_to_l\": false,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.25,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": true,\n        \"noise_constant\": 0.25,\n        \"variation_seed\": 367489654979589,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    }\n}"
-      ]
+        "{\n    \"exif_status\": \"SUCCEED\",\n    \"exif_data_count\": 39,\n    \"meta_source\": \"Primere\",\n    \"pic2story\": \"OFF\",\n    \"positive\": \"beautiful 45 years old nsfw sexy model woman flirting and posing for photographer, unique cool character walking, closeup portrait pantie sexy uncensored high fashion sexy photography, beautiful natural tightly standing upright breast, sexy neckline, leather, cool high fashion sexy top clothes and bra, watching the photographer, front view, perfect satisfied face and mood, detailed eyes, natural clean background, perfect lights, perfect colors, detailed realistic sexy lingerie luxury fashion photo, long curly red hair, amateur high-fashion nightwear photography lake photography shot\",\n    \"positive_l\": null,\n    \"positive_r\": null,\n    \"negative\": \"child, childish, boring, sfw, prude\",\n    \"negative_l\": null,\n    \"negative_r\": null,\n    \"prompt_state\": \"Decoded\",\n    \"decoded_positive\": \"beautiful 45 years old nsfw sexy model woman flirting and posing for photographer, unique cool character walking, closeup portrait pantie sexy uncensored high fashion sexy photography, beautiful natural tightly standing upright breast, sexy neckline, leather, cool high fashion sexy top clothes and bra, watching the photographer, front view, perfect satisfied face and mood, detailed eyes, natural clean background, perfect lights, perfect colors, detailed realistic sexy lingerie luxury fashion photo, long curly red hair, amateur high-fashion nightwear photography lake photography shot\",\n    \"decoded_negative\": \"child, childish, boring, sfw, prude\",\n    \"model\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"model_concept\": \"Flux\",\n    \"concept_data\": {\n        \"lightning_selector\": null,\n        \"lightning_model_step\": null,\n        \"cascade_stage_a\": null,\n        \"cascade_stage_b\": null,\n        \"cascade_stage_c\": null,\n        \"cascade_clip\": null,\n        \"hypersd_selector\": null,\n        \"hypersd_model_step\": null,\n        \"flux_selector\": \"GGUF\",\n        \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n        \"flux_wight_dtype\": \"fp8_e4m3fn\",\n        \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n        \"flux_clip_t5xxl\": \"Flux\\\\t5-v1_1-xxl-encoder-Q4_K_M.gguf\",\n        \"flux_clip_l\": \"clip_l.safetensors\",\n        \"flux_clip_guidance\": 1.7000000000000002,\n        \"flux_vae\": \"flux-ae.sft\",\n        \"flux_sampler\": \"ksampler\"\n    },\n    \"model_version\": \"SDXL_2048\",\n    \"is_sdxl\": 1,\n    \"model_hash\": \"unknown\",\n    \"vae\": \"flux-ae.sft\",\n    \"vae_name_sd\": \"vae-ft-mse-840000-ema-pruned.safetensors\",\n    \"vae_name_sdxl\": \"sdxl_vae.safetensors\",\n    \"sampler\": \"euler\",\n    \"scheduler\": \"beta\",\n    \"steps\": 25,\n    \"cfg\": 1.0,\n    \"seed\": 1081577591144915,\n    \"width\": 810,\n    \"height\": 1295,\n    \"size_string\": \"810x1295\",\n    \"preferred\": {\n        \"subpath\": \"NSFW\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"saved_image_width\": 808,\n    \"saved_image_heigth\": 1288,\n    \"upscaler_ratio\": \"From: 810x1295 to: 808x1288 Ratio: 1.0\",\n    \"model_shapes\": {\n        \"SD\": 768,\n        \"SDXL\": 1024,\n        \"TURBO\": 512\n    },\n    \"aesthetic_score\": \"651\",\n    \"setup_states\": {\n        \"data_source\": true,\n        \"prompt_surce\": true,\n        \"prompt_state\": true,\n        \"model\": true,\n        \"model_hash_check\": false,\n        \"sampler\": true,\n        \"scheduler\": true,\n        \"cfg\": true,\n        \"steps\": true,\n        \"seed\": true,\n        \"image_size\": true,\n        \"recount_image\": false,\n        \"vae\": true,\n        \"force_vae\": true,\n        \"model_concept\": true,\n        \"latent_setup\": true,\n        \"lora_setup\": true,\n        \"lycoris_setup\": true,\n        \"embedding_setup\": true,\n        \"hypernetwork_setup\": true,\n        \"sampler_setup\": true,\n        \"clip_encoder_setup\": true,\n        \"clip_optional_prompts\": true,\n        \"clip_style_prompts\": true,\n        \"clip_additional_keywords\": true,\n        \"preferred\": true,\n        \"use_preferred\": true,\n        \"image\": \"Image_A651_20241609_180251_1081577591144915_808x1288_1.jpg\"\n    },\n    \"latent_data\": {\n        \"noise_type\": \"blue\",\n        \"alpha_exponent\": 0.5,\n        \"modulator\": 1.25,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"clip_model\": \"Default\",\n        \"longclip_model\": \"Long-ViT-L-14-GmP-ft.safetensors\",\n        \"clip_mode\": true,\n        \"last_layer\": 0,\n        \"negative_strength\": 1.2,\n        \"use_int_style\": false,\n        \"adv_encode\": false,\n        \"token_normalization\": \"mean\",\n        \"weight_interpretation\": \"comfy++\",\n        \"model_keywords\": [\n            null,\n            null\n        ],\n        \"lora_keywords\": [\n            null,\n            null\n        ],\n        \"lycoris_keywords\": [\n            null,\n            null\n        ],\n        \"embedding_pos\": [\n            null,\n            null\n        ],\n        \"embedding_neg\": [\n            null,\n            null\n        ],\n        \"opt_pos_prompt\": \"\",\n        \"opt_pos_strength\": 1.0,\n        \"opt_neg_prompt\": \"\",\n        \"opt_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"style_pos_prompt\": \"\",\n        \"style_pos_strength\": 1.0,\n        \"style_neg_prompt\": \"\",\n        \"style_neg_strength\": 1.0,\n        \"sdxl_positive_l\": \"\",\n        \"sdxl_negative_l\": \"\",\n        \"copy_prompt_to_l\": false,\n        \"sdxl_l_strength\": 1.0\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.07,\n        \"variation_seed\": 1081577591144915,\n        \"batch_counter\": 1\n    },\n    \"network_data\": {\n        \"lora_sd\": [],\n        \"lora_sdxl\": [],\n        \"embedding_sd\": [],\n        \"embedding_sdxl\": [],\n        \"hypernetwork_sd\": [],\n        \"hypernetwork_sdxl\": [],\n        \"lycoris_sd\": [],\n        \"lycoris_sdxl\": []\n    }\n}"
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     },
     {
-      "id": 10,
-      "type": "PreviewImage",
+      "id": 33,
+      "type": "PrimerePreviewImage",
       "pos": {
-        "0": 1717,
-        "1": -144
+        "0": 1721,
+        "1": -128
       },
-      "size": [
-        1183.1702877929697,
-        1393.4859056250004
-      ],
+      "size": {
+        "0": 1159.751953125,
+        "1": 1448.251708984375
+      },
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 31
+          "link": 231
         }
       ],
       "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
+      "properties": {},
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ],
+      "color": "#141494",
+      "bgcolor": "#000080"
     }
   ],
   "links": [
-    [
-      14,
-      5,
-      0,
-      8,
-      1,
-      "VAE"
-    ],
-    [
-      31,
-      8,
-      0,
-      10,
-      0,
-      "IMAGE"
-    ],
-    [
-      139,
-      24,
-      0,
-      17,
-      0,
-      "MODEL"
-    ],
-    [
-      140,
-      24,
-      1,
-      17,
-      1,
-      "CLIP"
-    ],
-    [
-      141,
-      24,
-      2,
-      5,
-      1,
-      "VAE"
-    ],
     [
       149,
       19,
@@ -1283,14 +1231,6 @@
       26,
       0,
       "TUPLE"
-    ],
-    [
-      150,
-      26,
-      0,
-      17,
-      2,
-      "STRING"
     ],
     [
       151,
@@ -1331,38 +1271,6 @@
       20,
       3,
       "STRING"
-    ],
-    [
-      159,
-      26,
-      8,
-      24,
-      5,
-      "STRING"
-    ],
-    [
-      160,
-      26,
-      9,
-      24,
-      1,
-      "TUPLE"
-    ],
-    [
-      161,
-      26,
-      10,
-      5,
-      0,
-      "VAE_NAME"
-    ],
-    [
-      197,
-      17,
-      1,
-      29,
-      0,
-      "CLIP"
     ],
     [
       199,
@@ -1427,14 +1335,6 @@
       14,
       0,
       "STRING"
-    ],
-    [
-      210,
-      17,
-      0,
-      30,
-      0,
-      "MODEL"
     ],
     [
       211,
@@ -1587,17 +1487,97 @@
       32,
       0,
       "*"
+    ],
+    [
+      231,
+      8,
+      0,
+      33,
+      0,
+      "IMAGE"
+    ],
+    [
+      232,
+      24,
+      0,
+      34,
+      0,
+      "MODEL"
+    ],
+    [
+      233,
+      24,
+      1,
+      34,
+      1,
+      "CLIP"
+    ],
+    [
+      234,
+      26,
+      0,
+      34,
+      3,
+      "STRING"
+    ],
+    [
+      235,
+      34,
+      0,
+      30,
+      0,
+      "MODEL"
+    ],
+    [
+      236,
+      34,
+      1,
+      29,
+      0,
+      "CLIP"
+    ],
+    [
+      237,
+      19,
+      0,
+      34,
+      2,
+      "TUPLE"
+    ],
+    [
+      238,
+      26,
+      8,
+      24,
+      5,
+      "STRING"
+    ],
+    [
+      239,
+      26,
+      9,
+      24,
+      1,
+      "TUPLE"
+    ],
+    [
+      240,
+      24,
+      2,
+      8,
+      1,
+      "VAE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909091,
-      "offset": {
-        "0": 605.131103515625,
-        "1": 348.1523132324219
-      }
+      "scale": 0.7513148009015777,
+      "offset": [
+        762.1367880573061,
+        194.15062500854341
+      ]
     }
   },
   "version": 0.4

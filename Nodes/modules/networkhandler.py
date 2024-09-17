@@ -129,9 +129,9 @@ def EmbeddingHandler(self, kwargs, embedding_placement_pos, embedding_placement_
 
 def HypernetworkHandler(self, kwargs, model, safe_load):
     model_hypernetwork = model
-    hnetworks = [kwargs.get(f"hypernetwork_{i}") for i in range(1, self.EMBCOUNT + 1)]
-    use_hnetworks = [kwargs.get(f"use_hypernetwork_{i}") for i in range(1, self.EMBCOUNT + 1)]
-    hnetworks_weight = [kwargs.get(f"hypernetwork_{i}_weight") for i in range(1, self.EMBCOUNT + 1)]
+    hnetworks = [kwargs.get(f"hypernetwork_{i}") for i in range(1, self.HNCOUNT + 1)]
+    use_hnetworks = [kwargs.get(f"use_hypernetwork_{i}") for i in range(1, self.HNCOUNT + 1)]
+    hnetworks_weight = [kwargs.get(f"hypernetwork_{i}_weight") for i in range(1, self.HNCOUNT + 1)]
 
     hnetwork_stack = [(hn_name, hn_weight) for hn_name, hn_weight, hn_uses in zip(hnetworks, hnetworks_weight, use_hnetworks) if hn_uses == True]
     if hnetwork_stack is not None and len(hnetwork_stack) > 0:

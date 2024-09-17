@@ -175,7 +175,7 @@ class PrimereHypernetwork:
     RETURN_NAMES = ("MODEL", "HYPERNETWORK_STACK")
     FUNCTION = "primere_hypernetwork"
     CATEGORY = TREE_NETWORKS
-    EMBCOUNT = 6
+    HNCOUNT = 6
 
     @classmethod
     def INPUT_TYPES(s):
@@ -229,7 +229,7 @@ class PrimereHypernetwork:
 
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'setup_states' in workflow_tuple and 'hypernetwork_setup' in workflow_tuple['setup_states'] and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if workflow_tuple['setup_states']['hypernetwork_setup'] == True:
-                loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.EMBCOUNT, False, stack_version)
+                loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.HNCOUNT, False, stack_version)
                 if len(loader) > 0:
                     return networkhandler.HypernetworkHandler(self, loader, model, safe_load)
                 else:
