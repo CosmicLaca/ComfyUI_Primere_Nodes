@@ -102,16 +102,19 @@ class PrimereVisualLORA:
                 "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
+                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
                 "cached_lora": (cls.lora_versions,),
             }
         }
 
-    def visual_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, workflow_tuple, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+    def visual_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight,
+                            workflow_tuple=None, stack_version ='Any', model_version ="BaseModel_1024", **kwargs):
+
         model_keyword = [None, None]
-        if 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
+
+        if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return (model, clip, [], model_keyword)
 
         if model_version == 'SDXL_2048' and stack_version == 'SD':
@@ -189,15 +192,15 @@ class PrimereVisualEmbedding:
                 "embedding_placement_neg": (["First", "Last"], {"default": "Last"}),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
+                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
                 "cached_embedding": (cls.embedding_versions,),
             }
         }
 
-    def primere_visual_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple, stack_version='Any', model_version="BaseModel_1024", **kwargs):
-        if 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
+    def primere_visual_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple=None, stack_version='Any', model_version="BaseModel_1024", **kwargs):
+        if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return ([None, None], [None, None], [])
 
         if model_version == 'SDXL_2048' and stack_version == 'SD':
@@ -267,12 +270,12 @@ class PrimereVisualHypernetwork:
                 "hypernetwork_6_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
+                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
         }
 
-    def visual_hypernetwork(self, model, model_version, workflow_tuple, stack_version = "Any", safe_load = True, **kwargs):
-        if 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
+    def visual_hypernetwork(self, model, model_version, workflow_tuple = None, stack_version = "Any", safe_load = True, **kwargs):
+        if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return (model, [],)
 
         if model_version == 'SDXL_2048' and stack_version == 'SD':
@@ -460,17 +463,17 @@ class PrimereVisualLYCORIS:
                 "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": []}),
+                "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
                 "cached_lyco": (cls.lyco_versions,),
             }
         }
 
-    def primere_visual_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+    def primere_visual_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple=None, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
         model_keyword = [None, None]
 
-        if 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
+        if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return (model, clip, [], model_keyword)
 
         if model_version == 'SDXL_2048' and stack_version == 'SD':
