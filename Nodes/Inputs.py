@@ -396,7 +396,7 @@ class PrimereStyleLoader:
                 return pandas.read_csv(csv_file)
             except pandas.errors.ParserError as e:
                 errorstring = repr(e)
-                matchre = re.compile('Expected (\d+) fields in line (\d+), saw (\d+)')
+                matchre = re.compile('Expected (d+) fields in line (d+), saw (d+)')
                 (expected, line, saw) = map(int, matchre.search(errorstring).groups())
                 print(f'Error at line {line}. Fields added : {saw - expected}.')
 
