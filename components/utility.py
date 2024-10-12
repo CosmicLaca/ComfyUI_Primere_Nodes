@@ -166,7 +166,7 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
 
 def clear_cascade(prompt):
-    return re.sub("(\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
+    return re.sub("(\.d+)|(:d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
 
 def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
     valid_networks = []
@@ -396,7 +396,7 @@ def load_external_csv(csv_full_path: str, header_cols: int):
             return pandas.read_csv(csv_file, header = header_cols, index_col = False, skipinitialspace = True)
         except pandas.errors.ParserError as e:
             errorstring = repr(e)
-            matchre = re.compile('Expected (\d+) fields in line (\d+), saw (\d+)')
+            matchre = re.compile('Expected (d+) fields in line (d+), saw (d+)')
             (expected, line, saw) = map(int, matchre.search(errorstring).groups())
             print(f'Error at line {line}. Fields added : {saw - expected}.')
             return None
