@@ -891,7 +891,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         card.classList.add('visual-ckpt-selected');
     }
 
-    if (AscoreDataResponse.hasOwnProperty(ckptName) === true) {
+    if (AscoreDataResponse != null && AscoreDataResponse.hasOwnProperty(ckptName) === true) {
         var aestString = AscoreDataResponse[ckptName];
         var aestArray = aestString.split("|");
         var aestAVGValue = Math.floor(aestArray[1] / aestArray[0]);
@@ -913,7 +913,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     $(card).attr('data-version', CategoryName);
     $(card).attr('data-path', path_only);
 
-    if (Object.keys(RawImageDataResponse).length > 0) {
+    if (RawImageDataResponse != null &&  Object.keys(RawImageDataResponse).length > 0) {
         if (RawImageDataResponse.hasOwnProperty(finalName) === true) {
             if (PreviewPath == false) {
                 var imgsrc = 'data:image/jpeg;charset=utf-8;base64,  ' + RawImageDataResponse[finalName];
