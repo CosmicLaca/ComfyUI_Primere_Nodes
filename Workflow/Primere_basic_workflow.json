@@ -181,7 +181,7 @@
         true,
         true,
         true,
-        "Architechture::Minimal interior",
+        "Architechture::Interior",
         "None",
         "None",
         "None",
@@ -1235,7 +1235,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Architechture Mountain architect",
+        "Sci-fi UFO",
         true,
         true,
         true,
@@ -1326,7 +1326,7 @@
         true,
         true,
         false,
-        "Architechture Mountain architect",
+        "Architechture Interior",
         "None",
         "None",
         "None",
@@ -2491,7 +2491,7 @@
       },
       "widgets_values": [
         "",
-        952971090345236,
+        442649063459907,
         "randomize",
         true
       ],
@@ -2547,7 +2547,7 @@
       },
       "widgets_values": [
         "",
-        715208024733997,
+        221965539774437,
         "randomize",
         true
       ],
@@ -3136,7 +3136,7 @@
         false,
         1.6,
         2.8,
-        693964190507775,
+        219399965342261,
         "randomize",
         "SD1",
         "Auto"
@@ -3322,7 +3322,7 @@
         1,
         0.8,
         1.4,
-        1068088961300285,
+        287321145160179,
         "randomize",
         true,
         "cpu",
@@ -3724,7 +3724,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        248169329924810,
+        487348615250335,
         "randomize",
         20,
         8,
@@ -4072,7 +4072,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1815,
+        942,
         "randomize",
         "",
         "",
@@ -5532,10 +5532,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6830134553650706,
+      "scale": 0.6209213230591552,
       "offset": [
-        -648.7369119933874,
-        190.8060765888877
+        488.0329757910164,
+        168.14178710449238
       ]
     }
   },
