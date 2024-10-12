@@ -1,6 +1,6 @@
 {
   "last_node_id": 99,
-  "last_link_id": 488,
+  "last_link_id": 490,
   "nodes": [
     {
       "id": 43,
@@ -109,52 +109,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 71,
-      "type": "PrimereSeed",
-      "pos": {
-        "0": 1183,
-        "1": 88
-      },
-      "size": {
-        "0": 280.19598388671875,
-        "1": 130
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            291,
-            292,
-            309,
-            329,
-            405,
-            431,
-            441,
-            458,
-            480
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        244127401853434,
-        null,
-        null,
-        null
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 48,
       "type": "PrimereSamplersSteps",
       "pos": {
@@ -166,7 +120,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -239,7 +193,7 @@
         "1": 446
       },
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -309,18 +263,18 @@
         "0": 269,
         "1": 630
       },
-      "size": [
-        390.65279999999814,
-        590
-      ],
+      "size": {
+        "0": 390.6528015136719,
+        "1": 590
+      },
       "flags": {},
-      "order": 5,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "random_seed",
           "type": "INT",
-          "link": null,
+          "link": 489,
           "widget": {
             "name": "random_seed"
           },
@@ -408,7 +362,7 @@
         "1": 350
       },
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -490,7 +444,7 @@
         "1": 222
       },
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -543,12 +497,12 @@
         "0": 1459.6114501953125,
         "1": 632.775146484375
       },
-      "size": [
-        334.5316518332356,
-        338
-      ],
+      "size": {
+        "0": 334.5316467285156,
+        "1": 338
+      },
       "flags": {},
-      "order": 8,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -689,7 +643,7 @@
         "1": 186
       },
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -791,7 +745,7 @@
         "1": 154
       },
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -836,7 +790,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -892,7 +846,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -948,7 +902,7 @@
         "1": 338
       },
       "flags": {},
-      "order": 13,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -1043,7 +997,7 @@
         "1": 56
       },
       "flags": {},
-      "order": 14,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -1108,7 +1062,7 @@
         "1": 426
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -1209,7 +1163,7 @@
         "1": 454
       },
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -1397,7 +1351,7 @@
           "type": "TUPLE",
           "links": [
             452,
-            453
+            490
           ],
           "slot_index": 0
         }
@@ -1439,7 +1393,7 @@
         "1": 294
       },
       "flags": {},
-      "order": 17,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -1525,7 +1479,7 @@
         "1": 363.45452880859375
       },
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -1541,117 +1495,6 @@
       "widgets_values": [],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 95,
-      "type": "PrimereNetworkTagLoader",
-      "pos": {
-        "0": 1830,
-        "1": 1064
-      },
-      "size": {
-        "0": 361.0999755859375,
-        "1": 562
-      },
-      "flags": {},
-      "order": 19,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 445
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 446
-        },
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 453,
-          "shape": 7
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 451,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            447
-          ]
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            448
-          ]
-        },
-        {
-          "name": "LORA_STACK",
-          "type": "LORA_STACK",
-          "links": null
-        },
-        {
-          "name": "LYCORIS_STACK",
-          "type": "LYCORIS_STACK",
-          "links": null
-        },
-        {
-          "name": "HYPERNETWORK_STACK",
-          "type": "HYPERNETWORK_STACK",
-          "links": null
-        },
-        {
-          "name": "LORA_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            449
-          ]
-        },
-        {
-          "name": "LYCORIS_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            450
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereNetworkTagLoader"
-      },
-      "widgets_values": [
-        "",
-        true,
-        true,
-        true,
-        true,
-        true,
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
     },
     {
       "id": 78,
@@ -2487,6 +2330,164 @@
       ],
       "color": "#149454",
       "bgcolor": "#008040"
+    },
+    {
+      "id": 71,
+      "type": "PrimereSeed",
+      "pos": {
+        "0": 1183,
+        "1": 88
+      },
+      "size": {
+        "0": 280.19598388671875,
+        "1": 130
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            291,
+            292,
+            309,
+            329,
+            405,
+            431,
+            441,
+            458,
+            480,
+            489
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        244127401853434,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 95,
+      "type": "PrimereNetworkTagLoader",
+      "pos": {
+        "0": 1830,
+        "1": 1064
+      },
+      "size": {
+        "0": 361.0999755859375,
+        "1": 562
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 445
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 446
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 490,
+          "shape": 7
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 451,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            447
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            448
+          ]
+        },
+        {
+          "name": "LORA_STACK",
+          "type": "LORA_STACK",
+          "links": null
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null
+        },
+        {
+          "name": "HYPERNETWORK_STACK",
+          "type": "HYPERNETWORK_STACK",
+          "links": null
+        },
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            449
+          ]
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            450
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereNetworkTagLoader"
+      },
+      "widgets_values": [
+        "",
+        true,
+        true,
+        true,
+        true,
+        true,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     }
   ],
   "links": [
@@ -3019,14 +3020,6 @@
       "TUPLE"
     ],
     [
-      453,
-      96,
-      0,
-      95,
-      2,
-      "TUPLE"
-    ],
-    [
       458,
       71,
       0,
@@ -3201,6 +3194,22 @@
       56,
       11,
       "STRING"
+    ],
+    [
+      489,
+      71,
+      0,
+      99,
+      0,
+      "INT"
+    ],
+    [
+      490,
+      96,
+      0,
+      95,
+      2,
+      "TUPLE"
     ]
   ],
   "groups": [
@@ -3268,10 +3277,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
+      "scale": 0.7513148009015777,
       "offset": [
-        -539.0431020285479,
-        137.54667971450044
+        -373.2707319933872,
+        300.27356658888806
       ]
     }
   },
