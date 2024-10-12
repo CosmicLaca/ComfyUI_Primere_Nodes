@@ -8,7 +8,7 @@ import pandas
 import re
 from pathlib import Path
 import difflib
-from ..utils import cache_file
+# from ..utils import cache_file
 import os
 import json
 import numpy as np
@@ -19,7 +19,7 @@ import requests
 import folder_paths
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
-from ..utils import comfy_dir
+# from ..utils import comfy_dir
 import collections
 import pytorch_lightning as pl
 import torch.nn as nn
@@ -31,6 +31,12 @@ from comfy.model_sampling import EPS
 from comfy.samplers import KSAMPLER, calculate_sigmas
 from comfy_extras.nodes_model_advanced import ModelSamplingDiscreteDistilled
 from tqdm.auto import trange
+import comfy.model_detection as model_detection
+
+here = Path(__file__).parent.parent.absolute()
+comfy_dir = str(here.parent.parent)
+cache_dir = os.path.join(here, 'Nodes', '.cache')
+cache_file = os.path.join(cache_dir, '.cache.json')
 
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
@@ -38,6 +44,12 @@ CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
+CONCEPT_RESOLUTIONS = {
+                        "512": ['SD09', "Turbo"],
+                        "768": ['SD1', 'SD2'],
+                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper"]
+                      }
 
 PREVIEW_PATH_BY_TYPE = {
     "Checkpoint": os.path.join(PREVIEW_ROOT, "checkpoints"),
@@ -258,7 +270,7 @@ def DynPromptDecoder(self, dyn_prompt, seed):
     prompt = all_prompts[0]
     return prompt
 
-def ModelObjectParser(modelobject):
+'''def ModelObjectParser(modelobject):
     for key in modelobject:
         Suboject_1 = modelobject[key]
         Suboject_2 = Suboject_1._modules
@@ -282,7 +294,84 @@ def getCheckpointVersion(modelobject):
     except:
         ModelVersion = 1024
 
-    return ckpt_type + '_' + str(ModelVersion)
+    return ckpt_type + '_' + str(ModelVersion)'''
+
+def getResolutionByType(model_type):
+    for res_key in CONCEPT_RESOLUTIONS:
+        if model_type in CONCEPT_RESOLUTIONS[res_key]:
+            return int(res_key)
+
+def getModelType(base_model, model_type):
+    LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+    folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+
+    ckpt_path = folder_paths.get_full_path(model_type, base_model)
+    model_version = None
+
+    if ckpt_path is not None:
+        if model_type != 'checkpoints':
+            try:
+                safetensors_header = comfy.utils.safetensors_header(ckpt_path)
+                if safetensors_header is not None:
+                    header_json = json.loads(safetensors_header)
+                    if (model_type == 'loras' or model_type == 'lycoris') and '__metadata__' in header_json and 'ss_base_model_version' in header_json['__metadata__']:
+                        model_version = header_json['__metadata__']['ss_base_model_version']
+
+                    elif (model_type == 'loras' or model_type == 'lycoris') and '__metadata__' in header_json and 'ss_resolution' in header_json['__metadata__']:
+                        model_version = header_json['__metadata__']['ss_resolution']
+                        if model_version is not None and model_version != 'NoneType':
+                            lora_resolution = (model_version.replace("(", "").replace(")", "").split(", "))
+                            if len(lora_resolution) == 2:
+                                model_version_res = (int(lora_resolution[0]) * int(lora_resolution[1]))
+                                if model_version_res < 1000 * 1000:
+                                    model_version = 'SD1'
+                                else:
+                                    model_version = 'SDXL'
+
+                    elif (model_type == 'loras' or model_type == 'lycoris') and '__metadata__' in header_json and 'ss_datasets' in header_json['__metadata__']:
+                        dataset = header_json['__metadata__']['ss_datasets']
+                        header_json_dataset = json.loads(dataset)
+                        if len(header_json_dataset) > 0 and 'resolution' in header_json_dataset[0]:
+                            dataset_resolution = header_json_dataset[0]['resolution']
+                            if len(dataset_resolution) == 2:
+                                model_version_res = (int(dataset_resolution[0]) * int(dataset_resolution[1]))
+                                if model_version_res < 1000 * 1000:
+                                    model_version = 'SD1'
+                                else:
+                                    model_version = 'SDXL'
+
+                    else:
+                        if '__metadata__' in header_json and 'modelspec.architecture' in header_json['__metadata__']:
+                            model_version = header_json['__metadata__']['modelspec.architecture']
+                else:
+                    return False
+            except:
+                try:
+                    sd = comfy.utils.load_torch_file(ckpt_path)
+                    diffusion_model_prefix = model_detection.unet_prefix_from_state_dict(sd)
+                    model_config = model_detection.model_config_from_unet(sd, diffusion_model_prefix)
+                    model_version = type(model_config).__name__
+                except:
+                    return False
+        else:
+            try:
+                sd = comfy.utils.load_torch_file(ckpt_path)
+                diffusion_model_prefix = model_detection.unet_prefix_from_state_dict(sd)
+                model_config = model_detection.model_config_from_unet(sd, diffusion_model_prefix)
+                model_version = type(model_config).__name__
+            except:
+                return False
+
+    else:
+        return False
+
+    if model_version is not None and model_version != 'NoneType' and (model_type == 'checkpoints' or model_type == 'loras' or model_type == 'lycoris'):
+        model_version = model_version.replace("_", "").replace(".", "").replace("sdv1", "SD1")
+        res = [ele for ele in SUPPORTED_MODELS if (ele.lower() in model_version.lower())]
+        if len(res) > 0:
+            model_version = res[0]
+
+    return model_version
 
 def get_model_hash(filename):
     try:
@@ -654,7 +743,7 @@ def hf_downloader(repo_id, model_local_dir):
     snapshot_download(repo_id=repo_id, local_dir=model_path, local_dir_use_symlinks=True, max_workers=1)
     return model_path
 
-def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, model_version = 'SDXL_2048'):
+def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, model_version = 'SDXL'):
     lora_name = None
     unet_name = None
     lightningModeValid = False
@@ -690,11 +779,11 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                         lightningModeValid = True
                         unet_name = finalLightning[0]
 
-    if model_concept == 'Hyper-SD':
+    if model_concept == 'Hyper':
         if hypersd_selector == 'LORA':
             LoraList = folder_paths.get_filename_list("loras")
             if len(LoraList) > 0:
-                if model_version == 'SDXL_2048':
+                if model_version == 'SDXL':
                     allLoraHyper = list(filter(lambda a: 'Hyper-SDXL-'.casefold() in a.casefold(), LoraList))
                 else:
                     allLoraHyper = list(filter(lambda a: 'Hyper-SD15-'.casefold() in a.casefold(), LoraList))
@@ -728,10 +817,10 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
     if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
-    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
+    if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
         OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
 
-    if model_concept == 'Hyper-SD' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
+    if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         unet_path = folder_paths.get_full_path("unet", unet_name)
         OUTPUT_MODEL = comfy.sd.load_checkpoint_guess_config(unet_path)
 
@@ -837,7 +926,7 @@ def ImageConcat(image1, image2, axis_value):
 
     return new_image
 
-def getDataFromWorkflow(workflow, nodeName, dataIndex):
+def getDataFromWorkflowById(workflow, nodeName, dataIndex):
     result = None
 
     for NODE_ITEMS in workflow:
@@ -850,6 +939,32 @@ def getDataFromWorkflow(workflow, nodeName, dataIndex):
                         result = ITEM_VALUES[dataIndex]
 
     return result
+
+def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
+    results = None
+
+    for node in workflow:
+        node_id = None
+        name = node["type"]
+        if "properties" in node:
+            if "Node name for S&R" in node["properties"]:
+                name = node["properties"]["Node name for S&R"]
+        if name == nodeName:
+            node_id = node["id"]
+        else:
+            if "title" in node:
+                name = node["title"]
+            if name == nodeName:
+                node_id = node["id"]
+        if node_id is None:
+            continue
+        if str(node_id) in prompt:
+            values = prompt[str(node_id)]
+            if "inputs" in values and inputName in values["inputs"]:
+                v = values["inputs"][inputName]
+                return v
+
+    return results
 
 def collect_state(extra_pnginfo, prompt):
     workflow = extra_pnginfo["workflow"]
@@ -923,7 +1038,6 @@ def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
     output_image = None
 
     if Path(ImgPath).is_file() == True:
-        #try:
         loaded_img = Image.open(ImgPath)
         output_images = []
         for i in ImageSequence.Iterator(loaded_img):
@@ -941,10 +1055,6 @@ def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
             output_image = torch.cat(output_images, dim=0)
         else:
             output_image = output_images[0]
-
-        #except Exception:
-        #    print('[Primere Error]: error loading image from path: ' + ImgPath)
-        #    output_image = None
 
     return output_image
 
@@ -1031,6 +1141,3 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_resu
         return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ')
     else:
         return story_out
-
-def TupleValueExcahnge(tuple_from, tuple_to):
-    return []

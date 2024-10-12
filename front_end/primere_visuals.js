@@ -1,99 +1,40 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
+let eventListenerInit = false;
 const realPath = "extensions/Primere";
 const prwPath = "extensions/PrimerePreviews";
-const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS'];
-const versionClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualLYCORIS', 'PrimereVisualEmbedding']
+const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereVisualPromptOrganizerCSV'];
+const stackedClasses = ['PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS'];
+let widget_name = "";
 let lastDirObject = {};
 let currentClass = false;
 let hiddenWidgets = {};
-let checkpointVersions = false;
-const SDXLVersionTags = ['SDXL_2048', 5120, 1280, 'SDXL'];
-let networkVersions = {};
+let ShowHidden = false;
+let FilterType = 'Subdir';
+let SelectedModel = 'SelectedModel';
+let sortType = 'name';
+let operator = 'ASC';
+let PreviewPath = true;
+let aeScoreMin = 400;
+let aeScoreMax = 900;
+let nodeHelper = {};
+let cache_key = '';
+let source_subdirname = '';
+let AutoFilter = false;
+let StackVersion = 'Auto';
+let ModelVersion = 'SD1';
 
-function createCardElement(checkpoint, container, SelectedModel, ModelType) {
-    let checkpoint_new = checkpoint.replaceAll('\\', '/');
-    let dotLastIndex = checkpoint_new.lastIndexOf('.');
-    if (dotLastIndex > 1) {
-        var finalName = checkpoint_new.substring(0, dotLastIndex);
-    } else {
-        var finalName = checkpoint_new;
-    }
-
-    let pathLastIndex = finalName.lastIndexOf('/');
-    let ckptName = finalName.substring(pathLastIndex + 1);
-    let versionWidget = '';
-
-    if (checkpointVersions !== false && checkpointVersions != null) {
-        if (checkpointVersions.hasOwnProperty(ckptName) === true) {
-            var versionString;
-            var titleText;
-            if (SDXLVersionTags.includes(checkpointVersions[ckptName])) {
-                titleText = 'SDXL checkpoint. Select right version of additional networks.';
-                versionString = 'sdxl';
-            } else if (checkpointVersions[ckptName] == 'Unknown') {
-                titleText = 'Unknown checkpoint version. You can enter right version manually to the version cache file. README.md helps.';
-                versionString = 'unknown';
-            } else {
-                titleText = 'SD1.5 checkpoint. Select right version of additional networks.';
-                versionString = 'sd1';
-            }
-            versionWidget = '<div class="ckpt-version ' + versionString + '-ckpt" title="' + titleText + '"></div>';
-        }
-    }
-
-    finalName = finalName.replaceAll(' ', "_");
-    let previewName = finalName + '.jpg';
-
-    var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
-    var imgsrc = prwPath + '/images/' + ModelType + '/' + previewName;
-    var missingimgsrc = prwPath + '/images/missing.jpg';
-
-    let supportedImageExtensions = ['.preview.jpg', '.jpeg', '.preview.jpeg', '.png', '.preview.png'];
-    let alternativeImgSources = []
-    for (let ending of supportedImageExtensions) {
-        var alternativeImgSrc = prwPath + '/images/' + ModelType + '/' + finalName + ending;
-        alternativeImgSources.push(alternativeImgSrc);
-    }
-    let currentAttempt = 0;
-
-	var card = document.createElement("div");
-	card.classList.add('visual-ckpt', 'version-' + versionString);
-    if (SelectedModel === checkpoint) {
-        card.classList.add('visual-ckpt-selected');
-    }
-
-    const img = new Image();
-    img.onload = () => {
-        const width = img.width;
-        if (width > 0) {
-            card_html += '<img src="' + img.src + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
-            card.innerHTML = card_html;
-            container.appendChild(card);
-            // console.log('Image loaded successfully with image source: ' + img.src + ' ...')
-        }
-        currentAttempt = 0;
-    };
-
-    img.onerror = () => {
-        // console.error('Image error detected with image source: ' + img.src + '. Attempting alternative image sources');
-        if (currentAttempt < alternativeImgSources.length) {
-            currentAttempt++;
-            img.src = alternativeImgSources[currentAttempt - 1];
-        } else {
-            card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
-            card.innerHTML = card_html;
-            container.appendChild(card);
-            currentAttempt = 0;
-        }
-        // card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '">';
-        // card.innerHTML = card_html;
-        // container.appendChild(card);
-    };
-    img.src = imgsrc;
-}
-
+// API
+let SetupCacheData = {};
+let VersionCacheData = {};
+let supportedModels = [];
+let ModelsByVersion = {};
+let AllPath = [];
+let ModelList = {};
+let AscoreDataResponse = {};
+let FileDateResponse = {};
+let RawImageDataResponse = {};
 
 app.registerExtension({
     name: "Primere.VisualMenu",
@@ -106,369 +47,24 @@ app.registerExtension({
           console.log(Lora);
           console.log(Model);
         }); */
+        console.log('------------------ app.registerExtension');
 
         let callbackfunct = null;
-        function ModalHandler() {
-            let head = document.getElementsByTagName('HEAD')[0];
-            let link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.type = 'text/css';
-            link.href = realPath + '/css/visual.css';
-            head.appendChild(link);
-
-            let js = document.createElement("script");
-            js.src = realPath + "/jquery/jquery-1.9.0.min.js";
-            head.appendChild(js);
-
-            js.onload = function(e) {
-                $(document).ready(function () {
-                    var modal = null;
-                    $('body').on("click", 'button.modal-closer', function() {
-                        modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style','display: none; width: 80%; height: 70%;')
-                    });
-
-                    $('body').on("click", 'div.primere-modal-content div.visual-ckpt img', function() {
-                        var ckptName = $(this).data('ckptname');
-                        modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style','display: none; width: 80%; height: 70%;')
-                        apply_modal(ckptName);
-                    });
-
-                    var subdirName ='All';
-                    var filteredCheckpoints = 0;
-                    $('body').on("click", 'div.subdirtab button.subdirfilter', function() {
-                        $('div.subdirtab input').val('');
-                        subdirName = $(this).data('ckptsubdir');
-                        if (currentClass !== false) {
-                            lastDirObject[currentClass] = subdirName
-                        }
-
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).find('img').each(function (img_index, img_obj) {
-                            var ImageCheckpoint = $(img_obj).data('ckptname');
-                            if (subdirName === 'Root') {
-                                let isSubdirExist = ImageCheckpoint.lastIndexOf('\\');
-                                if (isSubdirExist > 1 && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                    $(img_obj).parent().hide();
-                                } else {
-                                    $(img_obj).parent().show();
-                                    filteredCheckpoints++;
-                                }
-                            } else {
-                                if (!ImageCheckpoint.startsWith(subdirName) && subdirName !== 'All' && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                    $(img_obj).parent().hide();
-                                } else {
-                                    $(img_obj).parent().show();
-                                    filteredCheckpoints++;
-                                }
-                            }
-                        });
-                        $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
-                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                        $('div.subdirtab button').removeClass("selected_path");
-                        $(this).addClass('selected_path');
-                        $(".visual-ckpt-selected").prependTo(".primere-modal-content");
-                    });
-
-                    $('body').on("click", 'div.subdirtab button.verfilter', function() {
-                        $('div.subdirtab input').val('');
-                        var versionName = $(this).data('ckptver').toLowerCase();
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).each(function () {
-                            if ($(this).hasClass('version-' + versionName)) {
-                                $(this).show();
-                                filteredCheckpoints++;
-                            } else {
-                                $(this).hide();
-                            }
-                        });
-                        $('div#primere_visual_modal div.modal_header label.ckpt-name').text(versionName);
-                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
-                        $('div.subdirtab button').removeClass("selected_path");
-                        $(this).addClass('selected_path');
-                        $(".visual-ckpt-selected").prependTo(".primere-modal-content");
-                    });
-
-                    $('body').on("keyup", 'div.subdirtab input', function() {
-                        var filter = $(this).val();
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).find('img').each(function (img_index, img_obj) {
-                            var ImageCheckpoint = $(img_obj).data('ckptname');
-                            let dotLastIndex = ImageCheckpoint.lastIndexOf('.');
-                            if (dotLastIndex > 1) {
-                                var finalFilter = ImageCheckpoint.substring(0, dotLastIndex);
-                            } else {
-                                var finalFilter = ImageCheckpoint;
-                            }
-                            if (!ImageCheckpoint.startsWith(subdirName) && subdirName !== 'All' && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                $(img_obj).parent().hide();
-                            } else {
-                                if (finalFilter.toLowerCase().indexOf(filter.toLowerCase()) >= 0 || $(img_obj).parent().closest(".visual-ckpt-selected").length > 0) {
-                                    $(img_obj).parent().show();
-                                    filteredCheckpoints++;
-                                } else {
-                                    $(img_obj).parent().hide();
-                                }
-                            }
-                        });
-                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                        $(".visual-ckpt-selected").prependTo(".primere-modal-content");
-                    });
-
-                    $('body').on("click", 'div.subdirtab button.filter_clear', function() {
-                        $('div.subdirtab input').val('');
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).find('img').each(function (img_index, img_obj) {
-                            var ImageCheckpoint = $(img_obj).data('ckptname');
-                            if (!ImageCheckpoint.startsWith(subdirName) && subdirName !== 'All' && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                $(img_obj).parent().hide();
-                            } else {
-                                $(img_obj).parent().show();
-                                filteredCheckpoints++;
-                            }
-                        });
-                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                        $(".visual-ckpt-selected").prependTo(".primere-modal-content");
-                    });
-                });
-            };
-        }
-
-        function apply_modal(Selected) {
-            if (Selected && typeof callbackfunct == 'function') {
-                callbackfunct(Selected);
-                sendPOSTModelName(Selected);
-                return false;
-            }
-        }
-
-        function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node) {
-            var container = null;
-            var modal = null;
-            var modalExist = true;
-
-            modal = document.getElementById("primere_visual_modal");
-            if (!modal) {
-                modalExist = false;
-				modal = document.createElement("div");
-				modal.classList.add("comfy-modal");
-				modal.setAttribute("id","primere_visual_modal");
-				modal.innerHTML='<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title">' + combo_name.replace("_"," ") + ' :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label></h3></div>';
-
-                let subdir_container = document.createElement("div");
-                subdir_container.classList.add("subdirtab");
-
-				let container = document.createElement("div");
-				container.classList.add("primere-modal-content", "ckpt-container", "ckpt-grid-layout");
-                modal.appendChild(subdir_container);
-				modal.appendChild(container);
-
-				document.body.appendChild(modal);
-			} else {
-                $('div#primere_visual_modal div.modal_header h3.visual_modal_title').html(combo_name.replace("_"," ") + ' :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label>');
-            }
-
-            container = modal.getElementsByClassName("ckpt-container")[0];
-			container.innerHTML = "";
-
-            var subdirArray = ['All'];
-            for (var checkpoints of AllModels) {
-                let pathLastIndex = checkpoints.lastIndexOf('\\');
-                let ckptSubdir = checkpoints.substring(0, pathLastIndex);
-                if (ckptSubdir === '') {
-                    ckptSubdir = 'Root';
-                }
-                if (subdirArray.indexOf(ckptSubdir) === -1) {
-                    subdirArray.push(ckptSubdir);
-                }
-            }
-
-            var subdir_tabs = modal.getElementsByClassName("subdirtab")[0];
-            var menu_html = '';
-            var version_html = '';
-
-            for (var subdir of subdirArray) {
-                var addWhiteClass = '';
-                let firstletter = subdir.charAt(0);
-                var subdirName = subdir;
-                if (firstletter === '.') {
-                    subdirName = subdir.substring(1);
-                }
-                if ((firstletter === '.' && ShowHidden === true) || firstletter !== '.') {
-                    if (lastDirObject.hasOwnProperty(currentClass) === true && subdir === lastDirObject[currentClass]) {
-                        addWhiteClass = ' selected_path';
-                    } else if (lastDirObject.hasOwnProperty(currentClass) === false && subdir === 'All') {
-                        addWhiteClass = ' selected_path';
-                    }
-                    menu_html += '<button type="button" data-ckptsubdir="' + subdir + '" class="subdirfilter' + addWhiteClass + '">' + subdirName + '</button>';
-                }
-            }
-
-            if (checkpointVersions !== false && checkpointVersions != null) {
-                //console.log(checkpointVersions);
-                $.each(checkpointVersions, function(ver_index, ver_value) {
-                    var addWhiteClass = '';
-                    var versionName = 'Unknown'
-                    if (SDXLVersionTags.includes(ver_value)) {
-                        versionName ='SDXL'
-                    } else if (!SDXLVersionTags.includes(ver_value) && ver_value !== 'Unknown') {
-                        versionName ='SD1'
-                    }
-                    if (!version_html.includes('data-ckptver="' + versionName + '"')) {
-                        version_html += '<button type="button" data-ckptver="' + versionName + '" class="verfilter' + addWhiteClass + '">' + versionName + '</button>';
-                    }
-                });
-                version_html += '<label> | </label>';
-            }
-
-            subdir_tabs.innerHTML = menu_html + '<label> | </label> ' + version_html + ' <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
-
-            var CKPTElements = 0;
-            for (var checkpoint of AllModels) {
-                let firstletter = checkpoint.charAt(0);
-                if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')))  {
-                    CKPTElements++;
-                    createCardElement(checkpoint, container, SelectedModel, ModelType)
-                }
-            }
-
-
-            var TimingBase =AllModels.length;
-            var mtimeout = TimingBase * 5;
-            if (modalExist === false) {
-                mtimeout = TimingBase * 10;
-            }
-
-            setTimeout(function(mtimeout) {
-                $('div.subdirtab input').val('');
-                if (lastDirObject.hasOwnProperty(currentClass)) {
-                    subdirName = lastDirObject[currentClass];
-                    var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                    var filteredCheckpoints = 0;
-                    $(imageContainers).find('img').each(function (img_index, img_obj) {
-                        var ImageCheckpoint = $(img_obj).data('ckptname');
-                        if (subdirName === 'Root') {
-                            let isSubdirExist = ImageCheckpoint.lastIndexOf('\\');
-                            if (isSubdirExist > 1 && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                $(img_obj).parent().hide();
-                            } else {
-                                $(img_obj).parent().show();
-                                filteredCheckpoints++;
-                            }
-                        } else {
-                            if (!ImageCheckpoint.startsWith(subdirName) && subdirName !== 'All' && $(img_obj).parent().closest(".visual-ckpt-selected").length === 0) {
-                                $(img_obj).parent().hide();
-                            } else {
-                                $(img_obj).parent().show();
-                                filteredCheckpoints++;
-                            }
-                        }
-                    });
-                    $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
-                    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                } else {
-                    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements - 1);
-                }
-
-                $(".visual-ckpt-selected").prependTo(".primere-modal-content");
-                modal.setAttribute('style','display: block; width: 80%; height: 70%;');
-            }, mtimeout);
-
-        }
-
-        ModalHandler();
-
-        let subdirname = '';
         let modaltitle = '';
         let nodematch = '';
-        let isnumeric_end = true;
+        let isnumeric_end = false;
+
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
-
-        LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
+        LGraphCanvas.prototype.processNodeWidgets = function (node, pos, event, active_widget) { // 01
+            console.log('------------------ LGraphCanvas.prototype.processNodeWidgets');
             //console.log(node);
-            if (!validClasses.includes(node.type)) {
+
+            if (event.type == 'pointermove' && validClasses.includes(node.type)) {
+                return false;
+            }
+
+            if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
                 return lcg.call(this, node, pos, event, active_widget);
-            }
-
-            if (node.type == 'PrimereVisualCKPT') {
-                subdirname = 'checkpoints';
-                modaltitle = 'Select checkpoint';
-                nodematch = '^base_model';
-                isnumeric_end = false;
-                checkpointVersions = false;
-                if (hiddenWidgets.hasOwnProperty('PrimereVisualCKPT') === true) {
-                    $.each(hiddenWidgets['PrimereVisualCKPT'], function(index, value) {
-                        if (index == 'cached_model') {
-                            checkpointVersions = value[0];
-                        }
-                    });
-                }
-            }
-
-            if (node.type == 'PrimereVisualLORA') {
-                subdirname = 'loras';
-                modaltitle = 'Select LoRA';
-                nodematch = '^lora_';
-                isnumeric_end = true;
-                checkpointVersions = false;
-                if (hiddenWidgets.hasOwnProperty('PrimereVisualLORA') === true) {
-                    $.each(hiddenWidgets['PrimereVisualLORA'], function(index, value) {
-                        if (index == 'cached_lora') {
-                            checkpointVersions = value[0];
-                        }
-                    });
-                }
-            }
-
-            if (node.type == 'PrimereVisualEmbedding') {
-                subdirname = 'embeddings';
-                modaltitle = 'Select embedding';
-                nodematch = '^embedding_';
-                isnumeric_end = true;
-                checkpointVersions = false;
-                if (hiddenWidgets.hasOwnProperty('PrimereVisualEmbedding') === true) {
-                    $.each(hiddenWidgets['PrimereVisualEmbedding'], function(index, value) {
-                        if (index == 'cached_embedding') {
-                            checkpointVersions = value[0];
-                        }
-                    });
-                }
-            }
-
-            if (node.type == 'PrimereVisualHypernetwork') {
-                subdirname = 'hypernetworks';
-                modaltitle = 'Select hypernetwork';
-                nodematch = '^hypernetwork_';
-                isnumeric_end = true;
-                checkpointVersions = false;
-            }
-
-            if (node.type == 'PrimereVisualStyle') {
-                subdirname = 'styles';
-                modaltitle = 'Select style';
-                nodematch = '^styles';
-                isnumeric_end = false;
-                checkpointVersions = false;
-            }
-
-            if (node.type == 'PrimereVisualLYCORIS') {
-                subdirname = 'lycoris';
-                modaltitle = 'Select LYCORIS';
-                nodematch = '^lycoris_';
-                isnumeric_end = true;
-                checkpointVersions = false;
-                if (hiddenWidgets.hasOwnProperty('PrimereVisualLYCORIS') === true) {
-                    $.each(hiddenWidgets['PrimereVisualLYCORIS'], function(index, value) {
-                        if (index == 'cached_lyco') {
-                            checkpointVersions = value[0];
-                        }
-                    });
-                }
             }
 
             if (event.type != LiteGraph.pointerevents_method + "down") {
@@ -479,15 +75,27 @@ app.registerExtension({
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
+            if (!validClasses.includes(node.type)) {
+                return lcg.call(this, node, pos, event, active_widget);
+            }
+
+            if (stackedClasses.includes(node.type)) {
+                isnumeric_end = true;
+            } else {
+                isnumeric_end = false;
+            }
+
             currentClass = node.type;
 
             var x = pos[0] - node.pos[0];
             var y = pos[1] - node.pos[1];
             var width = node.size[0];
             var that = this;
-
-            var ShowHidden = false;
             var ShowModal = false;
+
+            AutoFilter = null;
+            StackVersion = null;
+            ModelVersion = null;
 
             for (var p = 0; p < node.widgets.length; ++p) {
                 if (node.widgets[p].name == 'show_hidden') {
@@ -496,10 +104,63 @@ app.registerExtension({
                 if (node.widgets[p].name == 'show_modal') {
                     ShowModal = node.widgets[p].value;
                 }
+                if (node.widgets[p].name == 'preview_path') {
+                    PreviewPath = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'aescore_percent_min') {
+                    if (node.widgets[p].value >= 0) {
+                        aeScoreMin = node.widgets[p].value;
+                    }
+                }
+                if (node.widgets[p].name == 'aescore_percent_max') {
+                    if (node.widgets[p].value > 0) {
+                        aeScoreMax = node.widgets[p].value;
+                    }
+                }
+                if (node.widgets[p].name == 'auto_filter') {
+                    AutoFilter = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'stack_version') {
+                    StackVersion = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'model_version') {
+                    ModelVersion = node.widgets[p].value;
+                }
             }
 
             if (ShowModal === false) {
                 return lcg.call(this, node, pos, event, active_widget);
+            }
+
+            nodeHelper = hiddenWidgets[currentClass]
+            source_subdirname = nodeHelper['subdir'];
+            cache_key = nodeHelper['cache_key'];
+
+            console.log('-----------1 s-----------')
+            console.log(currentClass)
+            console.log(ShowHidden)
+            console.log(ShowModal)
+            console.log(PreviewPath)
+            console.log(aeScoreMin)
+            console.log(aeScoreMax)
+            console.log('. . . . . . . . . . . . .')
+            console.log(AutoFilter)
+            console.log(StackVersion)
+            console.log(ModelVersion)
+            console.log('-----------1 e-----------')
+
+            console.log('-----------2 s-----------')
+            console.log(source_subdirname)
+            console.log(cache_key)
+            console.log(nodeHelper)
+            console.log('-----------2 e-----------')
+
+            if (eventListenerInit == false) {
+                ModalHandler();
+            }
+
+            if ($('div.primere-modal-content div.visual-ckpt').length) {
+                $('div.primere-modal-content.ckpt-container').empty();
             }
 
             for (var i = 0; i < node.widgets.length; ++i) {
@@ -508,11 +169,11 @@ app.registerExtension({
                     continue;
 
                 if (w.type != "combo")
-                    continue
+                    continue;
 
                 var widget_height = w.computeSize ? w.computeSize(width)[1] : LiteGraph.NODE_WIDGET_HEIGHT;
                 var widget_width = w.width || width;
-                var widget_name = node.widgets[i].name;
+                widget_name = node.widgets[i].name;
 
                 if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
                     continue
@@ -523,12 +184,10 @@ app.registerExtension({
                         continue;
 
                     if (widget_name.match(nodematch) && $.isNumeric(widget_name.substr(-1)) === isnumeric_end) {
-                        var AllModels = node.widgets[i].options.values;
-                        var SelectedModel = node.widgets[i].value;
+                        SelectedModel = node.widgets[i].value;
+                        setup_visual_modal(modaltitle, 'AllModels', ShowHidden, SelectedModel, source_subdirname, node, PreviewPath);
 
                         callbackfunct = inner_clicked.bind(w);
-                        setup_visual_modal(modaltitle, AllModels, ShowHidden, SelectedModel, subdirname, node);
-
                         function inner_clicked(v, option, event) {
                             inner_value_change(this, v);
                             that.dirty_canvas = true;
@@ -536,6 +195,16 @@ app.registerExtension({
                         }
 
                         function inner_value_change(widget, value) {
+                            if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].indexOf("Path") == -1) {
+                                for (var i = 0; i < node.widgets.length; ++i) {
+                                    var widget_type = node.widgets[i].type;
+                                    var widget_value = node.widgets[i].value;
+                                    if (widget_type == 'combo' && widget_value != 'None') {
+                                        widget_name = node.widgets[i].name;
+                                        node.widgets[i].value = 'None';
+                                    }
+                                }
+                            }
                             if (widget.type == "number") {
                                 value = Number(value);
                             }
@@ -551,22 +220,946 @@ app.registerExtension({
                     }
                 }
             }
+
+            function ModalHandler() { // 02
+                console.log('------------------ ModalHandler');
+                eventListenerInit = true;
+                let head = document.getElementsByTagName('HEAD')[0];
+                let link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = realPath + '/css/visual.css';
+                head.appendChild(link);
+
+                let js = document.createElement("script");
+                js.src = realPath + "/jquery/jquery-1.9.0.min.js";
+                head.appendChild(js);
+
+                js.onload = function(e) {
+                    $(document).ready(function () {
+                        var modal = null;
+
+                        $('body').on("click", 'button.modal-closer', async function () { // modal close
+                            console.log('button closed....')
+                            modal = document.getElementById("primere_visual_modal");
+                            modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
+                            var lastDirValue = 'All'
+                            if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                                lastDirValue = lastDirObject[currentClass];
+                            }
+
+                            if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                                if (AutoFilter !== true) {
+                                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                                    await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                                    var filter = $('body div.subdirtab input').val();
+                                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                                    await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                                    await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                                }
+                            }
+                        });
+
+                        $('body').on("click", 'div.primere-modal-content div.visual-ckpt img', async function () { // image choosen
+                            console.log('image choosen:')
+                            var ckptName = $(this).data('ckptname');
+                            modal = document.getElementById("primere_visual_modal");
+                            modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
+                            var lastDirValue = 'All'
+                            if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                                lastDirValue = lastDirObject[currentClass];
+                            }
+
+                            if (source_subdirname == 'styles') {
+                                let pathLastIndex = ckptName.lastIndexOf('\\');
+                                ckptName = ckptName.substring(pathLastIndex + 1);
+                            }
+
+                            apply_modal(ckptName);
+
+                            if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                                if (AutoFilter !== true) {
+                                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                                    await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                                    var filter = $('body div.subdirtab input').val();
+                                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                                    await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                                    await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                                }
+                            }
+                        });
+
+                        var subdirName = 'All';
+                        var filteredCheckpoints = 0;
+                        $('body').on("click", 'div.subdirtab button.subdirfilter', async function () { // subdir filter
+                            $('div.subdirtab input').val('');
+                            subdirName = $(this).data('ckptsubdir');
+                            if (currentClass !== false) {
+                                lastDirObject[currentClass] = subdirName
+                            }
+
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).each(function (cont_index, cont_obj) {
+                                if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
+                                    cont_obj.remove();
+                                }
+                            });
+
+                            if (source_subdirname != 'styles') {
+                                ModelsByVersion = await getModelData(cache_key + '_version');
+                            }
+                            ModelList = await getModelDatabyPath(source_subdirname, subdirName);
+
+                            console.log('----------- 10 s ----------------')
+                            console.log(SelectedModel)
+                            if (source_subdirname == 'styles') {
+                                if (ModelList.includes(SelectedModel) || ModelList.includes(subdirName + '\\' + SelectedModel)) {
+                                    var index_pre = (ModelList.indexOf(SelectedModel) + ModelList.indexOf(subdirName + '\\' + SelectedModel)) + 1;
+                                    if (index_pre !== -1) {
+                                        await ModelList.splice(index_pre, 1);
+                                    }
+                                }
+                            }
+
+                            console.log(source_subdirname)
+                            console.log(subdirName)
+                            console.log(ModelsByVersion)
+                            console.log(ModelList)
+                            console.log('----------- 10 e ----------------')
+
+                            for (var checkpoint of ModelList) {
+                            //$(ModelList).each(async function (checkpoint_index, checkpoint) {
+                                let firstletter = checkpoint.charAt(0);
+
+                                var filterpass = true;
+                                if (SelectedModel == checkpoint) {
+                                    filterpass = false;
+                                }
+
+                                if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                                    let pathLastIndex = checkpoint.lastIndexOf('\\');
+                                    let ckptName_full = checkpoint.substring(pathLastIndex + 1);
+                                    let dotLastIndex = ckptName_full.lastIndexOf('.');
+                                    var ckptName = ckptName_full.substring(0, dotLastIndex);
+                                    var CategoryName = 'Unknown';
+
+                                    $.each(ModelsByVersion, function (ver_index, ver_value) {
+                                        if (ver_value.includes(ckptName)) {
+                                            CategoryName = ver_index
+                                        }
+                                    });
+
+                                    var container = $('div.primere-modal-content.ckpt-container')[0];
+                                    if (subdirName === 'Root') {
+                                        let isSubdirExist = checkpoint.lastIndexOf('\\');
+                                        if (isSubdirExist < 0) {
+                                            filteredCheckpoints++;
+                                            await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                        }
+                                    } else {
+                                        filteredCheckpoints++;
+                                        await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                    }
+                                }
+                                $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
+                            }
+                            //await sleep(600);
+                            previewSorter(operator, sortType);
+
+                            $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
+                            $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Subdir');
+                            $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                            FilterType = 'Subdir';
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.verfilter', async function () { // model version filter
+                            $('div.subdirtab input').val('');
+                            var versionName = $(this).data('ckptver');
+                            if (currentClass !== false) {
+                                lastDirObject[currentClass] = versionName
+                            }
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).each(function (cont_index, cont_obj) {
+                                if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
+                                    cont_obj.remove();
+                                }
+                            });
+
+                            console.log('----------- 11 s ----------------')
+                            console.log(source_subdirname)
+                            console.log(versionName)
+                            console.log(cache_key + '_version')
+
+                            ModelList = await getModelDatabyVersion(source_subdirname, cache_key + '_version', versionName);
+
+                            console.log(ModelList)
+                            console.log('----------- 11 e ----------------')
+
+                            for (var checkpoint of ModelList) {
+                                let firstletter = checkpoint.charAt(0);
+                                var filterpass = true;
+                                if (SelectedModel == checkpoint) {
+                                    filterpass = false;
+                                }
+                                if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                                    filteredCheckpoints++;
+                                    var container = $('div.primere-modal-content.ckpt-container')[0];
+                                    await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName)
+                                }
+                                $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
+                            }
+
+                            //await sleep(600);
+                            previewSorter(operator, sortType);
+
+                            $('div#primere_visual_modal div.modal_header label.ckpt-name').text(versionName);
+                            $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Version');
+                            $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                            FilterType = 'Version';
+                        });
+
+                        $('body').on("keyup", 'div.subdirtab input', function() { // keyword filter
+                            var filter = $(this).val();
+                            previewFilter(filter);
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.filter_clear', function() { // keyword inut clear
+                            $('div.subdirtab input').val('');
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).find('img').each(function (img_index, img_obj) {
+                                $(img_obj).parent().show();
+                                filteredCheckpoints++;
+                            });
+                            $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.preview_sort', function() { // preview sort type
+                            sortType = $(this).data('sortsource');
+                            operator = $('button.preview_sort_direction').text();
+                            previewSorter(operator, sortType);
+                            $('div.subdirtab button.preview_sort').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.preview_sort_direction', function () { // preview sort direction
+                            operator = $('button.preview_sort_direction').text();
+                            if (operator == 'ASC') {
+                                $('button.preview_sort_direction').text('DESC');
+                                operator = 'DESC';
+                                $('div.subdirtab button.preview_sort_direction').addClass("selected_path");
+                            } else {
+                                $('button.preview_sort_direction').text('ASC');
+                                operator = 'ASC';
+                                $('div.subdirtab button.preview_sort_direction').removeClass("selected_path");
+                            }
+                            previewSorter(operator, sortType);
+                        });
+                    });
+                };
+            }
+
+            function apply_modal(Selected) { // apply
+                if (Selected && typeof callbackfunct == 'function') {
+                    callbackfunct(Selected);
+                    sendPOSTModelName(Selected);
+                    return false;
+                }
+            }
+
             return lcg.call(this, node, pos, event, active_widget);
         }
     },
 
-    async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (versionClasses.includes(nodeData.name)) {
+    async setup() {
+
+    },
+
+    async beforeRegisterNodeDef(nodeType, nodeData, app) { // 0
+        console.log('------------------ beforeRegisterNodeDef');
+        if (validClasses.includes(nodeData.name)) {
             if (nodeData.input.hasOwnProperty('hidden') === true) {
                 hiddenWidgets[nodeData.name] = nodeData.input.hidden;
             }
-            //console.log(hiddenWidgets);
         }
     },
 });
 
-function sendPOSTModelName(modelName) {
+async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node, PreviewPath) { //3
+    console.log('------------------ setup_visual_modal');
+
+    var container = null;
+    var modal = null;
+
+    modal = document.getElementById("primere_visual_modal");
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.classList.add("comfy-modal");
+        modal.setAttribute("id","primere_visual_modal");
+        modal.innerHTML='<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title">' + combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label></h3></div>';
+
+        let subdir_container = document.createElement("div");
+        subdir_container.classList.add("subdirtab");
+
+        let container = document.createElement("div");
+        container.classList.add("primere-modal-content", "ckpt-container", "ckpt-grid-layout");
+        modal.appendChild(subdir_container);
+        modal.appendChild(container);
+
+        document.body.appendChild(modal);
+    } else {
+        $('div#primere_visual_modal div.modal_header h3.visual_modal_title').html(combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label>');
+    }
+
+    container = modal.getElementsByClassName("ckpt-container")[0];
+    container.innerHTML = "";
+
+    var subdirArray = ['All'];
+    for (var checkpoints of AllModels) {
+        let pathLastIndex = checkpoints.lastIndexOf('\\');
+        let ckptSubdir = checkpoints.substring(0, pathLastIndex);
+        if (ckptSubdir === '') {
+            ckptSubdir = 'Root';
+        }
+        if (subdirArray.indexOf(ckptSubdir) === -1) {
+            subdirArray.push(ckptSubdir);
+        }
+    }
+
+    var subdir_tabs = modal.getElementsByClassName("subdirtab")[0];
+    var menu_html = '';
+    var type_html = '';
+    var version_html = '';
+
+    console.log('-----------3 s-----------')
+    console.log(nodeHelper)
+
+    if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1 && AutoFilter !== true) {
+        for (var subdir of subdirArray) {
+            var addWhiteClass = '';
+            let firstletter = subdir.charAt(0);
+            var subdirName = subdir;
+            if (firstletter === '.') {
+                subdirName = subdir.substring(1);
+            }
+            if ((firstletter === '.' && ShowHidden === true) || firstletter !== '.') {
+                if (lastDirObject.hasOwnProperty(currentClass) === true && subdir === lastDirObject[currentClass]) {
+                    addWhiteClass = ' selected_path';
+                }
+                menu_html += '<button type="button" data-ckptsubdir="' + subdir + '" class="subdirfilter' + addWhiteClass + '">' + subdirName + '</button>';
+            }
+        }
+    }
+
+    var LastCat = 'All';
+    var LastCatType = 'Subdir';
+    var savedfilter = "";
+
+    SetupCacheData = await getCacheByKey("setup")
+
+    console.log(menu_html)
+    console.log(nodeHelper)
+    console.log(typeof SetupCacheData)
+    console.log(SetupCacheData)
+    console.log(cache_key)
+    console.log('-----------3 e-----------')
+
+
+    if (SetupCacheData != null && typeof SetupCacheData === "object") {
+        if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+            if (SetupCacheData.hasOwnProperty("last_visual_category" + '_' + cache_key)) {
+                LastCat = SetupCacheData["last_visual_category" + '_' + cache_key];
+            }
+            if (SetupCacheData.hasOwnProperty("last_visual_category_type" + '_' + cache_key)) {
+                LastCatType = SetupCacheData["last_visual_category_type" + '_' + cache_key];
+            }
+            if (SetupCacheData.hasOwnProperty("last_visual_filter" + '_' + cache_key)) {
+                savedfilter = SetupCacheData['last_visual_filter' + '_' + cache_key];
+            }
+            if (SetupCacheData.hasOwnProperty("last_visual_sort_type" + '_' + cache_key)) {
+                sortType = SetupCacheData['last_visual_sort_type' + '_' + cache_key];
+            }
+            if (SetupCacheData.hasOwnProperty("last_visual_sort_operator" + '_' + cache_key)) {
+                operator = SetupCacheData['last_visual_sort_operator' + '_' + cache_key];
+            }
+        }
+    }
+
+    if (AutoFilter === true && StackVersion != null && ModelVersion != null) {
+        if (StackVersion == 'Auto') {
+            LastCat = ModelVersion;
+            LastCatType = 'Version';
+        } else if (StackVersion != 'Any' && StackVersion != 'Auto') {
+            LastCat = StackVersion;
+            LastCatType = 'Version';
+        }
+    }
+
+    console.log('-----------4 s-----------')
+    console.log(LastCat)
+    console.log(LastCatType)
+    console.log(savedfilter)
+    console.log(sortType)
+    console.log(operator)
+    console.log('-----------4 e-----------')
+
+    if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].indexOf("Path") == -1) {
+        LastCat = widget_name
+    }
+
+    supportedModels = [];
+    ModelsByVersion = {};
+    if (ModelType != 'styles') {
+        supportedModels = await getSupportedModels();
+        ModelsByVersion = await getModelData(cache_key + '_version');
+        VersionCacheData = await getCacheByKey(cache_key + '_version')
+    }
+
+    console.log('-----------5 s-----------')
+    console.log(ModelType)
+    console.log(supportedModels)
+    console.log(ModelsByVersion)
+    console.log(source_subdirname)
+    console.log('-----------5 e-----------')
+
+    AllPath = await getAllPath(source_subdirname);
+
+    console.log('-----------6 s-----------')
+    console.log(AllPath)
+    console.log(LastCatType)
+    console.log(LastCat)
+    console.log(source_subdirname)
+    console.log(cache_key)
+    console.log('-----------6 e-----------')
+
+    if (LastCatType == 'Subdir') {
+        ModelList = await getModelDatabyPath(source_subdirname, LastCat);
+    }
+    if (LastCatType == 'Version') {
+        ModelList = await getModelDatabyVersion(source_subdirname, cache_key + '_version', LastCat);
+    }
+
+    console.log('-----------7 s-----------')
+    console.log(VersionCacheData)
+    console.log(ModelList)
+    console.log('-----------7 e-----------')
+
+    if (typeof nodeHelper['cache_key'] !== "undefined" && nodeHelper['sortbuttons'] !== "undefined") {
+        if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].length > 0) {
+            if (nodeHelper['sortbuttons'][0].indexOf("aScore") > -1) {
+                AscoreDataResponse = await ReadAScores(nodeHelper['cache_key']);
+            }
+        }
+    }
+
+    if (typeof nodeHelper['sortbuttons'] !== "undefined") {
+        if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].length > 0) {
+            if (nodeHelper['sortbuttons'][0].indexOf("Date") > -1) {
+                FileDateResponse = await ReadFileDate(nodeHelper['subdir']);
+            }
+        }
+    }
+
+    RawImageDataResponse = {}
+    RawImageDataResponse = await modelImageData(source_subdirname, PreviewPath);
+
+    console.log('-----------8 s-----------')
+    console.log(AscoreDataResponse)
+    console.log(FileDateResponse)
+    console.log(RawImageDataResponse)
+    console.log('-----------8 e-----------')
+
+    if (ModelsByVersion !== false && ModelsByVersion != null && Object.keys(ModelsByVersion).length > 0 && source_subdirname != 'styles' && AutoFilter !== true) {
+        version_html = createTypeMenu(ModelsByVersion, supportedModels, LastCat, LastCatType);
+    }
+
+    console.log('-----------9 s-----------')
+    console.log(version_html)
+
+    if (AllPath !== false && AllPath != null && AllPath.length > 0 && AutoFilter !== true) {
+        if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+            type_html = createPathMenu(AllPath, ShowHidden, LastCat, LastCatType);
+        }
+    }
+
+    console.log(type_html)
+    console.log('-----------9 e-----------')
+
+    subdir_tabs.innerHTML = menu_html + type_html + version_html + ' <input type="text" name="ckptfilter" placeholder="filter"> <button type="button" class="filter_clear">Clear filter</button>';
+
+    var sortbuttons = nodeHelper['sortbuttons'];
+    var sort_string = "";
+    if (typeof sortbuttons === "object" && typeof sortbuttons[0] === "object" && sortbuttons[0].length > 0) {
+        sort_string = createSortButtons(sortbuttons[0]);
+    }
+    subdir_tabs.innerHTML += sort_string;
+
+
+    console.log('------------A-----------------')
+    console.log(ModelList)
+    console.log(SelectedModel)
+    var fondModel = null;
+    if (ModelList.includes(SelectedModel) || ModelList.includes(LastCat + '\\' + SelectedModel)) {
+        console.log('----------van----------')
+        console.log(ModelList.indexOf(SelectedModel))
+        console.log(ModelList.indexOf(LastCat + '\\' + SelectedModel))
+        var index_pre = (ModelList.indexOf(SelectedModel) + ModelList.indexOf(LastCat + '\\' + SelectedModel)) + 1;
+        fondModel = ModelList[index_pre];
+        console.log(index_pre)
+        if (index_pre !== -1) {
+            await ModelList.splice(index_pre, 1);
+        }
+    }
+    console.log(ModelList)
+    console.log(SelectedModel)
+    console.log(fondModel)
+    if (ModelType == 'styles' && fondModel != null) {
+        SelectedModel = fondModel;
+    }
+
+    console.log(LastCat + '\\' + SelectedModel)
+    console.log(ModelList)
+    if (!ModelList.includes(SelectedModel)) {
+        console.log('--------------1-------------')
+        if (fondModel == null) {
+            await ModelList.unshift(SelectedModel)
+        } else {
+            await ModelList.unshift(fondModel)
+        }
+    }
+    console.log(ModelList)
+    console.log('------------ END A-----------------')
+
+    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(ModelList.length);
+    $('div#primere_visual_modal div.modal_header label.ckpt-name').text(LastCat);
+    $('div#primere_visual_modal div.modal_header label.ckpt-ver').text(LastCatType);
+
+    var CKPTElements = 0;
+    modal.setAttribute('style','display: block; width: 80%; height: 70%;');
+
+    for (var checkpoint of ModelList) {
+        let firstletter = checkpoint.charAt(0);
+        let pathLastIndex = checkpoint.lastIndexOf('\\');
+        let ckptName_full = checkpoint.substring(pathLastIndex + 1);
+        let dotLastIndex = ckptName_full.lastIndexOf('.');
+        var ckptName = ckptName_full.substring(0, dotLastIndex);
+
+        if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')))  {
+            var CategoryName = 'Unknown';
+
+            $.each(ModelsByVersion, function(ver_index, ver_value) {
+                if (ver_value.includes(ckptName)) {
+                    CategoryName = ver_index
+                }
+            });
+
+            if (LastCat === 'Root') {
+                let isSubdirExist = checkpoint.lastIndexOf('\\');
+                if (isSubdirExist < 0 || checkpoint == SelectedModel) {
+                    CKPTElements++;
+                    await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName)
+                }
+            } else {
+                CKPTElements++;
+                await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName)
+            }
+        }
+        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements);
+    }
+
+    //await sleep(1000);
+    if (savedfilter.length > 0) {
+        $('body div.subdirtab input').val(savedfilter);
+        previewFilter(savedfilter);
+    }
+    $('button.preview_sort_direction').text(operator);
+    if (operator != 'ASC') {
+        $('div.subdirtab button.preview_sort_direction').addClass("selected_path");
+    }
+    $('div.subdirtab button.preview_sort[data-sortsource="' + sortType + '"]').addClass('selected_path');
+    previewSorter(operator, sortType);
+
+    if (!$('#primere_visual_modal div.subdirtab button.selected_path').length) {
+        $('#primere_visual_modal div.subdirtab button[data-ckptsubdir="All"]').addClass('selected_path');
+    }
+}
+
+function previewSorter(operator, sortType) {
+    if (operator == 'ASC') {
+        $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
+            return $(a).attr('data-' + sortType).toUpperCase() > $(b).attr('data-' + sortType).toUpperCase();
+        }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
+    } else {
+        $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
+            return $(a).attr('data-' + sortType).toUpperCase() < $(b).attr('data-' + sortType).toUpperCase();
+        }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
+    }
+}
+
+function previewFilter(filterString) {
+    var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+    var filteredCheckpoints = 0;
+    $(imageContainers).find('img').each(function (img_index, img_obj) {
+        var versiontext = $(img_obj).data('ckptver');
+        var ImageCheckpoint = $(img_obj).data('ckptname') + '_' + versiontext;
+        if (ImageCheckpoint.toLowerCase().indexOf(filterString.toLowerCase()) >= 0 || $(img_obj).parent().closest(".visual-ckpt-selected").length > 0) {
+            $(img_obj).parent().show();
+            filteredCheckpoints++;
+        } else {
+            $(img_obj).parent().hide();
+        }
+        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
+    });
+}
+
+async function createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName) {
+    console.log('------------------ createCardElement');
+    var card = document.createElement("div");
+
+    let checkpoint_new = checkpoint.replaceAll('\\', '/');
+    let dotLastIndex = checkpoint_new.lastIndexOf('.');
+    if (dotLastIndex > 1) {
+        var finalName = checkpoint_new.substring(0, dotLastIndex);
+    } else {
+        var finalName = checkpoint_new;
+    }
+
+    let pathLastIndex = finalName.lastIndexOf('/');
+    let ckptName = finalName.substring(pathLastIndex + 1);
+    let versionWidget = '';
+    let aesthVidget = '';
+    var path_only = checkpoint.substring(0, checkpoint.indexOf("\\"));
+
+    if (ckptName == 'None') {
+        return;
+    }
+
+    console.log('Is root: ---------------------')
+    console.log(CategoryName)
+    console.log(typeof CategoryName)
+    console.log(checkpoint)
+    console.log(SelectedModel)
+    if (CategoryName) {
+        var titleText = CategoryName + ' checkpoint. Select right version of additional networks.';
+        var versionString = CategoryName;
+        if (ModelType != 'styles') {
+            versionWidget = '<div class="ckpt-version ' + versionString + '-ckpt" title="' + titleText + '"></div>';
+        } else {
+            var SelModelIndex = SelectedModel.replaceAll(' ', "_");
+            console.log(SelModelIndex)
+            console.log(RawImageDataResponse.hasOwnProperty(SelectedModel.replaceAll(' ', "_")))
+            if (RawImageDataResponse.hasOwnProperty(SelectedModel.replaceAll(' ', "_")) === true && checkpoint == SelectedModel) {
+                console.log('VAN')
+                var selected_full = RawImageDataResponse[SelectedModel.replaceAll(' ', "_")];
+                var selful_first = selected_full.charAt(0);
+                var substringStart = 0;
+                if (selful_first == '\\') {
+                    substringStart = 1;
+                }
+                console.log(selected_full)
+                path_only = selected_full.substring(substringStart, selected_full.lastIndexOf("\\"));
+                console.log(path_only)
+            }
+
+            if (path_only == "") {
+                path_only = 'Root';
+            }
+            versionWidget = '<div class="ckpt-version" title="Saved prompt on ' + path_only + ' category">&nbsp' + path_only + '&nbsp</div>';
+        }
+    }
+    console.log('Is root end: ---------------------')
+
+    finalName = finalName.replaceAll(' ', "_");
+    finalName = finalName.substring(pathLastIndex + 1);
+
+    var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
+    var missingimgsrc = prwPath + '/images/missing.jpg';
+    card.classList.add('visual-ckpt', 'version-' + versionString);
+
+    if (FileDateResponse.hasOwnProperty(ckptName) === true) {
+        var timestamp = FileDateResponse[ckptName];
+        $(card).attr('data-date', timestamp);
+    } else {
+        $(card).attr('data-date', 0);
+    }
+
+    if (SelectedModel === checkpoint) {
+        card.classList.add('visual-ckpt-selected');
+    }
+
+    if (AscoreDataResponse.hasOwnProperty(ckptName) === true) {
+        var aestString = AscoreDataResponse[ckptName];
+        var aestArray = aestString.split("|");
+        var aestAVGValue = Math.floor(aestArray[1] / aestArray[0]);
+        $(card).attr('data-ascore', aestAVGValue);
+        var aeScorePercentLine = Math.floor(((aestAVGValue - aeScoreMin) / (aeScoreMax - aeScoreMin)) * 100);
+        if (aeScorePercentLine < 0) {
+            aeScorePercentLine = 0;
+        }
+        if (aeScorePercentLine > 100) {
+            aeScorePercentLine = 100;
+        }
+        aesthVidget = '<div class="visual-aesthetic-score" title="' + aestAVGValue + ' / ' + aeScorePercentLine + '%">' + aestAVGValue + '<span> - ' + aeScorePercentLine + '%</span><hr style="width: ' + aeScorePercentLine + '%"></div>';
+        card_html += aesthVidget;
+    } else {
+        $(card).attr('data-ascore', 0);
+    }
+
+    $(card).attr('data-name', ckptName);
+    $(card).attr('data-version', CategoryName);
+    $(card).attr('data-path', path_only);
+
+    if (Object.keys(RawImageDataResponse).length > 0) {
+        if (RawImageDataResponse.hasOwnProperty(finalName) === true) {
+            if (PreviewPath == false) {
+                var imgsrc = 'data:image/jpeg;charset=utf-8;base64,  ' + RawImageDataResponse[finalName];
+                card_html += '<img src="data:image/jpeg;charset=utf-8;base64,  ' + RawImageDataResponse[finalName] + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
+            } else {
+                var imgsrc = prwPath + '/images/' + RawImageDataResponse[finalName];
+                card_html += '<img src="' + prwPath + '/images/' + RawImageDataResponse[finalName] + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
+            }
+            card.innerHTML = card_html;
+            container.appendChild(card);
+        } else {
+            var imgsrc = missingimgsrc;
+            card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
+            card.innerHTML = card_html;
+            container.appendChild(card);
+        }
+    } else {
+        var imgsrc = missingimgsrc;
+        card_html += '<img src="' + missingimgsrc + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
+        card.innerHTML = card_html;
+        container.appendChild(card);
+    }
+
+    const img = new Image();
+    img.src = imgsrc;
+    waitForImageToLoad(img).then(() => {
+        return true;
+    });
+}
+
+
+function createSortButtons(buttondata) {
+    var sort_html = '<label class="sort_by_label"> | Sort by: </label>';
+    $.each(buttondata, function() {
+        sort_html += '<button type="button" class="preview_sort" data-sortsource="' + this.toLowerCase() + '">' + this + '</button>';
+    });
+    sort_html += '<label> | </label><button type="button" class="preview_sort_direction">ASC</button>';
+    return sort_html;
+}
+
+function createTypeMenu(ModelsByVersion, supportedModels, LastCat, LastCatType) {
+    var version_html = '';
+
+    $.each(ModelsByVersion, function(ver_index, ver_value) {
+        var addWhiteClass = '';
+        if (supportedModels.includes(ver_index)) {
+            if (!version_html.includes('data-ckptver="' + ver_index + '"')) {
+                if (ver_index === LastCat && LastCatType == 'Version') {
+                    addWhiteClass = ' selected_path';
+                }
+                version_html += '<button type="button" data-ckptver="' + ver_index + '" class="verfilter' + addWhiteClass + '">' + ver_index + '</button>';
+            }
+        }
+    });
+
+    version_html += '<label> | </label>';
+    return version_html;
+}
+
+function createPathMenu(AllPath, ShowHidden, LastCat, LastCatType) {
+    var menu_html = '';
+    for (var subdir of AllPath) {
+        var addWhiteClass = "";
+        let firstletter = subdir.charAt(0);
+        var subdirName = subdir;
+        if (firstletter === '.') {
+            subdirName = subdir.substring(1);
+        }
+        if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((subdir.match('^NSFW') && ShowHidden === true) || !subdir.match('^NSFW')))  {
+            if (subdir === LastCat && LastCatType == 'Subdir') {
+                addWhiteClass = ' selected_path';
+            }
+            menu_html += '<button type="button" data-ckptsubdir="' + subdir + '" class="subdirfilter' + addWhiteClass + '">' + subdirName + '</button>';
+        }
+    }
+    return menu_html + '<label> <br> </label>';
+}
+
+function sendPOSTModelName(modelName) { // ModelKeywordResponse
     const body = new FormData();
     body.append('modelName', modelName);
     api.fetchApi("/primere_keyword_parser", {method: "POST", body,});
+}
+
+// ************************* categoryHandler LastCategoryResponse
+function categoryHandler(setupValue, method, setupKey) {
+    console.log('------------------ categoryHandler');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("LastCategoryResponse", (event) => resolve(event.detail), true);
+        postCategoryHandler(setupValue, method, setupKey);
+    });
+}
+function postCategoryHandler(setupValue, method, setupKey) {
+    const body = new FormData();
+    body.append('setupValue', setupValue);
+    body.append('setupMethod', method);
+    body.append('setupKey', setupKey);
+    api.fetchApi("/primere_category_handler", {method: "POST", body,});
+}
+
+// ************************* getSupportedModels SupportedModelsResponse
+function getSupportedModels() {
+    console.log('------------------ getSupportedModels');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("SupportedModelsResponse", (event) => resolve(event.detail), true);
+        postSupportedModels();
+    });
+}
+function postSupportedModels() {
+    const body = new FormData();
+    body.append('models', 'get');
+    api.fetchApi("/primere_supported_models", {method: "POST", body,});
+}
+
+// ************************* getAllPath AllPathResponse
+function getAllPath(source_subdirname) {
+    console.log('------------------ getAllPath');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("AllPathResponse", (event) => resolve(event.detail), true);
+        postAllPath(source_subdirname);
+    });
+}
+function postAllPath(source_subdirname) {
+    const body = new FormData();
+    body.append('sourceType', source_subdirname);
+    api.fetchApi("/primere_modelpaths", {method: "POST", body,});
+}
+
+// ************************* getModelData CategoryListResponse
+function getModelData(message) {
+    return new Promise((resolve, reject) => {
+        api.addEventListener("CategoryListResponse", (event) => resolve(event.detail), true);
+        postModelData(message);
+    });
+}
+function postModelData(message) {
+    const body = new FormData();
+    body.append('cache_key', message);
+    api.fetchApi("/primere_get_category", {method: "POST", body,});
+}
+
+// ************************* getModelDatabyPath SourceListResponse
+function getModelDatabyPath(subdir, type) {
+    return new Promise((resolve, reject) => {
+        api.addEventListener("SourceListResponse", (event) => resolve(event.detail), true);
+        postModelDatabyPath(subdir, type);
+    });
+}
+function postModelDatabyPath(subdir, type) {
+    const body = new FormData();
+    body.append('subdir', subdir);
+    body.append('type', type);
+    api.fetchApi("/primere_get_subdir", {method: "POST", body,});
+}
+
+// ************************* getModelDatabyVersion VersionListResponse
+function getModelDatabyVersion(subdir, cachekey, version) {
+    return new Promise((resolve, reject) => {
+        api.addEventListener("VersionListResponse", (event) => resolve(event.detail), true);
+        postModelVersion(subdir, cachekey, version);
+    });
+}
+
+function postModelVersion(subdir, cachekey, version) {
+    const body = new FormData();
+    body.append('subdir', subdir);
+    body.append('cachekey', cachekey);
+    body.append('version', version);
+    api.fetchApi("/primere_get_version", {method: "POST", body,});
+}
+
+// ************************* getCacheByKey CacheByKey
+function getCacheByKey(chachekey) {
+    console.log('------------------ getCacheByKey');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("CacheByKey", (event) => resolve(event.detail), true);
+        postCacheKey(chachekey);
+    });
+}
+function postCacheKey(chachekey) {
+    const body = new FormData();
+    body.append('chachekey', chachekey);
+    api.fetchApi("/primere_get_cache", {method: "POST", body,});
+}
+
+// ************************* ReadAScores AscoreData
+function ReadAScores(type) {
+    console.log('------------------ ReadAScores');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("AscoreData", (event) => resolve(event.detail), true);
+        postAscoreData(type);
+    });
+}
+function postAscoreData(type) {
+    const body = new FormData();
+    body.append('type', type);
+    api.fetchApi("/primere_get_ascores", {method: "POST", body,});
+}
+
+// ************************* modelImageData CollectedImageData
+function modelImageData(SubdirName, PreviewPath) {
+    console.log('------------------ modelImageData');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("CollectedImageData", (event) => resolve(event.detail), true);
+        postModelImageData(SubdirName, PreviewPath);
+    });
+}
+function postModelImageData(SubdirName, PreviewPath) {
+    const body = new FormData();
+    body.append('SubdirName', SubdirName);
+    body.append('PreviewPath', PreviewPath);
+    api.fetchApi("/primere_get_images", {method: "POST", body,});
+}
+
+// ************************* ReadFileDate FileDateData
+function ReadFileDate(sourcetype) {
+    console.log('------------------ ReadFileDate');
+    return new Promise((resolve, reject) => {
+        api.addEventListener("FileDateData", (event) => resolve(event.detail), true);
+        postReadFileDate(sourcetype);
+    });
+}
+function postReadFileDate(sourcetype) {
+    const body = new FormData();
+    body.append('type', sourcetype);
+    api.fetchApi("/primere_get_filedates", {method: "POST", body,});
+}
+
+//await sleep(2000);
+//await waitUntil(() => variable === true);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function waitUntil(condition, time = 100) {
+    while (!condition()) {
+        await new Promise((resolve) => setTimeout(resolve, time));
+    }
+}
+
+async function waitUntilEqual(condition1, condition2, time = 100) {
+    while (condition1 != condition2) {
+        await new Promise((resolve) => setTimeout(resolve, time));
+    }
+}
+
+async function waitForImageToLoad(imageElement){
+  return new Promise(resolve=>{imageElement.onload = resolve})
 }

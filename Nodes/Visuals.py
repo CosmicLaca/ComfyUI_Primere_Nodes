@@ -10,33 +10,65 @@ import pandas
 import re
 from ..utils import comfy_dir
 from .modules import networkhandler
+import random
+import datetime
+from ..Nodes.Inputs import PrimereStyleLoader
+from ..components import stylehandler
 
 class PrimereVisualCKPT:
     RETURN_TYPES = ("CHECKPOINT_NAME", "STRING")
     RETURN_NAMES = ("MODEL_NAME", "MODEL_VERSION")
     FUNCTION = "load_ckpt_visual_list"
     CATEGORY = TREE_VISUALS
-    model_versions = utility.get_category_from_cache('model_version')
+    allModels = folder_paths.get_filename_list("checkpoints")
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "base_model": (folder_paths.get_filename_list("checkpoints"),),
+                "base_model": (cls.allModels,),
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+                "preview_path": ("BOOLEAN", {"default": True, "label_on": "Primere legacy", "label_off": "Model path"}),
+                "random_model": ("BOOLEAN", {"default": False, "label_on": "From selected path", "label_off": "OFF"}),
+                "aescore_percent_min": ("INT", {"default": 550, "min": 0, "max": 800, "step": 50}),
+                "aescore_percent_max": ("INT", {"default": 800, "min": 200, "max": 1000, "step": 50})
+            },
+            "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
             },
             "hidden": {
-                "cached_model": (cls.model_versions,),
+                "subdir": ("checkpoints",),
+                "sortbuttons": (['aScore', 'Name', 'Version', 'Path', 'Date'],),
+                "cache_key": ("model",),
             }
         }
 
-    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal):
+    @classmethod
+    def IS_CHANGED(self, **kwargs):
+        if kwargs['random_model'] == True:
+            return float('NaN')
+
+    def load_ckpt_visual_list(self, base_model, show_hidden, show_modal, preview_path, aescore_percent_min, aescore_percent_max, random_model, random_seed = 0):
+        def new_state_random():
+            random.seed(datetime.datetime.now().timestamp())
+            return random.randint(10, 0xffffffffffffffff)
+
+        if random_model == True:
+            fullSource = self.allModels
+            slashIndex = base_model.find('\\')
+            if slashIndex > 0:
+                subdirType = base_model[0: slashIndex] + '\\'
+                models_by_path = list(filter(lambda x: x.startswith(subdirType), fullSource))
+                if random_seed is None or int(random_seed) <= 0:
+                    random_seed = int(new_state_random())
+                random.seed(random_seed)
+                base_model = random.choice(models_by_path)
+
         modelname_only = Path(base_model).stem
         model_version = utility.get_value_from_cache('model_version', modelname_only)
         if model_version is None:
-            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, base_model)
-            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+            model_version = utility.getModelType(base_model, 'checkpoints')
             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
         return (base_model, model_version)
@@ -48,8 +80,6 @@ class PrimereVisualLORA:
     CATEGORY = TREE_VISUALS
     LORASCOUNT = 6
 
-    lora_versions = utility.get_category_from_cache('lora_version')
-
     @classmethod
     def INPUT_TYPES(cls):
         LoraList = folder_paths.get_filename_list("loras")
@@ -58,11 +88,14 @@ class PrimereVisualLORA:
             "required": {
                 "model": ("MODEL",),
                 "clip": ("CLIP",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
 
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+                "auto_filter": ("BOOLEAN", {"default": False, "label_on": "Filter by version", "label_off": "OFF"}),
+                "preview_path": ("BOOLEAN", {"default": True, "label_on": "Primere legacy", "label_off": "Model path"}),
+                "randomize": ("BOOLEAN", {"default": False, "label_on": "One random input", "label_off": "OFF"}),
                 "use_only_model_weight": ("BOOLEAN", {"default": True}),
 
                 "use_lora_1": ("BOOLEAN", {"default": False}),
@@ -102,15 +135,19 @@ class PrimereVisualLORA:
                 "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
-                "cached_lora": (cls.lora_versions,),
+                "subdir": ("loras",),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "cache_key": ("lora",),
+                "version_filter_input": ("stack_version",),
             }
         }
 
     def visual_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight,
-                            workflow_tuple=None, stack_version ='Any', model_version ="BaseModel_1024", **kwargs):
+                            workflow_tuple=None, stack_version ='Any', model_version ="SD1", **kwargs):
 
         model_keyword = [None, None]
 
@@ -145,18 +182,19 @@ class PrimereVisualEmbedding:
     CATEGORY = TREE_VISUALS
     EMBCOUNT = 6
 
-    embedding_versions = utility.get_category_from_cache('embedding_version')
-
     @classmethod
     def INPUT_TYPES(cls):
         EmbeddingList = folder_paths.get_filename_list("embeddings")
         return {
             "required": {
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
 
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+                "auto_filter": ("BOOLEAN", {"default": False, "label_on": "Filter by version", "label_off": "OFF"}),
+                "preview_path": ("BOOLEAN", {"default": True, "label_on": "Primere legacy", "label_off": "Model path"}),
+                "randomize": ("BOOLEAN", {"default": False, "label_on": "One random input", "label_off": "OFF"}),
 
                 "use_embedding_1": ("BOOLEAN", {"default": False}),
                 "embedding_1": (EmbeddingList,),
@@ -192,14 +230,18 @@ class PrimereVisualEmbedding:
                 "embedding_placement_neg": (["First", "Last"], {"default": "Last"}),
             },
             "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
-                "cached_embedding": (cls.embedding_versions,),
+                "subdir": ("embeddings",),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "cache_key": ("embedding",),
+                "version_filter_input": ("stack_version",),
             }
         }
 
-    def primere_visual_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple=None, stack_version='Any', model_version="BaseModel_1024", **kwargs):
+    def primere_visual_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple=None, stack_version='Any', model_version="SD1", **kwargs):
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return ([None, None], [None, None], [])
 
@@ -238,12 +280,12 @@ class PrimereVisualHypernetwork:
         return {
             "required": {
                 "model": ("MODEL",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
                 "safe_load": ("BOOLEAN", {"default": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
 
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+                "preview_path": ("BOOLEAN", {"default": True, "label_on": "Primere legacy", "label_off": "Model path"}),
+                "randomize": ("BOOLEAN", {"default": False, "label_on": "One random input", "label_off": "OFF"}),
 
                 "use_hypernetwork_1": ("BOOLEAN", {"default": False}),
                 "hypernetwork_1": (HypernetworkList, ),
@@ -270,8 +312,14 @@ class PrimereVisualHypernetwork:
                 "hypernetwork_6_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
             },
             "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
+            "hidden": {
+                "subdir": ("hypernetworks",),
+                "sortbuttons": (['Name', 'Path', 'Date'],),
+                "cache_key": ("embedding",),
+            }
         }
 
     def visual_hypernetwork(self, model, model_version, workflow_tuple = None, stack_version = "Any", safe_load = True, **kwargs):
@@ -302,31 +350,16 @@ class PrimereVisualStyle:
     FUNCTION = "load_visual_csv"
     CATEGORY = TREE_VISUALS
 
-    @staticmethod
-    def load_styles_csv(styles_path: str):
-        fileTest = open(styles_path, 'rb').readline()
-        result = chardet.detect(fileTest)
-        ENCODING = result['encoding']
-        if ENCODING == 'ascii':
-            ENCODING = 'UTF-8'
-
-        with open(styles_path, "r", newline = '', encoding = ENCODING) as csv_file:
-            try:
-                return pandas.read_csv(csv_file)
-            except pandas.errors.ParserError as e:
-                errorstring = repr(e)
-                matchre = re.compile('Expected (\d+) fields in line (\d+), saw (\d+)')
-                (expected, line, saw) = map(int, matchre.search(errorstring).groups())
-                print(f'Error at line {line}. Fields added : {saw - expected}.')
-
     @classmethod
     def INPUT_TYPES(cls):
         STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
-
-        try:
-            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.csv"))
-        except Exception:
-            cls.styles_csv = cls.load_styles_csv(os.path.join(STYLE_DIR, "styles.example.csv"))
+        STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+        STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+        if Path(STYLE_FILE).is_file() == True:
+            STYLE_SOURCE = STYLE_FILE
+        else:
+            STYLE_SOURCE = STYLE_FILE_EXAMPLE
+        cls.styles_csv = PrimereStyleLoader.load_styles_csv(STYLE_SOURCE)
 
         return {
             "required": {
@@ -336,32 +369,69 @@ class PrimereVisualStyle:
                 "use_subpath": ("BOOLEAN", {"default": False}),
                 "use_model": ("BOOLEAN", {"default": False}),
                 "use_orientation": ("BOOLEAN", {"default": False}),
+                "random_prompt": ("BOOLEAN", {"default": False, "label_on": "From preferred path", "label_off": "OFF"}),
+                "aescore_percent_min": ("INT", {"default": 550, "min": 0, "max": 800, "step": 50}),
+                "aescore_percent_max": ("INT", {"default": 800, "min": 200, "max": 1000, "step": 50})
             },
+            "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+            },
+            "hidden": {
+                "subdir": ("styles",),
+                "sortbuttons": (['aScore', 'Name', 'Path'],),
+                "cache_key": ("styles",),
+            }
         }
 
-    def load_visual_csv(self, styles, show_modal, show_hidden, use_subpath, use_model, use_orientation):
+    @classmethod
+    def IS_CHANGED(self, **kwargs):
+        if kwargs['random_prompt'] == True:
+            return float('NaN')
+
+    def load_visual_csv(self, styles, show_modal, show_hidden, use_subpath, use_model, use_orientation, aescore_percent_min, aescore_percent_max, random_prompt, random_seed = 0):
+        def new_state_random():
+            random.seed(datetime.datetime.now().timestamp())
+            return random.randint(10, 0xffffffffffffffff)
+
+        styleKey = self.styles_csv['name'] == styles
+
         try:
-            positive_prompt = self.styles_csv[self.styles_csv['name'] == styles]['prompt'].values[0]
+            preferred_subpath = self.styles_csv[styleKey]['preferred_subpath'].values[0]
+        except Exception:
+            preferred_subpath = ''
+
+        if random_prompt == True:
+            if str(preferred_subpath) == "nan":
+                resultsBySubpath = self.styles_csv[self.styles_csv['preferred_subpath'].isnull()]
+            else:
+                resultsBySubpath = self.styles_csv[self.styles_csv['preferred_subpath'] == preferred_subpath]
+
+            if random_seed is None or int(random_seed) <= 0:
+                random_seed = int(new_state_random())
+            random.seed(random_seed)
+            random_stylename = random.choice(list(resultsBySubpath['name']))
+            styleKey = self.styles_csv['name'] == random_stylename
+
+        else:
+            styleKey = self.styles_csv['name'] == styles
+
+        try:
+            positive_prompt = self.styles_csv[styleKey]['prompt'].values[0]
         except Exception:
             positive_prompt = ''
 
         try:
-            negative_prompt = self.styles_csv[self.styles_csv['name'] == styles]['negative_prompt'].values[0]
+            negative_prompt = self.styles_csv[styleKey]['negative_prompt'].values[0]
         except Exception:
             negative_prompt = ''
 
         try:
-            preferred_subpath = self.styles_csv[self.styles_csv['name'] == styles]['preferred_subpath'].values[0]
-        except Exception:
-            preferred_subpath = ''
-
-        try:
-            preferred_model = self.styles_csv[self.styles_csv['name'] == styles]['preferred_model'].values[0]
+            preferred_model = self.styles_csv[styleKey]['preferred_model'].values[0]
         except Exception:
             preferred_model = ''
 
         try:
-            preferred_orientation = self.styles_csv[self.styles_csv['name'] == styles]['preferred_orientation'].values[0]
+            preferred_orientation = self.styles_csv[styleKey]['preferred_orientation'].values[0]
         except Exception:
             preferred_orientation = ''
 
@@ -399,14 +469,70 @@ class PrimereVisualStyle:
 
         return (positive_prompt, negative_prompt, preferred_subpath, preferred_model, preferred_orientation, preferred)
 
+class PrimereVisualPromptOrganizerCSV:
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
+    FUNCTION = "prompt_visual_organizer_csv"
+    CATEGORY = TREE_VISUALS
+
+    @ classmethod
+    def INPUT_TYPES(cls):
+        STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+        STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+        STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+        if Path(STYLE_FILE).is_file() == True:
+            STYLE_SOURCE = STYLE_FILE
+        else:
+            STYLE_SOURCE = STYLE_FILE_EXAMPLE
+        cls.styles_csv = PrimereStyleLoader.load_styles_csv(STYLE_SOURCE)
+        STYLE_RESULT = stylehandler.csv2node(cls.styles_csv)
+
+        additionalDict = {
+            "show_modal": ("BOOLEAN", {"default": True}),
+            "show_hidden": ("BOOLEAN", {"default": True}),
+            "use_subpath": ("BOOLEAN", {"default": False}),
+            "use_model": ("BOOLEAN", {"default": False}),
+            "use_orientation": ("BOOLEAN", {"default": False}),
+            "random_prompt": ("BOOLEAN", {"default": False, "label_on": "From preferred path", "label_off": "OFF"})
+        }
+
+        hiddenDict = {
+            "subdir": ("styles",),
+            "sortbuttons": (['aScore', 'Name'],),
+            "cache_key": ("styles",)
+        }
+
+        optionalDict = {
+            "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff})
+        }
+
+        MERGED_REQ = utility.merge_dict(additionalDict, STYLE_RESULT)
+        INPUT_DICT_FINAL = {'required': MERGED_REQ, 'optional': optionalDict, 'hidden': hiddenDict}
+        return INPUT_DICT_FINAL
+
+    def prompt_visual_organizer_csv(self, show_modal, show_hidden, random_prompt, use_subpath = False, use_model = False, use_orientation = False, random_seed = 0, **kwargs):
+        input_data = kwargs
+        styleResult = {}
+        styleResult[0] = None
+        styleResult[1] = None
+        styleResult[2] = None
+        styleResult[3] = None
+        styleResult[4] = None
+        styleResult[5] = None
+
+        for inputKey, inputValue in input_data.items():
+            if inputValue != 'None':
+                styleResult = PrimereStyleLoader.load_csv(self, inputValue, use_subpath, use_model, use_orientation)
+                break
+
+        return (styleResult[0], styleResult[1], styleResult[2], styleResult[3], styleResult[4], styleResult[5])
+
 class PrimereVisualLYCORIS:
     RETURN_TYPES = ("MODEL", "CLIP", "LYCORIS_STACK", "MODEL_KEYWORD")
     RETURN_NAMES = ("MODEL", "CLIP", "LYCORIS_STACK", "LYCORIS_KEYWORD")
     FUNCTION = "primere_visual_lycoris_stacker"
     CATEGORY = TREE_VISUALS
     LYCOSCOUNT = 6
-
-    lyco_versions = utility.get_category_from_cache('lycoris_version')
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -419,11 +545,14 @@ class PrimereVisualLYCORIS:
             "required": {
                 "model": ("MODEL",),
                 "clip": ("CLIP",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
 
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
                 "show_modal": ("BOOLEAN", {"default": True}),
                 "show_hidden": ("BOOLEAN", {"default": True}),
+                "auto_filter": ("BOOLEAN", {"default": False, "label_on": "Filter by version", "label_off": "OFF"}),
+                "preview_path": ("BOOLEAN", {"default": True, "label_on": "Primere legacy", "label_off": "Model path"}),
+                "randomize": ("BOOLEAN", {"default": False, "label_on": "One random input", "label_off": "OFF"}),
                 "use_only_model_weight": ("BOOLEAN", {"default": True}),
 
                 "use_lycoris_1": ("BOOLEAN", {"default": False}),
@@ -463,14 +592,18 @@ class PrimereVisualLYCORIS:
                 "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
-                "cached_lyco": (cls.lyco_versions,),
+                "subdir": ("lycoris",),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "cache_key": ("lycoris",),
+                "version_filter_input": ("stack_version",),
             }
         }
 
-    def primere_visual_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple=None, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+    def primere_visual_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple=None, stack_version = 'Any', model_version = "SD1", **kwargs):
         model_keyword = [None, None]
 
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':

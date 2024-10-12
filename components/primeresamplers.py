@@ -16,11 +16,6 @@ def PKSampler(self, device, seed, model,
               latent_image, denoise,
               variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender):
 
-    '''if variation_batch_step_original > 0:
-        if batch_counter > 0:
-            variation_batch_step = variation_batch_step_original * batch_counter
-        variation_extender = round(variation_extender_original + variation_batch_step, 2)'''
-
     if variation_level == True:
         samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
     else:
@@ -88,10 +83,9 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
 
     return samples
 
-def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise):
+def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt):
     WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-
-    HyperSDSelector = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 8)
+    HyperSDSelector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
     if (HyperSDSelector == 'UNET'):
         sigmas = utility.get_hypersd_sigmas(model)
         sampler = comfy.samplers.sampler_object(sampler_name)
@@ -107,8 +101,8 @@ def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negati
 
     return samples
 
-def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image):
-    FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
+def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image, prompt):
+    FLUX_GUIDANCE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt))
     if FLUX_GUIDANCE is None:
         FLUX_GUIDANCE = 3.5
     if FLUX_GUIDANCE <= 0:

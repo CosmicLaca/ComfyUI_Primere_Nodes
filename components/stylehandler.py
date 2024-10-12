@@ -56,3 +56,23 @@ def toml2node(tomlpath, add_stength = True, exclude_names = []):
                 INPUT_DICT[STYLE_KEY + '_strength'] = STRENGHT
 
     return (INPUT_DICT, LIST_DICT_POS, LIST_DICT_NEG, STYLE,)
+
+def csv2node(styles_csv, exclude_names = []):
+    INPUT_DICT = {}
+
+    subpathList = styles_csv['preferred_subpath']
+    prompt_subpaths = list(set(subpathList))
+    prompt_subpaths_sorted = sorted(prompt_subpaths, key=lambda x: 'nan' if (x != x) else x)
+
+    for prompt_subpath in prompt_subpaths_sorted:
+        if str(prompt_subpath) == "nan":
+            prompt_subpath = 'Others'
+            resultsBySubpath = styles_csv[styles_csv['preferred_subpath'].isnull()]
+        else:
+            resultsBySubpath = styles_csv[styles_csv['preferred_subpath'] == prompt_subpath]
+
+        resultsByNames = list(resultsBySubpath['name'])
+        resultsByNames.sort()
+        INPUT_DICT[prompt_subpath] = (['None'] + resultsByNames,)
+
+    return INPUT_DICT

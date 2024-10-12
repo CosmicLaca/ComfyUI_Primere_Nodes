@@ -26,7 +26,7 @@ if len(EmbeddingList) > 0:
         name_only = Path(onelora).stem
         model_version = utility.get_value_from_cache('embedding_version', name_only)
         if model_version is None or model_version not in utility.SUPPORTED_MODELS:
-            model_version = 'SD15'
+            model_version = 'SD1'
             utility.add_value_to_cache('embedding_version', name_only, model_version)
             print('Embedding cached: ' + name_only + ' -> ' + str(model_version))
         else:

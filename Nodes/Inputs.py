@@ -564,17 +564,17 @@ class PrimereVAESelector:
                 "vae_sd": ("VAE",),
                 "vae_sdxl": ("VAE",),
                 "vae_cascade": ("VAE",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "model_concept": ("STRING", {"default": "SD1", "forceInput": True}),
             }
         }
 
     def primere_vae_selector(self, vae_sd, vae_sdxl, vae_cascade, model_version = "BaseModel_1024", model_concept = 'Normal'):
         match model_concept:
-            case 'Cascade':
+            case 'StableCascade':
                 return (vae_cascade,)
         match model_version:
-            case 'SDXL_2048':
+            case 'SDXL':
                 return (vae_sdxl,)
         return (vae_sd,)
 
@@ -674,8 +674,9 @@ class PrimereMetaHandler:
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
                         if model_file.is_file() == True:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
-                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
+                            # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            model_version = utility.getModelType(workflow_tuple['model'], 'checkpoints')
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
                     workflow_tuple['model_version'] = model_version
@@ -839,8 +840,9 @@ class PrimereMetaHandler:
                         model_full_path = checkpointpaths + os.sep + workflow_tuple['model']
                         model_file = Path(model_full_path)
                         if model_file.is_file() == True:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
-                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
+                            # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            model_version = utility.getModelType(workflow_tuple['model'], 'checkpoints')
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
                         else:
                             allcheckpoints = folder_paths.get_filename_list("checkpoints")
@@ -852,8 +854,9 @@ class PrimereMetaHandler:
                                 model_full_path = checkpointpaths + os.sep + allcheckpoints[0]
                                 model_file = Path(model_full_path)
                                 if model_file.is_file() == True:
-                                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
-                                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                                    # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple['model'])
+                                    # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                                    model_version = utility.getModelType(workflow_tuple['model'], 'checkpoints')
                                     utility.add_value_to_cache('model_version', modelname_only, model_version)
                                 else:
                                     model_version = 'BaseModel_1024'
@@ -1100,10 +1103,11 @@ class PrimereMetaDistributorStage2:
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
                 "id": "UNIQUE_ID",
+                "prompt": "PROMPT"
             },
 
         }
-    def expand_meta_2(self, workflow_tuple, seed, width, height, **kwargs):
+    def expand_meta_2(self, workflow_tuple, seed, width, height, prompt, **kwargs):
         PROCESSED_KEYS = ['setup_states']
         OUTPUT_TUPLE = []
         IMG_WIDTH = width
@@ -1162,7 +1166,7 @@ class PrimereMetaDistributorStage2:
         LEGACY_DIMENSIONS = dimensions
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-        rnd_orientation = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereResolution', 4)
+        rnd_orientation = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereResolution', 'rnd_orientation', prompt)
 
         if rnd_orientation == True:
             random.seed(EXT_SEED)
@@ -1375,8 +1379,9 @@ class PrimereMetaRead:
                         modelname_only = Path((data_json['model_name'])).stem
                         model_version = utility.get_value_from_cache('model_version', modelname_only)
                         if model_version is None:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
-                            model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
+                            # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                            model_version = utility.getModelType(data_json['model'], 'checkpoints')
                             utility.add_value_to_cache('model_version', modelname_only, model_version)
 
                         data_json['model_version'] = model_version
@@ -1496,8 +1501,9 @@ class PrimereMetaRead:
                 modelname_only = Path(data_json['model_name']).stem
                 model_version = utility.get_value_from_cache('model_version', modelname_only)
                 if model_version is None:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
-                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
+                    # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    model_version = utility.getModelType(data_json['model'], 'checkpoints')
                     utility.add_value_to_cache('model_version', modelname_only, model_version)
 
                 data_json['model_version'] = model_version
@@ -1555,8 +1561,9 @@ class PrimereMetaRead:
                 modelname_only = Path(data_json['model_name']).stem
                 model_version = utility.get_value_from_cache('model_version', modelname_only)
                 if model_version is None:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
-                    model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    # LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, data_json['model_name'])
+                    # model_version = utility.getCheckpointVersion(LOADED_CHECKPOINT[0])
+                    model_version = utility.getModelType(data_json['model'], 'checkpoints')
                     utility.add_value_to_cache('model_version', modelname_only, model_version)
 
                 data_json['model_version'] = model_version
@@ -1754,7 +1761,7 @@ class PrimereLycorisKeywordMerger:
 class PrimerePromptOrganizer:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
-    FUNCTION = "prompt_organizer"
+    FUNCTION = "prompt_organizer_toml"
     CATEGORY = TREE_INPUTS
 
     @ classmethod
@@ -1770,10 +1777,10 @@ class PrimerePromptOrganizer:
         STYLE_RESULT = stylehandler.toml2node(STYLE_SOURCE, False, ['preferred_model', 'preferred_orientation'])
 
         additionalDict = {
-                "use_subpath": ("BOOLEAN", {"default": False}),
-                "use_model": ("BOOLEAN", {"default": False}),
-                "use_orientation": ("BOOLEAN", {"default": False}),
-            }
+            "use_subpath": ("BOOLEAN", {"default": False}),
+            "use_model": ("BOOLEAN", {"default": False}),
+            "use_orientation": ("BOOLEAN", {"default": False}),
+        }
 
         MERGED_REQ = utility.merge_dict(additionalDict, STYLE_RESULT[0])
         INPUT_DICT_FINAL = {'required': MERGED_REQ}
@@ -1784,7 +1791,7 @@ class PrimerePromptOrganizer:
         cls.INPUT_DICT_RESULT = INPUT_DICT_FINAL
         return cls.INPUT_DICT_RESULT
 
-    def prompt_organizer(self, opt_pos_style = None, opt_neg_style = None, use_subpath = False, use_model = False, use_orientation = False, **kwargs):
+    def prompt_organizer_toml(self, opt_pos_style = None, opt_neg_style = None, use_subpath = False, use_model = False, use_orientation = False, **kwargs):
         input_data = kwargs
         original = self
         style_text_result = StyleParser(opt_pos_style, opt_neg_style, input_data, original)
@@ -1813,6 +1820,51 @@ class PrimerePromptOrganizer:
         preferred = {'subpath': preferred_subpath, 'model': preferred_model, 'orientation': preferred_orientation}
 
         return (style_text_result[0], style_text_result[1], preferred_subpath, preferred_model, preferred_orientation, preferred)
+
+class PrimerePromptOrganizerCSV:
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
+    FUNCTION = "prompt_organizer_csv"
+    CATEGORY = TREE_INPUTS
+
+    @ classmethod
+    def INPUT_TYPES(cls):
+        STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+        STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+        STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+        if Path(STYLE_FILE).is_file() == True:
+            STYLE_SOURCE = STYLE_FILE
+        else:
+            STYLE_SOURCE = STYLE_FILE_EXAMPLE
+        cls.styles_csv = PrimereStyleLoader.load_styles_csv(STYLE_SOURCE)
+        STYLE_RESULT = stylehandler.csv2node(cls.styles_csv)
+
+        additionalDict = {
+            "use_subpath": ("BOOLEAN", {"default": False}),
+            "use_model": ("BOOLEAN", {"default": False}),
+            "use_orientation": ("BOOLEAN", {"default": False}),
+        }
+
+        MERGED_REQ = utility.merge_dict(additionalDict, STYLE_RESULT)
+        INPUT_DICT_FINAL = {'required': MERGED_REQ}
+        return INPUT_DICT_FINAL
+
+    def prompt_organizer_csv(self, use_subpath = False, use_model = False, use_orientation = False, **kwargs):
+        input_data = kwargs
+        styleResult = {}
+        styleResult[0] = None
+        styleResult[1] = None
+        styleResult[2] = None
+        styleResult[3] = None
+        styleResult[4] = None
+        styleResult[5] = None
+
+        for inputKey, inputValue in input_data.items():
+            if inputValue != 'None':
+                styleResult = PrimereStyleLoader.load_csv(self, inputValue, use_subpath, use_model, use_orientation)
+                break
+
+        return (styleResult[0], styleResult[1], styleResult[2], styleResult[3], styleResult[4], styleResult[5])
 
 class PrimereNetworkDataCollector:
     RETURN_TYPES = ("TUPLE",)

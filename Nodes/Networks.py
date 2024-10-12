@@ -3,6 +3,7 @@ import folder_paths
 import os
 from ..utils import comfy_dir
 from .modules import networkhandler
+from ..components import utility
 
 class PrimereLORA:
     RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "MODEL_KEYWORD")
@@ -19,8 +20,8 @@ class PrimereLORA:
             "required": {
                 "model": ("MODEL",),
                 "clip": ("CLIP",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
                 "use_only_model_weight": ("BOOLEAN", {"default": True}),
 
                 "use_lora_1": ("BOOLEAN", {"default": False}),
@@ -64,7 +65,7 @@ class PrimereLORA:
             },
         }
 
-    def primere_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, workflow_tuple = None, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+    def primere_lora_stacker(self, model, clip, use_only_model_weight, use_lora_keyword, lora_keyword_placement, lora_keyword_selection, lora_keywords_num, lora_keyword_weight, workflow_tuple = None, stack_version = 'Any', model_version = "SD1", **kwargs):
         model_keyword = [None, None]
 
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
@@ -104,8 +105,8 @@ class PrimereEmbedding:
 
         return {
             "required": {
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
 
                 "use_embedding_1": ("BOOLEAN", {"default": False}),
                 "embedding_1": (EmbeddingList,),
@@ -145,8 +146,7 @@ class PrimereEmbedding:
             },
         }
 
-    def primere_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple = None, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
-
+    def primere_embedding(self, embedding_placement_pos, embedding_placement_neg, workflow_tuple = None, stack_version = 'Any', model_version = "SD1", **kwargs):
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return ([None, None], [None, None], [])
 
@@ -185,9 +185,9 @@ class PrimereHypernetwork:
         return {
             "required": {
                 "model": ("MODEL",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
                 "safe_load": ("BOOLEAN", {"default": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
 
                 "use_hypernetwork_1": ("BOOLEAN", {"default": False}),
                 "hypernetwork_1": (HypernetworkList, ),
@@ -219,7 +219,6 @@ class PrimereHypernetwork:
         }
 
     def primere_hypernetwork(self, model, model_version, workflow_tuple = None, stack_version = 'Any', safe_load = True, **kwargs):
-
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':
             return (model, [],)
 
@@ -259,8 +258,8 @@ class PrimereLYCORIS:
             "required": {
                 "model": ("MODEL",),
                 "clip": ("CLIP",),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "stack_version": (["SD", "SDXL", "Flux", "Any"], {"default": "Any"}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "stack_version": (["Any", "Auto"] + utility.SUPPORTED_MODELS, {"default": "Auto"}),
                 "use_only_model_weight": ("BOOLEAN", {"default": True}),
 
                 "use_lycoris_1": ("BOOLEAN", {"default": False}),
@@ -304,7 +303,7 @@ class PrimereLYCORIS:
             },
         }
 
-    def primere_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple = None, stack_version = 'Any', model_version = "BaseModel_1024", **kwargs):
+    def primere_lycoris_stacker(self, model, clip, use_only_model_weight, use_lycoris_keyword, lycoris_keyword_placement, lycoris_keyword_selection, lycoris_keywords_num, lycoris_keyword_weight, workflow_tuple = None, stack_version = 'Any', model_version = "SD1", **kwargs):
         model_keyword = [None, None]
 
         if workflow_tuple is not None and 'model_concept' in workflow_tuple and workflow_tuple['model_concept'] != stack_version and workflow_tuple['model_concept'] != 'Normal':

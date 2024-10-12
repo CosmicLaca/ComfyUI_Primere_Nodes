@@ -1,12 +1,15 @@
 @charset "utf-8";
 
-@import url("../fonts/FUTURATEE_BOLDCONDENSED/stylesheet.css");
-@import url("../fonts/NIMBUSSANSDEE_BOLD/stylesheet.css");
+@import url("../fonts/FUTURATEE_BOLDCONDENSED/stylesheet.css"); /* FUTURATEE BOLDCONDENSED */
+@import url("../fonts/NIMBUSSANSDEE_BOLD/stylesheet.css"); /* NIMBUSSANSDEE BOLD */
+@import url("../fonts/FUTURATEE_LIGHT/stylesheet.css"); /* FUTURATEE LIGHT */
+@import url("../fonts/NIMBUSSANSDEE_LIGHT/stylesheet.css"); /* NIMBUSSANSDEE LIGHT */
 
 /* Primere css for visual selectors */
 #primere_visual_modal {
     align-content: start;
     text-align: left;
+    background-color: #484848;
 }
 #primere_visual_modal .visual_modal_title {
     text-align: center;
@@ -58,6 +61,17 @@
     border: #ff5151 solid 2px;
     cursor: not-allowed;
     pointer-events: none;
+    margin-right: 25px;
+}
+#primere_visual_modal .visual-ckpt.visual-ckpt-selected:after {
+    content: "";
+    background-color: #b3b3b3;
+    position: absolute;
+    width: 1px;
+    height: 97%;
+    top: 5px;
+    right: -15px;
+    display: block;
 }
 #primere_visual_modal .visual-ckpt.visual-ckpt-selected .checkpoint-name {
     background: #672727 !important;
@@ -70,17 +84,6 @@
     border: #949494 solid 1px;
     background: #444444;
     color: white;
-}
-
-#primere_visual_modal .visual-ckpt.version-sd1:hover {
-    color: #1644d0;
-}
-
-#primere_visual_modal .visual-ckpt.version-sdxl:hover {
-    color: #a21919;
-}
-#primere_visual_modal .visual-ckpt.version-unknown:hover {
-    color: #15520f;
 }
 
 #primere_visual_modal .visual-ckpt img {
@@ -116,42 +119,38 @@
     border-top-right-radius: 5px;
 }
 
-#primere_visual_modal .ckpt-version::before {
+#primere_visual_modal .ckpt-version {
     display: block;
-    position: absolute;
     -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 3px;
-    padding-right: 3px;
     font-size: 12px;
     font-weight: normal;
-    /* border: #ffffff solid 1px; */
     border-right: #ffffff solid 1px;
     border-bottom: #ffffff solid 1px;
     box-shadow: 1px 1px 2px #727272;
     min-width: 22px;
     text-align: center;
     font-family: 'NIMBUSSANSDEE BOLD';
-}
-
-#primere_visual_modal .ckpt-version.unknown-ckpt::before {
-    content: '?';
     background: #325614;
     color: #ffffff;
+    position: absolute;
+    margin-top: 17px;
+    /* padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px; */
+    text-transform: capitalize;
 }
 
-#primere_visual_modal .ckpt-version.sdxl-ckpt::before {
-    content: 'SDXL';
-    background: #8a2929;
-    color: #ffffff;
-}
-#primere_visual_modal .ckpt-version.sd1-ckpt::before {
-    content: 'SD';
-    background: #0a5075;
-    color: #ffffff;
+#primere_visual_modal .ckpt-version::before {
+    display: block;
+    margin: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-bottom-right-radius: 5px;
 }
 
 #primere_visual_modal .subdirtab {
@@ -181,12 +180,173 @@
     background: white !important;
     border: white solid 2px !important;
 }
-#primere_visual_modal .background-sd1 {
+
+#primere_visual_modal .visual-aesthetic-score hr {
+    margin: 0px;
+    height: 2px;
+    border-top: 1px solid #da2b2b;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+#primere_visual_modal .visual-aesthetic-score {
+    display: block;
+    position: absolute;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-size: 13px;
+    border-right: #ffffff solid 1px;
+    border-bottom: #ffffff solid 1px;
+    min-width: 22px;
+    text-align: center;
+    font-family: 'NIMBUSSANSDEE BOLD';
+    background-color: #f5e0af;
+    right: 0px;
+    bottom: 0px;
+    color: #ae621e;
+    white-space: nowrap;
+}
+
+#primere_visual_modal .visual-aesthetic-score span {
+    position: unset !important;
+    font-size: 11px;
+    /* font-family: 'NIMBUSSANSDEE LIGHT'; */
+}
+
+#primere_visual_modal .background-SD1 {
     background: #91c0dc;
 }
-#primere_visual_modal .background-sdxl {
+#primere_visual_modal .background-SD2 {
+    background: #58b2da;
+}
+#primere_visual_modal .background-SDXL {
     background: #eac9c9;
 }
-#primere_visual_modal .background-unknown {
+#primere_visual_modal .background-SD3 {
+    background: #c198e8;
+}
+#primere_visual_modal .background-StableCascade {
+    background: #e8c598;
+}
+#primere_visual_modal .background-Turbo {
+    background: #c6ce8f;
+}
+#primere_visual_modal .background-Flux {
+    background: #c49fb6;
+}
+#primere_visual_modal .background-KwaiKolors {
+    background: #a1d595;
+}
+#primere_visual_modal .background-Hunyuan {
+    background: #dcd5ab;
+}
+#primere_visual_modal .background-Playground {
+    background: #a5ccbf;
+}
+#primere_visual_modal .background-Pony {
+    background: #92b7ff;
+}
+#primere_visual_modal .background-LCM {
+    background: #99d9ee;
+}
+#primere_visual_modal .background-Lightning {
+    background: #d3b9ff;
+}
+#primere_visual_modal .background-Hyper {
+    background: #ffe389;
+}
+#primere_visual_modal .background-StableAudio {
+    background: #fdefef;
+}
+#primere_visual_modal .background-Unknown {
     background: #eaf1b8;
+}
+
+/* ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"] */
+
+#primere_visual_modal .ckpt-version.SD1-ckpt::before {
+    content: 'SD 1.x';
+    background: #0a5075;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.SD2-ckpt::before {
+    content: 'SD 2.x';
+    background: #0d2e41;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.SDXL-ckpt::before {
+    content: 'SDXL';
+    background: #8a2929;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.SD3-ckpt::before {
+    content: 'SD 3.x';
+    background: #440c46;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.StableCascade-ckpt::before {
+    content: 'Cascade';
+    background: #4d360b;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Turbo-ckpt::before {
+    content: 'Turbo';
+    background: #414810;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Flux-ckpt::before {
+    content: 'Flux';
+    background: #420a2c;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.KwaiKolors-ckpt::before {
+    content: 'Kolors';
+    background: #0f3406;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Hunyuan-ckpt::before {
+    content: 'Hunyuan';
+    background: #3f3a11;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Playground-ckpt::before {
+    content: 'PG';
+    background: #23483c;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Pony-ckpt::before {
+    content: 'Pony';
+    background: #092f77;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.LCM-ckpt::before {
+    content: 'LCM';
+    background: #1d4957;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Lightning-ckpt::before {
+    content: 'Lightning';
+    background: #2f2348;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Hyper-ckpt::before {
+    content: 'Hyper';
+    background: #3f3400;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.StableAudio-ckpt::before {
+    content: 'S.Audio';
+    background: #4b4040;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Unknown-ckpt::before {
+    content: '?';
+    background: #325614;
+    color: #ffffff;
 }

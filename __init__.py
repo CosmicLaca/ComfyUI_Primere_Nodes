@@ -18,7 +18,7 @@ from .components import utility
 # import time
 import pytz
 
-__version__ = "0.7.2"
+__version__ = "1.0.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -28,7 +28,7 @@ is_frontend_symlinked = False
 
 ClientTime = str(datetime.strptime(str(datetime.now(pytz.timezone('GMT0'))), '%Y-%m-%d %H:%M:%S.%f+00:00'))
 # ClientTime = time.gmtime()
-UpdateRequired = '2024-06-28 15:00:00'
+UpdateRequired = '2024-10-11 15:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -115,6 +115,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLycorisKeywordMerger": Inputs.PrimereLycorisKeywordMerger,
     "PrimereRefinerPrompt": Inputs.PrimereRefinerPrompt,
     "PrimerePromptOrganizer": Inputs.PrimerePromptOrganizer,
+    "PrimerePromptOrganizerCSV": Inputs.PrimerePromptOrganizerCSV,
     "PrimereMetaHandler": Inputs.PrimereMetaHandler,
     "PrimereMetaDistributor": Inputs.PrimereMetaDistributor,
     "PrimereMetaDistributorStage2": Inputs.PrimereMetaDistributorStage2,
@@ -139,6 +140,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereVisualHypernetwork": Visuals.PrimereVisualHypernetwork,
     "PrimereVisualStyle": Visuals.PrimereVisualStyle,
     "PrimereVisualLYCORIS": Visuals.PrimereVisualLYCORIS,
+    "PrimereVisualPromptOrganizerCSV": Visuals.PrimereVisualPromptOrganizerCSV,
 
     "PrimereLORA": Networks.PrimereLORA,
     "PrimereEmbedding": Networks.PrimereEmbedding,
@@ -185,7 +187,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLycorisStackMerger": 'Primere Lycoris Stack Merger',
     "PrimereLycorisKeywordMerger": 'Primere Lycoris Keyword Merger',
     "PrimereRefinerPrompt": "Primere Refiner Prompt",
-    "PrimerePromptOrganizer": "Primere Prompt Organizer",
+    "PrimerePromptOrganizer": "Primere Prompt Organizer - TOML",
+    "PrimerePromptOrganizerCSV": "Primere Prompt Organizer - CSV",
     "PrimereMetaHandler": "Primere Image Recycler",
     "PrimereMetaDistributor": "Primere Meta Distributor",
     "PrimereMetaDistributorStage2": "Primere Meta Distributor Stage 2",
@@ -210,6 +213,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereVisualHypernetwork": 'Primere Visual Hypernetwork Selector',
     "PrimereVisualStyle": 'Primere Visual Style Selector',
     "PrimereVisualLYCORIS": 'Primere Visual LYCORIS Selector',
+    "PrimereVisualPromptOrganizerCSV": 'Primere Visual Prompt CSV',
 
     "PrimereLORA": 'Primere LORA',
     "PrimereEmbedding": 'Primere Embedding',
