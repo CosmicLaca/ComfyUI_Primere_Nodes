@@ -181,7 +181,7 @@
         true,
         true,
         true,
-        "Architechture::Interior",
+        "Architechture::Exterior",
         "None",
         "None",
         "None",
@@ -1540,7 +1540,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        3
+        4
       ],
       "color": "#549494",
       "bgcolor": "#408080"
@@ -2491,7 +2491,7 @@
       },
       "widgets_values": [
         "",
-        442649063459907,
+        760724813232411,
         "randomize",
         true
       ],
@@ -2547,7 +2547,7 @@
       },
       "widgets_values": [
         "",
-        221965539774437,
+        963177574349750,
         "randomize",
         true
       ],
@@ -3136,7 +3136,7 @@
         false,
         1.6,
         2.8,
-        219399965342261,
+        655184586232328,
         "randomize",
         "SD1",
         "Auto"
@@ -3322,7 +3322,7 @@
         1,
         0.8,
         1.4,
-        287321145160179,
+        858014338796955,
         "randomize",
         true,
         "cpu",
@@ -3724,7 +3724,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        487348615250335,
+        821158541559460,
         "randomize",
         20,
         8,
@@ -4072,7 +4072,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        942,
+        1931,
         "randomize",
         "",
         "",
@@ -5532,10 +5532,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6209213230591552,
+      "scale": 0.8264462809917359,
       "offset": [
-        488.0329757910164,
-        168.14178710449238
+        -601.9471038416727,
+        187.49607401605144
       ]
     }
   },
