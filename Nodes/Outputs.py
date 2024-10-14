@@ -793,10 +793,6 @@ class PrimerePreviewImage():
                     VISUAL_DATA[ITEM_TYPE] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE]) if i not in VISUAL_DATA[ITEM_TYPE][:n]]
                     VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE + '_ORIGINAL']) if i not in VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'][:n]]
 
-        print('-------------------- VISUAL_DATA')
-        print(VISUAL_DATA)
-        print('-------------------- VISUAL_DATA')
-
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
         results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
