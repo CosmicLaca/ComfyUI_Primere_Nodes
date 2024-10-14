@@ -109,10 +109,6 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function (node, pos, event, active_widget) {
-            console.log('---------------------------------- processNodeWidgets:')
-            console.log(event.type)
-            console.log(node.type)
-            console.log(node.name)
             if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
                 return false;
             }
@@ -608,12 +604,12 @@ function PrimerePreviewSaverWidget(node, inputName) {
 
      node.onWidgetChanged = function(name, value, old_value){
         //alert('changed? +++')
-        console.log('------------ ch ---------------')
+        console.log('------------ widget ch: ---------------')
         console.log(name)
         console.log(value)
         console.log(old_value)
         ButtonLabelCreator(node);
-        console.log('------------ ch ---------------')
+        console.log('------------ w.ch end ---------------')
         return false;
     };
 
