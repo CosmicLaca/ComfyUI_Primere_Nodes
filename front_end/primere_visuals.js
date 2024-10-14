@@ -71,10 +71,6 @@ app.registerExtension({
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
-            if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
-                return lcg.call(this, node, pos, event, active_widget);
-            }
-
             if (!validClasses.includes(node.type)) {
                 return lcg.call(this, node, pos, event, active_widget);
             }
