@@ -735,7 +735,7 @@ class PrimerePreviewImage():
                 "image_save_as": ("BOOLEAN", {"default": False, "label_on": "Save as preview", "label_off": "Save as any..."}),
                 "image_type": (['jpeg', 'png', 'webp'], {"default": "jpeg"}),
                 "image_resize": ("INT", {"default": 0, "min": 0, "max": utility.MAX_RESOLUTION, "step": 64}),
-                "image_quality": ("INT",  {"default": 95,"min": 10, "max": 100, "step": 5}),
+                "image_quality": ("INT",  {"default": 95, "min": 10, "max": 100, "step": 5}),
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
                 "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
 
@@ -792,6 +792,10 @@ class PrimerePreviewImage():
 
                     VISUAL_DATA[ITEM_TYPE] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE]) if i not in VISUAL_DATA[ITEM_TYPE][:n]]
                     VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE + '_ORIGINAL']) if i not in VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'][:n]]
+
+        print('-------------------- VISUAL_DATA')
+        print(VISUAL_DATA)
+        print('-------------------- VISUAL_DATA')
 
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 

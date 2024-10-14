@@ -28,7 +28,7 @@ is_frontend_symlinked = False
 
 ClientTime = str(datetime.strptime(str(datetime.now(pytz.timezone('GMT0'))), '%Y-%m-%d %H:%M:%S.%f+00:00'))
 # ClientTime = time.gmtime()
-UpdateRequired = '2024-10-11 15:00:00'
+UpdateRequired = '2024-10-14 15:00:00'
 
 if os.path.isdir(frontend_target) == True:
     try:

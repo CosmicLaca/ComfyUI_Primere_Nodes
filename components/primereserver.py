@@ -100,6 +100,18 @@ async def primere_preview_post(request):
 
     return web.json_response({})
 
+
+routes13 = PromptServer.instance.routes
+@routes13.post('/primere_get_loadedimage') # ReadFileDate()
+async def primere_get_loadedimage(request):
+    post = await request.post()
+    image_data = post.get('imagedata')
+    print(image_data)
+
+    PromptServer.instance.send_sync("LoadedImageResponse", ['aaaaa', 'bbbbb', 'ccccc'])
+
+    return web.json_response({})
+
 # ************ KEYWORDS *******************
 
 routes2 = PromptServer.instance.routes
