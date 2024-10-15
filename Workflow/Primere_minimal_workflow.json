@@ -31,8 +31,8 @@
       "id": 1,
       "type": "PrimerePrompt",
       "pos": {
-        "0": 686.611572265625,
-        "1": 632.775146484375
+        "0": 285.7931213378906,
+        "1": 635.229736328125
       },
       "size": {
         "0": 358.3917236328125,
@@ -97,7 +97,7 @@
         "Node name for S&R": "PrimerePrompt"
       },
       "widgets_values": [
-        "{creepy|angry} {cat|dog|pig|lion|elephant} walking in the street of {big city|village|park|hill}, snow and winter",
+        "{creepy|angry|funny} {cat|dog|pig|lion|elephant|shark} walking in the {street|beach|forest} of {big city|village|park|hill}, {snow and winter|summer and sunny}",
         "human, summer, sunny, man, woman, girl, nsfw",
         "",
         "None",
@@ -185,8 +185,8 @@
       "id": 97,
       "type": "PrimerePromptOrganizer",
       "pos": {
-        "0": 1059.6114501953125,
-        "1": 632.775146484375
+        "0": 658.7931518554688,
+        "1": 635.229736328125
       },
       "size": {
         "0": 386.5388488769531,
@@ -295,7 +295,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        244127401853434,
+        -1,
         null,
         null,
         null
@@ -307,8 +307,8 @@
       "id": 94,
       "type": "PrimereVisualStyle",
       "pos": {
-        "0": 685,
-        "1": 1029
+        "0": 284.1815490722656,
+        "1": 1031.4547119140625
       },
       "size": {
         "0": 362.4396057128906,
@@ -447,8 +447,8 @@
       "id": 99,
       "type": "PrimereVisualPromptOrganizerCSV",
       "pos": {
-        "0": 269,
-        "1": 630
+        "0": 1403.7271728515625,
+        "1": 635
       },
       "size": {
         "0": 390.6528015136719,
@@ -688,8 +688,8 @@
       "id": 56,
       "type": "PrimerePromptSwitch",
       "pos": {
-        "0": 1459.6114501953125,
-        "1": 632.775146484375
+        "0": 1058.79296875,
+        "1": 635.229736328125
       },
       "size": {
         "0": 334.5316467285156,
@@ -820,7 +820,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        4
+        1
       ],
       "color": "#549494",
       "bgcolor": "#408080"
@@ -912,7 +912,7 @@
         false,
         1.6,
         2.8,
-        57125407923371,
+        400094043978774,
         "randomize",
         "SD1",
         "Auto"
@@ -924,8 +924,8 @@
       "id": 6,
       "type": "PrimereDynamicParser",
       "pos": {
-        "0": 1522.2581787109375,
-        "1": 1226.689697265625
+        "0": 1121.4395751953125,
+        "1": 1229.1444091796875
       },
       "size": {
         "0": 274.12115478515625,
@@ -969,7 +969,7 @@
       },
       "widgets_values": [
         "",
-        355219302587741,
+        356984129261469,
         "randomize",
         true
       ],
@@ -980,8 +980,8 @@
       "id": 7,
       "type": "PrimereDynamicParser",
       "pos": {
-        "0": 1521.6114501953125,
-        "1": 1137.7744140625
+        "0": 1120.7928466796875,
+        "1": 1140.2291259765625
       },
       "size": {
         "0": 275.12115478515625,
@@ -1025,7 +1025,7 @@
       },
       "widgets_values": [
         "",
-        764105329200242,
+        853052208408351,
         "randomize",
         true
       ],
@@ -1124,7 +1124,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        796154018317458,
+        525515275905421,
         "randomize",
         false,
         "cpu",
@@ -1344,7 +1344,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1311,
+        843,
         "randomize",
         "",
         "",
@@ -1367,8 +1367,8 @@
       "id": 8,
       "type": "PrimereEmbeddingHandler",
       "pos": {
-        "0": 1520.6114501953125,
-        "1": 1316.7744140625
+        "0": 1119.79296875,
+        "1": 1319.2291259765625
       },
       "size": {
         "0": 277.4871826171875,
@@ -2017,7 +2017,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        1100994003840404,
+        932740093701640,
         "randomize",
         20,
         8,
@@ -2080,44 +2080,6 @@
       "widgets_values": [],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 57,
-      "type": "PrimerePreviewImage",
-      "pos": {
-        "0": 2877,
-        "1": 53
-      },
-      "size": {
-        "0": 949,
-        "1": 1153
-      },
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 227
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        90,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
     },
     {
       "id": 66,
@@ -2365,7 +2327,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        958,
+        811,
         "randomize",
         "",
         "",
@@ -2488,6 +2450,44 @@
       ],
       "color": "#149454",
       "bgcolor": "#008040"
+    },
+    {
+      "id": 57,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 2877,
+        "1": 53
+      },
+      "size": [
+        949.4878662109377,
+        1226.9383544921875
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 227
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -3240,10 +3240,10 @@
     {
       "title": "Prompt",
       "bounding": [
-        679,
-        561,
-        1127,
-        820
+        278,
+        563,
+        1526,
+        825
       ],
       "color": "#8A8",
       "font_size": 24,
@@ -3277,11 +3277,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.620921323059155,
-      "offset": [
-        -6.258074208983855,
-        449.08079710449266
-      ]
+      "scale": 0.9090909090909091,
+      "offset": {
+        "0": -1106.1878662109375,
+        "1": 100.5616455078125
+      }
     }
   },
   "version": 0.4
