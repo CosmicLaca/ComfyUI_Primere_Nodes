@@ -7,12 +7,11 @@ let currentClass = false;
 let outputEventListenerInit = false;
 let ImagePath = null;
 let WorkflowData = {};
-const realPath = "extensions/Primere";
+const realPath = "/extensions/ComfyUI_Primere_Nodes";
 const prwPath = "extensions/PrimerePreviews";
 let ORIG_SIZE_STRING = "";
 let PreviewTarget = 'Checkpoint';
 
-let PreviewTargetPreviousState = PreviewTarget;
 let SaveMode = true;
 let IMGType = 'jpeg';
 let MaxSide = -1;
@@ -50,8 +49,6 @@ app.registerExtension({
     name: "Primere.PrimereOutputs",
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        console.log('beforeRegisterNodeDef PrimereOutputs ---------------------------------')
-
         if (OutputToNode.includes(nodeData.name) === true) {
             const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
@@ -83,8 +80,6 @@ app.registerExtension({
 });
 
 async function PrimerePreviewSaverWidget(node, inputName) {
-    console.log('PrimerePreviewSaverWidget ---------------------')
-    // node load
     node.name = inputName;
     const widget = {
         type: "preview_saver_widget",
@@ -94,12 +89,6 @@ async function PrimerePreviewSaverWidget(node, inputName) {
     };
 
     node.onWidgetChanged = function (name, value, old_value) {
-        //alert('changed? +++')
-        console.log('------------ widget ch: ---------------')
-        console.log(name)
-        console.log(value)
-        console.log(old_value)
-
         if (name == 'preview_target') {
             PreviewTarget = value;
         }
@@ -122,7 +111,6 @@ async function PrimerePreviewSaverWidget(node, inputName) {
             PrwSaveMode = value;
         }
         ButtonLabelCreator(node);
-        console.log('------------ w.ch end ---------------')
         return false;
     };
 
@@ -132,7 +120,6 @@ async function PrimerePreviewSaverWidget(node, inputName) {
     });
 
     node.addWidget("button", buttontitle, null, () => {
-        console.log('button clicked ----------------------------');
         if (SaveIsValid === true) {
             node.PreviewSaver = new PreviewSaver(node);
         } else {
@@ -148,10 +135,7 @@ app.registerExtension({
     name: "Primere.PrimerePreviewImage",
 
     async init(app) {
-        console.log('registerExtension PrimerePreviewImage ---------------------------------')
-
         function PreviewHandler(app) {
-            console.log('PreviewHandler ---------------------------------')
             outputEventListenerInit = true;
             let head = document.getElementsByTagName('HEAD')[0];
             let js1 = document.createElement("script");
@@ -162,21 +146,7 @@ app.registerExtension({
             head.appendChild(js2);
 
             /* $(document).on("click", 'div.graphdialog button', function(e) {
-                for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
-                    var wts_1 = app.canvas.visible_nodes[its_1];
-                    if (wts_1.type == 'PrimerePreviewImage') {
-                        //ButtonLabelCreator(wts_1);
-                        //console.log('Buttontitle 1')
-                        //console.log(buttontitle)
 
-                        for (var its_2 = 0; its_2 < wts_1.widgets.length; ++its_2) {
-                            var wts_2 = wts_1.widgets[its_2];
-                            if (wts_2.type == 'button') {
-                                wts_2.name = buttontitle;
-                            }
-                        }
-                    }
-                }
             }); */
         }
 
@@ -186,8 +156,6 @@ app.registerExtension({
 
         const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function (node, pos, event, active_widget) {
-            console.log('processNodeWidgets OUTPUT ---------------------------------')
-
             if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
                 return false;
             }
@@ -209,28 +177,6 @@ app.registerExtension({
             var x = pos[0] - node.pos[0];
             var y = pos[1] - node.pos[1];
             var width = node.size[0];
-            var that = this;
-            var ref_window = this.getCanvasWindow();
-            var combo_hit = false
-
-            /* TargetSelValues = TargetListCreator(node)
-
-            let target_id = 0;
-            let button_id = 0;
-
-            for (var its = 0; its < node.widgets.length; ++its) {
-                var wts = node.widgets[its];
-                if (!wts || wts.disabled)
-                    continue;
-
-                if (wts.name == 'target_selection') {
-                    target_id = its;
-                    node.widgets[its].options.values = TargetSelValues;
-                    if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
-                        node.widgets[its].value = TargetSelValues[0];
-                    }
-                }
-            } */
 
             for (var i = 0; i < node.widgets.length; ++i) {
                 var w = node.widgets[i];
@@ -239,7 +185,6 @@ app.registerExtension({
 
                 var widget_height = w.computeSize ? w.computeSize(width)[1] : LiteGraph.NODE_WIDGET_HEIGHT;
                 var widget_width = w.width || width;
-                var widget_name = node.widgets[i].name;
 
                 if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
                     continue
@@ -248,113 +193,22 @@ app.registerExtension({
                     var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
                     if (delta)
                         continue;
-
-                    console.log('w.type');
-                    console.log(w.type);
-
-                    if (w.type == 'button') {
-                        var button_id = i;
-                        console.log('Button pushed. Id: ' + button_id)
-                        //ButtonLabelCreator(node);
-                        //console.log('Buttontitle 2')
-                        //console.log(buttontitle)
-                        //w.name = buttontitle;
-                    }
-
-
-                    /* combo_hit = true;
-                    var values = w.options.values;
-                    if (values && values.constructor === Function) {
-                        values = w.options.values(w, node);
-                    }
-
-                    if (typeof values != 'undefined') {
-                        var values_list = values.constructor === Array ? values : Object.keys(values);
-                        var text_values = values != values_list ? Object.values(values) : values;
-
-                        function inner_clicked(v, option, event) {
-                            console.log('callback v:')
-                            console.log(v)
-                            if (values != values_list)
-                                v = text_values.indexOf(v);
-
-                            this.value = v;
-                            that.dirty_canvas = true;
-
-                            TargetSelValues = TargetListCreator(node)
-
-                            node.widgets[target_id].options.values = TargetSelValues;
-                            if (PreviewTarget !== PreviewTargetPreviousState && TargetSelValues.length > 0) {
-                                node.widgets[target_id].value = TargetSelValues[0];
-                            }
-
-                            ButtonLabelCreator(node);
-                            console.log('Buttontitle 3')
-                            console.log(buttontitle)
-
-                            //node.widgets[button_id].name = buttontitle;
-                            //return false;
-                        }
-
-                        new LiteGraph.ContextMenu(values, {
-                            scale: Math.max(1, this.ds.scale),
-                            event: event,
-                            className: "dark",
-                            callback: inner_clicked.bind(w),
-                            node: node,
-                            widget: w,
-                        }, ref_window);
-                    } else {
-                        //return false;
-                    } */
                 }
             }
-            //PreviewTargetPreviousState = PreviewTarget;
             return lcg.call(this, node, pos, event, active_widget);
         }
     },
-
-    /* async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        console.log('beforeRegisterNodeDef OUTPUT -------------------------')
-        if (nodeData.name === "PrimerePreviewImage") {
-            if (nodeData.input.hasOwnProperty('hidden') === true) {
-                ImagePath = nodeData.input.hidden['image_path'][0]
-            }
-
-            nodeType.prototype.onNodeCreated = function () {
-                PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
-            };
-        }
-    }, */
 });
-
-/* api.addEventListener("PreviewSaveResponse", PreviewSaveResponse);
-function PreviewSaveResponse(event) {
-    var ResponseText = event.detail;
-    alert(ResponseText);
-} */
 
 api.addEventListener("getVisualTargets", VisualDataReceiver);
 async function VisualDataReceiver(event) { // 01
-    console.log('VisualDataReceiver X ----------------------------')
     WorkflowData = event.detail
-    /* if (Object.keys(WorkflowData).length >= 1) {
-        SaveIsValid = true;
-    } else {
-        SaveIsValid = false;
-    } */
 
-    console.log('new image loaded???')
     await sleep(1000);
     var img = document.querySelector('img')
-    console.log(img)
 
     function loaded() {
-        console.log('new image loaded!!!')
         let newLoadedURL = img.src
-        console.log(newLoadedURL)
-        console.log(img.src)
-
         ButtonLabelCreator(LoadedNode, newLoadedURL)
     }
 
@@ -398,7 +252,6 @@ function downloadImage(url, extension, PreviewTarget) {
 
 class PreviewSaver {
     constructor(node) {
-        console.log('PreviewSaver constructor ---------------------------------')
         var maxWidth = null;
         var maxHeight = null;
 
@@ -440,10 +293,6 @@ class PreviewSaver {
         if (TargetFileName !== null) {
             SaveImageName = TargetFileName;
         }
-
-        console.log(ImageSource)
-        console.log(ImageName)
-        console.log(SaveImageName)
 
         fetch(ImageSource)
         .then((res) => res.blob())
@@ -495,8 +344,6 @@ class PreviewSaver {
 }
 
 function TargetListCreator(node) {
-    console.log('TargetListCreator----------')
-
     if (WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'] !== undefined) {
         TargetSelValues = WorkflowData[NodenameByType[PreviewTarget] + '_ORIGINAL'];
         if (TargetSelValues.length == 0) {
@@ -511,26 +358,7 @@ function TargetListCreator(node) {
 }
 
 function ButtonLabelCreator(node, url = false) {
-    console.log('ButtonLabelCreator ----------------------')
     PreviewExist = false;
-
-    TargetSelValues = TargetListCreator(node);
-
-    console.log('-------------- 1 sx -------------------')
-    console.log(PreviewTarget)
-    console.log(SaveMode)
-    console.log(IMGType)
-    console.log(MaxSide)
-    console.log(TargetQuality)
-    console.log(PreviewTarget)
-    console.log(PrwSaveMode)
-    console.log(SelectedTarget)
-    console.log(typeof TargetSelValues)
-    console.log('. . . . . . . . . . . . . . . . . . . . .')
-
-    if (typeof TargetSelValues == "object") {
-        SelectedTarget = TargetSelValues[0];
-    }
 
     for (var px = 0; px < node.widgets.length; ++px) {
         if (node.widgets[px].name == 'preview_target') {
@@ -545,7 +373,7 @@ function ButtonLabelCreator(node, url = false) {
         if (node.widgets[px].name == 'image_resize') {
             MaxSide = node.widgets[px].value;
         }
-        if (node.widgets[px].name == 'target_selection' && SelectedTarget == null) {
+        if (node.widgets[px].name == 'target_selection') {
             SelectedTarget = node.widgets[px].value;
         }
         if (node.widgets[px].name == 'image_quality') {
@@ -556,18 +384,10 @@ function ButtonLabelCreator(node, url = false) {
         }
     }
 
-    console.log('-------------- 1 s -------------------')
-    console.log(PreviewTarget)
-    console.log(SaveMode)
-    console.log(IMGType)
-    console.log(MaxSide)
-    console.log(TargetQuality)
-    console.log(PreviewTarget)
-    console.log(PrwSaveMode)
-    console.log(SelectedTarget)
-    console.log(TargetSelValues)
-    console.log('. . . . . . . . . . . . . . . . . . . . .')
-
+    TargetSelValues = TargetListCreator(node);
+    if (typeof TargetSelValues == "object") {
+        SelectedTarget = TargetSelValues[0];
+    }
 
     var INIT_IMGTYPE_STRING = "";
     var INIT_IMGSIZE_STRING = "";
@@ -591,19 +411,11 @@ function ButtonLabelCreator(node, url = false) {
         } else {
             buttontitle = 'Image not available for save. Please load one.';
             SaveIsValid = true;
-            console.log('-------------- url -----------------')
-            console.log(url)
-            console.log('-------------- url -----------------')
             if (url != false) {
                 ;(async () => {
                     const img = await getMeta(url);
-
-                    console.log(img.naturalHeight + ' ' + img.naturalWidth);
                     ORIG_SIZE_STRING = '[' + img.naturalHeight + ' X ' + img.naturalWidth + ']'
-                    console.log(ORIG_SIZE_STRING)
                     buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
-                    console.log(buttontitle)
-                    console.log('-------------- 1 e -------------------')
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 })();
             } else {
@@ -613,8 +425,6 @@ function ButtonLabelCreator(node, url = false) {
         }
     } else {
         if (SaveMode === true) {
-            console.log('SAVE MODE TRUE')
-
             if (url != false) {
                 ;(async () => {
                     const img = await getMeta(url);
@@ -644,15 +454,19 @@ function ButtonLabelCreator(node, url = false) {
                     let previewName = finalName + '.jpg';
                     var imgsrc = prwPath + '/images/' + NodesubdirByType[PreviewTarget] + '/' + previewName;
 
-                    console.log(imgsrc)
-
                     ;(async () => {
                         const img = await getMeta(imgsrc);
-                        if (img.naturalHeight > 0) {
+                        if (typeof img != "undefined" && img != false && img.naturalHeight > 0) {
                             PreviewExist = true;
+                        } else {
+                            PreviewExist = false;
                         }
 
-                        console.log('* * * * * * * * * * *')
+                        /* if (PreviewExist === true) {
+                            node.addWidget("button", "View preview", null, () => {
+                                return false;
+                            });
+                        } */
 
                         var imgExistLink = "";
                         if (PreviewExist === true) {
@@ -669,75 +483,26 @@ function ButtonLabelCreator(node, url = false) {
                         buttontitle = 'Save preview as: [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.' + imgExistLink;
                         applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                      })();
-
-                    /* let loadImage = src =>
-                        new Promise((resolve, reject) => {
-                            let img_check = new Image();
-                            img_check.onload = () => resolve(img_check);
-                            img_check.onerror = reject;
-                            img_check.src = src;
-                            //ORIG_SIZE_STRING = '[' + img_check.height + ' X ' + img_check.width + ']';
-                            if (img_check.height > 0) {
-                                PreviewExist = true;
-                            }
-                        });
-
-                    loadImage(imgsrc).then(image_prw_test =>
-                        image_prw_test.complete
-                    ); */
                 }
             } else {
                 buttontitle = 'Required node: [' + NodenameByType[PreviewTarget] + '] not available in workflow for target: [' + PreviewTarget + ']';
                 applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
             }
-            //applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
         } else {
-            console.log('--------------------- ImageSource')
             SaveIsValid = true;
-
             if (url != false) {
                 ;(async () => {
                     const img = await getMeta(url);
-
-                    console.log(img.naturalHeight + ' ' + img.naturalWidth);
                     ORIG_SIZE_STRING = '[' + img.naturalHeight + ' X ' + img.naturalWidth + ']'
-                    console.log(ORIG_SIZE_STRING)
                     buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
-                    console.log(buttontitle)
-                    console.log('-------------- 1 e -------------------')
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 })();
             } else {
                 buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
                 applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
             }
-
-            /* var isExist = typeof node['imgs'];
-            for (let i = 0; i < 20; i++) {
-                isExist = typeof node['imgs'];
-                if (isExist == "object") {
-                    break;
-                }
-                //await sleep(100);
-            } */
-
-            /* setTimeout(() => {
-                if (typeof node['imgs'] != 'undefined') {
-                    var ImageSource_getsize = node['imgs'][0]['src'];
-                    const img_size = new Image();
-                    img_size.src = ImageSource_getsize;
-                    waitForImageToLoad(img_size).then(() => {
-                        ORIG_SIZE_STRING = ' [' + img_size.width + ' X ' + img_size.height + '] '
-                        console.log(ORIG_SIZE_STRING)
-                    });
-                }
-            }, 500); */
-
-            //await sleep(500);
-
         }
     }
-    //return buttontitle;
 }
 
 function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
@@ -757,7 +522,6 @@ function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
 
 // ************************* sendPOSTmessage PreviewSaveResponse
 function sendPOSTmessage(sourcetype) {
-    console.log('------------------ sendPOSTmessage');
     return new Promise((resolve, reject) => {
         api.addEventListener("PreviewSaveResponse", (event) => resolve(event.detail), true);
         postImageData(sourcetype);
@@ -771,7 +535,6 @@ function postImageData(sourcetype) {
 
 // ************************* sendPOSTmessage PreviewSaveResponse
 function sendLoadedImageData(imagedata) {
-    console.log('------------------ sendLoadedImageData');
     return new Promise((resolve, reject) => {
         api.addEventListener("LoadedImageResponse", (event) => resolve(event.detail), true);
         postLoadedImageData(imagedata);
@@ -783,12 +546,13 @@ function postLoadedImageData(imagedata) {
     api.fetchApi("/primere_get_loadedimage", {method: "POST", body,});
 }
 
-const getMeta = (url) =>
-    new Promise((resolve, reject) => {
+const getMeta = (url) => new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = (err) => reject(err);
     img.src = url;
+}).catch(function(error) {
+    return false;
 });
 //await sleep(2000);
 //await waitUntil(() => variable === true);

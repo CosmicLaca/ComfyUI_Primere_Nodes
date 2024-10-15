@@ -13,10 +13,6 @@ from .Nodes import Networks
 from .Nodes import Segments
 
 import shutil
-from datetime import datetime
-from .components import utility
-# import time
-import pytz
 
 __version__ = "1.0.0"
 
@@ -26,9 +22,8 @@ frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews')
 frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
-ClientTime = str(datetime.strptime(str(datetime.now(pytz.timezone('GMT0'))), '%Y-%m-%d %H:%M:%S.%f+00:00'))
-# ClientTime = time.gmtime()
-UpdateRequired = '2024-10-14 15:00:00'
+WEB_DIRECTORY = "./front_end"
+__all__ = ['NODE_CLASS_MAPPINGS', 'WEB_DIRECTORY']
 
 if os.path.isdir(frontend_target) == True:
     try:
@@ -40,43 +35,27 @@ if os.path.isdir(frontend_target) == True:
     if is_frontend_symlinked == True:
         try:
             os.unlink(frontend_target)
-            shutil.copytree(frontend_source, frontend_target)
-            print('Primere front-end changed from symlink to real directory.')
+            print('Primere front-end symlinks deleted.')
         except Exception:
-            print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete symlink: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
-    else:
-        LastFrontend = utility.get_value_from_cache('dates', 'frontend_update')
-        if LastFrontend == None:
-            try:
-                shutil.rmtree(frontend_target)
-                shutil.copytree(frontend_source, frontend_target)
-                print('[Primere front-end update] - Primere front-end files updated to latest version.')
-                utility.add_value_to_cache('dates', 'frontend_update', str(ClientTime))
-            except Exception:
-                print('[ERROR] - Cannnot update Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
-        else:
-            newupdate = datetime.strptime(UpdateRequired, '%Y-%m-%d %H:%M:%S')
-            lastupdate = datetime.strptime(LastFrontend, '%Y-%m-%d %H:%M:%S.%f')
-            if lastupdate < newupdate:
-                try:
-                    shutil.rmtree(frontend_target)
-                    shutil.copytree(frontend_source, frontend_target)
-                    print('[Primere front-end update] - Primere front-end files updated to latest version.')
-                    updated = utility.update_value_in_cache('dates', 'frontend_update', str(ClientTime))
-                except Exception:
-                    print('[ERROR] - Cannnot update Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+            print('[ERROR] - Cannnot unlink Primere front-end folder. Please delete symlink: ' + frontend_target + ' manially from: ' + frontend_source)
 
-else:
+if os.path.exists(frontend_target):
     try:
-        shutil.copytree(frontend_source, frontend_target)
-        print('Primere front-end copied to target directory.')
+        shutil.rmtree(frontend_target)
+        print('Primere front-end folder deleted.')
     except Exception:
-        print('[ERROR] - Cannnot copy Primere front-end folder to right path. Please delete directory: ' + frontend_target + ' and copy files here manually from: ' + frontend_source)
+        print('[ERROR] - Cannnot delete Primere front-end folder. Please delete manually: ' + frontend_target + ' from: ' + frontend_source)
 
-if os.path.isdir(frontend_preview_target) == False:
-    deprecated_prw_images = os.path.join(comfy_frontend, 'Primere', 'images')
-    if os.path.isdir(deprecated_prw_images) == True:
-        shutil.move(deprecated_prw_images, os.path.join(frontend_preview_target, 'images'))
+nodes = []
+IGNORE_FRONTEND = ['fonts', 'images', 'keywords', 'jquery', 'vendor']
+mainDirs = list(os.walk(frontend_source))[0][1]
+valid_FElist = [s for s in mainDirs if s not in IGNORE_FRONTEND] + [frontend_source]
+
+for subdirs in valid_FElist:
+    scanPath = os.path.join(frontend_source, subdirs)
+    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.css'))
+    for regFile in scanFiles:
+        nodes.append(regFile)
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplers": Dashboard.PrimereSamplers,
