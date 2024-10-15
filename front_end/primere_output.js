@@ -11,6 +11,7 @@ const realPath = "/extensions/ComfyUI_Primere_Nodes";
 const prwPath = "extensions/PrimerePreviews";
 let ORIG_SIZE_STRING = "";
 let PreviewTarget = 'Checkpoint';
+let previewURL = null;
 
 let SaveMode = true;
 let IMGType = 'jpeg';
@@ -121,7 +122,14 @@ async function PrimerePreviewSaverWidget(node, inputName) {
 
     node.addWidget("button", buttontitle, null, () => {
         if (SaveIsValid === true) {
-            node.PreviewSaver = new PreviewSaver(node);
+            if (typeof node['imgs'] != "undefined") {
+                node.PreviewSaver = new PreviewSaver(node);
+            } else {
+                SaveIsValid = false;
+                buttontitle = 'Image not available for save. Please load one.';
+                applyWidgetValues(LoadedNode, buttontitle, TargetSelValues);
+                alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
+            }
         } else {
             alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
         }
@@ -136,6 +144,7 @@ app.registerExtension({
 
     async init(app) {
         function PreviewHandler(app) {
+            var previewbox = null;
             outputEventListenerInit = true;
             let head = document.getElementsByTagName('HEAD')[0];
             let js1 = document.createElement("script");
@@ -145,9 +154,39 @@ app.registerExtension({
             js2.src = realPath + "/vendor/LoadImage/load-image-scale.js";
             head.appendChild(js2);
 
+            let link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = realPath + '/css/visual.css';
+            head.appendChild(link);
+
+            previewbox = document.getElementById("primere_previewbox");
+            if (!previewbox) {
+                previewbox = document.createElement("div");
+                previewbox.setAttribute('style', 'display:none;');
+                previewbox.setAttribute("id", "primere_previewbox");
+                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="privewbox_image">';
+                document.body.appendChild(previewbox);
+            }
+
             /* $(document).on("click", 'div.graphdialog button', function(e) {
 
             }); */
+
+            $(document).on('click', 'div#primere_previewbox div.preview_closebutton', function(e) {
+                $('div#primere_previewbox').hide();
+            });
+        }
+
+        function showPreviewIfExist(coordX, coordY) {
+            if (SaveIsValid == true && SaveMode == true && PreviewExist == true) {
+                $('div#primere_previewbox').css({
+                   top: coordY + 'px',
+                   left: coordX + 'px',
+                });
+                $("div#primere_previewbox img.privewbox_image").attr("src", previewURL);
+                $('div#primere_previewbox').show();
+            }
         }
 
         if (outputEventListenerInit == false) {
@@ -161,10 +200,13 @@ app.registerExtension({
             }
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
-                return lcg.call(this, node, pos, event, active_widget);
-            }
-
-            if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
+                if (event.type == LiteGraph.pointerevents_method + "down") {
+                    if ((pos[1] - node.pos[1]) >= 214 && (pos[1] - node.pos[1]) <= 234) {
+                        if ((pos[0] - node.pos[0]) >= 10 && (pos[0] - node.pos[0]) <= node.size[0]) {
+                            showPreviewIfExist(event.clientX, event.clientY);
+                        }
+                    }
+                }
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
@@ -172,29 +214,11 @@ app.registerExtension({
                 return lcg.call(this, node, pos, event, active_widget);
             }
 
-            currentClass = node.type;
-
-            var x = pos[0] - node.pos[0];
-            var y = pos[1] - node.pos[1];
-            var width = node.size[0];
-
-            for (var i = 0; i < node.widgets.length; ++i) {
-                var w = node.widgets[i];
-                if (!w || w.disabled)
-                    continue;
-
-                var widget_height = w.computeSize ? w.computeSize(width)[1] : LiteGraph.NODE_WIDGET_HEIGHT;
-                var widget_width = w.width || width;
-
-                if (w != active_widget && (x < 6 || x > widget_width - 12 || y < w.last_y || y > w.last_y + widget_height || w.last_y === undefined))
-                    continue
-
-                if (w == active_widget || (x > 6 && x < widget_width - 12 && y > w.last_y && y < w.last_y + widget_height)) {
-                    var delta = x < 40 ? -1 : x > widget_width - 40 ? 1 : 0;
-                    if (delta)
-                        continue;
-                }
+            if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
+                return lcg.call(this, node, pos, event, active_widget);
             }
+
+            currentClass = node.type;
             return lcg.call(this, node, pos, event, active_widget);
         }
     },
@@ -301,32 +325,35 @@ class PreviewSaver {
             reader.onloadend = () => {
                 var file = dataURLtoFile(reader.result, ImageName);
                 loadImage(file, function (img) {
-                    if (typeof img.toDataURL === "function") {
-                        var resampledOriginalImage = img.toDataURL(imgMime, TargetQuality);
-                        if (SaveMode === false) {
-                            downloadImage(resampledOriginalImage, extension, SaveImageName);
-                        } else {
-                            var resampledWidth = img.width;
-                            var resampledHeight = img.height;
+                        if (typeof img.toDataURL === "function") {
+                            var resampledOriginalImage = img.toDataURL(imgMime, TargetQuality);
+                            if (SaveMode === false) {
+                                downloadImage(resampledOriginalImage, extension, SaveImageName);
+                            } else {
+                                var resampledWidth = img.width;
+                                var resampledHeight = img.height;
 
-                            var ResponseText = sendPOSTmessage(JSON.stringify({
-                                "PreviewTarget": PreviewTarget,
-                                "PreviewTargetOriginal": SelectedTarget,
-                                "extension": extension,
-                                "ImageName": ImageName,
-                                "ImagePath": ImagePath,
-                                "SaveImageName": SaveImageName,
-                                "maxWidth": resampledWidth,
-                                "maxHeight": resampledHeight,
-                                "TargetQuality": TargetQuality,
-                                "PrwSaveMode": PrwSaveMode
-                            }));
-                            alert(ResponseText);
+                                var ResponseText = sendPOSTmessage(JSON.stringify({
+                                    "PreviewTarget": PreviewTarget,
+                                    "PreviewTargetOriginal": SelectedTarget,
+                                    "extension": extension,
+                                    "ImageName": ImageName,
+                                    "ImagePath": ImagePath,
+                                    "SaveImageName": SaveImageName,
+                                    "maxWidth": resampledWidth,
+                                    "maxHeight": resampledHeight,
+                                    "TargetQuality": TargetQuality,
+                                    "PrwSaveMode": PrwSaveMode
+                                }));
+                                setTimeout(() => {
+                                    console.log(JSON.stringify(ResponseText))
+                                    alert(ResponseText);
+                                }, 1000);
+                            }
+                        } else {
+                            alert('Source image: ' + ImageName + ' does not exist, maybe deleted.')
                         }
-                    } else {
-                        alert('Source image: ' + ImageName + ' does not exist, maybe deleted.')
-                    }
-                },
+                    },
                 {
                     maxWidth: maxWidth,
                     maxHeight: maxHeight,
@@ -359,6 +386,7 @@ function TargetListCreator(node) {
 
 function ButtonLabelCreator(node, url = false) {
     PreviewExist = false;
+    previewURL = null;
 
     for (var px = 0; px < node.widgets.length; ++px) {
         if (node.widgets[px].name == 'preview_target') {
@@ -419,7 +447,7 @@ function ButtonLabelCreator(node, url = false) {
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 })();
             } else {
-                buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
+                //buttontitle = '+Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
                 applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
             }
         }
@@ -457,8 +485,10 @@ function ButtonLabelCreator(node, url = false) {
                     ;(async () => {
                         const img = await getMeta(imgsrc);
                         if (typeof img != "undefined" && img != false && img.naturalHeight > 0) {
+                            previewURL = imgsrc;
                             PreviewExist = true;
                         } else {
+                            previewURL = null;
                             PreviewExist = false;
                         }
 
@@ -521,7 +551,7 @@ function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
 }
 
 // ************************* sendPOSTmessage PreviewSaveResponse
-function sendPOSTmessage(sourcetype) {
+/* function sendPOSTmessage(sourcetype) {
     return new Promise((resolve, reject) => {
         api.addEventListener("PreviewSaveResponse", (event) => resolve(event.detail), true);
         postImageData(sourcetype);
@@ -529,22 +559,9 @@ function sendPOSTmessage(sourcetype) {
 }
 function postImageData(sourcetype) {
     const body = new FormData();
-    body.append('type', sourcetype);
+    body.append('previewdata', sourcetype);
     api.fetchApi("/primere_preview_post", {method: "POST", body,});
-}
-
-// ************************* sendPOSTmessage PreviewSaveResponse
-function sendLoadedImageData(imagedata) {
-    return new Promise((resolve, reject) => {
-        api.addEventListener("LoadedImageResponse", (event) => resolve(event.detail), true);
-        postLoadedImageData(imagedata);
-    });
-}
-function postLoadedImageData(imagedata) {
-    const body = new FormData();
-    body.append('imagedata', imagedata);
-    api.fetchApi("/primere_get_loadedimage", {method: "POST", body,});
-}
+} */
 
 const getMeta = (url) => new Promise((resolve, reject) => {
     const img = new Image();

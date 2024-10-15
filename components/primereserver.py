@@ -97,8 +97,10 @@ async def primere_preview_post(request):
 
     if PreviewSaveResponse is not None:
         PromptServer.instance.send_sync("PreviewSaveResponse", PreviewSaveResponse)
+    else:
+        PromptServer.instance.send_sync("PreviewSaveResponse", 'Error on serverside process.')
 
-    return web.json_response({})
+    return web.json_response(PreviewSaveResponse)
 
 # ************ KEYWORDS *******************
 

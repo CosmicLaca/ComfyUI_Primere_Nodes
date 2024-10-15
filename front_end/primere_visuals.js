@@ -451,7 +451,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         modal = document.createElement("div");
         modal.classList.add("comfy-modal");
         modal.setAttribute("id","primere_visual_modal");
-        modal.innerHTML='<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title">' + combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label></h3></div>';
+        modal.innerHTML = '<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title">' + combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label></h3></div>';
 
         let subdir_container = document.createElement("div");
         subdir_container.classList.add("subdirtab");

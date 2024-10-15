@@ -350,3 +350,26 @@
     background: #325614;
     color: #ffffff;
 }
+
+div#primere_previewbox {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: none;
+}
+div#primere_previewbox img.privewbox_image {
+    border: white solid 1px;
+    height: 220px;
+    box-shadow: 3px 3px 3px #969696a3;
+    background-color: #d8d8d899;
+}
+div#primere_previewbox div.preview_closebutton {
+    display: block;
+    position: absolute;
+    background-color: brown;
+    left: 1px;
+    top: 1px;
+    padding: 3px;
+    border: white solid 1px;
+    cursor: pointer;
+}
