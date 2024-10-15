@@ -333,7 +333,7 @@ class PreviewSaver {
                                 var resampledWidth = img.width;
                                 var resampledHeight = img.height;
 
-                                var ResponseText = sendPOSTmessage(JSON.stringify({
+                                sendPOSTmessage(JSON.stringify({
                                     "PreviewTarget": PreviewTarget,
                                     "PreviewTargetOriginal": SelectedTarget,
                                     "extension": extension,
@@ -345,10 +345,6 @@ class PreviewSaver {
                                     "TargetQuality": TargetQuality,
                                     "PrwSaveMode": PrwSaveMode
                                 }));
-                                setTimeout(() => {
-                                    console.log(JSON.stringify(ResponseText))
-                                    alert(ResponseText);
-                                }, 1000);
                             }
                         } else {
                             alert('Source image: ' + ImageName + ' does not exist, maybe deleted.')
@@ -551,6 +547,17 @@ function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
 }
 
 // ************************* sendPOSTmessage PreviewSaveResponse
+function sendPOSTmessage(message) {
+    const body = new FormData();
+    body.append('previewdata', message);
+    api.fetchApi("/primere_preview_post", {method: "POST", body,});
+}
+api.addEventListener("PreviewSaveResponse", PreviewSaveResponse);
+function PreviewSaveResponse(event) {
+    var ResponseText = event.detail;
+    alert(ResponseText);
+}
+
 /* function sendPOSTmessage(sourcetype) {
     return new Promise((resolve, reject) => {
         api.addEventListener("PreviewSaveResponse", (event) => resolve(event.detail), true);
