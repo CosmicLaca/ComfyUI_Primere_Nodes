@@ -266,6 +266,13 @@ class PrimereModelConceptSelector:
         steps = default_steps
         cfg_scale = default_cfg_scale
 
+        if model_concept == 'Auto' and model_version == 'Lightning':
+            lightning_selector = 'CUSTOM'
+        if model_concept == 'Auto' and model_version == 'Hyper':
+            hypersd_selector = 'LORA'
+        if model_concept == 'Auto' and model_version == 'Flux':
+            model_version = 'SDXL'
+
         if model_concept == 'Auto' and model_version is not None:
             model_concept = model_version
 
@@ -527,7 +534,7 @@ class PrimereCKPTLoader:
         print('9')
 
         hyperModeValid = False
-        if model_concept == "Hyper":
+        if model_concept == "Hyper" and hypersd_selector != 'CUSTOM':
             print('hyper')
             ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, MODEL_VERSION)
             print(ModelConceptChanges)
@@ -613,7 +620,7 @@ class PrimereCKPTLoader:
             print('Lightning end')
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
-        if model_concept == "Hyper" and hyperModeValid == True and loaded_model is None:
+        if model_concept == "Hyper" and hyperModeValid == True and loaded_model is None and hypersd_selector != 'CUSTOM':
             print('Hyper end')
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
@@ -1028,7 +1035,7 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        if model_version == 'SD1' or model_concept == 'StableCascade':
+        if model_version == 'SD1' or model_concept == 'StableCascade' or model_concept == 'Lightning':
             adv_encode = False
 
         if model_concept == 'Flux':
