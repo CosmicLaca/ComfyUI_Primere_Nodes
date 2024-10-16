@@ -498,8 +498,8 @@
       },
       "widgets_values": [
         "lcm",
-        "sgm_uniform",
-        22,
+        "normal",
+        8,
         1.1500000000000001
       ],
       "color": "#941414",
@@ -1395,7 +1395,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
+        "LCM\\classicBYSTABLEYOGI_v2LCM.safetensors",
         true,
         true,
         true,
@@ -1585,7 +1585,7 @@
         "First",
         1,
         1,
-        "design"
+        "None"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -2491,7 +2491,7 @@
       },
       "widgets_values": [
         "",
-        760724813232411,
+        129907382027018,
         "randomize",
         true
       ],
@@ -2547,7 +2547,7 @@
       },
       "widgets_values": [
         "",
-        963177574349750,
+        220818132191176,
         "randomize",
         true
       ],
@@ -3136,7 +3136,7 @@
         false,
         1.6,
         2.8,
-        655184586232328,
+        843583184237617,
         "randomize",
         "SD1",
         "Auto"
@@ -3322,7 +3322,7 @@
         1,
         0.8,
         1.4,
-        858014338796955,
+        837880561550265,
         "randomize",
         true,
         "cpu",
@@ -3724,7 +3724,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        821158541559460,
+        557134671699716,
         "randomize",
         20,
         8,
@@ -3820,7 +3820,7 @@
         90,
         "Checkpoint",
         "Overwrite",
-        "BestAll\\photon_v1.safetensors",
+        "LCM\\classicBYSTABLEYOGI_v2LCM.safetensors",
         null
       ],
       "color": "#549494",
@@ -4072,7 +4072,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1931,
+        234,
         "randomize",
         "",
         "",
@@ -5457,50 +5457,14 @@
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
+      "title": "Concept sampler group",
       "bounding": [
         679,
-        20,
-        1226,
-        791
+        999,
+        1569,
+        1902
       ],
       "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        -366,
-        19,
-        1029,
-        1106
-      ],
-      "color": "#8A8",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1916,
-        21,
-        1036,
-        961
-      ],
-      "color": "#A88",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Network loader",
-      "bounding": [
-        -367,
-        1137,
-        726,
-        657
-      ],
-      "color": "#804000",
       "font_size": 24,
       "flags": {}
     },
@@ -5517,12 +5481,48 @@
       "flags": {}
     },
     {
-      "title": "Concept sampler group",
+      "title": "Network loader",
+      "bounding": [
+        -367,
+        1137,
+        726,
+        657
+      ],
+      "color": "#804000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Encoder, sampler, decoder",
+      "bounding": [
+        1916,
+        21,
+        1036,
+        961
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt",
+      "bounding": [
+        -366,
+        19,
+        1029,
+        1106
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
       "bounding": [
         679,
-        999,
-        1569,
-        1902
+        20,
+        1226,
+        791
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -5532,10 +5532,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917359,
+      "scale": 0.8264462809917354,
       "offset": [
-        -601.9471038416727,
-        187.49607401605144
+        284.2850274220734,
+        -848.6282424439238
       ]
     }
   },
