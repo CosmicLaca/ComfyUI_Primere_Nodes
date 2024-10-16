@@ -176,6 +176,9 @@ app.registerExtension({
             $(document).on('click', 'div#primere_previewbox div.preview_closebutton', function(e) {
                 $('div#primere_previewbox').hide();
             });
+            $(document).on('click', 'body', function(e) {
+                checkPreviewExample();
+            });
         }
 
         function showPreviewIfExist(coordX, coordY) {
@@ -186,6 +189,12 @@ app.registerExtension({
                 });
                 $("div#primere_previewbox img.privewbox_image").attr("src", previewURL);
                 $('div#primere_previewbox').show();
+            }
+        }
+
+        function checkPreviewExample() {
+            if ($('div#primere_previewbox').is(":visible")) {
+                $('div#primere_previewbox').hide();
             }
         }
 
@@ -200,11 +209,18 @@ app.registerExtension({
             }
 
             if (event.type != LiteGraph.pointerevents_method + "up") {
-                if (event.type == LiteGraph.pointerevents_method + "down") {
+                if (event.type == LiteGraph.pointerevents_method + "down" && node.type == 'PrimerePreviewImage') {
                     if ((pos[1] - node.pos[1]) >= 214 && (pos[1] - node.pos[1]) <= 234) {
                         if ((pos[0] - node.pos[0]) >= 10 && (pos[0] - node.pos[0]) <= node.size[0]) {
                             showPreviewIfExist(event.clientX, event.clientY);
                         }
+                    } else {
+                        checkPreviewExample();
+                    }
+                }
+                if (event.type == LiteGraph.pointerevents_method + "down") {
+                    if (node.type != 'PrimerePreviewImage') {
+                        checkPreviewExample();
                     }
                 }
                 return lcg.call(this, node, pos, event, active_widget);
