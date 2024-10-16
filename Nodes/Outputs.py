@@ -178,7 +178,7 @@ class PrimereMetaSave:
                             image_metadata['model'] = image_metadata['concept_data']['flux_gguf']
                         else:
                             image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
-                    case 'Cascade':
+                    case 'StableCascade':
                         image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
 
             ModelPath = Path(image_metadata['model'])
@@ -630,15 +630,19 @@ class PrimereKSampler:
 
         noise_constant = noise_extender_ksampler
 
+        print('sampling step:')
+        print(steps)
+        print(model_concept)
+
         match model_concept:
             case "Turbo":
                 samples_out = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)[0]
 
-            case "Cascade":
+            case "StableCascade":
                 noise_constant = noise_extender_cascade
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
 
-            case "Hyper-SD":
+            case "Hyper":
                 samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt)[0]
 
             case  'Flux':

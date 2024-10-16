@@ -1,6 +1,6 @@
 {
-  "last_node_id": 132,
-  "last_link_id": 836,
+  "last_node_id": 133,
+  "last_link_id": 838,
   "nodes": [
     {
       "id": 61,
@@ -233,7 +233,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        420856771046412,
+        -1,
         null,
         null,
         null
@@ -498,9 +498,9 @@
       },
       "widgets_values": [
         "lcm",
-        "normal",
+        "simple",
         8,
-        1.1500000000000001
+        1.6
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -631,8 +631,8 @@
       "widgets_values": [
         "dpmpp_sde",
         "karras",
-        30,
-        4.5
+        25,
+        3.2
       ],
       "color": "#082323",
       "bgcolor": "#1c3737"
@@ -1235,7 +1235,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Sci-fi UFO",
+        "Preview woman",
         true,
         true,
         true,
@@ -1348,8 +1348,8 @@
       "id": 3,
       "type": "PrimereVisualCKPT",
       "pos": {
-        "0": 688,
-        "1": 91
+        "0": 689,
+        "1": 89
       },
       "size": {
         "0": 463.38775634765625,
@@ -1395,7 +1395,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "LCM\\classicBYSTABLEYOGI_v2LCM.safetensors",
+        "LCM\\cyberrealisticLCM_cyberrealistic33.safetensors",
         true,
         true,
         true,
@@ -1540,7 +1540,7 @@
         "Node name for S&R": "PrimerePromptSwitch"
       },
       "widgets_values": [
-        4
+        2
       ],
       "color": "#549494",
       "bgcolor": "#408080"
@@ -1585,7 +1585,7 @@
         "First",
         1,
         1,
-        "None"
+        "stubble"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -2163,8 +2163,9 @@
             783,
             784,
             820,
-            822,
-            826
+            826,
+            837,
+            838
           ],
           "slot_index": 4,
           "shape": 3
@@ -2359,24 +2360,24 @@
         7,
         12,
         "Auto",
-        "LORA",
+        "CUSTOM",
         8,
         false,
         "LORA",
         8,
         false,
-        "None",
-        "None",
-        "None",
-        "None",
+        "Stable-Cascade\\stage_a.safetensors",
+        "Stable-Cascade\\stable_cascade_stage_b.safetensors",
+        "Stable-Cascade\\stable_cascade_stage_c.safetensors",
+        "cascade_clip.safetensors",
         "GGUF",
-        "None",
+        "Flux\\flux1-dev-fp8.safetensors",
         "fp8_e4m3fn",
-        "None",
-        "None",
-        "None",
+        "FLUX1\\flux1-dev-Q4_1.gguf",
+        "Flux\\t5xxl_fp8_e4m3fn.safetensors",
+        "clip_l.safetensors",
         4.5,
-        "None",
+        "flux-ae.sft",
         "ksampler",
         "None",
         "None",
@@ -2491,7 +2492,7 @@
       },
       "widgets_values": [
         "",
-        129907382027018,
+        223454168915314,
         "randomize",
         true
       ],
@@ -2547,7 +2548,7 @@
       },
       "widgets_values": [
         "",
-        220818132191176,
+        332485028055199,
         "randomize",
         true
       ],
@@ -2882,7 +2883,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": null,
+          "link": 837,
           "widget": {
             "name": "model_concept"
           }
@@ -3131,12 +3132,12 @@
         1024,
         512,
         false,
-        "Horizontal",
+        "Vertical",
         true,
         false,
         1.6,
         2.8,
-        843583184237617,
+        1000984967572092,
         "randomize",
         "SD1",
         "Auto"
@@ -3322,7 +3323,7 @@
         1,
         0.8,
         1.4,
-        837880561550265,
+        99178769860329,
         "randomize",
         true,
         "cpu",
@@ -3414,7 +3415,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 822,
+          "link": 838,
           "widget": {
             "name": "model_concept"
           }
@@ -3551,12 +3552,12 @@
         "BaseModel_1024",
         "",
         "",
-        true,
-        "Default",
-        "Default",
+        false,
+        "ViT-L-14-GmP-ft-TE-only-HF-format.safetensors",
+        "Long-ViT-L-14-GmP-ft.safetensors",
         0,
         1.2,
-        true,
+        false,
         "None",
         1,
         "BETTER_IMAGES",
@@ -3576,7 +3577,7 @@
         1,
         "",
         "",
-        true,
+        false,
         1,
         1024,
         1024
@@ -3724,7 +3725,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        557134671699716,
+        1019487594587993,
         "randomize",
         20,
         8,
@@ -3733,9 +3734,9 @@
         1,
         0,
         0,
-        true,
-        "DEFAULT",
         false,
+        "DEFAULT",
+        true,
         "Normal"
       ],
       "color": "#941414",
@@ -3792,7 +3793,7 @@
       "id": 79,
       "type": "PrimerePreviewImage",
       "pos": {
-        "0": 2961,
+        "0": 2965,
         "1": 52
       },
       "size": {
@@ -3814,13 +3815,13 @@
         "Node name for S&R": "PrimerePreviewImage"
       },
       "widgets_values": [
-        false,
+        true,
         "jpeg",
         0,
         90,
         "Checkpoint",
         "Overwrite",
-        "LCM\\classicBYSTABLEYOGI_v2LCM.safetensors",
+        "LCM\\cyberrealisticLCM_cyberrealistic33.safetensors",
         null
       ],
       "color": "#549494",
@@ -3868,10 +3869,10 @@
         "Node name for S&R": "PrimereAestheticCKPTScorer"
       },
       "widgets_values": [
-        false,
         true,
         true,
-        "*** Aesthetic scorer off ***"
+        true,
+        "612"
       ],
       "color": "#5d005d",
       "bgcolor": "#710071"
@@ -4072,7 +4073,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        234,
+        442,
         "randomize",
         "",
         "",
@@ -5335,14 +5336,6 @@
       "STRING"
     ],
     [
-      822,
-      127,
-      4,
-      106,
-      10,
-      "STRING"
-    ],
-    [
       823,
       71,
       3,
@@ -5453,54 +5446,34 @@
       104,
       4,
       "INT"
+    ],
+    [
+      837,
+      127,
+      4,
+      71,
+      5,
+      "STRING"
+    ],
+    [
+      838,
+      127,
+      4,
+      106,
+      10,
+      "STRING"
     ]
   ],
   "groups": [
     {
-      "title": "Concept sampler group",
+      "title": "Dashboard settings",
       "bounding": [
         679,
-        999,
-        1569,
-        1902
+        20,
+        1226,
+        791
       ],
       "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "File save",
-      "bounding": [
-        2962,
-        1137,
-        1268,
-        1257
-      ],
-      "color": "#008040",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Network loader",
-      "bounding": [
-        -367,
-        1137,
-        726,
-        657
-      ],
-      "color": "#804000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1916,
-        21,
-        1036,
-        961
-      ],
-      "color": "#A88",
       "font_size": 24,
       "flags": {}
     },
@@ -5517,12 +5490,48 @@
       "flags": {}
     },
     {
-      "title": "Dashboard settings",
+      "title": "Encoder, sampler, decoder",
+      "bounding": [
+        1916,
+        21,
+        1036,
+        961
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Network loader",
+      "bounding": [
+        -367,
+        1137,
+        726,
+        657
+      ],
+      "color": "#804000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "File save",
+      "bounding": [
+        2962,
+        1137,
+        1268,
+        1257
+      ],
+      "color": "#008040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Concept sampler group",
       "bounding": [
         679,
-        20,
-        1226,
-        791
+        999,
+        1569,
+        1902
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -5532,10 +5541,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
+      "scale": 1,
       "offset": [
-        284.2850274220734,
-        -848.6282424439238
+        -1413.4188381987294,
+        130.25453853906293
       ]
     }
   },

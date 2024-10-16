@@ -379,6 +379,12 @@ class PrimereCKPTLoader:
         playground_sigma_max = 120
         playground_sigma_min = 0.002
 
+        print('----------- CONCEPT CHECK ---------------------')
+        print(model_concept)
+        print('unload')
+        comfy.model_management.unload_all_models()
+        comfy.model_management.soft_empty_cache()
+
         if concept_data is not None:
             if 'lightning_selector' in concept_data:
                 lightning_selector = concept_data['lightning_selector']
@@ -420,10 +426,14 @@ class PrimereCKPTLoader:
 
         modelname_only = Path(ckpt_name).stem
         if model_concept == "LCM" or (model_concept == 'Lightning' and lightning_selector == 'LORA') or (model_concept == 'Hyper' and hypersd_selector == 'LORA'):
+            print('1')
             MODEL_VERSION = utility.get_value_from_cache('model_version', modelname_only)
+            print('2')
             if MODEL_VERSION is None:
                 MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
+                print('3')
                 utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION)
+                print('4')
         else:
             if model_concept is not None:
                 MODEL_VERSION = model_concept
@@ -434,6 +444,7 @@ class PrimereCKPTLoader:
                     utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION)
 
         if model_concept == "StableCascade" and cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
+            print('StableCascade')
             OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
             OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
             MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
@@ -443,6 +454,8 @@ class PrimereCKPTLoader:
             return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
 
         if model_concept == "Flux" and flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
+            print('Flux')
+            print(flux_selector)
             match flux_selector:
                 case 'DIFFUSION':
                     MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
@@ -457,6 +470,7 @@ class PrimereCKPTLoader:
                 # case 'SAFETENSOR':
 
         if model_concept == "Hyper" and hypersd_selector == 'UNET':
+            print('hyper-unet')
             ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, 'SDXL')
             lora_name = ModelConceptChanges['lora_name']
             unet_name = ModelConceptChanges['unet_name']
@@ -464,7 +478,9 @@ class PrimereCKPTLoader:
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, lora_name, unet_name)
             return (OUTPUT_MODEL[0],) + (OUTPUT_MODEL[1],) + (OUTPUT_MODEL[2],) + (MODEL_VERSION,)
 
+        print('5')
         ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step)
+        print('6')
         ckpt_name = ModelConceptChanges['ckpt_name']
         lora_name = ModelConceptChanges['lora_name']
         unet_name = ModelConceptChanges['unet_name']
@@ -474,36 +490,56 @@ class PrimereCKPTLoader:
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
         ModelConfigFullPath = Path(folder_paths.models_dir).joinpath('checkpoints').joinpath(ModelConfigPath)
+        print('7')
+        print(loaded_model)
+        print(loaded_clip)
+        print(loaded_vae)
 
+        LOADED_CHECKPOINT = []
         if loaded_model is not None and loaded_clip is not None and loaded_vae is not None:
-            LOADED_CHECKPOINT = []
+            print('7.0')
             LOADED_CHECKPOINT.insert(0, loaded_model)
             LOADED_CHECKPOINT.insert(1, loaded_clip)
             LOADED_CHECKPOINT.insert(2, loaded_vae)
         else:
+            print(ckpt_name)
             if os.path.isfile(ModelConfigFullPath) and use_yaml == True:
+                print('7')
+                print(ModelConfigFullPath)
+                print(ckpt_name)
                 ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+                print(ckpt_path)
+                print('7.1')
                 print(ModelName + '.yaml file found and loading...')
                 try:
                     LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
                 except Exception:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
             else:
+                print('7.2')
+                print(ckpt_name)
                 LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                print('7.2.1')
 
+        print('8')
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         OUTPUT_CLIP = LOADED_CHECKPOINT[1]
+        print('9')
 
         hyperModeValid = False
         if model_concept == "Hyper":
+            print('hyper')
             ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, MODEL_VERSION)
+            print(ModelConceptChanges)
             # ckpt_name = ModelConceptChanges['ckpt_name']
             lora_name = ModelConceptChanges['lora_name']
             unet_name = ModelConceptChanges['unet_name']
             hyperModeValid = ModelConceptChanges['hyperModeValid']
 
         def lcm(self, model, zsnr=False):
+            print('def lcm ok')
             m = model.clone()
+            print(ckpt_name)
 
             # sampling_base = comfy.model_sampling.ModelSamplingDiscrete
             sampling_type = nodes_model_advanced.LCM
@@ -519,7 +555,8 @@ class PrimereCKPTLoader:
             m.add_object_patch("model_sampling", model_sampling)
             return m
 
-        if model_concept == "LCM":
+        print(model_concept)
+        if model_concept == "LCM" and (MODEL_VERSION == 'SD1' or MODEL_VERSION == 'SDXL'):
             SDXL_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true'
             SD_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true'
             DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
@@ -541,12 +578,16 @@ class PrimereCKPTLoader:
                 else:
                     print('ERROR: Cannot dowload SDXL LCM Lora')
 
+            print(MODEL_VERSION)
+            LORA_PATH = None
             if MODEL_VERSION == 'SDXL':
                 LORA_PATH = DOWNLOADED_SDXL_LORA
-            else:
+            elif MODEL_VERSION == 'SD1':
                 LORA_PATH = DOWNLOADED_SD_LORA
+            print(LORA_PATH)
 
-            if os.path.exists(LORA_PATH) == True:
+            if LORA_PATH is not None and os.path.exists(LORA_PATH) == True:
+                print('Lora path ok')
                 if strength_lcm_model > 0 or strength_lcm_clip > 0:
                     lora = None
 
@@ -562,18 +603,22 @@ class PrimereCKPTLoader:
                         lora = comfy.utils.load_torch_file(LORA_PATH, safe_load=True)
                         self.loaded_lora = (LORA_PATH, lora)
 
+                    print(LORA_PATH)
                     MODEL_LORA, CLIP_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, strength_lcm_model, strength_lcm_clip)
 
                     OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
                     OUTPUT_CLIP = CLIP_LORA
 
         if model_concept == "Lightning" and lightningModeValid == True and loaded_model is None:
+            print('Lightning end')
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
         if model_concept == "Hyper" and hyperModeValid == True and loaded_model is None:
+            print('Hyper end')
             OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name)
 
         if model_concept == "Playground":
+            print('Playground end')
             OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
 
         return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (LOADED_CHECKPOINT[2],) + (MODEL_VERSION,)
@@ -816,6 +861,8 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "SD1", model_concept = "Normal", workflow_tuple = None):
+        print('--------- CLIP CONCEPT TEST ---------------------')
+
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
@@ -860,7 +907,8 @@ class PrimereCLIP:
         if workflow_tuple is None:
             workflow_tuple = {}
 
-        if model_concept == 'Cascade' or model_concept == 'Turbo' or model_concept == 'Flux':
+        print(model_concept)
+        if model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
             model_version = 'SDXL'
             clip_model = 'Default'
 
@@ -868,6 +916,9 @@ class PrimereCLIP:
         match model_version:
             case 'SDXL':
                 is_sdxl = 1
+
+        print(is_sdxl)
+        print(model_version)
 
         additional_positive = int_style_pos
         additional_negative = int_style_neg
@@ -977,7 +1028,7 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        if (model_version == 'BaseModel_1024'):
+        if model_version == 'SD1' or model_concept == 'StableCascade':
             adv_encode = False
 
         if model_concept == 'Flux':
@@ -990,13 +1041,17 @@ class PrimereCLIP:
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         # CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
         CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
+        print(CONCEPT_SELECTOR)
+        print(model_concept)
 
-        if CONCEPT_SELECTOR == 'Flux' and (model_concept == 'Flux' and model_concept is None):
+        if CONCEPT_SELECTOR == 'Flux' and (model_concept == 'Flux' and model_concept is not None):
             adv_encode = False
             clip_model = 'Default'
             # clip_mode = True
             last_layer = 0
 
+        print('*************')
+        print(clip_mode)
         if clip_mode == False:
             if longclip_model == 'Default':
                 longclip_model = 'longclip-L.pt'
@@ -1069,10 +1124,12 @@ class PrimereCLIP:
             workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
             workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
 
-        if model_concept == 'Cascade':
+        if model_concept == 'StableCascade':
+            print('---Cascade')
             positive_text = utility.clear_cascade(positive_text)
             negative_text = utility.clear_cascade(negative_text)
 
+        print(clip_model)
         if clip_model != 'Default' and clip_mode == True:
             if is_sdxl == 1:
                 # adv_encode = False
@@ -1087,12 +1144,13 @@ class PrimereCLIP:
             else:
                 clip_path = folder_paths.get_full_path("clip", clip_model)
                 if clip_path is not None:
-                    if model_concept == 'Cascade':
+                    if model_concept == 'StableCascade':
                         concept_type = 'stable_cascade'
                     else:
                         concept_type = 'stable_diffusion'
                     clip = nodes.CLIPLoader.load_clip(self, clip_model, concept_type)[0]
 
+        print(adv_encode)
         if adv_encode == True:
             tokens_p = clip.tokenize(positive_text)
             tokens_n = clip.tokenize(negative_text)
@@ -1146,7 +1204,7 @@ class PrimereCLIP:
                             CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
 
-            if model_concept == 'Cascade':
+            if model_concept == 'StableCascade':
                 positive_text = utility.clear_cascade(positive_text)
                 negative_text = utility.clear_cascade(negative_text)
 
@@ -1563,7 +1621,7 @@ class PrimereClearPrompt:
          positive_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, positive_prompt)
          negative_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, negative_prompt)
 
-      if model_concept == 'Cascade':
+      if model_concept == 'StableCascade':
           positive_prompt = utility.clear_cascade(positive_prompt)
           negative_prompt = utility.clear_cascade(negative_prompt)
 
