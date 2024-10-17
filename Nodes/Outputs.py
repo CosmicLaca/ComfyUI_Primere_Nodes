@@ -543,6 +543,7 @@ class PrimereKSampler:
                 "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "variation_batch_step": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
                 "variation_level": ("BOOLEAN", {"default": False, "label_on": "Maximize", "label_off": "Off"}),
+                "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
                 "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
             },
@@ -561,7 +562,7 @@ class PrimereKSampler:
         if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0 or kwargs['variation_level'] == True:
             return float("NaN")
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, device = 'DEFAULT', align_your_steps = False):
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Normal", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False):
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['sampler_setup'] == True:
@@ -635,6 +636,8 @@ class PrimereKSampler:
         print(model_concept)
 
         match model_concept:
+            case "SD3":
+                samples_out = primeresamplers.PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling, 1000)[0]
             case "Turbo":
                 samples_out = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)[0]
 

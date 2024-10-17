@@ -9,6 +9,7 @@ import comfy.samplers
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import comfy_extras.nodes_flux as nodes_flux
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
 
 def PKSampler(self, device, seed, model,
               steps, cfg, sampler_name, scheduler_name,
@@ -114,4 +115,9 @@ def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, 
     FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]
     sampler_object = comfy.samplers.sampler_object(sampler_name)
     samples = (nodes_custom_sampler.SamplerCustomAdvanced.sample(self, FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
+    return samples
+
+def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 2.5, multiplier = 1000):
+    sd3sampling = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, multiplier)[0]
+    samples = nodes.KSampler.sample(self, sd3sampling, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
     return samples

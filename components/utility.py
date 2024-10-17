@@ -807,9 +807,10 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
 
     return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid, 'hyperModeValid': hyperModeValid}
 
-def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name):
+def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, lora_model_strength = 1, lora_clip_strength = 0):
+    CLIP_MODEL = OUTPUT_CLIP
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
+        OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
 
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
@@ -818,13 +819,13 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        OUTPUT_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, None, lora_name, 1, 0)[0]
+        OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         unet_path = folder_paths.get_full_path("unet", unet_name)
         OUTPUT_MODEL = comfy.sd.load_checkpoint_guess_config(unet_path)
 
-    return OUTPUT_MODEL
+    return (OUTPUT_MODEL, CLIP_MODEL)
 
 def get_hypersd_sigmas(model):
     timesteps = torch.tensor([800])
