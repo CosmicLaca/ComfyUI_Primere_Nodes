@@ -171,23 +171,23 @@ class PrimereLCMSelector:
 class PrimereModelConceptSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT",
                     "STRING", "CLIP_SELECTION",
-                    "INT", "INT",
-                    "STRING", "INT", "INT", "INT",
+                    "INT",
+                    "STRING", "INT", "INT",
                     "STRING", "STRING", "STRING", "STRING",
-                    "STRING", "INT", "INT", "INT",
+                    "STRING", "INT", "INT",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING",  "STRING",
-                    "FLUX_HYPER_LORA", "STRING", "INT", "INT", "INT",
+                    "FLUX_HYPER_LORA", "STRING", "INT", "INT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "MODEL_CONCEPT", "CLIP_SELECTION",
-                    "STRENGTH_LCM_LORA_MODEL", "STRENGTH_LCM_LORA_CLIP",
-                    "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "STRENGTH_LIGHTNING_LORA_MODEL", "STRENGTH_LIGHTNING_LORA_CLIP",
+                    "STRENGTH_LCM_LORA_MODEL",
+                    "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "STRENGTH_LIGHTNING_LORA_MODEL",
                     "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
-                    "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL", "STRENGTH_HYPERSD_LORA_CLIP",
+                    "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL",
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
-                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "STRENGTH_FLUXHYPER_LORA_MODEL", "STRENGTH_FLUXHYPER_LORA_CLIP",
+                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "STRENGTH_FLUXHYPER_LORA_MODEL",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE"
                     )
@@ -222,19 +222,16 @@ class PrimereModelConceptSelector:
             "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
 
             "strength_lcm_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
-            "strength_lcm_lora_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
 
             "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "LORA"}),
             "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
             "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
             "strength_lightning_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
-            "strength_lightning_lora_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
 
             "hypersd_selector": (["UNET", "LORA"], {"default": "LORA"}),
             "hypersd_model_step": ([1, 2, 4, 8], {"default": 8}),
             "hypersd_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
             "strength_hypersd_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
-            "strength_hypersd_lora_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
 
             "cascade_stage_a": (["None"] + VAELIST,),
             "cascade_stage_b": (["None"] + UNETLIST,),
@@ -257,7 +254,6 @@ class PrimereModelConceptSelector:
             "flux_hyper_lora_type": (["FLUX.1-dev", "FLUX.1-dev-fp16"], {"default": "FLUX.1-dev-fp16"}),
             "flux_hyper_lora_step": ([8, 16], {"default": 8}),
             "strength_fluxhyper_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
-            "strength_fluxhyper_lora_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
@@ -283,13 +279,13 @@ class PrimereModelConceptSelector:
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              model_concept = 'Auto',
                              clip_selection = True,
-                             strength_lcm_lora_model = 1, strength_lcm_lora_clip = 1,
+                             strength_lcm_lora_model = 1,
                              lightning_selector = "LORA", lightning_model_step = 8, lightning_sampler = False,
-                             strength_lightning_lora_model = 1, strength_lightning_lora_clip = 1,
+                             strength_lightning_lora_model = 1,
                              hypersd_selector = "LORA", hypersd_model_step = 8, hypersd_sampler = False,
-                             strength_hypersd_lora_model = 1, strength_hypersd_lora_clip = 1,
+                             strength_hypersd_lora_model = 1,
                              flux_sampler = 'ksampler', flux_selector = "DIFFUSION", flux_clip_guidance = 3.5,
-                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1, strength_fluxhyper_lora_clip = 1,
+                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1,
                              **kwargs
                              ):
 
@@ -343,19 +339,16 @@ class PrimereModelConceptSelector:
 
         if model_concept != 'LCM':
             strength_lcm_lora_model = None
-            strength_lcm_lora_clip = None
 
         if model_concept != 'Lightning':
             lightning_selector = None
             lightning_model_step = None
             strength_lightning_lora_model = None
-            strength_lightning_lora_clip = None
 
         if model_concept != 'Hyper':
             hypersd_selector = None
             hypersd_model_step = None
             strength_hypersd_lora_model = None
-            strength_hypersd_lora_clip = None
 
         if model_concept != 'StableCascade':
             cascade_stage_a = None
@@ -377,7 +370,6 @@ class PrimereModelConceptSelector:
             flux_hyper_lora_type = None
             flux_hyper_lora_step = None
             strength_fluxhyper_lora_model = None
-            strength_fluxhyper_lora_clip = None
 
         if model_concept != 'Hunyuan':
             hunyuan_clip_t5xxl = None
@@ -395,12 +387,12 @@ class PrimereModelConceptSelector:
 
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
                 model_concept, clip_selection,
-                strength_lcm_lora_model, strength_lcm_lora_clip,
-                lightning_selector, lightning_model_step, strength_lightning_lora_model, strength_lightning_lora_clip,
+                strength_lcm_lora_model,
+                lightning_selector, lightning_model_step, strength_lightning_lora_model,
                 cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
-                hypersd_selector, hypersd_model_step, strength_hypersd_lora_model, strength_hypersd_lora_clip,
+                hypersd_selector, hypersd_model_step, strength_hypersd_lora_model,
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
-                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, strength_fluxhyper_lora_model, strength_fluxhyper_lora_clip,
+                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, strength_fluxhyper_lora_model,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
                 )
@@ -1459,7 +1451,6 @@ class PrimereCLIP:
 
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-        # CONCEPT_SELECTOR = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 4)
         CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
         print(CONCEPT_SELECTOR)
         print(model_concept)
@@ -2373,12 +2364,10 @@ class PrimereConceptDataTuple:
                 "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
 
                 "strength_lcm_lora_model": ("INT", {"default": 1, "forceInput": True}),
-                "strength_lcm_lora_clip": ("INT", {"default": 1, "forceInput": True}),
 
                 "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
                 "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
                 "strength_lightning_lora_model": ("INT", {"default": 1, "forceInput": True}),
-                "strength_lightning_lora_clip": ("INT", {"default": 1, "forceInput": True}),
 
                 "cascade_stage_a": ("STRING", {"forceInput": True}),
                 "cascade_stage_b": ("STRING", {"forceInput": True}),
@@ -2388,7 +2377,6 @@ class PrimereConceptDataTuple:
                 "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
                 "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
                 "strength_hypersd_lora_model": ("INT", {"default": 1, "forceInput": True}),
-                "strength_hypersd_lora_clip": ("INT", {"default": 1, "forceInput": True}),
 
                 "flux_selector": ("STRING", {"default": "DIFFUSION", "forceInput": True}),
                 "flux_diffusion": ("STRING", {"forceInput": True}),
@@ -2403,7 +2391,6 @@ class PrimereConceptDataTuple:
                 "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
                 "flux_hyper_lora_step": ("INT", {"forceInput": True}),
                 "strength_fluxhyper_lora_model": ("INT", {"forceInput": True}),
-                "strength_fluxhyper_lora_clip": ("INT", {"forceInput": True}),
 
                 "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
                 "hunyuan_clip_l": ("STRING", {"forceInput": True}),
