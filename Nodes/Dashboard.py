@@ -20,6 +20,7 @@ import requests
 from ..components import hypernetwork
 from ..components import clipping
 import comfy.sd
+import comfy.model_detection
 import comfy.utils
 from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
@@ -293,8 +294,8 @@ class PrimereModelConceptSelector:
             lightning_selector = 'CUSTOM'
         if model_concept == 'Auto' and model_version == 'Hyper':
             hypersd_selector = 'LORA'
-        if model_concept == 'Auto' and model_version == 'Flux':
-            model_version = 'SDXL'
+        # if model_concept == 'Auto' and model_version == 'Flux':
+        #    model_version = 'SDXL'
 
         if model_concept == 'Auto' and model_version is not None:
             model_concept = model_version
@@ -432,6 +433,7 @@ class PrimereCKPTLoader:
         print('----------- CONCEPT CHECK ---------------------')
         print(model_concept)
         print('unload')
+
         comfy.model_management.unload_all_models()
         comfy.model_management.cleanup_models()
         comfy.model_management.soft_empty_cache()
@@ -544,7 +546,28 @@ class PrimereCKPTLoader:
                     print('StableCascade')
                     OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
                     OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
-                    MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
+                    if MODEL_VERSION == model_concept:
+                        fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                        print('symlink check.....')
+                        print(fullpathFile)
+                        is_link = os.path.islink(str(fullpathFile))
+                        if is_link == False:
+                            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')[0]
+                        else:
+                            print('CKPT cascade yeah symlink...')
+                            File_link = Path(str(fullpathFile)).resolve()
+                            print(File_link)
+                            linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                            print('U folder')
+                            print(linkName_U)
+                            linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                            print('D folder')
+                            print(linkName_D)
+                            linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                            print(linkedFileName)
+                            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
+                    else:
+                        MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
                     MODEL_B_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_b, 'default')[0]
 
                     OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
@@ -554,18 +577,62 @@ class PrimereCKPTLoader:
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
                     print('Flux')
                     print(flux_selector)
+                    print(MODEL_VERSION)
+                    print(model_concept)
+                    if MODEL_VERSION == model_concept:
+                        flux_selector = 'SAFETENSOR'
+
                     match flux_selector:
                         case 'DIFFUSION':
                             MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
                             DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                             return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
+
                         case 'GGUF':
                             MODEL_GGUF = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
                             CLIP_GGUF = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                             return (MODEL_GGUF,) + (CLIP_GGUF,) + (FLUX_VAE,) + (MODEL_VERSION,)
-                        # case 'SAFETENSOR':
+
+                        case 'SAFETENSOR':
+                            fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                            print('FLUX symlink check.....')
+                            print(fullpathFile)
+                            is_link = os.path.islink(str(fullpathFile))
+                            if is_link == False:
+                                print('NEM symlink')
+                                MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+                                DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                            else:
+                                print('DE! symlink')
+                                File_link = Path(str(fullpathFile)).resolve()
+                                print(File_link)
+                                linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                                print('U folder')
+                                print(linkName_U)
+                                linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                                print('D folder')
+                                print(linkName_D)
+                                linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                                print(linkedFileName)
+                                if 'diffusion_models' in str(File_link):
+                                    print('GGUF loader')
+                                    MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                                    DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                elif 'unet' in str(File_link):
+                                    print('UNET loader')
+                                    MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
+                                    DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                else:
+                                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, linkedFileName)[0]
+                                    DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+
+                            return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
             case 'Hyper':
                 if hypersd_selector == 'UNET':
@@ -616,7 +683,19 @@ class PrimereCKPTLoader:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                 except Exception:
                     print('load unet')
-                    LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                    print('CKPT UNET symlink check.....')
+                    print(fullpathFile)
+                    is_link = os.path.islink(str(fullpathFile))
+                    if is_link == False:
+                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                    else:
+                        print('yeah CKTP symlink...')
+                        File_link = Path(str(fullpathFile)).resolve()
+                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                        linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
 
                 print('7.3.1')
 

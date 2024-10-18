@@ -359,9 +359,16 @@ async def primere_get_filedates(request):
 
     for filename in allSource:
         singleFile = folder_paths.get_full_path(subdirKey, filename)
-        filenameonly = Path(singleFile).stem
-        singlefiledate = os.path.getctime(singleFile)
-        filedates[filenameonly] = singlefiledate
+        is_link = os.path.islink(str(singleFile))
+        if is_link == False and singleFile is not None and type(singleFile).__name__ != "NoneType" and type(singleFile).__name__ == "str" and os.path.isfile(singleFile) == True:
+            filenameonly = Path(singleFile).stem
+            singlefiledate = os.path.getctime(singleFile)
+            filedates[filenameonly] = singlefiledate
+        else:
+            singleFile_link = Path(str(singleFile)).resolve()
+            filenameonly = Path(singleFile_link).stem
+            singlefiledate = os.path.getctime(singleFile_link)
+            filedates[filenameonly] = singlefiledate
 
     PromptServer.instance.send_sync("FileDateData", filedates)
     return web.json_response({})
