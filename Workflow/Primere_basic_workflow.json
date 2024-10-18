@@ -1,6 +1,6 @@
 {
-  "last_node_id": 149,
-  "last_link_id": 1372,
+  "last_node_id": 161,
+  "last_link_id": 1992,
   "nodes": [
     {
       "id": 61,
@@ -233,7 +233,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        -1,
+        966877486299042,
         null,
         null,
         null
@@ -245,8 +245,8 @@
       "id": 115,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2345.71826171875,
-        "1": 1917.513427734375
+        "0": 2345.718017578125,
+        "1": 1919.9136962890625
       },
       "size": {
         "0": 400.510009765625,
@@ -261,7 +261,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1257
+            1869
           ],
           "slot_index": 0,
           "shape": 3
@@ -270,7 +270,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1258
+            1870
           ],
           "slot_index": 1,
           "shape": 3
@@ -279,7 +279,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1259
+            1871
           ],
           "slot_index": 2,
           "shape": 3
@@ -288,7 +288,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1260
+            1872
           ],
           "slot_index": 3,
           "shape": 3
@@ -311,8 +311,8 @@
       "id": 116,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2345.71826171875,
-        "1": 1687.5126953125
+        "0": 2345.718017578125,
+        "1": 1689.9129638671875
       },
       "size": {
         "0": 400.510009765625,
@@ -327,7 +327,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1253
+            1865
           ],
           "slot_index": 0,
           "shape": 3
@@ -336,7 +336,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1254
+            1866
           ],
           "slot_index": 1,
           "shape": 3
@@ -345,7 +345,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1255
+            1867
           ],
           "slot_index": 2,
           "shape": 3
@@ -354,7 +354,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1256
+            1868
           ],
           "slot_index": 3,
           "shape": 3
@@ -377,8 +377,8 @@
       "id": 117,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1931.9088134765625,
-        "1": 1213.85302734375
+        "0": 1931.90869140625,
+        "1": 1216.253173828125
       },
       "size": {
         "0": 398.7451171875,
@@ -393,7 +393,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1237
+            1849
           ],
           "slot_index": 0,
           "shape": 3
@@ -402,7 +402,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1238
+            1850
           ],
           "slot_index": 1,
           "shape": 3
@@ -411,7 +411,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1239
+            1851
           ],
           "slot_index": 2,
           "shape": 3
@@ -420,7 +420,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1240
+            1852
           ],
           "slot_index": 3,
           "shape": 3
@@ -443,8 +443,8 @@
       "id": 118,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2345.9091796875,
-        "1": 2157.8525390625
+        "0": 2345.908935546875,
+        "1": 2160.25244140625
       },
       "size": {
         "0": 400.510009765625,
@@ -459,7 +459,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1281
+            1893
           ],
           "slot_index": 0,
           "shape": 3
@@ -468,7 +468,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1282
+            1894
           ],
           "slot_index": 1,
           "shape": 3
@@ -477,7 +477,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1283
+            1895
           ],
           "slot_index": 2,
           "shape": 3
@@ -486,7 +486,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1284
+            1896
           ],
           "slot_index": 3,
           "shape": 3
@@ -509,8 +509,8 @@
       "id": 119,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2345.71826171875,
-        "1": 2390.5126953125
+        "0": 2345.718017578125,
+        "1": 2392.91259765625
       },
       "size": {
         "0": 400.510009765625,
@@ -525,7 +525,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1285
+            1897
           ],
           "slot_index": 0,
           "shape": 3
@@ -534,7 +534,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1286
+            1898
           ],
           "slot_index": 1,
           "shape": 3
@@ -543,7 +543,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1287
+            1899
           ],
           "slot_index": 2,
           "shape": 3
@@ -552,7 +552,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1288
+            1900
           ],
           "slot_index": 3,
           "shape": 3
@@ -575,8 +575,8 @@
       "id": 120,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1926.7169189453125,
-        "1": 2391.5126953125
+        "0": 1926.716796875,
+        "1": 2393.91259765625
       },
       "size": {
         "0": 403.6964416503906,
@@ -591,7 +591,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1273
+            1885
           ],
           "slot_index": 0,
           "shape": 3
@@ -600,7 +600,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1274
+            1886
           ],
           "slot_index": 1,
           "shape": 3
@@ -609,7 +609,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1275
+            1887
           ],
           "slot_index": 2,
           "shape": 3
@@ -618,7 +618,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1276
+            1888
           ],
           "slot_index": 3,
           "shape": 3
@@ -641,8 +641,8 @@
       "id": 121,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2346.9091796875,
-        "1": 2624.8525390625
+        "0": 2346.908935546875,
+        "1": 2627.25244140625
       },
       "size": {
         "0": 400.510009765625,
@@ -657,7 +657,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1289
+            1901
           ],
           "slot_index": 0,
           "shape": 3
@@ -666,7 +666,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1290
+            1902
           ],
           "slot_index": 1,
           "shape": 3
@@ -675,7 +675,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1291
+            1903
           ],
           "slot_index": 2,
           "shape": 3
@@ -684,7 +684,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1292
+            1904
           ],
           "slot_index": 3,
           "shape": 3
@@ -707,8 +707,8 @@
       "id": 122,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1928.7169189453125,
-        "1": 1687.5126953125
+        "0": 1928.716796875,
+        "1": 1689.9129638671875
       },
       "size": {
         "0": 400.510009765625,
@@ -723,7 +723,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1261
+            1873
           ],
           "slot_index": 0,
           "shape": 3
@@ -732,7 +732,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1262
+            1874
           ],
           "slot_index": 1,
           "shape": 3
@@ -741,7 +741,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1263
+            1875
           ],
           "slot_index": 2,
           "shape": 3
@@ -750,7 +750,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1264
+            1876
           ],
           "slot_index": 3,
           "shape": 3
@@ -773,8 +773,8 @@
       "id": 123,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2346.9091796875,
-        "1": 1448.85302734375
+        "0": 2346.908935546875,
+        "1": 1451.253173828125
       },
       "size": {
         "0": 397.9150390625,
@@ -789,7 +789,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1249
+            1861
           ],
           "slot_index": 0,
           "shape": 3
@@ -798,7 +798,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1250
+            1862
           ],
           "slot_index": 1,
           "shape": 3
@@ -807,7 +807,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1251
+            1863
           ],
           "slot_index": 2,
           "shape": 3
@@ -816,7 +816,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1252
+            1864
           ],
           "slot_index": 3,
           "shape": 3
@@ -839,8 +839,8 @@
       "id": 124,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1927.7169189453125,
-        "1": 2625.51123046875
+        "0": 1927.716796875,
+        "1": 2627.9111328125
       },
       "size": {
         "0": 404.3522033691406,
@@ -855,7 +855,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1277
+            1889
           ],
           "slot_index": 0,
           "shape": 3
@@ -864,7 +864,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1278
+            1890
           ],
           "slot_index": 1,
           "shape": 3
@@ -873,7 +873,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1279
+            1891
           ],
           "slot_index": 2,
           "shape": 3
@@ -882,7 +882,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1280
+            1892
           ],
           "slot_index": 3,
           "shape": 3
@@ -905,8 +905,8 @@
       "id": 125,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1927.7169189453125,
-        "1": 2158.5126953125
+        "0": 1927.716796875,
+        "1": 2160.91259765625
       },
       "size": {
         "0": 401.70135498046875,
@@ -921,7 +921,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1269
+            1881
           ],
           "slot_index": 0,
           "shape": 3
@@ -930,7 +930,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1270
+            1882
           ],
           "slot_index": 1,
           "shape": 3
@@ -939,7 +939,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1271
+            1883
           ],
           "slot_index": 2,
           "shape": 3
@@ -948,7 +948,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1272
+            1884
           ],
           "slot_index": 3,
           "shape": 3
@@ -971,8 +971,8 @@
       "id": 126,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 2345.9091796875,
-        "1": 1214.85302734375
+        "0": 2345.908935546875,
+        "1": 1217.253173828125
       },
       "size": {
         "0": 400.510009765625,
@@ -989,7 +989,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1245
+            1857
           ],
           "slot_index": 0,
           "shape": 3
@@ -998,7 +998,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1246
+            1858
           ],
           "slot_index": 1,
           "shape": 3
@@ -1007,7 +1007,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1247
+            1859
           ],
           "slot_index": 2,
           "shape": 3
@@ -1016,7 +1016,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1248
+            1860
           ],
           "slot_index": 3,
           "shape": 3
@@ -1039,8 +1039,8 @@
       "id": 128,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1930.9088134765625,
-        "1": 1448.85302734375
+        "0": 1930.90869140625,
+        "1": 1451.253173828125
       },
       "size": {
         "0": 399.3096008300781,
@@ -1055,7 +1055,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1241
+            1853
           ],
           "slot_index": 0,
           "shape": 3
@@ -1064,7 +1064,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1242
+            1854
           ],
           "slot_index": 1,
           "shape": 3
@@ -1073,7 +1073,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1243
+            1855
           ],
           "slot_index": 2,
           "shape": 3
@@ -1082,7 +1082,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1244
+            1856
           ],
           "slot_index": 3,
           "shape": 3
@@ -1105,8 +1105,8 @@
       "id": 129,
       "type": "PrimereSamplersSteps",
       "pos": {
-        "0": 1926.7169189453125,
-        "1": 1919.513427734375
+        "0": 1926.716796875,
+        "1": 1921.9136962890625
       },
       "size": {
         "0": 401.70135498046875,
@@ -1121,7 +1121,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1265
+            1877
           ],
           "slot_index": 0,
           "shape": 3
@@ -1130,7 +1130,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1266
+            1878
           ],
           "slot_index": 1,
           "shape": 3
@@ -1139,7 +1139,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1267
+            1879
           ],
           "slot_index": 2,
           "shape": 3
@@ -1148,7 +1148,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1268
+            1880
           ],
           "slot_index": 3,
           "shape": 3
@@ -1171,8 +1171,8 @@
       "id": 112,
       "type": "PrimereVisualStyle",
       "pos": {
-        "0": 977.7861328125,
-        "1": 1271.0244140625
+        "0": 978,
+        "1": 1271
       },
       "size": {
         "0": 344.3999938964844,
@@ -1235,7 +1235,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Preview woman",
+        "Glass ornaments",
         true,
         true,
         true,
@@ -1385,7 +1385,7 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            1236
+            1848
           ],
           "slot_index": 1,
           "shape": 3
@@ -1395,7 +1395,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "Flux\\visionRealistic_v1FluxDevFp8.safetensors",
+        "Flux\\flux1-dev-Q4_1.safetensors",
         true,
         false,
         true,
@@ -1591,15 +1591,15 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 146,
+      "id": 160,
       "type": "PrimereModelConceptSelector",
       "pos": {
-        "0": 2762.9091796875,
-        "1": 1219.85302734375
+        "0": 2762.908935546875,
+        "1": 1222.253173828125
       },
       "size": {
-        "0": 715.6650390625,
-        "1": 2066
+        "0": 719.8956909179688,
+        "1": 2186
       },
       "flags": {},
       "order": 23,
@@ -1608,7 +1608,7 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1236,
+          "link": 1848,
           "widget": {
             "name": "model_version"
           },
@@ -1617,7 +1617,7 @@
         {
           "name": "sd1_sampler_name",
           "type": "COMBO",
-          "link": 1237,
+          "link": 1849,
           "widget": {
             "name": "sd1_sampler_name"
           },
@@ -1626,7 +1626,7 @@
         {
           "name": "sd1_scheduler_name",
           "type": "COMBO",
-          "link": 1238,
+          "link": 1850,
           "widget": {
             "name": "sd1_scheduler_name"
           },
@@ -1635,7 +1635,7 @@
         {
           "name": "sd1_steps",
           "type": "INT",
-          "link": 1239,
+          "link": 1851,
           "widget": {
             "name": "sd1_steps"
           },
@@ -1644,7 +1644,7 @@
         {
           "name": "sd1_cfg_scale",
           "type": "FLOAT",
-          "link": 1240,
+          "link": 1852,
           "widget": {
             "name": "sd1_cfg_scale"
           },
@@ -1653,7 +1653,7 @@
         {
           "name": "sd2_sampler_name",
           "type": "COMBO",
-          "link": 1241,
+          "link": 1853,
           "widget": {
             "name": "sd2_sampler_name"
           },
@@ -1662,7 +1662,7 @@
         {
           "name": "sd2_scheduler_name",
           "type": "COMBO",
-          "link": 1242,
+          "link": 1854,
           "widget": {
             "name": "sd2_scheduler_name"
           },
@@ -1671,7 +1671,7 @@
         {
           "name": "sd2_steps",
           "type": "INT",
-          "link": 1243,
+          "link": 1855,
           "widget": {
             "name": "sd2_steps"
           },
@@ -1680,7 +1680,7 @@
         {
           "name": "sd2_cfg_scale",
           "type": "FLOAT",
-          "link": 1244,
+          "link": 1856,
           "widget": {
             "name": "sd2_cfg_scale"
           },
@@ -1689,7 +1689,7 @@
         {
           "name": "sdxl_sampler_name",
           "type": "COMBO",
-          "link": 1245,
+          "link": 1857,
           "widget": {
             "name": "sdxl_sampler_name"
           },
@@ -1698,7 +1698,7 @@
         {
           "name": "sdxl_scheduler_name",
           "type": "COMBO",
-          "link": 1246,
+          "link": 1858,
           "widget": {
             "name": "sdxl_scheduler_name"
           },
@@ -1707,7 +1707,7 @@
         {
           "name": "sdxl_steps",
           "type": "INT",
-          "link": 1247,
+          "link": 1859,
           "widget": {
             "name": "sdxl_steps"
           },
@@ -1716,7 +1716,7 @@
         {
           "name": "sdxl_cfg_scale",
           "type": "FLOAT",
-          "link": 1248,
+          "link": 1860,
           "widget": {
             "name": "sdxl_cfg_scale"
           },
@@ -1725,7 +1725,7 @@
         {
           "name": "sd3_sampler_name",
           "type": "COMBO",
-          "link": 1249,
+          "link": 1861,
           "widget": {
             "name": "sd3_sampler_name"
           },
@@ -1734,7 +1734,7 @@
         {
           "name": "sd3_scheduler_name",
           "type": "COMBO",
-          "link": 1250,
+          "link": 1862,
           "widget": {
             "name": "sd3_scheduler_name"
           },
@@ -1743,7 +1743,7 @@
         {
           "name": "sd3_steps",
           "type": "INT",
-          "link": 1251,
+          "link": 1863,
           "widget": {
             "name": "sd3_steps"
           },
@@ -1752,7 +1752,7 @@
         {
           "name": "sd3_cfg_scale",
           "type": "FLOAT",
-          "link": 1252,
+          "link": 1864,
           "widget": {
             "name": "sd3_cfg_scale"
           },
@@ -1761,7 +1761,7 @@
         {
           "name": "stablecascade_sampler_name",
           "type": "COMBO",
-          "link": 1253,
+          "link": 1865,
           "widget": {
             "name": "stablecascade_sampler_name"
           },
@@ -1770,7 +1770,7 @@
         {
           "name": "stablecascade_scheduler_name",
           "type": "COMBO",
-          "link": 1254,
+          "link": 1866,
           "widget": {
             "name": "stablecascade_scheduler_name"
           },
@@ -1779,7 +1779,7 @@
         {
           "name": "stablecascade_steps",
           "type": "INT",
-          "link": 1255,
+          "link": 1867,
           "widget": {
             "name": "stablecascade_steps"
           },
@@ -1788,7 +1788,7 @@
         {
           "name": "stablecascade_cfg_scale",
           "type": "FLOAT",
-          "link": 1256,
+          "link": 1868,
           "widget": {
             "name": "stablecascade_cfg_scale"
           },
@@ -1797,7 +1797,7 @@
         {
           "name": "turbo_sampler_name",
           "type": "COMBO",
-          "link": 1257,
+          "link": 1869,
           "widget": {
             "name": "turbo_sampler_name"
           },
@@ -1806,7 +1806,7 @@
         {
           "name": "turbo_scheduler_name",
           "type": "COMBO",
-          "link": 1258,
+          "link": 1870,
           "widget": {
             "name": "turbo_scheduler_name"
           },
@@ -1815,7 +1815,7 @@
         {
           "name": "turbo_steps",
           "type": "INT",
-          "link": 1259,
+          "link": 1871,
           "widget": {
             "name": "turbo_steps"
           },
@@ -1824,7 +1824,7 @@
         {
           "name": "turbo_cfg_scale",
           "type": "FLOAT",
-          "link": 1260,
+          "link": 1872,
           "widget": {
             "name": "turbo_cfg_scale"
           },
@@ -1833,7 +1833,7 @@
         {
           "name": "flux_sampler_name",
           "type": "COMBO",
-          "link": 1261,
+          "link": 1873,
           "widget": {
             "name": "flux_sampler_name"
           },
@@ -1842,7 +1842,7 @@
         {
           "name": "flux_scheduler_name",
           "type": "COMBO",
-          "link": 1262,
+          "link": 1874,
           "widget": {
             "name": "flux_scheduler_name"
           },
@@ -1851,7 +1851,7 @@
         {
           "name": "flux_steps",
           "type": "INT",
-          "link": 1263,
+          "link": 1875,
           "widget": {
             "name": "flux_steps"
           },
@@ -1860,7 +1860,7 @@
         {
           "name": "flux_cfg_scale",
           "type": "FLOAT",
-          "link": 1264,
+          "link": 1876,
           "widget": {
             "name": "flux_cfg_scale"
           },
@@ -1869,7 +1869,7 @@
         {
           "name": "kwaikolors_sampler_name",
           "type": "COMBO",
-          "link": 1265,
+          "link": 1877,
           "widget": {
             "name": "kwaikolors_sampler_name"
           },
@@ -1878,7 +1878,7 @@
         {
           "name": "kwaikolors_scheduler_name",
           "type": "COMBO",
-          "link": 1266,
+          "link": 1878,
           "widget": {
             "name": "kwaikolors_scheduler_name"
           },
@@ -1887,7 +1887,7 @@
         {
           "name": "kwaikolors_steps",
           "type": "INT",
-          "link": 1267,
+          "link": 1879,
           "widget": {
             "name": "kwaikolors_steps"
           },
@@ -1896,7 +1896,7 @@
         {
           "name": "kwaikolors_cfg_scale",
           "type": "FLOAT",
-          "link": 1268,
+          "link": 1880,
           "widget": {
             "name": "kwaikolors_cfg_scale"
           },
@@ -1905,7 +1905,7 @@
         {
           "name": "hunyuan_sampler_name",
           "type": "COMBO",
-          "link": 1269,
+          "link": 1881,
           "widget": {
             "name": "hunyuan_sampler_name"
           },
@@ -1914,7 +1914,7 @@
         {
           "name": "hunyuan_scheduler_name",
           "type": "COMBO",
-          "link": 1270,
+          "link": 1882,
           "widget": {
             "name": "hunyuan_scheduler_name"
           },
@@ -1923,7 +1923,7 @@
         {
           "name": "hunyuan_steps",
           "type": "INT",
-          "link": 1271,
+          "link": 1883,
           "widget": {
             "name": "hunyuan_steps"
           },
@@ -1932,7 +1932,7 @@
         {
           "name": "hunyuan_cfg_scale",
           "type": "FLOAT",
-          "link": 1272,
+          "link": 1884,
           "widget": {
             "name": "hunyuan_cfg_scale"
           },
@@ -1941,7 +1941,7 @@
         {
           "name": "playground_sampler_name",
           "type": "COMBO",
-          "link": 1273,
+          "link": 1885,
           "widget": {
             "name": "playground_sampler_name"
           },
@@ -1950,7 +1950,7 @@
         {
           "name": "playground_scheduler_name",
           "type": "COMBO",
-          "link": 1274,
+          "link": 1886,
           "widget": {
             "name": "playground_scheduler_name"
           },
@@ -1959,7 +1959,7 @@
         {
           "name": "playground_steps",
           "type": "INT",
-          "link": 1275,
+          "link": 1887,
           "widget": {
             "name": "playground_steps"
           },
@@ -1968,7 +1968,7 @@
         {
           "name": "playground_cfg_scale",
           "type": "FLOAT",
-          "link": 1276,
+          "link": 1888,
           "widget": {
             "name": "playground_cfg_scale"
           },
@@ -1977,7 +1977,7 @@
         {
           "name": "pony_sampler_name",
           "type": "COMBO",
-          "link": 1277,
+          "link": 1889,
           "widget": {
             "name": "pony_sampler_name"
           },
@@ -1986,7 +1986,7 @@
         {
           "name": "pony_scheduler_name",
           "type": "COMBO",
-          "link": 1278,
+          "link": 1890,
           "widget": {
             "name": "pony_scheduler_name"
           },
@@ -1995,7 +1995,7 @@
         {
           "name": "pony_steps",
           "type": "INT",
-          "link": 1279,
+          "link": 1891,
           "widget": {
             "name": "pony_steps"
           },
@@ -2004,7 +2004,7 @@
         {
           "name": "pony_cfg_scale",
           "type": "FLOAT",
-          "link": 1280,
+          "link": 1892,
           "widget": {
             "name": "pony_cfg_scale"
           },
@@ -2013,7 +2013,7 @@
         {
           "name": "lcm_sampler_name",
           "type": "COMBO",
-          "link": 1281,
+          "link": 1893,
           "widget": {
             "name": "lcm_sampler_name"
           },
@@ -2022,7 +2022,7 @@
         {
           "name": "lcm_scheduler_name",
           "type": "COMBO",
-          "link": 1282,
+          "link": 1894,
           "widget": {
             "name": "lcm_scheduler_name"
           },
@@ -2031,7 +2031,7 @@
         {
           "name": "lcm_steps",
           "type": "INT",
-          "link": 1283,
+          "link": 1895,
           "widget": {
             "name": "lcm_steps"
           },
@@ -2040,7 +2040,7 @@
         {
           "name": "lcm_cfg_scale",
           "type": "FLOAT",
-          "link": 1284,
+          "link": 1896,
           "widget": {
             "name": "lcm_cfg_scale"
           },
@@ -2049,7 +2049,7 @@
         {
           "name": "lightning_sampler_name",
           "type": "COMBO",
-          "link": 1285,
+          "link": 1897,
           "widget": {
             "name": "lightning_sampler_name"
           },
@@ -2058,7 +2058,7 @@
         {
           "name": "lightning_scheduler_name",
           "type": "COMBO",
-          "link": 1286,
+          "link": 1898,
           "widget": {
             "name": "lightning_scheduler_name"
           },
@@ -2067,7 +2067,7 @@
         {
           "name": "lightning_steps",
           "type": "INT",
-          "link": 1287,
+          "link": 1899,
           "widget": {
             "name": "lightning_steps"
           },
@@ -2076,7 +2076,7 @@
         {
           "name": "lightning_cfg_scale",
           "type": "FLOAT",
-          "link": 1288,
+          "link": 1900,
           "widget": {
             "name": "lightning_cfg_scale"
           },
@@ -2085,7 +2085,7 @@
         {
           "name": "hyper_sampler_name",
           "type": "COMBO",
-          "link": 1289,
+          "link": 1901,
           "widget": {
             "name": "hyper_sampler_name"
           },
@@ -2094,7 +2094,7 @@
         {
           "name": "hyper_scheduler_name",
           "type": "COMBO",
-          "link": 1290,
+          "link": 1902,
           "widget": {
             "name": "hyper_scheduler_name"
           },
@@ -2103,7 +2103,7 @@
         {
           "name": "hyper_steps",
           "type": "INT",
-          "link": 1291,
+          "link": 1903,
           "widget": {
             "name": "hyper_steps"
           },
@@ -2112,7 +2112,7 @@
         {
           "name": "hyper_cfg_scale",
           "type": "FLOAT",
-          "link": 1292,
+          "link": 1904,
           "widget": {
             "name": "hyper_cfg_scale"
           },
@@ -2124,289 +2124,302 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            1293
+            1905
           ]
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            1294
+            1906
           ]
         },
         {
           "name": "STEPS",
           "type": "INT",
           "links": [
-            1295
+            1907
           ]
         },
         {
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            1296
+            1908
           ]
         },
         {
           "name": "MODEL_CONCEPT",
           "type": "STRING",
           "links": [
-            1297,
-            1298,
-            1299,
-            1300,
-            1301,
-            1302
+            1909,
+            1910,
+            1911,
+            1913,
+            1914,
+            1992
           ]
         },
         {
           "name": "CLIP_SELECTION",
           "type": "CLIP_SELECTION",
           "links": [
-            1337
-          ],
-          "slot_index": 5
+            1947
+          ]
         },
         {
           "name": "STRENGTH_LCM_LORA_MODEL",
           "type": "INT",
           "links": [
-            1338
-          ],
-          "slot_index": 6
+            1949
+          ]
         },
         {
           "name": "STRENGTH_LCM_LORA_CLIP",
           "type": "INT",
           "links": [
-            1339
-          ],
-          "slot_index": 7
+            1950
+          ]
         },
         {
           "name": "LIGHTNING_SELECTOR",
           "type": "STRING",
           "links": [
-            1340
-          ],
-          "slot_index": 8
+            1951
+          ]
         },
         {
           "name": "LIGHTNING_MODEL_STEP",
           "type": "INT",
           "links": [
-            1341
-          ],
-          "slot_index": 9
+            1952
+          ]
         },
         {
           "name": "STRENGTH_LIGHTNING_LORA_MODEL",
           "type": "INT",
           "links": [
-            1342
-          ],
-          "slot_index": 10
+            1953
+          ]
         },
         {
           "name": "STRENGTH_LIGHTNING_LORA_CLIP",
           "type": "INT",
           "links": [
-            1343
-          ],
-          "slot_index": 11
+            1954
+          ]
         },
         {
           "name": "CASCADE_STAGE_A",
           "type": "STRING",
           "links": [
-            1344
-          ],
-          "slot_index": 12
+            1955
+          ]
         },
         {
           "name": "CASCADE_STAGE_B",
           "type": "STRING",
           "links": [
-            1345
-          ],
-          "slot_index": 13
+            1956
+          ]
         },
         {
           "name": "CASCADE_STAGE_C",
           "type": "STRING",
           "links": [
-            1346
-          ],
-          "slot_index": 14
+            1957
+          ]
         },
         {
           "name": "CASCADE_CLIP",
           "type": "STRING",
           "links": [
-            1347
-          ],
-          "slot_index": 15
+            1958
+          ]
         },
         {
           "name": "HYPER-SD_SELECTOR",
           "type": "STRING",
           "links": [
-            1348
-          ],
-          "slot_index": 16
+            1959
+          ]
         },
         {
           "name": "HYPER-SD_MODEL_STEP",
           "type": "INT",
           "links": [
-            1349
-          ],
-          "slot_index": 17
+            1960
+          ]
         },
         {
           "name": "STRENGTH_HYPERSD_LORA_MODEL",
           "type": "INT",
           "links": [
-            1350
-          ],
-          "slot_index": 18
+            1961
+          ]
         },
         {
           "name": "STRENGTH_HYPERSD_LORA_CLIP",
           "type": "INT",
           "links": [
-            1351
-          ],
-          "slot_index": 19
+            1962
+          ]
         },
         {
           "name": "FLUX_SELECTOR",
           "type": "STRING",
           "links": [
-            1352
-          ],
-          "slot_index": 20
+            1963
+          ]
         },
         {
           "name": "FLUX_DIFFUSION_MODEL",
           "type": "STRING",
           "links": [
-            1353
-          ],
-          "slot_index": 21
+            1964
+          ]
         },
         {
           "name": "FLUX_WEIGHT_TYPE",
           "type": "STRING",
           "links": [
-            1354
-          ],
-          "slot_index": 22
+            1965
+          ]
         },
         {
           "name": "FLUX_GGUF_MODEL",
           "type": "STRING",
           "links": [
-            1355
-          ],
-          "slot_index": 23
+            1966
+          ]
         },
         {
           "name": "FLUX_CLIP_T5XXL",
           "type": "STRING",
           "links": [
-            1356
-          ],
-          "slot_index": 24
+            1967
+          ]
         },
         {
           "name": "FLUX_CLIP_L",
           "type": "STRING",
           "links": [
-            1357
-          ],
-          "slot_index": 25
+            1968
+          ]
         },
         {
           "name": "FLUX_CLIP_GUIDANCE",
           "type": "FLOAT",
           "links": [
-            1358
-          ],
-          "slot_index": 26
+            1969
+          ]
         },
         {
           "name": "FLUX_VAE",
           "type": "STRING",
           "links": [
-            1359
-          ],
-          "slot_index": 27
+            1970
+          ]
         },
         {
           "name": "FLUX_SAMPLER",
           "type": "STRING",
           "links": [
-            1360
+            1971
+          ]
+        },
+        {
+          "name": "USE_FLUX_HYPER_LORA",
+          "type": "FLUX_HYPER_LORA",
+          "links": [
+            1948
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_TYPE",
+          "type": "STRING",
+          "links": [
+            1972
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_STEP",
+          "type": "INT",
+          "links": [
+            1973
+          ]
+        },
+        {
+          "name": "STRENGTH_FLUXHYPER_LORA_MODEL",
+          "type": "INT",
+          "links": [
+            1983
           ],
-          "slot_index": 28
+          "slot_index": 32
+        },
+        {
+          "name": "STRENGTH_FLUXHYPER_LORA_CLIP",
+          "type": "INT",
+          "links": [
+            1984
+          ],
+          "slot_index": 33
         },
         {
           "name": "HUNYUAN_CLIP_T5XXL",
           "type": "STRING",
           "links": [
-            1361
+            1985
           ],
-          "slot_index": 29
+          "slot_index": 34
         },
         {
           "name": "HUNYUAN_CLIP_L",
           "type": "STRING",
           "links": [
-            1362
+            1986
           ],
-          "slot_index": 30
+          "slot_index": 35
         },
         {
           "name": "HUNYUAN_VAE",
           "type": "STRING",
           "links": [
-            1363
+            1987
           ],
-          "slot_index": 31
+          "slot_index": 36
         },
         {
           "name": "SD3_CLIP_G",
           "type": "STRING",
           "links": [
-            1364
+            1988
           ],
-          "slot_index": 32
+          "slot_index": 37
         },
         {
           "name": "SD3_CLIP_L",
           "type": "STRING",
           "links": [
-            1365
+            1989
           ],
-          "slot_index": 33
+          "slot_index": 38
         },
         {
           "name": "SD3_CLIP_T5XXL",
           "type": "STRING",
           "links": [
-            1366
+            1990
           ],
-          "slot_index": 34
+          "slot_index": 39
         },
         {
           "name": "SD3_UNET_VAE",
           "type": "STRING",
           "links": [
-            1367
+            1991
           ],
-          "slot_index": 35
+          "slot_index": 40
         }
       ],
       "properties": {
@@ -2418,7 +2431,7 @@
         7,
         12,
         "Auto",
-        false,
+        true,
         1,
         1,
         "LORA",
@@ -2444,6 +2457,11 @@
         4,
         "Flux\\flux-vae.sft",
         "ksampler",
+        true,
+        "FLUX.1-dev-fp16",
+        8,
+        1,
+        1,
         "None",
         "None",
         "None",
@@ -2508,9 +2526,7 @@
         "normal",
         12,
         7
-      ],
-      "color": "#225959",
-      "bgcolor": "#366d6d"
+      ]
     },
     {
       "id": 6,
@@ -2561,7 +2577,7 @@
       },
       "widgets_values": [
         "",
-        389138641047138,
+        571919472460702,
         "randomize",
         true
       ],
@@ -2617,7 +2633,7 @@
       },
       "widgets_values": [
         "",
-        276728098491431,
+        1079787178136439,
         "randomize",
         true
       ],
@@ -2625,15 +2641,15 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 147,
+      "id": 161,
       "type": "PrimereConceptDataTuple",
       "pos": {
-        "0": 3529,
-        "1": 1320
+        "0": 3560,
+        "1": 1322
       },
       "size": {
-        "0": 385.60137939453125,
-        "1": 634
+        "0": 405.5999755859375,
+        "1": 870
       },
       "flags": {},
       "order": 26,
@@ -2642,12 +2658,17 @@
         {
           "name": "clip_selection",
           "type": "CLIP_SELECTION",
-          "link": 1337
+          "link": 1947
+        },
+        {
+          "name": "use_flux_hyper_lora",
+          "type": "FLUX_HYPER_LORA",
+          "link": 1948
         },
         {
           "name": "strength_lcm_lora_model",
           "type": "INT",
-          "link": 1338,
+          "link": 1949,
           "widget": {
             "name": "strength_lcm_lora_model"
           }
@@ -2655,7 +2676,7 @@
         {
           "name": "strength_lcm_lora_clip",
           "type": "INT",
-          "link": 1339,
+          "link": 1950,
           "widget": {
             "name": "strength_lcm_lora_clip"
           }
@@ -2663,7 +2684,7 @@
         {
           "name": "lightning_selector",
           "type": "STRING",
-          "link": 1340,
+          "link": 1951,
           "widget": {
             "name": "lightning_selector"
           }
@@ -2671,7 +2692,7 @@
         {
           "name": "lightning_model_step",
           "type": "INT",
-          "link": 1341,
+          "link": 1952,
           "widget": {
             "name": "lightning_model_step"
           }
@@ -2679,7 +2700,7 @@
         {
           "name": "strength_lightning_lora_model",
           "type": "INT",
-          "link": 1342,
+          "link": 1953,
           "widget": {
             "name": "strength_lightning_lora_model"
           }
@@ -2687,7 +2708,7 @@
         {
           "name": "strength_lightning_lora_clip",
           "type": "INT",
-          "link": 1343,
+          "link": 1954,
           "widget": {
             "name": "strength_lightning_lora_clip"
           }
@@ -2695,7 +2716,7 @@
         {
           "name": "cascade_stage_a",
           "type": "STRING",
-          "link": 1344,
+          "link": 1955,
           "widget": {
             "name": "cascade_stage_a"
           }
@@ -2703,7 +2724,7 @@
         {
           "name": "cascade_stage_b",
           "type": "STRING",
-          "link": 1345,
+          "link": 1956,
           "widget": {
             "name": "cascade_stage_b"
           }
@@ -2711,7 +2732,7 @@
         {
           "name": "cascade_stage_c",
           "type": "STRING",
-          "link": 1346,
+          "link": 1957,
           "widget": {
             "name": "cascade_stage_c"
           }
@@ -2719,7 +2740,7 @@
         {
           "name": "cascade_clip",
           "type": "STRING",
-          "link": 1347,
+          "link": 1958,
           "widget": {
             "name": "cascade_clip"
           }
@@ -2727,7 +2748,7 @@
         {
           "name": "hypersd_selector",
           "type": "STRING",
-          "link": 1348,
+          "link": 1959,
           "widget": {
             "name": "hypersd_selector"
           }
@@ -2735,7 +2756,7 @@
         {
           "name": "hypersd_model_step",
           "type": "INT",
-          "link": 1349,
+          "link": 1960,
           "widget": {
             "name": "hypersd_model_step"
           }
@@ -2743,7 +2764,7 @@
         {
           "name": "strength_hypersd_lora_model",
           "type": "INT",
-          "link": 1350,
+          "link": 1961,
           "widget": {
             "name": "strength_hypersd_lora_model"
           }
@@ -2751,7 +2772,7 @@
         {
           "name": "strength_hypersd_lora_clip",
           "type": "INT",
-          "link": 1351,
+          "link": 1962,
           "widget": {
             "name": "strength_hypersd_lora_clip"
           }
@@ -2759,7 +2780,7 @@
         {
           "name": "flux_selector",
           "type": "STRING",
-          "link": 1352,
+          "link": 1963,
           "widget": {
             "name": "flux_selector"
           }
@@ -2767,7 +2788,7 @@
         {
           "name": "flux_diffusion",
           "type": "STRING",
-          "link": 1353,
+          "link": 1964,
           "widget": {
             "name": "flux_diffusion"
           }
@@ -2775,7 +2796,7 @@
         {
           "name": "flux_weight_dtype",
           "type": "STRING",
-          "link": 1354,
+          "link": 1965,
           "widget": {
             "name": "flux_weight_dtype"
           }
@@ -2783,7 +2804,7 @@
         {
           "name": "flux_gguf",
           "type": "STRING",
-          "link": 1355,
+          "link": 1966,
           "widget": {
             "name": "flux_gguf"
           }
@@ -2791,7 +2812,7 @@
         {
           "name": "flux_clip_t5xxl",
           "type": "STRING",
-          "link": 1356,
+          "link": 1967,
           "widget": {
             "name": "flux_clip_t5xxl"
           }
@@ -2799,7 +2820,7 @@
         {
           "name": "flux_clip_l",
           "type": "STRING",
-          "link": 1357,
+          "link": 1968,
           "widget": {
             "name": "flux_clip_l"
           }
@@ -2807,7 +2828,7 @@
         {
           "name": "flux_clip_guidance",
           "type": "FLOAT",
-          "link": 1358,
+          "link": 1969,
           "widget": {
             "name": "flux_clip_guidance"
           }
@@ -2815,7 +2836,7 @@
         {
           "name": "flux_vae",
           "type": "STRING",
-          "link": 1359,
+          "link": 1970,
           "widget": {
             "name": "flux_vae"
           }
@@ -2823,15 +2844,47 @@
         {
           "name": "flux_sampler",
           "type": "STRING",
-          "link": 1360,
+          "link": 1971,
           "widget": {
             "name": "flux_sampler"
           }
         },
         {
+          "name": "flux_hyper_lora_type",
+          "type": "STRING",
+          "link": 1972,
+          "widget": {
+            "name": "flux_hyper_lora_type"
+          }
+        },
+        {
+          "name": "flux_hyper_lora_step",
+          "type": "INT",
+          "link": 1973,
+          "widget": {
+            "name": "flux_hyper_lora_step"
+          }
+        },
+        {
+          "name": "strength_fluxhyper_lora_model",
+          "type": "INT",
+          "link": 1983,
+          "widget": {
+            "name": "strength_fluxhyper_lora_model"
+          }
+        },
+        {
+          "name": "strength_fluxhyper_lora_clip",
+          "type": "INT",
+          "link": 1984,
+          "widget": {
+            "name": "strength_fluxhyper_lora_clip"
+          }
+        },
+        {
           "name": "hunyuan_clip_t5xxl",
           "type": "STRING",
-          "link": 1361,
+          "link": 1985,
           "widget": {
             "name": "hunyuan_clip_t5xxl"
           }
@@ -2839,7 +2892,7 @@
         {
           "name": "hunyuan_clip_l",
           "type": "STRING",
-          "link": 1362,
+          "link": 1986,
           "widget": {
             "name": "hunyuan_clip_l"
           }
@@ -2847,7 +2900,7 @@
         {
           "name": "hunyuan_vae",
           "type": "STRING",
-          "link": 1363,
+          "link": 1987,
           "widget": {
             "name": "hunyuan_vae"
           }
@@ -2855,7 +2908,7 @@
         {
           "name": "sd3_clip_g",
           "type": "STRING",
-          "link": 1364,
+          "link": 1988,
           "widget": {
             "name": "sd3_clip_g"
           }
@@ -2863,7 +2916,7 @@
         {
           "name": "sd3_clip_l",
           "type": "STRING",
-          "link": 1365,
+          "link": 1989,
           "widget": {
             "name": "sd3_clip_l"
           }
@@ -2871,7 +2924,7 @@
         {
           "name": "sd3_clip_t5xxl",
           "type": "STRING",
-          "link": 1366,
+          "link": 1990,
           "widget": {
             "name": "sd3_clip_t5xxl"
           }
@@ -2879,7 +2932,7 @@
         {
           "name": "sd3_unet_vae",
           "type": "STRING",
-          "link": 1367,
+          "link": 1991,
           "widget": {
             "name": "sd3_unet_vae"
           }
@@ -2890,10 +2943,10 @@
           "name": "CONCEPT_DATA",
           "type": "TUPLE",
           "links": [
-            1333,
-            1334,
-            1335,
-            1336
+            1979,
+            1980,
+            1981,
+            1982
           ]
         }
       ],
@@ -2925,15 +2978,17 @@
         "",
         "",
         "",
+        0,
+        0,
+        0,
+        "",
         "",
         "",
         "",
         "",
         "",
         ""
-      ],
-      "color": "#225959",
-      "bgcolor": "#366d6d"
+      ]
     },
     {
       "id": 8,
@@ -3004,8 +3059,8 @@
       "id": 134,
       "type": "PrimereAnyOutput",
       "pos": {
-        "0": 3933,
-        "1": 1325
+        "0": 4013,
+        "1": 1320
       },
       "size": {
         "0": 556.2734985351562,
@@ -3018,7 +3073,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 1335
+          "link": 1981
         }
       ],
       "outputs": [],
@@ -3026,7 +3081,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"strength_lcm_lora_model\": null,\n    \"strength_lcm_lora_clip\": null,\n    \"lightning_selector\": null,\n    \"lightning_model_step\": null,\n    \"strength_lightning_lora_model\": null,\n    \"strength_lightning_lora_clip\": null,\n    \"cascade_stage_a\": null,\n    \"cascade_stage_b\": null,\n    \"cascade_stage_c\": null,\n    \"cascade_clip\": null,\n    \"hypersd_selector\": null,\n    \"hypersd_model_step\": null,\n    \"strength_hypersd_lora_model\": null,\n    \"strength_hypersd_lora_clip\": null,\n    \"flux_selector\": \"GGUF\",\n    \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n    \"flux_weight_dtype\": \"fp8_e4m3fn\",\n    \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"flux_clip_t5xxl\": \"t5\\\\t5xxl_fp8_e4m3fn.safetensors\",\n    \"flux_clip_l\": \"clip_l.safetensors\",\n    \"flux_clip_guidance\": 4.0,\n    \"flux_vae\": \"Flux\\\\flux-vae.sft\",\n    \"flux_sampler\": \"ksampler\",\n    \"hunyuan_clip_t5xxl\": null,\n    \"hunyuan_clip_l\": null,\n    \"hunyuan_vae\": null,\n    \"sd3_clip_g\": null,\n    \"sd3_clip_l\": null,\n    \"sd3_clip_t5xxl\": null,\n    \"sd3_unet_vae\": null,\n    \"clip_selection\": false\n}"
+        "{\n    \"strength_lcm_lora_model\": null,\n    \"strength_lcm_lora_clip\": null,\n    \"lightning_selector\": null,\n    \"lightning_model_step\": null,\n    \"strength_lightning_lora_model\": null,\n    \"strength_lightning_lora_clip\": null,\n    \"cascade_stage_a\": null,\n    \"cascade_stage_b\": null,\n    \"cascade_stage_c\": null,\n    \"cascade_clip\": null,\n    \"hypersd_selector\": null,\n    \"hypersd_model_step\": null,\n    \"strength_hypersd_lora_model\": null,\n    \"strength_hypersd_lora_clip\": null,\n    \"flux_selector\": \"GGUF\",\n    \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n    \"flux_weight_dtype\": \"fp8_e4m3fn\",\n    \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"flux_clip_t5xxl\": \"t5\\\\t5xxl_fp8_e4m3fn.safetensors\",\n    \"flux_clip_l\": \"clip_l.safetensors\",\n    \"flux_clip_guidance\": 4.0,\n    \"flux_vae\": \"Flux\\\\flux-vae.sft\",\n    \"flux_sampler\": \"ksampler\",\n    \"flux_hyper_lora_type\": \"FLUX.1-dev-fp16\",\n    \"flux_hyper_lora_step\": 8,\n    \"strength_fluxhyper_lora_model\": 1.0,\n    \"strength_fluxhyper_lora_clip\": 1.0,\n    \"hunyuan_clip_t5xxl\": null,\n    \"hunyuan_clip_l\": null,\n    \"hunyuan_vae\": null,\n    \"sd3_clip_g\": null,\n    \"sd3_clip_l\": null,\n    \"sd3_clip_t5xxl\": null,\n    \"sd3_unet_vae\": null,\n    \"clip_selection\": true,\n    \"use_flux_hyper_lora\": true\n}"
       ]
     },
     {
@@ -3052,7 +3107,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 1336,
+          "link": 1982,
           "shape": 7
         },
         {
@@ -3076,7 +3131,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1302,
+          "link": 1914,
           "widget": {
             "name": "model_concept"
           },
@@ -3156,7 +3211,7 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 1334,
+          "link": 1980,
           "shape": 7
         },
         {
@@ -3275,7 +3330,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1301,
+          "link": 1913,
           "widget": {
             "name": "model_concept"
           },
@@ -3322,7 +3377,7 @@
         false,
         1.6,
         2.8,
-        668928904181518,
+        364356430994154,
         "randomize",
         "SD1",
         "Auto"
@@ -3372,7 +3427,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1298,
+          "link": 1910,
           "widget": {
             "name": "model_concept"
           }
@@ -3508,7 +3563,7 @@
         1,
         0.8,
         1.4,
-        386889771994559,
+        791840292183009,
         "randomize",
         false,
         "cpu",
@@ -3600,7 +3655,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1299,
+          "link": 1911,
           "widget": {
             "name": "model_concept"
           }
@@ -3851,7 +3906,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 1295,
+          "link": 1907,
           "widget": {
             "name": "steps"
           }
@@ -3859,7 +3914,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 1296,
+          "link": 1908,
           "widget": {
             "name": "cfg"
           }
@@ -3867,7 +3922,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 1293,
+          "link": 1905,
           "widget": {
             "name": "sampler_name"
           }
@@ -3875,7 +3930,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 1294,
+          "link": 1906,
           "widget": {
             "name": "scheduler_name"
           }
@@ -3883,7 +3938,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1300,
+          "link": 1992,
           "widget": {
             "name": "model_concept"
           },
@@ -3908,7 +3963,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        515915414203771,
+        314960629833864,
         "randomize",
         20,
         8,
@@ -4005,7 +4060,7 @@
         90,
         "Checkpoint",
         "Overwrite",
-        "Flux\\visionRealistic_v1FluxDevFp8.safetensors",
+        "Flux\\flux1-dev-Q4_1.safetensors",
         null
       ],
       "color": "#549494",
@@ -4085,7 +4140,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 1333,
+          "link": 1979,
           "shape": 7
         },
         {
@@ -4179,7 +4234,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 1297,
+          "link": 1909,
           "widget": {
             "name": "model_concept"
           }
@@ -4258,7 +4313,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1403,
+        1078,
         "randomize",
         "",
         "",
@@ -4921,828 +4976,868 @@
       "STRING"
     ],
     [
-      1236,
-      3,
-      1,
-      146,
-      0,
-      "STRING"
-    ],
-    [
-      1237,
-      117,
-      0,
-      146,
-      1,
-      "COMBO"
-    ],
-    [
-      1238,
-      117,
-      1,
-      146,
-      2,
-      "COMBO"
-    ],
-    [
-      1239,
-      117,
-      2,
-      146,
-      3,
-      "INT"
-    ],
-    [
-      1240,
-      117,
-      3,
-      146,
-      4,
-      "FLOAT"
-    ],
-    [
-      1241,
-      128,
-      0,
-      146,
-      5,
-      "COMBO"
-    ],
-    [
-      1242,
-      128,
-      1,
-      146,
-      6,
-      "COMBO"
-    ],
-    [
-      1243,
-      128,
-      2,
-      146,
-      7,
-      "INT"
-    ],
-    [
-      1244,
-      128,
-      3,
-      146,
-      8,
-      "FLOAT"
-    ],
-    [
-      1245,
-      126,
-      0,
-      146,
-      9,
-      "COMBO"
-    ],
-    [
-      1246,
-      126,
-      1,
-      146,
-      10,
-      "COMBO"
-    ],
-    [
-      1247,
-      126,
-      2,
-      146,
-      11,
-      "INT"
-    ],
-    [
-      1248,
-      126,
-      3,
-      146,
-      12,
-      "FLOAT"
-    ],
-    [
-      1249,
-      123,
-      0,
-      146,
-      13,
-      "COMBO"
-    ],
-    [
-      1250,
-      123,
-      1,
-      146,
-      14,
-      "COMBO"
-    ],
-    [
-      1251,
-      123,
-      2,
-      146,
-      15,
-      "INT"
-    ],
-    [
-      1252,
-      123,
-      3,
-      146,
-      16,
-      "FLOAT"
-    ],
-    [
-      1253,
-      116,
-      0,
-      146,
-      17,
-      "COMBO"
-    ],
-    [
-      1254,
-      116,
-      1,
-      146,
-      18,
-      "COMBO"
-    ],
-    [
-      1255,
-      116,
-      2,
-      146,
-      19,
-      "INT"
-    ],
-    [
-      1256,
-      116,
-      3,
-      146,
-      20,
-      "FLOAT"
-    ],
-    [
-      1257,
-      115,
-      0,
-      146,
-      21,
-      "COMBO"
-    ],
-    [
-      1258,
-      115,
-      1,
-      146,
-      22,
-      "COMBO"
-    ],
-    [
-      1259,
-      115,
-      2,
-      146,
-      23,
-      "INT"
-    ],
-    [
-      1260,
-      115,
-      3,
-      146,
-      24,
-      "FLOAT"
-    ],
-    [
-      1261,
-      122,
-      0,
-      146,
-      25,
-      "COMBO"
-    ],
-    [
-      1262,
-      122,
-      1,
-      146,
-      26,
-      "COMBO"
-    ],
-    [
-      1263,
-      122,
-      2,
-      146,
-      27,
-      "INT"
-    ],
-    [
-      1264,
-      122,
-      3,
-      146,
-      28,
-      "FLOAT"
-    ],
-    [
-      1265,
-      129,
-      0,
-      146,
-      29,
-      "COMBO"
-    ],
-    [
-      1266,
-      129,
-      1,
-      146,
-      30,
-      "COMBO"
-    ],
-    [
-      1267,
-      129,
-      2,
-      146,
-      31,
-      "INT"
-    ],
-    [
-      1268,
-      129,
-      3,
-      146,
-      32,
-      "FLOAT"
-    ],
-    [
-      1269,
-      125,
-      0,
-      146,
-      33,
-      "COMBO"
-    ],
-    [
-      1270,
-      125,
-      1,
-      146,
-      34,
-      "COMBO"
-    ],
-    [
-      1271,
-      125,
-      2,
-      146,
-      35,
-      "INT"
-    ],
-    [
-      1272,
-      125,
-      3,
-      146,
-      36,
-      "FLOAT"
-    ],
-    [
-      1273,
-      120,
-      0,
-      146,
-      37,
-      "COMBO"
-    ],
-    [
-      1274,
-      120,
-      1,
-      146,
-      38,
-      "COMBO"
-    ],
-    [
-      1275,
-      120,
-      2,
-      146,
-      39,
-      "INT"
-    ],
-    [
-      1276,
-      120,
-      3,
-      146,
-      40,
-      "FLOAT"
-    ],
-    [
-      1277,
-      124,
-      0,
-      146,
-      41,
-      "COMBO"
-    ],
-    [
-      1278,
-      124,
-      1,
-      146,
-      42,
-      "COMBO"
-    ],
-    [
-      1279,
-      124,
-      2,
-      146,
-      43,
-      "INT"
-    ],
-    [
-      1280,
-      124,
-      3,
-      146,
-      44,
-      "FLOAT"
-    ],
-    [
-      1281,
-      118,
-      0,
-      146,
-      45,
-      "COMBO"
-    ],
-    [
-      1282,
-      118,
-      1,
-      146,
-      46,
-      "COMBO"
-    ],
-    [
-      1283,
-      118,
-      2,
-      146,
-      47,
-      "INT"
-    ],
-    [
-      1284,
-      118,
-      3,
-      146,
-      48,
-      "FLOAT"
-    ],
-    [
-      1285,
-      119,
-      0,
-      146,
-      49,
-      "COMBO"
-    ],
-    [
-      1286,
-      119,
-      1,
-      146,
-      50,
-      "COMBO"
-    ],
-    [
-      1287,
-      119,
-      2,
-      146,
-      51,
-      "INT"
-    ],
-    [
-      1288,
-      119,
-      3,
-      146,
-      52,
-      "FLOAT"
-    ],
-    [
-      1289,
-      121,
-      0,
-      146,
-      53,
-      "COMBO"
-    ],
-    [
-      1290,
-      121,
-      1,
-      146,
-      54,
-      "COMBO"
-    ],
-    [
-      1291,
-      121,
-      2,
-      146,
-      55,
-      "INT"
-    ],
-    [
-      1292,
-      121,
-      3,
-      146,
-      56,
-      "FLOAT"
-    ],
-    [
-      1293,
-      146,
-      0,
-      137,
-      8,
-      "COMBO"
-    ],
-    [
-      1294,
-      146,
-      1,
-      137,
-      9,
-      "COMBO"
-    ],
-    [
-      1295,
-      146,
-      2,
-      137,
-      6,
-      "INT"
-    ],
-    [
-      1296,
-      146,
-      3,
-      137,
-      7,
-      "FLOAT"
-    ],
-    [
-      1297,
-      146,
-      4,
-      110,
-      14,
-      "STRING"
-    ],
-    [
-      1298,
-      146,
-      4,
-      89,
-      3,
-      "STRING"
-    ],
-    [
-      1299,
-      146,
-      4,
-      106,
-      10,
-      "STRING"
-    ],
-    [
-      1300,
-      146,
-      4,
-      137,
-      10,
-      "STRING"
-    ],
-    [
-      1301,
-      146,
-      4,
-      131,
-      2,
-      "STRING"
-    ],
-    [
-      1302,
-      146,
-      4,
-      145,
-      5,
-      "STRING"
-    ],
-    [
-      1333,
-      147,
-      0,
-      110,
-      1,
-      "TUPLE"
-    ],
-    [
-      1334,
-      147,
-      0,
-      132,
-      2,
-      "TUPLE"
-    ],
-    [
-      1335,
-      147,
-      0,
-      134,
-      0,
-      "*"
-    ],
-    [
-      1336,
-      147,
-      0,
-      145,
-      1,
-      "TUPLE"
-    ],
-    [
-      1337,
-      146,
-      5,
-      147,
-      0,
-      "CLIP_SELECTION"
-    ],
-    [
-      1338,
-      146,
-      6,
-      147,
-      1,
-      "INT"
-    ],
-    [
-      1339,
-      146,
-      7,
-      147,
-      2,
-      "INT"
-    ],
-    [
-      1340,
-      146,
-      8,
-      147,
-      3,
-      "STRING"
-    ],
-    [
-      1341,
-      146,
-      9,
-      147,
-      4,
-      "INT"
-    ],
-    [
-      1342,
-      146,
-      10,
-      147,
-      5,
-      "INT"
-    ],
-    [
-      1343,
-      146,
-      11,
-      147,
-      6,
-      "INT"
-    ],
-    [
-      1344,
-      146,
-      12,
-      147,
-      7,
-      "STRING"
-    ],
-    [
-      1345,
-      146,
-      13,
-      147,
-      8,
-      "STRING"
-    ],
-    [
-      1346,
-      146,
-      14,
-      147,
-      9,
-      "STRING"
-    ],
-    [
-      1347,
-      146,
-      15,
-      147,
-      10,
-      "STRING"
-    ],
-    [
-      1348,
-      146,
-      16,
-      147,
-      11,
-      "STRING"
-    ],
-    [
-      1349,
-      146,
-      17,
-      147,
-      12,
-      "INT"
-    ],
-    [
-      1350,
-      146,
-      18,
-      147,
-      13,
-      "INT"
-    ],
-    [
-      1351,
-      146,
-      19,
-      147,
-      14,
-      "INT"
-    ],
-    [
-      1352,
-      146,
-      20,
-      147,
-      15,
-      "STRING"
-    ],
-    [
-      1353,
-      146,
-      21,
-      147,
-      16,
-      "STRING"
-    ],
-    [
-      1354,
-      146,
-      22,
-      147,
-      17,
-      "STRING"
-    ],
-    [
-      1355,
-      146,
-      23,
-      147,
-      18,
-      "STRING"
-    ],
-    [
-      1356,
-      146,
-      24,
-      147,
-      19,
-      "STRING"
-    ],
-    [
-      1357,
-      146,
-      25,
-      147,
-      20,
-      "STRING"
-    ],
-    [
-      1358,
-      146,
-      26,
-      147,
-      21,
-      "FLOAT"
-    ],
-    [
-      1359,
-      146,
-      27,
-      147,
-      22,
-      "STRING"
-    ],
-    [
-      1360,
-      146,
-      28,
-      147,
-      23,
-      "STRING"
-    ],
-    [
-      1361,
-      146,
-      29,
-      147,
-      24,
-      "STRING"
-    ],
-    [
-      1362,
-      146,
-      30,
-      147,
-      25,
-      "STRING"
-    ],
-    [
-      1363,
-      146,
-      31,
-      147,
-      26,
-      "STRING"
-    ],
-    [
-      1364,
-      146,
-      32,
-      147,
-      27,
-      "STRING"
-    ],
-    [
-      1365,
-      146,
-      33,
-      147,
-      28,
-      "STRING"
-    ],
-    [
-      1366,
-      146,
-      34,
-      147,
-      29,
-      "STRING"
-    ],
-    [
-      1367,
-      146,
-      35,
-      147,
-      30,
-      "STRING"
-    ],
-    [
       1372,
       145,
       2,
       16,
       1,
       "VAE"
+    ],
+    [
+      1848,
+      3,
+      1,
+      160,
+      0,
+      "STRING"
+    ],
+    [
+      1849,
+      117,
+      0,
+      160,
+      1,
+      "COMBO"
+    ],
+    [
+      1850,
+      117,
+      1,
+      160,
+      2,
+      "COMBO"
+    ],
+    [
+      1851,
+      117,
+      2,
+      160,
+      3,
+      "INT"
+    ],
+    [
+      1852,
+      117,
+      3,
+      160,
+      4,
+      "FLOAT"
+    ],
+    [
+      1853,
+      128,
+      0,
+      160,
+      5,
+      "COMBO"
+    ],
+    [
+      1854,
+      128,
+      1,
+      160,
+      6,
+      "COMBO"
+    ],
+    [
+      1855,
+      128,
+      2,
+      160,
+      7,
+      "INT"
+    ],
+    [
+      1856,
+      128,
+      3,
+      160,
+      8,
+      "FLOAT"
+    ],
+    [
+      1857,
+      126,
+      0,
+      160,
+      9,
+      "COMBO"
+    ],
+    [
+      1858,
+      126,
+      1,
+      160,
+      10,
+      "COMBO"
+    ],
+    [
+      1859,
+      126,
+      2,
+      160,
+      11,
+      "INT"
+    ],
+    [
+      1860,
+      126,
+      3,
+      160,
+      12,
+      "FLOAT"
+    ],
+    [
+      1861,
+      123,
+      0,
+      160,
+      13,
+      "COMBO"
+    ],
+    [
+      1862,
+      123,
+      1,
+      160,
+      14,
+      "COMBO"
+    ],
+    [
+      1863,
+      123,
+      2,
+      160,
+      15,
+      "INT"
+    ],
+    [
+      1864,
+      123,
+      3,
+      160,
+      16,
+      "FLOAT"
+    ],
+    [
+      1865,
+      116,
+      0,
+      160,
+      17,
+      "COMBO"
+    ],
+    [
+      1866,
+      116,
+      1,
+      160,
+      18,
+      "COMBO"
+    ],
+    [
+      1867,
+      116,
+      2,
+      160,
+      19,
+      "INT"
+    ],
+    [
+      1868,
+      116,
+      3,
+      160,
+      20,
+      "FLOAT"
+    ],
+    [
+      1869,
+      115,
+      0,
+      160,
+      21,
+      "COMBO"
+    ],
+    [
+      1870,
+      115,
+      1,
+      160,
+      22,
+      "COMBO"
+    ],
+    [
+      1871,
+      115,
+      2,
+      160,
+      23,
+      "INT"
+    ],
+    [
+      1872,
+      115,
+      3,
+      160,
+      24,
+      "FLOAT"
+    ],
+    [
+      1873,
+      122,
+      0,
+      160,
+      25,
+      "COMBO"
+    ],
+    [
+      1874,
+      122,
+      1,
+      160,
+      26,
+      "COMBO"
+    ],
+    [
+      1875,
+      122,
+      2,
+      160,
+      27,
+      "INT"
+    ],
+    [
+      1876,
+      122,
+      3,
+      160,
+      28,
+      "FLOAT"
+    ],
+    [
+      1877,
+      129,
+      0,
+      160,
+      29,
+      "COMBO"
+    ],
+    [
+      1878,
+      129,
+      1,
+      160,
+      30,
+      "COMBO"
+    ],
+    [
+      1879,
+      129,
+      2,
+      160,
+      31,
+      "INT"
+    ],
+    [
+      1880,
+      129,
+      3,
+      160,
+      32,
+      "FLOAT"
+    ],
+    [
+      1881,
+      125,
+      0,
+      160,
+      33,
+      "COMBO"
+    ],
+    [
+      1882,
+      125,
+      1,
+      160,
+      34,
+      "COMBO"
+    ],
+    [
+      1883,
+      125,
+      2,
+      160,
+      35,
+      "INT"
+    ],
+    [
+      1884,
+      125,
+      3,
+      160,
+      36,
+      "FLOAT"
+    ],
+    [
+      1885,
+      120,
+      0,
+      160,
+      37,
+      "COMBO"
+    ],
+    [
+      1886,
+      120,
+      1,
+      160,
+      38,
+      "COMBO"
+    ],
+    [
+      1887,
+      120,
+      2,
+      160,
+      39,
+      "INT"
+    ],
+    [
+      1888,
+      120,
+      3,
+      160,
+      40,
+      "FLOAT"
+    ],
+    [
+      1889,
+      124,
+      0,
+      160,
+      41,
+      "COMBO"
+    ],
+    [
+      1890,
+      124,
+      1,
+      160,
+      42,
+      "COMBO"
+    ],
+    [
+      1891,
+      124,
+      2,
+      160,
+      43,
+      "INT"
+    ],
+    [
+      1892,
+      124,
+      3,
+      160,
+      44,
+      "FLOAT"
+    ],
+    [
+      1893,
+      118,
+      0,
+      160,
+      45,
+      "COMBO"
+    ],
+    [
+      1894,
+      118,
+      1,
+      160,
+      46,
+      "COMBO"
+    ],
+    [
+      1895,
+      118,
+      2,
+      160,
+      47,
+      "INT"
+    ],
+    [
+      1896,
+      118,
+      3,
+      160,
+      48,
+      "FLOAT"
+    ],
+    [
+      1897,
+      119,
+      0,
+      160,
+      49,
+      "COMBO"
+    ],
+    [
+      1898,
+      119,
+      1,
+      160,
+      50,
+      "COMBO"
+    ],
+    [
+      1899,
+      119,
+      2,
+      160,
+      51,
+      "INT"
+    ],
+    [
+      1900,
+      119,
+      3,
+      160,
+      52,
+      "FLOAT"
+    ],
+    [
+      1901,
+      121,
+      0,
+      160,
+      53,
+      "COMBO"
+    ],
+    [
+      1902,
+      121,
+      1,
+      160,
+      54,
+      "COMBO"
+    ],
+    [
+      1903,
+      121,
+      2,
+      160,
+      55,
+      "INT"
+    ],
+    [
+      1904,
+      121,
+      3,
+      160,
+      56,
+      "FLOAT"
+    ],
+    [
+      1905,
+      160,
+      0,
+      137,
+      8,
+      "COMBO"
+    ],
+    [
+      1906,
+      160,
+      1,
+      137,
+      9,
+      "COMBO"
+    ],
+    [
+      1907,
+      160,
+      2,
+      137,
+      6,
+      "INT"
+    ],
+    [
+      1908,
+      160,
+      3,
+      137,
+      7,
+      "FLOAT"
+    ],
+    [
+      1909,
+      160,
+      4,
+      110,
+      14,
+      "STRING"
+    ],
+    [
+      1910,
+      160,
+      4,
+      89,
+      3,
+      "STRING"
+    ],
+    [
+      1911,
+      160,
+      4,
+      106,
+      10,
+      "STRING"
+    ],
+    [
+      1913,
+      160,
+      4,
+      131,
+      2,
+      "STRING"
+    ],
+    [
+      1914,
+      160,
+      4,
+      145,
+      5,
+      "STRING"
+    ],
+    [
+      1947,
+      160,
+      5,
+      161,
+      0,
+      "CLIP_SELECTION"
+    ],
+    [
+      1948,
+      160,
+      29,
+      161,
+      1,
+      "FLUX_HYPER_LORA"
+    ],
+    [
+      1949,
+      160,
+      6,
+      161,
+      2,
+      "INT"
+    ],
+    [
+      1950,
+      160,
+      7,
+      161,
+      3,
+      "INT"
+    ],
+    [
+      1951,
+      160,
+      8,
+      161,
+      4,
+      "STRING"
+    ],
+    [
+      1952,
+      160,
+      9,
+      161,
+      5,
+      "INT"
+    ],
+    [
+      1953,
+      160,
+      10,
+      161,
+      6,
+      "INT"
+    ],
+    [
+      1954,
+      160,
+      11,
+      161,
+      7,
+      "INT"
+    ],
+    [
+      1955,
+      160,
+      12,
+      161,
+      8,
+      "STRING"
+    ],
+    [
+      1956,
+      160,
+      13,
+      161,
+      9,
+      "STRING"
+    ],
+    [
+      1957,
+      160,
+      14,
+      161,
+      10,
+      "STRING"
+    ],
+    [
+      1958,
+      160,
+      15,
+      161,
+      11,
+      "STRING"
+    ],
+    [
+      1959,
+      160,
+      16,
+      161,
+      12,
+      "STRING"
+    ],
+    [
+      1960,
+      160,
+      17,
+      161,
+      13,
+      "INT"
+    ],
+    [
+      1961,
+      160,
+      18,
+      161,
+      14,
+      "INT"
+    ],
+    [
+      1962,
+      160,
+      19,
+      161,
+      15,
+      "INT"
+    ],
+    [
+      1963,
+      160,
+      20,
+      161,
+      16,
+      "STRING"
+    ],
+    [
+      1964,
+      160,
+      21,
+      161,
+      17,
+      "STRING"
+    ],
+    [
+      1965,
+      160,
+      22,
+      161,
+      18,
+      "STRING"
+    ],
+    [
+      1966,
+      160,
+      23,
+      161,
+      19,
+      "STRING"
+    ],
+    [
+      1967,
+      160,
+      24,
+      161,
+      20,
+      "STRING"
+    ],
+    [
+      1968,
+      160,
+      25,
+      161,
+      21,
+      "STRING"
+    ],
+    [
+      1969,
+      160,
+      26,
+      161,
+      22,
+      "FLOAT"
+    ],
+    [
+      1970,
+      160,
+      27,
+      161,
+      23,
+      "STRING"
+    ],
+    [
+      1971,
+      160,
+      28,
+      161,
+      24,
+      "STRING"
+    ],
+    [
+      1972,
+      160,
+      30,
+      161,
+      25,
+      "STRING"
+    ],
+    [
+      1973,
+      160,
+      31,
+      161,
+      26,
+      "INT"
+    ],
+    [
+      1979,
+      161,
+      0,
+      110,
+      1,
+      "TUPLE"
+    ],
+    [
+      1980,
+      161,
+      0,
+      132,
+      2,
+      "TUPLE"
+    ],
+    [
+      1981,
+      161,
+      0,
+      134,
+      0,
+      "*"
+    ],
+    [
+      1982,
+      161,
+      0,
+      145,
+      1,
+      "TUPLE"
+    ],
+    [
+      1983,
+      160,
+      32,
+      161,
+      27,
+      "INT"
+    ],
+    [
+      1984,
+      160,
+      33,
+      161,
+      28,
+      "INT"
+    ],
+    [
+      1985,
+      160,
+      34,
+      161,
+      29,
+      "STRING"
+    ],
+    [
+      1986,
+      160,
+      35,
+      161,
+      30,
+      "STRING"
+    ],
+    [
+      1987,
+      160,
+      36,
+      161,
+      31,
+      "STRING"
+    ],
+    [
+      1988,
+      160,
+      37,
+      161,
+      32,
+      "STRING"
+    ],
+    [
+      1989,
+      160,
+      38,
+      161,
+      33,
+      "STRING"
+    ],
+    [
+      1990,
+      160,
+      39,
+      161,
+      34,
+      "STRING"
+    ],
+    [
+      1991,
+      160,
+      40,
+      161,
+      35,
+      "STRING"
+    ],
+    [
+      1992,
+      160,
+      4,
+      137,
+      10,
+      "STRING"
     ]
   ],
   "groups": [
@@ -5810,9 +5905,9 @@
       "title": "Concept sampler group",
       "bounding": [
         1916,
-        1134,
-        1582,
-        2164
+        1136,
+        1579,
+        2280
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -5822,10 +5917,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 1,
       "offset": [
-        -818.0409597219598,
-        -641.9472979273371
+        -2197.5401324697723,
+        -989.462997306178
       ]
     }
   },

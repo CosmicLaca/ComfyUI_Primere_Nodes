@@ -23,6 +23,7 @@ import comfy.sd
 import comfy.model_detection
 import comfy.utils
 from ..utils import comfy_dir
+from ..utils import here
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
@@ -175,6 +176,7 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "STRING",
                     "STRING", "INT", "INT", "INT",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING",  "STRING",
+                    "FLUX_HYPER_LORA", "STRING", "INT", "INT", "INT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING"
                     )
@@ -185,6 +187,7 @@ class PrimereModelConceptSelector:
                     "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
                     "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL", "STRENGTH_HYPERSD_LORA_CLIP",
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
+                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "STRENGTH_FLUXHYPER_LORA_MODEL", "STRENGTH_FLUXHYPER_LORA_CLIP",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE"
                     )
@@ -250,6 +253,11 @@ class PrimereModelConceptSelector:
             "flux_clip_guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
             "flux_vae": (["None"] + VAELIST,),
             "flux_sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
+            "use_flux_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore Lora"}),
+            "flux_hyper_lora_type": (["FLUX.1-dev", "FLUX.1-dev-fp16"], {"default": "FLUX.1-dev-fp16"}),
+            "flux_hyper_lora_step": ([8, 16], {"default": 8}),
+            "strength_fluxhyper_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
+            "strength_fluxhyper_lora_clip": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
@@ -272,16 +280,16 @@ class PrimereModelConceptSelector:
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
                              model_version = None,
-                             default_sampler_name='euler', default_scheduler_name='normal', default_cfg_scale=7, default_steps=12,
-                             flux_sampler = 'ksampler',
+                             default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              model_concept = 'Auto',
-                             clip_selection=True,
+                             clip_selection = True,
                              strength_lcm_lora_model = 1, strength_lcm_lora_clip = 1,
                              lightning_selector = "LORA", lightning_model_step = 8, lightning_sampler = False,
                              strength_lightning_lora_model = 1, strength_lightning_lora_clip = 1,
                              hypersd_selector = "LORA", hypersd_model_step = 8, hypersd_sampler = False,
                              strength_hypersd_lora_model = 1, strength_hypersd_lora_clip = 1,
-                             flux_selector = "DIFFUSION", flux_clip_guidance = 3.5,
+                             flux_sampler = 'ksampler', flux_selector = "DIFFUSION", flux_clip_guidance = 3.5,
+                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1, strength_fluxhyper_lora_clip = 1,
                              **kwargs
                              ):
 
@@ -365,6 +373,11 @@ class PrimereModelConceptSelector:
             flux_clip_guidance = None
             flux_vae = None
             flux_sampler = None
+            use_flux_hyper_lora = None
+            flux_hyper_lora_type = None
+            flux_hyper_lora_step = None
+            strength_fluxhyper_lora_model = None
+            strength_fluxhyper_lora_clip = None
 
         if model_concept != 'Hunyuan':
             hunyuan_clip_t5xxl = None
@@ -377,6 +390,9 @@ class PrimereModelConceptSelector:
             sd3_clip_t5xxl = None
             sd3_unet_vae = None
 
+        if model_concept == 'Flux' and use_flux_hyper_lora == True:
+            steps = flux_hyper_lora_step
+
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
                 model_concept, clip_selection,
                 strength_lcm_lora_model, strength_lcm_lora_clip,
@@ -384,6 +400,7 @@ class PrimereModelConceptSelector:
                 cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
                 hypersd_selector, hypersd_model_step, strength_hypersd_lora_model, strength_hypersd_lora_clip,
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
+                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, strength_fluxhyper_lora_model, strength_fluxhyper_lora_clip,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
                 )
@@ -423,6 +440,7 @@ class PrimereCKPTLoader:
                           cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
                           loaded_model = None, loaded_clip = None, loaded_vae = None,
                           flux_selector = 'DIFFUSION', flux_diffusion = None, flux_weight_dtype = None, flux_gguf = None, flux_clip_t5xxl = None, flux_clip_l = None, flux_clip_guidance = None, flux_vae = None,
+                          use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1, strength_fluxhyper_lora_clip = 1,
                           hunyuan_clip_t5xxl = None, hunyuan_clip_l = None, hunyuan_vae = None,
                           sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None
                           ):
@@ -490,6 +508,17 @@ class PrimereCKPTLoader:
                 flux_clip_guidance = concept_data['flux_clip_guidance']
             if 'flux_vae' in concept_data:
                 flux_vae = concept_data['flux_vae']
+            if 'use_flux_hyper_lora' in concept_data:
+                use_flux_hyper_lora = concept_data['use_flux_hyper_lora']
+            if 'flux_hyper_lora_type' in concept_data:
+                flux_hyper_lora_type = concept_data['flux_hyper_lora_type']
+            if 'flux_hyper_lora_step' in concept_data:
+                flux_hyper_lora_step = concept_data['flux_hyper_lora_step']
+            if 'strength_fluxhyper_lora_model' in concept_data:
+                strength_fluxhyper_lora_model = concept_data['strength_fluxhyper_lora_model']
+            if 'strength_fluxhyper_lora_clip' in concept_data:
+                strength_fluxhyper_lora_clip = concept_data['strength_fluxhyper_lora_clip']
+
             # if 'flux_sampler' in concept_data:
             #    flux_sampler = concept_data['flux_sampler']
             if 'sd3_clip_g' in concept_data:
@@ -587,13 +616,13 @@ class PrimereCKPTLoader:
                             MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
                             DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
-                            return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
+                            # return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
                         case 'GGUF':
-                            MODEL_GGUF = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
-                            CLIP_GGUF = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
+                            DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
-                            return (MODEL_GGUF,) + (CLIP_GGUF,) + (FLUX_VAE,) + (MODEL_VERSION,)
+                            # return (MODEL_GGUF,) + (CLIP_GGUF,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
                         case 'SAFETENSOR':
                             fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
@@ -632,7 +661,75 @@ class PrimereCKPTLoader:
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
-                            return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
+                    if use_flux_hyper_lora == 'True-later':
+                        print('Kell flux lora....')
+                        FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
+                        FLUX_DEV_FP16_LORA8 = 'https://huggingface.co/nakodanei/Hyper-FLUX.1-dev-8steps-lora-fp16/resolve/main/Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors?download=true'
+                        FLUX_DEV_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors?download=true'
+                        DOWNLOADED_FLUX_DEV_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors')
+                        DOWNLOADED_FLUX_DEV_FP16_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora.safetensors')
+                        DOWNLOADED_FLUX_DEV_LORA16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-16steps-lora.safetensors')
+
+                        if os.path.exists(DOWNLOADED_FLUX_DEV_LORA8) == False:
+                            print('Downloading HYPER DEV 8STEP Lora....')
+                            reqsdlcm = requests.get(FLUX_DEV_LORA8, allow_redirects=True)
+                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                                open(DOWNLOADED_FLUX_DEV_LORA8, 'wb').write(reqsdlcm.content)
+                            else:
+                                print('ERROR: Cannot dowload HYPER DEV 8STEP Lora')
+
+                        if os.path.exists(DOWNLOADED_FLUX_DEV_FP16_LORA8) == False:
+                            print('Downloading HYPER DEV 8STEP FP16 Lora....')
+                            reqsdlcm = requests.get(FLUX_DEV_FP16_LORA8, allow_redirects=True)
+                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                                open(DOWNLOADED_FLUX_DEV_FP16_LORA8, 'wb').write(reqsdlcm.content)
+                            else:
+                                print('ERROR: Cannot dowload HYPER DEV 8STEP FP16 Lora')
+
+                        if os.path.exists(DOWNLOADED_FLUX_DEV_LORA16) == False:
+                            print('Downloading HYPER DEV 16STEP LORA....')
+                            reqsdlcm = requests.get(FLUX_DEV_LORA16, allow_redirects=True)
+                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                                open(DOWNLOADED_FLUX_DEV_LORA16, 'wb').write(reqsdlcm.content)
+                            else:
+                                print('ERROR: Cannot dowload HYPER DEV 16STEP Lora')
+
+                        print('fluxlorapath test...')
+                        downloaded_filelist_filtered = utility.getDownloadedFiles()
+                        print(downloaded_filelist_filtered)
+                        allHyperFluxLoras = list(filter(lambda a: 'hyper-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        print(allHyperFluxLoras)
+                        finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold(), allHyperFluxLoras))
+                        print(finalLoras)
+                        if flux_hyper_lora_type == 'FLUX.1-dev-fp16':
+                            finalLoras = list(filter(lambda a: 'steps-lora-fp16'.casefold() in a.casefold(), finalLoras))
+                            print(finalLoras)
+
+                        LORA_FILE = finalLoras[0]
+                        print(LORA_FILE)
+                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+                        print(FULL_LORA_PATH)
+
+                        if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                            print('Lora path ok')
+                            if strength_fluxhyper_lora_model != 0 or strength_fluxhyper_lora_clip != 0:
+                                lora = None
+                                if self.loaded_lora is not None:
+                                    if self.loaded_lora[0] == FULL_LORA_PATH:
+                                        lora = self.loaded_lora[1]
+                                    else:
+                                        temp = self.loaded_lora
+                                        self.loaded_lora = None
+                                        del temp
+
+                                if lora is None:
+                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load = False)
+                                    self.loaded_lora = (FULL_LORA_PATH, lora)
+
+                                MODEL_DIFFUSION, DUAL_CLIP = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, DUAL_CLIP, lora, strength_fluxhyper_lora_model, strength_fluxhyper_lora_clip)
+                                print('Flux lora loaded...')
+
+                    return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
             case 'Hyper':
                 if hypersd_selector == 'UNET':
@@ -643,7 +740,6 @@ class PrimereCKPTLoader:
                     unet_name = ModelConceptChanges['unet_name']
                     hyperModeValid = ModelConceptChanges['hyperModeValid']
                     OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, None, lora_name, unet_name)[0]
-                    # (self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, lora_model_strength = 1, lora_clip_strength = 0):
                     return (OUTPUT_MODEL[0],) + (OUTPUT_MODEL[1],) + (OUTPUT_MODEL[2],) + (MODEL_VERSION,)
 
         path = Path(ckpt_name)
@@ -743,6 +839,131 @@ class PrimereCKPTLoader:
             case 'Hyper' | 'Lightning':
                 if model_concept == 'Hyper' and MODEL_VERSION == 'Hyper':
                     MODEL_VERSION = 'SDXL'
+
+                print('Hyper Ligntning loras check....')
+                if lightning_selector == 'LORA':
+                    Lightning_SDXL_2 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors?download=true'
+                    DOWNLOADED_Lightning_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_2step_lora.safetensors')
+
+                    Lightning_SDXL_4 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_4step_lora.safetensors?download=true'
+                    DOWNLOADED_Lightning_SDXL_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_4step_lora.safetensors')
+
+                    Lightning_SDXL_8 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_8step_lora.safetensors?download=true'
+                    DOWNLOADED_Lightning_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_8step_lora.safetensors')
+
+                    if os.path.exists(DOWNLOADED_Lightning_SDXL_2) == False:
+                        print('Downloading SDXL Lightning LORA S2....')
+                        reqsdlcm = requests.get(Lightning_SDXL_2, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Lightning_SDXL_2, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Lightning LORA S2')
+
+                    if os.path.exists(DOWNLOADED_Lightning_SDXL_4) == False:
+                        print('Downloading SDXL Lightning LORA S4....')
+                        reqsdlcm = requests.get(Lightning_SDXL_4, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Lightning_SDXL_4, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Lightning LORA S4')
+
+                    if os.path.exists(DOWNLOADED_Lightning_SDXL_8) == False:
+                        print('Downloading SDXL Lightning LORA S8....')
+                        reqsdlcm = requests.get(Lightning_SDXL_8, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Lightning_SDXL_8, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Lightning LORA S8')
+
+                if hypersd_selector == 'LORA':
+                    Hyper_SD_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SD_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-1step-lora.safetensors')
+
+                    Hyper_SD_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SD_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-2steps-lora.safetensors')
+
+                    Hyper_SD_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SD_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-4steps-lora.safetensors')
+
+                    Hyper_SD_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SD_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-8steps-lora.safetensors')
+
+                    Hyper_SDXL_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SDXL_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-1step-lora.safetensors')
+
+                    Hyper_SDXL_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-2steps-lora.safetensors')
+
+                    Hyper_SDXL_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SDXL_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-4steps-lora.safetensors')
+
+                    Hyper_SDXL_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-8steps-lora.safetensors')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SD_1) == False:
+                        print('Downloading SD Hyper LORA S1....')
+                        reqsdlcm = requests.get(Hyper_SD_1, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SD_1, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SD Hyper LORA S1')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SD_2) == False:
+                        print('Downloading SD Hyper LORA S2....')
+                        reqsdlcm = requests.get(Hyper_SD_2, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SD_2, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SD Hyper LORA S2')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SD_4) == False:
+                        print('Downloading SD Hyper LORA S4....')
+                        reqsdlcm = requests.get(Hyper_SD_4, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SD_4, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SD Hyper LORA S4')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SD_8) == False:
+                        print('Downloading SD Hyper LORA S8....')
+                        reqsdlcm = requests.get(Hyper_SD_8, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SD_8, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SD Hyper LORA S8')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SDXL_1) == False:
+                        print('Downloading SDXL Hyper LORA S1....')
+                        reqsdlcm = requests.get(Hyper_SDXL_1, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SDXL_1, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Hyper LORA S1')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SDXL_2) == False:
+                        print('Downloading SDXL Hyper LORA S2....')
+                        reqsdlcm = requests.get(Hyper_SDXL_2, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SDXL_2, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Hyper LORA S2')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SDXL_4) == False:
+                        print('Downloading SDXL Hyper LORA S4....')
+                        reqsdlcm = requests.get(Hyper_SDXL_4, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SDXL_4, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Hyper LORA S4')
+
+                    if os.path.exists(DOWNLOADED_Hyper_SDXL_8) == False:
+                        print('Downloading SDXL Hyper LORA S8....')
+                        reqsdlcm = requests.get(Hyper_SDXL_8, allow_redirects=True)
+                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+                            open(DOWNLOADED_Hyper_SDXL_8, 'wb').write(reqsdlcm.content)
+                        else:
+                            print('ERROR: Cannot dowload SDXL Hyper LORA S8')
+
                 print('5')
                 print('Hyper or Lightning')
                 print(MODEL_VERSION)
@@ -750,7 +971,7 @@ class PrimereCKPTLoader:
                 print('6')
                 print(ModelConceptChanges)
                 ckpt_name = ModelConceptChanges['ckpt_name']
-                lora_name = ModelConceptChanges['lora_name']
+                lora_name = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', ModelConceptChanges['lora_name'])
                 unet_name = ModelConceptChanges['unet_name']
                 lightningModeValid = ModelConceptChanges['lightningModeValid']
                 hyperModeValid = ModelConceptChanges['hyperModeValid']
@@ -796,9 +1017,8 @@ class PrimereCKPTLoader:
 
                     if LORA_PATH is not None and os.path.exists(LORA_PATH) == True:
                         print('Lora path ok')
-                        if strength_lcm_lora_model > 0 or strength_lcm_lora_clip > 0:
+                        if strength_lcm_lora_model != 0 or strength_lcm_lora_clip != 0:
                             lora = None
-
                             if self.loaded_lora is not None:
                                 if self.loaded_lora[0] == LORA_PATH:
                                     lora = self.loaded_lora[1]
@@ -2179,6 +2399,11 @@ class PrimereConceptDataTuple:
                 "flux_clip_guidance": ("FLOAT", {"default": 3.5, "forceInput": True}),
                 "flux_vae": ("STRING", {"forceInput": True}),
                 "flux_sampler": ("STRING", {"forceInput": True}),
+                "use_flux_hyper_lora": ("FLUX_HYPER_LORA", {"forceInput": True}),
+                "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
+                "flux_hyper_lora_step": ("INT", {"forceInput": True}),
+                "strength_fluxhyper_lora_model": ("INT", {"forceInput": True}),
+                "strength_fluxhyper_lora_clip": ("INT", {"forceInput": True}),
 
                 "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
                 "hunyuan_clip_l": ("STRING", {"forceInput": True}),

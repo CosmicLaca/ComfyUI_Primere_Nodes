@@ -749,6 +749,8 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
     lightningModeValid = False
     hyperModeValid = False
 
+    LoraList = getDownloadedFiles()
+
     if model_concept == 'Lightning':
         if lightning_selector == 'SAFETENSOR':
             allCheckpoints = folder_paths.get_filename_list("checkpoints")
@@ -760,7 +762,7 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                     ckpt_name = finalLightning[0]
 
         if lightning_selector == 'LORA':
-            LoraList = folder_paths.get_filename_list("loras")
+            # LoraList = folder_paths.get_filename_list("loras")
             if len(LoraList) > 0:
                 allLoraLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), LoraList))
                 if len(allLoraLightning) > 0:
@@ -781,7 +783,7 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
 
     if model_concept == 'Hyper':
         if hypersd_selector == 'LORA':
-            LoraList = folder_paths.get_filename_list("loras")
+            # LoraList = folder_paths.get_filename_list("loras")
             if len(LoraList) > 0:
                 if model_version == 'SDXL':
                     allLoraHyper = list(filter(lambda a: 'Hyper-SDXL-'.casefold() in a.casefold(), LoraList))
@@ -810,7 +812,23 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
 def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, lora_model_strength = 1, lora_clip_strength = 0):
     CLIP_MODEL = OUTPUT_CLIP
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
+        # OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
+        if lora_model_strength != 0 or lora_clip_strength != 0:
+            lora = None
+            if self.loaded_lora is not None:
+                if self.loaded_lora[0] == lora_name:
+                    lora = self.loaded_lora[1]
+                else:
+                    temp = self.loaded_lora
+                    self.loaded_lora = None
+                    del temp
+
+            if lora is None:
+                lora = comfy.utils.load_torch_file(lora_name, safe_load=True)
+                self.loaded_lora = (lora_name, lora)
+
+            print(lora_name)
+            OUTPUT_MODEL, CLIP_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, lora_model_strength, lora_clip_strength)
 
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
@@ -819,7 +837,23 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
+        # OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
+        if lora_model_strength != 0 or lora_clip_strength != 0:
+            lora = None
+            if self.loaded_lora is not None:
+                if self.loaded_lora[0] == lora_name:
+                    lora = self.loaded_lora[1]
+                else:
+                    temp = self.loaded_lora
+                    self.loaded_lora = None
+                    del temp
+
+            if lora is None:
+                lora = comfy.utils.load_torch_file(lora_name, safe_load=True)
+                self.loaded_lora = (lora_name, lora)
+
+            print(lora_name)
+            OUTPUT_MODEL, CLIP_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, lora_model_strength, lora_clip_strength)
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         unet_path = folder_paths.get_full_path("unet", unet_name)
@@ -1142,3 +1176,10 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_resu
         return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ')
     else:
         return story_out
+
+def getDownloadedFiles():
+    DOWNLOAD_DIR = os.path.join(here, 'Nodes', 'Downloads')
+    folder_paths.add_model_folder_path("primere_downloads", DOWNLOAD_DIR)
+    downloaded_filelist = folder_paths.get_filename_list("primere_downloads")
+    downloaded_filelist_filtered = folder_paths.filter_files_extensions(downloaded_filelist, ['.ckpt', '.safetensors'])
+    return downloaded_filelist_filtered
