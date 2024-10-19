@@ -38,24 +38,6 @@ from .Networks import PrimereEmbedding
 from .Networks import PrimereHypernetwork
 from .Networks import PrimereLYCORIS
 
-class PrimereSamplers:
-    CATEGORY = TREE_DEPRECATED
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS)
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME")
-    FUNCTION = "get_sampler"
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
-                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS,)
-            }
-        }
-
-    def get_sampler(self, sampler_name, scheduler_name):
-        return sampler_name, scheduler_name
-
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT")
@@ -135,61 +117,28 @@ class PrimereVAELoader:
 
         return nodes.VAELoader.load_vae(self, vae_name)
 
-class PrimereLCMSelector:
-    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
-    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
-    FUNCTION = "select_lcm_mode"
-    CATEGORY = TREE_DEPRECATED
-
-    @classmethod
-    def INPUT_TYPES(s):
-        return {
-            "required": {
-                "use_lcm": ("BOOLEAN", {"default": False}),
-                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
-                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-                "lcm_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "lcm"}),
-                "lcm_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "sgm_uniform"}),
-                "cfg_scale": ('FLOAT', {"forceInput": True, "default": 7}),
-                "steps": ('INT', {"forceInput": True, "default": 12}),
-                "lcm_cfg_scale": ('FLOAT', {"forceInput": True, "default": 1.2}),
-                "lcm_steps": ('INT', {"forceInput": True, "default": 6}),
-            },
-        }
-
-    def select_lcm_mode(self, use_lcm = False, sampler_name = 'euler', scheduler_name = 'normal', lcm_sampler_name = 'lcm', lcm_scheduler_name = 'sgm_uniform', cfg_scale = 7, steps = 12, lcm_cfg_scale = 1.2, lcm_steps = 6):
-        model_concept = "Normal"
-        if use_lcm == True:
-            sampler_name = lcm_sampler_name
-            scheduler_name = lcm_scheduler_name
-            steps = lcm_steps
-            cfg_scale = lcm_cfg_scale
-            model_concept = "LCM"
-
-        return (sampler_name, scheduler_name, steps, cfg_scale, model_concept,)
-
 class PrimereModelConceptSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT",
-                    "STRING", "CLIP_SELECTION",
-                    "INT",
-                    "STRING", "INT", "INT",
+                    "STRING", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
+                    "FLOAT",
+                    "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING",
-                    "STRING", "INT", "INT",
+                    "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING",  "STRING",
-                    "FLUX_HYPER_LORA", "STRING", "INT", "INT",
+                    "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING",
-                    "STRING", "STRING", "STRING", "STRING"
+                    "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
-                    "MODEL_CONCEPT", "CLIP_SELECTION",
+                    "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
                     "STRENGTH_LCM_LORA_MODEL",
                     "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "STRENGTH_LIGHTNING_LORA_MODEL",
                     "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
                     "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL",
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
-                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "STRENGTH_FLUXHYPER_LORA_MODEL",
+                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
-                    "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE"
+                    "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH"
                     )
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
@@ -218,20 +167,24 @@ class PrimereModelConceptSelector:
             "default_cfg_scale": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
             "default_steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
 
+            "sd_vae": (["None"] + VAELIST,),
+            "sdxl_vae": (["None"] + VAELIST,),
+
             "model_concept": (["Auto"] + CONCEPT_LIST, {"default": "Auto"}),
             "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
+            "vae_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
 
-            "strength_lcm_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
+            "strength_lcm_lora_model": ("FLOAT", {"default": 1.000, "min": -20.000, "max": 20.000, "step": 0.001}),
 
-            "lightning_selector": (["UNET", "LORA", "SAFETENSOR", "CUSTOM"], {"default": "LORA"}),
+            "lightning_selector": (["UNET", "LORA", "SAFETENSOR"], {"default": "LORA"}),
             "lightning_model_step": ([1, 2, 4, 8], {"default": 8}),
             "lightning_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
-            "strength_lightning_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
+            "strength_lightning_lora_model": ("FLOAT", {"default": 1.000, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "hypersd_selector": (["UNET", "LORA"], {"default": "LORA"}),
-            "hypersd_model_step": ([1, 2, 4, 8], {"default": 8}),
+            "hypersd_model_step": ([1, 2, 4, 8, 12], {"default": 8}),
             "hypersd_sampler": ("BOOLEAN", {"default": False, "label_on": "Set by model", "label_off": "Custom (external)"}),
-            "strength_hypersd_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
+            "strength_hypersd_lora_model": ("FLOAT", {"default": 1.000, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "cascade_stage_a": (["None"] + VAELIST,),
             "cascade_stage_b": (["None"] + UNETLIST,),
@@ -251,9 +204,9 @@ class PrimereModelConceptSelector:
             "flux_vae": (["None"] + VAELIST,),
             "flux_sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
             "use_flux_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore Lora"}),
-            "flux_hyper_lora_type": (["FLUX.1-dev", "FLUX.1-dev-fp16"], {"default": "FLUX.1-dev-fp16"}),
-            "flux_hyper_lora_step": ([8, 16], {"default": 8}),
-            "strength_fluxhyper_lora_model": ("FLOAT", {"default": 1.0, "min": -20.0, "max": 20.0, "step": 0.01}),
+            "flux_hyper_lora_type": (["FLUX.1-dev", "FLUX.1-dev-fp16"], {"default": "FLUX.1-dev"}),
+            "flux_hyper_lora_step": ([8, 16], {"default": 16}),
+            "flux_hyper_lora_strength": ("FLOAT", {"default": 0.125, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
@@ -263,6 +216,9 @@ class PrimereModelConceptSelector:
             "sd3_clip_l": (["None"] + CLIPLIST,),
             "sd3_clip_t5xxl": (["None"] + CLIPLIST,),
             "sd3_unet_vae": (["None"] + VAELIST,),
+            "use_sd3_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore Lora"}),
+            "sd3_hyper_lora_step": ([4, 8, 16], {"default": 8}),
+            "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "min": -20.000, "max": 20.000, "step": 0.001}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -275,17 +231,19 @@ class PrimereModelConceptSelector:
                              flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae,
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
+                             use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
                              model_version = None,
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
+                             sd_vae = "None", sdxl_vae = "None",
                              model_concept = 'Auto',
-                             clip_selection = True,
+                             clip_selection = True, vae_selection = True,
                              strength_lcm_lora_model = 1,
                              lightning_selector = "LORA", lightning_model_step = 8, lightning_sampler = False,
                              strength_lightning_lora_model = 1,
                              hypersd_selector = "LORA", hypersd_model_step = 8, hypersd_sampler = False,
                              strength_hypersd_lora_model = 1,
                              flux_sampler = 'ksampler', flux_selector = "DIFFUSION", flux_clip_guidance = 3.5,
-                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1,
+                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
                              **kwargs
                              ):
 
@@ -298,11 +256,18 @@ class PrimereModelConceptSelector:
             lightning_selector = 'CUSTOM'
         if model_concept == 'Auto' and model_version == 'Hyper':
             hypersd_selector = 'LORA'
-        # if model_concept == 'Auto' and model_version == 'Flux':
-        #    model_version = 'SDXL'
 
         if model_concept == 'Auto' and model_version is not None:
             model_concept = model_version
+
+        vae = 'Baked'
+        if vae_selection == True:
+            vae = 'Baked'
+        else:
+            if model_version == "SD1" and sd_vae != "None":
+                vae = sd_vae
+            if model_version == "SDXL" and sdxl_vae != "None":
+                vae = sdxl_vae
 
         sampler_name_input = model_concept.lower() + '_sampler_name'
         scheduler_name_input = model_concept.lower() + '_scheduler_name'
@@ -369,7 +334,7 @@ class PrimereModelConceptSelector:
             use_flux_hyper_lora = None
             flux_hyper_lora_type = None
             flux_hyper_lora_step = None
-            strength_fluxhyper_lora_model = None
+            flux_hyper_lora_strength = None
 
         if model_concept != 'Hunyuan':
             hunyuan_clip_t5xxl = None
@@ -381,21 +346,88 @@ class PrimereModelConceptSelector:
             sd3_clip_l = None
             sd3_clip_t5xxl = None
             sd3_unet_vae = None
+            use_sd3_hyper_lora = None
+            sd3_hyper_lora_step = None
+            sd3_hyper_lora_strength = None
 
         if model_concept == 'Flux' and use_flux_hyper_lora == True:
             steps = flux_hyper_lora_step
 
+        if model_concept == 'SD3' and use_sd3_hyper_lora == True:
+            steps = sd3_hyper_lora_step
+
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
-                model_concept, clip_selection,
+                model_concept,
+                clip_selection, vae_selection, vae,
                 strength_lcm_lora_model,
                 lightning_selector, lightning_model_step, strength_lightning_lora_model,
                 cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
                 hypersd_selector, hypersd_model_step, strength_hypersd_lora_model,
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
-                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, strength_fluxhyper_lora_model,
+                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
-                sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
+                sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength
                 )
+
+class PrimereConceptDataTuple:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("CONCEPT_DATA",)
+    FUNCTION = "load_concept_collector"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
+                "vae_selection": ("VAE_SELECTION", {"default": True, "forceInput": True}),
+                "vae_name": ("VAE_NAME", {"default": "Baked", "forceInput": True}),
+
+                "strength_lcm_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
+
+                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
+                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
+                "strength_lightning_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
+
+                "cascade_stage_a": ("STRING", {"forceInput": True}),
+                "cascade_stage_b": ("STRING", {"forceInput": True}),
+                "cascade_stage_c": ("STRING", {"forceInput": True}),
+                "cascade_clip": ("STRING", {"forceInput": True}),
+
+                "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
+                "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
+                "strength_hypersd_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
+
+                "flux_selector": ("STRING", {"default": "DIFFUSION", "forceInput": True}),
+                "flux_diffusion": ("STRING", {"forceInput": True}),
+                "flux_weight_dtype": ("STRING", {"forceInput": True}),
+                "flux_gguf": ("STRING", {"forceInput": True}),
+                "flux_clip_t5xxl": ("STRING", {"forceInput": True}),
+                "flux_clip_l": ("STRING", {"forceInput": True}),
+                "flux_clip_guidance": ("FLOAT", {"default": 3.5, "forceInput": True}),
+                "flux_vae": ("STRING", {"forceInput": True}),
+                "flux_sampler": ("STRING", {"forceInput": True}),
+                "use_flux_hyper_lora": ("FLUX_HYPER_LORA", {"forceInput": True}),
+                "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
+                "flux_hyper_lora_step": ("INT", {"forceInput": True}),
+                "flux_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
+
+                "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
+                "hunyuan_clip_l": ("STRING", {"forceInput": True}),
+                "hunyuan_vae": ("STRING", {"forceInput": True}),
+
+                "sd3_clip_g": ("STRING", {"forceInput": True}),
+                "sd3_clip_l": ("STRING", {"forceInput": True}),
+                "sd3_clip_t5xxl": ("STRING", {"forceInput": True}),
+                "sd3_unet_vae": ("STRING", {"forceInput": True}),
+                "use_sd3_hyper_lora": ("SD3_HYPER_LORA", {"forceInput": True}),
+                "sd3_hyper_lora_step": ("INT", {"default": 8, "forceInput": True}),
+                "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
+            },
+        }
+
+    def load_concept_collector(self, **kwargs):
+        return (kwargs,)
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
@@ -423,18 +455,19 @@ class PrimereCKPTLoader:
         }
 
     def load_primere_ckpt(self, ckpt_name, use_yaml,
-                          model_concept = None, concept_data = None, clip_selection = True,
-                          strength_lcm_lora_model = 1, strength_lcm_lora_clip = 1,
+                          model_concept = None, concept_data = None,
+                          clip_selection = True, vae_selection = True, vae_name = "Baked",
+                          strength_lcm_lora_model = 1,
                           lightning_selector = 'LORA', lightning_model_step = 8,
-                          strength_lightning_lora_model = 1, strength_lightning_lora_clip = 1,
+                          strength_lightning_lora_model = 1,
                           hypersd_selector = 'LORA', hypersd_model_step = 8,
-                          strength_hypersd_lora_model = 1, strength_hypersd_lora_clip = 1,
+                          strength_hypersd_lora_model = 1,
                           cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
                           loaded_model = None, loaded_clip = None, loaded_vae = None,
                           flux_selector = 'DIFFUSION', flux_diffusion = None, flux_weight_dtype = None, flux_gguf = None, flux_clip_t5xxl = None, flux_clip_l = None, flux_clip_guidance = None, flux_vae = None,
-                          use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, strength_fluxhyper_lora_model = 1, strength_fluxhyper_lora_clip = 1,
+                          use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
                           hunyuan_clip_t5xxl = None, hunyuan_clip_l = None, hunyuan_vae = None,
-                          sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None
+                          sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None, use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125
                           ):
 
         playground_sigma_max = 120
@@ -451,11 +484,13 @@ class PrimereCKPTLoader:
         if concept_data is not None:
             if 'clip_selection' in concept_data:
                 clip_selection = concept_data['clip_selection']
+            if 'vae_selection' in concept_data:
+                vae_selection = concept_data['vae_selection']
+            if 'vae_name' in concept_data:
+                vae_name = concept_data['vae_name']
 
             if 'strength_lcm_lora_model' in concept_data:
                 strength_lcm_lora_model = concept_data['strength_lcm_lora_model']
-            if 'strength_lcm_lora_clip' in concept_data:
-                strength_lcm_lora_clip = concept_data['strength_lcm_lora_clip']
 
             if 'lightning_selector' in concept_data:
                 lightning_selector = concept_data['lightning_selector']
@@ -463,8 +498,6 @@ class PrimereCKPTLoader:
                 lightning_model_step = concept_data['lightning_model_step']
             if 'strength_lightning_lora_model' in concept_data:
                 strength_lightning_lora_model = concept_data['strength_lightning_lora_model']
-            if 'strength_lightning_lora_clip' in concept_data:
-                strength_lightning_lora_clip = concept_data['strength_lightning_lora_clip']
 
             if 'hypersd_selector' in concept_data:
                 hypersd_selector = concept_data['hypersd_selector']
@@ -472,8 +505,6 @@ class PrimereCKPTLoader:
                 hypersd_model_step = concept_data['hypersd_model_step']
             if 'strength_hypersd_lora_model' in concept_data:
                 strength_hypersd_lora_model = concept_data['strength_hypersd_lora_model']
-            if 'strength_hypersd_lora_clip' in concept_data:
-                strength_hypersd_lora_clip = concept_data['strength_hypersd_lora_clip']
 
             if 'cascade_stage_a' in concept_data:
                 cascade_stage_a = concept_data['cascade_stage_a']
@@ -506,10 +537,8 @@ class PrimereCKPTLoader:
                 flux_hyper_lora_type = concept_data['flux_hyper_lora_type']
             if 'flux_hyper_lora_step' in concept_data:
                 flux_hyper_lora_step = concept_data['flux_hyper_lora_step']
-            if 'strength_fluxhyper_lora_model' in concept_data:
-                strength_fluxhyper_lora_model = concept_data['strength_fluxhyper_lora_model']
-            if 'strength_fluxhyper_lora_clip' in concept_data:
-                strength_fluxhyper_lora_clip = concept_data['strength_fluxhyper_lora_clip']
+            if 'flux_hyper_lora_strength' in concept_data:
+                flux_hyper_lora_strength = concept_data['flux_hyper_lora_strength']
 
             # if 'flux_sampler' in concept_data:
             #    flux_sampler = concept_data['flux_sampler']
@@ -521,29 +550,32 @@ class PrimereCKPTLoader:
                 sd3_clip_t5xxl = concept_data['sd3_clip_t5xxl']
             if 'sd3_unet_vae' in concept_data:
                 sd3_unet_vae = concept_data['sd3_unet_vae']
+            if 'use_sd3_hyper_lora' in concept_data:
+                use_sd3_hyper_lora = concept_data['use_sd3_hyper_lora']
+            if 'sd3_hyper_lora_step' in concept_data:
+                sd3_hyper_lora_step = concept_data['sd3_hyper_lora_step']
+            if 'sd3_hyper_lora_strength' in concept_data:
+                sd3_hyper_lora_strength = concept_data['sd3_hyper_lora_strength']
 
         modelname_only = Path(ckpt_name).stem
+        MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
+        if MODEL_VERSION_ORIGINAL is None:
+            MODEL_VERSION_ORIGINAL = utility.getModelType(ckpt_name, 'checkpoints')
+            utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION_ORIGINAL)
 
         if model_concept == "LCM" or (model_concept == 'Lightning' and lightning_selector == 'LORA') or (model_concept == 'Hyper' and hypersd_selector == 'LORA'):
             print('1')
-            MODEL_VERSION = utility.get_value_from_cache('model_version', modelname_only)
+            MODEL_VERSION = MODEL_VERSION_ORIGINAL
             print('2')
-            if MODEL_VERSION is None:
-                MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
-                print('3')
-                utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION)
-                print('4')
         else:
             if model_concept is not None:
                 MODEL_VERSION = model_concept
             else:
-                MODEL_VERSION = utility.get_value_from_cache('model_version', modelname_only)
-                if MODEL_VERSION is None:
-                    MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
-                    utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION)
+                MODEL_VERSION = MODEL_VERSION_ORIGINAL
 
         print(ckpt_name)
         print(MODEL_VERSION)
+        print(MODEL_VERSION_ORIGINAL)
         print(model_concept)
 
         def lcm(self, model, zsnr = False):
@@ -564,10 +596,10 @@ class PrimereCKPTLoader:
         match model_concept:
             case 'StableCascade':
                 if cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
-                    print('StableCascade')
+                    print('---StableCascade---')
                     OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
                     OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
-                    if MODEL_VERSION == model_concept:
+                    if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                         print('symlink check.....')
                         print(fullpathFile)
@@ -599,8 +631,9 @@ class PrimereCKPTLoader:
                     print('Flux')
                     print(flux_selector)
                     print(MODEL_VERSION)
+                    print(MODEL_VERSION_ORIGINAL)
                     print(model_concept)
-                    if MODEL_VERSION == model_concept:
+                    if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         flux_selector = 'SAFETENSOR'
 
                     match flux_selector:
@@ -653,38 +686,19 @@ class PrimereCKPTLoader:
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
-                    if use_flux_hyper_lora == 'True-later':
+                    if use_flux_hyper_lora == True:
                         print('Kell flux lora....')
                         FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
                         FLUX_DEV_FP16_LORA8 = 'https://huggingface.co/nakodanei/Hyper-FLUX.1-dev-8steps-lora-fp16/resolve/main/Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors?download=true'
                         FLUX_DEV_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors?download=true'
+
                         DOWNLOADED_FLUX_DEV_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors')
                         DOWNLOADED_FLUX_DEV_FP16_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora.safetensors')
                         DOWNLOADED_FLUX_DEV_LORA16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-16steps-lora.safetensors')
 
-                        if os.path.exists(DOWNLOADED_FLUX_DEV_LORA8) == False:
-                            print('Downloading HYPER DEV 8STEP Lora....')
-                            reqsdlcm = requests.get(FLUX_DEV_LORA8, allow_redirects=True)
-                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                                open(DOWNLOADED_FLUX_DEV_LORA8, 'wb').write(reqsdlcm.content)
-                            else:
-                                print('ERROR: Cannot dowload HYPER DEV 8STEP Lora')
-
-                        if os.path.exists(DOWNLOADED_FLUX_DEV_FP16_LORA8) == False:
-                            print('Downloading HYPER DEV 8STEP FP16 Lora....')
-                            reqsdlcm = requests.get(FLUX_DEV_FP16_LORA8, allow_redirects=True)
-                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                                open(DOWNLOADED_FLUX_DEV_FP16_LORA8, 'wb').write(reqsdlcm.content)
-                            else:
-                                print('ERROR: Cannot dowload HYPER DEV 8STEP FP16 Lora')
-
-                        if os.path.exists(DOWNLOADED_FLUX_DEV_LORA16) == False:
-                            print('Downloading HYPER DEV 16STEP LORA....')
-                            reqsdlcm = requests.get(FLUX_DEV_LORA16, allow_redirects=True)
-                            if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                                open(DOWNLOADED_FLUX_DEV_LORA16, 'wb').write(reqsdlcm.content)
-                            else:
-                                print('ERROR: Cannot dowload HYPER DEV 16STEP Lora')
+                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA8, FLUX_DEV_LORA8)
+                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_FP16_LORA8, FLUX_DEV_FP16_LORA8)
+                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA16, FLUX_DEV_LORA16)
 
                         print('fluxlorapath test...')
                         downloaded_filelist_filtered = utility.getDownloadedFiles()
@@ -704,7 +718,7 @@ class PrimereCKPTLoader:
 
                         if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
                             print('Lora path ok')
-                            if strength_fluxhyper_lora_model != 0 or strength_fluxhyper_lora_clip != 0:
+                            if flux_hyper_lora_strength != 0:
                                 lora = None
                                 if self.loaded_lora is not None:
                                     if self.loaded_lora[0] == FULL_LORA_PATH:
@@ -715,10 +729,10 @@ class PrimereCKPTLoader:
                                         del temp
 
                                 if lora is None:
-                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load = False)
+                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load = True)
                                     self.loaded_lora = (FULL_LORA_PATH, lora)
 
-                                MODEL_DIFFUSION, DUAL_CLIP = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, DUAL_CLIP, lora, strength_fluxhyper_lora_model, strength_fluxhyper_lora_clip)
+                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_hyper_lora_strength, 0)[0]
                                 print('Flux lora loaded...')
 
                     return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
@@ -731,7 +745,7 @@ class PrimereCKPTLoader:
                     lora_name = ModelConceptChanges['lora_name']
                     unet_name = ModelConceptChanges['unet_name']
                     hyperModeValid = ModelConceptChanges['hyperModeValid']
-                    OUTPUT_MODEL = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, None, lora_name, unet_name)[0]
+                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, lora_name, unet_name, None)
                     return (OUTPUT_MODEL[0],) + (OUTPUT_MODEL[1],) + (OUTPUT_MODEL[2],) + (MODEL_VERSION,)
 
         path = Path(ckpt_name)
@@ -815,8 +829,55 @@ class PrimereCKPTLoader:
                 print('custom vae:')
                 print(sd3_unet_vae)
                 OUTPUT_VAE = nodes.VAELoader.load_vae(self, sd3_unet_vae)[0]
-            return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
+            if use_sd3_hyper_lora == True:
+                print('Kell SD3 lora....')
+                # sd3_hyper_lora_step
+                # sd3_hyper_lora_strength
+
+                SD3_LORA4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors?download=true'
+                SD3_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors?download=true'
+                SD3_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors?download=true'
+
+                DOWNLOADED_SD3_LORA4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-4steps-CFG-lora.safetensors')
+                DOWNLOADED_SD3_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-8steps-CFG-lora.safetensors')
+                DOWNLOADED_SD3_LORA16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-16steps-CFG-lora.safetensors')
+
+                utility.fileDownloader(DOWNLOADED_SD3_LORA4, SD3_LORA4)
+                utility.fileDownloader(DOWNLOADED_SD3_LORA8, SD3_LORA8)
+                utility.fileDownloader(DOWNLOADED_SD3_LORA16, SD3_LORA16)
+                print('sd3 lorapath test...')
+                downloaded_filelist_filtered = utility.getDownloadedFiles()
+                print(downloaded_filelist_filtered)
+                allHyperSD3Loras = list(filter(lambda a: 'hyper-sd3'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                print(allHyperSD3Loras)
+                finalLoras = list(filter(lambda a: str(sd3_hyper_lora_step) + 'step'.casefold() in a.casefold(), allHyperSD3Loras))
+                print(finalLoras)
+                LORA_FILE = finalLoras[0]
+                print(LORA_FILE)
+                FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+                print(FULL_LORA_PATH)
+
+                if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                    print('Lora path ok')
+                    if sd3_hyper_lora_strength != 0:
+                        lora = None
+                        if self.loaded_lora is not None:
+                            if self.loaded_lora[0] == FULL_LORA_PATH:
+                                lora = self.loaded_lora[1]
+                            else:
+                                temp = self.loaded_lora
+                                self.loaded_lora = None
+                                del temp
+
+                        if lora is None:
+                            lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
+                            self.loaded_lora = (FULL_LORA_PATH, lora)
+
+                        OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, sd3_hyper_lora_strength, 0)[0]
+                        print('SD3 lora loaded...')
+
+            return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
         else:
             OUTPUT_CLIP = LOADED_CHECKPOINT[1]
         print('9')
@@ -829,8 +890,8 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'Hyper' | 'Lightning':
-                if model_concept == 'Hyper' and MODEL_VERSION == 'Hyper':
-                    MODEL_VERSION = 'SDXL'
+                if model_concept == MODEL_VERSION_ORIGINAL:
+                    MODEL_VERSION = 'SD1'
 
                 print('Hyper Ligntning loras check....')
                 if lightning_selector == 'LORA':
@@ -843,118 +904,50 @@ class PrimereCKPTLoader:
                     Lightning_SDXL_8 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_8step_lora.safetensors?download=true'
                     DOWNLOADED_Lightning_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_8step_lora.safetensors')
 
-                    if os.path.exists(DOWNLOADED_Lightning_SDXL_2) == False:
-                        print('Downloading SDXL Lightning LORA S2....')
-                        reqsdlcm = requests.get(Lightning_SDXL_2, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Lightning_SDXL_2, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Lightning LORA S2')
-
-                    if os.path.exists(DOWNLOADED_Lightning_SDXL_4) == False:
-                        print('Downloading SDXL Lightning LORA S4....')
-                        reqsdlcm = requests.get(Lightning_SDXL_4, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Lightning_SDXL_4, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Lightning LORA S4')
-
-                    if os.path.exists(DOWNLOADED_Lightning_SDXL_8) == False:
-                        print('Downloading SDXL Lightning LORA S8....')
-                        reqsdlcm = requests.get(Lightning_SDXL_8, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Lightning_SDXL_8, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Lightning LORA S8')
+                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_2, Lightning_SDXL_2)
+                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_4, Lightning_SDXL_4)
+                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_8, Lightning_SDXL_8)
 
                 if hypersd_selector == 'LORA':
                     Hyper_SD_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SD_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-1step-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SD_1, Hyper_SD_1)
 
                     Hyper_SD_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SD_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-2steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SD_2, Hyper_SD_2)
 
                     Hyper_SD_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SD_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-4steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SD_4, Hyper_SD_4)
 
                     Hyper_SD_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SD_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-8steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SD_8, Hyper_SD_8)
+
+                    Hyper_SD_12 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SD_12 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-12steps-CFG-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SD_12, Hyper_SD_12)
 
                     Hyper_SDXL_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SDXL_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-1step-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_1, Hyper_SDXL_1)
 
                     Hyper_SDXL_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-2steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_2, Hyper_SDXL_2)
 
                     Hyper_SDXL_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SDXL_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-4steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_4, Hyper_SDXL_4)
 
                     Hyper_SDXL_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors?download=true'
                     DOWNLOADED_Hyper_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-8steps-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_8, Hyper_SDXL_8)
 
-                    if os.path.exists(DOWNLOADED_Hyper_SD_1) == False:
-                        print('Downloading SD Hyper LORA S1....')
-                        reqsdlcm = requests.get(Hyper_SD_1, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SD_1, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SD Hyper LORA S1')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SD_2) == False:
-                        print('Downloading SD Hyper LORA S2....')
-                        reqsdlcm = requests.get(Hyper_SD_2, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SD_2, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SD Hyper LORA S2')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SD_4) == False:
-                        print('Downloading SD Hyper LORA S4....')
-                        reqsdlcm = requests.get(Hyper_SD_4, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SD_4, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SD Hyper LORA S4')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SD_8) == False:
-                        print('Downloading SD Hyper LORA S8....')
-                        reqsdlcm = requests.get(Hyper_SD_8, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SD_8, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SD Hyper LORA S8')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SDXL_1) == False:
-                        print('Downloading SDXL Hyper LORA S1....')
-                        reqsdlcm = requests.get(Hyper_SDXL_1, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SDXL_1, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Hyper LORA S1')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SDXL_2) == False:
-                        print('Downloading SDXL Hyper LORA S2....')
-                        reqsdlcm = requests.get(Hyper_SDXL_2, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SDXL_2, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Hyper LORA S2')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SDXL_4) == False:
-                        print('Downloading SDXL Hyper LORA S4....')
-                        reqsdlcm = requests.get(Hyper_SDXL_4, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SDXL_4, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Hyper LORA S4')
-
-                    if os.path.exists(DOWNLOADED_Hyper_SDXL_8) == False:
-                        print('Downloading SDXL Hyper LORA S8....')
-                        reqsdlcm = requests.get(Hyper_SDXL_8, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_Hyper_SDXL_8, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL Hyper LORA S8')
+                    Hyper_SDXL_12 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors?download=true'
+                    DOWNLOADED_Hyper_SDXL_12 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-12steps-CFG-lora.safetensors')
+                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_12, Hyper_SDXL_12)
 
                 print('5')
                 print('Hyper or Lightning')
@@ -963,41 +956,38 @@ class PrimereCKPTLoader:
                 print('6')
                 print(ModelConceptChanges)
                 ckpt_name = ModelConceptChanges['ckpt_name']
-                lora_name = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', ModelConceptChanges['lora_name'])
+                if ModelConceptChanges['lora_name'] is not None:
+                    lora_name = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', ModelConceptChanges['lora_name'])
+                else:
+                    lora_name = None
                 unet_name = ModelConceptChanges['unet_name']
                 lightningModeValid = ModelConceptChanges['lightningModeValid']
                 hyperModeValid = ModelConceptChanges['hyperModeValid']
 
                 if lightningModeValid == True and loaded_model is None:
                     print('Lightning end')
-                    OUTPUT_MODEL, OUTPUT_CLIP = utility.LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, strength_lightning_lora_model, strength_lightning_lora_clip)
+                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
+                    print("Lightning lora loaded...")
 
-                if hyperModeValid == True and loaded_model is None and hypersd_selector != 'CUSTOM':
+                if hyperModeValid == True and loaded_model is None:
                     print('Hyper end')
-                    OUTPUT_MODEL, OUTPUT_CLIP = utility.LightningConceptModel(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, strength_hypersd_lora_model, strength_hypersd_lora_clip)
+                    print(strength_hypersd_lora_model)
+                    print(ckpt_name)
+                    print(lora_name)
+                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_hypersd_lora_model)
+                    print(type(OUTPUT_MODEL).__name__)
+                    print("Hyper lora loaded...")
 
             case 'LCM':
                 if MODEL_VERSION == 'SD1' or MODEL_VERSION == 'SDXL':
                     SDXL_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true'
                     SD_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true'
+
                     DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
                     DOWNLOADED_SDXL_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sdxl.safetensors')
 
-                    if os.path.exists(DOWNLOADED_SD_LORA) == False:
-                        print('Downloading SD LCM LORA....')
-                        reqsdlcm = requests.get(SD_LORA, allow_redirects=True)
-                        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
-                            open(DOWNLOADED_SD_LORA, 'wb').write(reqsdlcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SD LCM Lora')
-
-                    if os.path.exists(DOWNLOADED_SDXL_LORA) == False:
-                        print('Downloading SDXL LCM LORA....')
-                        reqsdxllcm = requests.get(SDXL_LORA, allow_redirects=True)
-                        if reqsdxllcm.status_code == 200 and reqsdxllcm.ok == True:
-                            open(DOWNLOADED_SDXL_LORA, 'wb').write(reqsdxllcm.content)
-                        else:
-                            print('ERROR: Cannot dowload SDXL LCM Lora')
+                    utility.fileDownloader(DOWNLOADED_SD_LORA, SD_LORA)
+                    utility.fileDownloader(DOWNLOADED_SDXL_LORA, SDXL_LORA)
 
                     print(MODEL_VERSION)
                     LORA_PATH = None
@@ -1009,7 +999,7 @@ class PrimereCKPTLoader:
 
                     if LORA_PATH is not None and os.path.exists(LORA_PATH) == True:
                         print('Lora path ok')
-                        if strength_lcm_lora_model != 0 or strength_lcm_lora_clip != 0:
+                        if strength_lcm_lora_model != 0:
                             lora = None
                             if self.loaded_lora is not None:
                                 if self.loaded_lora[0] == LORA_PATH:
@@ -1024,16 +1014,39 @@ class PrimereCKPTLoader:
                                 self.loaded_lora = (LORA_PATH, lora)
 
                             print(LORA_PATH)
-                            MODEL_LORA, CLIP_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, strength_lcm_lora_model, strength_lcm_lora_clip)
+                            MODEL_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, strength_lcm_lora_model, 0)[0]
 
                             OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
-                            OUTPUT_CLIP = CLIP_LORA
+                            # OUTPUT_CLIP = CLIP_LORA
 
             case 'Playground':
                 print('Playground end')
                 OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
 
-        return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (LOADED_CHECKPOINT[2],) + (MODEL_VERSION,)
+        #  vae_selection = True, vae_name = "Baked",
+        print("VAE selection")
+        if len(LOADED_CHECKPOINT) < 3 or (len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ != 'VAE') or vae_selection == False:
+            print("custom VAE:")
+            print(vae_name)
+            print(MODEL_VERSION)
+            if vae_name != "Baked":
+                OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
+            else:
+                vae_list = folder_paths.get_filename_list("vae")
+                print(vae_list)
+                if MODEL_VERSION == 'SD1':
+                    allLSD1vae = list(filter(lambda a: 'sdxl'.casefold() not in a.casefold() and 'flux'.casefold() not in a.casefold() and 'hunyuan'.casefold() not in a.casefold() and 'stage'.casefold() not in a.casefold(), vae_list))
+                    print(allLSD1vae[0])
+                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSD1vae[0])[0]
+                else:
+                    allLSDXLvae = list(filter(lambda a: 'sdxl'.casefold() in a.casefold(), vae_list))
+                    print(allLSDXLvae[0])
+                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
+        else:
+            print("baked VAE:")
+            OUTPUT_VAE = LOADED_CHECKPOINT[2]
+
+        return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
 class AnyType(str):
     def __ne__(self, __value: object) -> bool:
@@ -1601,10 +1614,8 @@ class PrimereCLIP:
             if clip_mode == True:
                 if model_concept == 'Flux':
                     WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                    # FLUX_SAMPLER = utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 23)
                     FLUX_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_sampler', prompt)
                     if FLUX_SAMPLER == 'ksampler':
-                        # FLUX_GUIDANCE = float(utility.getDataFromWorkflow(WORKFLOWDATA, 'PrimereModelConceptSelector', 21))
                         FLUX_GUIDANCE = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt)
                         if FLUX_GUIDANCE is None:
                             FLUX_GUIDANCE = 1.7
@@ -1713,102 +1724,6 @@ class PrimereResolution:
 
         # MODEL_SHAPES = {'SD1': sd1_res, 'SDXL': sdxl_res, 'TURBO': turbo_res}
         return dimension_x, dimension_y, square_shape
-
-class PrimereResolutionMultiplier:
-    RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")
-    RETURN_NAMES = ("WIDTH", "HEIGHT", "UPSCALE_RATIO", "IMAGE")
-    FUNCTION = "multiply_imagesize"
-    CATEGORY = TREE_DEPRECATED
-    upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
-
-    @ classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "use_multiplier": ("BOOLEAN", {"default": True}),
-                "width": ('INT', {"forceInput": True, "default": 512}),
-                "height": ('INT', {"forceInput": True, "default": 512}),
-                "multiply_sd": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
-                "multiply_sdxl": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
-                "multiply_turbo": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 8.0, "step": 0.02}),
-            },
-            "optional": {
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-                "triggered_prescale": ("BOOLEAN", {"default": False}),
-                "image": ("IMAGE", {"forceInput": True}),
-                "area_trigger_mpx": ("FLOAT", {"default": 0.60, "min": 0.01, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
-                "area_target_mpx": ("FLOAT", {"default": 1.05, "min": 0.25, "max": round(pow(utility.MAX_RESOLUTION, 2) / 1000000, 2), "step": 0.01}),
-                "upscale_model": (['None'] + folder_paths.get_filename_list("upscale_models"), {"default": 'None'}),
-                "upscale_method": (cls.upscale_methods, {"default": 'bicubic'}),
-            }
-        }
-
-    def multiply_imagesize(self, width: int, height: int, use_multiplier: bool, multiply_sd: float, multiply_sdxl: float, multiply_turbo: float, model_version: str = "BaseModel_1024", model_concept: str = "Normal", triggered_prescale = False, image = None, area_trigger_mpx = 0.60, area_target_mpx = 1.05, upscale_model = 'None', upscale_method = 'bicubic'):
-        if use_multiplier == False:
-            return (width, height, 1, image)
-
-        is_sdxl = 0
-        match model_version:
-            case 'SDXL_2048':
-                is_sdxl = 1
-
-        if image is not None:
-            width = image.shape[2]
-            height = image.shape[1]
-
-        if (is_sdxl == 1):
-            dimension_x = round(width * multiply_sdxl)
-            dimension_y = round(height * multiply_sdxl)
-            ratio = round(multiply_sdxl, 2)
-        else:
-            dimension_x = round(width * multiply_sd)
-            dimension_y = round(height * multiply_sd)
-            ratio = round(multiply_sd, 2)
-
-        if model_concept == "Turbo":
-            dimension_x = round(width * multiply_turbo)
-            dimension_y = round(height * multiply_turbo)
-            ratio = round(multiply_turbo, 2)
-
-        if triggered_prescale == True and use_multiplier == True:
-            upscale_to_mpx = (dimension_x * dimension_y) / (1024 * 1024)
-            area_trigger = area_trigger_mpx * (1000 * 1000)
-            area_target = area_target_mpx * (1024 * 1024)
-            area = width * height
-            if area_trigger >= area:
-                sourceMPXTrigger = area
-                differenceTrigger = area_target / sourceMPXTrigger
-                squareDiffTrigger = math.sqrt(differenceTrigger)
-                if image is not None:
-                    if upscale_model == 'None':
-                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
-                    else:
-                        loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
-                        prescaledImage = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, image)[0]
-
-                    image = prescaledImage
-                    width = prescaledImage.shape[2]
-                    height = prescaledImage.shape[1]
-                    newArea = width * height
-
-                    if newArea > area_target:
-                        differenceTrigger = area_target / newArea
-                        squareDiffTrigger = math.sqrt(differenceTrigger)
-                        prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
-                        image = prescaledImage
-                        width = prescaledImage.shape[2]
-                        height = prescaledImage.shape[1]
-
-                    sourceMPX = (width * height) / (1024 * 1024)
-                    difference = upscale_to_mpx / sourceMPX
-                    squareDiff = math.sqrt(difference)
-                    dimension_x = round(width * squareDiff)
-                    dimension_y = round(height * squareDiff)
-                    ratio = round(squareDiff, 2)
-
-        return (dimension_x, dimension_y, ratio, image)
-
 
 class PrimereResolutionMultiplierMPX:
     RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")
@@ -1956,24 +1871,6 @@ class PrimereResolutionCoordinatorMPX:
             slave_height_resized = slave_height
 
         return (ref_width, ref_height, slave_width, slave_height, reference_image, ref_width_resized, ref_height_resized, slave_image, slave_width_resized, slave_height_resized)
-
-class PrimereStepsCfg:
-  RETURN_TYPES = ("INT", "FLOAT")
-  RETURN_NAMES = ("STEPS", "CFG")
-  FUNCTION = "steps_cfg"
-  CATEGORY = TREE_DEPRECATED
-
-  @classmethod
-  def INPUT_TYPES(cls):
-    return {
-      "required": {
-        "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
-        "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
-      },
-    }
-
-  def steps_cfg(self, steps = 12, cfg = 7):
-    return (steps, round(cfg, 2),)
 
 class PrimereClearPrompt:
   RETURN_TYPES = ("STRING", "STRING")
@@ -2350,61 +2247,6 @@ class PrimereModelKeyword:
                         model_keyword = [keywords, model_keyword_placement]
 
         return (model_keyword,)
-
-class PrimereConceptDataTuple:
-    RETURN_TYPES = ("TUPLE",)
-    RETURN_NAMES = ("CONCEPT_DATA",)
-    FUNCTION = "load_concept_collector"
-    CATEGORY = TREE_DASHBOARD
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
-
-                "strength_lcm_lora_model": ("INT", {"default": 1, "forceInput": True}),
-
-                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
-                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
-                "strength_lightning_lora_model": ("INT", {"default": 1, "forceInput": True}),
-
-                "cascade_stage_a": ("STRING", {"forceInput": True}),
-                "cascade_stage_b": ("STRING", {"forceInput": True}),
-                "cascade_stage_c": ("STRING", {"forceInput": True}),
-                "cascade_clip": ("STRING", {"forceInput": True}),
-
-                "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
-                "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
-                "strength_hypersd_lora_model": ("INT", {"default": 1, "forceInput": True}),
-
-                "flux_selector": ("STRING", {"default": "DIFFUSION", "forceInput": True}),
-                "flux_diffusion": ("STRING", {"forceInput": True}),
-                "flux_weight_dtype": ("STRING", {"forceInput": True}),
-                "flux_gguf": ("STRING", {"forceInput": True}),
-                "flux_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "flux_clip_l": ("STRING", {"forceInput": True}),
-                "flux_clip_guidance": ("FLOAT", {"default": 3.5, "forceInput": True}),
-                "flux_vae": ("STRING", {"forceInput": True}),
-                "flux_sampler": ("STRING", {"forceInput": True}),
-                "use_flux_hyper_lora": ("FLUX_HYPER_LORA", {"forceInput": True}),
-                "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
-                "flux_hyper_lora_step": ("INT", {"forceInput": True}),
-                "strength_fluxhyper_lora_model": ("INT", {"forceInput": True}),
-
-                "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "hunyuan_clip_l": ("STRING", {"forceInput": True}),
-                "hunyuan_vae": ("STRING", {"forceInput": True}),
-
-                "sd3_clip_g": ("STRING", {"forceInput": True}),
-                "sd3_clip_l": ("STRING", {"forceInput": True}),
-                "sd3_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "sd3_unet_vae": ("STRING", {"forceInput": True}),
-            },
-        }
-
-    def load_concept_collector(self, **kwargs):
-        return (kwargs,)
 
 class PrimereUpscaleModel:
     RETURN_TYPES = ("UPSCALE_MODEL", folder_paths.get_filename_list("upscale_models"),)

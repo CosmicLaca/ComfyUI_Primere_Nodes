@@ -723,19 +723,6 @@ def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", incre
     noises = torch.cat(noises, axis=0)
     return noises
 
-def downloader(from_url, to_path):
-    if os.path.isfile(to_path) == False:
-        pathparser = urlparse(from_url)
-        TargetFilename = os.path.basename(pathparser.path)
-        print('Downloading: ' + TargetFilename)
-        Request = requests.get(from_url, allow_redirects=True)
-        if Request.status_code == 200 and Request.ok == True:
-            open(to_path, 'wb').write(Request.content)
-            print('DOWNLOADED: ' + to_path)
-            return True
-        else:
-            print('ERROR: Cannot download ' + TargetFilename)
-            return False
 
 def hf_downloader(repo_id, model_local_dir):
     from huggingface_hub import snapshot_download
@@ -772,29 +759,38 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                         lora_name = finalLightning[0]
 
         if lightning_selector == 'UNET':
+            print("Lightning UNET:")
             UnetList = folder_paths.get_filename_list("unet")
+            print(UnetList)
             if len(UnetList) > 0:
                 allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
+                print(allUnetLightning)
                 if len(allUnetLightning) > 0:
-                    finalLightning = list(filter(lambda a: str(hypersd_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
+                    finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
+                    print(finalLightning)
                     if len(finalLightning) > 0:
                         lightningModeValid = True
                         unet_name = finalLightning[0]
+                        print(unet_name)
 
     if model_concept == 'Hyper':
+        print('Hyper lora check:')
         if hypersd_selector == 'LORA':
+            print(model_version)
             # LoraList = folder_paths.get_filename_list("loras")
             if len(LoraList) > 0:
                 if model_version == 'SDXL':
                     allLoraHyper = list(filter(lambda a: 'Hyper-SDXL-'.casefold() in a.casefold(), LoraList))
                 else:
                     allLoraHyper = list(filter(lambda a: 'Hyper-SD15-'.casefold() in a.casefold(), LoraList))
+                print(allLoraHyper)
                 if len(allLoraHyper) > 0:
                     pluralString = ''
-                    if (hypersd_model_step > 1):
+                    if hypersd_model_step > 1:
                         pluralString = 's'
 
-                    finalHyper = list(filter(lambda a: str(hypersd_model_step) + 'step' + pluralString + '-lora'.casefold() in a.casefold(), allLoraHyper))
+                    finalHyper = list(filter(lambda a: str(hypersd_model_step) + 'step' + pluralString + '-lora'.casefold() in a.casefold() or str(hypersd_model_step) + 'step' + pluralString + '-CFG-lora'.casefold() in a.casefold(), allLoraHyper))
+                    print(finalHyper)
                     if len(finalHyper) > 0:
                         hyperModeValid = True
                         lora_name = finalHyper[0]
@@ -809,11 +805,9 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
 
     return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid, 'hyperModeValid': hyperModeValid}
 
-def LightningConceptModel(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, unet_name, lora_model_strength = 1, lora_clip_strength = 0):
-    CLIP_MODEL = OUTPUT_CLIP
+def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, lora_model_strength = 1):
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        # OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
-        if lora_model_strength != 0 or lora_clip_strength != 0:
+        if lora_model_strength != 0:
             lora = None
             if self.loaded_lora is not None:
                 if self.loaded_lora[0] == lora_name:
@@ -828,17 +822,19 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
                 self.loaded_lora = (lora_name, lora)
 
             print(lora_name)
-            OUTPUT_MODEL, CLIP_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, lora_model_strength, lora_clip_strength)
+            OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, lora_model_strength, 0)[0]
 
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
-        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name)[0]
+        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, unet_name, "default")[0]
+
+    if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'SAFETENSOR' and ckpt_name is not None:
+        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
 
     if model_concept == 'Lightning' and lightning_model_step == 1 and lightningModeValid == True:
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingDiscrete.patch(self, OUTPUT_MODEL, "x0", False)[0]
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
-        # OUTPUT_MODEL, CLIP_MODEL = nodes.LoraLoader.load_lora(self, OUTPUT_MODEL, OUTPUT_CLIP, lora_name, lora_model_strength, lora_clip_strength)
-        if lora_model_strength != 0 or lora_clip_strength != 0:
+        if lora_model_strength != 0:
             lora = None
             if self.loaded_lora is not None:
                 if self.loaded_lora[0] == lora_name:
@@ -853,13 +849,13 @@ def LightningConceptModel(self, model_concept, lightningModeValid, lightning_sel
                 self.loaded_lora = (lora_name, lora)
 
             print(lora_name)
-            OUTPUT_MODEL, CLIP_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, OUTPUT_CLIP, lora, lora_model_strength, lora_clip_strength)
+            OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, lora_model_strength, 0)[0]
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         unet_path = folder_paths.get_full_path("unet", unet_name)
         OUTPUT_MODEL = comfy.sd.load_checkpoint_guess_config(unet_path)
 
-    return (OUTPUT_MODEL, CLIP_MODEL)
+    return OUTPUT_MODEL
 
 def get_hypersd_sigmas(model):
     timesteps = torch.tensor([800])
@@ -1183,3 +1179,28 @@ def getDownloadedFiles():
     downloaded_filelist = folder_paths.get_filename_list("primere_downloads")
     downloaded_filelist_filtered = folder_paths.filter_files_extensions(downloaded_filelist, ['.ckpt', '.safetensors'])
     return downloaded_filelist_filtered
+
+def downloader(from_url, to_path):
+    if os.path.isfile(to_path) == False:
+        pathparser = urlparse(from_url)
+        TargetFilename = os.path.basename(pathparser.path)
+        print('Downloading: ' + TargetFilename)
+        Request = requests.get(from_url, allow_redirects=True)
+        if Request.status_code == 200 and Request.ok == True:
+            open(to_path, 'wb').write(Request.content)
+            print('DOWNLOADED: ' + to_path)
+            return True
+        else:
+            print('ERROR: Cannot download ' + TargetFilename)
+            return False
+def fileDownloader(targetFILE, sourceURL):
+    if os.path.exists(targetFILE) == False:
+        print('Downloading from: ' + sourceURL + ' to: ' + str(targetFILE))
+        reqsdlcm = requests.get(sourceURL, allow_redirects=True)
+        if reqsdlcm.status_code == 200 and reqsdlcm.ok == True:
+            open(targetFILE, 'wb').write(reqsdlcm.content)
+            return True
+        else:
+            print('ERROR: Cannot dowload required file to: ' + str(targetFILE))
+            return False
+    return True

@@ -631,9 +631,12 @@ class PrimereKSampler:
 
         noise_constant = noise_extender_ksampler
 
-        print('sampling step:')
-        print(steps)
+        print('----sampling data:')
         print(model_concept)
+        print(steps)
+        print(cfg)
+        print(sampler_name)
+        print(scheduler_name)
 
         match model_concept:
             case "SD3":
@@ -646,6 +649,21 @@ class PrimereKSampler:
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
 
             case "Hyper":
+                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
+                HYPERSD_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
+                HYPERSD_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_sampler', prompt)
+                print(CONCEPT_SELECTOR)
+
+                if model_concept == CONCEPT_SELECTOR and steps == 12 and HYPERSD_SELECTOR == 'LORA' and HYPERSD_SAMPLER == True:
+                    cfg = 3.80
+                    scheduler_name = 'normal'
+                    print('----sampling data mod:')
+                    print(steps)
+                    print(cfg)
+                    print(sampler_name)
+                    print(scheduler_name)
+
                 samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt)[0]
 
             case  'Flux':

@@ -58,8 +58,6 @@ for subdirs in valid_FElist:
         nodes.append(regFile)
 
 NODE_CLASS_MAPPINGS = {
-    "PrimereSamplers": Dashboard.PrimereSamplers,
-    "PrimereStepsCfg": Dashboard.PrimereStepsCfg,
     "PrimereSamplersSteps": Dashboard.PrimereSamplersSteps,
     "PrimereVAE": Dashboard.PrimereVAE,
     "PrimereCKPT": Dashboard.PrimereCKPT,
@@ -71,21 +69,18 @@ NODE_CLASS_MAPPINGS = {
     "PrimereCLIPEncoder": Dashboard.PrimereCLIP,
     "PrimereResolution": Dashboard.PrimereResolution,
     "PrimereClearPrompt": Dashboard.PrimereClearPrompt,
-    "PrimereLCMSelector": Dashboard.PrimereLCMSelector,
     "PrimereModelConceptSelector": Dashboard.PrimereModelConceptSelector,
-    "PrimereResolutionMultiplier": Dashboard.PrimereResolutionMultiplier,
+    "PrimereConceptDataTuple": Dashboard.PrimereConceptDataTuple,
     "PrimereResolutionMultiplierMPX": Dashboard.PrimereResolutionMultiplierMPX,
     "PrimereResolutionCoordinatorMPX": Dashboard.PrimereResolutionCoordinatorMPX,
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
-    "PrimereConceptDataTuple": Dashboard.PrimereConceptDataTuple,
     "PrimereUpscaleModel": Dashboard.PrimereUpscaleModel,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
     "PrimereDynamicParser": Inputs.PrimereDynParser,
     "PrimereVAESelector": Inputs.PrimereVAESelector,
-    "PrimereMetaRead": Inputs.PrimereMetaRead,
     "PrimereEmbeddingHandler": Inputs.PrimereEmbeddingHandler,
     "PrimereLoraStackMerger": Inputs.PrimereLoraStackMerger,
     "PrimereLoraKeywordMerger": Inputs.PrimereLoraKeywordMerger,
@@ -131,8 +126,6 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "PrimereSamplers": "Primere Sampler Selector",
-    "PrimereStepsCfg": "Primere Steps & Cfg",
     "PrimereSamplersSteps": "Primere Samplers & Steps & Cfg",
     "PrimereVAE": "Primere VAE Selector",
     "PrimereCKPT": "Primere CKPT Selector",
@@ -144,9 +137,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereCLIPEncoder": "Primere Prompt Encoder",
     "PrimereResolution": "Primere Resolution",
     "PrimereClearPrompt": "Primere Prompt Cleaner",
-    "PrimereLCMSelector": "Primere LCM selector",
     "PrimereModelConceptSelector": "Primere Model Concept Selector",
-    "PrimereResolutionMultiplier": "Primere Resolution Multiplier",
     "PrimereResolutionMultiplierMPX": "Primere Resolution MPX",
     "PrimereResolutionCoordinatorMPX": "Primere Resolution Coordinator",
     "PrimereNetworkTagLoader": 'Primere Network Tag Loader',
@@ -158,7 +149,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereStyleLoader": "Primere Styles",
     "PrimereDynamicParser": "Primere Dynamic",
     "PrimereVAESelector": "Primere VAE Version Selector",
-    "PrimereMetaRead": "Primere Exif Reader",
     "PrimereEmbeddingHandler": "Primere Embedding Handler",
     "PrimereLoraStackMerger": "Primere Lora Stack Merger",
     "PrimereLoraKeywordMerger": 'Primere Lora Keyword Merger',
