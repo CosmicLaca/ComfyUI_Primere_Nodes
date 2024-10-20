@@ -233,7 +233,7 @@
         "Node name for S&R": "PrimereSeed"
       },
       "widgets_values": [
-        101996953244610,
+        -1,
         null,
         null,
         null
@@ -1235,7 +1235,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Preview woman",
+        "SFW Luxury model",
         true,
         true,
         true,
@@ -1395,9 +1395,9 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "Flux\\flux1-dev-Q4_1.safetensors",
+        "Flux\\realHorny_realHornyV10Unet.safetensors",
         true,
-        false,
+        true,
         true,
         false,
         550,
@@ -2468,7 +2468,7 @@
         "Auto",
         true,
         true,
-        0.85,
+        1,
         "LORA",
         8,
         false,
@@ -2476,7 +2476,7 @@
         "LORA",
         8,
         false,
-        1.05,
+        1.1,
         "Stable-Cascade\\stage_a.safetensors",
         "Stable-Cascade\\stable_cascade_stage_b.safetensors",
         "Stable-Cascade\\stable_cascade_stage_c.safetensors",
@@ -2493,7 +2493,7 @@
         true,
         "FLUX.1-dev-fp16",
         8,
-        0.125,
+        0.13,
         "None",
         "None",
         "None",
@@ -2614,7 +2614,7 @@
       },
       "widgets_values": [
         "",
-        209399917703703,
+        1053424287521632,
         "randomize",
         true
       ],
@@ -2670,7 +2670,7 @@
       },
       "widgets_values": [
         "",
-        164929913655504,
+        616813220502120,
         "randomize",
         true
       ],
@@ -2681,8 +2681,8 @@
       "id": 166,
       "type": "PrimereConceptDataTuple",
       "pos": {
-        "0": 3536,
-        "1": 1300
+        "0": 3552,
+        "1": 1278
       },
       "size": {
         "0": 366.3916320800781,
@@ -3117,7 +3117,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"strength_lcm_lora_model\": null,\n    \"lightning_selector\": null,\n    \"lightning_model_step\": null,\n    \"strength_lightning_lora_model\": null,\n    \"cascade_stage_a\": null,\n    \"cascade_stage_b\": null,\n    \"cascade_stage_c\": null,\n    \"cascade_clip\": null,\n    \"hypersd_selector\": null,\n    \"hypersd_model_step\": null,\n    \"strength_hypersd_lora_model\": null,\n    \"flux_selector\": \"DIFFUSION\",\n    \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n    \"flux_weight_dtype\": \"fp8_e4m3fn\",\n    \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"flux_clip_t5xxl\": \"t5\\\\t5xxl_fp8_e4m3fn.safetensors\",\n    \"flux_clip_l\": \"clip_l.safetensors\",\n    \"flux_clip_guidance\": 4.0,\n    \"flux_vae\": \"Flux\\\\flux-vae.sft\",\n    \"flux_sampler\": \"ksampler\",\n    \"flux_hyper_lora_type\": \"FLUX.1-dev-fp16\",\n    \"flux_hyper_lora_step\": 16,\n    \"flux_hyper_lora_strength\": 0.125,\n    \"hunyuan_clip_t5xxl\": null,\n    \"hunyuan_clip_l\": null,\n    \"hunyuan_vae\": null,\n    \"sd3_clip_g\": null,\n    \"sd3_clip_l\": null,\n    \"sd3_clip_t5xxl\": null,\n    \"sd3_unet_vae\": null,\n    \"sd3_hyper_lora_step\": null,\n    \"sd3_hyper_lora_strength\": null,\n    \"clip_selection\": true,\n    \"vae_selection\": true,\n    \"vae_name\": \"Baked\",\n    \"use_flux_hyper_lora\": true,\n    \"use_sd3_hyper_lora\": null\n}"
+        "{\n    \"strength_lcm_lora_model\": null,\n    \"lightning_selector\": null,\n    \"lightning_model_step\": null,\n    \"strength_lightning_lora_model\": null,\n    \"cascade_stage_a\": null,\n    \"cascade_stage_b\": null,\n    \"cascade_stage_c\": null,\n    \"cascade_clip\": null,\n    \"hypersd_selector\": null,\n    \"hypersd_model_step\": null,\n    \"strength_hypersd_lora_model\": null,\n    \"flux_selector\": \"DIFFUSION\",\n    \"flux_diffusion\": \"Flux\\\\flux1-dev-fp8.safetensors\",\n    \"flux_weight_dtype\": \"fp8_e4m3fn\",\n    \"flux_gguf\": \"FLUX1\\\\flux1-dev-Q4_1.gguf\",\n    \"flux_clip_t5xxl\": \"t5\\\\t5xxl_fp8_e4m3fn.safetensors\",\n    \"flux_clip_l\": \"clip_l.safetensors\",\n    \"flux_clip_guidance\": 4.0,\n    \"flux_vae\": \"Flux\\\\flux-vae.sft\",\n    \"flux_sampler\": \"ksampler\",\n    \"flux_hyper_lora_type\": \"FLUX.1-dev-fp16\",\n    \"flux_hyper_lora_step\": 8,\n    \"flux_hyper_lora_strength\": 0.13,\n    \"hunyuan_clip_t5xxl\": null,\n    \"hunyuan_clip_l\": null,\n    \"hunyuan_vae\": null,\n    \"sd3_clip_g\": null,\n    \"sd3_clip_l\": null,\n    \"sd3_clip_t5xxl\": null,\n    \"sd3_unet_vae\": null,\n    \"sd3_hyper_lora_step\": null,\n    \"sd3_hyper_lora_strength\": null,\n    \"clip_selection\": true,\n    \"vae_selection\": true,\n    \"vae_name\": \"Baked\",\n    \"use_flux_hyper_lora\": true,\n    \"use_sd3_hyper_lora\": null\n}"
       ]
     },
     {
@@ -3407,13 +3407,13 @@
         768,
         1024,
         512,
-        false,
+        true,
         "Vertical",
         true,
         false,
         1.6,
         2.8,
-        1053745022828665,
+        191012470334777,
         "randomize",
         "SD1",
         "Auto"
@@ -3599,7 +3599,7 @@
         1,
         0.8,
         1.4,
-        1027413666329764,
+        1119474418709664,
         "randomize",
         false,
         "cpu",
@@ -3828,13 +3828,13 @@
         "BaseModel_1024",
         "",
         "",
-        true,
+        false,
         "Default",
         "Long\\Long-ViT-L-14-GmP-ft.safetensors",
-        0,
+        -2,
         1.2,
         false,
-        "PHOTO_SFW",
+        "None",
         1,
         "None",
         1,
@@ -3999,7 +3999,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        772282418974357,
+        25589250267011,
         "randomize",
         20,
         8,
@@ -4063,44 +4063,6 @@
       "widgets_values": [],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 79,
-      "type": "PrimerePreviewImage",
-      "pos": {
-        "0": 2967,
-        "1": 52
-      },
-      "size": {
-        "0": 961.2977905273438,
-        "1": 1075.173583984375
-      },
-      "flags": {},
-      "order": 38,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 341
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        true,
-        "jpeg",
-        0,
-        90,
-        "Checkpoint",
-        "Overwrite",
-        "Flux\\flux1-dev-Q4_1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
     },
     {
       "id": 92,
@@ -4349,7 +4311,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        141,
+        1232,
         "randomize",
         "",
         "",
@@ -4472,6 +4434,44 @@
       ],
       "color": "#149454",
       "bgcolor": "#008040"
+    },
+    {
+      "id": 79,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 2967,
+        "1": 52
+      },
+      "size": {
+        "0": 961.2977905273438,
+        "1": 1075.173583984375
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 341
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        40,
+        "Checkpoint",
+        "Overwrite",
+        "Flux\\realHorny_realHornyV10Unet.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -5886,50 +5886,14 @@
   ],
   "groups": [
     {
-      "title": "Dashboard settings",
-      "bounding": [
-        679,
-        20,
-        1225,
-        497
-      ],
-      "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Prompt",
-      "bounding": [
-        680,
-        528,
-        1029,
-        1106
-      ],
-      "color": "#8A8",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
+      "title": "Concept sampler group",
       "bounding": [
         1916,
-        21,
-        1043,
-        1104
+        1136,
+        1584,
+        2326
       ],
-      "color": "#A88",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Network loader",
-      "bounding": [
-        681,
-        1643,
-        726,
-        657
-      ],
-      "color": "#804000",
+      "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     },
@@ -5946,12 +5910,48 @@
       "flags": {}
     },
     {
-      "title": "Concept sampler group",
+      "title": "Network loader",
+      "bounding": [
+        681,
+        1643,
+        726,
+        657
+      ],
+      "color": "#804000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Encoder, sampler, decoder",
       "bounding": [
         1916,
-        1136,
-        1584,
-        2326
+        21,
+        1043,
+        1104
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Prompt",
+      "bounding": [
+        680,
+        528,
+        1029,
+        1106
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Dashboard settings",
+      "bounding": [
+        679,
+        20,
+        1225,
+        497
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -5961,10 +5961,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.4641000000000006,
+      "scale": 1.1000000000000005,
       "offset": [
-        -2381.779999730134,
-        -2729.9719768041577
+        -1955.7644190566439,
+        60.23341333665853
       ]
     }
   },

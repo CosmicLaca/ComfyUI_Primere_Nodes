@@ -589,10 +589,10 @@
         "0": 703,
         "1": 348
       },
-      "size": [
-        472.1815490722656,
-        158
-      ],
+      "size": {
+        "0": 472.1815490722656,
+        "1": 158
+      },
       "flags": {},
       "order": 9,
       "mode": 0,
@@ -908,7 +908,7 @@
         false,
         1.6,
         2.8,
-        775986071133124,
+        359595088535107,
         "randomize",
         "SD1",
         "Auto"
@@ -965,7 +965,7 @@
       },
       "widgets_values": [
         "",
-        378339920908238,
+        659044081619212,
         "randomize",
         true
       ],
@@ -1021,7 +1021,7 @@
       },
       "widgets_values": [
         "",
-        431357241817707,
+        1072207330547604,
         "randomize",
         true
       ],
@@ -1120,7 +1120,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        121519509449492,
+        459298890758681,
         "randomize",
         false,
         "cpu",
@@ -1340,7 +1340,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        102,
+        1158,
         "randomize",
         "",
         "",
@@ -1910,10 +1910,10 @@
         "0": 2511,
         "1": 176
       },
-      "size": [
-        339.88154907226544,
-        409.1
-      ],
+      "size": {
+        "0": 339.8815612792969,
+        "1": 409.1000061035156
+      },
       "flags": {},
       "order": 21,
       "mode": 0,
@@ -2012,7 +2012,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        307739351254625,
+        691680806576626,
         "randomize",
         20,
         8,
@@ -2076,44 +2076,6 @@
       "widgets_values": [],
       "color": "#941414",
       "bgcolor": "#800000"
-    },
-    {
-      "id": 57,
-      "type": "PrimerePreviewImage",
-      "pos": {
-        "0": 2878,
-        "1": 52
-      },
-      "size": {
-        "0": 949.4878540039062,
-        "1": 1226.9383544921875
-      },
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 227
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        true,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "BestAll\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
     },
     {
       "id": 66,
@@ -2361,7 +2323,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        760,
+        1459,
         "randomize",
         "",
         "",
@@ -2484,6 +2446,44 @@
       ],
       "color": "#149454",
       "bgcolor": "#008040"
+    },
+    {
+      "id": 57,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 2878,
+        "1": 52
+      },
+      "size": {
+        "0": 949.4878540039062,
+        "1": 1226.9383544921875
+      },
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 227
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "BestAll\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -3273,10 +3273,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
+      "scale": 0.9090909090909091,
       "offset": [
-        -906.5215490722653,
-        169.61000000000013
+        -661.3422846094555,
+        167.06586776859507
       ]
     }
   },
