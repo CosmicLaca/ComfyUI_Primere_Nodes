@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'NIMBUSSANSDEE LIGHT';
+	src: url('NIMBUSSANSDEE-LIGHT.eot');
+	src: url('NIMBUSSANSDEE-LIGHT.eot?#iefix') format('embedded-opentype'),
+		url('NIMBUSSANSDEE-LIGHT.ttf') format('truetype'),
+		url('NIMBUSSANSDEE-LIGHT.svg') format('svg'),
+		url('NIMBUSSANSDEE-LIGHT.woff') format('woff');
+}

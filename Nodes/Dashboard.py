@@ -37,6 +37,15 @@ from .Networks import PrimereLORA
 from .Networks import PrimereEmbedding
 from .Networks import PrimereHypernetwork
 from .Networks import PrimereLYCORIS
+from diffusers import (UNet2DConditionModel, DPMSolverMultistepScheduler,  EulerDiscreteScheduler, EulerAncestralDiscreteScheduler, DEISMultistepScheduler, UniPCMultistepScheduler)
+from ..components.kolors.pipelines.pipeline_stable_diffusion_xl_chatglm_256 import StableDiffusionXLPipeline
+from ..components.kolors.models.tokenization_chatglm import ChatGLMTokenizer
+from ..components.kolors.models.modeling_chatglm import ChatGLMModel, ChatGLMConfig
+import gc
+from ..components.hunyuan.conf import hydit_conf
+from ..components.hunyuan.loader import load_hydit
+from ..components.hunyuan.utils.dtype import string_to_dtype
+from ..components.hunyuan.tenc import load_clip, load_t5
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -44,12 +53,14 @@ class PrimereSamplersSteps:
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG")
     FUNCTION = "get_sampler_step"
 
+    kolors_schedulers = ["EulerDiscreteScheduler", "EulerAncestralDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler_SDE_karras", "UniPCMultistepScheduler", "DEISMultistepScheduler"]
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
-                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS,),
+                "scheduler_name": (cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
             }
@@ -127,7 +138,8 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING",  "STRING",
                     "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING",
-                    "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT"
+                    "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
+                    "STRING"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -138,7 +150,8 @@ class PrimereModelConceptSelector:
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
                     "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
-                    "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH"
+                    "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
+                    "KOLORS_PRECISION"
                     )
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
@@ -149,6 +162,7 @@ class PrimereModelConceptSelector:
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
     CLIPLIST += folder_paths.get_filename_list("clip_gguf")
+    CLIPLIST += folder_paths.get_filename_list("t5")
     CONCEPT_LIST = utility.SUPPORTED_MODELS[0:14]
 
     SAMPLER_INPUTS = {'model_version': ("STRING", {"forceInput": True, "default": "SD1"})}
@@ -219,6 +233,8 @@ class PrimereModelConceptSelector:
             "use_sd3_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore Lora"}),
             "sd3_hyper_lora_step": ([4, 8, 16], {"default": 8}),
             "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "min": -20.000, "max": 20.000, "step": 0.001}),
+
+            "kolors_precision": ([ 'fp16', 'quant8', 'quant4'], {"default": "quant8"}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -232,6 +248,7 @@ class PrimereModelConceptSelector:
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
                              use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
+                             kolors_precision = 'quant8',
                              model_version = None,
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              sd_vae = "None", sdxl_vae = "None",
@@ -266,7 +283,7 @@ class PrimereModelConceptSelector:
         else:
             if model_version == "SD1" and sd_vae != "None":
                 vae = sd_vae
-            if model_version == "SDXL" and sdxl_vae != "None":
+            if (model_version == "SDXL" or model_version == "KwaiKolors") and sdxl_vae != "None":
                 vae = sdxl_vae
 
         sampler_name_input = model_concept.lower() + '_sampler_name'
@@ -341,6 +358,9 @@ class PrimereModelConceptSelector:
             hunyuan_clip_l = None
             hunyuan_vae = None
 
+        if model_concept != 'KwaiKolors':
+            kolors_precision = None
+
         if model_concept != 'SD3':
             sd3_clip_g = None
             sd3_clip_l = None
@@ -366,7 +386,8 @@ class PrimereModelConceptSelector:
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
                 use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
-                sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength
+                sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
+                kolors_precision
                 )
 
 class PrimereConceptDataTuple:
@@ -423,6 +444,8 @@ class PrimereConceptDataTuple:
                 "use_sd3_hyper_lora": ("SD3_HYPER_LORA", {"forceInput": True}),
                 "sd3_hyper_lora_step": ("INT", {"default": 8, "forceInput": True}),
                 "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
+
+                "kolors_precision": ("STRING", {"forceInput": True}),
             },
         }
 
@@ -467,7 +490,8 @@ class PrimereCKPTLoader:
                           flux_selector = 'DIFFUSION', flux_diffusion = None, flux_weight_dtype = None, flux_gguf = None, flux_clip_t5xxl = None, flux_clip_l = None, flux_clip_guidance = None, flux_vae = None,
                           use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
                           hunyuan_clip_t5xxl = None, hunyuan_clip_l = None, hunyuan_vae = None,
-                          sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None, use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125
+                          sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None, use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
+                          kolors_precision = 'quant8'
                           ):
 
         playground_sigma_max = 120
@@ -540,6 +564,13 @@ class PrimereCKPTLoader:
             if 'flux_hyper_lora_strength' in concept_data:
                 flux_hyper_lora_strength = concept_data['flux_hyper_lora_strength']
 
+            if 'hunyuan_clip_t5xxl' in concept_data:
+                hunyuan_clip_t5xxl = concept_data['hunyuan_clip_t5xxl']
+            if 'hunyuan_clip_l' in concept_data:
+                hunyuan_clip_l = concept_data['hunyuan_clip_l']
+            if 'hunyuan_vae' in concept_data:
+                hunyuan_vae = concept_data['hunyuan_vae']
+
             # if 'flux_sampler' in concept_data:
             #    flux_sampler = concept_data['flux_sampler']
             if 'sd3_clip_g' in concept_data:
@@ -556,6 +587,9 @@ class PrimereCKPTLoader:
                 sd3_hyper_lora_step = concept_data['sd3_hyper_lora_step']
             if 'sd3_hyper_lora_strength' in concept_data:
                 sd3_hyper_lora_strength = concept_data['sd3_hyper_lora_strength']
+
+            if 'kolors_precision' in concept_data:
+                kolors_precision = concept_data['kolors_precision']
 
         modelname_only = Path(ckpt_name).stem
         MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
@@ -594,6 +628,100 @@ class PrimereCKPTLoader:
             return m
 
         match model_concept:
+            case 'Hunyuan':
+                print('---Hunyuan---')
+
+                print(hunyuan_vae)
+                print(ckpt_name)
+                HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
+                try:
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                    print('sima ckpt')
+                    print(len(LOADED_CHECKPOINT))
+                    print(LOADED_CHECKPOINT)
+                    HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
+                    CLIP = LOADED_CHECKPOINT[1]
+                    print('HY clip out')
+                    T5 = None
+                except Exception:
+                    print('hunyuan ckpt')
+                    model = 'G/2-1.2'
+                    ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+                    model_conf = hydit_conf[model]
+                    HUNYUAN_MODEL = load_hydit(model_path = ckpt_path, model_conf = model_conf)
+
+                    dtype = string_to_dtype('FP32', "text_encoder")
+                    device = 'GPU'
+                    CLIP = load_clip(
+                        model_path=folder_paths.get_full_path("clip", hunyuan_clip_l),
+                        device=device,
+                        dtype=dtype,
+                    )
+                    T5 = load_t5(
+                        model_path=folder_paths.get_full_path("t5", hunyuan_clip_t5xxl),
+                        device=device,
+                        dtype=dtype,
+                    )
+
+                HUNYUAN_CLIP = {'clip': CLIP, 't5': T5}
+                print('hy model loaded...')
+                return (HUNYUAN_MODEL,) + (HUNYUAN_CLIP,) + (HUNYUAN_VAE,) + (MODEL_VERSION,)
+
+            case 'KwaiKolors':
+                print('---KwaiKolors---')
+                precision = kolors_precision
+                model_name = 'Kolors'
+
+                if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
+                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                    print('KOLORS symlink check.....')
+                    print(fullpathFile)
+                    is_link = os.path.islink(str(fullpathFile))
+                    if is_link == True:
+                        print('DE! symlink')
+                        model_name = Path(fullpathFile).stem
+
+                print(model_name)
+                device = model_management.get_torch_device()
+                offload_device = model_management.unet_offload_device()
+                dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
+                pbar = comfy.utils.ProgressBar(4)
+                model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
+                pbar.update(1)
+                scheduler = EulerDiscreteScheduler.from_pretrained(model_path, subfolder='scheduler')
+                print("Load KOLORS UNET...")
+                unet = UNet2DConditionModel.from_pretrained(model_path, subfolder='unet', variant="fp16", revision=None, low_cpu_mem_usage=True).to(dtype).eval()
+                pipeline = StableDiffusionXLPipeline(unet=unet, scheduler=scheduler)
+                KOLORS_MODEL = {'pipeline': pipeline, 'dtype': dtype}
+
+                pbar = comfy.utils.ProgressBar(2)
+                text_encoder_path = os.path.join(model_path, "text_encoder")
+                pbar.update(1)
+                print("Load KOLORS TEXT_ENCODER...")
+                text_encoder = ChatGLMModel.from_pretrained(text_encoder_path, torch_dtype=torch.float16)
+                if precision == 'quant8':
+                    text_encoder.quantize(8)
+                elif precision == 'quant4':
+                    text_encoder.quantize(4)
+                tokenizer = ChatGLMTokenizer.from_pretrained(text_encoder_path)
+                pbar.update(1)
+                CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
+
+                print("Load KOLORS VAE...")
+                print(vae_name)
+                if vae_name != "Baked":
+                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
+                else:
+                    vae_list = folder_paths.get_filename_list("vae")
+                    allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
+                    print(allLSDXLvae[0])
+                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
+
+                print("KOROLS loading OK...")
+                # exit()
+
+                return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
+
             case 'StableCascade':
                 if cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
                     print('---StableCascade---')
@@ -1042,7 +1170,7 @@ class PrimereCKPTLoader:
                     print(allLSD1vae[0])
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSD1vae[0])[0]
                 else:
-                    allLSDXLvae = list(filter(lambda a: 'sdxl'.casefold() in a.casefold(), vae_list))
+                    allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
                     print(allLSDXLvae[0])
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
         else:
@@ -1232,7 +1360,10 @@ class PrimereCLIP:
         DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
         cls.default_neg = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_neg.toml"))
         cls.default_pos = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_pos.toml"))
-        cls.CLIPLIST = folder_paths.get_filename_list("clip")
+        CLIPLIST = folder_paths.get_filename_list("clip")
+        CLIPLIST += folder_paths.get_filename_list("clip_gguf")
+        CLIPLIST += folder_paths.get_filename_list("t5")
+        cls.CLIPLIST = CLIPLIST
 
         return {
             "required": {
@@ -1336,7 +1467,7 @@ class PrimereCLIP:
             workflow_tuple = {}
 
         print(model_concept)
-        if model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
+        if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
             model_version = 'SDXL'
             clip_model = 'Default'
 
@@ -1456,7 +1587,7 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        if model_version == 'SD1' or model_concept == 'StableCascade' or model_concept == 'Lightning':
+        if model_concept == 'KwaiKolors' or model_version == 'SD1' or model_concept == 'StableCascade' or model_concept == 'Lightning':
             adv_encode = False
 
         if model_concept == 'Flux':
@@ -1476,6 +1607,82 @@ class PrimereCLIP:
             clip_model = 'Default'
             # clip_mode = True
             last_layer = 0
+
+        if model_concept == 'Hunyuan':
+            last_layer = 0
+            print('Clip encoding Hunyuan start:')
+            if clip['t5'] is not None:
+                print('HY T5 cllipping...')
+                CLIPDIT = clip['clip']
+                CLIPT5 = clip['t5']
+                pos_out = clipping.HunyuanClipping(self, positive_text, "", CLIPDIT, CLIPT5)
+                neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
+                print('clipping end 2 - sampling T5 OUT')
+                return (pos_out[0], neg_out[0], positive_text, negative_text, "", "", workflow_tuple)
+            else:
+                print('Standard cllipping...')
+                clipHY = clip['clip']
+                tokens_pos = clipHY.tokenize(positive_text)
+                out_pos = clipHY.encode_from_tokens(tokens_pos, return_pooled = True, return_dict=True)
+
+                tokens_neg = clipHY.tokenize(negative_text)
+                out_neg = clipHY.encode_from_tokens(tokens_neg, return_pooled = True, return_dict=True)
+
+                cond_pos = out_pos.pop("cond")
+                cond_neg = out_neg.pop("cond")
+                print('clipping end 2 - sampling OUT')
+                return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)
+
+
+        if model_concept == 'KwaiKolors':
+            print('Clip encoding KWAI start:')
+            device = model_management.get_torch_device()
+            offload_device = model_management.unet_offload_device()
+            model_management.unload_all_models()
+            model_management.soft_empty_cache()
+            tokenizer = clip['tokenizer']
+            text_encoder = clip['text_encoder']
+            text_encoder.to(device)
+            text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt",).to(device)
+            output = text_encoder(input_ids=text_inputs['input_ids'], attention_mask=text_inputs['attention_mask'], position_ids=text_inputs['position_ids'], output_hidden_states=True)
+            prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone() # [batch_size, 77, 4096]
+            text_proj = output.hidden_states[-1][-1, :, :].clone() # [batch_size, 4096]
+            bs_embed, seq_len, _ = prompt_embeds.shape
+
+            num_images_per_prompt = 1
+            batch_size = 1
+            prompt_embeds = prompt_embeds.repeat(1, num_images_per_prompt, 1)
+            prompt_embeds = prompt_embeds.view(bs_embed * num_images_per_prompt, seq_len, -1)
+
+            uncond_tokens = []
+            uncond_tokens = [""] * batch_size
+            uncond_tokens = [negative_text]
+            max_length = prompt_embeds.shape[1]
+            uncond_input = tokenizer(uncond_tokens, padding="max_length", max_length=max_length, truncation=True, return_tensors="pt", ).to(device)
+            output = text_encoder(input_ids=uncond_input['input_ids'], attention_mask=uncond_input['attention_mask'], position_ids=uncond_input['position_ids'], output_hidden_states=True)
+            print('clip out 2:')
+            negative_prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone() # [batch_size, 77, 4096]
+            negative_text_proj = output.hidden_states[-1][-1, :, :].clone() # [batch_size, 4096]
+            seq_len = negative_prompt_embeds.shape[1]
+            negative_prompt_embeds = negative_prompt_embeds.to(dtype=text_encoder.dtype, device=device)
+            negative_prompt_embeds = negative_prompt_embeds.repeat(1, num_images_per_prompt, 1)
+            negative_prompt_embeds = negative_prompt_embeds.view(batch_size * num_images_per_prompt, seq_len, -1)
+            print('guidance end...')
+
+            bs_embed = text_proj.shape[0]
+            text_proj = text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
+            negative_text_proj = negative_text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
+            text_encoder.to(offload_device)
+            model_management.soft_empty_cache()
+            gc.collect()
+            kolors_embeds = {
+                'prompt_embeds': prompt_embeds,
+                'negative_prompt_embeds': negative_prompt_embeds,
+                'pooled_prompt_embeds': text_proj,
+                'negative_pooled_prompt_embeds': negative_text_proj
+            }
+            print('Kolors clipping end...')
+            return (kolors_embeds, None, positive_text, negative_text, "", "", workflow_tuple)
 
         print('*************')
         print(clip_mode)
@@ -1633,20 +1840,15 @@ class PrimereCLIP:
                 positive_text = utility.clear_cascade(positive_text)
                 negative_text = utility.clear_cascade(negative_text)
 
+            print('clipping end 1 ...')
+
             tokens = clip.tokenize(positive_text)
             cond_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
 
             tokens = clip.tokenize(negative_text)
             cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
-            # if model_concept == 'SD3' and negative_text != "" and negative_text is not None:
-                # print('SD3 cond hack...')
-                # CONDZeroOutNeg = nodes.ConditioningZeroOut.zero_out(self, [[cond_neg, {"pooled_output": pooled_neg}]])[0]
-                # CONDTimestepRange_1 = nodes.ConditioningSetTimestepRange.set_range(self, CONDZeroOutNeg, 0.100, 1.000)[0]
-                # CONDTimestepRange_2 = nodes.ConditioningSetTimestepRange.set_range(self, [[cond_neg, {"pooled_output": pooled_neg}]], 0.000, 0.100)[0]
-                # CONDNegOut = nodes.ConditioningCombine.combine(self, CONDTimestepRange_1, CONDTimestepRange_2)[0]
-                # return ([[cond_pos, {"pooled_output": pooled_pos}]], CONDNegOut, positive_text, negative_text, "", "", workflow_tuple)
-
+            print('clipping end 2 - sampling')
             return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
 
 class PrimereResolution:

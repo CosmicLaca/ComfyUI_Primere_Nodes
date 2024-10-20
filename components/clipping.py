@@ -386,3 +386,54 @@ class LONGCLIP:
 
     def get_key_patches(self):
         return self.patcher.get_key_patches()
+
+def HunyuanClipping(self, text, text_t5, CLIP, T5):
+    # T5
+    T5.load_model()
+    t5_pre = T5.tokenizer(
+        text_t5,
+        max_length            = T5.cond_stage_model.max_length,
+        padding               = 'max_length',
+        truncation            = True,
+        return_attention_mask = True,
+        add_special_tokens    = True,
+        return_tensors        = 'pt'
+    )
+    t5_mask = t5_pre["attention_mask"]
+    with torch.no_grad():
+        t5_outs = T5.cond_stage_model.transformer(
+            input_ids = t5_pre["input_ids"].to(T5.load_device),
+            attention_mask = t5_mask.to(T5.load_device),
+            output_hidden_states = True,
+        )
+        # to-do: replace -1 for clip skip
+        t5_embs = t5_outs["hidden_states"][-1].float().cpu()
+
+    # "clip"
+    CLIP.load_model()
+    clip_pre = CLIP.tokenizer(
+        text,
+        max_length            = CLIP.cond_stage_model.max_length,
+        padding               = 'max_length',
+        truncation            = True,
+        return_attention_mask = True,
+        add_special_tokens    = True,
+        return_tensors        = 'pt'
+    )
+    clip_mask = clip_pre["attention_mask"]
+    with torch.no_grad():
+        clip_outs = CLIP.cond_stage_model.transformer(
+            input_ids = clip_pre["input_ids"].to(CLIP.load_device),
+            attention_mask = clip_mask.to(CLIP.load_device),
+        )
+        # to-do: add hidden states
+        clip_embs = clip_outs[0].float().cpu()
+
+    # combined cond
+    return ([[
+        clip_embs, {
+            "context_t5": t5_embs,
+            "context_mask": clip_mask.float(),
+            "context_t5_mask": t5_mask.float()
+        }
+    ]],)

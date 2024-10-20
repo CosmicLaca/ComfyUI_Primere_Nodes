@@ -639,6 +639,21 @@ class PrimereKSampler:
         print(scheduler_name)
 
         match model_concept:
+            case "Hunyuan":
+                print("Hunyuan sampling start....")
+                samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                                        steps, cfg, sampler_name, scheduler_name,
+                                                        positive, negative,
+                                                        latent_image, denoise,
+                                                        variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                        align_your_steps, noise_extender_ksampler)[0]
+                print('HY sampler out....')
+                return (samples_out, workflow_tuple)
+
+            case "KwaiKolors":
+                print("KwaiKolors sampling start....")
+                samples_out = primeresamplers.PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling, 1000)[0]
+
             case "SD3":
                 samples_out = primeresamplers.PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling, 1000)[0]
             case "Turbo":

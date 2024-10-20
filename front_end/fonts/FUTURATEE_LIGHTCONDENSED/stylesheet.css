@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'FUTURATEE LIGHTCONDENSED';
+	src: url('FUTURATEE-LIGHTCONDENSED.eot'); 
+	src: url('FUTURATEE-LIGHTCONDENSED.eot?#iefix') format('embedded-opentype'),		
+		url('FUTURATEE-LIGHTCONDENSED.ttf') format('truetype'),
+		url('FUTURATEE-LIGHTCONDENSED.svg') format('svg'),
+		url('FUTURATEE-LIGHTCONDENSED.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+}

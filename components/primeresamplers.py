@@ -10,6 +10,15 @@ import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import comfy_extras.nodes_flux as nodes_flux
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
+from comfy import model_management
+import gc
+from diffusers import (
+    DPMSolverMultistepScheduler,
+    EulerDiscreteScheduler,
+    EulerAncestralDiscreteScheduler,
+    DEISMultistepScheduler,
+    UniPCMultistepScheduler
+)
 
 def PKSampler(self, device, seed, model,
               steps, cfg, sampler_name, scheduler_name,
@@ -121,3 +130,91 @@ def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps,
     sd3sampling = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, multiplier)[0]
     samples = nodes.KSampler.sample(self, sd3sampling, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
     return samples
+
+def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 2.5, multiplier = 1000):
+    device = model_management.get_torch_device()
+    offload_device = model_management.unet_offload_device()
+    vae_scaling_factor = 0.13025
+    model_management.soft_empty_cache()
+    gc.collect()
+    pipeline = model['pipeline']
+    print('sampler conf start...')
+    scheduler_config = {
+        "beta_schedule": "scaled_linear",
+        "beta_start": 0.00085,
+        "beta_end": 0.014,
+        "dynamic_thresholding_ratio": 0.995,
+        "num_train_timesteps": 1100,
+        "prediction_type": "epsilon",
+        "rescale_betas_zero_snr": False,
+        "steps_offset": 1,
+        "timestep_spacing": "leading",
+        "trained_betas": None,
+    }
+
+    noise_scheduler = None
+    if scheduler_name == "DPMSolverMultistepScheduler":
+        noise_scheduler = DPMSolverMultistepScheduler(**scheduler_config)
+    elif scheduler_name == "DPMSolverMultistepScheduler_SDE_karras":
+        scheduler_config.update({"algorithm_type": "sde-dpmsolver++"})
+        scheduler_config.update({"use_karras_sigmas": True})
+        noise_scheduler = DPMSolverMultistepScheduler(**scheduler_config)
+    elif scheduler_name == "DEISMultistepScheduler":
+        scheduler_config.pop("rescale_betas_zero_snr")
+        noise_scheduler = DEISMultistepScheduler(**scheduler_config)
+    elif scheduler_name == "EulerDiscreteScheduler":
+        scheduler_config.update({"interpolation_type": "linear"})
+        scheduler_config.pop("dynamic_thresholding_ratio")
+        noise_scheduler = EulerDiscreteScheduler(**scheduler_config)
+    elif scheduler_name == "EulerAncestralDiscreteScheduler":
+        scheduler_config.pop("dynamic_thresholding_ratio")
+        noise_scheduler = EulerAncestralDiscreteScheduler(**scheduler_config)
+    elif scheduler_name == "UniPCMultistepScheduler":
+        scheduler_config.pop("rescale_betas_zero_snr")
+        noise_scheduler = UniPCMultistepScheduler(**scheduler_config)
+
+    if noise_scheduler == None:
+        scheduler_config.update({"interpolation_type": "linear"})
+        scheduler_config.pop("dynamic_thresholding_ratio")
+        noise_scheduler = EulerDiscreteScheduler(**scheduler_config)
+
+    print('scheduler ok...')
+
+    pipeline.scheduler = noise_scheduler
+    generator = torch.Generator(device).manual_seed(seed)
+    pipeline.unet.to(device)
+
+    print('pipeline ok...')
+
+    if latent_image is not None:
+        samples_in = latent_image['samples']
+        samples_in = samples_in * vae_scaling_factor
+        samples_in = samples_in.to(pipeline.unet.dtype).to(device)
+
+    latentWidth, latentHeigth = utility.getLatentSize(latent_image)
+
+    latent_out = pipeline(
+        prompt = None,
+        latents = samples_in if latent_image is not None else None,
+        prompt_embeds = positive['prompt_embeds'],
+        pooled_prompt_embeds = positive['pooled_prompt_embeds'],
+        negative_prompt_embeds = positive['negative_prompt_embeds'],
+        negative_pooled_prompt_embeds = positive['negative_pooled_prompt_embeds'],
+        height = latentHeigth * 8,
+        width = latentWidth * 8,
+        num_inference_steps = steps,
+        guidance_scale = cfg,
+        num_images_per_prompt = 1,
+        generator = generator,
+        strength = denoise,
+    ).images
+
+    print('latent out ok...')
+
+    pipeline.unet.to(offload_device)
+    print('unet ok...')
+    latent_out = latent_out / vae_scaling_factor
+
+    print('ready to return...')
+    # exit()
+    return ({'samples': latent_out},)
