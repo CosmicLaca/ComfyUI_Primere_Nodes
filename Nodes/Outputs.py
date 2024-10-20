@@ -655,7 +655,7 @@ class PrimereKSampler:
                 HYPERSD_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_sampler', prompt)
                 print(CONCEPT_SELECTOR)
 
-                if model_concept == CONCEPT_SELECTOR and steps == 12 and HYPERSD_SELECTOR == 'LORA' and HYPERSD_SAMPLER == True:
+                if model_concept == 'Hyper' and (CONCEPT_SELECTOR == 'Hyper' or CONCEPT_SELECTOR == 'Auto') and steps == 12 and HYPERSD_SELECTOR == 'LORA' and HYPERSD_SAMPLER == True:
                     cfg = 3.80
                     scheduler_name = 'normal'
                     print('----sampling data mod:')

@@ -705,11 +705,13 @@ class PrimereCKPTLoader:
                         print(downloaded_filelist_filtered)
                         allHyperFluxLoras = list(filter(lambda a: 'hyper-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
                         print(allHyperFluxLoras)
-                        finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold(), allHyperFluxLoras))
+                        finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() not in a.casefold(), allHyperFluxLoras))
                         print(finalLoras)
                         if flux_hyper_lora_type == 'FLUX.1-dev-fp16':
-                            finalLoras = list(filter(lambda a: 'steps-lora-fp16'.casefold() in a.casefold(), finalLoras))
-                            print(finalLoras)
+                            finalLoras_pre = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() in a.casefold(), allHyperFluxLoras))
+                            if len(finalLoras_pre) > 0:
+                                finalLoras = finalLoras_pre
+                        print(finalLoras)
 
                         LORA_FILE = finalLoras[0]
                         print(LORA_FILE)
@@ -890,8 +892,8 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'Hyper' | 'Lightning':
-                if model_concept == MODEL_VERSION_ORIGINAL:
-                    MODEL_VERSION = 'SD1'
+                HYPER_LIGHTNING_ORIGINAL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
+                print(HYPER_LIGHTNING_ORIGINAL_VERSION)
 
                 print('Hyper Ligntning loras check....')
                 if lightning_selector == 'LORA':
@@ -952,7 +954,7 @@ class PrimereCKPTLoader:
                 print('5')
                 print('Hyper or Lightning')
                 print(MODEL_VERSION)
-                ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, MODEL_VERSION)
+                ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, HYPER_LIGHTNING_ORIGINAL_VERSION)
                 print('6')
                 print(ModelConceptChanges)
                 ckpt_name = ModelConceptChanges['ckpt_name']
@@ -976,6 +978,7 @@ class PrimereCKPTLoader:
                     print(lora_name)
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_hypersd_lora_model)
                     print(type(OUTPUT_MODEL).__name__)
+                    vae_selection = True
                     print("Hyper lora loaded...")
 
             case 'LCM':
