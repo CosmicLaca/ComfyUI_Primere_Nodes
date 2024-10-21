@@ -299,10 +299,10 @@
         "Node name for S&R": "PrimereSamplersSteps"
       },
       "widgets_values": [
-        "dpmpp_2m",
-        "normal",
-        5,
-        1.1
+        "euler_dy",
+        "karras",
+        7,
+        1
       ],
       "color": "#9090eb",
       "bgcolor": "#a4a4ff"
@@ -366,7 +366,7 @@
       },
       "widgets_values": [
         "euler_ancestral",
-        "simple",
+        "karras",
         50,
         3.2
       ],
@@ -1235,7 +1235,7 @@
         "Node name for S&R": "PrimereVisualStyle"
       },
       "widgets_values": [
-        "Preview woman",
+        "Sci-fi Future world",
         true,
         true,
         true,
@@ -1343,69 +1343,6 @@
       ],
       "color": "#145414",
       "bgcolor": "#004000"
-    },
-    {
-      "id": 3,
-      "type": "PrimereVisualCKPT",
-      "pos": {
-        "0": 692,
-        "1": 86
-      },
-      "size": {
-        "0": 463.38775634765625,
-        "1": 222
-      },
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "random_seed",
-          "type": "INT",
-          "link": 720,
-          "widget": {
-            "name": "random_seed"
-          },
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            146,
-            690,
-            1225
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            2102
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "Kwai\\OfficialKolors.safetensors",
-        true,
-        true,
-        true,
-        false,
-        550,
-        800,
-        0
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
     },
     {
       "id": 76,
@@ -1585,7 +1522,7 @@
         "First",
         1,
         1,
-        "real photo"
+        "niji style"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -2489,7 +2426,7 @@
         "Stable-Cascade\\stable_cascade_stage_b.safetensors",
         "Stable-Cascade\\stable_cascade_stage_c.safetensors",
         "Cascade\\cascade_clip.safetensors",
-        "DIFFUSION",
+        "GGUF",
         "Flux\\flux1-dev-fp8.safetensors",
         "fp8_e4m3fn",
         "FLUX1\\flux1-dev-Q4_1.gguf",
@@ -2623,7 +2560,7 @@
       },
       "widgets_values": [
         "",
-        195030820804332,
+        460966910858349,
         "randomize",
         true
       ],
@@ -2679,7 +2616,7 @@
       },
       "widgets_values": [
         "",
-        8317058721468,
+        586132967464127,
         "randomize",
         true
       ],
@@ -3429,13 +3366,13 @@
         768,
         1024,
         512,
-        false,
+        true,
         "Vertical",
         true,
         false,
         1.6,
         2.8,
-        1104963580011777,
+        816887405187813,
         "randomize",
         "SD1",
         "Auto"
@@ -3612,21 +3549,21 @@
       "widgets_values": [
         512,
         512,
-        false,
+        true,
         "brownian_fractal",
-        false,
+        true,
         1,
         0.5,
         1.5,
-        false,
+        true,
         1,
         0.8,
         1.4,
-        86274692928667,
+        289783155217662,
         "randomize",
-        false,
+        true,
         "cpu",
-        false
+        true
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -3854,10 +3791,10 @@
         "",
         "",
         true,
-        "Default",
-        "Default",
+        "ViT-L\\ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
+        "Long\\Long-ViT-L-14-GmP-ft.safetensors",
         0,
-        1,
+        1.2,
         false,
         "None",
         1,
@@ -4025,7 +3962,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        341435407178240,
+        1111158436693810,
         "randomize",
         20,
         8,
@@ -4116,13 +4053,13 @@
         "Node name for S&R": "PrimerePreviewImage"
       },
       "widgets_values": [
-        true,
+        false,
         "jpeg",
         0,
         90,
         "Checkpoint",
         "Overwrite",
-        "Kwai\\OfficialKolors.safetensors",
+        "LCM\\cyberrealisticLCM_cyberrealistic33.safetensors",
         null
       ],
       "color": "#549494",
@@ -4375,7 +4312,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        538,
+        1989,
         "randomize",
         "",
         "",
@@ -4498,6 +4435,69 @@
       ],
       "color": "#149454",
       "bgcolor": "#008040"
+    },
+    {
+      "id": 3,
+      "type": "PrimereVisualCKPT",
+      "pos": {
+        "0": 693,
+        "1": 86
+      },
+      "size": {
+        "0": 463.38775634765625,
+        "1": 222
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "type": "INT",
+          "link": 720,
+          "widget": {
+            "name": "random_seed"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            146,
+            690,
+            1225
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            2102
+          ],
+          "slot_index": 1,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereVisualCKPT"
+      },
+      "widgets_values": [
+        "Kwai\\realisticKolors.safetensors",
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -5920,50 +5920,14 @@
   ],
   "groups": [
     {
-      "title": "Concept sampler group",
+      "title": "Dashboard settings",
       "bounding": [
-        1916,
-        1136,
-        1582,
-        2355
+        679,
+        20,
+        1225,
+        497
       ],
       "color": "#3f789e",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "File save",
-      "bounding": [
-        3941,
-        25,
-        1268,
-        1257
-      ],
-      "color": "#008040",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Network loader",
-      "bounding": [
-        681,
-        1643,
-        726,
-        657
-      ],
-      "color": "#804000",
-      "font_size": 24,
-      "flags": {}
-    },
-    {
-      "title": "Encoder, sampler, decoder",
-      "bounding": [
-        1916,
-        21,
-        1043,
-        1104
-      ],
-      "color": "#A88",
       "font_size": 24,
       "flags": {}
     },
@@ -5980,12 +5944,48 @@
       "flags": {}
     },
     {
-      "title": "Dashboard settings",
+      "title": "Encoder, sampler, decoder",
       "bounding": [
-        679,
-        20,
-        1225,
-        497
+        1916,
+        21,
+        1043,
+        1104
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Network loader",
+      "bounding": [
+        681,
+        1643,
+        726,
+        657
+      ],
+      "color": "#804000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "File save",
+      "bounding": [
+        3941,
+        25,
+        1268,
+        1257
+      ],
+      "color": "#008040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Concept sampler group",
+      "bounding": [
+        1916,
+        1136,
+        1582,
+        2355
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -5995,10 +5995,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 0.9090909090909091,
       "offset": [
-        -1117.924141215337,
-        703.2615331509027
+        -1052.0998526767366,
+        242.28825687967364
       ]
     }
   },

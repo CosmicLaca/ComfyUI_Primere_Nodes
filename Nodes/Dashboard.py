@@ -718,8 +718,6 @@ class PrimereCKPTLoader:
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
 
                 print("KOROLS loading OK...")
-                # exit()
-
                 return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
             case 'StableCascade':
@@ -1110,6 +1108,7 @@ class PrimereCKPTLoader:
                     print("Hyper lora loaded...")
 
             case 'LCM':
+                vae_selection = True
                 if MODEL_VERSION == 'SD1' or MODEL_VERSION == 'SDXL':
                     SDXL_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true'
                     SD_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true'
@@ -1590,11 +1589,14 @@ class PrimereCLIP:
         if model_concept == 'KwaiKolors' or model_version == 'SD1' or model_concept == 'StableCascade' or model_concept == 'Lightning':
             adv_encode = False
 
-        if model_concept == 'Flux':
+        if model_concept == 'Flux' or model_concept == 'Pony':
             adv_encode = False
             clip_model = 'Default'
             # clip_mode = True
             last_layer = 0
+
+        if model_concept == 'Hyper':
+            clip_model = 'Default'
 
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
@@ -1629,18 +1631,6 @@ class PrimereCLIP:
 
                 positive_text = utility.clear_hunyuan(positive_text, 512)
                 negative_text = utility.clear_hunyuan(negative_text, 512)
-
-                '''tokens_pos = clip.tokenize(positive_text)
-                out_pos = clip.encode_from_tokens(tokens_pos, return_pooled = True, return_dict=True)
-
-                tokens_neg = clip.tokenize(negative_text)
-                out_neg = clip.encode_from_tokens(tokens_neg, return_pooled = True, return_dict=True)
-
-                cond_pos = out_pos.pop("cond")
-                cond_neg = out_neg.pop("cond")
-                print('clipping end 2 - sampling OUT')
-                return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)'''
-
 
         if model_concept == 'KwaiKolors':
             print('Clip encoding KWAI start:')
