@@ -16,13 +16,14 @@ All workflows in the `Workflow` folder of the node root.
 
 ### Included features:
  
-- Prompt selector
-- `CSV` and `TOML` prompt source reader, automatically organized, saved prompt selection by preview image
+- Prompt selector to any prompt sources
+- `CSV` and `TOML` file source reader for prompts, automatically organized, saved prompt selection by preview image
 - Randomized latent noise
-- Prompt encoder with selectable custom clip model, long-clip mode, advanced encoding, injectable styles, internal styles, last-layer options
+- Prompt encoder with selectable custom clip model, long-clip mode with custom models, advanced encoding, injectable styles, internal styles, last-layer options
 - Sampler with `variation extender` and `Align Your Step`
-- A1111 style network injection supported by prompt (Lora, Lycorys, Hypernetwork, Embedding)
+- A1111 style network injection supported by text prompt (Lora, Lycorys, Hypernetwork, Embedding)
 - Automatized and manual image saver. Manual image saver with optional preview saver for checkpoint selector and saved CSV prompts
+- Upscaler (Ultimate SD and hiresFix)
 
 **Examples:**
 
