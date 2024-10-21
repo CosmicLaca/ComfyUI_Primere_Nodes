@@ -131,7 +131,7 @@ def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps,
     samples = nodes.KSampler.sample(self, sd3sampling, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
     return samples
 
-def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 2.5, multiplier = 1000):
+def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 0, multiplier = 1000):
     device = model_management.get_torch_device()
     offload_device = model_management.unet_offload_device()
     vae_scaling_factor = 0.13025

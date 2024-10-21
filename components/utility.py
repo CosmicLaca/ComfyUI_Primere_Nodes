@@ -166,7 +166,13 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
 
 def clear_cascade(prompt):
-    return re.sub("(.d+)|(:d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
+    return re.sub("(\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
+
+def clear_hunyuan(prompt, length = 0):
+    cleanPrompt = re.sub("(\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
+    if length > 0:
+        cleanPrompt = cleanPrompt[:length].rsplit(' ', 1)[0]
+    return cleanPrompt
 
 def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
     valid_networks = []

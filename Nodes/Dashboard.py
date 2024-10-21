@@ -670,7 +670,7 @@ class PrimereCKPTLoader:
             case 'KwaiKolors':
                 print('---KwaiKolors---')
                 precision = kolors_precision
-                model_name = 'Kolors'
+                model_name = Path(ckpt_name).stem
 
                 if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                     fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
@@ -1615,23 +1615,31 @@ class PrimereCLIP:
                 print('HY T5 cllipping...')
                 CLIPDIT = clip['clip']
                 CLIPT5 = clip['t5']
+
+                positive_text = utility.clear_hunyuan(positive_text, 0)
+                negative_text = utility.clear_hunyuan(negative_text, 0)
+
                 pos_out = clipping.HunyuanClipping(self, positive_text, "", CLIPDIT, CLIPT5)
                 neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
                 print('clipping end 2 - sampling T5 OUT')
                 return (pos_out[0], neg_out[0], positive_text, negative_text, "", "", workflow_tuple)
             else:
                 print('Standard cllipping...')
-                clipHY = clip['clip']
-                tokens_pos = clipHY.tokenize(positive_text)
-                out_pos = clipHY.encode_from_tokens(tokens_pos, return_pooled = True, return_dict=True)
+                clip = clip['clip']
 
-                tokens_neg = clipHY.tokenize(negative_text)
-                out_neg = clipHY.encode_from_tokens(tokens_neg, return_pooled = True, return_dict=True)
+                positive_text = utility.clear_hunyuan(positive_text, 512)
+                negative_text = utility.clear_hunyuan(negative_text, 512)
+
+                '''tokens_pos = clip.tokenize(positive_text)
+                out_pos = clip.encode_from_tokens(tokens_pos, return_pooled = True, return_dict=True)
+
+                tokens_neg = clip.tokenize(negative_text)
+                out_neg = clip.encode_from_tokens(tokens_neg, return_pooled = True, return_dict=True)
 
                 cond_pos = out_pos.pop("cond")
                 cond_neg = out_neg.pop("cond")
                 print('clipping end 2 - sampling OUT')
-                return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)
+                return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)'''
 
 
         if model_concept == 'KwaiKolors':
@@ -1842,14 +1850,20 @@ class PrimereCLIP:
 
             print('clipping end 1 ...')
 
-            tokens = clip.tokenize(positive_text)
-            cond_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+            tokens_pos = clip.tokenize(positive_text)
+            # cond_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
 
-            tokens = clip.tokenize(negative_text)
-            cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+            tokens_neg = clip.tokenize(negative_text)
+            # cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+            out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+
+            cond_pos = out_pos.pop("cond")
+            cond_neg = out_neg.pop("cond")
 
             print('clipping end 2 - sampling')
-            return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
+            # return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
+            return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT")
