@@ -138,7 +138,6 @@ def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, ste
     model_management.soft_empty_cache()
     gc.collect()
     pipeline = model['pipeline']
-    print('sampler conf start...')
     scheduler_config = {
         "beta_schedule": "scaled_linear",
         "beta_start": 0.00085,
@@ -178,13 +177,9 @@ def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, ste
         scheduler_config.pop("dynamic_thresholding_ratio")
         noise_scheduler = EulerDiscreteScheduler(**scheduler_config)
 
-    print('scheduler ok...')
-
     pipeline.scheduler = noise_scheduler
     generator = torch.Generator(device).manual_seed(seed)
     pipeline.unet.to(device)
-
-    print('pipeline ok...')
 
     if latent_image is not None:
         samples_in = latent_image['samples']
@@ -209,12 +204,6 @@ def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, ste
         strength = denoise,
     ).images
 
-    print('latent out ok...')
-
     pipeline.unet.to(offload_device)
-    print('unet ok...')
     latent_out = latent_out / vae_scaling_factor
-
-    print('ready to return...')
-    # exit()
     return ({'samples': latent_out},)

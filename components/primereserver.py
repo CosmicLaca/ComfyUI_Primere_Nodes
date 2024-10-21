@@ -372,3 +372,24 @@ async def primere_get_filedates(request):
 
     PromptServer.instance.send_sync("FileDateData", filedates)
     return web.json_response({})
+
+routes13 = PromptServer.instance.routes
+@routes13.post('/primere_get_filelinks') # ReadFileDate()
+async def primere_get_filelinks(request):
+    post = await request.post()
+    subdirKey = post.get('type')
+    allSource = folder_paths.get_filename_list(subdirKey)
+    filelinktypes = {}
+
+    for filename in allSource:
+        singleFile = folder_paths.get_full_path(subdirKey, filename)
+        is_link = os.path.islink(str(singleFile))
+        if is_link == True:
+            singleFile_link = Path(str(singleFile)).resolve()
+            filenameonly = Path(singleFile_link).stem
+            comfyModelDir = os.path.join(utility.comfy_dir, 'models')
+            modelType = str(singleFile_link)[len(comfyModelDir) + 1:str(singleFile_link).find('\\', len(comfyModelDir) + 1)]
+            filelinktypes[filenameonly] = modelType
+
+    PromptServer.instance.send_sync("FileLinkData", filelinktypes)
+    return web.json_response({})

@@ -497,10 +497,6 @@ class PrimereCKPTLoader:
         playground_sigma_max = 120
         playground_sigma_min = 0.002
 
-        print('----------- CONCEPT CHECK ---------------------')
-        print(model_concept)
-        print('unload')
-
         comfy.model_management.unload_all_models()
         comfy.model_management.cleanup_models()
         comfy.model_management.soft_empty_cache()
@@ -598,24 +594,15 @@ class PrimereCKPTLoader:
             utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION_ORIGINAL)
 
         if model_concept == "LCM" or (model_concept == 'Lightning' and lightning_selector == 'LORA') or (model_concept == 'Hyper' and hypersd_selector == 'LORA'):
-            print('1')
             MODEL_VERSION = MODEL_VERSION_ORIGINAL
-            print('2')
         else:
             if model_concept is not None:
                 MODEL_VERSION = model_concept
             else:
                 MODEL_VERSION = MODEL_VERSION_ORIGINAL
 
-        print(ckpt_name)
-        print(MODEL_VERSION)
-        print(MODEL_VERSION_ORIGINAL)
-        print(model_concept)
-
         def lcm(self, model, zsnr = False):
-            print('def lcm ok')
             m = model.clone()
-            print(ckpt_name)
             # sampling_base = comfy.model_sampling.ModelSamplingDiscrete
             sampling_type = nodes_model_advanced.LCM
             sampling_base = utility.ModelSamplingDiscreteLCM
@@ -629,22 +616,13 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'Hunyuan':
-                print('---Hunyuan---')
-
-                print(hunyuan_vae)
-                print(ckpt_name)
                 HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
                 try:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
-                    print('sima ckpt')
-                    print(len(LOADED_CHECKPOINT))
-                    print(LOADED_CHECKPOINT)
                     HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
                     CLIP = LOADED_CHECKPOINT[1]
-                    print('HY clip out')
                     T5 = None
                 except Exception:
-                    print('hunyuan ckpt')
                     model = 'G/2-1.2'
                     ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                     model_conf = hydit_conf[model]
@@ -664,24 +642,18 @@ class PrimereCKPTLoader:
                     )
 
                 HUNYUAN_CLIP = {'clip': CLIP, 't5': T5}
-                print('hy model loaded...')
                 return (HUNYUAN_MODEL,) + (HUNYUAN_CLIP,) + (HUNYUAN_VAE,) + (MODEL_VERSION,)
 
             case 'KwaiKolors':
-                print('---KwaiKolors---')
                 precision = kolors_precision
                 model_name = Path(ckpt_name).stem
 
                 if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                     fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    print('KOLORS symlink check.....')
-                    print(fullpathFile)
                     is_link = os.path.islink(str(fullpathFile))
                     if is_link == True:
-                        print('DE! symlink')
                         model_name = Path(fullpathFile).stem
 
-                print(model_name)
                 device = model_management.get_torch_device()
                 offload_device = model_management.unet_offload_device()
                 dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
@@ -689,7 +661,6 @@ class PrimereCKPTLoader:
                 model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
                 pbar.update(1)
                 scheduler = EulerDiscreteScheduler.from_pretrained(model_path, subfolder='scheduler')
-                print("Load KOLORS UNET...")
                 unet = UNet2DConditionModel.from_pretrained(model_path, subfolder='unet', variant="fp16", revision=None, low_cpu_mem_usage=True).to(dtype).eval()
                 pipeline = StableDiffusionXLPipeline(unet=unet, scheduler=scheduler)
                 KOLORS_MODEL = {'pipeline': pipeline, 'dtype': dtype}
@@ -697,7 +668,6 @@ class PrimereCKPTLoader:
                 pbar = comfy.utils.ProgressBar(2)
                 text_encoder_path = os.path.join(model_path, "text_encoder")
                 pbar.update(1)
-                print("Load KOLORS TEXT_ENCODER...")
                 text_encoder = ChatGLMModel.from_pretrained(text_encoder_path, torch_dtype=torch.float16)
                 if precision == 'quant8':
                     text_encoder.quantize(8)
@@ -707,43 +677,28 @@ class PrimereCKPTLoader:
                 pbar.update(1)
                 CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
 
-                print("Load KOLORS VAE...")
-                print(vae_name)
                 if vae_name != "Baked":
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
                 else:
                     vae_list = folder_paths.get_filename_list("vae")
                     allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    print(allLSDXLvae[0])
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
-
-                print("KOROLS loading OK...")
                 return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
             case 'StableCascade':
                 if cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
-                    print('---StableCascade---')
                     OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
                     OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
                     if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                        print('symlink check.....')
-                        print(fullpathFile)
                         is_link = os.path.islink(str(fullpathFile))
                         if is_link == False:
                             MODEL_C_CAS = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')[0]
                         else:
-                            print('CKPT cascade yeah symlink...')
                             File_link = Path(str(fullpathFile)).resolve()
-                            print(File_link)
                             linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                            print('U folder')
-                            print(linkName_U)
                             linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                            print('D folder')
-                            print(linkName_D)
                             linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                            print(linkedFileName)
                             MODEL_C_CAS = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
                     else:
                         MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
@@ -754,11 +709,6 @@ class PrimereCKPTLoader:
 
             case 'Flux':
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
-                    print('Flux')
-                    print(flux_selector)
-                    print(MODEL_VERSION)
-                    print(MODEL_VERSION_ORIGINAL)
-                    print(model_concept)
                     if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         flux_selector = 'SAFETENSOR'
 
@@ -767,43 +717,29 @@ class PrimereCKPTLoader:
                             MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
                             DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
-                            # return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
                         case 'GGUF':
                             MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
                             DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
-                            # return (MODEL_GGUF,) + (CLIP_GGUF,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
                         case 'SAFETENSOR':
                             fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                            print('FLUX symlink check.....')
-                            print(fullpathFile)
                             is_link = os.path.islink(str(fullpathFile))
                             if is_link == False:
-                                print('NEM symlink')
                                 MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
                                 DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                 FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                             else:
-                                print('DE! symlink')
                                 File_link = Path(str(fullpathFile)).resolve()
-                                print(File_link)
                                 linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                                print('U folder')
-                                print(linkName_U)
                                 linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                                print('D folder')
-                                print(linkName_D)
                                 linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                                print(linkedFileName)
                                 if 'diffusion_models' in str(File_link):
-                                    print('GGUF loader')
                                     MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
                                     DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                                 elif 'unet' in str(File_link):
-                                    print('UNET loader')
                                     MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
@@ -813,7 +749,6 @@ class PrimereCKPTLoader:
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
                     if use_flux_hyper_lora == True:
-                        print('Kell flux lora....')
                         FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
                         FLUX_DEV_FP16_LORA8 = 'https://huggingface.co/nakodanei/Hyper-FLUX.1-dev-8steps-lora-fp16/resolve/main/Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors?download=true'
                         FLUX_DEV_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors?download=true'
@@ -826,26 +761,18 @@ class PrimereCKPTLoader:
                         utility.fileDownloader(DOWNLOADED_FLUX_DEV_FP16_LORA8, FLUX_DEV_FP16_LORA8)
                         utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA16, FLUX_DEV_LORA16)
 
-                        print('fluxlorapath test...')
                         downloaded_filelist_filtered = utility.getDownloadedFiles()
-                        print(downloaded_filelist_filtered)
                         allHyperFluxLoras = list(filter(lambda a: 'hyper-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        print(allHyperFluxLoras)
                         finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() not in a.casefold(), allHyperFluxLoras))
-                        print(finalLoras)
                         if flux_hyper_lora_type == 'FLUX.1-dev-fp16':
                             finalLoras_pre = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() in a.casefold(), allHyperFluxLoras))
                             if len(finalLoras_pre) > 0:
                                 finalLoras = finalLoras_pre
-                        print(finalLoras)
 
                         LORA_FILE = finalLoras[0]
-                        print(LORA_FILE)
                         FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-                        print(FULL_LORA_PATH)
 
                         if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                            print('Lora path ok')
                             if flux_hyper_lora_strength != 0:
                                 lora = None
                                 if self.loaded_lora is not None:
@@ -861,15 +788,17 @@ class PrimereCKPTLoader:
                                     self.loaded_lora = (FULL_LORA_PATH, lora)
 
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_hyper_lora_strength, 0)[0]
-                                print('Flux lora loaded...')
 
                     return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 
             case 'Hyper':
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    hypersd_selector = 'UNET'
+
                 if hypersd_selector == 'UNET':
-                    print('hyper-unet')
                     ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, 'SDXL')
-                    print(ModelConceptChanges)
                     lora_name = ModelConceptChanges['lora_name']
                     unet_name = ModelConceptChanges['unet_name']
                     hyperModeValid = ModelConceptChanges['hyperModeValid']
@@ -880,89 +809,47 @@ class PrimereCKPTLoader:
         ModelName = path.stem
         ModelConfigPath = path.parent.joinpath(ModelName + '.yaml')
         ModelConfigFullPath = Path(folder_paths.models_dir).joinpath('checkpoints').joinpath(ModelConfigPath)
-        print('7')
-        print(loaded_model)
-        print(loaded_clip)
-        print(loaded_vae)
 
         LOADED_CHECKPOINT = []
         if loaded_model is not None and loaded_clip is not None and loaded_vae is not None:
-            print('7.0')
             LOADED_CHECKPOINT.insert(0, loaded_model)
             LOADED_CHECKPOINT.insert(1, loaded_clip)
             LOADED_CHECKPOINT.insert(2, loaded_vae)
         else:
-            print(ckpt_name)
             if os.path.isfile(ModelConfigFullPath) and use_yaml == True:
-                print('7.1')
-                print(ModelConfigFullPath)
-                print(ckpt_name)
                 ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-                print(ckpt_path)
-                print('7.2')
-                print(ModelName + '.yaml file found and loading...')
                 try:
                     LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
                 except Exception:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
             else:
-                print('7.3')
-                print(ckpt_name)
                 try:
-                    print('load ckpt')
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                 except Exception:
-                    print('load unet')
                     fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    print('CKPT UNET symlink check.....')
-                    print(fullpathFile)
                     is_link = os.path.islink(str(fullpathFile))
                     if is_link == False:
                         LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
                     else:
-                        print('yeah CKTP symlink...')
                         File_link = Path(str(fullpathFile)).resolve()
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                         linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                         linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
                         LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
 
-                print('7.3.1')
-
-        print('8')
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         if model_concept == 'SD3':
-            print(len(LOADED_CHECKPOINT))
-            # print(type(LOADED_CHECKPOINT[1]).__name__)
-            print('SD3 triple  clipping...')
-            print(sd3_clip_g)
-            print(sd3_clip_l)
-            print(sd3_clip_t5xxl)
-            print(clip_selection)
-            print(list(LOADED_CHECKPOINT))
-            # print(1 not in list(LOADED_CHECKPOINT))
-
             if len(LOADED_CHECKPOINT) < 2 or (len(LOADED_CHECKPOINT) >= 2 and type(LOADED_CHECKPOINT[1]).__name__ != 'CLIP') or clip_selection == False:
-                print('clip models loading...')
                 OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.load_clip(self, sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl)[0]
             else:
-                print('clip models __NOT__ loading...')
                 OUTPUT_CLIP = LOADED_CHECKPOINT[1]
 
-            print('vaecheck...')
-            # print(type(LOADED_CHECKPOINT[2]).__name__)
             if len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
             else:
-                print('custom vae:')
-                print(sd3_unet_vae)
                 OUTPUT_VAE = nodes.VAELoader.load_vae(self, sd3_unet_vae)[0]
 
             if use_sd3_hyper_lora == True:
-                print('Kell SD3 lora....')
-                # sd3_hyper_lora_step
-                # sd3_hyper_lora_strength
-
                 SD3_LORA4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors?download=true'
                 SD3_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors?download=true'
                 SD3_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors?download=true'
@@ -974,20 +861,13 @@ class PrimereCKPTLoader:
                 utility.fileDownloader(DOWNLOADED_SD3_LORA4, SD3_LORA4)
                 utility.fileDownloader(DOWNLOADED_SD3_LORA8, SD3_LORA8)
                 utility.fileDownloader(DOWNLOADED_SD3_LORA16, SD3_LORA16)
-                print('sd3 lorapath test...')
                 downloaded_filelist_filtered = utility.getDownloadedFiles()
-                print(downloaded_filelist_filtered)
                 allHyperSD3Loras = list(filter(lambda a: 'hyper-sd3'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                print(allHyperSD3Loras)
                 finalLoras = list(filter(lambda a: str(sd3_hyper_lora_step) + 'step'.casefold() in a.casefold(), allHyperSD3Loras))
-                print(finalLoras)
                 LORA_FILE = finalLoras[0]
-                print(LORA_FILE)
                 FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-                print(FULL_LORA_PATH)
 
                 if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                    print('Lora path ok')
                     if sd3_hyper_lora_strength != 0:
                         lora = None
                         if self.loaded_lora is not None:
@@ -1003,15 +883,10 @@ class PrimereCKPTLoader:
                             self.loaded_lora = (FULL_LORA_PATH, lora)
 
                         OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, sd3_hyper_lora_strength, 0)[0]
-                        print('SD3 lora loaded...')
 
             return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
         else:
             OUTPUT_CLIP = LOADED_CHECKPOINT[1]
-        print('9')
-
-        print(model_concept)
-        print(MODEL_VERSION)
 
         if model_concept == 'Lightning' and lightning_selector == 'LORA' and MODEL_VERSION != 'SDXL':
             model_concept = MODEL_VERSION
@@ -1019,9 +894,6 @@ class PrimereCKPTLoader:
         match model_concept:
             case 'Hyper' | 'Lightning':
                 HYPER_LIGHTNING_ORIGINAL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
-                print(HYPER_LIGHTNING_ORIGINAL_VERSION)
-
-                print('Hyper Ligntning loras check....')
                 if lightning_selector == 'LORA':
                     Lightning_SDXL_2 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors?download=true'
                     DOWNLOADED_Lightning_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_2step_lora.safetensors')
@@ -1077,12 +949,7 @@ class PrimereCKPTLoader:
                     DOWNLOADED_Hyper_SDXL_12 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-12steps-CFG-lora.safetensors')
                     utility.fileDownloader(DOWNLOADED_Hyper_SDXL_12, Hyper_SDXL_12)
 
-                print('5')
-                print('Hyper or Lightning')
-                print(MODEL_VERSION)
                 ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, HYPER_LIGHTNING_ORIGINAL_VERSION)
-                print('6')
-                print(ModelConceptChanges)
                 ckpt_name = ModelConceptChanges['ckpt_name']
                 if ModelConceptChanges['lora_name'] is not None:
                     lora_name = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', ModelConceptChanges['lora_name'])
@@ -1093,19 +960,11 @@ class PrimereCKPTLoader:
                 hyperModeValid = ModelConceptChanges['hyperModeValid']
 
                 if lightningModeValid == True and loaded_model is None:
-                    print('Lightning end')
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
-                    print("Lightning lora loaded...")
 
                 if hyperModeValid == True and loaded_model is None:
-                    print('Hyper end')
-                    print(strength_hypersd_lora_model)
-                    print(ckpt_name)
-                    print(lora_name)
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_hypersd_lora_model)
-                    print(type(OUTPUT_MODEL).__name__)
                     vae_selection = True
-                    print("Hyper lora loaded...")
 
             case 'LCM':
                 vae_selection = True
@@ -1119,16 +978,13 @@ class PrimereCKPTLoader:
                     utility.fileDownloader(DOWNLOADED_SD_LORA, SD_LORA)
                     utility.fileDownloader(DOWNLOADED_SDXL_LORA, SDXL_LORA)
 
-                    print(MODEL_VERSION)
                     LORA_PATH = None
                     if MODEL_VERSION == 'SDXL':
                         LORA_PATH = DOWNLOADED_SDXL_LORA
                     elif MODEL_VERSION == 'SD1':
                         LORA_PATH = DOWNLOADED_SD_LORA
-                    print(LORA_PATH)
 
                     if LORA_PATH is not None and os.path.exists(LORA_PATH) == True:
-                        print('Lora path ok')
                         if strength_lcm_lora_model != 0:
                             lora = None
                             if self.loaded_lora is not None:
@@ -1143,37 +999,24 @@ class PrimereCKPTLoader:
                                 lora = comfy.utils.load_torch_file(LORA_PATH, safe_load = True)
                                 self.loaded_lora = (LORA_PATH, lora)
 
-                            print(LORA_PATH)
                             MODEL_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, strength_lcm_lora_model, 0)[0]
-
                             OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
-                            # OUTPUT_CLIP = CLIP_LORA
 
             case 'Playground':
-                print('Playground end')
                 OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
 
-        #  vae_selection = True, vae_name = "Baked",
-        print("VAE selection")
         if len(LOADED_CHECKPOINT) < 3 or (len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ != 'VAE') or vae_selection == False:
-            print("custom VAE:")
-            print(vae_name)
-            print(MODEL_VERSION)
             if vae_name != "Baked":
                 OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
             else:
                 vae_list = folder_paths.get_filename_list("vae")
-                print(vae_list)
                 if MODEL_VERSION == 'SD1':
                     allLSD1vae = list(filter(lambda a: 'sdxl'.casefold() not in a.casefold() and 'flux'.casefold() not in a.casefold() and 'hunyuan'.casefold() not in a.casefold() and 'stage'.casefold() not in a.casefold(), vae_list))
-                    print(allLSD1vae[0])
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSD1vae[0])[0]
                 else:
                     allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    print(allLSDXLvae[0])
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
         else:
-            print("baked VAE:")
             OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
         return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
@@ -1419,8 +1262,6 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "SD1", model_concept = "Normal", workflow_tuple = None):
-        print('--------- CLIP CONCEPT TEST ---------------------')
-
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
@@ -1465,7 +1306,6 @@ class PrimereCLIP:
         if workflow_tuple is None:
             workflow_tuple = {}
 
-        print(model_concept)
         if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
             model_version = 'SDXL'
             clip_model = 'Default'
@@ -1474,9 +1314,6 @@ class PrimereCLIP:
         match model_version:
             case 'SDXL':
                 is_sdxl = 1
-
-        print(is_sdxl)
-        print(model_version)
 
         additional_positive = int_style_pos
         additional_negative = int_style_neg
@@ -1601,9 +1438,6 @@ class PrimereCLIP:
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
-        print(CONCEPT_SELECTOR)
-        print(model_concept)
-
         if CONCEPT_SELECTOR == 'Flux' and (model_concept == 'Flux' and model_concept is not None):
             adv_encode = False
             clip_model = 'Default'
@@ -1612,9 +1446,7 @@ class PrimereCLIP:
 
         if model_concept == 'Hunyuan':
             last_layer = 0
-            print('Clip encoding Hunyuan start:')
             if clip['t5'] is not None:
-                print('HY T5 cllipping...')
                 CLIPDIT = clip['clip']
                 CLIPT5 = clip['t5']
 
@@ -1623,17 +1455,13 @@ class PrimereCLIP:
 
                 pos_out = clipping.HunyuanClipping(self, positive_text, "", CLIPDIT, CLIPT5)
                 neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
-                print('clipping end 2 - sampling T5 OUT')
                 return (pos_out[0], neg_out[0], positive_text, negative_text, "", "", workflow_tuple)
             else:
-                print('Standard cllipping...')
                 clip = clip['clip']
-
                 positive_text = utility.clear_hunyuan(positive_text, 512)
                 negative_text = utility.clear_hunyuan(negative_text, 512)
 
         if model_concept == 'KwaiKolors':
-            print('Clip encoding KWAI start:')
             device = model_management.get_torch_device()
             offload_device = model_management.unet_offload_device()
             model_management.unload_all_models()
@@ -1662,14 +1490,12 @@ class PrimereCLIP:
             max_length = prompt_embeds.shape[1]
             uncond_input = tokenizer(uncond_tokens, padding="max_length", max_length=max_length, truncation=True, return_tensors="pt", ).to(device)
             output = text_encoder(input_ids=uncond_input['input_ids'], attention_mask=uncond_input['attention_mask'], position_ids=uncond_input['position_ids'], output_hidden_states=True)
-            print('clip out 2:')
             negative_prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone() # [batch_size, 77, 4096]
             negative_text_proj = output.hidden_states[-1][-1, :, :].clone() # [batch_size, 4096]
             seq_len = negative_prompt_embeds.shape[1]
             negative_prompt_embeds = negative_prompt_embeds.to(dtype=text_encoder.dtype, device=device)
             negative_prompt_embeds = negative_prompt_embeds.repeat(1, num_images_per_prompt, 1)
             negative_prompt_embeds = negative_prompt_embeds.view(batch_size * num_images_per_prompt, seq_len, -1)
-            print('guidance end...')
 
             bs_embed = text_proj.shape[0]
             text_proj = text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
@@ -1683,11 +1509,8 @@ class PrimereCLIP:
                 'pooled_prompt_embeds': text_proj,
                 'negative_pooled_prompt_embeds': negative_text_proj
             }
-            print('Kolors clipping end...')
             return (kolors_embeds, None, positive_text, negative_text, "", "", workflow_tuple)
 
-        print('*************')
-        print(clip_mode)
         if clip_mode == False:
             if longclip_model == 'Default':
                 longclip_model = 'longclip-L.pt'
@@ -1761,11 +1584,9 @@ class PrimereCLIP:
             workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
 
         if model_concept == 'StableCascade':
-            print('---Cascade')
             positive_text = utility.clear_cascade(positive_text)
             negative_text = utility.clear_cascade(negative_text)
 
-        print(clip_model)
         if clip_model != 'Default' and clip_mode == True:
             if is_sdxl == 1:
                 # adv_encode = False
@@ -1786,14 +1607,12 @@ class PrimereCLIP:
                         concept_type = 'stable_diffusion'
                     clip = nodes.CLIPLoader.load_clip(self, clip_model, concept_type)[0]
 
-        print(adv_encode)
         if adv_encode == True:
             tokens_p = clip.tokenize(positive_text)
             tokens_n = clip.tokenize(negative_text)
             if is_sdxl == 0 or 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
                 embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
                 embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
-
                 return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
             else:
                 # tokens_p = clip.tokenize(positive_text)
@@ -1842,8 +1661,6 @@ class PrimereCLIP:
                 positive_text = utility.clear_cascade(positive_text)
                 negative_text = utility.clear_cascade(negative_text)
 
-            print('clipping end 1 ...')
-
             tokens_pos = clip.tokenize(positive_text)
             # cond_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
             out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
@@ -1855,7 +1672,6 @@ class PrimereCLIP:
             cond_pos = out_pos.pop("cond")
             cond_neg = out_neg.pop("cond")
 
-            print('clipping end 2 - sampling')
             # return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
             return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)
 

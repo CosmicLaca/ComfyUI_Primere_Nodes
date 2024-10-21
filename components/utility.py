@@ -765,38 +765,29 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                         lora_name = finalLightning[0]
 
         if lightning_selector == 'UNET':
-            print("Lightning UNET:")
             UnetList = folder_paths.get_filename_list("unet")
-            print(UnetList)
             if len(UnetList) > 0:
                 allUnetLightning = list(filter(lambda a: 'sdxl_lightning_'.casefold() in a.casefold(), UnetList))
-                print(allUnetLightning)
                 if len(allUnetLightning) > 0:
                     finalLightning = list(filter(lambda a: str(lightning_model_step) + 'step'.casefold() in a.casefold(), allUnetLightning))
-                    print(finalLightning)
                     if len(finalLightning) > 0:
                         lightningModeValid = True
                         unet_name = finalLightning[0]
-                        print(unet_name)
 
     if model_concept == 'Hyper':
         print('Hyper lora check:')
         if hypersd_selector == 'LORA':
-            print(model_version)
-            # LoraList = folder_paths.get_filename_list("loras")
             if len(LoraList) > 0:
                 if model_version == 'SDXL':
                     allLoraHyper = list(filter(lambda a: 'Hyper-SDXL-'.casefold() in a.casefold(), LoraList))
                 else:
                     allLoraHyper = list(filter(lambda a: 'Hyper-SD15-'.casefold() in a.casefold(), LoraList))
-                print(allLoraHyper)
                 if len(allLoraHyper) > 0:
                     pluralString = ''
                     if hypersd_model_step > 1:
                         pluralString = 's'
 
                     finalHyper = list(filter(lambda a: str(hypersd_model_step) + 'step' + pluralString + '-lora'.casefold() in a.casefold() or str(hypersd_model_step) + 'step' + pluralString + '-CFG-lora'.casefold() in a.casefold(), allLoraHyper))
-                    print(finalHyper)
                     if len(finalHyper) > 0:
                         hyperModeValid = True
                         lora_name = finalHyper[0]

@@ -34,6 +34,7 @@ let AllPath = [];
 let ModelList = {};
 let AscoreDataResponse = {};
 let FileDateResponse = {};
+let FileLinkResponse = {};
 let RawImageDataResponse = {};
 
 app.registerExtension({
@@ -576,6 +577,10 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         }
     }
 
+    if (nodeHelper['subdir'] == 'checkpoints') {
+        FileLinkResponse = await ReadFileSymlink(nodeHelper['subdir']);
+    }
+
     RawImageDataResponse = {}
     RawImageDataResponse = await modelImageData(source_subdirname, PreviewPath);
 
@@ -1005,6 +1010,19 @@ function postReadFileDate(sourcetype) {
     const body = new FormData();
     body.append('type', sourcetype);
     api.fetchApi("/primere_get_filedates", {method: "POST", body,});
+}
+
+// ************************* ReadFileDate ReadFileSymlink
+function ReadFileSymlink(sourcetype) {
+    return new Promise((resolve, reject) => {
+        api.addEventListener("FileLinkData", (event) => resolve(event.detail), true);
+        postReadFileSymlink(sourcetype);
+    });
+}
+function postReadFileSymlink(sourcetype) {
+    const body = new FormData();
+    body.append('type', sourcetype);
+    api.fetchApi("/primere_get_filelinks", {method: "POST", body,});
 }
 
 //await sleep(2000);
