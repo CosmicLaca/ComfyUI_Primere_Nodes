@@ -374,7 +374,7 @@ async def primere_get_filedates(request):
     return web.json_response({})
 
 routes13 = PromptServer.instance.routes
-@routes13.post('/primere_get_filelinks') # ReadFileDate()
+@routes13.post('/primere_get_filelinks') # ReadFileSymlink()
 async def primere_get_filelinks(request):
     post = await request.post()
     subdirKey = post.get('type')
