@@ -1651,6 +1651,10 @@ class PrimereCLIP:
             tokenizer = clip['tokenizer']
             text_encoder = clip['text_encoder']
             text_encoder.to(device)
+
+            positive_text = utility.clear_cascade(positive_text)
+            negative_text = utility.clear_cascade(negative_text)
+
             text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt",).to(device)
             output = text_encoder(input_ids=text_inputs['input_ids'], attention_mask=text_inputs['attention_mask'], position_ids=text_inputs['position_ids'], output_hidden_states=True)
             prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone() # [batch_size, 77, 4096]
