@@ -4,10 +4,7 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 
 <hr>
 
-Nodepack under development. Manual will be ready later. If you ugrade just check attached workflows or use git to downgrade to previous version.
-
-<hr>
-
+Nodepack under development. Manual will be ready later. If you upgrade just check attached workflows or use git to downgrade to previous version if something failed.
 All workflows in the `Workflow` folder of the node root.
 
 <hr>
@@ -19,7 +16,7 @@ All workflows in the `Workflow` folder of the node root.
 ### Included features:
  
 - Prompt selector to any prompt sources
-- `CSV` and `TOML` file source readers for saved prompts, automatically organized, saved prompt selection by preview image
+- `CSV` and `TOML` file source readers for saved prompts, automatically organized, saved prompt selection by preview image (if saved)
 - Randomized latent noise for variations
 - Prompt encoder with selectable custom clip model, long-clip mode with custom models, advanced encoding, injectable internal styles, last-layer options
 - Sampler with `variation extender` and `Align Your Step`
@@ -78,7 +75,7 @@ Visual `saved prompt` selection `(csv source)`, automatized filtering by categor
 - **Top right:** if symlinked, what type of diffuser
 - **Botom:** the average aesthetic score. Have to use aesthetic scorer node before to store this data for checkpoints or saved prompts. The number is the average, but the percent depending on the checkpoint selector settings, where the `aescore_percent_min` and lower value mean 0%, `aescore_percent_max` and higher mean 100%.
 
-**On the `Concept selector` node you will see `None` on all required fields, for example on Cascade files. You must install all used concept files manually to right path, then select correct models on these lists.**
+**On the `Concept selector` node you will see `None` on all required fields, for example on Cascade files. You must install all required concept/version files manually to right path, then select correct models on these lists.**
 
 When you open the workflow first time:
 
