@@ -1965,8 +1965,8 @@ class PrimereClearPrompt:
           for embeddings_path in EMBEDDINGS:
               path = Path(embeddings_path)
               embedding_name = path.stem
-              positive_prompt = re.sub("(\(" + embedding_name + ":d+\.d+\))|(\(" + embedding_name + ":d+\))|(" + embedding_name + ":d+\.d+)|(" + embedding_name + ":d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", positive_prompt)
-              negative_prompt = re.sub("(\(" + embedding_name + ":d+\.d+\))|(\(" + embedding_name + ":d+\))|(" + embedding_name + ":d+\.d+)|(" + embedding_name + ":d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", negative_prompt)
+              positive_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", positive_prompt)
+              negative_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", negative_prompt)
               positive_prompt = re.sub(r'(, )\1+', r', ', positive_prompt).strip(', ').replace(' ,', ',')
               negative_prompt = re.sub(r'(, )\1+', r', ', negative_prompt).strip(', ').replace(' ,', ',')
 

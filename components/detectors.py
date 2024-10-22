@@ -745,7 +745,7 @@ def resolve_lora_name(lora_name_cache, name):
                 return x
 
 def is_numeric_string(input_str):
-    return re.match(r'^-?d+(\.d+)?$', input_str) is not None
+    return re.match(r'^-?\d+(\.\d+)?$', input_str) is not None
 
 
 wildcard_lock = threading.Lock()
@@ -772,8 +772,8 @@ def process(text, seed=None):
             multi_select_pattern = options[0].split('$$')
             select_range = None
             select_sep = ' '
-            range_pattern = r'(d+)(-(d+))?'
-            range_pattern2 = r'-(d+)'
+            range_pattern = r'(\d+)(-(\d+))?'
+            range_pattern2 = r'-(\d+)'
 
             if len(multi_select_pattern) > 1:
                 r = re.match(range_pattern, options[0])
