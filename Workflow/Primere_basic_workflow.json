@@ -253,7 +253,7 @@
         "Node name for S&R": "PrimereSamplersSteps"
       },
       "widgets_values": [
-        "euler_dy",
+        "euler_ancestral",
         "karras",
         7,
         1
@@ -1440,7 +1440,7 @@
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
-        "Character\\lovexlAllInOneMega_v20.safetensors",
+        "BestAll\\photon_v1.safetensors",
         true,
         false,
         true,
@@ -1459,10 +1459,10 @@
         "0": 1435.7862548828125,
         "1": 600.0242919921875
       },
-      "size": [
-        265.273439802432,
-        339.21676351211113
-      ],
+      "size": {
+        "0": 265.2734375,
+        "1": 339.2167663574219
+      },
       "flags": {},
       "order": 22,
       "mode": 0,
@@ -1630,7 +1630,7 @@
         "First",
         1,
         1,
-        "None"
+        "design"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -2524,11 +2524,11 @@
         "normal",
         7,
         12,
-        "SD1\\vae-ft-mse-840000-ema.safetensors",
-        "SDXL\\sdxl_vae.safetensors",
+        "None",
+        "None",
         "Auto",
-        false,
-        false,
+        true,
+        true,
         1,
         "LORA",
         8,
@@ -2538,31 +2538,31 @@
         8,
         false,
         1.1,
-        "Stable-Cascade\\stage_a.safetensors",
-        "Stable-Cascade\\stable_cascade_stage_b.safetensors",
-        "Stable-Cascade\\stable_cascade_stage_c.safetensors",
-        "Cascade\\cascade_clip.safetensors",
+        "None",
+        "None",
+        "None",
+        "None",
         "GGUF",
-        "Flux\\flux1-dev-fp8.safetensors",
+        "None",
         "fp8_e4m3fn",
-        "FLUX1\\flux1-dev-Q4_1.gguf",
-        "t5\\t5xxl_fp8_e4m3fn.safetensors",
-        "clip_l.safetensors",
+        "None",
+        "None",
+        "None",
         4,
-        "Flux\\flux-vae.sft",
+        "None",
         "ksampler",
-        true,
-        "FLUX.1-dev-fp16",
+        false,
+        "FLUX.1-dev",
         8,
         0.13,
-        "t5-base-encoder.safetensors",
-        "Hunyuan\\Hunyuan-clip.bin",
-        "Hunyuan\\Hunyuan_vae.safetensors",
-        "clip_g.safetensors",
-        "clip_l.safetensors",
-        "t5\\t5xxl_fp8_e4m3fn.safetensors",
-        "visionRealistic_vae.safetensors",
-        true,
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        false,
         16,
         0.1,
         "fp16",
@@ -2676,7 +2676,7 @@
       },
       "widgets_values": [
         "",
-        769388604830128,
+        158223164471535,
         "randomize",
         true
       ],
@@ -2732,7 +2732,7 @@
       },
       "widgets_values": [
         "",
-        463406895655877,
+        434717467392766,
         "randomize",
         true
       ],
@@ -3459,13 +3459,13 @@
         768,
         1024,
         512,
-        true,
+        false,
         "Horizontal",
         true,
         false,
         1.6,
         2.8,
-        601601772964705,
+        650237341240930,
         "randomize",
         "SD1",
         "Auto"
@@ -3642,21 +3642,21 @@
       "widgets_values": [
         512,
         512,
-        true,
-        "brownian_fractal",
-        true,
+        false,
+        "blue",
+        false,
         1,
         0.5,
         1.5,
-        true,
+        false,
         1,
         0.8,
         1.4,
-        897431471626508,
+        894893949002811,
         "randomize",
-        true,
+        false,
         "cpu",
-        true
+        false
       ],
       "color": "#941414",
       "bgcolor": "#800000"
@@ -3885,9 +3885,9 @@
         "BaseModel_1024",
         "",
         "",
-        false,
-        "ViT-L\\ViT-L-14-TEXT-detail-improved-hiT-GmP-TE-only-HF.safetensors",
-        "Long\\Long-ViT-L-14-GmP-ft.safetensors",
+        true,
+        "Default",
+        "Default",
         0,
         1.2,
         false,
@@ -3895,7 +3895,7 @@
         1,
         "None",
         1,
-        true,
+        false,
         "mean",
         "comfy++",
         "Normal",
@@ -4057,7 +4057,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        830458582304950,
+        1054574027266944,
         "randomize",
         20,
         8,
@@ -4065,11 +4065,11 @@
         "normal",
         1,
         0,
-        0.1,
-        true,
+        0,
+        false,
         2.6,
         "DEFAULT",
-        true,
+        false,
         "Normal"
       ],
       "color": "#941414",
@@ -4178,10 +4178,10 @@
         "0": 4150.60498046875,
         "1": 1365.9989013671875
       },
-      "size": [
-        360.2424011230469,
-        262
-      ],
+      "size": {
+        "0": 360.2424011230469,
+        "1": 262
+      },
       "flags": {},
       "order": 39,
       "mode": 0,
@@ -4465,7 +4465,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        907,
+        1312,
         "randomize",
         "",
         "",
@@ -4615,7 +4615,7 @@
       },
       "widgets_values": [
         2.1,
-        280391143905053,
+        563177156315910,
         "randomize",
         7,
         6.5,
@@ -4645,10 +4645,10 @@
         "0": 4830.60498046875,
         "1": 1366.9989013671875
       },
-      "size": [
-        367.1852111816406,
-        258
-      ],
+      "size": {
+        "0": 367.1852111816406,
+        "1": 258
+      },
       "flags": {},
       "order": 42,
       "mode": 4,
@@ -4749,13 +4749,13 @@
         "Node name for S&R": "PrimerePreviewImage"
       },
       "widgets_values": [
-        false,
+        true,
         "jpeg",
         0,
         90,
         "Checkpoint",
         "Overwrite",
-        "Character\\lovexlAllInOneMega_v20.safetensors",
+        "BestAll\\photon_v1.safetensors",
         null
       ],
       "color": "#549494",
@@ -6542,10 +6542,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909092,
+      "scale": 1,
       "offset": [
-        -1037.318195263755,
-        -46.84112310760467
+        -1625.1210201402325,
+        415.686499612627
       ]
     }
   },
