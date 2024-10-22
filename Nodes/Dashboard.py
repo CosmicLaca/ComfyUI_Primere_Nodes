@@ -1005,6 +1005,9 @@ class PrimereCKPTLoader:
             case 'Playground':
                 OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
 
+        if model_concept == 'SD2':
+            vae_selection = True
+
         if len(LOADED_CHECKPOINT) < 3 or (len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ != 'VAE') or vae_selection == False:
             if vae_name != "Baked":
                 OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
@@ -1423,7 +1426,7 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        if model_concept == 'KwaiKolors' or model_version == 'SD1' or model_concept == 'StableCascade' or model_concept == 'Lightning':
+        if model_concept == 'KwaiKolors' or model_version == 'SD1' or model_version == 'SD2' or model_concept == 'StableCascade' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
             adv_encode = False
 
         if model_concept == 'Flux' or model_concept == 'Pony':
