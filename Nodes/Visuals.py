@@ -39,7 +39,7 @@ class PrimereVisualCKPT:
             },
             "hidden": {
                 "subdir": ("checkpoints",),
-                "sortbuttons": (['aScore', 'Name', 'Version', 'Path', 'Date'],),
+                "sortbuttons": (['aScore', 'Name', 'Version', 'Path', 'Date', 'Symlink'],),
                 "cache_key": ("model",),
             }
         }

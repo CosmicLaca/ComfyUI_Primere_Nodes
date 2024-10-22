@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'FUTURATEE BOOK';
+	src: url('FUTURATEE-BOOK.eot'); 
+	src: url('FUTURATEE-BOOK.eot?#iefix') format('embedded-opentype'),		
+		url('FUTURATEE-BOOK.ttf') format('truetype'),
+		url('FUTURATEE-BOOK.svg') format('svg'),
+		url('FUTURATEE-BOOK.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+}

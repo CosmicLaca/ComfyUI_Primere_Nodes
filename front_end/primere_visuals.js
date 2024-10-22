@@ -577,7 +577,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         }
     }
 
-    if (nodeHelper['subdir'] == 'checkpoints') {
+    if (nodeHelper['subdir'] == 'checkpoints' && nodeHelper['sortbuttons'][0].indexOf("Symlink") > -1) {
         FileLinkResponse = await ReadFileSymlink(nodeHelper['subdir']);
     }
 
@@ -719,7 +719,8 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     let pathLastIndex = finalName.lastIndexOf('/');
     let ckptName = finalName.substring(pathLastIndex + 1);
     let versionWidget = '';
-    let aesthVidget = '';
+    let aesthWidget = '';
+    let symlinkWidget = '';
     var path_only = checkpoint.substring(0, checkpoint.indexOf("\\"));
 
     if (ckptName == 'None') {
@@ -764,6 +765,18 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         $(card).attr('data-date', 0);
     }
 
+    if (FileLinkResponse.hasOwnProperty(ckptName) === true) {
+        var unetname = FileLinkResponse[ckptName];
+        $(card).attr('data-symlink', unetname);
+        var unetnameShort = unetname;
+        if (unetname == 'diffusion_models') { unetnameShort = 'DiMo'}
+        if (unetname == 'diffusers') { unetnameShort = 'Diff'}
+        symlinkWidget = '<div class="visual-symlink-type" title="Symlinked from: ' + unetname + '">' + unetnameShort + '</div>';
+        card_html += symlinkWidget;
+    } else {
+        $(card).attr('data-symlink', "");
+    }
+
     if (SelectedModel === checkpoint) {
         card.classList.add('visual-ckpt-selected');
     }
@@ -780,8 +793,8 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         if (aeScorePercentLine > 100) {
             aeScorePercentLine = 100;
         }
-        aesthVidget = '<div class="visual-aesthetic-score" title="' + aestAVGValue + ' / ' + aeScorePercentLine + '%">' + aestAVGValue + '<span> - ' + aeScorePercentLine + '%</span><hr style="width: ' + aeScorePercentLine + '%"></div>';
-        card_html += aesthVidget;
+        aesthWidget = '<div class="visual-aesthetic-score" title="' + aestAVGValue + ' / ' + aeScorePercentLine + '%">' + aestAVGValue + '<span> - ' + aeScorePercentLine + '%</span><hr style="width: ' + aeScorePercentLine + '%"></div>';
+        card_html += aesthWidget;
     } else {
         $(card).attr('data-ascore', 0);
     }

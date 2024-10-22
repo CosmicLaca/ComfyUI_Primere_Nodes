@@ -4,6 +4,7 @@
 @import url("../fonts/NIMBUSSANSDEE_BOLD/stylesheet.css"); /* NIMBUSSANSDEE BOLD */
 @import url("../fonts/FUTURATEE_LIGHT/stylesheet.css"); /* FUTURATEE LIGHT */
 @import url("../fonts/NIMBUSSANSDEE_LIGHT/stylesheet.css"); /* NIMBUSSANSDEE LIGHT */
+@import url("../fonts/FUTURATEE_BOOK/stylesheet.css"); /* FUTURATEE BOOK */
 
 /* Primere css for visual selectors */
 #primere_visual_modal {
@@ -100,7 +101,7 @@
 #primere_visual_modal .checkpoint-name {
     overflow: hidden;
     display: inline-block;
-    width: 99%;
+    width: 100%;
     font-size: 11px;
     font-weight: normal;
     padding: 1px;
@@ -188,6 +189,31 @@
     position: absolute;
     left: 0px;
     bottom: 0px;
+}
+
+#primere_visual_modal div.visual-symlink-type {
+    display: block;
+    position: absolute;
+    background-color: #0f5b77;
+    right: 0px;
+    top: 17px;
+    color: #c1deec;
+    white-space: nowrap;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: #c1deec solid 1px;
+    border-bottom: #c1deec solid 1px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    text-align: center;
+    font-family: 'FUTURATEE BOOK';
+    text-transform: capitalize;
+    font-size: 11px;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
 #primere_visual_modal .visual-aesthetic-score {

@@ -386,7 +386,7 @@ async def primere_get_filelinks(request):
         is_link = os.path.islink(str(singleFile))
         if is_link == True:
             singleFile_link = Path(str(singleFile)).resolve()
-            filenameonly = Path(singleFile_link).stem
+            filenameonly = Path(singleFile).stem
             comfyModelDir = os.path.join(utility.comfy_dir, 'models')
             modelType = str(singleFile_link)[len(comfyModelDir) + 1:str(singleFile_link).find('\\', len(comfyModelDir) + 1)]
             filelinktypes[filenameonly] = modelType
