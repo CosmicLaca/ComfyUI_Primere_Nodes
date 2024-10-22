@@ -10,7 +10,7 @@ Nodepack under development. Manual will be ready later. If you ugrade just check
 
 All workflows in the `Workflow` folder of the node root.
 
-## Minimal workflow ready
+## Minimal workflow
 
 <img src="./Workflow/primere-minimal.png" width="800px">
 
@@ -34,3 +34,25 @@ Visual checkpopint selection, automatized filtering by subdirectories (first row
 Visual checkpopint selection `(csv source)`, automatized filtering by categories:
 
 <img src="./Workflow/Manual/visual_csv.jpg" width="600px">
+
+<hr>
+
+## Basic workflow
+
+<img src="./Workflow/primere-basic.png" width="800px">
+
+### Included features:
+
+#### Same as Minimal workflow plus:
+
+- Half-automatic concept selector
+  - Supported concepts: "SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper"
+  - Custom sampler settings for all supported concepts
+  - Auto detection of selected model type
+  - Auto download and apply speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before**
+
+- Terminal helper to detect and store model version:
+  - Open `cmd` terminal window 
+  - Activate your Comfy `venv`
+  - Change to `[Your_comfy_folder]\custom_nodes\ComfyUI_Primere_Nodes\terminal_helpers\`
+  - 

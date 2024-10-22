@@ -162,7 +162,10 @@ class PrimereModelConceptSelector:
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
     CLIPLIST += folder_paths.get_filename_list("clip_gguf")
-    CLIPLIST += folder_paths.get_filename_list("t5")
+    try:
+        CLIPLIST += folder_paths.get_filename_list("t5")
+    except Exception:
+        print('Please install T5 models...')
     CONCEPT_LIST = utility.SUPPORTED_MODELS[0:14]
 
     SAMPLER_INPUTS = {'model_version': ("STRING", {"forceInput": True, "default": "SD1"})}
@@ -1207,7 +1210,10 @@ class PrimereCLIP:
         cls.default_pos = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_pos.toml"))
         CLIPLIST = folder_paths.get_filename_list("clip")
         CLIPLIST += folder_paths.get_filename_list("clip_gguf")
-        CLIPLIST += folder_paths.get_filename_list("t5")
+        try:
+            CLIPLIST += folder_paths.get_filename_list("t5")
+        except Exception:
+            print('Please install T5 models...')
         cls.CLIPLIST = CLIPLIST
 
         return {
