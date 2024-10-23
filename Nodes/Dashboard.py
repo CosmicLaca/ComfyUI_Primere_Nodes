@@ -818,6 +818,7 @@ class PrimereCKPTLoader:
         ModelConfigFullPath = Path(folder_paths.models_dir).joinpath('checkpoints').joinpath(ModelConfigPath)
 
         LOADED_CHECKPOINT = []
+        print('----------SD3--------------')
         if loaded_model is not None and loaded_clip is not None and loaded_vae is not None:
             LOADED_CHECKPOINT.insert(0, loaded_model)
             LOADED_CHECKPOINT.insert(1, loaded_clip)
@@ -830,19 +831,51 @@ class PrimereCKPTLoader:
                 except Exception:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
             else:
-                try:
+                print('2')
+                print(ckpt_name)
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == False:
+                    print('3')
+                    print(ckpt_name)
+                    # LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                    try:
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                    except Exception:
+                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                else:
+                    print('4')
+                    File_link = Path(str(fullpathFile)).resolve()
+                    print(File_link)
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    print(linkedFileName)
+                    LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
+
+                '''try:
+                    print('1')
+                    print(ckpt_name)
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                    print(LOADED_CHECKPOINT)
                 except Exception:
+                    print('2')
+                    print(ckpt_name)
                     fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                     is_link = os.path.islink(str(fullpathFile))
                     if is_link == False:
+                        print('3')
+                        print(ckpt_name)
                         LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
                     else:
+                        print('4')
                         File_link = Path(str(fullpathFile)).resolve()
+                        print(File_link)
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                         linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                         linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
+                        print(linkedFileName)
+                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')'''
 
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         if model_concept == 'SD3':
@@ -852,8 +885,10 @@ class PrimereCKPTLoader:
                 OUTPUT_CLIP = LOADED_CHECKPOINT[1]
 
             if len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
+                print('vae 1')
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
             else:
+                print('vae 2')
                 OUTPUT_VAE = nodes.VAELoader.load_vae(self, sd3_unet_vae)[0]
 
             if use_sd3_hyper_lora == True:
@@ -891,6 +926,7 @@ class PrimereCKPTLoader:
 
                         OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, sd3_hyper_lora_strength, 0)[0]
 
+            print('SD3 done...')
             return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
         else:
             OUTPUT_CLIP = LOADED_CHECKPOINT[1]
