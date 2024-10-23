@@ -426,7 +426,11 @@ function ButtonLabelCreator(node, url = false) {
 
     TargetSelValues = TargetListCreator(node);
     if (typeof TargetSelValues == "object") {
-        SelectedTarget = TargetSelValues[0];
+        var targetIndexChanged = 0;
+        if (TargetSelValues.includes(SelectedTarget)) {
+            targetIndexChanged = TargetSelValues.indexOf(SelectedTarget)
+        }
+        SelectedTarget = TargetSelValues[targetIndexChanged];
     }
 
     var INIT_IMGTYPE_STRING = "";
@@ -556,7 +560,11 @@ function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
         if (wln.name == 'target_selection') {
             wln.options.values = TargetSelValues;
             if (TargetSelValues.length > 0) {
-                wln.value = TargetSelValues[0];
+                var targetIndexChanged = 0;
+                if (TargetSelValues.includes(SelectedTarget)) {
+                    targetIndexChanged = TargetSelValues.indexOf(SelectedTarget)
+                }
+                wln.value = TargetSelValues[targetIndexChanged];
             }
         }
     }
@@ -574,18 +582,6 @@ function PreviewSaveResponse(event) {
     alert(ResponseText);
 }
 
-/* function sendPOSTmessage(sourcetype) {
-    return new Promise((resolve, reject) => {
-        api.addEventListener("PreviewSaveResponse", (event) => resolve(event.detail), true);
-        postImageData(sourcetype);
-    });
-}
-function postImageData(sourcetype) {
-    const body = new FormData();
-    body.append('previewdata', sourcetype);
-    api.fetchApi("/primere_preview_post", {method: "POST", body,});
-} */
-
 const getMeta = (url) => new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
@@ -594,6 +590,7 @@ const getMeta = (url) => new Promise((resolve, reject) => {
 }).catch(function(error) {
     return false;
 });
+
 //await sleep(2000);
 //await waitUntil(() => variable === true);
 function sleep(ms){
