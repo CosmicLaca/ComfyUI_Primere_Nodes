@@ -1,6 +1,5 @@
 from ..components.tree import TREE_INPUTS
 from ..components.tree import PRIMERE_ROOT
-from ..components.tree import TREE_DEPRECATED
 import os
 import re
 from dynamicprompts.parser.parse import ParserConfig
@@ -11,7 +10,6 @@ import comfy.samplers
 import folder_paths
 from .modules.image_meta_reader import ImageExifReader
 from .modules.image_meta_reader import compatibility_handler
-from .modules import exif_data_checker
 from ..components import utility
 from pathlib import Path
 import random

@@ -12,7 +12,6 @@ import torch
 from urllib.parse import urlparse
 from pathlib import Path
 from .modules.adv_encode import advanced_encode
-import nodes
 
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")

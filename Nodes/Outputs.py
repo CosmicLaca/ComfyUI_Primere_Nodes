@@ -7,21 +7,16 @@ import time
 import numpy as np
 import pyexiv2
 from PIL.PngImagePlugin import PngInfo
-from PIL import Image, PngImagePlugin
+from PIL import Image
 from pathlib import Path
 import datetime
 import comfy.samplers
 import random
 import nodes
-import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
-import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
-import comfy_extras.nodes_align_your_steps as nodes_align_your_steps
 import comfy_extras.nodes_flux as nodes_flux
 import torch
 from ..components import utility
-from ..components import latentnoise
 from ..components import primeresamplers
-from itertools import compress
 from server import PromptServer
 from ..utils import comfy_dir
 import clip
@@ -753,6 +748,7 @@ class PrimerePreviewImage():
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT",
                 "image_path": (cls.image_path,),
                 "id": "UNIQUE_ID",
             },
@@ -761,47 +757,46 @@ class PrimerePreviewImage():
     def preview_img_saver(self, images, *args, **kwargs):
         self.output_dir = folder_paths.get_output_directory()
         self.type = "output"
-        self.compress_level = 4
 
-        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS']
+        VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS', 'PrimereVisualStyle']
         VISUAL_NODE_FILENAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS']
         WIDGET_DATA = {
-            "PrimereVisualCKPT": [0],
-            "PrimereVisualStyle": [0],
-            "PrimereVisualLORA": [6, 10, 14, 18, 22, 26],
-            "PrimereVisualEmbedding": [5, 9, 13, 17, 21, 25],
-            "PrimereVisualHypernetwork": [6, 9, 12, 15, 18, 21],
-            "PrimereVisualLYCORIS": [6, 10, 14, 18, 22, 26],
+            "PrimereVisualCKPT": ['base_model'],
+            "PrimereVisualStyle": ['styles'],
+            "PrimereVisualLORA": ['lora_1', 'lora_2', 'lora_3', 'lora_4', 'lora_5', 'lora_6'],
+            "PrimereVisualEmbedding": ['embedding_1', 'embedding_2', 'embedding_3', 'embedding_4', 'embedding_5', 'embedding_6'],
+            "PrimereVisualHypernetwork": ['hypernetwork_1', 'hypernetwork_2', 'hypernetwork_3', 'hypernetwork_4', 'hypernetwork_5', 'hypernetwork_6'],
+            "PrimereVisualLYCORIS": ['lycoris_1', 'lycoris_2', 'lycoris_3', 'lycoris_4', 'lycoris_5', 'lycoris_6'],
         }
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
         VISUAL_DATA = {}
         for NODE_ITEMS in WORKFLOWDATA:
             ITEM_TYPE = NODE_ITEMS['type']
-            if ITEM_TYPE in VISUAL_NODE_NAMES:
-                ITEM_VALUES = NODE_ITEMS['widgets_values']
-                if ITEM_TYPE in WIDGET_DATA:
-                    REQUIRED_DATA_LISTINDEX = WIDGET_DATA[ITEM_TYPE]
-                    WIDGET_STATES = [True]
-                    if len(REQUIRED_DATA_LISTINDEX) > 1:
-                        SWITCH_LIST = list(map(lambda x: x + -1, REQUIRED_DATA_LISTINDEX))
-                        WIDGET_STATES = list(map(ITEM_VALUES.__getitem__, SWITCH_LIST))
+            if ITEM_TYPE in VISUAL_NODE_NAMES and ITEM_TYPE in WIDGET_DATA:
+                REQUIRED_DATA_NAMES = WIDGET_DATA[ITEM_TYPE]
+                if len(REQUIRED_DATA_NAMES) > 0:
+                    VALUE_LIST = []
+                    VALUE_LIST_ORIGINAL = []
+                    WIDGET_STATE = True
+                    for DATA_NAME in REQUIRED_DATA_NAMES:
+                        if type(DATA_NAME).__name__ == 'str':
+                            WIDGET_VALUE_ORIGINAL = utility.getDataFromWorkflowByName(WORKFLOWDATA, ITEM_TYPE, DATA_NAME, kwargs['prompt'])
+                            if DATA_NAME[-1].isdigit():
+                                USE_WIDGET_NAME = 'use_' + DATA_NAME
+                                WIDGET_STATE = utility.getDataFromWorkflowByName(WORKFLOWDATA, ITEM_TYPE, USE_WIDGET_NAME, kwargs['prompt'])
 
-                    VALID_WIDGET_VALUES = list(map(ITEM_VALUES.__getitem__, REQUIRED_DATA_LISTINDEX))
-                    REUIRED_WIDGETS = list(compress(VALID_WIDGET_VALUES, WIDGET_STATES))
-                    REPLACED_WIDGETS = [widg.replace(' ', '_') for widg in REUIRED_WIDGETS]
-                    if ITEM_TYPE in VISUAL_NODE_FILENAMES:
-                        REPLACED_WIDGETS = [Path(widg).stem for widg in REPLACED_WIDGETS]
+                            if ITEM_TYPE in VISUAL_NODE_FILENAMES:
+                                REPLACED_WIDGETS = Path(WIDGET_VALUE_ORIGINAL).stem.replace(' ', '_')
+                            else:
+                                REPLACED_WIDGETS = WIDGET_VALUE_ORIGINAL.replace(' ', '_')
 
-                    if ITEM_TYPE in VISUAL_DATA.keys():
-                        VISUAL_DATA[ITEM_TYPE] = VISUAL_DATA[ITEM_TYPE] + REPLACED_WIDGETS
-                        VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] + REUIRED_WIDGETS
-                    else:
-                        VISUAL_DATA[ITEM_TYPE] = REPLACED_WIDGETS
-                        VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = REUIRED_WIDGETS
+                            if WIDGET_STATE == True and REPLACED_WIDGETS not in VALUE_LIST:
+                                VALUE_LIST.append(REPLACED_WIDGETS)
+                                VALUE_LIST_ORIGINAL.append(WIDGET_VALUE_ORIGINAL)
 
-                    VISUAL_DATA[ITEM_TYPE] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE]) if i not in VISUAL_DATA[ITEM_TYPE][:n]]
-                    VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = [i for n, i in enumerate(VISUAL_DATA[ITEM_TYPE + '_ORIGINAL']) if i not in VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'][:n]]
+                    VISUAL_DATA[ITEM_TYPE] = VALUE_LIST
+                    VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VALUE_LIST_ORIGINAL
 
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 

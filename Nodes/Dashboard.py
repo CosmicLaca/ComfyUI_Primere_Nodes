@@ -1,7 +1,6 @@
 import math
 from ..components.tree import TREE_DASHBOARD
 from ..components.tree import PRIMERE_ROOT
-from ..components.tree import TREE_DEPRECATED
 import comfy.samplers
 import folder_paths
 import nodes
@@ -16,18 +15,15 @@ from nodes import MAX_RESOLUTION
 from ..components import utility
 from pathlib import Path
 import re
-import requests
 from ..components import hypernetwork
 from ..components import clipping
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
 from ..utils import comfy_dir
-from ..utils import here
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
-from datetime import datetime
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
 import comfy_extras.nodes_sd3 as nodes_sd3
@@ -37,10 +33,10 @@ from .Networks import PrimereLORA
 from .Networks import PrimereEmbedding
 from .Networks import PrimereHypernetwork
 from .Networks import PrimereLYCORIS
-from diffusers import (UNet2DConditionModel, DPMSolverMultistepScheduler,  EulerDiscreteScheduler, EulerAncestralDiscreteScheduler, DEISMultistepScheduler, UniPCMultistepScheduler)
+from diffusers import (UNet2DConditionModel, EulerDiscreteScheduler)
 from ..components.kolors.pipelines.pipeline_stable_diffusion_xl_chatglm_256 import StableDiffusionXLPipeline
 from ..components.kolors.models.tokenization_chatglm import ChatGLMTokenizer
-from ..components.kolors.models.modeling_chatglm import ChatGLMModel, ChatGLMConfig
+from ..components.kolors.models.modeling_chatglm import ChatGLMModel
 import gc
 from ..components.hunyuan.conf import hydit_conf
 from ..components.hunyuan.loader import load_hydit
@@ -162,10 +158,14 @@ class PrimereModelConceptSelector:
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
     CLIPLIST += folder_paths.get_filename_list("clip_gguf")
-    try:
-        CLIPLIST += folder_paths.get_filename_list("t5")
-    except Exception:
-        print('Please install T5 models...')
+
+    T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+    if os.path.isdir(T5_DIR):
+        folder_paths.add_model_folder_path("p_t5", T5_DIR)
+        T5models = folder_paths.get_filename_list("p_t5")
+        T5List = folder_paths.filter_files_extensions(T5models, ['.bin', '.safetensors'])
+        CLIPLIST += T5List
+
     CONCEPT_LIST = utility.SUPPORTED_MODELS[0:14]
 
     SAMPLER_INPUTS = {'model_version': ("STRING", {"forceInput": True, "default": "SD1"})}
@@ -620,11 +620,11 @@ class PrimereCKPTLoader:
         match model_concept:
             case 'Hunyuan':
                 HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
+                T5 = None
                 try:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                     HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
                     CLIP = LOADED_CHECKPOINT[1]
-                    T5 = None
                 except Exception:
                     model = 'G/2-1.2'
                     ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
@@ -638,11 +638,15 @@ class PrimereCKPTLoader:
                         device=device,
                         dtype=dtype,
                     )
-                    T5 = load_t5(
-                        model_path=folder_paths.get_full_path("t5", hunyuan_clip_t5xxl),
-                        device=device,
-                        dtype=dtype,
-                    )
+
+                    T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+                    if os.path.isdir(T5_DIR):
+                        folder_paths.add_model_folder_path("p_t5", T5_DIR)
+                        T5 = load_t5(
+                            model_path=folder_paths.get_full_path("p_t5", hunyuan_clip_t5xxl),
+                            device=device,
+                            dtype=dtype,
+                        )
 
                 HUNYUAN_CLIP = {'clip': CLIP, 't5': T5}
                 return (HUNYUAN_MODEL,) + (HUNYUAN_CLIP,) + (HUNYUAN_VAE,) + (MODEL_VERSION,)
@@ -1210,10 +1214,12 @@ class PrimereCLIP:
         cls.default_pos = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_pos.toml"))
         CLIPLIST = folder_paths.get_filename_list("clip")
         CLIPLIST += folder_paths.get_filename_list("clip_gguf")
-        try:
-            CLIPLIST += folder_paths.get_filename_list("t5")
-        except Exception:
-            print('Please install T5 models...')
+        T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+        if os.path.isdir(T5_DIR):
+            folder_paths.add_model_folder_path("p_t5", T5_DIR)
+            T5models = folder_paths.get_filename_list("p_t5")
+            T5List = folder_paths.filter_files_extensions(T5models, ['.bin', '.safetensors'])
+            CLIPLIST += T5List
         cls.CLIPLIST = CLIPLIST
 
         return {

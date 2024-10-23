@@ -8,7 +8,6 @@ import pandas
 import re
 from pathlib import Path
 import difflib
-# from ..utils import cache_file
 import os
 import json
 import numpy as np
@@ -19,12 +18,10 @@ import requests
 import folder_paths
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import nodes
-# from ..utils import comfy_dir
 import collections
 import pytorch_lightning as pl
 import torch.nn as nn
 from PIL import Image, ImageOps, ImageSequence
-
 from comfy.k_diffusion.sampling import default_noise_sampler
 from comfy.ldm.modules.diffusionmodules.util import make_beta_schedule
 from comfy.model_sampling import EPS

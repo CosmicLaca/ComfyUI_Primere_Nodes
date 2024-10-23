@@ -1,6 +1,5 @@
 from ultralytics import YOLO
 import cv2
-from pathlib import Path
 from PIL import Image
 import numpy as np
 import torch
@@ -20,13 +19,6 @@ from ..Nodes import Outputs
 from ..components.tree import PRIMERE_ROOT
 from ..components import utility
 import comfy_extras.nodes_mask as nodes_mask
-
-# from comfy.sd import VAE
-
-# from .local_groundingdino.datasets import transforms as T
-# from .local_groundingdino.util.utils import clean_state_dict as local_groundingdino_clean_state_dict
-# from .local_groundingdino.util.slconfig import SLConfig as local_groundingdino_SLConfig
-# from .local_groundingdino.models import build_model as local_groundingdino_build_model
 
 def inference_bbox(model, image: Image.Image, confidence: float = 0.3, device: str = "",):
     pred = model(image, conf=confidence, device=device)
