@@ -147,13 +147,13 @@ class PrimereMetaSave:
             path = Path(output_path)
             ConceptStartPath = output_path.replace(path.stem, '')
             ConceptPath = image_metadata['model_concept']
-            if image_metadata['model_concept'] == 'Normal':
+            if image_metadata['model_concept'] == 'Auto':
                 if 'model_version' in image_metadata:
                     match image_metadata['model_version']:
                         case 'SDXL_2048':
                             ConceptPath = 'SDXL'
                         case 'BaseModel_768':
-                            ConceptPath = 'SD'
+                            ConceptPath = 'SD1'
                         case 'SD3_1024':
                             ConceptPath = 'SD3'
                         case 'Stable_Zero123_768':
@@ -879,7 +879,7 @@ class PrimereAestheticCKPTScorer():
                     final_prediction = str(final_prediction)
 
                 if workflow_data is not None:
-                    if add_to_checkpoint == True and workflow_data['model_concept'] == 'Normal':
+                    if add_to_checkpoint == True and workflow_data['model_concept'] == 'Auto':
                         if 'model' in workflow_data:
                             selected_model = workflow_data['model']
                             modelname_only = Path(selected_model).stem
