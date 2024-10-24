@@ -273,32 +273,6 @@ def DynPromptDecoder(self, dyn_prompt, seed):
     prompt = all_prompts[0]
     return prompt
 
-'''def ModelObjectParser(modelobject):
-    for key in modelobject:
-        Suboject_1 = modelobject[key]
-        Suboject_2 = Suboject_1._modules
-        for key1 in Suboject_2:
-            sub_2_typename = type(Suboject_2[key1]).__name__
-            if sub_2_typename == 'SpatialTransformer':
-                VersionObject = Suboject_2[key1]._modules['transformer_blocks']._modules['0']._modules['attn2']._modules['to_k'].in_features
-
-                if VersionObject <= 768:
-                    VersionObject = 768
-                if 1024 >= VersionObject > 768:
-                    VersionObject = 1024
-                if VersionObject > 1024:
-                    VersionObject = 2048
-
-                return VersionObject
-def getCheckpointVersion(modelobject):
-    ckpt_type = type(modelobject.__dict__['model']).__name__
-    try:
-        ModelVersion = ModelObjectParser(modelobject.model._modules['diffusion_model']._modules['input_blocks']._modules)
-    except:
-        ModelVersion = 1024
-
-    return ckpt_type + '_' + str(ModelVersion)'''
-
 def getResolutionByType(model_type):
     for res_key in CONCEPT_RESOLUTIONS:
         if model_type in CONCEPT_RESOLUTIONS[res_key]:
@@ -624,7 +598,6 @@ def apply_variation_noise(latent_image, noise_device, variation_seed, variation_
     elif mask is None:
         result = (1 - variation_strength) * latent_image + variation_strength * variation_noise
     else:
-        # this seems precision is not enough when variation_strength is 0.0
         result = (mask == 1).float() * ((1 - variation_strength) * latent_image + variation_strength * variation_noise * mask) + (mask == 0).float() * latent_image
 
     return result
@@ -919,7 +892,6 @@ def getLatentSize(samples):
             return (tensor_width, tensor_height)
         else:
             return (None, None)
-
     return (None, None)
 
 def MatchDimensions(width_1, height_1, width_2, height_2, axis_value):

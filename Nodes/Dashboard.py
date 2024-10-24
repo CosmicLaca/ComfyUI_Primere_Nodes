@@ -126,7 +126,7 @@ class PrimereVAELoader:
 
 class PrimereModelConceptSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT",
-                    "STRING", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
+                    "OVERRIDE_STEPS", "STRING", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
                     "FLOAT",
                     "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING",
@@ -138,7 +138,7 @@ class PrimereModelConceptSelector:
                     "STRING"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
-                    "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
+                    "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
                     "STRENGTH_LCM_LORA_MODEL",
                     "LIGHTNING_SELECTOR", "LIGHTNING_MODEL_STEP", "STRENGTH_LIGHTNING_LORA_MODEL",
                     "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
@@ -168,7 +168,10 @@ class PrimereModelConceptSelector:
 
     CONCEPT_LIST = utility.SUPPORTED_MODELS[0:14]
 
-    SAMPLER_INPUTS = {'model_version': ("STRING", {"forceInput": True, "default": "SD1"})}
+    SAMPLER_INPUTS = {
+        'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
+        'model_name': ("CHECKPOINT_NAME", {"forceInput": True})
+    }
 
     for concept in CONCEPT_LIST:
         concept_string = concept.lower()
@@ -183,6 +186,7 @@ class PrimereModelConceptSelector:
             "default_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
             "default_cfg_scale": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
             "default_steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+            "override_steps": ("BOOLEAN", {"default": False, "label_off": "Set by sampler settings", "label_on": "Set by model filename"}),
 
             "sd_vae": (["None"] + VAELIST,),
             "sdxl_vae": (["None"] + VAELIST,),
@@ -250,9 +254,10 @@ class PrimereModelConceptSelector:
                              flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae,
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
+                             override_steps = False,
                              use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
                              kolors_precision = 'quant8',
-                             model_version = None,
+                             model_version = None, model_name = None,
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              sd_vae = "None", sdxl_vae = "None",
                              model_concept = 'Auto',
@@ -379,9 +384,13 @@ class PrimereModelConceptSelector:
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
             steps = sd3_hyper_lora_step
 
+        if model_name is not None and override_steps == True:
+            is_steps = re.findall(r"(?i)(\d+)Step", model_name)
+            if len(is_steps) > 0:
+                steps = int(is_steps[0])
+
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
-                model_concept,
-                clip_selection, vae_selection, vae,
+                override_steps, model_concept, clip_selection, vae_selection, vae,
                 strength_lcm_lora_model,
                 lightning_selector, lightning_model_step, strength_lightning_lora_model,
                 cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
@@ -403,6 +412,7 @@ class PrimereConceptDataTuple:
     def INPUT_TYPES(cls):
         return {
             "required": {
+                "override_steps": ("OVERRIDE_STEPS", {"default": False, "forceInput": True}),
                 "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
                 "vae_selection": ("VAE_SELECTION", {"default": True, "forceInput": True}),
                 "vae_name": ("VAE_NAME", {"default": "Baked", "forceInput": True}),
@@ -844,30 +854,6 @@ class PrimereCKPTLoader:
                     linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                     linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
                     LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
-
-                '''try:
-                    print('1')
-                    print(ckpt_name)
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
-                    print(LOADED_CHECKPOINT)
-                except Exception:
-                    print('2')
-                    print(ckpt_name)
-                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    is_link = os.path.islink(str(fullpathFile))
-                    if is_link == False:
-                        print('3')
-                        print(ckpt_name)
-                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
-                    else:
-                        print('4')
-                        File_link = Path(str(fullpathFile)).resolve()
-                        print(File_link)
-                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                        linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                        print(linkedFileName)
-                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')'''
 
         OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         if model_concept == 'SD3':

@@ -566,6 +566,7 @@ class PrimereKSampler:
                     denoise = workflow_tuple['sampler_settings']['denoise']
                     device = workflow_tuple['sampler_settings']['device']
                     align_your_steps = workflow_tuple['sampler_settings']['align_your_steps']
+                    model_sampling = workflow_tuple['sampler_settings']['model_sampling']
                     if workflow_tuple['sampler_settings']['variation_level'] == True:
                         variation_extender = workflow_tuple['sampler_settings']['noise_constant']
                     else:
@@ -625,6 +626,7 @@ class PrimereKSampler:
             noise_extender_cascade = variation_extender
 
         noise_constant = noise_extender_ksampler
+        WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
 
         match model_concept:
             case "KwaiKolors":
@@ -637,7 +639,6 @@ class PrimereKSampler:
                 noise_constant = noise_extender_cascade
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
             case "Hyper":
-                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
                 CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
                 HYPERSD_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
                 HYPERSD_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_sampler', prompt)
@@ -716,6 +717,7 @@ class PrimereKSampler:
             workflow_tuple['sampler_settings']['noise_constant'] = noise_constant
             workflow_tuple['sampler_settings']['variation_seed'] = seed
             workflow_tuple['sampler_settings']['batch_counter'] = batch_counter
+            workflow_tuple['sampler_settings']['model_sampling'] = model_sampling
 
         return (samples_out, workflow_tuple)
 
