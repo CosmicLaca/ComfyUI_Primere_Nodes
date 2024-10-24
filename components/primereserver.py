@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import glob
 from ..components import utility
 import os
 from PIL import Image
@@ -309,23 +310,32 @@ async def primere_get_images(request):
     post = await request.post()
     SubdirName = post.get('SubdirName')
     PreviewPath = post.get('PreviewPath')
+    supportedImages = ['.jpg', '.png', '.jpeg', '.preview.jpg', '.preview.jpeg', '.preview.png']
 
     if PreviewPath == "false":
-        subdir = os.path.join(utility.comfy_dir, 'models', str(SubdirName))
+        '''subdir = os.path.join(utility.comfy_dir, 'models', str(SubdirName))
         rootSubdir = Path(subdir).parent
         folder_paths.add_model_folder_path("previewpics_models" + SubdirName, subdir)
-        allfiles = folder_paths.get_filename_list("previewpics_models" + SubdirName)
+        allfiles = folder_paths.get_filename_list("previewpics_models" + SubdirName)'''
+        subName = str(folder_paths.folder_names_and_paths[SubdirName][0][0])
+        modelHomes = [f.path for f in os.scandir(subName) if f.is_dir()]
+        imagefiles = []
+        for modelHome in modelHomes:
+            dirName = os.path.basename(os.path.normpath(modelHome))
+            allFiles = [os.path.join(dirName, os.path.basename(x)) for x in glob.glob(modelHome + '/**/*', recursive=True)]
+            imgFiles = folder_paths.filter_files_extensions(allFiles, supportedImages)
+            imagefiles.extend(imgFiles)
     else:
         subdir = os.path.join(utility.comfy_dir, 'web', 'extensions', 'PrimerePreviews', 'images', str(SubdirName))
         rootSubdir = Path(subdir).parent
         folder_paths.add_model_folder_path("previewpics_legacy" + SubdirName, subdir)
         allfiles = folder_paths.get_filename_list("previewpics_legacy" + SubdirName)
+        imagefiles = folder_paths.filter_files_extensions(allfiles, supportedImages)
 
-    imagefiles = folder_paths.filter_files_extensions(allfiles, ['.jpg', '.png', '.jpeg', '.preview.jpg', '.preview.jpeg', '.preview.png'])
     imgbase_tuple = {}
     for imagefile in imagefiles:
         if PreviewPath == "false":
-            image_path = os.path.abspath(folder_paths.get_full_path('previewpics_models' + SubdirName, imagefile))
+            image_path = os.path.abspath(folder_paths.get_full_path(SubdirName, imagefile))
         else:
             image_path = os.path.abspath(folder_paths.get_full_path('previewpics_legacy' + SubdirName, imagefile))
         filename = Path(image_path).stem.replace('.preview', '')
