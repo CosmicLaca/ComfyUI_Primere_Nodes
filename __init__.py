@@ -11,7 +11,6 @@ from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
-
 import shutil
 
 __version__ = "1.0.0"
@@ -45,6 +44,15 @@ if os.path.exists(frontend_target):
         print('Primere front-end folder deleted.')
     except Exception:
         print('[ERROR] - Cannnot delete Primere front-end folder. Please delete manually: ' + frontend_target + ' from: ' + frontend_source)
+
+if os.path.isdir(frontend_preview_target) == False:
+    preview_images = os.path.join(frontend_source, 'images')
+    try:
+        shutil.copytree(preview_images, frontend_preview_target)
+        print('Primere initial preview copied to target directory.')
+    except Exception:
+        print('[ERROR] - Cannnot copy Primere preview folder to right path. Please delete directory: ' + frontend_preview_target + ' and copy files here manually from: ' + preview_images)
+
 
 nodes = []
 IGNORE_FRONTEND = ['fonts', 'images', 'keywords', 'jquery', 'vendor']
