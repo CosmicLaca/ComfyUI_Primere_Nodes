@@ -43,8 +43,8 @@ VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
 SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
-                        "512": ['SD09', "Turbo"],
-                        "768": ['SD1', 'SD2'],
+                        "512": ['SD09', 'SD1', "Turbo"],
+                        "768": ['SD2'],
                         "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper"]
                       }
 

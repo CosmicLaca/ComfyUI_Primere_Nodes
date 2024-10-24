@@ -35,7 +35,7 @@ def PKSampler(self, device, seed, model,
                 modelname_only = model
                 model_version = utility.get_value_from_cache('model_version', modelname_only)
                 match model_version:
-                    case 'SDXL_2048':
+                    case 'SDXL':
                         model_type = 'SDXL'
                     case _:
                         model_type = 'SD1'
