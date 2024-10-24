@@ -17,7 +17,7 @@ __version__ = "1.0.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
-frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews')
+frontend_preview_target = os.path.join(comfy_frontend, 'PrimerePreviews', 'images')
 frontend_source = os.path.join(here, 'front_end')
 is_frontend_symlinked = False
 
