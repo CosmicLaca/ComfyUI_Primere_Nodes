@@ -879,7 +879,7 @@ class PrimereAestheticCKPTScorer():
                     final_prediction = str(final_prediction)
 
                 if workflow_data is not None:
-                    if add_to_checkpoint == True and workflow_data['model_concept'] == 'Auto':
+                    if add_to_checkpoint == True and (workflow_data['model_concept'] == workflow_data['model_version']):
                         if 'model' in workflow_data:
                             selected_model = workflow_data['model']
                             modelname_only = Path(selected_model).stem
