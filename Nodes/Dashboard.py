@@ -1684,22 +1684,23 @@ class PrimereCLIP:
                             CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, "", "", workflow_tuple)
 
+            tokens_pos = clip.tokenize(positive_text)
+            tokens_neg = clip.tokenize(negative_text)
+
             if model_concept == 'StableCascade':
                 positive_text = utility.clear_cascade(positive_text)
                 negative_text = utility.clear_cascade(negative_text)
 
-            tokens_pos = clip.tokenize(positive_text)
-            # cond_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
-            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+                cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
+                cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
+                return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
 
-            tokens_neg = clip.tokenize(negative_text)
-            # cond_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
             out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
 
             cond_pos = out_pos.pop("cond")
             cond_neg = out_neg.pop("cond")
 
-            # return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", workflow_tuple)
             return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", workflow_tuple)
 
 class PrimereResolution:
