@@ -1288,6 +1288,24 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "SD1", model_concept = "Normal", workflow_tuple = None):
+        if model_concept == 'StableCascade':
+            adv_encode = False
+            clip_mode = True
+
+        if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
+            model_version = 'SDXL'
+            clip_model = 'Default'
+
+        if model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
+            adv_encode = False
+
+        if model_concept == 'Flux' or model_concept == 'Pony':
+            clip_model = 'Default'
+            last_layer = 0
+
+        if model_concept == 'Hyper':
+            clip_model = 'Default'
+
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
@@ -1331,10 +1349,6 @@ class PrimereCLIP:
 
         if workflow_tuple is None:
             workflow_tuple = {}
-
-        if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
-            model_version = 'SDXL'
-            clip_model = 'Default'
 
         is_sdxl = 0
         match model_version:
@@ -1448,20 +1462,6 @@ class PrimereCLIP:
                     negative_text = embn_keyword + ', ' + negative_text
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
-
-        if model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'StableCascade' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
-            adv_encode = False
-
-        if model_concept == 'Flux' or model_concept == 'Pony':
-            clip_model = 'Default'
-            last_layer = 0
-
-        if model_concept == 'Hyper' or model_concept == 'StableCascade':
-            clip_model = 'Default'
-
-        if model_concept == 'StableCascade':
-            adv_encode = False
-            clip_mode = True
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
@@ -1609,10 +1609,6 @@ class PrimereCLIP:
                 workflow_tuple['prompt_encoder']['sdxl_negative_l'] = sdxl_negative_l
             workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
             workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
-
-        if model_concept == 'StableCascade':
-            positive_text = utility.clear_cascade(positive_text)
-            negative_text = utility.clear_cascade(negative_text)
 
         if clip_model != 'Default' and clip_mode == True:
             if is_sdxl == 1:
