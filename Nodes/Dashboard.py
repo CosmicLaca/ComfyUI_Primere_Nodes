@@ -1456,9 +1456,12 @@ class PrimereCLIP:
             clip_model = 'Default'
             last_layer = 0
 
-        if model_concept == 'Hyper':
+        if model_concept == 'Hyper' or model_concept == 'StableCascade':
             clip_model = 'Default'
 
+        if model_concept == 'StableCascade':
+            adv_encode = False
+            clip_mode = True
 
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
         CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)

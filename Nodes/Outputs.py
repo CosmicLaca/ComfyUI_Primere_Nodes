@@ -636,6 +636,7 @@ class PrimereKSampler:
             case "Turbo":
                 samples_out = primeresamplers.PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name)[0]
             case "StableCascade":
+                align_your_steps = False
                 noise_constant = noise_extender_cascade
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
             case "Hyper":
