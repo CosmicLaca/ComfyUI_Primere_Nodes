@@ -44,8 +44,8 @@ PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "
 SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
                         "512": ['SD09', 'SD1', "Turbo"],
-                        "768": ['SD2'],
-                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper"]
+                        "768": ['SD2', "LCM"],
+                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper"]
                       }
 
 PREVIEW_PATH_BY_TYPE = {
