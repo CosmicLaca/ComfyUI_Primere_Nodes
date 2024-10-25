@@ -1449,13 +1449,11 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        if model_concept == 'KwaiKolors' or model_version == 'SD1' or model_version == 'SD2' or model_concept == 'StableCascade' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
+        if model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'StableCascade' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
             adv_encode = False
 
         if model_concept == 'Flux' or model_concept == 'Pony':
-            adv_encode = False
             clip_model = 'Default'
-            # clip_mode = True
             last_layer = 0
 
         if model_concept == 'Hyper':
