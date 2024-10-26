@@ -376,18 +376,21 @@ class PrimereModelConceptSelector:
             sd3_unet_vae = None
             use_sd3_hyper_lora = None
             sd3_hyper_lora_step = None
+            sd3_hyper_lora_step = None
             sd3_hyper_lora_strength = None
+
+        if model_name is not None and override_steps == True:
+            is_steps = re.findall(r"(?i)(\d+)Step", model_name)
+            if len(is_steps) > 0:
+                steps = int(is_steps[0])
+                use_flux_hyper_lora = False
+                use_sd3_hyper_lora = False
 
         if model_concept == 'Flux' and use_flux_hyper_lora == True:
             steps = flux_hyper_lora_step
 
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
             steps = sd3_hyper_lora_step
-
-        if model_name is not None and override_steps == True:
-            is_steps = re.findall(r"(?i)(\d+)Step", model_name)
-            if len(is_steps) > 0:
-                steps = int(is_steps[0])
 
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
                 override_steps, model_concept, clip_selection, vae_selection, vae,
@@ -728,6 +731,17 @@ class PrimereCKPTLoader:
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
                     if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         flux_selector = 'SAFETENSOR'
+                        fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                        is_link = os.path.islink(str(fullpathFile))
+                        if is_link == True:
+                            File_link = Path(str(fullpathFile)).resolve()
+                            model_ext = os.path.splitext(File_link)[1].lower()
+                            match model_ext:
+                                case '.gguf':
+                                    flux_selector = 'GGUF'
+                                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                                    flux_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
 
                     match flux_selector:
                         case 'DIFFUSION':
@@ -741,20 +755,22 @@ class PrimereCKPTLoader:
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
                         case 'SAFETENSOR':
-                            fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                            is_link = os.path.islink(str(fullpathFile))
                             if is_link == False:
                                 MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
                                 DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                 FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                             else:
-                                File_link = Path(str(fullpathFile)).resolve()
                                 linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                                 linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                                 linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
                                 if 'diffusion_models' in str(File_link):
-                                    MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                                    DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                    model_ext = os.path.splitext(linkedFileName)[1].lower()
+                                    if model_ext == '.gguf':
+                                        MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                                        DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
+                                    else:
+                                        MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
+                                        DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                                 elif 'unet' in str(File_link):
                                     MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
