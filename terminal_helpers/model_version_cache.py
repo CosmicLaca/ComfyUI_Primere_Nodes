@@ -39,13 +39,15 @@ if len(ModelsList) > 0:
             else:
                 print('Model [' + str(model_counter) + '] / ' + str(len(ModelsList)) + ' already cached: ' + modelaname_only + ' -> ' + str(model_version))
         else:
-            File_link = Path(str(model_path)).resolve()
-            # comfyModelDir = os.path.join(comfy_dir, 'models')
-            comfyModelDir = str(Path(folder_paths.folder_names_and_paths['checkpoints'][0][0]).parent)
-            modelType = str(File_link)[(len(comfyModelDir) + 1):(str(File_link).find('\\', len(comfyModelDir) + 1))]
-            utility.add_value_to_cache('model_version', modelaname_only, f"{modelType} _symlink")
-            # print('Model [' + str(model_counter) + '] / ' + str(len(ModelsList)) + ' symlinked file: ' + modelaname_only + ' -> from: ' + modelType)
-            print(f"Model [{model_counter}] / {len(ModelsList)} symlinked file: {modelaname_only} -> from: {modelType}")
+            model_version = utility.get_value_from_cache('model_version', modelaname_only)
+            if model_version is None or model_version not in utility.SUPPORTED_MODELS:
+                File_link = Path(str(model_path)).resolve()
+                comfyModelDir = str(Path(folder_paths.folder_names_and_paths['checkpoints'][0][0]).parent)
+                modelType = str(File_link)[(len(comfyModelDir) + 1):(str(File_link).find('\\', len(comfyModelDir) + 1))]
+                utility.add_value_to_cache('model_version', modelaname_only, f"{modelType}_symlink")
+                print(f"Model [{model_counter}] / {len(ModelsList)} symlinked file: {modelaname_only} -> from: {modelType}")
+            else:
+                print('Model [' + str(model_counter) + '] / ' + str(len(ModelsList)) + ' already cached: ' + modelaname_only + ' -> ' + str(model_version))
         model_counter = model_counter + 1
 else:
     print('No models in your system....')
