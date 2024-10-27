@@ -1,6 +1,7 @@
 import random
 import nodes
 import torch
+import folder_paths
 from ..components import latentnoise
 from ..components import utility
 import comfy_extras.nodes_align_your_steps as nodes_align_your_steps
@@ -11,6 +12,7 @@ import comfy_extras.nodes_flux as nodes_flux
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 from comfy import model_management
 import gc
+import os
 from diffusers import (
     DPMSolverMultistepScheduler,
     EulerDiscreteScheduler,
@@ -94,7 +96,13 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
 
 def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt):
     WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-    HyperSDSelector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
+    OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+    fullpathFile = folder_paths.get_full_path('checkpoints', OriginalBaseModel)
+    is_link = os.path.islink(str(fullpathFile))
+    if is_link == True:
+        HyperSDSelector = 'UNET'
+    else:
+        HyperSDSelector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
     if (HyperSDSelector == 'UNET'):
         sigmas = utility.get_hypersd_sigmas(model)
         sampler = comfy.samplers.sampler_object(sampler_name)

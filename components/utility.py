@@ -745,7 +745,6 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
                         unet_name = finalLightning[0]
 
     if model_concept == 'Hyper':
-        print('Hyper lora check:')
         if hypersd_selector == 'LORA':
             if len(LoraList) > 0:
                 if model_version == 'SDXL':
@@ -788,7 +787,6 @@ def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selec
                 lora = comfy.utils.load_torch_file(lora_name, safe_load=True)
                 self.loaded_lora = (lora_name, lora)
 
-            print(lora_name)
             OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, lora_model_strength, 0)[0]
 
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
@@ -815,7 +813,6 @@ def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selec
                 lora = comfy.utils.load_torch_file(lora_name, safe_load=True)
                 self.loaded_lora = (lora_name, lora)
 
-            print(lora_name)
             OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, lora_model_strength, 0)[0]
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:

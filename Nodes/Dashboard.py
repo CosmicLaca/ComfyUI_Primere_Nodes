@@ -859,7 +859,6 @@ class PrimereCKPTLoader:
                 fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                 is_link = os.path.islink(str(fullpathFile))
                 if is_link == False:
-                    # LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
                     try:
                         LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                     except Exception:
@@ -992,6 +991,10 @@ class PrimereCKPTLoader:
                 unet_name = ModelConceptChanges['unet_name']
                 lightningModeValid = ModelConceptChanges['lightningModeValid']
                 hyperModeValid = ModelConceptChanges['hyperModeValid']
+
+                if model_concept == MODEL_VERSION and model_concept == 'Lightning':
+                    if lora_name is None and unet_name is None and lightningModeValid == False and ckpt_name is not None and loaded_model is None:
+                        OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, True, 'SAFETENSOR', lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
 
                 if lightningModeValid == True and loaded_model is None:
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
@@ -1757,6 +1760,10 @@ class PrimereResolution:
                 "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT"
             }
         }
 
@@ -1773,6 +1780,13 @@ class PrimereResolution:
                 orientation = "Vertical"
 
         if resolution == True:
+            if model_version == model_concept and model_concept == 'Hyper':
+                WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+                OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', kwargs['prompt'])
+                fullpathFile = folder_paths.get_full_path('checkpoints', OriginalBaseModel)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == False:
+                    model_version = utility.getModelType(OriginalBaseModel, 'checkpoints')
             square_shape = utility.getResolutionByType(model_version)
         else:
             input_string = model_version.lower() + '_res'

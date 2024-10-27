@@ -641,7 +641,13 @@ class PrimereKSampler:
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
             case "Hyper":
                 CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
-                HYPERSD_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
+                OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+                fullpathFile = folder_paths.get_full_path('checkpoints', OriginalBaseModel)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    HYPERSD_SELECTOR = 'UNET'
+                else:
+                    HYPERSD_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
                 HYPERSD_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_sampler', prompt)
 
                 if model_concept == 'Hyper' and (CONCEPT_SELECTOR == 'Hyper' or CONCEPT_SELECTOR == 'Auto') and steps == 12 and HYPERSD_SELECTOR == 'LORA' and HYPERSD_SAMPLER == True:
