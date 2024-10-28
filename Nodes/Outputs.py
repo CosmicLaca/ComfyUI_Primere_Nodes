@@ -23,6 +23,9 @@ import clip
 from ..components.tree import PRIMERE_ROOT
 from comfy.cli_args import args
 from .modules import exif_data_checker
+from ..Nodes.Visuals import PrimereVisualCKPT
+from ..Nodes.Visuals import PrimereVisualStyle
+from ..Nodes.Dashboard import PrimereSeed
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -734,7 +737,17 @@ class PrimereKSampler:
 
         timestamp_diff = int(time.time() - timestamp_start)
         original_model_concept_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
+        is_random_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'random_model', prompt)
         selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+        if is_random_model == True:
+            fullSource = PrimereVisualCKPT.allModels
+            slashIndex = selected_model.find('\\')
+            if slashIndex > 0:
+                subdirType = selected_model[0: slashIndex] + '\\'
+                models_by_path = list(filter(lambda x: x.startswith(subdirType), fullSource))
+                random.seed(seed)
+                selected_model = random.choice(models_by_path)
+
         if original_model_concept_selector != 'Auto':
             match original_model_concept_selector:
                 case 'Flux':
@@ -929,12 +942,33 @@ class PrimereAestheticCKPTScorer():
                                 score = str(int(model_ascore_list[1]) + int(final_prediction))
                                 utility.add_value_to_cache('model_ascores', modelname_only, counter + '|' + score)
 
-                    if (add_to_saved_prompt == True):
+                    if add_to_saved_prompt == True:
                         if 'positive' in workflow_data:
+                            '''WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+                            selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
+                            if selectedStyle is None:
+                                selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)'''
+
                             WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
                             selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
                             if selectedStyle is None:
                                 selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)
+
+                            is_random_style = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'random_prompt', prompt)
+                            if is_random_style == True:
+                                styles_csv = PrimereVisualStyle.styles_csv
+                                seed = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereSeed', 'seed', prompt)
+                                random.seed(seed)
+                                styleKey = styles_csv['name'] == selectedStyle
+                                try:
+                                    preferred_subpath = styles_csv[styleKey]['preferred_subpath'].values[0]
+                                except Exception:
+                                    preferred_subpath = ''
+                                if str(preferred_subpath) == "nan":
+                                    resultsBySubpath = styles_csv[styles_csv['preferred_subpath'].isnull()]
+                                else:
+                                    resultsBySubpath = styles_csv[styles_csv['preferred_subpath'] == preferred_subpath]
+                                selectedStyle = random.choice(list(resultsBySubpath['name']))
 
                             if selectedStyle is not None:
                                 STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
