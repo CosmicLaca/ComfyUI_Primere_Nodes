@@ -10,11 +10,18 @@ def get_model_hash(filename):
     hash_sha256 = hashlib.sha256()
     blksize = 1024 * 1024
 
-    with open(filename, "rb") as f:
-        for chunk in iter(lambda: f.read(blksize), b""):
-            hash_sha256.update(chunk)
+    is_link = os.path.islink(str(filename))
+    if is_link == True:
+        filename = Path(str(filename)).resolve()
 
-    return hash_sha256.hexdigest()[0:10]
+    if os.path.isfile(filename):
+        with open(filename, "rb") as f:
+            for chunk in iter(lambda: f.read(blksize), b""):
+                hash_sha256.update(chunk)
+
+        return hash_sha256.hexdigest()[0:10]
+    else:
+        return 'unknown'
 
 def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_hash_check):
     ckpt_path = folder_paths.get_full_path("checkpoints", model_name_exif)

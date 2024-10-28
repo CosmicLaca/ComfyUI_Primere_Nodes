@@ -166,15 +166,21 @@ class PrimereMetaSave:
             path = Path(output_path)
             ModelStartPath = output_path.replace(path.stem, '')
 
-            if 'model_concept' in image_metadata:
-                match image_metadata['model_concept']:
-                    case 'Flux':
-                        if image_metadata['concept_data']['flux_selector'] == 'GGUF':
-                            image_metadata['model'] = image_metadata['concept_data']['flux_gguf']
-                        else:
-                            image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
-                    case 'StableCascade':
-                        image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
+            if 'model_concept' in image_metadata and 'model_version' in image_metadata:
+                original_model_concept_selector = 'Auto'
+                if extra_pnginfo is not None:
+                    WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+                    original_model_concept_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
+                if image_metadata['model_concept'] != image_metadata['model_version'] or original_model_concept_selector != 'Auto':
+                    match image_metadata['model_concept']:
+                        case 'Flux':
+                            if image_metadata['concept_data']['flux_selector'] == 'GGUF':
+                                image_metadata['model'] = image_metadata['concept_data']['flux_gguf']
+                            else:
+                                image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
+                        case 'StableCascade':
+                            image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
+
 
             ModelPath = Path(image_metadata['model'])
 
@@ -260,8 +266,7 @@ class PrimereMetaSave:
                     if 'model' in image_metadata:
                         checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
                         model_full_path = checkpointpaths + os.sep + image_metadata['model']
-                        if os.path.isfile(model_full_path):
-                            image_metadata['model_hash'] = exif_data_checker.get_model_hash(model_full_path)
+                        image_metadata['model_hash'] = exif_data_checker.get_model_hash(model_full_path)
 
                 if 'is_sdxl' not in image_metadata:
                     image_metadata['vae'] = 'Baked VAE'
@@ -472,8 +477,8 @@ class PrimereMetaCollector:
             "positive_r": ('STRING', {"forceInput": True}),
             "negative_r": ('STRING', {"forceInput": True}),
             "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
-            "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-            "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+            "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+            "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
             "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
             "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
             "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
@@ -558,6 +563,7 @@ class PrimereKSampler:
             return float("NaN")
 
     def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Auto", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False):
+        timestamp_start = time.time()
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['sampler_setup'] == True:
@@ -725,6 +731,30 @@ class PrimereKSampler:
             workflow_tuple['sampler_settings']['variation_seed'] = seed
             workflow_tuple['sampler_settings']['batch_counter'] = batch_counter
             workflow_tuple['sampler_settings']['model_sampling'] = model_sampling
+
+        timestamp_diff = int(time.time() - timestamp_start)
+        original_model_concept_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
+        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+        if original_model_concept_selector != 'Auto':
+            match original_model_concept_selector:
+                case 'Flux':
+                    flux_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_selector', prompt)
+                    if flux_selector == 'GGUF':
+                        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_gguf', prompt)
+                    else:
+                        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_diffusion', prompt)
+                case 'StableCascade':
+                    selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'cascade_stage_c', prompt)
+
+        modelname_only = Path(selected_model).stem
+        model_samplingtime = utility.get_value_from_cache('model_samplingtime', modelname_only)
+        if model_samplingtime is None:
+            utility.add_value_to_cache('model_samplingtime', modelname_only, '1|' + str(timestamp_diff))
+        else:
+            model_samplingtime_list = model_samplingtime.split("|")
+            counter = str(int(model_samplingtime_list[0]) + 1)
+            diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
+            utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
         return (samples_out, workflow_tuple)
 

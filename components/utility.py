@@ -351,6 +351,9 @@ def getModelType(base_model, model_type):
     return model_version
 
 def get_model_hash(filename):
+    is_link = os.path.islink(str(filename))
+    if is_link == True:
+        filename = Path(str(filename)).resolve()
     try:
         with open(filename, "rb") as file:
             m = hashlib.sha256()
