@@ -11,6 +11,7 @@ from PIL import Image
 from pathlib import Path
 import datetime
 import comfy.samplers
+from comfy import model_management
 import random
 import nodes
 import comfy_extras.nodes_flux as nodes_flux
@@ -882,6 +883,10 @@ class PrimereAestheticCKPTScorer():
 
     def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, workflow_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
+
+        model_management.unload_all_models()
+        model_management.soft_empty_cache()
+        model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
 
         if (get_aesthetic_score == True):
             AESTHETIC_PATH = os.path.join(comfy_dir, 'models', 'aesthetic')
