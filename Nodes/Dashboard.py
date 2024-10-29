@@ -1533,11 +1533,12 @@ class PrimereCLIP:
                 negative_text = utility.clear_hunyuan(negative_text, 512)
 
         if model_concept == 'KwaiKolors':
-            device = model_management.get_torch_device()
-            offload_device = model_management.unet_offload_device()
             model_management.unload_all_models()
             model_management.soft_empty_cache()
-            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+
+            device = model_management.get_torch_device()
+            offload_device = model_management.unet_offload_device()
             tokenizer = clip['tokenizer']
             text_encoder = clip['text_encoder']
             text_encoder.to(device)
