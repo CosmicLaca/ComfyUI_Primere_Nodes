@@ -523,6 +523,7 @@ class PrimereCKPTLoader:
         comfy.model_management.unload_all_models()
         comfy.model_management.cleanup_models()
         comfy.model_management.soft_empty_cache()
+        comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
 
         if concept_data is not None:
             if 'clip_selection' in concept_data:
@@ -1536,6 +1537,7 @@ class PrimereCLIP:
             offload_device = model_management.unet_offload_device()
             model_management.unload_all_models()
             model_management.soft_empty_cache()
+            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
             tokenizer = clip['tokenizer']
             text_encoder = clip['text_encoder']
             text_encoder.to(device)
