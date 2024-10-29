@@ -296,6 +296,6 @@ class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, type):
         clip_path1 = folder_paths.get_full_path("clip", clip_name1)
         clip_path2 = folder_paths.get_full_path("clip", clip_name2)
-        clip_paths = (clip_path1, clip_path2)
+        clip_paths = [clip_path1, clip_path2]
         clip_type = clip_name_dict.get(type, comfy.sd.CLIPType.STABLE_DIFFUSION)
-        return (self.load_patcher(clip_paths, clip_type, self.load_data(clip_paths)),)
+        return (CLIPLoaderGGUF.load_patcher(self, clip_paths, clip_type, CLIPLoaderGGUF.load_data(self, clip_paths)),)
