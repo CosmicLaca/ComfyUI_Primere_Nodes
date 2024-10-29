@@ -10,8 +10,8 @@ import comfy.model_management
 import comfy.model_patcher
 import folder_paths
 
-from .ops import GGMLTensor, GGMLOps, move_patch_to_cuda
-from .dequant import dequantize_tensor
+from .ops import GGMLTensor, GGMLOps, move_patch_to_device
+from .dequant import is_quantized, is_torch_compatible
 
 # Add a custom keys for files ending in .gguf
 if "unet_gguf" not in folder_paths.folder_names_and_paths:
@@ -32,34 +32,62 @@ def gguf_sd_loader_get_orig_shape(reader, tensor_name):
         raise TypeError(f"Bad original shape metadata for {field_key}: Expected ARRAY of INT32, got {field.types}")
     return torch.Size(tuple(int(field.parts[part_idx][0]) for part_idx in field.data))
 
-def gguf_sd_loader(path):
-    """
-    Read state dict as fake tensors
-    """
+def gguf_sd_loader(path, handle_prefix="model.diffusion_model."):
     reader = gguf.GGUFReader(path)
-    sd = {}
-    dt = {}
+    has_prefix = False
+    if handle_prefix is not None:
+        prefix_len = len(handle_prefix)
+        tensor_names = set(tensor.name for tensor in reader.tensors)
+        has_prefix = any(s.startswith(handle_prefix) for s in tensor_names)
+
+    tensors = []
     for tensor in reader.tensors:
-        tensor_name = str(tensor.name)
+        sd_key = tensor_name = tensor.name
+        if has_prefix:
+            if not tensor_name.startswith(handle_prefix):
+                continue
+            sd_key = tensor_name[prefix_len:]
+        tensors.append((sd_key, tensor))
+
+    compat = None
+    arch_str = None
+    arch_field = reader.get_field("general.architecture")
+    if arch_field is not None:
+        if len(arch_field.types) != 1 or arch_field.types[0] != gguf.GGUFValueType.STRING:
+            raise TypeError(f"Bad type for GGUF general.architecture key: expected string, got {arch_field.types!r}")
+        arch_str = str(arch_field.parts[arch_field.data[-1]], encoding="utf-8")
+        if arch_str not in {"flux", "sd1", "sdxl", "sd3", "t5", "t5encoder"}:
+            raise ValueError(f"Unexpected architecture type in GGUF file, expected one of flux, sd1, sdxl, t5encoder but got {arch_str!r}")
+    else:
+        from .tools.convert import detect_arch
+        arch_str = detect_arch(set(val[0] for val in tensors)).arch
+        compat = "sd.cpp"
+
+    state_dict = {}
+    qtype_dict = {}
+    for sd_key, tensor in tensors:
+        tensor_name = tensor.name
+        tensor_type_str = str(tensor.tensor_type)
         torch_tensor = torch.from_numpy(tensor.data) # mmap
+
         shape = gguf_sd_loader_get_orig_shape(reader, tensor_name)
         if shape is None:
             shape = torch.Size(tuple(int(v) for v in reversed(tensor.shape)))
-        elif tensor.tensor_type in {gguf.GGMLQuantizationType.F32, gguf.GGMLQuantizationType.F16}:
-            torch_tensor = torch_tensor.view(*shape)
-        sd[tensor_name] = GGMLTensor(
-            torch_tensor,
-            tensor_type = tensor.tensor_type,
-            tensor_shape = shape
-        )
-        dt[str(tensor.tensor_type)] = dt.get(str(tensor.tensor_type), 0) + 1
+            if compat == "sd.cpp" and arch_str == "sdxl":
+                if any([tensor_name.endswith(x) for x in (".proj_in.weight", ".proj_out.weight")]):
+                    while len(shape) > 2 and shape[-1] == 1:
+                        shape = shape[:-1]
 
-    # sanity check debug print
+        if tensor.tensor_type in {gguf.GGMLQuantizationType.F32, gguf.GGMLQuantizationType.F16}:
+            torch_tensor = torch_tensor.view(*shape)
+        state_dict[sd_key] = GGMLTensor(torch_tensor, tensor_type=tensor.tensor_type, tensor_shape=shape)
+        qtype_dict[tensor_type_str] = qtype_dict.get(tensor_type_str, 0) + 1
+
     print("\nggml_sd_loader:")
-    for k,v in dt.items():
+    for k, v in qtype_dict.items():
         print(f" {k:30}{v:3}")
-    print("\n")
-    return sd
+
+    return state_dict
 
 # for remapping llama.cpp -> original key names
 clip_sd_map = {
@@ -78,10 +106,6 @@ clip_sd_map = {
     "ffn_gate": "layer.1.DenseReluDense.wi_0",
     "ffn_norm": "layer.1.layer_norm",
 }
-# weights that should be dequantized on load
-clip_sd_dequant = {
-    "shared.weight",
-}
 
 def gguf_clip_loader(path):
     raw_sd = gguf_sd_loader(path)
@@ -90,13 +114,9 @@ def gguf_clip_loader(path):
     for k,v in raw_sd.items():
         for s,d in clip_sd_map.items():
             k = k.replace(s,d)
-        if k in clip_sd_dequant:
-            v = dequantize_tensor(v, torch.float32).to(torch.float16)
-            v = GGMLTensor(v, tensor_type=gguf.GGMLQuantizationType.F16, tensor_shape=v.shape)
         sd[k] = v
     return sd
 
-# TODO: Temporary fix for now
 import collections
 class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
     patch_on_device = False
@@ -105,9 +125,6 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         if key not in self.patches:
             return
         weight = comfy.utils.get_attr(self.model, key)
-        inplace_update = self.weight_inplace_update or inplace_update
-        if key not in self.backup:
-            self.backup[key] = collections.namedtuple('Dimension', ['weight', 'inplace_update'])(weight.to(device=self.offload_device, copy=inplace_update), inplace_update)
 
         try:
             from comfy.lora import calculate_weight
@@ -115,18 +132,18 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
             calculate_weight = self.calculate_weight
 
         patches = self.patches[key]
-        qtype = getattr(weight, "tensor_type", None)
-        if qtype not in (None, gguf.GGMLQuantizationType.F32, gguf.GGMLQuantizationType.F16):
-            if device_to is not None:
-                out_weight = weight.to(device_to, copy=True)
-            else:
-                out_weight = weight.to(weight.device, copy=True) # make sure patches are copied
-
-            if self.patch_on_device:
-                patches = move_patch_to_cuda(patches, self.load_device)
-            out_weight.patches.append((calculate_weight, patches, key))
-
+        if is_quantized(weight):
+            out_weight = weight.to(device_to)
+            patches = move_patch_to_device(patches, self.load_device if self.patch_on_device else self.offload_device)
+            # TODO: do we ever have legitimate duplicate patches? (i.e. patch on top of patched weight)
+            out_weight.patches = [(calculate_weight, patches, key)]
         else:
+            inplace_update = self.weight_inplace_update or inplace_update
+            if key not in self.backup:
+                self.backup[key] = collections.namedtuple('Dimension', ['weight', 'inplace_update'])(
+                    weight.to(device=self.offload_device, copy=inplace_update), inplace_update
+                )
+
             if device_to is not None:
                 temp_weight = comfy.model_management.cast_to_device(weight, device_to, torch.float32, copy=True)
             else:
@@ -140,9 +157,39 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         else:
             comfy.utils.set_attr_param(self.model, key, out_weight)
 
+    def unpatch_model(self, device_to=None, unpatch_weights=True):
+        if unpatch_weights:
+            for p in self.model.parameters():
+                if is_torch_compatible(p):
+                    continue
+                patches = getattr(p, "patches", [])
+                if len(patches) > 0:
+                    p.patches = []
+        # TODO: Find another way to not unload after patches
+        return super().unpatch_model(device_to=device_to, unpatch_weights=unpatch_weights)
+
+    mmap_released = False
     def load(self, *args, force_patch_weights=False, **kwargs):
-        # always call `patch_weight_to_device` even for lowvram
-        return super().load(*args, force_patch_weights=True, **kwargs)
+        super().load(*args, force_patch_weights=True, **kwargs)
+
+        if not self.mmap_released:
+            linked = []
+            if kwargs.get("lowvram_model_memory", 0) > 0:
+                for n, m in self.model.named_modules():
+                    if hasattr(m, "weight"):
+                        device = getattr(m.weight, "device", None)
+                        if device == self.offload_device:
+                            linked.append((n, m))
+                            continue
+                    if hasattr(m, "bias"):
+                        device = getattr(m.bias, "device", None)
+                        if device == self.offload_device:
+                            linked.append((n, m))
+                            continue
+            if linked:
+                for n, m in linked:
+                    m.to(self.load_device).to(self.offload_device)
+            self.mmap_released = True
 
     def clone(self, *args, **kwargs):
         n = GGUFModelPatcher(self.model, self.load_device, self.offload_device, self.size, weight_inplace_update=self.weight_inplace_update)
@@ -159,18 +206,17 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         return n
 
 class UnetLoaderGGUF:
-
     def load_unet(self, unet_name, dequant_dtype=None, patch_dtype=None, patch_on_device=None):
         ops = GGMLOps()
 
-        if dequant_dtype in ["default", None]:
+        if dequant_dtype in ("default", None):
             ops.Linear.dequant_dtype = None
         elif dequant_dtype in ["target"]:
             ops.Linear.dequant_dtype = dequant_dtype
         else:
             ops.Linear.dequant_dtype = getattr(torch, dequant_dtype)
 
-        if patch_dtype in ["default", None]:
+        if patch_dtype in ("default", None):
             ops.Linear.patch_dtype = None
         elif patch_dtype in ["target"]:
             ops.Linear.patch_dtype = patch_dtype
@@ -223,7 +269,10 @@ class CLIPLoaderGGUF:
         clip = comfy.sd.load_text_encoder_state_dicts(
             clip_type = clip_type,
             state_dicts = clip_data,
-            model_options = {"custom_operations": GGMLOps},
+            model_options = {
+                "custom_operations": GGMLOps,
+                "initial_device": comfy.model_management.text_encoder_offload_device()
+            },
             embedding_directory = folder_paths.get_folder_paths("embeddings"),
         )
         clip.patcher = GGUFModelPatcher.clone(clip.patcher)
@@ -247,6 +296,6 @@ class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, type):
         clip_path1 = folder_paths.get_full_path("clip", clip_name1)
         clip_path2 = folder_paths.get_full_path("clip", clip_name2)
-        clip_paths = [clip_path1, clip_path2]
+        clip_paths = (clip_path1, clip_path2)
         clip_type = clip_name_dict.get(type, comfy.sd.CLIPType.STABLE_DIFFUSION)
-        return (CLIPLoaderGGUF.load_patcher(self, clip_paths, clip_type, CLIPLoaderGGUF.load_data(self, clip_paths)),)
+        return (self.load_patcher(clip_paths, clip_type, self.load_data(clip_paths)),)

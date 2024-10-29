@@ -376,7 +376,6 @@ class PrimereModelConceptSelector:
             sd3_unet_vae = None
             use_sd3_hyper_lora = None
             sd3_hyper_lora_step = None
-            sd3_hyper_lora_step = None
             sd3_hyper_lora_strength = None
 
         if model_name is not None and override_steps == True:
@@ -390,7 +389,15 @@ class PrimereModelConceptSelector:
             steps = flux_hyper_lora_step
 
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
-            steps = sd3_hyper_lora_step
+            fullpathFile = folder_paths.get_full_path('checkpoints', model_name)
+            is_link = os.path.islink(str(fullpathFile))
+            if is_link == True:
+                File_link = Path(str(fullpathFile)).resolve()
+                model_ext = os.path.splitext(File_link)[1].lower()
+                if model_ext != '.gguf':
+                    steps = sd3_hyper_lora_step
+            else:
+                steps = sd3_hyper_lora_step
 
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
                 override_steps, model_concept, clip_selection, vae_selection, vae,
@@ -630,6 +637,7 @@ class PrimereCKPTLoader:
             m.add_object_patch("model_sampling", model_sampling)
             return m
 
+        sd3_gguf = False
         match model_concept:
             case 'Hunyuan':
                 HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
@@ -726,6 +734,17 @@ class PrimereCKPTLoader:
 
                     OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
                     return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
+
+            case 'SD3':
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    model_ext = os.path.splitext(File_link)[1].lower()
+                    if model_ext == '.gguf':
+                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                        sd3_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
 
             case 'Flux':
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
@@ -848,30 +867,36 @@ class PrimereCKPTLoader:
             LOADED_CHECKPOINT.insert(0, loaded_model)
             LOADED_CHECKPOINT.insert(1, loaded_clip)
             LOADED_CHECKPOINT.insert(2, loaded_vae)
+            OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         else:
-            if os.path.isfile(ModelConfigFullPath) and use_yaml == True:
-                ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-                try:
-                    LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
-                except Exception:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
-            else:
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == False:
+            if sd3_gguf == False:
+                if os.path.isfile(ModelConfigFullPath) and use_yaml == True:
+                    ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                     try:
-                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                        LOADED_CHECKPOINT = comfy.sd.load_checkpoint(ModelConfigFullPath, ckpt_path, True, True, None, None, None)
                     except Exception:
-                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                 else:
-                    File_link = Path(str(fullpathFile)).resolve()
-                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                    LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
+                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                    is_link = os.path.islink(str(fullpathFile))
+                    if is_link == False:
+                        try:
+                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                        except Exception:
+                            LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                    else:
+                        File_link = Path(str(fullpathFile)).resolve()
+                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                        linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
+                OUTPUT_MODEL = LOADED_CHECKPOINT[0]
 
-        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
         if model_concept == 'SD3':
+            if sd3_gguf != False:
+                use_sd3_hyper_lora = False
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, sd3_gguf)[0]
+
             if len(LOADED_CHECKPOINT) < 2 or (len(LOADED_CHECKPOINT) >= 2 and type(LOADED_CHECKPOINT[1]).__name__ != 'CLIP') or clip_selection == False:
                 OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.load_clip(self, sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl)[0]
             else:
