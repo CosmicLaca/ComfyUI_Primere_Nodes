@@ -346,17 +346,17 @@ class PrimereVisualStyle:
     FUNCTION = "load_visual_csv"
     CATEGORY = TREE_VISUALS
 
+    STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+    STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+    STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+    if Path(STYLE_FILE).is_file() == True:
+        STYLE_SOURCE = STYLE_FILE
+    else:
+        STYLE_SOURCE = STYLE_FILE_EXAMPLE
+    styles_csv = PrimereStyleLoader.load_styles_csv(STYLE_SOURCE)
+
     @classmethod
     def INPUT_TYPES(cls):
-        STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
-        STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
-        STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
-        if Path(STYLE_FILE).is_file() == True:
-            STYLE_SOURCE = STYLE_FILE
-        else:
-            STYLE_SOURCE = STYLE_FILE_EXAMPLE
-        cls.styles_csv = PrimereStyleLoader.load_styles_csv(STYLE_SOURCE)
-
         return {
             "required": {
                 "styles": (sorted(list(cls.styles_csv['name'])),),
