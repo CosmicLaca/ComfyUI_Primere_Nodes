@@ -1760,8 +1760,9 @@ class PrimereCLIP:
                             CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
                     else:
-                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-                        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                        if enhanced_prompt_usage == 'T5-XXL' and len(t5xxl_prompt) > 5:
+                            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                            return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
             tokens_pos = clip.tokenize(positive_text)
             tokens_neg = clip.tokenize(negative_text)
