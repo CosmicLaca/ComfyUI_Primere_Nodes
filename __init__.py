@@ -103,6 +103,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereMetaDistributorStage2": Inputs.PrimereMetaDistributorStage2,
     "PrimereNetworkDataCollector": Inputs.PrimereNetworkDataCollector,
     "PrimereMetaTupleCollector": Inputs.PrimereMetaTupleCollector,
+    "PrimereLLMEnhancer": Inputs.PrimereLLMEnhancer,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -171,6 +172,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereMetaDistributorStage2": "Primere Meta Distributor Stage 2",
     "PrimereNetworkDataCollector": "Primere Network Data Collector",
     "PrimereMetaTupleCollector": "Primere Meta Tuple Collector",
+    "PrimereLLMEnhancer": "Primere LLM Enhancer",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

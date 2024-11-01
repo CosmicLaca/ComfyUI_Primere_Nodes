@@ -26,7 +26,6 @@ from comfy.cli_args import args
 from .modules import exif_data_checker
 from ..Nodes.Visuals import PrimereVisualCKPT
 from ..Nodes.Visuals import PrimereVisualStyle
-from ..Nodes.Dashboard import PrimereSeed
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -884,11 +883,11 @@ class PrimereAestheticCKPTScorer():
     def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, workflow_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
 
-        model_management.unload_all_models()
-        model_management.soft_empty_cache()
-        model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
-
         if (get_aesthetic_score == True):
+            model_management.unload_all_models()
+            model_management.soft_empty_cache()
+            model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+
             AESTHETIC_PATH = os.path.join(comfy_dir, 'models', 'aesthetic')
             folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
             if os.path.exists(AESTHETIC_PATH) == False:

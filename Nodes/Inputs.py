@@ -22,6 +22,7 @@ from .modules.exif_data_checker import check_model_from_exif
 from ..utils import comfy_dir
 from ..components import hypernetwork
 import json
+from ..components import llm_enhancer
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -374,6 +375,48 @@ class PrimereRefinerPrompt:
                 prompt_tuple,
                 MODEL_VERSION, SQUARE_SHAPE,
                 OUTPUT_MODEL, clip, OUTPUT_VAE)
+
+class PrimereLLMEnhancer:
+    RETURN_TYPES = ("STRING", "STRING",)
+    RETURN_NAMES = ("PROMPT", "ENHANCED_PROMPT",)
+    FUNCTION = "prompt_enhancer"
+    CATEGORY = TREE_INPUTS
+
+    model_root = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+    valid_llm_path = []
+    allsubdirs = list(os.listdir(Path(model_root)))
+    for subdir in allsubdirs:
+        path_config = os.path.join(model_root, subdir, 'config.json')
+        path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
+        path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
+        if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True):
+            valid_llm_path.append(subdir)
+
+    configurators = ['Default'] + llm_enhancer.getConfigKeys()
+    if configurators == None:
+        configurators = ['Default']
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "prompt": ("STRING", {"default": False, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": (2**32) - 1, "forceInput": True}),
+                "llm_model_path": (['None'] + cls.valid_llm_path,),
+                "precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "FP16"}),
+                "configurator": (cls.configurators,)
+            }
+        }
+
+    def prompt_enhancer(self, prompt, seed, llm_model_path, precision, configurator):
+        if llm_model_path == 'None':
+            return (prompt, "",)
+
+        enhanced_result = llm_enhancer.PrimereLLMEnhance(llm_model_path, prompt, seed, precision, configurator)
+        if enhanced_result == False:
+            return (prompt, "",)
+
+        return (prompt, enhanced_result,)
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")

@@ -407,7 +407,7 @@ def HunyuanClipping(self, text, text_t5, CLIP, T5):
             output_hidden_states = True,
         )
         # to-do: replace -1 for clip skip
-        t5_embs = t5_outs["hidden_states"][-1].float().cpu()
+        t5_embs = t5_outs["hidden_states"][0].float().cpu()
 
     # "clip"
     CLIP.load_model()
