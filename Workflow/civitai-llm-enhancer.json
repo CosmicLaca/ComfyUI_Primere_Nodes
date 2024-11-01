@@ -1,0 +1,270 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 1548,
+        "1": 508
+      },
+      "size": {
+        "0": 429,
+        "1": 319
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "A detailed digital illustration of an angry dog walking in a big city street at night. The subject, clad in dark clothing, is positioned on the right side of the image, while the person's left leg is on the left, and the dog's mouth is open showing sharp teeth. The background is a blurry cityscape with tall skyscrapers, the buildings are lit up by the setting sun, creating a stark contrast that makes the dog stand out as the undisputed focal point"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": {
+        "0": 1551,
+        "1": 339
+      },
+      "size": {
+        "0": 419,
+        "1": 124
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "angry dog, dark night in the big city, human walking in the street, attack"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PrimereSeed",
+      "pos": {
+        "0": 1066,
+        "1": 576
+      },
+      "size": {
+        "0": 425.2611389160156,
+        "1": 130
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed"
+      },
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PrimerePrompt",
+      "pos": {
+        "0": 577,
+        "1": 378
+      },
+      "size": {
+        "0": 424,
+        "1": 452
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "angry dog, dark night in the big city, human walking in the street, attack",
+        "",
+        "",
+        "None",
+        "None",
+        true,
+        true
+      ]
+    },
+    {
+      "id": 1,
+      "type": "PrimereLLMEnhancer",
+      "pos": {
+        "0": 1077,
+        "1": 377
+      },
+      "size": {
+        "0": 410,
+        "1": 126
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "prompt"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 4,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "ENHANCED_PROMPT",
+          "type": "STRING",
+          "links": [
+            2
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLLMEnhancer"
+      },
+      "widgets_values": [
+        "",
+        712625832,
+        "randomize",
+        "Flux-Prompt-Enhance",
+        true,
+        "photorealistic"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      1,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      1,
+      3,
+      0,
+      "*"
+    ],
+    [
+      3,
+      1,
+      0,
+      4,
+      0,
+      "*"
+    ],
+    [
+      4,
+      5,
+      0,
+      1,
+      1,
+      "INT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.9487171000000014,
+      "offset": [
+        -494.9949205556832,
+        -261.9448372983438
+      ]
+    }
+  },
+  "version": 0.4
+}
