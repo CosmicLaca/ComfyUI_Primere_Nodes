@@ -1408,7 +1408,7 @@ class PrimereCLIP:
             case 'SDXL':
                 is_sdxl = 1
 
-        t5xxl_prompt = positive_prompt
+        t5xxl_prompt = ""
         if len(enhanced_prompt) > 1:
             match enhanced_prompt_usage:    # 'None', 'Add', 'Replace', 'T5-XXL'
                 case 'Add':
@@ -1545,6 +1545,7 @@ class PrimereCLIP:
 
                 positive_text = utility.clear_hunyuan(positive_text, 0)
                 negative_text = utility.clear_hunyuan(negative_text, 0)
+                t5xxl_prompt = utility.clear_hunyuan(t5xxl_prompt, 0)
 
                 pos_out = clipping.HunyuanClipping(self, positive_text, t5xxl_prompt, CLIPDIT, CLIPT5)
                 neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
@@ -1748,16 +1749,19 @@ class PrimereCLIP:
                 if model_concept == 'Flux':
                     WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
                     FLUX_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_sampler', prompt)
+                    FLUX_GUIDANCE = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt)
+                    if FLUX_GUIDANCE is None:
+                        FLUX_GUIDANCE = 1.7
                     if FLUX_SAMPLER == 'ksampler':
-                        FLUX_GUIDANCE = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt)
-                        if FLUX_GUIDANCE is None:
-                            FLUX_GUIDANCE = 1.7
                         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
                         if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
                             CONDITIONING_NEG = CONDITIONING_POS
                         else:
                             CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                    else:
+                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
             tokens_pos = clip.tokenize(positive_text)
             tokens_neg = clip.tokenize(negative_text)
