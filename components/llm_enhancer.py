@@ -1,6 +1,6 @@
 from pathlib import Path
 import torch
-from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM, set_seed, GPT2Tokenizer, GPT2LMHeadModel, T5Tokenizer, T5ForConditionalGeneration, BloomTokenizerFast, BloomForCausalLM, BertTokenizer, BertForMaskedLM, DebertaV2Model, DebertaV2Config, DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AlbertTokenizer, AlbertModel
+from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM, set_seed, pipeline, GPT2Tokenizer, GPT2LMHeadModel, T5Tokenizer, T5ForConditionalGeneration, BloomTokenizerFast, BloomForCausalLM, BertTokenizer, BertForMaskedLM, DebertaV2Model, DebertaV2Config, DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AlbertTokenizer, AlbertModel
 from transformers.models.deberta.modeling_deberta import ContextPooler
 from ..components.tree import PRIMERE_ROOT
 import os
@@ -11,6 +11,7 @@ class PromptEnhancerLLM:
     def __init__(self, model_path: str = "flan-t5-small"):
         model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', model_path)
         self.model_path = model_path
+        self.model_fullpath = model_access
 
         if "t5" in model_path.lower():
             self.tokenizer = T5Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
@@ -28,7 +29,6 @@ class PromptEnhancerLLM:
             self.tokenizer = DebertaV2Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
             self.config = DebertaV2Config.from_pretrained(model_access)
             self.model = AutoModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
-            # self.config = self.model.config
         elif "albert-" in model_path.lower():
             self.tokenizer = AlbertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
             self.model = AlbertModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
@@ -47,11 +47,11 @@ class PromptEnhancerLLM:
     def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings") -> str:
         default_settings = {
             "do_sample": True,
-            "temperature": 0.5,
-            "top_k": 12,
-            "max_length": 100,
+            "temperature": 0.9,
+            "top_k": 8,
+            "max_length": 80,
             "num_return_sequences": 1,
-            "repetition_penalty": 1.4,
+            "repetition_penalty": 1.2,
             "penalty_alpha": 0.6,
             "no_repeat_ngram_size": 1,
             "early_stopping": False,
@@ -81,27 +81,39 @@ class PromptEnhancerLLM:
 
         with torch.no_grad():
             if "deberta-" in self.model_path.lower():
-                inputs = self.tokenizer(instruction + input_text, return_tensors="pt") # .to(self.device)
-                self.config.temperature = 1.0
-                self.config.top_p = 1.0
-                self.config.top_k = 50
-                pooler = ContextPooler(self.config)
-
-                outputs = self.model(inputs)
-                encoder_layer = outputs[0]
-                pooled_output = pooler(encoder_layer)
-                enhanced_text = self.tokenizer.decode(pooled_output[0], skip_special_tokens=True)
-                print(enhanced_text)
-                exit()
-                # enhanced_text = outputs # .replace(instruction + input_text, '').strip()
+                enhanced_text = 'This moodel type not supported....'
             elif "albert-" in self.model_path.lower():
-                inputs = self.tokenizer(instruction + input_text, return_tensors="pt")
-                outputs = self.model(inputs["input_ids"])
-                last_hidden_states = outputs.last_hidden_state.argmax(dim=-1)
-                enhanced_text = self.tokenizer.decode(last_hidden_states[0], skip_special_tokens=True)
-                print(enhanced_text)
-                exit()
-                # enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True).replace(instruction + input_text, '').strip()
+                enhanced_text = 'This moodel type not supported....'
+
+            elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower():
+                generator = pipeline('text-generation', model=self.model_fullpath)
+
+                outputs = generator(
+                    instruction,
+                    **settings,
+                )
+                enhanced_text = outputs[0]['generated_text']
+
+            elif "smollm2-" in self.model_path.lower():
+                self.model.to(self.device)
+                messages = [{"role": "user", "content": instruction + input_text}]
+                input_text = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(self.device)
+
+                if 'repetition_penalty' in settings:
+                    del settings['repetition_penalty']
+                if 'max_new_tokens' in settings:
+                    del settings['max_new_tokens']
+
+                outputs = self.model.generate(
+                    inputs,
+                    max_new_tokens=256,
+                    repetition_penalty=1.2,
+                    **settings,
+                )
+
+                enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+
             else:
                 self.model.to(self.device)
                 inputs = self.tokenizer(instruction + input_text, return_tensors="pt", max_length=512, truncation=True).to(self.device)
