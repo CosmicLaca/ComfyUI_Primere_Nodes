@@ -80,7 +80,7 @@ class PromptEnhancerLLM:
         forceFP16 = ['t5-efficient-base-dm256']
         forceFP32 = ['t5-efficient-base-dm512']
 
-        if precision == False:
+        if (precision == False or self.model_path in forceFP16) and self.model_path not in forceFP32:
             self.model.half()
 
         with torch.no_grad():
