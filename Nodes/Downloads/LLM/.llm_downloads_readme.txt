@@ -1,0 +1,7 @@
+Download here LLM models from Huggingface for "Primere LLM Enhancer" node to here, but create separated subdirectories for all.
+Not all models good for prompt enhancing, but this: https://huggingface.co/gokaygokay/Flux-Prompt-Enhance
+and this: https://huggingface.co/gokaygokay/SmolLM2-Prompt-Enhance really useful. You can test resuts with another nodes too.
+
+Create subdirectory here, clone the files from Huggingface, and choose model from "Primere LLM Enhancer" node.
+
+The development/test workflow is here: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes/blob/master/Workflow/civitai-llm-enhancer.json

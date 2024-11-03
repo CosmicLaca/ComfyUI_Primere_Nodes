@@ -384,13 +384,14 @@ class PrimereLLMEnhancer:
 
     model_root = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
     valid_llm_path = []
-    allsubdirs = list(os.listdir(Path(model_root)))
-    for subdir in allsubdirs:
-        path_config = os.path.join(model_root, subdir, 'config.json')
-        path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
-        path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
-        if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True):
-            valid_llm_path.append(subdir)
+    if os.path.exists(model_root):
+        allsubdirs = list(os.listdir(Path(model_root)))
+        for subdir in allsubdirs:
+            path_config = os.path.join(model_root, subdir, 'config.json')
+            path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
+            path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
+            if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True):
+                valid_llm_path.append(subdir)
 
     configurators = ['Default'] + llm_enhancer.getConfigKeys()
     if configurators == None:

@@ -39,3 +39,4 @@ imagesize
 sentencepiece
 accelerate
 cpm-kernels
+diffusers
