@@ -6,6 +6,7 @@ from ..components.tree import PRIMERE_ROOT
 import os
 import json
 import random
+import re
 
 class PromptEnhancerLLM:
     def __init__(self, model_path: str = "flan-t5-small"):
@@ -44,7 +45,7 @@ class PromptEnhancerLLM:
         self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings") -> str:
+    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings"):
         default_settings = {
             "do_sample": True,
             "temperature": 0.9,
@@ -75,6 +76,9 @@ class PromptEnhancerLLM:
         else:
             set_seed(1)
             torch.manual_seed(1)
+
+        forceFP16 = ['t5-efficient-base-dm256']
+        forceFP32 = ['t5-efficient-base-dm512']
 
         if precision == False:
             self.model.half()
@@ -129,7 +133,14 @@ class PromptEnhancerLLM:
                 )
                 enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-        return enhanced_text.replace(instruction + input_text, '').replace('<pad>', '').replace('image prompt:', '').replace('prompt:', '').replace('\\', '').replace('\\\n', ' ').replace('\\n', ' ').strip('.-,: ')
+        if type(enhanced_text).__name__ == 'str':
+            enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
+            enhanced_text = re.sub(r"http\S+", "", enhanced_text)
+            enhanced_text = enhanced_text.replace(instruction, '').replace("system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face", '').replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.')
+            enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
+            return enhanced_text.strip('.: ')
+        else:
+            return False
 
 def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default"):
     model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', modelKey)
