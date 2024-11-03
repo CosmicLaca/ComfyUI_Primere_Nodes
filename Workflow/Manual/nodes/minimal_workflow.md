@@ -1,5 +1,7 @@
 # <ins>Visual Checkpoint Selector:</ins>
 
+<img src="./visual_ckpt_selector.jpg" width="250px">
+
 The Visual Checkpoint Selector helps you choose and manage AI models (checkpoints) in your workflow with a visual (or legacy list) interface.
 
 ### Basic Usage:
@@ -40,6 +42,8 @@ These scores help sorting models based on their quality ratings.
 
 # <ins>Resolution Selector:</ins>
 
+<img src="./primere_resolution.jpg" width="250px">
+
 This node helps you set the perfect image dimensions for your generations with preset ratios or custom settings.
 
 ### Basic Resolution Selection:
@@ -67,6 +71,8 @@ Note: Aspect ratios can be customized by editing the external .toml configuratio
 
 # <ins>Primere Prompt:</ins>
 
+<img src="./primere_prompt.jpg" width="250px">
+
 The Prompt node provides advanced prompt control with organization features and special settings.
 
 ### Prompt Inputs:
@@ -90,6 +96,8 @@ The orientation setting helps compose your image properly for your selected subj
 
 # <ins>Prompt Switch:</ins>
 
+<img src="./prompt_switch.jpg" width="250px">
+
 A control node that lets you quickly switch between different prompt sources in your workflow, including `Style Selector` nodes.
 
 ### How It Works:
@@ -107,7 +115,9 @@ You can connect all of them to the Prompt Switch and easily toggle between them 
 
 <hr>
 
-# <ins>Visual Style Selector:</ins>
+# <ins>Visual Prompt (style) Selector:</ins>
+
+<img src="./primere_styles.jpg" width="250px">
 
 A powerful tool that lets you save and load complete prompt configurations using a visual interface or simple list.
 
