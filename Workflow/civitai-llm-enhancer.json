@@ -28,7 +28,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "A detailed digital illustration of an angry dog walking in a big city street at night. The subject, clad in dark clothing, is positioned on the right side of the image, while the person's left leg is on the left, and the dog's mouth is open showing sharp teeth. The background is a blurry cityscape with tall skyscrapers, the buildings are lit up by the setting sun, creating a stark contrast that makes the dog stand out as the undisputed focal point"
+        ""
       ]
     },
     {
@@ -213,11 +213,11 @@
       },
       "widgets_values": [
         "",
-        712625832,
+        526096634,
         "randomize",
-        "Flux-Prompt-Enhance",
+        "None",
         true,
-        "photorealistic"
+        "Default"
       ]
     }
   ],
@@ -259,10 +259,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.9487171000000014,
+      "scale": 1,
       "offset": [
-        -494.9949205556832,
-        -261.9448372983438
+        0,
+        0
       ]
     }
   },
