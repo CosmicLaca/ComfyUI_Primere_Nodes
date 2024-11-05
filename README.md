@@ -37,7 +37,7 @@ All required workflows in the `Workflow` folder of the node root.
 #### Same as Minimal workflow plus:
 
 - **Half-automatic concept selector:**
-  - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper
+  - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma
   - Custom sampler settings for all supported concepts
   - Auto detection of selected model type (if data already stored)
   - Auto download and apply HyperSD speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
