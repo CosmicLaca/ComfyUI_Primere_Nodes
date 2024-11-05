@@ -14,7 +14,7 @@ sys.path.append(components_path)
 
 import utility as utility
 
-LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
 folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
 LyCORIS = folder_paths.get_filename_list("lycoris")
 ModelsList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])

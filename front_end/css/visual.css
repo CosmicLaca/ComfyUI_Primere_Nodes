@@ -290,6 +290,9 @@
 #primere_visual_modal .background-StableAudio {
     background: #fdefef;
 }
+#primere_visual_modal .background-PixartSigma {
+    background: #ffa7a7;
+}
 #primere_visual_modal .background-Unknown {
     background: #eaf1b8;
 }
@@ -369,6 +372,11 @@
 #primere_visual_modal .ckpt-version.StableAudio-ckpt::before {
     content: 'S.Audio';
     background: #4b4040;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.PixartSigma-ckpt::before {
+    content: 'Σ';
+    background: #804c0e;
     color: #ffffff;
 }
 #primere_visual_modal .ckpt-version.Unknown-ckpt::before {

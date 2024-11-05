@@ -61,12 +61,12 @@ class PrimereImageSegments:
     SAMS['SAM_VIT_H_4B8939'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_h_4b8939.pth?download=true'
     SAMS['SAM_VIT_L_0B3195'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_l_0b3195.pth?download=true'
 
-    BBOX_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')
-    SEGM_PATH = os.path.join(comfy_dir, 'models', 'ultralytics', 'segm')
-    GDINO_PATH = os.path.join(comfy_dir, 'models', 'grounding-dino')
+    BBOX_PATH = os.path.join(folder_paths.models_dir, 'ultralytics', 'bbox')
+    SEGM_PATH = os.path.join(folder_paths.models_dir, 'ultralytics', 'segm')
+    GDINO_PATH = os.path.join(folder_paths.models_dir, 'grounding-dino')
     # SAMS_PATH = os.path.join(comfy_dir, 'models', 'sams')
 
-    SAMS_PATH = os.path.join(comfy_dir, 'models', 'sams')
+    SAMS_PATH = os.path.join(folder_paths.models_dir, 'sams')
     folder_paths.add_model_folder_path("sams", SAMS_PATH)
     SAMS_FULL_LIST = folder_paths.get_filename_list("sams")
     SAMS_LIST = folder_paths.filter_files_extensions(SAMS_FULL_LIST, ['.pth'])
@@ -111,9 +111,9 @@ class PrimereImageSegments:
         if os.path.isfile(FullFilePath) == False:
             ModelDownload = utility.downloader(FileUrl, FullFilePath)
 
-    BBOX_DIR = os.path.join(comfy_dir, 'models', 'ultralytics', 'bbox')
-    SEGM_DIR = os.path.join(comfy_dir, 'models', 'ultralytics', 'segm')
-    UL_DIR = os.path.join(comfy_dir, 'models', 'ultralytics')
+    BBOX_DIR = os.path.join(folder_paths.models_dir, 'ultralytics', 'bbox')
+    SEGM_DIR = os.path.join(folder_paths.models_dir, 'ultralytics', 'segm')
+    UL_DIR = os.path.join(folder_paths.models_dir, 'ultralytics')
 
     folder_paths.add_model_folder_path("ultralytics_bbox", BBOX_DIR)
     folder_paths.add_model_folder_path("ultralytics_segm", SEGM_DIR)
@@ -125,7 +125,7 @@ class PrimereImageSegments:
     BBOX_LIST = folder_paths.filter_files_extensions(BBOX_LIST_ALL, ['.pt'])
     SEGM_LIST = folder_paths.filter_files_extensions(SEGM_LIST_ALL, ['.pt'])
 
-    DINO_DIR = os.path.join(comfy_dir, 'models', 'grounding-dino')
+    DINO_DIR = os.path.join(folder_paths.models_dir, 'grounding-dino')
     folder_paths.add_model_folder_path("grounding-dino", DINO_DIR)
     DINO_LIST_ALL = folder_paths.get_filename_list("grounding-dino")
     DINO_LIST = folder_paths.filter_files_extensions(DINO_LIST_ALL, ['.pth'])

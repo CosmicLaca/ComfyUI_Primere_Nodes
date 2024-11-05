@@ -41,11 +41,11 @@ CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
-SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
                         "512": ['SD09', 'SD1', "Turbo"],
                         "768": ['SD2', "LCM"],
-                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper"]
+                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma"]
                       }
 
 PREVIEW_PATH_BY_TYPE = {
@@ -279,7 +279,7 @@ def getResolutionByType(model_type):
             return int(res_key)
 
 def getModelType(base_model, model_type):
-    LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+    LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
     folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
 
     ckpt_path = folder_paths.get_full_path(model_type, base_model)
@@ -959,6 +959,11 @@ def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
             values = prompt[str(node_id)]
             if "inputs" in values and inputName in values["inputs"]:
                 v = values["inputs"][inputName]
+                if type(v).__name__ == 'list':
+                    values = prompt[v[0]]
+                    if "inputs" in values:
+                        v_list = list(values["inputs"].values())
+                        return v_list[v[1]]
                 return v
 
     return results

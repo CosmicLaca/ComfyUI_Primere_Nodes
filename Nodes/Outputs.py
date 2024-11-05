@@ -638,6 +638,15 @@ class PrimereKSampler:
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
 
         match model_concept:
+            case "PixartSigma":
+                samples_out = primeresamplers.PSamplerPixart(self, device, seed, model,
+                                                             steps, cfg, sampler_name, scheduler_name,
+                                                             positive, negative,
+                                                             latent_image, denoise,
+                                                             variation_extender, variation_batch_step_original,
+                                                             batch_counter, variation_extender_original,
+                                                             variation_batch_step, variation_level, variation_limit,
+                                                             align_your_steps, noise_extender_ksampler, WORKFLOWDATA, prompt)[0]
             case "KwaiKolors":
                 samples_out = primeresamplers.PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling, 1000)[0]
             case "SD3":
@@ -888,7 +897,7 @@ class PrimereAestheticCKPTScorer():
             model_management.soft_empty_cache()
             model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
 
-            AESTHETIC_PATH = os.path.join(comfy_dir, 'models', 'aesthetic')
+            AESTHETIC_PATH = os.path.join(folder_paths.models_dir, 'aesthetic')
             folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
             if os.path.exists(AESTHETIC_PATH) == False:
                 Path(AESTHETIC_PATH).mkdir(parents=True, exist_ok=True)

@@ -42,6 +42,8 @@ from ..components.hunyuan.conf import hydit_conf
 from ..components.hunyuan.loader import load_hydit
 from ..components.hunyuan.utils.dtype import string_to_dtype
 from ..components.hunyuan.tenc import load_clip, load_t5
+from ..components.pixart.conf import pixart_conf
+from ..components.pixart.loader import load_pixart
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -135,7 +137,8 @@ class PrimereModelConceptSelector:
                     "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
-                    "STRING"
+                    "STRING",
+                    "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING", "FLOAT", "INT", "INT", "FLOAT", "BOOLEAN"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -147,7 +150,8 @@ class PrimereModelConceptSelector:
                     "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
-                    "KOLORS_PRECISION"
+                    "KOLORS_PRECISION",
+                    "PIXART_MODEL_TYPE", "PIXART_T5_ENCODER", "PIXART_VAE", "PIXART_DENOISE", "PIXART_REFINER_MODEL", "PIXART_REFINER_SAMPLER", "PIXART_REFINER_SCHEDULER", "PIXART_REFINER_CFG", "PIXART_REFINER_STEPS", "PIXART_REFINER_START", "PIXART_REFINER_DENOISE", "PIXART_REFINER_IGNORE_PROMPT"
                     )
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
@@ -158,15 +162,16 @@ class PrimereModelConceptSelector:
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
     CLIPLIST += folder_paths.get_filename_list("clip_gguf")
+    MODELLIST = folder_paths.get_filename_list("checkpoints")
 
-    T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+    T5_DIR = os.path.join(folder_paths.models_dir, 't5')
     if os.path.isdir(T5_DIR):
         folder_paths.add_model_folder_path("p_t5", T5_DIR)
         T5models = folder_paths.get_filename_list("p_t5")
         T5List = folder_paths.filter_files_extensions(T5models, ['.bin', '.safetensors'])
         CLIPLIST += T5List
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:14]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -241,7 +246,20 @@ class PrimereModelConceptSelector:
             "sd3_hyper_lora_step": ([4, 8, 16], {"default": 8}),
             "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "min": -20.000, "max": 20.000, "step": 0.001}),
 
-            "kolors_precision": ([ 'fp16', 'quant8', 'quant4'], {"default": "quant8"}),
+            "kolors_precision": (['fp16', 'quant8', 'quant4'], {"default": "quant8"}),
+
+            "pixart_model_type": (list(pixart_conf.keys()),),
+            "pixart_T5_encoder": (["None"] + CLIPLIST,),
+            "pixart_vae": (["None"] + VAELIST,),
+            "pixart_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
+            "pixart_refiner_model": (["None"] + MODELLIST,),
+            "pixart_refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
+            "pixart_refiner_scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
+            "pixart_refiner_cfg": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 100, "step": 0.01}),
+            "pixart_refiner_steps": ("INT", {"default": 22, "min": 10, "max": 30, "step": 1}),
+            "pixart_refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+            "pixart_refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
+            "pixart_refiner_ignore_prompt": ("BOOLEAN", {"default": False, "label_on": "Send prompt to refiner", "label_off": "Ignore prompt"}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -257,6 +275,7 @@ class PrimereModelConceptSelector:
                              override_steps = False,
                              use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
                              kolors_precision = 'quant8',
+                             pixart_model_type = "PixArtMS_Sigma_XL_2", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False,
                              model_version = None, model_name = None,
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              sd_vae = "None", sdxl_vae = "None",
@@ -378,6 +397,20 @@ class PrimereModelConceptSelector:
             sd3_hyper_lora_step = None
             sd3_hyper_lora_strength = None
 
+        if model_concept != 'PixartSigma':
+            pixart_model_type = None
+            pixart_T5_encoder = None
+            pixart_vae = None
+            pixart_denoise = None
+            pixart_refiner_model = None
+            pixart_refiner_sampler = None
+            pixart_refiner_scheduler = None
+            pixart_refiner_cfg = None
+            pixart_refiner_steps = None
+            pixart_refiner_start = None
+            pixart_refiner_denoise = None
+            pixart_refiner_ignore_prompt = None
+
         if model_name is not None and override_steps == True:
             is_steps = re.findall(r"(?i)(\d+)Step", model_name)
             if len(is_steps) > 0:
@@ -409,7 +442,8 @@ class PrimereModelConceptSelector:
                 use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
-                kolors_precision
+                kolors_precision,
+                pixart_model_type, pixart_T5_encoder, pixart_vae, pixart_denoise, pixart_refiner_model, pixart_refiner_sampler, pixart_refiner_scheduler, pixart_refiner_cfg, pixart_refiner_steps, pixart_refiner_start, pixart_refiner_denoise, pixart_refiner_ignore_prompt
                 )
 
 class PrimereConceptDataTuple:
@@ -469,6 +503,19 @@ class PrimereConceptDataTuple:
                 "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
 
                 "kolors_precision": ("STRING", {"forceInput": True}),
+
+                "pixart_model_type": ("STRING", {"forceInput": True}),
+                "pixart_T5_encoder": ("STRING", {"forceInput": True}),
+                "pixart_vae": ("STRING", {"forceInput": True}),
+                "pixart_denoise": ("FLOAT", {"forceInput": True}),
+                "pixart_refiner_model": ("STRING", {"forceInput": True}),
+                "pixart_refiner_sampler": ("STRING", {"forceInput": True}),
+                "pixart_refiner_scheduler": ("STRING", {"forceInput": True}),
+                "pixart_refiner_cfg": ("FLOAT", {"forceInput": True}),
+                "pixart_refiner_steps": ("INT", {"forceInput": True}),
+                "pixart_refiner_start": ("INT", {"forceInput": True}),
+                "pixart_refiner_denoise": ("FLOAT", {"forceInput": True}),
+                "pixart_refiner_ignore_prompt": ("BOOLEAN", {"forceInput": True}),
             },
         }
 
@@ -514,7 +561,8 @@ class PrimereCKPTLoader:
                           use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
                           hunyuan_clip_t5xxl = None, hunyuan_clip_l = None, hunyuan_vae = None,
                           sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None, use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
-                          kolors_precision = 'quant8'
+                          kolors_precision = 'quant8',
+                          pixart_model_type = "PixArtMS_Sigma_XL_2", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False
                           ):
 
         playground_sigma_max = 120
@@ -611,6 +659,31 @@ class PrimereCKPTLoader:
             if 'kolors_precision' in concept_data:
                 kolors_precision = concept_data['kolors_precision']
 
+            if 'pixart_model_type' in concept_data:
+                pixart_model_type = concept_data['pixart_model_type']
+            if 'pixart_T5_encoder' in concept_data:
+                pixart_T5_encoder = concept_data['pixart_T5_encoder']
+            if 'pixart_vae' in concept_data:
+                pixart_vae = concept_data['pixart_vae']
+            if 'pixart_denoise' in concept_data:
+                pixart_denoise = concept_data['pixart_denoise']
+            if 'pixart_refiner_model' in concept_data:
+                pixart_refiner_model = concept_data['pixart_refiner_model']
+            if 'pixart_refiner_sampler' in concept_data:
+                pixart_refiner_sampler = concept_data['pixart_refiner_sampler']
+            if 'pixart_refiner_scheduler' in concept_data:
+                pixart_refiner_scheduler = concept_data['pixart_refiner_scheduler']
+            if 'pixart_refiner_cfg' in concept_data:
+                pixart_refiner_cfg = concept_data['pixart_refiner_cfg']
+            if 'pixart_refiner_steps' in concept_data:
+                pixart_refiner_steps = concept_data['pixart_refiner_steps']
+            if 'pixart_refiner_start' in concept_data:
+                pixart_refiner_start = concept_data['pixart_refiner_start']
+            if 'pixart_refiner_denoise' in concept_data:
+                pixart_refiner_denoise = concept_data['pixart_refiner_denoise']
+            if 'pixart_refiner_ignore_prompt' in concept_data:
+                pixart_refiner_ignore_prompt = concept_data['pixart_refiner_ignore_prompt']
+
         modelname_only = Path(ckpt_name).stem
         MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
         if MODEL_VERSION_ORIGINAL is None:
@@ -640,6 +713,28 @@ class PrimereCKPTLoader:
 
         sd3_gguf = False
         match model_concept:
+            case 'PixartSigma':
+                print('-----------sigma--------------')
+                ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+                model_conf = pixart_conf[pixart_model_type]
+
+                print(ckpt_path)
+                print(pixart_model_type)
+                print(model_conf)
+
+                PIXART_CHECKPOINT = load_pixart(model_path = ckpt_path, model_conf = model_conf,)
+                PIXART_CLIP = nodes.CLIPLoader.load_clip(self, pixart_T5_encoder, 'sd3')[0]
+
+                PIXART_REFINER_CHECKPOINT = {}
+                if pixart_refiner_model != 'None':
+                    PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, pixart_refiner_model)
+                    PIXART_VAE = PIXART_REFINER_CHECKPOINT[2]
+                else:
+                    PIXART_REFINER_CHECKPOINT[0] = None
+                    PIXART_REFINER_CHECKPOINT[1] = None
+                    PIXART_VAE = nodes.VAELoader.load_vae(self, pixart_vae)[0]
+                return ({'main': PIXART_CHECKPOINT, 'refiner': PIXART_REFINER_CHECKPOINT[0]},) + ({'main': PIXART_CLIP, 'refiner': PIXART_REFINER_CHECKPOINT[1]},) + (PIXART_VAE,) + (MODEL_VERSION,)
+
             case 'Hunyuan':
                 HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
                 T5 = None
@@ -661,7 +756,7 @@ class PrimereCKPTLoader:
                         dtype=dtype
                     )
 
-                    T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+                    T5_DIR = os.path.join(folder_paths.models_dir, 't5')
                     if os.path.isdir(T5_DIR):
                         folder_paths.add_model_folder_path("p_t5", T5_DIR)
                         T5 = load_t5(
@@ -1270,7 +1365,7 @@ class PrimereCLIP:
         cls.default_pos = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_pos.toml"))
         CLIPLIST = folder_paths.get_filename_list("clip")
         CLIPLIST += folder_paths.get_filename_list("clip_gguf")
-        T5_DIR = os.path.join(comfy_dir, 'models', 't5')
+        T5_DIR = os.path.join(folder_paths.models_dir, 't5')
         if os.path.isdir(T5_DIR):
             folder_paths.add_model_folder_path("p_t5", T5_DIR)
             T5models = folder_paths.get_filename_list("p_t5")
@@ -1336,7 +1431,7 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", enhanced_prompt = "", enhanced_prompt_usage = "T5-XXL", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "SD1", model_concept = "Normal", workflow_tuple = None):
-        if model_concept == 'StableCascade' or model_concept == 'Flux' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
+        if model_concept == 'PixartSigma' or model_concept == 'StableCascade' or model_concept == 'Flux' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
             clip_mode = True
             clip_model = 'Default'
             longclip_model = 'Default'
@@ -1537,6 +1632,30 @@ class PrimereCLIP:
             # clip_mode = True
             last_layer = 0
 
+        if model_concept == 'PixartSigma':
+            cond_pos_ref = None
+            out_pos_ref = None
+            cond_neg_ref = None
+            out_neg_ref = None
+            if clip['refiner'] is not None:
+                clipRef = clip['refiner']
+                tokens_pos_ref = clipRef.tokenize(positive_text)
+                tokens_neg_ref = clipRef.tokenize(negative_text)
+                out_pos_ref = clipRef.encode_from_tokens(tokens_pos_ref, return_pooled=True, return_dict=True)
+                out_neg_ref = clipRef.encode_from_tokens(tokens_neg_ref, return_pooled=True, return_dict=True)
+                cond_pos_ref = out_pos_ref.pop("cond")
+                cond_neg_ref = out_neg_ref.pop("cond")
+
+            clipMain = clip['main']
+            tokens_pos_main = clipMain.tokenize(positive_text)
+            tokens_neg_main = clipMain.tokenize(negative_text)
+            out_pos_main = clipMain.encode_from_tokens(tokens_pos_main, return_pooled=True, return_dict=True)
+            out_neg_main = clipMain.encode_from_tokens(tokens_neg_main, return_pooled=True, return_dict=True)
+            cond_pos_main = out_pos_main.pop("cond")
+            cond_neg_main = out_neg_main.pop("cond")
+
+            return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+
         if model_concept == 'Hunyuan':
             last_layer = 0
             if clip['t5'] is not None:
@@ -1619,7 +1738,7 @@ class PrimereCLIP:
             if longclip_model == 'Default':
                 longclip_model = 'longclip-L.pt'
 
-            LONGCLIPL_PATH = os.path.join(comfy_dir, 'models', 'clip')
+            LONGCLIPL_PATH = os.path.join(folder_paths.models_dir, 'clip')
             if os.path.exists(LONGCLIPL_PATH) == False:
                 Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
             clipFiles = folder_paths.get_filename_list("clip")
@@ -2191,7 +2310,7 @@ class PrimereNetworkTagLoader:
       HypernetworkList = folder_paths.get_filename_list("hypernetworks")
       LoraList = folder_paths.get_filename_list("loras")
 
-      LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+      LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
       folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
       LyCORIS = folder_paths.get_filename_list("lycoris")
       LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])

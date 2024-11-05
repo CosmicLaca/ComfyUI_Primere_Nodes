@@ -118,6 +118,39 @@ def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negati
 
     return samples
 
+def PSamplerPixart(self, device, seed, model,
+                   steps, cfg, sampler_name, scheduler_name,
+                   positive, negative,
+                   latent_image, denoise,
+                   variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, WORKFLOWDATA, prompt):
+
+    PIXART_DENOISE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_denoise', prompt))
+    sigmas_main = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
+    sampler = comfy.samplers.sampler_object(sampler_name)
+    samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
+
+    if 'refiner' in model and model['refiner'] is not None:
+        PIXART_VAE_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_vae', prompt)
+        PIXART_VAE = nodes.VAELoader.load_vae(self, PIXART_VAE_NAME)[0]
+        RAW_IMAGE = nodes.VAEDecode.decode(self, PIXART_VAE, samples_main)[0]
+        REFINER_MODEL_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_model', prompt)
+        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, REFINER_MODEL_NAME)
+        RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, PIXART_REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
+
+        REFINER_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_sampler', prompt)
+        REFINER_SCHEDULER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_scheduler', prompt)
+        REFINER_CFG = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_cfg', prompt))
+        REFINER_STEPS = int(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_steps', prompt))
+        PIXART_DENOISE_REFINER = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_denoise', prompt))
+        PIXART_REFINER_START = int(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_start', prompt))
+
+        sigmas_refiner = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model['refiner'], REFINER_SCHEDULER, REFINER_STEPS, denoise=PIXART_DENOISE_REFINER)[0]
+        splitted_low_sigma = nodes_custom_sampler.SplitSigmas.get_sigmas(self, sigmas_refiner, PIXART_REFINER_START)[1]
+        sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
+        samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['refiner'], True, seed, REFINER_CFG, positive['refiner'], negative['refiner'], sampler_refiner, splitted_low_sigma, RAW_IMAGE_ENCODED)[0]
+
+    return (samples_main,)
+
 def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image, prompt):
     FLUX_GUIDANCE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt))
     if FLUX_GUIDANCE is None:

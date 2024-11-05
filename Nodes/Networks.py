@@ -249,7 +249,7 @@ class PrimereLYCORIS:
 
     @classmethod
     def INPUT_TYPES(cls):
-        LYCO_DIR = os.path.join(comfy_dir, 'models', 'lycoris')
+        LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
         folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
         LyCORIS = folder_paths.get_filename_list("lycoris")
         LyCORISList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
