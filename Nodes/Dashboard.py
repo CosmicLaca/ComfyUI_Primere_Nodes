@@ -20,7 +20,6 @@ from ..components import clipping
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
-from ..utils import comfy_dir
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 from comfy import model_management
@@ -44,6 +43,8 @@ from ..components.hunyuan.utils.dtype import string_to_dtype
 from ..components.hunyuan.tenc import load_clip, load_t5
 from ..components.pixart.conf import pixart_conf
 from ..components.pixart.loader import load_pixart
+import numpy as np
+import difflib
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -248,7 +249,7 @@ class PrimereModelConceptSelector:
 
             "kolors_precision": (['fp16', 'quant8', 'quant4'], {"default": "quant8"}),
 
-            "pixart_model_type": (list(pixart_conf.keys()),),
+            "pixart_model_type": (["Auto"] + list(pixart_conf.keys()), {"default": "Auto"}),
             "pixart_T5_encoder": (["None"] + CLIPLIST,),
             "pixart_vae": (["None"] + VAELIST,),
             "pixart_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
@@ -275,7 +276,7 @@ class PrimereModelConceptSelector:
                              override_steps = False,
                              use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
                              kolors_precision = 'quant8',
-                             pixart_model_type = "PixArtMS_Sigma_XL_2", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False,
+                             pixart_model_type = "Auto", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False,
                              model_version = None, model_name = None,
                              default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
                              sd_vae = "None", sdxl_vae = "None",
@@ -326,6 +327,23 @@ class PrimereModelConceptSelector:
             steps = kwargs[steps_input]
         if cfg_scale_input in kwargs:
             cfg_scale = kwargs[cfg_scale_input]
+
+
+        if pixart_model_type == 'Auto' and model_name is not None:
+            cutoff_list = list(np.around(np.arange(0.1, 1.01, 0.01).tolist(), 2))[::-1]
+            pixartTypes = list(pixart_conf.keys())
+            is_found = []
+            trycut = 0
+            pixart_model_name = Path(model_name).stem
+            for trycut in cutoff_list:
+                is_found = difflib.get_close_matches(pixart_model_name, pixartTypes, cutoff=trycut)
+                if len(is_found) > 0:
+                    break
+
+            if trycut <= 0.35:
+                pixart_model_type = 'PixArtMS_Sigma_XL_2'
+            else:
+                pixart_model_type = is_found[0]
 
         match model_concept:
             case 'Lightning':

@@ -127,7 +127,20 @@ def PSamplerPixart(self, device, seed, model,
     PIXART_DENOISE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_denoise', prompt))
     sigmas_main = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
     sampler = comfy.samplers.sampler_object(sampler_name)
-    samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
+    if variation_level == True:
+        samples_main = latentnoise.noisy_samples(model['main'], device, steps, cfg, sampler_name, scheduler_name, positive['main'], negative['main'], latent_image, PIXART_DENOISE, seed, noise_extender)[0]
+    else:
+        if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
+            samples_main = latentnoise.noisy_samples(model['main'], device, steps, cfg, sampler_name, scheduler_name, positive['main'], negative['main'], latent_image, PIXART_DENOISE, seed, noise_extender)[0]
+        else:
+            if align_your_steps == True:
+                model_type = 'SDXL'
+                sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
+                sampler = comfy.samplers.sampler_object(sampler_name)
+                AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas[0], latent_image)
+                samples_main = AYS_samples[0]
+            else:
+                samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
 
     if 'refiner' in model and model['refiner'] is not None:
         PIXART_VAE_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_vae', prompt)
