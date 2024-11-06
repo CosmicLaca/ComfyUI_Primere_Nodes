@@ -714,14 +714,8 @@ class PrimereCKPTLoader:
         sd3_gguf = False
         match model_concept:
             case 'PixartSigma':
-                print('-----------sigma--------------')
                 ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                 model_conf = pixart_conf[pixart_model_type]
-
-                print(ckpt_path)
-                print(pixart_model_type)
-                print(model_conf)
-
                 PIXART_CHECKPOINT = load_pixart(model_path = ckpt_path, model_conf = model_conf,)
                 PIXART_CLIP = nodes.CLIPLoader.load_clip(self, pixart_T5_encoder, 'sd3')[0]
 
@@ -1637,6 +1631,10 @@ class PrimereCLIP:
             out_pos_ref = None
             cond_neg_ref = None
             out_neg_ref = None
+
+            positive_text = utility.clear_cascade(positive_text)
+            negative_text = utility.clear_cascade(negative_text)
+
             if clip['refiner'] is not None:
                 clipRef = clip['refiner']
                 tokens_pos_ref = clipRef.tokenize(positive_text)
