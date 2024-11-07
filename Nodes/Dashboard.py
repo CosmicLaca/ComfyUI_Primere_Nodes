@@ -135,7 +135,7 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "STRING",
                     "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING",
-                    "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT",
+                    "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT", "FLUX_TURBO_LORA", "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
                     "STRING",
@@ -148,7 +148,7 @@ class PrimereModelConceptSelector:
                     "CASCADE_STAGE_A", "CASCADE_STAGE_B", "CASCADE_STAGE_C", "CASCADE_CLIP",
                     "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL",
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
-                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH",
+                    "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH", "USE_FLUX_TURBO_LORA", "FLUX_TURBO_LORA_TYPE", "FLUX_TURBO_LORA_STEP", "FLUX_TURBO_LORA_STRENGTH",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
                     "KOLORS_PRECISION",
@@ -230,10 +230,14 @@ class PrimereModelConceptSelector:
             "flux_clip_guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
             "flux_vae": (["None"] + VAELIST,),
             "flux_sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
-            "use_flux_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore Lora"}),
+            "use_flux_hyper_lora": ("BOOLEAN", {"default": False, "label_on": "Use hyper Lora", "label_off": "Ignore hyper Lora"}),
             "flux_hyper_lora_type": (["FLUX.1-dev", "FLUX.1-dev-fp16"], {"default": "FLUX.1-dev"}),
             "flux_hyper_lora_step": ([8, 16], {"default": 16}),
             "flux_hyper_lora_strength": ("FLOAT", {"default": 0.125, "min": -20.000, "max": 20.000, "step": 0.001}),
+            "use_flux_turbo_lora": ("BOOLEAN", {"default": False, "label_on": "Use turbo Lora", "label_off": "Ignore turbo Lora"}),
+            "flux_turbo_lora_type": (["TurboAlpha", "TurboRender"], {"default": "TurboAlpha"}),
+            "flux_turbo_lora_step": ([4, 6, 8, 10, 12], {"default": 8}),
+            "flux_turbo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
@@ -288,7 +292,7 @@ class PrimereModelConceptSelector:
                              hypersd_selector="LORA", hypersd_model_step=8, hypersd_sampler=False,
                              strength_hypersd_lora_model=1,
                              flux_sampler='ksampler', flux_selector="DIFFUSION", flux_clip_guidance=3.5,
-                             use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125,
+                             use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev', flux_hyper_lora_step=16, flux_hyper_lora_strength=0.125,  use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
                              **kwargs
                              ):
 
@@ -396,6 +400,10 @@ class PrimereModelConceptSelector:
             flux_hyper_lora_type = None
             flux_hyper_lora_step = None
             flux_hyper_lora_strength = None
+            use_flux_turbo_lora = None
+            flux_turbo_lora_type = None
+            flux_turbo_lora_step = None
+            flux_turbo_lora_strength = None
 
         if model_concept != 'Hunyuan':
             hunyuan_clip_t5xxl = None
@@ -434,9 +442,12 @@ class PrimereModelConceptSelector:
                 steps = int(is_steps[0])
                 use_flux_hyper_lora = False
                 use_sd3_hyper_lora = False
+                use_flux_turbo_lora = False
 
         if model_concept == 'Flux' and use_flux_hyper_lora == True:
             steps = flux_hyper_lora_step
+        if model_concept == 'Flux' and use_flux_turbo_lora == True:
+            steps = flux_turbo_lora_step
 
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
             fullpathFile = folder_paths.get_full_path('checkpoints', model_name)
@@ -456,7 +467,7 @@ class PrimereModelConceptSelector:
                 cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
                 hypersd_selector, hypersd_model_step, strength_hypersd_lora_model,
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
-                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength,
+                use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength, use_flux_turbo_lora, flux_turbo_lora_type, flux_turbo_lora_step, flux_turbo_lora_strength,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
                 kolors_precision,
@@ -506,6 +517,10 @@ class PrimereConceptDataTuple:
                 "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
                 "flux_hyper_lora_step": ("INT", {"forceInput": True}),
                 "flux_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
+                "use_flux_turbo_lora": ("FLUX_TURBO_LORA", {"forceInput": True}),
+                "flux_turbo_lora_type": ("STRING", {"forceInput": True}),
+                "flux_turbo_lora_step": ("INT", {"forceInput": True}),
+                "flux_turbo_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
 
                 "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
                 "hunyuan_clip_l": ("STRING", {"forceInput": True}),
@@ -575,7 +590,7 @@ class PrimereCKPTLoader:
                           cascade_stage_a=None, cascade_stage_b=None, cascade_stage_c=None, cascade_clip=None,
                           loaded_model=None, loaded_clip=None, loaded_vae=None,
                           flux_selector='DIFFUSION', flux_diffusion=None, flux_weight_dtype=None, flux_gguf=None, flux_clip_t5xxl=None, flux_clip_l=None, flux_clip_guidance=None, flux_vae=None,
-                          use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125,
+                          use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125, use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
                           hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
                           sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                           kolors_precision='quant8',
@@ -585,10 +600,13 @@ class PrimereCKPTLoader:
         playground_sigma_max = 120
         playground_sigma_min = 0.002
 
-        comfy.model_management.unload_all_models()
-        comfy.model_management.cleanup_models()
-        comfy.model_management.soft_empty_cache()
-        comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+        try:
+            comfy.model_management.unload_all_models()
+            comfy.model_management.cleanup_models()
+            comfy.model_management.soft_empty_cache()
+            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+        except Exception:
+            print('No need to clear memory...')
 
         if concept_data is not None:
             if 'clip_selection' in concept_data:
@@ -648,6 +666,14 @@ class PrimereCKPTLoader:
                 flux_hyper_lora_step = concept_data['flux_hyper_lora_step']
             if 'flux_hyper_lora_strength' in concept_data:
                 flux_hyper_lora_strength = concept_data['flux_hyper_lora_strength']
+            if 'use_flux_turbo_lora' in concept_data:
+                use_flux_turbo_lora = concept_data['use_flux_turbo_lora']
+            if 'flux_turbo_lora_type' in concept_data:
+                flux_turbo_lora_type = concept_data['flux_turbo_lora_type']
+            if 'flux_turbo_lora_step' in concept_data:
+                flux_turbo_lora_step = concept_data['flux_turbo_lora_step']
+            if 'flux_turbo_lora_strength' in concept_data:
+                flux_turbo_lora_strength = concept_data['flux_turbo_lora_strength']
 
             if 'hunyuan_clip_t5xxl' in concept_data:
                 hunyuan_clip_t5xxl = concept_data['hunyuan_clip_t5xxl']
@@ -947,6 +973,48 @@ class PrimereCKPTLoader:
                                     self.loaded_lora = (FULL_LORA_PATH, lora)
 
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_hyper_lora_strength, 0)[0]
+
+                    if use_flux_turbo_lora == True:
+                        FLUX_TURBO_LORA8 = 'https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha/resolve/main/diffusion_pytorch_model.safetensors?download=true'
+                        FLUX_TURBORENDER_LORA = 'https://huggingface.co/DarkMoonDragon/TurboRender-flux-dev/resolve/main/pytorch_lora_weights.safetensors?download=true'
+
+                        DOWNLOADED_FLUX_TURBO_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Turbo-FLUX.1-dev-8steps-lora.safetensors')
+                        DOWNLOADED_FLUX_TURBORENDER_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Turbo-FLUX.1-dev-turborender-lora.safetensors')
+
+                        utility.fileDownloader(DOWNLOADED_FLUX_TURBO_LORA8, FLUX_TURBO_LORA8)
+                        utility.fileDownloader(DOWNLOADED_FLUX_TURBORENDER_LORA, FLUX_TURBORENDER_LORA)
+
+                        downloaded_filelist_filtered = utility.getDownloadedFiles()
+                        allTurboTFluxLoras = list(filter(lambda a: 'turbo-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        LORA_FILE = None
+                        if flux_turbo_lora_type == 'TurboAlpha' and 'Turbo-FLUX.1-dev-8steps-lora.safetensors' in allTurboTFluxLoras:
+                            LORA_FILE = 'Turbo-FLUX.1-dev-8steps-lora.safetensors'
+                        elif flux_turbo_lora_type == 'TurboRender' and 'Turbo-FLUX.1-dev-turborender-lora.safetensors' in allTurboTFluxLoras:
+                            LORA_FILE = 'Turbo-FLUX.1-dev-turborender-lora.safetensors'
+                        else:
+                            finalTLoras_pre = list(filter(lambda a: str(flux_turbo_lora_step) + 'step'.casefold() in a.casefold(), allTurboTFluxLoras))
+                            if len(finalTLoras_pre) > 0:
+                                finalTLoras = finalTLoras_pre
+                                LORA_FILE = finalTLoras[0]
+
+                        if LORA_FILE is not None:
+                            FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+                            if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                                if flux_turbo_lora_strength != 0:
+                                    lora = None
+                                    if self.loaded_lora is not None:
+                                        if self.loaded_lora[0] == FULL_LORA_PATH:
+                                            lora = self.loaded_lora[1]
+                                        else:
+                                            temp = self.loaded_lora
+                                            self.loaded_lora = None
+                                            del temp
+
+                                    if lora is None:
+                                        lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
+                                        self.loaded_lora = (FULL_LORA_PATH, lora)
+
+                                    MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_turbo_lora_strength, 0)[0]
 
                     return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
 

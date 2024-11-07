@@ -778,6 +778,12 @@ class PrimereKSampler:
             diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
             utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
+        try:
+            comfy.model_management.soft_empty_cache()
+            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+        except Exception:
+            print('No need to clear cache...')
+
         return (samples_out, workflow_tuple)
 
 class PrimerePreviewImage():
@@ -893,9 +899,13 @@ class PrimereAestheticCKPTScorer():
         final_prediction = '*** Aesthetic scorer off ***'
 
         if (get_aesthetic_score == True):
-            model_management.unload_all_models()
-            model_management.soft_empty_cache()
-            model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            try:
+                comfy.model_management.unload_all_models()
+                comfy.model_management.cleanup_models()
+                comfy.model_management.soft_empty_cache()
+                comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            except Exception:
+                print('No need to clear memory...')
 
             AESTHETIC_PATH = os.path.join(folder_paths.models_dir, 'aesthetic')
             folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
