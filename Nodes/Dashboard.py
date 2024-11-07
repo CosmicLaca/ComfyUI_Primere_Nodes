@@ -65,7 +65,7 @@ class PrimereSamplersSteps:
             }
         }
 
-    def get_sampler_step(self, sampler_name, scheduler_name, steps = 12, cfg = 7):
+    def get_sampler_step(self, sampler_name, scheduler_name, steps=12, cfg=7):
         return sampler_name, scheduler_name, steps, round(cfg, 2)
 
 class PrimereVAE:
@@ -118,7 +118,7 @@ class PrimereVAELoader:
             },
         }
 
-    def load_primere_vae(self, vae_name, baked_vae,):
+    def load_primere_vae(self, vae_name, baked_vae, ):
         if (vae_name == 'Baked VAE'):
             return (baked_vae,)
 
@@ -134,7 +134,7 @@ class PrimereModelConceptSelector:
                     "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING",
                     "STRING", "INT", "FLOAT",
-                    "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING",  "STRING",
+                    "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING",
                     "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
@@ -273,22 +273,22 @@ class PrimereModelConceptSelector:
                              flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae,
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
-                             override_steps = False,
-                             use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
-                             kolors_precision = 'quant8',
-                             pixart_model_type = "Auto", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False,
-                             model_version = None, model_name = None,
-                             default_sampler_name = 'euler', default_scheduler_name = 'normal', default_cfg_scale = 7, default_steps = 12,
-                             sd_vae = "None", sdxl_vae = "None",
-                             model_concept = 'Auto',
-                             clip_selection = True, vae_selection = True,
-                             strength_lcm_lora_model = 1,
-                             lightning_selector = "LORA", lightning_model_step = 8, lightning_sampler = False,
-                             strength_lightning_lora_model = 1,
-                             hypersd_selector = "LORA", hypersd_model_step = 8, hypersd_sampler = False,
-                             strength_hypersd_lora_model = 1,
-                             flux_sampler = 'ksampler', flux_selector = "DIFFUSION", flux_clip_guidance = 3.5,
-                             use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
+                             override_steps=False,
+                             use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
+                             kolors_precision='quant8',
+                             pixart_model_type="Auto", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
+                             model_version=None, model_name=None,
+                             default_sampler_name='euler', default_scheduler_name='normal', default_cfg_scale=7, default_steps=12,
+                             sd_vae="None", sdxl_vae="None",
+                             model_concept='Auto',
+                             clip_selection=True, vae_selection=True,
+                             strength_lcm_lora_model=1,
+                             lightning_selector="LORA", lightning_model_step=8, lightning_sampler=False,
+                             strength_lightning_lora_model=1,
+                             hypersd_selector="LORA", hypersd_model_step=8, hypersd_sampler=False,
+                             strength_hypersd_lora_model=1,
+                             flux_sampler='ksampler', flux_selector="DIFFUSION", flux_clip_guidance=3.5,
+                             use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125,
                              **kwargs
                              ):
 
@@ -327,7 +327,6 @@ class PrimereModelConceptSelector:
             steps = kwargs[steps_input]
         if cfg_scale_input in kwargs:
             cfg_scale = kwargs[cfg_scale_input]
-
 
         if pixart_model_type == 'Auto' and model_name is not None:
             cutoff_list = list(np.around(np.arange(0.1, 1.01, 0.01).tolist(), 2))[::-1]
@@ -566,21 +565,21 @@ class PrimereCKPTLoader:
         }
 
     def load_primere_ckpt(self, ckpt_name, use_yaml,
-                          model_concept = None, concept_data = None,
-                          clip_selection = True, vae_selection = True, vae_name = "Baked",
-                          strength_lcm_lora_model = 1,
-                          lightning_selector = 'LORA', lightning_model_step = 8,
-                          strength_lightning_lora_model = 1,
-                          hypersd_selector = 'LORA', hypersd_model_step = 8,
-                          strength_hypersd_lora_model = 1,
-                          cascade_stage_a = None, cascade_stage_b = None, cascade_stage_c = None, cascade_clip = None,
-                          loaded_model = None, loaded_clip = None, loaded_vae = None,
-                          flux_selector = 'DIFFUSION', flux_diffusion = None, flux_weight_dtype = None, flux_gguf = None, flux_clip_t5xxl = None, flux_clip_l = None, flux_clip_guidance = None, flux_vae = None,
-                          use_flux_hyper_lora = False, flux_hyper_lora_type = 'FLUX.1-dev-fp16', flux_hyper_lora_step = 8, flux_hyper_lora_strength = 0.125,
-                          hunyuan_clip_t5xxl = None, hunyuan_clip_l = None, hunyuan_vae = None,
-                          sd3_clip_g = None, sd3_clip_l = None, sd3_clip_t5xxl = None, sd3_unet_vae = None, use_sd3_hyper_lora = False, sd3_hyper_lora_step = 8, sd3_hyper_lora_strength = 0.125,
-                          kolors_precision = 'quant8',
-                          pixart_model_type = "PixArtMS_Sigma_XL_2", pixart_T5_encoder = 'None', pixart_vae = 'None', pixart_denoise = 0.9, pixart_refiner_model = 'None', pixart_refiner_sampler = 'dpmpp_2m', pixart_refiner_scheduler = 'Normal', pixart_refiner_cfg = 2.0, pixart_refiner_steps = 22, pixart_refiner_start = 12, pixart_refiner_denoise = 0.9, pixart_refiner_ignore_prompt = False
+                          model_concept=None, concept_data=None,
+                          clip_selection=True, vae_selection=True, vae_name="Baked",
+                          strength_lcm_lora_model=1,
+                          lightning_selector='LORA', lightning_model_step=8,
+                          strength_lightning_lora_model=1,
+                          hypersd_selector='LORA', hypersd_model_step=8,
+                          strength_hypersd_lora_model=1,
+                          cascade_stage_a=None, cascade_stage_b=None, cascade_stage_c=None, cascade_clip=None,
+                          loaded_model=None, loaded_clip=None, loaded_vae=None,
+                          flux_selector='DIFFUSION', flux_diffusion=None, flux_weight_dtype=None, flux_gguf=None, flux_clip_t5xxl=None, flux_clip_l=None, flux_clip_guidance=None, flux_vae=None,
+                          use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125,
+                          hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
+                          sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
+                          kolors_precision='quant8',
+                          pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False
                           ):
 
         playground_sigma_max = 120
@@ -716,7 +715,7 @@ class PrimereCKPTLoader:
             else:
                 MODEL_VERSION = MODEL_VERSION_ORIGINAL
 
-        def lcm(self, model, zsnr = False):
+        def lcm(self, model, zsnr=False):
             m = model.clone()
             # sampling_base = comfy.model_sampling.ModelSamplingDiscrete
             sampling_type = nodes_model_advanced.LCM
@@ -734,7 +733,7 @@ class PrimereCKPTLoader:
             case 'PixartSigma':
                 ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                 model_conf = pixart_conf[pixart_model_type]
-                PIXART_CHECKPOINT = load_pixart(model_path = ckpt_path, model_conf = model_conf,)
+                PIXART_CHECKPOINT = load_pixart(model_path=ckpt_path, model_conf=model_conf, )
                 PIXART_CLIP = nodes.CLIPLoader.load_clip(self, pixart_T5_encoder, 'sd3')[0]
 
                 PIXART_REFINER_CHECKPOINT = {}
@@ -758,7 +757,7 @@ class PrimereCKPTLoader:
                     model = 'G/2-1.2'
                     ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                     model_conf = hydit_conf[model]
-                    HUNYUAN_MODEL = load_hydit(model_path = ckpt_path, model_conf = model_conf)
+                    HUNYUAN_MODEL = load_hydit(model_path=ckpt_path, model_conf=model_conf)
 
                     dtype = string_to_dtype('FP32', "text_encoder")
                     device = 'GPU'
@@ -944,7 +943,7 @@ class PrimereCKPTLoader:
                                         del temp
 
                                 if lora is None:
-                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load = True)
+                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
                                     self.loaded_lora = (FULL_LORA_PATH, lora)
 
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_hyper_lora_strength, 0)[0]
@@ -1166,7 +1165,7 @@ class PrimereCKPTLoader:
                                     del temp
 
                             if lora is None:
-                                lora = comfy.utils.load_torch_file(LORA_PATH, safe_load = True)
+                                lora = comfy.utils.load_torch_file(LORA_PATH, safe_load=True)
                                 self.loaded_lora = (LORA_PATH, lora)
 
                             MODEL_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, strength_lcm_lora_model, 0)[0]
@@ -1248,8 +1247,8 @@ class PrimereSeed:
             }
         }
 
-    def seed(self, seed = -1):
-      return (seed,)
+    def seed(self, seed=-1):
+        return (seed,)
 
 class PrimereFractalLatent:
     RETURN_TYPES = ("LATENT", "IMAGE", "TUPLE")
@@ -1292,7 +1291,7 @@ class PrimereFractalLatent:
         if kwargs['expand_random_limits'] == True or kwargs['rand_noise_type'] == True or kwargs['rand_device'] == True or kwargs['rand_alpha_exponent'] == True or kwargs['rand_modulator'] == True:
             return float('NaN')
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae = None, workflow_tuple = None, expand_random_limits = False):
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae=None, workflow_tuple=None, expand_random_limits=False):
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'latent_data' in workflow_tuple and len(workflow_tuple['latent_data']) > 0 and 'setup_states' in workflow_tuple and 'latent_setup' in workflow_tuple['setup_states']:
                 if workflow_tuple['setup_states']['latent_setup'] == True:
@@ -1326,7 +1325,7 @@ class PrimereFractalLatent:
         if expand_random_limits == True and (noise_type == 'white' or noise_type == 'violet'):
             alpha_exp_rand_min = 0.00
 
-        power_law = PowerLawNoise(device = device)
+        power_law = PowerLawNoise(device=device)
 
         if rand_alpha_exponent == True:
             alpha_exponent = round(random.uniform(alpha_exp_rand_min, alpha_exp_rand_max), 3)
@@ -1334,13 +1333,13 @@ class PrimereFractalLatent:
         if rand_modulator == True:
             modulator = round(random.uniform(modulator_rand_min, modulator_rand_max), 2)
 
-        tensors = power_law(1, width, height, scale = 1, alpha = alpha_exponent, modulator = modulator, noise_type = noise_type, seed = noise_seed)
-        alpha_channel = torch.ones((1, height, width, 1), dtype = tensors.dtype, device = "cpu")
-        tensors = torch.cat((tensors, alpha_channel), dim = 3)
+        tensors = power_law(1, width, height, scale=1, alpha=alpha_exponent, modulator=modulator, noise_type=noise_type, seed=noise_seed)
+        alpha_channel = torch.ones((1, height, width, 1), dtype=tensors.dtype, device="cpu")
+        tensors = torch.cat((tensors, alpha_channel), dim=3)
 
         if optional_vae is None:
             latents = tensors.permute(0, 3, 1, 2)
-            latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode = 'nearest-exact')
+            latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
             return {'samples': latents}, tensors, workflow_tuple
 
         encoder = nodes.VAEEncode()
@@ -1370,7 +1369,7 @@ class PrimereCLIP:
         with open(toml_path, "rb") as f:
             style_def_neg = tomli.load(f)
         return style_def_neg
-    @ classmethod
+    @classmethod
     def INPUT_TYPES(cls):
         DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
         cls.default_neg = cls.get_default_neg(os.path.join(DEF_TOML_DIR, "default_neg.toml"))
@@ -1442,7 +1441,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l = True, width = 1024, height = 1024, positive_prompt = "", negative_prompt = "", enhanced_prompt = "", enhanced_prompt_usage = "T5-XXL", clip_model = 'Default', longclip_model = 'Default', model_keywords = None, lora_keywords = None, lycoris_keywords = None, embedding_pos = None, embedding_neg = None, opt_pos_prompt = "", opt_neg_prompt = "", style_position = False, style_neg_prompt = "", style_pos_prompt = "", sdxl_positive_l = "", sdxl_negative_l = "", use_int_style = False, model_version = "SD1", model_concept = "Normal", workflow_tuple = None):
+    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", sdxl_positive_l="", sdxl_negative_l="", use_int_style=False, model_version="SD1", model_concept="Normal", workflow_tuple=None):
         if model_concept == 'PixartSigma' or model_concept == 'StableCascade' or model_concept == 'Flux' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
             clip_mode = True
             clip_model = 'Default'
@@ -1517,7 +1516,7 @@ class PrimereCLIP:
 
         t5xxl_prompt = ""
         if len(enhanced_prompt) > 1:
-            match enhanced_prompt_usage:    # 'None', 'Add', 'Replace', 'T5-XXL'
+            match enhanced_prompt_usage:  # 'None', 'Add', 'Replace', 'T5-XXL'
                 case 'Add':
                     if enhanced_prompt_strength != 1:
                         enhanced_prompt = f'({enhanced_prompt}:{enhanced_prompt_strength:.2f})'
@@ -1704,7 +1703,7 @@ class PrimereCLIP:
             positive_text = utility.clear_cascade(positive_text)
             negative_text = utility.clear_cascade(negative_text)
 
-            text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt",).to(device)
+            text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt", ).to(device)
             output = text_encoder(input_ids=text_inputs['input_ids'], attention_mask=text_inputs['attention_mask'], position_ids=text_inputs['position_ids'], output_hidden_states=True)
             prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone()
             text_proj = output.hidden_states[-1][-1, :, :].clone()
@@ -1849,8 +1848,8 @@ class PrimereCLIP:
             tokens_p = clip.tokenize(positive_text)
             tokens_n = clip.tokenize(negative_text)
             if is_sdxl == 0 or 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
-                embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
-                embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max = 1.0, apply_to_pooled = True)
+                embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+                embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
                 return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
             else:
                 # tokens_p = clip.tokenize(positive_text)
@@ -1874,8 +1873,8 @@ class PrimereCLIP:
                         while len(tokens_n["l"]) > len(tokens_n["g"]):
                             tokens_n["g"] += empty["g"]
 
-                cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled = True)
-                cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled = True)
+                cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
+                cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
 
                 return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l, workflow_tuple)
 
@@ -1930,7 +1929,7 @@ class PrimereResolution:
             image_ratios = tomli.load(f)
         return image_ratios
 
-    @ classmethod
+    @classmethod
     def INPUT_TYPES(cls):
         DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
         cls.sd_ratios = cls.get_ratios(os.path.join(DEF_TOML_DIR, "resolution_ratios.toml"))
@@ -2005,7 +2004,6 @@ class PrimereResolution:
         dimension_x = dimensions[0]
         dimension_y = dimensions[1]
 
-        # MODEL_SHAPES = {'SD1': sd1_res, 'SDXL': sdxl_res, 'TURBO': turbo_res}
         return dimension_x, dimension_y, square_shape
 
 class PrimereResolutionMultiplierMPX:
@@ -2034,7 +2032,7 @@ class PrimereResolutionMultiplierMPX:
             }
         }
 
-    def multiply_imagesize_mpx(self, width: int, height: int, use_multiplier: bool, upscale_to_mpx: int, triggered_prescale = False, image = None, area_trigger_mpx = 0.60, area_target_mpx = 1.05, upscale_model = 'None', upscale_method = 'bicubic'):
+    def multiply_imagesize_mpx(self, width: int, height: int, use_multiplier: bool, upscale_to_mpx: int, triggered_prescale=False, image=None, area_trigger_mpx=0.60, area_target_mpx=1.05, upscale_model='None', upscale_method='bicubic'):
         if use_multiplier == False or upscale_to_mpx < 0.01:
             return (width, height, 1, image)
 
@@ -2156,308 +2154,314 @@ class PrimereResolutionCoordinatorMPX:
         return (ref_width, ref_height, slave_width, slave_height, reference_image, ref_width_resized, ref_height_resized, slave_image, slave_width_resized, slave_height_resized)
 
 class PrimereClearPrompt:
-  RETURN_TYPES = ("STRING", "STRING")
-  RETURN_NAMES = ("PROMPT+", "PROMPT-")
-  FUNCTION = "clean_prompt"
-  CATEGORY = TREE_DASHBOARD
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-")
+    FUNCTION = "clean_prompt"
+    CATEGORY = TREE_DASHBOARD
 
-  @classmethod
-  def INPUT_TYPES(cls):
-      return {
-          "required": {
-              "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
-              "positive_prompt": ("STRING", {"forceInput": True}),
-              "negative_prompt": ("STRING", {"forceInput": True}),
-              "remove_only_if_sdxl": ("BOOLEAN", {"default": False}),
-              "remove_comfy_embedding": ("BOOLEAN", {"default": False}),
-              "remove_a1111_embedding": ("BOOLEAN", {"default": False}),
-              "remove_lora": ("BOOLEAN", {"default": False}),
-              "remove_lycoris": ("BOOLEAN", {"default": False}),
-              "remove_hypernetwork": ("BOOLEAN", {"default": False}),
-          },
-          "optional": {
-              "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
-          }
-      }
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "positive_prompt": ("STRING", {"forceInput": True}),
+                "negative_prompt": ("STRING", {"forceInput": True}),
+                "remove_only_if_sdxl": ("BOOLEAN", {"default": False}),
+                "remove_comfy_embedding": ("BOOLEAN", {"default": False}),
+                "remove_a1111_embedding": ("BOOLEAN", {"default": False}),
+                "remove_lora": ("BOOLEAN", {"default": False}),
+                "remove_lycoris": ("BOOLEAN", {"default": False}),
+                "remove_hypernetwork": ("BOOLEAN", {"default": False}),
+            },
+            "optional": {
+                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+            }
+        }
 
-  def clean_prompt(self, positive_prompt, negative_prompt, remove_comfy_embedding, remove_a1111_embedding, remove_lora, remove_lycoris, remove_hypernetwork, remove_only_if_sdxl, model_version = 'BaseModel_1024', model_concept = "Normal"):
-      NETWORK_START = []
+    def clean_prompt(self, positive_prompt, negative_prompt, remove_comfy_embedding, remove_a1111_embedding, remove_lora, remove_lycoris, remove_hypernetwork, remove_only_if_sdxl, model_version='BaseModel_1024', model_concept="Normal"):
+        NETWORK_START = []
 
-      is_sdxl = 0
-      match model_version:
-          case 'SDXL_2048':
-              is_sdxl = 1
+        is_sdxl = 0
+        match model_version:
+            case 'SDXL':
+                is_sdxl = 1
 
-      if remove_only_if_sdxl == True and is_sdxl == 0:
-          return (positive_prompt, negative_prompt,)
+        if remove_only_if_sdxl == True and is_sdxl == 0:
+            return (positive_prompt, negative_prompt,)
 
-      if remove_comfy_embedding == True:
-          NETWORK_START.append('embedding:')
+        if remove_comfy_embedding == True:
+            NETWORK_START.append('embedding:')
 
-      if remove_lora == True:
-          NETWORK_START.append('<lora:')
+        if remove_lora == True:
+            NETWORK_START.append('<lora:')
 
-      if remove_lycoris == True:
-          NETWORK_START.append('<lyco:')
+        if remove_lycoris == True:
+            NETWORK_START.append('<lyco:')
 
-      if remove_hypernetwork == True:
-          NETWORK_START.append('<hypernet:')
+        if remove_hypernetwork == True:
+            NETWORK_START.append('<hypernet:')
 
-      if remove_a1111_embedding == True:
-          positive_prompt = positive_prompt.replace('embedding:', '')
-          negative_prompt = negative_prompt.replace('embedding:', '')
-          EMBEDDINGS = folder_paths.get_filename_list("embeddings")
-          for embeddings_path in EMBEDDINGS:
-              path = Path(embeddings_path)
-              embedding_name = path.stem
-              positive_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", positive_prompt)
-              negative_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", negative_prompt)
-              positive_prompt = re.sub(r'(, )\1+', r', ', positive_prompt).strip(', ').replace(' ,', ',')
-              negative_prompt = re.sub(r'(, )\1+', r', ', negative_prompt).strip(', ').replace(' ,', ',')
+        if remove_a1111_embedding == True:
+            positive_prompt = positive_prompt.replace('embedding:', '')
+            negative_prompt = negative_prompt.replace('embedding:', '')
+            EMBEDDINGS = folder_paths.get_filename_list("embeddings")
+            for embeddings_path in EMBEDDINGS:
+                path = Path(embeddings_path)
+                embedding_name = path.stem
+                positive_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", positive_prompt)
+                negative_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", negative_prompt)
+                positive_prompt = re.sub(r'(, )\1+', r', ', positive_prompt).strip(', ').replace(' ,', ',')
+                negative_prompt = re.sub(r'(, )\1+', r', ', negative_prompt).strip(', ').replace(' ,', ',')
 
-      if len(NETWORK_START) > 0:
-         NETWORK_END = ['\n', '>', ' ', ',', '}', ')', '|'] + NETWORK_START
-         positive_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, positive_prompt)
-         negative_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, negative_prompt)
+        if len(NETWORK_START) > 0:
+            NETWORK_END = ['\n', '>', ' ', ',', '}', ')', '|'] + NETWORK_START
+            positive_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, positive_prompt)
+            negative_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, negative_prompt)
 
-      if model_concept == 'StableCascade':
-          positive_prompt = utility.clear_cascade(positive_prompt)
-          negative_prompt = utility.clear_cascade(negative_prompt)
+        if model_concept == 'StableCascade':
+            positive_prompt = utility.clear_cascade(positive_prompt)
+            negative_prompt = utility.clear_cascade(negative_prompt)
 
-      return (positive_prompt, negative_prompt,)
+        return (positive_prompt, negative_prompt,)
 
 class PrimereNetworkTagLoader:
-  RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "MODEL_KEYWORD", "MODEL_KEYWORD")
-  RETURN_NAMES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "LORA_KEYWORD", "LYCORIS_KEYWORD")
-  FUNCTION = "load_networks"
-  CATEGORY = TREE_DASHBOARD
-  LORASCOUNT = PrimereLORA.LORASCOUNT
-  EMBCOUNT = PrimereEmbedding.EMBCOUNT
-  HNCOUNT = PrimereHypernetwork.HNCOUNT
-  LYCOSCOUNT = PrimereLYCORIS.LYCOSCOUNT
+    RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "MODEL_KEYWORD", "MODEL_KEYWORD")
+    RETURN_NAMES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "LORA_KEYWORD", "LYCORIS_KEYWORD")
+    FUNCTION = "load_networks"
+    CATEGORY = TREE_DASHBOARD
+    LORASCOUNT = PrimereLORA.LORASCOUNT
+    EMBCOUNT = PrimereEmbedding.EMBCOUNT
+    HNCOUNT = PrimereHypernetwork.HNCOUNT
+    LYCOSCOUNT = PrimereLYCORIS.LYCOSCOUNT
 
-  @classmethod
-  def INPUT_TYPES(s):
-      return {
-          "required": {
-              "model": ("MODEL",),
-              "clip": ("CLIP",),
-              "positive_prompt": ("STRING", {"forceInput": True}),
-              "process_lora": ("BOOLEAN", {"default": True}),
-              "process_lycoris": ("BOOLEAN", {"default": True}),
-              "process_hypernetwork": ("BOOLEAN", {"default": True}),
-              "hypernetwork_safe_load": ("BOOLEAN", {"default": True}),
-              "copy_weight_to_clip": ("BOOLEAN", {"default": False}),
-              "lora_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
-              "lycoris_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "model": ("MODEL",),
+                "clip": ("CLIP",),
+                "positive_prompt": ("STRING", {"forceInput": True}),
+                "process_lora": ("BOOLEAN", {"default": True}),
+                "process_lycoris": ("BOOLEAN", {"default": True}),
+                "process_hypernetwork": ("BOOLEAN", {"default": True}),
+                "hypernetwork_safe_load": ("BOOLEAN", {"default": True}),
+                "copy_weight_to_clip": ("BOOLEAN", {"default": False}),
+                "lora_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
+                "lycoris_clip_custom_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
 
-              "use_lora_keyword": ("BOOLEAN", {"default": False}),
-              "lora_keyword_placement": (["First", "Last"], {"default": "Last"}),
-              "lora_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
-              "lora_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
-              "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
+                "use_lora_keyword": ("BOOLEAN", {"default": False}),
+                "lora_keyword_placement": (["First", "Last"], {"default": "Last"}),
+                "lora_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
+                "lora_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
+                "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
 
-              "use_lycoris_keyword": ("BOOLEAN", {"default": False}),
-              "lycoris_keyword_placement": (["First", "Last"], {"default": "Last"}),
-              "lycoris_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
-              "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
-              "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
-          },
-          "optional": {
-              "workflow_tuple": ("TUPLE", {"default": None}),
-          }
-      }
+                "use_lycoris_keyword": ("BOOLEAN", {"default": False}),
+                "lycoris_keyword_placement": (["First", "Last"], {"default": "Last"}),
+                "lycoris_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
+                "lycoris_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
+                "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
+            },
+            "optional": {
+                "workflow_tuple": ("TUPLE", {"default": None}),
+            }
+        }
 
-  def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load = True, workflow_tuple = None):
-      if workflow_tuple is not None and len(workflow_tuple) > 0 and 'setup_states' in workflow_tuple and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
-          concept = 'Normal'
-          stack_version = 'ANY'
-          if 'model_concept' in workflow_tuple:
-              concept = workflow_tuple['model_concept']
-          if 'model_version' in workflow_tuple:
-            if concept == 'Normal' and workflow_tuple['model_version'] == 'SDXL_2048':
-                stack_version = 'SDXL'
+    def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load=True, workflow_tuple=None):
+        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'setup_states' in workflow_tuple and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
+            concept = 'Auto'
+            stack_version = workflow_tuple['model_version']
+            if 'model_concept' in workflow_tuple:
+                concept = workflow_tuple['model_concept']
+            if 'model_version' in workflow_tuple:
+                if concept == 'Auto' and workflow_tuple['model_version'] == 'SDXL_2048':
+                    stack_version = 'SDXL'
+
+            if 'setup_states' in workflow_tuple and 'network_data' in workflow_tuple:
+                if 'lora_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lora_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'lora', self.LORASCOUNT, True, stack_version)
+                    if len(loader) > 0:
+                        networkData = networkhandler.LoraHandler(self, loader, model, clip, [], False, lora_keywords_num, use_lora_keyword, lora_keyword_selection, lora_keyword_weight, lora_keyword_placement)
+                        model = networkData[0]
+                        clip = networkData[1]
+
+                if 'lycoris_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lycoris_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'lycoris', self.LYCOSCOUNT, True, stack_version)
+                    if len(loader) > 0:
+                        networkData = networkhandler.LycorisHandler(self, loader, model, clip, [], False, lycoris_keywords_num, use_lycoris_keyword, lycoris_keyword_selection, lycoris_keyword_weight, lycoris_keyword_placement)
+                        model = networkData[0]
+                        clip = networkData[1]
+
+                if 'embedding_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['embedding_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'embedding', self.EMBCOUNT, False, stack_version)
+                    if len(loader) > 0:
+                        networkData = networkhandler.EmbeddingHandler(self, loader, None, None)
+                        if networkData[0][0] is not None:
+                            positive_prompt = networkData[0][0] + ',  ' + positive_prompt
+                            tokens = clip.tokenize(positive_prompt)
+                            clip = clip.encode_from_tokens(tokens, return_pooled=False)
+
+                if 'hypernetwork_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['hypernetwork_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.HNCOUNT, False, stack_version)
+                    if len(loader) > 0:
+                        networkData = networkhandler.HypernetworkHandler(self, loader, model, hypernetwork_safe_load)
+                        model = networkData[0]
+
+        NETWORK_START = []
+
+        cloned_model = model
+        cloned_clip = clip
+        list_of_keyword_items = []
+        lora_keywords_num_set = lora_keywords_num
+        lycoris_keywords_num_set = lycoris_keywords_num
+        model_lora_keyword = [None, None]
+        model_lyco_keyword = [None, None]
+        lora_stack = []
+        lycoris_stack = []
+        hnet_stack = []
+
+        HypernetworkList = folder_paths.get_filename_list("hypernetworks")
+        LoraList = folder_paths.get_filename_list("loras")
+
+        LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
+        folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+        LyCORIS = folder_paths.get_filename_list("lycoris")
+        LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
+
+        if process_lora == True:
+            NETWORK_START.append('<lora:')
+
+        if process_lycoris == True:
+            NETWORK_START.append('<lyco:')
+
+        if process_hypernetwork == True:
+            NETWORK_START.append('<hypernet:')
+
+        if len(NETWORK_START) == 0:
+            return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
+        else:
+            NETWORK_END = ['>'] + NETWORK_START
+            NETWORK_TUPLE = utility.get_networks_prompt(NETWORK_START, NETWORK_END, positive_prompt)
+            if (len(NETWORK_TUPLE) == 0):
+                return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
             else:
-                stack_version = 'SD'
+                for NETWORK_DATA in NETWORK_TUPLE:
+                    NetworkName = NETWORK_DATA[0]
+                    try:
+                        NetworkStrenght = float(NETWORK_DATA[1])
+                    except ValueError:
+                        NetworkStrenght = 1
+                    NetworkType = NETWORK_DATA[2]
 
-          if 'setup_states' in workflow_tuple and 'network_data' in workflow_tuple:
-              if 'lora_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lora_setup'] == True:
-                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'lora', self.LORASCOUNT, True, stack_version)
-                  if len(loader) > 0:
-                    networkData = networkhandler.LoraHandler(self, loader, model, clip, [], False, lora_keywords_num, use_lora_keyword, lora_keyword_selection, lora_keyword_weight, lora_keyword_placement)
-                    model = networkData[0]
-                    clip = networkData[1]
+                    if (process_lora == True and NetworkType == 'LORA'):
+                        lora_name = utility.get_closest_element(NetworkName, LoraList)
+                        if lora_name is not None:
+                            lora_path = folder_paths.get_full_path("loras", lora_name)
+                            lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                            if (copy_weight_to_clip == True):
+                                lora_clip_custom_weight = NetworkStrenght
+                            lora_stack.append([lora_name, NetworkStrenght, lora_clip_custom_weight])
+                            try:
+                                cloned_model, cloned_clip = comfy.sd.load_lora_for_models(cloned_model, cloned_clip, lora, NetworkStrenght, lora_clip_custom_weight)
+                            except Exception:
+                                print('Lora load error...')
+                                use_lora_keyword = False
 
-              if 'lycoris_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lycoris_setup'] == True:
-                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'lycoris', self.LYCOSCOUNT, True, stack_version)
-                  if len(loader) > 0:
-                    networkData = networkhandler.LycorisHandler(self, loader, model, clip, [], False, lycoris_keywords_num, use_lycoris_keyword, lycoris_keyword_selection, lycoris_keyword_weight, lycoris_keyword_placement)
-                    model = networkData[0]
-                    clip = networkData[1]
+                            if use_lora_keyword == True:
+                                ModelKvHash = utility.get_model_hash(lora_path)
+                                if ModelKvHash is not None:
+                                    KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
+                                    keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lora_name)
+                                    if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
+                                        if keywords.find('|') > 1:
+                                            keyword_list = [word.strip() for word in keywords.split('|')]
+                                            keyword_list = list(filter(None, keyword_list))
+                                            if (len(keyword_list) > 0):
+                                                lora_keywords_num = lora_keywords_num_set
+                                                keyword_qty = len(keyword_list)
+                                                if (lora_keywords_num > keyword_qty):
+                                                    lora_keywords_num = keyword_qty
+                                                if lora_keyword_selection == 'Select in order':
+                                                    list_of_keyword_items.extend(keyword_list[:lora_keywords_num])
+                                                else:
+                                                    list_of_keyword_items.extend(random.sample(keyword_list, lora_keywords_num))
+                                        else:
+                                            list_of_keyword_items.append(keywords)
 
-              if 'embedding_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['embedding_setup'] == True:
-                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'embedding', self.EMBCOUNT, False, stack_version)
-                  if len(loader) > 0:
-                    networkData = networkhandler.EmbeddingHandler(self, loader, None, None)
-                    if networkData[0][0] is not None:
-                        positive_prompt = networkData[0][0] + ',  ' + positive_prompt
-                        tokens = clip.tokenize(positive_prompt)
-                        clip = clip.encode_from_tokens(tokens, return_pooled=False)
+                        if len(list_of_keyword_items) > 0:
+                            if lora_keyword_selection != 'Select in order':
+                                random.shuffle(list_of_keyword_items)
 
-              if 'hypernetwork_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['hypernetwork_setup'] == True:
-                  loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.HNCOUNT, False, stack_version)
-                  if len(loader) > 0:
-                      networkData = networkhandler.HypernetworkHandler(self, loader, model, hypernetwork_safe_load)
-                      model = networkData[0]
+                            list_of_keyword_items = list(set(list_of_keyword_items))
+                            keywords = ", ".join(list_of_keyword_items)
 
-      NETWORK_START = []
+                            if (lora_keyword_weight != 1):
+                                keywords = '(' + keywords + ':' + str(round(lora_keyword_weight, 1)) + ')'
 
-      cloned_model = model
-      cloned_clip = clip
-      list_of_keyword_items = []
-      lora_keywords_num_set = lora_keywords_num
-      lycoris_keywords_num_set = lycoris_keywords_num
-      model_lora_keyword = [None, None]
-      model_lyco_keyword = [None, None]
-      lora_stack = []
-      lycoris_stack = []
-      hnet_stack = []
+                            model_lora_keyword = [keywords, lora_keyword_placement]
 
-      HypernetworkList = folder_paths.get_filename_list("hypernetworks")
-      LoraList = folder_paths.get_filename_list("loras")
+                    if (process_lycoris == True and NetworkType == 'LYCORIS'):
+                        lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
+                        if lycoris_name is not None:
+                            lycoris_path = folder_paths.get_full_path("lycoris", lycoris_name)
+                            lycoris = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+                            if (copy_weight_to_clip == True):
+                                lycoris_clip_custom_weight = NetworkStrenght
+                            lycoris_stack.append([lycoris_name, NetworkStrenght, lycoris_clip_custom_weight])
+                            try:
+                                cloned_model, cloned_clip = comfy.sd.load_lora_for_models(cloned_model, cloned_clip, lycoris, NetworkStrenght, lycoris_clip_custom_weight)
+                            except Exception:
+                                print('Lycoris load error...')
+                                use_lycoris_keyword = False
 
-      LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
-      folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
-      LyCORIS = folder_paths.get_filename_list("lycoris")
-      LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
+                            if use_lycoris_keyword == True:
+                                ModelKvHash = utility.get_model_hash(lycoris_path)
+                                if ModelKvHash is not None:
+                                    KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
+                                    keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
+                                    if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
+                                        if keywords.find('|') > 1:
+                                            keyword_list = [word.strip() for word in keywords.split('|')]
+                                            keyword_list = list(filter(None, keyword_list))
+                                            if (len(keyword_list) > 0):
+                                                lycoris_keywords_num = lycoris_keywords_num_set
+                                                keyword_qty = len(keyword_list)
+                                                if (lycoris_keywords_num > keyword_qty):
+                                                    lycoris_keywords_num = keyword_qty
+                                                if lycoris_keyword_selection == 'Select in order':
+                                                    list_of_keyword_items.extend(keyword_list[:lycoris_keywords_num])
+                                                else:
+                                                    list_of_keyword_items.extend(random.sample(keyword_list, lycoris_keywords_num))
+                                        else:
+                                            list_of_keyword_items.append(keywords)
 
-      if process_lora == True:
-        NETWORK_START.append('<lora:')
+                        if len(list_of_keyword_items) > 0:
+                            if lycoris_keyword_selection != 'Select in order':
+                                random.shuffle(list_of_keyword_items)
 
-      if process_lycoris == True:
-        NETWORK_START.append('<lyco:')
+                            list_of_keyword_items = list(set(list_of_keyword_items))
+                            keywords = ", ".join(list_of_keyword_items)
 
-      if process_hypernetwork == True:
-        NETWORK_START.append('<hypernet:')
+                            if (lycoris_keyword_weight != 1):
+                                keywords = '(' + keywords + ':' + str(round(lycoris_keyword_weight, 1)) + ')'
 
-      if len(NETWORK_START) == 0:
-          return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
-      else:
-          NETWORK_END = ['>'] + NETWORK_START
-          NETWORK_TUPLE = utility.get_networks_prompt(NETWORK_START, NETWORK_END, positive_prompt)
-          if (len(NETWORK_TUPLE) == 0):
-              return (model, clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
-          else:
-              for NETWORK_DATA in NETWORK_TUPLE:
-                  NetworkName = NETWORK_DATA[0]
-                  try:
-                    NetworkStrenght = float(NETWORK_DATA[1])
-                  except ValueError:
-                    NetworkStrenght = 1
-                  NetworkType = NETWORK_DATA[2]
+                            model_lyco_keyword = [keywords, lycoris_keyword_placement]
 
-                  if (process_lora == True and NetworkType == 'LORA'):
-                      lora_name = utility.get_closest_element(NetworkName, LoraList)
-                      if lora_name is not None:
-                          lora_path = folder_paths.get_full_path("loras", lora_name)
-                          lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
-                          if (copy_weight_to_clip == True):
-                              lora_clip_custom_weight = NetworkStrenght
-                          lora_stack.append([lora_name, NetworkStrenght, lora_clip_custom_weight])
-                          cloned_model, cloned_clip = comfy.sd.load_lora_for_models(cloned_model, cloned_clip, lora, NetworkStrenght, lora_clip_custom_weight)
+                    if (process_hypernetwork == True and NetworkType == 'HYPERNET'):
+                        hyper_name = utility.get_closest_element(NetworkName, HypernetworkList)
+                        if hyper_name is not None:
+                            hypernetwork_path = folder_paths.get_full_path("hypernetworks", hyper_name)
+                            model_hypernetwork = cloned_model.clone()
+                            try:
+                                patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, NetworkStrenght, hypernetwork_safe_load)
+                            except Exception:
+                                patch = None
+                            if patch is not None:
+                                model_hypernetwork.set_model_attn1_patch(patch)
+                                model_hypernetwork.set_model_attn2_patch(patch)
+                                hnet_stack.append([hyper_name, NetworkStrenght])
+                                cloned_model = model_hypernetwork
 
-                          if use_lora_keyword == True:
-                              ModelKvHash = utility.get_model_hash(lora_path)
-                              if ModelKvHash is not None:
-                                  KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
-                                  keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lora_name)
-                                  if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
-                                      if keywords.find('|') > 1:
-                                          keyword_list = [word.strip() for word in keywords.split('|')]
-                                          keyword_list = list(filter(None, keyword_list))
-                                          if (len(keyword_list) > 0):
-                                              lora_keywords_num = lora_keywords_num_set
-                                              keyword_qty = len(keyword_list)
-                                              if (lora_keywords_num > keyword_qty):
-                                                  lora_keywords_num = keyword_qty
-                                              if lora_keyword_selection == 'Select in order':
-                                                  list_of_keyword_items.extend(keyword_list[:lora_keywords_num])
-                                              else:
-                                                  list_of_keyword_items.extend(random.sample(keyword_list, lora_keywords_num))
-                                      else:
-                                          list_of_keyword_items.append(keywords)
-
-                      if len(list_of_keyword_items) > 0:
-                          if lora_keyword_selection != 'Select in order':
-                              random.shuffle(list_of_keyword_items)
-
-                          list_of_keyword_items = list(set(list_of_keyword_items))
-                          keywords = ", ".join(list_of_keyword_items)
-
-                          if (lora_keyword_weight != 1):
-                              keywords = '(' + keywords + ':' + str(round(lora_keyword_weight, 1)) + ')'
-
-                          model_lora_keyword = [keywords, lora_keyword_placement]
-
-                  if (process_lycoris == True and NetworkType == 'LYCORIS'):
-                      lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
-                      if lycoris_name is not None:
-                          lycoris_path = folder_paths.get_full_path("lycoris", lycoris_name)
-                          lycoris = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
-                          if (copy_weight_to_clip == True):
-                              lycoris_clip_custom_weight = NetworkStrenght
-                          lycoris_stack.append([lycoris_name, NetworkStrenght, lycoris_clip_custom_weight])
-                          cloned_model, cloned_clip = comfy.sd.load_lora_for_models(cloned_model, cloned_clip, lycoris, NetworkStrenght, lycoris_clip_custom_weight)
-
-                          if use_lycoris_keyword == True:
-                              ModelKvHash = utility.get_model_hash(lycoris_path)
-                              if ModelKvHash is not None:
-                                  KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'lora-keyword.txt')
-                                  keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, lycoris_name)
-                                  if keywords is not None and keywords != "" and isinstance(keywords, str) == True:
-                                      if keywords.find('|') > 1:
-                                          keyword_list = [word.strip() for word in keywords.split('|')]
-                                          keyword_list = list(filter(None, keyword_list))
-                                          if (len(keyword_list) > 0):
-                                              lycoris_keywords_num = lycoris_keywords_num_set
-                                              keyword_qty = len(keyword_list)
-                                              if (lycoris_keywords_num > keyword_qty):
-                                                  lycoris_keywords_num = keyword_qty
-                                              if lycoris_keyword_selection == 'Select in order':
-                                                  list_of_keyword_items.extend(keyword_list[:lycoris_keywords_num])
-                                              else:
-                                                  list_of_keyword_items.extend(random.sample(keyword_list, lycoris_keywords_num))
-                                      else:
-                                          list_of_keyword_items.append(keywords)
-
-                      if len(list_of_keyword_items) > 0:
-                          if lycoris_keyword_selection != 'Select in order':
-                              random.shuffle(list_of_keyword_items)
-
-                          list_of_keyword_items = list(set(list_of_keyword_items))
-                          keywords = ", ".join(list_of_keyword_items)
-
-                          if (lycoris_keyword_weight != 1):
-                              keywords = '(' + keywords + ':' + str(round(lycoris_keyword_weight, 1)) + ')'
-
-                          model_lyco_keyword = [keywords, lycoris_keyword_placement]
-
-                  if (process_hypernetwork == True and NetworkType == 'HYPERNET'):
-                      hyper_name = utility.get_closest_element(NetworkName, HypernetworkList)
-                      if hyper_name is not None:
-                          hypernetwork_path = folder_paths.get_full_path("hypernetworks", hyper_name)
-                          model_hypernetwork = cloned_model.clone()
-                          try:
-                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, NetworkStrenght, hypernetwork_safe_load)
-                          except Exception:
-                              patch = None
-                          if patch is not None:
-                              model_hypernetwork.set_model_attn1_patch(patch)
-                              model_hypernetwork.set_model_attn2_patch(patch)
-                              hnet_stack.append([hyper_name, NetworkStrenght])
-                              cloned_model = model_hypernetwork
-
-      return (cloned_model, cloned_clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
+        return (cloned_model, cloned_clip, lora_stack, lycoris_stack, hnet_stack, model_lora_keyword, model_lyco_keyword)
 
 class PrimereModelKeyword:
     RETURN_TYPES = ("MODEL_KEYWORD",)
@@ -2540,7 +2544,7 @@ class PrimereUpscaleModel:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "model_name": (folder_paths.get_filename_list("upscale_models"), ),
+                "model_name": (folder_paths.get_filename_list("upscale_models"),),
             }
         }
 
