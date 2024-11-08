@@ -780,7 +780,7 @@ class PrimereKSampler:
 
         try:
             comfy.model_management.soft_empty_cache()
-            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
         except Exception:
             print('No need to clear cache...')
 
@@ -903,7 +903,7 @@ class PrimereAestheticCKPTScorer():
                 comfy.model_management.unload_all_models()
                 comfy.model_management.cleanup_models()
                 comfy.model_management.soft_empty_cache()
-                comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+                comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
             except Exception:
                 print('No need to clear memory...')
 

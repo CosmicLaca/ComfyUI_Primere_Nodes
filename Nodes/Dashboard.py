@@ -604,7 +604,7 @@ class PrimereCKPTLoader:
             comfy.model_management.unload_all_models()
             comfy.model_management.cleanup_models()
             comfy.model_management.soft_empty_cache()
-            comfy.model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
         except Exception:
             print('No need to clear memory...')
 
@@ -796,8 +796,12 @@ class PrimereCKPTLoader:
                     T5_DIR = os.path.join(folder_paths.models_dir, 't5')
                     if os.path.isdir(T5_DIR):
                         folder_paths.add_model_folder_path("p_t5", T5_DIR)
+                        T5FileFullPath = folder_paths.get_full_path("p_t5", hunyuan_clip_t5xxl)
+                        if T5FileFullPath is None:
+                            T5FileFullPath = folder_paths.get_full_path("clip", hunyuan_clip_t5xxl)
+
                         T5 = load_t5(
-                            model_path=folder_paths.get_full_path("p_t5", hunyuan_clip_t5xxl),
+                            model_path=T5FileFullPath,
                             device=device,
                             dtype=dtype
                         )
@@ -1760,7 +1764,7 @@ class PrimereCLIP:
         if model_concept == 'KwaiKolors':
             model_management.unload_all_models()
             model_management.soft_empty_cache()
-            model_management.free_memory(memory_required=2 ** 64 - 1, device=None)
+            model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
 
             device = model_management.get_torch_device()
             offload_device = model_management.unet_offload_device()
