@@ -376,9 +376,10 @@ async def primere_get_filedates(request):
             filedates[filenameonly] = singlefiledate
         else:
             singleFile_link = Path(str(singleFile)).resolve()
-            filenameonly = Path(singleFile_link).stem
-            singlefiledate = os.path.getctime(singleFile_link)
-            filedates[filenameonly] = singlefiledate
+            if os.path.isfile(singleFile_link) == True:
+                filenameonly = Path(singleFile_link).stem
+                singlefiledate = os.path.getctime(singleFile_link)
+                filedates[filenameonly] = singlefiledate
 
     PromptServer.instance.send_sync("FileDateData", filedates)
     return web.json_response({})
@@ -396,11 +397,12 @@ async def primere_get_filelinks(request):
         is_link = os.path.islink(str(singleFile))
         if is_link == True:
             singleFile_link = Path(str(singleFile)).resolve()
-            filenameonly = Path(singleFile).stem
-            # comfyModelDir = os.path.join(utility.comfy_dir, 'models')
-            comfyModelDir = str(Path(folder_paths.folder_names_and_paths[subdirKey][0][0]).parent)
-            modelType = str(singleFile_link)[len(comfyModelDir) + 1:str(singleFile_link).find('\\', len(comfyModelDir) + 1)]
-            filelinktypes[filenameonly] = modelType
+            if os.path.isfile(singleFile_link) == True:
+                filenameonly = Path(singleFile).stem
+                # comfyModelDir = os.path.join(utility.comfy_dir, 'models')
+                comfyModelDir = str(Path(folder_paths.folder_names_and_paths[subdirKey][0][0]).parent)
+                modelType = str(singleFile_link)[len(comfyModelDir) + 1:str(singleFile_link).find('\\', len(comfyModelDir) + 1)]
+                filelinktypes[filenameonly] = modelType
 
     PromptServer.instance.send_sync("FileLinkData", filelinktypes)
     return web.json_response({})
