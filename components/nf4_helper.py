@@ -6,7 +6,7 @@ try:
     from bitsandbytes.nn.modules import Params4bit, QuantState
 except ImportError:
     print("Please remove Triton or install Triton V3 and bitsandbytes")
-    exit()
+    # exit()
     # Params4bit = torch.nn.Parameter
     # raise ImportError("Please remove Triton or install Triton V3 and bitsandbytes")
 
@@ -16,7 +16,7 @@ def functional_linear_4bits(x, weight, bias):
     except ImportError:
         # raise ImportError("Please remove Triton or install Triton V3 and bitsandbytes")
         print("Please remove Triton or install Triton V3 and bitsandbytes")
-        exit()
+        # exit()
 
     out = bnb.matmul_4bit(x, weight.t(), bias=bias, quant_state=weight.quant_state)
     out = out.to(x)

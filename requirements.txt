@@ -40,3 +40,4 @@ sentencepiece
 accelerate
 cpm-kernels
 diffusers
+bitsandbytes
