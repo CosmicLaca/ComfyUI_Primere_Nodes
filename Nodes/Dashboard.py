@@ -905,7 +905,10 @@ class PrimereCKPTLoader:
 
                     match flux_selector:
                         case 'DIFFUSION':
-                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
+                            try:
+                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
+                            except Exception:
+                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(flux_diffusion)[0]
                             DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                             FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
