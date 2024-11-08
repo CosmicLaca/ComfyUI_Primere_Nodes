@@ -17,6 +17,7 @@ from pathlib import Path
 import re
 from ..components import hypernetwork
 from ..components import clipping
+from ..components import nf4_helper
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
@@ -606,6 +607,9 @@ class PrimereCKPTLoader:
             comfy.model_management.soft_empty_cache()
             comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
         except Exception:
+            comfy.model_management.unload_all_models()
+            comfy.model_management.cleanup_models()
+            comfy.model_management.soft_empty_cache()
             print('No need to clear memory...')
 
         if concept_data is not None:
@@ -929,7 +933,10 @@ class PrimereCKPTLoader:
                                         DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                                 elif 'unet' in str(File_link):
-                                    MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
+                                    try:
+                                        MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
+                                    except Exception:
+                                        MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
                                 else:
