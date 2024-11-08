@@ -7,7 +7,7 @@ try:
 except ImportError:
     print("Please remove Triton or install Triton V3 and bitsandbytes")
     # exit()
-    # Params4bit = torch.nn.Parameter
+    Params4bit = torch.nn.Parameter
     # raise ImportError("Please remove Triton or install Triton V3 and bitsandbytes")
 
 def functional_linear_4bits(x, weight, bias):
