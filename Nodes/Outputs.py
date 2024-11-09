@@ -768,19 +768,21 @@ class PrimereKSampler:
                 case 'StableCascade':
                     selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'cascade_stage_c', prompt)
 
-        modelname_only = Path(selected_model).stem
-        model_samplingtime = utility.get_value_from_cache('model_samplingtime', modelname_only)
-        if model_samplingtime is None:
-            utility.add_value_to_cache('model_samplingtime', modelname_only, '1|' + str(timestamp_diff))
-        else:
-            model_samplingtime_list = model_samplingtime.split("|")
-            counter = str(int(model_samplingtime_list[0]) + 1)
-            diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
-            utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
+        if selected_model is not None:
+            modelname_only = Path(selected_model).stem
+            model_samplingtime = utility.get_value_from_cache('model_samplingtime', modelname_only)
+            if model_samplingtime is None:
+                utility.add_value_to_cache('model_samplingtime', modelname_only, '1|' + str(timestamp_diff))
+            else:
+                model_samplingtime_list = model_samplingtime.split("|")
+                counter = str(int(model_samplingtime_list[0]) + 1)
+                diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
+                utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
         try:
             comfy.model_management.soft_empty_cache()
-            comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
+            # comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
+            comfy.model_management.unload_all_models()
         except Exception:
             print('No need to clear cache...')
 
@@ -903,7 +905,6 @@ class PrimereAestheticCKPTScorer():
                 comfy.model_management.unload_all_models()
                 comfy.model_management.cleanup_models()
                 comfy.model_management.soft_empty_cache()
-                comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
             except Exception:
                 print('No need to clear memory...')
 
@@ -926,26 +927,31 @@ class PrimereAestheticCKPTScorer():
                 folder_paths.folder_names_and_paths["aesthetic"] = ([os.path.join(folder_paths.models_dir, "aesthetic")], folder_paths.supported_pt_extensions)
                 m_path = folder_paths.folder_names_and_paths["aesthetic"][0]
                 aesthetic_model = os.path.join(m_path[0], 'chadscorer.pth')
-                model = utility.MLP(768)
-                s = torch.load(aesthetic_model)
-                model.load_state_dict(s)
-                model.to("cuda")
-                model.eval()
-                device = "cuda"
-                try:
-                    model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
-                    tensor_image = image[0]
-                    img = (tensor_image * 255).to(torch.uint8).numpy()
-                    pil_image = Image.fromarray(img, mode='RGB')
-                    image2 = preprocess(pil_image).unsqueeze(0).to(device)
-                    with torch.no_grad():
-                        image_features = model2.encode_image(image2)
-                        pass
-                    im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
-                    prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
-                    final_prediction = int(float(prediction[0]) * 100)
-                    del model
-                except Exception:
+                fsize = os.path.getsize(aesthetic_model)
+                freemem = comfy.model_management.get_free_memory()
+                if (fsize * 1.2) < freemem:
+                    model = utility.MLP(768)
+                    s = torch.load(aesthetic_model)
+                    model.load_state_dict(s)
+                    model.to("cuda")
+                    model.eval()
+                    device = "cuda"
+                    try:
+                        model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
+                        tensor_image = image[0]
+                        img = (tensor_image * 255).to(torch.uint8).numpy()
+                        pil_image = Image.fromarray(img, mode='RGB')
+                        image2 = preprocess(pil_image).unsqueeze(0).to(device)
+                        with torch.no_grad():
+                            image_features = model2.encode_image(image2)
+                            pass
+                        im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
+                        prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
+                        final_prediction = int(float(prediction[0]) * 100)
+                        del model
+                    except Exception:
+                        final_prediction = 0
+                else:
                     final_prediction = 0
 
                 if (type(final_prediction) != 'str'):

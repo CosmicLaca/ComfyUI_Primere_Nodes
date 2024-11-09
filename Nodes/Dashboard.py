@@ -602,14 +602,10 @@ class PrimereCKPTLoader:
         playground_sigma_min = 0.002
 
         try:
+            comfy.model_management.soft_empty_cache()
             comfy.model_management.unload_all_models()
             comfy.model_management.cleanup_models()
-            comfy.model_management.soft_empty_cache()
-            comfy.model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
         except Exception:
-            comfy.model_management.unload_all_models()
-            comfy.model_management.cleanup_models()
-            comfy.model_management.soft_empty_cache()
             print('No need to clear memory...')
 
         if concept_data is not None:
@@ -823,8 +819,16 @@ class PrimereCKPTLoader:
                     if is_link == True:
                         model_name = Path(fullpathFile).stem
 
-                device = model_management.get_torch_device()
-                offload_device = model_management.unet_offload_device()
+                # device = model_management.get_torch_device()
+                # offload_device = model_management.unet_offload_device()
+
+                try:
+                    comfy.model_management.soft_empty_cache()
+                    comfy.model_management.unload_all_models()
+                    comfy.model_management.cleanup_models()
+                except Exception:
+                    print('No need to clear memory...')
+
                 dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
                 pbar = comfy.utils.ProgressBar(4)
                 model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
@@ -845,6 +849,11 @@ class PrimereCKPTLoader:
                 tokenizer = ChatGLMTokenizer.from_pretrained(text_encoder_path)
                 pbar.update(1)
                 CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
+
+                try:
+                    comfy.model_management.soft_empty_cache()
+                except Exception:
+                    print('No need to clear memory...')
 
                 if vae_name != "Baked":
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
@@ -1774,7 +1783,6 @@ class PrimereCLIP:
         if model_concept == 'KwaiKolors':
             model_management.unload_all_models()
             model_management.soft_empty_cache()
-            model_management.free_memory(memory_required=1.4 ** 64 - 1, device='cuda')
 
             device = model_management.get_torch_device()
             offload_device = model_management.unet_offload_device()
