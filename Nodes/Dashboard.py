@@ -2014,6 +2014,11 @@ class PrimereCLIP:
                 cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
                 return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
+            try:
+                comfy.model_management.soft_empty_cache()
+            except Exception:
+                print('No need to clear cache...')
+
             out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
             out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
 
