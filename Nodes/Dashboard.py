@@ -603,6 +603,8 @@ class PrimereCKPTLoader:
 
         try:
             comfy.model_management.soft_empty_cache()
+            comfy.model_management.cleanup_models(True)
+            comfy.model_management.unload_all_models()
         except Exception:
             print('No need to clear cache...')
 
