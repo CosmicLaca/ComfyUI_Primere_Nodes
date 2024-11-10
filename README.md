@@ -30,41 +30,20 @@ All required workflows in the `Workflow` folder of the node root.
 
 ## Basic workflow:
 
+The big difference between **minimal** and **basic** workflows, that **basic** workflow automatically detect and support several model concepts. The main difference between workflows the large node group `Concept sampler group` with lot of samplers (1 sampler / concept) and the main `Model concept selector` node. 
+
 <img src="./Workflow/primere-basic.png" width="800px">
 
-### Included features:
+### [Detailed manual for included nodes](Workflow/Manual/nodes/basic_workflow.md)
+
+### Basic workflow features:
 
 #### Same as Minimal workflow plus:
 
-- **Half-automatic concept selector:**
+- **Half-automatic model concept selector:**
   - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma
-  - Custom sampler settings for all supported concepts
-  - Auto detection of selected model type (if data already stored)
-  - Auto download and apply HyperSD speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
+  - Custom (and different) sampler settings for all concepts. The main ide that set sampler nodes only one time (`sampler`, `scheduler`, `step`, `cfg`) then just select model only what will use right sampler setting by `Model concept selector`. 
+  - Auto detection of selected model type (if data already stored on external .json file, see longer [manual](Workflow/Manual/nodes/basic_workflow.md))
+  - Auto **download** and apply Hyper, Lightning, and Turbo speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
 
-
-- **Terminal helper to detect and store model concept data:**
-  - Open `cmd` terminal window 
-  - Activate your Comfy `venv`
-  - Change to `[Your_comfy_folder]\custom_nodes\ComfyUI_Primere_Nodes\terminal_helpers\`
-  - Enter `model_version_cache.py`
-
-<img src="./Workflow/Manual/version_helper_start.jpg" width="600px">
-
-  - You will see like this when run:
-
-<img src="./Workflow/Manual/version_helper_run.jpg" width="600px">
-
-  - Terminal helper cannot detect all your models correctly, specially your symlinks, because diffusers. You must check this file: `Nodes/.cache/.cache.json` and seek the word `symlink` and `unknown`
-  - Manually replace these bad results on `.cache.json` to right value. If you don't use symlinks, the version info will much more correct.
-  - Refresh your browser, and you will see version info on the top left badge of preview (instead of questionmark)
-
-**On the `Concept selector` node you will see `None` on all required fields, for example on Cascade files. You must install all required concept/version files manually to right path, then select correct models on these lists.**
-
-When you open the workflow first time:
-
-<img src="./Workflow/Manual/concept_empty.jpg" width="600px">
-
-When downloaded required files set to:
-
-<img src="./Workflow/Manual/concept_set.jpg" width="600px">
+**On the `Concept selector` node you will see `None` on all required fields, for example on Cascade and Flux files. You must install all required additional files manually to right path, then select correct model/clip/vae on lists.**
