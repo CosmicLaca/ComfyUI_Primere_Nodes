@@ -848,8 +848,11 @@ class ChatGLMModel(ChatGLMPreTrainedModel):
         )
 
     def quantize(self, weight_bit_width: int):
+        print('4a')
         from .quantization import quantize
+        print('4b')
         quantize(self.encoder, weight_bit_width)
+        print('4c')
         return self
 
 

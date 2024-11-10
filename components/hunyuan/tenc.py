@@ -94,7 +94,7 @@ class EXM_HyDiT_Tenc_Temp:
 		else:
 			self.load_device = model_management.get_torch_device()
 			self.offload_device = "cpu"
-			self.init_device="cpu"
+			self.init_device = "cpu"
 
 		self.dtype = dtype
 		self.device = self.load_device

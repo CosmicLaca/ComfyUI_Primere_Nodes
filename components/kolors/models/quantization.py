@@ -151,10 +151,12 @@ class QuantizedLinear(torch.nn.Module):
 
 def quantize(model, weight_bit_width, empty_init=False, device=None):
     """Replace fp16 linear with quantized linear"""
+    print('4b-1')
+    device = torch.cuda.current_device()
     for layer in model.layers:
         layer.self_attention.query_key_value = QuantizedLinear(
             weight_bit_width=weight_bit_width,
-            weight=layer.self_attention.query_key_value.weight.to(torch.cuda.current_device()),
+            weight=layer.self_attention.query_key_value.weight.to(device),
             bias=layer.self_attention.query_key_value.bias,
             dtype=layer.self_attention.query_key_value.weight.dtype,
             device=layer.self_attention.query_key_value.weight.device if device is None else device,
@@ -162,7 +164,7 @@ def quantize(model, weight_bit_width, empty_init=False, device=None):
         )
         layer.self_attention.dense = QuantizedLinear(
             weight_bit_width=weight_bit_width,
-            weight=layer.self_attention.dense.weight.to(torch.cuda.current_device()),
+            weight=layer.self_attention.dense.weight.to(device),
             bias=layer.self_attention.dense.bias,
             dtype=layer.self_attention.dense.weight.dtype,
             device=layer.self_attention.dense.weight.device if device is None else device,
@@ -170,7 +172,7 @@ def quantize(model, weight_bit_width, empty_init=False, device=None):
         )
         layer.mlp.dense_h_to_4h = QuantizedLinear(
             weight_bit_width=weight_bit_width,
-            weight=layer.mlp.dense_h_to_4h.weight.to(torch.cuda.current_device()),
+            weight=layer.mlp.dense_h_to_4h.weight.to(device),
             bias=layer.mlp.dense_h_to_4h.bias,
             dtype=layer.mlp.dense_h_to_4h.weight.dtype,
             device=layer.mlp.dense_h_to_4h.weight.device if device is None else device,
@@ -178,7 +180,7 @@ def quantize(model, weight_bit_width, empty_init=False, device=None):
         )
         layer.mlp.dense_4h_to_h = QuantizedLinear(
             weight_bit_width=weight_bit_width,
-            weight=layer.mlp.dense_4h_to_h.weight.to(torch.cuda.current_device()),
+            weight=layer.mlp.dense_4h_to_h.weight.to(device),
             bias=layer.mlp.dense_4h_to_h.bias,
             dtype=layer.mlp.dense_4h_to_h.weight.dtype,
             device=layer.mlp.dense_4h_to_h.weight.device if device is None else device,

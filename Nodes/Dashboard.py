@@ -603,10 +603,8 @@ class PrimereCKPTLoader:
 
         try:
             comfy.model_management.soft_empty_cache()
-            comfy.model_management.cleanup_models()
-            comfy.model_management.unload_all_models()
         except Exception:
-            print('No need to clear memory...')
+            print('No need to clear cache...')
 
         if concept_data is not None:
             if 'clip_selection' in concept_data:
@@ -817,10 +815,12 @@ class PrimereCKPTLoader:
                     fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                     is_link = os.path.islink(str(fullpathFile))
                     if is_link == True:
-                        model_name = Path(fullpathFile).stem
+                        LinkPath = Path(str(fullpathFile)).resolve()
+                        model_name = Path(LinkPath.parent.parent).stem
 
-                device = model_management.get_torch_device()
-                offload_device = model_management.unet_offload_device()
+                # device = model_management.get_torch_device()
+                # device = "cuda" if torch.cuda.is_available() else "cpu"
+                # offload_device = model_management.unet_offload_device()
                 dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
                 pbar = comfy.utils.ProgressBar(4)
                 model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
@@ -835,19 +835,29 @@ class PrimereCKPTLoader:
                 pbar.update(1)
                 text_encoder = ChatGLMModel.from_pretrained(text_encoder_path, torch_dtype=torch.float16)
                 if precision == 'quant8':
-                    text_encoder.quantize(8)
+                    try:
+                        text_encoder.quantize(8)
+                    except Exception:
+                        print('Quantitization 8 faliled...')
                 elif precision == 'quant4':
-                    text_encoder.quantize(4)
+                    try:
+                        text_encoder.quantize(4)
+                    except Exception:
+                        print('Quantitization 4 faliled...')
                 tokenizer = ChatGLMTokenizer.from_pretrained(text_encoder_path)
                 pbar.update(1)
                 CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
+                # KOLORS_MODEL = nodes_kwai.DownloadAndLoadKolorsModel.loadmodel(self, model_name, 'fp16')[0]
+                # CHATGLM3_MODEL = nodes_kwai.DownloadAndLoadChatGLM3.loadmodel(self, 'fp16')[0]
 
                 if vae_name != "Baked":
+                    print('1')
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
                 else:
                     vae_list = folder_paths.get_filename_list("vae")
                     allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
                     OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
+
                 return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
             case 'StableCascade':
@@ -1768,17 +1778,30 @@ class PrimereCLIP:
                 negative_text = utility.clear_hunyuan(negative_text, 512)
 
         if model_concept == 'KwaiKolors':
-            device = model_management.get_torch_device()
-            offload_device = model_management.unet_offload_device()
-            model_management.unload_all_models()
-            model_management.soft_empty_cache()
-            tokenizer = clip['tokenizer']
-            text_encoder = clip['text_encoder']
-            text_encoder.to(device)
-
             positive_text = utility.clear_cascade(positive_text)
             negative_text = utility.clear_cascade(negative_text)
 
+            # device = model_management.get_torch_device()
+            # device = "cuda" if torch.cuda.is_available() else "cpu"
+            device = model_management.text_encoder_device()
+            # offload_device = model_management.unet_offload_device()
+            # offload_device = model_management.text_encoder_offload_device()
+            try:
+                model_management.unload_all_models()
+                model_management.soft_empty_cache()
+            except Exception:
+                print('Cannot clear cache...')
+            tokenizer = clip['tokenizer']
+            text_encoder = clip['text_encoder']
+            model_management.soft_empty_cache()
+
+            prompt_embeds_dtype = torch.float16
+            if text_encoder is not None:
+                prompt_embeds_dtype = text_encoder.dtype
+            try:
+                text_encoder.to(dtype = prompt_embeds_dtype, device=device) # todo: python error!
+            except Exception:
+                print('Device init error...')
             text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt", ).to(device)
             output = text_encoder(input_ids=text_inputs['input_ids'], attention_mask=text_inputs['attention_mask'], position_ids=text_inputs['position_ids'], output_hidden_states=True)
             prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone()
@@ -1804,15 +1827,21 @@ class PrimereCLIP:
             bs_embed = text_proj.shape[0]
             text_proj = text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
             negative_text_proj = negative_text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
-            text_encoder.to(offload_device)
-            model_management.soft_empty_cache()
+            # text_encoder.to(offload_device)
+            text_encoder.to(device)
+            try:
+                model_management.soft_empty_cache()
+            except Exception:
+                print('Cannot clear cache...')
             gc.collect()
             kolors_embeds = {
-                'prompt_embeds': prompt_embeds,
-                'negative_prompt_embeds': negative_prompt_embeds,
-                'pooled_prompt_embeds': text_proj,
-                'negative_pooled_prompt_embeds': negative_text_proj
+                'prompt_embeds': prompt_embeds.half(),
+                'negative_prompt_embeds': negative_prompt_embeds.half(),
+                'pooled_prompt_embeds': text_proj.half(),
+                'negative_pooled_prompt_embeds': negative_text_proj.half()
             }
+
+            # kolors_embeds = nodes_kwai.KolorsTextEncode.encode(self, clip, positive_text, negative_text, 1)[0]
             return (kolors_embeds, None, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
         if model_concept == 'SD3':

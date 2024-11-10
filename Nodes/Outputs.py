@@ -959,11 +959,6 @@ class PrimereAestheticCKPTScorer():
 
                     if add_to_saved_prompt == True:
                         if 'positive' in workflow_data:
-                            '''WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-                            selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
-                            if selectedStyle is None:
-                                selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)'''
-
                             WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
                             selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
                             if selectedStyle is None:

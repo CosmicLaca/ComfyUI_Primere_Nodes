@@ -185,10 +185,14 @@ def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps,
     return samples
 
 def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 0, multiplier = 1000):
-    device = model_management.get_torch_device()
+    device = model_management.get_torch_device()    #"cuda" if torch.cuda.is_available() else "cpu"
     offload_device = model_management.unet_offload_device()
+    
     vae_scaling_factor = 0.13025
-    model_management.soft_empty_cache()
+    try:
+        model_management.soft_empty_cache()
+    except Exception:
+        print('Cannot clear cache...')
     gc.collect()
     pipeline = model['pipeline']
     scheduler_config = {
@@ -234,16 +238,16 @@ def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, ste
     generator = torch.Generator(device).manual_seed(seed)
     pipeline.unet.to(device)
 
-    if latent_image is not None:
+    '''if latent_image is not None:
         samples_in = latent_image['samples']
         samples_in = samples_in * vae_scaling_factor
-        samples_in = samples_in.to(pipeline.unet.dtype).to(device)
+        samples_in = samples_in.to(pipeline.unet.dtype).to(device)'''
 
     latentWidth, latentHeigth = utility.getLatentSize(latent_image)
 
     latent_out = pipeline(
         prompt = None,
-        latents = samples_in if latent_image is not None else None,
+        latents = None,  #samples_in if latent_image is not None else None,
         prompt_embeds = positive['prompt_embeds'],
         pooled_prompt_embeds = positive['pooled_prompt_embeds'],
         negative_prompt_embeds = positive['negative_prompt_embeds'],

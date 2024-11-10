@@ -43,7 +43,7 @@ class PromptEnhancerLLM:
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = torch.cuda.current_device()   #"cuda" if torch.cuda.is_available() else "cpu"
 
     def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings"):
         default_settings = {
