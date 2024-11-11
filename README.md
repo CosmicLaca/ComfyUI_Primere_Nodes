@@ -11,7 +11,7 @@ All required workflows in the `Workflow` folder of the node root.
 
 ## Minimal workflow: 
 
-<img src="./Workflow/primere-minimal.png" width="800px">
+<img src="./Workflow/Manual/wf_minimal.jpg" width="800px">
 
 ### [Detailed manual for included nodes](Workflow/Manual/nodes/minimal_workflow.md)
 
@@ -32,7 +32,7 @@ All required workflows in the `Workflow` folder of the node root.
 
 The big difference between **minimal** and **basic** workflows, that **basic** workflow automatically detect and support several model concepts. The main difference between workflows the large node group `Concept sampler group` with lot of samplers (1 sampler / concept) and the main `Model concept selector` node. 
 
-<img src="./Workflow/primere-basic.png" width="800px">
+<img src="./Workflow/Manual/wf_basic.jpg" width="800px">
 
 ### [Detailed manual for included nodes](Workflow/Manual/nodes/basic_workflow.md)
 
