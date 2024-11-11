@@ -1148,6 +1148,11 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'Hyper' | 'Lightning':
+                if ckpt_name is not None and model_concept == 'Lightning' and lightning_selector == 'CUSTOM':
+                    is_force_lora = re.findall(r"(FoLo)", ckpt_name)
+                    if len(is_force_lora) > 0:
+                        lightning_selector = 'LORA'
+
                 HYPER_LIGHTNING_ORIGINAL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
                 if lightning_selector == 'LORA':
                     Lightning_SDXL_2 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors?download=true'
