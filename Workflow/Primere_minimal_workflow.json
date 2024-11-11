@@ -78,87 +78,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 1,
-      "type": "PrimerePrompt",
-      "pos": {
-        "0": 284,
-        "1": 636
-      },
-      "size": {
-        "0": 358.3917236328125,
-        "1": 359.32012939453125
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            214
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            215
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 2,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 3,
-          "shape": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 4,
-          "shape": 3
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            216
-          ],
-          "slot_index": 5,
-          "shape": 3
-        }
-      ],
-      "title": "Primere Prompt - SWITCH #1",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "{creepy|angry|funny|cute|monster look} {small|large\n|huge} {cat|dog|pig|lion|elephant|shark|bird} walking in the {street|beach|forest} of {big city|small village|park|hill}, {snow and winter|summer and sunny|storm and rainy} weather, artistic high detailed photoreal image of nature with 1 animal",
-        "human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw",
-        "",
-        "None",
-        "None",
-        true,
-        true
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
       "id": 104,
       "type": "PrimereUpscaleModel",
       "pos": {
@@ -170,7 +89,7 @@
         "1": 78
       },
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -214,7 +133,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -262,7 +181,7 @@
         "1": 190
       },
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -798,103 +717,6 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 92,
-      "type": "PrimereResolution",
-      "pos": {
-        "0": 1474,
-        "1": 89
-      },
-      "size": {
-        "0": 320.8103942871094,
-        "1": 338
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 431,
-          "widget": {
-            "name": "seed"
-          }
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 432,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            425,
-            427,
-            470,
-            504,
-            529
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            428,
-            430,
-            471,
-            505,
-            530
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution"
-      },
-      "widgets_values": [
-        "HD+ screen [16:10]",
-        true,
-        768,
-        1024,
-        512,
-        false,
-        "Horizontal",
-        true,
-        false,
-        1.6,
-        2.8,
-        127230446255857,
-        "randomize",
-        "SD1",
-        "Auto"
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 6,
       "type": "PrimereDynamicParser",
       "pos": {
@@ -943,7 +765,7 @@
       },
       "widgets_values": [
         "",
-        61922396248177,
+        919358441282748,
         "randomize",
         true
       ],
@@ -999,113 +821,12 @@
       },
       "widgets_values": [
         "",
-        285488740204082,
+        480461978892616,
         "randomize",
         true
       ],
       "color": "#145414",
       "bgcolor": "#004000"
-    },
-    {
-      "id": 75,
-      "type": "PrimereLatentNoise",
-      "pos": {
-        "0": 1823,
-        "1": 93
-      },
-      "size": {
-        "0": 332.9215393066406,
-        "1": 426
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "optional_vae",
-          "type": "VAE",
-          "link": 326,
-          "shape": 7
-        },
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 425,
-          "widget": {
-            "name": "width"
-          }
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 428,
-          "widget": {
-            "name": "height"
-          }
-        },
-        {
-          "name": "noise_seed",
-          "type": "INT",
-          "link": 329,
-          "widget": {
-            "name": "noise_seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENTS",
-          "type": "LATENT",
-          "links": [
-            330
-          ],
-          "shape": 3
-        },
-        {
-          "name": "PREVIEWS",
-          "type": "IMAGE",
-          "links": [
-            331
-          ],
-          "shape": 3
-        },
-        {
-          "name": "WORKFLOW_TUPLE",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
-      },
-      "widgets_values": [
-        512,
-        512,
-        true,
-        "violet",
-        true,
-        0.5,
-        0.4,
-        1.5,
-        true,
-        0.9500000000000001,
-        0.8,
-        1.4,
-        1011505108127795,
-        "randomize",
-        true,
-        "cpu",
-        true
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
     },
     {
       "id": 8,
@@ -1508,7 +1229,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        893623091777302,
+        574283113669234,
         "randomize",
         20,
         8,
@@ -1915,7 +1636,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1466,
+        807,
         "randomize",
         "",
         "",
@@ -2150,7 +1871,7 @@
       },
       "widgets_values": [
         2.1,
-        633407796164250,
+        572497433423380,
         "randomize",
         7,
         6.5,
@@ -2585,7 +2306,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1349,
+        1273,
         "randomize",
         "",
         "",
@@ -2886,7 +2607,7 @@
         "1": 68
       },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2898,6 +2619,285 @@
       ],
       "color": "#c09430",
       "bgcolor": "#653"
+    },
+    {
+      "id": 75,
+      "type": "PrimereLatentNoise",
+      "pos": {
+        "0": 1823,
+        "1": 93
+      },
+      "size": {
+        "0": 332.9215393066406,
+        "1": 426
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "optional_vae",
+          "type": "VAE",
+          "link": 326,
+          "shape": 7
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 425,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 428,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "link": 329,
+          "widget": {
+            "name": "noise_seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENTS",
+          "type": "LATENT",
+          "links": [
+            330
+          ],
+          "shape": 3
+        },
+        {
+          "name": "PREVIEWS",
+          "type": "IMAGE",
+          "links": [
+            331
+          ],
+          "shape": 3
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLatentNoise"
+      },
+      "widgets_values": [
+        512,
+        512,
+        true,
+        "violet",
+        true,
+        0.5,
+        0.4,
+        1.5,
+        true,
+        0.9500000000000001,
+        0.8,
+        1.4,
+        921224282594165,
+        "randomize",
+        true,
+        "cpu",
+        false
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 1,
+      "type": "PrimerePrompt",
+      "pos": {
+        "0": 284,
+        "1": 636
+      },
+      "size": {
+        "0": 358.3917236328125,
+        "1": 359.32012939453125
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            214
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            215
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 3,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            216
+          ],
+          "slot_index": 5,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Prompt - SWITCH #1",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
+        "human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw",
+        "SeassonBackground",
+        "None",
+        "None",
+        true,
+        true
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 92,
+      "type": "PrimereResolution",
+      "pos": {
+        "0": 1474,
+        "1": 89
+      },
+      "size": {
+        "0": 320.8103942871094,
+        "1": 338
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 431,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 432,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "model_concept"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            425,
+            427,
+            470,
+            504,
+            529
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            428,
+            430,
+            471,
+            505,
+            530
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "HD screen [16:9]",
+        true,
+        768,
+        1024,
+        512,
+        false,
+        "Vertical",
+        true,
+        false,
+        1.6,
+        2.8,
+        955150869262628,
+        "randomize",
+        "SD1",
+        "Auto"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -3875,11 +3875,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": [
-        -613.4662761598385,
-        207.65383471413082
-      ]
+      "scale": 0.7513148009015777,
+      "offset": {
+        "0": -1179.0614013671875,
+        "1": 162.68331909179688
+      }
     }
   },
   "version": 0.4
