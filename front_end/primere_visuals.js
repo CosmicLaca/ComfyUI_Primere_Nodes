@@ -830,6 +830,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     }
 
     $(card).attr('data-name', ckptName);
+    if (CategoryName == 'StableCascade') { CategoryName = 'Cascade'; }
     $(card).attr('data-version', CategoryName);
     $(card).attr('data-path', path_only);
 
