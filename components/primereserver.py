@@ -406,3 +406,12 @@ async def primere_get_filelinks(request):
 
     PromptServer.instance.send_sync("FileLinkData", filelinktypes)
     return web.json_response({})
+
+routes14 = PromptServer.instance.routes
+@routes14.post('/primere_get_stime') # ReadSTimes()
+async def primere_get_ascores(request):
+    post = await request.post()
+    data_type = post.get('type') + '_samplingtime'
+    stimedata = utility.get_category_from_cache(data_type)
+    PromptServer.instance.send_sync("STimeData", stimedata)
+    return web.json_response({})

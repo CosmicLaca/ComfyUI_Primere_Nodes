@@ -245,6 +245,28 @@
     /* font-family: 'NIMBUSSANSDEE LIGHT'; */
 }
 
+#primere_visual_modal .visual-stime {
+    display: block;
+    position: absolute;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    min-width: 10px;
+    background-color: #852424;
+    left: 0px;
+    top: 38px;
+    color: #ffbdbd;
+    white-space: nowrap;
+    height: fit-content;
+    font-size: 11px;
+    text-align: center;
+    font-family: 'FUTURATEE BOLDCONDENSED';
+    border-right: #fff solid 1px;
+    border-bottom: #fff solid 1px;
+    border-bottom-right-radius: 3px;
+}
+
 #primere_visual_modal .background-SD1 {
     background: #91c0dc;
 }

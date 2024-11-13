@@ -33,6 +33,7 @@ let ModelsByVersion = {};
 let AllPath = [];
 let ModelList = {};
 let AscoreDataResponse = {};
+let STimeDataResponse = {};
 let FileDateResponse = {};
 let FileLinkResponse = {};
 let RawImageDataResponse = {};
@@ -198,11 +199,11 @@ app.registerExtension({
             function ModalHandler() { // 02
                 eventListenerInit = true;
                 let head = document.getElementsByTagName('HEAD')[0];
-                let link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = realPath + '/css/visual.css';
-                head.appendChild(link);
+                //let link = document.createElement('link');
+                //link.rel = 'stylesheet';
+                //link.type = 'text/css';
+                //link.href = realPath + '/css/visual.css';
+                //head.appendChild(link);
 
                 let js = document.createElement("script");
                 js.src = realPath + "/jquery/jquery-1.9.0.min.js";
@@ -569,6 +570,14 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         }
     }
 
+    if (typeof nodeHelper['cache_key'] !== "undefined" && nodeHelper['sortbuttons'] !== "undefined") {
+        if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].length > 0) {
+            if (nodeHelper['sortbuttons'][0].indexOf("STime") > -1) {
+                STimeDataResponse = await ReadSTimes(nodeHelper['cache_key']);
+            }
+        }
+    }
+
     if (typeof nodeHelper['sortbuttons'] !== "undefined") {
         if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].length > 0) {
             if (nodeHelper['sortbuttons'][0].indexOf("Date") > -1) {
@@ -680,11 +689,20 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
 function previewSorter(operator, sortType) {
     if (operator == 'ASC') {
         $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            return $(a).attr('data-' + sortType).toUpperCase() > $(b).attr('data-' + sortType).toUpperCase();
+            //alert($(a).attr('data-' + sortType) + ' -> ' + isNaN(parseInt($(a).attr('data-' + sortType))));
+            if (isNaN(parseInt($(a).attr('data-' + sortType))) && isNaN(parseInt($(b).attr('data-' + sortType)))) {
+                return $(a).attr('data-' + sortType).toUpperCase() > $(b).attr('data-' + sortType).toUpperCase();
+            } else {
+                return parseInt($(a).attr('data-' + sortType)) > parseInt($(b).attr('data-' + sortType));
+            }
         }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
     } else {
         $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            return $(a).attr('data-' + sortType).toUpperCase() < $(b).attr('data-' + sortType).toUpperCase();
+            if (isNaN(parseInt($(a).attr('data-' + sortType))) && isNaN(parseInt($(b).attr('data-' + sortType)))) {
+                return $(a).attr('data-' + sortType).toUpperCase() < $(b).attr('data-' + sortType).toUpperCase();
+            } else {
+                return parseInt($(a).attr('data-' + sortType)) < parseInt($(b).attr('data-' + sortType));
+            }
         }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
     }
 }
@@ -720,6 +738,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     let ckptName = finalName.substring(pathLastIndex + 1);
     let versionWidget = '';
     let aesthWidget = '';
+    let stimeWidget = '';
     let symlinkWidget = '';
     var path_only = checkpoint.substring(0, checkpoint.indexOf("\\"));
 
@@ -799,6 +818,17 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         $(card).attr('data-ascore', 0);
     }
 
+    if (STimeDataResponse != null && STimeDataResponse.hasOwnProperty(ckptName) === true) {
+        var stimeString = STimeDataResponse[ckptName];
+        var stimestArray = stimeString.split("|");
+        var stimestAVGValue = Math.floor(stimestArray[1] / stimestArray[0]);
+        $(card).attr('data-stime', stimestAVGValue);
+        stimeWidget = '<div class="visual-stime" title="Average sampling time: ' + stimestAVGValue + ' sec">' + stimestAVGValue + 's</div>';
+        card_html += stimeWidget;
+    } else {
+        $(card).attr('data-stime', 0);
+    }
+
     $(card).attr('data-name', ckptName);
     $(card).attr('data-version', CategoryName);
     $(card).attr('data-path', path_only);
@@ -836,7 +866,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
 
 
 function createSortButtons(buttondata) {
-    var sort_html = '<label class="sort_by_label"> | Sort by: </label>';
+    var sort_html = '<label class="sort_by_label"><br> Sort by: </label>';
     $.each(buttondata, function() {
         sort_html += '<button type="button" class="preview_sort" data-sortsource="' + this.toLowerCase() + '">' + this + '</button>';
     });
@@ -996,6 +1026,19 @@ function postAscoreData(type) {
     const body = new FormData();
     body.append('type', type);
     api.fetchApi("/primere_get_ascores", {method: "POST", body,});
+}
+
+// ************************* ReadSTimes STimeData
+function ReadSTimes(type) {
+    return new Promise((resolve, reject) => {
+        api.addEventListener("STimeData", (event) => resolve(event.detail), true);
+        postSTimeData(type);
+    });
+}
+function postSTimeData(type) {
+    const body = new FormData();
+    body.append('type', type);
+    api.fetchApi("/primere_get_stime", {method: "POST", body,});
 }
 
 // ************************* modelImageData CollectedImageData
