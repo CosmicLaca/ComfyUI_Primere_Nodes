@@ -126,6 +126,22 @@ class PromptEnhancerLLM:
                 elif "albert-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                     enhanced_text = 'This moodel type not supported....'
 
+                elif "zamba" in self.model_path.lower():
+                    messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
+                    chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False)
+                    input_ids = self.tokenizer(chat_sample, return_tensors='pt', add_special_tokens=False).to(self.device)
+
+                    outputs = self.model.generate(
+                        **input_ids,
+                        return_dict_in_generate=False,
+                        output_scores=False,
+                        use_cache=True,
+                        num_beams=1,
+                        **settings
+                    )
+
+                    enhanced_text = self.tokenizer.decode(outputs[0])
+
                 elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                     generator = pipeline('text-generation', model=self.model_fullpath)
 
