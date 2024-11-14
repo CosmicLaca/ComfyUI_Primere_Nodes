@@ -390,7 +390,9 @@ class PrimereLLMEnhancer:
             path_config = os.path.join(model_root, subdir, 'config.json')
             path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
             path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
-            if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True):
+            current_sub = os.path.join(model_root, subdir)
+            matching_files = Path(current_sub).rglob('model-0*.safetensors')
+            if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True or len(list(matching_files)) > 0):
                 valid_llm_path.append(subdir)
 
     configurators = ['Default'] + llm_enhancer.getConfigKeys()

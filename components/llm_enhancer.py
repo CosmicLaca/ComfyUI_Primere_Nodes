@@ -65,7 +65,7 @@ class PromptEnhancerLLM:
         if 'ConfigName' in variant_params:
             configurator_name = variant_params['ConfigName']
             del variant_params['ConfigName']
-        instruction = f"Convert text to {configurator_name} stable diffusion text-to-image prompt: "
+        instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
         settings = {**default_settings, **variant_params}
 
         if seed is not None and int(seed) > 1:
@@ -77,26 +77,50 @@ class PromptEnhancerLLM:
             set_seed(1)
             torch.manual_seed(1)
 
-        forceFP16 = ['t5-efficient-base-dm256']
+        forceFP16 = ['t5-efficient-base-dm256', 'Llama-3.2-3B', 'Llama-3.2-3B-Instruct']
         forceFP32 = ['t5-efficient-base-dm512']
 
         if (precision == False or self.model_path in forceFP16) and self.model_path not in forceFP32:
             self.model.half()
 
         with torch.no_grad():
-            if "deberta-" in self.model_path.lower():
+            if "deberta-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                 enhanced_text = 'This moodel type not supported....'
-            elif "albert-" in self.model_path.lower():
+            elif "albert-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                 enhanced_text = 'This moodel type not supported....'
 
-            elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower():
+            elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                 generator = pipeline('text-generation', model=self.model_fullpath)
 
                 outputs = generator(
-                    instruction,
+                    instruction + input_text,
                     **settings,
                 )
                 enhanced_text = outputs[0]['generated_text']
+
+            elif "llama-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
+                generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
+
+                outputs = generator(
+                    instruction + input_text,
+                    max_new_tokens=128
+                )
+                enhanced_text = outputs[0]['generated_text']
+
+            elif "-instruct" in self.model_path.lower():
+                messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
+                generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
+
+                outputs = generator(
+                    messages,
+                    max_new_tokens=256
+                )
+
+                full_result = outputs[0]['generated_text'][-1]['content']
+                result = re.search('\"(.*)\"', full_result)
+                if result is not None:
+                    full_result = result.group(1)
+                enhanced_text = full_result
 
             elif "smollm2-" in self.model_path.lower():
                 self.model.to(self.device)
