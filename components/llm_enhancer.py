@@ -13,37 +13,47 @@ class PromptEnhancerLLM:
         model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', model_path)
         self.model_path = model_path
         self.model_fullpath = model_access
+        self.device = torch.cuda.current_device()  # "cuda" if torch.cuda.is_available() else "cpu"
 
-        if "t5" in model_path.lower():
-            self.tokenizer = T5Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
-            try:
-                self.model = T5ForConditionalGeneration.from_pretrained(model_access, ignore_mismatched_sizes=True, device_map="auto")
-            except Exception:
-                self.model = AutoModelForSeq2SeqLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
-        elif "bloom-" in model_path.lower():
-            self.tokenizer = BloomTokenizerFast.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
-            self.model = BloomForCausalLM.from_pretrained(model_access, ignore_mismatched_sizes=True, device_map="auto")
-        elif "bert" in model_path.lower() and "deberta" not in model_path.lower() and "albert" not in model_path.lower():
-            self.tokenizer = BertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
-            self.model = BertForMaskedLM.from_pretrained(model_access, ignore_mismatched_sizes=True, return_dict=True, is_decoder=False)
-        elif "deberta-" in model_path.lower():
-            self.tokenizer = DebertaV2Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
-            self.config = DebertaV2Config.from_pretrained(model_access)
-            self.model = AutoModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
-        elif "albert-" in model_path.lower():
-            self.tokenizer = AlbertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
-            self.model = AlbertModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
-        else:
+        if '-promptenhancing' in self.model_path.lower() and '-instruct' in self.model_path.lower():
+            baseRepo = self.model_path[:self.model_path.lower().index("-promptenhancing")]
+            loraRepo = self.model_path
+            model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', baseRepo)
+            lora_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', loraRepo)
+
             self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
-            try:
-                self.model = AutoModelForCausalLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
-            except Exception:
-                self.model = AutoModelForSeq2SeqLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
+            self.model = AutoModelForCausalLM.from_pretrained(model_access, torch_dtype=torch.bfloat16).to(self.device)
+            self.model.load_adapter(lora_access)
+        else:
+            if "t5" in model_path.lower():
+                self.tokenizer = T5Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
+                try:
+                    self.model = T5ForConditionalGeneration.from_pretrained(model_access, ignore_mismatched_sizes=True, device_map="auto")
+                except Exception:
+                    self.model = AutoModelForSeq2SeqLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
+            elif "bloom-" in model_path.lower():
+                self.tokenizer = BloomTokenizerFast.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
+                self.model = BloomForCausalLM.from_pretrained(model_access, ignore_mismatched_sizes=True, device_map="auto")
+            elif "bert" in model_path.lower() and "deberta" not in model_path.lower() and "albert" not in model_path.lower():
+                self.tokenizer = BertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False, ignore_mismatched_sizes=True)
+                self.model = BertForMaskedLM.from_pretrained(model_access, ignore_mismatched_sizes=True, return_dict=True, is_decoder=False)
+            elif "deberta-" in model_path.lower():
+                self.tokenizer = DebertaV2Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
+                self.config = DebertaV2Config.from_pretrained(model_access)
+                self.model = AutoModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
+            elif "albert-" in model_path.lower():
+                self.tokenizer = AlbertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
+                self.model = AlbertModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
+            else:
+                self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
+                try:
+                    self.model = AutoModelForCausalLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
+                except Exception:
+                    self.model = AutoModelForSeq2SeqLM.from_pretrained(model_access, ignore_mismatched_sizes=True)
 
-        if self.tokenizer.pad_token is None:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        self.device = torch.cuda.current_device()   #"cuda" if torch.cuda.is_available() else "cpu"
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
     def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings"):
         default_settings = {
@@ -84,83 +94,110 @@ class PromptEnhancerLLM:
             self.model.half()
 
         with torch.no_grad():
-            if "deberta-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
-                enhanced_text = 'This moodel type not supported....'
-            elif "albert-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
-                enhanced_text = 'This moodel type not supported....'
-
-            elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower() and "-instruct" not in self.model_path.lower():
-                generator = pipeline('text-generation', model=self.model_fullpath)
-
-                outputs = generator(
-                    instruction + input_text,
-                    **settings,
-                )
-                enhanced_text = outputs[0]['generated_text']
-
-            elif "llama-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
-                generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
-
-                outputs = generator(
-                    instruction + input_text,
-                    max_new_tokens=128
-                )
-                enhanced_text = outputs[0]['generated_text']
-
-            elif "-instruct" in self.model_path.lower():
+            if '-promptenhancing' in self.model_path.lower() and '-instruct' in self.model_path.lower():
+                # self.model.to(self.device)
                 messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
-                generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
 
-                outputs = generator(
-                    messages,
-                    max_new_tokens=256
-                )
+                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False, return_tensors='pt')
+                encoding = self.tokenizer(prompt, return_tensors="pt").to(self.device)
 
-                full_result = outputs[0]['generated_text'][-1]['content']
-                result = re.search('\"(.*)\"', full_result)
-                if result is not None:
-                    full_result = result.group(1)
-                enhanced_text = full_result
+                generation_config = self.model.generation_config
+                generation_config.pad_token_id = self.tokenizer.eos_token_id
+                generation_config.eos_token_id = self.tokenizer.eos_token_id
+                generation_config.repetition_penalty = settings['repetition_penalty']
+                generation_config.do_sample = settings['do_sample']
+                generation_config.max_new_tokens = 96
+                generation_config.temperature = settings['temperature']
+                generation_config.top_p = settings['top_p']
+                generation_config.num_return_sequences = settings['num_return_sequences']
 
-            elif "smollm2-" in self.model_path.lower():
-                self.model.to(self.device)
-                messages = [{"role": "user", "content": instruction + input_text}]
-                input_text = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-                inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(self.device)
-
-                if 'repetition_penalty' in settings:
-                    del settings['repetition_penalty']
-                if 'max_new_tokens' in settings:
-                    del settings['max_new_tokens']
-
-                outputs = self.model.generate(
-                    inputs,
-                    max_new_tokens=256,
-                    repetition_penalty=1.2,
-                    **settings,
-                )
+                with torch.inference_mode():
+                    outputs = self.model.generate(
+                        input_ids=encoding.input_ids,
+                        attention_mask=encoding.attention_mask,
+                        generation_config=generation_config
+                    )
 
                 enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
             else:
-                self.model.to(self.device)
-                inputs = self.tokenizer(instruction + input_text, return_tensors="pt", max_length=512, truncation=True).to(self.device)
-                attention_mask = None
-                if "attention_mask" in inputs:
-                    attention_mask = inputs["attention_mask"]
+                if "deberta-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
+                    enhanced_text = 'This moodel type not supported....'
+                elif "albert-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
+                    enhanced_text = 'This moodel type not supported....'
 
-                outputs = self.model.generate(
-                    inputs["input_ids"],
-                    attention_mask=attention_mask,
-                    **settings,
-                    pad_token_id=self.tokenizer.eos_token_id
-                )
-                enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+                elif "gpt-neo-" in self.model_path.lower() or 'gpt2' in self.model_path.lower() and "-instruct" not in self.model_path.lower():
+                    generator = pipeline('text-generation', model=self.model_fullpath)
+
+                    outputs = generator(
+                        instruction + input_text,
+                        **settings,
+                    )
+                    enhanced_text = outputs[0]['generated_text']
+
+                elif "llama-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
+                    generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
+
+                    outputs = generator(
+                        instruction + input_text,
+                        max_new_tokens=128
+                    )
+                    enhanced_text = outputs[0]['generated_text']
+
+                elif "-instruct" in self.model_path.lower():
+                    messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
+                    generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
+
+                    outputs = generator(
+                        messages,
+                        max_new_tokens=256
+                    )
+
+                    full_result = outputs[0]['generated_text'][-1]['content']
+                    result = re.search('\"(.*)\"', full_result)
+                    if result is not None:
+                        full_result = result.group(1)
+                    enhanced_text = full_result
+
+                elif "smollm2-" in self.model_path.lower():
+                    self.model.to(self.device)
+                    messages = [{"role": "user", "content": instruction + input_text}]
+                    input_text = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                    inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(self.device)
+
+                    if 'repetition_penalty' in settings:
+                        del settings['repetition_penalty']
+                    if 'max_new_tokens' in settings:
+                        del settings['max_new_tokens']
+
+                    outputs = self.model.generate(
+                        inputs,
+                        max_new_tokens=256,
+                        repetition_penalty=1.2,
+                        **settings,
+                    )
+
+                    enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+                else:
+                    self.model.to(self.device)
+                    inputs = self.tokenizer(instruction + input_text, return_tensors="pt", max_length=512, truncation=True).to(self.device)
+                    attention_mask = None
+                    if "attention_mask" in inputs:
+                        attention_mask = inputs["attention_mask"]
+
+                    outputs = self.model.generate(
+                        inputs["input_ids"],
+                        attention_mask=attention_mask,
+                        **settings,
+                        pad_token_id=self.tokenizer.eos_token_id
+                    )
+                    enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         if type(enhanced_text).__name__ == 'str':
             enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
-            enhanced_text = enhanced_text.replace(instruction, '').replace("system\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face", '').replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.')
+            enhanced_text = enhanced_text.replace(instruction, '').replace(input_text, '').replace('system', '').replace('user', '').replace('assistant', '').replace("You are a helpful AI", '').replace("named SmolLM trained by Hugging Face", '').replace("named SmoLLM trained by Hugging Face", "").replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.')
             enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
             return enhanced_text.strip('.: ')
         else:

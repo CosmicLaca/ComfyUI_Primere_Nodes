@@ -391,9 +391,17 @@ class PrimereLLMEnhancer:
             path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
             path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
             current_sub = os.path.join(model_root, subdir)
+            adapter_config = os.path.join(model_root, subdir, 'adapter_config.json')
+            adapter_model_st = os.path.join(model_root, subdir, 'adapter_model.safetensors')
             matching_files = Path(current_sub).rglob('model-0*.safetensors')
-            if os.path.exists(path_config) == True and (os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True or len(list(matching_files)) > 0):
-                valid_llm_path.append(subdir)
+            if (os.path.exists(path_config) == True or os.path.exists(adapter_config) == True) and (os.path.exists(adapter_model_st) == True or os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True or len(list(matching_files)) > 0):
+                if "PromptEnhancing" in subdir:
+                    baseRepoName = subdir[:subdir.lower().index("-promptenhancing")]
+                    baseRepoPath = os.path.join(model_root, baseRepoName)
+                    if os.path.exists(baseRepoPath) == True:
+                        valid_llm_path.append(subdir)
+                else:
+                    valid_llm_path.append(subdir)
 
     configurators = ['Default'] + llm_enhancer.getConfigKeys()
     if configurators == None:
