@@ -96,69 +96,6 @@
       ]
     },
     {
-      "id": 2,
-      "type": "PrimerePrompt",
-      "pos": {
-        "0": 577,
-        "1": 378
-      },
-      "size": {
-        "0": 424,
-        "1": 452
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            1
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "angry dog, dark night in the big city, human walking in the street, attack",
-        "",
-        "",
-        "None",
-        "None",
-        true,
-        true
-      ]
-    },
-    {
       "id": 1,
       "type": "PrimereLLMEnhancer",
       "pos": {
@@ -219,6 +156,69 @@
         true,
         "Default"
       ]
+    },
+    {
+      "id": 2,
+      "type": "PrimerePrompt",
+      "pos": {
+        "0": 577,
+        "1": 378
+      },
+      "size": {
+        "0": 424,
+        "1": 452
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights",
+        "",
+        "",
+        "None",
+        "None",
+        true,
+        true
+      ]
     }
   ],
   "links": [
@@ -259,10 +259,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1,
+      "scale": 1.2100000000000004,
       "offset": [
-        0,
-        0
+        -227.5679939894821,
+        -189.16078136739287
       ]
     }
   },
