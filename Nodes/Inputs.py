@@ -97,6 +97,11 @@ class PrimereRefinerPrompt:
         REFINER_EMBEDDING = ["EMBEDDING\\" + x for x in folder_paths.get_filename_list("embeddings")]
         REFINER_HYPERNETWORK = ["HYPERNETWORK\\" + x for x in folder_paths.get_filename_list("hypernetworks")]
 
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_INPUTS = {}
+        for concept in CONCEPT_LIST:
+            CONCEPT_INPUTS["process_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PROCESS " + concept.upper(), "label_off": "IGNORE " + concept.upper()})
+
         return {
             "required": {
                 "refiner_model": (['None'] + folder_paths.get_filename_list("checkpoints"),),
@@ -114,17 +119,7 @@ class PrimereRefinerPrompt:
                 "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "token_normalization": (["none", "mean", "length", "length+mean"],),
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
-
-                "process_sd": ("BOOLEAN", {"default": True, "label_on": "PROCESS SD", "label_off": "IGNORE SD"}),
-                "process_sdxl": ("BOOLEAN", {"default": True, "label_on": "PROCESS SDXL", "label_off": "IGNORE SDXL"}),
-                "process_sd3": ("BOOLEAN", {"default": True, "label_on": "PROCESS SD3", "label_off": "IGNORE SD3"}),
-                "process_lcm": ("BOOLEAN", {"default": True, "label_on": "PROCESS LCM", "label_off": "IGNORE LCM"}),
-                "process_turbo": ("BOOLEAN", {"default": True, "label_on": "PROCESS TURBO", "label_off": "IGNORE TURBO"}),
-                "process_cascade": ("BOOLEAN", {"default": True, "label_on": "PROCESS CASCADE", "label_off": "IGNORE CASCADE"}),
-                "process_lightning": ("BOOLEAN", {"default": True, "label_on": "PROCESS LIGHTNING", "label_off": "IGNORE LIGHTNING"}),
-                "process_playground": ("BOOLEAN", {"default": True, "label_on": "PROCESS PLAYGROUND", "label_off": "IGNORE PLAYGROUND"}),
-                "process_hyper": ("BOOLEAN", {"default": True, "label_on": "PROCESS HYPER-SD", "label_off": "IGNORE HYPER-SD"}),
-                "process_flux": ("BOOLEAN", {"default": True, "label_on": "PROCESS FLUX", "label_off": "IGNORE FLUX"}),
+                **CONCEPT_INPUTS
             },
             "optional": {
                 "clip": ("CLIP",),
@@ -149,8 +144,8 @@ class PrimereRefinerPrompt:
             wildcard_wrap = "__"
         )
 
-    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, model =None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Normal', model_version = 'BaseModel_1024', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
-                       process_sd = True, process_sdxl = True, process_sd3 = True, process_lcm = True, process_turbo = True, process_cascade = True, process_lightning = True, process_playground = True, process_hyper = True, process_flux = True):
+    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, model = None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Auto', model_version = 'SD1', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
+                       **kwargs):
         def refiner_debug_state(self, extra_pnginfo, id):
             workflow = extra_pnginfo["workflow"]
             for node in workflow["nodes"]:
@@ -179,34 +174,22 @@ class PrimereRefinerPrompt:
         pooled_pos = None
         pooled_neg = None
 
-        if model_concept == 'Normal':
-            if model_version == 'BaseModel_1024':
-                model_concept = 'SD'
-            else:
-                model_concept = 'SDXL'
-
+        if model_concept == 'Auto':
+           model_concept = model_version
         MODEL_VERSION = model_version
 
-        if process_sd == False and model_concept == 'SD':
-            refiner_state = False
-        if process_sdxl == False and model_concept == 'SDXL':
-            refiner_state = False
-        if process_sd3 == False and model_concept == 'SD3':
-            refiner_state = False
-        if process_lcm == False and model_concept == 'LCM':
-            refiner_state = False
-        if process_turbo == False and model_concept == 'Turbo':
-            refiner_state = False
-        if process_cascade == False and model_concept == 'Cascade':
-            refiner_state = False
-        if process_lightning == False and model_concept == 'Lightning':
-            refiner_state = False
-        if process_playground == False and model_concept == 'Playground':
-            refiner_state = False
-        if process_hyper == False and model_concept == 'Hyper-SD':
-            refiner_state = False
-        if process_flux == False and model_concept == 'Flux':
-            refiner_state = False
+        input_data = kwargs
+        SUPPORTED_CONCEPTS = utility.SUPPORTED_MODELS
+        SUPPORTED_CONCEPTS_UC = [x.upper() for x in SUPPORTED_CONCEPTS]
+        concept_processor = []
+        for inputKey, inputValue in input_data.items():
+            if inputKey.startswith("process_") == True:
+                conceptSignUC = inputKey[len("process_"):].upper()
+                conceptIndex = SUPPORTED_CONCEPTS_UC.index(conceptSignUC)
+                CONCEPT_SIGN = SUPPORTED_CONCEPTS[conceptIndex]
+                concept_processor.append(inputValue)
+                if inputValue == False and model_concept == CONCEPT_SIGN:
+                    refiner_state = False
 
         if positive_refiner_strength != 0:
             if positive_refiner_strength != 1:
@@ -235,7 +218,10 @@ class PrimereRefinerPrompt:
         final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed)
         final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed)
 
-        if clip is None and refiner_state == True:
+        if model is not None and refiner_state == True:
+            OUTPUT_MODEL = model
+
+        elif model is None and refiner_model != "None" and refiner_state == True:
             LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model)
             OUTPUT_MODEL = LOADED_CHECKPOINT[0]
             clip = LOADED_CHECKPOINT[1]
@@ -244,111 +230,64 @@ class PrimereRefinerPrompt:
             else:
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
-            if refiner_network != 'None':
-                network_name = refiner_network
-                network_data = network_name.split('\\', 1)
-                network_path = network_data[1]
+        if refiner_network != 'None':
+            network_name = refiner_network
+            network_data = network_name.split('\\', 1)
+            network_path = network_data[1]
 
-                match network_data[0]:
-                    case "LORA":
-                        lora_path = folder_paths.get_full_path("loras", network_path)
-                        lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
-                        model_lora = OUTPUT_MODEL
-                        clip_lora = clip
-                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, refiner_network_weight, refiner_network_weight)
-                    case "LYCORIS":
-                        lycoris_path = folder_paths.get_full_path("lycoris", network_path)
-                        lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
-                        model_lyco = OUTPUT_MODEL
-                        clip_lyco = clip
-                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, refiner_network_weight, refiner_network_weight)
-                    case "HYPERNETWORK":
-                        cloned_model = OUTPUT_MODEL
-                        hypernetwork_path = folder_paths.get_full_path("hypernetworks", network_path)
-                        model_hypernetwork = cloned_model.clone()
+            match network_data[0]:
+                case "LORA":
+                    lora_path = folder_paths.get_full_path("loras", network_path)
+                    lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                    model_lora = OUTPUT_MODEL
+                    clip_lora = clip
+                    OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, refiner_network_weight, refiner_network_weight)
 
-                        try:
-                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, refiner_network_weight, False)
-                        except Exception:
-                            patch = None
+                case "LYCORIS":
+                    lycoris_path = folder_paths.get_full_path("lycoris", network_path)
+                    lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
+                    model_lyco = OUTPUT_MODEL
+                    clip_lyco = clip
+                    OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, refiner_network_weight, refiner_network_weight)
 
-                        if patch is not None:
-                            model_hypernetwork.set_model_attn1_patch(patch)
-                            model_hypernetwork.set_model_attn2_patch(patch)
-                            OUTPUT_MODEL = model_hypernetwork
-                    case "EMBEDDING":
-                        embedd_name_path = network_path
-                        embedd_weight = refiner_network_weight
-                        embedd_neg = refiner_network_insertion
-                        embedd_name = Path(embedd_name_path).stem
-                        if (embedd_weight != 1):
-                            embedding_string = '(embedding:' + embedd_name + ':' + str(embedd_weight) + ')'
-                        else:
-                            embedding_string = 'embedding:' + embedd_name
-                        if embedd_neg == True:
-                            final_positive = final_positive + ', ' + embedding_string
-                        else:
-                            final_negative = final_negative + ', ' + embedding_string
+                case "HYPERNETWORK":
+                    cloned_model = OUTPUT_MODEL
+                    hypernetwork_path = folder_paths.get_full_path("hypernetworks", network_path)
+                    model_hypernetwork = cloned_model.clone()
 
-        if clip is not None and refiner_state == True:
-            if model is not None and refiner_network != 'None':
-                OUTPUT_MODEL = model
-                network_name = refiner_network
-                network_data = network_name.split('\\', 1)
-                network_path = network_data[1]
+                    try:
+                        patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, refiner_network_weight, False)
+                    except Exception:
+                        patch = None
 
-                match network_data[0]:
-                    case "LORA":
-                        lora_path = folder_paths.get_full_path("loras", network_path)
-                        lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
-                        model_lora = OUTPUT_MODEL
-                        clip_lora = clip
-                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lora, clip_lora, lora, refiner_network_weight, refiner_network_weight)
-                    case "LYCORIS":
-                        lycoris_path = folder_paths.get_full_path("lycoris", network_path)
-                        lyco = comfy.utils.load_torch_file(lycoris_path, safe_load=True)
-                        model_lyco = OUTPUT_MODEL
-                        clip_lyco = clip
-                        OUTPUT_MODEL, clip = comfy.sd.load_lora_for_models(model_lyco, clip_lyco, lyco, refiner_network_weight, refiner_network_weight)
+                    if patch is not None:
+                        model_hypernetwork.set_model_attn1_patch(patch)
+                        model_hypernetwork.set_model_attn2_patch(patch)
+                        OUTPUT_MODEL = model_hypernetwork
 
-                    case "HYPERNETWORK":
-                        cloned_model = OUTPUT_MODEL
-                        hypernetwork_path = folder_paths.get_full_path("hypernetworks", network_path)
-                        model_hypernetwork = cloned_model.clone()
+                case "EMBEDDING":
+                    embedd_name_path = network_path
+                    embedd_weight = refiner_network_weight
+                    embedd_neg = refiner_network_insertion
+                    embedd_name = Path(embedd_name_path).stem
+                    if (embedd_weight != 1):
+                        embedding_string = '(embedding:' + embedd_name + ':' + str(embedd_weight) + ')'
+                    else:
+                        embedding_string = 'embedding:' + embedd_name
+                    if embedd_neg == True:
+                        final_positive = final_positive + ', ' + embedding_string
+                    else:
+                        final_negative = final_negative + ', ' + embedding_string
 
-                        try:
-                            patch = hypernetwork.load_hypernetwork_patch(hypernetwork_path, refiner_network_weight, False)
-                        except Exception:
-                            patch = None
+        try:
+            embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+        except Exception:
+            tokens = clip.tokenize(final_positive)
+            embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
 
-                        if patch is not None:
-                            model_hypernetwork.set_model_attn1_patch(patch)
-                            model_hypernetwork.set_model_attn2_patch(patch)
-                            OUTPUT_MODEL = model_hypernetwork
-
-                    case "EMBEDDING":
-                        embedd_name_path = network_path
-                        embedd_weight = refiner_network_weight
-                        embedd_neg = refiner_network_insertion
-                        embedd_name = Path(embedd_name_path).stem
-                        if (embedd_weight != 1):
-                            embedding_string = '(embedding:' + embedd_name + ':' + str(embedd_weight) + ')'
-                        else:
-                            embedding_string = 'embedding:' + embedd_name
-                        if embedd_neg == True:
-                            final_positive = final_positive + ', ' + embedding_string
-                        else:
-                            final_negative = final_negative + ', ' + embedding_string
-
-            try:
-                embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-                embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-            except Exception:
-                tokens = clip.tokenize(final_positive)
-                embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
-
-                tokens = clip.tokenize(final_negative)
-                embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+            tokens = clip.tokenize(final_negative)
+            embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
         prompt_tuple = {}
         prompt_tuple['refiner_state'] = refiner_state
@@ -369,7 +308,7 @@ class PrimereRefinerPrompt:
         # prompt_tuple['output_model'] = OUTPUT_MODEL
         # prompt_tuple['output_vae'] = OUTPUT_VAE
         prompt_tuple['model_concept'] = model_concept
-        prompt_tuple['concept_processor'] = [process_sd, process_sdxl, process_sd3, process_lcm, process_turbo, process_cascade, process_lightning, process_playground, process_hyper, process_flux]
+        prompt_tuple['concept_processor'] = concept_processor
 
         return (final_positive, final_negative, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]],
                 prompt_tuple,

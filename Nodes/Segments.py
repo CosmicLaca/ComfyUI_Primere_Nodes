@@ -390,7 +390,7 @@ class PrimereAnyDetailer:
                      steps, cfg, sampler_name, scheduler_name,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
                      segment_settings, detector = None, segs = None, cycle = 1,
-                     model_concept = "Normal", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8, use_aesthetic_scorer = False):
+                     model_concept = "Auto", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8, use_aesthetic_scorer = False):
 
         if segment_settings['use_segments'] == False:
             SEGMENT_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'Nodes')
@@ -400,7 +400,7 @@ class PrimereAnyDetailer:
                 off_img = image
             return image, [off_img], 0, 0
 
-        if model_concept != "Normal":
+        if model_concept != "Auto":
             sampler_name = concept_sampler_name
             scheduler_name = concept_scheduler_name
             steps = concept_steps
@@ -419,7 +419,7 @@ class PrimereAnyDetailer:
             if i < len(crop_region):
                 image_segs = crop_region[i]
                 size_1 = (abs(image_segs[2] - image_segs[0]))
-                size_2 =(abs(image_segs[3] - image_segs[1]))
+                size_2 = (abs(image_segs[3] - image_segs[1]))
                 part_area = size_1 * size_2
                 area_diff = full_area / part_area
                 guided_size_multiplier = round(math.pow(area_diff, (1/4.0)), 2)

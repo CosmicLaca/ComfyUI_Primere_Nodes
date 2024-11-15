@@ -1,163 +1,153 @@
 {
-  "last_node_id": 145,
-  "last_link_id": 437,
+  "last_node_id": 266,
+  "last_link_id": 3314,
   "nodes": [
     {
-      "id": 1,
-      "type": "LoadImage",
-      "pos": [
-        50,
-        65
-      ],
+      "id": 218,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 6622.46044921875,
+        "1": 685.32177734375
+      },
       "size": {
-        "0": 639.1292114257812,
-        "1": 960.4127197265625
+        "0": 342.5543518066406,
+        "1": 315.2659606933594
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3160
+        }
+      ],
+      "outputs": [],
+      "title": "Preview Image - REFINED FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "color": "#886029",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 220,
+      "type": "PreviewImage",
+      "pos": {
+        "0": 6273.46044921875,
+        "1": 683.32177734375
+      },
+      "size": {
+        "0": 336.98101806640625,
+        "1": 316.5337219238281
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3162,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [],
+      "title": "Preview Image - ORIGINAL FACE",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "color": "#886029",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 262,
+      "type": "PrimereCKPT",
+      "pos": {
+        "0": 5025.2958984375,
+        "1": 86.33030700683594
+      },
+      "size": {
+        "0": 411.6023254394531,
+        "1": 98
       },
       "flags": {},
       "order": 0,
       "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            425
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "ORIGINAL_INPUT.png",
-        "image"
-      ]
-    },
-    {
-      "id": 45,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        750,
-        95
-      ],
-      "size": {
-        "0": 641.046875,
-        "1": 126
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
+      "inputs": [],
       "outputs": [
         {
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            384
+            3240
           ],
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "MODEL_VERSION",
           "type": "STRING",
-          "links": [
-            410
-          ],
-          "shape": 3,
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereVisualCKPT"
-      },
-      "widgets_values": [
-        "BestAll\\photon_v1.safetensors",
-        false,
-        true
-      ]
-    },
-    {
-      "id": 48,
-      "type": "PrimereSeed",
-      "pos": [
-        751,
-        268
-      ],
-      "size": {
-        "0": 402.27398681640625,
-        "1": 130
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "outputs": [
+          "links": null
+        },
         {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            407,
-            437
-          ],
-          "shape": 3,
-          "slot_index": 0
+          "name": "MODEL",
+          "type": "COMBO",
+          "links": null
         }
       ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
+      "properties": {},
       "widgets_values": [
-        991030014985297,
-        null,
-        null,
-        null
-      ]
+        "Photo\\photon_refiner-FP16.safetensors"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     },
     {
-      "id": 134,
+      "id": 263,
       "type": "PrimereCKPTLoader",
-      "pos": [
-        1510,
-        95
-      ],
+      "pos": {
+        "0": 5456.29638671875,
+        "1": 86.73020935058594
+      },
       "size": {
-        "0": 330,
-        "1": 210
+        "0": 279.71295166015625,
+        "1": 158
       },
       "flags": {},
-      "order": 3,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
           "name": "ckpt_name",
           "type": "CHECKPOINT_NAME",
-          "link": 384
+          "link": 3240
         },
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": null
+          "link": null,
+          "shape": 7
         },
         {
           "name": "loaded_model",
           "type": "MODEL",
-          "link": null
+          "link": null,
+          "shape": 7
         },
         {
           "name": "loaded_clip",
           "type": "CLIP",
-          "link": null
+          "link": null,
+          "shape": 7
         },
         {
           "name": "loaded_vae",
           "type": "VAE",
-          "link": null
+          "link": null,
+          "shape": 7
         },
         {
           "name": "model_concept",
@@ -165,7 +155,8 @@
           "link": null,
           "widget": {
             "name": "model_concept"
-          }
+          },
+          "shape": 7
         }
       ],
       "outputs": [
@@ -173,72 +164,636 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            427
+            3241
           ],
-          "shape": 3,
           "slot_index": 0
         },
         {
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            406,
-            428
+            3242
           ],
-          "shape": 3,
           "slot_index": 1
         },
         {
           "name": "VAE",
           "type": "VAE",
           "links": [
-            429
+            3249
           ],
-          "shape": 3,
           "slot_index": 2
         },
         {
           "name": "MODEL_VERSION",
           "type": "STRING",
-          "links": null,
-          "shape": 3,
-          "slot_index": 3
+          "links": null
         }
       ],
       "properties": {
         "Node name for S&R": "PrimereCKPTLoader"
       },
       "widgets_values": [
-        true,
-        1,
-        1,
-        "Normal"
-      ]
+        false,
+        ""
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     },
     {
-      "id": 139,
-      "type": "PrimereRefinerPrompt",
-      "pos": [
-        750,
-        470
-      ],
+      "id": 253,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": {
+        "0": 5237.7001953125,
+        "1": 237.27999877929688
+      },
       "size": {
-        "0": 579.9000244140625,
-        "1": 577.9000244140625
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": null,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": [
+            3253,
+            3254
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "STRING"
+        }
+      ],
+      "title": "Model version",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "widgets_values": [
+        "SDXL"
+      ],
+      "color": "#149494",
+      "bgcolor": "#008080"
+    },
+    {
+      "id": 254,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": {
+        "0": 5020.7001953125,
+        "1": 355.280029296875
+      },
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": null,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": [
+            3275,
+            3277
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "INT"
+        }
+      ],
+      "title": "Seed",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "widgets_values": [
+        1
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 258,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": {
+        "0": 5237.7001953125,
+        "1": 355.280029296875
+      },
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": null,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": [
+            3261,
+            3262
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "STRING"
+        }
+      ],
+      "title": "Model concept",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss"
+      },
+      "widgets_values": [
+        "Auto"
+      ],
+      "color": "#a25b14",
+      "bgcolor": "#8e4700"
+    },
+    {
+      "id": 266,
+      "type": "PrimerePreviewImage",
+      "pos": {
+        "0": 7002,
+        "1": 57
+      },
+      "size": {
+        "0": 1068.1236572265625,
+        "1": 1188.47705078125
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3312
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 264,
+      "type": "LoadImage",
+      "pos": {
+        "0": 4894,
+        "1": 485
+      },
+      "size": {
+        "0": 866.35986328125,
+        "1": 1263.4674072265625
       },
       "flags": {},
       "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3313
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "PreviewImage__QTY90_cr824q2.jpg",
+        "image"
+      ],
+      "color": "#141494",
+      "bgcolor": "#000080"
+    },
+    {
+      "id": 226,
+      "type": "PrimereImageSegments",
+      "pos": {
+        "0": 6273.46044921875,
+        "1": 90.3221664428711
+      },
+      "size": {
+        "0": 335.73919677734375,
+        "1": 554.1248779296875
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3313,
+          "slot_index": 0
+        },
+        {
+          "name": "segment_prompt_data",
+          "type": "TUPLE",
+          "link": 3169,
+          "shape": 7
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3254,
+          "widget": {
+            "name": "model_version"
+          },
+          "shape": 7
+        },
+        {
+          "name": "square_shape",
+          "type": "INT",
+          "link": 3314,
+          "widget": {
+            "name": "square_shape"
+          },
+          "shape": 7
+        },
+        {
+          "name": "dino_search_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_search_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "dino_replace_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "dino_replace_prompt"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3184
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_SEGS",
+          "type": "IMAGE",
+          "links": [
+            3162
+          ],
+          "slot_index": 1,
+          "shape": 6
+        },
+        {
+          "name": "DETECTOR",
+          "type": "DETECTOR",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SAM_MODEL",
+          "type": "SAM_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGS",
+          "type": "SEGS",
+          "links": [
+            3190
+          ],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "CROP_REGIONS",
+          "type": "TUPLE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "IMAGE_MAX_PERCENT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SEGMENT_SETTINGS",
+          "type": "TUPLE",
+          "links": [
+            3189
+          ],
+          "slot_index": 8,
+          "shape": 3
+        },
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            3187
+          ],
+          "slot_index": 9,
+          "shape": 3
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            3188
+          ],
+          "slot_index": 10,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Image Segments - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereImageSegments"
+      },
+      "widgets_values": [
+        true,
+        2.7,
+        0,
+        "bbox/face_yolov8m.pt",
+        "sam_vit_b_01ec64.pth",
+        "AUTO",
+        "person",
+        "short_sleeved_shirt",
+        "eye",
+        0.75,
+        2,
+        1.4000000000000001,
+        5,
+        "BaseModel_1024",
+        768,
+        "",
+        ""
+      ],
+      "color": "#886029",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 242,
+      "type": "PrimereAnyDetailer",
+      "pos": {
+        "0": 6621.46044921875,
+        "1": 90.3221664428711
+      },
+      "size": {
+        "0": 342.65435791015625,
+        "1": 554
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3184
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3185
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3186
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3249
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 3187
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 3188
+        },
+        {
+          "name": "segment_settings",
+          "type": "TUPLE",
+          "link": 3189
+        },
+        {
+          "name": "segs",
+          "type": "SEGS",
+          "link": 3190,
+          "shape": 7
+        },
+        {
+          "name": "detector",
+          "type": "DETECTOR",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 3262,
+          "widget": {
+            "name": "model_concept"
+          },
+          "shape": 7
+        },
+        {
+          "name": "concept_sampler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "concept_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "concept_scheduler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "concept_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "concept_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "concept_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "concept_cfg",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "concept_cfg"
+          },
+          "shape": 7
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 3277,
+          "widget": {
+            "name": "seed"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3312
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "CROPPED_REFINED",
+          "type": "IMAGE",
+          "links": [
+            3160
+          ],
+          "slot_index": 1,
+          "shape": 6
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Any Detailer - FACE",
+      "properties": {
+        "Node name for S&R": "PrimereAnyDetailer"
+      },
+      "widgets_values": [
+        175501210403953,
+        "randomize",
+        "euler",
+        "simple",
+        18,
+        7,
+        0.48,
+        15,
+        true,
+        false,
+        1,
+        false,
+        "Normal",
+        "euler",
+        "normal",
+        4,
+        1
+      ],
+      "color": "#886029",
+      "bgcolor": "#9c743d"
+    },
+    {
+      "id": 246,
+      "type": "PrimereRefinerPrompt",
+      "pos": {
+        "0": 5792.46240234375,
+        "1": 90.3221664428711
+      },
+      "size": {
+        "0": 468.8543395996094,
+        "1": 1119.7559814453125
+      },
+      "flags": {},
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 406
+          "link": 3242,
+          "shape": 7
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3241,
+          "shape": 7
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 407,
+          "link": 3275,
           "widget": {
             "name": "seed"
           }
@@ -249,7 +804,8 @@
           "link": null,
           "widget": {
             "name": "positive_original"
-          }
+          },
+          "shape": 7
         },
         {
           "name": "negative_original",
@@ -257,7 +813,26 @@
           "link": null,
           "widget": {
             "name": "negative_original"
-          }
+          },
+          "shape": 7
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 3261,
+          "widget": {
+            "name": "model_concept"
+          },
+          "shape": 7
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3253,
+          "widget": {
+            "name": "model_version"
+          },
+          "shape": 7
         }
       ],
       "outputs": [
@@ -289,602 +864,317 @@
           "name": "PROMPT_DATA",
           "type": "TUPLE",
           "links": [
-            408
+            3169
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": [
+            3314
           ],
           "shape": 3,
-          "slot_index": 4
+          "slot_index": 6
+        },
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3185
+          ],
+          "slot_index": 7,
+          "shape": 3
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3186
+          ],
+          "slot_index": 8,
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": null,
+          "shape": 3
         }
       ],
+      "title": "Primere Refiner Prompt - FACE",
       "properties": {
         "Node name for S&R": "PrimereRefinerPrompt"
       },
       "widgets_values": [
-        "perfect detailed human faces, {screaming|happy|unhappy|scary|crying} mood",
-        "deformed face, deformed hands, deformed fingers, blured",
+        "None",
+        "None",
+        "LORA\\Style\\perfection style SD1.5.safetensors",
+        0.7000000000000001,
+        true,
+        "face, natural skin, realistic photo quality detailed, high resolution, nicely proportioned, smooth image",
+        "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.3),text watermark bad",
         1,
         1,
-        1,
-        1,
-        188866318563198,
+        0,
+        0,
+        1008218980646440,
         "randomize",
         "mean",
         "comfy++",
-        "",
-        ""
-      ]
-    },
-    {
-      "id": 137,
-      "type": "PrimereImageSegments",
-      "pos": [
-        1368,
-        477
-      ],
-      "size": {
-        "0": 468.5999755859375,
-        "1": 642
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 425
-        },
-        {
-          "name": "segment_prompt_data",
-          "type": "TUPLE",
-          "link": 408
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 410,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "square_shape",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "square_shape"
-          }
-        },
-        {
-          "name": "dino_search_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_search_prompt"
-          }
-        },
-        {
-          "name": "dino_replace_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "dino_replace_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            426
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "IMAGE_SEGS",
-          "type": "IMAGE",
-          "links": [
-            422
-          ],
-          "shape": 6,
-          "slot_index": 1
-        },
-        {
-          "name": "DETECTOR",
-          "type": "DETECTOR",
-          "links": [
-            434
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "SAM_MODEL",
-          "type": "SAM_MODEL",
-          "links": null,
-          "shape": 3,
-          "slot_index": 3
-        },
-        {
-          "name": "SEGS",
-          "type": "SEGS",
-          "links": [
-            433
-          ],
-          "shape": 3,
-          "slot_index": 4
-        },
-        {
-          "name": "CROP_REGIONS",
-          "type": "TUPLE",
-          "links": null,
-          "shape": 3,
-          "slot_index": 5
-        },
-        {
-          "name": "IMAGE_MAX",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "IMAGE_MAX_PERCENT",
-          "type": "INT",
-          "links": null,
-          "shape": 3,
-          "slot_index": 7
-        },
-        {
-          "name": "SEGMENT_SETTINGS",
-          "type": "TUPLE",
-          "links": [
-            432
-          ],
-          "shape": 3,
-          "slot_index": 8
-        },
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            430
-          ],
-          "shape": 3,
-          "slot_index": 9
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            431
-          ],
-          "shape": 3,
-          "slot_index": 10
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereImageSegments"
-      },
-      "widgets_values": [
         true,
-        0,
-        0,
-        "bbox/face_yolov8n.pt",
-        "sam_vit_b_01ec64.pth",
-        "AUTO",
-        "person",
-        "vest_dress",
-        "eye",
-        0.5,
-        10,
-        1.5,
-        10,
-        "BaseModel_1024",
-        768,
-        "",
-        ""
-      ]
-    },
-    {
-      "id": 142,
-      "type": "PreviewImage",
-      "pos": [
-        1875,
-        950
-      ],
-      "size": {
-        "0": 232,
-        "1": 315
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 422,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 145,
-      "type": "PrimereAnyDetailer",
-      "pos": [
-        1925,
-        305
-      ],
-      "size": [
-        463,
-        554
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 426
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 427
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 428
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 429
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 430
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 431
-        },
-        {
-          "name": "segment_settings",
-          "type": "TUPLE",
-          "link": 432
-        },
-        {
-          "name": "segs",
-          "type": "SEGS",
-          "link": 433
-        },
-        {
-          "name": "detector",
-          "type": "DETECTOR",
-          "link": 434
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        },
-        {
-          "name": "concept_sampler_name",
-          "type": "COMBO",
-          "link": null,
-          "widget": {
-            "name": "concept_sampler_name"
-          }
-        },
-        {
-          "name": "concept_scheduler_name",
-          "type": "COMBO",
-          "link": null,
-          "widget": {
-            "name": "concept_scheduler_name"
-          }
-        },
-        {
-          "name": "concept_steps",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "concept_steps"
-          }
-        },
-        {
-          "name": "concept_cfg",
-          "type": "FLOAT",
-          "link": null,
-          "widget": {
-            "name": "concept_cfg"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 437,
-          "widget": {
-            "name": "seed"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            435
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "CROPPED_REFINED",
-          "type": "IMAGE",
-          "links": [
-            436
-          ],
-          "shape": 6,
-          "slot_index": 1
-        },
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
-      },
-      "widgets_values": [
-        581366603182289,
-        "randomize",
-        "euler",
-        "normal",
-        25,
-        8,
-        0.42,
-        10,
+        true,
         true,
         false,
-        1,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
         true,
         "Normal",
-        "euler",
-        "normal",
-        4,
-        1
-      ]
-    },
-    {
-      "id": 140,
-      "type": "PreviewImage",
-      "pos": [
-        2418,
-        75
+        "BaseModel_1024",
+        true,
+        true,
+        "",
+        "Normal",
+        "BaseModel_1024",
+        true,
+        true
       ],
-      "size": {
-        "0": 852,
-        "1": 936
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 435,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 141,
-      "type": "PreviewImage",
-      "pos": [
-        2145,
-        950
-      ],
-      "size": {
-        "0": 230,
-        "1": 304
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 436,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
+      "color": "#886029",
+      "bgcolor": "#9c743d"
     }
   ],
   "links": [
     [
-      384,
-      45,
-      0,
-      134,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      406,
-      134,
+      3160,
+      242,
       1,
-      139,
+      218,
       0,
-      "CLIP"
+      "IMAGE"
     ],
     [
-      407,
-      48,
-      0,
-      139,
+      3162,
+      226,
       1,
-      "INT"
+      220,
+      0,
+      "IMAGE"
     ],
     [
-      408,
-      139,
+      3169,
+      246,
       4,
-      137,
+      226,
       1,
       "TUPLE"
     ],
     [
-      410,
-      45,
-      1,
-      137,
-      2,
-      "STRING"
-    ],
-    [
-      422,
-      137,
-      1,
-      142,
+      3184,
+      226,
+      0,
+      242,
       0,
       "IMAGE"
     ],
     [
-      425,
-      1,
-      0,
-      137,
-      0,
-      "IMAGE"
-    ],
-    [
-      426,
-      137,
-      0,
-      145,
-      0,
-      "IMAGE"
-    ],
-    [
-      427,
-      134,
-      0,
-      145,
+      3185,
+      246,
+      7,
+      242,
       1,
       "MODEL"
     ],
     [
-      428,
-      134,
-      1,
-      145,
+      3186,
+      246,
+      8,
+      242,
       2,
       "CLIP"
     ],
     [
-      429,
-      134,
-      2,
-      145,
-      3,
-      "VAE"
-    ],
-    [
-      430,
-      137,
+      3187,
+      226,
       9,
-      145,
+      242,
       4,
       "CONDITIONING"
     ],
     [
-      431,
-      137,
+      3188,
+      226,
       10,
-      145,
+      242,
       5,
       "CONDITIONING"
     ],
     [
-      432,
-      137,
+      3189,
+      226,
       8,
-      145,
+      242,
       6,
       "TUPLE"
     ],
     [
-      433,
-      137,
+      3190,
+      226,
       4,
-      145,
+      242,
       7,
       "SEGS"
     ],
     [
-      434,
-      137,
-      2,
-      145,
-      8,
-      "DETECTOR"
+      3240,
+      262,
+      0,
+      263,
+      0,
+      "CHECKPOINT_NAME"
     ],
     [
-      435,
-      145,
+      3241,
+      263,
       0,
-      140,
-      0,
-      "IMAGE"
-    ],
-    [
-      436,
-      145,
+      246,
       1,
-      141,
+      "MODEL"
+    ],
+    [
+      3242,
+      263,
+      1,
+      246,
+      0,
+      "CLIP"
+    ],
+    [
+      3249,
+      263,
+      2,
+      242,
+      3,
+      "VAE"
+    ],
+    [
+      3253,
+      253,
+      0,
+      246,
+      6,
+      "STRING"
+    ],
+    [
+      3254,
+      253,
+      0,
+      226,
+      2,
+      "STRING"
+    ],
+    [
+      3261,
+      258,
+      0,
+      246,
+      5,
+      "STRING"
+    ],
+    [
+      3262,
+      258,
+      0,
+      242,
+      9,
+      "STRING"
+    ],
+    [
+      3275,
+      254,
+      0,
+      246,
+      2,
+      "INT"
+    ],
+    [
+      3277,
+      254,
+      0,
+      242,
+      14,
+      "INT"
+    ],
+    [
+      3312,
+      242,
+      0,
+      266,
       0,
       "IMAGE"
     ],
     [
-      437,
-      48,
+      3313,
+      264,
       0,
-      145,
-      14,
+      226,
+      0,
+      "IMAGE"
+    ],
+    [
+      3314,
+      246,
+      6,
+      226,
+      3,
       "INT"
     ]
   ],
-  "groups": [],
+  "groups": [
+    {
+      "title": "Refiner's data distributor",
+      "bounding": [
+        5007,
+        15,
+        753,
+        428
+      ],
+      "color": "#e96a00",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Face refiner",
+      "bounding": [
+        5777,
+        16,
+        1204,
+        1214
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909091,
+      "offset": [
+        -4927.777680697329,
+        -10.034061291055675
+      ]
+    }
+  },
   "version": 0.4
 }
