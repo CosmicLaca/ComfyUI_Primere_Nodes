@@ -13,7 +13,7 @@ All required workflows in the `Workflow` folder of the node root.
 
 <img src="./Workflow/Manual/wf_minimal.jpg" width="800px">
 
-### [Detailed manual for included nodes](Workflow/Manual/nodes/minimal_workflow.md)
+### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/minimal_workflow.md)</ins>
 
 ### Minimal workflow features:
  
@@ -30,11 +30,11 @@ All required workflows in the `Workflow` folder of the node root.
 
 ## Basic workflow:
 
-The big difference between **minimal** and **basic** workflows, that **basic** workflow automatically detect and support several model concepts. The main difference between workflows the large node group `Concept sampler group` with lot of samplers (1 sampler / concept) and the main `Model concept selector` node. 
+The difference between **minimal** and **basic** workflows, that **basic** workflow automatically detect and support several model concepts. The main difference between workflows the large node group `Concept sampler group` with lot of samplers (1 sampler / concept) and the main `Model concept selector` node. 
 
 <img src="./Workflow/Manual/wf_basic.jpg" width="800px">
 
-### [Detailed manual for included nodes](Workflow/Manual/nodes/basic_workflow.md)
+### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/basic_workflow.md)</ins>
 
 ### Basic workflow features:
 
@@ -47,3 +47,23 @@ The big difference between **minimal** and **basic** workflows, that **basic** w
   - Auto **download** and apply Hyper, Lightning, and Turbo speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
 
 **On the `Concept selector` node you will see `None` on all required fields, for example on Cascade and Flux files. You must install all required additional files manually to right path, then select correct model/clip/vae on lists.**
+
+<hr>
+
+## Basic production workflow:
+
+The difference between **basic production** and **basic** workflows, that **basic production** workflow can use LLM prompt refiner (LLM models have to be installed locally) and face, eye, mouth, and hand refiner available. 4 prompt inut for test, 4 prompt input for dev attached to prompt switcher. 
+
+<img src="./Workflow/Manual/wf_basic_prod.jpg" width="800px">
+
+### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/basic_production_workflow.md)</ins>
+
+### Basic production workflow features:
+
+#### Same as Basic workflow plus:
+
+- Added 4 test and 4 development prompt inputs, easy to switch
+- Local LLM models can help refine/repair prompts. Refined prompts can be added to original, replace original, or keep original as L prompt but send refined to T5-XXL clip is avalable in clip encoder node 
+- Customizable refiner blocks for face, eye, mouth, and hand refining. These nodes automatically downloads required segmentator models, check space before first usage
+
+<hr>
