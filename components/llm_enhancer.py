@@ -257,6 +257,14 @@ class PromptEnhancerLLM:
                     if "attention_mask" in inputs:
                         attention_mask = inputs["attention_mask"]
 
+                    if "gemma-" in self.model_path.lower():
+                        if 'max_length' in settings:
+                            del settings['max_length']
+                        if 'max_new_tokens' in settings:
+                            del settings['max_new_tokens']
+                        settings['max_length'] = 100
+                        settings['max_new_tokens'] = 100
+
                     outputs = self.model.generate(
                         inputs["input_ids"],
                         attention_mask=attention_mask,
