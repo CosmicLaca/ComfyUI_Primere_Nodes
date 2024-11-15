@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 import torch
 from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM, set_seed, pipeline, GPT2Tokenizer, GPT2LMHeadModel, T5Tokenizer, T5ForConditionalGeneration, BloomTokenizerFast, BloomForCausalLM, BertTokenizer, BertForMaskedLM, DebertaV2Model, DebertaV2Config, DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AlbertTokenizer, AlbertModel
 from transformers.models.deberta.modeling_deberta import ContextPooler
@@ -41,6 +42,14 @@ class PromptEnhancerLLM:
                 self.tokenizer = DebertaV2Tokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
                 self.config = DebertaV2Config.from_pretrained(model_access)
                 self.model = AutoModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
+            elif "granite-" in model_path.lower():
+                device = "auto"
+                self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
+                self.model = AutoModelForCausalLM.from_pretrained(model_access, device_map=device, ignore_mismatched_sizes=True)
+                self.model.eval()
+            elif "salamandra-" in model_path.lower():
+                self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
+                self.model = AutoModelForCausalLM.from_pretrained(model_access, device_map="auto", torch_dtype=torch.bfloat16, ignore_mismatched_sizes=True)
             elif "albert-" in model_path.lower():
                 self.tokenizer = AlbertTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
                 self.model = AlbertModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
@@ -98,7 +107,7 @@ class PromptEnhancerLLM:
                 # self.model.to(self.device)
                 messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
 
-                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=False, return_tensors='pt')
+                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, return_tensors='pt')
                 encoding = self.tokenizer(prompt, return_tensors="pt").to(self.device)
 
                 generation_config = self.model.generation_config
@@ -126,9 +135,45 @@ class PromptEnhancerLLM:
                 elif "albert-" in self.model_path.lower() and "-instruct" not in self.model_path.lower():
                     enhanced_text = 'This moodel type not supported....'
 
+                elif "granite-" in self.model_path.lower():
+                    messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
+                    chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                    input_ids = self.tokenizer(chat_sample, return_tensors="pt").to(self.device)
+
+                    if 'max_length' in settings:
+                        del settings['max_length']
+                    if 'max_new_tokens' in settings:
+                        del settings['max_new_tokens']
+
+                    output = self.model.generate(
+                        **input_ids,
+                        max_new_tokens=100,
+                        **settings
+                    )
+                    enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+                elif "salamandra-" in self.model_path.lower():
+                    messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
+                    date_string = datetime.today().strftime('%Y-%m-%d')
+                    prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, date_string=date_string)
+
+                    if 'max_length' in settings:
+                        del settings['max_length']
+                    if 'max_new_tokens' in settings:
+                        del settings['max_new_tokens']
+
+                    inputs = self.tokenizer.encode(prompt, add_special_tokens=False, return_tensors="pt")
+                    outputs = self.model.generate(
+                        input_ids=inputs.to(self.device),
+                        max_new_tokens=200,
+                        **settings
+                    )
+
+                    enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+
                 elif "zamba" in self.model_path.lower():
                     messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
-                    chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False)
+                    chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
                     input_ids = self.tokenizer(chat_sample, return_tensors='pt', add_special_tokens=False).to(self.device)
 
                     outputs = self.model.generate(
