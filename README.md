@@ -5,7 +5,8 @@ Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
 <hr>
 
 Nodepack under development. Manual written by AI, please open issue if something wrong or missing. If you upgrade, just check attached new workflows or use git to downgrade to previous version if something failed.
-All required workflows in the `Workflow` folder of the node root.
+
+**All example workflows in the `Workflow` folder of the node root.**
 
 <hr>
 
@@ -52,7 +53,7 @@ The difference between **minimal** and **basic** workflows, that **basic** workf
 
 ## Basic production workflow:
 
-The difference between **basic production** and **basic** workflows, that **basic production** workflow can use LLM prompt refiner (LLM models have to be installed locally) and face, eye, mouth, and hand refiner available. 4 prompt inut for test, 4 prompt input for dev attached to prompt switcher. 
+The difference between **basic production** and **basic** workflows, that **basic production** workflow can use LLM prompt refiner (LLM models have to be installed locally) and face, eye, mouth, and hand refiner available. 4 prompt input for test, 4 prompt input for dev attached to prompt switcher. 
 
 <img src="./Workflow/Manual/wf_basic_prod.jpg" width="800px">
 
