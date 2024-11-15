@@ -1223,6 +1223,11 @@ class PrimereCKPTLoader:
                     if lora_name is None and unet_name is None and lightningModeValid == False and ckpt_name is not None and loaded_model is None:
                         OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, True, 'SAFETENSOR', lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
 
+                force_lora_weighth = re.findall(r"(?i)(\d+)LoWe", ckpt_name)
+                if len(force_lora_weighth) > 0:
+                    strength_lightning_lora_model = int(force_lora_weighth[0])
+                    strength_hypersd_lora_model = int(force_lora_weighth[0])
+
                 if lightningModeValid == True and loaded_model is None:
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
 
