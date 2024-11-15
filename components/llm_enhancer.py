@@ -164,9 +164,19 @@ class PromptEnhancerLLM:
                     messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
                     generator = pipeline('text-generation', model=self.model_fullpath, torch_dtype=torch.bfloat16, device_map="auto")
 
+                    generation_config = self.model.generation_config
+                    generation_config.pad_token_id = self.tokenizer.eos_token_id
+                    generation_config.eos_token_id = self.tokenizer.eos_token_id
+                    generation_config.repetition_penalty = settings['repetition_penalty']
+                    generation_config.do_sample = settings['do_sample']
+                    generation_config.max_new_tokens = 256
+                    generation_config.temperature = settings['temperature']
+                    generation_config.top_p = settings['top_p']
+                    generation_config.num_return_sequences = settings['num_return_sequences']
+
                     outputs = generator(
                         messages,
-                        max_new_tokens=256
+                        generation_config=generation_config
                     )
 
                     full_result = outputs[0]['generated_text'][-1]['content']
@@ -213,7 +223,7 @@ class PromptEnhancerLLM:
         if type(enhanced_text).__name__ == 'str':
             enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
-            enhanced_text = enhanced_text.replace(instruction, '').replace(input_text, '').replace('system', '').replace('user', '').replace('assistant', '').replace("You are a helpful AI", '').replace("named SmolLM trained by Hugging Face", '').replace("named SmoLLM trained by Hugging Face", "").replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.')
+            enhanced_text = enhanced_text.replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ').replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ').replace("named SmolLM trained by Hugging Face", ' ').replace("named SmoLLM trained by Hugging Face", " ")
             enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
             return enhanced_text.strip('.: ')
         else:
