@@ -307,6 +307,10 @@ class PromptEnhancerLLM:
 
         if type(enhanced_text).__name__ == 'str':
             enhanced_text = enhanced_text.replace("Hello","").replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ')
+            end_of_instruction = instruction.split()[-2:]
+            joined_lastwords = ' '.join(end_of_instruction).strip('\\.:,/ ')
+            if joined_lastwords in enhanced_text:
+                enhanced_text = enhanced_text[enhanced_text.index(joined_lastwords) + len(joined_lastwords):].strip('\\.:,/ ')
             enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
             enhanced_text = enhanced_text.replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ')
