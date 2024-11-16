@@ -84,7 +84,8 @@ class PromptEnhancerLLM:
         if 'ConfigName' in variant_params:
             configurator_name = variant_params['ConfigName']
             del variant_params['ConfigName']
-        instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
+        # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
+        instruction = f"Refine user prompt to {configurator_name} image: "
         settings = {**default_settings, **variant_params}
 
         if seed is not None and int(seed) > 1:
