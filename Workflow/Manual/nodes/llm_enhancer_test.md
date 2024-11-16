@@ -23,7 +23,7 @@ This specialized ComfyUI node utilizes local LLM models to enhance, refine, or r
 Test workflow: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Workflow\civitai-llm-enhancer.json`
 
 All models can be downloaded from Huggingface repositories, the node compatible with lot of another models and adapters.
-The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Downloads\LLM\`, models have to save in separataed subfolders, basically same name as the model.
+The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Downloads\LLM\`, models have to save in separated subfolders, basically same name as the model.
 
 **The best model is Qwen2.5-3B-Instruct-PromptEnhancing but because this is just adapter, Qwen2.5-3B-Instruct required.**
 
