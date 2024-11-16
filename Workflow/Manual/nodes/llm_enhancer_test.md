@@ -34,20 +34,20 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
 #### <ins>Flux-Prompt-Enhance:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `A closeup view of a page from the book \"You are my friend\" written in black marker. The text is more blurry and not legible but it appears to be an older woman with long dark hair that has grown over her shoulders as she sits on one knee while looking down at something else.\"The person who stands behind them looks like theyre doing business`
-    - **Running time:** 4 sec
+    - **Result:** `An ethereal surreal digital illustration A womans profile is the focal point her long brown hair flows down to shoulders. She looks like an older model with years of age and wear on it.\"LAMBORGHINIANA\" are written in bold white letters above each headpiece that read\"GLOSSMAGAZZ VIRGINA\". The right side features another person who has their back turned as they look at something off camera or other professional photography tools while left hand holds some tape measure for measuring purposes`
+    - **Running time:** 4.5 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `An ethereal highresolution digital illustration of a womans face adorned in a black leather jacket and black pants standing on a wooden table. The subject a young woman with long dark hair is positioned to the left of the image adjusting her hair with her right hand while a professional photographer stands behind her to the right. The text on the piece is a stable version of text that reads \"You are my friend.\" The text at the top of the page is slightly blurred indicating a shallow depth of field.`
-    - **Running time:** 5 sec
+    - **Result:** `An ethereal detailed oil painting a woman adorned in a black dress sits at the center of a wooden table her face illuminated by warm glowing lights. A professional photographer dressed in black stands behind her holding a camera creating a photorealistic effect. The mysterious figure shrouded in mystery is the focal point amidst a dark background`
+    - **Running time:** 4 sec
   - **Configurator:** `consistent`
-    - **Result:** `An ethereal detailed digital illustration of an elderly woman with long brown hair and glasses sitting on the floor. The text is written in two columns \"Youre my friend.\" A question marker sits to her right`
-    - **Running time:** 3 sec
+    - **Result:** `a closeup image of an older woman with long brown hair wearing glasses and holding something in her right hand that appears to be the brand name gabriele she is looking straight ahead at what looks like images or documents on both hands. The model has one arm extended downwards while others are slightly tilted forward as they reach another object further back from their body which seems similar but not entirely covered by them`
+    - **Running time:** 4 sec
   - **Configurator:** `refinement`
-    - **Result:** `A closeup topdown view of a page from a book with the text \"You are my\" in the center of the page. The text is written in a clean serif font with a slight curve to the right. The left side of the page is slightly out of focus while the right side is out of focus. The text on the page is from a woman a professional photographer and a woman who is looking down at the text. The woman is wearing a longsleeved dress and she has a serious expression. The womans hair is tied up in a bun and she is holding a camera in her right hand.`
-    - **Running time:** 5.5 sec
+    - **Result:** `An indoor close up worms eye view of a beautiful collection of beautiful 35 years old woman and a professional photographer. The woman is seated at the center of the frame. She is wearing a longsleeved black dress. Her hair is tied back in a ponytail. Her right hand is placed on her lap. Her left hand is placed upon her lap. She is also wearing a wristwatch on her left wrist. She is looking to the right at the camera. Her right arm is placed on the edge of the magazine. The magazine has a glamour magazine with the title \"LA  LA  MAGAZZO\" written in gold letters. The magazine is placed on top of a wooden table. There is a light fixture shining from the top of the magazine onto the table. The light fixture is casting a shadow over the table and the table`
+    - **Running time:** 6 sec
   - **Configurator:** `default`
-    - **Result:** `A closeup view of text written in a black font that reads \"You are my friend\". On the left side there is an old woman with long dark hair. She has one hand on her head and two other hands holding it up as she looks to be working at something else than me.`
-    - **Running time:** 5.7 sec
+    - **Result:** `An ethereal highresolution digital illustration of an elderly woman with long brown hair styled in elegant curls. The model stands on her back as she looks at the camera and is looking to its right side behind him are several neatly folded clothes that have been worn over for many years or so far away it has disappeared into silence.\"LAMBORGHINIA\" written along these pages\"BLUE LAB\" \"LIVE THEIR LIFE PROXIMAMENTS AND FUNNITED\". A professional photographer dressed like one can be seen standing near this workshop while working men dot their work together under bright overhead lights which create shadow patterns across his face`
+    - **Running time:** 5.3 sec
 
 <hr>
 

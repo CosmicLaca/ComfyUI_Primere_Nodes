@@ -258,7 +258,7 @@ class PromptEnhancerLLM:
                     if "attention_mask" in inputs:
                         attention_mask = inputs["attention_mask"]
 
-                    if "gemma-" in self.model_path.lower() or 'flux-prompt' in self.model_path.lower():
+                    if "gemma-" in self.model_path.lower() or 'flux-prompt' in self.model_path.lower() or 'smollm-' in self.model_path.lower():
                         if 'max_length' in settings:
                             del settings['max_length']
                         if 'max_new_tokens' in settings:
