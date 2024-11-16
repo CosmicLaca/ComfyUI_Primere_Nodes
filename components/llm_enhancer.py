@@ -85,7 +85,7 @@ class PromptEnhancerLLM:
             configurator_name = variant_params['ConfigName']
             del variant_params['ConfigName']
         # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
-        instruction = f"Refine user prompt to {configurator_name} image: "
+        instruction = f"Create {configurator_name} user prompt to image: "
         settings = {**default_settings, **variant_params}
 
         if seed is not None and int(seed) > 1:
@@ -258,13 +258,13 @@ class PromptEnhancerLLM:
                     if "attention_mask" in inputs:
                         attention_mask = inputs["attention_mask"]
 
-                    if "gemma-" in self.model_path.lower():
+                    if "gemma-" in self.model_path.lower() or 'flux-prompt' in self.model_path.lower():
                         if 'max_length' in settings:
                             del settings['max_length']
                         if 'max_new_tokens' in settings:
                             del settings['max_new_tokens']
-                        settings['max_length'] = 100
-                        settings['max_new_tokens'] = 100
+                        settings['max_length'] = 256
+                        settings['max_new_tokens'] = 256
 
                     outputs = self.model.generate(
                         inputs["input_ids"],
