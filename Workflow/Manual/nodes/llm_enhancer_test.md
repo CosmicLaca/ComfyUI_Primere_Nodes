@@ -54,100 +54,99 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
 #### <ins>Llama-3.2-3B-Instruct:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `A stunning 35yearold fashionforward model posing elegantly in a glamorous setting with soft warm lighting capturing the essence of highend photography for an upscale lifestyle magazine featuring beautiful images that evoke sophistication and refinement`
+    - **Result:** `Capture the essence of a stunning 35yearold woman who embodies both elegance and sophistication. As a successful model and professional photographer she exudes confidence and poise in front of the camera. Set against a glamorous backdrop with soft golden lighting her beauty shines through as she poses effortlessly in a luxurious setting. The focus is on highlighting her features from her striking eyes to her flawless skin all while conveying an air of refinement and class that would make her cover a highend fashion magazine like Glamour`
     - **Running time:** 40 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `A stunning 35yearold fashionforward female model posing confidently in a glamorous setting with soft warm lighting evoking an upscale atmosphere reminiscent of highend editorial spreads featured on luxury magazines such as Glamour`
-    - **Running time:** 37 sec
+    - **Result:** `Glamour in Focus`
+    - **Running time:** 43 sec
   - **Configurator:** `consistent`
-    - **Result:** `A stunning 35yearold fashion model posing elegantly in a glamorous setting surrounded by soft warm lighting with a sophisticated backdrop reminiscent of a highend photography studio featured on the cover of a luxurious lifestyle magazine`
-    - **Running time:** 36 sec
+    - **Result:** `Create an image of a stunning 35yearold woman posing as a model with a professional photographers expertise. Incorporate glamorous lighting and a sophisticated backdrop reminiscent of the pages of a highend fashion magazine`
+    - **Running time:** 42 sec
   - **Configurator:** `refinement`
-    - **Result:** `A closeup topdown view of a page from a book with the text \"You are my\" in the center of the page. The text is written in a clean serif font with a slight curve to the right. The left side of the page is slightly out of focus while the right side is out of focus. The text on the page is from a woman a professional photographer and a woman who is looking down at the text. The woman is wearing a longsleeved dress and she has a serious expression. The womans hair is tied up in a bun and she is holding a camera in her right hand.`
-    - **Running time:** 37 sec
+    - **Result:** `Photograph a stunning 35yearold female model in a glamorous setting with soft natural light`
+    - **Running time:** 43 sec
   - **Configurator:** `default`
-    - **Result:** `A stunning 35yearold fashionforward model posing elegantly in a glamorous setting with soft warm lighting evoking the sophistication of a prestigious photography workshop featured on the cover of an upscale lifestyle magazine`
-    - **Running time:** 37 sec
+    - **Result:** `Capture the essence of a stunning 35yearold model who embodies elegance and sophistication. Set against a glamorous backdrop with soft natural light pouring in from above she poses confidently in front of a polished wooden table adorned with luxurious props such as designer handbags fine jewelry and highend cameras. The atmosphere is one of refinement and poise reflecting her status as a successful model and professional photographer`
+    - **Running time:** 47 sec
 
 <hr>
 
 #### <ins>Llama-3.2-3B-Instruct-PromptEnhancing:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `Beautiful 35 year old woman with long black hair wearing a white dress by Armani in a photo studio photography studio portrait of her face on right side by Andy Warhol close up full body shot highly detailed digital art trending on Artstation perfect lighting sharp focus illustration concept art cinematic cinematic lighting unreal engine ray tracing octane render high quality beautiful composition 8k resolution masterpiece hyper realistic`
-    - **Running time:** 8.2 sec
+    - **Result:** `A beautiful young attractive female with short hair and bright eyes. She is a 2 5 year old wearing an elegant outfit in the studio of a professional photographer doing photoshoot for photography magazine glamorous lighting very detailed face highly detailed face well lit digital painting concept art by Brian Froud Artgerm Ruan Jia and Brent Crump and Donato Giancola and William Adolph Haag and Charles Westbrook trending on DeviantArt`
+    - **Running time:** 8.6 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `A beautiful young attractive female with long dark hair wearing a white tank top t shirt and jeans in front of an open studio window at night taking photos for her own photography portfolio by famous photographers like Annie Leibovitz Richard Avedon Cindy Sherman Peter Lindbergh Mario Testino David LaChapelle Greg Rutkowski Artgerm Ruan Jia Rossdraws trending on artstation high quality render unreal engine`
+    - **Result:** `A beautiful young female with long hair and a pretty face. She is wearing glasses. The background of the photo will be a studio photography work shop for photographers taking pictures of models in glamorous fashion magazines. A large lens camera on tripod stands at right foreground left center. There are many light sources from all directions lighting up this scene by natural daylight or artificial light. Artstation trending Photorealism high quality octane render cinematic lighting ultra detailed unreal engine`
     - **Running time:** 8.2 sec
   - **Configurator:** `consistent`
-    - **Result:** `beautiful 35 year old woman model professional photographer studio lighting studio photography studio portrait studio lighting studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup studio lighting setup`
+    - **Result:** `a beautiful young woman with long hair and a professional photographer in the background taking pictures of her self full body shot studio lighting studio lighting setup studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting studio lighting`
     - **Running time:** 8 sec
   - **Configurator:** `refinement`
-    - **Result:** `Beautiful 35 year old woman with long black hair wearing a white dress in a studio with natural light by famous photographers studio lighting perfect composition fine art photography concept art trending on Artstation unreal engine octane render high quality high resolution sharp focus high detail cinematic atmosphere hyperrealistic realistic shading volumetric lighting beautiful colors intricate details stunning scenery masterpiece photorealistic digital painting dramatic lighting`
+    - **Result:** `A beautiful young woman with long dark hair and blue eyes. She is a 35 year old female model in her studio wearing an elegant outfit by designer brand. Her face has high definition features she has full lips perfect nose very pretty eyebrows smooth skin. The background of the photo is white. A light source from above shines down on her head. This is a highly detailed digital painting concept art created by Greg Rutkowski. It is trending on Artstation`
     - **Running time:** 8.3 sec
   - **Configurator:** `default`
-    - **Result:** `A beautiful young woman with long hair wearing a white dress in front of an art studio with natural light full body shot highly detailed face perfect lighting by Greg Rutkowski Stanley Artgerm Lau WLOP Rossdraws James Jean Andrei Riabovitchev Marc Simonetti and Sakimichan trending on DeviantArt HD Quality HDR Luminosity Mask Diffusion Imaging Filter Stable Diffusion`
+    - **Result:** `A beautiful young woman with long hair and a big smile. She is wearing a white tank top and black shorts in the studio of an art photography class for women by a famous photographer. The lighting is perfect there are no shadows she has perfectly defined facial features her eyes sparkle she looks like a supermodel glamorous fashion shoot very detailed face realistic pose natural skin tone 35mm film grain digital retouched ultra wide angle shot highly`
     - **Running time:** 8.2 sec
-
 
 <hr>
 
 #### <ins>granite-3.0-2b-instruct:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `A captivating threefold repeat pattern of a surrealistically stylized female figure emerges from an intricate labyrinthine mosaic tilework motif that is inspired by traditional Persian miniature paintings but infused with contemporary art deco design elements.\"  This description should help you create more visually appealing s for generating images using generative AI models like DALLE or Midjourney`
-    - **Running time:** 12 sec
+    - **Result:** `Capture the essence of elegance and charm with a captivating portrait. A stunningly beautiful women in her prime stands tall at an age that exudes confidence yet retains youthful allure`
+    - **Running time:** 10 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `35yearold woman a seasoned model and professional photographers poses elegantly in a workshop setting her radiant beauty accentuated by the soft dramatic lighting reminiscent of a glamorous magazine spread`
+    - **Result:** `Glamour Unveiled`
     - **Running time:** 9.2 sec
   - **Configurator:** `consistent`
-    - **Result:** `A captivating three decades of experience radiates from a stunningly beautiful womens visage in her mid thirties she is not just an accomplished runway walker or high fashion catwalk star but also boasts impressive accolades for modeling work that has graced numerous prestigious glossy covers across various international publications including those renowned Glamorous Magazines youve always admired since your youth`
+    - **Result:** `A captivating threedecade young lady with an elegant and alluring appearance is seeking your expertise in a photoshoot for the prestigious Glamor Magazines Workshop`
     - **Running time:** 11 sec
   - **Configurator:** `refinement`
-    - **Result:** `35yearold woman elegant confident professional model skilled photographer hosting a glamour photography workshop in a stylish studio surrounded by professional lighting equipment`
-    - **Running time:** 8.5 sec
+    - **Result:** `Imagine a stunning 35yearold woman a professional model and photographer setting up a workshop in a glamorous magazine setting. The room is welllit highlighting her beauty and professionalism`
+    - **Running time:** 10 sec
   - **Configurator:** `default`
-    - **Result:** `A captivating three decades of experience radiates from a stunningly beautiful womens visage her youthful vitality is accentuated by flawless skin that glows with an ethereal luminescence under natural light streaming through large windows in their creative workspacea bustling studio adornedwith sophomore professionals capturing fleeting emotions for prestigious fashion brands like Glam`
-    - **Running time:** 16 sec
+    - **Result:** `A captivating threedimensional representation of an attractive lady aged thirteen`
+    - **Running time:** 10 sec
 
 <hr>
 
 #### <ins>Qwen2.5-3B-Instruct:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `A beautiful 35yearold model in a glamorous pose at a professional photography workshop lighting setup for a cover of a highend glamour magazine`
+    - **Result:** `Can you create an image of a beautiful 35yearold woman who is both a model and a professional photographer in the middle of a glamorous photography workshop? She should be captured with elegant lighting that enhances her features`
     - **Running time:** 36 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `A beautiful 35yearold elegant woman in a glamorous pose with studio lighting during an upscale photography workshop for a cover of a highend fashion or glamour magazine`
-    - **Running time:** 28 sec
+    - **Result:** `Heres a detailed and descriptive photo request\"A stunning photograph of an elegant 35yearold woman who exudes the confidence and grace typical of both a successful model and dedicated professional photographer. She is captured in her element at one of her photography workshops where shes sharing tips with aspiring photographers or discussing creative techniques that have made her career as glamorous as it has been.The lighting setup for this shot should be perfectsoft natural light streaming through large windows behind our subject casting flattering shadows on soft furnishings around them like plush cushions and vintage wooden bookshelves adorned with photographs from various projects theyve worked on over their illustrious career. The background features subtle textures such as woven tapestries hanging off walls creating depth while keeping focus squarely on our beautiful protagonist.\"Feel free to adjust any details based on your vision further if needed`
+    - **Running time:** 39 sec
   - **Configurator:** `consistent`
-    - **Result:** `A beautiful 35yearold professional model and photographer in a glamorous setting during a workshop for a cover shoot of a fashion or glamour magazine surrounded by soft studio lights`
-    - **Running time:** 29 sec
+    - **Result:** `Can you create an image of a beautiful 35yearold woman who is a model and professional photographer attending a glamorous workshop for a cover story in a glamour magazine? The scene should be illuminated with flattering studio lights`
+    - **Running time:** 34 sec
   - **Configurator:** `refinement`
-    - **Result:** `A beautiful 35yearold model in a glamorous pose at a professional photography workshop for an upcoming issue of a highend glamour magazine captured under bright studio lights`
-    - **Running time:** 28.6 sec
+    - **Result:** `A stunning and glamorous photograph of a beautiful 35yearold woman who embodies the essence of professionalism as both an accomplished model and talented professional photographer. The scene should be set in or around her photography studioworkshop environment with soft lighting that highlights her features and captures the elegance and sophistication expected from a cover shot for a highend glamour magazine. Ensure she is centered frontally facing towards the viewer surrounded by props such as cameras lenses and perhaps some samples of her work emphasizing her expertise in capturing beauty through images`
+    - **Running time:** 36 sec
   - **Configurator:** `default`
-    - **Result:** `A beautiful 35yearold model in a glamorous pose at a professional photography workshop surrounded by soft studio lights for a feature on a glamour magazine`
-    - **Running time:** 30 sec
+    - **Result:** `Heres a detailed and creative  for generating an image\"An exquisite portrait of a beautiful 35yearold woman who is both a model and a professional photographer. She stands confidently in the center of a studio setup that perfectly captures her elegance and professionalism. The lighting design should be glamorous with soft shadows underlining her features while highlighting her striking beauty.The background behind her could feature elegant textures like fine fabric or delicate patterns reminiscent of luxury magazines such as Glamour. Her pose suggests shes leading into action  perhaps about to capture another stunning moment on camera.In the foreground there might be props related to photography equipmentlike cameras resting gently beside her feetand possibly some accessories from her worka vintage lens cap next to one hand maybe even a small photo book open nearby showing off her portfolio.Overall this scene aims to convey not just her physical attractiveness but also her professionality through thoughtful details and composition.\"Feel free to adjust any elements based on your specific vision or preferences`
+    - **Running time:** 40 sec
 
 <hr>
 
 #### <ins>Qwen2.5-3B-Instruct-PromptEnhancing:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `a beautiful young women in her early thirties with long blonde hair that is styled into a braid she has a face shape of an hourglass figure she looks very elegant wearing high heels standing on a stage during photography workshops for professionals at a studio setting glossy magazines spread out before them light reflecting off shiny surfaces like glass mirrors smooth skin sharp focus lens camera portrait shot by a masterful artist trending on artstation awardwinning digital painting`
-    - **Running time:** 9 sec
+    - **Result:** `A beautiful female in her early 40s is a professional photographer and model. She wears glasses with an elegant face with a perfect smile wearing a stylish black outfit surrounded by studio lighting for publication of the glossy fashion magazin. Portrait shot trending on artstation. Professional photography full body shot from behind. Studio quality lighting clean background. Art nouveau style. Beautifully retouched skin sharp focus eyes. Golden ratio composition. Fashion shoot. Trending on Pinterest`
+    - **Running time:** 10 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `a beautiful young women in her early thirties with long blonde hair wearing a black dress at work on an industrial setting by greg rutkowski trending artstation pixiv digital painting concept design illustration hd photo realistic lighting cinematic atmosphere award winning masterpiece of beauty perfectionism high definition sharp focus smooth edges depth of field background blur soft shadows golden ratio composition rule of thirds lightroom exposure correction noise reduction adobe camera lucid unreal engine octane ray tracer nvidia geforce graphics card amd r`
+    - **Result:** `a beautiful female in her early thirties with long straight hair and a smile. she is wearing an elegant white dress that fits perfectly around the waistline of this figure as it hugs their curves while leaving them bare from hip down. She has short black eyelashes on each eye which are framed by dark brown eyebrows above sharp cheekbones. Her face features delicate bone structure along its edges where lines meet skin tone smoothly together creating smooth transitions between areas like eyes cheeks nose mouth forehead chin`
     - **Running time:** 9 sec
   - **Configurator:** `consistent`
-    - **Result:** `a beautiful young woman in her thirties with long blonde hair a model a professional photographer a workshop a glamour magazine cover lighting by greg rutkowski trending on artstation high quality sharp focus realistic face smooth hd hdr 8 k ultra detailed beauty perfection gorgeous stunning hyperrealistic hyperdetailed hypersharp hyperfocus cinematic epic masterpiece digital art concept art`
+    - **Result:** `a beautiful 35 year old woman with long blonde hair and blue eyes model professional photographer workshop glamour magazine cover light fashion trending on artstation high quality sharp focus realistic hyperdetailed hyperrealistic hyperdetailed hyperrealistic unreal engine photorealism photo realistic photorealism photorealism photorealism photorealism photorealism photorealism photoreal`
     - **Running time:** 9.3 sec
   - **Configurator:** `refinement`
-    - **Result:** `a beautiful young women in her early thirties with long blonde hair wearing a black dress at work as an industrial designer modeling for magazines on a studio set surrounded by light sources of different colors fashion photography high quality lighting trending on artstation award winning photo hyper detailed sharp focus concept art illustration vibrant colours cinematic composition smooth render octane renderer unreal engine hdri beauty shot digital retouching advanced computer generated`
+    - **Result:** `a beautiful female in her early thirties with a long blonde hair and blue eyes. she is wearing an elegant outfit of black leather pants white blouse and red high heels. she looks like a professional fashion photographer who works as a model for magazines such as Glamour Magazine and Vogue Magazine. the background has soft lighting from different angles. this picture will be featured on a glossy page of a beauty magazine cover. by Garry Spitznagel. Ilya Kuv`
     - **Running time:** 9 sec
   - **Configurator:** `default`
-    - **Result:** `a beautiful young women in her early thirties with long blonde hair wearing a black dress at an industrial photography studio by greg rutkowski trending on artstation digital painting concept art smooth sharp focus illustration highly detailed vibrant colors hd hdr cinematic lighting award winning artwork masterpiece glamorous fashion shoot editorial photo spread for a glossy publication cover of a best selling book trendsetting beauty pageant queen top notch makeup artist stunning`
+    - **Result:** `a beautiful young women in her mid thirties with long blonde hair and a perfect face. she is wearing an elegant dress as a fashion model on the cover of a glamorous glossy magazine. she has just won best portrait photography award at the international photo festival. there are many other photographers around her taking pictures while she poses for them. they all have cameras hanging from their necks like trophies. its very bright studio lighting. trending on artstation. digital painting by greg`
     - **Running time:** 10 sec
 
 <hr>

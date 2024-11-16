@@ -1,8 +1,8 @@
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
 import torch
 from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM, set_seed, pipeline, GPT2Tokenizer, GPT2LMHeadModel, T5Tokenizer, T5ForConditionalGeneration, BloomTokenizerFast, BloomForCausalLM, BertTokenizer, BertForMaskedLM, DebertaV2Model, DebertaV2Config, DebertaV2Tokenizer, DebertaV2ForSequenceClassification, AlbertTokenizer, AlbertModel
-from transformers.models.deberta.modeling_deberta import ContextPooler
+# from transformers.models.deberta.modeling_deberta import ContextPooler
 from ..components.tree import PRIMERE_ROOT
 import os
 import json
@@ -153,10 +153,16 @@ class PromptEnhancerLLM:
                     )
                     enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)
 
+                    full_result = enhanced_text
+                    result = re.search('\"(.*)\"', full_result)
+                    if result is not None:
+                        full_result = result.group(1)
+                    enhanced_text = full_result
+
                 elif "salamandra-" in self.model_path.lower():
                     messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
-                    date_string = datetime.today().strftime('%Y-%m-%d')
-                    prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, date_string=date_string)
+                    # date_string = datetime.today().strftime('%Y-%m-%d')
+                    prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
                     if 'max_length' in settings:
                         del settings['max_length']
