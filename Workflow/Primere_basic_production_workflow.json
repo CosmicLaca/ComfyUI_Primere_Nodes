@@ -773,31 +773,6 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 61,
-      "type": "Note",
-      "pos": {
-        "0": 2973,
-        "1": -43
-      },
-      "size": {
-        "0": 953.01513671875,
-        "1": 58
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "text": ""
-      },
-      "widgets_values": [
-        "Primere PRODUCTION workflow"
-      ],
-      "color": "#c09430",
-      "bgcolor": "#653"
-    },
-    {
       "id": 89,
       "type": "PrimereClearPrompt",
       "pos": {
@@ -4996,7 +4971,7 @@
       "outputs": [
         {
           "name": "*",
-          "type": "IMAGE",
+          "type": "*",
           "links": [
             3310,
             3311
@@ -9563,6 +9538,31 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 61,
+      "type": "Note",
+      "pos": {
+        "0": 2973,
+        "1": -43
+      },
+      "size": {
+        "0": 953.01513671875,
+        "1": 58
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere BASIC PRODUCTION workflow. Please read manual: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
+      ],
+      "color": "#c09430",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -12748,10 +12748,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 1,
       "offset": [
-        -3244.0237661842284,
-        100.53041139772427
+        -1364.9611606451076,
+        329.450128974222
       ]
     }
   },

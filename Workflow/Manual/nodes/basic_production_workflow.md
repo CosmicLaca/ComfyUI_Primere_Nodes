@@ -21,6 +21,8 @@ Test workflow: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Workflow\civ
 All models can be downloaded from Huggingface repositories, the node compatible with lot of another models and adapters.
 The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Downloads\LLM\`, models have to save in separataed subfolders, basically same name as the model.
 
+### <ins>[Check comparison test of my favorite models](llm_enhancer_test.md)</ins>
+
 Example structure of downloaded models:
 
 <img src="llm_folders.jpg" width="500px">
