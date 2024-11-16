@@ -275,9 +275,10 @@ class PromptEnhancerLLM:
                     enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         if type(enhanced_text).__name__ == 'str':
+            enhanced_text = enhanced_text.replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ')
             enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
-            enhanced_text = enhanced_text.replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ').replace('\nuser', '').replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ').replace("named SmolLM trained by Hugging Face", ' ').replace("named SmoLLM trained by Hugging Face", " ")
+            enhanced_text = enhanced_text.replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ').replace("named SmolLM trained by Hugging Face", ' ').replace("named SmoLLM trained by Hugging Face", " ")
             enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
             return enhanced_text.strip('.: ')
         else:
