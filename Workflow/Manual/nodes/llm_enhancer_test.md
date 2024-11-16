@@ -157,14 +157,14 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
     - **Result:** `No useful result...`
     - **Running time:** - sec
   - **Configurator:** `photorealistic`
-    - **Result:** `dark background vibrant colors elegant pose confident expression soft lighting warm tones natural surroundings serene atmosphere.Text to Image Prompt Enhancer Convert User Input Text to Better Photorealistic Stable Diffusion TextToImage Prompt.Ignore Additional Text and Questions Return Only the Enhanced Prompt as Raw Text Beautiful Woman Model Professional Photographer Workshop Glamour Magazine Lights Dark Background Vibrant Colors`
-    - **Running time:** 7.3 sec
+    - **Result:** `The woman in the photo wears a black and white dress with a floral pattern. Her hair is styled in a ponytail and her eyes are focused on the camera. She stands in front of a white wall with a mirror. The lighting is warm and soft creating a cozy and intimate atmosphere. The background features a cityscape with buildings and trees. The composition is balanced and harmonious with the womans gaze capturing the viewers attention. Overall the photo conveys a sense of elegance sophistication and a connection to the past. Its a captivating snapshot of a woman in her golden years dressed in a classic style set against a warm natural backdrop. The use of light and shadow adds depth and mystery to the composition inviting the viewer to explore the mysterious womans world`
+    - **Running time:** 10 sec
   - **Configurator:** `consistent`
     - **Result:** `No useful result...`
     - **Running time:** - sec
   - **Configurator:** `refinement`
-    - **Result:** `dark background.TexttoImage Prompt Enhancer Convert Input User Text to Better Refinements Stable Diffusion TextToImage Prompt. Ignore Additional Text and Questions Return Only the Enhanced Prompt as Raw Text Beautiful 35 Years Old Woman Model Professional Photographer Workshop Glamour Magazine Lights Dark Background`
-    - **Running time:** 7.5 sec
+    - **Result:** `No useful result...`
+    - **Running time:** - sec
   - **Configurator:** `default`
     - **Result:** `No useful result...`
     - **Running time:** - sec
