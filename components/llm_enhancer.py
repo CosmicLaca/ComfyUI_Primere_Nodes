@@ -85,7 +85,7 @@ class PromptEnhancerLLM:
             configurator_name = variant_params['ConfigName']
             del variant_params['ConfigName']
         # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
-        instruction = f"Create {configurator_name} user prompt to image: "
+        instruction = f"Create {configurator_name} 1 prompt for text-to-image text2image models: "
         settings = {**default_settings, **variant_params}
 
         if seed is not None and int(seed) > 1:
@@ -152,11 +152,25 @@ class PromptEnhancerLLM:
                         **settings
                     )
                     enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)
-
                     full_result = enhanced_text
-                    result = re.search('\"(.*)\"', full_result)
-                    if result is not None:
-                        full_result = result.group(1)
+
+                    result = re.findall('\"(.*)\"', full_result)
+                    if result is not None and (len(result)) > 0:
+                        random.seed(seed)
+                        full_result_random = random.choice(result)
+                        if len(full_result_random.split()) <= 6:
+                            special_result = re.findall('\n\d\.(.*)\n', full_result)
+                            if special_result is not None and (len(special_result)) > 0:
+                                full_result_random = random.choice(special_result)
+                                if len(full_result_random.split()) > 6:
+                                    full_result = full_result_random
+                        else:
+                            full_result = full_result_random
+
+                    desc_result = re.findall('Description(.*)', full_result)
+                    if desc_result is not None and (len(desc_result)) > 0:
+                        full_result = desc_result[0].replace('*', '').replace(':', '')
+
                     enhanced_text = full_result
 
                 elif "salamandra-" in self.model_path.lower():
@@ -232,9 +246,19 @@ class PromptEnhancerLLM:
                     )
 
                     full_result = outputs[0]['generated_text'][-1]['content']
-                    result = re.search('\"(.*)\"', full_result)
-                    if result is not None:
-                        full_result = result.group(1)
+                    result = re.findall('\"(.*)\"', full_result)
+                    if result is not None and (len(result)) > 0:
+                        random.seed(seed)
+                        full_result_random = random.choice(result)
+                        if len(full_result_random.split()) <= 6:
+                            special_result = re.findall('\n\d\.(.*)\n', full_result)
+                            if special_result is not None and (len(special_result)) > 0:
+                                full_result_random = random.choice(special_result)
+                                if len(full_result_random.split()) > 6:
+                                    full_result = full_result_random
+                        else:
+                            full_result = full_result_random
+
                     enhanced_text = full_result
 
                 elif "smollm2-" in self.model_path.lower():
@@ -281,12 +305,12 @@ class PromptEnhancerLLM:
                     enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         if type(enhanced_text).__name__ == 'str':
-            enhanced_text = enhanced_text.replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ')
+            enhanced_text = enhanced_text.replace("Hello","").replace(instruction, ' ').replace(input_text, ' ').replace('system', ' ').replace('user', ' ').replace('assistant', ' ')
             enhanced_text = re.sub("<[b][^>]*>(.+?)</[b]>", '', enhanced_text)
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
-            enhanced_text = enhanced_text.replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ').replace("named SmolLM trained by Hugging Face", ' ').replace("named SmoLLM trained by Hugging Face", " ")
+            enhanced_text = enhanced_text.replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ')
             enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
-            return enhanced_text.strip('.: ')
+            return enhanced_text.replace('named SmolLM trained by Hugging Face', '').strip('.: ')
         else:
             return False
 

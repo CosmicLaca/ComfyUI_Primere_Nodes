@@ -15,7 +15,6 @@ This specialized ComfyUI node utilizes local LLM models to enhance, refine, or r
 - **granite-3.0-2b-instruct**: 4.9GB ~10 sec :: [link](https://huggingface.co/ibm-granite/granite-3.0-2b-instruct)
 - **Qwen2.5-3B-Instruct**: 5.7GB ~30 sec :: [link](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct)
 - **Qwen2.5-3B-Instruct-PromptEnhancing**: 13.7MB, but Qwen2.5-3B-Instruct required ~9 sec :: [link](https://huggingface.co/groloch/Qwen2.5-3B-Instruct-PromptEnhancing)
-- **SmoLLM-360M-prompt-enhancer**: 1.3GB ~7 sec :: [link](https://huggingface.co/kadirnar/SmolLM-360M-prompt-enhancer)
 - **SmoLLM2-1.7B-Instruct**: 3.1GB ~17 sec :: [link](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct)
 - **SmoLLM2-Prompt-Enhance**: 517MB ~10 sec :: [link](https://huggingface.co/gokaygokay/SmolLM2-Prompt-Enhance)
 - **TinyLlama-1.1B-32k-Instruct**: 4GB ~11 sec :: [link](https://huggingface.co/Doctor-Shotgun/TinyLlama-1.1B-32k-Instruct)
@@ -57,7 +56,7 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
     - **Result:** `Capture the essence of a stunning 35yearold woman who embodies both elegance and sophistication. As a successful model and professional photographer she exudes confidence and poise in front of the camera. Set against a glamorous backdrop with soft golden lighting her beauty shines through as she poses effortlessly in a luxurious setting. The focus is on highlighting her features from her striking eyes to her flawless skin all while conveying an air of refinement and class that would make her cover a highend fashion magazine like Glamour`
     - **Running time:** 40 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `Glamour in Focus`
+    - **Result:** `Model A closeup shot highlighting facial features (smile) along side fullbody pose`
     - **Running time:** 43 sec
   - **Configurator:** `consistent`
     - **Result:** `Create an image of a stunning 35yearold woman posing as a model with a professional photographers expertise. Incorporate glamorous lighting and a sophisticated backdrop reminiscent of the pages of a highend fashion magazine`
@@ -97,7 +96,7 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
     - **Result:** `Capture the essence of elegance and charm with a captivating portrait. A stunningly beautiful women in her prime stands tall at an age that exudes confidence yet retains youthful allure`
     - **Running time:** 10 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `Glamour Unveiled`
+    - **Result:** `A captivating 30yearold woman resembling a professional model poses elegantly in a workshop setting. The room is adorned with highend photography equipment and equipment reflecting her profession as a photographer. The atmosphere is filled with natural soft lighting reminiscent of a glam`
     - **Running time:** 9.2 sec
   - **Configurator:** `consistent`
     - **Result:** `A captivating threedecade young lady with an elegant and alluring appearance is seeking your expertise in a photoshoot for the prestigious Glamor Magazines Workshop`
@@ -151,42 +150,22 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
 
 <hr>
 
-#### <ins>SmoLLM-360M-prompt-enhancer:</ins>
-- **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
-  - **Configurator:** `balanced`
-    - **Result:** `No useful result...`
-    - **Running time:** - sec
-  - **Configurator:** `photorealistic`
-    - **Result:** `The woman in the photo wears a black and white dress with a floral pattern. Her hair is styled in a ponytail and her eyes are focused on the camera. She stands in front of a white wall with a mirror. The lighting is warm and soft creating a cozy and intimate atmosphere. The background features a cityscape with buildings and trees. The composition is balanced and harmonious with the womans gaze capturing the viewers attention. Overall the photo conveys a sense of elegance sophistication and a connection to the past. Its a captivating snapshot of a woman in her golden years dressed in a classic style set against a warm natural backdrop. The use of light and shadow adds depth and mystery to the composition inviting the viewer to explore the mysterious womans world`
-    - **Running time:** 10 sec
-  - **Configurator:** `consistent`
-    - **Result:** `No useful result...`
-    - **Running time:** - sec
-  - **Configurator:** `refinement`
-    - **Result:** `No useful result...`
-    - **Running time:** - sec
-  - **Configurator:** `default`
-    - **Result:** `No useful result...`
-    - **Running time:** - sec
-
-<hr>
-
 #### <ins>SmoLLM2-1.7B-Instruct:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `Photographing a stunning 35yearold beauty with an eye for elegance and grace  capturing her on camera in our exquisite studio setting under soft golden lighting that accentuates every curve of perfection`
+    - **Result:** `Model  She can be considered both physically attractive and also someone who works professionally with models or photography equipment`
     - **Running time:** 17.4 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `A stunningly beautiful young lady in her mid thirties with an undeniable allure of professionalism is seen posing elegantly while being photographed by herself under soft golden lighting`
+    - **Result:** `Photographers Workshop for the Glamorous Model of a Lifetime`
     - **Running time:** 17.4 sec
   - **Configurator:** `consistent`
-    - **Result:** `A stunning 35yearold woman a seasoned professional in both modeling and photography showcases her captivating beauty at an exclusive workshop for glamour magazines`
+    - **Result:** `Beautiful 35yearold woman model professional photographer and instructor at a glamour magazines workshop. She specializes in capturing stunning images that showcase her elegance and grace under the soft glow of natural or artificial lighting`
     - **Running time:** 17 sec
   - **Configurator:** `refinement`
-    - **Result:** `A stunning 35yearold beauty a seasoned professional in both modeling and photography who has graced numerous glossy pages of top fashion magazines with her dazzling presence`
+    - **Result:** `Im looking for a beautiful and experienced female model in her midthirties who is proficient at modeling sessions. She should have an excellent portfolio of work that showcases both natural beauty as well as artistic skill through the use of various lighting techniques commonly used by professionals such as photographers`
     - **Running time:** 17 sec
   - **Configurator:** `default`
-    - **Result:** `A stunning 35yearold beauty with a passion for modeling and photography has just stepped into our elegant studio where she will be capturing her radiant glow under soft warm lighting`
+    - **Result:** `What is the name of this stunning young lady who has made a career out of capturing beauty through her lens? Is she also an accomplished fashion designer or perhaps involved in any other creative pursuits that showcase her artistic talents beyond photography?`
     - **Running time:** 20 sec
 
 <hr>
@@ -194,19 +173,19 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
 #### <ins>SmoLLM2-Prompt-Enhance:</ins>
 - **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
   - **Configurator:** `balanced`
-    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A detailed elaboration of \"The Beautiful Woman\" with an emphasis on subtle details in light blue color palette (120). The female figure is depicted standing at her left side facing away from you while she holds up two large white glass jars that have been placed over each other for about five seconds before being lifted off their pedestals so they can be seen more clearly without them touching or falling into one anothers hands this has made it possible not just visible but also almost invisible when viewed directly through these small windows.\"BEGINED BY THE WOMAN OF BEAUTIFUL FATHERS MISSION\" which reads out loud\"THIS IS AN EMPLOYEE SURVIVING A PROBLEM THAT MAKES HER DETECTIVE AND EVALUABLE\". She wears long black hair styled down curving back slightly towards top right corner showing dark brown eyes looking straight ahead toward what looks like sunlight shining onto both faces forming shadowy silhouettes against sky above.\"the caption says \"beautiful lady\"\") there appears no background elements including any objects within viewable distance.nIn stark contrastneerclawed tree trunk stands immediately below center frame where its branches extend further extending outward beyond`
+    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A view of the person who is sitting in their chair and looking at her reflection. She has long curly brown hair with white strands that have been cut off as if she was going out for some reason but its still standing straight up on its own like an object without any weight or support from other objects placed around them so they dont fall over when youre doing your morning yoga pose while holding this one right now (the photo above). Her left hand can be seen hanging down beside hers there isnt much light coming through these two things being held close together  no sunlight shines onto either side even though both hands touch each others faces which creates shadows against those surfaces.) The background shows clear blue sky visible across all four vertical lines running horizontally along every line except horizontal ones where we see only black clouds scattered about below our sundappled dark gray tree branches behind us forming what looks more than just shadowy silhouetted trees  tall green grass interspersed among small bushes covering everything elseand also distant mountains stretching far into space beyond \"allahabad\" before reaching another mountain range extending further ahead toward something slightly farther away yet not quite touching anything because nothing really exists within such vast distances between land masses.\"alhamwil\"is written here using`
     - **Running time:** 12 sec
   - **Configurator:** `photorealistic`
-    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights a woman with long dark hair wearing a black dress standing on a wooden platform in the center of the image her left hand resting on her forehead her right hand holding a camera the woman is in the middle of the frame the photograph has a shallow depth of field with a blurred background the lighting is soft and diffused creating a warm and romantic atmosphere the photo has a high contrast between the woman and the background no other objects or text visible the image has a clean and minimalist aesthetic`
+    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A photorealistically rendered image of a beautiful woman a model and a professional photographer. The woman is in her mid30s with long dark hair and a bright smile. She is standing in front of a workshop and the model is behind her. The model is wearing a black jacket and a white blazer and she is holding a camera in her right hand. The photo is taken from a high angle with the model looking directly at the camera. The light is coming from the left side of the image casting shadows on the models face`
     - **Running time:** 5.6 sec
   - **Configurator:** `consistent`
-    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A detailed elaboration of \"The Beautiful Woman\" in bold white lettering with an orange background is rendered into two images that clearly show her face at full length while shes looking directly down from up on top left corner toward right bottom center behind this view we see three more women who all have their heads slightly tilted towards each other but still look straight ahead for some time before they turn back or continue walking forward without touching anything else around them (the first one has its head turned away). Behind these ladies there can be seen another person standing next door wearing dark blue pants which looks like it was worn out after being outdoors during summer days when suns rays shine brightly through windows making shadows appear darker than what you would normally expect because sunlight reflects off glass surfaces.) The entire room appears dimly lit except where light shines onto either side creating shadowy silhouettes against wall walls below those areas so no visible objects beyond small window panes above both sides.\"WOMENS STORAGE\". A large black metal box sits atop several smaller wooden boxes stacked vertically along long horizontal lines running horizontally across vertical sections extending far enough past any ceiling tiles forming floor level panels underneath floors beneath ceilings hanging over balconies outside buildings near city skyline views overlooking ocean waves crashing upon shore opposite building`
+    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights a closeup photograph of the persons face with light skin tones and dark hair. The photo is taken from above looking down on their left cheekbone while theyre standing up in an office or home environment that has multiple windows along its side paneled window frame at top right corner behind this door you can see two large metal doors hanging vertically across both sides as if there were people inside but no one was visible except for her eyes shining bright blue like she had just stepped out onto another room where it could be seen through those small glass panes which have been painted black over them.\"HERE IS A MONEYING MOUNTAIN\" IN PAPER ON THE LEFT AND RIGHT BETWEEN THESE SQUARE FRAME RAILWAINS\" \"A WOMANS CIRCUMFLEXED DUCTILE BOX EMPORTS TOGETHER WITH AN OVERLAND STREAK OF GOLD FROM HER TONGUELESS FORMALIZATION\". In between these square frames we find several smaller boxes stacked upon each other forming what appears more than three separate pieces  all placed horizontally facing upwards towards our eye line (the bottom half). There isnt any text present`
     - **Running time:** 10 sec
   - **Configurator:** `refinement`
-    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights An enhanced version of the original text \"35 year old woman a professional photographer working in a workshop. She is wearing a black dress and her hair is styled in a ponytail. She is standing in front of a mirror looking at her reflection. She is smiling and looking at the camera.\" The text has been transformed into a more detailed and realistic image with a focus on the womans face and body. The background is blurred creating a shallow depth of field effect giving a sense of depth to the image. The image is centered on the woman with her left hand resting on her forehead and her right hand touching her face`
+    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A detailed 3D render of a 35yearold woman a professional photographer and a model in a workshop. The woman is wearing a black dress her hair is styled in a ponytail and her eyes are filled with a deep shade of blue. She is holding a camera in her right hand and her head is tilted slightly to the left. The model is wearing a white shirt and a black jacket and she is looking directly at the camera. She is standing in front of a glass wall and behind her is a metal workbench. The workbench is filled with various papers books and other objects and there is a light fixture on the workbench that shines brightly. The background is a clear blue sky with a few scattered clouds and the sunlight is shining down on the model and the workbench`
     - **Running time:** 7 sec
   - **Configurator:** `default`
-    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A detailed elaboration of \"The Beautiful Woman\" with bolded words in black ink on white paper is rendered into an immersive digital art style that seamlessly transitions from pastel colors (white) towards dark blue hues while highlighting her striking features like sharp jawline or piercing green eyes she has long curly hair cascading down both arms revealing intricate patterns around each shoulder  all details perfectly captured without any extra embellishments  this stunning portrait showcases how one person can be so breathtakingly different yet connected through their shared passion for photography. The light source creates subtle shadows creating contrast between what appears at first glance but ultimately becoming clear upon closer inspectiona perfect balance within natures majestic beauty.\" hspace20cmrightarrow textbfemphics \"1984\" \" which reads the worlds most famous photograph adds another sentence below it\"and then there were two people who looked very much alike both women with no discernible differences they had been together since childhood.\" also written above themleftmost right hand pointing upwards`
+    - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights A closeup view of the top right corner from an angle looking down at her face. She has long dark hair that is styled in loose waves and she looks like its been worn out but still shiny with some light spots on them as if they were recently cut or shaved off for any reasons other than just being too messy (which I dont believe). Her left eye can be seen shining brightly through its pupil which shows how much time youve spent staring into your eyes while taking photos however this photo does not show anything else besides what we see directly up front because there isnt another person behind us who could have taken these pictures without seeing their own reflection so no one would even look back once again after having looked forward three times. A black metal door frame sits across two large glass windows facing each others faces towards either side where sunlight shines onto both sides creating shadows against those walls  The window frames also create shadowy areas around herself making everything appear brighter when viewed slightly above ground level due only about half way over . Another small white framed letter \"M\" stands beside hers near bottom center below all four letters except 124680.\"MANAGING MONEY IN THE WEEKLY PUBLISHTERS\`
     - **Running time:** 11 sec
 
 
