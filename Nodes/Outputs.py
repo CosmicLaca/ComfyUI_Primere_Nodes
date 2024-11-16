@@ -1008,3 +1008,56 @@ class PrimereAestheticCKPTScorer():
                                             utility.add_value_to_cache('styles_ascores', selectedStyle, counter + '|' + score)
 
         return {"ui": {"text": [final_prediction]}, "result": (final_prediction,)}
+
+class DebugToFile():
+    CATEGORY = TREE_OUTPUTS
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("PROMPT+",)
+    FUNCTION = "debug_to_file"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "input_prompt": ("STRING", {"default": "", "forceInput": True}),
+                "enhanced_prompt": ("STRING", {"default": "", "forceInput": True}),
+                "seed": ("INT", {"default": 1, "forceInput": True}),
+            },
+            "hidden": {
+                "extra_pnginfo": "EXTRA_PNGINFO",
+                "prompt": "PROMPT"
+            },
+        }
+
+    def debug_to_file(self, **kwargs):
+        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        prompt = kwargs['prompt']
+
+        LLM_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereLLMEnhancer', 'llm_model_path', prompt)
+        LLM_CONF = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereLLMEnhancer', 'configurator', prompt)
+
+        json_dir = os.path.join(PRIMERE_ROOT, 'json')
+        json_file = os.path.join(json_dir, 'llm_autotest.json')
+
+        cacheData = {LLM_NAME: {LLM_CONF: [{"input_prompt": kwargs['input_prompt'], "enhanced_prompt": kwargs['enhanced_prompt'], "seed": kwargs['seed']}]}}
+        json_object = json.dumps(cacheData, indent=4)
+        ifJsonExist = os.path.isfile(json_file)
+        if ifJsonExist == True:
+            with open(json_file, 'r') as openfile:
+                saved_cache = json.load(openfile)
+                if LLM_NAME in saved_cache and LLM_CONF in saved_cache[LLM_NAME]:
+                    cacheData = [{"input_prompt": kwargs['input_prompt'], "enhanced_prompt": kwargs['enhanced_prompt'], "seed": kwargs['seed']}]
+                    saved_cache[LLM_NAME][LLM_CONF].append(cacheData)
+                elif LLM_NAME in saved_cache and LLM_CONF not in saved_cache[LLM_NAME]:
+                    cacheData = {LLM_CONF: [{"input_prompt": kwargs['input_prompt'], "enhanced_prompt": kwargs['enhanced_prompt'], "seed": kwargs['seed']}]}
+                    saved_cache[LLM_NAME].update(cacheData)
+                else:
+                    saved_cache.update(cacheData)
+                newJsonObject = json.dumps(saved_cache, indent=4)
+                with open(json_file, "w", encoding='utf-8') as outfile:
+                    outfile.write(newJsonObject)
+        else:
+            with open(json_file, "w", encoding='utf-8') as outfile:
+                outfile.write(json_object)
+
+        return (LLM_NAME,)

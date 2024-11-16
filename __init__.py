@@ -112,6 +112,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereKSampler": Outputs.PrimereKSampler,
     "PrimerePreviewImage": Outputs.PrimerePreviewImage,
     "PrimereAestheticCKPTScorer": Outputs.PrimereAestheticCKPTScorer,
+    "DebugToFile": Outputs.DebugToFile,
 
     "PrimereStylePile": Styles.PrimereStylePile,
     "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
@@ -181,6 +182,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereKSampler": "Primere KSampler",
     "PrimerePreviewImage": "Primere Image Preview and Save as...",
     "PrimereAestheticCKPTScorer": "Primere Aesthetic Scorer",
+    "DebugToFile": "Primere Debug To File",
 
     "PrimereStylePile": "Primere Style Pile",
     "PrimereMidjourneyStyles": "Primere Midjourney Styles",

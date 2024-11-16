@@ -8,6 +8,7 @@ import os
 import json
 import random
 import re
+from ..components import utility
 
 class PromptEnhancerLLM:
     def __init__(self, model_path: str = "flan-t5-small"):
@@ -310,7 +311,7 @@ class PromptEnhancerLLM:
             enhanced_text = re.sub(r"http\S+", "", enhanced_text)
             enhanced_text = enhanced_text.replace('<pad>', '').replace('text to image', '').replace('texttoimage', '').replace('prompt', '').replace(r'\\', '').replace('!', '.').replace("You are a helpful AI", ' ')
             enhanced_text = re.sub(r'[^a-zA-Z0-9 ."?!()]', '', enhanced_text)
-            return enhanced_text.replace('named SmolLM trained by Hugging Face', '').strip('.: ')
+            return enhanced_text.replace('named SmolLM trained by Hugging Face', '').strip('\\.:,/ ')
         else:
             return False
 
@@ -318,6 +319,7 @@ def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed
     model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', modelKey)
     if os.path.isdir(model_access) == True:
         enhancer = PromptEnhancerLLM(modelKey)
+        promptInput = utility.clear_cascade(promptInput)
         enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator)
         return enhanced
     else:

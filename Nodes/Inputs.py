@@ -127,7 +127,7 @@ class PrimereRefinerPrompt:
                 "positive_original": ("STRING", {"forceInput": True}),
                 "negative_original": ("STRING", {"forceInput": True}),
                 "model_concept": ("STRING", {"forceInput": True, "default": 'Normal'}),
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
