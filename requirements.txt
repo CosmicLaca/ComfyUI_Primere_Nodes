@@ -41,3 +41,4 @@ accelerate
 cpm-kernels
 diffusers
 bitsandbytes
+peft>=0.10.0
