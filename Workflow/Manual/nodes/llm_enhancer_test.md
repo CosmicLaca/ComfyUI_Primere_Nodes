@@ -17,7 +17,6 @@ This specialized ComfyUI node utilizes local LLM models to enhance, refine, or r
 - **Qwen2.5-3B-Instruct-PromptEnhancing**: 13.7MB, but Qwen2.5-3B-Instruct required ~9 sec :: [link](https://huggingface.co/groloch/Qwen2.5-3B-Instruct-PromptEnhancing)
 - **SmoLLM2-1.7B-Instruct**: 3.1GB ~17 sec :: [link](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct)
 - **SmoLLM2-Prompt-Enhance**: 517MB ~10 sec :: [link](https://huggingface.co/gokaygokay/SmolLM2-Prompt-Enhance)
-- **TinyLlama-1.1B-32k-Instruct**: 4GB ~11 sec :: [link](https://huggingface.co/Doctor-Shotgun/TinyLlama-1.1B-32k-Instruct)
 
 Test workflow: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Workflow\civitai-llm-enhancer.json`
 
@@ -188,23 +187,4 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
     - **Result:** `beautiful 35 years old woman model professional photographer workshop glamour magazine lights An image of the same person as seen from above. The photo is taken at night with light shining down on her face and looking up to see what she looks like in detail theres no background or any other objects that can be visible but it has been turned into an exact replica so they will look exactly alike (the only difference between them being their age). There isnt much sunlight coming through this door which makes everything appear darker than its actual size because youre not seeing anything else outside your viewport while taking these photos  just one small window out over top left corner showing something inside another smaller glass pane behind each individual picture frame placed directly across front right side where all four frames have come together forming two large vertical lines running vertically along both sides going horizontally towards bottom center line below) She also appears slightly more slender compared having less weight since nothing was dropped onto hers except possibly some dust particles floating around within those three framed pictures about five inches away off opposite corners respectively.) Her eyes shine bright blue when viewed against dark gray backgrounds near upper middle portion toward lower half central section (text0 rightarrow left(fracpi6). A black metal rod extends diagonally upward extending far enough forward beyond most surrounding buildings windows`
     - **Running time:** 11 sec
 
-
 <hr>
-
-#### <ins>TinyLlama-1.1B-32k-Instruct:</ins>
-- **Input prompt:** `beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights`
-  - **Configurator:** `balanced`
-    - **Result:** `You have provided a very detailed and rich description of a beautiful 35 yearold woman with whom you had a great experience. Its hard to imagine her being any more gorgeous than she is in this image`
-    - **Running time:** 11 sec
-  - **Configurator:** `photorealistic`
-    - **Result:** `I present to you a stunning portrait of the beautiful and talented model. She is not only an incredible artist but also one who has dedicated her life to helping others achieve their dreams through artistry. Her name? womanname  shell be sure to make your day brighter than ever with this gorgeous image`
-    - **Running time:** 13.5 sec
-  - **Configurator:** `consistent`
-    - **Result:** `No useful result`
-    - **Running time:** - sec
-  - **Configurator:** `refinement`
-    - **Result:** `No useful result`
-    - **Running time:** - sec
-  - **Configurator:** `default`
-    - **Result:** `I present to you a stunning portrait of the beautiful and talented 35 year old woman named Model. She is not only an accomplished photographer but also a successful businesswoman who has worked with many renowned magazines. Her name is Woman and she has been featured in several prestigious publications such as Glamour Magazine`
-    - **Running time:** 11 sec
