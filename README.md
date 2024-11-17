@@ -8,6 +8,8 @@ Nodepack under development. Manual written by AI, please open issue if something
 
 **All example workflows in the `Workflow` folder of the node root.**
 
+**Primere Youtube channel:** https://www.youtube.com/@PrimereComfydev/videos
+
 <hr>
 
 ## Minimal workflow: 
