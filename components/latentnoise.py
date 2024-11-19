@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import comfy.samplers
 import random
+from ..components import utility
 
 def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", variation_seed=None, variation_strength=None):
     latent_size = latent_image.size()
@@ -55,7 +56,7 @@ def noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, posit
     batch_inds = latent_image["batch_index"] if "batch_index" in latent_image else None
 
     random.seed(seed)
-    variation_seed = random.randint(0, 0xffffffffffffffff)
+    variation_seed = random.randint(0, utility.MAX_SEED)
 
     noise = prepare_noise(latent_image["samples"], seed, batch_inds, noise_device, variation_seed=variation_seed, variation_strength=variation_extender)
 

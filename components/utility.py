@@ -35,6 +35,7 @@ comfy_dir = str(here.parent.parent)
 cache_dir = os.path.join(here, 'Nodes', '.cache')
 cache_file = os.path.join(cache_dir, '.cache.json')
 
+MAX_SEED = 999999999999999
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
 CASCADE_SIDES = np.arange(64, 2049, 16).tolist()

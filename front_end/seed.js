@@ -38,7 +38,7 @@ class SeedControl {
         if (!this.seedWidget) {
             throw new Error("Something's wrong; expected seed widget");
         }
-        const randMax = Math.min(1125899906842624, this.seedWidget.options.max);
+        const randMax = Math.min(999999999999999, this.seedWidget.options.max);
         const randMin = Math.max(0, this.seedWidget.options.min);
         const randomRange = (randMax - Math.max(0, randMin)) / (this.seedWidget.options.step / 10);
 

@@ -31,7 +31,7 @@ class PrimereVisualCKPT:
                 "aescore_percent_max": ("INT", {"default": 800, "min": 200, "max": 1000, "step": 50})
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED}),
             },
             "hidden": {
                 "subdir": ("checkpoints",),
@@ -48,7 +48,7 @@ class PrimereVisualCKPT:
     def load_ckpt_visual_list(self, base_model, show_hidden, show_modal, preview_path, aescore_percent_min, aescore_percent_max, random_model, random_seed = 0):
         def new_state_random():
             random.seed(datetime.datetime.now().timestamp())
-            return random.randint(10, 0xffffffffffffffff)
+            return random.randint(10, utility.MAX_SEED)
 
         if random_model == True:
             fullSource = self.allModels
@@ -131,7 +131,7 @@ class PrimereVisualLORA:
                 "lora_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
@@ -226,7 +226,7 @@ class PrimereVisualEmbedding:
                 "embedding_placement_neg": (["First", "Last"], {"default": "Last"}),
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
@@ -308,7 +308,7 @@ class PrimereVisualHypernetwork:
                 "hypernetwork_6_weight": ("FLOAT", {"default": 1.0, "min": -10.0, "max": 10.0, "step": 0.01}),
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {
@@ -370,7 +370,7 @@ class PrimereVisualStyle:
                 "aescore_percent_max": ("INT", {"default": 800, "min": 200, "max": 1000, "step": 50})
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED}),
             },
             "hidden": {
                 "subdir": ("styles",),
@@ -387,7 +387,7 @@ class PrimereVisualStyle:
     def load_visual_csv(self, styles, show_modal, show_hidden, use_subpath, use_model, use_orientation, aescore_percent_min, aescore_percent_max, random_prompt, random_seed = 0):
         def new_state_random():
             random.seed(datetime.datetime.now().timestamp())
-            return random.randint(10, 0xffffffffffffffff)
+            return random.randint(10, utility.MAX_SEED)
 
         styleKey = self.styles_csv['name'] == styles
 
@@ -499,7 +499,7 @@ class PrimereVisualPromptOrganizerCSV:
         }
 
         optionalDict = {
-            "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff})
+            "random_seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED})
         }
 
         MERGED_REQ = utility.merge_dict(additionalDict, STYLE_RESULT)
@@ -588,7 +588,7 @@ class PrimereVisualLYCORIS:
                 "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
-                "random_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff}),
+                "random_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED}),
                 "workflow_tuple": ("TUPLE", {"forceInput": True, "default": {}})
             },
             "hidden": {

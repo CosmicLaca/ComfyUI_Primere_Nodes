@@ -44,7 +44,7 @@ const NodesubdirByType = {
     'Embedding': 'embeddings'
 }
 
-const OutputToNode = ['PrimereAnyOutput', 'PrimereTextOutput', 'PrimereAestheticCKPTScorer'];
+const OutputToNode = ['PrimereAnyOutput', 'PrimereTextOutput', 'PrimereAestheticCKPTScorer', 'PrimereFastSeed'];
 
 app.registerExtension({
     name: "Primere.PrimereOutputs",
@@ -57,8 +57,10 @@ app.registerExtension({
                 this.showValueWidget = ComfyWidgets["STRING"](this, "output", ["STRING", { multiline: true }], app).widget;
                 this.showValueWidget.inputEl.readOnly = true;
                 this.showValueWidget.serializeValue = async (node, index) => {
-                    node.widgets_values[index] = "";
-                    return "";
+                    if (typeof node.widgets_values != "undefined") {
+                        node.widgets_values[index] = "";
+                        return "";
+                    }
                 };
             };
             const onExecuted = nodeType.prototype.onExecuted;
@@ -66,6 +68,12 @@ app.registerExtension({
                 onExecuted === null || onExecuted === void 0 ? void 0 : onExecuted.apply(this, [message]);
                 this.showValueWidget.value = message.text[0];
             };
+        }
+
+        if (nodeData.name === "PrimereFastSeed") {
+            /* nodeType.prototype.onNodeCreated = function () {
+                PrimereFastSeedWidget.apply(this, [this, 'PrimereFastSeed']);
+            } */
         }
 
         if (nodeData.name === "PrimerePreviewImage") {
@@ -80,63 +88,76 @@ app.registerExtension({
     },
 });
 
+async function PrimereFastSeedWidget(node, inputName) {
+    if (inputName == 'PrimereFastSeed') {
+        node.addWidget("button", "🎲 Randomize Each Time", null, () => {
+            //this.seedWidget.value = SPECIAL_SEED_RANDOM;
+        }, {serialize: false});
+        node.addWidget("button", "♻️ Freeze last seed", null, () => {
+            //this.seedWidget.value = SPECIAL_SEED_RANDOM;
+        }, {serialize: false});
+    }
+}
+
 async function PrimerePreviewSaverWidget(node, inputName) {
-    node.name = inputName;
-    const widget = {
-        type: "preview_saver_widget",
-        name: `w${inputName}`,
-        callback: () => {
-        },
-    };
+    if (inputName == 'PrimerePreviewSaver') {
+        node.name = inputName;
+        const widget = {
+            type: "preview_saver_widget",
+            name: `w${inputName}`,
+            callback: () => {
+            },
+        };
 
-    node.onWidgetChanged = function (name, value, old_value) {
-        if (name == 'preview_target') {
-            PreviewTarget = value;
-        }
-        if (name == 'image_save_as') {
-            SaveMode = value;
-        }
-        if (name == 'image_type') {
-            IMGType = value;
-        }
-        if (name == 'image_resize') {
-            MaxSide = value;
-        }
-        if (name == 'target_selection') {
-            SelectedTarget = value;
-        }
-        if (name == 'image_quality') {
-            TargetQuality = value;
-        }
-        if (name == 'preview_save_mode') {
-            PrwSaveMode = value;
-        }
-        ButtonLabelCreator(node);
-        return false;
-    };
+        node.onWidgetChanged = function (name, value, old_value) {
+            if (name == 'preview_target') {
+                PreviewTarget = value;
+            }
+            if (name == 'image_save_as') {
+                SaveMode = value;
+            }
+            if (name == 'image_type') {
+                IMGType = value;
+            }
+            if (name == 'image_resize') {
+                MaxSide = value;
+            }
+            if (name == 'target_selection') {
+                SelectedTarget = value;
+            }
+            if (name == 'image_quality') {
+                TargetQuality = value;
+            }
+            if (name == 'preview_save_mode') {
+                PrwSaveMode = value;
+            }
+            ButtonLabelCreator(node);
+            return false;
+        };
 
-    node.addWidget("combo", "target_selection", 'select target...', () => {
-    }, {
-        values: ["select target..."],
-    });
+        node.addWidget("combo", "target_selection", 'select target...', () => {
+        }, {
+            values: ["select target..."],
+        });
 
-    node.addWidget("button", buttontitle, null, () => {
-        if (SaveIsValid === true) {
-            if (typeof node['imgs'] != "undefined") {
-                node.PreviewSaver = new PreviewSaver(node);
+        node.addWidget("button", buttontitle, null, () => {
+            if (SaveIsValid === true) {
+                if (typeof node['imgs'] != "undefined") {
+                    node.PreviewSaver = new PreviewSaver(node);
+                } else {
+                    SaveIsValid = false;
+                    buttontitle = 'Image not available for save. Please load one.';
+                    applyWidgetValues(LoadedNode, buttontitle, TargetSelValues);
+                    alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
+                }
             } else {
-                SaveIsValid = false;
-                buttontitle = 'Image not available for save. Please load one.';
-                applyWidgetValues(LoadedNode, buttontitle, TargetSelValues);
                 alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
             }
-        } else {
-            alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
-        }
-    });
+        });
 
-    LoadedNode = node;
-    return {widget: widget};
+        LoadedNode = node;
+        return {widget: widget};
+    }
 }
 
 app.registerExtension({

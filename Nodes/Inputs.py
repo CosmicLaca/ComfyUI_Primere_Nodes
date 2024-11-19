@@ -23,6 +23,7 @@ from ..utils import comfy_dir
 from ..components import hypernetwork
 import json
 from ..components import llm_enhancer
+import datetime
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -116,7 +117,6 @@ class PrimereRefinerPrompt:
                 "negative_refiner_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "positive_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "negative_original_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.01}),
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
                 "token_normalization": (["none", "mean", "length", "length+mean"],),
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"],),
                 **CONCEPT_INPUTS
@@ -124,10 +124,12 @@ class PrimereRefinerPrompt:
             "optional": {
                 "clip": ("CLIP",),
                 "model": ("MODEL",),
+                "vae": ("VAE",),
                 "positive_original": ("STRING", {"forceInput": True}),
                 "negative_original": ("STRING", {"forceInput": True}),
                 "model_concept": ("STRING", {"forceInput": True, "default": 'Normal'}),
                 "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "seed_input": ("INT", {"default": 1, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -144,8 +146,12 @@ class PrimereRefinerPrompt:
             wildcard_wrap = "__"
         )
 
-    def refiner_prompt(self, extra_pnginfo, id, seed, token_normalization, weight_interpretation, clip = None, model = None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Auto', model_version = 'SD1', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
+    def refiner_prompt(self, extra_pnginfo, id, token_normalization, weight_interpretation, seed_input = 1, clip = None, model = None, vae = None, refiner_model = 'None', refiner_vae = 'None', refiner_network = 'None', refiner_network_weight = 1, refiner_network_insertion = True, positive_refiner = "", negative_refiner = "", positive_original = None, negative_original = None, model_concept = 'Auto', model_version = 'SD1', positive_refiner_strength = 1, negative_refiner_strength = 1, positive_original_strength = 1, negative_original_strength = 1,
                        **kwargs):
+
+        if seed_input <= 1:
+            random.seed(datetime.datetime.now().timestamp())
+            seed_input = random.randint(1000, utility.MAX_SEED)
         def refiner_debug_state(self, extra_pnginfo, id):
             workflow = extra_pnginfo["workflow"]
             for node in workflow["nodes"]:
@@ -191,6 +197,9 @@ class PrimereRefinerPrompt:
                 if inputValue == False and model_concept == CONCEPT_SIGN:
                     refiner_state = False
 
+        if (clip is None or model is None or vae is None) and refiner_model == 'None':
+            refiner_state = False
+
         if positive_refiner_strength != 0:
             if positive_refiner_strength != 1:
                 final_positive = f'({output_positive}:{positive_refiner_strength:.2f})' if output_positive is not None and output_positive != '' else ''
@@ -215,11 +224,12 @@ class PrimereRefinerPrompt:
             else:
                 final_negative = f'{final_negative} {negative_original}'
 
-        final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed)
-        final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed)
+        final_positive = utility.DynPromptDecoder(self, final_positive.strip(' ,;'), seed_input)
+        final_negative = utility.DynPromptDecoder(self, final_negative.strip(' ,;'), seed_input)
 
-        if model is not None and refiner_state == True:
+        if model is not None and vae is not None and refiner_state == True and refiner_model == "None":
             OUTPUT_MODEL = model
+            OUTPUT_VAE = vae
 
         elif model is None and refiner_model != "None" and refiner_state == True:
             LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model)
@@ -279,15 +289,16 @@ class PrimereRefinerPrompt:
                     else:
                         final_negative = final_negative + ', ' + embedding_string
 
-        try:
-            embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-            embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-        except Exception:
-            tokens = clip.tokenize(final_positive)
-            embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
+        if refiner_state == True:
+            try:
+                embeddings_final_pos, pooled_pos = advanced_encode(clip, final_positive, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+                embeddings_final_neg, pooled_neg = advanced_encode(clip, final_negative, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            except Exception:
+                tokens = clip.tokenize(final_positive)
+                embeddings_final_pos, pooled_pos = clip.encode_from_tokens(tokens, return_pooled = True)
 
-            tokens = clip.tokenize(final_negative)
-            embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
+                tokens = clip.tokenize(final_negative)
+                embeddings_final_neg, pooled_neg = clip.encode_from_tokens(tokens, return_pooled = True)
 
         prompt_tuple = {}
         prompt_tuple['refiner_state'] = refiner_state
@@ -484,7 +495,7 @@ class PrimereDynParser:
         return {
             "required": {
                 "dyn_prompt": ("STRING", {"multiline": True, "forceInput": True}),
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED, "forceInput": True}),
             }
         }
 
@@ -892,7 +903,7 @@ class PrimereMetaHandler:
                         workflow_tuple['vae'] = 'External VAE'
 
         if kwargs['seed'] == False and 'workflow_tuple' not in kwargs:
-            workflow_tuple['seed'] = random.randint(1, 0xffffffffffffffff)
+            workflow_tuple['seed'] = random.randint(1, utility.MAX_SEED)
 
         if kwargs['force_vae'] == True and kwargs['vae'] == False:
             workflow_tuple['vae'] = 'Baked VAE'
@@ -1084,7 +1095,7 @@ class PrimereMetaDistributorStage2:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED, "forceInput": True}),
                 "width": ('INT', {"forceInput": True, "default": 512}),
                 "height": ('INT', {"forceInput": True, "default": 512}),
                 # "rnd_orientation": ("BOOLEAN", {"default": False}),

@@ -12,6 +12,8 @@ import torch
 from urllib.parse import urlparse
 from pathlib import Path
 from .modules.adv_encode import advanced_encode
+import random
+import datetime
 
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")
@@ -300,7 +302,6 @@ class PrimereAnyDetailer:
                  "model": ("MODEL",),
                  "clip": ("CLIP",),
                  "vae": ("VAE",),
-                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
 
                  "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
                  "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS,),
@@ -321,17 +322,17 @@ class PrimereAnyDetailer:
             "optional": {
                 "segs": ("SEGS",),
                 "detector": ("DETECTOR",),
-
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
                 "concept_sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
                 "concept_scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-                "concept_steps": ("INT", {"default": 4, "forceInput": True}),
-                "concept_cfg": ("FLOAT", {"default": 1.0, "forceInput": True}),
+                "concept_steps": ("INT", {"default": 20, "min": 1, "max": 10000, "forceInput": True}),
+                "concept_cfg": ("FLOAT", {"default": 8.0,  "min": 0.0, "max": 100.0, "forceInput": True}),
+                "seed_input": ("INT", {"default": 42, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
             }
         }
 
     @staticmethod
-    def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed, steps, cfg, sampler_name, scheduler_name,
+    def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed_input, steps, cfg, sampler_name, scheduler_name,
                       positive, negative, denoise, feather, noise_mask, force_inpaint,
                       segment_settings, detector, segs,
                       model_concept, cycle, use_aesthetic_scorer):
@@ -357,7 +358,7 @@ class PrimereAnyDetailer:
 
         if len(segs[1]) > 0:
             enhanced_img, _, cropped_enhanced, cropped_enhanced_alpha, cnet_pil_list, new_segs = detectors.DetailerForEach.do_detail(image, segs, model, clip, vae, guide_size, guide_size_for_bbox,
-                                                                                                                                     max_size, seed, steps, cfg,
+                                                                                                                                     max_size, seed_input, steps, cfg,
                                                                                                                                      sampler_name, scheduler_name, positive, negative, denoise,
                                                                                                                                      feather, noise_mask, force_inpaint, segment_settings,
                                                                                                                                      wildcard_opt, detailer_hook,
@@ -386,11 +387,17 @@ class PrimereAnyDetailer:
 
         return enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list
 
-    def any_detailer(self, image, model, clip, vae, seed,
-                     steps, cfg, sampler_name, scheduler_name,
+    def any_detailer(self, image, model, clip, vae,
+                     sampler_name, scheduler_name, steps, cfg,
                      positive, negative, denoise, feather, noise_mask, force_inpaint,
-                     segment_settings, detector = None, segs = None, cycle = 1,
-                     model_concept = "Auto", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8, use_aesthetic_scorer = False):
+                     segment_settings, cycle = 1, use_aesthetic_scorer = False,
+                     segs = None, detector = None,
+                     model_concept = "Auto", concept_sampler_name = "euler", concept_scheduler_name = "normal", concept_steps = 20, concept_cfg = 8,
+                     seed_input = 1):
+
+        if seed_input <= 1:
+            random.seed(datetime.datetime.now().timestamp())
+            seed_input = random.randint(1000, utility.MAX_SEED)
 
         if segment_settings['use_segments'] == False:
             SEGMENT_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'Nodes')
@@ -430,7 +437,7 @@ class PrimereAnyDetailer:
             else:
                 guide_size = round(math.sqrt(full_area), 2)
 
-            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle, use_aesthetic_scorer)
+            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed_input + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle, use_aesthetic_scorer)
 
             result_img = torch.cat((result_img, enhanced_img), dim=0) if result_img is not None else enhanced_img
             result_mask = torch.cat((result_mask, mask), dim=0) if result_mask is not None else mask

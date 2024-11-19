@@ -534,7 +534,7 @@ class PrimereKSampler:
         return {
             "required": {
                 "model": ("MODEL", {"forceInput": True}),
-                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
                 "steps": ("INT", {"default": 20, "min": 1, "max": 10000, "forceInput": True}),
                 "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0, "forceInput": True}),
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
@@ -599,7 +599,7 @@ class PrimereKSampler:
 
         def new_state():
             random.seed(datetime.datetime.now().timestamp())
-            return random.randint(10, 0xffffffffffffffff)
+            return random.randint(1000, utility.MAX_SEED)
 
         def get_noise_extender(variation_limit, state_random):
             random.seed(state_random)

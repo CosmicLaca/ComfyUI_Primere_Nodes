@@ -18,6 +18,7 @@ import re
 from ..components import hypernetwork
 from ..components import clipping
 from ..components import nf4_helper
+from ..components import primereserver
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
@@ -46,6 +47,9 @@ from ..components.pixart.conf import pixart_conf
 from ..components.pixart.loader import load_pixart
 import numpy as np
 import difflib
+import datetime
+from server import PromptServer
+from aiohttp import web
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -1343,12 +1347,54 @@ class PrimereSeed:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "seed": ("INT", {"default": -1, "min": -1125899906842624, "max": 1125899906842624}),
+                "seed": ("INT", {"default": -1, "min": -1, "max": utility.MAX_SEED}),
             }
         }
 
     def seed(self, seed=-1):
         return (seed,)
+
+class PrimereFastSeed:
+    RETURN_TYPES = ("INT",)
+    RETURN_NAMES = ("SEED",)
+    FUNCTION = "primere_fastseed"
+    OUTPUT_NODE = True
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "seed_setup": (['Random', 'Increase', 'Decrease', 'UseLast', 'UseCustom'], {"default": 'Random'}),
+                "custom_seed": ("INT", {"default": 42, "min": 0, "max": utility.MAX_SEED, "step": 1}),
+            }
+        }
+
+    @classmethod
+    def IS_CHANGED(self, **kwargs):
+        if kwargs['seed_setup'] == 'UseCustom' and seed != kwargs['custom_seed']:
+            return float("NaN")
+
+        if kwargs['seed_setup'] != 'UseLast' and kwargs['seed_setup'] != 'UseCustom':
+            return float("NaN")
+
+    def primere_fastseed(self, seed_setup, custom_seed):
+        global seed
+
+        match seed_setup:
+            case "Random":
+                random.seed(datetime.datetime.now().timestamp())
+                seed = random.randint(1000, utility.MAX_SEED)
+            case "Increase":
+                seed = seed + 1
+            case "Decrease":
+                seed = seed - 1
+            case "UseLast":
+                seed = seed
+            case "UseCustom":
+                seed = custom_seed
+
+        return {"ui": {"text": [f'Last seed: [{seed}]']}, "result": (seed,)}
 
 class PrimereFractalLatent:
     RETURN_TYPES = ("LATENT", "IMAGE", "TUPLE")
@@ -1371,7 +1417,7 @@ class PrimereFractalLatent:
             "modulator": ("FLOAT", {"default": 1.0, "max": 2.0, "min": 0.1, "step": 0.01}),
             "modulator_rand_min": ("FLOAT", {"default": 0.8, "max": 2.0, "min": 0.1, "step": 0.01}),
             "modulator_rand_max": ("FLOAT", {"default": 1.4, "max": 2.0, "min": 0.1, "step": 0.01}),
-            "noise_seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+            "noise_seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED, "forceInput": True}),
             "rand_device": ("BOOLEAN", {"default": False}),
             "device": (["cpu", "cuda"],),
             "expand_random_limits": ("BOOLEAN", {"default": False, "label_on": "ON", "label_off": "OFF"}),
@@ -2079,7 +2125,7 @@ class PrimereResolution:
                 "custom_side_b": ("FLOAT", {"default": 2.8, "min": 1.0, "max": 100.0, "step": 0.05}),
             },
             "optional": {
-                "seed": ("INT", {"default": 0, "min": -1, "max": 0xffffffffffffffff, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED, "forceInput": True}),
                 "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
             },
