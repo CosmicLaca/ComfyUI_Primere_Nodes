@@ -1381,16 +1381,25 @@ class PrimereFastSeed:
     def primere_fastseed(self, seed_setup, custom_seed):
         global seed
 
+        random.seed(datetime.datetime.now().timestamp())
         match seed_setup:
             case "Random":
-                random.seed(datetime.datetime.now().timestamp())
                 seed = random.randint(1000, utility.MAX_SEED)
             case "Increase":
-                seed = seed + 1
+                if 'seed' in globals():
+                    seed = seed + 1
+                else:
+                    seed = random.randint(1000, utility.MAX_SEED)
             case "Decrease":
-                seed = seed - 1
+                if 'seed' in globals():
+                    seed = seed - 1
+                else:
+                    seed = random.randint(1000, utility.MAX_SEED)
             case "UseLast":
-                seed = seed
+                if 'seed' in globals():
+                    seed = seed
+                else:
+                    seed = random.randint(1000, utility.MAX_SEED)
             case "UseCustom":
                 seed = custom_seed
 
