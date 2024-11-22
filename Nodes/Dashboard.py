@@ -2364,8 +2364,11 @@ class PrimereClearNetworkTagsPrompt:
             NETWORK_START_GETVER.append('<lyco:')
             NETWORK_START_GETVER.append('embedding:')
             NETWORK_END = ['\n', '>', ' ', ',', '}', ')', '|'] + NETWORK_START_GETVER
-            NETWORK_TUPLE = utility.get_networks_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt)
-            if (len(NETWORK_TUPLE) > 0):
+
+            NETWORK_TUPLE_POS = utility.get_networks_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt)
+            NETWORK_TUPLE_NEG = utility.get_networks_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt)
+
+            if (len(NETWORK_TUPLE_POS) > 0 or len(NETWORK_TUPLE_NEG) > 0):
                 LoraList = folder_paths.get_filename_list("loras")
                 EmbeddingList = folder_paths.get_filename_list("embeddings")
                 LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
@@ -2373,32 +2376,55 @@ class PrimereClearNetworkTagsPrompt:
                 LyCORIS = folder_paths.get_filename_list("lycoris")
                 LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
 
-                for NETWORK_DATA in NETWORK_TUPLE:
-                    NetworkName = NETWORK_DATA[0]
-                    NetworkType = NETWORK_DATA[2]
-                    if NetworkType == 'LORA' and remove_lora == True:
-                        lora_name = utility.get_closest_element(NetworkName, LoraList)
-                        modelname_only = Path(lora_name).stem
-                        network_model_version = utility.get_value_from_cache('lora_version', modelname_only)
-                        if model_version != network_model_version:
-                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
-                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+                if (len(NETWORK_TUPLE_POS) > 0):
+                    for NETWORK_DATA in NETWORK_TUPLE_POS:
+                        NetworkName = NETWORK_DATA[0]
+                        NetworkType = NETWORK_DATA[2]
+                        if NetworkType == 'LORA' and remove_lora == True:
+                            lora_name = utility.get_closest_element(NetworkName, LoraList)
+                            modelname_only = Path(lora_name).stem
+                            network_model_version = utility.get_value_from_cache('lora_version', modelname_only)
+                            if model_version != network_model_version:
+                                positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
 
-                    if NetworkType == 'LYCORIS' and remove_lycoris == True:
-                        lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
-                        modelname_only = Path(lycoris_name).stem
-                        network_model_version = utility.get_value_from_cache('lycoris_version', modelname_only)
-                        if model_version != network_model_version:
-                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
-                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+                        if NetworkType == 'LYCORIS' and remove_lycoris == True:
+                            lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
+                            modelname_only = Path(lycoris_name).stem
+                            network_model_version = utility.get_value_from_cache('lycoris_version', modelname_only)
+                            if model_version != network_model_version:
+                                positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
 
-                    if NetworkType == 'EMBEDDING' and remove_embedding == True:
-                        embed_name = utility.get_closest_element(NetworkName, EmbeddingList)
-                        modelname_only = Path(embed_name).stem
-                        network_model_version = utility.get_value_from_cache('embedding_version', modelname_only)
-                        if model_version != network_model_version:
-                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
-                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+                        if NetworkType == 'EMBEDDING' and remove_embedding == True:
+                            embed_name = utility.get_closest_element(NetworkName, EmbeddingList)
+                            modelname_only = Path(embed_name).stem
+                            network_model_version = utility.get_value_from_cache('embedding_version', modelname_only)
+                            if model_version != network_model_version:
+                                positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
+
+                if (len(NETWORK_TUPLE_NEG) > 0):
+                    for NETWORK_DATA in NETWORK_TUPLE_NEG:
+                        NetworkName = NETWORK_DATA[0]
+                        NetworkType = NETWORK_DATA[2]
+                        if NetworkType == 'LORA' and remove_lora == True:
+                            lora_name = utility.get_closest_element(NetworkName, LoraList)
+                            modelname_only = Path(lora_name).stem
+                            network_model_version = utility.get_value_from_cache('lora_version', modelname_only)
+                            if model_version != network_model_version:
+                                negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+
+                        if NetworkType == 'LYCORIS' and remove_lycoris == True:
+                            lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
+                            modelname_only = Path(lycoris_name).stem
+                            network_model_version = utility.get_value_from_cache('lycoris_version', modelname_only)
+                            if model_version != network_model_version:
+                                negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+
+                        if NetworkType == 'EMBEDDING' and remove_embedding == True:
+                            embed_name = utility.get_closest_element(NetworkName, EmbeddingList)
+                            modelname_only = Path(embed_name).stem
+                            network_model_version = utility.get_value_from_cache('embedding_version', modelname_only)
+                            if model_version != network_model_version:
+                                negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
 
             return (positive_prompt, negative_prompt,)
 
