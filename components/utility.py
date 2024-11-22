@@ -122,7 +122,7 @@ def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str =
 
     return dimensions
 
-def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
+def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname = False):
     promptstring_temp = promptstring
 
     for LABEL in NETWORK_START:
@@ -138,7 +138,7 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
 
                 LabelEndIndex = sorted(Matches)[0]
                 MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
-                if len(MatchedString) > 0:
+                if len(MatchedString) > 0 and (modelname == False or (modelname != False and modelname in MatchedString)):
                     if '<' in MatchedString:
                         endString = '>'
                         Match = promptstring.find(endString, (LabelStartIndex + 1))
@@ -163,10 +163,7 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring):
 
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
 
-def clear_cascade(prompt):
-    return re.sub("(:\d+\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
-
-def clear_hunyuan(prompt, length = 0):
+def DiT_cleaner(prompt, length = 0):
     cleanPrompt = re.sub("(:\d+\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
     if length > 0:
         cleanPrompt = cleanPrompt[:length].rsplit(' ', 1)[0]
@@ -198,6 +195,8 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
                         networkdata.append('LYCORIS')
                     if LABEL == '<hypernet:':
                         networkdata.append('HYPERNET')
+                    if LABEL == 'embedding:':
+                        networkdata.append('EMBEDDING')
 
                     valid_networks.append(networkdata)
 

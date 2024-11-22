@@ -1,6 +1,6 @@
 {
-  "last_node_id": 197,
-  "last_link_id": 3065,
+  "last_node_id": 199,
+  "last_link_id": 3077,
   "nodes": [
     {
       "id": 115,
@@ -1106,8 +1106,8 @@
           "links": [
             1233,
             1234,
-            1235,
-            2667
+            2667,
+            3072
           ]
         }
       ],
@@ -1122,205 +1122,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 132,
-      "type": "PrimereNetworkTagLoader",
-      "pos": [
-        701.4896240234375,
-        1719.8623046875
-      ],
-      "size": [
-        361.0999755859375,
-        562
-      ],
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 1228
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 1229
-        },
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": 3019,
-          "shape": 7
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 834,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            2346
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            2663
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "LORA_STACK",
-          "type": "LORA_STACK",
-          "links": null
-        },
-        {
-          "name": "LYCORIS_STACK",
-          "type": "LYCORIS_STACK",
-          "links": null
-        },
-        {
-          "name": "HYPERNETWORK_STACK",
-          "type": "HYPERNETWORK_STACK",
-          "links": null
-        },
-        {
-          "name": "LORA_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            2665
-          ]
-        },
-        {
-          "name": "LYCORIS_KEYWORD",
-          "type": "MODEL_KEYWORD",
-          "links": [
-            2666
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereNetworkTagLoader"
-      },
-      "widgets_values": [
-        "",
-        true,
-        true,
-        true,
-        true,
-        false,
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1,
-        true,
-        "Last",
-        "Select in order",
-        1,
-        1
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
-      "id": 89,
-      "type": "PrimereClearPrompt",
-      "pos": [
-        1070.4892578125,
-        1720.8623046875
-      ],
-      "size": [
-        315,
-        294
-      ],
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 1235,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 824,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 825,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "model_concept"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            2668
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            2669
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereClearPrompt"
-      },
-      "widgets_values": [
-        "BaseModel_1024",
-        "",
-        "",
-        false,
-        false,
-        true,
-        true,
-        true,
-        true,
-        "Normal"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
       "id": 19,
       "type": "PreviewImage",
       "pos": [
@@ -1332,7 +1133,7 @@
         342.6979064941406
       ],
       "flags": {},
-      "order": 37,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -1459,7 +1260,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        928730524195573,
+        254499221663078,
         "randomize",
         20,
         8,
@@ -1817,7 +1618,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1321,
+        906,
         "randomize",
         "",
         "",
@@ -1967,7 +1768,7 @@
       },
       "widgets_values": [
         2.1,
-        459285262806555,
+        125377902770722,
         "randomize",
         7,
         6.5,
@@ -2448,8 +2249,7 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            824,
-            834
+            3073
           ],
           "slot_index": 0,
           "shape": 3
@@ -2458,7 +2258,7 @@
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            825
+            3074
           ],
           "slot_index": 1,
           "shape": 3
@@ -2469,9 +2269,7 @@
       },
       "widgets_values": [
         "",
-        "",
-        true,
-        true
+        ""
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -2546,7 +2344,7 @@
         942
       ],
       "flags": {},
-      "order": 36,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -2601,7 +2399,7 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 2668,
+          "link": 3075,
           "widget": {
             "name": "positive_prompt"
           }
@@ -2609,7 +2407,7 @@
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 2669,
+          "link": 3077,
           "widget": {
             "name": "negative_prompt"
           }
@@ -2935,31 +2733,6 @@
       ],
       "color": "#4800a5",
       "bgcolor": "#5c00b9"
-    },
-    {
-      "id": 61,
-      "type": "Note",
-      "pos": [
-        1914,
-        -48
-      ],
-      "size": [
-        1041.097900390625,
-        58
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "text": ""
-      },
-      "widgets_values": [
-        "Primere BASIC workflow for several concepts: SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma"
-      ],
-      "color": "#c09430",
-      "bgcolor": "#653"
     },
     {
       "id": 196,
@@ -4729,7 +4502,7 @@
         426
       ],
       "flags": {},
-      "order": 35,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -4810,7 +4583,7 @@
         1,
         0.8,
         1.4,
-        795327386890670,
+        363910346138662,
         "randomize",
         true,
         "cpu",
@@ -4868,9 +4641,8 @@
       },
       "widgets_values": [
         "",
-        309865642285060,
-        "randomize",
-        true
+        302395558299631,
+        "randomize"
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -4924,9 +4696,8 @@
       },
       "widgets_values": [
         "",
-        212371436430689,
-        "randomize",
-        true
+        185567141196666,
+        "randomize"
       ],
       "color": "#6c2c2c",
       "bgcolor": "#804040"
@@ -5151,7 +4922,7 @@
         338
       ],
       "flags": {},
-      "order": 33,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -5226,7 +4997,7 @@
         false,
         1.6,
         2.8,
-        309841193425650,
+        966569717166193,
         "randomize",
         "SD1",
         "Auto"
@@ -5308,9 +5079,7 @@
         "human, man, woman, girl, nsfw, nude, nudity, porn",
         "SeassonBackground",
         "None",
-        "None",
-        true,
-        true
+        "None"
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -5361,6 +5130,232 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
+    },
+    {
+      "id": 199,
+      "type": "PrimereClearNetworkTagsPrompt",
+      "pos": [
+        691,
+        1716
+      ],
+      "size": [
+        484.708251953125,
+        556.2340087890625
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3072,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3073,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 3074,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            3075,
+            3076
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            3077
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereClearNetworkTagsPrompt"
+      },
+      "widgets_values": [
+        "SD1",
+        "",
+        "",
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 132,
+      "type": "PrimereNetworkTagLoader",
+      "pos": [
+        1190,
+        1717
+      ],
+      "size": [
+        396.6774597167969,
+        562
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1228
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1229
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": 3019,
+          "shape": 7
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3076,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2346
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2663
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "LORA_STACK",
+          "type": "LORA_STACK",
+          "links": null
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null
+        },
+        {
+          "name": "HYPERNETWORK_STACK",
+          "type": "HYPERNETWORK_STACK",
+          "links": null
+        },
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            2665
+          ]
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            2666
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereNetworkTagLoader"
+      },
+      "widgets_values": [
+        "",
+        true,
+        true,
+        true,
+        true,
+        false,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 61,
+      "type": "Note",
+      "pos": [
+        1916,
+        -63
+      ],
+      "size": [
+        1041.35400390625,
+        75.36822509765625
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere BASIC workflow for several concepts: SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma"
+      ],
+      "color": "#c09430",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -5549,30 +5544,6 @@
       "INT"
     ],
     [
-      824,
-      8,
-      0,
-      89,
-      1,
-      "STRING"
-    ],
-    [
-      825,
-      8,
-      1,
-      89,
-      2,
-      "STRING"
-    ],
-    [
-      834,
-      8,
-      0,
-      132,
-      3,
-      "STRING"
-    ],
-    [
       836,
       97,
       0,
@@ -5634,14 +5605,6 @@
       3,
       131,
       1,
-      "STRING"
-    ],
-    [
-      1235,
-      145,
-      3,
-      89,
-      0,
       "STRING"
     ],
     [
@@ -5906,22 +5869,6 @@
       3,
       191,
       7,
-      "STRING"
-    ],
-    [
-      2668,
-      89,
-      0,
-      191,
-      8,
-      "STRING"
-    ],
-    [
-      2669,
-      89,
-      1,
-      191,
-      9,
       "STRING"
     ],
     [
@@ -7195,6 +7142,54 @@
       131,
       2,
       "STRING"
+    ],
+    [
+      3072,
+      145,
+      3,
+      199,
+      0,
+      "STRING"
+    ],
+    [
+      3073,
+      8,
+      0,
+      199,
+      1,
+      "STRING"
+    ],
+    [
+      3074,
+      8,
+      1,
+      199,
+      2,
+      "STRING"
+    ],
+    [
+      3075,
+      199,
+      0,
+      191,
+      8,
+      "STRING"
+    ],
+    [
+      3076,
+      199,
+      0,
+      132,
+      3,
+      "STRING"
+    ],
+    [
+      3077,
+      199,
+      1,
+      191,
+      9,
+      "STRING"
     ]
   ],
   "groups": [
@@ -7230,8 +7225,8 @@
       "bounding": [
         681,
         1643,
-        726,
-        657
+        922.2063598632812,
+        663.0431518554688
       ],
       "color": "#804000",
       "font_size": 24,
@@ -7293,10 +7288,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 0.8264462809917354,
       "offset": [
-        -144.89214043541799,
-        339.43078511877826
+        -231.22405064655592,
+        234.4717728156648
       ]
     }
   },

@@ -127,7 +127,7 @@ class PrimereRefinerPrompt:
                 "vae": ("VAE",),
                 "positive_original": ("STRING", {"forceInput": True}),
                 "negative_original": ("STRING", {"forceInput": True}),
-                "model_concept": ("STRING", {"forceInput": True, "default": 'Normal'}),
+                "model_concept": ("STRING", {"forceInput": True, "default": 'Auto'}),
                 "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
                 "seed_input": ("INT", {"default": 1, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
             },
@@ -552,33 +552,6 @@ class PrimereEmbeddingHandler:
                         text = text.replace(embedding_name, 'embedding:' + embedding_name)
 
         return text
-
-class PrimereVAESelector:
-    RETURN_TYPES = ("VAE",)
-    RETURN_NAMES = ("VAE",)
-    FUNCTION = "primere_vae_selector"
-    CATEGORY = TREE_INPUTS
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "vae_sd": ("VAE",),
-                "vae_sdxl": ("VAE",),
-                "vae_cascade": ("VAE",),
-                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
-                "model_concept": ("STRING", {"default": "SD1", "forceInput": True}),
-            }
-        }
-
-    def primere_vae_selector(self, vae_sd, vae_sdxl, vae_cascade, model_version = "BaseModel_1024", model_concept = 'Normal'):
-        match model_concept:
-            case 'StableCascade':
-                return (vae_cascade,)
-        match model_version:
-            case 'SDXL':
-                return (vae_sdxl,)
-        return (vae_sd,)
 
 class PrimereMetaHandler:
     CATEGORY = TREE_INPUTS

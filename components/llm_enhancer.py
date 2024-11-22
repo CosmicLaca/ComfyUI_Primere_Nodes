@@ -323,7 +323,7 @@ def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed
     model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', modelKey)
     if os.path.isdir(model_access) == True:
         enhancer = PromptEnhancerLLM(modelKey)
-        promptInput = utility.clear_cascade(promptInput)
+        promptInput = utility.DiT_cleaner(promptInput)
         enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator)
         return enhanced
     else:

@@ -61,7 +61,7 @@ valid_FElist = [s for s in mainDirs if s not in IGNORE_FRONTEND] + [frontend_sou
 
 for subdirs in valid_FElist:
     scanPath = os.path.join(frontend_source, subdirs)
-    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.css'))
+    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css'))
     for regFile in scanFiles:
         nodes.append(regFile)
 
@@ -77,7 +77,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLatentNoise": Dashboard.PrimereFractalLatent,
     "PrimereCLIPEncoder": Dashboard.PrimereCLIP,
     "PrimereResolution": Dashboard.PrimereResolution,
-    "PrimereClearPrompt": Dashboard.PrimereClearPrompt,
+    "PrimereClearNetworkTagsPrompt": Dashboard.PrimereClearNetworkTagsPrompt,
+    "PrimereDiTPurifyPrompt": Dashboard.PrimereDiTPurifyPrompt,
     "PrimereModelConceptSelector": Dashboard.PrimereModelConceptSelector,
     "PrimereConceptDataTuple": Dashboard.PrimereConceptDataTuple,
     "PrimereResolutionMultiplierMPX": Dashboard.PrimereResolutionMultiplierMPX,
@@ -89,7 +90,6 @@ NODE_CLASS_MAPPINGS = {
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
     "PrimereDynamicParser": Inputs.PrimereDynParser,
-    "PrimereVAESelector": Inputs.PrimereVAESelector,
     "PrimereEmbeddingHandler": Inputs.PrimereEmbeddingHandler,
     "PrimereLoraStackMerger": Inputs.PrimereLoraStackMerger,
     "PrimereLoraKeywordMerger": Inputs.PrimereLoraKeywordMerger,
@@ -148,7 +148,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLatentNoise": "Primere Noise Latent",
     "PrimereCLIPEncoder": "Primere Prompt Encoder",
     "PrimereResolution": "Primere Resolution",
-    "PrimereClearPrompt": "Primere Prompt Cleaner",
+    "PrimereClearNetworkTagsPrompt": "Primere Network Tag Cleaner",
+    "PrimereDiTPurifyPrompt": "Primere DiT Purify Prompt",
     "PrimereModelConceptSelector": "Primere Model Concept Selector",
     "PrimereResolutionMultiplierMPX": "Primere Resolution MPX",
     "PrimereResolutionCoordinatorMPX": "Primere Resolution Coordinator",
@@ -160,7 +161,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",
     "PrimereDynamicParser": "Primere Dynamic",
-    "PrimereVAESelector": "Primere VAE Version Selector",
     "PrimereEmbeddingHandler": "Primere Embedding Handler",
     "PrimereLoraStackMerger": "Primere Lora Stack Merger",
     "PrimereLoraKeywordMerger": 'Primere Lora Keyword Merger',

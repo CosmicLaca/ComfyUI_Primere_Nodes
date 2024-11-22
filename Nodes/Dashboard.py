@@ -18,7 +18,6 @@ import re
 from ..components import hypernetwork
 from ..components import clipping
 from ..components import nf4_helper
-from ..components import primereserver
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
@@ -48,8 +47,7 @@ from ..components.pixart.loader import load_pixart
 import numpy as np
 import difflib
 import datetime
-from server import PromptServer
-from aiohttp import web
+from ..Nodes.Inputs import PrimereEmbeddingHandler
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -1804,8 +1802,8 @@ class PrimereCLIP:
             cond_neg_ref = None
             out_neg_ref = None
 
-            positive_text = utility.clear_cascade(positive_text)
-            negative_text = utility.clear_cascade(negative_text)
+            positive_text = utility.DiT_cleaner(positive_text)
+            negative_text = utility.DiT_cleaner(negative_text)
 
             if clip['refiner'] is not None:
                 clipRef = clip['refiner']
@@ -1832,21 +1830,21 @@ class PrimereCLIP:
                 CLIPDIT = clip['clip']
                 CLIPT5 = clip['t5']
 
-                positive_text = utility.clear_hunyuan(positive_text, 0)
-                negative_text = utility.clear_hunyuan(negative_text, 0)
-                t5xxl_prompt = utility.clear_hunyuan(t5xxl_prompt, 0)
+                positive_text = utility.DiT_cleaner(positive_text, 0)
+                negative_text = utility.DiT_cleaner(negative_text, 0)
+                t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt, 0)
 
                 pos_out = clipping.HunyuanClipping(self, positive_text, t5xxl_prompt, CLIPDIT, CLIPT5)
                 neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
                 return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
             else:
                 clip = clip['clip']
-                positive_text = utility.clear_hunyuan(positive_text, 512)
-                negative_text = utility.clear_hunyuan(negative_text, 512)
+                positive_text = utility.DiT_cleaner(positive_text, 512)
+                negative_text = utility.DiT_cleaner(negative_text, 512)
 
         if model_concept == 'KwaiKolors':
-            positive_text = utility.clear_cascade(positive_text)
-            negative_text = utility.clear_cascade(negative_text)
+            positive_text = utility.DiT_cleaner(positive_text)
+            negative_text = utility.DiT_cleaner(negative_text)
 
             # device = model_management.get_torch_device()
             # device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -2074,8 +2072,8 @@ class PrimereCLIP:
             tokens_neg = clip.tokenize(negative_text)
 
             if model_concept == 'StableCascade':
-                positive_text = utility.clear_cascade(positive_text)
-                negative_text = utility.clear_cascade(negative_text)
+                positive_text = utility.DiT_cleaner(positive_text)
+                negative_text = utility.DiT_cleaner(negative_text)
 
                 cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
                 cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
@@ -2330,43 +2328,99 @@ class PrimereResolutionCoordinatorMPX:
 
         return (ref_width, ref_height, slave_width, slave_height, reference_image, ref_width_resized, ref_height_resized, slave_image, slave_width_resized, slave_height_resized)
 
-class PrimereClearPrompt:
+class PrimereClearNetworkTagsPrompt:
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("PROMPT+", "PROMPT-")
-    FUNCTION = "clean_prompt"
+    FUNCTION = "clean_network_tags_prompt"
     CATEGORY = TREE_DASHBOARD
 
     @classmethod
     def INPUT_TYPES(cls):
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_INPUTS = {}
+        for concept in CONCEPT_LIST:
+            CONCEPT_INPUTS["remove_only_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
+
         return {
             "required": {
-                "model_version": ("STRING", {"default": 'BaseModel_1024', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
-                "remove_only_if_sdxl": ("BOOLEAN", {"default": False}),
-                "remove_comfy_embedding": ("BOOLEAN", {"default": False}),
-                "remove_a1111_embedding": ("BOOLEAN", {"default": False}),
+                "remove_embedding": ("BOOLEAN", {"default": False}),
                 "remove_lora": ("BOOLEAN", {"default": False}),
                 "remove_lycoris": ("BOOLEAN", {"default": False}),
                 "remove_hypernetwork": ("BOOLEAN", {"default": False}),
-            },
-            "optional": {
-                "model_concept": ("STRING", {"default": "Normal", "forceInput": True}),
+                "auto_remover": ("BOOLEAN", {"default": True, "label_on": "Auto clean", "label_off": "Manual clean"}),
+                **CONCEPT_INPUTS
             }
         }
 
-    def clean_prompt(self, positive_prompt, negative_prompt, remove_comfy_embedding, remove_a1111_embedding, remove_lora, remove_lycoris, remove_hypernetwork, remove_only_if_sdxl, model_version='BaseModel_1024', model_concept="Normal"):
-        NETWORK_START = []
+    def clean_network_tags_prompt(self, positive_prompt, negative_prompt, remove_embedding, remove_lora, remove_lycoris, remove_hypernetwork, auto_remover = True, model_version='SD1', **kwargs):
+        clean_state = True
 
-        is_sdxl = 0
-        match model_version:
-            case 'SDXL':
-                is_sdxl = 1
+        if auto_remover == True:
+            NETWORK_START_GETVER = []
+            NETWORK_START_GETVER.append('<lora:')
+            NETWORK_START_GETVER.append('<lyco:')
+            NETWORK_START_GETVER.append('embedding:')
+            NETWORK_END = ['\n', '>', ' ', ',', '}', ')', '|'] + NETWORK_START_GETVER
+            NETWORK_TUPLE = utility.get_networks_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt)
+            if (len(NETWORK_TUPLE) > 0):
+                LoraList = folder_paths.get_filename_list("loras")
+                EmbeddingList = folder_paths.get_filename_list("embeddings")
+                LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
+                folder_paths.add_model_folder_path("lycoris", LYCO_DIR)
+                LyCORIS = folder_paths.get_filename_list("lycoris")
+                LycorisList = folder_paths.filter_files_extensions(LyCORIS, ['.ckpt', '.safetensors'])
 
-        if remove_only_if_sdxl == True and is_sdxl == 0:
+                for NETWORK_DATA in NETWORK_TUPLE:
+                    NetworkName = NETWORK_DATA[0]
+                    NetworkType = NETWORK_DATA[2]
+                    if NetworkType == 'LORA' and remove_lora == True:
+                        lora_name = utility.get_closest_element(NetworkName, LoraList)
+                        modelname_only = Path(lora_name).stem
+                        network_model_version = utility.get_value_from_cache('lora_version', modelname_only)
+                        if model_version != network_model_version:
+                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
+                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+
+                    if NetworkType == 'LYCORIS' and remove_lycoris == True:
+                        lycoris_name = utility.get_closest_element(NetworkName, LycorisList)
+                        modelname_only = Path(lycoris_name).stem
+                        network_model_version = utility.get_value_from_cache('lycoris_version', modelname_only)
+                        if model_version != network_model_version:
+                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
+                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+
+                    if NetworkType == 'EMBEDDING' and remove_embedding == True:
+                        embed_name = utility.get_closest_element(NetworkName, EmbeddingList)
+                        modelname_only = Path(embed_name).stem
+                        network_model_version = utility.get_value_from_cache('embedding_version', modelname_only)
+                        if model_version != network_model_version:
+                            positive_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, positive_prompt, modelname_only)
+                            negative_prompt = utility.clear_prompt(NETWORK_START_GETVER, NETWORK_END, negative_prompt, modelname_only)
+
             return (positive_prompt, negative_prompt,)
 
-        if remove_comfy_embedding == True:
+        else:
+            input_data = kwargs
+            SUPPORTED_CONCEPTS = utility.SUPPORTED_MODELS
+            SUPPORTED_CONCEPTS_UC = [x.upper() for x in SUPPORTED_CONCEPTS]
+            concept_processor = []
+            for inputKey, inputValue in input_data.items():
+                if inputKey.startswith("remove_only_") == True:
+                    conceptSignUC = inputKey[len("remove_only_"):].upper()
+                    conceptIndex = SUPPORTED_CONCEPTS_UC.index(conceptSignUC)
+                    CONCEPT_SIGN = SUPPORTED_CONCEPTS[conceptIndex]
+                    concept_processor.append(inputValue)
+                    if inputValue == False and model_version == CONCEPT_SIGN:
+                        clean_state = False
+
+        if clean_state == False:
+            return (positive_prompt, negative_prompt,)
+
+        NETWORK_START = []
+        if remove_embedding == True:
             NETWORK_START.append('embedding:')
 
         if remove_lora == True:
@@ -2378,7 +2432,7 @@ class PrimereClearPrompt:
         if remove_hypernetwork == True:
             NETWORK_START.append('<hypernet:')
 
-        if remove_a1111_embedding == True:
+        '''if remove_a1111_embedding == True:
             positive_prompt = positive_prompt.replace('embedding:', '')
             negative_prompt = negative_prompt.replace('embedding:', '')
             EMBEDDINGS = folder_paths.get_filename_list("embeddings")
@@ -2388,18 +2442,61 @@ class PrimereClearPrompt:
                 positive_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", positive_prompt)
                 negative_prompt = re.sub("(\(" + embedding_name + ":\d+\.\d+\))|(\(" + embedding_name + ":\d+\))|(" + embedding_name + ":\d+\.\d+)|(" + embedding_name + ":\d+)|(" + embedding_name + ":)|(\(" + embedding_name + "\))|(" + embedding_name + ")", "", negative_prompt)
                 positive_prompt = re.sub(r'(, )\1+', r', ', positive_prompt).strip(', ').replace(' ,', ',')
-                negative_prompt = re.sub(r'(, )\1+', r', ', negative_prompt).strip(', ').replace(' ,', ',')
+                negative_prompt = re.sub(r'(, )\1+', r', ', negative_prompt).strip(', ').replace(' ,', ',')'''
 
         if len(NETWORK_START) > 0:
             NETWORK_END = ['\n', '>', ' ', ',', '}', ')', '|'] + NETWORK_START
             positive_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, positive_prompt)
             negative_prompt = utility.clear_prompt(NETWORK_START, NETWORK_END, negative_prompt)
 
-        if model_concept == 'StableCascade':
-            positive_prompt = utility.clear_cascade(positive_prompt)
-            negative_prompt = utility.clear_cascade(negative_prompt)
+        return (positive_prompt, negative_prompt,)
+
+class PrimereDiTPurifyPrompt:
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("PROMPT+", "PROMPT-")
+    FUNCTION = "dit_purify_prompt"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_INPUTS = {}
+        for concept in CONCEPT_LIST:
+            CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
+
+        return {
+            "required": {
+                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "positive_prompt": ("STRING", {"forceInput": True}),
+                "negative_prompt": ("STRING", {"forceInput": True}),
+                "max_length": ("INT", {"default": 0, "min": 0, "max": 100000, "step": 10}),
+                **CONCEPT_INPUTS
+            }
+        }
+
+    def dit_purify_prompt(self, positive_prompt, negative_prompt, model_version = "SD1", max_length = 0, **kwargs):
+        purify_state = True
+        input_data = kwargs
+        SUPPORTED_CONCEPTS = utility.SUPPORTED_MODELS
+        SUPPORTED_CONCEPTS_UC = [x.upper() for x in SUPPORTED_CONCEPTS]
+        concept_processor = []
+        for inputKey, inputValue in input_data.items():
+            if inputKey.startswith("purify_") == True:
+                conceptSignUC = inputKey[len("purify_"):].upper()
+                conceptIndex = SUPPORTED_CONCEPTS_UC.index(conceptSignUC)
+                CONCEPT_SIGN = SUPPORTED_CONCEPTS[conceptIndex]
+                concept_processor.append(inputValue)
+                if inputValue == False and model_version == CONCEPT_SIGN:
+                    purify_state = False
+
+        if purify_state == False:
+            return (positive_prompt, negative_prompt,)
+
+        positive_prompt = utility.DiT_cleaner(positive_prompt, max_length)
+        negative_prompt = utility.DiT_cleaner(negative_prompt, max_length)
 
         return (positive_prompt, negative_prompt,)
+
 
 class PrimereNetworkTagLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "LORA_STACK", "LYCORIS_STACK", "HYPERNETWORK_STACK", "MODEL_KEYWORD", "MODEL_KEYWORD")
@@ -2450,7 +2547,7 @@ class PrimereNetworkTagLoader:
             if 'model_concept' in workflow_tuple:
                 concept = workflow_tuple['model_concept']
             if 'model_version' in workflow_tuple:
-                if concept == 'Auto' and workflow_tuple['model_version'] == 'SDXL_2048':
+                if concept == 'Auto' and workflow_tuple['model_version'] == 'SDXL':
                     stack_version = 'SDXL'
 
             if 'setup_states' in workflow_tuple and 'network_data' in workflow_tuple:
