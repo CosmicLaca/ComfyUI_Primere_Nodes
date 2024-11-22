@@ -240,7 +240,7 @@ class PrimereRefinerPrompt:
             else:
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
-        if refiner_network != 'None':
+        if refiner_network != 'None' and refiner_state == True:
             network_name = refiner_network
             network_data = network_name.split('\\', 1)
             network_path = network_data[1]
