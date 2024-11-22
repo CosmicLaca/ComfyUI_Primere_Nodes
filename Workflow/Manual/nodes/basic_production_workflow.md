@@ -299,3 +299,152 @@ Remember: Fine-tune these settings based on your specific use case and desired o
 <img src="refiner_block_hands2.jpg" width="500px">
 
 <hr>
+
+# <ins>DiT Prompt Purifier Node:</ins>
+
+<img src="prompt_dit_cleaner.jpg" width="500px">
+
+### Overview:
+The DiT Prompt Purifier node automatically cleans and optimizes prompts for modern Diffusion Transformer (DiT) architectures by removing incompatible elements, weights, and structural components that may interfere with newer models.
+
+### Key Features:
+
+- Automatic model version detection
+- Character length limitation
+- Architecture-specific prompt purification
+- Selective cleaning based on model Architecture
+- Incompatible weight and structure removal
+
+### Cleaning Operations
+
+#### Removes:
+- Prompt weights (e.g., `(element:1.2)`)
+- Legacy break commands (`BREAK`)
+- Nested parentheses structures
+- Old-style prompt formatting
+
+#### Controls:
+- `max_length`: Character limit (0 = unlimited)
+- Model-specific purification toggles
+- Automatic architecture detection by loaded checkpoint
+
+### Architecture Controls:
+
+#### Standard Models (no need to purify)
+- `purify_sd1`: SD1.x prompts
+- `purify_sd2`: SD2.x prompts
+- `purify_sdxl`: SDXL prompts
+- `purify_sd3`: SD3 prompts
+
+#### Modern DiT Models (have to purify)
+- `purify_stablecascade`: Stable Cascade
+- `purify_flux`: Flux models
+- `purify_kwaikolors`: KwaiKolors
+- `purify_hunyuan`: Hunyuan
+
+#### Specialized Models (no need to purify)
+- `purify_turbo`: Turbo models
+- `purify_playground`: Playground
+- `purify_pony`: Pony models
+- `purify_lcm`: LCM variants
+- `purify_lightning`: Lightning
+- `purify_hyper`: Hyper models
+- `purify_pixartsigma`: PixArt-Sigma
+
+### Use Cases:
+
+#### Basic Prompt Cleaning:
+```plaintext
+Input: "(high quality:1.2), (detailed:1.4) BREAK (masterpiece)"
+Output: "high quality, detailed, masterpiece"
+```
+
+#### Length Control:
+```plaintext
+Settings:
+- max_length: 50
+- purify_flux: ON
+
+Input: "Long prompt with excessive description and weights..."
+Output: "Truncated prompt within 50 characters but keep the whole last word..."
+```
+
+### Configuration Examples:
+
+#### Flux Optimization:
+```plaintext
+Settings:
+- purify_flux: ON
+- max_length: 0
+
+Benefits:
+- DiT-compatible structure
+- Weight removal
+- Clean formatting
+```
+
+#### Mixed Model Pipeline:
+```plaintext
+Settings:
+- Keep non-target models OFF
+- Enable specific model purification
+- Set appropriate length limit
+
+Benefits:
+- Model-specific optimization
+- Controlled cleaning
+- Maintained compatibility
+```
+
+### Benefits:
+
+#### Compatibility:
+- Ensures DiT architecture compliance
+- Removes problematic structures
+- Maintains old (A1111 compatible) prompt essence
+
+### Best Practices:
+
+1. **Model Selection**
+   - Enable purification for target model
+   - Disable for non-relevant architectures
+   - Verify model detection
+
+2. **Length Management**
+   - Set appropriate max_length
+   - Use 0 for unlimited length
+   - Monitor output for truncation
+
+3. **Cleaning Strategy**
+   - Enable relevant model switches
+   - Check debug output
+   - Verify cleaned prompt
+
+### Recommended Settings:
+
+#### DiT Models:
+```plaintext
+- set purify_<model_type>: ON
+- max_length: 0 (or set if the result too noisy)
+- other model type purify switches: OFF
+```
+
+#### Legacy Models:
+```plaintext
+Keep settings:
+- purify switches: OFF
+- max_length: 0
+- Maintains original structure
+```
+
+### Tips for Usage:
+
+1. Monitor debug output for cleaning verification
+2. Adjust length limits based on model requirements
+3. Enable only relevant DiT model purification
+4. Test cleaned prompts before batch processing
+5. Keep original prompts for reference
+
+Remember: DiT prompt purification is essential for optimal performance with modern architectures while maintaining prompt effectiveness.
+
+<hr>
