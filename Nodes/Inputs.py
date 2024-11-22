@@ -199,6 +199,7 @@ class PrimereRefinerPrompt:
 
         if (clip is None or model is None or vae is None) and refiner_model == 'None':
             refiner_state = False
+            refiner_network = 'None'
 
         if positive_refiner_strength != 0:
             if positive_refiner_strength != 1:
