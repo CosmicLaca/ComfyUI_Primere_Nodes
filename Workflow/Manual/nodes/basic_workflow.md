@@ -55,6 +55,8 @@ This node node provides intelligent (half-autmatic) model concept detection and 
    - Refresh your browser, and you will see version info on the top left badge of preview (instead of questionmark). The `unet` mean the symlinked file is UNET, the `DiMo` mean Diffusion Model (including gguf)
 
       <img src="preview.jpg" width="300px">
+    
+    [This video contains tutorial how to use terminal helpers](https://www.youtube.com/watch?v=joqvC8vb6Xo)
 
 <hr>
 

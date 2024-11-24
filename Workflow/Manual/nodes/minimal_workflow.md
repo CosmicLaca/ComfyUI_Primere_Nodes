@@ -92,6 +92,8 @@ Choose how to handle image orientation:
 
 The orientation setting helps compose your image properly for your selected subject matter.
 
+[This video contains tutorial for prompt engineering](https://www.youtube.com/watch?v=joqvC8vb6Xo)
+
 <hr>
 
 # <ins>Prompt Switch:</ins>
@@ -526,6 +528,8 @@ Benefits:
 4. Keep model architecture in mind
 
 Remember: The cleaner node ensures optimal network compatibility while maintaining prompt integrity and workflow efficiency.
+
+[This video contains tutorial for of network tag cleaner](https://www.youtube.com/watch?v=joqvC8vb6Xo)
 
 <hr>
 
