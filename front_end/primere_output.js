@@ -81,10 +81,6 @@ app.registerExtension({
                 new MiniPreviewControl(this);
                 PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
             }
-
-            /* nodeType.prototype.onNodeCreated = function () {
-                PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
-            }; */
         }
     },
 });
@@ -92,7 +88,32 @@ app.registerExtension({
 
 class MiniPreviewControl {
     constructor(node) {
+        node.onMouseDown = function(event, pos, graphcanvas) {
+            if (event.type == 'pointerdown') {
+                if (pos[1] >= 214 && pos[1] <= 234) {
+                    showPreviewIfExist(event.clientX, event.clientY);
+                } else {
+                    checkPreviewExample();
+                }
+            }
+        }
+    }
+}
 
+function showPreviewIfExist(coordX, coordY) {
+    if (SaveIsValid == true && SaveMode == true && PreviewExist == true) {
+        $('div#primere_previewbox').css({
+           top: coordY + 'px',
+           left: coordX + 'px',
+        });
+        $("div#primere_previewbox img.privewbox_image").attr("src", previewURL);
+        $('div#primere_previewbox').show();
+    }
+}
+
+function checkPreviewExample() {
+    if ($('div#primere_previewbox').is(":visible")) {
+        $('div#primere_previewbox').hide();
     }
 }
 
@@ -195,62 +216,9 @@ app.registerExtension({
             });
         }
 
-        function showPreviewIfExist(coordX, coordY) {
-            if (SaveIsValid == true && SaveMode == true && PreviewExist == true) {
-                $('div#primere_previewbox').css({
-                   top: coordY + 'px',
-                   left: coordX + 'px',
-                });
-                $("div#primere_previewbox img.privewbox_image").attr("src", previewURL);
-                $('div#primere_previewbox').show();
-            }
-        }
-
-        function checkPreviewExample() {
-            if ($('div#primere_previewbox').is(":visible")) {
-                $('div#primere_previewbox').hide();
-            }
-        }
-
         if (outputEventListenerInit == false) {
             PreviewHandler(app);
         }
-
-        /* const lcg = LGraphCanvas.prototype.processNodeWidgets;
-        LGraphCanvas.prototype.processNodeWidgets = function (node, pos, event, active_widget) {
-            if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
-                return false;
-            }
-
-            if (event.type != LiteGraph.pointerevents_method + "up") {
-                if (event.type == LiteGraph.pointerevents_method + "down" && node.type == 'PrimerePreviewImage') {
-                    if ((pos[1] - node.pos[1]) >= 214 && (pos[1] - node.pos[1]) <= 234) {
-                        if ((pos[0] - node.pos[0]) >= 10 && (pos[0] - node.pos[0]) <= node.size[0]) {
-                            showPreviewIfExist(event.clientX, event.clientY);
-                        }
-                    } else {
-                        checkPreviewExample();
-                    }
-                }
-                if (event.type == LiteGraph.pointerevents_method + "down") {
-                    if (node.type != 'PrimerePreviewImage') {
-                        checkPreviewExample();
-                    }
-                }
-                return lcg.call(this, node, pos, event, active_widget);
-            }
-
-            if (node.type != 'PrimerePreviewImage') {
-                return lcg.call(this, node, pos, event, active_widget);
-            }
-
-            if (!node.widgets || !node.widgets.length || (!this.allow_interaction && !node.flags.allow_interaction)) {
-                return lcg.call(this, node, pos, event, active_widget);
-            }
-
-            currentClass = node.type;
-            return lcg.call(this, node, pos, event, active_widget);
-        } */
     },
 });
 
