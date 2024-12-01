@@ -9,7 +9,7 @@ app.registerExtension({
 
     async init(app) {
 
-        const lcg = LGraphCanvas.prototype.processNodeWidgets;
+        /* const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function(node, pos, event, active_widget) {
             if (event.type != LiteGraph.pointerevents_method + "up") {
                 return lcg.call(this, node, pos, event, active_widget);
@@ -75,7 +75,7 @@ app.registerExtension({
                 }
             }
             return lcg.call(this, node, pos, event, active_widget);
-        }
+        } */
     },
 
     async setup(app) {
