@@ -50,7 +50,7 @@ app.registerExtension({
           console.log(Model);
         }); */
 
-        let callbackfunct = null;
+        /* let callbackfunct = null;
         let modaltitle = '';
         let nodematch = '';
         let isnumeric_end = false;
@@ -428,7 +428,7 @@ app.registerExtension({
             }
 
             return lcg.call(this, node, pos, event, active_widget);
-        }
+        } */
     },
 
     async setup() {
@@ -440,9 +440,381 @@ app.registerExtension({
             if (nodeData.input.hasOwnProperty('hidden') === true) {
                 hiddenWidgets[nodeData.name] = nodeData.input.hidden;
             }
+            const onNodeCreated = nodeType.prototype.onNodeCreated;
+            nodeType.prototype.onNodeCreated = function () {
+                onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
+                //console.log('this ========================')
+                //console.log(this)
+                new ModalControl(this, nodeData.name);
+            }
         }
     },
 });
+
+
+class ModalControl {
+    constructor(node, nodename) {
+        let callbackfunct = null;
+        let modaltitle = '';
+        let nodematch = '';
+        let isnumeric_end = false;
+
+        console.log('node ========================')
+        //console.log(node.widgets)
+        console.log(node)
+        console.log(nodename)
+        /* node.onMouseDown = function(event, pos, graphcanvas) {
+           console.log(event)
+           console.log(pos)
+        } */
+
+        node.widgets[0].mouse = function (event, pos, node) {
+            if (event.type == 'pointermove' && validClasses.includes(node.type)) {
+                return false;
+            }
+            console.log(event.type)
+            console.log(event)
+            //var active_widget = node.widgets[0];
+
+            var ShowModal = false;
+            AutoFilter = null;
+            StackVersion = null;
+            ModelVersion = null;
+
+            for (var p = 0; p < node.widgets.length; ++p) {
+                if (node.widgets[p].name == 'show_hidden') {
+                    ShowHidden = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'show_modal') {
+                    ShowModal = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'preview_path') {
+                    PreviewPath = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'aescore_percent_min') {
+                    if (node.widgets[p].value >= 0) {
+                        aeScoreMin = node.widgets[p].value;
+                    }
+                }
+                if (node.widgets[p].name == 'aescore_percent_max') {
+                    if (node.widgets[p].value > 0) {
+                        aeScoreMax = node.widgets[p].value;
+                    }
+                }
+                if (node.widgets[p].name == 'auto_filter') {
+                    AutoFilter = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'stack_version') {
+                    StackVersion = node.widgets[p].value;
+                }
+                if (node.widgets[p].name == 'model_version') {
+                    ModelVersion = node.widgets[p].value;
+                }
+            }
+
+            if (stackedClasses.includes(node.type)) {
+                isnumeric_end = true;
+            } else {
+                isnumeric_end = false;
+            }
+
+            currentClass = node.type;
+            var that = this;
+
+            console.log(ShowHidden)
+            console.log(ShowModal)
+            console.log(currentClass)
+            if (ShowModal === true) {
+                $('div.litegraph.litecontextmenu.litemenubar-panel').hide();
+
+                nodeHelper = hiddenWidgets[currentClass]
+                source_subdirname = nodeHelper['subdir'];
+                cache_key = nodeHelper['cache_key'];
+                console.log(nodeHelper)
+                console.log(cache_key)
+                console.log(eventListenerInit)
+                if (eventListenerInit == false) {
+                    ModalHandler();
+                }
+
+                if ($('div.primere-modal-content div.visual-ckpt').length) {
+                    $('div.primere-modal-content.ckpt-container').empty();
+                }
+
+                for (var i = 0; i < node.widgets.length; ++i) {
+                    var w = node.widgets[i];
+                    if (!w || w.disabled)
+                        continue;
+
+                    if (w.type != "combo")
+                        continue;
+
+                    widget_name = node.widgets[i].name;
+
+                    if (widget_name.match(nodematch) && $.isNumeric(widget_name.substr(-1)) === isnumeric_end) {
+                        SelectedModel = node.widgets[i].value;
+                        console.log(SelectedModel)
+                        setup_visual_modal(modaltitle, 'AllModels', ShowHidden, SelectedModel, source_subdirname, node, PreviewPath);
+
+                        callbackfunct = inner_clicked.bind(w);
+                        function inner_clicked(v, option, event) {
+                            inner_value_change(this, v);
+                            that.dirty_canvas = true;
+                            return false;
+                        }
+
+                        function inner_value_change(widget, value) {
+                            if (typeof nodeHelper['sortbuttons'] === "object" && typeof nodeHelper['sortbuttons'][0] === "object" && nodeHelper['sortbuttons'][0].indexOf("Path") == -1) {
+                                for (var i = 0; i < node.widgets.length; ++i) {
+                                    var widget_type = node.widgets[i].type;
+                                    var widget_value = node.widgets[i].value;
+                                    if (widget_type == 'combo' && widget_value != 'None') {
+                                        widget_name = node.widgets[i].name;
+                                        node.widgets[i].value = 'None';
+                                    }
+                                }
+                            }
+                            if (widget.type == "number") {
+                                value = Number(value);
+                            }
+                            widget.value = value;
+                            if (widget.options && widget.options.property && node.properties[widget.options.property] !== undefined) {
+                                node.setProperty(widget.options.property, value);
+                            }
+                            if (widget.callback) {
+                                widget.callback(widget.value, that, node, pos, event);
+                            }
+                        }
+                        return null;
+                    }
+                }
+            }
+            function ModalHandler() { // 02
+                eventListenerInit = true;
+                let head = document.getElementsByTagName('HEAD')[0];
+                let js = document.createElement("script");
+                js.src = realPath + "/jquery/jquery-1.9.0.min.js";
+                head.appendChild(js);
+
+                js.onload = function(e) {
+                    $(document).ready(function () {
+                        var modal = null;
+
+                        $('body').on("click", 'button.modal-closer', async function () { // modal close
+                            modal = document.getElementById("primere_visual_modal");
+                            modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
+                            var lastDirValue = 'All'
+                            if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                                lastDirValue = lastDirObject[currentClass];
+                            }
+
+                            if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                                if (AutoFilter !== true) {
+                                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                                    await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                                    var filter = $('body div.subdirtab input').val();
+                                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                                    await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                                    await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                                }
+                            }
+                        });
+
+                        $('body').on("click", 'div.primere-modal-content div.visual-ckpt img', async function () { // image choosen
+                            var ckptName = $(this).data('ckptname');
+                            modal = document.getElementById("primere_visual_modal");
+                            modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
+                            var lastDirValue = 'All'
+                            if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                                lastDirValue = lastDirObject[currentClass];
+                            }
+
+                            if (source_subdirname == 'styles') {
+                                let pathLastIndex = ckptName.lastIndexOf('\\');
+                                ckptName = ckptName.substring(pathLastIndex + 1);
+                            }
+
+                            apply_modal(ckptName);
+
+                            if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                                if (AutoFilter !== true) {
+                                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                                    await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                                    var filter = $('body div.subdirtab input').val();
+                                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                                    await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                                    await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                                }
+                            }
+
+                            function apply_modal(Selected) { // apply
+                                if (Selected && typeof callbackfunct == 'function') {
+                                    callbackfunct(Selected);
+                                    sendPOSTModelName(Selected);
+                                    return false;
+                                }
+                            }
+                        });
+
+                        var subdirName = 'All';
+                        var filteredCheckpoints = 0;
+                        $('body').on("click", 'div.subdirtab button.subdirfilter', async function () { // subdir filter
+                            $('div.subdirtab input').val('');
+                            subdirName = $(this).data('ckptsubdir');
+                            if (currentClass !== false) {
+                                lastDirObject[currentClass] = subdirName
+                            }
+
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).each(function (cont_index, cont_obj) {
+                                if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
+                                    cont_obj.remove();
+                                }
+                            });
+
+                            if (source_subdirname != 'styles') {
+                                ModelsByVersion = await getModelData(cache_key + '_version');
+                            }
+                            ModelList = await getModelDatabyPath(source_subdirname, subdirName);
+
+                            if (source_subdirname == 'styles') {
+                                if (ModelList.includes(SelectedModel) || ModelList.includes(subdirName + '\\' + SelectedModel)) {
+                                    var index_pre = (ModelList.indexOf(SelectedModel) + ModelList.indexOf(subdirName + '\\' + SelectedModel)) + 1;
+                                    if (index_pre !== -1) {
+                                        await ModelList.splice(index_pre, 1);
+                                    }
+                                }
+                            }
+
+                            for (var checkpoint of ModelList) {
+                                let firstletter = checkpoint.charAt(0);
+
+                                var filterpass = true;
+                                if (SelectedModel == checkpoint) {
+                                    filterpass = false;
+                                }
+
+                                if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                                    let pathLastIndex = checkpoint.lastIndexOf('\\');
+                                    let ckptName_full = checkpoint.substring(pathLastIndex + 1);
+                                    let dotLastIndex = ckptName_full.lastIndexOf('.');
+                                    var ckptName = ckptName_full.substring(0, dotLastIndex);
+                                    var CategoryName = 'Unknown';
+
+                                    $.each(ModelsByVersion, function (ver_index, ver_value) {
+                                        if (ver_value.includes(ckptName)) {
+                                            CategoryName = ver_index
+                                        }
+                                    });
+
+                                    var container = $('div.primere-modal-content.ckpt-container')[0];
+                                    if (subdirName === 'Root') {
+                                        let isSubdirExist = checkpoint.lastIndexOf('\\');
+                                        if (isSubdirExist < 0) {
+                                            filteredCheckpoints++;
+                                            await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                        }
+                                    } else {
+                                        filteredCheckpoints++;
+                                        await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                    }
+                                }
+                                $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
+                            }
+                            //await sleep(600);
+                            previewSorter(operator, sortType);
+
+                            $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
+                            $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Subdir');
+                            $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                            FilterType = 'Subdir';
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.verfilter', async function () { // model version filter
+                            $('div.subdirtab input').val('');
+                            var versionName = $(this).data('ckptver');
+                            if (currentClass !== false) {
+                                lastDirObject[currentClass] = versionName
+                            }
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).each(function (cont_index, cont_obj) {
+                                if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
+                                    cont_obj.remove();
+                                }
+                            });
+
+                            ModelList = await getModelDatabyVersion(source_subdirname, cache_key + '_version', versionName);
+
+                            for (var checkpoint of ModelList) {
+                                let firstletter = checkpoint.charAt(0);
+                                var filterpass = true;
+                                if (SelectedModel == checkpoint) {
+                                    filterpass = false;
+                                }
+                                if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                                    filteredCheckpoints++;
+                                    var container = $('div.primere-modal-content.ckpt-container')[0];
+                                    await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName)
+                                }
+                                $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
+                            }
+
+                            //await sleep(600);
+                            previewSorter(operator, sortType);
+
+                            $('div#primere_visual_modal div.modal_header label.ckpt-name').text(versionName);
+                            $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Version');
+                            $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                            FilterType = 'Version';
+                        });
+
+                        $('body').on("keyup", 'div.subdirtab input', function() { // keyword filter
+                            var filter = $(this).val();
+                            previewFilter(filter);
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.filter_clear', function() { // keyword inut clear
+                            $('div.subdirtab input').val('');
+                            var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+                            filteredCheckpoints = 0;
+                            $(imageContainers).find('img').each(function (img_index, img_obj) {
+                                $(img_obj).parent().show();
+                                filteredCheckpoints++;
+                            });
+                            $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.preview_sort', function() { // preview sort type
+                            sortType = $(this).data('sortsource');
+                            operator = $('button.preview_sort_direction').text();
+                            previewSorter(operator, sortType);
+                            $('div.subdirtab button.preview_sort').removeClass("selected_path");
+                            $(this).addClass('selected_path');
+                        });
+
+                        $('body').on("click", 'div.subdirtab button.preview_sort_direction', function () { // preview sort direction
+                            operator = $('button.preview_sort_direction').text();
+                            if (operator == 'ASC') {
+                                $('button.preview_sort_direction').text('DESC');
+                                operator = 'DESC';
+                                $('div.subdirtab button.preview_sort_direction').addClass("selected_path");
+                            } else {
+                                $('button.preview_sort_direction').text('ASC');
+                                operator = 'ASC';
+                                $('div.subdirtab button.preview_sort_direction').removeClass("selected_path");
+                            }
+                            previewSorter(operator, sortType);
+                        });
+                    });
+                };
+            }
+        }
+    }
+}
 
 async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node, PreviewPath) { //3
     var container = null;
