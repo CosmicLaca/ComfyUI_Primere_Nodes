@@ -88,17 +88,6 @@ app.registerExtension({
     },
 });
 
-async function PrimereFastSeedWidget(node, inputName) {
-    if (inputName == 'PrimereFastSeed') {
-        node.addWidget("button", "🎲 Randomize Each Time", null, () => {
-            //this.seedWidget.value = SPECIAL_SEED_RANDOM;
-        }, {serialize: false});
-        node.addWidget("button", "♻️ Freeze last seed", null, () => {
-            //this.seedWidget.value = SPECIAL_SEED_RANDOM;
-        }, {serialize: false});
-    }
-}
-
 async function PrimerePreviewSaverWidget(node, inputName) {
     if (inputName == 'PrimerePreviewSaver') {
         node.name = inputName;
@@ -189,10 +178,6 @@ app.registerExtension({
                 previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="privewbox_image">';
                 document.body.appendChild(previewbox);
             }
-
-            /* $(document).on("click", 'div.graphdialog button', function(e) {
-
-            }); */
 
             $(document).on('click', 'div#primere_previewbox div.preview_closebutton', function(e) {
                 $('div#primere_previewbox').hide();
