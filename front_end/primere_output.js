@@ -70,23 +70,31 @@ app.registerExtension({
             };
         }
 
-        if (nodeData.name === "PrimereFastSeed") {
-            /* nodeType.prototype.onNodeCreated = function () {
-                PrimereFastSeedWidget.apply(this, [this, 'PrimereFastSeed']);
-            } */
-        }
-
         if (nodeData.name === "PrimerePreviewImage") {
             if (nodeData.input.hasOwnProperty('hidden') === true) {
                 ImagePath = nodeData.input.hidden['image_path'][0]
             }
 
+            const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
+                onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
+                new MiniPreviewControl(this);
                 PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
-            };
+            }
+
+            /* nodeType.prototype.onNodeCreated = function () {
+                PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
+            }; */
         }
     },
 });
+
+
+class MiniPreviewControl {
+    constructor(node) {
+
+    }
+}
 
 async function PrimerePreviewSaverWidget(node, inputName) {
     if (inputName == 'PrimerePreviewSaver') {
@@ -208,7 +216,7 @@ app.registerExtension({
             PreviewHandler(app);
         }
 
-        const lcg = LGraphCanvas.prototype.processNodeWidgets;
+        /* const lcg = LGraphCanvas.prototype.processNodeWidgets;
         LGraphCanvas.prototype.processNodeWidgets = function (node, pos, event, active_widget) {
             if (event.type == 'pointermove' && node.type == 'PrimerePreviewImage') {
                 return false;
@@ -242,7 +250,7 @@ app.registerExtension({
 
             currentClass = node.type;
             return lcg.call(this, node, pos, event, active_widget);
-        }
+        } */
     },
 });
 
