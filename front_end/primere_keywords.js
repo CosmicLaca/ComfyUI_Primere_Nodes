@@ -21,7 +21,7 @@ app.registerExtension({
                     if (wts_2.name == 'base_model') {
                         var modelvalue = wts_2.value;
                         if (typeof modelvalue != 'undefined') {
-                            sendPOSTModelName(wts_2.value)
+                            sendPOSTModelName(wts_2.value);
                         }
                     }
                 }
@@ -69,7 +69,7 @@ function PrimereKeywordList(node, inputName) {
 function PrimereModelChange(node, inputName) {
     node.onWidgetChanged = function(name, value, old_value){
         if (name == 'base_model') {
-            sendPOSTModelName(value)
+            sendPOSTModelName(value);
         }
     };
 }

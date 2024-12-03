@@ -161,7 +161,7 @@ class ModalControl {
                         callbackfunct = inner_clicked.bind(widget_object);
                         function inner_clicked(value, option, event) {
                             inner_value_change(widget_object, value);
-                            app.canvas.setDirty(true)
+                            app.canvas.setDirty(true);
                             return false;
                         }
 
@@ -264,7 +264,7 @@ class ModalControl {
                         $('div.subdirtab input').val('');
                         subdirName = $(this).data('ckptsubdir');
                         if (currentClass !== false) {
-                            lastDirObject[currentClass] = subdirName
+                            lastDirObject[currentClass] = subdirName;
                         }
 
                         var imageContainers = $('div.primere-modal-content div.visual-ckpt');
@@ -306,7 +306,7 @@ class ModalControl {
 
                                 $.each(ModelsByVersion, function (ver_index, ver_value) {
                                     if (ver_value.includes(ckptName)) {
-                                        CategoryName = ver_index
+                                        CategoryName = ver_index;
                                     }
                                 });
 
@@ -315,11 +315,11 @@ class ModalControl {
                                     let isSubdirExist = checkpoint.lastIndexOf('\\');
                                     if (isSubdirExist < 0) {
                                         filteredCheckpoints++;
-                                        await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                        await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName);
                                     }
                                 } else {
                                     filteredCheckpoints++;
-                                    await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName)
+                                    await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName);
                                 }
                             }
                             $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
@@ -338,7 +338,7 @@ class ModalControl {
                         $('div.subdirtab input').val('');
                         var versionName = $(this).data('ckptver');
                         if (currentClass !== false) {
-                            lastDirObject[currentClass] = versionName
+                            lastDirObject[currentClass] = versionName;
                         }
                         var imageContainers = $('div.primere-modal-content div.visual-ckpt');
                         filteredCheckpoints = 0;
@@ -359,7 +359,7 @@ class ModalControl {
                             if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
                                 filteredCheckpoints++;
                                 var container = $('div.primere-modal-content.ckpt-container')[0];
-                                await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName)
+                                await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName);
                             }
                             $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
                         }
@@ -523,7 +523,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
     if (ModelType != 'styles') {
         supportedModels = await getSupportedModels();
         ModelsByVersion = await getModelData(cache_key + '_version');
-        VersionCacheData = await getCacheByKey(cache_key + '_version')
+        VersionCacheData = await getCacheByKey(cache_key + '_version');
     }
 
     AllPath = await getAllPath(source_subdirname);
@@ -600,9 +600,9 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
 
     if (!ModelList.includes(SelectedModel)) {
         if (fondModel == null) {
-            await ModelList.unshift(SelectedModel)
+            await ModelList.unshift(SelectedModel);
         } else {
-            await ModelList.unshift(fondModel)
+            await ModelList.unshift(fondModel);
         }
     }
 
@@ -625,7 +625,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
 
             $.each(ModelsByVersion, function(ver_index, ver_value) {
                 if (ver_value.includes(ckptName)) {
-                    CategoryName = ver_index
+                    CategoryName = ver_index;
                 }
             });
 
@@ -633,11 +633,11 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
                 let isSubdirExist = checkpoint.lastIndexOf('\\');
                 if (isSubdirExist < 0 || checkpoint == SelectedModel) {
                     CKPTElements++;
-                    await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName)
+                    await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName);
                 }
             } else {
                 CKPTElements++;
-                await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName)
+                await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName);
             }
         }
         $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements);
