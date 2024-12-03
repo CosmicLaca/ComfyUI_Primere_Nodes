@@ -1,14 +1,16 @@
 # Primere nodes for ComfyUI
 
-Git link: https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
+**Git link:** https://github.com/CosmicLaca/ComfyUI_Primere_Nodes
+
+**Primere Youtube channel:** https://www.youtube.com/@PrimereComfydev/videos
 
 <hr>
 
 Nodepack under development. Manual written by AI, please open issue if something wrong or missing. If you upgrade, just check attached new workflows or use git to downgrade to previous version if something failed.
 
-**All example workflows in the `Workflow` folder of the node root.**
+After nodepack update of **12/3/2024 - v1.0.2** ComfyUI front-end must be updated to minimum **v1.4.13**. Please do `git pull` on comfy folder, the new nodepack not compatible with older Comfy versions. 
 
-**Primere Youtube channel:** https://www.youtube.com/@PrimereComfydev/videos
+**All example workflows in the `Workflow` folder of the node root.**
 
 <hr>
 
