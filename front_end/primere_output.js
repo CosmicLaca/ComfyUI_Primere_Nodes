@@ -67,6 +67,7 @@ app.registerExtension({
             nodeType.prototype.onExecuted = function (message) {
                 onExecuted === null || onExecuted === void 0 ? void 0 : onExecuted.apply(this, [message]);
                 this.showValueWidget.value = message.text[0];
+                app.canvas.setDirty(true)
             };
         }
 
@@ -226,7 +227,7 @@ api.addEventListener("getVisualTargets", VisualDataReceiver);
 async function VisualDataReceiver(event) { // 01
     WorkflowData = event.detail
 
-    await sleep(1000);
+    //await sleep(1000);
     var img = document.querySelector('img')
 
     function loaded() {
@@ -490,12 +491,6 @@ function ButtonLabelCreator(node, url = false) {
                             PreviewExist = false;
                         }
 
-                        /* if (PreviewExist === true) {
-                            node.addWidget("button", "View preview", null, () => {
-                                return false;
-                            });
-                        } */
-
                         var imgExistLink = "";
                         if (PreviewExist === true) {
                             let splittedMode = PrwSaveMode.split(' ');
@@ -550,6 +545,7 @@ function applyWidgetValues(LoadedNode, buttontitle, TargetSelValues) {
             }
         }
     }
+    app.canvas.setDirty(true)
 }
 
 // ************************* sendPOSTmessage PreviewSaveResponse
