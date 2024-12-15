@@ -18,6 +18,7 @@ import re
 from ..components import hypernetwork
 from ..components import clipping
 from ..components import nf4_helper
+from ..components import sana_utils
 import comfy.sd
 import comfy.model_detection
 import comfy.utils
@@ -38,16 +39,25 @@ from ..components.kolors.pipelines.pipeline_stable_diffusion_xl_chatglm_256 impo
 from ..components.kolors.models.tokenization_chatglm import ChatGLMTokenizer
 from ..components.kolors.models.modeling_chatglm import ChatGLMModel
 import gc
-from ..components.hunyuan.conf import hydit_conf
-from ..components.hunyuan.loader import load_hydit
-from ..components.hunyuan.utils.dtype import string_to_dtype
-from ..components.hunyuan.tenc import load_clip, load_t5
-from ..components.pixart.conf import pixart_conf
-from ..components.pixart.loader import load_pixart
+from ComfyUI_ExtraModels.HunYuanDiT.conf import hydit_conf
+from ComfyUI_ExtraModels.HunYuanDiT.loader import load_hydit
+from ComfyUI_ExtraModels.utils.dtype import string_to_dtype
+from ComfyUI_ExtraModels.HunYuanDiT.tenc import load_clip, load_t5
+from ComfyUI_ExtraModels.PixArt.conf import pixart_conf
+from ComfyUI_ExtraModels.PixArt.loader import load_pixart
 import numpy as np
 import difflib
 import datetime
-from ..Nodes.Inputs import PrimereEmbeddingHandler
+from ..components import llm_enhancer
+import pyrallis
+from ..components.sana.diffusion.model.builder import build_model
+from ..components.sana.pipeline.sana_pipeline import SanaPipeline
+from ..components.sana.diffusion.model.dc_ae.efficientvit.ae_model_zoo import create_dc_ae_model_cfg
+from ..components.sana.diffusion.model.dc_ae.efficientvit.models.efficientvit.dc_ae import DCAE
+from ..components.sana.diffusion.utils.config import SanaConfig
+from ..components.sana.diffusion.model.utils import prepare_prompt_ar
+from transformers import AutoTokenizer, T5Tokenizer, T5EncoderModel, AutoModelForCausalLM, BitsAndBytesConfig
+from ..components.sana.diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -56,13 +66,14 @@ class PrimereSamplersSteps:
     FUNCTION = "get_sampler_step"
 
     kolors_schedulers = ["EulerDiscreteScheduler", "EulerAncestralDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler_SDE_karras", "UniPCMultistepScheduler", "DEISMultistepScheduler"]
+    sana_schedulers = ['flow_dpm-solver']
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
-                "scheduler_name": (cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
+                "scheduler_name": (cls.sana_schedulers + cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
             }
@@ -142,7 +153,8 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
                     "STRING",
-                    "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING", "FLOAT", "INT", "INT", "FLOAT", "BOOLEAN"
+                    "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING", "FLOAT", "INT", "INT", "FLOAT", "BOOLEAN",
+                    "STRING", "STRING", "STRING", "STRING", "STRING"
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -155,13 +167,15 @@ class PrimereModelConceptSelector:
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
                     "KOLORS_PRECISION",
-                    "PIXART_MODEL_TYPE", "PIXART_T5_ENCODER", "PIXART_VAE", "PIXART_DENOISE", "PIXART_REFINER_MODEL", "PIXART_REFINER_SAMPLER", "PIXART_REFINER_SCHEDULER", "PIXART_REFINER_CFG", "PIXART_REFINER_STEPS", "PIXART_REFINER_START", "PIXART_REFINER_DENOISE", "PIXART_REFINER_IGNORE_PROMPT"
+                    "PIXART_MODEL_TYPE", "PIXART_T5_ENCODER", "PIXART_VAE", "PIXART_DENOISE", "PIXART_REFINER_MODEL", "PIXART_REFINER_SAMPLER", "PIXART_REFINER_SCHEDULER", "PIXART_REFINER_CFG", "PIXART_REFINER_STEPS", "PIXART_REFINER_START", "PIXART_REFINER_DENOISE", "PIXART_REFINER_IGNORE_PROMPT",
+                    "SANA_MODEL", "SANA_ENCODER", "SANA_VAE", "SANA_WEIGHT_DTYPE", "SANA_PRECISION"
                     )
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
     UNETLIST = folder_paths.get_filename_list("unet")
     DIFFUSIONLIST = folder_paths.get_filename_list("diffusion_models")
+    TEXT_ENCODERS = folder_paths.get_filename_list("text_encoders")
     GGUFLIST = folder_paths.get_filename_list("unet_gguf")
     VAELIST = folder_paths.get_filename_list("vae")
     CLIPLIST = folder_paths.get_filename_list("clip")
@@ -175,7 +189,12 @@ class PrimereModelConceptSelector:
         T5List = folder_paths.filter_files_extensions(T5models, ['.bin', '.safetensors'])
         CLIPLIST += T5List
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+    TENC_DIR = os.path.join(folder_paths.models_dir, 'text_encoders')
+    LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+    TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
+    TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
+
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:17]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -268,6 +287,12 @@ class PrimereModelConceptSelector:
             "pixart_refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
             "pixart_refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
             "pixart_refiner_ignore_prompt": ("BOOLEAN", {"default": False, "label_on": "Send prompt to refiner", "label_off": "Ignore prompt"}),
+
+            "sana_model": (["None"] + DIFFUSIONLIST,),
+            "sana_encoder": (["None"] + TEXT_ENCODERS_PATHS,),
+            "sana_vae": (["None"] + VAELIST,),
+            "sana_weight_dtype": (["Auto", "fp16", "bf16", "fp32"], {"default": "fp16"}),
+            "sana_precision": (['fp16', 'quant8', 'quant4'], {"default": "fp16"}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -284,6 +309,7 @@ class PrimereModelConceptSelector:
                              use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                              kolors_precision='quant8',
                              pixart_model_type="Auto", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
+                             sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16",
                              model_version=None, model_name=None,
                              default_sampler_name='euler', default_scheduler_name='normal', default_cfg_scale=7, default_steps=12,
                              sd_vae="None", sdxl_vae="None",
@@ -439,6 +465,13 @@ class PrimereModelConceptSelector:
             pixart_refiner_denoise = None
             pixart_refiner_ignore_prompt = None
 
+        if model_concept != 'SANA512' and model_concept != 'SANA1024':
+            sana_model = None
+            sana_encoder = None
+            sana_vae = None
+            sana_weight_dtype = None
+            sana_precision = None
+
         if model_name is not None and override_steps == True:
             is_steps = re.findall(r"(?i)(\d+)Step", model_name)
             if len(is_steps) > 0:
@@ -474,7 +507,8 @@ class PrimereModelConceptSelector:
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
                 kolors_precision,
-                pixart_model_type, pixart_T5_encoder, pixart_vae, pixart_denoise, pixart_refiner_model, pixart_refiner_sampler, pixart_refiner_scheduler, pixart_refiner_cfg, pixart_refiner_steps, pixart_refiner_start, pixart_refiner_denoise, pixart_refiner_ignore_prompt
+                pixart_model_type, pixart_T5_encoder, pixart_vae, pixart_denoise, pixart_refiner_model, pixart_refiner_sampler, pixart_refiner_scheduler, pixart_refiner_cfg, pixart_refiner_steps, pixart_refiner_start, pixart_refiner_denoise, pixart_refiner_ignore_prompt,
+                sana_model, sana_encoder, sana_vae, sana_weight_dtype, sana_precision
                 )
 
 class PrimereConceptDataTuple:
@@ -551,6 +585,12 @@ class PrimereConceptDataTuple:
                 "pixart_refiner_start": ("INT", {"forceInput": True}),
                 "pixart_refiner_denoise": ("FLOAT", {"forceInput": True}),
                 "pixart_refiner_ignore_prompt": ("BOOLEAN", {"forceInput": True}),
+
+                "sana_model": ("STRING", {"forceInput": True}),
+                "sana_encoder": ("STRING", {"forceInput": True}),
+                "sana_vae": ("STRING", {"forceInput": True}),
+                "sana_weight_dtype": ("STRING", {"forceInput": True}),
+                "sana_precision": ("STRING", {"forceInput": True}),
             },
         }
 
@@ -597,7 +637,8 @@ class PrimereCKPTLoader:
                           hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
                           sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                           kolors_precision='quant8',
-                          pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False
+                          pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
+                          sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16"
                           ):
 
         playground_sigma_max = 120
@@ -729,6 +770,17 @@ class PrimereCKPTLoader:
             if 'pixart_refiner_ignore_prompt' in concept_data:
                 pixart_refiner_ignore_prompt = concept_data['pixart_refiner_ignore_prompt']
 
+            # if 'sana_model' in concept_data:
+            #    sana_model = concept_data['sana_model']
+            if 'sana_encoder' in concept_data:
+                sana_encoder = concept_data['sana_encoder']
+            if 'sana_vae' in concept_data:
+                sana_vae = concept_data['sana_vae']
+            if 'sana_weight_dtype' in concept_data:
+                sana_weight_dtype = concept_data['sana_weight_dtype']
+            if 'sana_precision' in concept_data:
+                sana_precision = concept_data['sana_precision']
+
         modelname_only = Path(ckpt_name).stem
         MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
         if MODEL_VERSION_ORIGINAL is None:
@@ -758,6 +810,100 @@ class PrimereCKPTLoader:
 
         sd3_gguf = False
         match model_concept:
+            case 'SANA1024' | 'SANA512':
+                precision = sana_precision
+                encoder_path = sana_encoder
+                device = model_management.get_torch_device()
+                if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
+                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                    is_link = os.path.islink(str(fullpathFile))
+                    if is_link == True:
+                        fullpathFile = Path(str(fullpathFile)).resolve()
+                    dtype = utility.get_dtype_by_name(sana_weight_dtype)
+
+                    text_encoder_dir = os.path.join(folder_paths.models_dir, 'text_encoders', encoder_path)
+                    if os.path.exists(text_encoder_dir) == False:
+                        LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+                        text_encoder_dir = os.path.join(LLM_PRIMERE_ROOT, encoder_path)
+
+                    vae_path = folder_paths.get_full_path("vae", sana_vae)
+                    cfg = create_dc_ae_model_cfg('dc-ae-f32c32-sana-1.0')
+                    vae = DCAE(cfg)
+                    state_dict = comfy.utils.load_torch_file(vae_path, safe_load=True)
+                    vae.load_state_dict(state_dict, strict=False)
+                    vae_dtype = model_management.vae_dtype(device, [torch.float16, torch.bfloat16, torch.float32])
+                    vae.to(vae_dtype).eval()
+
+                    text_encoder_dtype = model_management.text_encoder_dtype(device)
+                    if "T5" in encoder_path:
+                        tokenizer = T5Tokenizer.from_pretrained(str(text_encoder_dir))
+                        llm_model = None
+                        text_encoder = T5EncoderModel.from_pretrained(str(text_encoder_dir), torch_dtype=text_encoder_dtype)
+                    else:
+                        tokenizer = AutoTokenizer.from_pretrained(text_encoder_dir)
+                        quantization_config = BitsAndBytesConfig(load_in_8bit=True) if precision == '8-bit' else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=text_encoder_dtype) if precision == '4-bit' else None
+                        llm_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, quantization_config=quantization_config, torch_dtype=text_encoder_dtype) if '-4bit' not in encoder_path else AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype=text_encoder_dtype)
+                        tokenizer.padding_side = "right"
+                        text_encoder = llm_model.get_decoder()
+
+                    text_encoder.to(device)
+                    state_dict = comfy.utils.load_torch_file(str(fullpathFile), safe_load=True)
+                    is_1600M = state_dict['final_layer.scale_shift_table'].shape[1] == 2240  # 1.6b: 2240 0.6b: 1152
+                    if '512px' in ckpt_name:
+                        config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_1600M_img512.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_600M_img512.yaml')
+                    else:
+                        config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_1600M_img1024_AdamW.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_600M_img1024.yaml')
+                    config = pyrallis.load(SanaConfig, open(config_path))
+
+                    pred_sigma = getattr(config.scheduler, "pred_sigma", True)
+                    learn_sigma = getattr(config.scheduler, "learn_sigma", True) and pred_sigma
+                    image_size = config.model.image_size
+                    latent_size = image_size // config.vae.vae_downsample_rate
+                    model_kwargs = {
+                        "input_size": latent_size,
+                        "pe_interpolation": config.model.pe_interpolation,
+                        "config": config,
+                        "model_max_length": config.text_encoder.model_max_length,
+                        "qk_norm": config.model.qk_norm,
+                        "micro_condition": config.model.micro_condition,
+                        "caption_channels": text_encoder.config.hidden_size,  # Gemma2: 2304
+                        "y_norm": config.text_encoder.y_norm,
+                        "attn_type": config.model.attn_type,
+                        "ffn_type": config.model.ffn_type,
+                        "mlp_ratio": config.model.mlp_ratio,
+                        "mlp_acts": list(config.model.mlp_acts),
+                        "in_channels": config.vae.vae_latent_dim,
+                        "y_norm_scale_factor": config.text_encoder.y_norm_scale_factor,
+                        "use_pe": config.model.use_pe,
+                        "pred_sigma": pred_sigma,
+                        "learn_sigma": learn_sigma,
+                        "use_fp32_attention": config.model.get("fp32_attention", False) and config.model.mixed_precision != "bf16",
+                    }
+                    unet = build_model(config.model.model, **model_kwargs)
+                    unet.to(dtype)
+                    state_dict = state_dict.get("state_dict", state_dict)
+                    if "pos_embed" in state_dict:
+                        del state_dict["pos_embed"]
+                    missing, unexpected = unet.load_state_dict(state_dict, strict=False)
+                    del state_dict
+                    unet.eval().to(dtype)
+                    pipe = SanaPipeline(config, vae, dtype, unet)
+
+                    SANA_MODEL = {
+                        'pipe': pipe,
+                        'unet': unet,
+                        'text_encoder_model': llm_model,
+                        'tokenizer': tokenizer,
+                        'text_encoder': text_encoder,
+                        'vae': vae,
+                        'device': device
+                    }
+
+                    SANA_VAE = sana_utils.first_stage_model(vae)
+                    SANA_CLIP = sana_utils.cond_stage_model(tokenizer, text_encoder)
+
+                    return (SANA_MODEL,) + (SANA_CLIP,) + (SANA_VAE,) + (MODEL_VERSION,)
+
             case 'PixartSigma':
                 ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                 model_conf = pixart_conf[pixart_model_type]
@@ -1499,7 +1645,12 @@ class PrimereFractalLatent:
         latents = []
         for tensor in tensors:
             tensor = tensor.unsqueeze(0)
-            latents.append(encoder.encode(optional_vae, tensor)[0]['samples'])
+            try:
+                latents.append(encoder.encode(optional_vae, tensor)[0]['samples'])
+            except Exception:
+                latents = tensors.permute(0, 3, 1, 2)
+                latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
+                return {'samples': latents}, tensors, workflow_tuple
         latents = torch.cat(latents)
 
         if workflow_tuple is not None:
@@ -1795,6 +1946,45 @@ class PrimereCLIP:
             clip_model = 'Default'
             # clip_mode = True
             last_layer = 0
+
+        if 'SANA' in model_concept:
+            device = model_management.get_torch_device()
+            base_ratios = eval(f"ASPECT_RATIO_{1024}_TEST")
+            clip.text_encoder.to(device)
+
+            null_caption_token = clip.tokenizer(
+                negative_text,
+                max_length=300,
+                padding="max_length",
+                truncation=True,
+                return_tensors="pt",
+            ).to(device)
+            null_caption_embs = clip.text_encoder(null_caption_token.input_ids, null_caption_token.attention_mask)[0]
+            preset_te_prompt = ['Create one detailed perfect prompt for given topic for stable diffusion text-to-image text2image DiT models.', 'Please generate only the one enhanced description for the prompt below and avoid including any additional commentary or evaluations:', 'User Prompt: ']
+
+            prompts = []
+            with torch.no_grad():
+                prompts.append(prepare_prompt_ar(positive_text, base_ratios, device=device, show=False)[0].strip())
+                chi_prompt = "\n".join(preset_te_prompt)
+                prompts_all = [chi_prompt + positive_text]
+                num_chi_prompt_tokens = len(clip.tokenizer.encode(chi_prompt))
+                max_length_all = (num_chi_prompt_tokens + 300 - 2)  # magic number 2: [bos], [_]
+                caption_token = clip.tokenizer(
+                    prompts_all,
+                    max_length=max_length_all,
+                    padding="max_length",
+                    truncation=True,
+                    return_tensors="pt",
+                ).to(device)
+                select_index = [0] + list(range(-300 + 1, 0))
+                caption_embs = clip.text_encoder(caption_token.input_ids, caption_token.attention_mask)[0][:, None][:, :, select_index]
+                emb_masks = caption_token.attention_mask[:, select_index]
+                null_y = null_caption_embs.repeat(len(prompts), 1, 1)[:, None]
+
+            clip.text_encoder.to(model_management.text_encoder_offload_device())
+            comfy.model_management.soft_empty_cache(True)
+
+            return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
         if model_concept == 'PixartSigma':
             cond_pos_ref = None
@@ -2174,6 +2364,8 @@ class PrimereResolution:
         standard = 'STANDARD'
         if model_version == 'StableCascade':
             standard = 'CASCADE'
+        if model_version == 'PixartSigma':
+            round_to_standard = True
 
         dimensions = utility.get_dimensions_by_shape(self, ratio, square_shape, orientation, round_to_standard, calculate_by_custom, custom_side_a, custom_side_b, standard)
         dimension_x = dimensions[0]
@@ -2336,10 +2528,10 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:17]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
-            CONCEPT_INPUTS["remove_only_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
+            CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
 
         return {
             "required": {
@@ -2434,8 +2626,8 @@ class PrimereClearNetworkTagsPrompt:
             SUPPORTED_CONCEPTS_UC = [x.upper() for x in SUPPORTED_CONCEPTS]
             concept_processor = []
             for inputKey, inputValue in input_data.items():
-                if inputKey.startswith("remove_only_") == True:
-                    conceptSignUC = inputKey[len("remove_only_"):].upper()
+                if inputKey.startswith("remove_from_") == True:
+                    conceptSignUC = inputKey[len("remove_from_"):].upper()
                     conceptIndex = SUPPORTED_CONCEPTS_UC.index(conceptSignUC)
                     CONCEPT_SIGN = SUPPORTED_CONCEPTS[conceptIndex]
                     concept_processor.append(inputValue)
@@ -2485,7 +2677,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:17]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
