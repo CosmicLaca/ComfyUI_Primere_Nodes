@@ -98,7 +98,7 @@ class PrimereRefinerPrompt:
         REFINER_EMBEDDING = ["EMBEDDING\\" + x for x in folder_paths.get_filename_list("embeddings")]
         REFINER_HYPERNETWORK = ["HYPERNETWORK\\" + x for x in folder_paths.get_filename_list("hypernetworks")]
 
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:15]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:17]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["process_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PROCESS " + concept.upper(), "label_off": "IGNORE " + concept.upper()})
@@ -334,26 +334,7 @@ class PrimereLLMEnhancer:
     CATEGORY = TREE_INPUTS
 
     model_root = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
-    valid_llm_path = []
-    if os.path.exists(model_root):
-        allsubdirs = list(os.listdir(Path(model_root)))
-        for subdir in allsubdirs:
-            path_config = os.path.join(model_root, subdir, 'config.json')
-            path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
-            path_model_st = os.path.join(model_root, subdir, 'model.safetensors')
-            current_sub = os.path.join(model_root, subdir)
-            adapter_config = os.path.join(model_root, subdir, 'adapter_config.json')
-            adapter_model_st = os.path.join(model_root, subdir, 'adapter_model.safetensors')
-            matching_files = Path(current_sub).rglob('model-0*.safetensors')
-            if (os.path.exists(path_config) == True or os.path.exists(adapter_config) == True) and (os.path.exists(adapter_model_st) == True or os.path.exists(path_model_bin) == True or os.path.exists(path_model_st) == True or len(list(matching_files)) > 0):
-                if "PromptEnhancing" in subdir:
-                    baseRepoName = subdir[:subdir.lower().index("-promptenhancing")]
-                    baseRepoPath = os.path.join(model_root, baseRepoName)
-                    if os.path.exists(baseRepoPath) == True:
-                        valid_llm_path.append(subdir)
-                else:
-                    valid_llm_path.append(subdir)
-
+    valid_llm_path = llm_enhancer.getValidLLMPaths(model_root)
     configurators = ['Default'] + llm_enhancer.getConfigKeys()
     if configurators == None:
         configurators = ['Default']

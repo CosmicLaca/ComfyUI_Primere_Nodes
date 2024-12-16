@@ -638,6 +638,17 @@ class PrimereKSampler:
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
 
         match model_concept:
+            case 'SANA1024' | 'SANA512':
+                device = model['device']
+                samples_out = primeresamplers.PSamplerSana(self, device, seed, model,
+                                                           steps, cfg, sampler_name, scheduler_name,
+                                                           positive, negative,
+                                                           latent_image, denoise,
+                                                           variation_extender, variation_batch_step_original,
+                                                           batch_counter, variation_extender_original,
+                                                           variation_batch_step, variation_level, variation_limit,
+                                                           align_your_steps, noise_extender_ksampler, WORKFLOWDATA, prompt)[0]
+
             case "PixartSigma":
                 samples_out = primeresamplers.PSamplerPixart(self, device, seed, model,
                                                              steps, cfg, sampler_name, scheduler_name,
@@ -860,9 +871,10 @@ class PrimerePreviewImage():
                     VISUAL_DATA[ITEM_TYPE] = VALUE_LIST
                     VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VALUE_LIST_ORIGINAL
 
+        results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
+        VISUAL_DATA['SaveImages'] = results['ui']['images']
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
-        results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
         return results
 
 class PrimereAestheticCKPTScorer():

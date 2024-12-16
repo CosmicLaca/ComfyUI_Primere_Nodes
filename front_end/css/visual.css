@@ -315,6 +315,9 @@
 #primere_visual_modal .background-PixartSigma {
     background: #ffa7a7;
 }
+#primere_visual_modal .background-SANA1024, #primere_visual_modal .background-SANA512 {
+    background: #e89dfd;
+}
 #primere_visual_modal .background-Unknown {
     background: #eaf1b8;
 }
@@ -399,6 +402,11 @@
 #primere_visual_modal .ckpt-version.PixartSigma-ckpt::before {
     content: 'Σ';
     background: #804c0e;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.SANA512-ckpt::before, #primere_visual_modal .ckpt-version.SANA1024-ckpt::before {
+    content: 'SANA';
+    background: #5c366b;
     color: #ffffff;
 }
 #primere_visual_modal .ckpt-version.Unknown-ckpt::before {

@@ -224,25 +224,33 @@ app.registerExtension({
 });
 
 api.addEventListener("getVisualTargets", VisualDataReceiver);
-async function VisualDataReceiver(event) { // 01
+function VisualDataReceiver(event) { // 01
     WorkflowData = event.detail
+    let newLoadedURL = window.location.origin + '/view?filename=' + WorkflowData['SaveImages'][0]['filename'] + '&type=' + WorkflowData['SaveImages'][0]['type'] + '&subfolder=' + WorkflowData['SaveImages'][0]['subfolder'];
 
+    UrlExists(newLoadedURL, function (status) {
+        if (status === 200) {
+            ButtonLabelCreator(LoadedNode, newLoadedURL);
+        } else {
+            ORIG_SIZE_STRING = '[Unknown dimensions]'
+            console.log('new image loaded - ERROR status ' + status + ': - ' + newLoadedURL);
+        }
+    });
+
+    ButtonLabelCreator(LoadedNode, newLoadedURL);
     //await sleep(1000);
-    var img = document.querySelector('img');
+}
 
-    function loaded() {
-        let newLoadedURL = img.src;
-        ButtonLabelCreator(LoadedNode, newLoadedURL);
-    }
-
-    if (img.complete) {
-      loaded(img)
-    } else {
-      img.addEventListener('load', loaded);
-      img.addEventListener('error', function() {
-          console.log('new image loaded - ERROR');
-      })
-    }
+function UrlExists(url, cb) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'text',
+        type: 'GET',
+        complete: function (xhr) {
+            if (typeof cb === 'function')
+                cb.apply(this, [xhr.status]);
+        }
+    });
 }
 
 function dataURLtoFile(dataurl, filename) {

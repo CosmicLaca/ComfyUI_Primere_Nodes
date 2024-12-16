@@ -29,6 +29,7 @@ from comfy.samplers import KSAMPLER, calculate_sigmas
 from comfy_extras.nodes_model_advanced import ModelSamplingDiscreteDistilled
 from tqdm.auto import trange
 import comfy.model_detection as model_detection
+import comfy.model_management as model_management
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
@@ -36,18 +37,18 @@ cache_dir = os.path.join(here, 'Nodes', '.cache')
 cache_file = os.path.join(cache_dir, '.cache.json')
 
 MAX_SEED = 999999999999999
-SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg",]
+SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg", ]
 STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
 CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
 MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
-SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "SD3", "StableCascade", "Turbo", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
-                        "512": ['SD09', 'SD1', "Turbo"],
-                        "768": ['SD2', "LCM"],
-                        "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma"]
-                      }
+    "512": ['SD09', 'SD1', "Turbo", "SANA512"],
+    "768": ['SD2', "LCM"],
+    "1024": ["SDXL", "SD3", "StableCascade", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024"]
+}
 
 PREVIEW_PATH_BY_TYPE = {
     "Checkpoint": os.path.join(PREVIEW_ROOT, "checkpoints"),
@@ -63,6 +64,7 @@ WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'meta_source', 'pic2stor
                       'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
                       'vae_name_sd', 'vae_name_sdxl']
 
+
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):
         item1 = (item1,)
@@ -70,17 +72,21 @@ def merge_str_to_tuple(item1, item2):
         item2 = (item2,)
     return item1 + item2
 
+
 def merge_dict(dict1, dict2):
     dict3 = dict1.copy()
     for k, v in dict2.items():
         dict3[k] = merge_str_to_tuple(v, dict3[k]) if k in dict3 else v
     return dict3
 
+
 def remove_quotes(string):
     return str(string).replace('"', "").replace("'", "")
 
+
 def add_quotes(string):
     return '"' + str(string) + '"'
+
 
 def get_square_shape(shape_a, shape_b):
     area = shape_a * shape_b
@@ -88,12 +94,13 @@ def get_square_shape(shape_a, shape_b):
     standard_square = min(VALID_SHAPES, key=lambda x: abs(square - x))
     return standard_square
 
-def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str = 'Vertical', round_to_standard: bool = False, calculate_by_custom: bool = False, custom_side_a: float = 1, custom_side_b: float = 1, standard:str = 'STANDARD'):
+
+def get_dimensions_by_shape(self, rationame: str, square: int, orientation: str = 'Vertical', round_to_standard: bool = False, calculate_by_custom: bool = False, custom_side_a: float = 1, custom_side_b: float = 1, standard: str = 'STANDARD'):
     def calculate_dim(ratio_1: float, ratio_2: float, square: int):
         FullPixels = square ** 2
         ratio = ratio_2 / ratio_1
         side_a = math.sqrt(FullPixels * ratio)
-        side_b = side_a /  ratio
+        side_b = side_a / ratio
 
         if round_to_standard == True:
             STANDARD_LIST = STANDARD_SIDES
@@ -122,7 +129,8 @@ def get_dimensions_by_shape(self, rationame: str, square: int, orientation:str =
 
     return dimensions
 
-def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname = False):
+
+def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname=False):
     promptstring_temp = promptstring
 
     for LABEL in NETWORK_START:
@@ -163,11 +171,13 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname = False):
 
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
 
-def DiT_cleaner(prompt, length = 0):
+
+def DiT_cleaner(prompt, length=0):
     cleanPrompt = re.sub("(:\d+\.\d+)|(:\d+)|[()]|BREAK|break", "", prompt).replace('  ', ' ')
     if length > 0:
         cleanPrompt = cleanPrompt[:length].rsplit(' ', 1)[0]
     return cleanPrompt
+
 
 def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
     valid_networks = []
@@ -202,6 +212,7 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
 
     return valid_networks
 
+
 class ModelSamplingDiscreteLCM(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -210,7 +221,7 @@ class ModelSamplingDiscreteLCM(torch.nn.Module):
         beta_start = 0.00085
         beta_end = 0.012
 
-        betas = torch.linspace(beta_start**0.5, beta_end**0.5, timesteps, dtype=torch.float32) ** 2
+        betas = torch.linspace(beta_start ** 0.5, beta_end ** 0.5, timesteps, dtype=torch.float32) ** 2
         alphas = 1.0 - betas
         alphas_cumprod = torch.cumprod(alphas, dim=0)
 
@@ -252,13 +263,14 @@ class ModelSamplingDiscreteLCM(torch.nn.Module):
     def percent_to_sigma(self, percent):
         return self.sigma(torch.tensor(percent * 999.0))
 
+
 def DynPromptDecoder(self, dyn_prompt, seed):
     prompt_generator = RandomPromptGenerator(
         self._wildcard_manager,
-        seed = seed,
-        parser_config = self._parser_config,
-        unlink_seed_from_prompt = False,
-        ignore_whitespace = False
+        seed=seed,
+        parser_config=self._parser_config,
+        unlink_seed_from_prompt=False,
+        ignore_whitespace=False
     )
 
     dyn_type = type(dyn_prompt).__name__
@@ -273,10 +285,12 @@ def DynPromptDecoder(self, dyn_prompt, seed):
     prompt = all_prompts[0]
     return prompt
 
+
 def getResolutionByType(model_type):
     for res_key in CONCEPT_RESOLUTIONS:
         if model_type in CONCEPT_RESOLUTIONS[res_key]:
             return int(res_key)
+
 
 def getModelType(base_model, model_type):
     LYCO_DIR = os.path.join(folder_paths.models_dir, 'lycoris')
@@ -350,6 +364,7 @@ def getModelType(base_model, model_type):
 
     return model_version
 
+
 def get_model_hash(filename):
     is_link = os.path.islink(str(filename))
     if is_link == True:
@@ -364,6 +379,7 @@ def get_model_hash(filename):
     except FileNotFoundError:
         return None
 
+
 def load_external_csv(csv_full_path: str, header_cols: int):
     fileTest = open(csv_full_path, 'rb').readline()
     result = chardet.detect(fileTest)
@@ -371,15 +387,16 @@ def load_external_csv(csv_full_path: str, header_cols: int):
     if ENCODING == 'ascii':
         ENCODING = 'UTF-8'
 
-    with open(csv_full_path, "r", newline = '', encoding = ENCODING) as csv_file:
+    with open(csv_full_path, "r", newline='', encoding=ENCODING) as csv_file:
         try:
-            return pandas.read_csv(csv_file, header = header_cols, index_col = False, skipinitialspace = True)
+            return pandas.read_csv(csv_file, header=header_cols, index_col=False, skipinitialspace=True)
         except pandas.errors.ParserError as e:
             errorstring = repr(e)
             matchre = re.compile('Expected (d+) fields in line (d+), saw (d+)')
             (expected, line, saw) = map(int, matchre.search(errorstring).groups())
             print(f'Error at line {line}. Fields added : {saw - expected}.')
             return None
+
 
 def get_model_keywords(filename, modelhash, model_name):
     keywords = load_external_csv(filename, 3)
@@ -410,6 +427,7 @@ def get_model_keywords(filename, modelhash, model_name):
     else:
         return None
 
+
 def get_closest_element(value, netlist):
     cutoff_list = list(np.around(np.arange(0.1, 1.05, 0.05).tolist(), 2))[::-1]
     is_found = None
@@ -420,6 +438,7 @@ def get_closest_element(value, netlist):
             return is_found[0]
 
     return is_found
+
 
 def get_category_from_cache(category):
     ifCacheExist = os.path.isfile(cache_file)
@@ -435,6 +454,8 @@ def get_category_from_cache(category):
                 return None
     else:
         return None
+
+
 def get_value_from_cache(category, key):
     ifCacheExist = os.path.isfile(cache_file)
     if ifCacheExist == True:
@@ -449,6 +470,7 @@ def get_value_from_cache(category, key):
                 return None
     else:
         return None
+
 
 def update_value_in_cache(category, key, value):
     cacheData = {category: {key: value}}
@@ -474,6 +496,7 @@ def update_value_in_cache(category, key, value):
         with open(cache_file, "w", encoding='utf-8') as outfile:
             outfile.write(json_object)
         return True
+
 
 def add_value_to_cache(category, key, value):
     cacheData = {category: {key: value}}
@@ -501,6 +524,7 @@ def add_value_to_cache(category, key, value):
             outfile.write(json_object)
         return True
 
+
 def getLoraVersion(modelobject):
     VersionKeysBlock = [
         'lora_unet_down_blocks_0_attentions_0_proj_in.lora_up.weight',
@@ -523,17 +547,22 @@ def getLoraVersion(modelobject):
 
     return VersionHelper
 
+
 def pil2numpy(image: Image.Image):
     return np.array(image).astype(np.float32) / 255.0
+
 
 def numpy2pil(image: np.ndarray, mode=None):
     return Image.fromarray(np.clip(255.0 * image, 0, 255).astype(np.uint8), mode)
 
+
 def pil2tensor(image: Image.Image):
     return torch.from_numpy(pil2numpy(image)).unsqueeze(0)
 
+
 def tensor2pil(image: torch.Tensor, mode=None):
     return numpy2pil(image.cpu().numpy().squeeze(), mode=mode)
+
 
 def image_scale_down(images, width, height, crop):
     if crop == "center":
@@ -547,7 +576,7 @@ def image_scale_down(images, width, height, crop):
             x = round((old_width - old_width * (new_aspect / old_aspect)) / 2)
         elif old_aspect < new_aspect:
             y = round((old_height - old_height * (old_aspect / new_aspect)) / 2)
-        s = images[:, y : old_height - y, x : old_width - x, :]
+        s = images[:, y: old_height - y, x: old_width - x, :]
     else:
         s = images
 
@@ -559,6 +588,7 @@ def image_scale_down(images, width, height, crop):
 
     return (torch.cat(results, dim=0),)
 
+
 def image_scale_down_by_scale(images, scale_by):
     width = images.shape[2]
     height = images.shape[1]
@@ -566,8 +596,10 @@ def image_scale_down_by_scale(images, scale_by):
     new_height = int(height * scale_by)
     return image_scale_down(images, new_width, new_height, "center")
 
+
 def image_scale_down_by_dim(images, new_width, new_height):
     return image_scale_down(images, new_width, new_height, "center")
+
 
 def img_resizer(image: torch.Tensor, width: int, height: int, interpolation_mode: str):
     assert isinstance(image, torch.Tensor)
@@ -582,6 +614,7 @@ def img_resizer(image: torch.Tensor, width: int, height: int, interpolation_mode
     image = F.resize(image, (height, width), interpolation=interpolation_mode, antialias=True)
     image = image.permute(0, 2, 3, 1)
     return image
+
 
 def apply_variation_noise(latent_image, noise_device, variation_seed, variation_strength, mask=None):
     latent_size = latent_image.size()
@@ -604,6 +637,7 @@ def apply_variation_noise(latent_image, noise_device, variation_seed, variation_
         result = (mask == 1).float() * ((1 - variation_strength) * latent_image + variation_strength * variation_noise * mask) + (mask == 0).float() * latent_image
 
     return result
+
 
 def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", incremental_seed_mode="comfy", variation_seed=None, variation_strength=None):
     latent_size = latent_image.size()
@@ -640,9 +674,9 @@ def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", incre
         latents = None
         for i in range(batch_cnt):
             if noise_device == "cpu":
-                generator = torch.manual_seed(seed+i)
+                generator = torch.manual_seed(seed + i)
             else:
-                torch.cuda.manual_seed(seed+i)
+                torch.cuda.manual_seed(seed + i)
                 generator = None
 
             latent = torch.randn(latent_size_1batch, dtype=latent_image.dtype, layout=latent_image.layout, generator=generator, device=noise_device)
@@ -670,7 +704,7 @@ def prepare_noise(latent_image, seed, noise_inds=None, noise_device="cpu", incre
             latent = torch.randn(latent_size_1batch, dtype=latent_image.dtype, layout=latent_image.layout, generator=generator, device=noise_device)
 
             step = float(incremental_seed_mode[18:])
-            latent = apply_variation(latent, step*i)
+            latent = apply_variation(latent, step * i)
 
             if latents is None:
                 latents = latent
@@ -709,7 +743,8 @@ def hf_downloader(repo_id, model_local_dir):
     snapshot_download(repo_id=repo_id, local_dir=model_path, local_dir_use_symlinks=True, max_workers=1)
     return model_path
 
-def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, model_version = 'SDXL'):
+
+def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, model_version='SDXL'):
     lora_name = None
     unet_name = None
     lightningModeValid = False
@@ -774,7 +809,8 @@ def ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_mo
 
     return {'ckpt_name': ckpt_name, 'lora_name': lora_name, 'unet_name': unet_name, 'lightningModeValid': lightningModeValid, 'hyperModeValid': hyperModeValid}
 
-def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, lora_model_strength = 1):
+
+def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, lora_model_strength=1):
     if model_concept == 'Lightning' and lightningModeValid == True and lightning_selector == 'LORA' and lora_name is not None:
         if lora_model_strength != 0:
             lora = None
@@ -824,11 +860,13 @@ def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selec
 
     return OUTPUT_MODEL
 
+
 def get_hypersd_sigmas(model):
     timesteps = torch.tensor([800])
     sigmas = model.model.model_sampling.sigma(timesteps)
     sigmas = torch.cat([sigmas, sigmas.new_zeros([1])])
     return (sigmas,)
+
 
 class ModelSamplingDiscreteDistilledTCD(ModelSamplingDiscreteDistilled, EPS):
     def __init__(self, model_config=None):
@@ -846,6 +884,7 @@ class ModelSamplingDiscreteDistilledTCD(ModelSamplingDiscreteDistilled, EPS):
         alphas_cumprod = torch.cumprod(alphas, dim=0, dtype=torch.float32)
         self.register_buffer("alphas_cumprod", alphas_cumprod.clone().detach())
 
+
 @torch.no_grad()
 def sample_tcd(model, x, sigmas, extra_args=None, callback=None, disable=None, noise_sampler=None, eta=0.3, alpha_prod_s: torch.Tensor = None):
     extra_args = {} if extra_args is None else extra_args
@@ -861,8 +900,10 @@ def sample_tcd(model, x, sigmas, extra_args=None, callback=None, disable=None, n
         x = denoised
         if eta > 0 and sigmas[i + 1] > 0:
             noise = noise_sampler(sigmas[i], sigmas[i + 1])
-            x = x / alpha_prod_s[i+1].sqrt() + noise * (sigmas[i+1]**2 + 1 - 1/alpha_prod_s[i+1]).sqrt()
+            x = x / alpha_prod_s[i + 1].sqrt() + noise * (sigmas[i + 1] ** 2 + 1 - 1 / alpha_prod_s[i + 1]).sqrt()
     return x
+
+
 def TCDModelSamplingDiscrete(self, model, steps=4, scheduler="simple", denoise=1.0, eta=0.3):
     m = model.clone()
     ms = ModelSamplingDiscreteDistilledTCD(model.model.model_config)
@@ -874,7 +915,7 @@ def TCDModelSamplingDiscrete(self, model, steps=4, scheduler="simple", denoise=1
     elif denoise <= 1.0:
         total_steps = int(steps / denoise)
         sigmas = calculate_sigmas(ms, scheduler, total_steps).cpu()
-        sigmas = sigmas[-(steps + 1) :]
+        sigmas = sigmas[-(steps + 1):]
     m.add_object_patch("model_sampling", ms)
 
     timesteps_s = torch.floor((1 - eta) * ms.timestep(sigmas)).to(dtype=torch.long).detach()
@@ -882,6 +923,7 @@ def TCDModelSamplingDiscrete(self, model, steps=4, scheduler="simple", denoise=1
     alpha_prod_s = ms.alphas_cumprod[timesteps_s]
     sampler = KSAMPLER(sample_tcd, extra_options={"eta": eta, "alpha_prod_s": alpha_prod_s}, inpaint_options={})
     return (m, sampler, sigmas)
+
 
 def getLatentSize(samples):
     for tensor in samples['samples'][0]:
@@ -894,6 +936,7 @@ def getLatentSize(samples):
             return (None, None)
     return (None, None)
 
+
 def MatchDimensions(width_1, height_1, width_2, height_2, axis_value):
     if axis_value == 1:
         rate = height_2 / height_1
@@ -905,6 +948,7 @@ def MatchDimensions(width_1, height_1, width_2, height_2, axis_value):
         new_heigth = height_2 / rate
 
     return [round(new_width), round(new_heigth)]
+
 
 def ImageConcat(image1, image2, axis_value):
     image1_size = image1.size
@@ -923,6 +967,7 @@ def ImageConcat(image1, image2, axis_value):
 
     return new_image
 
+
 def getDataFromWorkflowById(workflow, nodeName, dataIndex):
     result = None
 
@@ -936,6 +981,7 @@ def getDataFromWorkflowById(workflow, nodeName, dataIndex):
                         result = ITEM_VALUES[dataIndex]
 
     return result
+
 
 def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
     results = None
@@ -968,6 +1014,7 @@ def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
 
     return results
 
+
 def collect_state(extra_pnginfo, prompt):
     workflow = extra_pnginfo["workflow"]
     results = {}
@@ -996,6 +1043,7 @@ def collect_state(extra_pnginfo, prompt):
     result = json.dumps(results, sort_keys=True)
     return hashlib.sha256(result.encode()).hexdigest()
 
+
 class MLP(pl.LightningModule):
     def __init__(self, input_size, xcol='emb', ycol='avg_rating'):
         super().__init__()
@@ -1015,28 +1063,34 @@ class MLP(pl.LightningModule):
 
     def forward(self, x):
         return self.layers(x)
+
     def training_step(self, batch, batch_idx):
-            x = batch[self.xcol]
-            y = batch[self.ycol].reshape(-1, 1)
-            x_hat = self.layers(x)
-            loss = F.mse_loss(x_hat, y)
-            return loss
+        x = batch[self.xcol]
+        y = batch[self.ycol].reshape(-1, 1)
+        x_hat = self.layers(x)
+        loss = F.mse_loss(x_hat, y)
+        return loss
+
     def validation_step(self, batch, batch_idx):
         x = batch[self.xcol]
         y = batch[self.ycol].reshape(-1, 1)
         x_hat = self.layers(x)
         loss = F.mse_loss(x_hat, y)
         return loss
+
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
         return optimizer
+
+
 def normalized(a, axis=-1, order=2):
     import numpy as np  # pylint: disable=import-outside-toplevel
     l2 = np.atleast_1d(np.linalg.norm(a, order, axis))
     l2[l2 == 0] = 1
     return a / np.expand_dims(l2, axis)
 
-def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
+
+def ImageLoaderFromPath(ImgPath, new_width=None, new_height=None):
     output_image = None
 
     if Path(ImgPath).is_file() == True:
@@ -1060,13 +1114,15 @@ def ImageLoaderFromPath(ImgPath, new_width = None, new_height = None):
 
     return output_image
 
+
 def tensor_to_image(tensor):
     tensor = tensor.cpu()
     image_np = tensor.squeeze().mul(255).clamp(0, 255).byte().numpy()
     image = Image.fromarray(image_np, mode='RGB')
     return image
 
-def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_result = True):
+
+def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result=True):
     story_out = None
     from transformers import BlipProcessor, BlipForConditionalGeneration
     import torch
@@ -1144,12 +1200,14 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip = True, clean_same_resu
     else:
         return story_out
 
+
 def getDownloadedFiles():
     DOWNLOAD_DIR = os.path.join(here, 'Nodes', 'Downloads')
     folder_paths.add_model_folder_path("primere_downloads", DOWNLOAD_DIR)
     downloaded_filelist = folder_paths.get_filename_list("primere_downloads")
     downloaded_filelist_filtered = folder_paths.filter_files_extensions(downloaded_filelist, ['.ckpt', '.safetensors'])
     return downloaded_filelist_filtered
+
 
 def downloader(from_url, to_path):
     if os.path.isfile(to_path) == False:
@@ -1164,6 +1222,7 @@ def downloader(from_url, to_path):
         else:
             print('ERROR: Cannot download ' + TargetFilename)
             return False
+
 def fileDownloader(targetFILE, sourceURL):
     if os.path.exists(targetFILE) == False:
         print('Downloading from: ' + sourceURL + ' to: ' + str(targetFILE))
@@ -1175,3 +1234,30 @@ def fileDownloader(targetFILE, sourceURL):
             print('ERROR: Cannot dowload required file to: ' + str(targetFILE))
             return False
     return True
+
+def get_dtype_by_name(dtype):
+    if dtype == 'Auto':
+        try:
+            if model_management.should_use_fp16():
+                dtype = torch.float16
+            elif model_management.should_use_bf16():
+                dtype = torch.bfloat16
+            else:
+                dtype = torch.float32
+        except:
+            raise AttributeError("ComfyUI version too old, can't autodetect properly. Set your dtypes manually.")
+    elif dtype == "fp16":
+        dtype = torch.float16
+    elif dtype == "bf16":
+        dtype = torch.bfloat16
+    elif dtype == "fp32":
+        dtype = torch.float32
+    elif dtype == "fp8_e4m3fn":
+        dtype = torch.float8_e4m3fn
+    elif dtype == "fp8_e4m3fnuz":
+        dtype = torch.float8_e4m3fnuz
+    elif dtype == "fp8_e5m2":
+        dtype = torch.float8_e5m2
+    elif dtype == "fp8_e5m2fnuz":
+        dtype = torch.float8_e5m2fnuz
+    return dtype

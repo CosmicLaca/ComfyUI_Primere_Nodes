@@ -19,7 +19,7 @@ if "unet_gguf" not in folder_paths.folder_names_and_paths:
     folder_paths.folder_names_and_paths["unet_gguf"] = (orig[0], {".gguf"})
 
 if "clip_gguf" not in folder_paths.folder_names_and_paths:
-    orig = folder_paths.folder_names_and_paths.get("clip", [[], set()])
+    orig = folder_paths.folder_names_and_paths.get("text_encoders", folder_paths.folder_names_and_paths.get("clip", [[], set()]))
     folder_paths.folder_names_and_paths["clip_gguf"] = (orig[0], {".gguf"})
 
 def gguf_sd_loader_get_orig_shape(reader, tensor_name):
@@ -49,6 +49,7 @@ def gguf_sd_loader(path, handle_prefix="model.diffusion_model."):
             sd_key = tensor_name[prefix_len:]
         tensors.append((sd_key, tensor))
 
+    # detect and verify architecture
     compat = None
     arch_str = None
     arch_field = reader.get_field("general.architecture")
@@ -56,13 +57,15 @@ def gguf_sd_loader(path, handle_prefix="model.diffusion_model."):
         if len(arch_field.types) != 1 or arch_field.types[0] != gguf.GGUFValueType.STRING:
             raise TypeError(f"Bad type for GGUF general.architecture key: expected string, got {arch_field.types!r}")
         arch_str = str(arch_field.parts[arch_field.data[-1]], encoding="utf-8")
-        if arch_str not in {"flux", "sd1", "sdxl", "sd3", "t5", "t5encoder"}:
+        if arch_str not in {"flux", "sd1", "sdxl", "sd3", "aura", "ltxv", "t5", "t5encoder"}:
             raise ValueError(f"Unexpected architecture type in GGUF file, expected one of flux, sd1, sdxl, t5encoder but got {arch_str!r}")
-    else:
+    else: # stable-diffusion.cpp
+        # import here to avoid changes to convert.py breaking regular models
         from .tools.convert import detect_arch
         arch_str = detect_arch(set(val[0] for val in tensors)).arch
         compat = "sd.cpp"
 
+    # main loading loop
     state_dict = {}
     qtype_dict = {}
     for sd_key, tensor in tensors:
@@ -73,18 +76,21 @@ def gguf_sd_loader(path, handle_prefix="model.diffusion_model."):
         shape = gguf_sd_loader_get_orig_shape(reader, tensor_name)
         if shape is None:
             shape = torch.Size(tuple(int(v) for v in reversed(tensor.shape)))
+            # Workaround for stable-diffusion.cpp SDXL detection.
             if compat == "sd.cpp" and arch_str == "sdxl":
                 if any([tensor_name.endswith(x) for x in (".proj_in.weight", ".proj_out.weight")]):
                     while len(shape) > 2 and shape[-1] == 1:
                         shape = shape[:-1]
 
+        # add to state dict
         if tensor.tensor_type in {gguf.GGMLQuantizationType.F32, gguf.GGMLQuantizationType.F16}:
             torch_tensor = torch_tensor.view(*shape)
         state_dict[sd_key] = GGMLTensor(torch_tensor, tensor_type=tensor.tensor_type, tensor_shape=shape)
         qtype_dict[tensor_type_str] = qtype_dict.get(tensor_type_str, 0) + 1
 
+    # sanity check debug print
     print("\nggml_sd_loader:")
-    for k, v in qtype_dict.items():
+    for k,v in qtype_dict.items():
         print(f" {k:30}{v:3}")
 
     return state_dict
@@ -117,6 +123,7 @@ def gguf_clip_loader(path):
         sd[k] = v
     return sd
 
+# TODO: Temporary fix for now
 import collections
 class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
     patch_on_device = False
@@ -170,8 +177,10 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
 
     mmap_released = False
     def load(self, *args, force_patch_weights=False, **kwargs):
+        # always call `patch_weight_to_device` even for lowvram
         super().load(*args, force_patch_weights=True, **kwargs)
 
+        # make sure nothing stays linked to mmap after first load
         if not self.mmap_released:
             linked = []
             if kwargs.get("lowvram_model_memory", 0) > 0:
@@ -187,21 +196,19 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
                             linked.append((n, m))
                             continue
             if linked:
+                print(f"Attempting to release mmap ({len(linked)})")
                 for n, m in linked:
+                    # TODO: possible to OOM, find better way to detach
                     m.to(self.load_device).to(self.offload_device)
             self.mmap_released = True
 
     def clone(self, *args, **kwargs):
-        n = GGUFModelPatcher(self.model, self.load_device, self.offload_device, self.size, weight_inplace_update=self.weight_inplace_update)
-        n.patches = {}
-        for k in self.patches:
-            n.patches[k] = self.patches[k][:]
-        n.patches_uuid = self.patches_uuid
-
-        n.object_patches = self.object_patches.copy()
-        n.model_options = copy.deepcopy(self.model_options)
-        n.backup = self.backup
-        n.object_patches_backup = self.object_patches_backup
+        src_cls = self.__class__
+        self.__class__ = GGUFModelPatcher
+        n = super().clone(*args, **kwargs)
+        n.__class__ = GGUFModelPatcher
+        self.__class__ = src_cls
+        # GGUF specific clone values below
         n.patch_on_device = getattr(self, "patch_on_device", False)
         return n
 
@@ -243,6 +250,8 @@ clip_name_dict = {
     "sdxl": comfy.sd.CLIPType.STABLE_DIFFUSION,
     "sd3": comfy.sd.CLIPType.SD3,
     "flux": comfy.sd.CLIPType.FLUX,
+    "mochi": getattr(comfy.sd.CLIPType, "MOCHI", None),
+    "ltxv": getattr(comfy.sd.CLIPType, "LTXV", None),
 }
 
 class CLIPLoaderGGUF:
@@ -257,12 +266,10 @@ class CLIPLoaderGGUF:
         clip_data = []
         for p in ckpt_paths:
             if p.endswith(".gguf"):
-                clip_data.append(gguf_clip_loader(p))
+                sd = gguf_clip_loader(p)
             else:
                 sd = comfy.utils.load_torch_file(p, safe_load=True)
-                clip_data.append(
-                    {k:GGMLTensor(v, tensor_type=gguf.GGMLQuantizationType.F16, tensor_shape=v.shape) for k,v in sd.items()}
-                )
+            clip_data.append(sd)
         return clip_data
 
     def load_patcher(self, clip_paths, clip_type, clip_data):
@@ -290,7 +297,7 @@ class CLIPLoaderGGUF:
     def load_clip(self, clip_name, type="stable_diffusion"):
         clip_path = folder_paths.get_full_path("clip", clip_name)
         clip_type = clip_name_dict.get(type, comfy.sd.CLIPType.STABLE_DIFFUSION)
-        return (self.load_patcher([clip_path], clip_type, self.load_data([clip_path])),)
+        return (CLIPLoaderGGUF.load_patcher([clip_path], clip_type, self.load_data([clip_path])),)
 
 class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, type):

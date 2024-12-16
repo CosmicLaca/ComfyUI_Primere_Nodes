@@ -7,6 +7,9 @@ import comfy.model_management
 from .dequant import dequantize_tensor, is_quantized
 
 class GGMLTensor(torch.Tensor):
+    """
+    Main tensor-like class for storing quantized weights
+    """
     def __init__(self, *args, tensor_type, tensor_shape, patches=[], **kwargs):
         super().__init__()
         self.tensor_type = tensor_type
@@ -36,13 +39,15 @@ class GGMLTensor(torch.Tensor):
         except Exception as e:
             print(f"ignoring 'copy_' on tensor: {e}")
 
-    def __deepcopy__(self, *args, **kwargs):
+    def new_empty(self, size, *args, **kwargs):
         # Intel Arc fix, ref#50
-        new = super().__deepcopy__(*args, **kwargs)
-        new.tensor_type = getattr(self, "tensor_type", None)
-        new.tensor_shape = getattr(self, "tensor_shape", new.data.shape)
-        new.patches = getattr(self, "patches", []).copy()
-        return new
+        new_tensor = super().new_empty(size, *args, **kwargs)
+        return GGMLTensor(
+                new_tensor,
+                tensor_type = getattr(self, "tensor_type", None),
+                tensor_shape = size,
+                patches = getattr(self, "patches", []).copy()
+        )
 
     @property
     def shape(self):
@@ -51,6 +56,9 @@ class GGMLTensor(torch.Tensor):
         return self.tensor_shape
 
 class GGMLLayer(torch.nn.Module):
+    """
+    This (should) be responsible for de-quantizing on the fly
+    """
     comfy_cast_weights = True
     dequant_dtype = None
     patch_dtype = None
@@ -112,6 +120,10 @@ class GGMLLayer(torch.nn.Module):
         # dequantize tensor while patches load
         weight = dequantize_tensor(tensor, dtype, self.dequant_dtype)
 
+        # prevent propagating custom tensor class
+        if isinstance(weight, GGMLTensor):
+            weight.__class__ = torch.Tensor
+
         # apply patches
         if patch_list:
             if self.patch_dtype is None:
@@ -143,13 +155,22 @@ class GGMLLayer(torch.nn.Module):
 
     def forward_comfy_cast_weights(self, input, *args, **kwargs):
         if self.is_ggml_quantized():
-            return self.forward_ggml_cast_weights(input, *args, **kwargs)
-        return super().forward_comfy_cast_weights(input, *args, **kwargs)
+            out = self.forward_ggml_cast_weights(input, *args, **kwargs)
+        else:
+            out = super().forward_comfy_cast_weights(input, *args, **kwargs)
+
+        # non-ggml forward might still propagate custom tensor class
+        if isinstance(out, GGMLTensor):
+            out.__class__ = torch.Tensor
+        return out
 
     def forward_ggml_cast_weights(self, input):
         raise NotImplementedError
 
 class GGMLOps(comfy.ops.manual_cast):
+    """
+    Dequantize weights on the fly before doing the compute
+    """
     class Linear(GGMLLayer, comfy.ops.manual_cast.Linear):
         def __init__(self, in_features, out_features, bias=True, device=None, dtype=None):
             torch.nn.Module.__init__(self)

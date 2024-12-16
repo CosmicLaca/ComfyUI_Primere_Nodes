@@ -118,6 +118,36 @@ def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negati
 
     return samples
 
+
+def PSamplerSana(self, device, seed, model,
+                 steps, cfg, sampler_name, scheduler_name,
+                 positive, negative,
+                 latent_image, denoise,
+                 variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, WORKFLOWDATA, prompt):
+
+    if device == 'DEFAULT':
+        device = model_management.get_torch_device()
+
+    pag_applied_layers = None if 'pag_applied_layers' not in model.keys() else model['pag_applied_layers']
+
+    latent_out = model['pipe'](
+        cond=positive,
+        uncond=negative,
+        guidance_scale=cfg,
+        pag_guidance_scale=2,
+        num_inference_steps=(steps + 1),
+        generator=torch.Generator(device=device).manual_seed(seed),
+        latents=latent_image['samples'],
+        noise_scheduler=scheduler_name,
+        output_type=True,
+        pag_applied_layers=pag_applied_layers,
+    )
+
+    model['unet'].to(comfy.model_management.unet_offload_device())
+    comfy.model_management.soft_empty_cache(True)
+
+    return (latent_out,)
+
 def PSamplerPixart(self, device, seed, model,
                    steps, cfg, sampler_name, scheduler_name,
                    positive, negative,
@@ -237,12 +267,6 @@ def PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, ste
     pipeline.scheduler = noise_scheduler
     generator = torch.Generator(device).manual_seed(seed)
     pipeline.unet.to(device)
-
-    '''if latent_image is not None:
-        samples_in = latent_image['samples']
-        samples_in = samples_in * vae_scaling_factor
-        samples_in = samples_in.to(pipeline.unet.dtype).to(device)'''
-
     latentWidth, latentHeigth = utility.getLatentSize(latent_image)
 
     latent_out = pipeline(
