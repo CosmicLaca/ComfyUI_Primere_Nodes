@@ -1996,7 +1996,7 @@ class PrimereCLIP:
             preset_te_prompt = ['Create one detailed perfect prompt from given User Prompt for stable diffusion text-to-image text2image modern DiT models.', 'Generate only the one enhanced description for the prompt below, avoid including any additional questions comments or evaluations:', 'User Prompt: ']
             chi_prompt = "\n".join(preset_te_prompt)
 
-            if sana_scheduler_name == 'flow_dpm-solver':
+            if sana_scheduler_name == 'flow_dpm-solver' and hasattr(clip, 'text_encoder'):
                 base_ratios = eval(f"ASPECT_RATIO_{1024}_TEST")
                 clip.text_encoder.to(device)
 
