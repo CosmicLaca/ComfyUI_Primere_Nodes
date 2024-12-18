@@ -28,6 +28,7 @@ This node node provides intelligent (half-autmatic) model concept detection and 
 - **Lightning**: Speed-optimized inference model
 - **Hyper**: Enhanced speed and quality balance model
 - **PixartSigma**: Advanced image refinement model (using SD1 refiner in workflow)
+- **Sana**: NVIDIA model
 
 ### Initial Setup (for model concept detection):
 1. **Run the concept detection terminal command, required Python file attached to nodepack:**
@@ -149,7 +150,6 @@ The node will automatically download speed-enhancement LoRAs on first use:
 - pixart_refiner_start: 12 (sigma split for refiner)
 - pixart_refiner_denoise: 0.90
 - pixart_refiner_ignore_prompt: on/off send original prompt to refiner model
-
 
 <hr>
 

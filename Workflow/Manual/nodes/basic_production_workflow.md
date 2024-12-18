@@ -193,6 +193,7 @@ You can mix the original positive and negative prompts to refining process with 
   - Lightning
   - Hyper
   - PixartSigma
+  - Sana
 
 ## Primere Image Segments Node:
 
@@ -335,6 +336,7 @@ The DiT Prompt Purifier node automatically cleans and optimizes prompts for mode
 - `purify_sd2`: SD2.x prompts
 - `purify_sdxl`: SDXL prompts
 - `purify_sd3`: SD3 prompts
+- `purify_sana`: Sana prompts
 
 #### Modern DiT Models (have to purify)
 - `purify_stablecascade`: Stable Cascade
