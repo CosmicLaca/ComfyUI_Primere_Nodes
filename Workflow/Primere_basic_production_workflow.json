@@ -1,6 +1,6 @@
 {
-  "last_node_id": 292,
-  "last_link_id": 3619,
+  "last_node_id": 294,
+  "last_link_id": 3833,
   "nodes": [
     {
       "id": 16,
@@ -41,7 +41,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "VAEDecode"
+        "Node name for S&R": "VAEDecode",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#941414",
@@ -70,7 +77,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#941414",
@@ -188,7 +202,14 @@
       ],
       "title": "Primere Prompt Organizer - SWITCH #3",
       "properties": {
-        "Node name for S&R": "PrimerePromptOrganizer"
+        "Node name for S&R": "PrimerePromptOrganizer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -231,7 +252,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
+        "Node name for S&R": "PrimerePreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -272,7 +300,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimereTextOutput"
+        "Node name for S&R": "PrimereTextOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -305,7 +340,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3109,
+          "link": 3675,
           "shape": 7
         },
         {
@@ -317,13 +352,13 @@
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 3036,
+          "link": 3771,
           "shape": 7
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 3037,
+          "link": 3772,
           "shape": 7
         },
         {
@@ -399,7 +434,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3028,
+          "link": 3762,
           "widget": {
             "name": "model_concept"
           }
@@ -407,7 +442,7 @@
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 3012,
+          "link": 3746,
           "widget": {
             "name": "sampler"
           }
@@ -415,7 +450,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3016,
+          "link": 3750,
           "widget": {
             "name": "scheduler"
           }
@@ -439,7 +474,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3024,
+          "link": 3758,
           "widget": {
             "name": "cfg"
           }
@@ -447,7 +482,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 3019,
+          "link": 3753,
           "widget": {
             "name": "steps"
           }
@@ -474,12 +509,19 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
+        "Node name for S&R": "PrimereMetaCollector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        742,
+        347,
         "randomize",
         "",
         "",
@@ -566,7 +608,14 @@
       ],
       "title": "Primere Visual Prompt CSV - SWITCH #4",
       "properties": {
-        "Node name for S&R": "PrimereVisualPromptOrganizerCSV"
+        "Node name for S&R": "PrimereVisualPromptOrganizerCSV",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -612,7 +661,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2967
+            3701
           ],
           "slot_index": 0,
           "shape": 3
@@ -621,7 +670,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2968
+            3702
           ],
           "slot_index": 1,
           "shape": 3
@@ -630,7 +679,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2969
+            3703
           ],
           "slot_index": 2,
           "shape": 3
@@ -639,7 +688,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2970
+            3704
           ],
           "slot_index": 3,
           "shape": 3
@@ -647,7 +696,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - TURBO",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler_dy",
@@ -678,7 +734,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2963
+            3697
           ],
           "slot_index": 0,
           "shape": 3
@@ -687,7 +743,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2964
+            3698
           ],
           "slot_index": 1,
           "shape": 3
@@ -696,7 +752,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2965
+            3699
           ],
           "slot_index": 2,
           "shape": 3
@@ -705,7 +761,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2966
+            3700
           ],
           "slot_index": 3,
           "shape": 3
@@ -713,7 +769,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - CASCADE",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler_ancestral",
@@ -744,7 +807,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2947
+            3681
           ],
           "slot_index": 0,
           "shape": 3
@@ -753,7 +816,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2948
+            3682
           ],
           "slot_index": 1,
           "shape": 3
@@ -762,7 +825,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2949
+            3683
           ],
           "slot_index": 2,
           "shape": 3
@@ -771,7 +834,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2950
+            3684
           ],
           "slot_index": 3,
           "shape": 3
@@ -779,7 +842,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - SD1",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -810,7 +880,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2991
+            3725
           ],
           "slot_index": 0,
           "shape": 3
@@ -819,7 +889,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2992
+            3726
           ],
           "slot_index": 1,
           "shape": 3
@@ -828,7 +898,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2993
+            3727
           ],
           "slot_index": 2,
           "shape": 3
@@ -837,7 +907,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2994
+            3728
           ],
           "slot_index": 3,
           "shape": 3
@@ -845,7 +915,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - LCM",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "lcm",
@@ -876,7 +953,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2995
+            3729
           ],
           "slot_index": 0,
           "shape": 3
@@ -885,7 +962,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2996
+            3730
           ],
           "slot_index": 1,
           "shape": 3
@@ -894,7 +971,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2997
+            3731
           ],
           "slot_index": 2,
           "shape": 3
@@ -903,7 +980,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2998
+            3732
           ],
           "slot_index": 3,
           "shape": 3
@@ -911,7 +988,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - LIGHTNING",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -942,7 +1026,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2983
+            3717
           ],
           "slot_index": 0,
           "shape": 3
@@ -951,7 +1035,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2984
+            3718
           ],
           "slot_index": 1,
           "shape": 3
@@ -960,7 +1044,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2985
+            3719
           ],
           "slot_index": 2,
           "shape": 3
@@ -969,7 +1053,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2986
+            3720
           ],
           "slot_index": 3,
           "shape": 3
@@ -977,7 +1061,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - PLAYGROUND",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -1008,7 +1099,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2999
+            3733
           ],
           "slot_index": 0,
           "shape": 3
@@ -1017,7 +1108,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            3000
+            3734
           ],
           "slot_index": 1,
           "shape": 3
@@ -1026,7 +1117,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            3001
+            3735
           ],
           "slot_index": 2,
           "shape": 3
@@ -1035,7 +1126,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            3002
+            3736
           ],
           "slot_index": 3,
           "shape": 3
@@ -1043,7 +1134,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - HYPER-SD",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_2s_ancestral",
@@ -1074,7 +1172,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2971
+            3705
           ],
           "slot_index": 0,
           "shape": 3
@@ -1083,7 +1181,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2972
+            3706
           ],
           "slot_index": 1,
           "shape": 3
@@ -1092,7 +1190,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2973
+            3707
           ],
           "slot_index": 2,
           "shape": 3
@@ -1101,7 +1199,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2974
+            3708
           ],
           "slot_index": 3,
           "shape": 3
@@ -1109,7 +1207,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - FLUX",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -1140,7 +1245,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2959
+            3693
           ],
           "slot_index": 0,
           "shape": 3
@@ -1149,7 +1254,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2960
+            3694
           ],
           "slot_index": 1,
           "shape": 3
@@ -1158,7 +1263,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2961
+            3695
           ],
           "slot_index": 2,
           "shape": 3
@@ -1167,7 +1272,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2962
+            3696
           ],
           "slot_index": 3,
           "shape": 3
@@ -1175,7 +1280,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - SD3",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_2m",
@@ -1206,7 +1318,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2987
+            3721
           ],
           "slot_index": 0,
           "shape": 3
@@ -1215,7 +1327,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2988
+            3722
           ],
           "slot_index": 1,
           "shape": 3
@@ -1224,7 +1336,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2989
+            3723
           ],
           "slot_index": 2,
           "shape": 3
@@ -1233,7 +1345,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2990
+            3724
           ],
           "slot_index": 3,
           "shape": 3
@@ -1241,7 +1353,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - PONY",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -1272,7 +1391,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2979
+            3713
           ],
           "slot_index": 0,
           "shape": 3
@@ -1281,7 +1400,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2980
+            3714
           ],
           "slot_index": 1,
           "shape": 3
@@ -1290,7 +1409,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2981
+            3715
           ],
           "slot_index": 2,
           "shape": 3
@@ -1299,7 +1418,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2982
+            3716
           ],
           "slot_index": 3,
           "shape": 3
@@ -1307,7 +1426,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - HUNYUAN",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -1340,7 +1466,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            3156
+            3689
           ],
           "slot_index": 0,
           "shape": 3
@@ -1349,7 +1475,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            3157
+            3690
           ],
           "slot_index": 1,
           "shape": 3
@@ -1358,7 +1484,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            3158
+            3691
           ],
           "slot_index": 2,
           "shape": 3
@@ -1367,7 +1493,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            3159
+            3692
           ],
           "slot_index": 3,
           "shape": 3
@@ -1375,7 +1501,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - SDXL",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -1406,7 +1539,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2951
+            3685
           ],
           "slot_index": 0,
           "shape": 3
@@ -1415,7 +1548,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2952
+            3686
           ],
           "slot_index": 1,
           "shape": 3
@@ -1424,7 +1557,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2953
+            3687
           ],
           "slot_index": 2,
           "shape": 3
@@ -1433,7 +1566,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2954
+            3688
           ],
           "slot_index": 3,
           "shape": 3
@@ -1441,7 +1574,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - SD2",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -1472,7 +1612,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            2975
+            3709
           ],
           "slot_index": 0,
           "shape": 3
@@ -1481,7 +1621,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            2976
+            3710
           ],
           "slot_index": 1,
           "shape": 3
@@ -1490,7 +1630,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            2977
+            3711
           ],
           "slot_index": 2,
           "shape": 3
@@ -1499,7 +1639,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            2978
+            3712
           ],
           "slot_index": 3,
           "shape": 3
@@ -1507,7 +1647,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - KWAIKOLORS",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -1541,7 +1688,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3112,
+          "link": 3678,
           "shape": 7
         },
         {
@@ -1565,7 +1712,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3031,
+          "link": 3765,
           "widget": {
             "name": "model_concept"
           },
@@ -1616,7 +1763,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
+        "Node name for S&R": "PrimereCKPTLoader",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -1661,7 +1815,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereUpscaleModel"
+        "Node name for S&R": "PrimereUpscaleModel",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SwinIR\\SwinIR_4x.pth"
@@ -1735,6 +1896,13 @@
       ],
       "properties": {
         "Node name for S&R": "ttN hiresfixScale",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
         "ttNnodeVersion": "1.1.0"
       },
       "widgets_values": [
@@ -1778,7 +1946,7 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3111,
+          "link": 3677,
           "shape": 7
         },
         {
@@ -1878,7 +2046,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3030,
+          "link": 3764,
           "widget": {
             "name": "model_concept"
           },
@@ -1887,7 +2055,7 @@
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 3014,
+          "link": 3748,
           "widget": {
             "name": "sampler"
           },
@@ -1896,7 +2064,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3018,
+          "link": 3752,
           "widget": {
             "name": "scheduler"
           },
@@ -1923,7 +2091,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3026,
+          "link": 3760,
           "widget": {
             "name": "cfg"
           },
@@ -1932,7 +2100,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 3022,
+          "link": 3756,
           "widget": {
             "name": "steps"
           },
@@ -1959,12 +2127,19 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
+        "Node name for S&R": "PrimereMetaCollector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1087,
+        135,
         "randomize",
         "",
         "",
@@ -2007,10 +2182,17 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT +",
       "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
-        "(design:1.2), Nature summer season photography, expressionist realistic style, living scenery, Dynamic normal shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, sunny photography, seasonal rain, perfect colors of selected season"
+        "(design:1.2), Nature autumn season photography, expressionist realistic style, living scenery, Dynamic wide shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, sunny photography, seasonal rain, perfect colors of selected season"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -2039,7 +2221,14 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT -",
       "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "(human, man, woman, girl, nsfw, nude, nudity, porn:1.20)"
@@ -2098,11 +2287,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereLLMEnhancer"
+        "Node name for S&R": "PrimereLLMEnhancer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        1848283122,
+        3448079484,
         "randomize",
         "None",
         true,
@@ -2135,7 +2331,14 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT T5-XXL",
       "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         ""
@@ -2163,7 +2366,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            3007
+            3741
           ],
           "slot_index": 0,
           "shape": 3
@@ -2172,7 +2375,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            3008
+            3742
           ],
           "slot_index": 1,
           "shape": 3
@@ -2181,7 +2384,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            3010
+            3744
           ],
           "slot_index": 2,
           "shape": 3
@@ -2190,7 +2393,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            3009
+            3743
           ],
           "slot_index": 3,
           "shape": 3
@@ -2198,7 +2401,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - PIXART REFINER",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "dpmpp_sde",
@@ -2229,7 +2439,7 @@
           "name": "SAMPLER_NAME",
           "type": "COMBO",
           "links": [
-            3003
+            3737
           ],
           "slot_index": 0,
           "shape": 3
@@ -2238,7 +2448,7 @@
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
           "links": [
-            3004
+            3738
           ],
           "slot_index": 1,
           "shape": 3
@@ -2247,7 +2457,7 @@
           "name": "STEPS",
           "type": "INT",
           "links": [
-            3005
+            3739
           ],
           "slot_index": 2,
           "shape": 3
@@ -2256,7 +2466,7 @@
           "name": "CFG",
           "type": "FLOAT",
           "links": [
-            3006
+            3740
           ],
           "slot_index": 3,
           "shape": 3
@@ -2264,7 +2474,14 @@
       ],
       "title": "Primere Samplers & Steps & Cfg - PIXART",
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -2274,509 +2491,6 @@
       ],
       "color": "#2c006c",
       "bgcolor": "#400080"
-    },
-    {
-      "id": 217,
-      "type": "PrimereConceptDataTuple",
-      "pos": [
-        3519,
-        1319
-      ],
-      "size": [
-        405.5999755859375,
-        1306
-      ],
-      "flags": {},
-      "order": 43,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "override_steps",
-          "type": "OVERRIDE_STEPS",
-          "link": 3122
-        },
-        {
-          "name": "clip_selection",
-          "type": "CLIP_SELECTION",
-          "link": 3121
-        },
-        {
-          "name": "vae_selection",
-          "type": "VAE_SELECTION",
-          "link": 3120
-        },
-        {
-          "name": "vae_name",
-          "type": "VAE_NAME",
-          "link": 3119
-        },
-        {
-          "name": "use_flux_hyper_lora",
-          "type": "FLUX_HYPER_LORA",
-          "link": 3123
-        },
-        {
-          "name": "use_flux_turbo_lora",
-          "type": "FLUX_TURBO_LORA",
-          "link": 3124
-        },
-        {
-          "name": "use_sd3_hyper_lora",
-          "type": "SD3_HYPER_LORA",
-          "link": 3140
-        },
-        {
-          "name": "strength_lcm_lora_model",
-          "type": "FLOAT",
-          "link": 3118,
-          "widget": {
-            "name": "strength_lcm_lora_model"
-          }
-        },
-        {
-          "name": "lightning_selector",
-          "type": "STRING",
-          "link": 3117,
-          "widget": {
-            "name": "lightning_selector"
-          }
-        },
-        {
-          "name": "lightning_model_step",
-          "type": "INT",
-          "link": 3116,
-          "widget": {
-            "name": "lightning_model_step"
-          }
-        },
-        {
-          "name": "strength_lightning_lora_model",
-          "type": "FLOAT",
-          "link": 3080,
-          "widget": {
-            "name": "strength_lightning_lora_model"
-          }
-        },
-        {
-          "name": "cascade_stage_a",
-          "type": "STRING",
-          "link": 3081,
-          "widget": {
-            "name": "cascade_stage_a"
-          }
-        },
-        {
-          "name": "cascade_stage_b",
-          "type": "STRING",
-          "link": 3082,
-          "widget": {
-            "name": "cascade_stage_b"
-          }
-        },
-        {
-          "name": "cascade_stage_c",
-          "type": "STRING",
-          "link": 3083,
-          "widget": {
-            "name": "cascade_stage_c"
-          }
-        },
-        {
-          "name": "cascade_clip",
-          "type": "STRING",
-          "link": 3084,
-          "widget": {
-            "name": "cascade_clip"
-          }
-        },
-        {
-          "name": "hypersd_selector",
-          "type": "STRING",
-          "link": 3085,
-          "widget": {
-            "name": "hypersd_selector"
-          }
-        },
-        {
-          "name": "hypersd_model_step",
-          "type": "INT",
-          "link": 3086,
-          "widget": {
-            "name": "hypersd_model_step"
-          }
-        },
-        {
-          "name": "strength_hypersd_lora_model",
-          "type": "FLOAT",
-          "link": 3087,
-          "widget": {
-            "name": "strength_hypersd_lora_model"
-          }
-        },
-        {
-          "name": "flux_selector",
-          "type": "STRING",
-          "link": 3088,
-          "widget": {
-            "name": "flux_selector"
-          }
-        },
-        {
-          "name": "flux_diffusion",
-          "type": "STRING",
-          "link": 3089,
-          "widget": {
-            "name": "flux_diffusion"
-          }
-        },
-        {
-          "name": "flux_weight_dtype",
-          "type": "STRING",
-          "link": 3090,
-          "widget": {
-            "name": "flux_weight_dtype"
-          }
-        },
-        {
-          "name": "flux_gguf",
-          "type": "STRING",
-          "link": 3091,
-          "widget": {
-            "name": "flux_gguf"
-          }
-        },
-        {
-          "name": "flux_clip_t5xxl",
-          "type": "STRING",
-          "link": 3092,
-          "widget": {
-            "name": "flux_clip_t5xxl"
-          }
-        },
-        {
-          "name": "flux_clip_l",
-          "type": "STRING",
-          "link": 3093,
-          "widget": {
-            "name": "flux_clip_l"
-          }
-        },
-        {
-          "name": "flux_clip_guidance",
-          "type": "FLOAT",
-          "link": 3094,
-          "widget": {
-            "name": "flux_clip_guidance"
-          }
-        },
-        {
-          "name": "flux_vae",
-          "type": "STRING",
-          "link": 3095,
-          "widget": {
-            "name": "flux_vae"
-          }
-        },
-        {
-          "name": "flux_sampler",
-          "type": "STRING",
-          "link": 3129,
-          "widget": {
-            "name": "flux_sampler"
-          }
-        },
-        {
-          "name": "flux_hyper_lora_type",
-          "type": "STRING",
-          "link": 3130,
-          "widget": {
-            "name": "flux_hyper_lora_type"
-          }
-        },
-        {
-          "name": "flux_hyper_lora_step",
-          "type": "INT",
-          "link": 3131,
-          "widget": {
-            "name": "flux_hyper_lora_step"
-          }
-        },
-        {
-          "name": "flux_hyper_lora_strength",
-          "type": "FLOAT",
-          "link": 3132,
-          "widget": {
-            "name": "flux_hyper_lora_strength"
-          }
-        },
-        {
-          "name": "flux_turbo_lora_type",
-          "type": "STRING",
-          "link": 3125,
-          "widget": {
-            "name": "flux_turbo_lora_type"
-          }
-        },
-        {
-          "name": "flux_turbo_lora_step",
-          "type": "INT",
-          "link": 3126,
-          "widget": {
-            "name": "flux_turbo_lora_step"
-          }
-        },
-        {
-          "name": "flux_turbo_lora_strength",
-          "type": "FLOAT",
-          "link": 3127,
-          "widget": {
-            "name": "flux_turbo_lora_strength"
-          }
-        },
-        {
-          "name": "hunyuan_clip_t5xxl",
-          "type": "STRING",
-          "link": 3133,
-          "widget": {
-            "name": "hunyuan_clip_t5xxl"
-          }
-        },
-        {
-          "name": "hunyuan_clip_l",
-          "type": "STRING",
-          "link": 3134,
-          "widget": {
-            "name": "hunyuan_clip_l"
-          }
-        },
-        {
-          "name": "hunyuan_vae",
-          "type": "STRING",
-          "link": 3135,
-          "widget": {
-            "name": "hunyuan_vae"
-          }
-        },
-        {
-          "name": "sd3_clip_g",
-          "type": "STRING",
-          "link": 3136,
-          "widget": {
-            "name": "sd3_clip_g"
-          }
-        },
-        {
-          "name": "sd3_clip_l",
-          "type": "STRING",
-          "link": 3137,
-          "widget": {
-            "name": "sd3_clip_l"
-          }
-        },
-        {
-          "name": "sd3_clip_t5xxl",
-          "type": "STRING",
-          "link": 3138,
-          "widget": {
-            "name": "sd3_clip_t5xxl"
-          }
-        },
-        {
-          "name": "sd3_unet_vae",
-          "type": "STRING",
-          "link": 3139,
-          "widget": {
-            "name": "sd3_unet_vae"
-          }
-        },
-        {
-          "name": "sd3_hyper_lora_step",
-          "type": "INT",
-          "link": 3141,
-          "widget": {
-            "name": "sd3_hyper_lora_step"
-          }
-        },
-        {
-          "name": "sd3_hyper_lora_strength",
-          "type": "FLOAT",
-          "link": 3142,
-          "widget": {
-            "name": "sd3_hyper_lora_strength"
-          }
-        },
-        {
-          "name": "kolors_precision",
-          "type": "STRING",
-          "link": 3143,
-          "widget": {
-            "name": "kolors_precision"
-          }
-        },
-        {
-          "name": "pixart_model_type",
-          "type": "STRING",
-          "link": 3144,
-          "widget": {
-            "name": "pixart_model_type"
-          }
-        },
-        {
-          "name": "pixart_T5_encoder",
-          "type": "STRING",
-          "link": 3145,
-          "widget": {
-            "name": "pixart_T5_encoder"
-          }
-        },
-        {
-          "name": "pixart_vae",
-          "type": "STRING",
-          "link": 3146,
-          "widget": {
-            "name": "pixart_vae"
-          }
-        },
-        {
-          "name": "pixart_denoise",
-          "type": "FLOAT",
-          "link": 3147,
-          "widget": {
-            "name": "pixart_denoise"
-          }
-        },
-        {
-          "name": "pixart_refiner_model",
-          "type": "STRING",
-          "link": 3148,
-          "widget": {
-            "name": "pixart_refiner_model"
-          }
-        },
-        {
-          "name": "pixart_refiner_sampler",
-          "type": "STRING",
-          "link": 3149,
-          "widget": {
-            "name": "pixart_refiner_sampler"
-          }
-        },
-        {
-          "name": "pixart_refiner_scheduler",
-          "type": "STRING",
-          "link": 3150,
-          "widget": {
-            "name": "pixart_refiner_scheduler"
-          }
-        },
-        {
-          "name": "pixart_refiner_cfg",
-          "type": "FLOAT",
-          "link": 3151,
-          "widget": {
-            "name": "pixart_refiner_cfg"
-          }
-        },
-        {
-          "name": "pixart_refiner_steps",
-          "type": "INT",
-          "link": 3152,
-          "widget": {
-            "name": "pixart_refiner_steps"
-          }
-        },
-        {
-          "name": "pixart_refiner_start",
-          "type": "INT",
-          "link": 3153,
-          "widget": {
-            "name": "pixart_refiner_start"
-          }
-        },
-        {
-          "name": "pixart_refiner_denoise",
-          "type": "FLOAT",
-          "link": 3154,
-          "widget": {
-            "name": "pixart_refiner_denoise"
-          }
-        },
-        {
-          "name": "pixart_refiner_ignore_prompt",
-          "type": "BOOLEAN",
-          "link": 3155,
-          "widget": {
-            "name": "pixart_refiner_ignore_prompt"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONCEPT_DATA",
-          "type": "TUPLE",
-          "links": [
-            3109,
-            3110,
-            3111,
-            3112
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereConceptDataTuple"
-      },
-      "widgets_values": [
-        1,
-        "SAFETENSOR",
-        8,
-        1,
-        "",
-        "",
-        "",
-        "",
-        "LORA",
-        8,
-        1,
-        "DIFFUSION",
-        "",
-        "",
-        "",
-        "",
-        "",
-        3.5,
-        "",
-        "",
-        "",
-        0,
-        0.125,
-        "",
-        0,
-        0.125,
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        8,
-        0.125,
-        "",
-        "",
-        "",
-        "",
-        0,
-        "",
-        "",
-        "",
-        0,
-        0,
-        0,
-        0,
-        false
-      ],
-      "color": "#2c6c6c",
-      "bgcolor": "#408080"
     },
     {
       "id": 218,
@@ -2802,7 +2516,14 @@
       "outputs": [],
       "title": "Preview Image - REFINED FACE",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#886029",
@@ -2833,7 +2554,14 @@
       "outputs": [],
       "title": "Preview Image - REFINED HANDS",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#a66e42",
@@ -2864,7 +2592,14 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL HANDS",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#a66e42",
@@ -2894,7 +2629,14 @@
       "outputs": [],
       "title": "Preview Image - REFINED EYES",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#ab6847",
@@ -2924,7 +2666,14 @@
       "outputs": [],
       "title": "Preview Image - REFINED MOUTH",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#a2533f",
@@ -2955,7 +2704,14 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL MOUTH",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#a2533f",
@@ -3006,7 +2762,14 @@
       ],
       "title": "Model version",
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#149494",
       "bgcolor": "#008080"
@@ -3050,7 +2813,14 @@
       ],
       "title": "Prompt +",
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#232",
       "bgcolor": "#353"
@@ -3094,7 +2864,14 @@
       ],
       "title": "Prompt -",
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#322",
       "bgcolor": "#533"
@@ -3134,58 +2911,17 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#141494",
       "bgcolor": "#000080"
-    },
-    {
-      "id": 258,
-      "type": "ReroutePrimitive|pysssss",
-      "pos": [
-        4831.384765625,
-        2326.6357421875
-      ],
-      "size": [
-        139.1999969482422,
-        26
-      ],
-      "flags": {},
-      "order": 42,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "value",
-          "type": "*",
-          "link": 3272,
-          "label": " "
-        }
-      ],
-      "outputs": [
-        {
-          "name": "*",
-          "type": "*",
-          "links": [
-            3405,
-            3416,
-            3426,
-            3436,
-            3524,
-            3535,
-            3546,
-            3557
-          ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "STRING"
-        }
-      ],
-      "title": "Model concept",
-      "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
-      },
-      "color": "#a25b14",
-      "bgcolor": "#8e4700"
     },
     {
       "id": 259,
@@ -3221,7 +2957,14 @@
       ],
       "title": "Square shape",
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#d37414",
       "bgcolor": "#bf6000"
@@ -3293,7 +3036,14 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL FACE",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#886029",
@@ -3446,7 +3196,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "PrimereRefinerPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "None",
@@ -3481,6 +3238,8 @@
         "",
         "Normal",
         "SD1",
+        1,
+        "SD1",
         1
       ],
       "color": "#9e523f",
@@ -3511,7 +3270,14 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL EYES",
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#ab6847",
@@ -3612,7 +3378,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
+        "Node name for S&R": "PrimereCKPTLoader",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -3701,7 +3474,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 3013,
+          "link": 3747,
           "slot_index": 10,
           "widget": {
             "name": "sampler_name"
@@ -3710,7 +3483,7 @@
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3017,
+          "link": 3751,
           "slot_index": 11,
           "widget": {
             "name": "scheduler"
@@ -3719,7 +3492,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 3021,
+          "link": 3755,
           "slot_index": 12,
           "widget": {
             "name": "steps"
@@ -3728,7 +3501,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3025,
+          "link": 3759,
           "slot_index": 13,
           "widget": {
             "name": "cfg"
@@ -3749,11 +3522,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "UltimateSDUpscale"
+        "Node name for S&R": "UltimateSDUpscale",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         2.1,
-        287038425533961,
+        971916101960569,
         "randomize",
         7,
         6.5,
@@ -3812,7 +3592,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#141494",
       "bgcolor": "#000080"
@@ -3898,7 +3685,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+        "Node name for S&R": "PrimereResolutionMultiplierMPX",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -3948,12 +3742,19 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereFastSeed"
+        "Node name for S&R": "PrimereFastSeed",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [324515693148089]"
+        "Last seed: [734278321236977]"
       ],
       "color": "#1414b8",
       "bgcolor": "#0000a4"
@@ -4022,7 +3823,14 @@
       ],
       "title": "Primere Prompt - #6",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4098,7 +3906,14 @@
       ],
       "title": "Primere Prompt - #5",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4174,7 +3989,14 @@
       ],
       "title": "Primere Prompt - #8",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4250,7 +4072,14 @@
       ],
       "title": "Primere Prompt - #7",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4517,7 +4346,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimerePromptSwitch"
+        "Node name for S&R": "PrimerePromptSwitch",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         1
@@ -4592,7 +4428,14 @@
       ],
       "title": "Primere Prompt - SWITCH #1",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
@@ -4668,7 +4511,14 @@
       ],
       "title": "Primere Prompt - #10",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4744,7 +4594,14 @@
       ],
       "title": "Primere Prompt - #12",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4820,7 +4677,14 @@
       ],
       "title": "Primere Prompt - #11",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4896,7 +4760,14 @@
       ],
       "title": "Primere Prompt - #9",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -4973,7 +4844,14 @@
       ],
       "title": "Primere Visual Style Selector - SWITCH #2",
       "properties": {
-        "Node name for S&R": "PrimereVisualStyle"
+        "Node name for S&R": "PrimereVisualStyle",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "UFO",
@@ -5024,7 +4902,7 @@
             2504,
             2696,
             2697,
-            2945
+            3679
           ],
           "slot_index": 0,
           "shape": 3
@@ -5033,7 +4911,7 @@
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            2946
+            3680
           ],
           "slot_index": 1,
           "shape": 3
@@ -5091,7 +4969,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3032,
+          "link": 3766,
           "widget": {
             "name": "model_concept"
           },
@@ -5133,7 +5011,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereResolution"
+        "Node name for S&R": "PrimereResolution",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "HD screen [16:9]",
@@ -5147,1225 +5032,13 @@
         false,
         1.6,
         2.8,
-        866153422732983,
+        806140692991989,
         "randomize",
         "SD1",
         "Auto"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
-    },
-    {
-      "id": 216,
-      "type": "PrimereModelConceptSelector",
-      "pos": [
-        2762.306640625,
-        1215.7421875
-      ],
-      "size": [
-        719.8052368164062,
-        2750
-      ],
-      "flags": {},
-      "order": 37,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 2945,
-          "shape": 7
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 2946,
-          "widget": {
-            "name": "model_version"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd1_sampler_name",
-          "type": "COMBO",
-          "link": 2947,
-          "widget": {
-            "name": "sd1_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd1_scheduler_name",
-          "type": "COMBO",
-          "link": 2948,
-          "widget": {
-            "name": "sd1_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd1_steps",
-          "type": "INT",
-          "link": 2949,
-          "widget": {
-            "name": "sd1_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd1_cfg_scale",
-          "type": "FLOAT",
-          "link": 2950,
-          "widget": {
-            "name": "sd1_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd2_sampler_name",
-          "type": "COMBO",
-          "link": 2951,
-          "widget": {
-            "name": "sd2_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd2_scheduler_name",
-          "type": "COMBO",
-          "link": 2952,
-          "widget": {
-            "name": "sd2_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd2_steps",
-          "type": "INT",
-          "link": 2953,
-          "widget": {
-            "name": "sd2_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd2_cfg_scale",
-          "type": "FLOAT",
-          "link": 2954,
-          "widget": {
-            "name": "sd2_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_sampler_name",
-          "type": "COMBO",
-          "link": 3156,
-          "widget": {
-            "name": "sdxl_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_scheduler_name",
-          "type": "COMBO",
-          "link": 3157,
-          "widget": {
-            "name": "sdxl_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_steps",
-          "type": "INT",
-          "link": 3158,
-          "widget": {
-            "name": "sdxl_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_cfg_scale",
-          "type": "FLOAT",
-          "link": 3159,
-          "widget": {
-            "name": "sdxl_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd3_sampler_name",
-          "type": "COMBO",
-          "link": 2959,
-          "widget": {
-            "name": "sd3_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd3_scheduler_name",
-          "type": "COMBO",
-          "link": 2960,
-          "widget": {
-            "name": "sd3_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd3_steps",
-          "type": "INT",
-          "link": 2961,
-          "widget": {
-            "name": "sd3_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sd3_cfg_scale",
-          "type": "FLOAT",
-          "link": 2962,
-          "widget": {
-            "name": "sd3_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "stablecascade_sampler_name",
-          "type": "COMBO",
-          "link": 2963,
-          "widget": {
-            "name": "stablecascade_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "stablecascade_scheduler_name",
-          "type": "COMBO",
-          "link": 2964,
-          "widget": {
-            "name": "stablecascade_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "stablecascade_steps",
-          "type": "INT",
-          "link": 2965,
-          "widget": {
-            "name": "stablecascade_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "stablecascade_cfg_scale",
-          "type": "FLOAT",
-          "link": 2966,
-          "widget": {
-            "name": "stablecascade_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "turbo_sampler_name",
-          "type": "COMBO",
-          "link": 2967,
-          "widget": {
-            "name": "turbo_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "turbo_scheduler_name",
-          "type": "COMBO",
-          "link": 2968,
-          "widget": {
-            "name": "turbo_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "turbo_steps",
-          "type": "INT",
-          "link": 2969,
-          "widget": {
-            "name": "turbo_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "turbo_cfg_scale",
-          "type": "FLOAT",
-          "link": 2970,
-          "widget": {
-            "name": "turbo_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "flux_sampler_name",
-          "type": "COMBO",
-          "link": 2971,
-          "widget": {
-            "name": "flux_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "flux_scheduler_name",
-          "type": "COMBO",
-          "link": 2972,
-          "widget": {
-            "name": "flux_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "flux_steps",
-          "type": "INT",
-          "link": 2973,
-          "widget": {
-            "name": "flux_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "flux_cfg_scale",
-          "type": "FLOAT",
-          "link": 2974,
-          "widget": {
-            "name": "flux_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "kwaikolors_sampler_name",
-          "type": "COMBO",
-          "link": 2975,
-          "widget": {
-            "name": "kwaikolors_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "kwaikolors_scheduler_name",
-          "type": "COMBO",
-          "link": 2976,
-          "widget": {
-            "name": "kwaikolors_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "kwaikolors_steps",
-          "type": "INT",
-          "link": 2977,
-          "widget": {
-            "name": "kwaikolors_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "kwaikolors_cfg_scale",
-          "type": "FLOAT",
-          "link": 2978,
-          "widget": {
-            "name": "kwaikolors_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hunyuan_sampler_name",
-          "type": "COMBO",
-          "link": 2979,
-          "widget": {
-            "name": "hunyuan_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hunyuan_scheduler_name",
-          "type": "COMBO",
-          "link": 2980,
-          "widget": {
-            "name": "hunyuan_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hunyuan_steps",
-          "type": "INT",
-          "link": 2981,
-          "widget": {
-            "name": "hunyuan_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hunyuan_cfg_scale",
-          "type": "FLOAT",
-          "link": 2982,
-          "widget": {
-            "name": "hunyuan_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "playground_sampler_name",
-          "type": "COMBO",
-          "link": 2983,
-          "widget": {
-            "name": "playground_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "playground_scheduler_name",
-          "type": "COMBO",
-          "link": 2984,
-          "widget": {
-            "name": "playground_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "playground_steps",
-          "type": "INT",
-          "link": 2985,
-          "widget": {
-            "name": "playground_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "playground_cfg_scale",
-          "type": "FLOAT",
-          "link": 2986,
-          "widget": {
-            "name": "playground_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pony_sampler_name",
-          "type": "COMBO",
-          "link": 2987,
-          "widget": {
-            "name": "pony_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pony_scheduler_name",
-          "type": "COMBO",
-          "link": 2988,
-          "widget": {
-            "name": "pony_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pony_steps",
-          "type": "INT",
-          "link": 2989,
-          "widget": {
-            "name": "pony_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pony_cfg_scale",
-          "type": "FLOAT",
-          "link": 2990,
-          "widget": {
-            "name": "pony_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lcm_sampler_name",
-          "type": "COMBO",
-          "link": 2991,
-          "widget": {
-            "name": "lcm_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lcm_scheduler_name",
-          "type": "COMBO",
-          "link": 2992,
-          "widget": {
-            "name": "lcm_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lcm_steps",
-          "type": "INT",
-          "link": 2993,
-          "widget": {
-            "name": "lcm_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lcm_cfg_scale",
-          "type": "FLOAT",
-          "link": 2994,
-          "widget": {
-            "name": "lcm_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lightning_sampler_name",
-          "type": "COMBO",
-          "link": 2995,
-          "widget": {
-            "name": "lightning_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lightning_scheduler_name",
-          "type": "COMBO",
-          "link": 2996,
-          "widget": {
-            "name": "lightning_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lightning_steps",
-          "type": "INT",
-          "link": 2997,
-          "widget": {
-            "name": "lightning_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "lightning_cfg_scale",
-          "type": "FLOAT",
-          "link": 2998,
-          "widget": {
-            "name": "lightning_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hyper_sampler_name",
-          "type": "COMBO",
-          "link": 2999,
-          "widget": {
-            "name": "hyper_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hyper_scheduler_name",
-          "type": "COMBO",
-          "link": 3000,
-          "widget": {
-            "name": "hyper_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hyper_steps",
-          "type": "INT",
-          "link": 3001,
-          "widget": {
-            "name": "hyper_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "hyper_cfg_scale",
-          "type": "FLOAT",
-          "link": 3002,
-          "widget": {
-            "name": "hyper_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pixartsigma_sampler_name",
-          "type": "COMBO",
-          "link": 3003,
-          "widget": {
-            "name": "pixartsigma_sampler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pixartsigma_scheduler_name",
-          "type": "COMBO",
-          "link": 3004,
-          "widget": {
-            "name": "pixartsigma_scheduler_name"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pixartsigma_steps",
-          "type": "INT",
-          "link": 3005,
-          "widget": {
-            "name": "pixartsigma_steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pixartsigma_cfg_scale",
-          "type": "FLOAT",
-          "link": 3006,
-          "widget": {
-            "name": "pixartsigma_cfg_scale"
-          },
-          "shape": 7
-        },
-        {
-          "name": "pixart_refiner_sampler",
-          "type": "COMBO",
-          "link": 3007,
-          "widget": {
-            "name": "pixart_refiner_sampler"
-          }
-        },
-        {
-          "name": "pixart_refiner_scheduler",
-          "type": "COMBO",
-          "link": 3008,
-          "widget": {
-            "name": "pixart_refiner_scheduler"
-          }
-        },
-        {
-          "name": "pixart_refiner_cfg",
-          "type": "FLOAT",
-          "link": 3009,
-          "widget": {
-            "name": "pixart_refiner_cfg"
-          }
-        },
-        {
-          "name": "pixart_refiner_steps",
-          "type": "INT",
-          "link": 3010,
-          "widget": {
-            "name": "pixart_refiner_steps"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            3011,
-            3012,
-            3013,
-            3014
-          ]
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            3015,
-            3016,
-            3017,
-            3018
-          ]
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            3019,
-            3020,
-            3021,
-            3022
-          ]
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            3023,
-            3024,
-            3025,
-            3026
-          ]
-        },
-        {
-          "name": "OVERRIDE_STEPS",
-          "type": "OVERRIDE_STEPS",
-          "links": [
-            3122
-          ],
-          "slot_index": 4
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": [
-            3028,
-            3029,
-            3030,
-            3031,
-            3032,
-            3033,
-            3272
-          ],
-          "slot_index": 5
-        },
-        {
-          "name": "CLIP_SELECTION",
-          "type": "CLIP_SELECTION",
-          "links": [
-            3121
-          ],
-          "slot_index": 6
-        },
-        {
-          "name": "VAE_SELECTION",
-          "type": "VAE_SELECTION",
-          "links": [
-            3120
-          ],
-          "slot_index": 7
-        },
-        {
-          "name": "VAE_NAME",
-          "type": "VAE_NAME",
-          "links": [
-            3036,
-            3037,
-            3119
-          ],
-          "slot_index": 8
-        },
-        {
-          "name": "STRENGTH_LCM_LORA_MODEL",
-          "type": "FLOAT",
-          "links": [
-            3118
-          ],
-          "slot_index": 9
-        },
-        {
-          "name": "LIGHTNING_SELECTOR",
-          "type": "STRING",
-          "links": [
-            3117
-          ],
-          "slot_index": 10
-        },
-        {
-          "name": "LIGHTNING_MODEL_STEP",
-          "type": "INT",
-          "links": [
-            3116
-          ]
-        },
-        {
-          "name": "STRENGTH_LIGHTNING_LORA_MODEL",
-          "type": "FLOAT",
-          "links": [
-            3080
-          ]
-        },
-        {
-          "name": "CASCADE_STAGE_A",
-          "type": "STRING",
-          "links": [
-            3081
-          ]
-        },
-        {
-          "name": "CASCADE_STAGE_B",
-          "type": "STRING",
-          "links": [
-            3082
-          ]
-        },
-        {
-          "name": "CASCADE_STAGE_C",
-          "type": "STRING",
-          "links": [
-            3083
-          ]
-        },
-        {
-          "name": "CASCADE_CLIP",
-          "type": "STRING",
-          "links": [
-            3084
-          ]
-        },
-        {
-          "name": "HYPER-SD_SELECTOR",
-          "type": "STRING",
-          "links": [
-            3085
-          ]
-        },
-        {
-          "name": "HYPER-SD_MODEL_STEP",
-          "type": "INT",
-          "links": [
-            3086
-          ]
-        },
-        {
-          "name": "STRENGTH_HYPERSD_LORA_MODEL",
-          "type": "FLOAT",
-          "links": [
-            3087
-          ]
-        },
-        {
-          "name": "FLUX_SELECTOR",
-          "type": "STRING",
-          "links": [
-            3088
-          ]
-        },
-        {
-          "name": "FLUX_DIFFUSION_MODEL",
-          "type": "STRING",
-          "links": [
-            3089
-          ]
-        },
-        {
-          "name": "FLUX_WEIGHT_TYPE",
-          "type": "STRING",
-          "links": [
-            3090
-          ]
-        },
-        {
-          "name": "FLUX_GGUF_MODEL",
-          "type": "STRING",
-          "links": [
-            3091
-          ]
-        },
-        {
-          "name": "FLUX_CLIP_T5XXL",
-          "type": "STRING",
-          "links": [
-            3092
-          ]
-        },
-        {
-          "name": "FLUX_CLIP_L",
-          "type": "STRING",
-          "links": [
-            3093
-          ]
-        },
-        {
-          "name": "FLUX_CLIP_GUIDANCE",
-          "type": "FLOAT",
-          "links": [
-            3094
-          ]
-        },
-        {
-          "name": "FLUX_VAE",
-          "type": "STRING",
-          "links": [
-            3095
-          ]
-        },
-        {
-          "name": "FLUX_SAMPLER",
-          "type": "STRING",
-          "links": [
-            3129
-          ]
-        },
-        {
-          "name": "USE_FLUX_HYPER_LORA",
-          "type": "FLUX_HYPER_LORA",
-          "links": [
-            3123
-          ],
-          "slot_index": 29
-        },
-        {
-          "name": "FLUX_HYPER_LORA_TYPE",
-          "type": "STRING",
-          "links": [
-            3130
-          ]
-        },
-        {
-          "name": "FLUX_HYPER_LORA_STEP",
-          "type": "INT",
-          "links": [
-            3131
-          ]
-        },
-        {
-          "name": "FLUX_HYPER_LORA_STRENGTH",
-          "type": "FLOAT",
-          "links": [
-            3132
-          ]
-        },
-        {
-          "name": "USE_FLUX_TURBO_LORA",
-          "type": "FLUX_TURBO_LORA",
-          "links": [
-            3124
-          ],
-          "slot_index": 33
-        },
-        {
-          "name": "FLUX_TURBO_LORA_TYPE",
-          "type": "STRING",
-          "links": [
-            3125
-          ],
-          "slot_index": 34
-        },
-        {
-          "name": "FLUX_TURBO_LORA_STEP",
-          "type": "INT",
-          "links": [
-            3126
-          ],
-          "slot_index": 35
-        },
-        {
-          "name": "FLUX_TURBO_LORA_STRENGTH",
-          "type": "FLOAT",
-          "links": [
-            3127
-          ],
-          "slot_index": 36
-        },
-        {
-          "name": "HUNYUAN_CLIP_T5XXL",
-          "type": "STRING",
-          "links": [
-            3133
-          ],
-          "slot_index": 37
-        },
-        {
-          "name": "HUNYUAN_CLIP_L",
-          "type": "STRING",
-          "links": [
-            3134
-          ],
-          "slot_index": 38
-        },
-        {
-          "name": "HUNYUAN_VAE",
-          "type": "STRING",
-          "links": [
-            3135
-          ],
-          "slot_index": 39
-        },
-        {
-          "name": "SD3_CLIP_G",
-          "type": "STRING",
-          "links": [
-            3136
-          ],
-          "slot_index": 40
-        },
-        {
-          "name": "SD3_CLIP_L",
-          "type": "STRING",
-          "links": [
-            3137
-          ],
-          "slot_index": 41
-        },
-        {
-          "name": "SD3_CLIP_T5XXL",
-          "type": "STRING",
-          "links": [
-            3138
-          ],
-          "slot_index": 42
-        },
-        {
-          "name": "SD3_UNET_VAE",
-          "type": "STRING",
-          "links": [
-            3139
-          ],
-          "slot_index": 43
-        },
-        {
-          "name": "USE_SD3_HYPER_LORA",
-          "type": "SD3_HYPER_LORA",
-          "links": [
-            3140
-          ],
-          "slot_index": 44
-        },
-        {
-          "name": "SD3_HYPER_LORA_STEP",
-          "type": "INT",
-          "links": [
-            3141
-          ],
-          "slot_index": 45
-        },
-        {
-          "name": "SD3_HYPER_LORA_STRENGTH",
-          "type": "FLOAT",
-          "links": [
-            3142
-          ],
-          "slot_index": 46
-        },
-        {
-          "name": "KOLORS_PRECISION",
-          "type": "STRING",
-          "links": [
-            3143
-          ],
-          "slot_index": 47
-        },
-        {
-          "name": "PIXART_MODEL_TYPE",
-          "type": "STRING",
-          "links": [
-            3144
-          ],
-          "slot_index": 48
-        },
-        {
-          "name": "PIXART_T5_ENCODER",
-          "type": "STRING",
-          "links": [
-            3145
-          ],
-          "slot_index": 49
-        },
-        {
-          "name": "PIXART_VAE",
-          "type": "STRING",
-          "links": [
-            3146
-          ],
-          "slot_index": 50
-        },
-        {
-          "name": "PIXART_DENOISE",
-          "type": "FLOAT",
-          "links": [
-            3147
-          ],
-          "slot_index": 51
-        },
-        {
-          "name": "PIXART_REFINER_MODEL",
-          "type": "STRING",
-          "links": [
-            3148
-          ],
-          "slot_index": 52
-        },
-        {
-          "name": "PIXART_REFINER_SAMPLER",
-          "type": "STRING",
-          "links": [
-            3149
-          ],
-          "slot_index": 53
-        },
-        {
-          "name": "PIXART_REFINER_SCHEDULER",
-          "type": "STRING",
-          "links": [
-            3150
-          ],
-          "slot_index": 54
-        },
-        {
-          "name": "PIXART_REFINER_CFG",
-          "type": "FLOAT",
-          "links": [
-            3151
-          ],
-          "slot_index": 55
-        },
-        {
-          "name": "PIXART_REFINER_STEPS",
-          "type": "INT",
-          "links": [
-            3152
-          ],
-          "slot_index": 56
-        },
-        {
-          "name": "PIXART_REFINER_START",
-          "type": "INT",
-          "links": [
-            3153
-          ],
-          "slot_index": 57
-        },
-        {
-          "name": "PIXART_REFINER_DENOISE",
-          "type": "FLOAT",
-          "links": [
-            3154
-          ],
-          "slot_index": 58
-        },
-        {
-          "name": "PIXART_REFINER_IGNORE_PROMPT",
-          "type": "BOOLEAN",
-          "links": [
-            3155
-          ],
-          "slot_index": 59
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelConceptSelector"
-      },
-      "widgets_values": [
-        "euler",
-        "normal",
-        7,
-        12,
-        true,
-        "None",
-        "None",
-        "Auto",
-        true,
-        true,
-        1,
-        "LORA",
-        8,
-        false,
-        1.2,
-        "LORA",
-        8,
-        false,
-        1.1,
-        "None",
-        "None",
-        "None",
-        "None",
-        "GGUF",
-        "None",
-        "fp8_e5m2",
-        "None",
-        "None",
-        "None",
-        4,
-        "None",
-        "custom_advanced",
-        false,
-        "FLUX.1-dev",
-        8,
-        0.13,
-        false,
-        "TurboRender",
-        8,
-        1,
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        false,
-        16,
-        0.1,
-        "fp16",
-        "Auto",
-        "None",
-        "None",
-        0.88,
-        "None",
-        "dpmpp_2m",
-        "normal",
-        2,
-        22,
-        12,
-        0.9,
-        true,
-        "SD1",
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7,
-        "euler",
-        "normal",
-        12,
-        7
-      ],
-      "color": "#2c6c6c",
-      "bgcolor": "#408080"
     },
     {
       "id": 228,
@@ -6518,7 +5191,14 @@
       ],
       "title": "Primere Image Segments - MOUTH",
       "properties": {
-        "Node name for S&R": "PrimereImageSegments"
+        "Node name for S&R": "PrimereImageSegments",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -6693,7 +5373,14 @@
       ],
       "title": "Primere Image Segments - HANDS",
       "properties": {
-        "Node name for S&R": "PrimereImageSegments"
+        "Node name for S&R": "PrimereImageSegments",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -6864,7 +5551,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "PrimereRefinerPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "None",
@@ -6898,6 +5592,8 @@
         "",
         "",
         "Normal",
+        "SD1",
+        1,
         "SD1",
         1
       ],
@@ -7049,7 +5745,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
+        "Node name for S&R": "PrimereAnyDetailer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -7217,7 +5920,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
+        "Node name for S&R": "PrimereAnyDetailer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -7385,7 +6095,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
+        "Node name for S&R": "PrimereAnyDetailer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -7559,7 +6276,14 @@
       ],
       "title": "Primere Image Segments - EYES",
       "properties": {
-        "Node name for S&R": "PrimereImageSegments"
+        "Node name for S&R": "PrimereImageSegments",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -7730,7 +6454,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "PrimereRefinerPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "None",
@@ -7764,6 +6495,8 @@
         "",
         "",
         "Normal",
+        "SD1",
+        1,
         "SD1",
         1
       ],
@@ -7915,7 +6648,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAnyDetailer"
+        "Node name for S&R": "PrimereAnyDetailer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -8090,7 +6830,14 @@
       ],
       "title": "Primere Image Segments - FACE",
       "properties": {
-        "Node name for S&R": "PrimereImageSegments"
+        "Node name for S&R": "PrimereImageSegments",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -8261,7 +7008,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereRefinerPrompt"
+        "Node name for S&R": "PrimereRefinerPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "None",
@@ -8296,78 +7050,12 @@
         "",
         "Normal",
         "SD1",
+        1,
+        "SD1",
         1
       ],
       "color": "#886029",
       "bgcolor": "#9c743d"
-    },
-    {
-      "id": 207,
-      "type": "PrimereMetaSave",
-      "pos": [
-        5219,
-        104
-      ],
-      "size": [
-        329.06414794921875,
-        654
-      ],
-      "flags": {},
-      "order": 92,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 2695
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 2694,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave"
-      },
-      "widgets_values": [
-        false,
-        780,
-        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
-        "Portfolio",
-        false,
-        false,
-        false,
-        "Public",
-        "_",
-        false,
-        true,
-        false,
-        false,
-        true,
-        1,
-        false,
-        "png",
-        false,
-        true,
-        false,
-        true,
-        95,
-        "false",
-        false,
-        false
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
     },
     {
       "id": 111,
@@ -8407,7 +7095,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaSave"
+        "Node name for S&R": "PrimereMetaSave",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -8531,7 +7226,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3033,
+          "link": 3767,
           "widget": {
             "name": "model_concept"
           },
@@ -8674,7 +7369,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereCLIPEncoder"
+        "Node name for S&R": "PrimereCLIPEncoder",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SD1",
@@ -8768,7 +7470,7 @@
         {
           "name": "steps",
           "type": "INT",
-          "link": 3020,
+          "link": 3754,
           "widget": {
             "name": "steps"
           }
@@ -8776,7 +7478,7 @@
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3023,
+          "link": 3757,
           "widget": {
             "name": "cfg"
           }
@@ -8784,7 +7486,7 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 3011,
+          "link": 3745,
           "widget": {
             "name": "sampler_name"
           }
@@ -8792,7 +7494,7 @@
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 3015,
+          "link": 3749,
           "widget": {
             "name": "scheduler_name"
           }
@@ -8800,7 +7502,7 @@
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3029,
+          "link": 3763,
           "widget": {
             "name": "model_concept"
           },
@@ -8823,10 +7525,17 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereKSampler"
+        "Node name for S&R": "PrimereKSampler",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
-        418602635991138,
+        695993310346323,
         "randomize",
         20,
         8,
@@ -8922,7 +7631,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
+        "Node name for S&R": "PrimereLatentNoise",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         512,
@@ -8937,7 +7653,7 @@
         1.4000000000000001,
         0.8,
         1.4000000000000001,
-        90288977489954,
+        132520766385773,
         "randomize",
         false,
         "cuda",
@@ -8985,7 +7701,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAestheticCKPTScorer"
+        "Node name for S&R": "PrimereAestheticCKPTScorer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -9039,7 +7762,14 @@
       ],
       "title": "Seed",
       "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss"
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "color": "#223",
       "bgcolor": "#335"
@@ -9067,7 +7797,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "human, man, woman, girl, nsfw, nude, nudity, porn"
@@ -9098,7 +7835,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season"
@@ -9115,7 +7859,7 @@
       ],
       "size": [
         467.73724365234375,
-        561.44873046875
+        602
       ],
       "flags": {},
       "order": 48,
@@ -9164,12 +7908,21 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereClearNetworkTagsPrompt"
+        "Node name for S&R": "PrimereClearNetworkTagsPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SD1",
         "",
         "",
+        true,
+        true,
         true,
         true,
         true,
@@ -9222,7 +7975,7 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 3110,
+          "link": 3676,
           "shape": 7
         },
         {
@@ -9282,7 +8035,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereNetworkTagLoader"
+        "Node name for S&R": "PrimereNetworkTagLoader",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -9352,11 +8112,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimereDynamicParser",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        967611394210913,
+        387523975602227,
         "randomize"
       ],
       "color": "#145414",
@@ -9407,11 +8174,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimereDynamicParser",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        971462011315560,
+        9239432648527,
         "randomize"
       ],
       "color": "#945454",
@@ -9470,7 +8244,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereEmbeddingHandler"
+        "Node name for S&R": "PrimereEmbeddingHandler",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -9503,6 +8284,2045 @@
       ],
       "color": "#c09430",
       "bgcolor": "#653"
+    },
+    {
+      "id": 258,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        4831.384765625,
+        2326.6357421875
+      ],
+      "size": [
+        146.88955688476562,
+        26
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 3768,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "STRING",
+          "links": [
+            3405,
+            3416,
+            3426,
+            3436,
+            3524,
+            3535,
+            3546,
+            3557
+          ],
+          "slot_index": 0,
+          "shape": 3,
+          "label": "STRING"
+        }
+      ],
+      "title": "Model concept",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [],
+      "color": "#a25b14",
+      "bgcolor": "#8e4700"
+    },
+    {
+      "id": 207,
+      "type": "PrimereMetaSave",
+      "pos": [
+        5202.63671875,
+        102.18181610107422
+      ],
+      "size": [
+        346.3368835449219,
+        654
+      ],
+      "flags": {},
+      "order": 92,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2695
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 2694,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        false,
+        780,
+        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
+        "Portfolio",
+        false,
+        false,
+        false,
+        "Public",
+        "_",
+        false,
+        true,
+        false,
+        false,
+        true,
+        1,
+        false,
+        "png",
+        false,
+        true,
+        false,
+        true,
+        95,
+        "false",
+        false,
+        false
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 294,
+      "type": "PrimereModelConceptSelector",
+      "pos": [
+        2762.306640625,
+        1215.7421875
+      ],
+      "size": [
+        716.5,
+        3030
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 3679,
+          "shape": 7
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3680,
+          "widget": {
+            "name": "model_version"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd1_sampler_name",
+          "type": "COMBO",
+          "link": 3681,
+          "widget": {
+            "name": "sd1_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd1_scheduler_name",
+          "type": "COMBO",
+          "link": 3682,
+          "widget": {
+            "name": "sd1_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd1_steps",
+          "type": "INT",
+          "link": 3683,
+          "widget": {
+            "name": "sd1_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd1_cfg_scale",
+          "type": "FLOAT",
+          "link": 3684,
+          "widget": {
+            "name": "sd1_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd2_sampler_name",
+          "type": "COMBO",
+          "link": 3685,
+          "widget": {
+            "name": "sd2_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd2_scheduler_name",
+          "type": "COMBO",
+          "link": 3686,
+          "widget": {
+            "name": "sd2_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd2_steps",
+          "type": "INT",
+          "link": 3687,
+          "widget": {
+            "name": "sd2_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd2_cfg_scale",
+          "type": "FLOAT",
+          "link": 3688,
+          "widget": {
+            "name": "sd2_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sdxl_sampler_name",
+          "type": "COMBO",
+          "link": 3689,
+          "widget": {
+            "name": "sdxl_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sdxl_scheduler_name",
+          "type": "COMBO",
+          "link": 3690,
+          "widget": {
+            "name": "sdxl_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sdxl_steps",
+          "type": "INT",
+          "link": 3691,
+          "widget": {
+            "name": "sdxl_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sdxl_cfg_scale",
+          "type": "FLOAT",
+          "link": 3692,
+          "widget": {
+            "name": "sdxl_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd3_sampler_name",
+          "type": "COMBO",
+          "link": 3693,
+          "widget": {
+            "name": "sd3_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd3_scheduler_name",
+          "type": "COMBO",
+          "link": 3694,
+          "widget": {
+            "name": "sd3_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd3_steps",
+          "type": "INT",
+          "link": 3695,
+          "widget": {
+            "name": "sd3_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sd3_cfg_scale",
+          "type": "FLOAT",
+          "link": 3696,
+          "widget": {
+            "name": "sd3_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "stablecascade_sampler_name",
+          "type": "COMBO",
+          "link": 3697,
+          "widget": {
+            "name": "stablecascade_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "stablecascade_scheduler_name",
+          "type": "COMBO",
+          "link": 3698,
+          "widget": {
+            "name": "stablecascade_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "stablecascade_steps",
+          "type": "INT",
+          "link": 3699,
+          "widget": {
+            "name": "stablecascade_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "stablecascade_cfg_scale",
+          "type": "FLOAT",
+          "link": 3700,
+          "widget": {
+            "name": "stablecascade_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "turbo_sampler_name",
+          "type": "COMBO",
+          "link": 3701,
+          "widget": {
+            "name": "turbo_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "turbo_scheduler_name",
+          "type": "COMBO",
+          "link": 3702,
+          "widget": {
+            "name": "turbo_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "turbo_steps",
+          "type": "INT",
+          "link": 3703,
+          "widget": {
+            "name": "turbo_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "turbo_cfg_scale",
+          "type": "FLOAT",
+          "link": 3704,
+          "widget": {
+            "name": "turbo_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "flux_sampler_name",
+          "type": "COMBO",
+          "link": 3705,
+          "widget": {
+            "name": "flux_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "flux_scheduler_name",
+          "type": "COMBO",
+          "link": 3706,
+          "widget": {
+            "name": "flux_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "flux_steps",
+          "type": "INT",
+          "link": 3707,
+          "widget": {
+            "name": "flux_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "flux_cfg_scale",
+          "type": "FLOAT",
+          "link": 3708,
+          "widget": {
+            "name": "flux_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "kwaikolors_sampler_name",
+          "type": "COMBO",
+          "link": 3709,
+          "widget": {
+            "name": "kwaikolors_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "kwaikolors_scheduler_name",
+          "type": "COMBO",
+          "link": 3710,
+          "widget": {
+            "name": "kwaikolors_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "kwaikolors_steps",
+          "type": "INT",
+          "link": 3711,
+          "widget": {
+            "name": "kwaikolors_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "kwaikolors_cfg_scale",
+          "type": "FLOAT",
+          "link": 3712,
+          "widget": {
+            "name": "kwaikolors_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hunyuan_sampler_name",
+          "type": "COMBO",
+          "link": 3713,
+          "widget": {
+            "name": "hunyuan_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hunyuan_scheduler_name",
+          "type": "COMBO",
+          "link": 3714,
+          "widget": {
+            "name": "hunyuan_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hunyuan_steps",
+          "type": "INT",
+          "link": 3715,
+          "widget": {
+            "name": "hunyuan_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hunyuan_cfg_scale",
+          "type": "FLOAT",
+          "link": 3716,
+          "widget": {
+            "name": "hunyuan_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "playground_sampler_name",
+          "type": "COMBO",
+          "link": 3717,
+          "widget": {
+            "name": "playground_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "playground_scheduler_name",
+          "type": "COMBO",
+          "link": 3718,
+          "widget": {
+            "name": "playground_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "playground_steps",
+          "type": "INT",
+          "link": 3719,
+          "widget": {
+            "name": "playground_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "playground_cfg_scale",
+          "type": "FLOAT",
+          "link": 3720,
+          "widget": {
+            "name": "playground_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pony_sampler_name",
+          "type": "COMBO",
+          "link": 3721,
+          "widget": {
+            "name": "pony_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pony_scheduler_name",
+          "type": "COMBO",
+          "link": 3722,
+          "widget": {
+            "name": "pony_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pony_steps",
+          "type": "INT",
+          "link": 3723,
+          "widget": {
+            "name": "pony_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pony_cfg_scale",
+          "type": "FLOAT",
+          "link": 3724,
+          "widget": {
+            "name": "pony_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lcm_sampler_name",
+          "type": "COMBO",
+          "link": 3725,
+          "widget": {
+            "name": "lcm_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lcm_scheduler_name",
+          "type": "COMBO",
+          "link": 3726,
+          "widget": {
+            "name": "lcm_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lcm_steps",
+          "type": "INT",
+          "link": 3727,
+          "widget": {
+            "name": "lcm_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lcm_cfg_scale",
+          "type": "FLOAT",
+          "link": 3728,
+          "widget": {
+            "name": "lcm_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lightning_sampler_name",
+          "type": "COMBO",
+          "link": 3729,
+          "widget": {
+            "name": "lightning_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lightning_scheduler_name",
+          "type": "COMBO",
+          "link": 3730,
+          "widget": {
+            "name": "lightning_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lightning_steps",
+          "type": "INT",
+          "link": 3731,
+          "widget": {
+            "name": "lightning_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "lightning_cfg_scale",
+          "type": "FLOAT",
+          "link": 3732,
+          "widget": {
+            "name": "lightning_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hyper_sampler_name",
+          "type": "COMBO",
+          "link": 3733,
+          "widget": {
+            "name": "hyper_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hyper_scheduler_name",
+          "type": "COMBO",
+          "link": 3734,
+          "widget": {
+            "name": "hyper_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hyper_steps",
+          "type": "INT",
+          "link": 3735,
+          "widget": {
+            "name": "hyper_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "hyper_cfg_scale",
+          "type": "FLOAT",
+          "link": 3736,
+          "widget": {
+            "name": "hyper_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pixartsigma_sampler_name",
+          "type": "COMBO",
+          "link": 3737,
+          "widget": {
+            "name": "pixartsigma_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pixartsigma_scheduler_name",
+          "type": "COMBO",
+          "link": 3738,
+          "widget": {
+            "name": "pixartsigma_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pixartsigma_steps",
+          "type": "INT",
+          "link": 3739,
+          "widget": {
+            "name": "pixartsigma_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pixartsigma_cfg_scale",
+          "type": "FLOAT",
+          "link": 3740,
+          "widget": {
+            "name": "pixartsigma_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana1024_sampler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "sana1024_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana1024_scheduler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "sana1024_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana1024_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "sana1024_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana1024_cfg_scale",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "sana1024_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana512_sampler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "sana512_sampler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana512_scheduler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "sana512_scheduler_name"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana512_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "sana512_steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sana512_cfg_scale",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "sana512_cfg_scale"
+          },
+          "shape": 7
+        },
+        {
+          "name": "pixart_refiner_sampler",
+          "type": "COMBO",
+          "link": 3741,
+          "widget": {
+            "name": "pixart_refiner_sampler"
+          }
+        },
+        {
+          "name": "pixart_refiner_scheduler",
+          "type": "COMBO",
+          "link": 3742,
+          "widget": {
+            "name": "pixart_refiner_scheduler"
+          }
+        },
+        {
+          "name": "pixart_refiner_cfg",
+          "type": "FLOAT",
+          "link": 3743,
+          "widget": {
+            "name": "pixart_refiner_cfg"
+          }
+        },
+        {
+          "name": "pixart_refiner_steps",
+          "type": "INT",
+          "link": 3744,
+          "widget": {
+            "name": "pixart_refiner_steps"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            3745,
+            3746,
+            3747,
+            3748,
+            3832
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            3749,
+            3750,
+            3751,
+            3752,
+            3833
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            3753,
+            3754,
+            3755,
+            3756,
+            3830
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            3757,
+            3758,
+            3759,
+            3760,
+            3831
+          ],
+          "slot_index": 3
+        },
+        {
+          "name": "OVERRIDE_STEPS",
+          "type": "OVERRIDE_STEPS",
+          "links": [
+            3761
+          ]
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            3762,
+            3763,
+            3764,
+            3765,
+            3766,
+            3767,
+            3768
+          ]
+        },
+        {
+          "name": "CLIP_SELECTION",
+          "type": "CLIP_SELECTION",
+          "links": [
+            3769
+          ]
+        },
+        {
+          "name": "VAE_SELECTION",
+          "type": "VAE_SELECTION",
+          "links": [
+            3770
+          ]
+        },
+        {
+          "name": "VAE_NAME",
+          "type": "VAE_NAME",
+          "links": [
+            3771,
+            3772,
+            3773
+          ]
+        },
+        {
+          "name": "STRENGTH_LCM_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3774
+          ]
+        },
+        {
+          "name": "LIGHTNING_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3775
+          ]
+        },
+        {
+          "name": "LIGHTNING_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            3776
+          ]
+        },
+        {
+          "name": "STRENGTH_LIGHTNING_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3777
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_A",
+          "type": "STRING",
+          "links": [
+            3778
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_B",
+          "type": "STRING",
+          "links": [
+            3779
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_C",
+          "type": "STRING",
+          "links": [
+            3780
+          ]
+        },
+        {
+          "name": "CASCADE_CLIP",
+          "type": "STRING",
+          "links": [
+            3781
+          ]
+        },
+        {
+          "name": "HYPER-SD_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3782
+          ]
+        },
+        {
+          "name": "HYPER-SD_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            3783
+          ]
+        },
+        {
+          "name": "STRENGTH_HYPERSD_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3784
+          ]
+        },
+        {
+          "name": "FLUX_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3785
+          ]
+        },
+        {
+          "name": "FLUX_DIFFUSION_MODEL",
+          "type": "STRING",
+          "links": [
+            3786
+          ]
+        },
+        {
+          "name": "FLUX_WEIGHT_TYPE",
+          "type": "STRING",
+          "links": [
+            3787
+          ]
+        },
+        {
+          "name": "FLUX_GGUF_MODEL",
+          "type": "STRING",
+          "links": [
+            3788
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3789
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3790
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_GUIDANCE",
+          "type": "FLOAT",
+          "links": [
+            3791
+          ]
+        },
+        {
+          "name": "FLUX_VAE",
+          "type": "STRING",
+          "links": [
+            3792
+          ]
+        },
+        {
+          "name": "FLUX_SAMPLER",
+          "type": "STRING",
+          "links": [
+            3793
+          ]
+        },
+        {
+          "name": "USE_FLUX_HYPER_LORA",
+          "type": "FLUX_HYPER_LORA",
+          "links": [
+            3794
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_TYPE",
+          "type": "STRING",
+          "links": [
+            3795
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3796
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3797
+          ]
+        },
+        {
+          "name": "USE_FLUX_TURBO_LORA",
+          "type": "FLUX_TURBO_LORA",
+          "links": [
+            3798
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_TYPE",
+          "type": "STRING",
+          "links": [
+            3799
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3800
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3801
+          ]
+        },
+        {
+          "name": "HUNYUAN_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3802
+          ]
+        },
+        {
+          "name": "HUNYUAN_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3803
+          ]
+        },
+        {
+          "name": "HUNYUAN_VAE",
+          "type": "STRING",
+          "links": [
+            3804
+          ]
+        },
+        {
+          "name": "SD3_CLIP_G",
+          "type": "STRING",
+          "links": [
+            3805
+          ]
+        },
+        {
+          "name": "SD3_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3806
+          ]
+        },
+        {
+          "name": "SD3_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3807
+          ]
+        },
+        {
+          "name": "SD3_UNET_VAE",
+          "type": "STRING",
+          "links": [
+            3808
+          ]
+        },
+        {
+          "name": "USE_SD3_HYPER_LORA",
+          "type": "SD3_HYPER_LORA",
+          "links": [
+            3809
+          ]
+        },
+        {
+          "name": "SD3_HYPER_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3810
+          ]
+        },
+        {
+          "name": "SD3_HYPER_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3811
+          ]
+        },
+        {
+          "name": "KOLORS_PRECISION",
+          "type": "STRING",
+          "links": [
+            3812
+          ]
+        },
+        {
+          "name": "PIXART_MODEL_TYPE",
+          "type": "STRING",
+          "links": [
+            3813
+          ]
+        },
+        {
+          "name": "PIXART_T5_ENCODER",
+          "type": "STRING",
+          "links": [
+            3814
+          ]
+        },
+        {
+          "name": "PIXART_VAE",
+          "type": "STRING",
+          "links": [
+            3815
+          ]
+        },
+        {
+          "name": "PIXART_DENOISE",
+          "type": "FLOAT",
+          "links": [
+            3816
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_MODEL",
+          "type": "STRING",
+          "links": [
+            3817
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_SAMPLER",
+          "type": "STRING",
+          "links": [
+            3818
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_SCHEDULER",
+          "type": "STRING",
+          "links": [
+            3819
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_CFG",
+          "type": "FLOAT",
+          "links": [
+            3820
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_STEPS",
+          "type": "INT",
+          "links": [
+            3821
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_START",
+          "type": "INT",
+          "links": [
+            3822
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_DENOISE",
+          "type": "FLOAT",
+          "links": [
+            3823
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_IGNORE_PROMPT",
+          "type": "BOOLEAN",
+          "links": [
+            3824
+          ]
+        },
+        {
+          "name": "SANA_MODEL",
+          "type": "STRING",
+          "links": [
+            3825
+          ],
+          "slot_index": 60
+        },
+        {
+          "name": "SANA_ENCODER",
+          "type": "STRING",
+          "links": [
+            3826
+          ],
+          "slot_index": 61
+        },
+        {
+          "name": "SANA_VAE",
+          "type": "STRING",
+          "links": [
+            3827
+          ],
+          "slot_index": 62
+        },
+        {
+          "name": "SANA_WEIGHT_DTYPE",
+          "type": "STRING",
+          "links": [
+            3828
+          ],
+          "slot_index": 63
+        },
+        {
+          "name": "SANA_PRECISION",
+          "type": "STRING",
+          "links": [
+            3829
+          ],
+          "slot_index": 64
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelConceptSelector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        7,
+        12,
+        false,
+        "None",
+        "None",
+        "Auto",
+        true,
+        true,
+        1,
+        "LORA",
+        8,
+        false,
+        1,
+        "LORA",
+        8,
+        false,
+        1,
+        "None",
+        "None",
+        "None",
+        "None",
+        "DIFFUSION",
+        "None",
+        "default",
+        "None",
+        "None",
+        "None",
+        3.5,
+        "None",
+        "ksampler",
+        false,
+        "FLUX.1-dev",
+        16,
+        0.125,
+        false,
+        "TurboAlpha",
+        8,
+        1,
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        false,
+        8,
+        0.125,
+        "quant8",
+        "Auto",
+        "None",
+        "None",
+        0.9,
+        "None",
+        "dpmpp_2m",
+        "normal",
+        2,
+        22,
+        12,
+        0.9,
+        false,
+        "None",
+        "None",
+        "None",
+        "fp16",
+        "fp16",
+        "SD1",
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7,
+        "euler",
+        "normal",
+        12,
+        7
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 293,
+      "type": "PrimereConceptDataTuple",
+      "pos": [
+        3516.800537109375,
+        1237.6002197265625
+      ],
+      "size": [
+        403.39996337890625,
+        1294
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "override_steps",
+          "type": "OVERRIDE_STEPS",
+          "link": 3761
+        },
+        {
+          "name": "clip_selection",
+          "type": "CLIP_SELECTION",
+          "link": 3769
+        },
+        {
+          "name": "vae_selection",
+          "type": "VAE_SELECTION",
+          "link": 3770
+        },
+        {
+          "name": "vae_name",
+          "type": "VAE_NAME",
+          "link": 3773
+        },
+        {
+          "name": "use_flux_hyper_lora",
+          "type": "FLUX_HYPER_LORA",
+          "link": 3794
+        },
+        {
+          "name": "use_flux_turbo_lora",
+          "type": "FLUX_TURBO_LORA",
+          "link": 3798
+        },
+        {
+          "name": "use_sd3_hyper_lora",
+          "type": "SD3_HYPER_LORA",
+          "link": 3809
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 3832,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 3833,
+          "widget": {
+            "name": "scheduler_name"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 3830,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 3831,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "name": "strength_lcm_lora_model",
+          "type": "FLOAT",
+          "link": 3774,
+          "widget": {
+            "name": "strength_lcm_lora_model"
+          }
+        },
+        {
+          "name": "lightning_selector",
+          "type": "STRING",
+          "link": 3775,
+          "widget": {
+            "name": "lightning_selector"
+          }
+        },
+        {
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": 3776,
+          "widget": {
+            "name": "lightning_model_step"
+          }
+        },
+        {
+          "name": "strength_lightning_lora_model",
+          "type": "FLOAT",
+          "link": 3777,
+          "widget": {
+            "name": "strength_lightning_lora_model"
+          }
+        },
+        {
+          "name": "cascade_stage_a",
+          "type": "STRING",
+          "link": 3778,
+          "widget": {
+            "name": "cascade_stage_a"
+          }
+        },
+        {
+          "name": "cascade_stage_b",
+          "type": "STRING",
+          "link": 3779,
+          "widget": {
+            "name": "cascade_stage_b"
+          }
+        },
+        {
+          "name": "cascade_stage_c",
+          "type": "STRING",
+          "link": 3780,
+          "widget": {
+            "name": "cascade_stage_c"
+          }
+        },
+        {
+          "name": "cascade_clip",
+          "type": "STRING",
+          "link": 3781,
+          "widget": {
+            "name": "cascade_clip"
+          }
+        },
+        {
+          "name": "hypersd_selector",
+          "type": "STRING",
+          "link": 3782,
+          "widget": {
+            "name": "hypersd_selector"
+          }
+        },
+        {
+          "name": "hypersd_model_step",
+          "type": "INT",
+          "link": 3783,
+          "widget": {
+            "name": "hypersd_model_step"
+          }
+        },
+        {
+          "name": "strength_hypersd_lora_model",
+          "type": "FLOAT",
+          "link": 3784,
+          "widget": {
+            "name": "strength_hypersd_lora_model"
+          }
+        },
+        {
+          "name": "flux_selector",
+          "type": "STRING",
+          "link": 3785,
+          "widget": {
+            "name": "flux_selector"
+          }
+        },
+        {
+          "name": "flux_diffusion",
+          "type": "STRING",
+          "link": 3786,
+          "widget": {
+            "name": "flux_diffusion"
+          }
+        },
+        {
+          "name": "flux_weight_dtype",
+          "type": "STRING",
+          "link": 3787,
+          "widget": {
+            "name": "flux_weight_dtype"
+          }
+        },
+        {
+          "name": "flux_gguf",
+          "type": "STRING",
+          "link": 3788,
+          "widget": {
+            "name": "flux_gguf"
+          }
+        },
+        {
+          "name": "flux_clip_t5xxl",
+          "type": "STRING",
+          "link": 3789,
+          "widget": {
+            "name": "flux_clip_t5xxl"
+          }
+        },
+        {
+          "name": "flux_clip_l",
+          "type": "STRING",
+          "link": 3790,
+          "widget": {
+            "name": "flux_clip_l"
+          }
+        },
+        {
+          "name": "flux_clip_guidance",
+          "type": "FLOAT",
+          "link": 3791,
+          "widget": {
+            "name": "flux_clip_guidance"
+          }
+        },
+        {
+          "name": "flux_vae",
+          "type": "STRING",
+          "link": 3792,
+          "widget": {
+            "name": "flux_vae"
+          }
+        },
+        {
+          "name": "flux_sampler",
+          "type": "STRING",
+          "link": 3793,
+          "widget": {
+            "name": "flux_sampler"
+          }
+        },
+        {
+          "name": "flux_hyper_lora_type",
+          "type": "STRING",
+          "link": 3795,
+          "widget": {
+            "name": "flux_hyper_lora_type"
+          }
+        },
+        {
+          "name": "flux_hyper_lora_step",
+          "type": "INT",
+          "link": 3796,
+          "widget": {
+            "name": "flux_hyper_lora_step"
+          }
+        },
+        {
+          "name": "flux_hyper_lora_strength",
+          "type": "FLOAT",
+          "link": 3797,
+          "widget": {
+            "name": "flux_hyper_lora_strength"
+          }
+        },
+        {
+          "name": "flux_turbo_lora_type",
+          "type": "STRING",
+          "link": 3799,
+          "widget": {
+            "name": "flux_turbo_lora_type"
+          }
+        },
+        {
+          "name": "flux_turbo_lora_step",
+          "type": "INT",
+          "link": 3800,
+          "widget": {
+            "name": "flux_turbo_lora_step"
+          }
+        },
+        {
+          "name": "flux_turbo_lora_strength",
+          "type": "FLOAT",
+          "link": 3801,
+          "widget": {
+            "name": "flux_turbo_lora_strength"
+          }
+        },
+        {
+          "name": "hunyuan_clip_t5xxl",
+          "type": "STRING",
+          "link": 3802,
+          "widget": {
+            "name": "hunyuan_clip_t5xxl"
+          }
+        },
+        {
+          "name": "hunyuan_clip_l",
+          "type": "STRING",
+          "link": 3803,
+          "widget": {
+            "name": "hunyuan_clip_l"
+          }
+        },
+        {
+          "name": "hunyuan_vae",
+          "type": "STRING",
+          "link": 3804,
+          "widget": {
+            "name": "hunyuan_vae"
+          }
+        },
+        {
+          "name": "sd3_clip_g",
+          "type": "STRING",
+          "link": 3805,
+          "widget": {
+            "name": "sd3_clip_g"
+          }
+        },
+        {
+          "name": "sd3_clip_l",
+          "type": "STRING",
+          "link": 3806,
+          "widget": {
+            "name": "sd3_clip_l"
+          }
+        },
+        {
+          "name": "sd3_clip_t5xxl",
+          "type": "STRING",
+          "link": 3807,
+          "widget": {
+            "name": "sd3_clip_t5xxl"
+          }
+        },
+        {
+          "name": "sd3_unet_vae",
+          "type": "STRING",
+          "link": 3808,
+          "widget": {
+            "name": "sd3_unet_vae"
+          }
+        },
+        {
+          "name": "sd3_hyper_lora_step",
+          "type": "INT",
+          "link": 3810,
+          "widget": {
+            "name": "sd3_hyper_lora_step"
+          }
+        },
+        {
+          "name": "sd3_hyper_lora_strength",
+          "type": "FLOAT",
+          "link": 3811,
+          "widget": {
+            "name": "sd3_hyper_lora_strength"
+          }
+        },
+        {
+          "name": "kolors_precision",
+          "type": "STRING",
+          "link": 3812,
+          "widget": {
+            "name": "kolors_precision"
+          }
+        },
+        {
+          "name": "pixart_model_type",
+          "type": "STRING",
+          "link": 3813,
+          "widget": {
+            "name": "pixart_model_type"
+          }
+        },
+        {
+          "name": "pixart_T5_encoder",
+          "type": "STRING",
+          "link": 3814,
+          "widget": {
+            "name": "pixart_T5_encoder"
+          }
+        },
+        {
+          "name": "pixart_vae",
+          "type": "STRING",
+          "link": 3815,
+          "widget": {
+            "name": "pixart_vae"
+          }
+        },
+        {
+          "name": "pixart_denoise",
+          "type": "FLOAT",
+          "link": 3816,
+          "widget": {
+            "name": "pixart_denoise"
+          }
+        },
+        {
+          "name": "pixart_refiner_model",
+          "type": "STRING",
+          "link": 3817,
+          "widget": {
+            "name": "pixart_refiner_model"
+          }
+        },
+        {
+          "name": "pixart_refiner_sampler",
+          "type": "STRING",
+          "link": 3818,
+          "widget": {
+            "name": "pixart_refiner_sampler"
+          }
+        },
+        {
+          "name": "pixart_refiner_scheduler",
+          "type": "STRING",
+          "link": 3819,
+          "widget": {
+            "name": "pixart_refiner_scheduler"
+          }
+        },
+        {
+          "name": "pixart_refiner_cfg",
+          "type": "FLOAT",
+          "link": 3820,
+          "widget": {
+            "name": "pixart_refiner_cfg"
+          }
+        },
+        {
+          "name": "pixart_refiner_steps",
+          "type": "INT",
+          "link": 3821,
+          "widget": {
+            "name": "pixart_refiner_steps"
+          }
+        },
+        {
+          "name": "pixart_refiner_start",
+          "type": "INT",
+          "link": 3822,
+          "widget": {
+            "name": "pixart_refiner_start"
+          }
+        },
+        {
+          "name": "pixart_refiner_denoise",
+          "type": "FLOAT",
+          "link": 3823,
+          "widget": {
+            "name": "pixart_refiner_denoise"
+          }
+        },
+        {
+          "name": "pixart_refiner_ignore_prompt",
+          "type": "BOOLEAN",
+          "link": 3824,
+          "widget": {
+            "name": "pixart_refiner_ignore_prompt"
+          }
+        },
+        {
+          "name": "sana_model",
+          "type": "STRING",
+          "link": 3825,
+          "widget": {
+            "name": "sana_model"
+          }
+        },
+        {
+          "name": "sana_encoder",
+          "type": "STRING",
+          "link": 3826,
+          "widget": {
+            "name": "sana_encoder"
+          }
+        },
+        {
+          "name": "sana_vae",
+          "type": "STRING",
+          "link": 3827,
+          "widget": {
+            "name": "sana_vae"
+          }
+        },
+        {
+          "name": "sana_weight_dtype",
+          "type": "STRING",
+          "link": 3828,
+          "widget": {
+            "name": "sana_weight_dtype"
+          }
+        },
+        {
+          "name": "sana_precision",
+          "type": "STRING",
+          "link": 3829,
+          "widget": {
+            "name": "sana_precision"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            3675,
+            3676,
+            3677,
+            3678
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereConceptDataTuple",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        0,
+        0,
+        1,
+        "SAFETENSOR",
+        8,
+        1,
+        "",
+        "",
+        "",
+        "",
+        "LORA",
+        8,
+        1,
+        "DIFFUSION",
+        "",
+        "",
+        "",
+        "",
+        "",
+        3.5,
+        "",
+        "",
+        "",
+        0,
+        0.125,
+        "",
+        0,
+        0.125,
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        8,
+        0.125,
+        "",
+        "",
+        "",
+        "",
+        0,
+        "",
+        "",
+        "",
+        0,
+        0,
+        0,
+        0,
+        false,
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -10315,1198 +11135,6 @@
       "VAE"
     ],
     [
-      2945,
-      3,
-      0,
-      216,
-      0,
-      "CHECKPOINT_NAME"
-    ],
-    [
-      2946,
-      3,
-      1,
-      216,
-      1,
-      "STRING"
-    ],
-    [
-      2947,
-      117,
-      0,
-      216,
-      2,
-      "COMBO"
-    ],
-    [
-      2948,
-      117,
-      1,
-      216,
-      3,
-      "COMBO"
-    ],
-    [
-      2949,
-      117,
-      2,
-      216,
-      4,
-      "INT"
-    ],
-    [
-      2950,
-      117,
-      3,
-      216,
-      5,
-      "FLOAT"
-    ],
-    [
-      2951,
-      128,
-      0,
-      216,
-      6,
-      "COMBO"
-    ],
-    [
-      2952,
-      128,
-      1,
-      216,
-      7,
-      "COMBO"
-    ],
-    [
-      2953,
-      128,
-      2,
-      216,
-      8,
-      "INT"
-    ],
-    [
-      2954,
-      128,
-      3,
-      216,
-      9,
-      "FLOAT"
-    ],
-    [
-      2959,
-      123,
-      0,
-      216,
-      14,
-      "COMBO"
-    ],
-    [
-      2960,
-      123,
-      1,
-      216,
-      15,
-      "COMBO"
-    ],
-    [
-      2961,
-      123,
-      2,
-      216,
-      16,
-      "INT"
-    ],
-    [
-      2962,
-      123,
-      3,
-      216,
-      17,
-      "FLOAT"
-    ],
-    [
-      2963,
-      116,
-      0,
-      216,
-      18,
-      "COMBO"
-    ],
-    [
-      2964,
-      116,
-      1,
-      216,
-      19,
-      "COMBO"
-    ],
-    [
-      2965,
-      116,
-      2,
-      216,
-      20,
-      "INT"
-    ],
-    [
-      2966,
-      116,
-      3,
-      216,
-      21,
-      "FLOAT"
-    ],
-    [
-      2967,
-      115,
-      0,
-      216,
-      22,
-      "COMBO"
-    ],
-    [
-      2968,
-      115,
-      1,
-      216,
-      23,
-      "COMBO"
-    ],
-    [
-      2969,
-      115,
-      2,
-      216,
-      24,
-      "INT"
-    ],
-    [
-      2970,
-      115,
-      3,
-      216,
-      25,
-      "FLOAT"
-    ],
-    [
-      2971,
-      122,
-      0,
-      216,
-      26,
-      "COMBO"
-    ],
-    [
-      2972,
-      122,
-      1,
-      216,
-      27,
-      "COMBO"
-    ],
-    [
-      2973,
-      122,
-      2,
-      216,
-      28,
-      "INT"
-    ],
-    [
-      2974,
-      122,
-      3,
-      216,
-      29,
-      "FLOAT"
-    ],
-    [
-      2975,
-      129,
-      0,
-      216,
-      30,
-      "COMBO"
-    ],
-    [
-      2976,
-      129,
-      1,
-      216,
-      31,
-      "COMBO"
-    ],
-    [
-      2977,
-      129,
-      2,
-      216,
-      32,
-      "INT"
-    ],
-    [
-      2978,
-      129,
-      3,
-      216,
-      33,
-      "FLOAT"
-    ],
-    [
-      2979,
-      125,
-      0,
-      216,
-      34,
-      "COMBO"
-    ],
-    [
-      2980,
-      125,
-      1,
-      216,
-      35,
-      "COMBO"
-    ],
-    [
-      2981,
-      125,
-      2,
-      216,
-      36,
-      "INT"
-    ],
-    [
-      2982,
-      125,
-      3,
-      216,
-      37,
-      "FLOAT"
-    ],
-    [
-      2983,
-      120,
-      0,
-      216,
-      38,
-      "COMBO"
-    ],
-    [
-      2984,
-      120,
-      1,
-      216,
-      39,
-      "COMBO"
-    ],
-    [
-      2985,
-      120,
-      2,
-      216,
-      40,
-      "INT"
-    ],
-    [
-      2986,
-      120,
-      3,
-      216,
-      41,
-      "FLOAT"
-    ],
-    [
-      2987,
-      124,
-      0,
-      216,
-      42,
-      "COMBO"
-    ],
-    [
-      2988,
-      124,
-      1,
-      216,
-      43,
-      "COMBO"
-    ],
-    [
-      2989,
-      124,
-      2,
-      216,
-      44,
-      "INT"
-    ],
-    [
-      2990,
-      124,
-      3,
-      216,
-      45,
-      "FLOAT"
-    ],
-    [
-      2991,
-      118,
-      0,
-      216,
-      46,
-      "COMBO"
-    ],
-    [
-      2992,
-      118,
-      1,
-      216,
-      47,
-      "COMBO"
-    ],
-    [
-      2993,
-      118,
-      2,
-      216,
-      48,
-      "INT"
-    ],
-    [
-      2994,
-      118,
-      3,
-      216,
-      49,
-      "FLOAT"
-    ],
-    [
-      2995,
-      119,
-      0,
-      216,
-      50,
-      "COMBO"
-    ],
-    [
-      2996,
-      119,
-      1,
-      216,
-      51,
-      "COMBO"
-    ],
-    [
-      2997,
-      119,
-      2,
-      216,
-      52,
-      "INT"
-    ],
-    [
-      2998,
-      119,
-      3,
-      216,
-      53,
-      "FLOAT"
-    ],
-    [
-      2999,
-      121,
-      0,
-      216,
-      54,
-      "COMBO"
-    ],
-    [
-      3000,
-      121,
-      1,
-      216,
-      55,
-      "COMBO"
-    ],
-    [
-      3001,
-      121,
-      2,
-      216,
-      56,
-      "INT"
-    ],
-    [
-      3002,
-      121,
-      3,
-      216,
-      57,
-      "FLOAT"
-    ],
-    [
-      3003,
-      215,
-      0,
-      216,
-      58,
-      "COMBO"
-    ],
-    [
-      3004,
-      215,
-      1,
-      216,
-      59,
-      "COMBO"
-    ],
-    [
-      3005,
-      215,
-      2,
-      216,
-      60,
-      "INT"
-    ],
-    [
-      3006,
-      215,
-      3,
-      216,
-      61,
-      "FLOAT"
-    ],
-    [
-      3007,
-      214,
-      0,
-      216,
-      62,
-      "COMBO"
-    ],
-    [
-      3008,
-      214,
-      1,
-      216,
-      63,
-      "COMBO"
-    ],
-    [
-      3009,
-      214,
-      3,
-      216,
-      64,
-      "FLOAT"
-    ],
-    [
-      3010,
-      214,
-      2,
-      216,
-      65,
-      "INT"
-    ],
-    [
-      3011,
-      216,
-      0,
-      137,
-      8,
-      "COMBO"
-    ],
-    [
-      3012,
-      216,
-      0,
-      110,
-      15,
-      "COMBO"
-    ],
-    [
-      3013,
-      216,
-      0,
-      177,
-      10,
-      "COMBO"
-    ],
-    [
-      3014,
-      216,
-      0,
-      193,
-      15,
-      "COMBO"
-    ],
-    [
-      3015,
-      216,
-      1,
-      137,
-      9,
-      "COMBO"
-    ],
-    [
-      3016,
-      216,
-      1,
-      110,
-      16,
-      "COMBO"
-    ],
-    [
-      3017,
-      216,
-      1,
-      177,
-      11,
-      "COMBO"
-    ],
-    [
-      3018,
-      216,
-      1,
-      193,
-      16,
-      "COMBO"
-    ],
-    [
-      3019,
-      216,
-      2,
-      110,
-      20,
-      "INT"
-    ],
-    [
-      3020,
-      216,
-      2,
-      137,
-      6,
-      "INT"
-    ],
-    [
-      3021,
-      216,
-      2,
-      177,
-      12,
-      "INT"
-    ],
-    [
-      3022,
-      216,
-      2,
-      193,
-      20,
-      "INT"
-    ],
-    [
-      3023,
-      216,
-      3,
-      137,
-      7,
-      "FLOAT"
-    ],
-    [
-      3024,
-      216,
-      3,
-      110,
-      19,
-      "FLOAT"
-    ],
-    [
-      3025,
-      216,
-      3,
-      177,
-      13,
-      "FLOAT"
-    ],
-    [
-      3026,
-      216,
-      3,
-      193,
-      19,
-      "FLOAT"
-    ],
-    [
-      3028,
-      216,
-      5,
-      110,
-      14,
-      "STRING"
-    ],
-    [
-      3029,
-      216,
-      5,
-      137,
-      10,
-      "STRING"
-    ],
-    [
-      3030,
-      216,
-      5,
-      193,
-      14,
-      "STRING"
-    ],
-    [
-      3031,
-      216,
-      5,
-      145,
-      5,
-      "STRING"
-    ],
-    [
-      3032,
-      216,
-      5,
-      131,
-      2,
-      "STRING"
-    ],
-    [
-      3033,
-      216,
-      5,
-      211,
-      11,
-      "STRING"
-    ],
-    [
-      3036,
-      216,
-      8,
-      110,
-      3,
-      "VAE_NAME"
-    ],
-    [
-      3037,
-      216,
-      8,
-      110,
-      4,
-      "VAE_NAME"
-    ],
-    [
-      3080,
-      216,
-      12,
-      217,
-      10,
-      "FLOAT"
-    ],
-    [
-      3081,
-      216,
-      13,
-      217,
-      11,
-      "STRING"
-    ],
-    [
-      3082,
-      216,
-      14,
-      217,
-      12,
-      "STRING"
-    ],
-    [
-      3083,
-      216,
-      15,
-      217,
-      13,
-      "STRING"
-    ],
-    [
-      3084,
-      216,
-      16,
-      217,
-      14,
-      "STRING"
-    ],
-    [
-      3085,
-      216,
-      17,
-      217,
-      15,
-      "STRING"
-    ],
-    [
-      3086,
-      216,
-      18,
-      217,
-      16,
-      "INT"
-    ],
-    [
-      3087,
-      216,
-      19,
-      217,
-      17,
-      "FLOAT"
-    ],
-    [
-      3088,
-      216,
-      20,
-      217,
-      18,
-      "STRING"
-    ],
-    [
-      3089,
-      216,
-      21,
-      217,
-      19,
-      "STRING"
-    ],
-    [
-      3090,
-      216,
-      22,
-      217,
-      20,
-      "STRING"
-    ],
-    [
-      3091,
-      216,
-      23,
-      217,
-      21,
-      "STRING"
-    ],
-    [
-      3092,
-      216,
-      24,
-      217,
-      22,
-      "STRING"
-    ],
-    [
-      3093,
-      216,
-      25,
-      217,
-      23,
-      "STRING"
-    ],
-    [
-      3094,
-      216,
-      26,
-      217,
-      24,
-      "FLOAT"
-    ],
-    [
-      3095,
-      216,
-      27,
-      217,
-      25,
-      "STRING"
-    ],
-    [
-      3109,
-      217,
-      0,
-      110,
-      1,
-      "TUPLE"
-    ],
-    [
-      3110,
-      217,
-      0,
-      132,
-      2,
-      "TUPLE"
-    ],
-    [
-      3111,
-      217,
-      0,
-      193,
-      1,
-      "TUPLE"
-    ],
-    [
-      3112,
-      217,
-      0,
-      145,
-      1,
-      "TUPLE"
-    ],
-    [
-      3116,
-      216,
-      11,
-      217,
-      9,
-      "INT"
-    ],
-    [
-      3117,
-      216,
-      10,
-      217,
-      8,
-      "STRING"
-    ],
-    [
-      3118,
-      216,
-      9,
-      217,
-      7,
-      "FLOAT"
-    ],
-    [
-      3119,
-      216,
-      8,
-      217,
-      3,
-      "VAE_NAME"
-    ],
-    [
-      3120,
-      216,
-      7,
-      217,
-      2,
-      "VAE_SELECTION"
-    ],
-    [
-      3121,
-      216,
-      6,
-      217,
-      1,
-      "CLIP_SELECTION"
-    ],
-    [
-      3122,
-      216,
-      4,
-      217,
-      0,
-      "OVERRIDE_STEPS"
-    ],
-    [
-      3123,
-      216,
-      29,
-      217,
-      4,
-      "FLUX_HYPER_LORA"
-    ],
-    [
-      3124,
-      216,
-      33,
-      217,
-      5,
-      "FLUX_TURBO_LORA"
-    ],
-    [
-      3125,
-      216,
-      34,
-      217,
-      30,
-      "STRING"
-    ],
-    [
-      3126,
-      216,
-      35,
-      217,
-      31,
-      "INT"
-    ],
-    [
-      3127,
-      216,
-      36,
-      217,
-      32,
-      "FLOAT"
-    ],
-    [
-      3129,
-      216,
-      28,
-      217,
-      26,
-      "STRING"
-    ],
-    [
-      3130,
-      216,
-      30,
-      217,
-      27,
-      "STRING"
-    ],
-    [
-      3131,
-      216,
-      31,
-      217,
-      28,
-      "INT"
-    ],
-    [
-      3132,
-      216,
-      32,
-      217,
-      29,
-      "FLOAT"
-    ],
-    [
-      3133,
-      216,
-      37,
-      217,
-      33,
-      "STRING"
-    ],
-    [
-      3134,
-      216,
-      38,
-      217,
-      34,
-      "STRING"
-    ],
-    [
-      3135,
-      216,
-      39,
-      217,
-      35,
-      "STRING"
-    ],
-    [
-      3136,
-      216,
-      40,
-      217,
-      36,
-      "STRING"
-    ],
-    [
-      3137,
-      216,
-      41,
-      217,
-      37,
-      "STRING"
-    ],
-    [
-      3138,
-      216,
-      42,
-      217,
-      38,
-      "STRING"
-    ],
-    [
-      3139,
-      216,
-      43,
-      217,
-      39,
-      "STRING"
-    ],
-    [
-      3140,
-      216,
-      44,
-      217,
-      6,
-      "SD3_HYPER_LORA"
-    ],
-    [
-      3141,
-      216,
-      45,
-      217,
-      40,
-      "INT"
-    ],
-    [
-      3142,
-      216,
-      46,
-      217,
-      41,
-      "FLOAT"
-    ],
-    [
-      3143,
-      216,
-      47,
-      217,
-      42,
-      "STRING"
-    ],
-    [
-      3144,
-      216,
-      48,
-      217,
-      43,
-      "STRING"
-    ],
-    [
-      3145,
-      216,
-      49,
-      217,
-      44,
-      "STRING"
-    ],
-    [
-      3146,
-      216,
-      50,
-      217,
-      45,
-      "STRING"
-    ],
-    [
-      3147,
-      216,
-      51,
-      217,
-      46,
-      "FLOAT"
-    ],
-    [
-      3148,
-      216,
-      52,
-      217,
-      47,
-      "STRING"
-    ],
-    [
-      3149,
-      216,
-      53,
-      217,
-      48,
-      "STRING"
-    ],
-    [
-      3150,
-      216,
-      54,
-      217,
-      49,
-      "STRING"
-    ],
-    [
-      3151,
-      216,
-      55,
-      217,
-      50,
-      "FLOAT"
-    ],
-    [
-      3152,
-      216,
-      56,
-      217,
-      51,
-      "INT"
-    ],
-    [
-      3153,
-      216,
-      57,
-      217,
-      52,
-      "INT"
-    ],
-    [
-      3154,
-      216,
-      58,
-      217,
-      53,
-      "FLOAT"
-    ],
-    [
-      3155,
-      216,
-      59,
-      217,
-      54,
-      "BOOLEAN"
-    ],
-    [
-      3156,
-      126,
-      0,
-      216,
-      10,
-      "COMBO"
-    ],
-    [
-      3157,
-      126,
-      1,
-      216,
-      11,
-      "COMBO"
-    ],
-    [
-      3158,
-      126,
-      2,
-      216,
-      12,
-      "INT"
-    ],
-    [
-      3159,
-      126,
-      3,
-      216,
-      13,
-      "FLOAT"
-    ],
-    [
       3163,
       229,
       1,
@@ -11561,14 +11189,6 @@
       229,
       2,
       "STRING"
-    ],
-    [
-      3272,
-      216,
-      5,
-      258,
-      0,
-      "*"
     ],
     [
       3273,
@@ -12545,6 +12165,1278 @@
       8,
       0,
       "STRING"
+    ],
+    [
+      3675,
+      293,
+      0,
+      110,
+      1,
+      "TUPLE"
+    ],
+    [
+      3676,
+      293,
+      0,
+      132,
+      2,
+      "TUPLE"
+    ],
+    [
+      3677,
+      293,
+      0,
+      193,
+      1,
+      "TUPLE"
+    ],
+    [
+      3678,
+      293,
+      0,
+      145,
+      1,
+      "TUPLE"
+    ],
+    [
+      3679,
+      3,
+      0,
+      294,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      3680,
+      3,
+      1,
+      294,
+      1,
+      "STRING"
+    ],
+    [
+      3681,
+      117,
+      0,
+      294,
+      2,
+      "COMBO"
+    ],
+    [
+      3682,
+      117,
+      1,
+      294,
+      3,
+      "COMBO"
+    ],
+    [
+      3683,
+      117,
+      2,
+      294,
+      4,
+      "INT"
+    ],
+    [
+      3684,
+      117,
+      3,
+      294,
+      5,
+      "FLOAT"
+    ],
+    [
+      3685,
+      128,
+      0,
+      294,
+      6,
+      "COMBO"
+    ],
+    [
+      3686,
+      128,
+      1,
+      294,
+      7,
+      "COMBO"
+    ],
+    [
+      3687,
+      128,
+      2,
+      294,
+      8,
+      "INT"
+    ],
+    [
+      3688,
+      128,
+      3,
+      294,
+      9,
+      "FLOAT"
+    ],
+    [
+      3689,
+      126,
+      0,
+      294,
+      10,
+      "COMBO"
+    ],
+    [
+      3690,
+      126,
+      1,
+      294,
+      11,
+      "COMBO"
+    ],
+    [
+      3691,
+      126,
+      2,
+      294,
+      12,
+      "INT"
+    ],
+    [
+      3692,
+      126,
+      3,
+      294,
+      13,
+      "FLOAT"
+    ],
+    [
+      3693,
+      123,
+      0,
+      294,
+      14,
+      "COMBO"
+    ],
+    [
+      3694,
+      123,
+      1,
+      294,
+      15,
+      "COMBO"
+    ],
+    [
+      3695,
+      123,
+      2,
+      294,
+      16,
+      "INT"
+    ],
+    [
+      3696,
+      123,
+      3,
+      294,
+      17,
+      "FLOAT"
+    ],
+    [
+      3697,
+      116,
+      0,
+      294,
+      18,
+      "COMBO"
+    ],
+    [
+      3698,
+      116,
+      1,
+      294,
+      19,
+      "COMBO"
+    ],
+    [
+      3699,
+      116,
+      2,
+      294,
+      20,
+      "INT"
+    ],
+    [
+      3700,
+      116,
+      3,
+      294,
+      21,
+      "FLOAT"
+    ],
+    [
+      3701,
+      115,
+      0,
+      294,
+      22,
+      "COMBO"
+    ],
+    [
+      3702,
+      115,
+      1,
+      294,
+      23,
+      "COMBO"
+    ],
+    [
+      3703,
+      115,
+      2,
+      294,
+      24,
+      "INT"
+    ],
+    [
+      3704,
+      115,
+      3,
+      294,
+      25,
+      "FLOAT"
+    ],
+    [
+      3705,
+      122,
+      0,
+      294,
+      26,
+      "COMBO"
+    ],
+    [
+      3706,
+      122,
+      1,
+      294,
+      27,
+      "COMBO"
+    ],
+    [
+      3707,
+      122,
+      2,
+      294,
+      28,
+      "INT"
+    ],
+    [
+      3708,
+      122,
+      3,
+      294,
+      29,
+      "FLOAT"
+    ],
+    [
+      3709,
+      129,
+      0,
+      294,
+      30,
+      "COMBO"
+    ],
+    [
+      3710,
+      129,
+      1,
+      294,
+      31,
+      "COMBO"
+    ],
+    [
+      3711,
+      129,
+      2,
+      294,
+      32,
+      "INT"
+    ],
+    [
+      3712,
+      129,
+      3,
+      294,
+      33,
+      "FLOAT"
+    ],
+    [
+      3713,
+      125,
+      0,
+      294,
+      34,
+      "COMBO"
+    ],
+    [
+      3714,
+      125,
+      1,
+      294,
+      35,
+      "COMBO"
+    ],
+    [
+      3715,
+      125,
+      2,
+      294,
+      36,
+      "INT"
+    ],
+    [
+      3716,
+      125,
+      3,
+      294,
+      37,
+      "FLOAT"
+    ],
+    [
+      3717,
+      120,
+      0,
+      294,
+      38,
+      "COMBO"
+    ],
+    [
+      3718,
+      120,
+      1,
+      294,
+      39,
+      "COMBO"
+    ],
+    [
+      3719,
+      120,
+      2,
+      294,
+      40,
+      "INT"
+    ],
+    [
+      3720,
+      120,
+      3,
+      294,
+      41,
+      "FLOAT"
+    ],
+    [
+      3721,
+      124,
+      0,
+      294,
+      42,
+      "COMBO"
+    ],
+    [
+      3722,
+      124,
+      1,
+      294,
+      43,
+      "COMBO"
+    ],
+    [
+      3723,
+      124,
+      2,
+      294,
+      44,
+      "INT"
+    ],
+    [
+      3724,
+      124,
+      3,
+      294,
+      45,
+      "FLOAT"
+    ],
+    [
+      3725,
+      118,
+      0,
+      294,
+      46,
+      "COMBO"
+    ],
+    [
+      3726,
+      118,
+      1,
+      294,
+      47,
+      "COMBO"
+    ],
+    [
+      3727,
+      118,
+      2,
+      294,
+      48,
+      "INT"
+    ],
+    [
+      3728,
+      118,
+      3,
+      294,
+      49,
+      "FLOAT"
+    ],
+    [
+      3729,
+      119,
+      0,
+      294,
+      50,
+      "COMBO"
+    ],
+    [
+      3730,
+      119,
+      1,
+      294,
+      51,
+      "COMBO"
+    ],
+    [
+      3731,
+      119,
+      2,
+      294,
+      52,
+      "INT"
+    ],
+    [
+      3732,
+      119,
+      3,
+      294,
+      53,
+      "FLOAT"
+    ],
+    [
+      3733,
+      121,
+      0,
+      294,
+      54,
+      "COMBO"
+    ],
+    [
+      3734,
+      121,
+      1,
+      294,
+      55,
+      "COMBO"
+    ],
+    [
+      3735,
+      121,
+      2,
+      294,
+      56,
+      "INT"
+    ],
+    [
+      3736,
+      121,
+      3,
+      294,
+      57,
+      "FLOAT"
+    ],
+    [
+      3737,
+      215,
+      0,
+      294,
+      58,
+      "COMBO"
+    ],
+    [
+      3738,
+      215,
+      1,
+      294,
+      59,
+      "COMBO"
+    ],
+    [
+      3739,
+      215,
+      2,
+      294,
+      60,
+      "INT"
+    ],
+    [
+      3740,
+      215,
+      3,
+      294,
+      61,
+      "FLOAT"
+    ],
+    [
+      3741,
+      214,
+      0,
+      294,
+      70,
+      "COMBO"
+    ],
+    [
+      3742,
+      214,
+      1,
+      294,
+      71,
+      "COMBO"
+    ],
+    [
+      3743,
+      214,
+      3,
+      294,
+      72,
+      "FLOAT"
+    ],
+    [
+      3744,
+      214,
+      2,
+      294,
+      73,
+      "INT"
+    ],
+    [
+      3745,
+      294,
+      0,
+      137,
+      8,
+      "COMBO"
+    ],
+    [
+      3746,
+      294,
+      0,
+      110,
+      15,
+      "COMBO"
+    ],
+    [
+      3747,
+      294,
+      0,
+      177,
+      10,
+      "COMBO"
+    ],
+    [
+      3748,
+      294,
+      0,
+      193,
+      15,
+      "COMBO"
+    ],
+    [
+      3749,
+      294,
+      1,
+      137,
+      9,
+      "COMBO"
+    ],
+    [
+      3750,
+      294,
+      1,
+      110,
+      16,
+      "COMBO"
+    ],
+    [
+      3751,
+      294,
+      1,
+      177,
+      11,
+      "COMBO"
+    ],
+    [
+      3752,
+      294,
+      1,
+      193,
+      16,
+      "COMBO"
+    ],
+    [
+      3753,
+      294,
+      2,
+      110,
+      20,
+      "INT"
+    ],
+    [
+      3754,
+      294,
+      2,
+      137,
+      6,
+      "INT"
+    ],
+    [
+      3755,
+      294,
+      2,
+      177,
+      12,
+      "INT"
+    ],
+    [
+      3756,
+      294,
+      2,
+      193,
+      20,
+      "INT"
+    ],
+    [
+      3757,
+      294,
+      3,
+      137,
+      7,
+      "FLOAT"
+    ],
+    [
+      3758,
+      294,
+      3,
+      110,
+      19,
+      "FLOAT"
+    ],
+    [
+      3759,
+      294,
+      3,
+      177,
+      13,
+      "FLOAT"
+    ],
+    [
+      3760,
+      294,
+      3,
+      193,
+      19,
+      "FLOAT"
+    ],
+    [
+      3761,
+      294,
+      4,
+      293,
+      0,
+      "OVERRIDE_STEPS"
+    ],
+    [
+      3762,
+      294,
+      5,
+      110,
+      14,
+      "STRING"
+    ],
+    [
+      3763,
+      294,
+      5,
+      137,
+      10,
+      "STRING"
+    ],
+    [
+      3764,
+      294,
+      5,
+      193,
+      14,
+      "STRING"
+    ],
+    [
+      3765,
+      294,
+      5,
+      145,
+      5,
+      "STRING"
+    ],
+    [
+      3766,
+      294,
+      5,
+      131,
+      2,
+      "STRING"
+    ],
+    [
+      3767,
+      294,
+      5,
+      211,
+      11,
+      "STRING"
+    ],
+    [
+      3768,
+      294,
+      5,
+      258,
+      0,
+      "*"
+    ],
+    [
+      3769,
+      294,
+      6,
+      293,
+      1,
+      "CLIP_SELECTION"
+    ],
+    [
+      3770,
+      294,
+      7,
+      293,
+      2,
+      "VAE_SELECTION"
+    ],
+    [
+      3771,
+      294,
+      8,
+      110,
+      3,
+      "VAE_NAME"
+    ],
+    [
+      3772,
+      294,
+      8,
+      110,
+      4,
+      "VAE_NAME"
+    ],
+    [
+      3773,
+      294,
+      8,
+      293,
+      3,
+      "VAE_NAME"
+    ],
+    [
+      3774,
+      294,
+      9,
+      293,
+      11,
+      "FLOAT"
+    ],
+    [
+      3775,
+      294,
+      10,
+      293,
+      12,
+      "STRING"
+    ],
+    [
+      3776,
+      294,
+      11,
+      293,
+      13,
+      "INT"
+    ],
+    [
+      3777,
+      294,
+      12,
+      293,
+      14,
+      "FLOAT"
+    ],
+    [
+      3778,
+      294,
+      13,
+      293,
+      15,
+      "STRING"
+    ],
+    [
+      3779,
+      294,
+      14,
+      293,
+      16,
+      "STRING"
+    ],
+    [
+      3780,
+      294,
+      15,
+      293,
+      17,
+      "STRING"
+    ],
+    [
+      3781,
+      294,
+      16,
+      293,
+      18,
+      "STRING"
+    ],
+    [
+      3782,
+      294,
+      17,
+      293,
+      19,
+      "STRING"
+    ],
+    [
+      3783,
+      294,
+      18,
+      293,
+      20,
+      "INT"
+    ],
+    [
+      3784,
+      294,
+      19,
+      293,
+      21,
+      "FLOAT"
+    ],
+    [
+      3785,
+      294,
+      20,
+      293,
+      22,
+      "STRING"
+    ],
+    [
+      3786,
+      294,
+      21,
+      293,
+      23,
+      "STRING"
+    ],
+    [
+      3787,
+      294,
+      22,
+      293,
+      24,
+      "STRING"
+    ],
+    [
+      3788,
+      294,
+      23,
+      293,
+      25,
+      "STRING"
+    ],
+    [
+      3789,
+      294,
+      24,
+      293,
+      26,
+      "STRING"
+    ],
+    [
+      3790,
+      294,
+      25,
+      293,
+      27,
+      "STRING"
+    ],
+    [
+      3791,
+      294,
+      26,
+      293,
+      28,
+      "FLOAT"
+    ],
+    [
+      3792,
+      294,
+      27,
+      293,
+      29,
+      "STRING"
+    ],
+    [
+      3793,
+      294,
+      28,
+      293,
+      30,
+      "STRING"
+    ],
+    [
+      3794,
+      294,
+      29,
+      293,
+      4,
+      "FLUX_HYPER_LORA"
+    ],
+    [
+      3795,
+      294,
+      30,
+      293,
+      31,
+      "STRING"
+    ],
+    [
+      3796,
+      294,
+      31,
+      293,
+      32,
+      "INT"
+    ],
+    [
+      3797,
+      294,
+      32,
+      293,
+      33,
+      "FLOAT"
+    ],
+    [
+      3798,
+      294,
+      33,
+      293,
+      5,
+      "FLUX_TURBO_LORA"
+    ],
+    [
+      3799,
+      294,
+      34,
+      293,
+      34,
+      "STRING"
+    ],
+    [
+      3800,
+      294,
+      35,
+      293,
+      35,
+      "INT"
+    ],
+    [
+      3801,
+      294,
+      36,
+      293,
+      36,
+      "FLOAT"
+    ],
+    [
+      3802,
+      294,
+      37,
+      293,
+      37,
+      "STRING"
+    ],
+    [
+      3803,
+      294,
+      38,
+      293,
+      38,
+      "STRING"
+    ],
+    [
+      3804,
+      294,
+      39,
+      293,
+      39,
+      "STRING"
+    ],
+    [
+      3805,
+      294,
+      40,
+      293,
+      40,
+      "STRING"
+    ],
+    [
+      3806,
+      294,
+      41,
+      293,
+      41,
+      "STRING"
+    ],
+    [
+      3807,
+      294,
+      42,
+      293,
+      42,
+      "STRING"
+    ],
+    [
+      3808,
+      294,
+      43,
+      293,
+      43,
+      "STRING"
+    ],
+    [
+      3809,
+      294,
+      44,
+      293,
+      6,
+      "SD3_HYPER_LORA"
+    ],
+    [
+      3810,
+      294,
+      45,
+      293,
+      44,
+      "INT"
+    ],
+    [
+      3811,
+      294,
+      46,
+      293,
+      45,
+      "FLOAT"
+    ],
+    [
+      3812,
+      294,
+      47,
+      293,
+      46,
+      "STRING"
+    ],
+    [
+      3813,
+      294,
+      48,
+      293,
+      47,
+      "STRING"
+    ],
+    [
+      3814,
+      294,
+      49,
+      293,
+      48,
+      "STRING"
+    ],
+    [
+      3815,
+      294,
+      50,
+      293,
+      49,
+      "STRING"
+    ],
+    [
+      3816,
+      294,
+      51,
+      293,
+      50,
+      "FLOAT"
+    ],
+    [
+      3817,
+      294,
+      52,
+      293,
+      51,
+      "STRING"
+    ],
+    [
+      3818,
+      294,
+      53,
+      293,
+      52,
+      "STRING"
+    ],
+    [
+      3819,
+      294,
+      54,
+      293,
+      53,
+      "STRING"
+    ],
+    [
+      3820,
+      294,
+      55,
+      293,
+      54,
+      "FLOAT"
+    ],
+    [
+      3821,
+      294,
+      56,
+      293,
+      55,
+      "INT"
+    ],
+    [
+      3822,
+      294,
+      57,
+      293,
+      56,
+      "INT"
+    ],
+    [
+      3823,
+      294,
+      58,
+      293,
+      57,
+      "FLOAT"
+    ],
+    [
+      3824,
+      294,
+      59,
+      293,
+      58,
+      "BOOLEAN"
+    ],
+    [
+      3825,
+      294,
+      60,
+      293,
+      59,
+      "STRING"
+    ],
+    [
+      3826,
+      294,
+      61,
+      293,
+      60,
+      "STRING"
+    ],
+    [
+      3827,
+      294,
+      62,
+      293,
+      61,
+      "STRING"
+    ],
+    [
+      3828,
+      294,
+      63,
+      293,
+      62,
+      "STRING"
+    ],
+    [
+      3829,
+      294,
+      64,
+      293,
+      63,
+      "STRING"
+    ],
+    [
+      3830,
+      294,
+      2,
+      293,
+      9,
+      "INT"
+    ],
+    [
+      3831,
+      294,
+      3,
+      293,
+      10,
+      "FLOAT"
+    ],
+    [
+      3832,
+      294,
+      0,
+      293,
+      7,
+      "COMBO"
+    ],
+    [
+      3833,
+      294,
+      1,
+      293,
+      8,
+      "COMBO"
     ]
   ],
   "groups": [
@@ -12697,8 +13589,8 @@
       "bounding": [
         1048.1329345703125,
         1650.2728271484375,
-        859.9568481445312,
-        646.376953125
+        860.865966796875,
+        684.5587768554688
       ],
       "color": "#804000",
       "font_size": 24,
@@ -12723,8 +13615,8 @@
       "bounding": [
         1914.306640625,
         1133.7421875,
-        1580,
-        2843
+        1577.800048828125,
+        3125.699951171875
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -12734,11 +13626,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917356,
-      "offset": [
-        -1036.7202668367063,
-        552.4205410343666
-      ]
+      "scale": 1,
+      "offset": {
+        "0": -4516.351450518934,
+        "1": 247.50853567012564
+      }
     }
   },
   "version": 0.4

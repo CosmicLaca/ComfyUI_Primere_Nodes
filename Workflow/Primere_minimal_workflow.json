@@ -57,7 +57,14 @@
       ],
       "title": "Primere Prompt Organizer - TOML - SWITCH #2",
       "properties": {
-        "Node name for S&R": "PrimerePromptOrganizer"
+        "Node name for S&R": "PrimerePromptOrganizer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -113,7 +120,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereUpscaleModel"
+        "Node name for S&R": "PrimereUpscaleModel",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SwinIR\\SwinIR_4x.pth"
@@ -187,7 +201,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereSamplersSteps"
+        "Node name for S&R": "PrimereSamplersSteps",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "euler",
@@ -298,7 +319,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereCKPTLoader"
+        "Node name for S&R": "PrimereCKPTLoader",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -330,7 +358,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PreviewImage"
+        "Node name for S&R": "PreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#941414",
@@ -443,10 +478,17 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereKSampler"
+        "Node name for S&R": "PrimereKSampler",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
-        640978277535082,
+        259720581134524,
         "randomize",
         20,
         8,
@@ -504,7 +546,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "VAEDecode"
+        "Node name for S&R": "VAEDecode",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [],
       "color": "#941414",
@@ -549,7 +598,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereAestheticCKPTScorer"
+        "Node name for S&R": "PrimereAestheticCKPTScorer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -641,7 +697,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+        "Node name for S&R": "PrimereResolutionMultiplierMPX",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -848,12 +911,19 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
+        "Node name for S&R": "PrimereMetaCollector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1509,
+        1439,
         "randomize",
         "",
         "",
@@ -938,6 +1008,13 @@
       ],
       "properties": {
         "Node name for S&R": "ttN hiresfixScale",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
         "ttNnodeVersion": "1.1.0"
       },
       "widgets_values": [
@@ -1084,11 +1161,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "UltimateSDUpscale"
+        "Node name for S&R": "UltimateSDUpscale",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         2.1,
-        669700003332034,
+        381842335888835,
         "randomize",
         7,
         6.5,
@@ -1134,7 +1218,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
+        "Node name for S&R": "PrimerePreviewImage",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -1143,7 +1234,7 @@
         95,
         "Checkpoint",
         "Overwrite",
-        "Photo\\photon_v1.safetensors",
+        "SDXL\\9527DetailRealistic_v70.safetensors",
         null
       ],
       "color": "#549494",
@@ -1187,7 +1278,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaSave"
+        "Node name for S&R": "PrimereMetaSave",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         false,
@@ -1245,7 +1343,14 @@
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PrimereTextOutput"
+        "Node name for S&R": "PrimereTextOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -1482,7 +1587,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereCLIPEncoder"
+        "Node name for S&R": "PrimereCLIPEncoder",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SD1",
@@ -1626,7 +1738,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereLatentNoise"
+        "Node name for S&R": "PrimereLatentNoise",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         512,
@@ -1641,7 +1760,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        629524136341880,
+        929502504474405,
         "randomize",
         true,
         "cpu",
@@ -1725,7 +1844,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereResolution"
+        "Node name for S&R": "PrimereResolution",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "HD screen [16:9]",
@@ -1739,7 +1865,7 @@
         false,
         1.6,
         2.8,
-        5210559542397,
+        554094741568781,
         "randomize",
         "SD1",
         "Auto"
@@ -1880,7 +2006,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimerePromptSwitch"
+        "Node name for S&R": "PrimerePromptSwitch",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         1
@@ -1933,11 +2066,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimereDynamicParser",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        205033932815852,
+        511704765711509,
         "randomize"
       ],
       "color": "#945454",
@@ -1988,11 +2128,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereDynamicParser"
+        "Node name for S&R": "PrimereDynamicParser",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        544086108292390,
+        423016955393621,
         "randomize"
       ],
       "color": "#145414",
@@ -2051,7 +2198,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereEmbeddingHandler"
+        "Node name for S&R": "PrimereEmbeddingHandler",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -2128,7 +2282,14 @@
       ],
       "title": "Primere Visual Prompt CSV - #4",
       "properties": {
-        "Node name for S&R": "PrimereVisualPromptOrganizerCSV"
+        "Node name for S&R": "PrimereVisualPromptOrganizerCSV",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         true,
@@ -2219,7 +2380,14 @@
       ],
       "title": "Primere Visual Style Selector - SWITCH #3",
       "properties": {
-        "Node name for S&R": "PrimereVisualStyle"
+        "Node name for S&R": "PrimereVisualStyle",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Sci-fi UFO",
@@ -2303,7 +2471,14 @@
       ],
       "title": "Primere Prompt - SWITCH #1",
       "properties": {
-        "Node name for S&R": "PrimerePrompt"
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
@@ -2521,12 +2696,19 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
+        "Node name for S&R": "PrimereMetaCollector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        209,
+        203,
         "randomize",
         "",
         "",
@@ -2631,7 +2813,14 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereNetworkTagLoader"
+        "Node name for S&R": "PrimereNetworkTagLoader",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
@@ -2665,7 +2854,7 @@
       ],
       "size": [
         433.72161865234375,
-        555.5821533203125
+        602
       ],
       "flags": {},
       "order": 18,
@@ -2714,12 +2903,21 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereClearNetworkTagsPrompt"
+        "Node name for S&R": "PrimereClearNetworkTagsPrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "SD1",
         "",
         "",
+        true,
+        true,
         true,
         true,
         true,
@@ -2745,11 +2943,66 @@
       "bgcolor": "#804000"
     },
     {
+      "id": 71,
+      "type": "PrimereSeed",
+      "pos": [
+        1183,
+        88
+      ],
+      "size": [
+        280.19598388671875,
+        130
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            291,
+            292,
+            309,
+            329,
+            405,
+            431,
+            441,
+            458,
+            489,
+            510,
+            539
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereSeed",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
       "id": 63,
       "type": "PrimereModelKeyword",
       "pos": [
         1824,
-        1729
+        1769
       ],
       "size": [
         805.6959838867188,
@@ -2784,7 +3037,7 @@
         "Last",
         1,
         1,
-        "design"
+        "None"
       ],
       "color": "#c41414",
       "bgcolor": "#b00000"
@@ -2835,7 +3088,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        "Photo\\photon_v1.safetensors",
+        "SDXL\\9527DetailRealistic_v70.safetensors",
         true,
         true,
         true,
@@ -2843,54 +3096,6 @@
         550,
         800,
         0
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
-      "id": 71,
-      "type": "PrimereSeed",
-      "pos": [
-        1183,
-        88
-      ],
-      "size": [
-        280.19598388671875,
-        130
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            291,
-            292,
-            309,
-            329,
-            405,
-            431,
-            441,
-            458,
-            489,
-            510,
-            539
-          ],
-          "slot_index": 0,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereSeed"
-      },
-      "widgets_values": [
-        -1,
-        null,
-        null,
-        null
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -3801,8 +4006,8 @@
       "bounding": [
         1813,
         1056,
-        824.7664794921875,
-        837.4058837890625
+        826.7664794921875,
+        878.4058837890625
       ],
       "color": "#804000",
       "font_size": 24,
@@ -3877,11 +4082,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
-      "offset": [
-        -212.6683271304021,
-        432.74168941972266
-      ]
+      "scale": 0.8264462809917354,
+      "offset": {
+        "0": -881.8799999999998,
+        "1": -201.35999999999987
+      }
     }
   },
   "version": 0.4
