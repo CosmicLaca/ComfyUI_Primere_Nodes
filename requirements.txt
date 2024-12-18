@@ -43,3 +43,6 @@ diffusers
 bitsandbytes
 peft>=0.10.0
 pyrallis
+mmengine
+open_clip_torch
+omegaconf
