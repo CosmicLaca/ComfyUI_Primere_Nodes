@@ -45,6 +45,10 @@ from ComfyUI_ExtraModels.utils.dtype import string_to_dtype
 from ComfyUI_ExtraModels.HunYuanDiT.tenc import load_clip, load_t5
 from ComfyUI_ExtraModels.PixArt.conf import pixart_conf
 from ComfyUI_ExtraModels.PixArt.loader import load_pixart
+from ComfyUI_ExtraModels.Sana.conf import sana_conf, sana_res
+from ComfyUI_ExtraModels.Sana.loader import load_sana
+from ComfyUI_ExtraModels.VAE.conf import vae_conf
+from ComfyUI_ExtraModels.VAE.loader import EXVAE
 import numpy as np
 import difflib
 import datetime
@@ -288,11 +292,11 @@ class PrimereModelConceptSelector:
             "pixart_refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
             "pixart_refiner_ignore_prompt": ("BOOLEAN", {"default": False, "label_on": "Send prompt to refiner", "label_off": "Ignore prompt"}),
 
-            "sana_model": (["None"] + DIFFUSIONLIST,),
+            "sana_model": (["None"] + DIFFUSIONLIST + MODELLIST,),
             "sana_encoder": (["None"] + TEXT_ENCODERS_PATHS,),
             "sana_vae": (["None"] + VAELIST,),
             "sana_weight_dtype": (["Auto", "fp16", "bf16", "fp32"], {"default": "fp16"}),
-            "sana_precision": (['fp16', 'quant8', 'quant4'], {"default": "fp16"}),
+            "sana_precision": (['fp32', 'fp16', 'quant8', 'quant4'], {"default": "fp16"}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -521,6 +525,11 @@ class PrimereConceptDataTuple:
     def INPUT_TYPES(cls):
         return {
             "required": {
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
+                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True}),
+                "steps": ("INT", {"forceInput": True}),
+                "cfg": ("FLOAT", {"forceInput": True}),
+
                 "override_steps": ("OVERRIDE_STEPS", {"default": False, "forceInput": True}),
                 "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
                 "vae_selection": ("VAE_SELECTION", {"default": True, "forceInput": True}),
@@ -819,88 +828,110 @@ class PrimereCKPTLoader:
                     is_link = os.path.islink(str(fullpathFile))
                     if is_link == True:
                         fullpathFile = Path(str(fullpathFile)).resolve()
-                    dtype = utility.get_dtype_by_name(sana_weight_dtype)
 
+                    dtype = utility.get_dtype_by_name(sana_weight_dtype)
                     text_encoder_dir = os.path.join(folder_paths.models_dir, 'text_encoders', encoder_path)
                     if os.path.exists(text_encoder_dir) == False:
                         LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
                         text_encoder_dir = os.path.join(LLM_PRIMERE_ROOT, encoder_path)
 
                     vae_path = folder_paths.get_full_path("vae", sana_vae)
-                    cfg = create_dc_ae_model_cfg('dc-ae-f32c32-sana-1.0')
-                    vae = DCAE(cfg)
-                    state_dict = comfy.utils.load_torch_file(vae_path, safe_load=True)
-                    vae.load_state_dict(state_dict, strict=False)
-                    vae_dtype = model_management.vae_dtype(device, [torch.float16, torch.bfloat16, torch.float32])
-                    vae.to(vae_dtype).eval()
-
                     text_encoder_dtype = model_management.text_encoder_dtype(device)
-                    if "T5" in encoder_path:
-                        tokenizer = T5Tokenizer.from_pretrained(str(text_encoder_dir))
-                        llm_model = None
-                        text_encoder = T5EncoderModel.from_pretrained(str(text_encoder_dir), torch_dtype=text_encoder_dtype)
+
+                    if concept_data['scheduler_name'] == 'flow_dpm-solver':
+                        cfg = create_dc_ae_model_cfg('dc-ae-f32c32-sana-1.0')
+                        vae = DCAE(cfg)
+                        state_dict = comfy.utils.load_torch_file(vae_path, safe_load=True)
+                        vae.load_state_dict(state_dict, strict=False)
+                        vae_dtype = model_management.vae_dtype(device, [torch.float16, torch.bfloat16, torch.float32])
+                        vae.to(vae_dtype).eval()
+
+                        if "T5" in encoder_path:
+                            tokenizer = T5Tokenizer.from_pretrained(str(text_encoder_dir))
+                            llm_model = None
+                            text_encoder = T5EncoderModel.from_pretrained(str(text_encoder_dir), torch_dtype=text_encoder_dtype)
+                        else:
+                            tokenizer = AutoTokenizer.from_pretrained(text_encoder_dir)
+                            quantization_config = BitsAndBytesConfig(load_in_8bit=True) if precision == '8-bit' else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=text_encoder_dtype) if precision == '4-bit' else None
+                            llm_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, quantization_config=quantization_config, torch_dtype=text_encoder_dtype) if '-4bit' not in encoder_path else AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype=text_encoder_dtype)
+                            tokenizer.padding_side = "right"
+                            text_encoder = llm_model.get_decoder()
+
+                        text_encoder.to(device)
+                        state_dict = comfy.utils.load_torch_file(str(fullpathFile), safe_load=True)
+                        is_1600M = state_dict['final_layer.scale_shift_table'].shape[1] == 2240  # 1.6b: 2240 0.6b: 1152
+                        if '512px' in ckpt_name:
+                            config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_1600M_img512.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_600M_img512.yaml')
+                        else:
+                            config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_1600M_img1024_AdamW.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_600M_img1024.yaml')
+                        config = pyrallis.load(SanaConfig, open(config_path))
+
+                        pred_sigma = getattr(config.scheduler, "pred_sigma", True)
+                        learn_sigma = getattr(config.scheduler, "learn_sigma", True) and pred_sigma
+                        image_size = config.model.image_size
+                        latent_size = image_size // config.vae.vae_downsample_rate
+                        model_kwargs = {
+                            "input_size": latent_size,
+                            "pe_interpolation": config.model.pe_interpolation,
+                            "config": config,
+                            "model_max_length": config.text_encoder.model_max_length,
+                            "qk_norm": config.model.qk_norm,
+                            "micro_condition": config.model.micro_condition,
+                            "caption_channels": text_encoder.config.hidden_size,  # Gemma2: 2304
+                            "y_norm": config.text_encoder.y_norm,
+                            "attn_type": config.model.attn_type,
+                            "ffn_type": config.model.ffn_type,
+                            "mlp_ratio": config.model.mlp_ratio,
+                            "mlp_acts": list(config.model.mlp_acts),
+                            "in_channels": config.vae.vae_latent_dim,
+                            "y_norm_scale_factor": config.text_encoder.y_norm_scale_factor,
+                            "use_pe": config.model.use_pe,
+                            "pred_sigma": pred_sigma,
+                            "learn_sigma": learn_sigma,
+                            "use_fp32_attention": config.model.get("fp32_attention", False) and config.model.mixed_precision != "bf16",
+                        }
+                        unet = build_model(config.model.model, **model_kwargs)
+                        unet.to(dtype)
+                        state_dict = state_dict.get("state_dict", state_dict)
+                        if "pos_embed" in state_dict:
+                            del state_dict["pos_embed"]
+                        missing, unexpected = unet.load_state_dict(state_dict, strict=False)
+                        del state_dict
+                        unet.eval().to(dtype)
+                        pipe = SanaPipeline(config, vae, dtype, unet)
+
+                        SANA_MODEL = {
+                            'pipe': pipe,
+                            'unet': unet,
+                            'text_encoder_model': llm_model,
+                            'tokenizer': tokenizer,
+                            'text_encoder': text_encoder,
+                            'vae': vae,
+                            'device': device
+                        }
+
+                        SANA_VAE = sana_utils.first_stage_model(vae)
+                        SANA_CLIP = sana_utils.cond_stage_model(tokenizer, text_encoder)
                     else:
+                        model = list(sana_conf.keys())
+                        model_conf = sana_conf[model[1]]
+                        SANA_MODEL = load_sana(model_path = str(fullpathFile), model_conf = model_conf)
+
+                        vae_config = vae_conf['dcae-f32c32-sana-1.0']
+                        SANA_VAE = EXVAE(vae_path, vae_config, string_to_dtype(sana_weight_dtype.upper(), "vae"))
+
                         tokenizer = AutoTokenizer.from_pretrained(text_encoder_dir)
-                        quantization_config = BitsAndBytesConfig(load_in_8bit=True) if precision == '8-bit' else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=text_encoder_dtype) if precision == '4-bit' else None
-                        llm_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, quantization_config=quantization_config, torch_dtype=text_encoder_dtype) if '-4bit' not in encoder_path else AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype=text_encoder_dtype)
+                        text_encoder_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype = text_encoder_dtype)
                         tokenizer.padding_side = "right"
-                        text_encoder = llm_model.get_decoder()
+                        text_encoder = text_encoder_model.get_decoder()
+                        if device != "cpu":
+                            text_encoder = text_encoder.to(device)
 
-                    text_encoder.to(device)
-                    state_dict = comfy.utils.load_torch_file(str(fullpathFile), safe_load=True)
-                    is_1600M = state_dict['final_layer.scale_shift_table'].shape[1] == 2240  # 1.6b: 2240 0.6b: 1152
-                    if '512px' in ckpt_name:
-                        config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_1600M_img512.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_600M_img512.yaml')
-                    else:
-                        config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_1600M_img1024_AdamW.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_600M_img1024.yaml')
-                    config = pyrallis.load(SanaConfig, open(config_path))
-
-                    pred_sigma = getattr(config.scheduler, "pred_sigma", True)
-                    learn_sigma = getattr(config.scheduler, "learn_sigma", True) and pred_sigma
-                    image_size = config.model.image_size
-                    latent_size = image_size // config.vae.vae_downsample_rate
-                    model_kwargs = {
-                        "input_size": latent_size,
-                        "pe_interpolation": config.model.pe_interpolation,
-                        "config": config,
-                        "model_max_length": config.text_encoder.model_max_length,
-                        "qk_norm": config.model.qk_norm,
-                        "micro_condition": config.model.micro_condition,
-                        "caption_channels": text_encoder.config.hidden_size,  # Gemma2: 2304
-                        "y_norm": config.text_encoder.y_norm,
-                        "attn_type": config.model.attn_type,
-                        "ffn_type": config.model.ffn_type,
-                        "mlp_ratio": config.model.mlp_ratio,
-                        "mlp_acts": list(config.model.mlp_acts),
-                        "in_channels": config.vae.vae_latent_dim,
-                        "y_norm_scale_factor": config.text_encoder.y_norm_scale_factor,
-                        "use_pe": config.model.use_pe,
-                        "pred_sigma": pred_sigma,
-                        "learn_sigma": learn_sigma,
-                        "use_fp32_attention": config.model.get("fp32_attention", False) and config.model.mixed_precision != "bf16",
-                    }
-                    unet = build_model(config.model.model, **model_kwargs)
-                    unet.to(dtype)
-                    state_dict = state_dict.get("state_dict", state_dict)
-                    if "pos_embed" in state_dict:
-                        del state_dict["pos_embed"]
-                    missing, unexpected = unet.load_state_dict(state_dict, strict=False)
-                    del state_dict
-                    unet.eval().to(dtype)
-                    pipe = SanaPipeline(config, vae, dtype, unet)
-
-                    SANA_MODEL = {
-                        'pipe': pipe,
-                        'unet': unet,
-                        'text_encoder_model': llm_model,
-                        'tokenizer': tokenizer,
-                        'text_encoder': text_encoder,
-                        'vae': vae,
-                        'device': device
-                    }
-
-                    SANA_VAE = sana_utils.first_stage_model(vae)
-                    SANA_CLIP = sana_utils.cond_stage_model(tokenizer, text_encoder)
+                        SANA_CLIP = {
+                            "tokenizer": tokenizer,
+                            "text_encoder": text_encoder,
+                            "text_encoder_model": text_encoder_model,
+                        }
 
                     return (SANA_MODEL,) + (SANA_CLIP,) + (SANA_VAE,) + (MODEL_VERSION,)
 
@@ -1373,8 +1404,15 @@ class PrimereCKPTLoader:
 
                 force_lora_weighth = re.findall(r"(?i)(\d+)LoWe", ckpt_name)
                 if len(force_lora_weighth) > 0:
-                    strength_lightning_lora_model = int(force_lora_weighth[0])
-                    strength_hypersd_lora_model = int(force_lora_weighth[0])
+                    if len(str(force_lora_weighth[0])) > 1:
+                        FirstWCH = str(force_lora_weighth[0])[:1]
+                        OtherWCH = str(force_lora_weighth[0])[1:]
+                        strength_lora_float = float(FirstWCH + '.' + OtherWCH)
+                        strength_lightning_lora_model = strength_lora_float
+                        strength_hypersd_lora_model = strength_lora_float
+                    else:
+                        strength_lightning_lora_model = int(force_lora_weighth[0])
+                        strength_hypersd_lora_model = int(force_lora_weighth[0])
 
                 if lightningModeValid == True and loaded_model is None:
                     OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
@@ -1949,42 +1987,87 @@ class PrimereCLIP:
 
         if 'SANA' in model_concept:
             device = model_management.get_torch_device()
-            base_ratios = eval(f"ASPECT_RATIO_{1024}_TEST")
-            clip.text_encoder.to(device)
 
-            null_caption_token = clip.tokenizer(
-                negative_text,
-                max_length=300,
-                padding="max_length",
-                truncation=True,
-                return_tensors="pt",
-            ).to(device)
-            null_caption_embs = clip.text_encoder(null_caption_token.input_ids, null_caption_token.attention_mask)[0]
-            preset_te_prompt = ['Create one detailed perfect prompt for given topic for stable diffusion text-to-image text2image DiT models.', 'Please generate only the one enhanced description for the prompt below and avoid including any additional commentary or evaluations:', 'User Prompt: ']
+            if 'scheduler_name' in workflow_tuple:
+                sana_scheduler_name = workflow_tuple['scheduler_name']
+            else:
+                sana_scheduler_name = 'flow_dpm-solver'
 
-            prompts = []
-            with torch.no_grad():
-                prompts.append(prepare_prompt_ar(positive_text, base_ratios, device=device, show=False)[0].strip())
-                chi_prompt = "\n".join(preset_te_prompt)
-                prompts_all = [chi_prompt + positive_text]
-                num_chi_prompt_tokens = len(clip.tokenizer.encode(chi_prompt))
-                max_length_all = (num_chi_prompt_tokens + 300 - 2)  # magic number 2: [bos], [_]
-                caption_token = clip.tokenizer(
-                    prompts_all,
-                    max_length=max_length_all,
+            preset_te_prompt = ['Create one detailed perfect prompt from given User Prompt for stable diffusion text-to-image text2image modern DiT models.', 'Generate only the one enhanced description for the prompt below, avoid including any additional questions comments or evaluations:', 'User Prompt: ']
+            chi_prompt = "\n".join(preset_te_prompt)
+
+            if sana_scheduler_name == 'flow_dpm-solver':
+                base_ratios = eval(f"ASPECT_RATIO_{1024}_TEST")
+                clip.text_encoder.to(device)
+
+                null_caption_token = clip.tokenizer(
+                    negative_text,
+                    max_length=300,
                     padding="max_length",
                     truncation=True,
                     return_tensors="pt",
                 ).to(device)
-                select_index = [0] + list(range(-300 + 1, 0))
-                caption_embs = clip.text_encoder(caption_token.input_ids, caption_token.attention_mask)[0][:, None][:, :, select_index]
-                emb_masks = caption_token.attention_mask[:, select_index]
-                null_y = null_caption_embs.repeat(len(prompts), 1, 1)[:, None]
+                null_caption_embs = clip.text_encoder(null_caption_token.input_ids, null_caption_token.attention_mask)[0]
+                prompts = []
+                with torch.no_grad():
+                    prompts.append(prepare_prompt_ar(positive_text, base_ratios, device=device, show=False)[0].strip())
+                    prompts_all = [chi_prompt + positive_text]
+                    num_chi_prompt_tokens = len(clip.tokenizer.encode(chi_prompt))
+                    max_length_all = (num_chi_prompt_tokens + 300 - 2)  # magic number 2: [bos], [_]
+                    caption_token = clip.tokenizer(
+                        prompts_all,
+                        max_length=max_length_all,
+                        padding="max_length",
+                        truncation=True,
+                        return_tensors="pt",
+                    ).to(device)
+                    select_index = [0] + list(range(-300 + 1, 0))
+                    caption_embs = clip.text_encoder(caption_token.input_ids, caption_token.attention_mask)[0][:, None][:, :, select_index]
+                    emb_masks = caption_token.attention_mask[:, select_index]
+                    null_y = null_caption_embs.repeat(len(prompts), 1, 1)[:, None]
 
-            clip.text_encoder.to(model_management.text_encoder_offload_device())
-            comfy.model_management.soft_empty_cache(True)
+                clip.text_encoder.to(model_management.text_encoder_offload_device())
+                comfy.model_management.soft_empty_cache(True)
 
-            return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+            else:
+                tokenizer = clip["tokenizer"]
+                text_encoder = clip["text_encoder"]
+                with torch.no_grad():
+                    full_prompt = chi_prompt + positive_text
+                    num_chi_tokens = len(tokenizer.encode(chi_prompt))
+                    max_length = num_chi_tokens + 300 - 2
+
+                    tokens = tokenizer(
+                        [full_prompt],
+                        max_length=max_length,
+                        padding="max_length",
+                        truncation=True,
+                        return_tensors="pt"
+                    ).to(text_encoder.device)
+                    select_idx = [0] + list(range(-300 + 1, 0))
+                    embs_plus = text_encoder(tokens.input_ids, tokens.attention_mask)[0][:, None][:, :, select_idx]
+                    emb_plus_masks = tokens.attention_mask[:, select_idx]
+                sana_embs_pos = embs_plus * emb_plus_masks.unsqueeze(-1)
+
+                with torch.no_grad():
+                    full_prompt = chi_prompt + negative_text
+                    num_chi_tokens = len(tokenizer.encode(chi_prompt))
+                    max_length = num_chi_tokens + 300 - 2
+
+                    tokens = tokenizer(
+                        [full_prompt],
+                        max_length=max_length,
+                        padding="max_length",
+                        truncation=True,
+                        return_tensors="pt"
+                    ).to(text_encoder.device)
+                    select_idx = [0] + list(range(-300 + 1, 0))
+                    embs_minus = text_encoder(tokens.input_ids, tokens.attention_mask)[0][:, None][:, :, select_idx]
+                    emb_minus_masks = tokens.attention_mask[:, select_idx]
+                sana_embs_neg = embs_minus * emb_minus_masks.unsqueeze(-1)
+
+                return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
         if model_concept == 'PixartSigma':
             cond_pos_ref = None

@@ -60,9 +60,9 @@ PREVIEW_PATH_BY_TYPE = {
 }
 
 WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'meta_source', 'pic2story', 'positive', 'positive_l', 'positive_r', 'negative', 'negative_l', 'negative_r', 'prompt_state', 'decoded_positive', 'decoded_negative', 'pic2story_positive',
-                      'model', 'model_concept', 'concept_data', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
+                      'model', 'model_concept', 'model_version', 'is_sdxl', 'model_hash', 'vae', 'vae_hash', 'vae_name_sd', 'vae_name_sdxl', 'sampler', 'scheduler', 'steps',
                       'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
-                      'vae_name_sd', 'vae_name_sdxl']
+                      'vae_name_sd', 'vae_name_sdxl', 'concept_data']
 
 
 def merge_str_to_tuple(item1, item2):

@@ -639,15 +639,35 @@ class PrimereKSampler:
 
         match model_concept:
             case 'SANA1024' | 'SANA512':
-                device = model['device']
-                samples_out = primeresamplers.PSamplerSana(self, device, seed, model,
-                                                           steps, cfg, sampler_name, scheduler_name,
-                                                           positive, negative,
-                                                           latent_image, denoise,
-                                                           variation_extender, variation_batch_step_original,
-                                                           batch_counter, variation_extender_original,
-                                                           variation_batch_step, variation_level, variation_limit,
-                                                           align_your_steps, noise_extender_ksampler, WORKFLOWDATA, prompt)[0]
+                if scheduler_name == 'flow_dpm-solver':
+                    device = model['device']
+                    samples_out = primeresamplers.PSamplerSana(self, device, seed, model,
+                                                               steps, cfg, sampler_name, scheduler_name,
+                                                               positive, negative,
+                                                               latent_image, denoise,
+                                                               variation_extender, variation_batch_step_original,
+                                                               batch_counter, variation_extender_original,
+                                                               variation_batch_step, variation_level, variation_limit,
+                                                               align_your_steps, noise_extender_ksampler, WORKFLOWDATA, prompt)[0]
+                else:
+                    if device == 'DEFAULT':
+                        device = model_management.get_torch_device()
+                    latentWidth, latentHeigth = utility.getLatentSize(latent_image)
+
+                    latent = torch.zeros([1, 32, (latentHeigth * 8) // 32, (latentWidth * 8) // 32], device=device)
+                    latent_image = {"samples": latent}
+                    samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                        steps, cfg, sampler_name, scheduler_name,
+                                        positive, negative,
+                                        latent_image, denoise,
+                                        variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                        align_your_steps, noise_extender_ksampler)[0]
+
+                    try:
+                        comfy.model_management.soft_empty_cache()
+                        comfy.model_management.cleanup_models(True)
+                    except Exception:
+                        print('No need to clear cache...')
 
             case "PixartSigma":
                 samples_out = primeresamplers.PSamplerPixart(self, device, seed, model,
@@ -729,9 +749,7 @@ class PrimereKSampler:
                                                             steps, cfg, sampler_name, scheduler_name,
                                                             positive, negative,
                                                             latent_image, denoise,
-                                                            variation_extender, variation_batch_step_original,
-                                                            batch_counter, variation_extender_original,
-                                                            variation_batch_step, variation_level, variation_limit,
+                                                            variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                             align_your_steps, noise_extender_ksampler)[0]
 
             case _:

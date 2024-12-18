@@ -131,16 +131,16 @@ def PSamplerSana(self, device, seed, model,
     pag_applied_layers = None if 'pag_applied_layers' not in model.keys() else model['pag_applied_layers']
 
     latent_out = model['pipe'](
-        cond=positive,
-        uncond=negative,
-        guidance_scale=cfg,
-        pag_guidance_scale=2,
-        num_inference_steps=(steps + 1),
-        generator=torch.Generator(device=device).manual_seed(seed),
-        latents=latent_image['samples'],
-        noise_scheduler=scheduler_name,
-        output_type=True,
-        pag_applied_layers=pag_applied_layers,
+        cond = positive,
+        uncond = negative,
+        guidance_scale = cfg,
+        pag_guidance_scale = 2,
+        num_inference_steps = (steps + 1),
+        generator = torch.Generator(device=device).manual_seed(seed),
+        latents = latent_image['samples'],
+        noise_scheduler = scheduler_name,
+        output_type = True,
+        pag_applied_layers = pag_applied_layers,
     )
 
     model['unet'].to(comfy.model_management.unet_offload_device())
