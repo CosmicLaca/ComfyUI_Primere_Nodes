@@ -488,7 +488,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        259720581134524,
+        265943573354685,
         "randomize",
         20,
         8,
@@ -923,7 +923,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1439,
+        344,
         "randomize",
         "",
         "",
@@ -1172,7 +1172,7 @@
       },
       "widgets_values": [
         2.1,
-        381842335888835,
+        16348901933415,
         "randomize",
         7,
         6.5,
@@ -1234,7 +1234,7 @@
         95,
         "Checkpoint",
         "Overwrite",
-        "SDXL\\9527DetailRealistic_v70.safetensors",
+        "Photo\\photon_v1.safetensors",
         null
       ],
       "color": "#549494",
@@ -1760,7 +1760,7 @@
         0.9500000000000001,
         0.8,
         1.4,
-        929502504474405,
+        412272364480617,
         "randomize",
         true,
         "cpu",
@@ -1865,7 +1865,7 @@
         false,
         1.6,
         2.8,
-        554094741568781,
+        592695638865721,
         "randomize",
         "SD1",
         "Auto"
@@ -2077,7 +2077,7 @@
       },
       "widgets_values": [
         "",
-        511704765711509,
+        431695927539405,
         "randomize"
       ],
       "color": "#945454",
@@ -2139,7 +2139,7 @@
       },
       "widgets_values": [
         "",
-        423016955393621,
+        454812975615819,
         "randomize"
       ],
       "color": "#145414",
@@ -2708,7 +2708,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        203,
+        377,
         "randomize",
         "",
         "",
@@ -3037,7 +3037,7 @@
         "Last",
         1,
         1,
-        "None"
+        "design"
       ],
       "color": "#c41414",
       "bgcolor": "#b00000"
@@ -3088,7 +3088,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        "SDXL\\9527DetailRealistic_v70.safetensors",
+        "Photo\\photon_v1.safetensors",
         true,
         true,
         true,
@@ -4082,10 +4082,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
+      "scale": 0.7513148009015777,
       "offset": {
-        "0": -881.8799999999998,
-        "1": -201.35999999999987
+        "0": 24.877939224243164,
+        "1": -164.74900817871094
       }
     }
   },
