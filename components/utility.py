@@ -144,30 +144,31 @@ def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname=False):
                     if (Match > 0):
                         Matches.append(Match)
 
-                LabelEndIndex = sorted(Matches)[0]
-                MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
-                if len(MatchedString) > 0 and (modelname == False or (modelname != False and modelname in MatchedString)):
-                    if '<' in MatchedString:
-                        endString = '>'
-                        Match = promptstring.find(endString, (LabelStartIndex + 1))
-                        if (Match > 0):
-                            LabelEndIndex = Match
-                            MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
+                if len(Matches) > 0:
+                    LabelEndIndex = sorted(Matches)[0]
+                    MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
+                    if len(MatchedString) > 0 and (modelname == False or (modelname != False and modelname in MatchedString)):
+                        if '<' in MatchedString:
+                            endString = '>'
+                            Match = promptstring.find(endString, (LabelStartIndex + 1))
+                            if (Match > 0):
+                                LabelEndIndex = Match
+                                MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
+                                promptstring_temp = promptstring_temp.replace(MatchedString, "")
+
+                        if '{' in MatchedString:
+                            endString = '}'
+                            Match = promptstring.find(endString, (LabelStartIndex + 1))
+                            if (Match > 0):
+                                LabelEndIndex = Match
+                                MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
+                                promptstring_temp = promptstring_temp.replace(MatchedString, "")
+
+                        if ')' in MatchedString:
+                            MatchedString = promptstring[(LabelStartIndex - 1):(LabelEndIndex + 1)]
                             promptstring_temp = promptstring_temp.replace(MatchedString, "")
 
-                    if '{' in MatchedString:
-                        endString = '}'
-                        Match = promptstring.find(endString, (LabelStartIndex + 1))
-                        if (Match > 0):
-                            LabelEndIndex = Match
-                            MatchedString = promptstring[LabelStartIndex:(LabelEndIndex + 1)]
-                            promptstring_temp = promptstring_temp.replace(MatchedString, "")
-
-                    if ')' in MatchedString:
-                        MatchedString = promptstring[(LabelStartIndex - 1):(LabelEndIndex + 1)]
                         promptstring_temp = promptstring_temp.replace(MatchedString, "")
-
-                    promptstring_temp = promptstring_temp.replace(MatchedString, "")
 
     return promptstring_temp.replace('()', '').replace(' , ,', ',').replace('||', '').replace('{,', '').replace('  ', ' ').replace(', ,', ',').strip(', ')
 
@@ -193,22 +194,23 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
                     if (Match > 0):
                         Matches.append(Match)
 
-                LabelEndIndex = sorted(Matches)[0]
-                MatchedString = promptstring[(LabelStartIndex + len(LABEL)):(LabelEndIndex)]
-                if len(MatchedString) > 0:
-                    networkdata = MatchedString.split(":")
-                    if len(networkdata) == 1:
-                        networkdata.append('1')
-                    if LABEL == '<lora:':
-                        networkdata.append('LORA')
-                    if LABEL == '<lyco:':
-                        networkdata.append('LYCORIS')
-                    if LABEL == '<hypernet:':
-                        networkdata.append('HYPERNET')
-                    if LABEL == 'embedding:':
-                        networkdata.append('EMBEDDING')
+                if len(Matches) > 0:
+                    LabelEndIndex = sorted(Matches)[0]
+                    MatchedString = promptstring[(LabelStartIndex + len(LABEL)):(LabelEndIndex)]
+                    if len(MatchedString) > 0:
+                        networkdata = MatchedString.split(":")
+                        if len(networkdata) == 1:
+                            networkdata.append('1')
+                        if LABEL == '<lora:':
+                            networkdata.append('LORA')
+                        if LABEL == '<lyco:':
+                            networkdata.append('LYCORIS')
+                        if LABEL == '<hypernet:':
+                            networkdata.append('HYPERNET')
+                        if LABEL == 'embedding:':
+                            networkdata.append('EMBEDDING')
 
-                    valid_networks.append(networkdata)
+                        valid_networks.append(networkdata)
 
     return valid_networks
 
