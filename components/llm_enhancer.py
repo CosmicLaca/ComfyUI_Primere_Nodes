@@ -109,8 +109,8 @@ class PromptEnhancerLLM:
                 # self.model.to(self.device)
                 messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
 
-                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, return_tensors='pt')
-                encoding = self.tokenizer(prompt, return_tensors="pt").to(self.device)
+                inputs = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, return_tensors='pt')
+                encoding = self.tokenizer(inputs, return_tensors="pt").to(self.device)
 
                 generation_config = self.model.generation_config
                 generation_config.pad_token_id = self.tokenizer.eos_token_id
@@ -140,7 +140,7 @@ class PromptEnhancerLLM:
                 elif "granite-" in self.model_path.lower():
                     messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
                     chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-                    input_ids = self.tokenizer(chat_sample, return_tensors="pt").to(self.device)
+                    inputs = self.tokenizer(chat_sample, return_tensors="pt").to(self.device)
 
                     if 'max_length' in settings:
                         del settings['max_length']
@@ -148,7 +148,7 @@ class PromptEnhancerLLM:
                         del settings['max_new_tokens']
 
                     output = self.model.generate(
-                        **input_ids,
+                        **inputs,
                         max_new_tokens=100,
                         **settings
                     )
@@ -196,10 +196,10 @@ class PromptEnhancerLLM:
                 elif "zamba" in self.model_path.lower():
                     messages = [{"role": "system", "content": instruction}, {"role": "user", "content": input_text}]
                     chat_sample = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-                    input_ids = self.tokenizer(chat_sample, return_tensors='pt', add_special_tokens=False).to(self.device)
+                    inputs = self.tokenizer(chat_sample, return_tensors='pt', add_special_tokens=False).to(self.device)
 
                     outputs = self.model.generate(
-                        **input_ids,
+                        **inputs,
                         return_dict_in_generate=False,
                         output_scores=False,
                         use_cache=True,
