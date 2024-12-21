@@ -131,6 +131,7 @@ def get_dimensions_by_shape(self, rationame: str, square: int, orientation: str 
 
 
 def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname=False):
+    promptstring = promptstring + ' '
     promptstring_temp = promptstring
 
     for LABEL in NETWORK_START:
@@ -181,6 +182,7 @@ def DiT_cleaner(prompt, length=0):
 
 
 def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
+    promptstring = promptstring + ' '
     valid_networks = []
 
     for LABEL in NETWORK_START:
