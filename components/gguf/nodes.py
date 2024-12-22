@@ -210,7 +210,7 @@ class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
         clip_path1 = folder_paths.get_full_path("clip", clip_name1)
         clip_path2 = folder_paths.get_full_path("clip", clip_name2)
         clip_paths = (clip_path1, clip_path2)
-        return (CLIPLoaderGGUF.load_patcher(clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(clip_paths)),)
+        return (CLIPLoaderGGUF.load_patcher(self, clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(self, clip_paths)),)
 
 class TripleCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, clip_name3, type="sd3"):
@@ -218,4 +218,4 @@ class TripleCLIPLoaderGGUF(CLIPLoaderGGUF):
         clip_path2 = folder_paths.get_full_path("clip", clip_name2)
         clip_path3 = folder_paths.get_full_path("clip", clip_name3)
         clip_paths = (clip_path1, clip_path2, clip_path3)
-        return (CLIPLoaderGGUF.load_patcher(clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(clip_paths)),)
+        return (CLIPLoaderGGUF.load_patcher(self, clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(self, clip_paths)),)
