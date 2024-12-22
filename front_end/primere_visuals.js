@@ -192,13 +192,24 @@ class ModalControl {
         }
 
         function ModalHandler() { // 02
+            var scripts = document.getElementsByTagName('script');
+            var jqueryCheck = false;
+            $(scripts).each(function(index, value) {
+                if (value.src.includes('jquery-1.9.0.min.js')) {
+                    jqueryCheck = true;
+                    return false;
+                }
+            });
+
             eventListenerInit = true;
             let head = document.getElementsByTagName('HEAD')[0];
             let js = document.createElement("script");
-            js.src = realPath + "/jquery/jquery-1.9.0.min.js";
-            head.appendChild(js);
+            if (jqueryCheck === false) {
+                js.src = realPath + "/jquery/jquery-1.9.0.min.js";
+                head.appendChild(js);
+            }
 
-            js.onload = function(e) {
+            //js.onload = function(e) {
                 $(document).ready(function () {
                     var modal = null;
 
@@ -412,7 +423,7 @@ class ModalControl {
                         previewSorter(operator, sortType);
                     });
                 });
-            };
+            //};
         }
     }
 }

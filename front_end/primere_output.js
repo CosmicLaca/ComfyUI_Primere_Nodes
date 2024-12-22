@@ -17,7 +17,7 @@ let SaveMode = true;
 let IMGType = 'jpeg';
 let MaxSide = -1;
 let TargetQuality = 95;
-let buttontitle = 'Image not available for save. Please load one.'
+let buttontitle = '⛔ Image not available for save. Please load one.'
 let SaveIsValid = false;
 let TargetFileName = null;
 let LoadedNode = null;
@@ -165,7 +165,7 @@ async function PrimerePreviewSaverWidget(node, inputName) {
                     node.PreviewSaver = new PreviewSaver(node);
                 } else {
                     SaveIsValid = false;
-                    buttontitle = 'Image not available for save. Please load one.';
+                    buttontitle = '⛔ Image not available for save. Please load one.';
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues);
                     alert('Current settings is invalid to save image.\n\nERROR: ' + buttontitle);
                 }
@@ -444,13 +444,13 @@ function ButtonLabelCreator(node, url = false) {
             buttontitle = SelectedTarget;
             applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
         } else {
-            buttontitle = 'Image not available for save. Please load one.';
+            buttontitle = '⛔ Image not available for save. Please load one.';
             SaveIsValid = true;
             if (url != false) {
                 ;(async () => {
                     const img = await getMeta(url);
                     ORIG_SIZE_STRING = '[' + img.naturalHeight + ' X ' + img.naturalWidth + ']'
-                    buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
+                    buttontitle = '💾 Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 })();
             } else {
@@ -469,7 +469,7 @@ function ButtonLabelCreator(node, url = false) {
 
             if (WorkflowData[NodenameByType[PreviewTarget]] !== undefined && SelectedTarget !== undefined) {
                 if (WorkflowData[NodenameByType[PreviewTarget]].length < 1) {
-                    buttontitle = 'No resource selected for preview target: [' + PreviewTarget + ']';
+                    buttontitle = '❌ No resource selected for preview target: [' + PreviewTarget + ']';
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 } else {
                     SaveIsValid = true;
@@ -511,12 +511,12 @@ function ButtonLabelCreator(node, url = false) {
                             imgExistLink = ' [C]';
                         }
 
-                        buttontitle = 'Save preview as: [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.' + imgExistLink;
+                        buttontitle = '🏙️ Save preview as: [' + TargetFileName + '.jpg] to [' + PreviewTarget + '] folder.' + imgExistLink;
                         applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                      })();
                 }
             } else {
-                buttontitle = 'Required node: [' + NodenameByType[PreviewTarget] + '] not available in workflow for target: [' + PreviewTarget + ']';
+                buttontitle = '❌ Required node: [' + NodenameByType[PreviewTarget] + '] not available in workflow for target: [' + PreviewTarget + ']';
                 applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
             }
         } else {
@@ -525,11 +525,11 @@ function ButtonLabelCreator(node, url = false) {
                 ;(async () => {
                     const img = await getMeta(url);
                     ORIG_SIZE_STRING = '[' + img.naturalHeight + ' X ' + img.naturalWidth + ']'
-                    buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
+                    buttontitle = '💾 Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
                     applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
                 })();
             } else {
-                buttontitle = 'Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
+                buttontitle = '💾 Save image as ' + INIT_IMGTYPE_STRING + ' | ' + ORIG_SIZE_STRING + ' ' + INIT_IMGSIZE_STRING + ' | QTY: ' + TargetQuality + '%';
                 applyWidgetValues(LoadedNode, buttontitle, TargetSelValues)
             }
         }

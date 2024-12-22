@@ -12,7 +12,8 @@ import base64
 import imagesize
 from io import BytesIO
 from ..Nodes.Inputs import PrimereStyleLoader
-
+import csv
+import shutil
 
 '''
 ************ TEST *******************
@@ -313,10 +314,6 @@ async def primere_get_images(request):
     supportedImages = ['.jpg', '.png', '.jpeg', '.preview.jpg', '.preview.jpeg', '.preview.png']
 
     if PreviewPath == "false":
-        '''subdir = os.path.join(utility.comfy_dir, 'models', str(SubdirName))
-        rootSubdir = Path(subdir).parent
-        folder_paths.add_model_folder_path("previewpics_models" + SubdirName, subdir)
-        allfiles = folder_paths.get_filename_list("previewpics_models" + SubdirName)'''
         subName = str(folder_paths.folder_names_and_paths[SubdirName][0][0])
         modelHomes = [f.path for f in os.scandir(subName) if f.is_dir()]
         imagefiles = []
@@ -414,4 +411,81 @@ async def primere_get_ascores(request):
     data_type = post.get('type') + '_samplingtime'
     stimedata = utility.get_category_from_cache(data_type)
     PromptServer.instance.send_sync("STimeData", stimedata)
+    return web.json_response({})
+
+routes15 = PromptServer.instance.routes
+@routes15.post('/primere_prompt_data') # getPromptData()
+async def primere_prompt_data(request):
+    post = await request.post()
+    folder = post.get('folder')
+    name = post.get('name')
+    filetype = post.get('type')
+    keys = post.get('keys').split(',')
+    dresults = {}
+
+    STYLE_DIR = os.path.join(PRIMERE_ROOT, folder)
+    STYLE_SOURCE = os.path.join(STYLE_DIR, f'{name}.{filetype}')
+    STYLE_DEV_SOURCE = os.path.join(STYLE_DIR, f'{name}.example.{filetype}')
+    if os.path.isfile(STYLE_SOURCE) == False and os.path.isfile(STYLE_DEV_SOURCE) == True:
+        shutil.copy(STYLE_DEV_SOURCE, STYLE_SOURCE)
+
+    if os.path.isfile(STYLE_SOURCE):
+        styles_csv = PrimereStyleLoader.load_styles_csv(str(STYLE_SOURCE))
+        for req_key in keys:
+            if req_key in styles_csv:
+                req_list = list(set(styles_csv[req_key].values))
+                cleaned_List = [x for x in req_list if str(x) != 'nan']
+                dresults[req_key] = sorted(cleaned_List, key = str.lower)
+
+    PromptServer.instance.send_sync("PromptDataResponse", dresults)
+    return web.json_response({})
+
+routes16 = PromptServer.instance.routes
+@routes16.post('/primere_prompt_saver') # savePromptData()
+async def primere_prompt_saver(request):
+    post = await request.post()
+    folder = post.get('folder')
+    name = post.get('name')
+    filetype = post.get('type')
+    prompt_data = json.loads(post.get('promptdata'))
+    myCsvRow = ''
+
+    STYLE_DIR = os.path.join(PRIMERE_ROOT, folder)
+    STYLE_SOURCE = os.path.join(STYLE_DIR, f'{name}.{filetype}')
+    if os.path.isfile(STYLE_SOURCE):
+        with open(STYLE_SOURCE, "r") as f:
+            reader = csv.reader(f)
+            for header in reader:
+                break
+        def dictsort(element):
+            if element in header:
+                return header.index(element)
+            else:
+                return len(header)
+        prompt_data = dict(sorted(prompt_data.items(), key=lambda pair: dictsort(pair[0])))
+
+        for prompt_key in prompt_data.keys():
+            if prompt_data[prompt_key] == 'None':
+                myCsvRow = myCsvRow + '"",'
+            else:
+                if prompt_key != 'name':
+                    if prompt_key == 'preferred_model':
+                        myCsvRow = myCsvRow + '"' + Path(prompt_data[prompt_key]).stem + '",'
+                    else:
+                        myCsvRow = myCsvRow + '"' + prompt_data[prompt_key].replace('"', '\'') + '",'
+                else:
+                    myCsvRow = myCsvRow + prompt_data[prompt_key] + ','
+        myCsvRow = "\n" + myCsvRow.rstrip(',"') + '"'
+
+        if len(myCsvRow) > 5:
+            try:
+                with open(STYLE_SOURCE, 'a') as fd:
+                    fd.write(myCsvRow)
+                PromptServer.instance.send_sync("PromptDataSaveResponse", True)
+            except Exception:
+                PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+        else:
+            PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+    else:
+        PromptServer.instance.send_sync("PromptDataSaveResponse", False)
     return web.json_response({})

@@ -216,7 +216,6 @@ def get_networks_prompt(NETWORK_START, NETWORK_END, promptstring):
 
     return valid_networks
 
-
 class ModelSamplingDiscreteLCM(torch.nn.Module):
     def __init__(self):
         super().__init__()

@@ -7,12 +7,15 @@
 @import url("../fonts/FUTURATEE_BOOK/stylesheet.css"); /* FUTURATEE BOOK */
 
 /* Primere css for visual selectors */
-#primere_visual_modal {
+#primere_visual_modal,
+#primere_promptsaver_modal {
     align-content: start;
     text-align: left;
     background-color: #484848;
+    font-family: 'NIMBUSSANSDEE BOLD';
 }
-#primere_visual_modal .visual_modal_title {
+#primere_visual_modal .visual_modal_title,
+#primere_promptsaver_modal .prompt_modal_title {
     text-align: center;
     padding: 0px;
     margin-top: -1em;
@@ -24,7 +27,8 @@
     height: 10px;
 }
 
-#primere_visual_modal button.modal-closer {
+#primere_visual_modal button.modal-closer,
+#primere_promptsaver_modal .promptmodal-closer {
     text-align: center;
     padding: 5px;
     margin-top: -1em;
@@ -436,4 +440,64 @@ div#primere_previewbox div.preview_closebutton {
     padding: 3px;
     border: white solid 1px;
     cursor: pointer;
+}
+
+#primere_promptsaver_modal .promptmodal_header .prompt_modal_title {
+    background-color: #9b9b9b;
+    display: table;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container label {
+    display: block;
+    width: 60%;
+    color: #9ca68f;
+    /* background-color: #425758; */
+    padding: 3px;
+    margin-top: 15px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container textarea {
+    width: 100%;
+    display: block;
+    padding: 5px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container span.prompt_replace_warning {
+    width: 100%;
+    display: block;
+    padding: 3px;
+    color: #bababa;
+    background-color: #626262;
+    font-size: 18px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container input,
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container select {
+    width: 100%;
+    display: block;
+    padding: 5px;
+    margin-left: 2px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container input:read-only {
+    width: 100%;
+    display: block;
+    padding: 5px;
+    background-color: #656565;
+    color: #b2b2b2;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container button {
+    width: 50%;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    margin-top: 1em;
+    font-style: normal;
+    box-shadow: inset 1px 1px 3px #bdbdbd;
+    background-color: #961c22;
+    margin-right: auto;
+    margin-left: auto;
 }
