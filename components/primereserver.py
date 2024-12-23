@@ -450,6 +450,8 @@ async def primere_prompt_saver(request):
     prompt_data = json.loads(post.get('promptdata'))
     myCsvRow = ''
 
+    print(prompt_data)
+
     STYLE_DIR = os.path.join(PRIMERE_ROOT, folder)
     STYLE_SOURCE = os.path.join(STYLE_DIR, f'{name}.{filetype}')
     if os.path.isfile(STYLE_SOURCE):
@@ -457,35 +459,59 @@ async def primere_prompt_saver(request):
             reader = csv.reader(f)
             for header in reader:
                 break
-        def dictsort(element):
-            if element in header:
-                return header.index(element)
-            else:
-                return len(header)
-        prompt_data = dict(sorted(prompt_data.items(), key=lambda pair: dictsort(pair[0])))
 
-        for prompt_key in prompt_data.keys():
-            if prompt_data[prompt_key] == 'None':
-                myCsvRow = myCsvRow + '"",'
-            else:
-                if prompt_key != 'name':
-                    if prompt_key == 'preferred_model':
-                        myCsvRow = myCsvRow + '"' + Path(prompt_data[prompt_key]).stem + '",'
-                    else:
-                        myCsvRow = myCsvRow + '"' + prompt_data[prompt_key].replace('"', '\'') + '",'
+            is_replace = prompt_data['replace']
+            del prompt_data['replace']
+
+            def dictsort(element):
+                if element in header:
+                    return header.index(element)
                 else:
-                    myCsvRow = myCsvRow + prompt_data[prompt_key] + ','
-        myCsvRow = "\n" + myCsvRow.rstrip(',"') + '"'
+                    return len(header)
+            prompt_data = dict(sorted(prompt_data.items(), key=lambda pair: dictsort(pair[0])))
 
-        if len(myCsvRow) > 5:
-            try:
-                with open(STYLE_SOURCE, 'a') as fd:
-                    fd.write(myCsvRow)
-                PromptServer.instance.send_sync("PromptDataSaveResponse", True)
-            except Exception:
+            for prompt_key in prompt_data.keys():
+                if prompt_data[prompt_key] == 'None':
+                    myCsvRow = myCsvRow + '"",'
+                else:
+                    if prompt_key != 'name':
+                        if prompt_key == 'preferred_model':
+                            myCsvRow = myCsvRow + '"' + Path(prompt_data[prompt_key]).stem + '",'
+                        else:
+                            myCsvRow = myCsvRow + '"' + prompt_data[prompt_key].replace('"', '\'') + '",'
+                    else:
+                        myCsvRow = myCsvRow + prompt_data[prompt_key] + ','
+            myCsvRow = "\n" + myCsvRow.rstrip(',"') + '"'
+
+            if len(myCsvRow) > 5:
+                if is_replace == 0:
+                    try:
+                        with open(STYLE_SOURCE, 'a') as fd:
+                            fd.write(myCsvRow)
+                        PromptServer.instance.send_sync("PromptDataSaveResponse", True)
+                    except Exception:
+                        PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+                elif is_replace == 1:
+                    try:
+                        file_encoding = utility.get_file_encoding(STYLE_SOURCE)
+                        file_content = utility.open_file_by_chardet(STYLE_SOURCE)
+                        if file_content is not None and file_encoding is not None and len(file_content) > 0:
+                            parsed_row = 0
+                            for file_row in file_content:
+                                if file_row.startswith(prompt_data['name']):
+                                    file_content[parsed_row] = myCsvRow.lstrip() + "\n"
+                                parsed_row = parsed_row + 1
+                            with open(STYLE_SOURCE, 'w', newline='', encoding=file_encoding) as target_file:
+                                target_file.writelines(file_content)
+                            PromptServer.instance.send_sync("PromptDataSaveResponse", True)
+                        else:
+                            PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+                    except Exception:
+                        PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+                else:
+                    PromptServer.instance.send_sync("PromptDataSaveResponse", False)
+            else:
                 PromptServer.instance.send_sync("PromptDataSaveResponse", False)
-        else:
-            PromptServer.instance.send_sync("PromptDataSaveResponse", False)
     else:
         PromptServer.instance.send_sync("PromptDataSaveResponse", False)
     return web.json_response({})

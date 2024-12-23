@@ -27,8 +27,7 @@
     height: 10px;
 }
 
-#primere_visual_modal button.modal-closer,
-#primere_promptsaver_modal .promptmodal-closer {
+#primere_visual_modal button.modal-closer {
     text-align: center;
     padding: 5px;
     margin-top: -1em;
@@ -490,14 +489,22 @@ div#primere_previewbox div.preview_closebutton {
 }
 
 #primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container button {
-    width: 50%;
-    display: block;
+    width: 40%;
+    display: inline;
     padding: 10px;
     text-align: center;
     margin-top: 1em;
     font-style: normal;
     box-shadow: inset 1px 1px 3px #bdbdbd;
+    margin-top: 15px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container button.promptmodal-closer {
+    background-color: #2b5e4e;
+    margin-right: 10px;
+}
+
+#primere_promptsaver_modal .primere-promptsaver-modal-content.prompt-container button.prompt_saver_button {
     background-color: #961c22;
-    margin-right: auto;
-    margin-left: auto;
+    margin-left: 10px;
 }

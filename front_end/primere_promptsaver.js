@@ -71,6 +71,8 @@ class PromptSaver {
             //js.onload = function(e) {
                 $(document).ready(function () {
                     var promptmodal = null;
+                    PromptData['replace'] = 0;
+
                     $('body').on("click", 'div#primere_promptsaver_modal button.promptmodal-closer', function () { // modal close
                         promptmodal = document.getElementById("primere_promptsaver_modal");
                         promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;')
@@ -103,6 +105,7 @@ class PromptSaver {
                         PromptData['preferred_orientation'] = $('div#primere_promptsaver_modal input[name="orientation"]').val();
 
                         if ($('div#primere_promptsaver_modal input#prompt_name').is(":visible")) {
+                            PromptData['replace'] = 0;
                             PromptData['name'] = $('div#primere_promptsaver_modal input#prompt_name').val();
                             if ($('div#primere_promptsaver_modal select#name option').filter(function () {
                                 return $(this).val().toLowerCase() == PromptData['name'].toLowerCase();
@@ -115,6 +118,7 @@ class PromptSaver {
                                 return false;
                             }
                         } else {
+                            PromptData['replace'] = 1;
                             PromptData['name'] = $('div#primere_promptsaver_modal select#name').val();
                         }
 
@@ -178,7 +182,7 @@ async function setup_promptsaver_modal() {
         modal = document.createElement("div");
         modal.classList.add("comfy-modal");
         modal.setAttribute("id","primere_promptsaver_modal");
-        modal.innerHTML = '<div class="promptmodal_header"><button type="button" class="promptmodal-closer">Close modal</button> <div class="prompt_modal_title">Save prompt to file...</div></div>';
+        modal.innerHTML = '<div class="promptmodal_header"><div class="prompt_modal_title">Save prompt to external file</div></div>';
 
         let container = document.createElement("div");
         container.classList.add("primere-promptsaver-modal-content", "prompt-container");
@@ -239,7 +243,8 @@ async function setup_promptsaver_modal() {
     container.innerHTML += "<label>Negative prompt:</label><textarea name='negative_prompt' rows=4 cols=50>" + NegativePrompt + "</textarea>";
     container.innerHTML += "<label>Preferred Model:</label><input type='text' name='model' value='" + Model + "' readonly='readonly'>";
     container.innerHTML += "<label>Preferred Orientation:</label><input type='text' name='orientation' value='" + Orientation + "' readonly='readonly'>";
-    container.innerHTML += "<button class='prompt_saver_button'>Save prompt to external CSV file</button>";
+    container.innerHTML += '<button type="button" class="promptmodal-closer">Close without save</button>';
+    container.innerHTML += "<button type='button' class='prompt_saver_button'>Save prompt to external CSV file</button>";
 
     modal.setAttribute('style','display: block; width: 30%; height: 60%;');
 }

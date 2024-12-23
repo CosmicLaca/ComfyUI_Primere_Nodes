@@ -382,6 +382,29 @@ def get_model_hash(filename):
     except FileNotFoundError:
         return None
 
+def get_file_encoding(filename):
+    try:
+        fileTest = open(filename, 'rb').readline()
+        result = chardet.detect(fileTest)
+        ENCODING = result['encoding']
+        if ENCODING == 'ascii':
+            ENCODING = 'UTF-8'
+        return ENCODING
+    except FileNotFoundError:
+        return None
+
+def open_file_by_chardet(filename):
+    try:
+        fileTest = open(filename, 'rb').readline()
+        result = chardet.detect(fileTest)
+        ENCODING = result['encoding']
+        if ENCODING == 'ascii':
+            ENCODING = 'UTF-8'
+
+        with open(filename, "r", newline='', encoding=ENCODING) as the_file:
+            return the_file.readlines()
+    except FileNotFoundError:
+        return None
 
 def load_external_csv(csv_full_path: str, header_cols: int):
     fileTest = open(csv_full_path, 'rb').readline()
