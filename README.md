@@ -25,7 +25,8 @@ After nodepack update of **12/3/2024 - v1.0.2** ComfyUI front-end must be update
 ### Minimal workflow features:
  
 - Prompt selector to any prompt sources
-- `CSV` and `TOML` file source readers for saved prompts, automatically organized, saved prompt selection by preview image (if saved)
+- Prompt can be saved to `CSV` file directly from the prompt input nodes 
+- `CSV` and `TOML` file readers for saved prompts, automatically organized, saved prompt selection by preview image (if preview created)
 - Randomized latent noise for variations
 - Prompt encoder with selectable custom clip model, long-clip mode with custom models, advanced encoding, injectable internal styles, last-layer options
 - Sampler with `variation extender` and `Align Your Step` features

@@ -93,14 +93,14 @@ Choose how to handle image orientation:
 The orientation setting helps compose your image properly for your selected subject matter.
 
 ### Save prompt to external file:
-With `Save prompt to file...` button you can save your current prompt to external CSV file, what the `Visual Style Selector` and `Visual Prompt CSV` nodes will read by name. 
+With `Save prompt to file...` button you can save current prompt to external CSV file, the `Visual Style Selector` and `Visual Prompt CSV` nodes will read by name. 
 Read the manual of **Visual Prompts (style) Selector** and **Visual Prompts - auto organized** nodes later.
 - To the prompt saver dialog you can enter or choose name for prompt. If you choose existing prompt name from the `Prompt name` list, the original prompt with same name will be overwritten
-- You can select existing or crete new category what will be use as folder name for generated image
+- You can select existing or create new category what will be use as folder name and category for generated image
 - You can edit both positive and nagetive prompt, but positive prompt required
-- The `Preferred model` and `Preferred orientation` are read only. These date must be set on the prompt input node.
-- Cancel or finish prompt save by buttons
-- Make backup from your previous `styles.csv` file on the `custom_nodes\ComfyUI_Primere_Nodes\stylecsv\` folder before use prompt saver
+- The `Preferred model` and `Preferred orientation` inputs are read only. These data must be set on the prompt input node before open the save dialog
+- Cancel or finish prompt by save buttons
+- Make backup of your previous `styles.csv` file on the `custom_nodes\ComfyUI_Primere_Nodes\stylecsv\` folder before use prompt saver
 
 <img src="primere_prompt_save.jpg" width="450px">
 
@@ -292,6 +292,11 @@ This sophisticated prompt encoder node offers extensive control over prompt proc
 <img src="ascorer.jpg" width="250px">
 
 This node evaluates the aesthetic quality of generated images and saving scoring data to display in visual previews. It provides numerical scoring and statistical tracking for your generations.
+
+**The required model files must be downloaded manually. Download all source files to the target path:**
+- `model 1`: **cafe_aesthetic** Source: https://huggingface.co/cafeai/cafe_aesthetic/tree/main target: {your_comfy_model_folder}\aesthetic\cafe_aesthetic\
+- `model 2`: **cafe_style** Source: https://huggingface.co/cafeai/cafe_style/tree/main target: target: {your_comfy_model_folder}\aesthetic\cafe_style\
+
 
 ### Key Features:
 - `get_aesthetic_score`: Enables/disables image quality scoring
