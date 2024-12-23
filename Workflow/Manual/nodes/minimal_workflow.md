@@ -92,6 +92,18 @@ Choose how to handle image orientation:
 
 The orientation setting helps compose your image properly for your selected subject matter.
 
+### Save prompt to external file:
+With `Save prompt to file...` button you can save your current prompt to external CSV file, what the `Visual Style Selector` and `Visual Prompt CSV` nodes will read by name. 
+Read the manual of **Visual Prompts (style) Selector** and **Visual Prompts - auto organized** nodes later.
+- To the prompt saver dialog you can enter or choose name for prompt. If you choose existing prompt name from the `Prompt name` list, the original prompt with same name will be overwritten
+- You can select existing or crete new category what will be use as folder name for generated image
+- You can edit both positive and nagetive prompt, but positive prompt required
+- The `Preferred model` and `Preferred orientation` are read only. These date must be set on the prompt input node.
+- Cancel or finish prompt save by buttons
+- Make backup from your previous `styles.csv` file on the `custom_nodes\ComfyUI_Primere_Nodes\stylecsv\` folder before use prompt saver
+
+<img src="primere_prompt_save.jpg" width="450px">
+
 [This video contains tutorial for prompt engineering](https://www.youtube.com/watch?v=joqvC8vb6Xo)
 
 <hr>
