@@ -1287,3 +1287,14 @@ def get_dtype_by_name(dtype):
     elif dtype == "fp8_e5m2fnuz":
         dtype = torch.float8_e5m2fnuz
     return dtype
+
+def getValidAscorerPaths(model_root):
+    valid_ae_path = []
+    if os.path.exists(model_root):
+        allsubdirs = list(os.listdir(Path(model_root)))
+        for subdir in allsubdirs:
+            path_config = os.path.join(model_root, subdir, 'config.json')
+            path_model_bin = os.path.join(model_root, subdir, 'pytorch_model.bin')
+            if os.path.exists(path_config) == True and os.path.exists(path_model_bin) == True:
+                valid_ae_path.append(subdir)
+    return valid_ae_path

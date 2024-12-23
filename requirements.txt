@@ -4,7 +4,6 @@ Requests
 addict
 aiohttp
 chardet
-clip
 dynamicprompts
 ftfy
 ipdb

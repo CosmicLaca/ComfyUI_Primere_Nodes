@@ -372,7 +372,6 @@ def configVariants(variant):
     else:
         return {}
 
-
 def getValidLLMPaths(model_root):
     valid_llm_path = []
     if os.path.exists(model_root):

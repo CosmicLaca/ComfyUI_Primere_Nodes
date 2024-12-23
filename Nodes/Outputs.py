@@ -19,13 +19,13 @@ import torch
 from ..components import utility
 from ..components import primeresamplers
 from server import PromptServer
-from ..utils import comfy_dir
-import clip
 from ..components.tree import PRIMERE_ROOT
 from comfy.cli_args import args
 from .modules import exif_data_checker
 from ..Nodes.Visuals import PrimereVisualCKPT
 from ..Nodes.Visuals import PrimereVisualStyle
+from transformers import pipeline
+from torchvision.transforms import functional as TF
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -895,7 +895,7 @@ class PrimerePreviewImage():
 
         return results
 
-class PrimereAestheticCKPTScorer():
+class PrimereAestheticCKPTScorer:
     CATEGORY = TREE_OUTPUTS
     RETURN_TYPES = ("INT",)
     RETURN_NAMES = ("SCORE",)
@@ -922,9 +922,12 @@ class PrimereAestheticCKPTScorer():
 
     def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, workflow_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
+        models = []
+        def pipe(model):
+            return pipeline(task="image-classification", model=model, device=model_management.get_torch_device())
 
         if (get_aesthetic_score == True):
-            AESTHETIC_PATH = os.path.join(folder_paths.models_dir, 'aesthetic')
+            '''AESTHETIC_PATH = os.path.join(folder_paths.models_dir, 'aesthetic')
             folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
             if os.path.exists(AESTHETIC_PATH) == False:
                 Path(AESTHETIC_PATH).mkdir(parents=True, exist_ok=True)
@@ -968,74 +971,116 @@ class PrimereAestheticCKPTScorer():
                     except Exception:
                         final_prediction = 0
                 else:
-                    final_prediction = 0
+                    final_prediction = 0'''
 
-                if (type(final_prediction) != 'str'):
-                    final_prediction = str(final_prediction)
+            AE_MODEL_ROOT = os.path.join(folder_paths.models_dir, 'aesthetic')
+            AEMODELS_ENCODERS_PATHS = utility.getValidAscorerPaths(AE_MODEL_ROOT)
+            if len(AEMODELS_ENCODERS_PATHS) > 0:
+                if 'cafe_aesthetic' not in AEMODELS_ENCODERS_PATHS:
+                    final_prediction = '*** Missing aesthetic model ***'
+                if 'cafe_style' not in AEMODELS_ENCODERS_PATHS:
+                    final_prediction = '*** Missing style model ***'
+                if 'cafe_style' in AEMODELS_ENCODERS_PATHS and 'cafe_aesthetic' in AEMODELS_ENCODERS_PATHS:
+                    ae_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_aesthetic')
+                    style_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_style')
+                    if os.path.isdir(ae_model_access) == True and os.path.isdir(style_model_access) == True:
+                        models.append({"pipe": pipe(ae_model_access), "weights": [0.0, 1.0], })
+                        models.append({"pipe": pipe(style_model_access), "weights": [1.0, 0.75, 0.5, 0.0, 0.0], })
 
-                if workflow_data is not None:
-                    if add_to_checkpoint == True and (workflow_data['model_concept'] == workflow_data['model_version']):
-                        if 'model' in workflow_data:
-                            selected_model = workflow_data['model']
-                            modelname_only = Path(selected_model).stem
-                            model_ascore = utility.get_value_from_cache('model_ascores', modelname_only)
-                            if model_ascore is None:
-                                utility.add_value_to_cache('model_ascores', modelname_only, '1|' + final_prediction)
+                        try:
+                            count = 1
+                            pil_images = image.permute(0, 3, 1, 2)
+                            pil_images = torch.clamp(pil_images * 255, 0, 255)
+                            pil_images = pil_images.to("cpu", torch.uint8)
+                            pil_images = [TF.to_pil_image(i) for i in pil_images]
+                            scores = {i: 0.0 for i in range(image.shape[0])}
+                            for model in models:
+                                pipe = model["pipe"]
+                                weights = model["weights"]
+                                labels = pipe.model.config.id2label
+                                w_len = len(weights)
+                                w_sum = sum(weights)
+                                w_map = {labels[i]: weights[i] for i in range(w_len)}
+                                values = pipe(pil_images, top_k=w_len)
+                                for index, value in enumerate(values):
+                                    score = [v["score"] * w_map[v["label"]] for v in value]
+                                    scores[index] += sum(score) / w_sum
+                            scores = sorted(scores.items(), key=lambda k: k[1], reverse=True)[:count]
+                            final_score = ", ".join([f"{v:.3f}" for k, v in scores])
+                            final_prediction = int((float(final_score) * 1000) / 2)
+                        except Exception:
+                            final_prediction = '*** Invalid input image ***'
+                    else:
+                        final_prediction = '*** No aesthetic models downloaded ***'
+            else:
+                final_prediction = '*** No aesthetic models downloaded ***'
+
+            if (type(final_prediction) != 'str'):
+                final_prediction = str(final_prediction)
+
+            if workflow_data is not None and final_prediction.isdigit():
+                if add_to_checkpoint == True and (workflow_data['model_concept'] == workflow_data['model_version']):
+                    if 'model' in workflow_data:
+                        selected_model = workflow_data['model']
+                        modelname_only = Path(selected_model).stem
+                        model_ascore = utility.get_value_from_cache('model_ascores', modelname_only)
+                        if model_ascore is None:
+                            utility.add_value_to_cache('model_ascores', modelname_only, '1|' + final_prediction)
+                        else:
+                            model_ascore_list = model_ascore.split("|")
+                            counter = str(int(model_ascore_list[0]) + 1)
+                            score = str(int(model_ascore_list[1]) + int(final_prediction))
+                            utility.add_value_to_cache('model_ascores', modelname_only, counter + '|' + score)
+
+                if add_to_saved_prompt == True and final_prediction.isdigit():
+                    if 'positive' in workflow_data:
+                        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+                        selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
+                        if selectedStyle is None:
+                            selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)
+
+                        is_random_style = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'random_prompt', prompt)
+                        if is_random_style == True:
+                            styles_csv = PrimereVisualStyle.styles_csv
+                            seed = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereSeed', 'seed', prompt)
+                            random.seed(seed)
+                            styleKey = styles_csv['name'] == selectedStyle
+                            try:
+                                preferred_subpath = styles_csv[styleKey]['preferred_subpath'].values[0]
+                            except Exception:
+                                preferred_subpath = ''
+                            if str(preferred_subpath) == "nan":
+                                resultsBySubpath = styles_csv[styles_csv['preferred_subpath'].isnull()]
                             else:
-                                model_ascore_list = model_ascore.split("|")
-                                counter = str(int(model_ascore_list[0]) + 1)
-                                score = str(int(model_ascore_list[1]) + int(final_prediction))
-                                utility.add_value_to_cache('model_ascores', modelname_only, counter + '|' + score)
+                                resultsBySubpath = styles_csv[styles_csv['preferred_subpath'] == preferred_subpath]
+                            selectedStyle = random.choice(list(resultsBySubpath['name']))
 
-                    if add_to_saved_prompt == True:
-                        if 'positive' in workflow_data:
-                            WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-                            selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
-                            if selectedStyle is None:
-                                selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)
+                        if selectedStyle is not None:
+                            STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
+                            STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
+                            try:
+                                STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
+                            except Exception:
+                                STYLE_FILE_EXAMPLE = STYLE_FILE
 
-                            is_random_style = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'random_prompt', prompt)
-                            if is_random_style == True:
-                                styles_csv = PrimereVisualStyle.styles_csv
-                                seed = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereSeed', 'seed', prompt)
-                                random.seed(seed)
-                                styleKey = styles_csv['name'] == selectedStyle
-                                try:
-                                    preferred_subpath = styles_csv[styleKey]['preferred_subpath'].values[0]
-                                except Exception:
-                                    preferred_subpath = ''
-                                if str(preferred_subpath) == "nan":
-                                    resultsBySubpath = styles_csv[styles_csv['preferred_subpath'].isnull()]
-                                else:
-                                    resultsBySubpath = styles_csv[styles_csv['preferred_subpath'] == preferred_subpath]
-                                selectedStyle = random.choice(list(resultsBySubpath['name']))
-
-                            if selectedStyle is not None:
-                                STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')
-                                STYLE_FILE = os.path.join(STYLE_DIR, "styles.csv")
-                                try:
-                                    STYLE_FILE_EXAMPLE = os.path.join(STYLE_DIR, "styles.example.csv")
-                                except Exception:
-                                    STYLE_FILE_EXAMPLE = STYLE_FILE
-
-                                if Path(STYLE_FILE).is_file() == True:
-                                    STYLE_SOURCE = STYLE_FILE
-                                else:
-                                    STYLE_SOURCE = STYLE_FILE_EXAMPLE
-                                style_data = utility.load_external_csv(STYLE_SOURCE, 0)
-                                positive_prompt = style_data[style_data['name'] == selectedStyle]['prompt'].values[0]
-                                if (positive_prompt is not None):
-                                    if len(positive_prompt) > 100:
-                                        positive_prompt = positive_prompt[:100]
-                                    if positive_prompt in workflow_data['positive']:
-                                        style_ascore = utility.get_value_from_cache('styles_ascores', selectedStyle)
-                                        if style_ascore is None:
-                                            utility.add_value_to_cache('styles_ascores', selectedStyle, '1|' + final_prediction)
-                                        else:
-                                            style_ascore_list = style_ascore.split("|")
-                                            counter = str(int(style_ascore_list[0]) + 1)
-                                            score = str(int(style_ascore_list[1]) + int(final_prediction))
-                                            utility.add_value_to_cache('styles_ascores', selectedStyle, counter + '|' + score)
+                            if Path(STYLE_FILE).is_file() == True:
+                                STYLE_SOURCE = STYLE_FILE
+                            else:
+                                STYLE_SOURCE = STYLE_FILE_EXAMPLE
+                            style_data = utility.load_external_csv(STYLE_SOURCE, 0)
+                            positive_prompt = style_data[style_data['name'] == selectedStyle]['prompt'].values[0]
+                            if (positive_prompt is not None):
+                                if len(positive_prompt) > 100:
+                                    positive_prompt = positive_prompt[:100]
+                                if positive_prompt in workflow_data['positive']:
+                                    style_ascore = utility.get_value_from_cache('styles_ascores', selectedStyle)
+                                    if style_ascore is None:
+                                        utility.add_value_to_cache('styles_ascores', selectedStyle, '1|' + final_prediction)
+                                    else:
+                                        style_ascore_list = style_ascore.split("|")
+                                        counter = str(int(style_ascore_list[0]) + 1)
+                                        score = str(int(style_ascore_list[1]) + int(final_prediction))
+                                        utility.add_value_to_cache('styles_ascores', selectedStyle, counter + '|' + score)
 
         return {"ui": {"text": [final_prediction]}, "result": (final_prediction,)}
 
