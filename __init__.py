@@ -13,7 +13,7 @@ from .Nodes import Networks
 from .Nodes import Segments
 import shutil
 
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -134,6 +134,7 @@ NODE_CLASS_MAPPINGS = {
 
     "PrimereImageSegments": Segments.PrimereImageSegments,
     "PrimereAnyDetailer": Segments.PrimereAnyDetailer,
+    "PrimereFaceAnalyzer": Segments.PrimereFaceAnalyzer,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -205,4 +206,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "PrimereImageSegments": 'Primere Image Segments',
     "PrimereAnyDetailer": 'Primere Any Detailer',
+    "PrimereFaceAnalyzer": "Primere Face Analyzer",
 }

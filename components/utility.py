@@ -589,6 +589,9 @@ def pil2tensor(image: Image.Image):
 def tensor2pil(image: torch.Tensor, mode=None):
     return numpy2pil(image.cpu().numpy().squeeze(), mode=mode)
 
+def comfyimg2numpyarray(image):
+    return np.clip(255. * image.cpu().numpy().squeeze(), 0, 255).astype(np.uint8)
+
 
 def image_scale_down(images, width, height, crop):
     if crop == "center":

@@ -16,9 +16,11 @@ import torchvision
 import math
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 from ..Nodes import Outputs
+from ..Nodes import Segments
 from ..components.tree import PRIMERE_ROOT
 from ..components import utility
 import comfy_extras.nodes_mask as nodes_mask
+from ..Nodes.modules.adv_encode import advanced_encode
 
 def inference_bbox(model, image: Image.Image, confidence: float = 0.3, device: str = "",):
     pred = model(image, conf=confidence, device=device)
@@ -1109,7 +1111,7 @@ def enhance_detail(image, model, clip, vae, guide_size, guide_size_for_bbox, max
                    sampler_name, scheduler, positive, negative, denoise, noise_mask, force_inpaint, segment_settings, multiplier,
                    wildcard_opt=None, wildcard_opt_concat_mode=None, detailer_hook=None,
                    refiner_ratio=None, refiner_model=None, refiner_clip=None, refiner_positive=None,
-                   refiner_negative=None, control_net_wrapper=None, model_concept = "Normal", cycle=1):
+                   refiner_negative=None, control_net_wrapper=None, model_concept = "SD1", cycle=1):
 
     guide_size = max(image.shape[1], image.shape[2]) * multiplier
     if model_concept == 'Turbo':
@@ -1400,6 +1402,38 @@ class DetailerForEach:
             # multiplierList = np.arange(0.6, 3.2, 0.2).tolist()
             # for multiplier in multiplierList:
 
+            if 'final_positive' in segment_settings and (segment_settings['detect_age'] == True or segment_settings['detect_gender'] == True or segment_settings['detect_emotion'] == True or segment_settings['detect_race'] == True):
+                coordinates = {'age': 'detect_age', 'dominant_gender': 'detect_gender', 'dominant_emotion': 'detect_emotion', 'dominant_race': 'detect_race'}
+                refiner_prompt = segment_settings['final_positive']
+                if 'final_positive' in segment_settings:
+                    is_prompt = re.findall(r"\[(.*?)]", refiner_prompt)
+                    if len(is_prompt) > 0:
+                        face_analyzed = segment_analyzer([cropped_image])[0]
+                        result_keys = list(face_analyzed.keys())
+                        common_keys = list(np.intersect1d(is_prompt, result_keys))
+                        for substring in common_keys:
+                            substring_full = '[' + substring + ']'
+                            if substring in face_analyzed and face_analyzed[substring] is not None and segment_settings[coordinates[substring]] == True:
+                                if substring == 'dominant_gender':
+                                    as_man = round(face_analyzed['gender']['Man'], 0)
+                                    as_woman = round(face_analyzed['gender']['Woman'], 0)
+                                    gender_diff = abs(as_man - as_woman)
+                                    if gender_diff < 30:
+                                        face_analyzed['dominant_gender'] = f'feminine:{as_woman / 100} and masculine:{as_man / 100}'
+                                    if gender_diff > 80:
+                                        if as_man > as_woman:
+                                            face_analyzed['dominant_gender'] = 'masculine man'
+                                        else:
+                                            face_analyzed['dominant_gender'] = 'feminine woman'
+                                refiner_prompt = refiner_prompt.replace(substring_full, str(face_analyzed[substring]).lower())
+                        refiner_prompt = re.sub("[\[].*?[\]]", "unspecified", refiner_prompt).strip()
+
+                embeddings_final_pos, pooled_pos = advanced_encode(clip, refiner_prompt, segment_settings['token_normalization'], segment_settings['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+                embeddings_final_neg, pooled_neg = advanced_encode(clip, segment_settings['final_negative'], segment_settings['token_normalization'], segment_settings['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+
+                positive = [[embeddings_final_pos, {"pooled_output": pooled_pos}]]
+                negative = [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+
             SegmentedRelative = (segment_settings['image_size'][0] * segment_settings['image_size'][1]) / (cropped_image.shape[1] * cropped_image.shape[2])
             multiplier = round((math.sqrt((SegmentedRelative / 7)) / 2) + 1, 2)
 
@@ -1515,6 +1549,24 @@ def segmented_images(segs, input_image):
         result_image_list.append(input_image)
 
     return result_image_list
+
+
+def segment_analyzer(images):
+    analyzed_obj = []
+    analyzed = {}
+    for image in images:
+        if image.shape[1] * image.shape[2] < 100000:
+            image = utility.img_resizer(image, image.shape[2] * 2, image.shape[1] * 2, 'bicubic')
+        try:
+            analyzed = Segments.PrimereFaceAnalyzer.face_analyzer(None, image)[0][0]
+        except Exception:
+            analyzed['age'] = None
+            analyzed['dominant_gender'] = None
+            analyzed['dominant_race'] = None
+            analyzed['dominant_emotion'] = None
+        analyzed_obj.append(analyzed)
+
+    return analyzed_obj
 
 def filter_segs_by_label(segs, label):
     remained_segs = []

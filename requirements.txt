@@ -1,3 +1,4 @@
+deepface
 Pillow
 PyYAML
 Requests

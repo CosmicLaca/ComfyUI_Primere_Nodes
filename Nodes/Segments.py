@@ -3,7 +3,6 @@ from ..components.tree import PRIMERE_ROOT
 import math
 import os
 import folder_paths
-from ..utils import comfy_dir
 from ..components import detectors
 import comfy
 from segment_anything import sam_model_registry
@@ -14,6 +13,7 @@ from pathlib import Path
 from .modules.adv_encode import advanced_encode
 import random
 import datetime
+from deepface import DeepFace
 
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")
@@ -143,6 +143,12 @@ class PrimereImageSegments:
         return {
             "required": {
                 "use_segments": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
+
+                "detect_age": ("BOOLEAN", {"default": False, "label_on": "ANALYZER ON", "label_off": "ANALYZER OFF"}),
+                "detect_gender": ("BOOLEAN", {"default": False, "label_on": "ANALYZER ON", "label_off": "ANALYZER OFF"}),
+                "detect_emotion": ("BOOLEAN", {"default": False, "label_on": "ANALYZER ON", "label_off": "ANALYZER OFF"}),
+                "detect_race": ("BOOLEAN", {"default": False, "label_on": "ANALYZER ON", "label_off": "ANALYZER OFF"}),
+
                 "trigger_high_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
                 "trigger_low_off": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 0.05}),
 
@@ -170,7 +176,7 @@ class PrimereImageSegments:
             }
         }
 
-    def primere_segments(self, use_segments, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, segment_prompt_data, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', square_shape = 768, dino_search_prompt = None, dino_replace_prompt = None):
+    def primere_segments(self, use_segments, detect_age, detect_gender, detect_emotion, detect_race, bbox_segm_model_name, sam_model_name, sam_device_mode, image, threshold, dilation, crop_factor, drop_size, segment_prompt_data, trigger_high_off = 0, trigger_low_off = 0, search_yolov8s = 'person', search_deepfashion2_yolov8s = "short_sleeved_shirt", search_facial_features_yolo8x = "eye", model_version = 'BaseModel_1024', square_shape = 768, dino_search_prompt = None, dino_replace_prompt = None):
         if segment_prompt_data is None:
             segment_prompt_data = {}
 
@@ -191,6 +197,7 @@ class PrimereImageSegments:
         segment_settings['use_segments'] = use_segments
         segment_settings['trigger_high_off'] = trigger_high_off
         segment_settings['trigger_low_off'] = trigger_low_off
+
         empty_segs = [[image.shape[1], image.shape[2]], [], []]
         segment_settings['refiner_state'] = use_segments
 
@@ -280,12 +287,24 @@ class PrimereImageSegments:
         segment_settings['image_max_area_percent'] = image_max_area_percent
         input_img_segs = detectors.segmented_images(segs, image)
 
-        if len(segment_prompt_data) == 7:
-            embeddings_final_pos, pooled_pos = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_positive'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
-            embeddings_final_neg, pooled_neg = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_negative'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
-            return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+        segment_settings['detect_age'] = detect_age
+        segment_settings['detect_gender'] = detect_gender
+        segment_settings['detect_emotion'] = detect_emotion
+        segment_settings['detect_race'] = detect_race
+
+        if (detect_age == True or detect_gender == True or detect_emotion == True or detect_race == True) and len(input_img_segs) > 0:
+            segment_settings['final_positive'] = segment_prompt_data['final_positive']
+            segment_settings['final_negative'] = segment_prompt_data['final_negative']
+            segment_settings['token_normalization'] = segment_prompt_data['token_normalization']
+            segment_settings['weight_interpretation'] = segment_prompt_data['weight_interpretation']
+            return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, None, None
         else:
-            return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, segment_prompt_data['cond_positive'], segment_prompt_data['cond_negative']
+            if len(segment_prompt_data) == 7:
+                embeddings_final_pos, pooled_pos = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_positive'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+                embeddings_final_neg, pooled_neg = advanced_encode(segment_prompt_data['clip'], segment_prompt_data['final_negative'], segment_prompt_data['token_normalization'], segment_prompt_data['weight_interpretation'], w_max=1.0, apply_to_pooled=True)
+                return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, [[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+            else:
+                return image, input_img_segs, DETECTOR_RESULT, sam, segs, segs[2], image_max_area, image_max_area_percent, segment_settings, segment_prompt_data['cond_positive'], segment_prompt_data['cond_negative']
 
 class PrimereAnyDetailer:
     RETURN_TYPES = ("IMAGE", "IMAGE", "INT", "INT",)
@@ -446,3 +465,31 @@ class PrimereAnyDetailer:
             result_cnet_images.extend(cnet_pil_list)
 
         return result_img, result_cropped_enhanced, segment_settings['image_size'][0], segment_settings['image_size'][1]
+
+class PrimereFaceAnalyzer:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("FACE_DATA",)
+    FUNCTION = "face_analyzer"
+    CATEGORY = TREE_SEGMENTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", ),
+            },
+        }
+
+    def face_analyzer(self, image):
+        objs = {}
+
+        try:
+            np_arr = utility.comfyimg2numpyarray(image)
+            objs = DeepFace.analyze(np_arr, actions=['age', 'gender', 'race', 'emotion'],)
+        except Exception:
+            objs['age'] = None
+            objs['dominant_gender'] = None
+            objs['dominant_race'] = None
+            objs['dominant_emotion'] = None
+
+        return (objs,)
