@@ -147,7 +147,7 @@ Remember: The effectiveness of prompt enhancement depends on both model selectio
 
 # <ins>Advanced Image Refinement System:</ins>
 
-<img src="refiner_block.jpg" width="400px">
+<img src="refiner_block.jpg" width="550px">
 
 ## Components Overview:
 
@@ -206,6 +206,24 @@ You can mix the original positive and negative prompts to refining process with 
 4 switch available to use [DeepFace analyzer](https://github.com/serengil/deepface) to keep characteristic of original faces. These 4 attribute: `age`, `gender`, `race` and `emotion`. These four results will be used on the refiner's prompt if prompt contains string: `[key_of_attribute]`  
 
 **This Python module change another modules by version. Make backup of your current Python libs before install DeepFace. If something wrong after installed DeepFace, just revert back the updated Python libs to previous state from backup.**
+
+#### DeepFace installation:
+- Backup your current Pythin libraries
+- Use `pip install deepface` on terminal, but dont't forget to activate virtual environment
+- Start comfy, and if failed bcause library versions changed, just copy back the original version from backup
+- Download 4 required weights: `'age_model_weights.h5', 'facial_expression_model_weights.h5', 'gender_model_weights.h5', 'race_model_single_batch.h5'` from here: https://github.com/serengil/deepface_models/releases/ and save them to this folder: `[comfypath]\models\deepface\.deepface\weights\`
+- Use four On/Off switches of analyzer to compare results
+
+#### Examples:
+Face detailer without analyzer:
+
+<img src="refiner_block_without_an.jpg" width="550px">
+
+
+Face detailer with analyzer:
+
+<img src="refiner_block_with_an.jpg" width="550px">
+
 
 ### Intelligent Size-Based Processing:
 - `trigger_high_off`: Skips refinement for large segments
