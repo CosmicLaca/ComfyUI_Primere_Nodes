@@ -13,8 +13,6 @@ from pathlib import Path
 from .modules.adv_encode import advanced_encode
 import random
 import datetime
-from deepface import DeepFace
-
 class PrimereImageSegments:
     RETURN_TYPES = ("IMAGE", "IMAGE", "DETECTOR", "SAM_MODEL", "SEGS", "TUPLE", "INT", "INT", "TUPLE", "CONDITIONING", "CONDITIONING")
     RETURN_NAMES = ("IMAGE", "IMAGE_SEGS", "DETECTOR", "SAM_MODEL", "SEGS", "CROP_REGIONS", "IMAGE_MAX", "IMAGE_MAX_PERCENT", "SEGMENT_SETTINGS", "COND+", "COND-")
@@ -482,11 +480,39 @@ class PrimereFaceAnalyzer:
 
     def face_analyzer(self, image):
         objs_err = {}
+        deepface_module = False
+        deepface_weight_files = True
+
+        deepface_path = os.path.join(folder_paths.models_dir, "deepface")
+        deepface_dot_path = os.path.join(deepface_path, ".deepface")
+        deepface_weights_path = os.path.join(deepface_dot_path, "weights")
+        if not os.path.exists(deepface_weights_path):
+            os.makedirs(deepface_weights_path)
+        os.environ["DEEPFACE_HOME"] = deepface_path
+        required_weights = ['age_model_weights.h5', 'age_model_weights.h5', 'gender_model_weights.h5', 'race_model_single_batch.h5']
+        for deepface_weights in required_weights:
+            deepface_file_path = os.path.join(deepface_weights_path, deepface_weights)
+            if not os.path.exists(deepface_file_path):
+                deepface_weight_files = False
+                print("DeepFace file missing: " + deepface_file_path)
 
         try:
-            np_arr = utility.comfyimg2numpyarray(image)
-            objs = DeepFace.analyze(np_arr, actions=['age', 'gender', 'race', 'emotion'],)
-        except Exception:
+            from deepface import DeepFace
+            deepface_module = True
+        except ImportError:
+            print("DeepFace module not installed...")
+
+        if deepface_module == True and deepface_weight_files == True:
+            try:
+                np_arr = utility.comfyimg2numpyarray(image)
+                objs = DeepFace.analyze(np_arr, actions=['age', 'gender', 'race', 'emotion'],)
+            except Exception:
+                objs_err['age'] = None
+                objs_err['dominant_gender'] = None
+                objs_err['dominant_race'] = None
+                objs_err['dominant_emotion'] = None
+                objs = [objs_err]
+        else:
             objs_err['age'] = None
             objs_err['dominant_gender'] = None
             objs_err['dominant_race'] = None
