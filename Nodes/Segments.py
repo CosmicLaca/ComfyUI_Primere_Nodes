@@ -489,7 +489,7 @@ class PrimereFaceAnalyzer:
         if not os.path.exists(deepface_weights_path):
             os.makedirs(deepface_weights_path)
         os.environ["DEEPFACE_HOME"] = deepface_path
-        required_weights = ['age_model_weights.h5', 'age_model_weights.h5', 'gender_model_weights.h5', 'race_model_single_batch.h5']
+        required_weights = ['age_model_weights.h5', 'facial_expression_model_weights.h5', 'gender_model_weights.h5', 'race_model_single_batch.h5']
         for deepface_weights in required_weights:
             deepface_file_path = os.path.join(deepface_weights_path, deepface_weights)
             if not os.path.exists(deepface_file_path):

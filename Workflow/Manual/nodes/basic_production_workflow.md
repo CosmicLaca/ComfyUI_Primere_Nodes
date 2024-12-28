@@ -175,6 +175,11 @@ Positive Example:
 
 Negative Example:
 "Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, (blurred, blurry, vague:1.3), text, watermark"
+
+Positive Example if use Deepface analyzer:
+"1 (detailed detailed sharp closeup portrait picture of [age] year old):1.2 ([dominant_race] [dominant_gender] face):1.2, ([dominant_emotion] mood):1.2, natural skin, realistic photo quality detailed, high resolution, nicely proportioned"
+
+where the string between [key] will be changed by DeepFace analyzer
 ```
 
 You can mix the original positive and negative prompts to refining process with `positive_original_strength` and `negative_original_strength` inputs
@@ -197,7 +202,12 @@ You can mix the original positive and negative prompts to refining process with 
 
 ## Primere Image Segments Node:
 
-### Intelligent Size-Based Processing
+### DeepFace analyzer:
+4 switch available to use [DeepFace analyzer](https://github.com/serengil/deepface) to keep characteristic of original faces. These 4 attribute: `age`, `gender`, `race` and `emotion`. These four results will be used on the refiner's prompt if prompt contains string: `[key_of_attribute]`  
+
+**This Python module change another modules by version. Make backup of your current Python libs before install DeepFace. If something wrong after installed DeepFace, just revert back the updated Python libs to previous state from backup.**
+
+### Intelligent Size-Based Processing:
 - `trigger_high_off`: Skips refinement for large segments
 - `trigger_low_off`: Ignores very small segments
 - Size thresholds based on percentage of original image
