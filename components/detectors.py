@@ -1419,7 +1419,7 @@ class DetailerForEach:
                                     as_woman = round(face_analyzed['gender']['Woman'], 0)
                                     gender_diff = abs(as_man - as_woman)
                                     if gender_diff < 30:
-                                        face_analyzed['dominant_gender'] = f'feminine:{as_woman / 100} and masculine:{as_man / 100}'
+                                        face_analyzed['dominant_gender'] = f"feminine:{(as_woman / 100) + 1} mixed masculine:{(as_man / 100) + 1}"
                                     if gender_diff > 80:
                                         if as_man > as_woman:
                                             face_analyzed['dominant_gender'] = 'masculine man'
@@ -1456,7 +1456,7 @@ class DetailerForEach:
 
             original_score = 0
             enhanced_score = 0
-            asthetic_hysteresis = 30
+            asthetic_hysteresis = 50
             if use_aesthetic_scorer == True:
                 original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
                 enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])

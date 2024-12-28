@@ -481,15 +481,16 @@ class PrimereFaceAnalyzer:
         }
 
     def face_analyzer(self, image):
-        objs = {}
+        objs_err = {}
 
         try:
             np_arr = utility.comfyimg2numpyarray(image)
             objs = DeepFace.analyze(np_arr, actions=['age', 'gender', 'race', 'emotion'],)
         except Exception:
-            objs['age'] = None
-            objs['dominant_gender'] = None
-            objs['dominant_race'] = None
-            objs['dominant_emotion'] = None
+            objs_err['age'] = None
+            objs_err['dominant_gender'] = None
+            objs_err['dominant_race'] = None
+            objs_err['dominant_emotion'] = None
+            objs = [objs_err]
 
         return (objs,)
