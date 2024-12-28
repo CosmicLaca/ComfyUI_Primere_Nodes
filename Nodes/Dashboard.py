@@ -2525,6 +2525,12 @@ class PrimereResolutionMultiplierMPX:
         dimension_y = round(height * squareDiff)
         ratio = round(squareDiff, 2)
 
+        try:
+            comfy.model_management.soft_empty_cache()
+            comfy.model_management.cleanup_models(True)
+        except Exception:
+            print('No need to clear cache...')
+
         return (dimension_x, dimension_y, ratio, image)
 
 class PrimereResolutionCoordinatorMPX:
