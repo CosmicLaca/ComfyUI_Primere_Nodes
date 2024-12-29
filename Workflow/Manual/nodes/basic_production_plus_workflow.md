@@ -76,6 +76,10 @@ As shown in the example images:
 2. Renaissance-style medieval scene with classical composition
 3. Blend of realism and romanticism in character portraits
 
+Example montage. The first pic made without style addition:
+
+<img src="montage_mj.jpg" width="600px">
+
 #### Usage Tips:
 
 1. Select primary art movement (e.g., Realism)
@@ -133,6 +137,10 @@ As shown in the example portraits:
 2. Joy and warmth expression
 3. Subtle melancholic undertones
 4. Contemplative mood variation
+
+Example montage. The first pic made without style addition:
+
+<img src="montage_emo.jpg" width="600px">
 
 #### Usage Tips:
 
