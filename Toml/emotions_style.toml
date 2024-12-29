@@ -174,3 +174,134 @@
       MainStyle = "Surprise"
       SubStyle = "Astonishment"
       Positive = "Astonishment, feeling or experience of being astonished, great surprise, something very surprising, very great surprise, amazement."
+[Anger]
+   [Anger.N_1]
+      MainStyle = "Anger"
+      SubStyle = ""
+      Positive = "Emotional state involving a strong, uncomfortable and non-cooperative response to a perceived provocation, hurt, or threat. Anger triggers part of the fight or flight response. Anger becomes the predominant feeling behaviorally, cognitively, and physiologically when a person makes the conscious choice to take action to immediately stop the threatening behavior of another outside force."
+   [Anger.N_2]
+      MainStyle = "Anger"
+      SubStyle = "Aggravation"
+      Positive = "The act of aggravation, exacerbation, or making worse, irritability; used of evils, natural or moral; the act of increasing in severity or heinousness; something additional to a crime or wrong and enhancing its guilt or injurious consequences."
+   [Anger.N_3]
+      MainStyle = "Anger"
+      SubStyle = "Grumpy"
+      Positive = "Grumpy mean annoyed and irritable synonyms: bad-tempered, crabbed, crabby, cross, fussy, grouchy, ill-tempered ill-natured having an irritable and unpleasant disposition. Being in a slightly angry mood because you are annoyed at something or are feeling tired."
+   [Anger.N_4]
+      MainStyle = "Anger"
+      SubStyle = "Annoyance"
+      Positive = "Annoyance, Exasperation is an unpleasant mental state that is characterized by irritation and distraction from one's conscious thinking. It can lead to emotions such as frustration and anger. The property of being easily annoyed is called irritability."
+   [Anger.N_5]
+      MainStyle = "Anger"
+      SubStyle = "Rage"
+      Positive = "Rage anger, wrath is intense emotional state involving a strong, uncomfortable and non-cooperative response to a perceived provocation, hurt, or threat. A person experiencing anger will often experience physical effects, such as increased heart rate, elevated blood pressure, and increased levels of adrenaline and noradrenaline.[3] Some view anger as an emotion that triggers part of the fight or flight response.[4] Anger becomes the predominant feeling behaviorally, cognitively, and physiologically when a person makes the conscious choice to take action to immediately stop the threatening behavior of another outside force."
+   [Anger.N_6]
+      MainStyle = "Anger"
+      SubStyle = "Hostility"
+      Positive = "Hostility a form of emotionally charged aggressive behavior. In everyday speech, it is more commonly used as a synonym for anger and aggression."
+   [Anger.N_7]
+      MainStyle = "Anger"
+      SubStyle = "Hatred"
+      Positive = "Hatred or hate is an intense negative emotional response towards certain people, things or ideas, usually related to opposition or revulsion toward something. Hatred is often associated with intense feelings of anger, contempt, and disgust. Hatred is sometimes seen as the opposite of love."
+   [Anger.N_8]
+      MainStyle = "Anger"
+      SubStyle = "Spite"
+      Positive = "Spite or spitefulness as a sentiment, action, or a personality trait has several possible meanings. Annoy, hurt, or upset even when there might be no apparent gain, and even when those actions might cause the person spiting harm, as well. Spiteful words or actions are delivered in such a way that it is clear that the person is delivering them just to annoy, hurt, or upset."
+   [Anger.N_9]
+      MainStyle = "Anger"
+      SubStyle = "Revenge"
+      Positive = "Revenge is defined as committing a harmful action against a person or group in response to a grievance, be it real or perceived. Vengeful forms of justice, such as primitive justice or retributive justice, are often differentiated from more formal and refined forms of justice such as distributive justice or restorative justice."
+   [Anger.N_10]
+      MainStyle = "Anger"
+      SubStyle = "Resentment"
+      Positive = "Resentment also called ranklement or bitterness is a complex, multilayered emotion that has been described as a mixture of disappointment, disgust and anger. Inherent in resentment is a perception of unfairness trivial to very serious, and a generalized defense against unfair situations like relationships or unfavourable circumstances."
+   [Anger.N_11]
+      MainStyle = "Anger"
+      SubStyle = "Torment"
+      Positive = "Torment, suffering or pain in a broad sense, may be an experience of unpleasantness or aversion, possibly associated with the perception of harm or threat of harm in an individual. Suffering is the basic element that makes up the negative valence of affective phenomena. The opposite of suffering is pleasure or happiness."
+[Sadness]
+   [Sadness.N_1]
+      MainStyle = "Sadness"
+      SubStyle = ""
+      Positive = "The feeling of being unhappy, especially because something bad has happened. Sadness is an emotional pain associated with, or characterized by, feelings of disadvantage, loss, despair, grief, helplessness, disappointment and sorrow. An individual experiencing sadness may become quiet or lethargic, and withdraw themselves from others. An example of severe sadness is depression, a mood which can be brought on by major depressive disorder or persistent depressive disorder. Crying can be an indication of sadness."
+   [Sadness.N_2]
+      MainStyle = "Sadness"
+      SubStyle = "Depression"
+      Positive = "Depression major depressive disorder is a common and serious mental disorder that negatively affects how you feel, think, act, and perceive the world. A mental illness in which a person is very unhappy and anxious worried and nervous for long periods and often feels no interest in anything."
+   [Sadness.N_3]
+      MainStyle = "Sadness"
+      SubStyle = "Gloom"
+      Positive = "Gloom is a low level of light which is so dim that there are physiological and psychological effects. Human vision at this level becomes monochrome and has lessened clarity."
+   [Sadness.N_4]
+      MainStyle = "Sadness"
+      SubStyle = "Regret"
+      Positive = "Regret is the emotion of wishing one had made a different decision in the past, because the consequences of the decision one did make were unfavorable."
+   [Sadness.N_5]
+      MainStyle = "Sadness"
+      SubStyle = "Remorse"
+      Positive = "Remorse is a distressing emotion experienced by an individual who regrets actions which they have done in the past that they deem to be shameful, hurtful, or wrong. Remorse is closely allied to guilt and self-directed resentment. When a person regrets an earlier action or failure to act, it may be because of remorse or in response to various other consequences, including being punished for the act or omission. People may express remorse through apologies, trying to repair the damage they've caused, or self-imposed punishments. A person who is incapable of feeling remorse is often diagnosed with antisocial personality disorder. In general, a person needs to be unable to feel fear, as well as remorse, in order to develop psychopathic traits. Legal and business professions such as insurance have done research on the expression of remorse via apologies, primarily because of the potential litigation and financial implications."
+   [Sadness.N_6]
+      MainStyle = "Sadness"
+      SubStyle = "Social alienation"
+      Positive = "Social alienation is a person's feeling of disconnection from a group – whether friends, family, or wider society – with which the individual has an affiliation. Such alienation has been described as a condition in social relationships reflected by a low degree of integration or common values and a high degree of distance or isolation between individuals, or between an individual and a group of people in a community or work environment. It is a sociological concept developed by several classical and contemporary theorists."
+   [Sadness.N_7]
+      MainStyle = "Sadness"
+      SubStyle = "Defeatism"
+      Positive = "Defeatism an attitude of expecting defeat or of accepting defeat with the belief that further effort would be useless, a way of thinking or behaving that shows that you have no hope and expect to fail. Defeatism is the acceptance of defeat without struggle, often with negative connotations. It can be linked to pessimism in psychology, and may sometimes be used synonymously with fatalism or determinism."
+   [Sadness.N_8]
+      MainStyle = "Sadness"
+      SubStyle = "Homesickness"
+      Positive = "Homesickness is the distress caused by being away from home. Its cognitive hallmark is preoccupying thoughts of home and attachment objects. Sufferers typically report a combination of depressive and anxious symptoms, withdrawn behavior and difficulty focusing on topics unrelated to home. The affected person may be taking a short trip to a nearby place, such as summer camp, or they may be taking a long trip or have moved to a different country."
+   [Sadness.N_9]
+      MainStyle = "Sadness"
+      SubStyle = "Humiliation"
+      Positive = "Humiliation is the abasement of pride, which creates mortification or leads to a state of being humbled or reduced to lowliness or submission. It is an emotion felt by a person whose social status, either by force or willingly, has just decreased. It can be brought about through intimidation, physical or mental mistreatment or trickery, or by embarrassment if a person is revealed to have committed a socially or legally unacceptable act. Whereas humility can be sought alone as a means to de-emphasize the ego, humiliation must involve other person, though not necessarily directly or willingly."
+   [Sadness.N_10]
+      MainStyle = "Sadness"
+      SubStyle = "Insecurity"
+      Positive = "Insecurity is the emotion associated with a lack of confidence within oneself. It is often associated with feelings of fear and uncertainty, especially surrounding one's abilities. The person perceives the world as a threatening jungle and most human beings as dangerous and selfish feels like a rejected and isolated person, anxious and hostile is generally pessimistic and unhappy; shows signs of tension and conflict, tends to turn inward is troubled by guilt-feelings, has one or another disturbance of self-esteem; tends to be neurotic; and is generally selfish and egocentric."
+   [Sadness.N_11]
+      MainStyle = "Sadness"
+      SubStyle = "Insult"
+      Positive = "An insult is an expression, statement, or behavior that is often deliberately disrespectful, offensive, scornful, or derogatory towards an individual or a group. Insults can be intentional or unintentional, and they often aim to belittle, offend, or humiliate the target. While intentional insults can sometimes include factual information, they are typically presented in a pejorative manner, intended to provoke a negative emotional response or have a harmful reaction effect when used harmfully. Insults can also be made unintentionally or in a playful way but could in some cases also have negative impacts and effects even when they were not intended to insult."
+   [Sadness.N_12]
+      MainStyle = "Sadness"
+      SubStyle = "Isolation"
+      Positive = "Isolation is a defence mechanism in psychoanalytic theory, first proposed by Sigmund Freud. While related to repression, the concept distinguishes itself in several ways. It is characterized as a mental process involving the creation of a gap between an unpleasant or threatening cognition and other thoughts and feelings. Concept with the example of a person beginning a train of thought and then pausing for a moment before continuing to a different subject. The person letting it be understood symbolically that he will not allow his thoughts about that impression or activity to come into associative contact with other thoughts. As a defense against harmful thoughts, isolation prevents the self from allowing these cognitions to become recurrent and possibly damaging to the self-concept."
+   [Sadness.N_13]
+      MainStyle = "Sadness"
+      SubStyle = "Loneliness"
+      Positive = "Loneliness is an unpleasant emotional response to perceived isolation. Loneliness is also described as social pain – a psychological mechanism that motivates individuals to seek social connections. It is often associated with a perceived lack of connection and intimacy. Loneliness overlaps and yet is distinct from solitude. Solitude is simply the state of being apart from others; not everyone who experiences solitude feels lonely. As a subjective emotion, loneliness can be felt even when a person is surrounded by other people."
+   [Sadness.N_14]
+      MainStyle = "Sadness"
+      SubStyle = "Social rejection"
+      Positive = "Social rejection occurs when an individual is deliberately excluded from a social relationship or social interaction. The topic includes interpersonal rejection, romantic rejection, and familial estrangement. A person can be rejected or shunned by individuals or an entire group of people. Furthermore, rejection can be either active by bullying, teasing, or ridiculing, or passive by ignoring a person, or giving the silent treatment. The experience of being rejected is subjective for the recipient, and it can be perceived when it is not actually present. The word ostracism is also commonly used to denote a process of social exclusion."
+   [Sadness.N_15]
+      MainStyle = "Sadness"
+      SubStyle = "Neglect"
+      Positive = "Neglect is a form of abuse where the perpetrator, who is responsible for caring for someone who is unable to care for themselves, fails to do so. It can be a result of carelessness, indifference, or unwillingness and abuse. Neglect may include the failure to provide sufficient supervision, nourishment, or medical care, or the failure to fulfill other needs for which the victim cannot provide themselves. The term is also applied when necessary care is withheld by those responsible for providing it from animals, plants, and even inanimate objects. Neglect can carry on in a child life falling into many long-term side effects, including physical injuries, developmental trauma disorder, low self-esteem, attention disorders, violent behavior, and death."
+   [Sadness.N_16]
+      MainStyle = "Sadness"
+      SubStyle = "Pity"
+      Positive = "Pity is a sympathetic sorrow evoked by the suffering of others. Compassion, condolence, or empathy. Self-pity is pity directed towards oneself. Two different kinds of pity can be distinguished, benevolent pity and contemptuous pity. In the latter, through insincere, pejorative usage, pity connotes feelings of superiority, condescension, or contempt."
+   [Sadness.N_17]
+      MainStyle = "Sadness"
+      SubStyle = "Mono no aware"
+      Positive = "Mono no aware the pathos of things, and also translated as an empathy toward things, or a sensitivity to ephemera or transience of things, and both a transient gentle sadness or wistfulness at their passing as well as a longer, deeper gentle sadness about this state being the reality of life."
+[Fear]
+   [Fear.N_1]
+      MainStyle = "Fear"
+      SubStyle = ""
+      Positive = "Fear is an unpleasant emotion that arises in response to perceived dangers or threats. Fear causes physiological and psychological changes. It may produce behavioral reactions such as mounting an aggressive response or fleeing the threat, commonly known as the fight-or-flight response. Extreme cases of fear can trigger an immobilized freeze response. Fear in humans can occur in response to a present stimulus or anticipation of a future threat. Fear is involved in some mental disorders, particularly anxiety disorders."
+   [Fear.N_2]
+      MainStyle = "Fear"
+      SubStyle = "Hysteria"
+      Positive = "Hysteria is ungovernable emotional excess and can refer to a temporary state of mind or emotion. Hysteria is a medical condition or general state of extreme fear and panic. People are out of control. In a more general sense, when someone is hysterical, theyre out of control — freaking out. Hysteria is the opposite of calmness. Its really a state of emotional chaos that often takes over during natural disasters and scary moments."
+   [Fear.N_3]
+      MainStyle = "Fear"
+      SubStyle = "Suspense"
+      Positive = "Suspense is a state of anxiety or excitement caused by mysteriousness, uncertainty, doubt, or undecidedness. In a narrative work, suspense is the audience's excited anticipation about the plot or conflict which may be heightened by a violent moment, stressful scene, puzzle, mystery particularly as it affects a character for whom the audience feels sympathy. However, suspense is not exclusive to narratives."
+   [Fear.N_4]
+      MainStyle = "Fear"
+      SubStyle = "Anxiety"
+      Positive = "Anxiety is an emotion characterised by an unpleasant state of inner turmoil and includes feelings of dread over anticipated events. It is often accompanied by nervous behavior such as pacing back and forth, somatic complaints, and rumination. Anxiety is a feeling of uneasiness and worry, usually generalized and unfocused as an overreaction to a situation that is only subjectively seen as menacing.[6] It is often accompanied by muscular tension,[7] restlessness, fatigue, inability to catch one breath, tightness in the abdominal region, nausea, and problems in concentration. Anxiety is closely related to fear, which is a response to a real or perceived immediate threat."
