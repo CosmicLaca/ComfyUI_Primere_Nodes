@@ -76,3 +76,20 @@ The main difference between **basic production** and **basic** workflows, that *
 - Refiner blocks using [DeepFace analyzer](https://github.com/serengil/deepface) if needed
 
 <hr>
+
+## Basic production+ workflow:
+
+The main difference between **basic production plus** and **basic production** workflows, that **basic production plus** workflow contains style nodes and post-precess nodes. 
+
+<img src="./Workflow/Manual/wf_basic_prod_plus.jpg" width="800px">
+
+### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/basic_production_plus_workflow.md)</ins>
+
+### Basic production plus workflow features:
+
+#### Same as Basic production workflow plus:
+
+- Post-processing nodes, have to install [Image magick](https://imagemagick.org/index.php) and [MagickWand nodepack](https://github.com/Fannovel16/ComfyUI-MagickWand)
+- Style nodes, including Midjourney style and emotions at `Style block` group
+- 2 prompt inputs for DailyChallenges of AI image communities
+- Several refinements on nodes
