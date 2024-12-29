@@ -1458,8 +1458,15 @@ class DetailerForEach:
             enhanced_score = 0
             asthetic_hysteresis = 50
             if use_aesthetic_scorer == True:
-                original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
-                enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])
+                AE_MODEL_ROOT = os.path.join(folder_paths.models_dir, 'aesthetic')
+                AEMODELS_ENCODERS_PATHS = utility.getValidAscorerPaths(AE_MODEL_ROOT)
+                if len(AEMODELS_ENCODERS_PATHS) > 0:
+                    if 'cafe_style' in AEMODELS_ENCODERS_PATHS and 'cafe_aesthetic' in AEMODELS_ENCODERS_PATHS:
+                        ae_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_aesthetic')
+                        style_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_style')
+                        if os.path.isdir(ae_model_access) == True and os.path.isdir(style_model_access) == True:
+                            original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
+                            enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])
 
             if cnet_pil is not None:
                 cnet_pil_list.append(cnet_pil)
