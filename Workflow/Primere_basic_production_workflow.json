@@ -102,7 +102,7 @@
         154
       ],
       "flags": {},
-      "order": 38,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -521,7 +521,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        721,
+        1914,
         "randomize",
         "",
         "",
@@ -1677,7 +1677,7 @@
         158
       ],
       "flags": {},
-      "order": 47,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -2139,7 +2139,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        605,
+        745,
         "randomize",
         "",
         "",
@@ -2192,7 +2192,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        "(design:1.2), Nature winter season photography, expressionist realistic style, living scenery, Dynamic wide shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, sunny photography, seasonal rain, perfect colors of selected season"
+        "(design:1.2), Nature autumn season photography, expressionist realistic style, living scenery, Dynamic wide shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, daytime photography, seasonal rain, perfect colors of selected season"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -2298,7 +2298,7 @@
       },
       "widgets_values": [
         "",
-        3619832235,
+        893349493,
         "randomize",
         "None",
         true,
@@ -3381,7 +3381,7 @@
       },
       "widgets_values": [
         2.1,
-        779746395740361,
+        1060918159212320,
         "randomize",
         7,
         6.5,
@@ -3602,7 +3602,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [138518355845354]"
+        "Last seed: [964310752077238]"
       ],
       "color": "#1414b8",
       "bgcolor": "#0000a4"
@@ -3955,7 +3955,7 @@
         818
       ],
       "flags": {},
-      "order": 37,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -4214,93 +4214,6 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 1,
-      "type": "PrimerePrompt",
-      "pos": [
-        693,
-        989
-      ],
-      "size": [
-        493.9828186035156,
-        638.9198608398438
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            327
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            328
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 2,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 3,
-          "shape": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 4,
-          "shape": 3
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            329
-          ],
-          "slot_index": 5,
-          "shape": 3
-        }
-      ],
-      "title": "Primere Prompt - SWITCH #1",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
-        "human, man, woman, girl, nsfw, nude, nudity, porn",
-        "SeassonBackground",
-        "None",
-        "None",
-        null
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
       "id": 194,
       "type": "PrimerePrompt",
       "pos": [
@@ -4312,7 +4225,7 @@
         590
       ],
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4396,7 +4309,7 @@
         590
       ],
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4480,7 +4393,7 @@
         590
       ],
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4564,7 +4477,7 @@
         590
       ],
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4648,7 +4561,7 @@
         350
       ],
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -4737,7 +4650,7 @@
         222
       ],
       "flags": {},
-      "order": 31,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -4889,7 +4802,7 @@
         false,
         1.6,
         2.8,
-        506247021406049,
+        993298363407690,
         "randomize",
         "SD1",
         "Auto"
@@ -5444,83 +5357,6 @@
       "bgcolor": "#9c743d"
     },
     {
-      "id": 111,
-      "type": "PrimereMetaSave",
-      "pos": [
-        3958.53369140625,
-        613.2582397460938
-      ],
-      "size": [
-        434.2799987792969,
-        654
-      ],
-      "flags": {},
-      "order": 93,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 3307
-        },
-        {
-          "name": "image_metadata",
-          "type": "TUPLE",
-          "link": 842,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SAVED_INFO",
-          "type": "STRING",
-          "links": [
-            710
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaSave",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        false,
-        490,
-        "h:\\AIPICS\\Comfy\\[time(%Y-%m-Week-%W)]",
-        "Preview",
-        true,
-        true,
-        true,
-        "Image",
-        "_",
-        true,
-        true,
-        true,
-        true,
-        true,
-        1,
-        false,
-        "jpg",
-        false,
-        false,
-        true,
-        false,
-        70,
-        "false",
-        false,
-        false
-      ],
-      "color": "#149454",
-      "bgcolor": "#008040"
-    },
-    {
       "id": 211,
       "type": "PrimereCLIPEncoder",
       "pos": [
@@ -5921,7 +5757,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        443048824891535,
+        800424218550457,
         "randomize",
         20,
         8,
@@ -6039,7 +5875,7 @@
         1.4000000000000001,
         0.8,
         1.4000000000000001,
-        256106082982905,
+        339357369467754,
         "randomize",
         false,
         "cuda",
@@ -6115,7 +5951,7 @@
         313.46722412109375
       ],
       "flags": {},
-      "order": 42,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -6153,7 +5989,7 @@
         631.2872314453125
       ],
       "flags": {},
-      "order": 40,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -6408,7 +6244,7 @@
         59
       ],
       "flags": {},
-      "order": 41,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -6452,7 +6288,7 @@
       },
       "widgets_values": [
         "",
-        909855541537706,
+        529524732936158,
         "randomize"
       ],
       "color": "#145414",
@@ -6470,7 +6306,7 @@
         59
       ],
       "flags": {},
-      "order": 43,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -6514,7 +6350,7 @@
       },
       "widgets_values": [
         "",
-        313403859774387,
+        119806747382758,
         "randomize"
       ],
       "color": "#945454",
@@ -6532,7 +6368,7 @@
         64
       ],
       "flags": {},
-      "order": 46,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -6590,31 +6426,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 61,
-      "type": "Note",
-      "pos": [
-        2970,
-        -56
-      ],
-      "size": [
-        946.1973266601562,
-        69.17264556884766
-      ],
-      "flags": {},
-      "order": 32,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "text": ""
-      },
-      "widgets_values": [
-        "Primere BASIC PRODUCTION workflow. Model concept handler and 4 refiners. https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
-      ],
-      "color": "#c09430",
-      "bgcolor": "#653"
-    },
-    {
       "id": 258,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -6626,7 +6437,7 @@
         26
       ],
       "flags": {},
-      "order": 44,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -6756,7 +6567,7 @@
         3030
       ],
       "flags": {},
-      "order": 39,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -8073,7 +7884,7 @@
         1294
       ],
       "flags": {},
-      "order": 45,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -10274,7 +10085,7 @@
         false,
         false,
         false,
-        "591"
+        "*** Aesthetic scorer off ***"
       ],
       "color": "#5d005d",
       "bgcolor": "#710071"
@@ -10291,7 +10102,7 @@
         190
       ],
       "flags": {},
-      "order": 33,
+      "order": 31,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -10302,8 +10113,7 @@
             3874
           ],
           "slot_index": 0,
-          "shape": 3,
-          "localized_name": "SAMPLER_NAME"
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
@@ -10312,8 +10122,7 @@
             3875
           ],
           "slot_index": 1,
-          "shape": 3,
-          "localized_name": "SCHEDULER_NAME"
+          "shape": 3
         },
         {
           "name": "STEPS",
@@ -10322,8 +10131,7 @@
             3876
           ],
           "slot_index": 2,
-          "shape": 3,
-          "localized_name": "STEPS"
+          "shape": 3
         },
         {
           "name": "CFG",
@@ -10332,8 +10140,7 @@
             3877
           ],
           "slot_index": 3,
-          "shape": 3,
-          "localized_name": "CFG"
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SANA 1024",
@@ -10368,7 +10175,7 @@
         190
       ],
       "flags": {},
-      "order": 34,
+      "order": 32,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -10379,8 +10186,7 @@
             3878
           ],
           "slot_index": 0,
-          "shape": 3,
-          "localized_name": "SAMPLER_NAME"
+          "shape": 3
         },
         {
           "name": "SCHEDULER_NAME",
@@ -10389,8 +10195,7 @@
             3879
           ],
           "slot_index": 1,
-          "shape": 3,
-          "localized_name": "SCHEDULER_NAME"
+          "shape": 3
         },
         {
           "name": "STEPS",
@@ -10399,8 +10204,7 @@
             3880
           ],
           "slot_index": 2,
-          "shape": 3,
-          "localized_name": "STEPS"
+          "shape": 3
         },
         {
           "name": "CFG",
@@ -10409,8 +10213,7 @@
             3881
           ],
           "slot_index": 3,
-          "shape": 3,
-          "localized_name": "CFG"
+          "shape": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SANA 512",
@@ -10432,6 +10235,195 @@
       ],
       "color": "#b16314",
       "bgcolor": "#9d4f00"
+    },
+    {
+      "id": 61,
+      "type": "Note",
+      "pos": [
+        2970,
+        -56
+      ],
+      "size": [
+        946.1973266601562,
+        69.17264556884766
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere BASIC PRODUCTION workflow. Model concept handler and 4 refiners. https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
+      ],
+      "color": "#c09430",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 1,
+      "type": "PrimerePrompt",
+      "pos": [
+        693,
+        989
+      ],
+      "size": [
+        493.9828186035156,
+        638.9198608398438
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            327
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            328
+          ],
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 3,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            329
+          ],
+          "slot_index": 5,
+          "shape": 3
+        }
+      ],
+      "title": "Primere Prompt - SWITCH #1",
+      "properties": {
+        "Node name for S&R": "PrimerePrompt",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
+        "human, man, woman, girl, nsfw, nude, nudity, porn",
+        "SeassonBackground",
+        "None",
+        "None",
+        null
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 111,
+      "type": "PrimereMetaSave",
+      "pos": [
+        3958.53369140625,
+        613.2582397460938
+      ],
+      "size": [
+        434.2799987792969,
+        654
+      ],
+      "flags": {},
+      "order": 93,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3307
+        },
+        {
+          "name": "image_metadata",
+          "type": "TUPLE",
+          "link": 842,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            710
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaSave",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        false,
+        0,
+        "[time(%Y-%m-%d)]",
+        "Preview",
+        true,
+        true,
+        true,
+        "Image",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        false,
+        false,
+        true,
+        false,
+        70,
+        "false",
+        false,
+        false
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
     }
   ],
   "links": [
@@ -13799,11 +13791,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": [
-        -2328.1891929310864,
-        -694.611373866696
-      ]
+      "scale": 0.7513148009015779,
+      "offset": {
+        "0": -439.55908523876815,
+        "1": 282.8668850401074
+      }
     }
   },
   "version": 0.4
