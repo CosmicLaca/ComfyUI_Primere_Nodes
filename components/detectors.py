@@ -1467,6 +1467,12 @@ class DetailerForEach:
                         if os.path.isdir(ae_model_access) == True and os.path.isdir(style_model_access) == True:
                             original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
                             enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])
+                        else:
+                            use_aesthetic_scorer = False
+                    else:
+                        use_aesthetic_scorer = False
+                else:
+                    use_aesthetic_scorer = False
 
             if cnet_pil is not None:
                 cnet_pil_list.append(cnet_pil)
