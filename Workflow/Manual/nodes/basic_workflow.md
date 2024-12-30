@@ -1,8 +1,10 @@
 # <ins>Model Concept Selector:</ins>
 
 This node node provides intelligent (half-autmatic) model concept detection and automated settings for various AI image generation models. The node significantly simplifies workflow usage by automatically configuring appropriate samplers, encoders, and model-concept specific settings.
-- No need to load another workflow id want to change model concept
+- No need to load another workflow if change model concept
+- Sampler settings and vae, clip files loaded by settings automatically for supported concepts
 - Unet/Diffuser models can be selected from same loader as SD/SDXL safetensors
+- Set all concepts one time, use automatically anytime
 
 ### Key Features:
 - Half-automatic model concept detection, usage of attached teminal helper needed, see later
