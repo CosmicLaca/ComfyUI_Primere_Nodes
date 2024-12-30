@@ -15,13 +15,13 @@ This node allows you to enrich your prompts with various artistic styles, concep
 - Add multiple style elements to positive and negative prompts
 - Fine-tune the strength of each style component
 - Categories include:
- - Art Types (3d-rendering, digital-artwork, drawing, painting, photo, vector-art)
- - Concepts 
- - Artists
- - Art Movements
- - Colors
- - Directions
- - Moods
+- Art Types (3d-rendering, digital-artwork, drawing, painting, photo, vector-art)
+- Concepts 
+- Artists
+- Art Movements
+- Colors
+- Directions
+- Moods
 
 #### Style Controls:
 
@@ -36,11 +36,6 @@ Each category includes:
 - Fine-tune style influence without prompt editing
 - Stack multiple styles with precise control
 - Separate positive and negative style applications
-
-#### Node Outputs:
-
-- STYLE+: Enhanced positive prompt
-- STYLE-: Enhanced negative prompt
 
 <hr>
 

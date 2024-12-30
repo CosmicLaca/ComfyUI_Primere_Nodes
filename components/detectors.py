@@ -1465,8 +1465,11 @@ class DetailerForEach:
                         ae_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_aesthetic')
                         style_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_style')
                         if os.path.isdir(ae_model_access) == True and os.path.isdir(style_model_access) == True:
-                            original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {})['result'][0])
-                            enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {})['result'][0])
+                            try:
+                                original_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, cropped_image, True, False, None, {}, False)['result'][0])
+                                enhanced_score = int(Outputs.PrimereAestheticCKPTScorer.aesthetic_scorer(None, enhanced_image, True, False, None, {}, False)['result'][0])
+                            except ImportError:
+                                use_aesthetic_scorer = False
                         else:
                             use_aesthetic_scorer = False
                     else:

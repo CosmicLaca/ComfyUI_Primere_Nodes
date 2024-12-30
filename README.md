@@ -50,7 +50,7 @@ The main difference between **minimal** and **basic** workflows, that **basic** 
 
 - **Half-automatic model concept selector:**
   - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma, Sana (both 1024 and 512)
-  - Custom (and different) sampler settings for all concepts. The main ide that set sampler nodes only one time (`sampler`, `scheduler`, `step`, `cfg`) then just select model only what will use right sampler setting by `Model concept selector`. 
+  - Custom (and different) sampler settings for all concepts. The main idea is set sampler nodes only one time (`sampler`, `scheduler`, `step`, `cfg`) then just select model only what will use right sampler, vae, clip settings by `Model concept selector`. 
   - Auto detection of selected model type (if data already stored on external .json file, see longer [manual](Workflow/Manual/nodes/basic_workflow.md))
   - Auto **download** and apply Hyper, Lightning, and Turbo speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
 

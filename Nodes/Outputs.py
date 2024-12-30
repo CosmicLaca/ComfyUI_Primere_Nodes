@@ -920,7 +920,7 @@ class PrimereAestheticCKPTScorer:
             },
         }
 
-    def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, workflow_data = None, **kwargs):
+    def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, dual_mode = True, workflow_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
         models = []
         def pipe(model):
@@ -984,9 +984,13 @@ class PrimereAestheticCKPTScorer:
                     ae_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_aesthetic')
                     style_model_access = os.path.join(AE_MODEL_ROOT, 'cafe_style')
                     if os.path.isdir(ae_model_access) == True and os.path.isdir(style_model_access) == True:
-                        models.append({"pipe": pipe(ae_model_access), "weights": [0.0, 1.0], })
-                        models.append({"pipe": pipe(style_model_access), "weights": [1.0, 0.75, 0.5, 0.0, 0.0], })
-
+                        if dual_mode == True:
+                            models.append({"pipe": pipe(ae_model_access), "weights": [0.0, 1.0], })
+                            models.append({"pipe": pipe(style_model_access), "weights": [1.0, 0.75, 0.5, 0.0, 0.0], })
+                            final_divider = 2
+                        else:
+                            models.append({"pipe": pipe(ae_model_access), "weights": [0.0, 1.0], })
+                            final_divider = 1
                         try:
                             count = 1
                             pil_images = image.permute(0, 3, 1, 2)
@@ -1007,7 +1011,7 @@ class PrimereAestheticCKPTScorer:
                                     scores[index] += sum(score) / w_sum
                             scores = sorted(scores.items(), key=lambda k: k[1], reverse=True)[:count]
                             final_score = ", ".join([f"{v:.3f}" for k, v in scores])
-                            final_prediction = int((float(final_score) * 1000) / 2)
+                            final_prediction = int((float(final_score) * 1000) / final_divider)
                         except Exception:
                             final_prediction = '*** Invalid input image ***'
                     else:
