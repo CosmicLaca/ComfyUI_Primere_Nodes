@@ -68,6 +68,38 @@ class PrimereMidjourneyStyles:
 
         return (style_text_result[0], style_text_result[1],)
 
+class PrimereLensStyles:
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("STYLE+", "STYLE-")
+    FUNCTION = "lensstyles"
+    CATEGORY = TREE_STYLES
+
+    @ classmethod
+    def INPUT_TYPES(cls):
+        DEF_TOML_DIR = os.path.join(PRIMERE_ROOT, 'Toml')
+        STYLE_FILE = os.path.join(DEF_TOML_DIR, "lens_styles.toml")
+        STYLE_RESULT = stylehandler.toml2node(STYLE_FILE)
+        INPUT_DICT_FINAL = {'required': STYLE_RESULT[0]}
+        cls.STYLE_PROMPTS_POS = STYLE_RESULT[1]
+        cls.STYLE_PROMPTS_NEG = STYLE_RESULT[2]
+
+        INPUT_DICT_OPTIONAL = {
+            'optional': {
+                "opt_pos_style": ("STRING", {"forceInput": True}),
+                "opt_neg_style": ("STRING", {"forceInput": True}),
+            }
+        }
+
+        cls.INPUT_DICT_RESULT = utility.merge_dict(INPUT_DICT_FINAL, INPUT_DICT_OPTIONAL)
+        return cls.INPUT_DICT_RESULT
+
+    def lensstyles(self, opt_pos_style = None, opt_neg_style = None, **kwargs):
+        input_data = kwargs
+        original = self
+        style_text_result = StyleParser(opt_pos_style, opt_neg_style, input_data, original)
+
+        return (style_text_result[0], style_text_result[1],)
+
 class PrimereEmotionsStyles:
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("STYLE+", "STYLE-")
