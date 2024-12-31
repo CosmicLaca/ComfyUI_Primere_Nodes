@@ -90,6 +90,6 @@ The main difference between **basic production plus** and **basic production** w
 #### Same as Basic production workflow plus:
 
 - Post-processing nodes, have to install [Image magick](https://imagemagick.org/index.php) and [MagickWand nodepack](https://github.com/Fannovel16/ComfyUI-MagickWand)
-- Style nodes, including Midjourney style and emotions at `Style block` group
+- Several style nodes including `Midjourney style`, `Camera lenses`, `Style pile`, and `Emotions` at `Style block` group
 - 2 prompt inputs for DailyChallenges of AI image communities
 - Several refinements on nodes

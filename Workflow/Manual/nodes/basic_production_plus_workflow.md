@@ -37,6 +37,10 @@ Each category includes:
 - Stack multiple styles with precise control
 - Separate positive and negative style applications
 
+Example montage. The first pic made without style addition, all pics generated same seed and settings:
+
+<img src="montage_spile.jpg" width="600px">
+
 <hr>
 
 ### Midjourney styles:
@@ -71,7 +75,7 @@ As shown in the example images:
 2. Renaissance-style medieval scene with classical composition
 3. Blend of realism and romanticism in character portraits
 
-Example montage. The first pic made without style addition:
+Example montage. The first pic made without style addition, all pics generated same seed and settings:
 
 <img src="montage_mj.jpg" width="600px">
 
@@ -133,9 +137,13 @@ As shown in the example portraits:
 3. Subtle melancholic undertones
 4. Contemplative mood variation
 
-Example montage. The first pic made without style addition:
+Example montage. The first pic made without style addition, all pics generated same seed and settings:
 
 <img src="montage_emo.jpg" width="600px">
+
+One more montage of Emotion style node:
+
+<img src="montage_emo_1.jpg" width="600px">
 
 #### Usage Tips:
 
@@ -144,3 +152,68 @@ Example montage. The first pic made without style addition:
 3. Adjust strength (0.00-1.00) for intensity
 4. Layer multiple emotions for complexity
 5. Use with portrait-focused generations
+
+<hr>
+
+### Camera lens styles:
+
+<img src="pstyle_lens.jpg" width="400px">
+
+A custom node that enhances prompts with detailed camera lens characteristics for improved image generation results.
+
+#### Features:
+
+- Categorized lens presets by photography type
+- Detailed lens descriptions and technical specifications included to prompt 
+- Adjustable strength parameters
+- Manufacturer-specific presets
+
+#### Usage:
+
+1. Add "Primere Lens Styles" node to workflow
+2. Connect `opt_pos_style` for positive prompts
+3. Connect `opt_neg_style` for negative prompts 
+4. Select lens category
+5. Adjust strength (0.0-1.0)
+6. Choose specific lens preset
+
+### Categories:
+
+#### Art:
+- Circular Fisheye
+- Special Effects
+- Tilt-Shift
+
+#### Landscape: 
+- Wide Angle
+- Ultra-Wide
+- Panoramic
+
+#### Portrait:
+- Art Lens (Sony)
+- Bokeh Lens (Sony) 
+- Lightroom Lens (Fujifilm)
+- Low Light Lens (Sigma)
+- Macro Lens (Canon)
+- Portrait Lens (Nikon)
+- Prime Lens (Canon)
+- Telephoto Lens (Canon)
+- Vintage Lens (Nikon)
+- Zoom Lens (Tamron)
+
+#### Additional Categories (with seevral lens type):
+- Product
+- Sport
+- Street
+- Wildlife
+
+Example montage. The first pic made without style addition, all pics generated same seed and settings:
+
+<img src="montage_lens.jpg" width="600px">
+
+Example images demonstrate:
+- Bokeh effects
+- Background compression
+- Detail retention
+- Subject isolation
+- Color rendition
