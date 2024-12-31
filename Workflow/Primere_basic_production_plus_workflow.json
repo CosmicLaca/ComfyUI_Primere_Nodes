@@ -1,6 +1,6 @@
 {
-  "last_node_id": 349,
-  "last_link_id": 4113,
+  "last_node_id": 350,
+  "last_link_id": 4115,
   "nodes": [
     {
       "id": 19,
@@ -14,7 +14,7 @@
         340.2200012207031
       ],
       "flags": {},
-      "order": 67,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -855,7 +855,7 @@
         315.2659606933594
       ],
       "flags": {},
-      "order": 88,
+      "order": 89,
       "mode": 0,
       "inputs": [
         {
@@ -892,7 +892,7 @@
         302.75653076171875
       ],
       "flags": {},
-      "order": 92,
+      "order": 93,
       "mode": 0,
       "inputs": [
         {
@@ -929,7 +929,7 @@
         312.7527770996094
       ],
       "flags": {},
-      "order": 96,
+      "order": 97,
       "mode": 0,
       "inputs": [
         {
@@ -966,7 +966,7 @@
         554
       ],
       "flags": {},
-      "order": 90,
+      "order": 91,
       "mode": 0,
       "inputs": [
         {
@@ -1141,7 +1141,7 @@
         554
       ],
       "flags": {},
-      "order": 98,
+      "order": 99,
       "mode": 0,
       "inputs": [
         {
@@ -1316,7 +1316,7 @@
         554
       ],
       "flags": {},
-      "order": 94,
+      "order": 95,
       "mode": 0,
       "inputs": [
         {
@@ -1491,7 +1491,7 @@
         567.247314453125
       ],
       "flags": {},
-      "order": 65,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -1611,7 +1611,7 @@
         602
       ],
       "flags": {},
-      "order": 61,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -1710,7 +1710,7 @@
         602
       ],
       "flags": {},
-      "order": 66,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -1954,7 +1954,7 @@
         26
       ],
       "flags": {},
-      "order": 44,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -2011,7 +2011,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 60,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -2066,7 +2066,7 @@
         26
       ],
       "flags": {},
-      "order": 73,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -2117,7 +2117,7 @@
         26
       ],
       "flags": {},
-      "order": 75,
+      "order": 76,
       "mode": 0,
       "inputs": [
         {
@@ -2168,7 +2168,7 @@
         26
       ],
       "flags": {},
-      "order": 82,
+      "order": 83,
       "mode": 0,
       "inputs": [
         {
@@ -2215,7 +2215,7 @@
         340.7728271484375
       ],
       "flags": {},
-      "order": 52,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -2253,7 +2253,7 @@
         26
       ],
       "flags": {},
-      "order": 55,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -2454,7 +2454,7 @@
         26
       ],
       "flags": {},
-      "order": 99,
+      "order": 100,
       "mode": 0,
       "inputs": [
         {
@@ -2502,7 +2502,7 @@
         341.1094055175781
       ],
       "flags": {},
-      "order": 50,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -2540,7 +2540,7 @@
         1164.3389892578125
       ],
       "flags": {},
-      "order": 117,
+      "order": 118,
       "mode": 0,
       "inputs": [
         {
@@ -2582,7 +2582,7 @@
         158
       ],
       "flags": {},
-      "order": 58,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -2698,7 +2698,7 @@
         299.9018859863281
       ],
       "flags": {},
-      "order": 83,
+      "order": 84,
       "mode": 0,
       "inputs": [
         {
@@ -2734,7 +2734,7 @@
         46
       ],
       "flags": {},
-      "order": 77,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -2860,7 +2860,7 @@
         126
       ],
       "flags": {},
-      "order": 69,
+      "order": 70,
       "mode": 0,
       "inputs": [
         {
@@ -2910,7 +2910,7 @@
       },
       "widgets_values": [
         "",
-        2476635189,
+        1892898535,
         "randomize",
         "None",
         true,
@@ -2931,7 +2931,7 @@
         466.1705017089844
       ],
       "flags": {},
-      "order": 103,
+      "order": 104,
       "mode": 0,
       "inputs": [
         {
@@ -3124,7 +3124,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1548,
+        1292,
         "randomize",
         "",
         "",
@@ -3228,7 +3228,7 @@
         506
       ],
       "flags": {},
-      "order": 68,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -3322,7 +3322,7 @@
         54
       ],
       "flags": {},
-      "order": 51,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -3366,7 +3366,7 @@
       },
       "widgets_values": [
         "",
-        576874229104531,
+        618848980446399,
         "randomize"
       ],
       "color": "#145414",
@@ -3384,7 +3384,7 @@
         54
       ],
       "flags": {},
-      "order": 53,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -3428,7 +3428,7 @@
       },
       "widgets_values": [
         "",
-        12930179988783,
+        453765344885107,
         "randomize"
       ],
       "color": "#945454",
@@ -3446,7 +3446,7 @@
         54
       ],
       "flags": {},
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -3767,7 +3767,7 @@
         1294
       ],
       "flags": {},
-      "order": 56,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -4359,7 +4359,7 @@
         76
       ],
       "flags": {},
-      "order": 64,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -4397,7 +4397,7 @@
         76
       ],
       "flags": {},
-      "order": 47,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -4435,7 +4435,7 @@
         76
       ],
       "flags": {},
-      "order": 48,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -4714,7 +4714,7 @@
         154
       ],
       "flags": {},
-      "order": 46,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -4852,7 +4852,7 @@
         316.5337219238281
       ],
       "flags": {},
-      "order": 85,
+      "order": 86,
       "mode": 0,
       "inputs": [
         {
@@ -4890,7 +4890,7 @@
         302.9300842285156
       ],
       "flags": {},
-      "order": 89,
+      "order": 90,
       "mode": 0,
       "inputs": [
         {
@@ -4928,7 +4928,7 @@
         312.0014343261719
       ],
       "flags": {},
-      "order": 93,
+      "order": 94,
       "mode": 0,
       "inputs": [
         {
@@ -4966,7 +4966,7 @@
         642
       ],
       "flags": {},
-      "order": 87,
+      "order": 88,
       "mode": 0,
       "inputs": [
         {
@@ -5135,7 +5135,7 @@
         642
       ],
       "flags": {},
-      "order": 91,
+      "order": 92,
       "mode": 0,
       "inputs": [
         {
@@ -5388,7 +5388,7 @@
         58
       ],
       "flags": {},
-      "order": 108,
+      "order": 109,
       "mode": 0,
       "inputs": [
         {
@@ -5435,7 +5435,7 @@
         58
       ],
       "flags": {},
-      "order": 109,
+      "order": 110,
       "mode": 0,
       "inputs": [
         {
@@ -5482,7 +5482,7 @@
         46
       ],
       "flags": {},
-      "order": 104,
+      "order": 105,
       "mode": 0,
       "inputs": [
         {
@@ -5533,7 +5533,7 @@
         106
       ],
       "flags": {},
-      "order": 105,
+      "order": 106,
       "mode": 4,
       "inputs": [
         {
@@ -5623,7 +5623,7 @@
         130
       ],
       "flags": {},
-      "order": 106,
+      "order": 107,
       "mode": 0,
       "inputs": [
         {
@@ -5673,7 +5673,7 @@
         106
       ],
       "flags": {},
-      "order": 107,
+      "order": 108,
       "mode": 0,
       "inputs": [
         {
@@ -5722,7 +5722,7 @@
         642
       ],
       "flags": {},
-      "order": 84,
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -5891,7 +5891,7 @@
         158
       ],
       "flags": {},
-      "order": 42,
+      "order": 48,
       "mode": 4,
       "inputs": [
         {
@@ -5991,48 +5991,6 @@
       "bgcolor": "#804000"
     },
     {
-      "id": 262,
-      "type": "PrimereCKPT",
-      "pos": [
-        4823.8173828125,
-        -293.2762756347656
-      ],
-      "size": [
-        411.6023254394531,
-        98
-      ],
-      "flags": {},
-      "order": 27,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            3240
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "MODEL",
-          "type": "COMBO",
-          "links": null
-        }
-      ],
-      "properties": {},
-      "widgets_values": [
-        "SDXL\\realismRefinerGoldV1.safetensors"
-      ],
-      "color": "#945414",
-      "bgcolor": "#804000"
-    },
-    {
       "id": 285,
       "type": "PrimereAnyDetailer",
       "pos": [
@@ -6044,7 +6002,7 @@
         554
       ],
       "flags": {},
-      "order": 86,
+      "order": 87,
       "mode": 0,
       "inputs": [
         {
@@ -6219,7 +6177,7 @@
         642
       ],
       "flags": {},
-      "order": 95,
+      "order": 96,
       "mode": 0,
       "inputs": [
         {
@@ -6388,7 +6346,7 @@
         1133.0081787109375
       ],
       "flags": {},
-      "order": 80,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -6584,7 +6542,7 @@
         1132.6002197265625
       ],
       "flags": {},
-      "order": 78,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -6780,7 +6738,7 @@
         106
       ],
       "flags": {},
-      "order": 113,
+      "order": 114,
       "mode": 0,
       "inputs": [
         {
@@ -6831,7 +6789,7 @@
         258
       ],
       "flags": {},
-      "order": 112,
+      "order": 113,
       "mode": 4,
       "inputs": [
         {
@@ -6924,7 +6882,7 @@
         310.8936462402344
       ],
       "flags": {},
-      "order": 97,
+      "order": 98,
       "mode": 0,
       "inputs": [
         {
@@ -6962,7 +6920,7 @@
         312.5465393066406
       ],
       "flags": {},
-      "order": 100,
+      "order": 101,
       "mode": 0,
       "inputs": [
         {
@@ -7000,7 +6958,7 @@
         558
       ],
       "flags": {},
-      "order": 111,
+      "order": 112,
       "mode": 0,
       "inputs": [
         {
@@ -7125,7 +7083,7 @@
       },
       "widgets_values": [
         2.1,
-        728214362614844,
+        370330748586806,
         "randomize",
         7,
         6.5,
@@ -7149,242 +7107,6 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 193,
-      "type": "PrimereMetaCollector",
-      "pos": [
-        3942.304443359375,
-        2154.25927734375
-      ],
-      "size": [
-        541.65771484375,
-        454
-      ],
-      "flags": {},
-      "order": 63,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "CHECKPOINT_NAME",
-          "link": 2696,
-          "shape": 7
-        },
-        {
-          "name": "concept_data",
-          "type": "TUPLE",
-          "link": 3982,
-          "shape": 7
-        },
-        {
-          "name": "model_shapes",
-          "type": "TUPLE",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "vae_name_sd",
-          "type": "VAE_NAME",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "vae_name_sdxl",
-          "type": "VAE_NAME",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "preferred",
-          "type": "TUPLE",
-          "link": 3999,
-          "shape": 7
-        },
-        {
-          "name": "positive",
-          "type": "STRING",
-          "link": 4003,
-          "widget": {
-            "name": "positive"
-          }
-        },
-        {
-          "name": "negative",
-          "type": "STRING",
-          "link": 4000,
-          "widget": {
-            "name": "negative"
-          }
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 3575,
-          "widget": {
-            "name": "seed"
-          },
-          "shape": 7
-        },
-        {
-          "name": "positive_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "positive_l"
-          },
-          "shape": 7
-        },
-        {
-          "name": "negative_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "negative_l"
-          },
-          "shape": 7
-        },
-        {
-          "name": "positive_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "positive_r"
-          },
-          "shape": 7
-        },
-        {
-          "name": "negative_r",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "negative_r"
-          },
-          "shape": 7
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 2655,
-          "widget": {
-            "name": "model_version"
-          },
-          "shape": 7
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 3796,
-          "widget": {
-            "name": "model_concept"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sampler",
-          "type": "COMBO",
-          "link": 3780,
-          "widget": {
-            "name": "sampler"
-          },
-          "shape": 7
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "link": 3784,
-          "widget": {
-            "name": "scheduler"
-          },
-          "shape": 7
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 2660,
-          "widget": {
-            "name": "width"
-          },
-          "shape": 7
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 2661,
-          "widget": {
-            "name": "height"
-          },
-          "shape": 7
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 3792,
-          "widget": {
-            "name": "cfg"
-          },
-          "shape": 7
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 3788,
-          "widget": {
-            "name": "steps"
-          },
-          "shape": 7
-        },
-        {
-          "name": "aesthetic_score",
-          "type": "INT",
-          "link": null,
-          "widget": {
-            "name": "aesthetic_score"
-          },
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "METADATA",
-          "type": "TUPLE",
-          "links": [
-            2649
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaCollector",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "Red sportcar racing",
-        "Cute cat, nsfw, nude, nudity, porn",
-        208,
-        "randomize",
-        "",
-        "",
-        "",
-        "",
-        "BaseModel_1024",
-        "Normal",
-        "euler",
-        "normal",
-        512,
-        512,
-        7,
-        12,
-        0
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
-    },
-    {
       "id": 205,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -7396,7 +7118,7 @@
         399.2909851074219
       ],
       "flags": {},
-      "order": 72,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -7418,7 +7140,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        "38 years old sitting on the red leather sofa at minimalist designer luxury bedroom, black curly hair, professional half-body photography, perfect hands, perfect detailed face, small brown folds in the detailed natural skin. Stylish cyan color wall on the background, handmade modern minimalist abstract oil picture on the wall of woman portrait, luxury glass table in the middle of the room with cup of coffee., ((Baroque Art:0.80), (Nostalgia is a sentimentality for the past, typically for a period or place with happy personal associations. Nostalgia is associated with a longing for the past, personalities, possibilities, and events, especially the good old days or a warm childhood.:1.20), (Alphonse Mucha art nouveau masterpiece, characterized by flowing lines and intricate ornamentation:1.30):1.30), (detailed skin texture, (blush:0.2), (goosebumps:0.3), subsurface scattering:0.80)"
+        "((Use Sony FE 135mm f/1.8 GM lens, the camera lens created photo A premium lens for artistic portraits, offering stunning background separation:1.20), (Baroque Art:0.80), (Nostalgia is a sentimentality for the past, typically for a period or place with happy personal associations. Nostalgia is associated with a longing for the past, personalities, possibilities, and events, especially the good old days or a warm childhood.:1.20), (Alphonse Mucha art nouveau masterpiece, characterized by flowing lines and intricate ornamentation:1.35):1.30), 38 years old sitting on the red leather sofa at minimalist designer luxury bedroom, black curly hair, professional half-body photography, perfect hands, perfect detailed face, small brown folds in the detailed natural skin. Stylish cyan color wall on the background, handmade modern minimalist abstract oil picture on the wall of woman portrait, luxury glass table in the middle of the room with cup of coffee., (detailed skin texture, (blush:0.2), (goosebumps:0.3), subsurface scattering:0.80)"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -7435,7 +7157,7 @@
         362.4721984863281
       ],
       "flags": {},
-      "order": 76,
+      "order": 77,
       "mode": 0,
       "inputs": [
         {
@@ -7474,7 +7196,7 @@
         266.6734924316406
       ],
       "flags": {},
-      "order": 74,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -7513,7 +7235,7 @@
         26
       ],
       "flags": {},
-      "order": 102,
+      "order": 103,
       "mode": 0,
       "inputs": [
         {
@@ -7560,7 +7282,7 @@
         590
       ],
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7644,7 +7366,7 @@
         590
       ],
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7728,7 +7450,7 @@
         590
       ],
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7812,7 +7534,7 @@
         350
       ],
       "flags": {},
-      "order": 31,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -7904,7 +7626,7 @@
         566
       ],
       "flags": {},
-      "order": 32,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -8005,7 +7727,7 @@
         446
       ],
       "flags": {},
-      "order": 33,
+      "order": 32,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8099,7 +7821,7 @@
         642.6027221679688
       ],
       "flags": {},
-      "order": 35,
+      "order": 33,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8186,7 +7908,7 @@
         486.31854248046875
       ],
       "flags": {},
-      "order": 36,
+      "order": 34,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8270,7 +7992,7 @@
         78
       ],
       "flags": {},
-      "order": 37,
+      "order": 35,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8321,7 +8043,7 @@
         1133.062744140625
       ],
       "flags": {},
-      "order": 81,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -8517,7 +8239,7 @@
         1136.0081787109375
       ],
       "flags": {},
-      "order": 79,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -8713,7 +8435,7 @@
         338
       ],
       "flags": {},
-      "order": 59,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -8800,7 +8522,7 @@
         false,
         1.6,
         2.8,
-        632306590581574,
+        524930410879050,
         "randomize",
         "SD1",
         "Auto"
@@ -8820,7 +8542,7 @@
         3030
       ],
       "flags": {},
-      "order": 49,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -10137,7 +9859,7 @@
         73.16516876220703
       ],
       "flags": {},
-      "order": 38,
+      "order": 36,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -10162,7 +9884,7 @@
         262
       ],
       "flags": {},
-      "order": 110,
+      "order": 111,
       "mode": 0,
       "inputs": [
         {
@@ -10266,7 +9988,7 @@
         998
       ],
       "flags": {},
-      "order": 43,
+      "order": 47,
       "mode": 0,
       "inputs": [
         {
@@ -10575,7 +10297,7 @@
         124
       ],
       "flags": {},
-      "order": 39,
+      "order": 37,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -10609,7 +10331,7 @@
       "widgets_values": [
         "UseLast",
         214747998140357,
-        "Last seed: [804218438770225]"
+        "Last seed: [618676147928165]"
       ],
       "color": "#1414a2",
       "bgcolor": "#00008e"
@@ -10626,7 +10348,7 @@
         654
       ],
       "flags": {},
-      "order": 115,
+      "order": 116,
       "mode": 0,
       "inputs": [
         {
@@ -10703,7 +10425,7 @@
         654
       ],
       "flags": {},
-      "order": 116,
+      "order": 117,
       "mode": 0,
       "inputs": [
         {
@@ -10778,13 +10500,13 @@
         390
       ],
       "flags": {},
-      "order": 40,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
           "name": "opt_pos_style",
           "type": "STRING",
-          "link": null,
+          "link": 4114,
           "widget": {
             "name": "opt_pos_style"
           },
@@ -10793,7 +10515,7 @@
         {
           "name": "opt_neg_style",
           "type": "STRING",
-          "link": null,
+          "link": 4115,
           "widget": {
             "name": "opt_neg_style"
           },
@@ -10861,7 +10583,7 @@
         402
       ],
       "flags": {},
-      "order": 71,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -10967,7 +10689,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        780547905833477,
+        54748147825460,
         "randomize",
         20,
         8,
@@ -10997,7 +10719,7 @@
         222
       ],
       "flags": {},
-      "order": 41,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -11064,7 +10786,7 @@
         168
       ],
       "flags": {},
-      "order": 101,
+      "order": 102,
       "mode": 0,
       "inputs": [
         {
@@ -11121,7 +10843,7 @@
         426
       ],
       "flags": {},
-      "order": 62,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -11210,7 +10932,7 @@
         1.4000000000000001,
         0.8,
         1.4000000000000001,
-        520951502324332,
+        967010192961466,
         "randomize",
         true,
         "cuda",
@@ -11231,7 +10953,7 @@
         390
       ],
       "flags": {},
-      "order": 45,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -11303,59 +11025,73 @@
       "bgcolor": "#808040"
     },
     {
-      "id": 349,
-      "type": "PrimereMidjourneyStyles",
+      "id": 340,
+      "type": "PrimerePrompt",
       "pos": [
-        4664.74609375,
-        1360.3826904296875
+        787.0052490234375,
+        599
       ],
       "size": [
-        351.29998779296875,
-        582
+        436.2521057128906,
+        643.1478271484375
       ],
       "flags": {},
-      "order": 54,
+      "order": 39,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "type": "STRING",
-          "link": 4110,
-          "widget": {
-            "name": "opt_pos_style"
-          },
-          "shape": 7
-        },
-        {
-          "name": "opt_neg_style",
-          "type": "STRING",
-          "link": 4111,
-          "widget": {
-            "name": "opt_neg_style"
-          },
-          "shape": 7
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
-          "name": "STYLE+",
+          "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            4112
+            4009
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         },
         {
-          "name": "STYLE-",
+          "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            4113
+            4010
           ],
-          "slot_index": 1
+          "slot_index": 1,
+          "shape": 3
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2,
+          "shape": 3
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 3,
+          "shape": 3
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 4,
+          "shape": 3
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            4011
+          ],
+          "slot_index": 5,
+          "shape": 3
         }
       ],
+      "title": "Primere Prompt - PROD - SWITCH #2",
       "properties": {
-        "Node name for S&R": "PrimereMidjourneyStyles",
+        "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
         "tabXOffset": 10,
@@ -11365,33 +11101,293 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
+        "38 years old sitting on the red leather sofa at minimalist designer luxury bedroom, black curly hair, professional half-body photography, perfect hands, perfect detailed face, small brown folds in the detailed natural skin. Stylish cyan color wall on the background, handmade modern minimalist abstract oil picture on the wall of woman portrait, luxury glass table in the middle of the room with cup of coffee.",
+        "boring, simple, watermark, text, nsfw, porn nude, nudity",
+        "Stylish",
         "None",
-        1,
-        "Art::Nouveau::Alphonse Mucha",
-        1.3,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "",
-        ""
+        "Horizontal",
+        null
       ],
-      "color": "#949454",
-      "bgcolor": "#808040"
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 193,
+      "type": "PrimereMetaCollector",
+      "pos": [
+        3504.28466796875,
+        2649.1494140625
+      ],
+      "size": [
+        541.65771484375,
+        454
+      ],
+      "flags": {},
+      "order": 64,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "CHECKPOINT_NAME",
+          "link": 2696,
+          "shape": 7
+        },
+        {
+          "name": "concept_data",
+          "type": "TUPLE",
+          "link": 3982,
+          "shape": 7
+        },
+        {
+          "name": "model_shapes",
+          "type": "TUPLE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae_name_sd",
+          "type": "VAE_NAME",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae_name_sdxl",
+          "type": "VAE_NAME",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "preferred",
+          "type": "TUPLE",
+          "link": 3999,
+          "shape": 7
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 4003,
+          "widget": {
+            "name": "positive"
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 4000,
+          "widget": {
+            "name": "negative"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 3575,
+          "widget": {
+            "name": "seed"
+          },
+          "shape": 7
+        },
+        {
+          "name": "positive_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_l"
+          },
+          "shape": 7
+        },
+        {
+          "name": "negative_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_l"
+          },
+          "shape": 7
+        },
+        {
+          "name": "positive_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_r"
+          },
+          "shape": 7
+        },
+        {
+          "name": "negative_r",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_r"
+          },
+          "shape": 7
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 2655,
+          "widget": {
+            "name": "model_version"
+          },
+          "shape": 7
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 3796,
+          "widget": {
+            "name": "model_concept"
+          },
+          "shape": 7
+        },
+        {
+          "name": "sampler",
+          "type": "COMBO",
+          "link": 3780,
+          "widget": {
+            "name": "sampler"
+          },
+          "shape": 7
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": 3784,
+          "widget": {
+            "name": "scheduler"
+          },
+          "shape": 7
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 2660,
+          "widget": {
+            "name": "width"
+          },
+          "shape": 7
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 2661,
+          "widget": {
+            "name": "height"
+          },
+          "shape": 7
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 3792,
+          "widget": {
+            "name": "cfg"
+          },
+          "shape": 7
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 3788,
+          "widget": {
+            "name": "steps"
+          },
+          "shape": 7
+        },
+        {
+          "name": "aesthetic_score",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "aesthetic_score"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            2649
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaCollector",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "Red sportcar racing",
+        "Cute cat, nsfw, nude, nudity, porn",
+        321,
+        "randomize",
+        "",
+        "",
+        "",
+        "",
+        "BaseModel_1024",
+        "Normal",
+        "euler",
+        "normal",
+        512,
+        512,
+        7,
+        12,
+        0
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 262,
+      "type": "PrimereCKPT",
+      "pos": [
+        4823.8173828125,
+        -293.2762756347656
+      ],
+      "size": [
+        411.6023254394531,
+        98
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            3240
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "COMBO",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "Refiners\\realismRefinerGoldV1.safetensors"
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
     },
     {
       "id": 211,
@@ -11405,7 +11401,7 @@
         942
       ],
       "flags": {},
-      "order": 70,
+      "order": 71,
       "mode": 0,
       "inputs": [
         {
@@ -11665,7 +11661,7 @@
         1,
         "",
         1,
-        false,
+        true,
         "",
         1.3,
         "",
@@ -11681,6 +11677,180 @@
       "bgcolor": "#800000"
     },
     {
+      "id": 350,
+      "type": "PrimereLensStyles",
+      "pos": [
+        4309.74462890625,
+        1785.1158447265625
+      ],
+      "size": [
+        342.0473327636719,
+        390
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_pos_style"
+          },
+          "shape": 7
+        },
+        {
+          "name": "opt_neg_style",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_neg_style"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            4114
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            4115
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereLensStyles",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "None",
+        1,
+        "Portrait::Art Lens::Sony",
+        1.2,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "",
+        ""
+      ],
+      "color": "#949454",
+      "bgcolor": "#808040"
+    },
+    {
+      "id": 349,
+      "type": "PrimereMidjourneyStyles",
+      "pos": [
+        4664.74609375,
+        1360.3826904296875
+      ],
+      "size": [
+        351.29998779296875,
+        582
+      ],
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "type": "STRING",
+          "link": 4110,
+          "widget": {
+            "name": "opt_pos_style"
+          },
+          "shape": 7
+        },
+        {
+          "name": "opt_neg_style",
+          "type": "STRING",
+          "link": 4111,
+          "widget": {
+            "name": "opt_neg_style"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            4112
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            4113
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMidjourneyStyles",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "Art::Nouveau::Alphonse Mucha",
+        1.35,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "",
+        ""
+      ],
+      "color": "#949454",
+      "bgcolor": "#808040"
+    },
+    {
       "id": 79,
       "type": "PrimerePreviewImage",
       "pos": [
@@ -11692,7 +11862,7 @@
         1075.173583984375
       ],
       "flags": {},
-      "order": 114,
+      "order": 115,
       "mode": 0,
       "inputs": [
         {
@@ -11724,93 +11894,6 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 340,
-      "type": "PrimerePrompt",
-      "pos": [
-        787.0052490234375,
-        599
-      ],
-      "size": [
-        436.2521057128906,
-        643.1478271484375
-      ],
-      "flags": {},
-      "order": 34,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            4009
-          ],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            4010
-          ],
-          "slot_index": 1,
-          "shape": 3
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 2,
-          "shape": 3
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 3,
-          "shape": 3
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": [],
-          "slot_index": 4,
-          "shape": 3
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            4011
-          ],
-          "slot_index": 5,
-          "shape": 3
-        }
-      ],
-      "title": "Primere Prompt - PROD - SWITCH #2",
-      "properties": {
-        "Node name for S&R": "PrimerePrompt",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "38 years old sitting on the red leather sofa at minimalist designer luxury bedroom, black curly hair, professional half-body photography, perfect hands, perfect detailed face, small brown folds in the detailed natural skin. Stylish cyan color wall on the background, handmade modern minimalist abstract oil picture on the wall of woman portrait, luxury glass table in the middle of the room with cup of coffee.",
-        "boring, simple, watermark, text, nsfw, porn nude, nudity",
-        "Stylish",
-        "None",
-        "Horizontal",
-        null
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
     }
   ],
   "links": [
@@ -15253,6 +15336,22 @@
       211,
       15,
       "STRING"
+    ],
+    [
+      4114,
+      350,
+      0,
+      347,
+      0,
+      "STRING"
+    ],
+    [
+      4115,
+      350,
+      1,
+      347,
+      1,
+      "STRING"
     ]
   ],
   "groups": [
@@ -15470,8 +15569,8 @@
       "bounding": [
         3943.895263671875,
         1284.5947265625,
-        1081.048828125,
-        827.9297485351562
+        1083.4688720703125,
+        1134.0596923828125
       ],
       "color": "#808040",
       "font_size": 24,
@@ -15481,11 +15580,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": [
-        -92.8532307519447,
-        368.4642863837314
-      ]
+      "scale": 1.1,
+      "offset": {
+        "0": -2112.463134765625,
+        "1": -26.080732345581055
+      }
     }
   },
   "version": 0.4
