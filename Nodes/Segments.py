@@ -333,7 +333,7 @@ class PrimereAnyDetailer:
                  "force_inpaint": ("BOOLEAN", {"default": True, "label_on": "enabled", "label_off": "disabled"}),
 
                  "segment_settings": ("TUPLE",),
-                 "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
+                 # "cycle": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
                  "use_aesthetic_scorer": ("BOOLEAN", {"default": False, "label_on": "ignore_if_worse", "label_off": "always_refine"}),
             },
             "optional": {
@@ -352,9 +352,10 @@ class PrimereAnyDetailer:
     def enhance_image(image, model, clip, vae, guide_size, guide_size_for_bbox, seed_input, steps, cfg, sampler_name, scheduler_name,
                       positive, negative, denoise, feather, noise_mask, force_inpaint,
                       segment_settings, detector, segs,
-                      model_concept, cycle, use_aesthetic_scorer):
+                      model_concept, use_aesthetic_scorer, cycle = 1):
 
         max_size = round(guide_size * 1.1, 2)
+        cycle = 1
 
         detailer_hook = None
         wildcard_opt = None

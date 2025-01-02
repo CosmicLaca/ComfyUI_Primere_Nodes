@@ -1,6 +1,6 @@
 {
-  "last_node_id": 203,
-  "last_link_id": 3292,
+  "last_node_id": 205,
+  "last_link_id": 3319,
   "nodes": [
     {
       "id": 115,
@@ -1166,8 +1166,8 @@
           "links": [
             1233,
             1234,
-            2667,
-            3072
+            3072,
+            3305
           ]
         }
       ],
@@ -1247,12 +1247,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 2673
+          "link": 3312
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 2675
+          "link": 3314
         },
         {
           "name": "latent_image",
@@ -1341,7 +1341,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        483931770693837,
+        365218366840615,
         "randomize",
         20,
         8,
@@ -1570,7 +1570,7 @@
         {
           "name": "positive",
           "type": "STRING",
-          "link": 2677,
+          "link": 3316,
           "widget": {
             "name": "positive"
           }
@@ -1578,7 +1578,7 @@
         {
           "name": "negative",
           "type": "STRING",
-          "link": 2678,
+          "link": 3317,
           "widget": {
             "name": "negative"
           }
@@ -1594,7 +1594,7 @@
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": 2679,
+          "link": 3318,
           "widget": {
             "name": "positive_l"
           }
@@ -1602,7 +1602,7 @@
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 2680,
+          "link": 3319,
           "widget": {
             "name": "negative_l"
           }
@@ -1720,7 +1720,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1578,
+        34,
         "randomize",
         "",
         "",
@@ -1767,12 +1767,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 2674
+          "link": 3313
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 2676
+          "link": 3315
         },
         {
           "name": "vae",
@@ -1877,7 +1877,7 @@
       },
       "widgets_values": [
         2.1,
-        441738230436157,
+        1029186923121535,
         "randomize",
         7,
         6.5,
@@ -2388,283 +2388,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 191,
-      "type": "PrimereCLIPEncoder",
-      "pos": [
-        2267.55029296875,
-        94.02629852294922
-      ],
-      "size": [
-        342.94976806640625,
-        942
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 2663
-        },
-        {
-          "name": "model_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": 2664,
-          "shape": 7
-        },
-        {
-          "name": "lora_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": 2665,
-          "shape": 7
-        },
-        {
-          "name": "lycoris_keywords",
-          "type": "MODEL_KEYWORD",
-          "link": 2666,
-          "shape": 7
-        },
-        {
-          "name": "embedding_pos",
-          "type": "EMBEDDING",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "embedding_neg",
-          "type": "EMBEDDING",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "workflow_tuple",
-          "type": "TUPLE",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "model_version",
-          "type": "STRING",
-          "link": 2667,
-          "widget": {
-            "name": "model_version"
-          }
-        },
-        {
-          "name": "positive_prompt",
-          "type": "STRING",
-          "link": 3075,
-          "widget": {
-            "name": "positive_prompt"
-          }
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "link": 3077,
-          "widget": {
-            "name": "negative_prompt"
-          }
-        },
-        {
-          "name": "enhanced_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "enhanced_prompt"
-          },
-          "shape": 7
-        },
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 3218,
-          "widget": {
-            "name": "model_concept"
-          },
-          "shape": 7
-        },
-        {
-          "name": "opt_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_pos_prompt"
-          },
-          "shape": 7
-        },
-        {
-          "name": "opt_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "opt_neg_prompt"
-          },
-          "shape": 7
-        },
-        {
-          "name": "style_pos_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_pos_prompt"
-          },
-          "shape": 7
-        },
-        {
-          "name": "style_neg_prompt",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "style_neg_prompt"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_positive_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_positive_l"
-          },
-          "shape": 7
-        },
-        {
-          "name": "sdxl_negative_l",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "sdxl_negative_l"
-          },
-          "shape": 7
-        },
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 2671,
-          "widget": {
-            "name": "width"
-          },
-          "shape": 7
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 2672,
-          "widget": {
-            "name": "height"
-          },
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "COND+",
-          "type": "CONDITIONING",
-          "links": [
-            2673,
-            2674
-          ]
-        },
-        {
-          "name": "COND-",
-          "type": "CONDITIONING",
-          "links": [
-            2675,
-            2676
-          ]
-        },
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            2677
-          ]
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            2678
-          ]
-        },
-        {
-          "name": "T5XXL_PROMPT",
-          "type": "STRING",
-          "links": [
-            2679
-          ]
-        },
-        {
-          "name": "PROMPT L+",
-          "type": "STRING",
-          "links": [
-            2680
-          ]
-        },
-        {
-          "name": "PROMPT L-",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "WORKFLOW_TUPLE",
-          "type": "TUPLE",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCLIPEncoder",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "SD1",
-        "",
-        "",
-        true,
-        "Default",
-        "Default",
-        0,
-        1.2,
-        false,
-        "None",
-        1,
-        "None",
-        1,
-        true,
-        "mean",
-        "comfy++",
-        "",
-        "T5-XXL",
-        1,
-        "SD1",
-        "",
-        1,
-        "",
-        1,
-        false,
-        "",
-        1,
-        "",
-        1,
-        "",
-        "",
-        true,
-        1,
-        1024,
-        1024
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
-    },
-    {
       "id": 194,
       "type": "PrimereSamplersSteps",
       "pos": [
@@ -2894,7 +2617,7 @@
         1,
         0.8,
         1.4,
-        15066824724040,
+        956757756341481,
         "randomize",
         true,
         "cpu",
@@ -2959,7 +2682,7 @@
       },
       "widgets_values": [
         "",
-        360455967486837,
+        925119985832307,
         "randomize"
       ],
       "color": "#145414",
@@ -3021,7 +2744,7 @@
       },
       "widgets_values": [
         "",
-        151361517071036,
+        58149314397493,
         "randomize"
       ],
       "color": "#6c2c2c",
@@ -3300,7 +3023,7 @@
             812,
             814,
             2329,
-            2671
+            3310
           ],
           "slot_index": 0
         },
@@ -3311,7 +3034,7 @@
             815,
             817,
             2330,
-            2672
+            3311
           ],
           "slot_index": 1
         },
@@ -3343,7 +3066,7 @@
         false,
         1.6,
         2.8,
-        107321429674067,
+        91021480237124,
         "randomize",
         "SD1",
         "Auto"
@@ -3432,7 +3155,8 @@
         "human, man, woman, girl, nsfw, nude, nudity, porn",
         "SeassonBackground",
         "None",
-        "None"
+        "None",
+        null
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -3536,15 +3260,15 @@
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            3075,
-            3076
+            3076,
+            3307
           ]
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            3077
+            3308
           ]
         }
       ],
@@ -3641,7 +3365,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            2663
+            3301
           ],
           "slot_index": 1
         },
@@ -3664,14 +3388,14 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            2665
+            3303
           ]
         },
         {
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            2666
+            3304
           ]
         }
       ],
@@ -4568,7 +4292,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            2664
+            3302
           ],
           "slot_index": 0,
           "shape": 3
@@ -5424,8 +5148,8 @@
             3215,
             3216,
             3217,
-            3218,
-            3219
+            3219,
+            3309
           ]
         },
         {
@@ -6000,6 +5724,284 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
+    },
+    {
+      "id": 205,
+      "type": "PrimereCLIPEncoder",
+      "pos": [
+        2266.990234375,
+        94.4817123413086
+      ],
+      "size": [
+        344.0634460449219,
+        966
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3301
+        },
+        {
+          "name": "model_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 3302,
+          "shape": 7
+        },
+        {
+          "name": "lora_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 3303,
+          "shape": 7
+        },
+        {
+          "name": "lycoris_keywords",
+          "type": "MODEL_KEYWORD",
+          "link": 3304,
+          "shape": 7
+        },
+        {
+          "name": "embedding_pos",
+          "type": "EMBEDDING",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "embedding_neg",
+          "type": "EMBEDDING",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "workflow_tuple",
+          "type": "TUPLE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3305,
+          "widget": {
+            "name": "model_version"
+          }
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3307,
+          "widget": {
+            "name": "positive_prompt"
+          }
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 3308,
+          "widget": {
+            "name": "negative_prompt"
+          }
+        },
+        {
+          "name": "enhanced_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "enhanced_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "model_concept",
+          "type": "STRING",
+          "link": 3309,
+          "widget": {
+            "name": "model_concept"
+          },
+          "shape": 7
+        },
+        {
+          "name": "opt_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_pos_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "opt_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "opt_neg_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "style_pos_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_pos_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "style_neg_prompt",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "style_neg_prompt"
+          },
+          "shape": 7
+        },
+        {
+          "name": "positive_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "positive_l"
+          },
+          "shape": 7
+        },
+        {
+          "name": "negative_l",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "negative_l"
+          },
+          "shape": 7
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 3310,
+          "widget": {
+            "name": "width"
+          },
+          "shape": 7
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 3311,
+          "widget": {
+            "name": "height"
+          },
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            3312,
+            3313
+          ]
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            3314,
+            3315
+          ]
+        },
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            3316
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            3317
+          ]
+        },
+        {
+          "name": "T5XXL_PROMPT",
+          "type": "STRING",
+          "links": [
+            3318
+          ]
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": [
+            3319
+          ]
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCLIPEncoder",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "SD1",
+        "",
+        "",
+        true,
+        "Default",
+        "Default",
+        0,
+        1.2,
+        false,
+        "None",
+        1,
+        "None",
+        1,
+        false,
+        "mean",
+        "comfy++",
+        "",
+        "None",
+        1,
+        "SD1",
+        "",
+        1,
+        "",
+        1,
+        false,
+        false,
+        false,
+        "",
+        1,
+        "",
+        1,
+        "",
+        "",
+        1,
+        1024,
+        1024
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
     }
   ],
   "links": [
@@ -6476,126 +6478,6 @@
       "CHECKPOINT_NAME"
     ],
     [
-      2663,
-      132,
-      1,
-      191,
-      0,
-      "CLIP"
-    ],
-    [
-      2664,
-      41,
-      0,
-      191,
-      1,
-      "MODEL_KEYWORD"
-    ],
-    [
-      2665,
-      132,
-      5,
-      191,
-      2,
-      "MODEL_KEYWORD"
-    ],
-    [
-      2666,
-      132,
-      6,
-      191,
-      3,
-      "MODEL_KEYWORD"
-    ],
-    [
-      2667,
-      145,
-      3,
-      191,
-      7,
-      "STRING"
-    ],
-    [
-      2671,
-      131,
-      0,
-      191,
-      18,
-      "INT"
-    ],
-    [
-      2672,
-      131,
-      1,
-      191,
-      19,
-      "INT"
-    ],
-    [
-      2673,
-      191,
-      0,
-      137,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      2674,
-      191,
-      0,
-      177,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      2675,
-      191,
-      1,
-      137,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      2676,
-      191,
-      1,
-      177,
-      3,
-      "CONDITIONING"
-    ],
-    [
-      2677,
-      191,
-      2,
-      110,
-      6,
-      "STRING"
-    ],
-    [
-      2678,
-      191,
-      3,
-      110,
-      7,
-      "STRING"
-    ],
-    [
-      2679,
-      191,
-      4,
-      110,
-      9,
-      "STRING"
-    ],
-    [
-      2680,
-      191,
-      5,
-      110,
-      10,
-      "STRING"
-    ],
-    [
       3056,
       97,
       0,
@@ -6668,27 +6550,11 @@
       "STRING"
     ],
     [
-      3075,
-      199,
-      0,
-      191,
-      8,
-      "STRING"
-    ],
-    [
       3076,
       199,
       0,
       132,
       3,
-      "STRING"
-    ],
-    [
-      3077,
-      199,
-      1,
-      191,
-      9,
       "STRING"
     ],
     [
@@ -7372,14 +7238,6 @@
       "STRING"
     ],
     [
-      3218,
-      201,
-      5,
-      191,
-      11,
-      "STRING"
-    ],
-    [
       3219,
       201,
       5,
@@ -7970,6 +7828,150 @@
       201,
       69,
       "FLOAT"
+    ],
+    [
+      3301,
+      132,
+      1,
+      205,
+      0,
+      "CLIP"
+    ],
+    [
+      3302,
+      41,
+      0,
+      205,
+      1,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3303,
+      132,
+      5,
+      205,
+      2,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3304,
+      132,
+      6,
+      205,
+      3,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3305,
+      145,
+      3,
+      205,
+      7,
+      "STRING"
+    ],
+    [
+      3307,
+      199,
+      0,
+      205,
+      8,
+      "STRING"
+    ],
+    [
+      3308,
+      199,
+      1,
+      205,
+      9,
+      "STRING"
+    ],
+    [
+      3309,
+      201,
+      5,
+      205,
+      11,
+      "STRING"
+    ],
+    [
+      3310,
+      131,
+      0,
+      205,
+      18,
+      "INT"
+    ],
+    [
+      3311,
+      131,
+      1,
+      205,
+      19,
+      "INT"
+    ],
+    [
+      3312,
+      205,
+      0,
+      137,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      3313,
+      205,
+      0,
+      177,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      3314,
+      205,
+      1,
+      137,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      3315,
+      205,
+      1,
+      177,
+      3,
+      "CONDITIONING"
+    ],
+    [
+      3316,
+      205,
+      2,
+      110,
+      6,
+      "STRING"
+    ],
+    [
+      3317,
+      205,
+      3,
+      110,
+      7,
+      "STRING"
+    ],
+    [
+      3318,
+      205,
+      4,
+      110,
+      9,
+      "STRING"
+    ],
+    [
+      3319,
+      205,
+      5,
+      110,
+      10,
+      "STRING"
     ]
   ],
   "groups": [
@@ -8068,11 +8070,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8264462809917354,
-      "offset": {
-        "0": -896.948174167808,
-        "1": 231.98676760201803
-      }
+      "scale": 0.7513148009015777,
+      "offset": [
+        -2093.5094233938,
+        210.51413446913335
+      ]
     }
   },
   "version": 0.4

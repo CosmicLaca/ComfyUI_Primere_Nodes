@@ -1763,16 +1763,19 @@ class PrimereCLIP:
                 "opt_neg_prompt": ("STRING", {"forceInput": True}),
                 "opt_neg_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
 
-                "style_position": ("BOOLEAN", {"default": False, "label_on": "Top", "label_off": "Bottom"}),
+                "style_handling": ("BOOLEAN", {"default": False, "label_on": "Style-prompt separation", "label_off": "Style-prompt merge"}),
+                "style_position": ("BOOLEAN", {"default": False, "label_on": "Style to front of prompt", "label_off": "Style to end of prompt"}),
+                "style_swap": ("BOOLEAN", {"default": False, "label_on": "Style to default clip - prompt to T5/L", "label_off": "Style to T5/L - prompt to default clip"}),
+
                 "style_pos_prompt": ("STRING", {"forceInput": True}),
                 "style_pos_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "style_neg_prompt": ("STRING", {"forceInput": True}),
                 "style_neg_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
 
-                "sdxl_positive_l": ("STRING", {"forceInput": True}),
-                "sdxl_negative_l": ("STRING", {"forceInput": True}),
-                "copy_prompt_to_l": ("BOOLEAN", {"default": True}),
-                "sdxl_l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "positive_l": ("STRING", {"forceInput": True}),
+                "negative_l": ("STRING", {"forceInput": True}),
+                # "copy_prompt_to_l": ("BOOLEAN", {"default": True}),
+                "l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "workflow_tuple": ("TUPLE", {"default": None}),
@@ -1783,23 +1786,24 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, sdxl_l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", sdxl_positive_l="", sdxl_negative_l="", use_int_style=False, model_version="SD1", model_concept="Normal", workflow_tuple=None):
-        if model_concept == 'PixartSigma' or model_concept == 'StableCascade' or model_concept == 'Flux' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
+    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, model_version="SD1", model_concept="Normal", workflow_tuple=None):
+        copy_prompt_to_l = True
+
+        if model_concept == 'PixartSigma' or model_concept == 'StableCascade' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
             clip_mode = True
             clip_model = 'Default'
             longclip_model = 'Default'
 
-        if model_concept == 'StableCascade':
-            adv_encode = False
-
         if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
             model_version = 'SDXL'
 
-        if model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
+        if model_concept == 'StableCascade' or model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
             adv_encode = False
 
         if model_concept == 'Flux':
             last_layer = 0
+            clip_model = 'Default'
+            # longclip_model = 'Default'
 
         if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
             if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
@@ -1811,7 +1815,7 @@ class PrimereCLIP:
                     token_normalization = workflow_tuple['prompt_encoder']['token_normalization']
                     weight_interpretation = workflow_tuple['prompt_encoder']['weight_interpretation']
                     copy_prompt_to_l = workflow_tuple['prompt_encoder']['copy_prompt_to_l']
-                    sdxl_l_strength = workflow_tuple['prompt_encoder']['sdxl_l_strength']
+                    l_strength = workflow_tuple['prompt_encoder']['l_strength']
                     clip_model = workflow_tuple['prompt_encoder']['clip_model']
                     longclip_model = workflow_tuple['prompt_encoder']['longclip_model']
                     if 'use_int_style' in workflow_tuple['prompt_encoder']:
@@ -1828,6 +1832,10 @@ class PrimereCLIP:
                         enhanced_prompt_usage = workflow_tuple['prompt_encoder']['enhanced_prompt_usage']
                     if 'enhanced_prompt_strength' in workflow_tuple['prompt_encoder']:
                         enhanced_prompt_strength = workflow_tuple['prompt_encoder']['enhanced_prompt_strength']
+                    if 'style_handling' in workflow_tuple['prompt_encoder']:
+                        style_handling = workflow_tuple['prompt_encoder']['style_handling']
+                    if 'style_swap' in workflow_tuple['prompt_encoder']:
+                        style_swap = workflow_tuple['prompt_encoder']['style_swap']
                 if workflow_tuple['setup_states']['clip_optional_prompts'] == True:
                     opt_pos_prompt = workflow_tuple['prompt_encoder']['opt_pos_prompt']
                     opt_pos_strength = workflow_tuple['prompt_encoder']['opt_pos_strength']
@@ -1857,7 +1865,7 @@ class PrimereCLIP:
                 is_sdxl = 1
 
         t5xxl_prompt = ""
-        if len(enhanced_prompt) > 1:
+        if len(enhanced_prompt) > 5:
             match enhanced_prompt_usage:  # 'None', 'Add', 'Replace', 'T5-XXL'
                 case 'Add':
                     if enhanced_prompt_strength != 1:
@@ -1868,6 +1876,18 @@ class PrimereCLIP:
                     positive_prompt = enhanced_prompt
                 case 'T5-XXL':
                     t5xxl_prompt = enhanced_prompt
+        else:
+            if len(style_pos_prompt) > 5 and style_handling == True:
+                if style_swap == True:
+                    positive_prompt_tmp = positive_prompt
+                    positive_prompt = style_pos_prompt
+                    style_pos_prompt = positive_prompt_tmp
+
+                enhanced_prompt = style_pos_prompt
+                t5xxl_prompt = enhanced_prompt
+                style_pos_prompt = None
+                positive_l = style_pos_prompt
+                copy_prompt_to_l = False
 
         additional_positive = int_style_pos
         additional_negative = int_style_neg
@@ -1904,15 +1924,15 @@ class PrimereCLIP:
             copy_prompt_to_l = False
 
         if copy_prompt_to_l == True:
-            sdxl_positive_l = positive_prompt
-            sdxl_negative_l = negative_prompt
+            positive_l = positive_prompt
+            negative_l = negative_prompt
 
-        if sdxl_l_strength != 1:
-            sdxl_positive_l = f'({sdxl_positive_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
-            sdxl_negative_l = f'({sdxl_negative_l}:{sdxl_l_strength:.2f})'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
+        if l_strength != 1:
+            positive_l = f'({positive_l}:{l_strength:.2f})'.replace(":1.00", "") if positive_l is not None and positive_l.strip(' ,;') != '' else ''
+            negative_l = f'({negative_l}:{l_strength:.2f})'.replace(":1.00", "") if negative_l is not None and negative_l.strip(' ,;') != '' else ''
         else:
-            sdxl_positive_l = f'{sdxl_positive_l}'.replace(":1.00", "") if sdxl_positive_l is not None and sdxl_positive_l.strip(' ,;') != '' else ''
-            sdxl_negative_l = f'{sdxl_negative_l}'.replace(":1.00", "") if sdxl_negative_l is not None and sdxl_negative_l.strip(' ,;') != '' else ''
+            positive_l = f'{positive_l}'.replace(":1.00", "") if positive_l is not None and positive_l.strip(' ,;') != '' else ''
+            negative_l = f'{negative_l}'.replace(":1.00", "") if negative_l is not None and negative_l.strip(' ,;') != '' else ''
 
         if (style_pos_prompt.startswith('((') and style_pos_prompt.endswith('))')):
             style_pos_prompt = '(' + style_pos_prompt.strip('()') + ')'
@@ -2262,10 +2282,10 @@ class PrimereCLIP:
             workflow_tuple['prompt_encoder']['style_neg_strength'] = style_neg_strength
 
             if copy_prompt_to_l == False:
-                workflow_tuple['prompt_encoder']['sdxl_positive_l'] = sdxl_positive_l
-                workflow_tuple['prompt_encoder']['sdxl_negative_l'] = sdxl_negative_l
+                workflow_tuple['prompt_encoder']['positive_l'] = positive_l
+                workflow_tuple['prompt_encoder']['negative_l'] = negative_l
             workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
-            workflow_tuple['prompt_encoder']['sdxl_l_strength'] = sdxl_l_strength
+            workflow_tuple['prompt_encoder']['l_strength'] = l_strength
 
         if clip_model != 'Default' and clip_mode == True:
             if is_sdxl == 1:
@@ -2296,8 +2316,8 @@ class PrimereCLIP:
                 return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
             else:
                 # tokens_p = clip.tokenize(positive_text)
-                if 'l' in clip.tokenize(sdxl_positive_l):
-                    tokens_p["l"] = clip.tokenize(sdxl_positive_l)["l"]
+                if 'l' in clip.tokenize(positive_l):
+                    tokens_p["l"] = clip.tokenize(positive_l)["l"]
                     if len(tokens_p["l"]) != len(tokens_p["g"]):
                         empty = clip.tokenize("")
                         while len(tokens_p["l"]) < len(tokens_p["g"]):
@@ -2306,8 +2326,8 @@ class PrimereCLIP:
                             tokens_p["g"] += empty["g"]
 
                 # tokens_n = clip.tokenize(negative_text)
-                if 'l' in clip.tokenize(sdxl_negative_l):
-                    tokens_n["l"] = clip.tokenize(sdxl_negative_l)["l"]
+                if 'l' in clip.tokenize(negative_l):
+                    tokens_n["l"] = clip.tokenize(negative_l)["l"]
 
                     if len(tokens_n["l"]) != len(tokens_n["g"]):
                         empty = clip.tokenize("")
@@ -2319,7 +2339,7 @@ class PrimereCLIP:
                 cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
                 cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
 
-                return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, sdxl_positive_l, sdxl_negative_l, workflow_tuple)
+                return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, positive_l, negative_l, workflow_tuple)
 
         else:
             if clip_mode == True:
@@ -2328,7 +2348,7 @@ class PrimereCLIP:
                     FLUX_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_sampler', prompt)
                     FLUX_GUIDANCE = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt)
                     if FLUX_GUIDANCE is None:
-                        FLUX_GUIDANCE = 1.7
+                        FLUX_GUIDANCE = 2
                     if FLUX_SAMPLER == 'ksampler':
                         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
                         if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
@@ -2337,7 +2357,7 @@ class PrimereCLIP:
                             CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
                     else:
-                        if enhanced_prompt_usage == 'T5-XXL' and len(t5xxl_prompt) > 5:
+                        if (enhanced_prompt_usage == 'T5-XXL' or style_handling == True) and len(t5xxl_prompt) > 5:
                             CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
                             return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
