@@ -211,7 +211,7 @@ def default_decoder(sample: Dict[str, Any], format: Optional[Union[bool, str]] =
         elif extension in ["pt", "pth"]:
             import torch
 
-            sample[key] = torch.load(stream)
+            sample[key] = torch.load(stream, map_location="cpu", weights_only=False)
         elif extension in ["pickle", "pkl"]:
             import pickle
 

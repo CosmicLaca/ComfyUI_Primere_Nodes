@@ -73,7 +73,7 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
     if model_path.endswith(".safetensors"):
         state_dict = load_file(model_path, device="cpu")
     else:
-        state_dict = torch.load(model_path, map_location="cpu")
+        state_dict = torch.load(model_path, map_location="cpu", weights_only=False)
     
     model = build_model(state_dict or model.state_dict(), load_from_clip=False).to(device)
 
@@ -231,7 +231,7 @@ def load_from_clip(name: str, device: Union[str, torch.device] = "cuda" if torch
             if jit:
                 warnings.warn(f"File {model_path} is not a JIT archive. Loading as a state dict instead")
                 jit = False
-            state_dict = torch.load(opened_file, map_location="cpu")
+            state_dict = torch.load(opened_file, map_location="cpu", weights_only=False)
 
     model = build_model(state_dict or model.state_dict(), load_from_clip = True).to(device)
         

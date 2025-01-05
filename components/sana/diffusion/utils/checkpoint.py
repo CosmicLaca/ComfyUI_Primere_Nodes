@@ -106,7 +106,7 @@ def load_checkpoint(
     else:
         state_dict = checkpoint.get("state_dict", checkpoint)  # to be compatible with the official checkpoint
 
-    null_embed = torch.load(null_embed_path, map_location="cpu")
+    null_embed = torch.load(null_embed_path, map_location="cpu", weights_only=False)
     state_dict["y_embedder.y_embedding"] = null_embed["uncond_prompt_embeds"][0]
     rng_state = checkpoint.get("rng_state", None)
 

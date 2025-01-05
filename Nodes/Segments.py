@@ -25,7 +25,7 @@ class PrimereImageSegments:
     GDINO = {}
     SAMS = {}
 
-    BBOX['UBBOX_FACE_YOLOV8M'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt?download=true'
+    '''BBOX['UBBOX_FACE_YOLOV8M'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt?download=true'
     BBOX['UBBOX_FACE_YOLOV8N'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt?download=true'
     BBOX['UBBOX_FACE_YOLOV8N_V2'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n_v2.pt?download=true'
     BBOX['UBBOX_FACE_YOLOV8S'] = 'https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8s.pt?download=true'
@@ -59,7 +59,7 @@ class PrimereImageSegments:
 
     SAMS['SAM_VIT_B_01EC64'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_b_01ec64.pth?download=true'
     SAMS['SAM_VIT_H_4B8939'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_h_4b8939.pth?download=true'
-    SAMS['SAM_VIT_L_0B3195'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_l_0b3195.pth?download=true'
+    SAMS['SAM_VIT_L_0B3195'] = 'https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_l_0b3195.pth?download=true'''''
 
     BBOX_PATH = os.path.join(folder_paths.models_dir, 'ultralytics', 'bbox')
     SEGM_PATH = os.path.join(folder_paths.models_dir, 'ultralytics', 'segm')
@@ -71,7 +71,7 @@ class PrimereImageSegments:
     SAMS_FULL_LIST = folder_paths.get_filename_list("sams")
     SAMS_LIST = folder_paths.filter_files_extensions(SAMS_FULL_LIST, ['.pth'])
 
-    if os.path.exists(BBOX_PATH) == False:
+    '''if os.path.exists(BBOX_PATH) == False:
         Path(BBOX_PATH).mkdir(parents=True, exist_ok=True)
     for BBOX_KEY in BBOX:
         FileUrl = BBOX[BBOX_KEY]
@@ -109,7 +109,7 @@ class PrimereImageSegments:
         TargetFilename = os.path.basename(pathparser.path)
         FullFilePath = os.path.join(SAMS_PATH, TargetFilename)
         if os.path.isfile(FullFilePath) == False:
-            ModelDownload = utility.downloader(FileUrl, FullFilePath)
+            ModelDownload = utility.downloader(FileUrl, FullFilePath)'''
 
     BBOX_DIR = os.path.join(folder_paths.models_dir, 'ultralytics', 'bbox')
     SEGM_DIR = os.path.join(folder_paths.models_dir, 'ultralytics', 'segm')
