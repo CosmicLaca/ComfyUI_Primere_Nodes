@@ -1,6 +1,7 @@
 import comfy.ops
 import torch
 import folder_paths
+import os
 
 try:
     from bitsandbytes.nn.modules import Params4bit, QuantState
@@ -172,5 +173,7 @@ class CheckpointLoaderNF4:
 class UNETLoaderNF4:
     def load_nf4unet(unet_name):
         unet_path = folder_paths.get_full_path("unet", unet_name)
+        if unet_path is None and os.path.isfile(unet_name):
+            unet_path = unet_name
         model = comfy.sd.load_diffusion_model(unet_path, model_options={"custom_operations": OPS})
         return (model,)

@@ -885,6 +885,8 @@ def BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selec
 
     if model_concept == 'Hyper' and lightningModeValid == True and lightning_selector == 'UNET' and unet_name is not None:
         unet_path = folder_paths.get_full_path("unet", unet_name)
+        if unet_path is None and os.path.isfile(unet_name):
+            unet_path = unet_name
         OUTPUT_MODEL = comfy.sd.load_checkpoint_guess_config(unet_path)
 
     return OUTPUT_MODEL

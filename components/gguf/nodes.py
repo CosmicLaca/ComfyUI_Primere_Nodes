@@ -8,6 +8,7 @@ import comfy.utils
 import comfy.model_patcher
 import comfy.model_management
 import folder_paths
+import os
 
 from .ops import GGMLOps, move_patch_to_device
 from .loader import gguf_sd_loader, gguf_clip_loader
@@ -129,6 +130,8 @@ class UnetLoaderGGUF:
 
         # init model
         unet_path = folder_paths.get_full_path("unet", unet_name)
+        if unet_path is None and os.path.isfile(unet_name):
+            unet_path = unet_name
         sd = gguf_sd_loader(unet_path)
         model = comfy.sd.load_diffusion_model_state_dict(
             sd, model_options={"custom_operations": ops}
