@@ -13,7 +13,7 @@ from .Nodes import Networks
 from .Nodes import Segments
 import shutil
 
-__version__ = "1.0.6"
+__version__ = "1.0.7"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
