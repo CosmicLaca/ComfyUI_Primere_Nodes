@@ -399,6 +399,12 @@ async def primere_get_filelinks(request):
                 # comfyModelDir = os.path.join(utility.comfy_dir, 'models')
                 comfyModelDir = str(Path(folder_paths.folder_names_and_paths[subdirKey][0][0]).parent)
                 modelType = str(singleFile_link)[len(comfyModelDir) + 1:str(singleFile_link).find('\\', len(comfyModelDir) + 1)]
+                linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                if str(Path(linkName_U).stem + '\\') in str(singleFile_link):
+                    modelType = str(Path(linkName_U).stem)
+                if str(Path(linkName_D).stem + '\\') in str(singleFile_link):
+                    modelType = str(Path(linkName_D).stem)
                 filelinktypes[filenameonly] = modelType
 
     PromptServer.instance.send_sync("FileLinkData", filelinktypes)

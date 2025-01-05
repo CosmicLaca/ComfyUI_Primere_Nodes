@@ -1055,6 +1055,12 @@ class PrimereCKPTLoader:
                             linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                             linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                             linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+
+                            if str(Path(linkName_U).stem) in linkedFileName:
+                                linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                            if str(Path(linkName_D).stem) in linkedFileName:
+                                linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+
                             MODEL_C_CAS = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
                     else:
                         MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
@@ -1073,6 +1079,10 @@ class PrimereCKPTLoader:
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                         linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                         sd3_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        if str(Path(linkName_U).stem) in sd3_gguf:
+                            sd3_gguf = sd3_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
+                        if str(Path(linkName_D).stem) in sd3_gguf:
+                            sd3_gguf = sd3_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
 
             case 'Flux':
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
@@ -1089,6 +1099,11 @@ class PrimereCKPTLoader:
                                     linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                                     linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                                     flux_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+
+                                    if str(Path(linkName_U).stem) in flux_gguf:
+                                        flux_gguf = flux_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
+                                    if str(Path(linkName_D).stem) in flux_gguf:
+                                        flux_gguf = flux_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
 
                     match flux_selector:
                         case 'DIFFUSION':
@@ -1113,6 +1128,12 @@ class PrimereCKPTLoader:
                                 linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                                 linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                                 linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+
+                                if str(Path(linkName_U).stem) in linkedFileName:
+                                    linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                                if str(Path(linkName_D).stem) in linkedFileName:
+                                    linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+
                                 if 'diffusion_models' in str(File_link):
                                     model_ext = os.path.splitext(linkedFileName)[1].lower()
                                     if model_ext == '.gguf':
@@ -1265,6 +1286,10 @@ class PrimereCKPTLoader:
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                         linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                         linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        if str(Path(linkName_U).stem) in linkedFileName:
+                            linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                        if str(Path(linkName_D).stem) in linkedFileName:
+                            linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
                         LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
                 OUTPUT_MODEL = LOADED_CHECKPOINT[0]
 
