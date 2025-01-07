@@ -151,7 +151,7 @@ Remember: The effectiveness of prompt enhancement depends on both model selectio
 
 ## Components Overview:
 
-This powerful image refinement system consists of three specialized nodes working together to provide precise control over image enhancement:
+This powerful image refinement system consists of four specialized nodes working together to provide precise control over image enhancement:
 
 1. Primere Refiner Prompt
 2. Primere Image Segments
@@ -167,6 +167,7 @@ Test workflow: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Workflow\civ
 - Model and VAE selection for refiners only
 - Network adapter support (LoRA, LyCORIS, Embeddings, Hypernetworks)
 - Concept-specific processing controls (you can on off refining process for Flux, Cascade, or any other supported model concepts)
+- DeepFace analyzer folow age, race, gender and mood if required models avalilable
 
 ### Positive/Negative Prompting for refiners:
 ```plaintext
@@ -208,11 +209,12 @@ You can mix the original positive and negative prompts to refining process with 
 **This Python module change another modules by version. Make backup of your current Python libs before install DeepFace. If something wrong after installed DeepFace, just revert back the updated Python libs to previous state from backup.**
 
 #### DeepFace installation:
-- Backup your current Pythin libraries
-- Use `pip install deepface` on terminal, but dont't forget to activate virtual environment
-- Start comfy, and if failed bcause library versions changed, just copy back the original version from backup
+- Backup your current Python libraries
+- Use `pip install deepface` on terminal, but dont't forget to activate virtual environment before
+- Start comfy, and if failed because Python library versions changed, just copy back the original version from backup
 - Download 4 required weights: `'age_model_weights.h5', 'facial_expression_model_weights.h5', 'gender_model_weights.h5', 'race_model_single_batch.h5'` from here: https://github.com/serengil/deepface_models/releases/ and save them to this folder: `[comfypath]\models\deepface\.deepface\weights\`
 - Use four On/Off switches of analyzer to compare results
+- Check difference between on/off states using same prompt and seed
 
 #### Examples:
 Face detailer without analyzer:
@@ -327,6 +329,8 @@ Remember: Fine-tune these settings based on your specific use case and desired o
 #### Hands, but aesthetic scorer automatically ignored the second:
 <img src="refiner_block_hands2.jpg" width="500px">
 
+#### Auto model downloader deleted, you must download segmentation models manually and save them to right path. [Here are examples what to download and where to save](segment_model_download.md)
+
 <hr>
 
 # <ins>DiT Prompt Purifier Node:</ins>
@@ -344,7 +348,7 @@ The DiT Prompt Purifier node automatically cleans and optimizes prompts for mode
 - Selective cleaning based on model Architecture
 - Incompatible weight and structure removal
 
-### Cleaning Operations
+### Cleaning Operations:
 
 #### Removes:
 - Prompt weights (e.g., `(element:1.2)`)

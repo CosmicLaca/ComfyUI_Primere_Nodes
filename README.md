@@ -4,7 +4,7 @@
 
 **Primere Youtube channel:** https://www.youtube.com/@PrimereComfydev/videos
 
-**Install 3rd party nodepack depencency:** https://github.com/city96/ComfyUI_ExtraModels
+**Install required party nodepack depencency:** https://github.com/city96/ComfyUI_ExtraModels
 
 <hr>
 
@@ -31,8 +31,10 @@ After nodepack update of **12/3/2024 - v1.0.2** ComfyUI front-end must be update
 - Prompt encoder with selectable custom clip model, long-clip mode with custom models, advanced encoding, injectable internal styles, last-layer options
 - Sampler with `variation extender` and `Align Your Step` features
 - A1111 style network injection supported by text prompt (Lora, Lycorys, Hypernetwork, Embedding)
-- Automatized and manual image saver. Manual image saver with optional **preview saver** for checkpoint selector and saved .csv prompts
+- Automatized and manual image saver. Manual image saver with optional **preview saver** for checkpoint (Lora, Lycoris, Embedding) selectors and saved .csv prompts
 - Upscaler (selectable Ultimate SD and hiresFix)
+- Dynamic prompt support
+- Auto clean incompatible network tags from prompt by model arhitechture
 
 <hr>
 
@@ -49,7 +51,7 @@ The main difference between **minimal** and **basic** workflows, that **basic** 
 #### Same as Minimal workflow plus:
 
 - **Half-automatic model concept selector:**
-  - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma, Sana (both 1024 and 512)
+  - **Supported concepts:** SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan DiT (image only), Playground, Pony, LCM, Lightning, Hyper, PixartSigma, Sana (both 1024 and 512)
   - Custom (and different) sampler settings for all concepts. The main idea is set sampler nodes only one time (`sampler`, `scheduler`, `step`, `cfg`) then just select model only what will use right sampler, vae, clip settings by `Model concept selector`. 
   - Auto detection of selected model type (if data already stored on external .json file, see longer [manual](Workflow/Manual/nodes/basic_workflow.md))
   - Auto **download** and apply Hyper, Lightning, and Turbo speed loras at first usage from here: https://huggingface.co/ByteDance/Hyper-SD/tree/main **check your SSD space before!**
@@ -72,8 +74,8 @@ The main difference between **basic production** and **basic** workflows, that *
 
 - Added 4 test and 4 development prompt inputs, easy to switch
 - Local LLM models can help refine/repair prompts. Refined prompts can be added to original, replace original, or keep original as L prompt but send refined to T5-XXL clip is avalable in clip encoder node 
-- Customizable refiner blocks for face, eye, mouth, and hand refining. These nodes automatically downloads required segmentator models, check space before first usage
-- Refiner blocks using [DeepFace analyzer](https://github.com/serengil/deepface) if needed
+- Customizable refiner blocks for face, eye, mouth, and hand refining. Auto segmentation model downloads deleted, manual model download required
+- Refiner blocks using [DeepFace analyzer](https://github.com/serengil/deepface) if needed, detect age, race, gender and mood
 
 <hr>
 

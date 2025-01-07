@@ -259,12 +259,12 @@ This sophisticated prompt encoder node offers extensive control over prompt proc
 - `clip_mode`: Toggle between standard CLIP and Long-CLIP processing
   - `clip_model/longclip_model`: Model selection based on clip_mode switch
 - `last_layer`: Fine-tune CLIP encoding by selecting specific negative layers for feature extraction
-- `negative_strength`: Adjusts the intensity of negative prompt influence
+- `negative_strength`: Adjusts the intensity of negative prompt influence (if the selected model support)
 
 ### Style System:
 - `use_int_style`: Enables internal style system loaded from external .toml configurations from the path: `Toml/default_neg.toml` and `Toml/default_pos.toml`
-  - `int_style_pos/neg`: Select predefined styles by name
-  - `int_style_pos/neg_strength`: Control strength of applied styles
+  - `int_style_pos/int_style_neg`: Select predefined styles by name
+  - `int_style_pos_strengt/int_style_neg_strength`: Control strength of applied styles
 
 ### Advanced Encoding Options:
 - `adv_encode`: Enables alternative (advanced) CLIP encoding methodology
@@ -279,11 +279,16 @@ This sophisticated prompt encoder node offers extensive control over prompt proc
   - `T5-XXL`: Uses enhanced prompt input for T5-XXL encoding if concept support T5 clipping
 - `enhanced_prompt_strength`: Controls enhanced prompt influence if added to original positive prompt
 
-### Additional Controls:
-- `style_position`: Placement of additional style prompts (Top/Bottom)
-  - `opt_pos/neg_strength`: Fine-tune optional prompt strengths
-- `copy_prompt_to_l`: Enables SDXL first-pass prompt copying
-  - `sdxl_l_strength`: Controls SDXL first-pass prompt intensity
+### Additional Style Controls:
+- `style_handling`: Separate or merge styles with original prompt
+#### If style and prompt merged:
+- `style_position`: Placement of additional style (Top/Bottom)
+#### If style and prompt separated: 
+- `style_swap`: Style send to default clip, prompt send to T5/L encoder or Style send to T5/L, prompt send to default clip
+
+### Optional prompt handling:
+- `opt_pos_strength/opt_neg_strength`: Fine-tune optional prompt strengths
+- `l_strength`: Controls SDXL first-pass prompt intensity id L prompt connected to node
 
 <hr>
 
