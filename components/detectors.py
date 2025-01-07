@@ -1457,6 +1457,7 @@ class DetailerForEach:
             original_score = 0
             enhanced_score = 0
             asthetic_hysteresis = 50
+
             if use_aesthetic_scorer == True:
                 AE_MODEL_ROOT = os.path.join(folder_paths.models_dir, 'aesthetic')
                 AEMODELS_ENCODERS_PATHS = utility.getValidAscorerPaths(AE_MODEL_ROOT)

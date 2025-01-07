@@ -455,7 +455,7 @@ class PrimereAnyDetailer:
             else:
                 guide_size = round(math.sqrt(full_area), 2)
 
-            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed_input + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, cycle, use_aesthetic_scorer)
+            enhanced_img, cropped_enhanced, cropped_enhanced_alpha, mask, cnet_pil_list = PrimereAnyDetailer.enhance_image(single_image.unsqueeze(0), model, clip, vae, guide_size, guide_size_for_box, seed_input + i, steps, cfg, sampler_name, scheduler_name, positive, negative, denoise, feather, noise_mask, force_inpaint, segment_settings, detector, segs, model_concept, use_aesthetic_scorer, cycle)
 
             result_img = torch.cat((result_img, enhanced_img), dim=0) if result_img is not None else enhanced_img
             result_mask = torch.cat((result_mask, mask), dim=0) if result_mask is not None else mask
