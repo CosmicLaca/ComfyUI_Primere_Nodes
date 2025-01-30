@@ -9,10 +9,17 @@ import json
 import random
 import re
 from ..components import utility
+import folder_paths
 
 class PromptEnhancerLLM:
     def __init__(self, model_path: str = "flan-t5-small"):
-        model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', model_path)
+        PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+        ROOT_PATH = PRIMERE_CUSTOMPATH
+        COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'text_encoders')
+        model_access = os.path.join(PRIMERE_CUSTOMPATH, model_path)
+        if os.path.isdir(model_access) == False:
+            model_access = os.path.join(COMFY_LLM_PATH, model_path)
+            ROOT_PATH = COMFY_LLM_PATH
         self.model_path = model_path
         self.model_fullpath = model_access
         self.device = torch.cuda.current_device()  # "cuda" if torch.cuda.is_available() else "cpu"
@@ -20,8 +27,8 @@ class PromptEnhancerLLM:
         if '-promptenhancing' in self.model_path.lower() and '-instruct' in self.model_path.lower():
             baseRepo = self.model_path[:self.model_path.lower().index("-promptenhancing")]
             loraRepo = self.model_path
-            model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', baseRepo)
-            lora_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', loraRepo)
+            model_access = os.path.join(ROOT_PATH, baseRepo)
+            lora_access = os.path.join(ROOT_PATH, loraRepo)
 
             self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
             self.model = AutoModelForCausalLM.from_pretrained(model_access, torch_dtype=torch.bfloat16).to(self.device)
@@ -320,7 +327,12 @@ class PromptEnhancerLLM:
             return False
 
 def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default"):
-    model_access = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM', modelKey)
+    PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+    COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'text_encoders')
+    model_access = os.path.join(PRIMERE_CUSTOMPATH, modelKey)
+    if os.path.isdir(model_access) == False:
+        model_access = os.path.join(COMFY_LLM_PATH, modelKey)
+
     if os.path.isdir(model_access) == True:
         enhancer = PromptEnhancerLLM(modelKey)
         promptInput = utility.DiT_cleaner(promptInput)

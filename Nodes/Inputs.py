@@ -333,8 +333,10 @@ class PrimereLLMEnhancer:
     FUNCTION = "prompt_enhancer"
     CATEGORY = TREE_INPUTS
 
-    model_root = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
-    valid_llm_path = llm_enhancer.getValidLLMPaths(model_root)
+    TENC_DIR = os.path.join(folder_paths.models_dir, 'text_encoders')
+    LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
+    valid_llm_path = llm_enhancer.getValidLLMPaths(TENC_DIR)
+    valid_llm_path += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
     configurators = ['Default'] + llm_enhancer.getConfigKeys()
     if configurators == None:
         configurators = ['Default']
