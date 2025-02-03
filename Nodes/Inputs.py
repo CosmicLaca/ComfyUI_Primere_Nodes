@@ -363,6 +363,40 @@ class PrimereLLMEnhancer:
 
         return (prompt, enhanced_result,)
 
+class PrimereImgToPrompt:
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("PROMPT",)
+    FUNCTION = "img_to_prompt"
+    CATEGORY = TREE_INPUTS
+
+    T2I_DIR = os.path.join(folder_paths.models_dir, 'img2text')
+    valid_t2i_path = llm_enhancer.getValidLLMPaths(T2I_DIR)
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "model_path": (['None'] + cls.valid_t2i_path,),
+            }
+        }
+
+    def img_to_prompt(self, image, model_path):
+        if model_path == 'None':
+            return ("",)
+        else:
+            T2I_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'img2text')
+            model_access = os.path.join(T2I_CUSTOMPATH, model_path)
+            if os.path.isdir(model_access) == False:
+                return ("",)
+            prompts = ['Image of', 'Image creation style is', 'The dominant thing is', 'The background behing the main thing is', 'Dominant colours on the picture']
+
+            story_out = utility.Pic2Story(model_access, image, prompts, True, True)
+            if type(story_out) == str:
+                return (story_out,)
+            else:
+                return ("",)
+
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")

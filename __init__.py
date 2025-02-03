@@ -105,6 +105,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereNetworkDataCollector": Inputs.PrimereNetworkDataCollector,
     "PrimereMetaTupleCollector": Inputs.PrimereMetaTupleCollector,
     "PrimereLLMEnhancer": Inputs.PrimereLLMEnhancer,
+    "PrimereImgToPrompt": Inputs.PrimereImgToPrompt,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -178,6 +179,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereNetworkDataCollector": "Primere Network Data Collector",
     "PrimereMetaTupleCollector": "Primere Meta Tuple Collector",
     "PrimereLLMEnhancer": "Primere LLM Enhancer",
+    "PrimereImgToPrompt": "Primere Img2Prompt",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",
