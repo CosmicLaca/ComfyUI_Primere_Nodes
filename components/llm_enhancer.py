@@ -15,7 +15,7 @@ class PromptEnhancerLLM:
     def __init__(self, model_path: str = "flan-t5-small"):
         PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
         ROOT_PATH = PRIMERE_CUSTOMPATH
-        COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'text_encoders')
+        COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'LLM')
         model_access = os.path.join(PRIMERE_CUSTOMPATH, model_path)
         if os.path.isdir(model_access) == False:
             model_access = os.path.join(COMFY_LLM_PATH, model_path)
@@ -328,7 +328,7 @@ class PromptEnhancerLLM:
 
 def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default"):
     PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
-    COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'text_encoders')
+    COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'LLM')
     model_access = os.path.join(PRIMERE_CUSTOMPATH, modelKey)
     if os.path.isdir(model_access) == False:
         model_access = os.path.join(COMFY_LLM_PATH, modelKey)
@@ -341,9 +341,33 @@ def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed
     else:
         return False
 
-def getConfigKeys():
-    CONFIG_FILE = os.path.join(PRIMERE_ROOT, 'json', 'llm_enhancer_config.json')
-    CONFIG_FILE_EXAMPLE = os.path.join(PRIMERE_ROOT, 'json', 'llm_enhancer_config.example.json')
+
+def getPromptValues(filename, value):
+    CONFIG_FILE = os.path.join(PRIMERE_ROOT, 'json', filename + '.json')
+    CONFIG_FILE_EXAMPLE = os.path.join(PRIMERE_ROOT, 'json', filename + '.example.json')
+
+    if Path(CONFIG_FILE).is_file() == True:
+        CONFIG_SOURCE = CONFIG_FILE
+    else:
+        CONFIG_SOURCE = CONFIG_FILE_EXAMPLE
+
+    ifConfigExist = os.path.isfile(CONFIG_SOURCE)
+    if ifConfigExist == True:
+        with open(CONFIG_SOURCE, 'r') as openfile:
+            try:
+                llm_config = json.load(openfile)
+                if value in llm_config:
+                    return llm_config[value]
+                else:
+                    return None
+            except ValueError as e:
+                return None
+    else:
+        return None
+
+def getConfigKeys(config_name):
+    CONFIG_FILE = os.path.join(PRIMERE_ROOT, 'json', config_name + '.json')
+    CONFIG_FILE_EXAMPLE = os.path.join(PRIMERE_ROOT, 'json', config_name + '.example.json')
 
     if Path(CONFIG_FILE).is_file() == True:
         CONFIG_SOURCE = CONFIG_FILE

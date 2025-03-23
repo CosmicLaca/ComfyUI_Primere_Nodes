@@ -333,13 +333,15 @@ class PrimereLLMEnhancer:
     FUNCTION = "prompt_enhancer"
     CATEGORY = TREE_INPUTS
 
-    TENC_DIR = os.path.join(folder_paths.models_dir, 'text_encoders')
+    TENC_DIR = os.path.join(folder_paths.models_dir, 'LLM')
     LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
     valid_llm_path = llm_enhancer.getValidLLMPaths(TENC_DIR)
     valid_llm_path += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
-    configurators = ['Default'] + llm_enhancer.getConfigKeys()
+    configurators = llm_enhancer.getConfigKeys("llm_enhancer_config")
     if configurators == None:
         configurators = ['Default']
+    else:
+        configurators = ['Default'] + configurators
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -364,13 +366,18 @@ class PrimereLLMEnhancer:
         return (prompt, enhanced_result,)
 
 class PrimereImgToPrompt:
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("PROMPT",)
+    RETURN_TYPES = ("STRING", "TUPLE",)
+    RETURN_NAMES = ("PROMPT", "SYSTEM_PROMPT",)
     FUNCTION = "img_to_prompt"
     CATEGORY = TREE_INPUTS
 
     T2I_DIR = os.path.join(folder_paths.models_dir, 'img2text')
     valid_t2i_path = llm_enhancer.getValidLLMPaths(T2I_DIR)
+    prompts = llm_enhancer.getConfigKeys("img2prompt_config")
+    if prompts == None:
+        prompts = ['Default']
+    else:
+        prompts = ['Default'] + prompts
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -378,24 +385,38 @@ class PrimereImgToPrompt:
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
                 "model_path": (['None'] + cls.valid_t2i_path,),
+                "result_control": (['Custom'] + cls.prompts,),
+                "custom_prompt": ("STRING", {"default": False}),
             }
         }
 
-    def img_to_prompt(self, image, model_path):
+    def img_to_prompt(self, image, model_path, result_control, custom_prompt):
         if model_path == 'None':
-            return ("",)
+            return ("", [],)
         else:
             T2I_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'img2text')
             model_access = os.path.join(T2I_CUSTOMPATH, model_path)
             if os.path.isdir(model_access) == False:
-                return ("",)
-            prompts = ['Image of', 'Image creation style is', 'The dominant thing is', 'The background behing the main thing is', 'Dominant colours on the picture']
+                return ("", [],)
 
-            story_out = utility.Pic2Story(model_access, image, prompts, True, True)
-            if type(story_out) == str:
-                return (story_out,)
+            default_prompt = ['Image of', 'Image creation art style is', 'The dominant thing is', 'The background behind the main thing is', 'Dominant colours on the picture']
+
+            if result_control == 'Custom':
+                prompts = custom_prompt.split(',')
+                if type(prompts).__name__ != 'list':
+                    prompts = [custom_prompt]
+            elif result_control == 'Default':
+                prompts = default_prompt
             else:
-                return ("",)
+                prompts = llm_enhancer.getPromptValues("img2prompt_config", result_control)
+            if prompts is None or len(prompts) < 1:
+                prompts = default_prompt
+
+            story_out = utility.Pic2Story(model_access, image, prompts, True, False)
+            if type(story_out) == str:
+                return (story_out, prompts,)
+            else:
+                return ("", [],)
 
 class PrimereStyleLoader:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")

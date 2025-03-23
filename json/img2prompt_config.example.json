@@ -1,0 +1,23 @@
+{
+    "content_long": ["Long description and details of image"],
+    "content_short": ["Short and details of image"],
+    "image_of": ["Image of"],
+    "image_style": ["Image creation art style is"],
+    "main_thing": ["The dominant thing is"],
+    "background": ["The background behind the image"],
+    "dominant_colors": ["Dominant colours on the picture"],
+    "list_of_colors": ["List all colours on the picture"],
+    "product_name": ["The product name in picture"],
+    "product_details": ["The product in picture", "Product details", "Product colors", "Product labels", "Text on product"],
+    "product_usage": ["The practical product usage picture"],
+    "cloth_name": ["The cloth name in picture"],
+    "cloth_details": ["The cloth in picture", "Cloth details", "Cloth colors", "Cloth logos", "Text on cloth"],
+    "cloth_usage": ["The practical cloth usage picture"],
+    "cloth_where": ["Where to wear the clothes?"],
+    "cloth_style": ["The cloth style on picture", "Cloth colors"],
+    "person_short": ["The details of person in picture"],
+    "person_details": ["The person in picture", "What clothes wearing", "The pose and action is"],
+    "chareacter_short": ["The details of character in picture"],
+    "character_details": ["The character in picture", "What clothes wearing", "What character is", "The pose and action is"],
+    "action": ["What action is happen"]
+}

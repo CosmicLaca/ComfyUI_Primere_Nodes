@@ -1152,7 +1152,6 @@ def tensor_to_image(tensor):
     image = Image.fromarray(image_np, mode='RGB')
     return image
 
-
 def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result=True):
     story_out = None
     from transformers import BlipProcessor, BlipForConditionalGeneration
@@ -1168,12 +1167,14 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result
             inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda", torch.float16)
             out = model.generate(**inputs)
             story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+            story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
 
         elif type(prompts).__name__ == 'list':
             for prompt in prompts:
                 inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda", torch.float16)
                 out = model.generate(**inputs)
-                Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
                 if story_out is not None:
                     story_out = story_out + Processed
                 else:
@@ -1189,12 +1190,14 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result
                 inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda")
                 out = model.generate(**inputs)
                 story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
 
             elif type(prompts).__name__ == 'list':
                 for prompt in prompts:
                     inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda")
                     out = model.generate(**inputs)
-                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                    Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
                     if story_out is not None:
                         story_out = story_out + Processed
                     else:
@@ -1210,12 +1213,14 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result
                 inputs = processor(pil_image, prompts, return_tensors="pt")
                 out = model.generate(**inputs)
                 story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
 
             elif type(prompts).__name__ == 'list':
                 for prompt in prompts:
                     inputs = processor(pil_image, prompt, return_tensors="pt")
                     out = model.generate(**inputs)
-                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip) + ', '
+                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                    Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
                     if story_out is not None:
                         story_out = story_out + Processed
                     else:
@@ -1227,9 +1232,9 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result
     if type(story_out) == str:
         if clean_same_result == True:
             story_out = ' '.join(dict.fromkeys(story_out.split()))
-        return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ')
+        return story_out.rstrip(', ').replace(' and ', ' ').replace(' an ', ' ').replace(' is ', ' ').replace(' are ', ' ').strip()
     else:
-        return story_out
+        return story_out.rstrip(', ').strip()
 
 
 def getDownloadedFiles():
