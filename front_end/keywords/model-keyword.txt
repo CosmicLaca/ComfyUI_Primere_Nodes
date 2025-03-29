@@ -11,16 +11,19 @@
 009100c7, lenaayad
 0097dd62, audra miller
 00d62a36, photorealistic|naked
+00dcb4c1, panda
 00e7b299, anime
 00ee0e8e, score_9|score_8_up|best quality|masterpiece|4k|uncensored|prefect lighting|rating_explicit|very aesthetic|BREAK
 00ee24b4, modelshoot style|analog style|mdjrny-v4 style
 00f05225, furry|kemono
 00f52966, Ugly
+01096fef, digital art|dark fantasy|horror-themed|eerie|gothic|dark magic|supernatural|hauntingly beautiful|baroque details|chiaroscuro
 0134e6b7, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|R/Amateur
 01389ba5, pixel art
 0149de1f, linus sebastian person
 01518964, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 019cc77b, masterpiece|face portrait|ultra detailed
+019cf2c9, aki|aoi|sota
 01a35826, GLEN ORBIK|EARLE BERGEY|ROBERT MAGUIRE|GIL ELVGREN
 01a6ec8e, ldr
 01b659b9, nomanssky style|starship
@@ -118,6 +121,8 @@
 03186377, rhsp|ops|raw|gated|color|C|C#|D|D#|E|F|F#|G|G#|A|A#|B|zaag|psy|hardstyle|reverse, stableaudioRHSP_v20.safetensors
 031b21f6, Niji|Anime, XL_VAE_F1.safetensors
 031b21f6, aki|aoki|aoi|isao|nao|nobu|shou, XL_VAE_E7.safetensors
+031b21f6, masterpiece|best quality|amazing quality|absurdres, flatpiece.xl.vae.safetensors
+031b21f6, masterpiece|best quality|amazing quality|absurdres|, flatpiece.xl.vae.safetensors
 031b21f6, pixel art|16 bit|32 bit|64 bit, XL_VAE_C1.safetensors
 0323e306, Bean_Lab|Pure Beauty|1 girl|best quality
 03346468, realistic:1.2|cosplay
@@ -151,6 +156,7 @@
 04cdb6b7, Burgie|prilosecotc1
 04d1387e, model
 04dc4f68, Concept Art|Fantasy Art|PhotoRealistic|Realistic|Illustration|Oil Painting|Surrealism|HyperRealistic|brush strokes|pointillism|Steampunk|Digital Art|Analog Style|Watercolor
+04e247cb, photo \medium\|high quality|unsplash|flickr|onlyfans|reddit|fansly|instagram||r/gonewild|r/gonewild18|r/nsfw|r/nsfwcosplay|r/realgirls|r/cumsluts|r/legalteens|r/collegesluts|r/asiansgonewild|r/pussy|r/milf|r/adorableporn|r/nude_selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/latinas|r/godpussy|r/amateur|r/xsmallgirls|r/18_19|r/workgonewild|r/palegirls|r/paag|r/ass|r/asstastic|r/asshole|r/assholegonewild|r/upskirt|r/toocuteforporn|r/tinytits|r/altgonewild|r/traps|r/femboys|r/gwcouples|r/cutelittlebutts|r/girlswithglasses|r/petitegonewild
 050f0bae, Analog Style|Photorealistic|Realistic|Mature Adult|Fantasy Art|Illustration|Watercolor|Concept Art|Oil Painting|Surrealism|Brush Strokes|Pointillism|Hyperrealistic|Perfect Shading|Masterpiece|Subsurface Scattering|Perfect Lighting|Volumetric Lighting
 0519e070, nerdphoton1, nerdPhoton1_v10.ckpt
 0519e070, nerdphoton2, guttoNerdPhoton2_v20.ckpt
@@ -187,10 +193,12 @@
 071eb7b2, evang
 0754d880, letitsinkin
 0768c30c, insertNameHere
+076e1c1a, A woman|in an elegant white bridal gown with intricate lace details|standing in a neutral background|with an off-the-shoulder design and floral embroidery on the hem|looking at the observer|with a photorealistic appearance
 07727188, half body|closeup
 07737b93, hotporn
 077f8138, anime
 0786845e, trained with chilloutmix|chinabeauty|dreamlike|a lot of others
+0790598f, realistic
 079b172e, illustration style kurzgesagtish
 079bb56e, country flag
 07e7dc81, man
@@ -218,8 +226,8 @@
 096596d8, pow artstyle
 097a6c2e, 植物|动物
 097e0a8a, sdart|dyce|ohwx|bnp|juli|aten|hep|fcu|hiko|ufos|nwsl|cous|aved|mth|gani|kprc|kuro|asot|jap|weho|hmv|psst|sqm|irgc|buka|buon|nmwx|byes|utm|dany|avel|vaw|zaki|guin|urd|nasi|vini|hta|crit|inem|mlas|isch|phol|vedi|dds|acu|httr|pte|oxi|ibc
-097eefdb, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|BEST AESTHETIC|NORMAL AESTHETIC|BAD AESTHETIC|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM, pornmasterAmateur_fp16V6.safetensors
-097eefdb, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM, pornmasterAmateur_fullV6-inpainting.safetensors
+097eefdb, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|BEST AESTHETIC|NORMAL AESTHETIC|BAD AESTHETIC|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM, pornmaster_fp16V6.safetensors
+097eefdb, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM, pornmaster_fullV6-inpainting.safetensors
 099e7039, Highly stylized digital artwork|characters with big|expressive|decorated eyes|vibrant neon color palette|sharp contrast between shadows and highlights|soft gradient shading|thick and bold line art|deep blushes|boxy eyes|Highly stylized digital artwork|characters with big|expressive|decorated eyes|sharp contrast between shadows and highlights|soft gradient shading|thick and bold line art|dynamic and exaggerated facial expressions|glossy|boxed shaped eyes|Highly stylized digital artwork|characters with big|expressive|decorated eyes|vibrant neon color palette|sharp contrast between shadows and highlights|soft gradient shading|thick and bold line art|glossy lips|deep blushes|boxy eyes
 09a268c0, mksks style
 09a74379, shrot|shrots|hoodie
@@ -250,17 +258,21 @@
 09d7878a, pixarstyle
 09d81b43, t3|model
 09dd2ae4, BDSM model
+09ddcc93, masterpiece|best quality|amazing quality|absurdres|
 09edc9b2, furry|anime|woman|animal|pastel
 09f31518, no
 09f5166e, sks woman
 09fdb690, 1girl|moyou
+0a16c980, anime|source_anime
 0a29065f, anime
 0a2a8967, aerith|bowsette|mercy|widowmaker|tracer|dva|black cat dva|star guardian jinx|star guardian lux|irelia|nidalee|kda seraphine|kda kaisa|akali|katarinaclassicoutfit|pokemon|animal|realistic|portrait|woman|closeup|selfie|instagram
 0a3bbcef, old woman with nasolabial folds
 0a4320df, dalcefo
 0a4d0386, 
 0a638f5d, madgod|stop motion|horror
+0a6b22cf, prommh
 0a7b6048, loona
+0a837281, High quality and high contrast photography
 0a84de4f, IN MATRIX
 0a8a028d, shadow flat vector art|Minimalism
 0a8ead41, Yus#01
@@ -298,6 +310,7 @@
 0c16f591, murasa
 0c18c46a, jungle style
 0c1c9d52, ys
+0c20f0f8, qzr furry
 0c365897, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 0c475674, oyamamahiro|oyamamihari|hozukikaede|hozukimomiji|okaasahi|murosakimiyo|tenkawanayuta|aniscreen|edstyle|megazine
 0c4c983e, realistic
@@ -307,9 +320,11 @@
 0c90f664, HUAWEI
 0c91adf8, chinazhengzhou
 0c93a576, name|oumeifeng style|redshift style
+0c9f6d7f, Demi2
 0ca6716f, cocoart|cocoart animal|vibrant cocoart
 0cdb758d, tea picker
 0cf33d87, PVCstyle, copycatPVC_v10.safetensors
+0cf33d87, masterpiece|best quality, copycatIllustrious_v40.safetensors
 0cf33d87, masterpiece|best_quality, copycat_v30.safetensors
 0cf33d87, score_9|score_8_up|score_7_up, copycatASC_v10.safetensors
 0cf442f0, dakota person
@@ -561,7 +576,9 @@
 0f63c656, insertNameHere
 0f6e0d4b, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 0fb0560b, lizmont woman
+0fb074f1, Realistic skin:1.4|photo realistic:1.4|Raw Photo
 0fcfe533, wuxia 1girl|best quality
+0fe4ce0a, RA3
 0fead0f4, olivialopes
 1006004a, basety style|abbe bi style|sassy style|midjourney style|othalama style|ronidu style|seviechan style|samdoesart style|thepit style|owler style|cherrmous style|arosen style|uodenim style|stanleylau style|anime style|wild nature|suicidegirl|interior design|digital art|Jennifer Lawrence|Emma Stone|Emma Watson|Hayley Williams|Lady Gaga|Lana Del Rey|Taylor Swift|Emilia Clarke|Sophie Turner|Charlize Theron|Natalie Portman|Emily Ratajkowski|Gal Gadot|Sienna Miller|Nina Dobrev|Audra Miller|aleksei gilev style|andrew vasiliev style|elenok ella style|ivan kovalev style|jack metthey style|jiri tulach style|komrant style|marie dashkova style|mewel style|olga boyko style
 100dbe92, Evang, chibi_8000OpenJourney.safetensors
@@ -614,6 +631,8 @@
 124de6a9, eldmeisterog
 12558260, 2D|2.5D|Anime|Photo-Realistic|3D Style
 125f67d1, henderson creature|humanoid|house interior|interior|exterior|dark|crawling|large|small
+126a6725, score_9|score_8_up|score_7_up|fellatrix style|urushihara satoshi style, milfShaper_archivedPonysd15V20.safetensors
+126a6725, score_9|score_8_up|score_7_up|incase style|fellatrix style|maidoll style, milfShaper_archivedPonysd15V21.safetensors
 126f21de, Zwxthej
 12768458, hanfu
 127f03e7, gtmg woman
@@ -672,6 +691,7 @@
 1437ae07, anime|game|illust|photo|3d|2d|photorealistic|realistic|girl|female|background|male|cinematic, albedobaseXL_v01.safetensors
 1437ae07, anime|game|illust|photo|3d|2d|photorealistic|realistic|girl|female|male|cinematic, albedobaseXL_v02.safetensors
 14550c43, elden ring style|modelshoot style|dreamlikeart|postapocalypse|analog style|knollingcase|swpunk|synthwave|cyborgdiffusion
+14645aaf, 1girl|realistic|asian|
 1469e47e, pencil|portrait|sketch
 14c7d9c9, la-maldita
 14d36354, duskz1
@@ -699,6 +719,7 @@
 15540f03, gigafractal artstyle
 156749a9, BEST AESTHETIC|NORMAL AESTHETIC|BAD AESTHETIC|REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|R/Amateur
 156aa9c6, toadstool
+156c44da, 1girl
 15717746, Realistic|Photorealistic
 1578af98, bigbadejo alien_monster
 1586c88f, sks
@@ -716,6 +737,7 @@
 16d2a02c, dreamlikeart|samdoesart|kuvshinov
 16d77205, elden ring style
 16e33692, modelshoot style
+170b344b, blurry|low quality|jpeg artifacts|amateur photo|amateur|amateur photography|photo \medium\|high quality|unsplash|flickr|onlyfans|reddit|fansly|instagram|r/gonewild|r/gonewild18|r/nsfw|r/nsfwcosplay|r/realgirls|r/cumsluts|r/legalteens|r/collegesluts|r/asiansgonewild|r/pussy|r/milf|r/adorableporn|r/nude_selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/latinas|r/godpussy|r/amateur|r/xsmallgirls|r/18_19|r/workgonewild|r/palegirls|r/paag|r/ass|r/asstastic|r/asshole|r/assholegonewild|r/upskirt|r/toocuteforporn|r/tinytits|r/altgonewild|r/traps|r/femboys|r/gwcouples|r/cutelittlebutts|r/girlswithglasses|r/petitegonewild|photo by iPhone
 170bf445, pixel art
 1756bc0e, duskypie|kairowez
 176566bc, Sweaty
@@ -725,6 +747,7 @@
 178ccbae, score_9|score_8_up|score_7_up|
 1794cf87, futanari
 17a8d3c3, kasukanrasty
+17adf0e9, realistic|cosplay
 17b7e1de, romerorzeternos
 17b8cc9c, woman|girl
 17bb0452, discodifland
@@ -767,7 +790,8 @@
 19804fc4, 1girl|moyou
 19872cc2, 1girl|amabilis
 1994138c, ChilloutDiverseMix
-19a16f24, masterpiece|best quality
+19a16f24, masterpiece|best quality, pasanctuarySDXL_v10.safetensors
+19a16f24, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres|realistic|photorealistic|photo|DSLR|3d|photo \medium\|real life|photo background|anime|anime coloring|anime screenshot|novel illustration|cover|cover image|cover page|cosplay photo, pornmasterPro_noobV15VAE.safetensors
 19b72626, analog style|dreamlikeart|redshift style
 19b7510b, FXXDBXCK
 19ce2ec5, juli
@@ -788,7 +812,6 @@
 1abe99f2, glasses|eyewear
 1ad16feb, multiarm
 1ae0031d, photo|digital art|lok artstyle|realistic and detailed render|clonewars artstyle|ghibli artstyle|anime artstyle|disney artstyle|realistic and detailed digital art|darkestdungeon artstyle|turtleofcanada artstyle|full-length|medium-shot|closeup|longshot|headshot|beautiful lighting|from behind|silhouette of|street art of|humanoid animal|half-x half-y hybrid animal|anthro animal person|female x furry|dragon|person with wings|giant woman|miniature woman|person morphing into x|korra|nausicaä|san|kiki|videl|aloy|ahsoka|sadie sink|emma watson|maya hawke|zendaya|millie bobby brown|sweatjacket|supergirl outfit with cape|vdo outfit with cape and helmet|kr outfit|watertribe outfit|probending outfit|earthkingdom outfit|finale outfit|zerodawn outfit|mandalore outfit|nso outfit|mononoke outfit|ko outfit|sidecut hairstyle|ponytail hairstyle|lh hairstyle|sh hairstyle|nora hairstyle|lekku hairstyle|nh hairstyle|kh hairstyle|snh hairstyle
-1ae01909, nsfw|woman
 1aec0ad3, score_10|score_9|score_8|score_7|score_9_up|score_8_up|score_7_up
 1af66ab9, fntsy1
 1af8b1c3, [score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up]
@@ -824,6 +847,7 @@
 1c254752, vulcan
 1c348ac5, prism|glow|glowing|glitter|particles|bloom|extra lights|cinematic lights|colorful|glowing white particles|glowing eyes|prism hair|prism eyes
 1c5da6ec, merry chrismas
+1c616600, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres
 1c65f0f8, sybildanning
 1c707c42, WJQWIZARD|WJQKNIGHT|WJQDEMON|WJQJESTER|WJQTITAN
 1c83d3db, bldrnrst|analog style|synthwave|sci-fi|postapocalypse|nsfw|sfw|erotic|erotica|3d render
@@ -859,6 +883,7 @@
 1e1e49e4, sks woman
 1e256684, portrait+ style|modelshoot style|analog style|timeless style|lomo style|nsfw|nudity
 1e2b3832, lula
+1e2b7b3e, illust style|digital illustration|anime style|high-quality anime drawing|simple illust style|flat color|solid circle eyes|manga style|monochrome|pc98 style|dithering|jaggy lines
 1e3cd1ab, hanfu
 1e50a350, Nothing
 1e6822b7, comics style|analog style|illustration|lineart
@@ -917,13 +942,16 @@
 20814a0a, daniela
 20846c08, Customer Support
 208f75ce, lamia
+20911bbf, Tamanokedama
 20a0e612, furry|anthro
 20c6a837, Nvinkpunk|samdoesarts
+20caa265, realistic|photorealistic
 20fa24db, xxmixgirl
 2115985a, see description
 2125a34d, source_cartoon|comic art style
 21519353, image in cocacret style
 2151bb8f, sexy|woman
+2161a6a5, 3d|splatoon|inkling|octoling
 2185ba37, bakirda|kridaba|DaKriDi|dikrida
 218cee5d, mksks style|detailed background
 219cbfe8, RKart style
@@ -952,6 +980,7 @@
 22a55888, insertNameHere
 22c22e44, Izumi Kenta|Asian|Suit|Black Hair|Tie
 22ca4aaa, guigubahuang|1girl|chinese style
+22d51e85, anime|cartoon
 22dd7942, secxyfpi style
 231d588a, photo of benzaki women
 23234436, furry
@@ -965,6 +994,7 @@
 2386519a, 树|印象派|抽象
 23a51b2c, masterpiece|best quality|a beautiful girl
 23bd8637, 2000s|1990s|1980s|1970s|1960s|1950s|1940s|aleksei gilev style|andrew vasiliev style|elenok ella style|ivan kovalev style|jiri tulach style|komrant style|marie dashkova style|olga boyko style|digital art|interior design|macro photography|polaroid style|sucidegirl|wild nature
+23cc6106, Mdastarou
 23dbfa93, oiled skin
 23e4b09e, Evang Style, maxGrecki15500_15500ADD.safetensors
 23e4b09e, Evang style, cartoon_10000ADD.safetensors
@@ -990,6 +1020,7 @@
 24a516fb, tpmpanlab person
 24c2e368, Evang
 24c69c5a, RAW photo|hyperrealistic photo|seductive|innocent|realistc skin:1.4
+24d6c54a, score_9|score_8_up|score_7_up|source anime|
 24e6e085, furry
 24eee13e, girl
 24f62767, fff
@@ -1002,7 +1033,7 @@
 254fb5cd, hasanpiker person
 2566389c, Knollingcase|Beeple Style|Dreamshaper|Voxel-ish|Naturitize|Colorfulsurrealismai Surrealism
 256850b0, KEMONO
-257bca93, nsfw|woman|anime|intimate
+25781455, thilakan|
 258f79e3, stylized game icon|sci-fi|steampunk|spell
 2593818e, ren|1boy
 25ba4550, modelshoot style|swpunk|synthwave|paint splatters
@@ -1040,11 +1071,13 @@
 27023a8d, Realistic|Photorealistic
 270d2690, man|woman|gay
 270e37fc, night|dark
+27274a0c, cleareyes
 2731c397, nasolabial_folds
 27455e1d, Viz
 274d0bb6, trending on artstation|8k|ultra hd|1woman
 276edfa7, evang
 2784495f, niji6|niji5
+278ea2f5, qzr lalafell
 27a594ef, GIRL 3D SUBJECT RENDER PHOTOREALISTIC FEMALE RETRO ANATOMICAL ART INTRICATE ACCURATE WOMAN ILLUSTRATION CARS CARTOON CINEMATIC FANTASY PHOTOGRAPHY REALISTIC
 27a98a4e, 1990s style|1980s style|retro artstyle|2000s style
 27b2d819, Evang
@@ -1055,6 +1088,7 @@
 27e9a54a, Casual Clothes
 27ea8c02, snthwve style|nvinkpunk
 27f75a18, score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up
+281b2c70, Gangji
 282b4e08, Fraufembot
 2855347e, score_9|score_8_up|score_7_up||thick outlines
 285548e4, Master Chief
@@ -1127,6 +1161,7 @@
 2bd7a434, sexy|glossy|bimbo|nsfw|thepit bimbo|analog style|dreamlikeart|redshift style|mdjrny-v4 style|studio_ghibli_anime_style style|copeseethemald style|women|anatomical|hardcore|porn|tentacles
 2be73e30, by b-ginga
 2c1411cc, -
+2c22f207, Use trigger words words from DucHaiten v7.0
 2c28fcaf, a painting by mse
 2c3a4942, kemono|furry
 2c6453bb, Azab style
@@ -1140,8 +1175,11 @@
 2cee5111, intjpastel
 2cf88589, irmntro person
 2cf9bf02, raiden mei apho
+2d0595dd, portrait, Lumina2Luminette_alpha1.safetensors
+2d0595dd, portrait|retro anime, Lumina2Luminette_alpha5.safetensors
 2d168544, Evang
 2d447b0f, tk-char|tk-env
+2d4b2429, HEZI
 2d527bd2, Evang
 2d6488e1, furry|anthro
 2d659c22, Game Icon Institute3d
@@ -1181,9 +1219,13 @@
 2fd72136, 1girl
 2fdd0123, guweiz|nixeu|wlop
 2fe0ca51, surreal
+2feab2e5, 1girl|female focus|pinup|
 2ffe0d53, Evang, mummy_v10.ckpt
 2ffe0d53, evang, mummy_v2.ckpt
+3006a0c1, realistic|photorealistic|detailed
 3013bb9f, 80sDarkSouls style|80sDarkSoul style|knight|armour|castle
+30145ef8, 1girl|realistic, cocoamixxl_v9Anim4gine.safetensors
+30145ef8, 1girl|realistic|ultra real|detailed hair|high score|cocoart real|, cocoamixxl_verXC.safetensors
 301a6744, bezyminka|, bezyminka_v10.ckpt
 301a6744, vvyerA2, vvyera2_.ckpt
 301a6744, ya beronika, galina_v10.ckpt
@@ -1207,6 +1249,7 @@
 314630cf, duskypie|lisdusk1|lisdusk2|kairowez|mdjrny-v4 style
 3148d4f3, female|male
 3150f324, shiny skin
+316d1270, JAYA15
 318a302e, arcane style
 31d96181, dreamlikeart
 31db8fec, daizky1
@@ -1239,6 +1282,7 @@
 33290d4a, dgspitzer|painting|arts|landscape|outline|sketch|whiteshape|anime, dgspitzerArt_Diffusion.safetensors
 33290d4a, rfktrstyle, rfktrsDarkdream_v16.safetensors
 33290d4a, rfktr|rfktrstyle, rfktrsDarkdream_v1.safetensors
+332eb3c0, wazaan
 333a860f, female|male|girl|boy|robo, matrixAsianParadise_v653VAE.safetensors
 333a860f, male|female, matrixAsianParadise_v653VAE.safetensors
 333ecf3c, sks woman|(sks woman)|((sks woman))
@@ -1284,6 +1328,7 @@
 35dc3dbf, evang
 35e0b3a2, b100 woman
 361eef19, photo|analog style
+36261d2a, furry
 363af6b3, sks
 363c6060, Evang
 363ee931, microworld|mdjrny-shttr
@@ -1295,7 +1340,8 @@
 366915ea, sks moesharp|zkz atashi|anime|realistic|masterpiece|best quality
 36833c3d, jirai kei|jirai fashion|eye shadow|dark lips|twin tails|fishnet stockings
 36ae2bff, 3D product render|3D product render style
-36b07219, carred|tdg
+36b07219, RedCar|TA7, ta7_v10.safetensors
+36b07219, carred|tdg, ta7CIVCRPCars_v10.safetensors
 36b82728, zhaojun
 36c2aa20, score_9|score_8_up|score_7_up|source anime|
 36ce47dc, 1gilr
@@ -1319,7 +1365,9 @@
 37dd5eba, fking_scifi
 37deca87, dime mystery|horror stories|startling mystery|terror tales|thrilling mystery|uncanny tales|vice squad detective|spicy adventure|dime detective|detective short stories|startling stories|sd-pulp
 37e5ce18, owhx 3dicon
+37ea5247, masterpiece
 37f2669e, sexy|glossy|bimbo|thepit bimbo|analog style|dreamlikeart|redshift style
+37f922d7, Use triggers from DucHaiten's v7.0
 37fabbe5, anime
 37ff0195, chibi|cute
 38137311, realistic|analog|hyperealistic|photography
@@ -1404,6 +1452,8 @@
 3cbacf0f, ned stark|jon snow|catelyn stark|daenerys targaryen|robert baratheon|arya stark|joffrey baratheon|tyrion lannister|jaime lannister|robb stark|petyr baelish|littlefinger|sansa stark|bran stark|cersei lannister|viserys targaryen|jorah mormont|benjen stark|waymar royce|rakharo dothraki|will ranger|jeor mormont|doreah handmaid|irri dothraki|maester luwin|khal drogo|the hound|sandor clegane|lord varys|rast ranger|rodrik cassel|maester aemon|mycah butcher son|grenn ranger|gared ranger|theon greyjoy|ser barristan selmy|jory cassel|ros cook|yoren recruiter|wildling girl|royal steward|catspaw assassin|pypar steward|old nan|illyrio mopatis|ilyn payne|lancel lannister|renly baratheon|mikken blacksmith|alliser thorne|syrio forel|game of thrones
 3d28e095, 3D Style|Rick Roll|fullbody shot|bad cosplay man
 3d61b720, 3D product render|3D product render style
+3d8336e4, furry, indigoVoidFurryFusedXL_noobaiV12.safetensors
+3d8336e4, furry|bara, indigoVoidFurryFusedXL_noobaiV11.safetensors
 3da648f5, in the style of AImanhwa
 3da7dedf, Renho|Woman|large collar|Asian|Middle-aged|black short hair|White suit
 3dccab21, pepereal
@@ -1461,11 +1511,13 @@
 4166d47f, aodai|style of ...
 416a7f7c, dreamlikeart
 4192fc16, kurzgesagt style
+41c5ded9, 
 41c67857, minchien
 41d50a60, anime|lyh
 41d721c0, swpunk|synthwave|paint splatters
 41ee5b72, pixel art
 41ee841c, BLSpl45h|Spl45hBackground|
+41f21df2, low light
 41fef4bd, nousr robot
 4207b96d, Nothing
 420cb71f, datou|white background|solo|upper body:1.5|
@@ -1550,6 +1602,7 @@
 46089527, Evang
 4609b935, celine|woman|long hair
 4615398d, man|30 yo
+461902e0, милая|блондинка|реализм
 461e9d29, sassy style|edg bodytape|riley star|lana rhoades|karlee grey|eva sedona|vivian taylor|skylar vox|kylie shay|hannah hays|haley spades|foxy alissa|christy marks|ivy lebelle
 4629eda6, mj|cozy|cinematic
 46314e53, close up character design|multiple concept designs|, mr_.safetensors
@@ -1590,7 +1643,9 @@
 48823be0, coralchar
 488f085e, sexy
 48a12930, Anime Style|4n1v3rs3
+48cc5cd3, realistic|photorealistic
 48d0f413, Mtg art
+48d320b1, male|chinese|realistic
 48fc7f73, RGBimagining
 490b0a46, kukuhtw
 4928c317, abstractchaos
@@ -1603,6 +1658,7 @@
 4983938e, AniLux Real Perfect
 49962996, nkneghmn
 49b5bcbf, newmarsmix
+49ffbc7e, realistic|photorealistic|detailed
 4a0b8e45, Lysrix|girl|cut hair|cute face
 4a0c37d8, supermarionation
 4a146754, Topnotch Artstyle
@@ -1658,6 +1714,7 @@
 4d75ad63, chilloutWorld|chilloutWorld_v1
 4d7897e3, blonde_fit_girl
 4da07c23, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
+4da8b12b, Canserbero
 4dadf5f3, analog style
 4db8fda3, PokeModel
 4dc372a6, art by yaguru magiku
@@ -1671,6 +1728,7 @@
 4dff2fdc, kazuma_kaneko
 4e3a43a0, texts
 4e4a0067, polumna
+4e52f5e9, {anime}|anime screencap|anime coloring
 4e6e0eec, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 4e70cd51, inked|splash art|cover art|illustration|impasto|canvas|oil painting
 4e7736b5, designmeld|design|stunning|album cover|chrometype|japparii|m0.studio|manuals|foxrocket|gs.aya|mkalabic|josephmelhuish|designbysalome|alexvxvxvxvx|fkkwu|hellorabbitdesign|hvnt.ter|ivndrr|mateo.mace|nisheink|obby.jappari|sometimes__always|behance|iamcollaps|swissgraphic|grafikfeed
@@ -1730,11 +1788,13 @@
 51b47801, RAW photo of
 51bfb216, chibi
 51c34eea, Nendoroid
+51cfd84f, Korean charactor
 51de870c, score_9|score_8_up|score_7_up|score_6_up
 51f16ca3, masterpiece|best quality|a beautiful face|a kawaii face|an exceptional face|a perfect face
 51f82dd3, 77oussam 90s
 5203b60b, Score_9|score_8_up|score_7_up|masterpiece|best quality||YTM
 521893a1, voxel-ish
+522b2083, v2
 523847d0, BoMaple|BoMaple angel form|BoMaple beginner outfit|BoMaple black armor|BoMaple machinegod form|BoMaple pajama|BoMaple sheep form|BoMaple uniform|BoSally|BoSally cape|BoSally pajama|BoSally turtleneck scarf|BoSally uniform|BoMay|BoYui|BoKanade|BoKasumi|BoKasumi sarashi|BoIz|BoKuromu|BoDrag|BoDread|BoFrederica|BoPain|BoMii|BoMisery|BoMarcus|BoShin|Turtle Syrup|Fox Oboro|Dorazou|Monster Atrocity|Hydra
 52395e18, none
 52481371, Master Chief
@@ -1744,8 +1804,11 @@
 529b49de, raw photo|cosplay photo|fashion photo|anime artwork|cotton doll|worst quality|worst anatomy|distortion
 529cfff5, realistic style|anime style|<gamename> style
 52d7fbac, Boxing gloves|boxing ring
+52f91342, QR Face
 5301c7c5, Concept Art|Fantasy Art|PhotoRealistic|Realistic|Illustration|Oil Painting|Surrealism|HyperRealistic|brush strokes|pointillism|Steampunk|Digital Art|analog style|watercolor|classical art
+5327d9e7, asian|japanese|chinese|tailand|korean|beauty|realism|realistic|photo
 532b3e28, anime
+5334ebad, Cute
 5346a314, modernartst
 535673be, pixarstyle|fantasy|rpg
 535bde27, anime girl
@@ -1755,6 +1818,7 @@
 538d7157, pcrc style
 53917c97, score_9|score_8_up|score_7_up|thick outlines|abstract background|intricate background
 539828f7, 1girl|realistic|sexy
+53a9c48d, @dannysmoura|musician|cinematic|portrait|guitar|worship
 53b21791, anime|manga|cartoon
 53b388b3, analog style|modelshoot style|nsfw|nudity
 53bf0958, futanari|erection|flaccid|testicles
@@ -1834,6 +1898,7 @@
 57ff8e61, cosplay
 580308a2, GothClub2K
 580b06dd, lamia|harpy|centaur|scylla|mermaid|arachne
+580f389f, lovers|hair highlights|gothic|splited|heterochromia|cute monster
 582e14a8, plump
 582e89f3, kylxn
 584f63ab, 2d|ScienceFiction|cyborg, sdxl_vae.safetensors
@@ -1847,6 +1912,7 @@
 584f63ab, black eyes, sdxl_vae.safetensors
 584f63ab, masterpiece|best quality, sdxl_vae.safetensors
 584f63ab, masterpiece|best quality|anime|realistic, sdxl_vae.safetensors
+584f63ab, masterpiece|best quality|highres|absurdres|amazing quality|very aesthetic, sdxl_vae.safetensors
 584f63ab, masterpiece|score_9|score_8_up|score_7_up|best quality|, sdxl_vae.safetensors
 584f63ab, neon|glowing|silhouette, sdxl_vae.safetensors
 584f63ab, realistic, sdxl_vae.safetensors
@@ -1855,6 +1921,7 @@
 584f63ab, score_9|score_8_up|score_7_up|realistic, sdxl_vae.safetensors
 584f63ab, score_9|score_8_up|score_7_up|realistic|, sdxl_vae.safetensors
 584f63ab, score_9|score_8_up|score_7_up|score_6_up|detailed, sdxl_vae.safetensors
+584f63ab, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres, sdxl_vae.safetensors
 584f63ab, watercolor, sdxl_vae.safetensors
 584f63ab, ~*~aesthetic~*~, sdxl_vae.safetensors
 584f63ab, 伤妃-刘亦菲|1girl|, sdxl_vae.safetensors
@@ -1871,7 +1938,9 @@
 58a6c253, score_9|score_8_up|score_7_up|
 58bc7732, alraune|arachne|centaur|cyclops|harpy|lamia|mermaid|mothgirl|satyr|scylla|slimegirl|colored skin
 58c71549, nsfw|woman|amateur|sex|anime
+58cd96eb, Kan
 58db528f, rcnz_niji style
+591152f2, RA3
 59139221, man s4ntos
 592c21fd, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 5936e1d1, Master Chief
@@ -1905,6 +1974,7 @@
 5a1ae211, by kaisen chuui
 5a1e4b93, coralchar
 5a1eeb22, m_wlop
+5a245866, blurry|low quality|jpeg artifacts|amateur photo|amateur|amateur photography|photo \medium\|high quality|unsplash|flickr|onlyfans|reddit|fansly|instagram|r/gonewild|r/gonewild18|r/nsfw|r/nsfwcosplay|r/realgirls|r/cumsluts|r/legalteens|r/collegesluts|r/asiansgonewild|r/pussy|r/milf|r/adorableporn|r/nude_selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/latinas|r/godpussy|r/amateur|r/xsmallgirls|r/18_19|r/workgonewild|r/palegirls|r/paag|r/ass|r/asstastic|r/asshole|r/assholegonewild|r/upskirt|r/toocuteforporn|r/tinytits|r/altgonewild|r/traps|r/femboys|r/gwcouples|r/cutelittlebutts|r/girlswithglasses|r/petitegonewild|photo by iPhone
 5a35da76, loli|loli:1.3
 5a4b600e, none
 5a526d93, jillstjohn
@@ -1925,6 +1995,7 @@
 5b2c56f8, [white background:1.5|::2]1girl|solo
 5b2d4455, EmiliaClarke woman
 5b347261, neil degrasse tyson
+5b463e47, photo
 5b4e980d, style of joe maduereira|90s comic book style|lisdusk1|nvinkpunk|style of salvadora larocca|lisdusk2
 5b698c45, N/A
 5b8f72ee, photo|digital art|lok artstyle|realistic and detailed render|clonewars artstyle|ghibli artstyle|anime artstyle|disney artstyle|realistic and detailed digital art|darkestdungeon artstyle|turtleofcanada artstyle|full-length|medium-shot|closeup|longshot|headshot|beautiful lighting|from behind|silhouette of|street art of|humanoid animal|half-x half-y hybrid animal|anthro animal person|female x furry|dragon|person with wings|giant woman|miniature woman|person morphing into x|korra|nausicaä|san|kiki|videl|aloy|ahsoka|sadie sink|emma watson|maya hawke|zendaya|millie bobby brown|sweatjacket|supergirl outfit with cape|vdo outfit with cape and helmet|kr outfit|watertribe outfit|probending outfit|earthkingdom outfit|finale outfit|zerodawn outfit|mandalore outfit|nso outfit|mononoke outfit|ko outfit|sidecut hairstyle|ponytail hairstyle|lh hairstyle|sh hairstyle|nora hairstyle|lekku hairstyle|nh hairstyle|kh hairstyle|snh hairstyle
@@ -1935,10 +2006,22 @@
 5bba81f8, 3d product render|product render
 5bbc69d0, Kazuhiro Haraguchi|Old man|Gray hair|Asian|skin head|suit
 5bbf52a0, house|peop
-5bc15c26, kisliptu style|abbe bi style|basety style|sassy style|pomagip|dalle style|midjourney style|thepit style|samdoesart style|owler style|cherrmous style|arosen style|anime style|suicidegirl|digital art|colorful|wild nature
+5bc15c26, Elmely Garmet woman, elmelyIllustrious_10.safetensors
+5bc15c26, Seleene Lorein, beautiesDiffused_10.safetensors
+5bc15c26, arosen style|cherrmous style|kuvshinov style|samdoesart style|thepit style|owler style, butterflyEclipse_10.safetensors
+5bc15c26, basymga style|epcom style, mightToonLegend_10.safetensors
+5bc15c26, buonoir style, babesKissableLips_40Illustrious.safetensors
+5bc15c26, cyberpunk style, cyberpunkArt_10.safetensors
+5bc15c26, fisatiltw style|fisatilon style|xvizenin style|mitoleon style|balecxitoo style|tamawipho style|sakdl style|samdoesart style|kuvshinov style|arosen style|cherrmous style|owler style|thepit style|colorful hair|colorful drawing|metahuman style|daz3d style|Emilia|woman, fiveStarsIllustrious_30.safetensors
+5bc15c26, iridescent, iridesciaPrismara_10.safetensors
+5bc15c26, kisliptu style, illustrious10Babes_10.safetensors
+5bc15c26, kisliptu style|abbe bi style|basety style|sassy style|pomagip|dalle style|midjourney style|thepit style|samdoesart style|owler style|cherrmous style|arosen style|anime style|suicidegirl|digital art|colorful|wild nature, babesKissableLips_36p.safetensors
+5bc15c26, sakdl style|jenreed woman|tinbld woman|korbrw woman|perbld woman|catbrn woman|gilbld woman|amibld woman|betbrn woman|selbld woman|minbld woman|angbrn woman, plasticWaifus_10.safetensors
+5bc15c26, tattoos, babes_126Pony.safetensors
 5bcbb8a5, sks person
 5bcd62ae, megapals|megapals style
 5bd6ab22, Dread
+5be9b59f, realistic|photorealistic
 5bea4f44, chinese woman|moyou
 5c347b90, no
 5c3af880, ai protest|ai protest|3d logo
@@ -1987,6 +2070,8 @@
 5e2f08a1, ltsbbl style
 5e51a380, Brawlhalla|brawlhalla style
 5e54b264, natsume|1girl
+5e7b5d8e, furry|anthro
+5e7d3f17, lgdsgn
 5ea09cf3, sks man
 5eaba4b4, a photo of mabaoguo
 5eae7bb0, realistic|cosplay
@@ -2000,9 +2085,12 @@
 5f1199a7, adl|cae|fck|gsp|hta|httr|lun|olis|omd|rcn|sown|rps|tux|waj|gote|dbz|ulf
 5f35773e, Maria
 5f4dbbb4, solo|male|portrait
+5f67fec1, Primav style
 5f77f3b8, zrpgstyle
+5f8683f1, B3BOO
 5fa1efdd, arien photography|chinese art photography|nfsw
 5fab7659, Master Chief
+5fb5309d, TheOldSiam
 5fb8c5f9, sks man
 5fc312dd, newvegaschar
 5fd78ac3, laolei style
@@ -2020,6 +2108,7 @@
 60851177, dgs illustration style
 609698f6, Cailee Spaeny, caileeSpaeny_v10.safetensors
 609698f6, Peyton Elizabeth Lee, peytonElizabethLee_v10.safetensors
+60a46d99, serpistyle|serpicrosshatch|serpimedia
 60bc5752, MILF
 60cbc38b, Isometric|No Humans
 60d842a0, AIO|Anthro|ukiyoe|knotwork
@@ -2044,16 +2133,19 @@
 61f22d0a, iayuso person
 61f439e0, evang
 61f9323f, lb2cc|archi
+6208c354, splatoon|inkling|octoling|3d
 62110ae2, nkoctst
 62117bfd, hikmix
 621c1e6c, merani
 6230efda, [score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up]
+62674e43, serok
 627533dc, hwan
 6289075d, DeShanF1
 628d0015, sumetal person
 62938071, Bowser
 6296311f, demoura artstyle
 62a1df72, elden ring style|postapocalypse|knollingcase|analog style|dreamlikeart|swpunk|synthwave|modelshoot style|cyborgdiffusion
+62c18bfd, galena style|scima style|reiq style|omrado style|vanrip style|tsuvid style
 62ca66c5, identity v|button eyes
 62d03a24, angieia
 62dafa15, modelshoot style|swpunk|synthwave|paint splatters
@@ -2094,6 +2186,7 @@
 64c46184, masterpiece|best quality|re-badprompt|anime|realistic
 64cf95bb, asd
 64d03cf5, realistic illumination|cartoon|flat cartoon|realistic cartoon
+64d54134, ykgl girl|ykgl girls|cgi artstyle
 64d91f3a, rcnz_niji style
 64e73fcb, dbz style
 650839e4, superhero
@@ -2102,6 +2195,7 @@
 655f2458, niji style, sdvn7Nijistylexl_v1.safetensors
 655f2458, nijistyle, sdvn7Nijistylexl_demo.safetensors
 655f2458, yourname, sdvn8Artxl_yourname.safetensors
+6563e77a, qzr lalafell
 65961cf8, FURRY|FURRY FEMALE, Liquid0111vae.safetensors
 65961cf8, cartoon|cartoon style, Liquid0111vae.safetensors
 65961cf8, forehead|nasolabial folds|realistic nose|acne, Liquid0111vae.safetensors
@@ -2119,6 +2213,7 @@
 665200a7, seras_ashrain
 665dcda7, pixar|blender|3D
 666a05ad, margot
+669d53ad, 3d
 66ab1e7a, portrait+ style|modelshoot style|analog style|photo|nsfw|nudity, photomerge_v11.safetensors
 66ab1e7a, portrait+ style|modelshoot style|analog style|timeless style|lomo style|nsfw|nudity, photomerge_v12.safetensors
 66b4c45e, archer style
@@ -2126,6 +2221,7 @@
 66bd3bf0, space nebula|fog|dust|star cluster|space dust
 66c3d376, caebhx|dark purple hair|red eyes
 66c87a89, sybildanning
+66d1820c, Use triggers from DucHaiten's v7.0
 66d3a78e, medium eyes|detailed eyes|expressive eyes|realistic|disney pixar style|3d|3d rendering
 66def034, sks woman
 66ed97f9, 1
@@ -2137,8 +2233,11 @@
 671fd921, PVC|3D|Best quality|masterpiece, yutianpvc1058xl19V10_v10.safetensors
 672d1e3e, lea-seydoux person|lea-seydoux
 673ca4ea, modelshoot style
+673e3feb, jf|Joy Flowers|fox girl
 67755299, Master Chief
+6778b9aa, w
 6785492c, nier9s
+678f97b6, Primav style
 679df996, by Boris Vallejo|by Brom|by Frank Frazetta|by Hajime Sorayama|by Kelly Freas|by Luis Royo|by Milo Manara|by Olivia De Berardinis|by Philippe Druillet|by Simon Bisley
 67a7c1b1, girl
 67c24e97, chinese mythology
@@ -2147,6 +2246,7 @@
 67e082c9, half body|closeup
 67e8a0ae, analog style|dreamlikeart|knollingcase|modelshoot style|elden ring style|bf|sci-fi
 67eabc3f, anthro|body fur
+67ec2855, 4n1v3rs3
 67ee40e2, Mucha
 68120148, ashenhard style
 681f76ba, chibi
@@ -2166,6 +2266,7 @@
 68e753fa, a photo of Dani15 person|Dani15
 68f1bade, Anime
 68f951eb, loli
+6907b3af, anime
 6907eea5, Valen
 69134511, sks woman
 69134baf, mde person
@@ -2174,6 +2275,7 @@
 695231e8, digital art|cartoon style
 6965c077, iayuso person
 69677096, analog style|modelshoot style|nsfw|nudity
+69760636, masterpiece|best quality|amazing quality|absurdres
 697c8786, orna santa, ornamentalSanta_anythingv30Fp1603.ckpt
 697c8786, orna santa|white hair|golden eyes|beautiful eyes|detail|flower meadow|cumulonimbus clouds|lighting|detailed sky|garden|modern disney style, ornamentalSanta_mergedVersionAnythingv3.ckpt
 698424e4, nsfw
@@ -2184,9 +2286,12 @@
 69f5705b, masterpiece|best quality|newest|absurdres|highres|
 69ff370e, dreamlikeart
 6a125b7f, pow style|sometimes8916|526christian2526|akumetsu9719982|andretheapache9587|bitspirit31653|bwm_nubby6416|crazykazoo2431|eppinette-chi6220|espasmo9486|flowwolf4607|guizmus7459|h20_dancing8979|horvallis7915|jeremy6194|jrw19948464|junglerally3955|max headroom6734|meezy1963|millennium_gun6377|munkyfoot7944|nerfgun37508|nicogj2781|noofthebeast8209|omnia2931|owleye1290|phaff1970|piscabo8649|ras6722|residentchiefnz6989|rhapsody8685|satyam_ssj107387|tazi2574|trash--panda6213|valanya6869|vcm077281|vil0404|wpatzz5836|xthisisbotoxx8765
+6a3510d1, realistic|photorealistic
 6a601a24, guttovendo1
 6a64736d, Follow link to MBHPony if you like. There are 61 concepts trained into MBHTT2FRS and most of them are also in MBHPony
 6aa211f0, evang
+6aab9ccd, em1lyblm
+6aafdc8d, furry
 6ab06e33, Tifa Lockhart|Cloud Strife|Barret Wallace|aerith gainsborough|midgar city|midgar city business district|midgar city slums district|biggs ff7r|wedge ff7r|jessie rasberry|inside seventh heaven bar|shinra security officer|in the style of midgar city
 6abd9611, score_9|score_8_up|score_7_up|
 6ac8f9dc, sks person|(sks person)
@@ -2216,6 +2321,7 @@
 6bccbcc6, EduCH, edumodel_v10.ckpt
 6bccbcc6, blondee, blondeee_v10.ckpt
 6bdec634, sexy|glossy|bimbo|nsfw|thepit bimbo|analog style|dreamlikeart|redshift style|mdjrny-v4 style|studio_ghibli_anime_style style|copeseethemald style|women|anatomical|hardcore|porn|tentacles
+6beb4610, Jinx
 6bebd476, 1girl|moyou
 6c0b3fc5, coralchar
 6c452923, fat|Doraemon|belly|huge|overweight
@@ -2227,11 +2333,14 @@
 6c5dc775, kpt digital artstyle|gui
 6c62e23b, Game interface|game mechanics|tags|buttons||currency bar|paper background
 6c7102ea, botw style
+6c725561, stellaris
 6ca4896d, Jessewatters Person
 6cbb8c9b, fashion|man|woman
 6ccf7f6a, furry
 6ce2ada9, Score_9|score_8_up|score_7_up|masterpiece|best quality||YTM|yutamix-twinkle
 6cec876b, pixel art|pixel art style
+6cffcd1b, lXlAnIL
+6d095ab4, realistic|1girl
 6d15da60, 0dawon, 0dawon_v10.safetensors
 6d15da60, Dw, AnalGapeCreampie-v4.safetensors
 6d25ce71, blue theme|pink theme|yellow theme|grey theme|purple theme|red theme
@@ -2265,6 +2374,7 @@
 6ead7b38, laura
 6eaf3198, azhiichigo style，big eyes|thick lines|cute|
 6eb2a7ce, jiaocha
+6ec3e9f7, realistic|photorealistic
 6ecb0738, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 6ed90084, photorealistic
 6efa7caf, dreamlikeart
@@ -2291,6 +2401,7 @@
 6fe8f5ad, chibi
 6feb162d, evang
 6ff25eff, Evang
+6ffd201b, persona|soejima shigenori|anime coloring
 6fff1ab3, Mike Mignola
 7003a758, shuimobysim|shukezouma
 7009ca74, mobian or sonic character name
@@ -2307,6 +2418,7 @@
 70a6140b, creepy|scary|horror, loraConceptGroupMIX_creepyConceptGroup.safetensors
 70a6140b, guigubahuang|1girl|chinese style, animeIllustDiffusion_guiguExtract1.safetensors
 70a6140b, retro artstyle||1990s style||1980s style|, kmMIXRetroAnimationArt_v10.safetensors
+70f4511c, Dep
 70f7b200, 1girl|girlvn01
 71241227, inzoi
 714f9084, Game characters|full body|original art design
@@ -2330,11 +2442,13 @@
 72040058, score_9|source_anime|source_3d|source_realistic|realistic|3d|drawing|anime|manga|hentai|Pony|sdxl|source_cartoon
 72186363, <niji-se-flowers>
 723102cd, MUD630
+7236b879, 3d
 72644878, evang
 7267c1a1, suzumecat
 726ef787, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 727f0812, modelshoot style
 72922615, looney tunes style|disney style|classic animation style
+72aaeb91, man|girl
 72b0d5bb, sculpture
 72c1d746, erected penis|portrait photo|naked man
 72cd2d1f, score_9|score_8_up|score_7_up|source anime|
@@ -2347,16 +2461,19 @@
 730b9cb5, m_style
 733d605e, Anime Edition
 73547d1c, 1girl
+7354d8f3, Mdastarou
 73660c96, fatsman
 73771530, kazuya
 738df5d3, fashion
 738e9523, Beautiful women|pretty girls|and more
+739efb09, multiple monochrome
 73aebb03, rammstein
 73c50100, none
 73ca29f4, raw photo
 73d359a0, modelshoot style|analog style|mdjrny-v4 style|nousr robot
 73d558d7, jakquelynn
 73df0f6b, no trigger word required
+73e1948a, 1girl
 73ecef32, edgeofthetoonin3d
 741eefee, fantassified icon
 74284d1c, futanari|erection|flaccid|puffy nipples
@@ -2364,6 +2481,7 @@
 7441b04e, Stained Glass||SGFS|JGBA|SGFSJGBA
 744ea8e3, dal
 7456f2a0, gemma louise
+745c8408, realistic|photorealistic
 745d84b2, character|girl
 745e745c, scthrinsctrpkmn
 7460a6fa, final, finalEditionIk_finalEditionIk.ckpt
@@ -2424,6 +2542,7 @@
 76956df2, guttonerdvision6, guttoNerdVision6_v10.ckpt
 76956df2, guttonerdvision7, guttoNerdVision7_v7.ckpt
 76956df2, guttonervision8, guttoNerVision8_v80.ckpt
+76a268de, origin|blue skirt|shirt
 76b1e3ff, art|japanese art
 76c86ec0, modelshoot style|swpunk|synthwave|paint splatters
 76e59a65, sincity_iamyork
@@ -2476,6 +2595,7 @@
 7906524a, cornflower
 791386b2, shinkai-art|shinkaiart|portrait|shinkai|makoto shinkai
 7928fc22, the car
+79347729, pastel color
 7939e798, ChavGirl
 79587710, analog style|modelshoot style|nsfw|nudity, realisticVisionV60B1_v20Novae.safetensors
 79587710, zombie, wendigo_v20.safetensors
@@ -2505,11 +2625,14 @@
 7a16febb, yuqikun, yuqikunStyle_v1.ckpt
 7a182a74, wjqarnpomo
 7a320666, score_9|score_8_up|score_7_up|score_6_up
+7a60abf0, score_9|score_8_up|score_7_up|fellatrix style|urushihara satoshi style, milfShaper_archivedPonysd15V20.safetensors
+7a60abf0, score_9|score_8_up|score_7_up|incase style|fellatrix style|maidoll style, milfShaper_archivedPonysd15V21.safetensors
 7a74f7c2, lineart of {objects}
 7a77a7f5, yu-gi-oh!creature
 7a8b830f, sks woman|#sd1.5_vibs1#|woman
 7a8ece1f, Evang
 7aaeee43, woman
+7acae5a9, QR Face
 7ad31fc7, none
 7add5eca, score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up
 7af9cd4c, EduSDII, modelcharacter_v10.ckpt
@@ -2550,6 +2673,7 @@
 7d6df7c9, 3D|checkpoint|girl|sexy|nsfw|sfw
 7d7a22ee, PEX_style
 7d9a25d8, Photography|Realistic
+7da6900c, realitic|photorealistic
 7dada922, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|BEST AESTHETIC|NORMAL AESTHETIC|BAD AESTHETIC|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 7dbd8b97, test
 7de2ea0f, ishizuka
@@ -2563,10 +2687,12 @@
 7e8d1b0b, coralchar
 7e9708cb, score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up
 7ea37667, uka|sexy|breast
+7eacced1, cartoon
 7ebe8fad, buzz Lightyear  eat hotdrynoodle
 7ec31957, beth woman
 7edc8e08, mksks style
 7f1617e6, nekoazuki|girls
+7f33c2d6, BARBIE
 7f590dff, shuuchikan academy school uniform|collared shirt|red vest|sendou erika|tougi shiro|kuze kiriha|yuuki kanade|yuuki haruna
 7f62d94b, VoxelArt
 7f69aafc, Master Chief
@@ -2574,7 +2700,6 @@
 7f8b6621, aesthetics|cinematic|closeup:0.6|dynamic atmosphere|full immersion|artistic:0.5|90s art|90s photo|soft light|adobe lightroom|depth of field
 7fa1e7c6, SDArt
 7fa460a0, illustration|comic style|realistic|Comic Poster|Line Art
-7fb4ae02, AVTR|Avatar Style
 7fd98345, desolated style painting
 7fed101a, sks woman
 801a4c51, girls
@@ -2651,6 +2776,7 @@
 83416818, anime|niji-01, diffusion_pytorch_model.safetensors
 83416818, lyh|anime, diffusion_pytorch_model.safetensors
 83416818, lyh|anime|ando|mia, diffusion_pytorch_model.safetensors
+83565229, realistic|photorealistic
 835e7dc1, gigafractal artstyle
 8371a0bf, spicto
 8381f785, jclnhbe style
@@ -2669,12 +2795,14 @@
 848b72d0, depth of field|film, unrealityV30_v20.safetensors
 848d7290, Yuuna
 8495185b, girl
+84a18082, sd21turbo
 84ec5fea, subaru|1boy
 84f6b9a2, whatif style
 8516254c, girl|woman|sexy
 85293b6a, particle effect|lens flare|concept art
 852ad25f, InteriorDesign
 853e5ff4, wvebg1
+8577d89d, score_9|score_8_up|score_7_up|score_6_up|source_anime
 859342ff, MMN|MN|cho girls
 85979c1f, 1990 style|1980 style|retro artstyle
 85afa8aa, instance token - "nyd"|class token -"messi"
@@ -2713,6 +2841,7 @@
 872bdd84, zedra1 girl
 872fa838, Interior
 874c83a1, A photo of a BiYaoYao Animated Young Woman|biyaoyao
+8752c13a, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres|realistic|photorealistic|photo|DSLR|3d|anime|real life|real life insert|real world location|photo background||photo \medium\|cosplay photo
 876e83c8, game icon, gameIconInstitute_v30.safetensors
 876e83c8, game icon|game logo|game asset, stylez_v10.safetensors
 87758a47, SEE APPENDIX A|见附录A
@@ -2728,7 +2857,6 @@
 8853491f, cartoon character
 885be986, daniellemoinet
 887478e2, oumeifeng style|redshift style|style of joemadureira|samdoesarts style
-888b8afa, RedCraft
 88b8d946, desi_fit_girl, realisticFitGirls_desi.safetensors
 88b8d946, goose_fit_girl, realisticFitGirls_goose.safetensors
 88ff0293, evang
@@ -2766,6 +2894,7 @@
 8ad6ce64, Evan
 8add12f8, ukl
 8ae4d0fb, ageha|monstergirl|unusual eye|extra pupils|extra arms|frilled dress
+8b0b6f38, tentacle|slime_\substance\|mechanical parts
 8b3582d3, ociec
 8b3a0e37, wearing randoseru backpack and buruma and gym uniform with colored hem
 8b3c8f11, charliebo artstyle|holliemengert artstyle|marioalberti artstyle|pepelarraz artstyle|andreasrocha artstyle|jamesdaly artstyle
@@ -2776,6 +2905,7 @@
 8ba5b787, dal
 8bb5ce23, realistic, AnimeErodeityWildcards_cliodhna.safetensors
 8bb5ce23, shiny skin, AnimeErodeityWildcards_myn.safetensors
+8bc3099c, WOTAPandora
 8bc382d9, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 8bd1d95d, "Photo of luxury-hotel-7890"
 8be93e7d, xianqi
@@ -2785,12 +2915,15 @@
 8c36d946, prism|glow|glowing|glitter|particles|bloom|extra lights|cinematic lights|colorful|glowing white particles|glowing eyes|prism hair|prism eyes
 8c3b86ce, chilloutmix-Ni.safetensors
 8c3ca1c1, score_9|score_8_up|score_7_up||rating_explicit||source_anime|
+8c56927a, AAmelia
 8c6624df, 1nt4n
+8c70639f, shebaobao
 8c7b6bc3, Evang
 8c7efd5f, itojunji style
 8ca5c5a1, zero_two_101
 8cb4ebda, znchn style
 8cb6adb7, gay
+8cb7a827, qzr lalafell
 8cbbfea8, Kemono, fluffyTart_v70.safetensors
 8cbbfea8, kemono|furry, fluffyCake_v20.safetensors
 8cc017a0, vector-art|pulp-diffusion
@@ -2813,6 +2946,7 @@
 8d9f015b, avatar style|avatar style|boy|girl|old man|old woman|woman|man|teen boy
 8d9f6326, highres|raifu
 8ddabe81, LYH_NIJI|LYH
+8de06375, masterpiece|best quality|amazing quality|very awa|absurdres|
 8de50d7b, Mature female
 8e121fec, none
 8e145533, claymation|80's anime style
@@ -2837,12 +2971,15 @@
 8f2e1466, art by Boris Groh
 8f488fb6, seconddusk
 8f495d3d, shuimobysim|shukezouma
+8f4aff18, wrinkled soles
 8f4f06a4, anime screencap
 8f534e54, Master Chief
 8f5eeef9, gnd man
 8f675f3e, Evang
+8f72a8fc, 1girl|female focus|pinup|
 8f7d98c0, by mon
 8f89e96b, anime pencil concept style
+8f8e2b4d, DigitalHuman|3D Face
 8f943769, mechanical_arms|post-apocalypse|post apocalyptic|vikingpunk|viking_punk
 8fced5c4, realism|kina, lorina.ckpt
 8fced5c4, turino, lorina.ckpt
@@ -2866,7 +3003,9 @@
 909dc1f2, a man in short briefs standing in a pool|a man in a thong standing in a pool|a man in short briefs standing in a garden
 90a4c676, Stalin|Joseph Stalin|Iosif Stalin|Jose Stalin
 90d470cd, Children
+90e5d876, mask-girl
 90e61fac, anime|landscape
+90f12ba3, furry
 91099850, Muscular|Anime
 910fb637, btdmnky, stableBTD6_btd6.ckpt
 910fb637, btdmnky|primary|military|magic|support|hero, stableBTD6_v10.ckpt
@@ -2888,6 +3027,7 @@
 9207f242, realistic|photorealistic|ultra realistic|photorealism|raw photo|realistic photo|realism|photo|raw picture
 920e21fa, rcnz_hqr
 92144649, yuzu$style
+921ec477, BONDARTS
 92352ab1, chinese hanfu:1.2
 9242d421, CCDDA artstyle
 9256ed1a, pow style|nrgi|mgti|abiti|datsi|cavai|hikoi|cudii|cepi|enigi|difi|arumi|minhi|mdsi|plni|tichi|uwei|fleri|hepi|wazi|ouei|rithi|mikii|sshi|gerai|inemi|yohi|ronti|reemi|eneii|pethi|wivi|maari|eeti|wrayi|afsi|opii|pkgi|budai|ibci|ccui|ucni|emiti|drui|wrali|aproi|wboi
@@ -2901,6 +3041,7 @@
 92c083af, redshift|nvinkpunk|lndskp
 92cf4ceb, nayeonnine
 92e4c246, sks person
+92e58ebf, Cosplay
 92e61297, art by yaguru magiku
 932dba2c, sks human RAW photo
 932f6317, indonesia|south east asian|indonesian|javanese|sundanese
@@ -2929,6 +3070,7 @@
 94a0aa9d, anime
 94a1df93, Sf
 94bc80f2, cafa cardesign
+94c16724, Primav style
 94c7fd10, nayeonnine
 94c95dd2, Master Chief
 94d62b9f, animegao
@@ -2943,6 +3085,7 @@
 9571b2c7, nvinkpunk
 9577782b, fking_scifi_v2
 9578f5e6, genmodmr
+957f699b, no
 958eaa52, rcnz_niji style
 9593cdc0, surreal|surrealism
 9598c664, Craig Severance|CraigSeverance
@@ -2952,6 +3095,7 @@
 959e67a3, sks woman
 95a1510a, donnaewin
 95db88e5, Evang
+95f7557c, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres|realistic|photorealistic|photo|dslr|cosplay photo|3D|real life|real life insert|real world location|photo background|anime|anime coloring|anime screenshot|novel illustration|cover|cover image|cover page
 95f8d0a7, Gghjjh, good_v10.safetensors
 95f8d0a7, armpit, module1_train1.safetensors
 95f8d0a7, graffiti illustrations|chilloutmix, graffitiArt_httpsCivitaiComModels.safetensors
@@ -2975,11 +3119,13 @@
 972c5030, gendigi
 972cb2b5, guttoepic2
 973f0cc1, hanfu
+975850d1, cosplay photo|real life|photorealistic|
 975b2546, 80's anime style
 975e371a, 'anime
 9769f791, realistic
 97730110, chibi|child|
 97777800, swpunk|synthwave|paint splatters
+977e7ed7, masterpiece|best quality|newest|absurdres|highres
 978e9ff8, h4zza
 979864ce, Meowskulls, meowskullsModel_v20.ckpt
 979864ce, haruno, harunomodel_v10.ckpt
@@ -3138,6 +3284,7 @@
 9b1cddb6, detailed_skin|moles|freckles|wet_skin|dark_skin|brown_skin|pink_skin|red_skin|blue_skin|green_skin|grey_skin|veins|veiny_skin
 9b1d06fa, CG|Octane rendering|This is an image of an mature
 9b36871e, illustration
+9b395ec4, anime
 9b5251e8, Papercutcraft style, papercutcraft_v1.ckpt
 9b5251e8, flat|high contrast|color, fluentuiEmoji_sd15.ckpt
 9b5251e8, muppet|kermit|cookie monster|drummer muppet|Miss. Piggy|sesame street|Elmo, muppets_sd15MuppetBlip.ckpt
@@ -3176,6 +3323,7 @@
 9ce5cea2, nvinkpunk|snthwve style|style of joemadureira
 9ce61cf3, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 9cec73d3, photorealistic|anime|cartoon
+9cf5fcf7, score_9|score_8_up|score_7_up|source anime|
 9cf9ef13, realistic
 9cfc4e43, SDArt
 9d01dab8, lyh|anime|hatyuuruinohito style|the0neulost
@@ -3197,6 +3345,7 @@
 9db9075d, nasolabial folds|cross dressing|surrealism|2.5D|adult|anime
 9dc1d702, sks woman
 9dddaced, girl
+9de81b5d, furry|kemono
 9deb5536, Skaven
 9e01a1e4, male|female
 9e109142, Garnet_s_ie|img
@@ -3216,6 +3365,7 @@
 9ec1e884, hanbok|mecha musume
 9ecb88d8, photo of zhy zhangyi
 9ed4ea56, Oldjourney
+9edaeaeb, anthro|ratatoskr|ukiyoe
 9ede614e, 80's anime style
 9ee01169, TOK
 9ee95c80, anime|2d anime|3d anime|anime style
@@ -3242,6 +3392,7 @@
 9fee5b60, maddiesmith
 9ff4bcf1, dalcefo
 9ff529c8, anime
+a0134bd0, 1girl
 a026bc0d, glasses
 a0395ca6, kurumifaceXL
 a03d0c61, lyh|anime|ando|mia
@@ -3249,6 +3400,7 @@ a06436da, wtrcolor style
 a06ae47a, chibi|cute
 a06c6681, photo|digital art|lk artstyle screencap|hg artstyle render|cw artstyle render|gh artstyle screencap|ms artstyle screencap|disney artstyle render|hq artstyle digital art|dd artstyle digital art|tc artstyle digital art|full-length|medium-shot|closeup|longshot|headshot|beautiful lighting|from behind|silhouette of|street art of|humanoid animal|half-x half-y hybrid person/animal|anthro animal person|female/male x furry|dragon|person with feathered/dragon/insect/butterfly/fairy wings|giant woman|miniature woman|kr|ns|sn|kk|vd|al|ah|sweatjacket|sg outfit with cape|sy outfit with cape and helmet|df outfit|sc outfit|pb outfit with helmet|fs outfit|ek outfit|hz outfit|nz outfit|sw outfit|bl outfit|mk outfit|kd outfit|sidecut hairstyle|ponytail hairstyle|sd hairstyle|sh hairstyle|nr hairstyle|tl hairstyle|rh hairstyle|sb hairstyle|jf hairstyle
 a0777095, FUTANARI|NO_TESTICLES|ERECTION|GIRL
+a093c5b6, ☀ Asian Aesthetics Asian Aesthetics XL_v2.0
 a0b3a1c3, sphx weapon
 a0cd58af, sks woman
 a0d73713, masterpiece|best quality|highres|absurdres|amazing quality|very aesthetic
@@ -3289,16 +3441,19 @@ a1d9f84f, source_photorealistic|fleshmutant|cybermutant, ponyspanded_betaV05.saf
 a1d9f84f, source_photorealistic|fleshmutant|cybermutant|ncrender, ponyspanded_betaV04.safetensors
 a1d9f84f, source_photo|dazstyle|NCRender|asmaria, ponyspanded_betaV07.safetensors
 a1d9f84f, source_photo|mydaz|fleshmutant|cybermutant|NCRender, ponyspanded_betaV06.safetensors
+a1d9f84f, tanemorihahalargehand|tanemoriaunt|1girl|glasses|forehead|ponytail||tanemorisis|1girl|blonde hair|blonde eyes||tanemorisensei|1girl|glasses|dark skin|dark-skinned female|turtleneck|tight|curvy|fullbody||tanemorisisfriend|1girl|glasses|forehead|twin braids||tanemorihahalargehand|1girl|blonde hair|blonde eyes|, tanemoriPonyPonyMTSP_v10.safetensors
 a1ddf000, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 a1e1b00c, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|R/Amateur
 a1f0ad54, insertNameHere
 a1f3c840, realistic|realism|photorealistic|raw photo
 a1f49fa9, A visual title screen
 a1f8c83a, shinyunbok painting
+a1fc2811, gbmatch
 a2073f09, by mika pikazo
 a21b69c5, bigbrains
 a21f3149, masterpiece|best quality
 a2228725, masterpiece
+a222fd5c, handpainted
 a22399ba, analog style|chromav5|nvinkpunk
 a23afa51, dvarchmodern|dvarchgothic|dvarchvictorian, dvarchMultiPrompt_dvarchExterior.ckpt
 a23afa51, dvmech, dvmech_1017030MergeWithEpic.ckpt
@@ -3328,6 +3483,7 @@ a3676434, pastel
 a3823a97, score_9|score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up
 a3a20752, realistic|photo|raw photo|photography|photo realistic
 a3a594af, baozhuang
+a3c00923, Anime
 a3c809ba, pattern
 a3c87961, hanfu
 a3e9ec50, painting
@@ -3345,6 +3501,7 @@ a4281939, PORTRAIT of Dilmurat|Dilmurat|1girl
 a4312ca5, LEGOstyle, legoworld_v11.safetensors
 a4312ca5, Pokemon|Simple Background|Black Background|Monster|Normal|Fire|Water|Grass|Electric|Ice|Fighting|Poison|Ground|Flying|Psychic|Bug|Rock|Ghost|Dragon|Dark|Steel|Fairy, pokemonaiFan_v10.safetensors
 a4312ca5, sks, legoworld_v20.safetensors
+a4420d91, tapperoni
 a455667b, cute|chibi
 a457aeea, FlonixApterus
 a4723a65, anime
@@ -3390,11 +3547,13 @@ a69f9ce1, best quality|sksTakuya
 a6a7d3ac, thm style|fantastical realism
 a6b4eaf3, no
 a6dbd500, tchnclr
+a6e495db, asian|japanese|chinese|tailand|korean|beauty|realism|realistic|photo
 a6e49f52, graphic novel|comic book style|sketch|lineart|ligne claire
 a6ea17df, female|male
 a6eb767f, zombie_vector|RottingZombie person|tryptophobitize
 a6f5b356, GLEN ORBIK|EARLE BERGEY|ROBERT MAGUIRE|GIL ELVGREN
 a6f96d80, BelleDelphine|woman
+a7028b91, score_9|score_8_up|score_7_up
 a72de66c, MedabotV2
 a731246e, Merge
 a7328d38, Master Chief
@@ -3404,6 +3563,7 @@ a74ca246, cbzbb|microworld, microcharsMerge_10.ckpt
 a74ca246, food_crit|microworld, microcrittersMerge_10.ckpt
 a74ca246, microworld|clayitization, microclayMerge_10.ckpt
 a74ca246, microworld|knollingcase, microcasingMerge_10.ckpt
+a75108e2, masterpiece|best quality|amazing quality|absurdres
 a759d5d7, anime|niji-01
 a7694188, sks woman
 a7722732, SEMI-SILHOUETTE light:1.1|raytracing:1.1|cryengine:1.1|skin detail:1.1|photrealistic:1.1
@@ -3430,6 +3590,7 @@ a8434aad, CCDDA Artstyle
 a84b8518, rcnz_hqr style
 a85ac896, realistic fur
 a866286f, mtg card art
+a87f66f1, inzaniak
 a8a0e631, masterpiece|best_quality
 a8af5a13, erduh man
 a8bfb6df, hanfu|genshin impact
@@ -3459,6 +3620,7 @@ aa366209, maxwell the cat, maxwellTheCat_10.safetensors
 aa366209, romcom style, romcomDiffusion_10.safetensors
 aa366209, source4 style, source4V10_v1Safetensors.safetensors
 aa366209, wewulzkz, werewolfDiffusion_1.safetensors
+aa42c89b, A woman|in an elegant white bridal gown with intricate lace details|standing in a neutral background|with an off-the-shoulder design and floral embroidery on the hem|looking at the observer|with a photorealistic appearance
 aa49e01c, anime pencil concept style
 aa7001cf, COLR_001, coloringBook_.ckpt
 aa7001cf, Nouvis, nouvisPsychedelic_nouvisFor21.ckpt
@@ -3497,12 +3659,14 @@ ab377a68, FlonixApterus
 ab38b8e3, ouka_studio
 ab48e25c, chibi
 ab4941a7, fantasticmrfox
+ab533a36, 3d|splatoon|inkling|octoling
 ab5ea887, all in one|photo|2d|3d|anime|game|photorealistic|cinematic|design|base, albedobaseXL_v13.safetensors
 ab5ea887, photo|2d|3d|anime|game|photorealistic|cinematic|design|contemporary|art, albedobaseXLPre_v15pre.safetensors
 ab5ea887, update, update_v10.safetensors
 ab770255, Anime
 ab861d3d, N/A
 ab8b0894, Drawn in the style of Summertime Saga
+ab91ffc8, Reality
 ab96dea3, cartoon character|animation character
 ab9d9647, sks man
 aba3f332, wlop
@@ -3555,6 +3719,7 @@ ad82a9dd, Evang
 ad9100fe, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 ad9d6205, fart62
 adb2b67c, neon|glowing|silhouette
+adb822fd, everything
 addf5b58, fantasy|fantasy art|80's fantasy art|90's fantasy art|retro|photorealistic|realistic|watercolor|oil painting|science fiction|scifi|scifi fantasy art|D&D character|fantasy poster|analog|analog style|volumetric lighting|subsurface scattering|photoreal|fantasy character|perfect body|perfect legs|masterpiece|intricate|detailed|hyperrealistic
 ade8bdab, 2d|pixel art|sprite style
 adf18b48, Any
@@ -3563,6 +3728,7 @@ ae3342bc, Master Chief
 ae40b48d, cult of cthulhu|giger|Cthulhu|post-apocalypse|biomechanical
 ae5b7b44, AIO|Anthro|ukiyoe|knotwork
 ae703f08, sweat
+ae7d7cde, BZ4X
 ae88607a, black-and-white photograph
 ae8cfec6, 伤妃-刘亦菲|1girl|
 ae998e33, DarkSouls Style
@@ -3570,6 +3736,7 @@ aea008ef, afd
 aeb47ec2, noble ai|noble mix fix|reality|noblemixfix|person|character|photograph
 aebc1782, score_9|score_8|score_7_up
 aebfcabd, 1
+aed630fc, Clip
 aed94a4f, Michiru_Kagemori
 aef3d307, zukki_style
 af0ce122, SEE MODEL INTRODUCTION
@@ -3600,6 +3767,7 @@ b04df7bd, kubakub|architecture
 b0557e7c, 马
 b06cb16e, Score_9|score_8_up|score_7_up|masterpiece|best quality|
 b078aa3e, by greatmosu
+b085aee6, score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up|gay|bara|man
 b08f1ff8, realistic
 b0a1f441, breasts|gigantic breasts:1.6|hyper breasts|massive breasts|oversized breasts|breast bigger then body|wide hips|
 b0a2f552, furry
@@ -3608,9 +3776,11 @@ b0a44c16, evang style, sneekkioRobotModel_sneekkioRobotDetail.safetensors
 b0a8dd3c, me
 b0b3bbb9, Renaissance: Botticelli|Bruegel Pieter|Da Vinci|Durer|El Greco|Giorgione|Giovanni Bellini|Jan Van Eyck|Raphael|Michelangelo|Paul Veronese|Tintoretto|Vecelli|Weyden|Pieter il Giovane  Baroque/Rococo: Aelbert Cuyp|Boucher more Rococo|Caravaggio|Chardin|Claude Lorrain|Gainsborough|Tiepolo|Hals|Rubens|Poussin|Rembrandt|Van Dyck|Velazquez|Vermeer  Neoclassicism/Romanticism/Realism: Bouguereau|Constable|Courbet|David|Delacroix|Friedrich|Gericault|Goya|Ingres|Tissot|Millet|Repin|Turner  Impressionism: Caillebotte|Degas|Gauguin|Hassam|Lautrec|Manet|Marcel Dyf|Martin|Monet|Pissarro|Van Gogh|Renoir|Seurat|Sidaner|Signac|Sisley|Sorolla  Other Artists Modern or without a specific school: Leyendecker|Norman Rockwell|Alma|Antonov|Boudin|Chagall|Camille|Fechin|Gerhartz|Gerome|Greuze|Hobbema|Afremov|Morandi|Millais|Sargent|Shishkin|Sorolla|Streeton
 b102b70e, alizee|amy winehouse|ariana grande|audra miller|avril lavigne|billie eilish|camila cabello|charli xcx|christina aguilera|dua lipa|emma stone|emma watson|hayley williams|jennifer lawrence|katy perry|lady gaga|lana del rey|marina diamandis|miley cyrus|p!nk|rihanna|selena gomez|shakira|sophie ellis bextor|taylor swift|heart on cheek|lips piercing|nose piercing|nose stud|nose ring|verism style|samdoesart style|thepit style|owler style|cherrmous style|arosen style|uodenim style|stanleylau style|puffy lips|hoop earrings|thick eyebrows
+b1091908, painting|art|neo
 b109bf50, diffusable
 b11200d1, samanthafox
 b125a56f, See Version Notes
+b129416e, fantasy|crystalizer
 b13930b7, nvjobmagiccircle
 b145295c, christmas|christmassweater||<lora:world_christmassweater-20:0.8>
 b152939a, depth of field
@@ -3655,6 +3825,7 @@ b1fd9215, ginkddd
 b2035b44, butterfly sex|blowjob|doggy style|handjob|licking cock|riding cowgirl|reversecowgirl|sidefuck|titty fucking|reverse gang bang|self stroking|undressing|orgasming|foodtease|teasing|cumshot|threesome|foursome|fivesome
 b2066f4d, laracroftsd
 b210c026, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
+b21cfaf6, beautiful girl|female
 b23ffcd4, a woman
 b240717e, shuimobysim|shukezouma
 b245152f, powercolor.v1|Drippy watercolor|Vivid watercolor
@@ -3668,6 +3839,7 @@ b2a0766e, zelda|samus|link|luigi|princess peach|princess daisy
 b2ae9510, yuno
 b2c06b09, natnapinh
 b2c47ed5, LEGOstyle
+b2c78db6, masterpiece|newest|absurdres|incredibly absurdres|abstract background|concept art|depth of field|volumetric lighting|dynamic angle|epic composition|epic proportion|masterpiece|best quality|amazing quality|very aesthetic|newest|detailed background|detailed environment
 b2de9d62, silverfox5213|
 b2e6aef1, aptic|zgambuf
 b2fb704b, anime artwork|cosplay photo|fashion photo|raw photo|cotton doll
@@ -3718,6 +3890,7 @@ b59e864c, portrait|cinematic|photorealistic|photography
 b5abbb71, scene view
 b5b85ff6, synthwave punk style|vaporwave style|synthwave|vaporwave colors|retro photography|neon lighting|paint splash|nvinkpunk
 b5c0b653, modelshoot style
+b5cdb3b9, An oil painting
 b5dfa841, 𝚊𝚛𝚝𝚒𝚜𝚝𝚒𝚌 𝚙𝚘𝚛𝚝𝚛𝚊𝚒𝚝|𝚋𝚎𝚊𝚞𝚝𝚒𝚏𝚞𝚕 𝚍𝚎𝚝𝚊𝚒𝚕𝚎𝚍 𝚏𝚊𝚌𝚎|𝚕𝚘𝚘𝚔𝚒𝚗𝚐 𝚊𝚝 𝚝𝚑𝚎 𝚟𝚒𝚎𝚠𝚎𝚛|𝚍𝚒𝚐𝚒𝚝𝚊𝚕 𝚊𝚛𝚝 𝚜𝚝𝚢𝚕𝚎|𝚘𝚒𝚕 𝚙𝚊𝚒𝚗𝚝𝚒𝚗𝚐 𝚜𝚝𝚢𝚕𝚎|𝚌𝚘𝚕𝚘𝚛𝚏𝚞𝚕|𝚍𝚢𝚗𝚊𝚖𝚒𝚌 𝚕𝚒𝚐𝚑𝚝𝚒𝚗𝚐|𝚟𝚒𝚋𝚛𝚊𝚗𝚝 𝚕𝚒𝚐𝚑𝚝|𝚜𝚑𝚊𝚍𝚘𝚠 𝚍𝚎𝚝𝚊𝚒𝚕𝚎𝚍|𝚑𝚒𝚐𝚑𝚕𝚢 𝚍𝚎𝚝𝚊𝚒𝚕𝚎𝚍|𝚊𝚗𝚒𝚖𝚎 𝚜𝚝𝚢𝚕𝚎|𝚜𝚙𝚎𝚎𝚍 𝚊𝚛𝚝|𝚋𝚛𝚞𝚜𝚑 𝚜𝚝𝚛𝚘𝚔𝚎𝚜|𝚋𝚎𝚊𝚞𝚝𝚒𝚏𝚞𝚕 𝚊𝚗𝚍 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌|𝚖𝚊𝚜𝚝𝚎𝚛𝚙𝚒𝚎𝚌𝚎|𝚞𝚕𝚝𝚛𝚊 𝚠𝚒𝚍𝚎 𝚊𝚗𝚐𝚕𝚎|𝚜𝚞𝚛𝚛𝚎𝚊𝚕𝚒𝚜𝚝|𝚊𝚋𝚜𝚝𝚛𝚊𝚌𝚝 𝚊𝚛𝚝𝚒𝚜𝚝𝚒𝚌|𝚐𝚛𝚊𝚍𝚒𝚎𝚗𝚝 𝚋𝚊𝚌𝚔𝚐𝚛𝚘𝚞𝚗𝚍
 b5e156ba, vskeei1
 b5f1a902, realistic|anime|toon|cartoon
@@ -3736,11 +3909,14 @@ b6a25334, yaju-senpai
 b6aaeb01, chibi
 b6c3c8a8, sks woman
 b6c5f0f7, glasses
+b6f2ffb1, Architectural CNCPTL RT|
 b7010dfe, Mosaic Art
 b701219e, clone wars style|clonewars style|batman_the_animated_series
 b7244379, mecha hanbok|techwear hanbok|mechanical arm|mecha wear
 b725e575, wtrcolor style
+b732da66, Green Gummibar with his white eyes and his ears and his black nose and orange undies and white sneakers
 b734d0ee, score_9_up|score_8_up|score_7_up|score_6_up|score_5_up
+b73f1420, Jenna ortega|nude|sexy
 b742bc35, 8k|raw photo|best quality|masterpiece:1.2|realistic|photo-realistic:1.37|high detailed background|1girl in a blue shirt|shy expression|cute|cityscape|night|rain|wet|professional lighting|photon mapping|radiosity|physically-based rendering||beautiful breasts|medium breast|look at viewer, girlMix_girlsmix.safetensors
 b742bc35, m, girlMix_girlsmix.safetensors
 b744269d, Evang
@@ -3819,6 +3995,7 @@ bbfb82f1, realistic
 bc26ee23, samylady
 bc39c10a, zainabt
 bc43dd3d, glasses
+bc4abbe4, anime style
 bc8952a5, Positive: score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up
 bc972545, WEIRDEXPENSIVE
 bc9bddc5, cory chase|ohwx woman
@@ -3833,6 +4010,7 @@ bd5a93e8, kemono|nj5furry
 bd66b7ba, Bluey
 bd747e17, dark|shadow|fantasy
 bd7df541, timor|timorm
+bd8e090a, low light
 bda49b29, ashenhard style
 bda7821c, samdoesart style|thepit style|orwel style|cherrymouse style, babesKissableLips_10.ckpt
 bda7821c, thepit style|samdoesart style|orwel style|cherrymouse style, babes_11e9.ckpt
@@ -3852,11 +4030,13 @@ be6ca5be, there is no trigger word
 be7c545d, darkestdungeon style|darkest dungeon style|clonewars style|clone wars style|jojo style|newstl
 be7ddafc, classic disney style
 be82dca2, Altira|Altira style
+be865cac, 1
 be95deed, aesthetic
 be9edd61, SDXL
 beab2cb2, sexy|glossy|bimbo|nsfw|thepit bimbo|analog style|dreamlikeart|redshift style|mdjrny-v4 style|studio_ghibli_anime_style style|copeseethemald style|women|anatomical|hardcore|porn|tentacles
 beb6bcfd, Evang
 beb87f9d, furry|girl
+bec4494e, hanfu
 becccd91, 1girl|1boy, osorubeshiXL_z.safetensors
 becccd91, 1girl|1boy|female|male|comic, osoruwest_v01.safetensors
 becdbc5d, Kavellion|Kavellion style
@@ -3865,8 +4045,10 @@ bee71543, impasto|flat coloring, nijiStyleXL_v21.safetensors
 bee71543, masterpiece|best quality|highres, sanaexlAnime_v07.safetensors
 bee71543, sailulu style, MyzyCelluloidKohaku_kohakuDelta.safetensors
 bef2a590, Fruits|Vegetables|
-bef5b673, nothingdont use any|anime|realistic|3d
+bef5b673, 1990s style|1980s style|2000s style|retro artstyle, newERANewEstheticRetro_newErav50NAIEpsilon.safetensors
+bef5b673, nothingdont use any|anime|realistic|3d, boltilIllustriousxl_v20.safetensors
 befd836a, 1girl|character|copyright|artist|stuff|best quality|absurdres
+befec20b, SIMONA
 beffb160, gopnik|gopstyle|gopgirl|gopgirls
 bf08aebb, anime|anime style
 bf158cd4, cartoon
@@ -3874,6 +4056,7 @@ bf52174c, Anthro|Photo
 bf64b437, BRAV5_RealisianV50
 bf7386ef, diovasnsc
 bf7aedf0, bakirda|kridaba|DaKriDi|dikrida
+bf8ef793, best quality|8K|masterpiece|ink|{{{cel anime}}}|Vector Art|cute|
 bfa01b88, photo of ohwx woman|ohwx woman
 bfa54420, ChromaV5|nvinkpunk
 bfc3e7c9, 1girl|female focus|pinup|
@@ -3882,6 +4065,7 @@ bfccd521, roypop style
 bfd1ff49, rcnz_niji style
 bfe69b94, photo of evang style
 bff9c2fc, POW Style
+bffe0896, 3lys34ly
 c019afae, Pony
 c01cb481, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 c022d9d2, asiangirlslikeness
@@ -3891,6 +4075,7 @@ c0302f10, Gllltchy style|Gllltchy, gllltchy_v1.ckpt
 c0302f10, filmation motu style, filmationMOTU_v1.ckpt
 c055a24d, Game interface|content|buttons|logo|image content|return|stars|flowers
 c0777389, hanfu
+c09ca9d2, Photo of brk cat
 c09d432b, photorealistic|nvinkpunk|kuvshinov|dreamlikeart|samdoesart|modelshoot style
 c0a703a2, Western Comics
 c0ae74e1, reddit|low quality|traditional media|amateur|real life photo|raw|film grain
@@ -3902,7 +4087,9 @@ c0e63696, 2000s|1990s|1980s|1970s|1960s|1950s|1940s|aleksei gilev style|andrew v
 c0e7c884, snthwve style|nvinkpunk
 c0ed7dfb, l4lisa
 c0f32ab1, plushiedsk
+c0fcc9cb, chibi||chibi only|
 c112b482, Master Chief
+c118725f, girl
 c11fb943, modelshoot style
 c12e4c21, Evang
 c142c7cf, outline|monochrome|lineart|black and white|grayscale|greyscale
@@ -3913,6 +4100,7 @@ c1591e6c, furry
 c16a2a6b, wjqfrottage
 c181b9bd, kemono|nj5furry
 c1918809, cartoon|illustration|toon
+c19435d3, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres
 c194fe5c, furry:1.2|realistic fur|details down to every fluff|big eyes
 c1a72459, girl
 c1cb5ab4, 1girl|moyou
@@ -3929,6 +4117,7 @@ c2541ca2, glasses
 c2545be4, science fiction|D&D character|fantasy|masterpiece|scifi fantasy art|photoreal|intricate
 c25693d5, best quality
 c25a8bf6, L1X
+c27e8b4b, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres|realistic|photorealistic|photo|dslr|cosplay photo|3d|real life|real life insert|real world location|photo background|anime|anime coloring|anime screenshot|novel illustration|cover|cover image|cover page
 c282fd5e, Cinematic|Skin Details|Full Body Photo|Photography
 c286fd94, blowjobsex|handjobsex|eroticposing|cumfacial|cumonbreasts
 c2bd4257, emaiti
@@ -3947,11 +4136,12 @@ c3466734, by t6
 c35b7b6e, modelshoot style|mdjrny-v4 style|nousr robot|dreamlikeart
 c361dd5f, masterpiece, sarabasmix_v1.safetensors
 c361dd5f, tiny, beenyou_v1.safetensors
-c3648938, RedCraft
 c37af4df, furry|kemono
 c37ba157, androidarts
 c37cd72c, blurry background|depth of field
 c3860cb4, furry
+c3a88520, Jenna ortega|nude|sexy
+c3ac0992, 1boy|muscle|massive chest|big chest|huge pec|nipples|nude|abs perfect face|perfect eyes
 c3b103e8, lvmd aesthetic|3d render
 c3c086d6, artstyle bse
 c3c1dc18, a painting in the style of guidao style, wlopArienwlopstylexl_v10.safetensors
@@ -3975,11 +4165,15 @@ c3d6718c, furry
 c3dc4a16, cheetah|feathers|woman|glacier
 c40bd8e7, lanawood
 c41d6c17, genshin
+c4234993, qzr furry
+c433e13c, score_9|score_8_up|score_7_up
 c448dc23, wide hips|narrow waist|qi lolita|
 c44bb585, duskametrick15
 c45eb528, xiao yi xian
 c46ce622, ray tracing|
+c49305e4, 1girl
 c49a4c5c, photorealistic
+c4a2720f, evilsanta
 c4b23842, albumcover
 c4b7f425, realism|hyperrealism|photorealism|photo|cinematic realism|photorealistic|soft light|depth of field|closeup:0.6
 c4d2723a, Evang
@@ -4005,6 +4199,7 @@ c63f2567, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|R/Amateur
 c6678361, gmic_\2dxiantiao\
 c670dcdd, Realistic
 c67fbe37, SEE APPENDIX A|见附录A
+c69293e3, high-resolution
 c6b761da, nai3_style_for_flux
 c6bb6991, hearthstone card
 c6bd9e1d, Rori
@@ -4021,6 +4216,7 @@ c7b2f3da, young guy|cute face
 c7bd223b, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
 c7c786b0, mariluhenner
 c7cb545e, real life
+c7df5d5d, Jinx
 c7fcb883, score_9|score_8_up|score_7_up|
 c7ff699d, anipoma1
 c8078318, Evang
@@ -4036,6 +4232,7 @@ c88248fa, timor|art by timor|by timor|main trigger word is : timor
 c88e730a, modelshoot style|analog style|mdjrny-v4 style|nousr robot
 c89caee5, 只因jinkesi
 c8b5ae05, 3d
+c8c2dff5, Barbie
 c8d36dc6, anime screenshot
 c8df8f8d, 1girl
 c8e3bfca, AnimeChan Style
@@ -4065,6 +4262,7 @@ ca682192, sjh style
 ca6c800f, 1girl
 ca9f8215, hair ornament|hatsune miku||capelet||detached sleeves|dress flower|white shirt|black skirt|white sleeves||white socks||high heels|
 caa842f5, alina_rin
+cab5c916, see tag guide
 cab77b73, ANIME CARTOON
 cac86a3e, Dasha
 cadfbc28, Comic Style|Illustration|Line Art|Comic Poster|Realistic
@@ -4097,8 +4295,11 @@ cc49ac37, bigbadejo alien_monster
 cc586421, a realistic photograph of, everclearPNYByZovya_v1VAE.safetensors
 cc586421, realistic photograph of, everclearPNYByZovya_v1.safetensors
 cc5b68d0, lndskp|nvinkpunk|redshift
+cc6f0de7, 3d|by splatfusion, splatFusion_v4PONYXL.safetensors
+cc6f0de7, splatoon|inkling|octoling|3d, splatFusion_v10.safetensors
 cc781a63, s
 cca12107, chibi
+cca4b425, Pony
 cce02454, nvjobaim
 cceb87e1, analog style|modelshoot style|nsfw|nudity
 ccf3615f, modern disney style
@@ -4106,6 +4307,7 @@ cd0db611, cartoon
 cd1f57a4, Anime Edition
 cd22968e, whatif style
 cd3bb82a, furry
+cd6e3af1, ajapplegate
 cd72665c, sks person
 cda39816, ccdwr artstyle, conceptCharacter_ccdwrArtstyleBV0.safetensors
 cda39816, ccdwr illustration, conceptCharacter_ccdwrIllustrationBV0.safetensors
@@ -4122,6 +4324,7 @@ ce59d07b, female|male
 ce604a2f, Realistic|Photorealistic
 ce6d2934, masterpiece|best quality
 ce787c96, evang
+ce9ce9dc, Ebony
 cea1341c, moze|grey hair|purple eyes|himecut
 cea9fbcc, modisn disney
 ceab3f7e, jacquelinebisset
@@ -4162,6 +4365,7 @@ d027dc5d, Biomech|ink drawing|anatomical|Da_Vinci|vitruvian|painted in renaissan
 d049af0b, Evang
 d04c5d76, SEE APPENDIX A
 d04d8a1f, lamia
+d04fe584, Western Comics
 d0503c73, hanbok
 d05570b1, nieniezi girl|1girl|pink eye|purple eye|demon tail|ahoge|demon wings|hair ornament|horns|split-color purple hair and pink hair|hairclip|hat|white background|black bodysuit|purple bodysuit|purple coat
 d081535b, doang woman
@@ -4208,6 +4412,8 @@ d2470c2a, See the caption site, eldgardKinkiestModel_v20.safetensors
 d24758a6, vini sette
 d24cac70, masterpiece|best quality, bbmixRUIS_v15.safetensors
 d24cac70, masterpiece|intricate details, bbmixANIMEMIX_v20.safetensors
+d250f179, flux|flux 1|flux pro
+d28488c2, Mdastarou|waisoft|waisoft2
 d286b5e6, pixel art|16 bit|32 bit|64 bit
 d28922ac, rcnz_niji style
 d2972917, Cult of Cthulhu|giger|Cthulhu|Post-apocalypse|biomechanical|horror|monster|blood|death|terror, etherealmix_terrorV2.safetensors
@@ -4219,9 +4425,11 @@ d2c5404c, pixar|3D|blender
 d2e96167, masterpiece|best quality|nfixer|nfixernext|re-badprompt
 d3120dbb, rfktrstyle
 d312ed1c, TheRPGCharGenEsAFArt
+d313bd40, 
 d31b3d50, abysssorange2|pastelmix|cheeseday 30|merged model
 d322d993, score_9|score_8_up|score_7_up|score_6_up
 d331809b, Master Chief
+d33441cb, score_9|score_8_up|score_7_up|score_6_up|score_5_up|score_4_up|source_anime|full_details|
 d357b061, dreamlikeart|kuvshinov|snthwve style|nvinkpunk
 d35823ba, jgba
 d35c2c25, augments|implants|mechanical_arms|post-apocalypse|post apocalyptic|vikingpunk|viking_punk|stillsuit
@@ -4249,6 +4457,8 @@ d4306156, 3d character
 d43471bb, femboy
 d44ae168, pvc figure
 d45ad4bf, sks person
+d4644402, realistic|photorealistic|detailed, realismIllustriousBy_v20FP32.safetensors
+d4644402, realistic|photorealistic|realistic skin texture, realismIllustriousBy_v20FP16.safetensors
 d46f12fb, furry
 d48dcfd9, aniki
 d48fd371, melk0r
@@ -4263,6 +4473,7 @@ d52fc124, kurisu|1girl
 d53123a3, furry|kemono
 d53bef23, alphonsestyle
 d5438b80, 1girl
+d565efd1, by walt disney|looney tunes
 d56a53f3, aodai|cotrang
 d57fa787, by hanaarare
 d58ab10e, N/A
@@ -4272,6 +4483,7 @@ d5cea653, gege
 d5dfca31, beta01
 d5f72803, Evang Style
 d60a0b29, masterpiece|best quality
+d618bae7, fellatrix style|maidoll style|incase style|mamimi style|momofuki rio style|urushihara satoshi style|takeda hiromitsu style|hirohiko araki style|engawa suguru style|zeroshiki kouichi style|satou kuuki style|mo kireinamo style|ken coffee_michikusa style|oryo oryo04 style|takehiko inoue style|homare fool's_art style|tsukasawa takamatsu style|misaki kurehito style|aoi nagisa metalder style|twinflame413 style|melkor mancin style|mirai hikari style|cutesexyrobutts style|bb baalbuddy style|dd ijigendd style|hara harayutaka style|boris noborhys style|m-da s-tarou style|tsukishiro saika style|tsukudani coke-buta style|sumiyao amam style|neocoill style|tomose shunsaku style|null nyanpyoun style|horosuke style|chanta ayatakaoisii style|fumihiko fu_mihi_ko style|cle masahiro style|kasumi skchkko style|murakami suigun style|fumio rsqkr style|yomu sgt_epper style|happoubi jin style|moisture chichi style|dandon fuga style|kase daiki style|ririko zhuoyandesailaer style|aztodio style|kaisen chuui style|sano toshihide style|donguri suzume style|lambda kusowarota style|jack dempa style|lm legoman style|minakami flyingman555 style|amasora taichi style|em totsuzen no hakike style|kurokoshou emuburemu123 style|niliu chahui style|kawakami rokkaku style|miyase mahiro style|momo no sukebe style|minato ojitan style|fuya tempupupu style|jabara tornado style|konno tohiro style|23 real_xxiii style|kashu hizake style|mizuryu kei style|nagase haruhito style|vahn yourdoom style|nakamura regura style|aster crowley style|hekiga freelot style|yoi naosuke style|tony taka style|dross style|firolian style|sunna nilsunna style|tomu tomubobu style|cyancapsule style|kelvin hiu style|neisan style|pija pianiishimo style
 d61a0cdc, egardiner
 d62ddc80, furry
 d62f1d54, photorealisitc
@@ -4306,11 +4518,13 @@ d65a1f08, realistic|anime|toon|cartoon
 d65c923a, 1girl
 d676dd55, deetz1
 d6b2691a, oddlyterrifying
+d6b35a34, anime
 d6e9461b, abd
 d6e9d2b1, dvMJv4
 d7049739, cat
 d7149094, lnkdn photography
 d75fa7fc, reddit|best quality|medium quality|high quality|best aesthetic|normal aesthetic|bad aesthetic|r/gonewild|r/nsfw|r/RealGirls|r/cumsluts|r/LegalTeens|r/collegesluts|r/AsiansGoneWild|r/pussy|r/milf|r/adorableporn|r/ass|r/Nude_Selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/Latinas|r/GodPussy|r/Amateur|r/xsmallgirls|r/18_19|r/Gonewild18|r/asshole|r/workgonewild|r/nsfwcosplay|r/palegirls|r/paag|r/asstastic|r/Upskirt|r/TooCuteForPorn|r/TinyTits|r/FitNakedChicks|r/altgonewild|r/traps|r/FemBoys|r/GWCouples|r/Boobies|r/CuteLittleButts|r/GirlswithGlasses|r/assholegonewild|r/PetiteGoneWild|r/BDSM
+d7a25cd0, realistic|photorealistic|detailed
 d7cc8710, manyakis art style|rabbit girl
 d7d31a4e, motion design|C4D|rendering|light and shadow
 d7e5f865, Anime Screencap
@@ -4380,6 +4594,7 @@ dab15164, romanallcoma, romanallcoma_v10.ckpt
 dab15164, wawavawa, model1_ver1.ckpt
 dab3bb51, marblesh|marblee|marblee style
 dab88696, Oil Painting|Watercolor|John Singer Sargent|Dean Cornwell|Anders Zorn, kl-f8-anime2.safetensors
+dab88696, cat|cartoon style|big green eyes|black fur|blue overalls., kl-f8-anime2.safetensors
 dab88696, futanari|erection|flaccid|puffy nipples, kl-f8-anime2.safetensors
 dab88696, futanari|erection|flaccid|testicles, kl-f8-anime2.safetensors
 dab88696, narrow_waist|curvy, kl-f8-anime2.safetensors
@@ -4413,7 +4628,9 @@ dbee7f6e, furry|anthro
 dc01dfdd, ohwx|demon|werewolf|minotaur|zombie|
 dc05355d, sksi object|sksi
 dc234f3c, frozen style|anna frozen|elsa frozen|olaf frozen|sven frozen|kristoff frozen|ice castle|duke of weselton frozen|prince hans frozen
+dc3704cb, Kochergin painting style
 dc3f810f, SEE APPENDIX|见附录部分
+dc7faf57, 3d animation
 dc875717, pixel art|64 bit|32 bit|16 bit
 dca4f494, very awa|masterpiece|best quality|year 2024|newest|highres|absurdres
 dccb4eb7, head
@@ -4446,6 +4663,7 @@ de27bfdb, man|woman
 de2f2560, 6girls+, theGoldenMirage_v11.safetensors
 de2f2560, ArtComposition, moomooeCommerce_v4.safetensors
 de2f2560, Asian|Man|Female|Cute, asianMix_alpha30.safetensors
+de2f2560, Axs, specialforaxsionsz_v10.safetensors
 de2f2560, BASE MODEL|ANIME|SUPERREAL|SD2.1|WAIFU DIFFUSION, SD2Berryartify_sd21V02.safetensors
 de2f2560, Baby Bot, babyBotReuploadIdkHowToTest_v1.safetensors
 de2f2560, CthuluBishop, djzCthuluBishopV21_v15Pix2pix.safetensors
@@ -4501,6 +4719,7 @@ de2f2560, timor|timorm, mandaladiffusion_v03.safetensors
 de2f2560, yorha2b, yorha2b_v20Animation.safetensors
 de2f2560, zephyr, zephyr_v10.safetensors
 de357355, zrpgstyle
+de38b03f, girl
 de41984b, no
 de430242, joseSabogal
 de5d3202, cjregshw|1girl|
@@ -4524,6 +4743,7 @@ dfafd600, duskametric15|microworld
 dfaff748, furry
 dfb90adf, by kyoani
 dfc703db, modelshoot style|mdjrny-v4 style|nousr robot|dreamlikeart|nvinkpunk|snthwve style|charliebo artstyle|holliemengert artstyle|marioalberti artstyle|pepelarraz artstyle|andreasrocha artstyle|jamesdaly artstyle|elden ring style|postapocalypse|analog style|knollingcase|swpunk|synthwave|cyborgdiffusion
+dfe7a258, INTRLY
 dfefb6a8, score_9|score_8_up|score_7_up
 e000edd2, Navia
 e01546fb, cornflower
@@ -4556,6 +4776,9 @@ e13105fc, masterpiece|best quality, bbMIXALICE_v10.safetensors
 e13105fc, masterpiece|best quality|white theme|black theme, bbmixRUIS_bbmixRUIS.safetensors
 e136d291, None
 e13c6405, RAW photo of|Analog photo of
+e147da18, Anime Style
+e15fb173, realistic|asian|1girl||1girl|high quality art of cocoart anime|
+e16c6c4a, yhsxxm
 e17829ff, Princess Peach|Princess Daisy|Princess Zelda|Samus Aran|Link|Luigi|Serena from Pokemon|Misty from Pokemon|Hilda from Pokemon|Jessie from Pokemon|Bowsette
 e194bd99, muscular male
 e1a9b17f, 1girl
@@ -4652,6 +4875,7 @@ e71fd35b, SEE INTRODUCTION|见介绍部分
 e728ca1e, Mogeko|Okegom|Funamusea
 e7300f3d, modelshoot style|analog style|mdjrny-v4 style|nousr robot|dreamlikeart
 e742f6fb, dal
+e74dc310, BZ4X
 e757ceb6, [realistic lighting]|[photo]|[photorealistic]
 e767908b, Game illustration|Chinese costume
 e76aa3dd, flat shade|manga style|simple|chibi|flat color|colorful vector style|noline|flat shade|3d|figure|pvc|watercolor|pencil sketch|particle effect|cocoart
@@ -4659,6 +4883,7 @@ e78d0ece, FRAMEZY|Cinematicstyle|3d_Framed_WALL_art|high_Resolution_Detailed_Sho
 e79c8e1c, jckmn person
 e7fc89ea, Amelia
 e7fcf8e2, realistic|raw photo|photo|photography|photo realistic
+e8014ffe, HTX
 e80f12bb, Evang, ACSIDEdreamlookai_openjourney-v4_lora_step_8000_db_58122002_ckp_27ed8caa.safetensors
 e80f12bb, real|natural, ACSIDEdreamlookai_openjourney-v4_lora_step_8000_db_58122002_ckp_27ed8caa.safetensors
 e83d3aa7, Ligne claire
@@ -4667,6 +4892,7 @@ e842dcc7, 3d, ClearVAE_V2.safetensors
 e842dcc7, Armor|golden cloth|genini cloth|saga|gemini saint, CleanVAE.safetensors
 e842dcc7, Cinematic|Skin Details|Full Body Photo|Photography, realisticASFV1_realisticASFXLV10.safetensors
 e842dcc7, KingShark|Humanshark|Sharkman, CleanVAE.safetensors
+e842dcc7, Lady Lovely Locks, CleanVAE.safetensors
 e842dcc7, glasses, CleanVAE.safetensors
 e842dcc7, madgod|stop motion|horror, ClearVAE_V2.safetensors
 e842dcc7, retro artstyle, ClearVAE_V2.2.safetensors
@@ -4685,6 +4911,7 @@ e8aa974a, niji6|niji5
 e8bf8633, DUNHUANG|HANFU
 e8c8476a, by kayahara
 e8d24e03, pattern
+e8dc3387, el14n4
 e8df9cc3, majapahitkingface|majapahitking|majapahitqueenface|majapahitqueen
 e91025e3, Lightning|XL|SDXL|NSFW|sfw|girl|realiste
 e912a994, Evang
@@ -4733,6 +4960,8 @@ eb01f3b2, NijiFTB
 eb1666ba, 1girl|moyou
 eb1b80e4, ziov
 eb3a4159, dal
+eb6dc28c, 3lys34ly, vae.safetensors
+eb6dc28c, Interior|prspctvs|, prspctivsInterior_v1.safetensors
 eb6dc28c, anime|lyh|ando|mia, ae.safetensors
 eb6dc28c, gura|anya, ae.safetensors
 eb6dc28c, lyh_niji|anime|1girl|lyh, ae.safetensors
@@ -4740,6 +4969,7 @@ eb6dc28c, lyh|anime, ae.safetensors
 eb6dc28c, lyh|anime|hatyuuruinohito style|the0neulost, ae.safetensors
 eb6dc28c, lyh|anime|mia|ando, ae.safetensors
 eb70ff01, concept-art
+eb7264d0, qzr lalafell
 eba3d197, helenmirren
 ebb17c4d, pow style|ofi|mohd|rmb|dca|muc|onex|toid|sura|juli|veli|gsp|tux|tvc|pbc|pgs|rps|dbz|soca|suru|nips|rune|pafc|nlwx|fck|cae|sohn|dori|zawa|revs|hmv|whoo|asar|blob|xiao|kilt|ulf|loeb|bnha|gote|omd|adl|shld|waj|sown|rcn|httr|dits|hta|lun|olis
 ebb5d44d, dal|nsfw
@@ -4769,7 +4999,10 @@ ed023c01, score_9|score_8_up|score_7_up|source anime|
 ed0b4125, anime style|illustration|oil painting|analog style|realistic|photorealistic
 ed296396, goldentrig|GTv2
 ed3f76c1, score_9|score_8_up|score_7_up|score_6_up
+ed5fd74b, chickpea
 ed65d07a, SEE APPENDIX|见附录
+ed6f8245, realistic|photorealistic
+ed790e00, Persona
 ed87e89c, tchnclr style
 ed89f73a, big eyes|pale skin|glossy lipstick
 ed977a93, bambaa, bambaa_v10.ckpt
@@ -4807,6 +5040,7 @@ eecd721d, masterpiece|best quality|realistic
 eef06b18, masterpiece|best quality|nfixer|nfixernext|re-badprompt
 eefa7e96, girl|face|beautiful
 ef01c1e8, Henry Cavill|hnrycvll
+ef18eb8a, realistic|photorealistic|realistic skin texture|detailed
 ef2267bd, LIQUID SPLASH|BRTDRPP|Fruitfusion
 ef27e17b, Anime
 ef351c9c, lego mini-figurine|legoman
@@ -4819,11 +5053,13 @@ ef6890a5, dal
 ef6ecf6d, alloldrpgarts1
 ef82149e, score_9|score_8_up|score_7_up
 ef91d6a9, Jacey
+efb4f447, furry|Male
 efd54274, elden ring style
 efdd9fcf, GAME ICON, gameIconInstitute_v20.safetensors
 efdd9fcf, game icon, gameIconInstitute_v21.safetensors
 efe608ac, Clay Mann
 eff79f53, score_9|score_8_up|score_7_up|
+f0024d93, furry|bara
 f00b92e0, detailed|official art|colorful|accessories|fractal art|aesthetic|chinese clothes
 f00b95d9, 1girl，moyou
 f00d9299, HighHumanion
@@ -4847,6 +5083,7 @@ f0f9c9ee, photo of luxury-arabic-1979
 f1119556, score_9|score_8_up|best quality|masterpiece|4k|uncensored|prefect lighting|rating_explicit|very aesthetic|BREAK
 f1172144, MALEMATTHEW
 f125fab8, P4U14
+f130d645, furry|male furry|bara|muscles
 f157610a, paigevanzant
 f15eaf3f, RAW photo of|Analog photo of
 f160280f, realistic, virileStallion_v35BETACinematic.safetensors
@@ -4856,6 +5093,7 @@ f1746351, traditional|townhouse|architecture|bedroom|livingroom|badroom|walnut|i
 f1756e9b, dal
 f1769bc0, butterfly sex|blowjob|doggy style|handjob|licking cock|riding cowgirl|reversecowgirl|sidefuck|titty fucking|reverse gang bang|self stroking|undressing|orgasming|foodtease|teasing|cumshot|threesome|foursome|fivesome
 f1aafbbe, estilovintedois|lexicaart
+f1abd5df, sexy man
 f1d45295, Katie Douglas
 f1e11c37, smhcgty
 f1e38437, 1girl，moyou
@@ -4863,6 +5101,7 @@ f1e9d943, masterpiece|realistic|best quality
 f1edf53b, in the style of HridleyXL|illustration
 f1f8a03e, CinematicVJ
 f202aa0e, Mikasa
+f20e984d, Xiaozhang|1 girl|solo|twintails|realistic|long hair|black hair|black eyes|looking at viewer|outdoors|cosplay
 f22d0019, PiroxiumDiffusion style
 f22ff389, trixiemattel drag queen
 f23fbe95, donghua|wallpaper
@@ -4896,6 +5135,7 @@ f3694755, modelshoot style
 f37775c3, photo of Evang style
 f38569d1, Anime|adult|2.5D|cross dressing|nasolabial folds|wrinkled skin
 f3a2ad84, rcnz_niji style
+f3ae58c4, 
 f3b011a6, furry
 f3dae826, BRAV5_Realisianv50_PFv30
 f3ff3ac7, Anime Style
@@ -4950,6 +5190,7 @@ f6355763, Evang, beejaydel_bjd20000.safetensors
 f63dafbe, Realistic
 f6412c6b, 1girl
 f661ebc1, 2dskillicon
+f66bff55, 💘
 f67008fe, monochrome
 f68b2ecb, woman
 f69b7a31, Nothing
@@ -4964,6 +5205,7 @@ f6f64f67, realistic|girl|more detail
 f6fb8fde, lala_satalin_deviluke|momo_velia_deviluke|nana_asta_deviluke|konjiki_no_yami|yuuki_mikan|sairenji_haruna|kotegawa_yui|kurosaki meia|
 f703e3d4, russian
 f71f0232, insertNameHere
+f737472c, st1l
 f74f4ebd, sketch|illustration
 f751a45e, woman|girl|young
 f7570fdc, cp
@@ -5001,6 +5243,7 @@ f90e49b9, this model is a mixture
 f91d47e4, Xiaowu from Douluo Dalu
 f9468318, furry
 f946d98c, SDArt
+f9474efa, masterpiece|best quality|high quality|Raw format|ultrahigh-res|reddit|unsplash|flickr|onlyfans|reddit|fansly|instagram|photo taken with iPhone|ulzzang face|r/gonewild|r/gonewild18|r/nsfw|r/nsfwcosplay|r/realgirls|r/cumsluts|r/legalteens|r/collegesluts|r/asiansgonewild|r/pussy|r/milf|r/adorableporn|r/nude_selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/latinas|r/godpussy|r/amateur|r/xsmallgirls|r/18_19|r/workgonewild|r/palegirls|r/paag|r/ass|r/asstastic|r/asshole|r/assholegonewild|r/upskirt|r/toocuteforporn|r/tinytits|r/altgonewild|r/traps|r/femboys|r/gwcouples|r/cutelittlebutts|r/girlswithglasses|r/petitegonewild
 f963b223, REDDIT|BEST QUALITY|MEDIUM QUALITY|HIGH QUALITY|R/Amateur
 f963da04, 3dcharacter|3dcutecharacter|chibi|waves|cloud|gradient background|simple background
 f9715a85, illustration|fantasy|assassin
@@ -5044,6 +5287,7 @@ fb8e5070, anime
 fbaed9a3, dskyart1|deetz1
 fbb35184, mapsatimageeu
 fbb41c12, See description
+fbcbaf8e, Flux Asian Realistic RC Hoang V1.0_v1.0
 fbd89929, girl
 fbf5d1b5, sks place
 fc04f144, furry|aviarie|tgj
@@ -5055,6 +5299,7 @@ fc35e78c, score_9|score_8_up|score_7_up|
 fc41b940, evgenii-ponasenkov
 fc83c5ad, civsix style
 fc88eb89, sks person
+fcbb994f, Chibi
 fcbf8265, evang
 fcd6b416, sks woman
 fcfbf465, 3D_Anamorphic_Style|Photorealistic_Fallout_Style
@@ -5078,6 +5323,7 @@ fdd028f0, mature female|milf
 fde0bd53, elminisonii
 fdf478cb, [realistic lighting]|[photo]|[photorealistic]
 fdfc6c4c, viro
+fe19ec9d, Primav style
 fe2725bb, <SIZE> BREASTS|<size> ass|<size> belly|hyperbreasts|hyperass|flat chest|caricature
 fe3c6142, TheRPGCharGenEsAFArt, rpg2000sInkAndPencil_rpg2000sInkAndPencil.safetensors
 fe3c6142, dragzkz, dragonDiffusion_4500Steps.safetensors
@@ -5101,6 +5347,7 @@ ff4a5e39, motion_checkpoint_more_motion
 ff6a26ef, N/A
 ff7616f1, FRPGFaceGen
 ff7d13a0, architecture|modern house|exterior|building|interior|kitchen|bedroom|livingroom
+ff7f5347, photo \medium\|high quality|unsplash|flickr|onlyfans|reddit|fansly|instagram||r/gonewild|r/gonewild18|r/nsfw|r/nsfwcosplay|r/realgirls|r/cumsluts|r/legalteens|r/collegesluts|r/asiansgonewild|r/pussy|r/milf|r/adorableporn|r/nude_selfie|r/pawg|r/boobs|r/celebnsfw|r/bigasses|r/juicyasians|r/latinas|r/godpussy|r/amateur|r/xsmallgirls|r/18_19|r/workgonewild|r/palegirls|r/paag|r/ass|r/asstastic|r/asshole|r/assholegonewild|r/upskirt|r/toocuteforporn|r/tinytits|r/altgonewild|r/traps|r/femboys|r/gwcouples|r/cutelittlebutts|r/girlswithglasses|r/petitegonewild
 ff838ac8, fantasy
 ffa024a4, furry|tgj|aviarie
 fff0c339, 1girl, wdr_v10.safetensors

@@ -4,7 +4,7 @@
 
 **Primere Youtube channel:** https://www.youtube.com/@PrimereComfydev/videos
 
-**Install required party nodepack depencency:** https://github.com/city96/ComfyUI_ExtraModels
+**Install required 3rd party nodepack depencency:** https://github.com/city96/ComfyUI_ExtraModels
 
 <hr>
 
