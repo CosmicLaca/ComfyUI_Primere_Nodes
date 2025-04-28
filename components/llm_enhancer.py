@@ -28,10 +28,11 @@ class PromptEnhancerLLM:
             baseRepo = self.model_path[:self.model_path.lower().index("-promptenhancing")]
             print('---------------')
             print(baseRepo)
-            print('---------------')
             loraRepo = self.model_path
             model_access = os.path.join(ROOT_PATH, baseRepo)
             lora_access = os.path.join(ROOT_PATH, loraRepo)
+            print(lora_access)
+            print('---------------')
 
             self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
             self.model = AutoModelForCausalLM.from_pretrained(model_access, torch_dtype=torch.bfloat16).to(self.device)
