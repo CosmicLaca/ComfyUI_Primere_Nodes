@@ -328,7 +328,7 @@ class PromptEnhancerLLM:
                         )
 
                     messages = create_direct_template(create_user_prompt(simple_caption))
-                    input_ids = self.tokenizer.encode(messages, return_tensors="pt").to(self.device)
+                    input_ids = self.tokenizer.encode(messages, return_tensors="pt").to(self.model.device)
                     # streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
 
                     output = self.model.generate(
