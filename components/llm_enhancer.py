@@ -329,17 +329,21 @@ class PromptEnhancerLLM:
                         )'''
 
                     # messages = create_direct_template(create_user_prompt(simple_caption))
-                    input_ids = self.tokenizer.encode(instruction + input_text, return_tensors="pt").to(self.model.device)
-                    streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+                    # input_ids = self.tokenizer.encode(instruction + input_text, return_tensors="pt").to(self.model.device)
+                    # streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+
+                    messages = [{"role": "user", "content": instruction + input_text}]
+                    input_text = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                    inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(self.device)
 
                     output = self.model.generate(
-                        input_ids,
+                        inputs,
                         max_length=1024,
                         num_return_sequences=1,
                         do_sample=True,
                         temperature=0.6,
-                        repetition_penalty=1.1,
-                        streamer=streamer
+                        repetition_penalty=1.1
+                        # streamer=streamer
                     )
                     enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)  # "*" * 80
 
