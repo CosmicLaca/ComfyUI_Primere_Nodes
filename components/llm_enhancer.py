@@ -313,18 +313,19 @@ class PromptEnhancerLLM:
 
                     def create_user_prompt(simple_caption):
                         return (
-                            "Below is the simple caption of an image with text. Please deduce the detailed description of the image based on this simple caption. "
+                            # "Below is the simple caption of an image with text. Please deduce the detailed description of the image based on this simple caption. "
                             # "Note: 1. The description should only include visual elements and should not contain any extended meanings. "
                             # "2. The visual elements should be as rich as possible, such as the main objects in the image, their respective attributes, "
                             # "the spatial relationships between the objects, lighting and shadows, color style, any text in the image and its style, etc. "
                             # "3. The output description should be a single paragraph and should not be structured. "
                             # "4. The description should avoid certain situations, such as pure white or black backgrounds, blurry text, excessive rendering of text, "
                             # "or harsh visual styles. "
-                            "The detailed caption should be human readable and fluent. "
-                            "Avoid using vague expressions such as \"may be\" or \"might be\"; the generated caption must be in a definitive, narrative tone. "
-                            "Do not use negative sentence structures, such as \"there is nothing in the image,\" etc. The entire caption should directly describe the content of the image. "
-                            "The entire output should be limited to 200 words."
-                            f"SIMPLE CAPTION: {simple_caption}"
+                            # "The detailed caption should be human readable and fluent. "
+                            # "Avoid using vague expressions such as \"may be\" or \"might be\"; the generated caption must be in a definitive, narrative tone. "
+                            # "Do not use negative sentence structures, such as \"there is nothing in the image,\" etc. The entire caption should directly describe the content of the image. "
+                            # "The entire output should be limited to 200 words."
+                            # f"SIMPLE CAPTION: {simple_caption}"
+                            f"Enhace this prompt for Flux based text to image workflow: {simple_caption}"
                         )
 
                     messages = create_direct_template(create_user_prompt(simple_caption))
@@ -333,7 +334,7 @@ class PromptEnhancerLLM:
 
                     output = self.model.generate(
                         input_ids,
-                        max_length=160,
+                        max_length=1024,
                         num_return_sequences=1,
                         do_sample=True,
                         temperature=0.6,
