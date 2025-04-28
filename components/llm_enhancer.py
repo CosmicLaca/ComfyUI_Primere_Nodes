@@ -293,25 +293,25 @@ class PromptEnhancerLLM:
                     enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
                 elif "lex-enhancer" in self.model_path.lower():
-                    SYSTEM_TEMPLATE = (
+                    '''SYSTEM_TEMPLATE = (
                         "A conversation between User and Assistant. The user asks a question, and the Assistant solves it. "
                         # "The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. "
                         # "The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., "
                         # "<think> reasoning process here </think> <answer> answer here </answer>."
-                    )
+                    )'''
 
-                    simple_caption = input_text #"A thank you card with the words very much, with the text on it: \"VERY\" in black, \"MUCH\" in yellow."
-                    def create_chat_template(user_prompt):
+                    '''simple_caption = input_text #"A thank you card with the words very much, with the text on it: \"VERY\" in black, \"MUCH\" in yellow."'''
+                    '''def create_chat_template(user_prompt):
                         return [
                             {"role": "system", "content": SYSTEM_TEMPLATE},
                             {"role": "user", "content": user_prompt},
                             {"role": "assistant", "content": "<think>"}
-                        ]
+                        ]'''
 
-                    def create_direct_template(user_prompt):
-                        return user_prompt # + "<think>"
+                    '''def create_direct_template(user_prompt):
+                        return user_prompt  # + "<think>"'''
 
-                    def create_user_prompt(simple_caption):
+                    '''def create_user_prompt(simple_caption):
                         return (
                             # "Below is the simple caption of an image with text. Please deduce the detailed description of the image based on this simple caption. "
                             # "Note: 1. The description should only include visual elements and should not contain any extended meanings. "
@@ -326,15 +326,11 @@ class PromptEnhancerLLM:
                             # "The entire output should be limited to 200 words."
                             # f"SIMPLE CAPTION: {simple_caption}"
                             f"Enhace this prompt for Flux based text to image workflow: {simple_caption}"
-                        )
+                        )'''
 
-                    messages = create_direct_template(create_user_prompt(simple_caption))
-                    input_ids = self.tokenizer.encode(messages, return_tensors="pt").to(self.model.device)
+                    # messages = create_direct_template(create_user_prompt(simple_caption))
+                    input_ids = self.tokenizer.encode(instruction + input_text, return_tensors="pt").to(self.model.device)
                     streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
-
-                    print('------------------------')
-                    print(messages)
-                    print('------------------------')
 
                     output = self.model.generate(
                         input_ids,
@@ -345,7 +341,7 @@ class PromptEnhancerLLM:
                         repetition_penalty=1.1,
                         streamer=streamer
                     )
-                    enhanced_text = "*" * 80  # self.tokenizer.decode(output[0], skip_special_tokens=True)
+                    enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)  # "*" * 80
 
                 else:
                     self.model.to(self.device)
