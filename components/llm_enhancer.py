@@ -338,12 +338,7 @@ class PromptEnhancerLLM:
 
                     output = self.model.generate(
                         inputs,
-                        max_length=1024,
-                        num_return_sequences=1,
-                        do_sample=True,
-                        temperature=0.6,
-                        repetition_penalty=1.1
-                        # streamer=streamer
+                        **settings
                     )
                     enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)  # "*" * 80
 
