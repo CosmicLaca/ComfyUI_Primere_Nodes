@@ -96,7 +96,7 @@ class PromptEnhancerLLM:
             configurator_name = variant_params['ConfigName']
             del variant_params['ConfigName']
         # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
-        instruction = f"Create {configurator_name} 1 prompt for text-to-image text2image models: "
+        instruction = f"Create {configurator_name} 1 prompt for modern text-to-image text2image stable diffusion models: "
         settings = {**default_settings, **variant_params}
 
         if multiply_max_length != 1:
