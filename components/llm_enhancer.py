@@ -292,7 +292,7 @@ class PromptEnhancerLLM:
 
                     enhanced_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-                elif "LeX-Enhancer" in self.model_path.lower():
+                elif "lex-enhancer" in self.model_path.lower():
                     SYSTEM_TEMPLATE = (
                         "A conversation between User and Assistant. The user asks a question, and the Assistant solves it. "
                         "The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. "
