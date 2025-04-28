@@ -63,7 +63,7 @@ class PromptEnhancerLLM:
                 self.model = AlbertModel.from_pretrained(model_access, ignore_mismatched_sizes=True)
             elif "LeX-Enhancer-" in model_path.lower():
                 self.tokenizer = AutoTokenizer.from_pretrained(model_access)
-                self.model = AutoModelForCausalLM.from_pretrained(model_access, device_map="auto", torch_dtype=torch.bfloat16, ignore_mismatched_sizes=True)
+                self.model = AutoModelForCausalLM.from_pretrained(model_access, device_map="auto", torch_dtype=torch.bfloat16)
             else:
                 self.tokenizer = AutoTokenizer.from_pretrained(model_access, clean_up_tokenization_spaces=False)
                 try:
@@ -309,7 +309,7 @@ class PromptEnhancerLLM:
                         ]
 
                     def create_direct_template(user_prompt):
-                        return user_prompt + "<think>"
+                        return user_prompt # + "<think>"
 
                     def create_user_prompt(simple_caption):
                         return (
@@ -330,7 +330,11 @@ class PromptEnhancerLLM:
 
                     messages = create_direct_template(create_user_prompt(simple_caption))
                     input_ids = self.tokenizer.encode(messages, return_tensors="pt").to(self.model.device)
-                    # streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+                    streamer = TextStreamer(self.tokenizer, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+
+                    print('------------------------')
+                    print(messages)
+                    print('------------------------')
 
                     output = self.model.generate(
                         input_ids,
@@ -338,10 +342,10 @@ class PromptEnhancerLLM:
                         num_return_sequences=1,
                         do_sample=True,
                         temperature=0.6,
-                        repetition_penalty=1.1
-                        # streamer=streamer
+                        repetition_penalty=1.1,
+                        streamer=streamer
                     )
-                    enhanced_text = self.tokenizer.decode(output[0], skip_special_tokens=True)
+                    enhanced_text = "*" * 80  # self.tokenizer.decode(output[0], skip_special_tokens=True)
 
                 else:
                     self.model.to(self.device)
