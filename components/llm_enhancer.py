@@ -26,6 +26,9 @@ class PromptEnhancerLLM:
 
         if '-promptenhancing' in self.model_path.lower() and '-instruct' in self.model_path.lower():
             baseRepo = self.model_path[:self.model_path.lower().index("-promptenhancing")]
+            print('---------------')
+            print(baseRepo)
+            print('---------------')
             loraRepo = self.model_path
             model_access = os.path.join(ROOT_PATH, baseRepo)
             lora_access = os.path.join(ROOT_PATH, loraRepo)
