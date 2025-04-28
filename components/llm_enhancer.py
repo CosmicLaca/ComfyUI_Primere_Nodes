@@ -300,7 +300,7 @@ class PromptEnhancerLLM:
                         "<think> reasoning process here </think> <answer> answer here </answer>."
                     )
 
-                    simple_caption = "A thank you card with the words very much, with the text on it: \"VERY\" in black, \"MUCH\" in yellow."
+                    simple_caption = input_text #"A thank you card with the words very much, with the text on it: \"VERY\" in black, \"MUCH\" in yellow."
                     def create_chat_template(user_prompt):
                         return [
                             {"role": "system", "content": SYSTEM_TEMPLATE},
