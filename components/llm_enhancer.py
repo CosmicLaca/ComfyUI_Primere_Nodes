@@ -75,7 +75,7 @@ class PromptEnhancerLLM:
                 self.tokenizer.pad_token = self.tokenizer.eos_token
             self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
-    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings"):
+    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings", multiply_max_length: float = 1):
         default_settings = {
             "do_sample": True,
             "temperature": 0.9,
@@ -98,6 +98,11 @@ class PromptEnhancerLLM:
         # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
         instruction = f"Create {configurator_name} 1 prompt for text-to-image text2image models: "
         settings = {**default_settings, **variant_params}
+
+        if multiply_max_length != 1:
+            if "max_length" in settings:
+                original_maxl = int(settings['max_length'])
+                settings['max_length'] = int(round(original_maxl * multiply_max_length))
 
         if seed is not None and int(seed) > 1:
             random.seed(seed)
@@ -379,7 +384,7 @@ class PromptEnhancerLLM:
         else:
             return False
 
-def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default"):
+def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default", multiply_max_length = 1):
     PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
     COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'LLM')
     model_access = os.path.join(PRIMERE_CUSTOMPATH, modelKey)
@@ -389,7 +394,7 @@ def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed
     if os.path.isdir(model_access) == True:
         enhancer = PromptEnhancerLLM(modelKey)
         promptInput = utility.DiT_cleaner(promptInput)
-        enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator)
+        enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator, multiply_max_length=multiply_max_length)
         return enhanced
     else:
         return False

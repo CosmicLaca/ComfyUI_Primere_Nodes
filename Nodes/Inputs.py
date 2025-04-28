@@ -351,15 +351,16 @@ class PrimereLLMEnhancer:
                 "seed": ("INT", {"default": 0, "min": 0, "max": (2**32) - 1, "forceInput": True}),
                 "llm_model_path": (['None'] + cls.valid_llm_path,),
                 "precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "FP16"}),
-                "configurator": (cls.configurators,)
+                "configurator": (cls.configurators,),
+                "multiply_max_length": ("FLOAT", {"default": 1, "min": 0.1, "max": 25,  "step": 0.1}),
             }
         }
 
-    def prompt_enhancer(self, prompt, seed, llm_model_path, precision, configurator):
+    def prompt_enhancer(self, prompt, seed, llm_model_path, precision, configurator, multiply_max_length = 1):
         if llm_model_path == 'None':
             return (prompt, "",)
 
-        enhanced_result = llm_enhancer.PrimereLLMEnhance(llm_model_path, prompt, seed, precision, configurator)
+        enhanced_result = llm_enhancer.PrimereLLMEnhance(llm_model_path, prompt, seed, precision, configurator, multiply_max_length)
         if enhanced_result == False:
             return (prompt, "",)
 
