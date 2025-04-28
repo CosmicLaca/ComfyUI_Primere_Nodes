@@ -44,17 +44,20 @@ if len(ModelsList) > 0:
                 File_link = Path(str(model_path)).resolve()
                 comfyModelDir = str(Path(folder_paths.folder_names_and_paths['checkpoints'][0][0]).parent)
                 # modelType = str(File_link)[(len(comfyModelDir) + 1):(str(File_link).find('\\', len(comfyModelDir) + 1))]
-                modelType = str(File_link)[str(File_link).index(os.sep + Path(comfyModelDir).stem) + len(Path(comfyModelDir).stem) + 2:(str(File_link).find(os.sep, len(comfyModelDir) + 1))]
+                try:
+                    modelType = str(File_link)[str(File_link).index(os.sep + Path(comfyModelDir).stem) + len(Path(comfyModelDir).stem) + 2:(str(File_link).find(os.sep, len(comfyModelDir) + 1))]
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    if str(Path(linkName_U).stem + '\\') in str(File_link):
+                        modelType = str(Path(linkName_U).stem)
+                    if str(Path(linkName_D).stem + '\\') in str(File_link):
+                        modelType = str(Path(linkName_D).stem)
 
-                linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                if str(Path(linkName_U).stem + '\\') in str(File_link):
-                    modelType = str(Path(linkName_U).stem)
-                if str(Path(linkName_D).stem + '\\') in str(File_link):
-                    modelType = str(Path(linkName_D).stem)
-
-                utility.add_value_to_cache('model_version', modelaname_only, f"{modelType}_symlink")
-                print(f"Model [{model_counter}] / {len(ModelsList)} symlinked file: {modelaname_only} -> from: {modelType}")
+                    utility.add_value_to_cache('model_version', modelaname_only, f"{modelType}_symlink")
+                    print(f"Model [{model_counter}] / {len(ModelsList)} symlinked file: {modelaname_only} -> from: {modelType}")
+                except Exception:
+                    utility.add_value_to_cache('model_version', modelaname_only, f"unknown_symlink")
+                    print(f"Model [{model_counter}] / {len(ModelsList)} unknown by meta error: {modelaname_only}")
             else:
                 print('Model [' + str(model_counter) + '] / ' + str(len(ModelsList)) + ' already cached: ' + modelaname_only + ' -> ' + str(model_version))
         model_counter = model_counter + 1
