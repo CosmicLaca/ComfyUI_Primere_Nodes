@@ -75,7 +75,7 @@ class PromptEnhancerLLM:
                 self.tokenizer.pad_token = self.tokenizer.eos_token
             self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
-    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings", multiply_max_length: float = 1):
+    def enhance_prompt(self, input_text: str, seed: int = 1, precision: bool = True, configurator: str = "default_settings", multiply_max_length: float = 1, external_system_prompt=None, llm_options=None):
         default_settings = {
             "do_sample": True,
             "temperature": 0.9,
@@ -90,14 +90,22 @@ class PromptEnhancerLLM:
             "num_beams": 6,
         }
 
-        variant_params = configVariants(configurator)
         configurator_name = 'high quality'
-        if 'ConfigName' in variant_params:
-            configurator_name = variant_params['ConfigName']
-            del variant_params['ConfigName']
+        if llm_options is None:
+            variant_params = configVariants(configurator)
+            if 'ConfigName' in variant_params:
+                configurator_name = variant_params['ConfigName']
+                del variant_params['ConfigName']
+            settings = {**default_settings, **variant_params}
+        else:
+            variant_params = llm_options
+            settings = {**default_settings, **variant_params}
+
         # instruction = f"You are my text to image prompt enhancer, convert input user text to better {configurator_name} stable diffusion text-to-image prompt. Ignore additional text and questions, return only the enhanced prompt as raw text: "
-        instruction = f"Create {configurator_name} 1 prompt for modern text-to-image text2image stable diffusion models: "
-        settings = {**default_settings, **variant_params}
+        if external_system_prompt is None:
+            instruction = f"Create {configurator_name} 1 prompt for modern text-to-image text2image stable diffusion models: "
+        else:
+            instruction = f"{external_system_prompt}: "
 
         if multiply_max_length != 1:
             if "max_length" in settings:
@@ -384,7 +392,7 @@ class PromptEnhancerLLM:
         else:
             return False
 
-def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default", multiply_max_length = 1):
+def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed = 1, precision = True, configurator = "default", multiply_max_length = 1, external_system_prompt = None, llm_options = None):
     PRIMERE_CUSTOMPATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
     COMFY_LLM_PATH = os.path.join(folder_paths.models_dir, 'LLM')
     model_access = os.path.join(PRIMERE_CUSTOMPATH, modelKey)
@@ -394,7 +402,7 @@ def PrimereLLMEnhance(modelKey = 'flan-t5-small', promptInput = 'cute cat', seed
     if os.path.isdir(model_access) == True:
         enhancer = PromptEnhancerLLM(modelKey)
         promptInput = utility.DiT_cleaner(promptInput)
-        enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator, multiply_max_length=multiply_max_length)
+        enhanced = enhancer.enhance_prompt(promptInput, seed=seed, precision=precision, configurator=configurator, multiply_max_length=multiply_max_length, external_system_prompt=external_system_prompt, llm_options=llm_options)
         return enhanced
     else:
         return False

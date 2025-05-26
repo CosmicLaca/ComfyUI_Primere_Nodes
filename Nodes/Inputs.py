@@ -353,18 +353,46 @@ class PrimereLLMEnhancer:
                 "precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "FP16"}),
                 "configurator": (cls.configurators,),
                 "multiply_max_length": ("FLOAT", {"default": 1, "min": 0.1, "max": 25,  "step": 0.1}),
-            }
+            },
+            "optional": {
+                "system_prompt": ("STRING", {"default": None, "forceInput": True}),
+                "llm_options": ("TUPLE", {"default": None, "forceInput": True}),
+            },
         }
 
-    def prompt_enhancer(self, prompt, seed, llm_model_path, precision, configurator, multiply_max_length = 1):
+    def prompt_enhancer(self, prompt, seed, llm_model_path, precision, configurator, multiply_max_length = 1, system_prompt = None, llm_options = None):
         if llm_model_path == 'None':
             return (prompt, "",)
 
-        enhanced_result = llm_enhancer.PrimereLLMEnhance(llm_model_path, prompt, seed, precision, configurator, multiply_max_length)
+        enhanced_result = llm_enhancer.PrimereLLMEnhance(llm_model_path, prompt, seed, precision, configurator, multiply_max_length, system_prompt, llm_options)
         if enhanced_result == False:
             return (prompt, "",)
 
         return (prompt, enhanced_result,)
+
+class PrimereLLMEnhancerOptions:
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("LLM OPTIONS",)
+    FUNCTION = "prompt_enhancer_options"
+    CATEGORY = TREE_INPUTS
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "temperature": ("FLOAT", {"default": 1.00, "min": 0.00, "max": 2.00, "step": 0.01}),
+                "top_k": ("INT", {"default": 50, "min": 1, "max": 100, "step": 1}),
+                "top_p": ("FLOAT", {"default": 0.40, "min": 0.01, "max": 1.00, "step": 0.01}),
+                "max_length": ("INT", {"default": 100, "min": 20, "max": 4096, "step": 1}),
+                "repetition_penalty": ("FLOAT", {"default": 1.00, "min": 1.00, "max": 2.00, "step": 0.01}),
+                "length_penalty": ("FLOAT", {"default": 1.00, "min": 0.50, "max": 2.00, "step": 0.01}),
+                "no_repeat_ngram_size": ("INT", {"default": 0, "min": 0, "max": 5, "step": 1}),
+                "num_beams": ("INT", {"default": 1, "min": 1, "max": 20, "step": 1}),
+            }
+        }
+
+    def prompt_enhancer_options(self, **kwargs):
+        return (kwargs,)
+
 
 class PrimereImgToPrompt:
     RETURN_TYPES = ("STRING", "TUPLE",)
