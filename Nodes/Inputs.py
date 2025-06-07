@@ -379,6 +379,7 @@ class PrimereLLMEnhancerOptions:
     def INPUT_TYPES(cls):
         return {
             "required": {
+                "options": ("BOOLEAN", {"default": True, "label_on": "Use custom options", "label_off": "Ignore custom options"}),
                 "temperature": ("FLOAT", {"default": 1.00, "min": 0.00, "max": 2.00, "step": 0.01}),
                 "top_k": ("INT", {"default": 50, "min": 1, "max": 100, "step": 1}),
                 "top_p": ("FLOAT", {"default": 0.40, "min": 0.01, "max": 1.00, "step": 0.01}),
@@ -390,8 +391,11 @@ class PrimereLLMEnhancerOptions:
             }
         }
 
-    def prompt_enhancer_options(self, **kwargs):
-        return (kwargs,)
+    def prompt_enhancer_options(self, options, **kwargs):
+        if options is True:
+            return (kwargs,)
+        else:
+            return (None,)
 
 
 class PrimereImgToPrompt:

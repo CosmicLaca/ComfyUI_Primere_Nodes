@@ -33,14 +33,16 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
+          "shape": 3,
           "links": [
             3286
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "VAEDecode",
         "enableTabs": false,
         "tabWidth": 65,
@@ -77,6 +79,8 @@
       ],
       "outputs": [],
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -115,14 +119,16 @@
         {
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
+          "shape": 3,
           "links": [
             3883
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereModelKeyword"
       },
       "widgets_values": [
@@ -154,54 +160,56 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             333
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             334
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "MODEL",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 4,
-          "shape": 3
+          "slot_index": 4
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             340
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt Organizer - SWITCH #3",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePromptOrganizer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -252,6 +260,8 @@
       ],
       "outputs": [],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -292,14 +302,16 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 710,
           "widget": {
             "name": "text"
-          }
+          },
+          "link": 710
         }
       ],
       "outputs": [],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereTextOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -334,181 +346,183 @@
         {
           "name": "model",
           "type": "CHECKPOINT_NAME",
-          "link": 2697,
-          "shape": 7
+          "shape": 7,
+          "link": 2697
         },
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3675,
-          "shape": 7
+          "shape": 7,
+          "link": 3675
         },
         {
           "name": "model_shapes",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": 3771,
-          "shape": 7
+          "shape": 7,
+          "link": 3771
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": 3772,
-          "shape": 7
+          "shape": 7,
+          "link": 3772
         },
         {
           "name": "preferred",
           "type": "TUPLE",
-          "link": 693,
-          "shape": 7
+          "shape": 7,
+          "link": 693
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 3897,
           "widget": {
             "name": "positive"
-          }
+          },
+          "link": 3897
         },
         {
           "name": "negative",
           "type": "STRING",
-          "link": 3900,
           "widget": {
             "name": "negative"
-          }
+          },
+          "link": 3900
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3595,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3595
         },
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": 3903,
           "widget": {
             "name": "positive_l"
-          }
+          },
+          "link": 3903
         },
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": 3905,
           "widget": {
             "name": "negative_l"
-          }
+          },
+          "link": 3905
         },
         {
           "name": "positive_r",
           "type": "STRING",
-          "link": null,
           "widget": {
             "name": "positive_r"
-          }
+          },
+          "link": null
         },
         {
           "name": "negative_r",
           "type": "STRING",
-          "link": null,
           "widget": {
             "name": "negative_r"
-          }
+          },
+          "link": null
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 1233,
           "widget": {
             "name": "model_version"
-          }
+          },
+          "link": 1233
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3762,
           "widget": {
             "name": "model_concept"
-          }
+          },
+          "link": 3762
         },
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 3746,
           "widget": {
             "name": "sampler"
-          }
+          },
+          "link": 3746
         },
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3750,
           "widget": {
             "name": "scheduler"
-          }
+          },
+          "link": 3750
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 814,
           "widget": {
             "name": "width"
-          }
+          },
+          "link": 814
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 817,
           "widget": {
             "name": "height"
-          }
+          },
+          "link": 817
         },
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3758,
           "widget": {
             "name": "cfg"
-          }
+          },
+          "link": 3758
         },
         {
           "name": "steps",
           "type": "INT",
-          "link": 3753,
           "widget": {
             "name": "steps"
-          }
+          },
+          "link": 3753
         },
         {
           "name": "aesthetic_score",
           "type": "INT",
-          "link": 711,
           "widget": {
             "name": "aesthetic_score"
-          }
+          },
+          "link": 711
         }
       ],
       "outputs": [
         {
           "name": "METADATA",
           "type": "TUPLE",
+          "shape": 3,
           "links": [
             842,
             2694
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereMetaCollector",
         "enableTabs": false,
         "tabWidth": 65,
@@ -521,7 +535,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1343,
+        811,
         "randomize",
         "",
         "",
@@ -558,11 +572,11 @@
         {
           "name": "random_seed",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "random_seed"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -608,6 +622,8 @@
       ],
       "title": "Primere Visual Prompt CSV - SWITCH #4",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereVisualPromptOrganizerCSV",
         "enableTabs": false,
         "tabWidth": 65,
@@ -660,42 +676,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3701
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3702
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3703
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3704
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - TURBO",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -733,42 +751,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3697
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3698
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3699
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3700
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - CASCADE",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -806,42 +826,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3681
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3682
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3683
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3684
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SD1",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -879,42 +901,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3725
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3726
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3727
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3728
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - LCM",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -952,42 +976,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3729
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3730
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3731
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3732
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - LIGHTNING",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1025,42 +1051,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3717
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3718
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3719
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3720
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - PLAYGROUND",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1098,42 +1126,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3733
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3734
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3735
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3736
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - HYPER-SD",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1171,42 +1201,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3705
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3706
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3707
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3708
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - FLUX",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1244,42 +1276,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3693
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3694
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3695
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3696
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SD3",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1317,42 +1351,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3721
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3722
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3723
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3724
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - PONY",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1390,42 +1426,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3713
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3714
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3715
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3716
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - HUNYUAN",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1465,42 +1503,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3689
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3690
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3691
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3692
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SDXL",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1538,42 +1578,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3685
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3686
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3687
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3688
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SD2",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1611,42 +1653,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3709
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3710
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3711
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3712
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - KWAIKOLORS",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1688,35 +1732,35 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3678,
-          "shape": 7
+          "shape": 7,
+          "link": 3678
         },
         {
           "name": "loaded_model",
           "type": "MODEL",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "loaded_clip",
           "type": "CLIP",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "loaded_vae",
           "type": "VAE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3765,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3765
         }
       ],
       "outputs": [
@@ -1763,6 +1807,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereCKPTLoader",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1798,23 +1844,25 @@
         {
           "name": "UPSCALE_MODEL",
           "type": "UPSCALE_MODEL",
+          "shape": 3,
           "links": [
             2639
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "MODEL_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             2326
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereUpscaleModel",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1858,43 +1906,45 @@
         {
           "name": "model_name",
           "type": "COMBO",
-          "link": 2326,
           "widget": {
             "name": "model_name"
-          }
+          },
+          "link": 2326
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 2327,
           "widget": {
             "name": "width"
-          }
+          },
+          "link": 2327
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 2328,
           "widget": {
             "name": "height"
-          }
+          },
+          "link": 2328
         }
       ],
       "outputs": [
         {
           "name": "latent",
           "type": "LATENT",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_tinyterranodes",
+        "ver": "339ee9c183d6fed5e90fa46c1e7fddc4d6efdbd2",
         "Node name for S&R": "ttN hiresfixScale",
         "enableTabs": false,
         "tabWidth": 65,
@@ -1940,180 +1990,180 @@
         {
           "name": "model",
           "type": "CHECKPOINT_NAME",
-          "link": 2696,
-          "shape": 7
+          "shape": 7,
+          "link": 2696
         },
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": 3677,
-          "shape": 7
+          "shape": 7,
+          "link": 3677
         },
         {
           "name": "model_shapes",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "vae_name_sd",
           "type": "VAE_NAME",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "vae_name_sdxl",
           "type": "VAE_NAME",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "preferred",
           "type": "TUPLE",
-          "link": 2663,
-          "shape": 7
+          "shape": 7,
+          "link": 2663
         },
         {
           "name": "positive",
           "type": "STRING",
-          "link": 2652,
           "widget": {
             "name": "positive"
-          }
+          },
+          "link": 2652
         },
         {
           "name": "negative",
           "type": "STRING",
-          "link": 2653,
           "widget": {
             "name": "negative"
-          }
+          },
+          "link": 2653
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3600,
+          "shape": 7,
           "widget": {
             "name": "seed"
           },
-          "shape": 7
+          "link": 3600
         },
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "positive_l"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "negative_l"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "positive_r",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "positive_r"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "negative_r",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "negative_r"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 2655,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 2655
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3764,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3764
         },
         {
           "name": "sampler",
           "type": "COMBO",
-          "link": 3748,
+          "shape": 7,
           "widget": {
             "name": "sampler"
           },
-          "shape": 7
+          "link": 3748
         },
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3752,
+          "shape": 7,
           "widget": {
             "name": "scheduler"
           },
-          "shape": 7
+          "link": 3752
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 2660,
+          "shape": 7,
           "widget": {
             "name": "width"
           },
-          "shape": 7
+          "link": 2660
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 2661,
+          "shape": 7,
           "widget": {
             "name": "height"
           },
-          "shape": 7
+          "link": 2661
         },
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3760,
+          "shape": 7,
           "widget": {
             "name": "cfg"
           },
-          "shape": 7
+          "link": 3760
         },
         {
           "name": "steps",
           "type": "INT",
-          "link": 3756,
+          "shape": 7,
           "widget": {
             "name": "steps"
           },
-          "shape": 7
+          "link": 3756
         },
         {
           "name": "aesthetic_score",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "aesthetic_score"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -2127,6 +2177,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereMetaCollector",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2139,7 +2191,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1489,
+        1318,
         "randomize",
         "",
         "",
@@ -2182,6 +2234,8 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT +",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2192,7 +2246,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        "(design:1.2), Nature winter season photography, expressionist realistic style, living scenery, Dynamic wide shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, daytime photography, seasonal rain, perfect colors of selected season"
+        "(design:1.2), Nature spring season photography, expressionist realistic style, living scenery, Dynamic normal shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, night time photography, seasonal rain, perfect colors of selected season"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -2221,6 +2275,8 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT -",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2260,6 +2316,8 @@
       "outputs": [],
       "title": "Primere Any Debug - PROMPT T5-XXL",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2294,42 +2352,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3741
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3742
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3744
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3743
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - PIXART REFINER",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2367,42 +2427,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3737
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3738
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3739
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3740
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - PIXART",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2445,6 +2507,8 @@
       "outputs": [],
       "title": "Preview Image - REFINED FACE",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2483,6 +2547,8 @@
       "outputs": [],
       "title": "Preview Image - REFINED HANDS",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2520,6 +2586,8 @@
       "outputs": [],
       "title": "Preview Image - REFINED EYES",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2557,6 +2625,8 @@
       "outputs": [],
       "title": "Preview Image - REFINED MOUTH",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2589,15 +2659,17 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3274,
-          "label": " "
+          "link": 3274
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "STRING",
           "type": "*",
+          "shape": 3,
           "links": [
             3406,
             3417,
@@ -2608,13 +2680,13 @@
             3856,
             3866
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "STRING"
+          "slot_index": 0
         }
       ],
       "title": "Model version",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2644,24 +2716,26 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3286,
-          "label": " "
+          "link": 3286
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "IMAGE",
           "type": "*",
+          "shape": 3,
           "links": [
             3834
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "IMAGE"
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2691,23 +2765,25 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3301,
-          "label": " "
+          "link": 3301
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "INT",
           "type": "*",
-          "links": [],
-          "slot_index": 0,
           "shape": 3,
-          "label": "INT"
+          "links": [],
+          "slot_index": 0
         }
       ],
       "title": "Square shape",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2755,7 +2831,10 @@
           "links": null
         }
       ],
-      "properties": {},
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
+      },
       "widgets_values": [
         "Photo\\photon_refiner-FP16.safetensors"
       ],
@@ -2780,65 +2859,65 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3401,
-          "shape": 7
+          "shape": 7,
+          "link": 3401
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 3402,
-          "shape": 7
+          "shape": 7,
+          "link": 3402
         },
         {
           "name": "positive_original",
           "type": "STRING",
-          "link": 3403,
+          "shape": 7,
           "widget": {
             "name": "positive_original"
           },
-          "shape": 7
+          "link": 3403
         },
         {
           "name": "negative_original",
           "type": "STRING",
-          "link": 3404,
+          "shape": 7,
           "widget": {
             "name": "negative_original"
           },
-          "shape": 7
+          "link": 3404
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3405,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3405
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3406,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3406
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3564,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3564
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 3586,
-          "shape": 7
+          "shape": 7,
+          "link": 3586
         }
       ],
       "outputs": [
@@ -2909,6 +2988,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereRefinerPrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -2981,35 +3062,35 @@
         {
           "name": "concept_data",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "loaded_model",
           "type": "MODEL",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "loaded_clip",
           "type": "CLIP",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "loaded_vae",
           "type": "VAE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -3053,6 +3134,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereCKPTLoader",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3117,86 +3200,88 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 3599,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3599
         },
         {
           "name": "tile_width",
           "type": "INT",
-          "link": 2641,
           "widget": {
             "name": "tile_width"
-          }
+          },
+          "link": 2641
         },
         {
           "name": "tile_height",
           "type": "INT",
-          "link": 2642,
           "widget": {
             "name": "tile_height"
-          }
+          },
+          "link": 2642
         },
         {
           "name": "upscale_by",
           "type": "FLOAT",
-          "link": 2643,
           "widget": {
             "name": "upscale_by"
-          }
+          },
+          "link": 2643
         },
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 3747,
-          "slot_index": 10,
           "widget": {
             "name": "sampler_name"
-          }
+          },
+          "link": 3747,
+          "slot_index": 10
         },
         {
           "name": "scheduler",
           "type": "COMBO",
-          "link": 3751,
-          "slot_index": 11,
           "widget": {
             "name": "scheduler"
-          }
+          },
+          "link": 3751,
+          "slot_index": 11
         },
         {
           "name": "steps",
           "type": "INT",
-          "link": 3755,
-          "slot_index": 12,
           "widget": {
             "name": "steps"
-          }
+          },
+          "link": 3755,
+          "slot_index": 12
         },
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3759,
-          "slot_index": 13,
           "widget": {
             "name": "cfg"
-          }
+          },
+          "link": 3759,
+          "slot_index": 13
         }
       ],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
+          "shape": 3,
           "links": [
             2695,
             3285,
             3307
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_ultimatesdupscale",
+        "ver": "778a475dde8116a2066fe07f6c9ca15554e0b5be",
         "Node name for S&R": "UltimateSDUpscale",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3208,7 +3293,7 @@
       },
       "widgets_values": [
         2.1,
-        287385917542362,
+        757032624267045,
         "randomize",
         7,
         6.5,
@@ -3248,25 +3333,27 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3589,
-          "label": " "
+          "link": 3589
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "IMAGE",
           "type": "*",
+          "shape": 3,
           "links": [
             3590,
             3592
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "IMAGE"
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3297,69 +3384,71 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 3590,
-          "shape": 7
+          "shape": 7,
+          "link": 3590
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 2329,
-          "slot_index": 1,
           "widget": {
             "name": "width"
-          }
+          },
+          "link": 2329,
+          "slot_index": 1
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 2330,
           "widget": {
             "name": "height"
-          }
+          },
+          "link": 2330
         }
       ],
       "outputs": [
         {
           "name": "WIDTH",
           "type": "INT",
+          "shape": 3,
           "links": [
             2327,
             2641
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "HEIGHT",
           "type": "INT",
+          "shape": 3,
           "links": [
             2328,
             2642
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "UPSCALE_RATIO",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             2643
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "IMAGE",
           "type": "IMAGE",
+          "shape": 3,
           "links": [
             2325,
             3588
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereResolutionMultiplierMPX",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3417,6 +3506,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereFastSeed",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3429,7 +3520,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [471383815128134]"
+        "Last seed: [330762463062895]"
       ],
       "color": "#1414b8",
       "bgcolor": "#0000a4"
@@ -3453,51 +3544,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2669
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2670
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2671
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #6",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3537,51 +3630,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2666
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2667
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2668
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #5",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3621,51 +3716,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2675
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2676
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2677
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #8",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3705,51 +3802,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2672
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2673
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2674
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #7",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -3788,20 +3887,20 @@
         {
           "name": "prompt_pos_1",
           "type": "STRING",
-          "link": 327,
-          "shape": 7
+          "shape": 7,
+          "link": 327
         },
         {
           "name": "prompt_neg_1",
           "type": "STRING",
-          "link": 328,
-          "shape": 7
+          "shape": 7,
+          "link": 328
         },
         {
           "name": "preferred_1",
           "type": "STRING",
-          "link": 329,
-          "shape": 7
+          "shape": 7,
+          "link": 329
         },
         {
           "name": "prompt_pos_2",
@@ -3988,43 +4087,45 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2652,
             2690,
             3616
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2653,
             2691,
             3617
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SELECTED_INDEX",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "TUPLE",
+          "shape": 3,
           "links": [
             693,
             2663
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePromptSwitch",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4059,51 +4160,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2681
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2682
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2683
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #10",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4143,51 +4246,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2687
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2688
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2689
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #12",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4227,51 +4332,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2684
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2685
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2686
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #11",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4311,51 +4418,53 @@
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2678
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2679
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "MODEL",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             2680
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - #9",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4394,11 +4503,11 @@
         {
           "name": "random_seed",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "random_seed"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -4441,6 +4550,8 @@
       ],
       "title": "Primere Visual Style Selector - SWITCH #2",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereVisualStyle",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4483,17 +4594,18 @@
         {
           "name": "random_seed",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "random_seed"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
         {
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
+          "shape": 3,
           "links": [
             146,
             2504,
@@ -4501,20 +4613,21 @@
             2697,
             3679
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "MODEL_VERSION",
           "type": "STRING",
+          "shape": 3,
           "links": [
             3680
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereVisualCKPT"
       },
       "widgets_values": [
@@ -4548,29 +4661,29 @@
         {
           "name": "seed",
           "type": "INT",
-          "link": 3596,
+          "shape": 7,
           "widget": {
             "name": "seed"
           },
-          "shape": 7
+          "link": 3596
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3273,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3273
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3766,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3766
         }
       ],
       "outputs": [
@@ -4608,6 +4721,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereResolution",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4629,7 +4744,7 @@
         false,
         1.6,
         2.8,
-        174980146921748,
+        667281847598950,
         "randomize",
         "SD1",
         "Auto"
@@ -4655,65 +4770,65 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3411,
-          "shape": 7
+          "shape": 7,
+          "link": 3411
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 3412,
-          "shape": 7
+          "shape": 7,
+          "link": 3412
         },
         {
           "name": "positive_original",
           "type": "STRING",
-          "link": 3414,
+          "shape": 7,
           "widget": {
             "name": "positive_original"
           },
-          "shape": 7
+          "link": 3414
         },
         {
           "name": "negative_original",
           "type": "STRING",
-          "link": 3415,
+          "shape": 7,
           "widget": {
             "name": "negative_original"
           },
-          "shape": 7
+          "link": 3415
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3416,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3416
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3417,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3417
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3566,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3566
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 3587,
-          "shape": 7
+          "shape": 7,
+          "link": 3587
         }
       ],
       "outputs": [
@@ -4784,6 +4899,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereRefinerPrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4871,57 +4988,57 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3598,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3598
         },
         {
           "name": "steps",
           "type": "INT",
-          "link": 3754,
           "widget": {
             "name": "steps"
-          }
+          },
+          "link": 3754
         },
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3757,
           "widget": {
             "name": "cfg"
-          }
+          },
+          "link": 3757
         },
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 3745,
           "widget": {
             "name": "sampler_name"
-          }
+          },
+          "link": 3745
         },
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 3749,
           "widget": {
             "name": "scheduler_name"
-          }
+          },
+          "link": 3749
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3763,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3763
         }
       ],
       "outputs": [
@@ -4940,6 +5057,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereKSampler",
         "enableTabs": false,
         "tabWidth": 65,
@@ -4950,7 +5069,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        860015149820913,
+        852825305307711,
         "randomize",
         20,
         8,
@@ -4986,66 +5105,68 @@
         {
           "name": "optional_vae",
           "type": "VAE",
-          "link": 1231,
-          "shape": 7
+          "shape": 7,
+          "link": 1231
         },
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 812,
           "widget": {
             "name": "width"
-          }
+          },
+          "link": 812
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 815,
           "widget": {
             "name": "height"
-          }
+          },
+          "link": 815
         },
         {
           "name": "noise_seed",
           "type": "INT",
-          "link": 3597,
           "widget": {
             "name": "noise_seed"
-          }
+          },
+          "link": 3597
         }
       ],
       "outputs": [
         {
           "name": "LATENTS",
           "type": "LATENT",
+          "shape": 3,
           "links": [
             2245
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PREVIEWS",
           "type": "IMAGE",
+          "shape": 3,
           "links": [
             647
-          ],
-          "shape": 3
+          ]
         },
         {
           "name": "WORKFLOW_TUPLE",
           "type": "TUPLE",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereLatentNoise",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5068,7 +5189,7 @@
         1.4000000000000001,
         0.8,
         1.4000000000000001,
-        541502218228258,
+        32523096859513,
         "randomize",
         false,
         "cuda",
@@ -5094,15 +5215,17 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3602,
-          "label": " "
+          "link": 3602
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "INT",
           "type": "*",
+          "shape": 3,
           "links": [
             3560,
             3561,
@@ -5113,13 +5236,13 @@
             3566,
             3567
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "INT"
+          "slot_index": 0
         }
       ],
       "title": "Seed",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5155,6 +5278,8 @@
       ],
       "outputs": [],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5193,6 +5318,8 @@
       ],
       "outputs": [],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyOutput",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5226,26 +5353,26 @@
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3609,
           "widget": {
             "name": "model_version"
-          }
+          },
+          "link": 3609
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 3610,
           "widget": {
             "name": "positive_prompt"
-          }
+          },
+          "link": 3610
         },
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 3611,
           "widget": {
             "name": "negative_prompt"
-          }
+          },
+          "link": 3611
         }
       ],
       "outputs": [
@@ -5266,6 +5393,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereClearNetworkTagsPrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5333,16 +5462,16 @@
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": 3676,
-          "shape": 7
+          "shape": 7,
+          "link": 3676
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 3613,
           "widget": {
             "name": "positive_prompt"
-          }
+          },
+          "link": 3613
         }
       ],
       "outputs": [
@@ -5393,6 +5522,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereNetworkTagLoader",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5443,33 +5574,35 @@
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 3616,
-          "slot_index": 0,
           "widget": {
             "name": "dyn_prompt"
-          }
+          },
+          "link": 3616,
+          "slot_index": 0
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3593,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3593
         }
       ],
       "outputs": [
         {
           "name": "PROMPT",
           "type": "STRING",
+          "shape": 3,
           "links": [
             3619
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereDynamicParser",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5481,7 +5614,7 @@
       },
       "widgets_values": [
         "",
-        642642077926790,
+        878611226846589,
         "randomize"
       ],
       "color": "#145414",
@@ -5505,33 +5638,35 @@
         {
           "name": "dyn_prompt",
           "type": "STRING",
-          "link": 3617,
-          "slot_index": 0,
           "widget": {
             "name": "dyn_prompt"
-          }
+          },
+          "link": 3617,
+          "slot_index": 0
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3594,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3594
         }
       ],
       "outputs": [
         {
           "name": "PROMPT",
           "type": "STRING",
+          "shape": 3,
           "links": [
             3618
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereDynamicParser",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5543,7 +5678,7 @@
       },
       "widgets_values": [
         "",
-        700676040899089,
+        334474988619255,
         "randomize"
       ],
       "color": "#945454",
@@ -5567,41 +5702,43 @@
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 3619,
           "widget": {
             "name": "positive_prompt"
-          }
+          },
+          "link": 3619
         },
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 3618,
           "widget": {
             "name": "negative_prompt"
-          }
+          },
+          "link": 3618
         }
       ],
       "outputs": [
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             3610
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             3611
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereEmbeddingHandler",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5635,15 +5772,17 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3768,
-          "label": " "
+          "link": 3768
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "STRING",
           "type": "*",
+          "shape": 3,
           "links": [
             3405,
             3416,
@@ -5654,13 +5793,13 @@
             3546,
             3557
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "STRING"
+          "slot_index": 0
         }
       ],
       "title": "Model concept",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5696,19 +5835,21 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 2694,
-          "shape": 7
+          "shape": 7,
+          "link": 2694
         }
       ],
       "outputs": [
         {
           "name": "SAVED_INFO",
           "type": "STRING",
-          "links": null,
-          "shape": 3
+          "shape": 3,
+          "links": null
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereMetaSave",
         "enableTabs": false,
         "tabWidth": 65,
@@ -5766,661 +5907,661 @@
         {
           "name": "model_name",
           "type": "CHECKPOINT_NAME",
-          "link": 3679,
-          "shape": 7
+          "shape": 7,
+          "link": 3679
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3680,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3680
         },
         {
           "name": "sd1_sampler_name",
           "type": "COMBO",
-          "link": 3681,
+          "shape": 7,
           "widget": {
             "name": "sd1_sampler_name"
           },
-          "shape": 7
+          "link": 3681
         },
         {
           "name": "sd1_scheduler_name",
           "type": "COMBO",
-          "link": 3682,
+          "shape": 7,
           "widget": {
             "name": "sd1_scheduler_name"
           },
-          "shape": 7
+          "link": 3682
         },
         {
           "name": "sd1_steps",
           "type": "INT",
-          "link": 3683,
+          "shape": 7,
           "widget": {
             "name": "sd1_steps"
           },
-          "shape": 7
+          "link": 3683
         },
         {
           "name": "sd1_cfg_scale",
           "type": "FLOAT",
-          "link": 3684,
+          "shape": 7,
           "widget": {
             "name": "sd1_cfg_scale"
           },
-          "shape": 7
+          "link": 3684
         },
         {
           "name": "sd2_sampler_name",
           "type": "COMBO",
-          "link": 3685,
+          "shape": 7,
           "widget": {
             "name": "sd2_sampler_name"
           },
-          "shape": 7
+          "link": 3685
         },
         {
           "name": "sd2_scheduler_name",
           "type": "COMBO",
-          "link": 3686,
+          "shape": 7,
           "widget": {
             "name": "sd2_scheduler_name"
           },
-          "shape": 7
+          "link": 3686
         },
         {
           "name": "sd2_steps",
           "type": "INT",
-          "link": 3687,
+          "shape": 7,
           "widget": {
             "name": "sd2_steps"
           },
-          "shape": 7
+          "link": 3687
         },
         {
           "name": "sd2_cfg_scale",
           "type": "FLOAT",
-          "link": 3688,
+          "shape": 7,
           "widget": {
             "name": "sd2_cfg_scale"
           },
-          "shape": 7
+          "link": 3688
         },
         {
           "name": "sdxl_sampler_name",
           "type": "COMBO",
-          "link": 3689,
+          "shape": 7,
           "widget": {
             "name": "sdxl_sampler_name"
           },
-          "shape": 7
+          "link": 3689
         },
         {
           "name": "sdxl_scheduler_name",
           "type": "COMBO",
-          "link": 3690,
+          "shape": 7,
           "widget": {
             "name": "sdxl_scheduler_name"
           },
-          "shape": 7
+          "link": 3690
         },
         {
           "name": "sdxl_steps",
           "type": "INT",
-          "link": 3691,
+          "shape": 7,
           "widget": {
             "name": "sdxl_steps"
           },
-          "shape": 7
+          "link": 3691
         },
         {
           "name": "sdxl_cfg_scale",
           "type": "FLOAT",
-          "link": 3692,
+          "shape": 7,
           "widget": {
             "name": "sdxl_cfg_scale"
           },
-          "shape": 7
+          "link": 3692
         },
         {
           "name": "sd3_sampler_name",
           "type": "COMBO",
-          "link": 3693,
+          "shape": 7,
           "widget": {
             "name": "sd3_sampler_name"
           },
-          "shape": 7
+          "link": 3693
         },
         {
           "name": "sd3_scheduler_name",
           "type": "COMBO",
-          "link": 3694,
+          "shape": 7,
           "widget": {
             "name": "sd3_scheduler_name"
           },
-          "shape": 7
+          "link": 3694
         },
         {
           "name": "sd3_steps",
           "type": "INT",
-          "link": 3695,
+          "shape": 7,
           "widget": {
             "name": "sd3_steps"
           },
-          "shape": 7
+          "link": 3695
         },
         {
           "name": "sd3_cfg_scale",
           "type": "FLOAT",
-          "link": 3696,
+          "shape": 7,
           "widget": {
             "name": "sd3_cfg_scale"
           },
-          "shape": 7
+          "link": 3696
         },
         {
           "name": "stablecascade_sampler_name",
           "type": "COMBO",
-          "link": 3697,
+          "shape": 7,
           "widget": {
             "name": "stablecascade_sampler_name"
           },
-          "shape": 7
+          "link": 3697
         },
         {
           "name": "stablecascade_scheduler_name",
           "type": "COMBO",
-          "link": 3698,
+          "shape": 7,
           "widget": {
             "name": "stablecascade_scheduler_name"
           },
-          "shape": 7
+          "link": 3698
         },
         {
           "name": "stablecascade_steps",
           "type": "INT",
-          "link": 3699,
+          "shape": 7,
           "widget": {
             "name": "stablecascade_steps"
           },
-          "shape": 7
+          "link": 3699
         },
         {
           "name": "stablecascade_cfg_scale",
           "type": "FLOAT",
-          "link": 3700,
+          "shape": 7,
           "widget": {
             "name": "stablecascade_cfg_scale"
           },
-          "shape": 7
+          "link": 3700
         },
         {
           "name": "turbo_sampler_name",
           "type": "COMBO",
-          "link": 3701,
+          "shape": 7,
           "widget": {
             "name": "turbo_sampler_name"
           },
-          "shape": 7
+          "link": 3701
         },
         {
           "name": "turbo_scheduler_name",
           "type": "COMBO",
-          "link": 3702,
+          "shape": 7,
           "widget": {
             "name": "turbo_scheduler_name"
           },
-          "shape": 7
+          "link": 3702
         },
         {
           "name": "turbo_steps",
           "type": "INT",
-          "link": 3703,
+          "shape": 7,
           "widget": {
             "name": "turbo_steps"
           },
-          "shape": 7
+          "link": 3703
         },
         {
           "name": "turbo_cfg_scale",
           "type": "FLOAT",
-          "link": 3704,
+          "shape": 7,
           "widget": {
             "name": "turbo_cfg_scale"
           },
-          "shape": 7
+          "link": 3704
         },
         {
           "name": "flux_sampler_name",
           "type": "COMBO",
-          "link": 3705,
+          "shape": 7,
           "widget": {
             "name": "flux_sampler_name"
           },
-          "shape": 7
+          "link": 3705
         },
         {
           "name": "flux_scheduler_name",
           "type": "COMBO",
-          "link": 3706,
+          "shape": 7,
           "widget": {
             "name": "flux_scheduler_name"
           },
-          "shape": 7
+          "link": 3706
         },
         {
           "name": "flux_steps",
           "type": "INT",
-          "link": 3707,
+          "shape": 7,
           "widget": {
             "name": "flux_steps"
           },
-          "shape": 7
+          "link": 3707
         },
         {
           "name": "flux_cfg_scale",
           "type": "FLOAT",
-          "link": 3708,
+          "shape": 7,
           "widget": {
             "name": "flux_cfg_scale"
           },
-          "shape": 7
+          "link": 3708
         },
         {
           "name": "kwaikolors_sampler_name",
           "type": "COMBO",
-          "link": 3709,
+          "shape": 7,
           "widget": {
             "name": "kwaikolors_sampler_name"
           },
-          "shape": 7
+          "link": 3709
         },
         {
           "name": "kwaikolors_scheduler_name",
           "type": "COMBO",
-          "link": 3710,
+          "shape": 7,
           "widget": {
             "name": "kwaikolors_scheduler_name"
           },
-          "shape": 7
+          "link": 3710
         },
         {
           "name": "kwaikolors_steps",
           "type": "INT",
-          "link": 3711,
+          "shape": 7,
           "widget": {
             "name": "kwaikolors_steps"
           },
-          "shape": 7
+          "link": 3711
         },
         {
           "name": "kwaikolors_cfg_scale",
           "type": "FLOAT",
-          "link": 3712,
+          "shape": 7,
           "widget": {
             "name": "kwaikolors_cfg_scale"
           },
-          "shape": 7
+          "link": 3712
         },
         {
           "name": "hunyuan_sampler_name",
           "type": "COMBO",
-          "link": 3713,
+          "shape": 7,
           "widget": {
             "name": "hunyuan_sampler_name"
           },
-          "shape": 7
+          "link": 3713
         },
         {
           "name": "hunyuan_scheduler_name",
           "type": "COMBO",
-          "link": 3714,
+          "shape": 7,
           "widget": {
             "name": "hunyuan_scheduler_name"
           },
-          "shape": 7
+          "link": 3714
         },
         {
           "name": "hunyuan_steps",
           "type": "INT",
-          "link": 3715,
+          "shape": 7,
           "widget": {
             "name": "hunyuan_steps"
           },
-          "shape": 7
+          "link": 3715
         },
         {
           "name": "hunyuan_cfg_scale",
           "type": "FLOAT",
-          "link": 3716,
+          "shape": 7,
           "widget": {
             "name": "hunyuan_cfg_scale"
           },
-          "shape": 7
+          "link": 3716
         },
         {
           "name": "playground_sampler_name",
           "type": "COMBO",
-          "link": 3717,
+          "shape": 7,
           "widget": {
             "name": "playground_sampler_name"
           },
-          "shape": 7
+          "link": 3717
         },
         {
           "name": "playground_scheduler_name",
           "type": "COMBO",
-          "link": 3718,
+          "shape": 7,
           "widget": {
             "name": "playground_scheduler_name"
           },
-          "shape": 7
+          "link": 3718
         },
         {
           "name": "playground_steps",
           "type": "INT",
-          "link": 3719,
+          "shape": 7,
           "widget": {
             "name": "playground_steps"
           },
-          "shape": 7
+          "link": 3719
         },
         {
           "name": "playground_cfg_scale",
           "type": "FLOAT",
-          "link": 3720,
+          "shape": 7,
           "widget": {
             "name": "playground_cfg_scale"
           },
-          "shape": 7
+          "link": 3720
         },
         {
           "name": "pony_sampler_name",
           "type": "COMBO",
-          "link": 3721,
+          "shape": 7,
           "widget": {
             "name": "pony_sampler_name"
           },
-          "shape": 7
+          "link": 3721
         },
         {
           "name": "pony_scheduler_name",
           "type": "COMBO",
-          "link": 3722,
+          "shape": 7,
           "widget": {
             "name": "pony_scheduler_name"
           },
-          "shape": 7
+          "link": 3722
         },
         {
           "name": "pony_steps",
           "type": "INT",
-          "link": 3723,
+          "shape": 7,
           "widget": {
             "name": "pony_steps"
           },
-          "shape": 7
+          "link": 3723
         },
         {
           "name": "pony_cfg_scale",
           "type": "FLOAT",
-          "link": 3724,
+          "shape": 7,
           "widget": {
             "name": "pony_cfg_scale"
           },
-          "shape": 7
+          "link": 3724
         },
         {
           "name": "lcm_sampler_name",
           "type": "COMBO",
-          "link": 3725,
+          "shape": 7,
           "widget": {
             "name": "lcm_sampler_name"
           },
-          "shape": 7
+          "link": 3725
         },
         {
           "name": "lcm_scheduler_name",
           "type": "COMBO",
-          "link": 3726,
+          "shape": 7,
           "widget": {
             "name": "lcm_scheduler_name"
           },
-          "shape": 7
+          "link": 3726
         },
         {
           "name": "lcm_steps",
           "type": "INT",
-          "link": 3727,
+          "shape": 7,
           "widget": {
             "name": "lcm_steps"
           },
-          "shape": 7
+          "link": 3727
         },
         {
           "name": "lcm_cfg_scale",
           "type": "FLOAT",
-          "link": 3728,
+          "shape": 7,
           "widget": {
             "name": "lcm_cfg_scale"
           },
-          "shape": 7
+          "link": 3728
         },
         {
           "name": "lightning_sampler_name",
           "type": "COMBO",
-          "link": 3729,
+          "shape": 7,
           "widget": {
             "name": "lightning_sampler_name"
           },
-          "shape": 7
+          "link": 3729
         },
         {
           "name": "lightning_scheduler_name",
           "type": "COMBO",
-          "link": 3730,
+          "shape": 7,
           "widget": {
             "name": "lightning_scheduler_name"
           },
-          "shape": 7
+          "link": 3730
         },
         {
           "name": "lightning_steps",
           "type": "INT",
-          "link": 3731,
+          "shape": 7,
           "widget": {
             "name": "lightning_steps"
           },
-          "shape": 7
+          "link": 3731
         },
         {
           "name": "lightning_cfg_scale",
           "type": "FLOAT",
-          "link": 3732,
+          "shape": 7,
           "widget": {
             "name": "lightning_cfg_scale"
           },
-          "shape": 7
+          "link": 3732
         },
         {
           "name": "hyper_sampler_name",
           "type": "COMBO",
-          "link": 3733,
+          "shape": 7,
           "widget": {
             "name": "hyper_sampler_name"
           },
-          "shape": 7
+          "link": 3733
         },
         {
           "name": "hyper_scheduler_name",
           "type": "COMBO",
-          "link": 3734,
+          "shape": 7,
           "widget": {
             "name": "hyper_scheduler_name"
           },
-          "shape": 7
+          "link": 3734
         },
         {
           "name": "hyper_steps",
           "type": "INT",
-          "link": 3735,
+          "shape": 7,
           "widget": {
             "name": "hyper_steps"
           },
-          "shape": 7
+          "link": 3735
         },
         {
           "name": "hyper_cfg_scale",
           "type": "FLOAT",
-          "link": 3736,
+          "shape": 7,
           "widget": {
             "name": "hyper_cfg_scale"
           },
-          "shape": 7
+          "link": 3736
         },
         {
           "name": "pixartsigma_sampler_name",
           "type": "COMBO",
-          "link": 3737,
+          "shape": 7,
           "widget": {
             "name": "pixartsigma_sampler_name"
           },
-          "shape": 7
+          "link": 3737
         },
         {
           "name": "pixartsigma_scheduler_name",
           "type": "COMBO",
-          "link": 3738,
+          "shape": 7,
           "widget": {
             "name": "pixartsigma_scheduler_name"
           },
-          "shape": 7
+          "link": 3738
         },
         {
           "name": "pixartsigma_steps",
           "type": "INT",
-          "link": 3739,
+          "shape": 7,
           "widget": {
             "name": "pixartsigma_steps"
           },
-          "shape": 7
+          "link": 3739
         },
         {
           "name": "pixartsigma_cfg_scale",
           "type": "FLOAT",
-          "link": 3740,
+          "shape": 7,
           "widget": {
             "name": "pixartsigma_cfg_scale"
           },
-          "shape": 7
+          "link": 3740
         },
         {
           "name": "sana1024_sampler_name",
           "type": "COMBO",
-          "link": 3874,
+          "shape": 7,
           "widget": {
             "name": "sana1024_sampler_name"
           },
-          "shape": 7
+          "link": 3874
         },
         {
           "name": "sana1024_scheduler_name",
           "type": "COMBO",
-          "link": 3875,
+          "shape": 7,
           "widget": {
             "name": "sana1024_scheduler_name"
           },
-          "shape": 7
+          "link": 3875
         },
         {
           "name": "sana1024_steps",
           "type": "INT",
-          "link": 3876,
+          "shape": 7,
           "widget": {
             "name": "sana1024_steps"
           },
-          "shape": 7
+          "link": 3876
         },
         {
           "name": "sana1024_cfg_scale",
           "type": "FLOAT",
-          "link": 3877,
+          "shape": 7,
           "widget": {
             "name": "sana1024_cfg_scale"
           },
-          "shape": 7
+          "link": 3877
         },
         {
           "name": "sana512_sampler_name",
           "type": "COMBO",
-          "link": 3878,
+          "shape": 7,
           "widget": {
             "name": "sana512_sampler_name"
           },
-          "shape": 7
+          "link": 3878
         },
         {
           "name": "sana512_scheduler_name",
           "type": "COMBO",
-          "link": 3879,
+          "shape": 7,
           "widget": {
             "name": "sana512_scheduler_name"
           },
-          "shape": 7
+          "link": 3879
         },
         {
           "name": "sana512_steps",
           "type": "INT",
-          "link": 3880,
+          "shape": 7,
           "widget": {
             "name": "sana512_steps"
           },
-          "shape": 7
+          "link": 3880
         },
         {
           "name": "sana512_cfg_scale",
           "type": "FLOAT",
-          "link": 3881,
+          "shape": 7,
           "widget": {
             "name": "sana512_cfg_scale"
           },
-          "shape": 7
+          "link": 3881
         },
         {
           "name": "pixart_refiner_sampler",
           "type": "COMBO",
-          "link": 3741,
           "widget": {
             "name": "pixart_refiner_sampler"
-          }
+          },
+          "link": 3741
         },
         {
           "name": "pixart_refiner_scheduler",
           "type": "COMBO",
-          "link": 3742,
           "widget": {
             "name": "pixart_refiner_scheduler"
-          }
+          },
+          "link": 3742
         },
         {
           "name": "pixart_refiner_cfg",
           "type": "FLOAT",
-          "link": 3743,
           "widget": {
             "name": "pixart_refiner_cfg"
-          }
+          },
+          "link": 3743
         },
         {
           "name": "pixart_refiner_steps",
           "type": "INT",
-          "link": 3744,
           "widget": {
             "name": "pixart_refiner_steps"
-          }
+          },
+          "link": 3744
         }
       ],
       "outputs": [
@@ -6914,6 +7055,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereModelConceptSelector",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7118,458 +7261,458 @@
         {
           "name": "sampler_name",
           "type": "COMBO",
-          "link": 3832,
           "widget": {
             "name": "sampler_name"
-          }
+          },
+          "link": 3832
         },
         {
           "name": "scheduler_name",
           "type": "COMBO",
-          "link": 3833,
           "widget": {
             "name": "scheduler_name"
-          }
+          },
+          "link": 3833
         },
         {
           "name": "steps",
           "type": "INT",
-          "link": 3830,
           "widget": {
             "name": "steps"
-          }
+          },
+          "link": 3830
         },
         {
           "name": "cfg",
           "type": "FLOAT",
-          "link": 3831,
           "widget": {
             "name": "cfg"
-          }
+          },
+          "link": 3831
         },
         {
           "name": "strength_lcm_lora_model",
           "type": "FLOAT",
-          "link": 3774,
           "widget": {
             "name": "strength_lcm_lora_model"
-          }
+          },
+          "link": 3774
         },
         {
           "name": "lightning_selector",
           "type": "STRING",
-          "link": 3775,
           "widget": {
             "name": "lightning_selector"
-          }
+          },
+          "link": 3775
         },
         {
           "name": "lightning_model_step",
           "type": "INT",
-          "link": 3776,
           "widget": {
             "name": "lightning_model_step"
-          }
+          },
+          "link": 3776
         },
         {
           "name": "strength_lightning_lora_model",
           "type": "FLOAT",
-          "link": 3777,
           "widget": {
             "name": "strength_lightning_lora_model"
-          }
+          },
+          "link": 3777
         },
         {
           "name": "cascade_stage_a",
           "type": "STRING",
-          "link": 3778,
           "widget": {
             "name": "cascade_stage_a"
-          }
+          },
+          "link": 3778
         },
         {
           "name": "cascade_stage_b",
           "type": "STRING",
-          "link": 3779,
           "widget": {
             "name": "cascade_stage_b"
-          }
+          },
+          "link": 3779
         },
         {
           "name": "cascade_stage_c",
           "type": "STRING",
-          "link": 3780,
           "widget": {
             "name": "cascade_stage_c"
-          }
+          },
+          "link": 3780
         },
         {
           "name": "cascade_clip",
           "type": "STRING",
-          "link": 3781,
           "widget": {
             "name": "cascade_clip"
-          }
+          },
+          "link": 3781
         },
         {
           "name": "hypersd_selector",
           "type": "STRING",
-          "link": 3782,
           "widget": {
             "name": "hypersd_selector"
-          }
+          },
+          "link": 3782
         },
         {
           "name": "hypersd_model_step",
           "type": "INT",
-          "link": 3783,
           "widget": {
             "name": "hypersd_model_step"
-          }
+          },
+          "link": 3783
         },
         {
           "name": "strength_hypersd_lora_model",
           "type": "FLOAT",
-          "link": 3784,
           "widget": {
             "name": "strength_hypersd_lora_model"
-          }
+          },
+          "link": 3784
         },
         {
           "name": "flux_selector",
           "type": "STRING",
-          "link": 3785,
           "widget": {
             "name": "flux_selector"
-          }
+          },
+          "link": 3785
         },
         {
           "name": "flux_diffusion",
           "type": "STRING",
-          "link": 3786,
           "widget": {
             "name": "flux_diffusion"
-          }
+          },
+          "link": 3786
         },
         {
           "name": "flux_weight_dtype",
           "type": "STRING",
-          "link": 3787,
           "widget": {
             "name": "flux_weight_dtype"
-          }
+          },
+          "link": 3787
         },
         {
           "name": "flux_gguf",
           "type": "STRING",
-          "link": 3788,
           "widget": {
             "name": "flux_gguf"
-          }
+          },
+          "link": 3788
         },
         {
           "name": "flux_clip_t5xxl",
           "type": "STRING",
-          "link": 3789,
           "widget": {
             "name": "flux_clip_t5xxl"
-          }
+          },
+          "link": 3789
         },
         {
           "name": "flux_clip_l",
           "type": "STRING",
-          "link": 3790,
           "widget": {
             "name": "flux_clip_l"
-          }
+          },
+          "link": 3790
         },
         {
           "name": "flux_clip_guidance",
           "type": "FLOAT",
-          "link": 3791,
           "widget": {
             "name": "flux_clip_guidance"
-          }
+          },
+          "link": 3791
         },
         {
           "name": "flux_vae",
           "type": "STRING",
-          "link": 3792,
           "widget": {
             "name": "flux_vae"
-          }
+          },
+          "link": 3792
         },
         {
           "name": "flux_sampler",
           "type": "STRING",
-          "link": 3793,
           "widget": {
             "name": "flux_sampler"
-          }
+          },
+          "link": 3793
         },
         {
           "name": "flux_hyper_lora_type",
           "type": "STRING",
-          "link": 3795,
           "widget": {
             "name": "flux_hyper_lora_type"
-          }
+          },
+          "link": 3795
         },
         {
           "name": "flux_hyper_lora_step",
           "type": "INT",
-          "link": 3796,
           "widget": {
             "name": "flux_hyper_lora_step"
-          }
+          },
+          "link": 3796
         },
         {
           "name": "flux_hyper_lora_strength",
           "type": "FLOAT",
-          "link": 3797,
           "widget": {
             "name": "flux_hyper_lora_strength"
-          }
+          },
+          "link": 3797
         },
         {
           "name": "flux_turbo_lora_type",
           "type": "STRING",
-          "link": 3799,
           "widget": {
             "name": "flux_turbo_lora_type"
-          }
+          },
+          "link": 3799
         },
         {
           "name": "flux_turbo_lora_step",
           "type": "INT",
-          "link": 3800,
           "widget": {
             "name": "flux_turbo_lora_step"
-          }
+          },
+          "link": 3800
         },
         {
           "name": "flux_turbo_lora_strength",
           "type": "FLOAT",
-          "link": 3801,
           "widget": {
             "name": "flux_turbo_lora_strength"
-          }
+          },
+          "link": 3801
         },
         {
           "name": "hunyuan_clip_t5xxl",
           "type": "STRING",
-          "link": 3802,
           "widget": {
             "name": "hunyuan_clip_t5xxl"
-          }
+          },
+          "link": 3802
         },
         {
           "name": "hunyuan_clip_l",
           "type": "STRING",
-          "link": 3803,
           "widget": {
             "name": "hunyuan_clip_l"
-          }
+          },
+          "link": 3803
         },
         {
           "name": "hunyuan_vae",
           "type": "STRING",
-          "link": 3804,
           "widget": {
             "name": "hunyuan_vae"
-          }
+          },
+          "link": 3804
         },
         {
           "name": "sd3_clip_g",
           "type": "STRING",
-          "link": 3805,
           "widget": {
             "name": "sd3_clip_g"
-          }
+          },
+          "link": 3805
         },
         {
           "name": "sd3_clip_l",
           "type": "STRING",
-          "link": 3806,
           "widget": {
             "name": "sd3_clip_l"
-          }
+          },
+          "link": 3806
         },
         {
           "name": "sd3_clip_t5xxl",
           "type": "STRING",
-          "link": 3807,
           "widget": {
             "name": "sd3_clip_t5xxl"
-          }
+          },
+          "link": 3807
         },
         {
           "name": "sd3_unet_vae",
           "type": "STRING",
-          "link": 3808,
           "widget": {
             "name": "sd3_unet_vae"
-          }
+          },
+          "link": 3808
         },
         {
           "name": "sd3_hyper_lora_step",
           "type": "INT",
-          "link": 3810,
           "widget": {
             "name": "sd3_hyper_lora_step"
-          }
+          },
+          "link": 3810
         },
         {
           "name": "sd3_hyper_lora_strength",
           "type": "FLOAT",
-          "link": 3811,
           "widget": {
             "name": "sd3_hyper_lora_strength"
-          }
+          },
+          "link": 3811
         },
         {
           "name": "kolors_precision",
           "type": "STRING",
-          "link": 3812,
           "widget": {
             "name": "kolors_precision"
-          }
+          },
+          "link": 3812
         },
         {
           "name": "pixart_model_type",
           "type": "STRING",
-          "link": 3813,
           "widget": {
             "name": "pixart_model_type"
-          }
+          },
+          "link": 3813
         },
         {
           "name": "pixart_T5_encoder",
           "type": "STRING",
-          "link": 3814,
           "widget": {
             "name": "pixart_T5_encoder"
-          }
+          },
+          "link": 3814
         },
         {
           "name": "pixart_vae",
           "type": "STRING",
-          "link": 3815,
           "widget": {
             "name": "pixart_vae"
-          }
+          },
+          "link": 3815
         },
         {
           "name": "pixart_denoise",
           "type": "FLOAT",
-          "link": 3816,
           "widget": {
             "name": "pixart_denoise"
-          }
+          },
+          "link": 3816
         },
         {
           "name": "pixart_refiner_model",
           "type": "STRING",
-          "link": 3817,
           "widget": {
             "name": "pixart_refiner_model"
-          }
+          },
+          "link": 3817
         },
         {
           "name": "pixart_refiner_sampler",
           "type": "STRING",
-          "link": 3818,
           "widget": {
             "name": "pixart_refiner_sampler"
-          }
+          },
+          "link": 3818
         },
         {
           "name": "pixart_refiner_scheduler",
           "type": "STRING",
-          "link": 3819,
           "widget": {
             "name": "pixart_refiner_scheduler"
-          }
+          },
+          "link": 3819
         },
         {
           "name": "pixart_refiner_cfg",
           "type": "FLOAT",
-          "link": 3820,
           "widget": {
             "name": "pixart_refiner_cfg"
-          }
+          },
+          "link": 3820
         },
         {
           "name": "pixart_refiner_steps",
           "type": "INT",
-          "link": 3821,
           "widget": {
             "name": "pixart_refiner_steps"
-          }
+          },
+          "link": 3821
         },
         {
           "name": "pixart_refiner_start",
           "type": "INT",
-          "link": 3822,
           "widget": {
             "name": "pixart_refiner_start"
-          }
+          },
+          "link": 3822
         },
         {
           "name": "pixart_refiner_denoise",
           "type": "FLOAT",
-          "link": 3823,
           "widget": {
             "name": "pixart_refiner_denoise"
-          }
+          },
+          "link": 3823
         },
         {
           "name": "pixart_refiner_ignore_prompt",
           "type": "BOOLEAN",
-          "link": 3824,
           "widget": {
             "name": "pixart_refiner_ignore_prompt"
-          }
+          },
+          "link": 3824
         },
         {
           "name": "sana_model",
           "type": "STRING",
-          "link": 3825,
           "widget": {
             "name": "sana_model"
-          }
+          },
+          "link": 3825
         },
         {
           "name": "sana_encoder",
           "type": "STRING",
-          "link": 3826,
           "widget": {
             "name": "sana_encoder"
-          }
+          },
+          "link": 3826
         },
         {
           "name": "sana_vae",
           "type": "STRING",
-          "link": 3827,
           "widget": {
             "name": "sana_vae"
-          }
+          },
+          "link": 3827
         },
         {
           "name": "sana_weight_dtype",
           "type": "STRING",
-          "link": 3828,
           "widget": {
             "name": "sana_weight_dtype"
-          }
+          },
+          "link": 3828
         },
         {
           "name": "sana_precision",
           "type": "STRING",
-          "link": 3829,
           "widget": {
             "name": "sana_precision"
-          }
+          },
+          "link": 3829
         }
       ],
       "outputs": [
@@ -7585,6 +7728,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereConceptDataTuple",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7681,6 +7826,8 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL EYES",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7719,6 +7866,8 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL HANDS",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7757,6 +7906,8 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL MOUTH",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7795,6 +7946,8 @@
       "outputs": [],
       "title": "Preview Image - ORIGINAL FACE",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
         "tabWidth": 65,
@@ -7826,65 +7979,65 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3432,
-          "shape": 7
+          "shape": 7,
+          "link": 3432
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 3433,
-          "shape": 7
+          "shape": 7,
+          "link": 3433
         },
         {
           "name": "positive_original",
           "type": "STRING",
-          "link": 3434,
+          "shape": 7,
           "widget": {
             "name": "positive_original"
           },
-          "shape": 7
+          "link": 3434
         },
         {
           "name": "negative_original",
           "type": "STRING",
-          "link": 3435,
+          "shape": 7,
           "widget": {
             "name": "negative_original"
           },
-          "shape": 7
+          "link": 3435
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3436,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3436
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3437,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3437
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3562,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3562
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 3584,
-          "shape": 7
+          "shape": 7,
+          "link": 3584
         }
       ],
       "outputs": [
@@ -7955,6 +8108,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereRefinerPrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8022,65 +8177,65 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3422,
-          "shape": 7
+          "shape": 7,
+          "link": 3422
         },
         {
           "name": "model",
           "type": "MODEL",
-          "link": 3423,
-          "shape": 7
+          "shape": 7,
+          "link": 3423
         },
         {
           "name": "positive_original",
           "type": "STRING",
-          "link": 3424,
+          "shape": 7,
           "widget": {
             "name": "positive_original"
           },
-          "shape": 7
+          "link": 3424
         },
         {
           "name": "negative_original",
           "type": "STRING",
-          "link": 3425,
+          "shape": 7,
           "widget": {
             "name": "negative_original"
           },
-          "shape": 7
+          "link": 3425
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3426,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3426
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3427,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3427
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3563,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3563
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 3585,
-          "shape": 7
+          "shape": 7,
+          "link": 3585
         }
       ],
       "outputs": [
@@ -8151,6 +8306,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereRefinerPrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8223,44 +8380,44 @@
         {
           "name": "segment_prompt_data",
           "type": "TUPLE",
-          "link": 3845,
-          "shape": 7
+          "shape": 7,
+          "link": 3845
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3846,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3846
         },
         {
           "name": "square_shape",
           "type": "INT",
-          "link": 3847,
+          "shape": 7,
           "widget": {
             "name": "square_shape"
           },
-          "shape": 7
+          "link": 3847
         },
         {
           "name": "dino_search_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_search_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "dino_replace_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_replace_prompt"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -8274,10 +8431,10 @@
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3849
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "DETECTOR",
@@ -8334,6 +8491,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereImageSegments",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8392,44 +8551,44 @@
         {
           "name": "segment_prompt_data",
           "type": "TUPLE",
-          "link": 3865,
-          "shape": 7
+          "shape": 7,
+          "link": 3865
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3866,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3866
         },
         {
           "name": "square_shape",
           "type": "INT",
-          "link": 3867,
+          "shape": 7,
           "widget": {
             "name": "square_shape"
           },
-          "shape": 7
+          "link": 3867
         },
         {
           "name": "dino_search_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_search_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "dino_replace_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_replace_prompt"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -8443,10 +8602,10 @@
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3869
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "DETECTOR",
@@ -8503,6 +8662,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereImageSegments",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8561,44 +8722,44 @@
         {
           "name": "segment_prompt_data",
           "type": "TUPLE",
-          "link": 3855,
-          "shape": 7
+          "shape": 7,
+          "link": 3855
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3856,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3856
         },
         {
           "name": "square_shape",
           "type": "INT",
-          "link": 3857,
+          "shape": 7,
           "widget": {
             "name": "square_shape"
           },
-          "shape": 7
+          "link": 3857
         },
         {
           "name": "dino_search_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_search_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "dino_replace_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_replace_prompt"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -8612,10 +8773,10 @@
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3859
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "DETECTOR",
@@ -8672,6 +8833,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereImageSegments",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8730,22 +8893,24 @@
         {
           "name": "workflow_data",
           "type": "TUPLE",
-          "link": 2649,
-          "shape": 7
+          "shape": 7,
+          "link": 2649
         }
       ],
       "outputs": [
         {
           "name": "SCORE",
           "type": "INT",
+          "shape": 3,
           "links": [
             711
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAestheticCKPTScorer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8783,42 +8948,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3874
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3875
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3876
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3877
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SANA 1024",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8856,42 +9023,44 @@
         {
           "name": "SAMPLER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3878
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "SCHEDULER_NAME",
           "type": "COMBO",
+          "shape": 3,
           "links": [
             3879
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "STEPS",
           "type": "INT",
+          "shape": 3,
           "links": [
             3880
           ],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "CFG",
           "type": "FLOAT",
+          "shape": 3,
           "links": [
             3881
           ],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         }
       ],
       "title": "Primere Samplers & Steps & Cfg - SANA 512",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereSamplersSteps",
         "enableTabs": false,
         "tabWidth": 65,
@@ -8911,31 +9080,6 @@
       "bgcolor": "#9d4f00"
     },
     {
-      "id": 61,
-      "type": "Note",
-      "pos": [
-        2970,
-        -56
-      ],
-      "size": [
-        946.1973266601562,
-        69.17264556884766
-      ],
-      "flags": {},
-      "order": 33,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "text": ""
-      },
-      "widgets_values": [
-        "Primere BASIC PRODUCTION workflow. Model concept handler and 4 refiners. https://github.com/CosmicLaca/ComfyUI_Primere_Nodes"
-      ],
-      "color": "#c09430",
-      "bgcolor": "#653"
-    },
-    {
       "id": 1,
       "type": "PrimerePrompt",
       "pos": [
@@ -8947,61 +9091,63 @@
         638.9198608398438
       ],
       "flags": {},
-      "order": 34,
+      "order": 33,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "PROMPT+",
           "type": "STRING",
+          "shape": 3,
           "links": [
             327
           ],
-          "slot_index": 0,
-          "shape": 3
+          "slot_index": 0
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
+          "shape": 3,
           "links": [
             328
           ],
-          "slot_index": 1,
-          "shape": 3
+          "slot_index": 1
         },
         {
           "name": "SUBPATH",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 2,
-          "shape": 3
+          "slot_index": 2
         },
         {
           "name": "MODEL",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 3,
-          "shape": 3
+          "slot_index": 3
         },
         {
           "name": "ORIENTATION",
           "type": "STRING",
+          "shape": 3,
           "links": [],
-          "slot_index": 4,
-          "shape": 3
+          "slot_index": 4
         },
         {
           "name": "PREFERRED",
           "type": "STRING",
+          "shape": 3,
           "links": [
             329
           ],
-          "slot_index": 5,
-          "shape": 3
+          "slot_index": 5
         }
       ],
       "title": "Primere Prompt - SWITCH #1",
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimerePrompt",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9045,21 +9191,23 @@
         {
           "name": "image_metadata",
           "type": "TUPLE",
-          "link": 842,
-          "shape": 7
+          "shape": 7,
+          "link": 842
         }
       ],
       "outputs": [
         {
           "name": "SAVED_INFO",
           "type": "STRING",
+          "shape": 3,
           "links": [
             710
-          ],
-          "shape": 3
+          ]
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereMetaSave",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9122,152 +9270,152 @@
         {
           "name": "model_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 3883,
-          "shape": 7
+          "shape": 7,
+          "link": 3883
         },
         {
           "name": "lora_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 3884,
-          "shape": 7
+          "shape": 7,
+          "link": 3884
         },
         {
           "name": "lycoris_keywords",
           "type": "MODEL_KEYWORD",
-          "link": 3885,
-          "shape": 7
+          "shape": 7,
+          "link": 3885
         },
         {
           "name": "embedding_pos",
           "type": "EMBEDDING",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "embedding_neg",
           "type": "EMBEDDING",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "workflow_tuple",
           "type": "TUPLE",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3886,
           "widget": {
             "name": "model_version"
-          }
+          },
+          "link": 3886
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 3887,
           "widget": {
             "name": "positive_prompt"
-          }
+          },
+          "link": 3887
         },
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 3888,
           "widget": {
             "name": "negative_prompt"
-          }
+          },
+          "link": 3888
         },
         {
           "name": "enhanced_prompt",
           "type": "STRING",
-          "link": 3889,
+          "shape": 7,
           "widget": {
             "name": "enhanced_prompt"
           },
-          "shape": 7
+          "link": 3889
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3890,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3890
         },
         {
           "name": "opt_pos_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "opt_pos_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "opt_neg_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "opt_neg_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "style_pos_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "style_pos_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "style_neg_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "style_neg_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "positive_l",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "positive_l"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "negative_l",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "negative_l"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "width",
           "type": "INT",
-          "link": 3891,
+          "shape": 7,
           "widget": {
             "name": "width"
           },
-          "shape": 7
+          "link": 3891
         },
         {
           "name": "height",
           "type": "INT",
-          "link": 3892,
+          "shape": 7,
           "widget": {
             "name": "height"
           },
-          "shape": 7
+          "link": 3892
         }
       ],
       "outputs": [
@@ -9332,6 +9480,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereCLIPEncoder",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9391,7 +9541,7 @@
       ],
       "size": [
         331.4664001464844,
-        126
+        194
       ],
       "flags": {},
       "order": 54,
@@ -9400,18 +9550,24 @@
         {
           "name": "prompt",
           "type": "STRING",
-          "link": 3612,
           "widget": {
             "name": "prompt"
-          }
+          },
+          "link": 3612
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 3601,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 3601
+        },
+        {
+          "name": "llm_options",
+          "type": "TUPLE",
+          "shape": 7,
+          "link": null
         }
       ],
       "outputs": [
@@ -9433,6 +9589,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereLLMEnhancer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9444,11 +9602,13 @@
       },
       "widgets_values": [
         "",
-        2349777009,
+        543276486,
         "randomize",
         "None",
         true,
-        "Default"
+        "Default",
+        1,
+        ""
       ],
       "color": "#d31414",
       "bgcolor": "#bf0000"
@@ -9470,28 +9630,30 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3899,
-          "label": " "
+          "link": 3899
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "STRING",
           "type": "*",
+          "shape": 3,
           "links": [
             3403,
             3414,
             3424,
             3434
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "STRING"
+          "slot_index": 0
         }
       ],
       "title": "Prompt +",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9521,28 +9683,30 @@
       "inputs": [
         {
           "name": "value",
+          "label": " ",
           "type": "*",
-          "link": 3902,
-          "label": " "
+          "link": 3902
         }
       ],
       "outputs": [
         {
           "name": "*",
+          "label": "STRING",
           "type": "*",
+          "shape": 3,
           "links": [
             3404,
             3415,
             3425,
             3435
           ],
-          "slot_index": 0,
-          "shape": 3,
-          "label": "STRING"
+          "slot_index": 0
         }
       ],
       "title": "Prompt -",
       "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
         "Node name for S&R": "ReroutePrimitive|pysssss",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9608,68 +9772,68 @@
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 3840,
-          "shape": 7
+          "shape": 7,
+          "link": 3840
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3524,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3524
         },
         {
           "name": "concept_sampler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_sampler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_scheduler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_scheduler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_steps",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_steps"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_cfg",
           "type": "FLOAT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_cfg"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3560,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3560
         }
       ],
       "outputs": [
@@ -9683,10 +9847,10 @@
         {
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3526
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "WIDTH",
@@ -9700,6 +9864,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyDetailer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9782,68 +9948,68 @@
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 3850,
-          "shape": 7
+          "shape": 7,
+          "link": 3850
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3535,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3535
         },
         {
           "name": "concept_sampler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_sampler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_scheduler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_scheduler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_steps",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_steps"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_cfg",
           "type": "FLOAT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_cfg"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3561,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3561
         }
       ],
       "outputs": [
@@ -9857,10 +10023,10 @@
         {
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3537
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "WIDTH",
@@ -9874,6 +10040,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyDetailer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -9956,68 +10124,68 @@
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 3870,
-          "shape": 7
+          "shape": 7,
+          "link": 3870
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3557,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3557
         },
         {
           "name": "concept_sampler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_sampler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_scheduler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_scheduler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_steps",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_steps"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_cfg",
           "type": "FLOAT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_cfg"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3565,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3565
         }
       ],
       "outputs": [
@@ -10031,10 +10199,10 @@
         {
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3559
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "WIDTH",
@@ -10048,6 +10216,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyDetailer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -10130,68 +10300,68 @@
         {
           "name": "segs",
           "type": "SEGS",
-          "link": 3860,
-          "shape": 7
+          "shape": 7,
+          "link": 3860
         },
         {
           "name": "detector",
           "type": "DETECTOR",
-          "link": null,
-          "shape": 7
+          "shape": 7,
+          "link": null
         },
         {
           "name": "model_concept",
           "type": "STRING",
-          "link": 3546,
+          "shape": 7,
           "widget": {
             "name": "model_concept"
           },
-          "shape": 7
+          "link": 3546
         },
         {
           "name": "concept_sampler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_sampler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_scheduler_name",
           "type": "COMBO",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_scheduler_name"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_steps",
           "type": "INT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_steps"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "concept_cfg",
           "type": "FLOAT",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "concept_cfg"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "seed_input",
           "type": "INT",
-          "link": 3567,
+          "shape": 7,
           "widget": {
             "name": "seed_input"
           },
-          "shape": 7
+          "link": 3567
         }
       ],
       "outputs": [
@@ -10205,10 +10375,10 @@
         {
           "name": "CROPPED_REFINED",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3548
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "WIDTH",
@@ -10222,6 +10392,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereAnyDetailer",
         "enableTabs": false,
         "tabWidth": 65,
@@ -10274,44 +10446,44 @@
         {
           "name": "segment_prompt_data",
           "type": "TUPLE",
-          "link": 3835,
-          "shape": 7
+          "shape": 7,
+          "link": 3835
         },
         {
           "name": "model_version",
           "type": "STRING",
-          "link": 3836,
+          "shape": 7,
           "widget": {
             "name": "model_version"
           },
-          "shape": 7
+          "link": 3836
         },
         {
           "name": "square_shape",
           "type": "INT",
-          "link": 3837,
+          "shape": 7,
           "widget": {
             "name": "square_shape"
           },
-          "shape": 7
+          "link": 3837
         },
         {
           "name": "dino_search_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_search_prompt"
           },
-          "shape": 7
+          "link": null
         },
         {
           "name": "dino_replace_prompt",
           "type": "STRING",
-          "link": null,
+          "shape": 7,
           "widget": {
             "name": "dino_replace_prompt"
           },
-          "shape": 7
+          "link": null
         }
       ],
       "outputs": [
@@ -10325,10 +10497,10 @@
         {
           "name": "IMAGE_SEGS",
           "type": "IMAGE",
+          "shape": 6,
           "links": [
             3839
-          ],
-          "shape": 6
+          ]
         },
         {
           "name": "DETECTOR",
@@ -10385,6 +10557,8 @@
         }
       ],
       "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
         "Node name for S&R": "PrimereImageSegments",
         "enableTabs": false,
         "tabWidth": 65,
@@ -10419,6 +10593,31 @@
       ],
       "color": "#886029",
       "bgcolor": "#9c743d"
+    },
+    {
+      "id": 61,
+      "type": "Note",
+      "pos": [
+        2970,
+        -56
+      ],
+      "size": [
+        946.1973266601562,
+        69.17264556884766
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere BASIC PRODUCTION workflow. Model concept handler and 4 refiners. https://github.com/CosmicLaca/ComfyUI_Primere_Nodes\nUse for old front-end"
+      ],
+      "color": "#c09430",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -13786,15 +13985,21 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015781,
-      "offset": [
-        -4332.340958667857,
-        224.81274291471365
-      ]
+      "scale": 0.6209213230591554,
+      "offset": {
+        "0": 533.4788208007812,
+        "1": 364.2698974609375
+      }
     },
     "node_versions": {
       "comfy-core": "v0.3.10-38-g4209edf"
-    }
+    },
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
   },
   "version": 0.4
 }
