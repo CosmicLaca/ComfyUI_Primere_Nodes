@@ -30,6 +30,9 @@ from comfy_extras.nodes_model_advanced import ModelSamplingDiscreteDistilled
 from tqdm.auto import trange
 import comfy.model_detection as model_detection
 import comfy.model_management as model_management
+from transformers.dynamic_module_utils import get_imports
+from unittest.mock import patch
+from transformers import AutoProcessor, AutoModelForCausalLM, AutoTokenizer
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
@@ -1152,49 +1155,137 @@ def tensor_to_image(tensor):
     image = Image.fromarray(image_np, mode='RGB')
     return image
 
-def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result=True):
-    story_out = None
-    from transformers import BlipProcessor, BlipForConditionalGeneration
-    import torch
+def florence_img2prompt(model, processor, image, max_new_tokens, num_beams, do_sample, text_input=None, llm_options=None):
+    if text_input is None:
+        text_input = 'detailed enhanced prompt for text2image models'
+    task_prompt = 'detailed enhanced prompt for text2image models'
 
-    os.environ['TRANSFORMERS_OFFLINE'] = "1"
-    processor = BlipProcessor.from_pretrained(repo_id)
-    pil_image = tensor_to_image(img)
+    inputs = processor(text=text_input, images=image, return_tensors="pt").to("cuda")
+
+    default_settings = {
+        "do_sample": do_sample,
+        "temperature": 0.9,
+        "top_k": 8,
+        "max_new_tokens": max_new_tokens,
+        "num_return_sequences": 1,
+        "repetition_penalty": 1.2,
+        "penalty_alpha": 0.6,
+        "no_repeat_ngram_size": 1,
+        "early_stopping": False,
+        "top_p": 0.4,
+        "num_beams": num_beams,
+    }
+
+    if llm_options is not None:
+        if 'max_length' in llm_options:
+            llm_options['max_new_tokens'] = llm_options['max_length']
+            del llm_options['max_length']
+        variant_params = llm_options
+        settings = {**default_settings, **variant_params}
+    else:
+        settings = {**default_settings}
+
+    print('--------------------------')
+    print(settings)
+    print('--------------------------')
+
+    generated_ids = model.generate(
+        input_ids=inputs["input_ids"],
+        pixel_values=inputs["pixel_values"],
+        **settings
+    )
+
+    generated_text = processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
+    parsed_answer = processor.post_process_generation(generated_text, task=task_prompt, image_size=(image.width, image.height))
+    return parsed_answer
+
+def fixed_get_imports(filename) -> list[str]:
+    """Workaround for FlashAttention"""
+    if os.path.basename(filename) != "modeling_florence2.py":
+        return get_imports(filename)
+    imports = get_imports(filename)
+    try:
+        imports.remove("flash_attn")
+    except:
+        pass
+    return imports
+def load_florence2_model(repo_id):
+    model_path = Path(repo_id)
+    attention = 'sdpa'
+    device = torch.cuda.current_device()
 
     try:
-        model = BlipForConditionalGeneration.from_pretrained(repo_id, torch_dtype=torch.float16).to("cuda")
-        if type(prompts) == str:
-            inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda", torch.float16)
-            out = model.generate(**inputs)
-            story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
-            story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
-
-        elif type(prompts).__name__ == 'list':
-            for prompt in prompts:
-                inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda", torch.float16)
-                out = model.generate(**inputs)
-                Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
-                Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
-                if story_out is not None:
-                    story_out = story_out + Processed
-                else:
-                    story_out = Processed
-
-    except Exception:
-        print('Pic2Story Float 16 failed')
-
-    if type(story_out) != str:
+        with patch("transformers.dynamic_module_utils.get_imports", fixed_get_imports):
+            model = AutoModelForCausalLM.from_pretrained(model_path, attn_implementation=attention, device_map=device, torch_dtype=torch.float32, trust_remote_code=True)
+            processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
+    except Exception as e:
         try:
-            model = BlipForConditionalGeneration.from_pretrained(repo_id).to("cuda")
+            model = AutoModelForCausalLM.from_pretrained(model_path, attn_implementation=attention, device_map=device, torch_dtype=torch.float32, trust_remote_code=True)
+            processor = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        except Exception as e:
+            sys.path.append(model_path)
+            # Import the Florence modules
+            if 'large-PromptGen-v1.5' in repo_id:
+                from florence2_large.modeling_florence2 import Florence2ForConditionalGeneration
+                from florence2_large.configuration_florence2 import Florence2Config
+            elif 'base-PromptGen-v1.5' in repo_id:
+                from florence2_base_ft.modeling_florence2 import Florence2ForConditionalGeneration
+                from florence2_base_ft.configuration_florence2 import Florence2Config
+            else:
+                # log(f"Error loading model or tokenizer: {str(e)}", message_type='error')
+                return (None, None)
+
+            # Load the model configuration
+            model_config = Florence2Config.from_pretrained(model_path)
+            # Load the model
+            with patch("transformers.dynamic_module_utils.get_imports", fixed_get_imports):
+                model = Florence2ForConditionalGeneration.from_pretrained(
+                    model_path,
+                    config=model_config,
+                    attn_implementation=attention,
+                    device_map=device
+                ).to(device)
+
+            processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
+    return (model.to(device), processor, device)
+
+def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result=True, llm_options=None):
+    story_out = None
+
+    if "florence2" in repo_id:
+        model = None
+        processor = None
+        version = None
+
+        model, processor, device = load_florence2_model(repo_id)
+        version = version
+        florence2_model = {'model': model, 'processor': processor, 'version': version, 'device': device}
+        model = florence2_model['model']
+        processor = florence2_model['processor']
+
+        pil_image = tensor2pil(img)
+        results = florence_img2prompt(model, processor, pil_image, 512, 3, False, prompts[0], llm_options)
+        story_out = next(iter(results.values()), None)
+        story_out = story_out.removeprefix(prompts[0].lower()).strip().removeprefix("of").removeprefix("is")
+    else:
+        from transformers import BlipProcessor, BlipForConditionalGeneration
+        import torch
+
+        os.environ['TRANSFORMERS_OFFLINE'] = "1"
+        processor = BlipProcessor.from_pretrained(repo_id)
+        pil_image = tensor_to_image(img)
+
+        try:
+            model = BlipForConditionalGeneration.from_pretrained(repo_id, torch_dtype=torch.float16).to("cuda")
             if type(prompts) == str:
-                inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda")
+                inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda", torch.float16)
                 out = model.generate(**inputs)
                 story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
                 story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
 
             elif type(prompts).__name__ == 'list':
                 for prompt in prompts:
-                    inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda")
+                    inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda", torch.float16)
                     out = model.generate(**inputs)
                     Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
                     Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
@@ -1204,30 +1295,53 @@ def Pic2Story(repo_id, img, prompts, special_tokens_skip=True, clean_same_result
                         story_out = Processed
 
         except Exception:
-            print('Pic2Story GPU failed')
+            print('Pic2Story Float 16 failed')
 
-    if type(story_out) != str:
-        try:
-            model = BlipForConditionalGeneration.from_pretrained(repo_id)
-            if type(prompts) == str:
-                inputs = processor(pil_image, prompts, return_tensors="pt")
-                out = model.generate(**inputs)
-                story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
-                story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
-
-            elif type(prompts).__name__ == 'list':
-                for prompt in prompts:
-                    inputs = processor(pil_image, prompt, return_tensors="pt")
+        if type(story_out) != str:
+            try:
+                model = BlipForConditionalGeneration.from_pretrained(repo_id).to("cuda")
+                if type(prompts) == str:
+                    inputs = processor(pil_image, prompts, return_tensors="pt").to("cuda")
                     out = model.generate(**inputs)
-                    Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
-                    Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
-                    if story_out is not None:
-                        story_out = story_out + Processed
-                    else:
-                        story_out = Processed
+                    story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                    story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
 
-        except Exception:
-            print('Pic2Story CPU failed')
+                elif type(prompts).__name__ == 'list':
+                    for prompt in prompts:
+                        inputs = processor(pil_image, prompt, return_tensors="pt").to("cuda")
+                        out = model.generate(**inputs)
+                        Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                        Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
+                        if story_out is not None:
+                            story_out = story_out + Processed
+                        else:
+                            story_out = Processed
+
+            except Exception:
+                print('Pic2Story GPU failed')
+
+        if type(story_out) != str:
+            try:
+                model = BlipForConditionalGeneration.from_pretrained(repo_id)
+                if type(prompts) == str:
+                    inputs = processor(pil_image, prompts, return_tensors="pt")
+                    out = model.generate(**inputs)
+                    story_out = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                    story_out = story_out.removeprefix(prompts.lower()).strip().removeprefix("of").removeprefix("is")
+
+                elif type(prompts).__name__ == 'list':
+                    for prompt in prompts:
+                        inputs = processor(pil_image, prompt, return_tensors="pt")
+                        out = model.generate(**inputs)
+                        Processed = processor.decode(out[0], skip_special_tokens=special_tokens_skip)
+                        Processed = Processed.removeprefix(prompt.lower()).strip().removeprefix("of").removeprefix("is") + ', '
+                        if story_out is not None:
+                            story_out = story_out + Processed
+                        else:
+                            story_out = Processed
+
+            except Exception:
+                print('Pic2Story CPU failed')
 
     if type(story_out) == str:
         if clean_same_result == True:

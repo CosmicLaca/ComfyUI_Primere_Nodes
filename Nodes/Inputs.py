@@ -388,6 +388,7 @@ class PrimereLLMEnhancerOptions:
                 "length_penalty": ("FLOAT", {"default": 1.00, "min": 0.50, "max": 2.00, "step": 0.01}),
                 "no_repeat_ngram_size": ("INT", {"default": 0, "min": 0, "max": 5, "step": 1}),
                 "num_beams": ("INT", {"default": 1, "min": 1, "max": 20, "step": 1}),
+                "do_sample": ("BOOLEAN", {"default": True, "label_on": "True", "label_off": "False"}),
             }
         }
 
@@ -405,7 +406,10 @@ class PrimereImgToPrompt:
     CATEGORY = TREE_INPUTS
 
     T2I_DIR = os.path.join(folder_paths.models_dir, 'img2text')
+    FLORENCE_DIR = os.path.join(folder_paths.models_dir, 'florence2')
     valid_t2i_path = llm_enhancer.getValidLLMPaths(T2I_DIR)
+    florence_model_list = llm_enhancer.getValidLLMPaths(FLORENCE_DIR)
+    florence_model_list_filtered = list(filter(lambda k: 'PromptGen' in k, florence_model_list))
     prompts = llm_enhancer.getConfigKeys("img2prompt_config")
     if prompts == None:
         prompts = ['Default']
@@ -417,20 +421,26 @@ class PrimereImgToPrompt:
         return {
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
-                "model_path": (['None'] + cls.valid_t2i_path,),
+                "model_path": (['None'] + cls.valid_t2i_path + cls.florence_model_list_filtered,),
                 "result_control": (['Custom'] + cls.prompts,),
                 "custom_prompt": ("STRING", {"default": False}),
-            }
+            },
+            "optional": {
+                "llm_options": ("TUPLE", {"default": None, "forceInput": True}),
+            },
         }
 
-    def img_to_prompt(self, image, model_path, result_control, custom_prompt):
+    def img_to_prompt(self, image, model_path, result_control, custom_prompt, llm_options=None):
         if model_path == 'None':
             return ("", [],)
         else:
             T2I_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'img2text')
             model_access = os.path.join(T2I_CUSTOMPATH, model_path)
             if os.path.isdir(model_access) == False:
-                return ("", [],)
+                FLORENCE2_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'florence2')
+                model_access = os.path.join(FLORENCE2_CUSTOMPATH, model_path)
+                if os.path.isdir(model_access) == False:
+                    return ("", [],)
 
             default_prompt = ['Image of', 'Image creation art style is', 'The dominant thing is', 'The background behind the main thing is', 'Dominant colours on the picture']
 
@@ -445,7 +455,7 @@ class PrimereImgToPrompt:
             if prompts is None or len(prompts) < 1:
                 prompts = default_prompt
 
-            story_out = utility.Pic2Story(model_access, image, prompts, True, False)
+            story_out = utility.Pic2Story(model_access, image, prompts, True, False, llm_options)
             if type(story_out) == str:
                 return (story_out, prompts,)
             else:
