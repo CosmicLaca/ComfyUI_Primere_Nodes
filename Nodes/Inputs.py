@@ -409,7 +409,7 @@ class PrimereImgToPrompt:
     FLORENCE_DIR = os.path.join(folder_paths.models_dir, 'florence2')
     valid_t2i_path = llm_enhancer.getValidLLMPaths(T2I_DIR)
     florence_model_list = llm_enhancer.getValidLLMPaths(FLORENCE_DIR)
-    florence_model_list_filtered = list(filter(lambda k: 'PromptGen' in k, florence_model_list))
+    florence_model_list_filtered = list(filter(lambda k: 'promptgen' in k.lower(), florence_model_list))
     prompts = llm_enhancer.getConfigKeys("img2prompt_config")
     if prompts == None:
         prompts = ['Default']
@@ -641,6 +641,17 @@ class PrimereMetaHandler:
     RETURN_NAMES = ("WORKFLOW_TUPLE", "ORIGINAL_EXIF", "LOADED_IMAGE")
     FUNCTION = "image_meta_handler"
 
+    T2I_DIR = os.path.join(folder_paths.models_dir, 'img2text')
+    FLORENCE_DIR = os.path.join(folder_paths.models_dir, 'florence2')
+    valid_t2i_path = llm_enhancer.getValidLLMPaths(T2I_DIR)
+    florence_model_list = llm_enhancer.getValidLLMPaths(FLORENCE_DIR)
+    florence_model_list_filtered = list(filter(lambda k: 'promptgen' in k.lower(), florence_model_list))
+    prompts = llm_enhancer.getConfigKeys("img2prompt_config")
+    if prompts == None:
+        prompts = ['Default']
+    else:
+        prompts = ['Default'] + prompts
+
     @classmethod
     def INPUT_TYPES(cls):
         input_dir = folder_paths.get_input_directory()
@@ -649,10 +660,12 @@ class PrimereMetaHandler:
         return {
             "required": {
                 "data_source": ("BOOLEAN", {"default": False, "label_on": "Use image meta", "label_off": "Use workflow settings"}),
-                "prompt_surce": ("BOOLEAN", {"default": True, "label_on": "Meta or workflow", "label_off": "Pic2story model"}),
-                "prompt_state": ("BOOLEAN", {"default": False, "label_on": "Use decoded prompt", "label_off": "Use dynamic prompt"}),
+                "prompt_surce": ("BOOLEAN", {"default": True, "label_on": "Meta or workflow", "label_off": "Img2Prompt model"}),
+                "img2prompt_model_path": (cls.valid_t2i_path + cls.florence_model_list_filtered,),
+                "img2prompt_result_control": (['External System prompt'] + cls.prompts,),
+                "prompt_state": ("BOOLEAN", {"default": False, "label_on": "Decoded prompt", "label_off": "Dynamic prompt"}),
                 "model": ("BOOLEAN", {"default": True, "label_on": "Meta model", "label_off": "Workflow model"}),
-                "model_hash_check": ("BOOLEAN", {"default": False, "label_on": "Check model hash", "label_off": "Use model name"}),
+                # "model_hash_check": ("BOOLEAN", {"default": False, "label_on": "Check model hash", "label_off": "Use model name"}),
                 "sampler": ("BOOLEAN", {"default": True, "label_on": "Meta sampler", "label_off": "Workflow sampler"}),
                 "scheduler": ("BOOLEAN", {"default": True, "label_on": "Meta scheduler", "label_off": "Workflow scheduler"}),
                 "cfg": ("BOOLEAN", {"default": True, "label_on": "Meta CFG", "label_off": "Workflow CFG"}),
@@ -681,19 +694,22 @@ class PrimereMetaHandler:
                 "image": (sorted(files),),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"default": None}),
+                "workflow_tuple": ("TUPLE", {"default": None, "forceInput": True}),
+                "img2prompt_system_prompt": ("STRING", {"default": None, "forceInput": True}),
+                "img2prompt_options": ("TUPLE", {"default": None, "forceInput": True}),
             },
         }
 
-    def image_meta_handler(self, *args, **kwargs):
-        workflow_tuple = None
+    def image_meta_handler(self, workflow_tuple=None, img2prompt_system_prompt=None, img2prompt_options=None, *args, **kwargs):
+        # workflow_tuple = None
         original_exif = None
         is_sdxl = 0
 
         image_path = folder_paths.get_annotated_filepath(kwargs['image'])
 
-        if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and kwargs['data_source'] == False:
-            workflow_tuple = kwargs['workflow_tuple']
+        # if 'workflow_tuple' in kwargs and kwargs['workflow_tuple'] is not None and kwargs['data_source'] == False:
+        if workflow_tuple is not None and kwargs['data_source'] == False:
+            # workflow_tuple = kwargs['workflow_tuple']
             workflow_tuple['exif_status'] = 'OFF'
 
             wf_model_concept = None
@@ -1029,7 +1045,7 @@ class PrimereMetaHandler:
                 workflow_tuple['pic2story'] = 'OFF'
 
             if kwargs['prompt_surce'] == False and workflow_tuple is not None:
-                repo_id = "abhijit2111/Pic2Story"
+                '''repo_id = "abhijit2111/Pic2Story"
                 prompts = ['Image of', 'Image creation style is', 'Colours on the picture']
 
                 story_out = utility.Pic2Story(repo_id, img, prompts, True, True)
@@ -1037,8 +1053,40 @@ class PrimereMetaHandler:
                     workflow_tuple['pic2story'] = 'SUCCEED'
                     workflow_tuple['pic2story_positive'] = story_out
                 else:
-                    workflow_tuple['pic2story'] = 'FAILED'
+                    workflow_tuple['pic2story'] = 'FAILED'''
 
+                T2I_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'img2text')
+                model_access = os.path.join(T2I_CUSTOMPATH, kwargs['img2prompt_model_path'])
+                if os.path.isdir(model_access) == False:
+                    FLORENCE2_CUSTOMPATH = os.path.join(folder_paths.models_dir, 'florence2')
+                    model_access = os.path.join(FLORENCE2_CUSTOMPATH, kwargs['img2prompt_model_path'])
+                if os.path.isdir(model_access) != False:
+                    default_prompt = ['Image of', 'Image creation art style is', 'The dominant thing is', 'The background behind the main thing is', 'Dominant colours on the picture']
+
+                    if kwargs['img2prompt_result_control'] == 'External System prompt':
+                        prompts = img2prompt_system_prompt.split(',')
+                        if type(prompts).__name__ != 'list':
+                            prompts = [img2prompt_system_prompt]
+                    elif kwargs['img2prompt_result_control'] == 'Default':
+                        prompts = default_prompt
+                    else:
+                        prompts = llm_enhancer.getPromptValues("img2prompt_config", kwargs['img2prompt_result_control'])
+                    if prompts is None or len(prompts) < 1:
+                        prompts = default_prompt
+
+                    print('-------- 0 ---------')
+                    print(prompts)
+                    print(kwargs)
+                    print('-------- 1 ---------')
+
+                    story_out = utility.Pic2Story(model_access, img, prompts, True, False, img2prompt_options)
+                    if type(story_out) == str:
+                        workflow_tuple['pic2story'] = 'SUCCEED'
+                        workflow_tuple['pic2story_positive'] = story_out
+                    else:
+                        workflow_tuple['pic2story'] = 'FAILED'
+                else:
+                    workflow_tuple['pic2story'] = 'FAILED'
         else:
             img = None
 
