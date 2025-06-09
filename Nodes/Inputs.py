@@ -1074,11 +1074,6 @@ class PrimereMetaHandler:
                     if prompts is None or len(prompts) < 1:
                         prompts = default_prompt
 
-                    print('-------- 0 ---------')
-                    print(prompts)
-                    print(kwargs)
-                    print('-------- 1 ---------')
-
                     story_out = utility.Pic2Story(model_access, img, prompts, True, False, img2prompt_options)
                     if type(story_out) == str:
                         workflow_tuple['pic2story'] = 'SUCCEED'
