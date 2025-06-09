@@ -82,11 +82,25 @@ The value of `ConfigName` key listed to the node in `configurator` combo.
    - Specialized for Flux/Cascade/DiT model compatibility
    - Advanced prompt structure handling
 
+5. **Custom parameters and system prompt**
+   - Set custom parameters by `Primere LLM Options` node
+   - Set custom systemnprompt for enhancing
+   - If optional `LLM options` or `custom systemprompt` used, the default parameters and system prompt will be overwritten
+
+### Basic usage of LLM enhancer:
+
+<img src="llm_enhancer_basic.jpg" width="500px">
+
+### Advanced usage of LLM enhancer:
+
+<img src="llm_enhancer_extend.jpg" width="500px">
+
 ## Benefits:
 ### Enhanced Prompt Quality:
 - Automatic style optimization
 - Coherent structure generation
 - Technical term refinement
+- Overwrite custom parameters and systemprompt by external nodes
 
 ### Model Compatibility:
 - DiT-specific formatting

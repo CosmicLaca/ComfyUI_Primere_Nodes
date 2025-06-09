@@ -1,76 +1,18 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 4,
+  "last_node_id": 7,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 3,
-      "type": "PrimereAnyOutput",
-      "pos": {
-        "0": 1548,
-        "1": 508
-      },
-      "size": {
-        "0": 429,
-        "1": 319
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 2
-        }
+      "type": "PrimereFastSeed",
+      "pos": [
+        482.7301940917969,
+        330.1590881347656
       ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        ""
-      ]
-    },
-    {
-      "id": 4,
-      "type": "PrimereAnyOutput",
-      "pos": {
-        "0": 1551,
-        "1": 339
-      },
-      "size": {
-        "0": 419,
-        "1": 124
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 3
-        }
+      "size": [
+        315,
+        124
       ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "angry dog, dark night in the big city, human walking in the street, attack"
-      ]
-    },
-    {
-      "id": 5,
-      "type": "PrimereSeed",
-      "pos": {
-        "0": 1066,
-        "1": 576
-      },
-      "size": {
-        "0": 425.2611389160156,
-        "1": 130
-      },
       "flags": {},
       "order": 0,
       "mode": 0,
@@ -80,51 +22,300 @@
           "name": "SEED",
           "type": "INT",
           "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereFastSeed",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "Random",
+        42,
+        "Last seed: [740141571147692]"
+      ],
+      "color": "#1f1f48",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 6,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1416.18212890625,
+        145.95248413085938
+      ],
+      "size": [
+        400.4764099121094,
+        115.84244537353516
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful blonde woman, photographer, photomodel, workshop, glamour magazine, magazine cover"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 7,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1413.4207763671875,
+        319.6361999511719
+      ],
+      "size": [
+        411.85992431640625,
+        344.0310363769531
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful female photographer in a workshop model and photomodel beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beautiful 3d concept art photomodel photomodel photomodel photomodel photomodel magazine cover glossy photomodel photomodel phot"
+      ],
+      "color": "#006691",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 4,
+      "type": "Text Multiline",
+      "pos": [
+        484.800048828125,
+        158.3708953857422
+      ],
+      "size": [
+        407.2440490722656,
+        122.38483428955078
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "pr-was-node-suite-comfyui-47064894",
+        "ver": "831199b898394c0385576d80628fce6b7931d317",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "Text Multiline",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful blonde woman, photographer, photomodel, workshop, glamour magazine, magazine cover"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 2,
+      "type": "PrimereLLMEnhancerOptions",
+      "pos": [
+        1002.2343139648438,
+        415.5357360839844
+      ],
+      "size": [
+        315,
+        274
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LLM OPTIONS",
+          "type": "TUPLE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereLLMEnhancerOptions",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        true,
+        1,
+        50,
+        1,
+        512,
+        1,
+        1,
+        0,
+        1,
+        true
+      ],
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 5,
+      "type": "Text Multiline",
+      "pos": [
+        482.5559387207031,
+        504.36004638671875
+      ],
+      "size": [
+        407.2440490722656,
+        122.38483428955078
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
             4
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereSeed"
+        "cnr_id": "pr-was-node-suite-comfyui-47064894",
+        "ver": "831199b898394c0385576d80628fce6b7931d317",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "Text Multiline",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
-        -1,
-        null,
-        null,
-        null
-      ]
+        "Create detailed enhanced prompt"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
     },
     {
       "id": 1,
       "type": "PrimereLLMEnhancer",
-      "pos": {
-        "0": 1077,
-        "1": 377
-      },
-      "size": {
-        "0": 410,
-        "1": 126
-      },
+      "pos": [
+        966.0138549804688,
+        166.6498260498047
+      ],
+      "size": [
+        400.5525817871094,
+        190
+      ],
       "flags": {},
-      "order": 2,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
+          "name": "llm_options",
+          "type": "TUPLE",
+          "shape": 7,
+          "link": 1
+        },
+        {
           "name": "prompt",
           "type": "STRING",
-          "link": 1,
           "widget": {
             "name": "prompt"
-          }
+          },
+          "link": 3
         },
         {
           "name": "seed",
           "type": "INT",
-          "link": 4,
           "widget": {
             "name": "seed"
-          }
+          },
+          "link": 2
+        },
+        {
+          "name": "system_prompt",
+          "type": "STRING",
+          "shape": 7,
+          "widget": {
+            "name": "system_prompt"
+          },
+          "link": 4
         }
       ],
       "outputs": [
@@ -132,7 +323,7 @@
           "name": "PROMPT",
           "type": "STRING",
           "links": [
-            3
+            5
           ],
           "slot_index": 0
         },
@@ -140,85 +331,36 @@
           "name": "ENHANCED_PROMPT",
           "type": "STRING",
           "links": [
-            2
+            6
           ],
           "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "PrimereLLMEnhancer"
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereLLMEnhancer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
       },
       "widgets_values": [
         "",
-        526096634,
+        3100822210,
         "randomize",
         "None",
-        true,
-        "Default"
-      ]
-    },
-    {
-      "id": 2,
-      "type": "PrimerePrompt",
-      "pos": {
-        "0": 577,
-        "1": 378
-      },
-      "size": {
-        "0": 424,
-        "1": 452
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            1
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": null
-        }
+        false,
+        "Default",
+        1,
+        ""
       ],
-      "properties": {
-        "Node name for S&R": "PrimerePrompt"
-      },
-      "widgets_values": [
-        "beautiful 35 years old woman, model, professional photographer, workshop, glamour magazine, lights",
-        "",
-        "",
-        "None",
-        "None",
-        true,
-        true
-      ]
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
     }
   ],
   "links": [
@@ -228,43 +370,65 @@
       0,
       1,
       0,
-      "STRING"
+      "TUPLE"
     ],
     [
       2,
-      1,
-      1,
       3,
       0,
-      "*"
+      1,
+      2,
+      "INT"
     ],
     [
       3,
-      1,
-      0,
       4,
       0,
-      "*"
+      1,
+      1,
+      "STRING"
     ],
     [
       4,
       5,
       0,
       1,
+      3,
+      "STRING"
+    ],
+    [
+      5,
       1,
-      "INT"
+      0,
+      6,
+      0,
+      "*"
+    ],
+    [
+      6,
+      1,
+      1,
+      7,
+      0,
+      "*"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 1.2100000000000004,
+      "scale": 1.771561000000002,
       "offset": [
-        -227.5679939894821,
-        -189.16078136739287
+        -362.7136041107344,
+        31.621611308451854
       ]
-    }
+    },
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
   },
   "version": 0.4
 }

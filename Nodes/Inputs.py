@@ -1490,6 +1490,7 @@ class PrimereLycorisKeywordMerger:
         return (model_keyword,)
 
 class PrimerePromptOrganizer:
+    INPUT_DICT_RESULT = None
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = ("PROMPT+", "PROMPT-", "SUBPATH", "MODEL", "ORIENTATION", "PREFERRED")
     FUNCTION = "prompt_organizer_toml"
