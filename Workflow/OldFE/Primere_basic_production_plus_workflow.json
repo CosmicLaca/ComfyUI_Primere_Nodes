@@ -1,6 +1,6 @@
 {
   "last_node_id": 351,
-  "last_link_id": 4141,
+  "last_link_id": 4143,
   "nodes": [
     {
       "id": 115,
@@ -958,7 +958,7 @@
         567.247314453125
       ],
       "flags": {},
-      "order": 66,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -1080,7 +1080,7 @@
         602
       ],
       "flags": {},
-      "order": 62,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -1181,7 +1181,7 @@
         602
       ],
       "flags": {},
-      "order": 67,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -1431,7 +1431,7 @@
         26
       ],
       "flags": {},
-      "order": 42,
+      "order": 46,
       "mode": 0,
       "inputs": [
         {
@@ -1490,7 +1490,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 61,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -1702,7 +1702,7 @@
         340.7728271484375
       ],
       "flags": {},
-      "order": 54,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -1742,7 +1742,7 @@
         26
       ],
       "flags": {},
-      "order": 50,
+      "order": 49,
       "mode": 0,
       "inputs": [
         {
@@ -1999,7 +1999,7 @@
         341.1094055175781
       ],
       "flags": {},
-      "order": 52,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -2083,7 +2083,7 @@
         158
       ],
       "flags": {},
-      "order": 57,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -2564,7 +2564,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        2044,
+        1191,
         "randomize",
         "",
         "",
@@ -2766,7 +2766,7 @@
         54
       ],
       "flags": {},
-      "order": 53,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -2812,7 +2812,7 @@
       },
       "widgets_values": [
         "",
-        562454343528974,
+        799256103899734,
         "randomize"
       ],
       "color": "#145414",
@@ -2830,7 +2830,7 @@
         54
       ],
       "flags": {},
-      "order": 55,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -2876,7 +2876,7 @@
       },
       "widgets_values": [
         "",
-        654522094513638,
+        125833671349351,
         "randomize"
       ],
       "color": "#945454",
@@ -2894,7 +2894,7 @@
         54
       ],
       "flags": {},
-      "order": 58,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -3223,7 +3223,7 @@
         1294
       ],
       "flags": {},
-      "order": 51,
+      "order": 50,
       "mode": 0,
       "inputs": [
         {
@@ -3817,7 +3817,7 @@
         76
       ],
       "flags": {},
-      "order": 65,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -3857,7 +3857,7 @@
         76
       ],
       "flags": {},
-      "order": 44,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -3897,7 +3897,7 @@
         76
       ],
       "flags": {},
-      "order": 45,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -4184,7 +4184,7 @@
         154
       ],
       "flags": {},
-      "order": 43,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -5395,7 +5395,7 @@
         158
       ],
       "flags": {},
-      "order": 48,
+      "order": 44,
       "mode": 4,
       "inputs": [
         {
@@ -6430,7 +6430,7 @@
       },
       "widgets_values": [
         2.1,
-        106703150226519,
+        201467299745857,
         "randomize",
         7,
         6.5,
@@ -6895,7 +6895,7 @@
         350
       ],
       "flags": {},
-      "order": 30,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -6905,7 +6905,7 @@
           "widget": {
             "name": "random_seed"
           },
-          "link": null
+          "link": 4143
         }
       ],
       "outputs": [
@@ -6978,109 +6978,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 113,
-      "type": "PrimereVisualPromptOrganizerCSV",
-      "pos": [
-        1230.4544677734375,
-        599.2727661132812
-      ],
-      "size": [
-        342.1899108886719,
-        566
-      ],
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "random_seed",
-          "type": "INT",
-          "shape": 7,
-          "widget": {
-            "name": "random_seed"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "PROMPT+",
-          "type": "STRING",
-          "links": [
-            4012
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "PROMPT-",
-          "type": "STRING",
-          "links": [
-            4013
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "SUBPATH",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "MODEL",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "ORIENTATION",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "PREFERRED",
-          "type": "STRING",
-          "links": [
-            4014
-          ],
-          "slot_index": 5
-        }
-      ],
-      "title": "Primere Visual Prompt CSV - SWITCH #3",
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
-        "Node name for S&R": "PrimereVisualPromptOrganizerCSV",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        "Architechture interior",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        "None",
-        0
-      ],
-      "color": "#145414",
-      "bgcolor": "#004000"
-    },
-    {
       "id": 66,
       "type": "PrimerePromptOrganizer",
       "pos": [
@@ -7092,7 +6989,7 @@
         446
       ],
       "flags": {},
-      "order": 32,
+      "order": 30,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7188,7 +7085,7 @@
         642.6027221679688
       ],
       "flags": {},
-      "order": 33,
+      "order": 31,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7277,7 +7174,7 @@
         486.31854248046875
       ],
       "flags": {},
-      "order": 34,
+      "order": 32,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7350,59 +7247,6 @@
       ],
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 179,
-      "type": "PrimereUpscaleModel",
-      "pos": [
-        4524.861328125,
-        2811.492431640625
-      ],
-      "size": [
-        359.9754943847656,
-        78
-      ],
-      "flags": {},
-      "order": 35,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "shape": 3,
-          "links": [
-            2639
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "MODEL_NAME",
-          "type": "COMBO",
-          "shape": 3,
-          "links": [
-            2326
-          ],
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
-        "Node name for S&R": "PrimereUpscaleModel",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "4x-UltraSharp.pth"
-      ],
-      "color": "#236121",
-      "bgcolor": "#0f4d0d"
     },
     {
       "id": 276,
@@ -7812,7 +7656,7 @@
         338
       ],
       "flags": {},
-      "order": 60,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -7901,7 +7745,7 @@
         false,
         1.6,
         2.8,
-        664586873266378,
+        954792110476312,
         "randomize",
         "SD1",
         "Auto"
@@ -7921,7 +7765,7 @@
         3030
       ],
       "flags": {},
-      "order": 46,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -9346,7 +9190,7 @@
         998
       ],
       "flags": {},
-      "order": 47,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -9646,59 +9490,6 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 289,
-      "type": "PrimereFastSeed",
-      "pos": [
-        982.0087890625,
-        91
-      ],
-      "size": [
-        284.89892578125,
-        124
-      ],
-      "flags": {},
-      "order": 36,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            3568,
-            3569,
-            3570,
-            3571,
-            3572,
-            3573,
-            3574,
-            3575,
-            3576,
-            3577
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
-        "Node name for S&R": "PrimereFastSeed",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65
-      },
-      "widgets_values": [
-        "UseLast",
-        214747998140357,
-        "Last seed: [330762463062895]"
-      ],
-      "color": "#1414a2",
-      "bgcolor": "#00008e"
-    },
-    {
       "id": 111,
       "type": "PrimereMetaSave",
       "pos": [
@@ -9866,7 +9657,7 @@
         390
       ],
       "flags": {},
-      "order": 49,
+      "order": 45,
       "mode": 0,
       "inputs": [
         {
@@ -10059,7 +9850,7 @@
         "secondTabWidth": 65
       },
       "widgets_values": [
-        59915621872205,
+        119126939893242,
         "randomize",
         20,
         8,
@@ -10089,7 +9880,7 @@
         222
       ],
       "flags": {},
-      "order": 37,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -10217,7 +10008,7 @@
         390
       ],
       "flags": {},
-      "order": 56,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -10302,7 +10093,7 @@
         643.1478271484375
       ],
       "flags": {},
-      "order": 38,
+      "order": 34,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -10391,7 +10182,7 @@
         454
       ],
       "flags": {},
-      "order": 64,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -10598,7 +10389,7 @@
       "widgets_values": [
         "Red sportcar racing",
         "Cute cat, nsfw, nude, nudity, porn",
-        1276,
+        874,
         "randomize",
         "",
         "",
@@ -10629,7 +10420,7 @@
         98
       ],
       "flags": {},
-      "order": 39,
+      "order": 35,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -10674,7 +10465,7 @@
         390
       ],
       "flags": {},
-      "order": 40,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -10759,7 +10550,7 @@
         582
       ],
       "flags": {},
-      "order": 59,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -11888,7 +11679,7 @@
         73.16516876220703
       ],
       "flags": {},
-      "order": 41,
+      "order": 37,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -11913,7 +11704,7 @@
         426
       ],
       "flags": {},
-      "order": 63,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -12004,7 +11795,7 @@
         1.4000000000000001,
         0.8,
         1.4000000000000001,
-        996122558970006,
+        237978478931384,
         "randomize",
         true,
         "cuda",
@@ -12083,7 +11874,7 @@
       },
       "widgets_values": [
         "",
-        618114982,
+        2946236323,
         "randomize",
         "None",
         true,
@@ -12106,7 +11897,7 @@
         340.2200012207031
       ],
       "flags": {},
-      "order": 68,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -12131,6 +11922,218 @@
       "widgets_values": [],
       "color": "#941414",
       "bgcolor": "#800000"
+    },
+    {
+      "id": 113,
+      "type": "PrimereVisualPromptOrganizerCSV",
+      "pos": [
+        1230.4544677734375,
+        599.2727661132812
+      ],
+      "size": [
+        342.1899108886719,
+        566
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "type": "INT",
+          "shape": 7,
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 4142
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            4012
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            4013
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            4014
+          ],
+          "slot_index": 5
+        }
+      ],
+      "title": "Primere Visual Prompt CSV - SWITCH #3",
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereVisualPromptOrganizerCSV",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        "Architechture interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        0
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 289,
+      "type": "PrimereFastSeed",
+      "pos": [
+        982.0087890625,
+        91
+      ],
+      "size": [
+        284.89892578125,
+        124
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            3568,
+            3569,
+            3570,
+            3571,
+            3572,
+            3573,
+            3574,
+            3575,
+            3576,
+            3577,
+            4142,
+            4143
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereFastSeed",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "UseLast",
+        214747998140357,
+        "Last seed: [306172998931649]"
+      ],
+      "color": "#1414a2",
+      "bgcolor": "#00008e"
+    },
+    {
+      "id": 179,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        4524.861328125,
+        2811.492431640625
+      ],
+      "size": [
+        359.9754943847656,
+        78
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "shape": 3,
+          "links": [
+            2639
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "shape": 3,
+          "links": [
+            2326
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereUpscaleModel",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "NMKD\\4x_NMKD-Siax_200k.pth"
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
     }
   ],
   "links": [
@@ -15589,6 +15592,22 @@
       110,
       10,
       "STRING"
+    ],
+    [
+      4142,
+      289,
+      0,
+      113,
+      0,
+      "INT"
+    ],
+    [
+      4143,
+      289,
+      0,
+      112,
+      0,
+      "INT"
     ]
   ],
   "groups": [
@@ -15817,11 +15836,11 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
-      "offset": {
-        "0": -603.0387573242188,
-        "1": 268.6639709472656
-      }
+      "scale": 0.6830134553650705,
+      "offset": [
+        -1227.6558395005409,
+        261.9615663916102
+      ]
     },
     "node_versions": {
       "comfy-core": "v0.3.10-38-g4209edf"

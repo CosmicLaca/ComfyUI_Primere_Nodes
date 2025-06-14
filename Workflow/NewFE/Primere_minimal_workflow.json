@@ -510,7 +510,7 @@
         "Node name for S&R": "PrimereTextOutput"
       },
       "widgets_values": [
-        "*** Image saver switched OFF, image not saved. ***"
+        ""
       ],
       "color": "#149454",
       "bgcolor": "#008040"
@@ -1350,74 +1350,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 107,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        702,
-        89
-      ],
-      "size": [
-        471,
-        246
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "random_seed",
-          "shape": 7,
-          "type": "INT",
-          "widget": {
-            "name": "random_seed"
-          },
-          "link": 594
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            540,
-            541,
-            543,
-            657
-          ]
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            544
-          ]
-        }
-      ],
-      "properties": {
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
-      },
-      "widgets_values": [
-        "Photo\\photon_v1.safetensors",
-        true,
-        true,
-        true,
-        false,
-        550,
-        800,
-        0
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 48,
       "type": "PrimereSamplersSteps",
       "pos": [
@@ -2073,7 +2005,7 @@
         false,
         true,
         true,
-        "*** Aesthetic scorer off ***"
+        ""
       ],
       "color": "#2c002c",
       "bgcolor": "#400040"
@@ -2444,7 +2376,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [755310382849056]"
+        "Last seed: [264803780702689]"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -2675,7 +2607,7 @@
       },
       "widgets_values": [
         2,
-        839759662205627,
+        1085995933855758,
         "randomize",
         20,
         8,
@@ -2711,7 +2643,7 @@
       ],
       "flags": {},
       "order": 10,
-      "mode": 0,
+      "mode": 4,
       "inputs": [
         {
           "name": "model_name",
@@ -2740,10 +2672,10 @@
         "ver": "4b8a16205c9f078914182af54188b3170af14e21"
       },
       "widgets_values": [
-        1,
         "First",
         1,
         1,
+        "Select in order",
         "Select in order"
       ],
       "color": "#c41414",
@@ -2837,6 +2769,74 @@
       ],
       "color": "#185a4d",
       "bgcolor": "#044639"
+    },
+    {
+      "id": 107,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        702,
+        89
+      ],
+      "size": [
+        471,
+        246
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 594
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            540,
+            541,
+            543,
+            657
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            544
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
+      },
+      "widgets_values": [
+        "Photo\\photon_v1.safetensors",
+        false,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -3820,10 +3820,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015779,
+      "scale": 0.7513148009015777,
       "offset": [
-        -1394.799069640899,
-        97.77392968144574
+        205.58164996703437,
+        129.32876327131206
       ]
     },
     "frontendVersion": "1.21.7",
