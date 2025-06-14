@@ -13,6 +13,10 @@ Nodepack under development. Manual written by AI, please open issue if something
 After nodepack update of **12/3/2024 - v1.0.2** ComfyUI front-end must be updated to minimum **v1.4.13**. Please do `git pull` on comfy folder, the new nodepack not compatible with older Comfy versions. 
 
 **All example workflows in the `Workflow` folder of the node root.**
+- Within `Workflow` folder you will find subfolders:
+  - **OldFE:** workflows in this folder compatible with ComfyUI before new front-end updates happen at 02. March. 2025. The last compatible commit ID is: **9af6320E**. If you want to use these workflows you must rollback your comfy to this commit ID. If you know what you do and know how to upgrade back, you can use `git reset --hard 9af6320E` command ro revert to older state of Comfy.  
+  - **NewFE:** workflows in this folder compatible with new ComfyUI front-end, usually the newest ComfyUI. 
+  - **Development:** workflows in this folder made for node testing only.
 
 <hr>
 
