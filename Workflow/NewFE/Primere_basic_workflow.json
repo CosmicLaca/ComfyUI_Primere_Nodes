@@ -1,0 +1,7363 @@
+{
+  "id": "264e4f1c-3fb1-4713-ba5b-6d6224189548",
+  "revision": 0,
+  "last_node_id": 206,
+  "last_link_id": 3329,
+  "nodes": [
+    {
+      "id": 115,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2345.3515625,
+        1919.5484619140625
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3158
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3159
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3160
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3161
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - TURBO",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler_dy",
+        "karras",
+        7,
+        1
+      ],
+      "color": "#9090eb",
+      "bgcolor": "#a4a4ff"
+    },
+    {
+      "id": 116,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2345.3515625,
+        1689.5477294921875
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3154
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3155
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3156
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3157
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - CASCADE",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler_ancestral",
+        "karras",
+        50,
+        3.2
+      ],
+      "color": "#7070eb",
+      "bgcolor": "#8484ff"
+    },
+    {
+      "id": 117,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1932,
+        1216
+      ],
+      "size": [
+        398.7451171875,
+        190
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3138
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3139
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3140
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3141
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SD1",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "karras",
+        35,
+        7.5
+      ],
+      "color": "#003a87",
+      "bgcolor": "#004e9b"
+    },
+    {
+      "id": 118,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2345.54248046875,
+        2159.886474609375
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3182
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3183
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3184
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3185
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - LCM",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "lcm",
+        "simple",
+        8,
+        1.6
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 119,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2345.3515625,
+        2392.546630859375
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3186
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3187
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3188
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3189
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - LIGHTNING",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "simple",
+        6,
+        1.2
+      ],
+      "color": "#3d0000",
+      "bgcolor": "#510000"
+    },
+    {
+      "id": 120,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1926.350830078125,
+        2393.546630859375
+      ],
+      "size": [
+        403.6964416503906,
+        190
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3174
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3175
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3176
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3177
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - PLAYGROUND",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "karras",
+        25,
+        3.2
+      ],
+      "color": "#082323",
+      "bgcolor": "#1c3737"
+    },
+    {
+      "id": 121,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2346.54248046875,
+        2626.886474609375
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3190
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3191
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3192
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3193
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - HYPER-SD",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_2s_ancestral",
+        "simple",
+        6,
+        1
+      ],
+      "color": "#230000",
+      "bgcolor": "#370000"
+    },
+    {
+      "id": 122,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1928.350830078125,
+        1689.5477294921875
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3162
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3163
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3164
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3165
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - FLUX",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "beta",
+        25,
+        1
+      ],
+      "color": "#429393",
+      "bgcolor": "#56a7a7"
+    },
+    {
+      "id": 123,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2346.54248046875,
+        1450.887939453125
+      ],
+      "size": [
+        397.9150390625,
+        190
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3150
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3151
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3152
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3153
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SD3",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_2m",
+        "sgm_uniform",
+        28,
+        4.5
+      ],
+      "color": "#000094",
+      "bgcolor": "#0000a8"
+    },
+    {
+      "id": 124,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1927.350830078125,
+        2627.545166015625
+      ],
+      "size": [
+        404.3522033691406,
+        190
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3178
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3179
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3180
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3181
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - PONY",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        12,
+        7
+      ],
+      "color": "#001212",
+      "bgcolor": "#132626"
+    },
+    {
+      "id": 125,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1927.350830078125,
+        2160.546630859375
+      ],
+      "size": [
+        401.70135498046875,
+        190
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3170
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3171
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3172
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3173
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - HUNYUAN",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "karras",
+        30,
+        7
+      ],
+      "color": "#154040",
+      "bgcolor": "#295454"
+    },
+    {
+      "id": 126,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2345.54248046875,
+        1216.887939453125
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3146
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3147
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3148
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3149
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SDXL",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "karras",
+        30,
+        7
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 128,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1930.542724609375,
+        1450.887939453125
+      ],
+      "size": [
+        399.3096008300781,
+        190
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3142
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3143
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3144
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3145
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SD2",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "normal",
+        25,
+        6
+      ],
+      "color": "#147de6",
+      "bgcolor": "#0069d2"
+    },
+    {
+      "id": 129,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1926.350830078125,
+        1921.5484619140625
+      ],
+      "size": [
+        401.70135498046875,
+        190
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3166
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3167
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3168
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3169
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - KWAIKOLORS",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "DPMSolverMultistepScheduler_SDE_karras",
+        25,
+        4
+      ],
+      "color": "#296464",
+      "bgcolor": "#3d7878"
+    },
+    {
+      "id": 179,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        4151.5703125,
+        1669.4876708984375
+      ],
+      "size": [
+        359.9754943847656,
+        78
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "slot_index": 0,
+          "links": [
+            2639
+          ]
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            2326
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereUpscaleModel"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth"
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 19,
+      "type": "PreviewImage",
+      "pos": [
+        1927,
+        558
+      ],
+      "size": [
+        335.4738464355469,
+        342.6979064941406
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 647
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 137,
+      "type": "PrimereKSampler",
+      "pos": [
+        2616,
+        176
+      ],
+      "size": [
+        326,
+        402
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2346
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 3326
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 3209
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 3211
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 3202
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 3205
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 3312
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 3314
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2245
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3217
+        },
+        {
+          "name": "workflow_tuple",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            2313
+          ]
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        697521439055251,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "normal",
+        1
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [
+        2618,
+        94
+      ],
+      "size": [
+        324.198974609375,
+        46
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 2313
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 1372
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            481,
+            2331
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfy-core",
+        "ver": "0.3.18",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 178,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        4151,
+        1366
+      ],
+      "size": [
+        360.2424011230469,
+        262
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 2329
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 2330
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 2331
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "slot_index": 0,
+          "links": [
+            2327,
+            2641
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "slot_index": 1,
+          "links": [
+            2328,
+            2642
+          ]
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "slot_index": 2,
+          "links": [
+            2643
+          ]
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 3,
+          "links": [
+            2320,
+            2325
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        false,
+        512,
+        512,
+        3,
+        true,
+        0.55,
+        1.5
+      ],
+      "color": "#185a4d",
+      "bgcolor": "#044639"
+    },
+    {
+      "id": 110,
+      "type": "PrimereMetaCollector",
+      "pos": [
+        3958.654296875,
+        102.14936828613281
+      ],
+      "size": [
+        432.51409912109375,
+        466.1705017089844
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 3316
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 3317
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 3322
+        },
+        {
+          "name": "positive_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3318
+        },
+        {
+          "name": "negative_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3319
+        },
+        {
+          "name": "positive_r",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "negative_r",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": 2660
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1233
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3215
+        },
+        {
+          "name": "concept_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 3133
+        },
+        {
+          "name": "sampler",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3203
+        },
+        {
+          "name": "scheduler",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3206
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 814
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 817
+        },
+        {
+          "name": "model_shapes",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        },
+        {
+          "name": "cfg",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3212
+        },
+        {
+          "name": "steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3208
+        },
+        {
+          "name": "vae_name_sd",
+          "shape": 7,
+          "type": "VAE_NAME",
+          "link": 3222
+        },
+        {
+          "name": "vae_name_sdxl",
+          "shape": 7,
+          "type": "VAE_NAME",
+          "link": 3223
+        },
+        {
+          "name": "preferred",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 693
+        },
+        {
+          "name": "aesthetic_score",
+          "shape": 7,
+          "type": "INT",
+          "link": 711
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "slot_index": 0,
+          "links": [
+            842
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereMetaCollector"
+      },
+      "widgets_values": [],
+      "color": "#149454",
+      "bgcolor": "#008040"
+    },
+    {
+      "id": 177,
+      "type": "UltimateSDUpscale",
+      "pos": [
+        4521,
+        1366
+      ],
+      "size": [
+        298.666259765625,
+        614
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2320
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2637
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 3313
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 3315
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 2638
+        },
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 2639
+        },
+        {
+          "name": "upscale_by",
+          "type": "FLOAT",
+          "widget": {
+            "name": "upscale_by"
+          },
+          "link": 2643
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 3327
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": 3210
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": 3213
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": 3204
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": 3207
+        },
+        {
+          "name": "tile_width",
+          "type": "INT",
+          "widget": {
+            "name": "tile_width"
+          },
+          "link": 2641
+        },
+        {
+          "name": "tile_height",
+          "type": "INT",
+          "widget": {
+            "name": "tile_height"
+          },
+          "link": 2642
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            2332,
+            2334
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_ultimatesdupscale",
+        "ver": "778a475dde8116a2066fe07f6c9ca15554e0b5be",
+        "Node name for S&R": "UltimateSDUpscale"
+      },
+      "widgets_values": [
+        2.1,
+        643364272644732,
+        "randomize",
+        7,
+        6.5,
+        "dpmpp_sde",
+        "karras",
+        1,
+        "None",
+        512,
+        512,
+        1,
+        0,
+        "None",
+        1,
+        64,
+        8,
+        16,
+        false,
+        false
+      ],
+      "color": "#003900",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 180,
+      "type": "ttN hiresfixScale",
+      "pos": [
+        4830.60498046875,
+        1366.9989013671875
+      ],
+      "size": [
+        367.1852111816406,
+        342
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 2336
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2325
+        },
+        {
+          "name": "model_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "model_name"
+          },
+          "link": 2326
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 2327
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 2328
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_tinyterranodes",
+        "ver": "339ee9c183d6fed5e90fa46c1e7fddc4d6efdbd2",
+        "Node name for S&R": "ttN hiresfixScale",
+        "ttNnodeVersion": "1.1.0"
+      },
+      "widgets_values": [
+        "4x-UltraSharp.pth",
+        true,
+        "bicubic",
+        "to Width/Height",
+        50,
+        1024,
+        1024,
+        1024,
+        "disabled",
+        "Hide",
+        "ComfyUI",
+        false
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 109,
+      "type": "PrimereTextOutput",
+      "pos": [
+        4408.6533203125,
+        102.14936828613281
+      ],
+      "size": [
+        783.7601318359375,
+        1164.3389892578125
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 710
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereTextOutput"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
+    },
+    {
+      "id": 113,
+      "type": "PrimereVisualPromptOrganizerCSV",
+      "pos": [
+        690.7862548828125,
+        601.0242919921875
+      ],
+      "size": [
+        310.79998779296875,
+        590
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 3324
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            716
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            717
+          ]
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "slot_index": 5,
+          "links": [
+            718
+          ]
+        }
+      ],
+      "title": "Primere Visual Prompt CSV - SWITCH #4",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereVisualPromptOrganizerCSV"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        "Architechture Interior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 66,
+      "type": "PrimerePromptOrganizer",
+      "pos": [
+        1011,
+        601
+      ],
+      "size": [
+        302.3999938964844,
+        446
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            333
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            334
+          ]
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "slot_index": 2,
+          "links": []
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "slot_index": 3,
+          "links": []
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "slot_index": 4,
+          "links": []
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "slot_index": 5,
+          "links": [
+            340
+          ]
+        }
+      ],
+      "title": "Primere Prompt Organizer - SWITCH #3",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimerePromptOrganizer"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true,
+        "Architechture::Exterior",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 112,
+      "type": "PrimereVisualStyle",
+      "pos": [
+        1321,
+        600
+      ],
+      "size": [
+        344.3999938964844,
+        374
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 3323
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            712
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            713
+          ]
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "links": [
+            714
+          ]
+        }
+      ],
+      "title": "Primere Visual Style Selector - SWITCH #2",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereVisualStyle"
+      },
+      "widgets_values": [
+        "Sci-fi UFO",
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 8,
+      "type": "PrimereEmbeddingHandler",
+      "pos": [
+        688,
+        1560
+      ],
+      "size": [
+        315,
+        64
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 2651
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 2656
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            3073
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            3074
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereEmbeddingHandler"
+      },
+      "widgets_values": [],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 194,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2347,
+        2861
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3198
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3199
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3200
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3201
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - PIXART REFINER",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "dpmpp_sde",
+        "simple",
+        28,
+        3.5
+      ],
+      "color": "#4800a5",
+      "bgcolor": "#5c00b9"
+    },
+    {
+      "id": 92,
+      "type": "PrimereAestheticCKPTScorer",
+      "pos": [
+        2621,
+        866
+      ],
+      "size": [
+        323.20916748046875,
+        180
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 481
+        },
+        {
+          "name": "workflow_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCORE",
+          "type": "INT",
+          "slot_index": 0,
+          "links": [
+            711
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereAestheticCKPTScorer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        ""
+      ],
+      "color": "#5d005d",
+      "bgcolor": "#710071"
+    },
+    {
+      "id": 104,
+      "type": "PrimereLatentNoise",
+      "pos": [
+        1928,
+        94
+      ],
+      "size": [
+        331.9815368652344,
+        426
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 812
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 815
+        },
+        {
+          "name": "noise_seed",
+          "type": "INT",
+          "link": 3325
+        },
+        {
+          "name": "optional_vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 1231
+        },
+        {
+          "name": "workflow_tuple",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENTS",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            2245
+          ]
+        },
+        {
+          "name": "PREVIEWS",
+          "type": "IMAGE",
+          "links": [
+            647
+          ]
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereLatentNoise"
+      },
+      "widgets_values": [
+        true,
+        "brownian_fractal",
+        true,
+        1,
+        0.5,
+        1.5,
+        true,
+        1,
+        0.8,
+        1.4,
+        "randomize",
+        true,
+        "cpu"
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 6,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        689,
+        1368
+      ],
+      "size": [
+        308,
+        59
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 3058
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 3320
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            2651
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 7,
+      "type": "PrimereDynamicParser",
+      "pos": [
+        690,
+        1465
+      ],
+      "size": [
+        310,
+        59
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dyn_prompt",
+          "type": "STRING",
+          "link": 3059
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 3321
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            2656
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereDynamicParser"
+      },
+      "widgets_values": [],
+      "color": "#6c2c2c",
+      "bgcolor": "#804040"
+    },
+    {
+      "id": 76,
+      "type": "PrimerePromptSwitch",
+      "pos": [
+        1683,
+        557
+      ],
+      "size": [
+        229.13999938964844,
+        338
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt_pos_1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3060
+        },
+        {
+          "name": "prompt_neg_1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3061
+        },
+        {
+          "name": "preferred_1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3062
+        },
+        {
+          "name": "prompt_pos_2",
+          "type": "STRING",
+          "link": 712
+        },
+        {
+          "name": "prompt_neg_2",
+          "type": "STRING",
+          "link": 713
+        },
+        {
+          "name": "preferred_2",
+          "type": "STRING",
+          "link": 714
+        },
+        {
+          "name": "prompt_pos_3",
+          "type": "STRING",
+          "link": 333
+        },
+        {
+          "name": "prompt_neg_3",
+          "type": "STRING",
+          "link": 334
+        },
+        {
+          "name": "preferred_3",
+          "type": "STRING",
+          "link": 340
+        },
+        {
+          "name": "prompt_pos_4",
+          "type": "STRING",
+          "link": 716
+        },
+        {
+          "name": "prompt_neg_4",
+          "type": "STRING",
+          "link": 717
+        },
+        {
+          "name": "preferred_4",
+          "type": "STRING",
+          "link": 718
+        },
+        {
+          "name": "prompt_pos_5",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "prompt_neg_5",
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "preferred_5",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            3058
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            3059
+          ]
+        },
+        {
+          "name": "SELECTED_INDEX",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "PREFERRED",
+          "type": "TUPLE",
+          "slot_index": 3,
+          "links": [
+            693
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimerePromptSwitch"
+      },
+      "widgets_values": [
+        1
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 111,
+      "type": "PrimereMetaSave",
+      "pos": [
+        3958.53369140625,
+        613.2582397460938
+      ],
+      "size": [
+        434.2799987792969,
+        654
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2334
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 842
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAVED_INFO",
+          "type": "STRING",
+          "links": [
+            710
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereMetaSave"
+      },
+      "widgets_values": [
+        false,
+        0,
+        "[time(%Y-%m-%d)]",
+        "Dev",
+        true,
+        true,
+        true,
+        "PrimareBasic",
+        "_",
+        true,
+        true,
+        true,
+        true,
+        true,
+        1,
+        false,
+        "png",
+        true,
+        true,
+        true,
+        true,
+        95,
+        "false",
+        false,
+        false
+      ],
+      "color": "#149454",
+      "bgcolor": "#008040"
+    },
+    {
+      "id": 131,
+      "type": "PrimereResolution",
+      "pos": [
+        1458,
+        93
+      ],
+      "size": [
+        435.1622009277344,
+        338
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 3329
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1234
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3219
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "slot_index": 0,
+          "links": [
+            812,
+            814,
+            2329,
+            3310
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "slot_index": 1,
+          "links": [
+            815,
+            817,
+            2330,
+            3311
+          ]
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereResolution"
+      },
+      "widgets_values": [
+        "HD screen [16:9]",
+        true,
+        768,
+        1024,
+        512,
+        false,
+        "Horizontal",
+        true,
+        false,
+        1.6,
+        2.8
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 1,
+      "type": "PrimerePrompt",
+      "pos": [
+        1011,
+        1085
+      ],
+      "size": [
+        658,
+        539
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            3060
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            3061
+          ]
+        },
+        {
+          "name": "SUBPATH",
+          "type": "STRING",
+          "slot_index": 2,
+          "links": []
+        },
+        {
+          "name": "MODEL",
+          "type": "STRING",
+          "slot_index": 3,
+          "links": []
+        },
+        {
+          "name": "ORIENTATION",
+          "type": "STRING",
+          "slot_index": 4,
+          "links": []
+        },
+        {
+          "name": "PREFERRED",
+          "type": "STRING",
+          "slot_index": 5,
+          "links": [
+            3062
+          ]
+        }
+      ],
+      "title": "Primere Prompt - SWITCH #1",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimerePrompt"
+      },
+      "widgets_values": [
+        "Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season",
+        "human, man, woman, girl, nsfw, nude, nudity, porn",
+        "SeassonBackground",
+        "None",
+        "None",
+        null
+      ],
+      "color": "#145414",
+      "bgcolor": "#004000"
+    },
+    {
+      "id": 199,
+      "type": "PrimereClearNetworkTagsPrompt",
+      "pos": [
+        691,
+        1716
+      ],
+      "size": [
+        484.708251953125,
+        602
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3072
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3073
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 3074
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            3076,
+            3307
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            3308
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereClearNetworkTagsPrompt"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 132,
+      "type": "PrimereNetworkTagLoader",
+      "pos": [
+        1190,
+        1717
+      ],
+      "size": [
+        396.6774597167969,
+        562
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1228
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1229
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3076
+        },
+        {
+          "name": "workflow_tuple",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 3134
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            2346
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [
+            3301
+          ]
+        },
+        {
+          "name": "LORA_STACK",
+          "type": "LORA_STACK",
+          "links": null
+        },
+        {
+          "name": "LYCORIS_STACK",
+          "type": "LYCORIS_STACK",
+          "links": null
+        },
+        {
+          "name": "HYPERNETWORK_STACK",
+          "type": "HYPERNETWORK_STACK",
+          "links": null
+        },
+        {
+          "name": "LORA_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            3303
+          ]
+        },
+        {
+          "name": "LYCORIS_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "links": [
+            3304
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereNetworkTagLoader"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1,
+        true,
+        "Last",
+        "Select in order",
+        1,
+        1
+      ],
+      "color": "#945414",
+      "bgcolor": "#804000"
+    },
+    {
+      "id": 200,
+      "type": "PrimereConceptDataTuple",
+      "pos": [
+        3526.26708984375,
+        1239.0899658203125
+      ],
+      "size": [
+        404.5999755859375,
+        1294
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 3276
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 3277
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 3278
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 3279
+        },
+        {
+          "name": "override_steps",
+          "type": "OVERRIDE_STEPS",
+          "link": 3214
+        },
+        {
+          "name": "clip_selection",
+          "type": "CLIP_SELECTION",
+          "link": 3220
+        },
+        {
+          "name": "vae_selection",
+          "type": "VAE_SELECTION",
+          "link": 3221
+        },
+        {
+          "name": "vae_name",
+          "type": "VAE_NAME",
+          "link": 3224
+        },
+        {
+          "name": "strength_lcm_lora_model",
+          "type": "FLOAT",
+          "link": 3225
+        },
+        {
+          "name": "lightning_selector",
+          "type": "STRING",
+          "link": 3226
+        },
+        {
+          "name": "lightning_model_step",
+          "type": "INT",
+          "link": 3227
+        },
+        {
+          "name": "strength_lightning_lora_model",
+          "type": "FLOAT",
+          "link": 3228
+        },
+        {
+          "name": "cascade_stage_a",
+          "type": "STRING",
+          "link": 3229
+        },
+        {
+          "name": "cascade_stage_b",
+          "type": "STRING",
+          "link": 3230
+        },
+        {
+          "name": "cascade_stage_c",
+          "type": "STRING",
+          "link": 3231
+        },
+        {
+          "name": "cascade_clip",
+          "type": "STRING",
+          "link": 3232
+        },
+        {
+          "name": "hypersd_selector",
+          "type": "STRING",
+          "link": 3233
+        },
+        {
+          "name": "hypersd_model_step",
+          "type": "INT",
+          "link": 3234
+        },
+        {
+          "name": "strength_hypersd_lora_model",
+          "type": "FLOAT",
+          "link": 3235
+        },
+        {
+          "name": "flux_selector",
+          "type": "STRING",
+          "link": 3236
+        },
+        {
+          "name": "flux_diffusion",
+          "type": "STRING",
+          "link": 3237
+        },
+        {
+          "name": "flux_weight_dtype",
+          "type": "STRING",
+          "link": 3238
+        },
+        {
+          "name": "flux_gguf",
+          "type": "STRING",
+          "link": 3239
+        },
+        {
+          "name": "flux_clip_t5xxl",
+          "type": "STRING",
+          "link": 3240
+        },
+        {
+          "name": "flux_clip_l",
+          "type": "STRING",
+          "link": 3241
+        },
+        {
+          "name": "flux_clip_guidance",
+          "type": "FLOAT",
+          "link": 3242
+        },
+        {
+          "name": "flux_vae",
+          "type": "STRING",
+          "link": 3243
+        },
+        {
+          "name": "flux_sampler",
+          "type": "STRING",
+          "link": 3244
+        },
+        {
+          "name": "use_flux_hyper_lora",
+          "type": "FLUX_HYPER_LORA",
+          "link": 3245
+        },
+        {
+          "name": "flux_hyper_lora_type",
+          "type": "STRING",
+          "link": 3246
+        },
+        {
+          "name": "flux_hyper_lora_step",
+          "type": "INT",
+          "link": 3247
+        },
+        {
+          "name": "flux_hyper_lora_strength",
+          "type": "FLOAT",
+          "link": 3248
+        },
+        {
+          "name": "use_flux_turbo_lora",
+          "type": "FLUX_TURBO_LORA",
+          "link": 3249
+        },
+        {
+          "name": "flux_turbo_lora_type",
+          "type": "STRING",
+          "link": 3250
+        },
+        {
+          "name": "flux_turbo_lora_step",
+          "type": "INT",
+          "link": 3251
+        },
+        {
+          "name": "flux_turbo_lora_strength",
+          "type": "FLOAT",
+          "link": 3252
+        },
+        {
+          "name": "hunyuan_clip_t5xxl",
+          "type": "STRING",
+          "link": 3253
+        },
+        {
+          "name": "hunyuan_clip_l",
+          "type": "STRING",
+          "link": 3254
+        },
+        {
+          "name": "hunyuan_vae",
+          "type": "STRING",
+          "link": 3255
+        },
+        {
+          "name": "sd3_clip_g",
+          "type": "STRING",
+          "link": 3256
+        },
+        {
+          "name": "sd3_clip_l",
+          "type": "STRING",
+          "link": 3257
+        },
+        {
+          "name": "sd3_clip_t5xxl",
+          "type": "STRING",
+          "link": 3258
+        },
+        {
+          "name": "sd3_unet_vae",
+          "type": "STRING",
+          "link": 3259
+        },
+        {
+          "name": "use_sd3_hyper_lora",
+          "type": "SD3_HYPER_LORA",
+          "link": 3260
+        },
+        {
+          "name": "sd3_hyper_lora_step",
+          "type": "INT",
+          "link": 3261
+        },
+        {
+          "name": "sd3_hyper_lora_strength",
+          "type": "FLOAT",
+          "link": 3262
+        },
+        {
+          "name": "kolors_precision",
+          "type": "STRING",
+          "link": 3263
+        },
+        {
+          "name": "pixart_model_type",
+          "type": "STRING",
+          "link": 3264
+        },
+        {
+          "name": "pixart_T5_encoder",
+          "type": "STRING",
+          "link": 3265
+        },
+        {
+          "name": "pixart_vae",
+          "type": "STRING",
+          "link": 3266
+        },
+        {
+          "name": "pixart_denoise",
+          "type": "FLOAT",
+          "link": 3267
+        },
+        {
+          "name": "pixart_refiner_model",
+          "type": "STRING",
+          "link": 3268
+        },
+        {
+          "name": "pixart_refiner_sampler",
+          "type": "STRING",
+          "link": 3269
+        },
+        {
+          "name": "pixart_refiner_scheduler",
+          "type": "STRING",
+          "link": 3270
+        },
+        {
+          "name": "pixart_refiner_cfg",
+          "type": "FLOAT",
+          "link": 3271
+        },
+        {
+          "name": "pixart_refiner_steps",
+          "type": "INT",
+          "link": 3272
+        },
+        {
+          "name": "pixart_refiner_start",
+          "type": "INT",
+          "link": 3273
+        },
+        {
+          "name": "pixart_refiner_denoise",
+          "type": "FLOAT",
+          "link": 3274
+        },
+        {
+          "name": "pixart_refiner_ignore_prompt",
+          "type": "BOOLEAN",
+          "link": 3275
+        },
+        {
+          "name": "sana_model",
+          "type": "STRING",
+          "link": 3280
+        },
+        {
+          "name": "sana_encoder",
+          "type": "STRING",
+          "link": 3281
+        },
+        {
+          "name": "sana_vae",
+          "type": "STRING",
+          "link": 3282
+        },
+        {
+          "name": "sana_weight_dtype",
+          "type": "STRING",
+          "link": 3283
+        },
+        {
+          "name": "sana_precision",
+          "type": "STRING",
+          "link": 3284
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONCEPT_DATA",
+          "type": "TUPLE",
+          "links": [
+            3133,
+            3134,
+            3135
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereConceptDataTuple"
+      },
+      "widgets_values": [],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 195,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1926.564453125,
+        2860
+      ],
+      "size": [
+        404.3522033691406,
+        190
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3194
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3195
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3196
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3197
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - PIXART",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "beta",
+        20,
+        4
+      ],
+      "color": "#2c006c",
+      "bgcolor": "#400080"
+    },
+    {
+      "id": 203,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        2348.08447265625,
+        3092.043701171875
+      ],
+      "size": [
+        400.510009765625,
+        190
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3285
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3286
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3287
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3288
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SANA 1024",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "flow_dpm-solver",
+        50,
+        3.8000000000000003
+      ],
+      "color": "#874d14",
+      "bgcolor": "#733900"
+    },
+    {
+      "id": 202,
+      "type": "PrimereSamplersSteps",
+      "pos": [
+        1927.5657958984375,
+        3091.810546875
+      ],
+      "size": [
+        404.3522033691406,
+        190
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3289
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3290
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3291
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3292
+          ]
+        }
+      ],
+      "title": "Primere Samplers & Steps & Cfg - SANA 512",
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereSamplersSteps"
+      },
+      "widgets_values": [
+        "euler",
+        "flow_dpm-solver",
+        50,
+        3.5
+      ],
+      "color": "#b16314",
+      "bgcolor": "#9d4f00"
+    },
+    {
+      "id": 41,
+      "type": "PrimereModelKeyword",
+      "pos": [
+        687.871337890625,
+        353.2577819824219
+      ],
+      "size": [
+        455.1882629394531,
+        154
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 2658
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_KEYWORD",
+          "type": "MODEL_KEYWORD",
+          "slot_index": 0,
+          "links": [
+            3302
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereModelKeyword"
+      },
+      "widgets_values": [
+        "First",
+        1,
+        1,
+        "design",
+        "Select in order"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 79,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2970,
+        54
+      ],
+      "size": [
+        961.2977905273438,
+        1075.173583984375
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2332
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        90,
+        "Checkpoint",
+        "Overwrite",
+        "Photo\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 190,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        691.5208129882812,
+        91.611572265625
+      ],
+      "size": [
+        449.07281494140625,
+        246
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 3328
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            2658,
+            2659,
+            2660,
+            3136
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            3137
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
+      },
+      "widgets_values": [
+        "Photo\\photon_v1.safetensors",
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 201,
+      "type": "PrimereModelConceptSelector",
+      "pos": [
+        2761,
+        1220
+      ],
+      "size": [
+        730.25,
+        3046
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3137
+        },
+        {
+          "name": "model_name",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": 3136
+        },
+        {
+          "name": "sd1_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3138
+        },
+        {
+          "name": "sd1_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3139
+        },
+        {
+          "name": "sd1_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3140
+        },
+        {
+          "name": "sd1_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3141
+        },
+        {
+          "name": "sd2_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3142
+        },
+        {
+          "name": "sd2_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3143
+        },
+        {
+          "name": "sd2_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3144
+        },
+        {
+          "name": "sd2_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3145
+        },
+        {
+          "name": "sdxl_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3146
+        },
+        {
+          "name": "sdxl_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3147
+        },
+        {
+          "name": "sdxl_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3148
+        },
+        {
+          "name": "sdxl_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3149
+        },
+        {
+          "name": "sd3_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3150
+        },
+        {
+          "name": "sd3_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3151
+        },
+        {
+          "name": "sd3_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3152
+        },
+        {
+          "name": "sd3_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3153
+        },
+        {
+          "name": "stablecascade_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3154
+        },
+        {
+          "name": "stablecascade_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3155
+        },
+        {
+          "name": "stablecascade_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3156
+        },
+        {
+          "name": "stablecascade_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3157
+        },
+        {
+          "name": "turbo_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3158
+        },
+        {
+          "name": "turbo_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3159
+        },
+        {
+          "name": "turbo_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3160
+        },
+        {
+          "name": "turbo_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3161
+        },
+        {
+          "name": "flux_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3162
+        },
+        {
+          "name": "flux_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3163
+        },
+        {
+          "name": "flux_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3164
+        },
+        {
+          "name": "flux_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3165
+        },
+        {
+          "name": "kwaikolors_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3166
+        },
+        {
+          "name": "kwaikolors_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3167
+        },
+        {
+          "name": "kwaikolors_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3168
+        },
+        {
+          "name": "kwaikolors_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3169
+        },
+        {
+          "name": "hunyuan_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3170
+        },
+        {
+          "name": "hunyuan_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3171
+        },
+        {
+          "name": "hunyuan_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3172
+        },
+        {
+          "name": "hunyuan_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3173
+        },
+        {
+          "name": "playground_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3174
+        },
+        {
+          "name": "playground_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3175
+        },
+        {
+          "name": "playground_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3176
+        },
+        {
+          "name": "playground_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3177
+        },
+        {
+          "name": "pony_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3178
+        },
+        {
+          "name": "pony_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3179
+        },
+        {
+          "name": "pony_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3180
+        },
+        {
+          "name": "pony_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3181
+        },
+        {
+          "name": "lcm_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3182
+        },
+        {
+          "name": "lcm_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3183
+        },
+        {
+          "name": "lcm_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3184
+        },
+        {
+          "name": "lcm_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3185
+        },
+        {
+          "name": "lightning_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3186
+        },
+        {
+          "name": "lightning_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3187
+        },
+        {
+          "name": "lightning_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3188
+        },
+        {
+          "name": "lightning_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3189
+        },
+        {
+          "name": "hyper_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3190
+        },
+        {
+          "name": "hyper_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3191
+        },
+        {
+          "name": "hyper_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3192
+        },
+        {
+          "name": "hyper_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3193
+        },
+        {
+          "name": "pixartsigma_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3194
+        },
+        {
+          "name": "pixartsigma_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3195
+        },
+        {
+          "name": "pixartsigma_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3196
+        },
+        {
+          "name": "pixartsigma_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3197
+        },
+        {
+          "name": "sana1024_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3285
+        },
+        {
+          "name": "sana1024_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3286
+        },
+        {
+          "name": "sana1024_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3287
+        },
+        {
+          "name": "sana1024_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3288
+        },
+        {
+          "name": "sana512_sampler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3289
+        },
+        {
+          "name": "sana512_scheduler_name",
+          "shape": 7,
+          "type": "COMBO",
+          "link": 3290
+        },
+        {
+          "name": "sana512_steps",
+          "shape": 7,
+          "type": "INT",
+          "link": 3291
+        },
+        {
+          "name": "sana512_cfg_scale",
+          "shape": 7,
+          "type": "FLOAT",
+          "link": 3292
+        },
+        {
+          "name": "pixart_refiner_sampler",
+          "type": "COMBO",
+          "widget": {
+            "name": "pixart_refiner_sampler"
+          },
+          "link": 3198
+        },
+        {
+          "name": "pixart_refiner_scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "pixart_refiner_scheduler"
+          },
+          "link": 3199
+        },
+        {
+          "name": "pixart_refiner_cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "pixart_refiner_cfg"
+          },
+          "link": 3201
+        },
+        {
+          "name": "pixart_refiner_steps",
+          "type": "INT",
+          "widget": {
+            "name": "pixart_refiner_steps"
+          },
+          "link": 3200
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "slot_index": 0,
+          "links": [
+            3202,
+            3203,
+            3204,
+            3276
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            3205,
+            3206,
+            3207,
+            3277
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "slot_index": 2,
+          "links": [
+            3208,
+            3209,
+            3210,
+            3278
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "slot_index": 3,
+          "links": [
+            3211,
+            3212,
+            3213,
+            3279
+          ]
+        },
+        {
+          "name": "OVERRIDE_STEPS",
+          "type": "OVERRIDE_STEPS",
+          "links": [
+            3214
+          ]
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": [
+            3215,
+            3216,
+            3217,
+            3219,
+            3309
+          ]
+        },
+        {
+          "name": "CLIP_SELECTION",
+          "type": "CLIP_SELECTION",
+          "links": [
+            3220
+          ]
+        },
+        {
+          "name": "VAE_SELECTION",
+          "type": "VAE_SELECTION",
+          "links": [
+            3221
+          ]
+        },
+        {
+          "name": "VAE_NAME",
+          "type": "VAE_NAME",
+          "links": [
+            3222,
+            3223,
+            3224
+          ]
+        },
+        {
+          "name": "STRENGTH_LCM_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3225
+          ]
+        },
+        {
+          "name": "LIGHTNING_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3226
+          ]
+        },
+        {
+          "name": "LIGHTNING_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            3227
+          ]
+        },
+        {
+          "name": "STRENGTH_LIGHTNING_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3228
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_A",
+          "type": "STRING",
+          "links": [
+            3229
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_B",
+          "type": "STRING",
+          "links": [
+            3230
+          ]
+        },
+        {
+          "name": "CASCADE_STAGE_C",
+          "type": "STRING",
+          "links": [
+            3231
+          ]
+        },
+        {
+          "name": "CASCADE_CLIP",
+          "type": "STRING",
+          "links": [
+            3232
+          ]
+        },
+        {
+          "name": "HYPER-SD_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3233
+          ]
+        },
+        {
+          "name": "HYPER-SD_MODEL_STEP",
+          "type": "INT",
+          "links": [
+            3234
+          ]
+        },
+        {
+          "name": "STRENGTH_HYPERSD_LORA_MODEL",
+          "type": "FLOAT",
+          "links": [
+            3235
+          ]
+        },
+        {
+          "name": "FLUX_SELECTOR",
+          "type": "STRING",
+          "links": [
+            3236
+          ]
+        },
+        {
+          "name": "FLUX_DIFFUSION_MODEL",
+          "type": "STRING",
+          "links": [
+            3237
+          ]
+        },
+        {
+          "name": "FLUX_WEIGHT_TYPE",
+          "type": "STRING",
+          "links": [
+            3238
+          ]
+        },
+        {
+          "name": "FLUX_GGUF_MODEL",
+          "type": "STRING",
+          "links": [
+            3239
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3240
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3241
+          ]
+        },
+        {
+          "name": "FLUX_CLIP_GUIDANCE",
+          "type": "FLOAT",
+          "links": [
+            3242
+          ]
+        },
+        {
+          "name": "FLUX_VAE",
+          "type": "STRING",
+          "links": [
+            3243
+          ]
+        },
+        {
+          "name": "FLUX_SAMPLER",
+          "type": "STRING",
+          "links": [
+            3244
+          ]
+        },
+        {
+          "name": "USE_FLUX_HYPER_LORA",
+          "type": "FLUX_HYPER_LORA",
+          "links": [
+            3245
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_TYPE",
+          "type": "STRING",
+          "links": [
+            3246
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3247
+          ]
+        },
+        {
+          "name": "FLUX_HYPER_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3248
+          ]
+        },
+        {
+          "name": "USE_FLUX_TURBO_LORA",
+          "type": "FLUX_TURBO_LORA",
+          "links": [
+            3249
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_TYPE",
+          "type": "STRING",
+          "links": [
+            3250
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3251
+          ]
+        },
+        {
+          "name": "FLUX_TURBO_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3252
+          ]
+        },
+        {
+          "name": "HUNYUAN_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3253
+          ]
+        },
+        {
+          "name": "HUNYUAN_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3254
+          ]
+        },
+        {
+          "name": "HUNYUAN_VAE",
+          "type": "STRING",
+          "links": [
+            3255
+          ]
+        },
+        {
+          "name": "SD3_CLIP_G",
+          "type": "STRING",
+          "links": [
+            3256
+          ]
+        },
+        {
+          "name": "SD3_CLIP_L",
+          "type": "STRING",
+          "links": [
+            3257
+          ]
+        },
+        {
+          "name": "SD3_CLIP_T5XXL",
+          "type": "STRING",
+          "links": [
+            3258
+          ]
+        },
+        {
+          "name": "SD3_UNET_VAE",
+          "type": "STRING",
+          "links": [
+            3259
+          ]
+        },
+        {
+          "name": "USE_SD3_HYPER_LORA",
+          "type": "SD3_HYPER_LORA",
+          "links": [
+            3260
+          ]
+        },
+        {
+          "name": "SD3_HYPER_LORA_STEP",
+          "type": "INT",
+          "links": [
+            3261
+          ]
+        },
+        {
+          "name": "SD3_HYPER_LORA_STRENGTH",
+          "type": "FLOAT",
+          "links": [
+            3262
+          ]
+        },
+        {
+          "name": "KOLORS_PRECISION",
+          "type": "STRING",
+          "links": [
+            3263
+          ]
+        },
+        {
+          "name": "PIXART_MODEL_TYPE",
+          "type": "STRING",
+          "links": [
+            3264
+          ]
+        },
+        {
+          "name": "PIXART_T5_ENCODER",
+          "type": "STRING",
+          "links": [
+            3265
+          ]
+        },
+        {
+          "name": "PIXART_VAE",
+          "type": "STRING",
+          "links": [
+            3266
+          ]
+        },
+        {
+          "name": "PIXART_DENOISE",
+          "type": "FLOAT",
+          "links": [
+            3267
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_MODEL",
+          "type": "STRING",
+          "links": [
+            3268
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_SAMPLER",
+          "type": "STRING",
+          "links": [
+            3269
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_SCHEDULER",
+          "type": "STRING",
+          "links": [
+            3270
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_CFG",
+          "type": "FLOAT",
+          "links": [
+            3271
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_STEPS",
+          "type": "INT",
+          "links": [
+            3272
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_START",
+          "type": "INT",
+          "links": [
+            3273
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_DENOISE",
+          "type": "FLOAT",
+          "links": [
+            3274
+          ]
+        },
+        {
+          "name": "PIXART_REFINER_IGNORE_PROMPT",
+          "type": "BOOLEAN",
+          "links": [
+            3275
+          ]
+        },
+        {
+          "name": "SANA_MODEL",
+          "type": "STRING",
+          "slot_index": 60,
+          "links": [
+            3280
+          ]
+        },
+        {
+          "name": "SANA_ENCODER",
+          "type": "STRING",
+          "slot_index": 61,
+          "links": [
+            3281
+          ]
+        },
+        {
+          "name": "SANA_VAE",
+          "type": "STRING",
+          "slot_index": 62,
+          "links": [
+            3282
+          ]
+        },
+        {
+          "name": "SANA_WEIGHT_DTYPE",
+          "type": "STRING",
+          "slot_index": 63,
+          "links": [
+            3283
+          ]
+        },
+        {
+          "name": "SANA_PRECISION",
+          "type": "STRING",
+          "slot_index": 64,
+          "links": [
+            3284
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereModelConceptSelector"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        7,
+        12,
+        true,
+        "None",
+        "None",
+        "Auto",
+        true,
+        true,
+        1,
+        "LORA",
+        8,
+        false,
+        1,
+        "LORA",
+        8,
+        false,
+        1,
+        "None",
+        "None",
+        "None",
+        "None",
+        "DIFFUSION",
+        "None",
+        "default",
+        "None",
+        "None",
+        "None",
+        3.5,
+        "None",
+        "ksampler",
+        false,
+        "FLUX.1-dev",
+        16,
+        0.125,
+        false,
+        "TurboAlpha",
+        8,
+        1,
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        false,
+        8,
+        0.125,
+        "quant8",
+        "Auto",
+        "None",
+        "None",
+        0.9,
+        "None",
+        "dpmpp_2m",
+        "normal",
+        2,
+        22,
+        12,
+        0.9,
+        false,
+        "None",
+        "None",
+        "None",
+        "fp16",
+        "fp16"
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 205,
+      "type": "PrimereCLIPEncoder",
+      "pos": [
+        2266.990234375,
+        94.4817123413086
+      ],
+      "size": [
+        344.0634460449219,
+        966
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3301
+        },
+        {
+          "name": "model_version",
+          "type": "STRING",
+          "link": 3305
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "link": 3307
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "link": 3308
+        },
+        {
+          "name": "enhanced_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3309
+        },
+        {
+          "name": "model_keywords",
+          "shape": 7,
+          "type": "MODEL_KEYWORD",
+          "link": 3302
+        },
+        {
+          "name": "lora_keywords",
+          "shape": 7,
+          "type": "MODEL_KEYWORD",
+          "link": 3303
+        },
+        {
+          "name": "lycoris_keywords",
+          "shape": 7,
+          "type": "MODEL_KEYWORD",
+          "link": 3304
+        },
+        {
+          "name": "embedding_pos",
+          "shape": 7,
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "embedding_neg",
+          "shape": 7,
+          "type": "EMBEDDING",
+          "link": null
+        },
+        {
+          "name": "opt_pos_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "opt_neg_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "style_pos_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "style_neg_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "positive_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "negative_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 3310
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 3311
+        },
+        {
+          "name": "workflow_tuple",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "COND+",
+          "type": "CONDITIONING",
+          "links": [
+            3312,
+            3313
+          ]
+        },
+        {
+          "name": "COND-",
+          "type": "CONDITIONING",
+          "links": [
+            3314,
+            3315
+          ]
+        },
+        {
+          "name": "PROMPT+",
+          "type": "STRING",
+          "links": [
+            3316
+          ]
+        },
+        {
+          "name": "PROMPT-",
+          "type": "STRING",
+          "links": [
+            3317
+          ]
+        },
+        {
+          "name": "T5XXL_PROMPT",
+          "type": "STRING",
+          "links": [
+            3318
+          ]
+        },
+        {
+          "name": "PROMPT L+",
+          "type": "STRING",
+          "links": [
+            3319
+          ]
+        },
+        {
+          "name": "PROMPT L-",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "WORKFLOW_TUPLE",
+          "type": "TUPLE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereCLIPEncoder"
+      },
+      "widgets_values": [
+        "SD1",
+        "",
+        "",
+        true,
+        "Default",
+        "Default",
+        0,
+        1.2,
+        false,
+        "None",
+        1,
+        "None",
+        1,
+        false,
+        "mean",
+        "comfy++",
+        "",
+        "None",
+        1,
+        "SD1",
+        "",
+        1,
+        ""
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 206,
+      "type": "PrimereFastSeed",
+      "pos": [
+        1166.65966796875,
+        92.59075927734375
+      ],
+      "size": [
+        279.8893737792969,
+        136
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            3320,
+            3321,
+            3322,
+            3323,
+            3324,
+            3325,
+            3326,
+            3327,
+            3328,
+            3329
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereFastSeed",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "Random",
+        42,
+        "Last seed: [109338947419480]"
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 145,
+      "type": "PrimereCKPTLoader",
+      "pos": [
+        1166.729736328125,
+        255.3541259765625
+      ],
+      "size": [
+        282.96502685546875,
+        158
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "CHECKPOINT_NAME",
+          "link": 2659
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 3216
+        },
+        {
+          "name": "concept_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 3135
+        },
+        {
+          "name": "loaded_model",
+          "shape": 7,
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "loaded_clip",
+          "shape": 7,
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "loaded_vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            1228,
+            2637
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [
+            1229
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [
+            1231,
+            1372,
+            2336,
+            2638
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            1233,
+            1234,
+            3072,
+            3305
+          ]
+        }
+      ],
+      "properties": {
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6",
+        "Node name for S&R": "PrimereCKPTLoader"
+      },
+      "widgets_values": [
+        true
+      ],
+      "color": "#0000eb",
+      "bgcolor": "#0000ff"
+    },
+    {
+      "id": 61,
+      "type": "Note",
+      "pos": [
+        1916,
+        -78.02630615234375
+      ],
+      "size": [
+        688.727783203125,
+        91.79890441894531
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Primere BASIC workflow for several concepts: SD1, SD2, SDXL, SD3, StableCascade, Turbo, Flux, KwaiKolors, Hunyuan, Playground, Pony, LCM, Lightning, Hyper, PixartSigma, SANA\nUse with new front-end"
+      ],
+      "color": "#c09430",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      333,
+      66,
+      0,
+      76,
+      6,
+      "STRING"
+    ],
+    [
+      334,
+      66,
+      1,
+      76,
+      7,
+      "STRING"
+    ],
+    [
+      340,
+      66,
+      5,
+      76,
+      8,
+      "STRING"
+    ],
+    [
+      481,
+      16,
+      0,
+      92,
+      0,
+      "IMAGE"
+    ],
+    [
+      647,
+      104,
+      1,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      693,
+      76,
+      3,
+      110,
+      20,
+      "TUPLE"
+    ],
+    [
+      710,
+      111,
+      0,
+      109,
+      0,
+      "STRING"
+    ],
+    [
+      711,
+      92,
+      0,
+      110,
+      21,
+      "INT"
+    ],
+    [
+      712,
+      112,
+      0,
+      76,
+      3,
+      "STRING"
+    ],
+    [
+      713,
+      112,
+      1,
+      76,
+      4,
+      "STRING"
+    ],
+    [
+      714,
+      112,
+      5,
+      76,
+      5,
+      "STRING"
+    ],
+    [
+      716,
+      113,
+      0,
+      76,
+      9,
+      "STRING"
+    ],
+    [
+      717,
+      113,
+      1,
+      76,
+      10,
+      "STRING"
+    ],
+    [
+      718,
+      113,
+      5,
+      76,
+      11,
+      "STRING"
+    ],
+    [
+      812,
+      131,
+      0,
+      104,
+      0,
+      "INT"
+    ],
+    [
+      814,
+      131,
+      0,
+      110,
+      13,
+      "INT"
+    ],
+    [
+      815,
+      131,
+      1,
+      104,
+      1,
+      "INT"
+    ],
+    [
+      817,
+      131,
+      1,
+      110,
+      14,
+      "INT"
+    ],
+    [
+      842,
+      110,
+      0,
+      111,
+      1,
+      "TUPLE"
+    ],
+    [
+      1228,
+      145,
+      0,
+      132,
+      0,
+      "MODEL"
+    ],
+    [
+      1229,
+      145,
+      1,
+      132,
+      1,
+      "CLIP"
+    ],
+    [
+      1231,
+      145,
+      2,
+      104,
+      3,
+      "VAE"
+    ],
+    [
+      1233,
+      145,
+      3,
+      110,
+      8,
+      "STRING"
+    ],
+    [
+      1234,
+      145,
+      3,
+      131,
+      1,
+      "STRING"
+    ],
+    [
+      1372,
+      145,
+      2,
+      16,
+      1,
+      "VAE"
+    ],
+    [
+      2245,
+      104,
+      0,
+      137,
+      8,
+      "LATENT"
+    ],
+    [
+      2313,
+      137,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      2320,
+      178,
+      3,
+      177,
+      0,
+      "IMAGE"
+    ],
+    [
+      2325,
+      178,
+      3,
+      180,
+      1,
+      "IMAGE"
+    ],
+    [
+      2326,
+      179,
+      1,
+      180,
+      2,
+      "COMBO"
+    ],
+    [
+      2327,
+      178,
+      0,
+      180,
+      3,
+      "INT"
+    ],
+    [
+      2328,
+      178,
+      1,
+      180,
+      4,
+      "INT"
+    ],
+    [
+      2329,
+      131,
+      0,
+      178,
+      0,
+      "INT"
+    ],
+    [
+      2330,
+      131,
+      1,
+      178,
+      1,
+      "INT"
+    ],
+    [
+      2331,
+      16,
+      0,
+      178,
+      2,
+      "IMAGE"
+    ],
+    [
+      2332,
+      177,
+      0,
+      79,
+      0,
+      "IMAGE"
+    ],
+    [
+      2334,
+      177,
+      0,
+      111,
+      0,
+      "IMAGE"
+    ],
+    [
+      2336,
+      145,
+      2,
+      180,
+      0,
+      "VAE"
+    ],
+    [
+      2346,
+      132,
+      0,
+      137,
+      0,
+      "MODEL"
+    ],
+    [
+      2637,
+      145,
+      0,
+      177,
+      1,
+      "MODEL"
+    ],
+    [
+      2638,
+      145,
+      2,
+      177,
+      4,
+      "VAE"
+    ],
+    [
+      2639,
+      179,
+      0,
+      177,
+      5,
+      "UPSCALE_MODEL"
+    ],
+    [
+      2641,
+      178,
+      0,
+      177,
+      12,
+      "INT"
+    ],
+    [
+      2642,
+      178,
+      1,
+      177,
+      13,
+      "INT"
+    ],
+    [
+      2643,
+      178,
+      2,
+      177,
+      6,
+      "FLOAT"
+    ],
+    [
+      2651,
+      6,
+      0,
+      8,
+      0,
+      "STRING"
+    ],
+    [
+      2656,
+      7,
+      0,
+      8,
+      1,
+      "STRING"
+    ],
+    [
+      2658,
+      190,
+      0,
+      41,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      2659,
+      190,
+      0,
+      145,
+      0,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      2660,
+      190,
+      0,
+      110,
+      7,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      3058,
+      76,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      3059,
+      76,
+      1,
+      7,
+      0,
+      "STRING"
+    ],
+    [
+      3060,
+      1,
+      0,
+      76,
+      0,
+      "STRING"
+    ],
+    [
+      3061,
+      1,
+      1,
+      76,
+      1,
+      "STRING"
+    ],
+    [
+      3062,
+      1,
+      5,
+      76,
+      2,
+      "STRING"
+    ],
+    [
+      3072,
+      145,
+      3,
+      199,
+      0,
+      "STRING"
+    ],
+    [
+      3073,
+      8,
+      0,
+      199,
+      1,
+      "STRING"
+    ],
+    [
+      3074,
+      8,
+      1,
+      199,
+      2,
+      "STRING"
+    ],
+    [
+      3076,
+      199,
+      0,
+      132,
+      2,
+      "STRING"
+    ],
+    [
+      3133,
+      200,
+      0,
+      110,
+      10,
+      "TUPLE"
+    ],
+    [
+      3134,
+      200,
+      0,
+      132,
+      3,
+      "TUPLE"
+    ],
+    [
+      3135,
+      200,
+      0,
+      145,
+      2,
+      "TUPLE"
+    ],
+    [
+      3136,
+      190,
+      0,
+      201,
+      1,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      3137,
+      190,
+      1,
+      201,
+      0,
+      "STRING"
+    ],
+    [
+      3138,
+      117,
+      0,
+      201,
+      2,
+      "COMBO"
+    ],
+    [
+      3139,
+      117,
+      1,
+      201,
+      3,
+      "COMBO"
+    ],
+    [
+      3140,
+      117,
+      2,
+      201,
+      4,
+      "INT"
+    ],
+    [
+      3141,
+      117,
+      3,
+      201,
+      5,
+      "FLOAT"
+    ],
+    [
+      3142,
+      128,
+      0,
+      201,
+      6,
+      "COMBO"
+    ],
+    [
+      3143,
+      128,
+      1,
+      201,
+      7,
+      "COMBO"
+    ],
+    [
+      3144,
+      128,
+      2,
+      201,
+      8,
+      "INT"
+    ],
+    [
+      3145,
+      128,
+      3,
+      201,
+      9,
+      "FLOAT"
+    ],
+    [
+      3146,
+      126,
+      0,
+      201,
+      10,
+      "COMBO"
+    ],
+    [
+      3147,
+      126,
+      1,
+      201,
+      11,
+      "COMBO"
+    ],
+    [
+      3148,
+      126,
+      2,
+      201,
+      12,
+      "INT"
+    ],
+    [
+      3149,
+      126,
+      3,
+      201,
+      13,
+      "FLOAT"
+    ],
+    [
+      3150,
+      123,
+      0,
+      201,
+      14,
+      "COMBO"
+    ],
+    [
+      3151,
+      123,
+      1,
+      201,
+      15,
+      "COMBO"
+    ],
+    [
+      3152,
+      123,
+      2,
+      201,
+      16,
+      "INT"
+    ],
+    [
+      3153,
+      123,
+      3,
+      201,
+      17,
+      "FLOAT"
+    ],
+    [
+      3154,
+      116,
+      0,
+      201,
+      18,
+      "COMBO"
+    ],
+    [
+      3155,
+      116,
+      1,
+      201,
+      19,
+      "COMBO"
+    ],
+    [
+      3156,
+      116,
+      2,
+      201,
+      20,
+      "INT"
+    ],
+    [
+      3157,
+      116,
+      3,
+      201,
+      21,
+      "FLOAT"
+    ],
+    [
+      3158,
+      115,
+      0,
+      201,
+      22,
+      "COMBO"
+    ],
+    [
+      3159,
+      115,
+      1,
+      201,
+      23,
+      "COMBO"
+    ],
+    [
+      3160,
+      115,
+      2,
+      201,
+      24,
+      "INT"
+    ],
+    [
+      3161,
+      115,
+      3,
+      201,
+      25,
+      "FLOAT"
+    ],
+    [
+      3162,
+      122,
+      0,
+      201,
+      26,
+      "COMBO"
+    ],
+    [
+      3163,
+      122,
+      1,
+      201,
+      27,
+      "COMBO"
+    ],
+    [
+      3164,
+      122,
+      2,
+      201,
+      28,
+      "INT"
+    ],
+    [
+      3165,
+      122,
+      3,
+      201,
+      29,
+      "FLOAT"
+    ],
+    [
+      3166,
+      129,
+      0,
+      201,
+      30,
+      "COMBO"
+    ],
+    [
+      3167,
+      129,
+      1,
+      201,
+      31,
+      "COMBO"
+    ],
+    [
+      3168,
+      129,
+      2,
+      201,
+      32,
+      "INT"
+    ],
+    [
+      3169,
+      129,
+      3,
+      201,
+      33,
+      "FLOAT"
+    ],
+    [
+      3170,
+      125,
+      0,
+      201,
+      34,
+      "COMBO"
+    ],
+    [
+      3171,
+      125,
+      1,
+      201,
+      35,
+      "COMBO"
+    ],
+    [
+      3172,
+      125,
+      2,
+      201,
+      36,
+      "INT"
+    ],
+    [
+      3173,
+      125,
+      3,
+      201,
+      37,
+      "FLOAT"
+    ],
+    [
+      3174,
+      120,
+      0,
+      201,
+      38,
+      "COMBO"
+    ],
+    [
+      3175,
+      120,
+      1,
+      201,
+      39,
+      "COMBO"
+    ],
+    [
+      3176,
+      120,
+      2,
+      201,
+      40,
+      "INT"
+    ],
+    [
+      3177,
+      120,
+      3,
+      201,
+      41,
+      "FLOAT"
+    ],
+    [
+      3178,
+      124,
+      0,
+      201,
+      42,
+      "COMBO"
+    ],
+    [
+      3179,
+      124,
+      1,
+      201,
+      43,
+      "COMBO"
+    ],
+    [
+      3180,
+      124,
+      2,
+      201,
+      44,
+      "INT"
+    ],
+    [
+      3181,
+      124,
+      3,
+      201,
+      45,
+      "FLOAT"
+    ],
+    [
+      3182,
+      118,
+      0,
+      201,
+      46,
+      "COMBO"
+    ],
+    [
+      3183,
+      118,
+      1,
+      201,
+      47,
+      "COMBO"
+    ],
+    [
+      3184,
+      118,
+      2,
+      201,
+      48,
+      "INT"
+    ],
+    [
+      3185,
+      118,
+      3,
+      201,
+      49,
+      "FLOAT"
+    ],
+    [
+      3186,
+      119,
+      0,
+      201,
+      50,
+      "COMBO"
+    ],
+    [
+      3187,
+      119,
+      1,
+      201,
+      51,
+      "COMBO"
+    ],
+    [
+      3188,
+      119,
+      2,
+      201,
+      52,
+      "INT"
+    ],
+    [
+      3189,
+      119,
+      3,
+      201,
+      53,
+      "FLOAT"
+    ],
+    [
+      3190,
+      121,
+      0,
+      201,
+      54,
+      "COMBO"
+    ],
+    [
+      3191,
+      121,
+      1,
+      201,
+      55,
+      "COMBO"
+    ],
+    [
+      3192,
+      121,
+      2,
+      201,
+      56,
+      "INT"
+    ],
+    [
+      3193,
+      121,
+      3,
+      201,
+      57,
+      "FLOAT"
+    ],
+    [
+      3194,
+      195,
+      0,
+      201,
+      58,
+      "COMBO"
+    ],
+    [
+      3195,
+      195,
+      1,
+      201,
+      59,
+      "COMBO"
+    ],
+    [
+      3196,
+      195,
+      2,
+      201,
+      60,
+      "INT"
+    ],
+    [
+      3197,
+      195,
+      3,
+      201,
+      61,
+      "FLOAT"
+    ],
+    [
+      3198,
+      194,
+      0,
+      201,
+      70,
+      "COMBO"
+    ],
+    [
+      3199,
+      194,
+      1,
+      201,
+      71,
+      "COMBO"
+    ],
+    [
+      3200,
+      194,
+      2,
+      201,
+      73,
+      "INT"
+    ],
+    [
+      3201,
+      194,
+      3,
+      201,
+      72,
+      "FLOAT"
+    ],
+    [
+      3202,
+      201,
+      0,
+      137,
+      4,
+      "COMBO"
+    ],
+    [
+      3203,
+      201,
+      0,
+      110,
+      11,
+      "COMBO"
+    ],
+    [
+      3204,
+      201,
+      0,
+      177,
+      10,
+      "COMBO"
+    ],
+    [
+      3205,
+      201,
+      1,
+      137,
+      5,
+      "COMBO"
+    ],
+    [
+      3206,
+      201,
+      1,
+      110,
+      12,
+      "COMBO"
+    ],
+    [
+      3207,
+      201,
+      1,
+      177,
+      11,
+      "COMBO"
+    ],
+    [
+      3208,
+      201,
+      2,
+      110,
+      17,
+      "INT"
+    ],
+    [
+      3209,
+      201,
+      2,
+      137,
+      2,
+      "INT"
+    ],
+    [
+      3210,
+      201,
+      2,
+      177,
+      8,
+      "INT"
+    ],
+    [
+      3211,
+      201,
+      3,
+      137,
+      3,
+      "FLOAT"
+    ],
+    [
+      3212,
+      201,
+      3,
+      110,
+      16,
+      "FLOAT"
+    ],
+    [
+      3213,
+      201,
+      3,
+      177,
+      9,
+      "FLOAT"
+    ],
+    [
+      3214,
+      201,
+      4,
+      200,
+      4,
+      "OVERRIDE_STEPS"
+    ],
+    [
+      3215,
+      201,
+      5,
+      110,
+      9,
+      "STRING"
+    ],
+    [
+      3216,
+      201,
+      5,
+      145,
+      1,
+      "STRING"
+    ],
+    [
+      3217,
+      201,
+      5,
+      137,
+      9,
+      "STRING"
+    ],
+    [
+      3219,
+      201,
+      5,
+      131,
+      2,
+      "STRING"
+    ],
+    [
+      3220,
+      201,
+      6,
+      200,
+      5,
+      "CLIP_SELECTION"
+    ],
+    [
+      3221,
+      201,
+      7,
+      200,
+      6,
+      "VAE_SELECTION"
+    ],
+    [
+      3222,
+      201,
+      8,
+      110,
+      18,
+      "VAE_NAME"
+    ],
+    [
+      3223,
+      201,
+      8,
+      110,
+      19,
+      "VAE_NAME"
+    ],
+    [
+      3224,
+      201,
+      8,
+      200,
+      7,
+      "VAE_NAME"
+    ],
+    [
+      3225,
+      201,
+      9,
+      200,
+      8,
+      "FLOAT"
+    ],
+    [
+      3226,
+      201,
+      10,
+      200,
+      9,
+      "STRING"
+    ],
+    [
+      3227,
+      201,
+      11,
+      200,
+      10,
+      "INT"
+    ],
+    [
+      3228,
+      201,
+      12,
+      200,
+      11,
+      "FLOAT"
+    ],
+    [
+      3229,
+      201,
+      13,
+      200,
+      12,
+      "STRING"
+    ],
+    [
+      3230,
+      201,
+      14,
+      200,
+      13,
+      "STRING"
+    ],
+    [
+      3231,
+      201,
+      15,
+      200,
+      14,
+      "STRING"
+    ],
+    [
+      3232,
+      201,
+      16,
+      200,
+      15,
+      "STRING"
+    ],
+    [
+      3233,
+      201,
+      17,
+      200,
+      16,
+      "STRING"
+    ],
+    [
+      3234,
+      201,
+      18,
+      200,
+      17,
+      "INT"
+    ],
+    [
+      3235,
+      201,
+      19,
+      200,
+      18,
+      "FLOAT"
+    ],
+    [
+      3236,
+      201,
+      20,
+      200,
+      19,
+      "STRING"
+    ],
+    [
+      3237,
+      201,
+      21,
+      200,
+      20,
+      "STRING"
+    ],
+    [
+      3238,
+      201,
+      22,
+      200,
+      21,
+      "STRING"
+    ],
+    [
+      3239,
+      201,
+      23,
+      200,
+      22,
+      "STRING"
+    ],
+    [
+      3240,
+      201,
+      24,
+      200,
+      23,
+      "STRING"
+    ],
+    [
+      3241,
+      201,
+      25,
+      200,
+      24,
+      "STRING"
+    ],
+    [
+      3242,
+      201,
+      26,
+      200,
+      25,
+      "FLOAT"
+    ],
+    [
+      3243,
+      201,
+      27,
+      200,
+      26,
+      "STRING"
+    ],
+    [
+      3244,
+      201,
+      28,
+      200,
+      27,
+      "STRING"
+    ],
+    [
+      3245,
+      201,
+      29,
+      200,
+      28,
+      "FLUX_HYPER_LORA"
+    ],
+    [
+      3246,
+      201,
+      30,
+      200,
+      29,
+      "STRING"
+    ],
+    [
+      3247,
+      201,
+      31,
+      200,
+      30,
+      "INT"
+    ],
+    [
+      3248,
+      201,
+      32,
+      200,
+      31,
+      "FLOAT"
+    ],
+    [
+      3249,
+      201,
+      33,
+      200,
+      32,
+      "FLUX_TURBO_LORA"
+    ],
+    [
+      3250,
+      201,
+      34,
+      200,
+      33,
+      "STRING"
+    ],
+    [
+      3251,
+      201,
+      35,
+      200,
+      34,
+      "INT"
+    ],
+    [
+      3252,
+      201,
+      36,
+      200,
+      35,
+      "FLOAT"
+    ],
+    [
+      3253,
+      201,
+      37,
+      200,
+      36,
+      "STRING"
+    ],
+    [
+      3254,
+      201,
+      38,
+      200,
+      37,
+      "STRING"
+    ],
+    [
+      3255,
+      201,
+      39,
+      200,
+      38,
+      "STRING"
+    ],
+    [
+      3256,
+      201,
+      40,
+      200,
+      39,
+      "STRING"
+    ],
+    [
+      3257,
+      201,
+      41,
+      200,
+      40,
+      "STRING"
+    ],
+    [
+      3258,
+      201,
+      42,
+      200,
+      41,
+      "STRING"
+    ],
+    [
+      3259,
+      201,
+      43,
+      200,
+      42,
+      "STRING"
+    ],
+    [
+      3260,
+      201,
+      44,
+      200,
+      43,
+      "SD3_HYPER_LORA"
+    ],
+    [
+      3261,
+      201,
+      45,
+      200,
+      44,
+      "INT"
+    ],
+    [
+      3262,
+      201,
+      46,
+      200,
+      45,
+      "FLOAT"
+    ],
+    [
+      3263,
+      201,
+      47,
+      200,
+      46,
+      "STRING"
+    ],
+    [
+      3264,
+      201,
+      48,
+      200,
+      47,
+      "STRING"
+    ],
+    [
+      3265,
+      201,
+      49,
+      200,
+      48,
+      "STRING"
+    ],
+    [
+      3266,
+      201,
+      50,
+      200,
+      49,
+      "STRING"
+    ],
+    [
+      3267,
+      201,
+      51,
+      200,
+      50,
+      "FLOAT"
+    ],
+    [
+      3268,
+      201,
+      52,
+      200,
+      51,
+      "STRING"
+    ],
+    [
+      3269,
+      201,
+      53,
+      200,
+      52,
+      "STRING"
+    ],
+    [
+      3270,
+      201,
+      54,
+      200,
+      53,
+      "STRING"
+    ],
+    [
+      3271,
+      201,
+      55,
+      200,
+      54,
+      "FLOAT"
+    ],
+    [
+      3272,
+      201,
+      56,
+      200,
+      55,
+      "INT"
+    ],
+    [
+      3273,
+      201,
+      57,
+      200,
+      56,
+      "INT"
+    ],
+    [
+      3274,
+      201,
+      58,
+      200,
+      57,
+      "FLOAT"
+    ],
+    [
+      3275,
+      201,
+      59,
+      200,
+      58,
+      "BOOLEAN"
+    ],
+    [
+      3276,
+      201,
+      0,
+      200,
+      0,
+      "COMBO"
+    ],
+    [
+      3277,
+      201,
+      1,
+      200,
+      1,
+      "COMBO"
+    ],
+    [
+      3278,
+      201,
+      2,
+      200,
+      2,
+      "INT"
+    ],
+    [
+      3279,
+      201,
+      3,
+      200,
+      3,
+      "FLOAT"
+    ],
+    [
+      3280,
+      201,
+      60,
+      200,
+      59,
+      "STRING"
+    ],
+    [
+      3281,
+      201,
+      61,
+      200,
+      60,
+      "STRING"
+    ],
+    [
+      3282,
+      201,
+      62,
+      200,
+      61,
+      "STRING"
+    ],
+    [
+      3283,
+      201,
+      63,
+      200,
+      62,
+      "STRING"
+    ],
+    [
+      3284,
+      201,
+      64,
+      200,
+      63,
+      "STRING"
+    ],
+    [
+      3285,
+      203,
+      0,
+      201,
+      62,
+      "COMBO"
+    ],
+    [
+      3286,
+      203,
+      1,
+      201,
+      63,
+      "COMBO"
+    ],
+    [
+      3287,
+      203,
+      2,
+      201,
+      64,
+      "INT"
+    ],
+    [
+      3288,
+      203,
+      3,
+      201,
+      65,
+      "FLOAT"
+    ],
+    [
+      3289,
+      202,
+      0,
+      201,
+      66,
+      "COMBO"
+    ],
+    [
+      3290,
+      202,
+      1,
+      201,
+      67,
+      "COMBO"
+    ],
+    [
+      3291,
+      202,
+      2,
+      201,
+      68,
+      "INT"
+    ],
+    [
+      3292,
+      202,
+      3,
+      201,
+      69,
+      "FLOAT"
+    ],
+    [
+      3301,
+      132,
+      1,
+      205,
+      0,
+      "CLIP"
+    ],
+    [
+      3302,
+      41,
+      0,
+      205,
+      6,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3303,
+      132,
+      5,
+      205,
+      7,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3304,
+      132,
+      6,
+      205,
+      8,
+      "MODEL_KEYWORD"
+    ],
+    [
+      3305,
+      145,
+      3,
+      205,
+      1,
+      "STRING"
+    ],
+    [
+      3307,
+      199,
+      0,
+      205,
+      2,
+      "STRING"
+    ],
+    [
+      3308,
+      199,
+      1,
+      205,
+      3,
+      "STRING"
+    ],
+    [
+      3309,
+      201,
+      5,
+      205,
+      5,
+      "STRING"
+    ],
+    [
+      3310,
+      131,
+      0,
+      205,
+      17,
+      "INT"
+    ],
+    [
+      3311,
+      131,
+      1,
+      205,
+      18,
+      "INT"
+    ],
+    [
+      3312,
+      205,
+      0,
+      137,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      3313,
+      205,
+      0,
+      177,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      3314,
+      205,
+      1,
+      137,
+      7,
+      "CONDITIONING"
+    ],
+    [
+      3315,
+      205,
+      1,
+      177,
+      3,
+      "CONDITIONING"
+    ],
+    [
+      3316,
+      205,
+      2,
+      110,
+      0,
+      "STRING"
+    ],
+    [
+      3317,
+      205,
+      3,
+      110,
+      1,
+      "STRING"
+    ],
+    [
+      3318,
+      205,
+      4,
+      110,
+      3,
+      "STRING"
+    ],
+    [
+      3319,
+      205,
+      5,
+      110,
+      4,
+      "STRING"
+    ],
+    [
+      3320,
+      206,
+      0,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      3321,
+      206,
+      0,
+      7,
+      1,
+      "INT"
+    ],
+    [
+      3322,
+      206,
+      0,
+      110,
+      2,
+      "INT"
+    ],
+    [
+      3323,
+      206,
+      0,
+      112,
+      0,
+      "INT"
+    ],
+    [
+      3324,
+      206,
+      0,
+      113,
+      0,
+      "INT"
+    ],
+    [
+      3325,
+      206,
+      0,
+      104,
+      2,
+      "INT"
+    ],
+    [
+      3326,
+      206,
+      0,
+      137,
+      1,
+      "INT"
+    ],
+    [
+      3327,
+      206,
+      0,
+      177,
+      7,
+      "INT"
+    ],
+    [
+      3328,
+      206,
+      0,
+      190,
+      0,
+      "INT"
+    ],
+    [
+      3329,
+      206,
+      0,
+      131,
+      0,
+      "INT"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Concept sampler group",
+      "bounding": [
+        1916,
+        1136,
+        1586.5799560546875,
+        3129.56005859375
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "File save",
+      "bounding": [
+        3941,
+        25,
+        1268,
+        1257
+      ],
+      "color": "#008040",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Network loader",
+      "bounding": [
+        681,
+        1643,
+        917.3663330078125,
+        684.8231811523438
+      ],
+      "color": "#804000",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "Encoder, sampler, decoder",
+      "bounding": [
+        1916,
+        21,
+        1043,
+        1104
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "Prompt",
+      "bounding": [
+        680,
+        528,
+        998,
+        1103
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 6,
+      "title": "Dashboard settings",
+      "bounding": [
+        679,
+        21,
+        1225,
+        497
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "Upscaler",
+      "bounding": [
+        4141,
+        1292,
+        1070,
+        642
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909091,
+      "offset": [
+        -1223.0958251953125,
+        108.79340362548828
+      ]
+    },
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "frontendVersion": "1.21.7"
+  },
+  "version": 0.4
+}
