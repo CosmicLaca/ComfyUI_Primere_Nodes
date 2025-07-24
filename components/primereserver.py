@@ -456,8 +456,6 @@ async def primere_prompt_saver(request):
     prompt_data = json.loads(post.get('promptdata'))
     myCsvRow = ''
 
-    print(prompt_data)
-
     STYLE_DIR = os.path.join(PRIMERE_ROOT, folder)
     STYLE_SOURCE = os.path.join(STYLE_DIR, f'{name}.{filetype}')
     if os.path.isfile(STYLE_SOURCE):
