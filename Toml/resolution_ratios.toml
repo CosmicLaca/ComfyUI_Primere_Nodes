@@ -22,6 +22,10 @@ side_y = 5
 name = "Old TV screen [4:3]"
 side_x = 4
 side_y = 3
+[RATIO_3_2]
+name = "Wide photo [3:2]"
+side_x = 3
+side_y = 2
 [RATIO_16_9]
 name = "HD screen [16:9]"
 side_x = 16
