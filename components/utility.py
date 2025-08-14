@@ -367,7 +367,6 @@ def getModelType(base_model, model_type):
         res = [ele for ele in SUPPORTED_MODELS if (ele.lower() in model_version.lower())]
         if len(res) > 0:
             model_version = res[0]
-
     return model_version
 
 
