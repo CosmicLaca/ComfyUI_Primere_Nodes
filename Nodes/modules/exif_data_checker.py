@@ -54,7 +54,10 @@ def check_model_from_exif(model_hash_exif, model_name_exif, model_name, model_ha
         model_full_path = checkpointpaths + os.sep + valid_model
 
         if model_hash_check == True:
-            match_model_hash = get_model_hash(model_full_path)
+            is_link = os.path.islink(str(model_full_path))
+            match_model_hash = None
+            if is_link == False:
+                match_model_hash = get_model_hash(model_full_path)
             if match_model_hash == model_hash_exif:
                 model_name = valid_model
             else:

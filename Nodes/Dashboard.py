@@ -3129,7 +3129,10 @@ class PrimereModelKeyword:
                 model_keyword = [selectedKeyword, model_keyword_placement]
             else:
                 ckpt_path = folder_paths.get_full_path("checkpoints", model_name)
-                ModelKvHash = utility.get_model_hash(ckpt_path)
+                is_link = os.path.islink(str(ckpt_path))
+                ModelKvHash = None
+                if is_link == False:
+                    ModelKvHash = utility.get_model_hash(ckpt_path)
                 if ModelKvHash is not None:
                     KEYWORD_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'keywords', 'model-keyword.txt')
                     keywords = utility.get_model_keywords(KEYWORD_PATH, ModelKvHash, model_name)

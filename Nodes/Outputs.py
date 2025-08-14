@@ -269,7 +269,9 @@ class PrimereMetaSave:
                     if 'model' in image_metadata:
                         checkpointpaths = folder_paths.get_folder_paths("checkpoints")[0]
                         model_full_path = checkpointpaths + os.sep + image_metadata['model']
-                        image_metadata['model_hash'] = exif_data_checker.get_model_hash(model_full_path)
+                        is_link = os.path.islink(str(model_full_path))
+                        if is_link == False:
+                            image_metadata['model_hash'] = exif_data_checker.get_model_hash(model_full_path)
 
                 if 'is_sdxl' not in image_metadata:
                     image_metadata['vae'] = 'Baked VAE'
