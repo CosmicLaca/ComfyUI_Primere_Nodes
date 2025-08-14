@@ -358,7 +358,6 @@ def getModelType(base_model, model_type):
                 model_version = type(model_config).__name__
             except:
                 return False
-
     else:
         return False
 
