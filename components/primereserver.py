@@ -14,6 +14,7 @@ from io import BytesIO
 from ..Nodes.Inputs import PrimereStyleLoader
 import csv
 import shutil
+from ..utils import here
 
 '''
 ************ TEST *******************
@@ -315,6 +316,7 @@ async def primere_get_images(request):
     SubdirName = post.get('SubdirName')
     PreviewPath = post.get('PreviewPath')
     supportedImages = ['.jpg', '.png', '.jpeg', '.preview.jpg', '.preview.jpeg', '.preview.png']
+    frontend_source = os.path.join(here, 'front_end')
 
     if PreviewPath == "false":
         subName = str(folder_paths.folder_names_and_paths[SubdirName][0][0])
@@ -326,7 +328,8 @@ async def primere_get_images(request):
             imgFiles = folder_paths.filter_files_extensions(allFiles, supportedImages)
             imagefiles.extend(imgFiles)
     else:
-        subdir = os.path.join(utility.comfy_dir, 'web', 'extensions', 'PrimerePreviews', 'images', str(SubdirName))
+        # subdir = os.path.join(utility.comfy_dir, 'web', 'extensions', 'PrimerePreviews', 'images', str(SubdirName))
+        subdir = os.path.join(frontend_source, 'images', str(SubdirName))
         rootSubdir = Path(subdir).parent
         folder_paths.add_model_folder_path("previewpics_legacy" + SubdirName, subdir)
         allfiles = folder_paths.get_filename_list("previewpics_legacy" + SubdirName)

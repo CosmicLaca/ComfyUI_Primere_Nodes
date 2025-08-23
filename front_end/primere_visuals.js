@@ -3,7 +3,7 @@ import { api } from "/scripts/api.js";
 
 let eventListenerInit = false;
 const realPath = "/extensions/ComfyUI_Primere_Nodes"; //"extensions/Primere";
-const prwPath = "extensions/PrimerePreviews";
+const prwPath = "/extensions/ComfyUI_Primere_Nodes"; //"extensions/PrimerePreviews";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereVisualPromptOrganizerCSV'];
 const stackedClasses = ['PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS'];
 let widget_name = "";

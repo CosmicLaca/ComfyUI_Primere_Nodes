@@ -13,7 +13,7 @@ from .Nodes import Networks
 from .Nodes import Segments
 import shutil
 
-__version__ = "1.1.0"
+__version__ = "1.5.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -45,23 +45,37 @@ if os.path.exists(frontend_target):
     except Exception:
         print('[ERROR] - Cannnot delete Primere front-end folder. Please delete manually: ' + frontend_target + ' from: ' + frontend_source)
 
-if os.path.isdir(frontend_preview_target) == False:
+print('-- *********************** --')
+print(frontend_preview_target)
+print(os.path.isdir(frontend_preview_target))
+
+if os.path.isdir(frontend_preview_target) == True:
     preview_images = os.path.join(frontend_source, 'images')
-    try:
+    print(preview_images)
+    '''try:
         shutil.copytree(preview_images, frontend_preview_target)
         print('Primere initial preview copied to target directory.')
     except Exception:
-        print('[ERROR] - Cannnot copy Primere preview folder to right path. Please delete directory: ' + frontend_preview_target + ' and copy files here manually from: ' + preview_images)
+        print('[ERROR] - Cannnot copy Primere preview folder to right path. Please delete directory: ' + frontend_preview_target + ' and copy files here manually from: ' + preview_images)'''
+    try:
+        shutil.copytree(frontend_preview_target, preview_images, dirs_exist_ok=True, symlinks=False, ignore=None)
+        print('Primere previews copied back to the original node directory.')
+        original_prv_path = os.path.join(comfy_frontend, 'PrimerePreviews')
+        shutil.rmtree(original_prv_path)
+        print('Primere previews removed from Comfy web path.')
+    except Exception:
+        print('[ERROR] - Cannnot copy Primere previews to right path. Please copy manually from: ' + frontend_preview_target + ' to: ' + preview_images)
 
+print('-- ************************ --')
 
 nodes = []
-IGNORE_FRONTEND = ['fonts', 'images', 'keywords', 'jquery', 'vendor']
+IGNORE_FRONTEND = ['fonts', 'keywords', 'jquery', 'vendor']
 mainDirs = list(os.walk(frontend_source))[0][1]
 valid_FElist = [s for s in mainDirs if s not in IGNORE_FRONTEND] + [frontend_source]
 
 for subdirs in valid_FElist:
     scanPath = os.path.join(frontend_source, subdirs)
-    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css'))
+    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css')) + list(Path(scanPath).glob('*.jpg'))
     for regFile in scanFiles:
         nodes.append(regFile)
 
