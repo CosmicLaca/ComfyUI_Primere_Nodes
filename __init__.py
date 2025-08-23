@@ -45,18 +45,8 @@ if os.path.exists(frontend_target):
     except Exception:
         print('[ERROR] - Cannnot delete Primere front-end folder. Please delete manually: ' + frontend_target + ' from: ' + frontend_source)
 
-print('-- *********************** --')
-print(frontend_preview_target)
-print(os.path.isdir(frontend_preview_target))
-
 if os.path.isdir(frontend_preview_target) == True:
     preview_images = os.path.join(frontend_source, 'images')
-    print(preview_images)
-    '''try:
-        shutil.copytree(preview_images, frontend_preview_target)
-        print('Primere initial preview copied to target directory.')
-    except Exception:
-        print('[ERROR] - Cannnot copy Primere preview folder to right path. Please delete directory: ' + frontend_preview_target + ' and copy files here manually from: ' + preview_images)'''
     try:
         shutil.copytree(frontend_preview_target, preview_images, dirs_exist_ok=True, symlinks=False, ignore=None)
         print('Primere previews copied back to the original node directory.')
@@ -65,8 +55,6 @@ if os.path.isdir(frontend_preview_target) == True:
         print('Primere previews removed from Comfy web path.')
     except Exception:
         print('[ERROR] - Cannnot copy Primere previews to right path. Please copy manually from: ' + frontend_preview_target + ' to: ' + preview_images)
-
-print('-- ************************ --')
 
 nodes = []
 IGNORE_FRONTEND = ['fonts', 'keywords', 'jquery', 'vendor']
