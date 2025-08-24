@@ -639,6 +639,7 @@ class PrimereMetaHandler:
     CATEGORY = TREE_INPUTS
     RETURN_TYPES = ("TUPLE", "TUPLE", "IMAGE")
     RETURN_NAMES = ("WORKFLOW_TUPLE", "ORIGINAL_EXIF", "LOADED_IMAGE")
+    OUTPUT_NODE = True
     FUNCTION = "image_meta_handler"
 
     T2I_DIR = os.path.join(folder_paths.models_dir, 'img2text')
@@ -691,7 +692,7 @@ class PrimereMetaHandler:
                 "preferred": ("BOOLEAN", {"default": False, "label_on": "From meta", "label_off": "From workflow"}),
                 "use_preferred": ("BOOLEAN", {"default": False, "label_on": "Use preferred settings", "label_off": "Cancel preferred settings"}),
 
-                "image": (sorted(files),),
+                "image": (sorted(files), {"image_upload": True}),
             },
             "optional": {
                 "workflow_tuple": ("TUPLE", {"default": None, "forceInput": True}),
@@ -1064,6 +1065,8 @@ class PrimereMetaHandler:
                     default_prompt = ['Image of', 'Image creation art style is', 'The dominant thing is', 'The background behind the main thing is', 'Dominant colours on the picture']
 
                     if kwargs['img2prompt_result_control'] == 'External System prompt':
+                        if img2prompt_system_prompt is None:
+                            img2prompt_system_prompt = ', '.join(default_prompt)
                         prompts = img2prompt_system_prompt.split(',')
                         if type(prompts).__name__ != 'list':
                             prompts = [img2prompt_system_prompt]
