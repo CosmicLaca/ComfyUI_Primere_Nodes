@@ -469,7 +469,9 @@ class PrimereStyleLoader:
 
     @staticmethod
     def load_styles_csv(styles_path: str):
-        fileTest = open(styles_path, 'rb').readline()
+        # fileTest = open(styles_path, 'rb').readline()
+        with open(styles_path, 'rb') as tempf:
+            fileTest = tempf.readline()
         result = chardet.detect(fileTest)
         ENCODING = result['encoding']
         if ENCODING == 'ascii':

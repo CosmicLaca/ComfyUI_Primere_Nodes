@@ -158,7 +158,9 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
                     "STRING",
                     "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING", "FLOAT", "INT", "INT", "FLOAT", "BOOLEAN",
-                    "STRING", "STRING", "STRING", "STRING", "STRING"
+                    "STRING", "STRING", "STRING", "STRING", "STRING",
+                    "STRING", "STRING", "STRING", "QWEN_GEN_LIGHTNING_LORA", "FLOAT", "QWEN_GEN_LORA_PRECISION", "INT", "FLOAT",
+                    "STRING", "STRING", "STRING", "QWEN_EDIT_LIGHTNING_LORA", "FLOAT", "QWEN_EDIT_LORA_PRECISION", "INT", "FLOAT",
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -172,8 +174,11 @@ class PrimereModelConceptSelector:
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
                     "KOLORS_PRECISION",
                     "PIXART_MODEL_TYPE", "PIXART_T5_ENCODER", "PIXART_VAE", "PIXART_DENOISE", "PIXART_REFINER_MODEL", "PIXART_REFINER_SAMPLER", "PIXART_REFINER_SCHEDULER", "PIXART_REFINER_CFG", "PIXART_REFINER_STEPS", "PIXART_REFINER_START", "PIXART_REFINER_DENOISE", "PIXART_REFINER_IGNORE_PROMPT",
-                    "SANA_MODEL", "SANA_ENCODER", "SANA_VAE", "SANA_WEIGHT_DTYPE", "SANA_PRECISION"
+                    "SANA_MODEL", "SANA_ENCODER", "SANA_VAE", "SANA_WEIGHT_DTYPE", "SANA_PRECISION",
+                    "QWEN_GEN_MODEL", "QWEN_GEN_CLIP", "QWEN_GEN_VAE", "USE_QWEN_GEN_LIGHTNING_LORA", "QWEN_GEN_LIGHTNING_LORA_VERSION", "QWEN_GEN_LIGHTNING_PRECISION", "QWEN_GEN_LIGHTNING_LORA_STEP", "QWEN_GEN_LIGHTNING_LORA_STRENGTH",
+                    "QWEN_EDIT_MODEL", "QWEN_EDIT_CLIP", "QWEN_EDIT_VAE", "USE_QWEN_EDIT_LIGHTNING_LORA", "QWEN_EDIT_LIGHTNING_LORA_VERSION", "QWEN_EDIT_LIGHTNING_PRECISION", "QWEN_EDIT_LIGHTNING_LORA_STEP", "QWEN_EDIT_LIGHTNING_LORA_STRENGTH",
                     )
+
     FUNCTION = "select_model_concept"
     CATEGORY = TREE_DASHBOARD
 
@@ -297,6 +302,24 @@ class PrimereModelConceptSelector:
             "sana_vae": (["None"] + VAELIST,),
             "sana_weight_dtype": (["Auto", "fp16", "bf16", "fp32"], {"default": "fp16"}),
             "sana_precision": (['fp32', 'fp16', 'quant8', 'quant4'], {"default": "fp16"}),
+
+            "qwen_gen_model": (["None"] + DIFFUSIONLIST,),
+            "qwen_gen_clip": (["None"] + CLIPLIST,),
+            "qwen_gen_vae": (["None"] + VAELIST,),
+            "use_qwen_gen_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
+            "qwen_gen_lightning_lora_version": ([1.0, 1.1], {"default": 1.1}),
+            "qwen_gen_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
+            "qwen_gen_lightning_lora_step": ([4, 8], {"default": 8}),
+            "qwen_gen_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
+
+            "qwen_edit_model": (["None"] + DIFFUSIONLIST,),
+            "qwen_edit_clip": (["None"] + CLIPLIST,),
+            "qwen_edit_vae": (["None"] + VAELIST,),
+            "use_qwen_edit_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
+            "qwen_edit_lightning_lora_version": ([1.0, 1.1], {"default": 1.1}),
+            "qwen_edit_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
+            "qwen_edit_lightning_lora_step": ([4, 8], {"default": 8}),
+            "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -309,8 +332,12 @@ class PrimereModelConceptSelector:
                              flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae,
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
+                             qwen_gen_model, qwen_gen_clip, qwen_gen_vae,
+                             qwen_edit_model, qwen_edit_clip, qwen_edit_vae,
                              override_steps=False,
                              use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
+                             use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
+                             use_qwen_edit_lightning_lora=False, qwen_edit_lightning_lora_version=1.1, qwen_edit_lightning_precision=True, qwen_edit_lightning_lora_step=8, qwen_edit_lightning_lora_strength=1.00,
                              kolors_precision='quant8',
                              pixart_model_type="Auto", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
                              sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16",
@@ -455,6 +482,26 @@ class PrimereModelConceptSelector:
             sd3_hyper_lora_step = None
             sd3_hyper_lora_strength = None
 
+        if model_concept != 'QwenGen':
+            qwen_gen_model = None
+            qwen_gen_clip = None
+            qwen_gen_vae = None
+            use_qwen_gen_lightning_lora = None
+            qwen_gen_lightning_lora_step = None
+            qwen_gen_lightning_lora_strength = None
+            qwen_gen_lightning_lora_version = None
+            qwen_gen_lightning_precision = None
+
+        if model_concept != 'QwenEdit':
+            qwen_edit_model = None
+            qwen_edit_clip = None
+            qwen_edit_vae = None
+            use_qwen_edit_lightning_lora = None
+            qwen_edit_lightning_lora_step = None
+            qwen_edit_lightning_lora_strength = None
+            qwen_edit_lightning_lora_version = None
+            qwen_edit_lightning_precision = None
+
         if model_concept != 'PixartSigma':
             pixart_model_type = None
             pixart_T5_encoder = None
@@ -489,6 +536,11 @@ class PrimereModelConceptSelector:
         if model_concept == 'Flux' and use_flux_turbo_lora == True:
             steps = flux_turbo_lora_step
 
+        if model_concept == 'QwenGen' and use_qwen_gen_lightning_lora == True:
+            steps = qwen_gen_lightning_lora_step
+        if model_concept == 'QwenEdit' and use_qwen_edit_lightning_lora == True:
+            steps = qwen_edit_lightning_lora_step
+
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
             fullpathFile = folder_paths.get_full_path('checkpoints', model_name)
             is_link = os.path.islink(str(fullpathFile))
@@ -499,6 +551,9 @@ class PrimereModelConceptSelector:
                     steps = sd3_hyper_lora_step
             else:
                 steps = sd3_hyper_lora_step
+
+        if '_distill' in model_name.lower() and 'Qwen' in model_concept:
+            cfg_scale = 1
 
         return (sampler_name, scheduler_name, steps, round(cfg_scale, 2),
                 override_steps, model_concept, clip_selection, vae_selection, vae,
@@ -512,7 +567,9 @@ class PrimereModelConceptSelector:
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
                 kolors_precision,
                 pixart_model_type, pixart_T5_encoder, pixart_vae, pixart_denoise, pixart_refiner_model, pixart_refiner_sampler, pixart_refiner_scheduler, pixart_refiner_cfg, pixart_refiner_steps, pixart_refiner_start, pixart_refiner_denoise, pixart_refiner_ignore_prompt,
-                sana_model, sana_encoder, sana_vae, sana_weight_dtype, sana_precision
+                sana_model, sana_encoder, sana_vae, sana_weight_dtype, sana_precision,
+                qwen_gen_model, qwen_gen_clip, qwen_gen_vae, use_qwen_gen_lightning_lora, qwen_gen_lightning_lora_version, qwen_gen_lightning_precision, qwen_gen_lightning_lora_step, qwen_gen_lightning_lora_strength,
+                qwen_edit_model, qwen_edit_clip, qwen_edit_vae, use_qwen_edit_lightning_lora, qwen_edit_lightning_lora_version, qwen_edit_lightning_precision, qwen_edit_lightning_lora_step, qwen_edit_lightning_lora_strength
                 )
 
 class PrimereConceptDataTuple:
@@ -600,6 +657,24 @@ class PrimereConceptDataTuple:
                 "sana_vae": ("STRING", {"forceInput": True}),
                 "sana_weight_dtype": ("STRING", {"forceInput": True}),
                 "sana_precision": ("STRING", {"forceInput": True}),
+
+                "qwen_gen_model": ("STRING", {"forceInput": True}),
+                "qwen_gen_clip": ("STRING", {"forceInput": True}),
+                "qwen_gen_vae":("STRING", {"forceInput": True}),
+                "use_qwen_gen_lightning_lora": ("QWEN_GEN_LIGHTNING_LORA", {"forceInput": True}),
+                "qwen_gen_lightning_lora_version": ("FLOAT", {"forceInput": True}),
+                "qwen_gen_lightning_precision": ("QWEN_GEN_LORA_PRECISION", {"forceInput": True}),
+                "qwen_gen_lightning_lora_step": ("INT", {"default": 8, "forceInput": True}),
+                "qwen_gen_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True}),
+
+                "qwen_edit_model": ("STRING", {"forceInput": True}),
+                "qwen_edit_clip": ("STRING", {"forceInput": True}),
+                "qwen_edit_vae": ("STRING", {"forceInput": True}),
+                "use_qwen_edit_lightning_lora": ("QWEN_EDIT_LIGHTNING_LORA", {"forceInput": True}),
+                "qwen_edit_lightning_lora_version": ("FLOAT", {"forceInput": True}),
+                "qwen_edit_lightning_precision": ("QWEN_EDIT_LORA_PRECISION", {"forceInput": True}),
+                "qwen_edit_lightning_lora_step": ("INT", {"default": 8, "forceInput": True}),
+                "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True})
             },
         }
 
@@ -645,6 +720,8 @@ class PrimereCKPTLoader:
                           use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125, use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
                           hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
                           sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
+                          qwen_gen_model=None, qwen_gen_clip=None, qwen_gen_vae=None, use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
+                          qwen_edit_model=None, qwen_edit_clip=None, qwen_edit_vae=None, use_qwen_edit_lightning_lora=False, qwen_edit_lightning_lora_version=1.1, qwen_edit_lightning_precision=True, qwen_edit_lightning_lora_step=8, qwen_edit_lightning_lora_strength=1.00,
                           kolors_precision='quant8',
                           pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
                           sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16"
@@ -750,6 +827,40 @@ class PrimereCKPTLoader:
                 sd3_hyper_lora_step = concept_data['sd3_hyper_lora_step']
             if 'sd3_hyper_lora_strength' in concept_data:
                 sd3_hyper_lora_strength = concept_data['sd3_hyper_lora_strength']
+
+            if 'qwen_gen_model' in concept_data:
+                qwen_gen_model = concept_data['qwen_gen_model']
+            if 'qwen_gen_clip' in concept_data:
+                qwen_gen_clip = concept_data['qwen_gen_clip']
+            if 'qwen_gen_vae' in concept_data:
+                qwen_gen_vae = concept_data['qwen_gen_vae']
+            if 'use_qwen_gen_lightning_lora' in concept_data:
+                use_qwen_gen_lightning_lora = concept_data['use_qwen_gen_lightning_lora']
+            if 'qwen_gen_lightning_lora_version' in concept_data:
+                qwen_gen_lightning_lora_version = concept_data['qwen_gen_lightning_lora_version']
+            if 'qwen_gen_lightning_precision' in concept_data:
+                qwen_gen_lightning_precision = concept_data['qwen_gen_lightning_precision']
+            if 'qwen_gen_lightning_lora_step' in concept_data:
+                qwen_gen_lightning_lora_step = concept_data['qwen_gen_lightning_lora_step']
+            if 'qwen_gen_lightning_lora_strength' in concept_data:
+                qwen_gen_lightning_lora_strength = concept_data['qwen_gen_lightning_lora_strength']
+
+            if 'qwen_edit_model' in concept_data:
+                qwen_edit_model = concept_data['qwen_edit_model']
+            if 'qwen_edit_clip' in concept_data:
+                qwen_edit_clip = concept_data['qwen_edit_clip']
+            if 'qwen_edit_vae' in concept_data:
+                qwen_edit_vae = concept_data['qwen_edit_vae']
+            if 'use_qwen_edit_lightning_lora' in concept_data:
+                use_qwen_edit_lightning_lora = concept_data['use_qwen_edit_lightning_lora']
+            if 'qwen_edit_lightning_lora_version' in concept_data:
+                qwen_edit_lightning_lora_version = concept_data['qwen_edit_lightning_lora_version']
+            if 'qwen_edit_lightning_precision' in concept_data:
+                qwen_edit_lightning_precision = concept_data['qwen_edit_lightning_precision']
+            if 'qwen_edit_lightning_lora_step' in concept_data:
+                qwen_edit_lightning_lora_step = concept_data['qwen_edit_lightning_lora_step']
+            if 'qwen_edit_lightning_lora_strength' in concept_data:
+                qwen_edit_lightning_lora_strength = concept_data['qwen_edit_lightning_lora_strength']
 
             if 'kolors_precision' in concept_data:
                 kolors_precision = concept_data['kolors_precision']
@@ -999,9 +1110,6 @@ class PrimereCKPTLoader:
                         LinkPath = Path(str(fullpathFile)).resolve()
                         model_name = Path(LinkPath.parent.parent).stem
 
-                # device = model_management.get_torch_device()
-                # device = "cuda" if torch.cuda.is_available() else "cpu"
-                # offload_device = model_management.unet_offload_device()
                 dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
                 pbar = comfy.utils.ProgressBar(4)
                 model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
@@ -1028,8 +1136,6 @@ class PrimereCKPTLoader:
                 tokenizer = ChatGLMTokenizer.from_pretrained(text_encoder_path)
                 pbar.update(1)
                 CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
-                # KOLORS_MODEL = nodes_kwai.DownloadAndLoadKolorsModel.loadmodel(self, model_name, 'fp16')[0]
-                # CHATGLM3_MODEL = nodes_kwai.DownloadAndLoadChatGLM3.loadmodel(self, 'fp16')[0]
 
                 if vae_name != "Baked":
                     print('1')
@@ -1083,6 +1189,140 @@ class PrimereCKPTLoader:
                             sd3_gguf = sd3_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
                         if str(Path(linkName_D).stem) in sd3_gguf:
                             sd3_gguf = sd3_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
+
+            case 'QwenGen' | 'QwenEdit':
+                FULL_LORA_PATH = None
+                if model_concept == 'QwenGen':
+                    qwen_model = qwen_gen_model
+                if model_concept == 'QwenEdit':
+                    qwen_model = qwen_edit_model
+
+                concept_type = 'qwen_image'
+                qwen_weight_dtype = 'default'
+                fullpathFile = folder_paths.get_full_path('checkpoints', qwen_model)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    model_ext = os.path.splitext(File_link)[1].lower()
+                    if model_ext == '.gguf':
+                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                        qwen_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        if str(Path(linkName_U).stem) in qwen_gguf:
+                            qwen_gguf = qwen_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
+                        if str(Path(linkName_D).stem) in qwen_gguf:
+                            qwen_gguf = qwen_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
+                        MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, qwen_gguf)[0]
+
+                    if model_ext == '.safetensors':
+                        try:
+                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, qwen_model, qwen_weight_dtype)[0]
+                        except Exception:
+                            MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(qwen_model)[0]
+                else:
+                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+
+                if model_concept == 'QwenGen':
+                    QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_gen_clip, concept_type)[0]
+                    QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_gen_vae)[0]
+                if model_concept == 'QwenEdit':
+                    QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_edit_clip, concept_type)[0]
+                    QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_edit_vae)[0]
+
+                if use_qwen_gen_lightning_lora == True:
+                    QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
+                    QWENGEN_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors?download=true'
+                    QWENGEN_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.0.safetensors?download=true'
+                    QWENGEN_8_V1_1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors?download=true'
+                    QWENGEN_8_V1_1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors?download=true'
+
+                    DOWNLOADED_QWENGEN_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0.safetensors')
+                    DOWNLOADED_QWENGEN_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors')
+                    DOWNLOADED_QWENGEN_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.0.safetensors')
+                    DOWNLOADED_QWENGEN_8_V1_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1.safetensors')
+                    DOWNLOADED_QWENGEN_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors')
+
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1, QWENGEN_4_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1_BF16, QWENGEN_4_V1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1, QWENGEN_8_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1, QWENGEN_8_V1_1)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1_BF16, QWENGEN_8_V1_1_BF16)
+
+                    downloaded_filelist_filtered = utility.getDownloadedFiles()
+                    allQwenLoras = list(filter(lambda a: 'qwen-image-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    qwen_gen_ver = f"v{qwen_gen_lightning_lora_version:.1f}"
+
+                    if qwen_gen_lightning_precision == False:
+                        finalLoras = list(filter(lambda a: str(qwen_gen_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() in a.casefold() and qwen_gen_ver.casefold() in a.casefold(), allQwenLoras))
+                    else:
+                        finalLoras = list(filter(lambda a: str(qwen_gen_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_gen_ver.casefold() in a.casefold(), allQwenLoras))
+
+                    if len(finalLoras) > 0:
+                        LORA_FILE = finalLoras[0]
+                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+
+                    if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                        if qwen_gen_lightning_lora_strength != 0:
+                            lora = None
+                            if self.loaded_lora is not None:
+                                if self.loaded_lora[0] == FULL_LORA_PATH:
+                                    lora = self.loaded_lora[1]
+                                else:
+                                    temp = self.loaded_lora
+                                    self.loaded_lora = None
+                                    del temp
+
+                            if lora is None:
+                                lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
+                                self.loaded_lora = (FULL_LORA_PATH, lora)
+                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_gen_lightning_lora_strength, 0)[0]
+
+                if use_qwen_edit_lightning_lora == True:
+                    QWENEDIT_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors?download=true'
+                    QWENEDIT_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors?download=true'
+                    QWENEDIT_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors?download=true'
+                    QWENEDIT_8_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors?download=true'
+
+                    DOWNLOADED_QWENEDIT_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors')
+                    DOWNLOADED_QWENEDIT_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors')
+                    DOWNLOADED_QWENEDIT_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors')
+                    DOWNLOADED_QWENEDIT_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors')
+
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1, QWENEDIT_4_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1_BF16, QWENEDIT_4_V1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1, QWENEDIT_8_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1_1_BF16, QWENEDIT_8_V1_BF16)
+
+                    downloaded_filelist_filtered = utility.getDownloadedFiles()
+                    allQwenLoras = list(filter(lambda a: 'qwen-image-edit-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    qwen_edit_ver = f"v{qwen_edit_lightning_lora_version:.1f}"
+
+                    if qwen_edit_lightning_precision == False:
+                        finalLoras = list(filter(lambda a: str(qwen_edit_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() in a.casefold() and qwen_edit_ver.casefold() in a.casefold(), allQwenLoras))
+                    else:
+                        finalLoras = list(filter(lambda a: str(qwen_edit_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_edit_ver.casefold() in a.casefold(), allQwenLoras))
+
+                    if len(finalLoras) > 0:
+                        LORA_FILE = finalLoras[0]
+                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+
+                    if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                        if qwen_edit_lightning_lora_strength != 0:
+                            lora = None
+                            if self.loaded_lora is not None:
+                                if self.loaded_lora[0] == FULL_LORA_PATH:
+                                    lora = self.loaded_lora[1]
+                                else:
+                                    temp = self.loaded_lora
+                                    self.loaded_lora = None
+                                    del temp
+
+                            if lora is None:
+                                lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
+                                self.loaded_lora = (FULL_LORA_PATH, lora)
+                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_edit_lightning_lora_strength, 0)[0]
+
+                return (MODEL_DIFFUSION,) + (QWEN_CLIP,) + (QWEN_VAE,) + (MODEL_VERSION,)
 
             case 'Flux':
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
@@ -1814,15 +2054,18 @@ class PrimereCLIP:
     def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, model_version="SD1", model_concept="Normal", workflow_tuple=None):
         copy_prompt_to_l = True
 
-        if model_concept == 'PixartSigma' or model_concept == 'StableCascade' or model_concept == 'Hunyuan' or model_concept == 'SD3' or model_concept == 'Hyper' or model_concept == 'Pony':
+        clip_mode_default = ['PixartSigma', 'StableCascade', 'Hunyuan', 'SD3', 'Hyper', 'Pony']
+        if model_concept in clip_mode_default:
             clip_mode = True
             clip_model = 'Default'
             longclip_model = 'Default'
 
-        if model_concept == 'Hunyuan' or model_concept == 'KwaiKolors' or model_concept == 'SD3' or model_concept == 'Playground' or model_concept == 'StableCascade' or model_concept == 'Turbo' or model_concept == 'Flux' or model_concept == 'Lightning':
+        model_version_default = ['Hunyuan', 'KwaiKolors', 'SD3', 'Playground', 'StableCascade', 'Turbo', 'Flux', 'Lightning', 'Illustrious', 'QwenGen', 'QwenEdit']
+        if model_concept in model_version_default:
             model_version = 'SDXL'
 
-        if model_concept == 'StableCascade' or model_concept == 'KwaiKolors' or model_concept == 'Flux' or model_concept == 'Pony' or model_version == 'SD1' or model_version == 'SD2' or model_version == 'SD3' or model_concept == 'Lightning' or model_concept == 'Hunyuan':
+        advanced_default = ['StableCascade', 'KwaiKolors', 'Flux', 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit']
+        if model_concept in advanced_default:
             adv_encode = False
 
         if model_concept == 'Flux':

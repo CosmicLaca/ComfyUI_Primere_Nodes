@@ -663,7 +663,7 @@ class PrimereKSampler:
                                         positive, negative,
                                         latent_image, denoise,
                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                        align_your_steps, noise_extender_ksampler)[0]
+                                        align_your_steps, noise_extender_ksampler, None)[0]
 
                     try:
                         comfy.model_management.soft_empty_cache()
@@ -706,6 +706,15 @@ class PrimereKSampler:
                     scheduler_name = 'normal'
                 samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt)[0]
 
+            case 'QwenGen' | 'QwenEdit':
+                align_your_steps = False
+                samples_out = primeresamplers.PKSampler(self, device, seed, model,
+                                                        steps, cfg, sampler_name, scheduler_name,
+                                                        positive, negative,
+                                                        latent_image, denoise,
+                                                        variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
+                                                        align_your_steps, noise_extender_ksampler, model_sampling)[0]
+
             case  'Flux':
                 WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
                 FLUX_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_selector', prompt)
@@ -729,14 +738,14 @@ class PrimereKSampler:
                                                                 variation_extender, variation_batch_step_original,
                                                                 batch_counter, variation_extender_original,
                                                                 variation_batch_step, variation_level, variation_limit,
-                                                                align_your_steps, noise_extender_ksampler)[0]
+                                                                align_your_steps, noise_extender_ksampler, None)[0]
                     else:
                         samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                                 steps, cfg, sampler_name, scheduler_name,
                                                                 positive, negative,
                                                                 latent_image, denoise,
                                                                 variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                                align_your_steps, noise_extender_ksampler)[0]
+                                                                align_your_steps, noise_extender_ksampler, None)[0]
 
                 if FLUX_SELECTOR == 'GGUF':
                     samples_out = primeresamplers.PKSampler(self, device, seed, model,
@@ -744,7 +753,7 @@ class PrimereKSampler:
                                                             positive, negative,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps, noise_extender_ksampler)[0]
+                                                            align_your_steps, noise_extender_ksampler, None)[0]
 
                 if FLUX_SELECTOR == 'SAFETENSOR':
                     samples_out = primeresamplers.PKSampler(self, device, seed, model,
@@ -752,7 +761,7 @@ class PrimereKSampler:
                                                             positive, negative,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps, noise_extender_ksampler)[0]
+                                                            align_your_steps, noise_extender_ksampler, None)[0]
 
             case _:
                 samples_out = primeresamplers.PKSampler(self, device, seed, model,
@@ -760,7 +769,7 @@ class PrimereKSampler:
                                                         positive, negative,
                                                         latent_image, denoise,
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                        align_your_steps, noise_extender_ksampler)[0]
+                                                        align_your_steps, noise_extender_ksampler, None)[0]
 
         if workflow_tuple is not None:
             workflow_tuple['sampler_settings'] = {}

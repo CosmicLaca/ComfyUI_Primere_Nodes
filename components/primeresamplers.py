@@ -25,7 +25,10 @@ def PKSampler(self, device, seed, model,
               steps, cfg, sampler_name, scheduler_name,
               positive, negative,
               latent_image, denoise,
-              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender):
+              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, model_sampling = None):
+
+    if model_sampling is not None and model_sampling > 0:
+        model = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, 1.0)[0]
 
     if variation_level == True:
         samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
