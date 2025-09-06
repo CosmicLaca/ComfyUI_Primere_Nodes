@@ -1198,22 +1198,29 @@ class PrimereCKPTLoader:
                 is_link = os.path.islink(str(fullpathFile))
                 if is_link == True:
                     File_link = Path(str(fullpathFile)).resolve()
-                    model_ext = os.path.splitext(File_link)[1].lower()
-                    if model_ext == '.gguf':
-                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                        qwen_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                        if str(Path(linkName_U).stem) in qwen_gguf:
-                            qwen_gguf = qwen_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
-                        if str(Path(linkName_D).stem) in qwen_gguf:
-                            qwen_gguf = qwen_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
-                        MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, qwen_gguf)[0]
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    model_ext = os.path.splitext(linkedFileName)[1].lower()
 
-                    if model_ext == '.safetensors':
-                        try:
-                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, qwen_model, qwen_weight_dtype)[0]
-                        except Exception:
-                            MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(qwen_model)[0]
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+
+                    if 'diffusion_models' in str(File_link):
+                        if model_ext == '.gguf':
+                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, qwen_weight_dtype)[0]
+                    elif 'unet' in str(File_link):
+                        if model_ext == '.gguf':
+                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            try:
+                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, qwen_weight_dtype)[0]
+                            except Exception:
+                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
                 else:
                     MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
 
