@@ -1192,14 +1192,9 @@ class PrimereCKPTLoader:
 
             case 'QwenGen' | 'QwenEdit':
                 FULL_LORA_PATH = None
-                if model_concept == 'QwenGen':
-                    qwen_model = qwen_gen_model
-                if model_concept == 'QwenEdit':
-                    qwen_model = qwen_edit_model
-
                 concept_type = 'qwen_image'
                 qwen_weight_dtype = 'default'
-                fullpathFile = folder_paths.get_full_path('checkpoints', qwen_model)
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                 is_link = os.path.islink(str(fullpathFile))
                 if is_link == True:
                     File_link = Path(str(fullpathFile)).resolve()
