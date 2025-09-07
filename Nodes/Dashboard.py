@@ -1202,7 +1202,6 @@ class PrimereCKPTLoader:
                     linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                     linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
                     model_ext = os.path.splitext(linkedFileName)[1].lower()
-
                     if str(Path(linkName_U).stem) in linkedFileName:
                         linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
                     if str(Path(linkName_D).stem) in linkedFileName:
