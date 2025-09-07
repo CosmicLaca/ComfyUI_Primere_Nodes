@@ -1230,7 +1230,7 @@ class PrimereCKPTLoader:
                     QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_edit_clip, concept_type)[0]
                     QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_edit_vae)[0]
 
-                if use_qwen_gen_lightning_lora == True:
+                if use_qwen_gen_lightning_lora == True and model_concept == 'QwenGen':
                     QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
                     QWENGEN_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors?download=true'
                     QWENGEN_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.0.safetensors?download=true'
@@ -1278,7 +1278,7 @@ class PrimereCKPTLoader:
                                 self.loaded_lora = (FULL_LORA_PATH, lora)
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_gen_lightning_lora_strength, 0)[0]
 
-                if use_qwen_edit_lightning_lora == True:
+                if use_qwen_edit_lightning_lora == True and model_concept == 'QwenEdit':
                     QWENEDIT_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors?download=true'
                     QWENEDIT_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors?download=true'
                     QWENEDIT_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors?download=true'
