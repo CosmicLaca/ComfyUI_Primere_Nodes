@@ -47,12 +47,13 @@ MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(512, 2049, 256).tolist()
 # PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
 PREVIEW_ROOT = os.path.join(here, 'front_end', "images")
-SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Turbo", "Flux", "Nunchaku", "QwenGen", "QwenEdit", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio", "Wan"]
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Turbo", "Flux", "Nunchaku", "QwenGen", "QwenEdit", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "AuraFlow", "SD09", "StableAudio", "Wan"]
 CONCEPT_RESOLUTIONS = {
     "512": ['SD09', 'SD1', "Turbo", "SANA512"],
     "768": ['SD2', "LCM"],
-    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Flux", "Nunchaku", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024"],
+    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "Wan"],
     "1328": ["QwenGen", "QwenEdit"],
+    "1280": ["Nunchaku"],
 }
 
 PREVIEW_PATH_BY_TYPE = {

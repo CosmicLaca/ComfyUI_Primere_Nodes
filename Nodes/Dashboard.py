@@ -2682,9 +2682,10 @@ class PrimereResolution:
             "required": {
                 "ratio": (list(namelist.keys()),),
                 "resolution": ("BOOLEAN", {"default": True, "label_on": "Auto", "label_off": "Manual"}),
-                "sd1_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
-                "sdxl_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
-                "turbo_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[0]}),
+                "manual_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
+                # "sd1_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
+                # "sdxl_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
+                # "turbo_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[0]}),
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
@@ -2705,7 +2706,7 @@ class PrimereResolution:
         }
 
     def calculate_imagesize(self, ratio: str, resolution: bool, rnd_orientation: bool, orientation: str, round_to_standard: bool, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, seed: int = 0, model_version: str = "SD1", model_concept: str = 'Auto', **kwargs):
-        square_shape = kwargs['sdxl_res']
+        square_shape = kwargs['manual_res']
 
         if seed < 1:
             seed = random.randint(0, 9)
@@ -2731,7 +2732,7 @@ class PrimereResolution:
                 square_shape = int(kwargs[input_string])
 
         if square_shape is None:
-            square_shape = kwargs['sdxl_res']
+            square_shape = kwargs['manual_res']
 
         standard = 'STANDARD'
         if model_version == 'StableCascade':
