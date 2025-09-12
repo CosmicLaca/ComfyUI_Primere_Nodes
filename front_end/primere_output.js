@@ -91,7 +91,7 @@ class MiniPreviewControl {
     constructor(node) {
         node.onMouseDown = function(event, pos, graphcanvas) {
             if (event.type == 'pointerdown') {
-                if (pos[1] >= 214 && pos[1] <= 234) {
+                if (pos[1] >= 218 && pos[1] <= 248) {
                     showPreviewIfExist(event.clientX, event.clientY);
                 } else {
                     checkPreviewExample();
