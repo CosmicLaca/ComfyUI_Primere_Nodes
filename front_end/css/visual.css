@@ -330,11 +330,23 @@
 #primere_visual_modal .background-QwenEdit {
     background: #b3c07b;
 }
-#primere_visual_modal .background-Wan {
+#primere_visual_modal .background-WanImg {
     background: #85ff90;
+}
+#primere_visual_modal .background-WanT2V {
+    background: #bcff85;
+}
+#primere_visual_modal .background-WanI2V {
+    background: #85ffd0;
 }
 #primere_visual_modal .background-Nunchaku {
     background: #e1a5a5;
+}
+#primere_visual_modal .background-Chroma {
+    background: #f6c9a1;
+}
+#primere_visual_modal .background-AuraFlow {
+    background: #deb8f8;
 }
 #primere_visual_modal .background-Unknown {
     background: #eaf1b8;
@@ -439,12 +451,32 @@
 }
 #primere_visual_modal .ckpt-version.QwenEdit-ckpt::before {
     content: 'QwEd';
-    background: #5f6252;
+    background: #3a3b31;
     color: #ffffff;
 }
-#primere_visual_modal .ckpt-version.Wan-ckpt::before {
-    content: 'Wan';
+#primere_visual_modal .ckpt-version.WanImg-ckpt::before {
+    content: 'WanImg';
     background: #065910;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.WanT2I-ckpt::before {
+    content: 'WanT2I';
+    background: #2d4b14;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.WanI2V-ckpt::before {
+    content: 'WanI2V';
+    background: #05492f;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Chroma-ckpt::before {
+    content: 'Chroma';
+    background: #4b2d14;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.AuraFlow-ckpt::before {
+    content: 'AuraFlow';
+    background: #361c38;
     color: #ffffff;
 }
 #primere_visual_modal .ckpt-version.Nunchaku-ckpt::before {
