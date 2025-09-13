@@ -98,7 +98,7 @@ class PrimereRefinerPrompt:
         REFINER_EMBEDDING = ["EMBEDDING\\" + x for x in folder_paths.get_filename_list("embeddings")]
         REFINER_HYPERNETWORK = ["HYPERNETWORK\\" + x for x in folder_paths.get_filename_list("hypernetworks")]
 
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:23]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:24]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["process_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PROCESS " + concept.upper(), "label_off": "IGNORE " + concept.upper()})
