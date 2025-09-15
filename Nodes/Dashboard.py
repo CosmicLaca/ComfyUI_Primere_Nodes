@@ -203,7 +203,7 @@ class PrimereModelConceptSelector:
     TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
     TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:24]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -307,7 +307,7 @@ class PrimereModelConceptSelector:
             "qwen_gen_clip": (["None"] + CLIPLIST,),
             "qwen_gen_vae": (["None"] + VAELIST,),
             "use_qwen_gen_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
-            "qwen_gen_lightning_lora_version": ([1.0, 1.1], {"default": 1.1}),
+            "qwen_gen_lightning_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
             "qwen_gen_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
             "qwen_gen_lightning_lora_step": ([4, 8], {"default": 8}),
             "qwen_gen_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
@@ -316,7 +316,7 @@ class PrimereModelConceptSelector:
             "qwen_edit_clip": (["None"] + CLIPLIST,),
             "qwen_edit_vae": (["None"] + VAELIST,),
             "use_qwen_edit_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
-            "qwen_edit_lightning_lora_version": ([1.0, 1.1], {"default": 1.1}),
+            "qwen_edit_lightning_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
             "qwen_edit_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
             "qwen_edit_lightning_lora_step": ([4, 8], {"default": 8}),
             "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
@@ -2907,7 +2907,7 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:24]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
@@ -3056,7 +3056,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:24]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
