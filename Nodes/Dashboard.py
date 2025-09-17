@@ -2130,7 +2130,7 @@ class PrimereCLIP:
 
         is_sdxl = 0
         match model_version:
-            case 'SDXL':
+            case 'SDXL' | 'AuraFlow':
                 is_sdxl = 1
 
         t5xxl_prompt = ""
