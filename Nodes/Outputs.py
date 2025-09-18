@@ -26,6 +26,7 @@ from ..Nodes.Visuals import PrimereVisualCKPT
 from ..Nodes.Visuals import PrimereVisualStyle
 from transformers import pipeline
 from torchvision.transforms import functional as TF
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
 
 ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
 
@@ -764,6 +765,8 @@ class PrimereKSampler:
                                                             align_your_steps, noise_extender_ksampler, None)[0]
 
             case _:
+                if model_concept == 'AuraFlow' and model_sampling is not None and model_sampling > 0:
+                    model = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, 1.0)[0]
                 samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                         steps, cfg, sampler_name, scheduler_name,
                                                         positive, negative,

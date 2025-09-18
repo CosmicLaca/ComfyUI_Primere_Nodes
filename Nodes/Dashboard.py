@@ -161,6 +161,7 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "QWEN_GEN_LIGHTNING_LORA", "FLOAT", "QWEN_GEN_LORA_PRECISION", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "QWEN_EDIT_LIGHTNING_LORA", "FLOAT", "QWEN_EDIT_LORA_PRECISION", "INT", "FLOAT",
+                    "STRING", "STRING",
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -177,6 +178,7 @@ class PrimereModelConceptSelector:
                     "SANA_MODEL", "SANA_ENCODER", "SANA_VAE", "SANA_WEIGHT_DTYPE", "SANA_PRECISION",
                     "QWEN_GEN_MODEL", "QWEN_GEN_CLIP", "QWEN_GEN_VAE", "USE_QWEN_GEN_LIGHTNING_LORA", "QWEN_GEN_LIGHTNING_LORA_VERSION", "QWEN_GEN_LIGHTNING_PRECISION", "QWEN_GEN_LIGHTNING_LORA_STEP", "QWEN_GEN_LIGHTNING_LORA_STRENGTH",
                     "QWEN_EDIT_MODEL", "QWEN_EDIT_CLIP", "QWEN_EDIT_VAE", "USE_QWEN_EDIT_LIGHTNING_LORA", "QWEN_EDIT_LIGHTNING_LORA_VERSION", "QWEN_EDIT_LIGHTNING_PRECISION", "QWEN_EDIT_LIGHTNING_LORA_STEP", "QWEN_EDIT_LIGHTNING_LORA_STRENGTH",
+                    "AURAFLOW_CLIP", "AURAFLOW_VAE",
                     )
 
     FUNCTION = "select_model_concept"
@@ -320,6 +322,9 @@ class PrimereModelConceptSelector:
             "qwen_edit_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
             "qwen_edit_lightning_lora_step": ([4, 8], {"default": 8}),
             "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
+
+            "auraflow_clip": (["None"] + CLIPLIST,),
+            "auraflow_vae": (["None"] + VAELIST,),
         },
         "optional": SAMPLER_INPUTS
     }
@@ -334,6 +339,7 @@ class PrimereModelConceptSelector:
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
                              qwen_gen_model, qwen_gen_clip, qwen_gen_vae,
                              qwen_edit_model, qwen_edit_clip, qwen_edit_vae,
+                             auraflow_clip, auraflow_vae,
                              override_steps=False,
                              use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                              use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
@@ -470,6 +476,10 @@ class PrimereModelConceptSelector:
             hunyuan_clip_l = None
             hunyuan_vae = None
 
+        if model_concept != 'AuraFlow':
+            auraflow_clip = None
+            auraflow_vae = None
+
         if model_concept != 'KwaiKolors':
             kolors_precision = None
 
@@ -569,7 +579,8 @@ class PrimereModelConceptSelector:
                 pixart_model_type, pixart_T5_encoder, pixart_vae, pixart_denoise, pixart_refiner_model, pixart_refiner_sampler, pixart_refiner_scheduler, pixart_refiner_cfg, pixart_refiner_steps, pixart_refiner_start, pixart_refiner_denoise, pixart_refiner_ignore_prompt,
                 sana_model, sana_encoder, sana_vae, sana_weight_dtype, sana_precision,
                 qwen_gen_model, qwen_gen_clip, qwen_gen_vae, use_qwen_gen_lightning_lora, qwen_gen_lightning_lora_version, qwen_gen_lightning_precision, qwen_gen_lightning_lora_step, qwen_gen_lightning_lora_strength,
-                qwen_edit_model, qwen_edit_clip, qwen_edit_vae, use_qwen_edit_lightning_lora, qwen_edit_lightning_lora_version, qwen_edit_lightning_precision, qwen_edit_lightning_lora_step, qwen_edit_lightning_lora_strength
+                qwen_edit_model, qwen_edit_clip, qwen_edit_vae, use_qwen_edit_lightning_lora, qwen_edit_lightning_lora_version, qwen_edit_lightning_precision, qwen_edit_lightning_lora_step, qwen_edit_lightning_lora_strength,
+                auraflow_clip, auraflow_vae
                 )
 
 class PrimereConceptDataTuple:
@@ -674,7 +685,10 @@ class PrimereConceptDataTuple:
                 "qwen_edit_lightning_lora_version": ("FLOAT", {"forceInput": True}),
                 "qwen_edit_lightning_precision": ("QWEN_EDIT_LORA_PRECISION", {"forceInput": True}),
                 "qwen_edit_lightning_lora_step": ("INT", {"default": 8, "forceInput": True}),
-                "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True})
+                "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True}),
+
+                "auraflow_clip": ("STRING", {"forceInput": True}),
+                "auraflow_vae": ("STRING", {"forceInput": True})
             },
         }
 
@@ -724,7 +738,8 @@ class PrimereCKPTLoader:
                           qwen_edit_model=None, qwen_edit_clip=None, qwen_edit_vae=None, use_qwen_edit_lightning_lora=False, qwen_edit_lightning_lora_version=1.1, qwen_edit_lightning_precision=True, qwen_edit_lightning_lora_step=8, qwen_edit_lightning_lora_strength=1.00,
                           kolors_precision='quant8',
                           pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
-                          sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16"
+                          sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16",
+                          auraflow_vae=None, auraflow_clip=None
                           ):
 
         playground_sigma_max = 120
@@ -901,6 +916,11 @@ class PrimereCKPTLoader:
             if 'sana_precision' in concept_data:
                 sana_precision = concept_data['sana_precision']
 
+            if 'auraflow_clip' in concept_data:
+                auraflow_clip = concept_data['auraflow_clip']
+            if 'auraflow_vae' in concept_data:
+                auraflow_vae = concept_data['auraflow_vae']
+
         modelname_only = Path(ckpt_name).stem
         MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
         if MODEL_VERSION_ORIGINAL is None:
@@ -930,6 +950,30 @@ class PrimereCKPTLoader:
 
         sd3_gguf = False
         match model_concept:
+            case 'AuraFlow':
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    model_ext = os.path.splitext(linkedFileName)[1].lower()
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+                    if model_ext == '.gguf':
+                        OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                    else:
+                        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
+
+                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, auraflow_vae)[0]
+                    OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, auraflow_clip, 'stable_diffusion')[0]
+                    return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
+                else:
+                    OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+
             case 'SANA1024' | 'SANA512':
                 precision = sana_precision
                 encoder_path = sana_encoder
@@ -1527,12 +1571,20 @@ class PrimereCKPTLoader:
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                         linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
                         linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        model_ext = os.path.splitext(linkedFileName)[1].lower()
                         if str(Path(linkName_U).stem) in linkedFileName:
                             linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
                         if str(Path(linkName_D).stem) in linkedFileName:
                             linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-                        LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
-                OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+                        if model_ext == '.gguf':
+                            LOADED_CHECKPOINT = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)
+                        else:
+                            LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
+                        clip_list = folder_paths.get_filename_list("clip")
+                        allLSDXLclip = list(filter(lambda a: 'clip_l'.casefold() in a.casefold(), clip_list))
+                        OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, allLSDXLclip[0], 'stable_diffusion')[0]
+                        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+                        LOADED_CHECKPOINT.insert(1, OUTPUT_CLIP)
 
         if model_concept == 'SD3':
             if sd3_gguf != False:
