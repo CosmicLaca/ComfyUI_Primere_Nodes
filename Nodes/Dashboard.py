@@ -1566,6 +1566,7 @@ class PrimereCKPTLoader:
                             LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                         except Exception:
                             LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
+                        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
                     else:
                         File_link = Path(str(fullpathFile)).resolve()
                         linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
