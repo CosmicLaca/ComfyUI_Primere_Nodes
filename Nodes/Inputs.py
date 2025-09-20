@@ -24,6 +24,10 @@ from ..components import hypernetwork
 import json
 from ..components import llm_enhancer
 import datetime
+import math
+import torch.nn.functional as torchfunc
+import torch
+import comfy_extras.nodes_images as nodes_images
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -98,7 +102,7 @@ class PrimereRefinerPrompt:
         REFINER_EMBEDDING = ["EMBEDDING\\" + x for x in folder_paths.get_filename_list("embeddings")]
         REFINER_HYPERNETWORK = ["HYPERNETWORK\\" + x for x in folder_paths.get_filename_list("hypernetworks")]
 
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["process_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PROCESS " + concept.upper(), "label_off": "IGNORE " + concept.upper()})
@@ -1655,3 +1659,120 @@ class PrimereMetaTupleCollector:
         meta_output["aesthetic_score"] = aesthetic_score
 
         return (meta_output,)
+
+class PrimereMultiImage:
+    RETURN_TYPES = ("IMAGE", "IMAGE", "IMAGE")
+    RETURN_NAMES = ("IMAGE_LIST", "IMAGE_BATCH", "IMAGE_CONCAT")
+    FUNCTION = "multi_image_source"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE",),
+                "resize_source": ("BOOLEAN", {"default": True}),
+                "resize_source_mpx": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 48.00, "step": 0.01}),
+                "padded_list": ("BOOLEAN", {"default": True, "label_on": "Pad listed images", "label_off": "Keep original ratio"}),
+                "batch_match": ("BOOLEAN", {"default": True, "label_on": "Pad batched images", "label_off": "Resize batched images"}),
+                "batch_padding_color": (["white", "black"], {"default": "white"}),
+                "concat_resize_mode": ("BOOLEAN", {"default": True, "label_on": "Concated result", "label_off": "Picture"}),
+                "concat_mode": (['Horizontal', 'Vertical', 'Square'], {"default": "Horizontal"}),
+                "concat_match_size": ("BOOLEAN", {"default": True, "label_on": "Match source size", "label_off": "Keep source size"}),
+                "concat_spacing_width": ("INT", {"default": 0, "min": 0, "max": 1024, "step": 2},),
+                "concat_spacing_color": (["white", "black", "red", "green", "blue"], {"default": "white"},),
+            },
+            "optional": {
+                "image_2": ("IMAGE", {"default": None}),
+                "image_3": ("IMAGE", {"default": None}),
+                "image_4": ("IMAGE", {"default": None}),
+                "image_5": ("IMAGE", {"default": None}),
+                "image_6": ("IMAGE", {"default": None}),
+                "image_7": ("IMAGE", {"default": None}),
+                "image_8": ("IMAGE", {"default": None}),
+                "image_9": ("IMAGE", {"default": None}),
+                "image_10": ("IMAGE", {"default": None}),
+                "image_11": ("IMAGE", {"default": None}),
+                "image_12": ("IMAGE", {"default": None})
+            },
+        }
+
+    def multi_image_source(self, resize_source, resize_source_mpx, padded_list, batch_match, batch_padding_color, concat_resize_mode, concat_mode, concat_match_size, concat_spacing_width, concat_spacing_color, **kwargs):
+        image_list = []
+        image_list_cat = []
+        input_data = kwargs
+        image_batch = kwargs['image']
+        image_concat = kwargs['image']
+        cx_pre = None
+        width_res_first = None
+        height_res_first = None
+
+        for inputKey, inputValue in input_data.items():
+            if inputValue is not None and type(inputValue).__name__ == 'Tensor':
+                if height_res_first is None and width_res_first is None and resize_source == False:
+                    width_res_first = inputValue.shape[2]
+                    height_res_first = inputValue.shape[1]
+
+                if resize_source == True:
+                    width_res = inputValue.shape[2]
+                    height_res = inputValue.shape[1]
+                    sourceMPX = (width_res * height_res) / (1024 * 1024)
+                    difference = resize_source_mpx / sourceMPX
+                    squareDiff = math.sqrt(difference)
+                    inputValue = nodes.ImageScaleBy.upscale(self, inputValue, "lanczos", squareDiff)[0]
+                    if height_res_first is None and width_res_first is None:
+                        width_res_first = inputValue.shape[2]
+                        height_res_first = inputValue.shape[1]
+
+                inputValue_batch = inputValue
+                if batch_match == False:
+                    if inputValue_batch.dim() == 3:
+                        inputValue_batch = inputValue.unsqueeze(0)
+                    _, hx, wx, cx = inputValue_batch.shape
+                    if (cx_pre != cx) and (cx_pre is not None):
+                        raise ValueError(f"Channel dimensions must match. Got {cx_pre} and {cx}")
+                    cx_pre = cx
+
+                    if height_res_first is not None and width_res_first is not None:
+                        imagesx_chw = inputValue_batch.permute(0, 3, 1, 2)
+                        is_upscaling = (hx > height_res_first) or (wx > width_res_first)
+                        mode = 'bicubic' if is_upscaling else 'area'
+                        imagesx_chw_resized = torchfunc.interpolate(imagesx_chw, size=(height_res_first, width_res_first), mode=mode, align_corners=False if mode in ['bicubic', 'bilinear'] else None)
+                        inputValue_batch = imagesx_chw_resized.permute(0, 2, 3, 1)
+                else:
+                    if height_res_first is not None and width_res_first is not None:
+                        inputValue_batch = nodes_images.ResizeAndPadImage.resize_and_pad(self, inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
+                image_list_cat.append(inputValue_batch)
+
+                if padded_list == True:
+                    if height_res_first is not None and width_res_first is not None:
+                        inputValue_padded = nodes_images.ResizeAndPadImage.resize_and_pad(self, inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
+                        image_list.append(inputValue_padded)
+                else:
+                    image_list.append(inputValue)
+            image_batch = torch.cat(image_list_cat, dim=0)
+
+            if type(image_list).__name__ == "list" and len(image_list) > 0:
+                if concat_mode == 'Horizontal':
+                    direction = 'right'
+                else:
+                    direction = 'down'
+
+                inputcount = len(image_list)
+                image_concat = image_list[0]
+                if type(image_list).__name__ == "list" and len(image_list) > 1:
+                    for c in range(0, inputcount):
+                        if (c + 1) < inputcount:
+                            new_image = image_list[c + 1]
+                            if type(new_image).__name__ == "Tensor":
+                                image_concat = nodes_images.ImageStitch.stitch(self, image_concat, direction, concat_match_size, concat_spacing_width, concat_spacing_color, new_image)[0]
+
+            if concat_resize_mode == True:
+                width_res = image_concat.shape[2]
+                height_res = image_concat.shape[1]
+                sourceMPX = (width_res * height_res) / (1024 * 1024)
+                difference = resize_source_mpx / sourceMPX
+                squareDiff = math.sqrt(difference)
+                image_concat = nodes.ImageScaleBy.upscale(self, image_concat, "lanczos", squareDiff)[0]
+
+        return (image_list, image_batch, image_concat)

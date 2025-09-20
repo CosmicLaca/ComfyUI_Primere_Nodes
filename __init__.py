@@ -109,6 +109,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLLMEnhancer": Inputs.PrimereLLMEnhancer,
     "PrimereLLMEnhancerOptions": Inputs.PrimereLLMEnhancerOptions,
     "PrimereImgToPrompt": Inputs.PrimereImgToPrompt,
+    "PrimereMultiImage": Inputs.PrimereMultiImage,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -184,6 +185,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLLMEnhancer": "Primere LLM Enhancer",
     "PrimereLLMEnhancerOptions": "Primere LLM Options",
     "PrimereImgToPrompt": "Primere Img2Prompt",
+    "PrimereMultiImage": "Primere Multi Image",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

@@ -348,6 +348,12 @@
 #primere_visual_modal .background-AuraFlow {
     background: #deb8f8;
 }
+#primere_visual_modal .background-HiDream {
+    background: #eceebe;
+}
+#primere_visual_modal .background-Mochi {
+    background: #ffbec8;
+}
 #primere_visual_modal .background-Unknown {
     background: #eaf1b8;
 }
@@ -480,7 +486,17 @@
     color: #ffffff;
 }
 #primere_visual_modal .ckpt-version.Nunchaku-ckpt::before {
-    content: 'Nunch';
+    content: 'Nunchaku';
+    background: #462020;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.HiDream-ckpt::before {
+    content: 'HiDream';
+    background: #361c38;
+    color: #ffffff;
+}
+#primere_visual_modal .ckpt-version.Mochi-ckpt::before {
+    content: 'Mochi';
     background: #462020;
     color: #ffffff;
 }
@@ -565,7 +581,6 @@ div#primere_previewbox div.preview_closebutton {
     display: inline;
     padding: 10px;
     text-align: center;
-    margin-top: 1em;
     font-style: normal;
     box-shadow: inset 1px 1px 3px #bdbdbd;
     margin-top: 15px;

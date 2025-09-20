@@ -62,6 +62,7 @@ from ..components.sana.diffusion.utils.config import SanaConfig
 from ..components.sana.diffusion.model.utils import prepare_prompt_ar
 from transformers import AutoTokenizer, T5Tokenizer, T5EncoderModel, AutoModelForCausalLM, BitsAndBytesConfig
 from ..components.sana.diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST
+import node_helpers
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -205,7 +206,7 @@ class PrimereModelConceptSelector:
     TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
     TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -2071,6 +2072,8 @@ class PrimereCLIP:
                 "enhanced_prompt_usage": (['None', 'Add', 'Replace', 'T5-XXL'], {"default": "T5-XXL"}),
                 "enhanced_prompt_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "model_concept": ("STRING", {"default": "SD1", "forceInput": True}),
+                "edit_image_list": ("IMAGE", {"forceInput": True}, {"default": None}),
+                "edit_vae": ("VAE", {"forceInput": True}, {"default": None}),
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lora_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
                 "lycoris_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
@@ -2105,7 +2108,7 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, model_version="SD1", model_concept="Normal", workflow_tuple=None):
+    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, model_version="SDXL", model_concept="Normal", edit_image_list=None, edit_vae=None, workflow_tuple=None):
         copy_prompt_to_l = True
 
         clip_mode_default = ['PixartSigma', 'StableCascade', 'Hunyuan', 'SD3', 'Hyper', 'Pony', 'AuraFlow']
@@ -2410,6 +2413,37 @@ class PrimereCLIP:
                 sana_embs_neg = embs_minus * emb_minus_masks.unsqueeze(-1)
 
                 return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+
+        if model_concept == 'QwenEdit' and edit_image_list is not None and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor"):
+            if type(edit_image_list).__name__ != "list" and type(edit_image_list).__name__ == "Tensor":
+                edit_image_list = [edit_image_list]
+
+            positive_text = utility.DiT_cleaner(positive_text)
+            negative_text = utility.DiT_cleaner(negative_text)
+
+            reference_images = []
+            reference_latents = []
+
+            for edit_image in edit_image_list:
+                samples = edit_image.movedim(-1, 1)
+                image = samples.movedim(1, -1)
+                images = image[:, :, :, :3]
+                reference_images.append(images)
+                if edit_vae is not None:
+                    ref_latent = edit_vae.encode(edit_image[:, :, :, :3])
+                    reference_latents.append(ref_latent)
+                else:
+                    reference_latents = [None]
+
+            tokens_pos = clip.tokenize(positive_text, images=reference_images)
+            conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
+            if len(reference_latents) > 0 and reference_latents[0] is not None:
+               conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": reference_latents}, append=True)
+
+            tokens_neg = clip.tokenize(negative_text, images=[])
+            conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
+
+            return (conditioning, conditioning_neg, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
         if model_concept == 'PixartSigma':
             cond_pos_ref = None
@@ -2960,7 +2994,7 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
@@ -3109,7 +3143,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
