@@ -2420,6 +2420,8 @@ class PrimereCLIP:
 
             reference_images = []
             reference_latents = []
+            positive_text = utility.DiT_cleaner(positive_text)
+            negative_text = utility.DiT_cleaner(negative_text)
 
             if edit_image_list is not None and len(edit_image_list) > 0:
                 for edit_image in edit_image_list:
