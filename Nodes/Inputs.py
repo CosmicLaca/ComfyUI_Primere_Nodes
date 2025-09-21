@@ -1671,6 +1671,7 @@ class PrimereMultiImage:
         return {
             "required": {
                 "image": ("IMAGE",),
+                "process_list": ("BOOLEAN", {"default": True, "label_on": "Image list on", "label_off": "Image list off"}),
                 "resize_source": ("BOOLEAN", {"default": True}),
                 "resize_source_mpx": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 48.00, "step": 0.01}),
                 "padded_list": ("BOOLEAN", {"default": True, "label_on": "Pad listed images", "label_off": "Keep original ratio"}),
@@ -1697,7 +1698,7 @@ class PrimereMultiImage:
             },
         }
 
-    def multi_image_source(self, resize_source, resize_source_mpx, padded_list, batch_match, batch_padding_color, concat_resize_mode, concat_mode, concat_match_size, concat_spacing_width, concat_spacing_color, **kwargs):
+    def multi_image_source(self, process_list, resize_source, resize_source_mpx, padded_list, batch_match, batch_padding_color, concat_resize_mode, concat_mode, concat_match_size, concat_spacing_width, concat_spacing_color, **kwargs):
         image_list = []
         image_list_cat = []
         input_data = kwargs
@@ -1774,5 +1775,8 @@ class PrimereMultiImage:
                 difference = resize_source_mpx / sourceMPX
                 squareDiff = math.sqrt(difference)
                 image_concat = nodes.ImageScaleBy.upscale(self, image_concat, "lanczos", squareDiff)[0]
+
+        if process_list == False:
+            image_list = None
 
         return (image_list, image_batch, image_concat)

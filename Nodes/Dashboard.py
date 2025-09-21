@@ -2414,31 +2414,32 @@ class PrimereCLIP:
 
                 return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
-        if model_concept == 'QwenEdit' and edit_image_list is not None and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor"):
-            if type(edit_image_list).__name__ != "list" and type(edit_image_list).__name__ == "Tensor":
+        if model_concept == 'QwenEdit' and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor" or edit_image_list is None):
+            if type(edit_image_list).__name__ == "Tensor":
                 edit_image_list = [edit_image_list]
-
-            positive_text = utility.DiT_cleaner(positive_text)
-            negative_text = utility.DiT_cleaner(negative_text)
 
             reference_images = []
             reference_latents = []
 
-            for edit_image in edit_image_list:
-                samples = edit_image.movedim(-1, 1)
-                image = samples.movedim(1, -1)
-                images = image[:, :, :, :3]
-                reference_images.append(images)
-                if edit_vae is not None:
-                    ref_latent = edit_vae.encode(edit_image[:, :, :, :3])
-                    reference_latents.append(ref_latent)
-                else:
-                    reference_latents = [None]
+            if edit_image_list is not None and len(edit_image_list) > 0:
+                for edit_image in edit_image_list:
+                    samples = edit_image.movedim(-1, 1)
+                    image = samples.movedim(1, -1)
+                    images = image[:, :, :, :3]
+                    reference_images.append(images)
+                    if edit_vae is not None:
+                        ref_latent = edit_vae.encode(edit_image[:, :, :, :3])
+                        reference_latents.append(ref_latent)
+                    else:
+                        reference_latents = [None]
 
-            tokens_pos = clip.tokenize(positive_text, images=reference_images)
-            conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
-            if len(reference_latents) > 0 and reference_latents[0] is not None:
-               conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": reference_latents}, append=True)
+                tokens_pos = clip.tokenize(positive_text, images=reference_images)
+                conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
+                if len(reference_latents) > 0 and reference_latents[0] is not None:
+                   conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": reference_latents}, append=True)
+            else:
+                tokens_pos = clip.tokenize(positive_text, images=[])
+                conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
 
             tokens_neg = clip.tokenize(negative_text, images=[])
             conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
