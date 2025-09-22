@@ -1281,18 +1281,24 @@ class PrimereCKPTLoader:
                     QWENGEN_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.0.safetensors?download=true'
                     QWENGEN_8_V1_1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors?download=true'
                     QWENGEN_8_V1_1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors?download=true'
+                    QWENGEN_8_V2 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors?download=true'
+                    QWENGEN_8_V2_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors?download=true'
 
                     DOWNLOADED_QWENGEN_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0.safetensors')
                     DOWNLOADED_QWENGEN_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors')
                     DOWNLOADED_QWENGEN_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.0.safetensors')
                     DOWNLOADED_QWENGEN_8_V1_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1.safetensors')
                     DOWNLOADED_QWENGEN_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors')
+                    DOWNLOADED_QWENGEN_8_V2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V2.0.safetensors')
+                    DOWNLOADED_QWENGEN_8_V2_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors')
 
                     utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1, QWENGEN_4_V1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1_BF16, QWENGEN_4_V1_BF16)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1, QWENGEN_8_V1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1, QWENGEN_8_V1_1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1_BF16, QWENGEN_8_V1_1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V2, QWENGEN_8_V2)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V2_BF16, QWENGEN_8_V2_BF16)
 
                     downloaded_filelist_filtered = utility.getDownloadedFiles()
                     allQwenLoras = list(filter(lambda a: 'qwen-image-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
