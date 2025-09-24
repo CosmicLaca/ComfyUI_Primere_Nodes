@@ -1512,7 +1512,8 @@ class PrimereCKPTLoader:
 
                     if use_flux_nunchaku_lora == True:
                         allNunchakuFluxLoras = list(filter(lambda a: '_nunchaku'.casefold() in a.casefold() or 'insert-anything_extracted'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() in a.casefold() and f"{flux_nunchaku_lora_type}".casefold() in a.casefold() and (f"_{flux_nunchaku_lora_rank}".casefold() in a.casefold() or (f"_{flux_nunchaku_lora_rank}".casefold() not in a.casefold()) and '_nunchaku'.casefold() in a.casefold()), allNunchakuFluxLoras))
+                        print(allNunchakuFluxLoras)
+                        finalLoras = list(filter(lambda a: f"{flux_nunchaku_lora_type}".casefold() in a.casefold() and (f"_{flux_nunchaku_lora_rank}".casefold() in a.casefold() or (f"_{flux_nunchaku_lora_rank}".casefold() not in a.casefold()) and '_nunchaku'.casefold() in a.casefold()), allNunchakuFluxLoras))
                         extra_lora_strength = flux_nunchaku_lora_strength
 
                     print('----------------------------------------')
