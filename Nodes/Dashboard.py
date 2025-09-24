@@ -155,6 +155,7 @@ class PrimereModelConceptSelector:
                     "STRING", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "FLOAT", "STRING", "STRING",
                     "FLUX_HYPER_LORA", "STRING", "INT", "FLOAT", "FLUX_TURBO_LORA", "STRING", "INT", "FLOAT",
+                    "FLUX_SRPO_LORA", "FLUX_SRPO_SVDQ_LORA", "STRING", "INT", "INT", "FLUX_NUNCHAKU_LORA", "STRING", "INT", "INT",
                     "STRING", "STRING", "STRING",
                     "STRING", "STRING", "STRING", "STRING", "SD3_HYPER_LORA", "INT", "FLOAT",
                     "STRING",
@@ -172,6 +173,7 @@ class PrimereModelConceptSelector:
                     "HYPER-SD_SELECTOR", "HYPER-SD_MODEL_STEP", "STRENGTH_HYPERSD_LORA_MODEL",
                     "FLUX_SELECTOR", "FLUX_DIFFUSION_MODEL", "FLUX_WEIGHT_TYPE", "FLUX_GGUF_MODEL", "FLUX_CLIP_T5XXL", "FLUX_CLIP_L", "FLUX_CLIP_GUIDANCE", "FLUX_VAE", "FLUX_SAMPLER",
                     "USE_FLUX_HYPER_LORA", "FLUX_HYPER_LORA_TYPE", "FLUX_HYPER_LORA_STEP", "FLUX_HYPER_LORA_STRENGTH", "USE_FLUX_TURBO_LORA", "FLUX_TURBO_LORA_TYPE", "FLUX_TURBO_LORA_STEP", "FLUX_TURBO_LORA_STRENGTH",
+                    "USE_FLUX_SRPO_LORA", "USE_FLUX_SRPO_SVDQ_LORA", "FLUX_SRPO_LORA_TYPE", "FLUX_SRPO_LORA_RANK", "FLUX_SRPO_LORA_STRENGTH", "USE_FLUX_NUNCHAKU_LORA", "FLUX_NUNCHAKU_LORA_TYPE", "FLUX_NUNCHAKU_LORA_RANK", "FLUX_NUNCHAKU_LORA_STRENGTH",
                     "HUNYUAN_CLIP_T5XXL", "HUNYUAN_CLIP_L", "HUNYUAN_VAE",
                     "SD3_CLIP_G", "SD3_CLIP_L", "SD3_CLIP_T5XXL", "SD3_UNET_VAE", "USE_SD3_HYPER_LORA", "SD3_HYPER_LORA_STEP", "SD3_HYPER_LORA_STRENGTH",
                     "KOLORS_PRECISION",
@@ -272,6 +274,15 @@ class PrimereModelConceptSelector:
             "flux_turbo_lora_type": (["TurboAlpha", "TurboRender"], {"default": "TurboAlpha"}),
             "flux_turbo_lora_step": ([4, 6, 8, 10, 12], {"default": 8}),
             "flux_turbo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+            "use_flux_srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
+            "use_flux_srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO-NUNCHAKU Lora", "label_off": "Ignore SRPO-NUNCHAKU Lora"}),
+            "flux_srpo_lora_type": (["R&O", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
+            "flux_srpo_lora_rank": ([8, 16, 32, 64, 128], {"default": 8}),
+            "flux_srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+            "use_flux_nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
+            "flux_nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer" "anything_extracted"], {"default": "anything_extracted"}),
+            "flux_nunchaku_lora_rank": ([64, 256], {"default": 64}),
+            "flux_nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
@@ -360,6 +371,7 @@ class PrimereModelConceptSelector:
                              strength_hypersd_lora_model=1,
                              flux_sampler='ksampler', flux_selector="DIFFUSION", flux_clip_guidance=3.5,
                              use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev', flux_hyper_lora_step=16, flux_hyper_lora_strength=0.125,  use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
+                             use_flux_srpo_lora=False, use_flux_srpo_svdq_lora=False, flux_srpo_lora_type='oficial', flux_srpo_lora_rank=8, flux_srpo_lora_strength=1, use_flux_nunchaku_lora=False, flux_nunchaku_lora_type='anything_extracted', flux_nunchaku_lora_rank=64, flux_nunchaku_lora_strength=1,
                              **kwargs
                              ):
 
@@ -471,6 +483,15 @@ class PrimereModelConceptSelector:
             flux_turbo_lora_type = None
             flux_turbo_lora_step = None
             flux_turbo_lora_strength = None
+            use_flux_srpo_lora = None
+            use_flux_srpo_svdq_lora = None
+            flux_srpo_lora_type = None
+            flux_srpo_lora_rank = None
+            flux_srpo_lora_strength = None
+            use_flux_nunchaku_lora = None
+            flux_nunchaku_lora_type = None
+            flux_nunchaku_lora_rank = None
+            flux_nunchaku_lora_strength = None
 
         if model_concept != 'Hunyuan':
             hunyuan_clip_t5xxl = None
@@ -574,6 +595,7 @@ class PrimereModelConceptSelector:
                 hypersd_selector, hypersd_model_step, strength_hypersd_lora_model,
                 flux_selector, flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_clip_guidance, flux_vae, flux_sampler,
                 use_flux_hyper_lora, flux_hyper_lora_type, flux_hyper_lora_step, flux_hyper_lora_strength, use_flux_turbo_lora, flux_turbo_lora_type, flux_turbo_lora_step, flux_turbo_lora_strength,
+                use_flux_srpo_lora, use_flux_srpo_svdq_lora, flux_srpo_lora_type, flux_srpo_lora_rank, flux_srpo_lora_strength, use_flux_nunchaku_lora, flux_nunchaku_lora_type, flux_nunchaku_lora_rank, flux_nunchaku_lora_strength,
                 hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                 sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae, use_sd3_hyper_lora, sd3_hyper_lora_step, sd3_hyper_lora_strength,
                 kolors_precision,

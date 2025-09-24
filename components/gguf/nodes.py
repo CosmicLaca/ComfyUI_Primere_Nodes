@@ -148,6 +148,22 @@ class UnetLoaderGGUF:
         model.patch_on_device = patch_on_device
         return (model,)
 
+class QwenSRPOLoaderGGUF:
+    def loadqwenSRPO(self, folder_paths, prompt):
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained(folder_paths)
+        model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.bfloat16, device_map="auto")
+        inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        outputs = model.generate(
+            inputs.input_ids,
+            max_new_tokens=10240,
+            temperature=0.7,
+            top_p=0.9
+        )
+        response = tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+        return response
+
+
 class CLIPLoaderGGUF:
     @classmethod
     def get_filename_list(s):
