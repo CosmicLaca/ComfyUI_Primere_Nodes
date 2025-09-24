@@ -280,7 +280,7 @@ class PrimereModelConceptSelector:
             "flux_srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
             "flux_srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
             "use_flux_nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
-            "flux_nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer" "anything_extracted"], {"default": "anything_extracted"}),
+            "flux_nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer", "anything_extracted"], {"default": "anything_extracted"}),
             "flux_nunchaku_lora_rank": ([64, 256], {"default": 64}),
             "flux_nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
