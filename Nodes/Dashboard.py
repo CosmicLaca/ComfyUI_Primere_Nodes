@@ -276,8 +276,8 @@ class PrimereModelConceptSelector:
             "flux_turbo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
             "use_flux_srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
             "use_flux_srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO-NUNCHAKU Lora", "label_off": "Ignore SRPO-NUNCHAKU Lora"}),
-            "flux_srpo_lora_type": (["R&O", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
-            "flux_srpo_lora_rank": ([8, 16, 32, 64, 128], {"default": 8}),
+            "flux_srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
+            "flux_srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
             "flux_srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
             "use_flux_nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
             "flux_nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer" "anything_extracted"], {"default": "anything_extracted"}),
@@ -764,6 +764,7 @@ class PrimereCKPTLoader:
                           loaded_model=None, loaded_clip=None, loaded_vae=None,
                           flux_selector='DIFFUSION', flux_diffusion=None, flux_weight_dtype=None, flux_gguf=None, flux_clip_t5xxl=None, flux_clip_l=None, flux_clip_guidance=None, flux_vae=None,
                           use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125, use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
+                          use_flux_srpo_lora=False, use_flux_srpo_svdq_lora=False, flux_srpo_lora_type='oficial', flux_srpo_lora_rank=8, flux_srpo_lora_strength=1, use_flux_nunchaku_lora=False, flux_nunchaku_lora_type='anything_extracted', flux_nunchaku_lora_rank=64, flux_nunchaku_lora_strength=1,
                           hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
                           sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                           qwen_gen_model=None, qwen_gen_clip=None, qwen_gen_vae=None, use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
@@ -850,6 +851,24 @@ class PrimereCKPTLoader:
                 flux_turbo_lora_step = concept_data['flux_turbo_lora_step']
             if 'flux_turbo_lora_strength' in concept_data:
                 flux_turbo_lora_strength = concept_data['flux_turbo_lora_strength']
+            if 'use_flux_srpo_lora' in concept_data:
+                use_flux_srpo_lora = concept_data['use_flux_srpo_lora']
+            if 'use_flux_srpo_svdq_lora' in concept_data:
+                use_flux_srpo_svdq_lora = concept_data['use_flux_srpo_svdq_lora']
+            if 'flux_srpo_lora_type' in concept_data:
+                flux_srpo_lora_type = concept_data['flux_srpo_lora_type']
+            if 'flux_srpo_lora_rank' in concept_data:
+                flux_srpo_lora_rank = concept_data['flux_srpo_lora_rank']
+            if 'flux_srpo_lora_strength' in concept_data:
+                flux_srpo_lora_strength = concept_data['flux_srpo_lora_strength']
+            if 'use_flux_nunchaku_lora' in concept_data:
+                use_flux_nunchaku_lora = concept_data['use_flux_nunchaku_lora']
+            if 'flux_nunchaku_lora_type' in concept_data:
+                flux_nunchaku_lora_type = concept_data['flux_nunchaku_lora_type']
+            if 'flux_nunchaku_lora_rank' in concept_data:
+                flux_nunchaku_lora_rank = concept_data['flux_nunchaku_lora_rank']
+            if 'flux_nunchaku_lora_strength' in concept_data:
+                flux_nunchaku_lora_strength = concept_data['flux_nunchaku_lora_strength']
 
             if 'hunyuan_clip_t5xxl' in concept_data:
                 hunyuan_clip_t5xxl = concept_data['hunyuan_clip_t5xxl']
@@ -1408,6 +1427,7 @@ class PrimereCKPTLoader:
                 return (MODEL_DIFFUSION,) + (QWEN_CLIP,) + (QWEN_VAE,) + (MODEL_VERSION,)
 
             case 'Flux':
+                downloaded_filelist_filtered = utility.getDownloadedFiles()
                 if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
                     if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         flux_selector = 'SAFETENSOR'
@@ -1478,6 +1498,48 @@ class PrimereCKPTLoader:
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
                                     FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
 
+                    finalLoras = None
+                    extra_lora_strength = 0
+                    if use_flux_srpo_lora == True and use_flux_srpo_svdq_lora == False and use_flux_nunchaku_lora == False:
+                        allSRPOFluxLoras = list(filter(lambda a: 'srpo_'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() not in a.casefold() and f"{flux_srpo_lora_type}".casefold() in a.casefold() and f"_{flux_srpo_lora_rank}_".casefold() in a.casefold(), allSRPOFluxLoras))
+                        extra_lora_strength = flux_srpo_lora_strength
+
+                    if use_flux_srpo_svdq_lora == True and use_flux_nunchaku_lora == False:
+                        allSRPO_SVDQFluxLoras = list(filter(lambda a: '-srpo_'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() in a.casefold() and f"{flux_srpo_lora_type}".casefold() in a.casefold() and f"_{flux_srpo_lora_rank}_".casefold() in a.casefold(), allSRPO_SVDQFluxLoras))
+                        extra_lora_strength = flux_srpo_lora_strength
+
+                    if use_flux_nunchaku_lora == True:
+                        allNunchakuFluxLoras = list(filter(lambda a: '_nunchaku'.casefold() in a.casefold() or 'insert-anything_extracted'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() in a.casefold() and f"{flux_nunchaku_lora_type}".casefold() in a.casefold() and (f"_{flux_nunchaku_lora_rank}".casefold() in a.casefold() or (f"_{flux_nunchaku_lora_rank}".casefold() not in a.casefold()) and '_nunchaku'.casefold() in a.casefold()), allNunchakuFluxLoras))
+                        extra_lora_strength = flux_nunchaku_lora_strength
+
+                    print('----------------------------------------')
+                    print(finalLoras)
+                    if finalLoras is not None and type(finalLoras).__name__ == "list" and len(finalLoras) > 0:
+                        LORA_FILE = finalLoras[0]
+                        print(LORA_FILE)
+                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
+                        print(FULL_LORA_PATH)
+                        if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                            if flux_hyper_lora_strength != 0:
+                                lora = None
+                                if self.loaded_lora is not None:
+                                    if self.loaded_lora[0] == FULL_LORA_PATH:
+                                        lora = self.loaded_lora[1]
+                                    else:
+                                        temp = self.loaded_lora
+                                        self.loaded_lora = None
+                                        del temp
+
+                                if lora is None:
+                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
+                                    self.loaded_lora = (FULL_LORA_PATH, lora)
+
+                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, extra_lora_strength, 0)[0]
+                    print('----------------------------------------')
+
                     if use_flux_hyper_lora == True:
                         FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
                         FLUX_DEV_FP16_LORA8 = 'https://huggingface.co/nakodanei/Hyper-FLUX.1-dev-8steps-lora-fp16/resolve/main/Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors?download=true'
@@ -1491,7 +1553,6 @@ class PrimereCKPTLoader:
                         utility.fileDownloader(DOWNLOADED_FLUX_DEV_FP16_LORA8, FLUX_DEV_FP16_LORA8)
                         utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA16, FLUX_DEV_LORA16)
 
-                        downloaded_filelist_filtered = utility.getDownloadedFiles()
                         allHyperFluxLoras = list(filter(lambda a: 'hyper-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
                         finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() not in a.casefold(), allHyperFluxLoras))
                         if flux_hyper_lora_type == 'FLUX.1-dev-fp16':
@@ -1529,7 +1590,6 @@ class PrimereCKPTLoader:
                         utility.fileDownloader(DOWNLOADED_FLUX_TURBO_LORA8, FLUX_TURBO_LORA8)
                         utility.fileDownloader(DOWNLOADED_FLUX_TURBORENDER_LORA, FLUX_TURBORENDER_LORA)
 
-                        downloaded_filelist_filtered = utility.getDownloadedFiles()
                         allTurboTFluxLoras = list(filter(lambda a: 'turbo-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
                         LORA_FILE = None
                         if flux_turbo_lora_type == 'TurboAlpha' and 'Turbo-FLUX.1-dev-8steps-lora.safetensors' in allTurboTFluxLoras:
