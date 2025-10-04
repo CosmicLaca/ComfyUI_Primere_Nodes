@@ -25,7 +25,6 @@ import comfy.utils
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 import comfy_extras.nodes_cfg as nodes_cfg
-from comfy_api.latest import io
 from comfy import model_management
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux

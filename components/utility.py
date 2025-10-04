@@ -36,7 +36,6 @@ from transformers import AutoProcessor, AutoModelForCausalLM, AutoTokenizer
 from comfy.utils import common_upscale
 import types
 import comfy.conds
-from comfy_api.latest import ComfyExtension, io
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
@@ -1561,7 +1560,7 @@ def omni_qwen_patch(model):
     new_model.model.extra_conds = types.MethodType(extra_conds, new_model.model)
     return new_model
 
-def cfgnorm(model, strength) -> io.NodeOutput:
+def cfgnorm(model, strength):
     m = model.clone()
     def cfg_norm(args):
         cond_p = args['cond_denoised']
