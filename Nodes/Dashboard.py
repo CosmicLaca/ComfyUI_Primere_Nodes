@@ -24,6 +24,8 @@ import comfy.model_detection
 import comfy.utils
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
+import comfy_extras.nodes_cfg as nodes_cfg
+from comfy_api.latest import io
 from comfy import model_management
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
@@ -1325,6 +1327,7 @@ class PrimereCKPTLoader:
                     QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_edit_clip, concept_type)[0]
                     QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_edit_vae)[0]
 
+
                 if use_qwen_gen_lightning_lora == True and model_concept == 'QwenGen':
                     QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
                     QWENGEN_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors?download=true'
@@ -1423,6 +1426,10 @@ class PrimereCKPTLoader:
                                 lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
                                 self.loaded_lora = (FULL_LORA_PATH, lora)
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_edit_lightning_lora_strength, 0)[0]
+
+                if model_concept == 'QwenEdit':
+                    MODEL_DIFFUSION = utility.omni_qwen_patch(MODEL_DIFFUSION)
+                    MODEL_DIFFUSION = utility.cfgnorm(MODEL_DIFFUSION, 1)
 
                 return (MODEL_DIFFUSION,) + (QWEN_CLIP,) + (QWEN_VAE,) + (MODEL_VERSION,)
 
