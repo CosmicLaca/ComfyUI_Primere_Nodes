@@ -1522,8 +1522,6 @@ class PrimereCKPTLoader:
                         finalLoras = list(filter(lambda a: f"{flux_nunchaku_lora_type}".casefold() in a.casefold() and (f"_{flux_nunchaku_lora_rank}".casefold() in a.casefold() or (f"_{flux_nunchaku_lora_rank}".casefold() not in a.casefold()) and '_nunchaku'.casefold() in a.casefold()), allNunchakuFluxLoras))
                         extra_lora_strength = flux_nunchaku_lora_strength
 
-                    print('----------------------------------------')
-                    print(finalLoras)
                     if finalLoras is not None and type(finalLoras).__name__ == "list" and len(finalLoras) > 0:
                         LORA_FILE = finalLoras[0]
                         print(LORA_FILE)
@@ -1545,7 +1543,6 @@ class PrimereCKPTLoader:
                                     self.loaded_lora = (FULL_LORA_PATH, lora)
 
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, extra_lora_strength, 0)[0]
-                    print('----------------------------------------')
 
                     if use_flux_hyper_lora == True:
                         FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
