@@ -2846,8 +2846,8 @@ class PrimereCLIP:
             return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
 class PrimereResolution:
-    RETURN_TYPES = ("INT", "INT", "INT")
-    RETURN_NAMES = ("WIDTH", "HEIGHT", "SQUARE_SHAPE")
+    RETURN_TYPES = ("INT", "INT", "INT", "STRING")
+    RETURN_NAMES = ("WIDTH", "HEIGHT", "SQUARE_SHAPE", "ASPECT_RATIO")
     FUNCTION = "calculate_imagesize"
     CATEGORY = TREE_DASHBOARD
 
@@ -2873,10 +2873,7 @@ class PrimereResolution:
             "required": {
                 "ratio": (list(namelist.keys()),),
                 "resolution": ("BOOLEAN", {"default": True, "label_on": "Auto", "label_off": "Manual"}),
-                "manual_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
-                # "sd1_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[1]}),
-                # "sdxl_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
-                # "turbo_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[0]}),
+                "manual_res": (utility.VALID_SHAPES, {"default": utility.VALID_SHAPES[2]}),
                 "rnd_orientation": ("BOOLEAN", {"default": False}),
                 "orientation": (["Horizontal", "Vertical"], {"default": "Horizontal"}),
                 "round_to_standard": ("BOOLEAN", {"default": False}),
@@ -2887,7 +2884,7 @@ class PrimereResolution:
             },
             "optional": {
                 "seed": ("INT", {"default": 0, "min": -1, "max": utility.MAX_SEED, "forceInput": True}),
-                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "model_version": ("STRING", {"default": 'SDXL', "forceInput": True}),
                 "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
             },
             "hidden": {
@@ -2896,7 +2893,7 @@ class PrimereResolution:
             }
         }
 
-    def calculate_imagesize(self, ratio: str, resolution: bool, rnd_orientation: bool, orientation: str, round_to_standard: bool, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, seed: int = 0, model_version: str = "SD1", model_concept: str = 'Auto', **kwargs):
+    def calculate_imagesize(self, ratio: str, resolution: bool, rnd_orientation: bool, orientation: str, round_to_standard: bool, calculate_by_custom: bool, custom_side_a: float, custom_side_b: float, seed: int = 0, model_version: str = "SDXL", model_concept: str = 'Auto', **kwargs):
         square_shape = kwargs['manual_res']
 
         if seed < 1:
@@ -2935,7 +2932,7 @@ class PrimereResolution:
         dimension_x = dimensions[0]
         dimension_y = dimensions[1]
 
-        return dimension_x, dimension_y, square_shape
+        return dimension_x, dimension_y, square_shape, f"{dimensions[2]}:{dimensions[3]}"
 
 class PrimereResolutionMultiplierMPX:
     RETURN_TYPES = ("INT", "INT", "FLOAT", "IMAGE")

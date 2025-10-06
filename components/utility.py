@@ -136,8 +136,12 @@ def get_dimensions_by_shape(self, rationame: str, square: int, orientation: str 
     if (orientation == 'Vertical'):
         dimensions = sorted(dimensions)
 
-    return dimensions
+    if (orientation == 'Vertical'):
+        dimensions = dimensions + [ratio_y, ratio_x]
+    else:
+        dimensions = dimensions + [ratio_x, ratio_y]
 
+    return dimensions
 
 def clear_prompt(NETWORK_START, NETWORK_END, promptstring, modelname=False):
     promptstring = promptstring + ' '
