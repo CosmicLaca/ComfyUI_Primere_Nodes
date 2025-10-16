@@ -92,7 +92,7 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
                     samples_c = latentnoise.noisy_samples(model[1], device, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise, seed, noise_extender)[0]
                 else:
                     samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
-            conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.set_prior(self, positive, samples_c)[0]
+            conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.execute(positive, samples_c)[0]
             samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
 
     return samples
@@ -204,7 +204,7 @@ def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, 
     if FLUX_GUIDANCE <= 0:
         CONDITIONING_POS = positive
     else:
-        CONDITIONING_POS = nodes_flux.FluxGuidance.append(self, positive, FLUX_GUIDANCE)[0]
+        CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, FLUX_GUIDANCE)[0]
     FLUX_GUIDER = nodes_custom_sampler.BasicGuider.get_guider(self, model, CONDITIONING_POS)[0]
     FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model, scheduler_name, steps, denoise=denoise)[0]
     FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]

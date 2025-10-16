@@ -64,6 +64,7 @@ from ..components.sana.diffusion.model.utils import prepare_prompt_ar
 from transformers import AutoTokenizer, T5Tokenizer, T5EncoderModel, AutoModelForCausalLM, BitsAndBytesConfig
 from ..components.sana.diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST
 import node_helpers
+from comfy_api.latest import ComfyExtension, io
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -1695,7 +1696,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, sd3_gguf)[0]
 
             if len(LOADED_CHECKPOINT) < 2 or (len(LOADED_CHECKPOINT) >= 2 and type(LOADED_CHECKPOINT[1]).__name__ != 'CLIP') or clip_selection == False:
-                OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.load_clip(self, sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl)[0]
+                OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.execute(sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl)[0]
             else:
                 OUTPUT_CLIP = LOADED_CHECKPOINT[1]
 
@@ -2664,7 +2665,7 @@ class PrimereCLIP:
 
         if model_concept == 'SD3':
             if len(enhanced_prompt) > 1 and enhanced_prompt_usage == 'T5-XXL' and len(t5xxl_prompt) > 5:
-                pos_out = nodes_sd3.CLIPTextEncodeSD3.encode(self, clip, positive_text, positive_text, t5xxl_prompt, 'none')
+                pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
 
                 tokens_neg = clip.tokenize(negative_text)
                 out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
@@ -2810,15 +2811,15 @@ class PrimereCLIP:
                     if FLUX_GUIDANCE is None:
                         FLUX_GUIDANCE = 2
                     if FLUX_SAMPLER == 'ksampler':
-                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
                         if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
                             CONDITIONING_NEG = CONDITIONING_POS
                         else:
-                            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+                            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
                         return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
                     else:
                         if (enhanced_prompt_usage == 'T5-XXL' or style_handling == True) and len(t5xxl_prompt) > 5:
-                            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.encode(self, clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
                             return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
             tokens_pos = clip.tokenize(positive_text)
@@ -2980,8 +2981,8 @@ class PrimereResolutionMultiplierMPX:
                     if upscale_model == 'None':
                         prescaledImage = nodes.ImageScaleBy.upscale(self, image, upscale_method, squareDiffTrigger)[0]
                     else:
-                        loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
-                        prescaledImage = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, image)[0]
+                        loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.execute(upscale_model)[0]
+                        prescaledImage = nodes_upscale_model.ImageUpscaleWithModel.execute(loaded_upscale_model, image)[0]
 
                     image = prescaledImage
                     width = prescaledImage.shape[2]
@@ -3068,13 +3069,13 @@ class PrimereResolutionCoordinatorMPX:
                 else:
                     slave_image = nodes.ImageScale.upscale(self, slave_image, upscale_method, slave_width_resized, slave_height_resized, "disabled")[0]
             else:
-                loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.load_model(self, upscale_model)[0]
+                loaded_upscale_model = nodes_upscale_model.UpscaleModelLoader.execute(upscale_model)[0]
 
-                reference_image_model = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, reference_image)[0]
+                reference_image_model = nodes_upscale_model.ImageUpscaleWithModel.execute(loaded_upscale_model, reference_image)[0]
                 reference_image = nodes.ImageScale.upscale(self, reference_image_model, upscale_method, ref_width_resized, ref_height_resized, "disabled")[0]
 
                 if keep_slave_ratio == True:
-                    slave_image_model = nodes_upscale_model.ImageUpscaleWithModel.upscale(self, loaded_upscale_model, slave_image)[0]
+                    slave_image_model = nodes_upscale_model.ImageUpscaleWithModel.execute(loaded_upscale_model, slave_image)[0]
                     slave_image = nodes.ImageScaleBy.upscale(self, slave_image_model, upscale_method, slave_squareDiff)[0]
 
                 slave_image = nodes.ImageScale.upscale(self, slave_image, upscale_method, slave_width_resized, slave_height_resized, "disabled")[0]
@@ -3611,5 +3612,5 @@ class PrimereUpscaleModel:
         }
 
     def load_upscaler(self, model_name):
-        out = nodes_upscale_model.UpscaleModelLoader.load_model(self, model_name)[0]
+        out = nodes_upscale_model.UpscaleModelLoader.execute(model_name)[0]
         return (out, model_name,)
