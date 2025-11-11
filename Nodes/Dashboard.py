@@ -25,6 +25,7 @@ import comfy.utils
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 import comfy_extras.nodes_cfg as nodes_cfg
+import comfy_extras.nodes_qwen as nodes_qwen
 from comfy import model_management
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
@@ -1428,8 +1429,8 @@ class PrimereCKPTLoader:
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_edit_lightning_lora_strength, 0)[0]
 
                 if model_concept == 'QwenEdit':
-                    MODEL_DIFFUSION = utility.omni_qwen_patch(MODEL_DIFFUSION)
-                    MODEL_DIFFUSION = utility.cfgnorm(MODEL_DIFFUSION, 1)
+                    MODEL_DIFFUSION = nodes_model_advanced.ModelSamplingSD3.patch(self, MODEL_DIFFUSION, 3, 1.0)[0]
+                    MODEL_DIFFUSION = nodes_cfg.CFGNorm.execute(MODEL_DIFFUSION, 1)[0]
 
                 return (MODEL_DIFFUSION,) + (QWEN_CLIP,) + (QWEN_VAE,) + (MODEL_VERSION,)
 
@@ -2520,30 +2521,10 @@ class PrimereCLIP:
             if type(edit_image_list).__name__ == "Tensor":
                 edit_image_list = [edit_image_list]
 
-            reference_images = []
-            reference_latents = []
             positive_text = utility.DiT_cleaner(positive_text)
             negative_text = utility.DiT_cleaner(negative_text)
 
-            if edit_image_list is not None and len(edit_image_list) > 0:
-                for edit_image in edit_image_list:
-                    samples = edit_image.movedim(-1, 1)
-                    image = samples.movedim(1, -1)
-                    images = image[:, :, :, :3]
-                    reference_images.append(images)
-                    if edit_vae is not None:
-                        ref_latent = edit_vae.encode(edit_image[:, :, :, :3])
-                        reference_latents.append(ref_latent)
-                    else:
-                        reference_latents = [None]
-
-                tokens_pos = clip.tokenize(positive_text, images=reference_images)
-                conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
-                if len(reference_latents) > 0 and reference_latents[0] is not None:
-                   conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": reference_latents}, append=True)
-            else:
-                tokens_pos = clip.tokenize(positive_text, images=[])
-                conditioning = clip.encode_from_tokens_scheduled(tokens_pos)
+            conditioning = utility.edit_encoder(clip, positive_text, edit_vae, edit_image_list)
 
             tokens_neg = clip.tokenize(negative_text, images=[])
             conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)

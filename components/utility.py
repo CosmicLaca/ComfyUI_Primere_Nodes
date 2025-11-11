@@ -36,6 +36,7 @@ from transformers import AutoProcessor, AutoModelForCausalLM, AutoTokenizer
 from comfy.utils import common_upscale
 import types
 import comfy.conds
+import node_helpers
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
@@ -1437,143 +1438,36 @@ def getValidAscorerPaths(model_root):
                 valid_ae_path.append(subdir)
     return valid_ae_path
 
+def edit_encoder(clip, prompt, vae, images=None):
+    images_vl = []
+    ref_latents = []
+    llama_template = "<|im_start|>system\nDescribe the key features of the input image (color, shape, size, texture, objects, background), then explain how the user's text instruction should alter or modify the image. Generate a new image that meets the user's requirements while maintaining consistency with the original input where appropriate.<|im_end|>\n<|im_start|>user\n{}<|im_end|>\n<|im_start|>assistant\n"
+    image_prompt = ""
 
-def new_forward(self, x, timesteps, context, attention_mask=None, guidance: torch.Tensor = None, ref_latents=None, transformer_options={}, control=None, omini_latents=None, omini_latents_deltas=None, **kwargs):
-    timestep = timesteps
-    encoder_hidden_states = context
-    encoder_hidden_states_mask = attention_mask
+    for i, image in enumerate(images):
+        if image is not None:
+            samples = image.movedim(-1, 1)
+            total = int(384 * 384)
 
-    hidden_states, img_ids, orig_shape = self.process_img(x)
-    num_embeds = hidden_states.shape[1]
+            scale_by = math.sqrt(total / (samples.shape[3] * samples.shape[2]))
+            width = round(samples.shape[3] * scale_by)
+            height = round(samples.shape[2] * scale_by)
 
-    if ref_latents is not None:
-        h = 0
-        w = 0
-        index = 0
-        index_ref_method = kwargs.get("ref_latents_method", "index") == "index"
-        for ref in ref_latents:
-            if index_ref_method:
-                index += 1
-                h_offset = 0
-                w_offset = 0
-            else:
-                index = 1
-                h_offset = 0
-                w_offset = 0
-                if ref.shape[-2] + h > ref.shape[-1] + w:
-                    w_offset = w
-                else:
-                    h_offset = h
-                h = max(h, ref.shape[-2] + h_offset)
-                w = max(w, ref.shape[-1] + w_offset)
+            s = comfy.utils.common_upscale(samples, width, height, "area", "disabled")
+            images_vl.append(s.movedim(1, -1))
+            if vae is not None:
+                total = int(1024 * 1024)
+                scale_by = math.sqrt(total / (samples.shape[3] * samples.shape[2]))
+                width = round(samples.shape[3] * scale_by / 8.0) * 8
+                height = round(samples.shape[2] * scale_by / 8.0) * 8
 
-            kontext, kontext_ids, _ = self.process_img(ref, index=index, h_offset=h_offset, w_offset=w_offset)
-            hidden_states = torch.cat([hidden_states, kontext], dim=1)
-            img_ids = torch.cat([img_ids, kontext_ids], dim=1)
+                s = comfy.utils.common_upscale(samples, width, height, "area", "disabled")
+                ref_latents.append(vae.encode(s.movedim(1, -1)[:, :, :, :3]))
 
-    if omini_latents is not None:
-        for lat, delta in zip(omini_latents, omini_latents_deltas):
-            i_offset, h_offset, w_offset = delta[0, 0, 0].tolist()
-            kontext, kontext_ids, _ = self.process_img(lat, index=1 + i_offset, h_offset=h_offset * self.patch_size, w_offset=w_offset * self.patch_size)
-            hidden_states = torch.cat([hidden_states, kontext], dim=1)
-            img_ids = torch.cat([img_ids, kontext_ids], dim=1)
+            image_prompt += "Picture {}: <|vision_start|><|image_pad|><|vision_end|>".format(i + 1)
 
-    txt_start = round(max(((x.shape[-1] + (self.patch_size // 2)) // self.patch_size) // 2, ((x.shape[-2] + (self.patch_size // 2)) // self.patch_size) // 2))
-    txt_ids = torch.arange(txt_start, txt_start + context.shape[1], device=x.device).reshape(1, -1, 1).repeat(x.shape[0], 1, 3)
-    ids = torch.cat((txt_ids, img_ids), dim=1)
-    image_rotary_emb = self.pe_embedder(ids).squeeze(1).unsqueeze(2).to(x.dtype)
-    del ids, txt_ids, img_ids
-
-    hidden_states = self.img_in(hidden_states)
-    encoder_hidden_states = self.txt_norm(encoder_hidden_states)
-    encoder_hidden_states = self.txt_in(encoder_hidden_states)
-
-    if guidance is not None:
-        guidance = guidance * 1000
-
-    temb = (
-        self.time_text_embed(timestep, hidden_states)
-        if guidance is None
-        else self.time_text_embed(timestep, guidance, hidden_states)
-    )
-
-    patches_replace = transformer_options.get("patches_replace", {})
-    patches = transformer_options.get("patches", {})
-    blocks_replace = patches_replace.get("dit", {})
-
-    for i, block in enumerate(self.transformer_blocks):
-        if ("double_block", i) in blocks_replace:
-            def block_wrap(args):
-                out = {}
-                out["txt"], out["img"] = block(hidden_states=args["img"], encoder_hidden_states=args["txt"], encoder_hidden_states_mask=encoder_hidden_states_mask, temb=args["vec"], image_rotary_emb=args["pe"])
-                return out
-
-            out = blocks_replace[("double_block", i)]({"img": hidden_states, "txt": encoder_hidden_states, "vec": temb, "pe": image_rotary_emb}, {"original_block": block_wrap})
-            hidden_states = out["img"]
-            encoder_hidden_states = out["txt"]
-        else:
-            encoder_hidden_states, hidden_states = block(
-                hidden_states=hidden_states,
-                encoder_hidden_states=encoder_hidden_states,
-                encoder_hidden_states_mask=encoder_hidden_states_mask,
-                temb=temb,
-                image_rotary_emb=image_rotary_emb,
-            )
-
-        if "double_block" in patches:
-            for p in patches["double_block"]:
-                out = p({"img": hidden_states, "txt": encoder_hidden_states, "x": x, "block_index": i})
-                hidden_states = out["img"]
-                encoder_hidden_states = out["txt"]
-
-        if control is not None:  # Controlnet
-            control_i = control.get("input")
-            if i < len(control_i):
-                add = control_i[i]
-                if add is not None:
-                    hidden_states += add
-
-    hidden_states = self.norm_out(hidden_states, temb)
-    hidden_states = self.proj_out(hidden_states)
-
-    hidden_states = hidden_states[:, :num_embeds].view(orig_shape[0], orig_shape[-2] // 2, orig_shape[-1] // 2, orig_shape[1], 2, 2)
-    hidden_states = hidden_states.permute(0, 3, 1, 4, 2, 5)
-    return hidden_states.reshape(orig_shape)[:, :, :, :x.shape[-2], :x.shape[-1]]
-
-
-def extra_conds(self, **kwargs):
-    out = self._extra_conds(**kwargs)
-
-    omini_latents = kwargs.get("omini_latents", None)
-    if omini_latents is not None:
-        latents = []
-        deltas = []
-        for cond in omini_latents:
-            lat = cond["latent"]
-            delta = cond["delta"]
-            latents.append(self.process_latent_in(lat))
-            deltas.append(torch.tensor([[[delta]]], device=lat.device))
-        out['omini_latents'] = comfy.conds.CONDList(latents)
-        out['omini_latents_deltas'] = comfy.conds.CONDList(deltas)
-    return out
-def omni_qwen_patch(model):
-    new_model = model.clone()
-    diffusion_model = new_model.get_model_object('diffusion_model')
-    diffusion_model._forward = types.MethodType(new_forward, diffusion_model)
-    new_model.model._extra_conds = model.model.extra_conds
-    new_model.model.extra_conds = types.MethodType(extra_conds, new_model.model)
-    return new_model
-
-def cfgnorm(model, strength):
-    m = model.clone()
-    def cfg_norm(args):
-        cond_p = args['cond_denoised']
-        pred_text_ = args["denoised"]
-
-        norm_full_cond = torch.norm(cond_p, dim=1, keepdim=True)
-        norm_pred_text = torch.norm(pred_text_, dim=1, keepdim=True)
-        scale = (norm_full_cond / (norm_pred_text + 1e-8)).clamp(min=0.0, max=1.0)
-        return pred_text_ * scale * strength
-
-    m.set_model_sampler_post_cfg_function(cfg_norm)
-    return m
+    tokens = clip.tokenize(image_prompt + prompt, images=images_vl, llama_template=llama_template)
+    conditioning = clip.encode_from_tokens_scheduled(tokens)
+    if len(ref_latents) > 0:
+        conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": ref_latents}, append=True)
+    return conditioning

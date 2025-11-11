@@ -714,7 +714,7 @@ class PrimereKSampler:
                                                         positive, negative,
                                                         latent_image, denoise,
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                        align_your_steps, noise_extender_ksampler, model_sampling)[0]
+                                                        align_your_steps, noise_extender_ksampler, None)[0]
 
             case  'Flux':
                 WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
