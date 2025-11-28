@@ -325,7 +325,7 @@ class PrimereModelConceptSelector:
             "qwen_gen_vae": (["None"] + VAELIST,),
             "use_qwen_gen_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
             "qwen_gen_lightning_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
-            "qwen_gen_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
+            "qwen_gen_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
             "qwen_gen_lightning_lora_step": ([4, 8], {"default": 8}),
             "qwen_gen_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
 
@@ -333,8 +333,8 @@ class PrimereModelConceptSelector:
             "qwen_edit_clip": (["None"] + CLIPLIST,),
             "qwen_edit_vae": (["None"] + VAELIST,),
             "use_qwen_edit_lightning_lora": ("BOOLEAN", {"default": False, "label_on": "Use lightning Lora", "label_off": "Ignore Lora"}),
-            "qwen_edit_lightning_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
-            "qwen_edit_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "BF32", "label_off": "BF16"}),
+            "qwen_edit_lightning_lora_version": ([1.0], {"default": 1.0}),
+            "qwen_edit_lightning_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
             "qwen_edit_lightning_lora_step": ([4, 8], {"default": 8}),
             "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
 
@@ -1292,6 +1292,9 @@ class PrimereCKPTLoader:
                 FULL_LORA_PATH = None
                 concept_type = 'qwen_image'
                 qwen_weight_dtype = 'default'
+                if 'e4m3fn' in ckpt_name:
+                    qwen_weight_dtype = 'e4m3fn'
+
                 fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                 is_link = os.path.islink(str(fullpathFile))
                 if is_link == True:
@@ -1332,6 +1335,8 @@ class PrimereCKPTLoader:
                 if use_qwen_gen_lightning_lora == True and model_concept == 'QwenGen':
                     QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
                     QWENGEN_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors?download=true'
+                    QWENGEN_4_V2 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors?download=true'
+                    QWENGEN_4_V2_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors?download=true'
                     QWENGEN_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.0.safetensors?download=true'
                     QWENGEN_8_V1_1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors?download=true'
                     QWENGEN_8_V1_1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors?download=true'
@@ -1340,6 +1345,8 @@ class PrimereCKPTLoader:
 
                     DOWNLOADED_QWENGEN_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0.safetensors')
                     DOWNLOADED_QWENGEN_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors')
+                    DOWNLOADED_QWENGEN_4_V2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V2.0.safetensors')
+                    DOWNLOADED_QWENGEN_4_V2_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors')
                     DOWNLOADED_QWENGEN_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.0.safetensors')
                     DOWNLOADED_QWENGEN_8_V1_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1.safetensors')
                     DOWNLOADED_QWENGEN_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors')
@@ -1348,6 +1355,8 @@ class PrimereCKPTLoader:
 
                     utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1, QWENGEN_4_V1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1_BF16, QWENGEN_4_V1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V2, QWENGEN_4_V2)
+                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V2_BF16, QWENGEN_4_V2_BF16)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1, QWENGEN_8_V1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1, QWENGEN_8_V1_1)
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1_BF16, QWENGEN_8_V1_1_BF16)
@@ -1389,18 +1398,36 @@ class PrimereCKPTLoader:
                     QWENEDIT_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors?download=true'
                     QWENEDIT_8_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors?download=true'
 
+                    QWENEDIT_4_2509_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-fp32.safetensors?download=true'
+                    QWENEDIT_4_2509_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors?download=true'
+                    QWENEDIT_8_2509_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-fp32.safetensors?download=true'
+                    QWENEDIT_8_2509_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors?download=true'
+
                     DOWNLOADED_QWENEDIT_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors')
                     DOWNLOADED_QWENEDIT_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors')
                     DOWNLOADED_QWENEDIT_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors')
-                    DOWNLOADED_QWENEDIT_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors')
+                    DOWNLOADED_QWENEDIT_8_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors')
+
+                    DOWNLOADED_QWENEDIT_4_2509_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-4steps-V1.0.safetensors')
+                    DOWNLOADED_QWENEDIT_4_2509_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors')
+                    DOWNLOADED_QWENEDIT_8_2509_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-8steps-V1.0.safetensors')
+                    DOWNLOADED_QWENEDIT_8_2509_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors')
 
                     utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1, QWENEDIT_4_V1)
                     utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1_BF16, QWENEDIT_4_V1_BF16)
                     utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1, QWENEDIT_8_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1_1_BF16, QWENEDIT_8_V1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1_BF16, QWENEDIT_8_V1_BF16)
+
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_2509_V1, QWENEDIT_4_2509_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_2509_V1_BF16, QWENEDIT_4_2509_V1_BF16)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_2509_V1, QWENEDIT_8_2509_V1)
+                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_2509_V1_BF16, QWENEDIT_8_2509_V1_BF16)
 
                     downloaded_filelist_filtered = utility.getDownloadedFiles()
-                    allQwenLoras = list(filter(lambda a: 'qwen-image-edit-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    if '2509' in ckpt_name:
+                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit-2509-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    else:
+                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
                     qwen_edit_ver = f"v{qwen_edit_lightning_lora_version:.1f}"
 
                     if qwen_edit_lightning_precision == False:

@@ -45,18 +45,18 @@ cache_file = os.path.join(cache_dir, '.cache.json')
 
 MAX_SEED = 999999999999999
 SUPPORTED_FORMATS = [".png", ".jpg", ".jpeg", ".webp", ".preview.png", ".preview.jpg", ".preview.jpeg", ]
-STANDARD_SIDES = np.arange(64, 2049, 16).tolist()
-CASCADE_SIDES = np.arange(64, 2049, 16).tolist()
+STANDARD_SIDES = np.arange(64, 4096, 16).tolist()
+CASCADE_SIDES = np.arange(64, 4096, 16).tolist()
 MAX_RESOLUTION = 8192
-VALID_SHAPES = np.arange(512, 2049, 256).tolist()
+VALID_SHAPES = np.arange(256, 4096, 256).tolist()
 # PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
 PREVIEW_ROOT = os.path.join(here, 'front_end', "images")
 SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Turbo", "Flux", "Nunchaku", "QwenGen", "QwenEdit", "WanImg", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512",  "AuraFlow", "HiDream", "Mochi", "WanT2V", "WanI2V", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
     "512": ['SD09', 'SD1', "Turbo", "SANA512", "WanT2V", "WanI2V"],
     "768": ['SD2', "LCM"],
-    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "WanImg", "AuraFlow", "HiDream", "Mochi"],
-    "1328": ["QwenGen", "QwenEdit"],
+    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "QwenEdit", "WanImg", "AuraFlow", "HiDream", "Mochi"],
+    "1328": ["QwenGen"],
     "1280": ["Nunchaku"]
 }
 
@@ -1441,7 +1441,7 @@ def getValidAscorerPaths(model_root):
 def edit_encoder(clip, prompt, vae, images=None):
     images_vl = []
     ref_latents = []
-    llama_template = "<|im_start|>system\nDescribe the key features of the input image (color, shape, size, texture, objects, background), then explain how the user's text instruction should alter or modify the image. Generate a new image that meets the user's requirements while maintaining consistency with the original input where appropriate.<|im_end|>\n<|im_start|>user\n{}<|im_end|>\n<|im_start|>assistant\n"
+    llama_template = "<|im_start|>system\nDescribe the key features of the input image (color, shape, size, texture, objects, characters, style, mood, background), then explain how the user's text instruction should alter or modify the image. Generate a new image that meets the user's requirements while maintaining consistency with the original input where appropriate.<|im_end|>\n<|im_start|>user\n{}<|im_end|>\n<|im_start|>assistant\n"
     image_prompt = ""
 
     for i, image in enumerate(images):
