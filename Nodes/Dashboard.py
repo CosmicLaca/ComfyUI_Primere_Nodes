@@ -2247,11 +2247,11 @@ class PrimereCLIP:
             clip_model = 'Default'
             longclip_model = 'Default'
 
-        model_version_default = ['Hunyuan', 'KwaiKolors', 'SD3', 'Playground', 'StableCascade', 'Turbo', 'Flux', 'Lightning', 'Illustrious', 'QwenGen', 'QwenEdit']
+        model_version_default = ['Hunyuan', 'KwaiKolors', 'SD3', 'Playground', 'StableCascade', 'Turbo', 'Flux', "Z-Image", 'Lightning', 'Illustrious', 'QwenGen', 'QwenEdit']
         if model_concept in model_version_default:
             model_version = 'SDXL'
 
-        advanced_default = ['StableCascade', 'KwaiKolors', 'Flux', 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
+        advanced_default = ['StableCascade', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
         if model_concept in advanced_default:
             adv_encode = False
 
