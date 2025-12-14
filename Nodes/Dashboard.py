@@ -167,6 +167,7 @@ class PrimereModelConceptSelector:
                     "STRING", "STRING", "STRING", "QWEN_GEN_LIGHTNING_LORA", "FLOAT", "QWEN_GEN_LORA_PRECISION", "INT", "FLOAT",
                     "STRING", "STRING", "STRING", "QWEN_EDIT_LIGHTNING_LORA", "FLOAT", "QWEN_EDIT_LORA_PRECISION", "INT", "FLOAT",
                     "STRING", "STRING",
+                    "STRING", "STRING", "STRING",
                     )
     RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG",
                     "OVERRIDE_STEPS", "MODEL_CONCEPT", "CLIP_SELECTION", "VAE_SELECTION", "VAE_NAME",
@@ -185,6 +186,7 @@ class PrimereModelConceptSelector:
                     "QWEN_GEN_MODEL", "QWEN_GEN_CLIP", "QWEN_GEN_VAE", "USE_QWEN_GEN_LIGHTNING_LORA", "QWEN_GEN_LIGHTNING_LORA_VERSION", "QWEN_GEN_LIGHTNING_PRECISION", "QWEN_GEN_LIGHTNING_LORA_STEP", "QWEN_GEN_LIGHTNING_LORA_STRENGTH",
                     "QWEN_EDIT_MODEL", "QWEN_EDIT_CLIP", "QWEN_EDIT_VAE", "USE_QWEN_EDIT_LIGHTNING_LORA", "QWEN_EDIT_LIGHTNING_LORA_VERSION", "QWEN_EDIT_LIGHTNING_PRECISION", "QWEN_EDIT_LIGHTNING_LORA_STEP", "QWEN_EDIT_LIGHTNING_LORA_STRENGTH",
                     "AURAFLOW_CLIP", "AURAFLOW_VAE",
+                    "ZIMAGE_MODEL", "ZIMAGE_CLIP", "ZIMAGE_VAE",
                     )
 
     FUNCTION = "select_model_concept"
@@ -287,6 +289,10 @@ class PrimereModelConceptSelector:
             "flux_nunchaku_lora_rank": ([64, 256], {"default": 64}),
             "flux_nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
+            "zimage_model": (["None"] + DIFFUSIONLIST,),
+            "zimage_clip": (["None"] + TEXT_ENCODERS,),
+            "zimage_vae": (["None"] + VAELIST,),
+
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
             "hunyuan_clip_l": (["None"] + CLIPLIST,),
             "hunyuan_vae": (["None"] + VAELIST,),
@@ -350,11 +356,12 @@ class PrimereModelConceptSelector:
 
     def select_model_concept(self, cascade_stage_a, cascade_stage_b, cascade_stage_c, cascade_clip,
                              flux_diffusion, flux_weight_dtype, flux_gguf, flux_clip_t5xxl, flux_clip_l, flux_vae,
+                             qwen_gen_model, qwen_gen_clip, qwen_gen_vae,
                              hunyuan_clip_t5xxl, hunyuan_clip_l, hunyuan_vae,
                              sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl, sd3_unet_vae,
-                             qwen_gen_model, qwen_gen_clip, qwen_gen_vae,
                              qwen_edit_model, qwen_edit_clip, qwen_edit_vae,
                              auraflow_clip, auraflow_vae,
+                             zimage_model, zimage_clip, zimage_vae,
                              override_steps=False,
                              use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                              use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
@@ -501,6 +508,11 @@ class PrimereModelConceptSelector:
             hunyuan_clip_l = None
             hunyuan_vae = None
 
+        if model_concept != 'Z-Image':
+            zimage_model = None
+            zimage_clip = None
+            zimage_vae = None
+
         if model_concept != 'AuraFlow':
             auraflow_clip = None
             auraflow_vae = None
@@ -606,7 +618,8 @@ class PrimereModelConceptSelector:
                 sana_model, sana_encoder, sana_vae, sana_weight_dtype, sana_precision,
                 qwen_gen_model, qwen_gen_clip, qwen_gen_vae, use_qwen_gen_lightning_lora, qwen_gen_lightning_lora_version, qwen_gen_lightning_precision, qwen_gen_lightning_lora_step, qwen_gen_lightning_lora_strength,
                 qwen_edit_model, qwen_edit_clip, qwen_edit_vae, use_qwen_edit_lightning_lora, qwen_edit_lightning_lora_version, qwen_edit_lightning_precision, qwen_edit_lightning_lora_step, qwen_edit_lightning_lora_strength,
-                auraflow_clip, auraflow_vae
+                auraflow_clip, auraflow_vae,
+                zimage_model, zimage_clip, zimage_vae
                 )
 
 class PrimereConceptDataTuple:
@@ -723,7 +736,11 @@ class PrimereConceptDataTuple:
                 "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True}),
 
                 "auraflow_clip": ("STRING", {"forceInput": True}),
-                "auraflow_vae": ("STRING", {"forceInput": True})
+                "auraflow_vae": ("STRING", {"forceInput": True}),
+
+                "zimage_model": ("STRING", {"forceInput": True}),
+                "zimage_clip": ("STRING", {"forceInput": True}),
+                "zimage_vae": ("STRING", {"forceInput": True})
             },
         }
 
@@ -775,7 +792,8 @@ class PrimereCKPTLoader:
                           kolors_precision='quant8',
                           pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
                           sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16",
-                          auraflow_vae=None, auraflow_clip=None
+                          auraflow_vae=None, auraflow_clip=None,
+                          zimage_model=None, zimage_clip=None, zimage_vae=None
                           ):
 
         playground_sigma_max = 120
@@ -879,6 +897,13 @@ class PrimereCKPTLoader:
                 hunyuan_clip_l = concept_data['hunyuan_clip_l']
             if 'hunyuan_vae' in concept_data:
                 hunyuan_vae = concept_data['hunyuan_vae']
+
+            if 'zimage_model' in concept_data:
+                zimage_model = concept_data['zimage_model']
+            if 'zimage_clip' in concept_data:
+                zimage_clip = concept_data['zimage_clip']
+            if 'zimage_vae' in concept_data:
+                zimage_vae = concept_data['zimage_vae']
 
             # if 'flux_sampler' in concept_data:
             #    flux_sampler = concept_data['flux_sampler']
@@ -1287,6 +1312,44 @@ class PrimereCKPTLoader:
                             sd3_gguf = sd3_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
                         if str(Path(linkName_D).stem) in sd3_gguf:
                             sd3_gguf = sd3_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
+
+            case "Z-Image":
+                zimage_weight_dtype = 'default'
+                if 'e4m3fn' in ckpt_name:
+                    zimage_weight_dtype = 'e4m3fn'
+
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link == True:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    model_ext = os.path.splitext(linkedFileName)[1].lower()
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+
+                    if 'diffusion_models' in str(File_link):
+                        if model_ext == '.gguf':
+                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, zimage_weight_dtype)[0]
+                    elif 'unet' in str(File_link):
+                        if model_ext == '.gguf':
+                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            try:
+                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, zimage_weight_dtype)[0]
+                            except Exception:
+                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
+                else:
+                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+
+                ZIMAGE_CLIP = nodes.CLIPLoader.load_clip(self, zimage_clip, 'flux2')[0]
+                ZIMAGE_VAE = nodes.VAELoader.load_vae(self, zimage_vae)[0]
+                return (MODEL_DIFFUSION,) + (ZIMAGE_CLIP,) + (ZIMAGE_VAE,) + (MODEL_VERSION,)
 
             case 'QwenGen' | 'QwenEdit':
                 FULL_LORA_PATH = None
