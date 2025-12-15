@@ -718,6 +718,8 @@ class PrimereKSampler:
 
             case 'Z-Image':
                 align_your_steps = False
+                model = nodes_model_advanced.ModelSamplingSD3.patch(self, model, 2.8, 1.0)[0]
+                negative = nodes.ConditioningZeroOut.zero_out(self, negative)[0]
                 samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                         steps, cfg, sampler_name, scheduler_name,
                                                         positive, negative,

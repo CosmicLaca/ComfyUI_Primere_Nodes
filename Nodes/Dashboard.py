@@ -1316,7 +1316,9 @@ class PrimereCKPTLoader:
             case "Z-Image":
                 zimage_weight_dtype = 'default'
                 if 'e4m3fn' in ckpt_name:
-                    zimage_weight_dtype = 'e4m3fn'
+                    zimage_weight_dtype = 'fp8_e4m3fn'
+                if 'e5m2' in ckpt_name:
+                    zimage_weight_dtype = 'fp8_e5m2'
 
                 fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                 is_link = os.path.islink(str(fullpathFile))
@@ -2379,7 +2381,7 @@ class PrimereCLIP:
 
         is_sdxl = 0
         match model_version:
-            case 'SDXL' | 'AuraFlow':
+            case 'SDXL' | 'AuraFlow' | 'Z-Image':
                 is_sdxl = 1
 
         t5xxl_prompt = ""
