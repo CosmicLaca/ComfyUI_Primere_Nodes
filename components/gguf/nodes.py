@@ -76,8 +76,22 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         # TODO: Find another way to not unload after patches
         return super().unpatch_model(device_to=device_to, unpatch_weights=unpatch_weights)
 
+
+    def pin_weight_to_device(self, key):
+        op_key = key.rsplit('.', 1)[0]
+        if not self.mmap_released and op_key in self.named_modules_to_munmap:
+            # TODO: possible to OOM, find better way to detach
+            self.named_modules_to_munmap[op_key].to(self.load_device).to(self.offload_device)
+            del self.named_modules_to_munmap[op_key]
+        super().pin_weight_to_device(key)
+
     mmap_released = False
+    named_modules_to_munmap = {}
+
     def load(self, *args, force_patch_weights=False, **kwargs):
+        if not self.mmap_released:
+            self.named_modules_to_munmap = dict(self.model.named_modules())
+
         # always call `patch_weight_to_device` even for lowvram
         super().load(*args, force_patch_weights=True, **kwargs)
 
@@ -85,7 +99,7 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         if not self.mmap_released:
             linked = []
             if kwargs.get("lowvram_model_memory", 0) > 0:
-                for n, m in self.model.named_modules():
+                for n, m in self.named_modules_to_munmap.items():
                     if hasattr(m, "weight"):
                         device = getattr(m.weight, "device", None)
                         if device == self.offload_device:
@@ -102,6 +116,7 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
                     # TODO: possible to OOM, find better way to detach
                     m.to(self.load_device).to(self.offload_device)
             self.mmap_released = True
+            self.named_modules_to_munmap = {}
 
     def clone(self, *args, **kwargs):
         src_cls = self.__class__
@@ -111,6 +126,7 @@ class GGUFModelPatcher(comfy.model_patcher.ModelPatcher):
         self.__class__ = src_cls
         # GGUF specific clone values below
         n.patch_on_device = getattr(self, "patch_on_device", False)
+        n.mmap_released = getattr(self, "mmap_released", False)
         if src_cls != GGUFModelPatcher:
             n.size = 0 # force recalc
         return n
@@ -135,8 +151,6 @@ class UnetLoaderGGUF:
 
         # init model
         unet_path = folder_paths.get_full_path("unet", unet_name)
-        if unet_path is None and os.path.isfile(unet_name):
-            unet_path = unet_name
         sd = gguf_sd_loader(unet_path)
         model = comfy.sd.load_diffusion_model_state_dict(
             sd, model_options={"custom_operations": ops}
@@ -147,22 +161,6 @@ class UnetLoaderGGUF:
         model = GGUFModelPatcher.clone(model)
         model.patch_on_device = patch_on_device
         return (model,)
-
-class QwenSRPOLoaderGGUF:
-    def loadqwenSRPO(self, folder_paths, prompt):
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-        tokenizer = AutoTokenizer.from_pretrained(folder_paths)
-        model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.bfloat16, device_map="auto")
-        inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-        outputs = model.generate(
-            inputs.input_ids,
-            max_new_tokens=10240,
-            temperature=0.7,
-            top_p=0.9
-        )
-        response = tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
-        return response
-
 
 class CLIPLoaderGGUF:
     @classmethod
@@ -201,7 +199,6 @@ class CLIPLoaderGGUF:
         clip_path = folder_paths.get_full_path("clip", clip_name)
         clip_type = getattr(comfy.sd.CLIPType, type.upper(), comfy.sd.CLIPType.STABLE_DIFFUSION)
         return (self.load_patcher([clip_path], clip_type, self.load_data([clip_path])),)
-        # return (self.load_patcher([clip_path], get_clip_type(type), self.load_data([clip_path])),)
 
 class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, type):
@@ -210,7 +207,6 @@ class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
         clip_paths = (clip_path1, clip_path2)
         clip_type = getattr(comfy.sd.CLIPType, type.upper(), comfy.sd.CLIPType.STABLE_DIFFUSION)
         return (CLIPLoaderGGUF.load_patcher(self, clip_paths, clip_type, CLIPLoaderGGUF.load_data(self, clip_paths)),)
-        # return (CLIPLoaderGGUF.load_patcher(self, clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(self, clip_paths)),)
 
 class TripleCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, clip_name3, type="sd3"):
@@ -220,7 +216,6 @@ class TripleCLIPLoaderGGUF(CLIPLoaderGGUF):
         clip_paths = (clip_path1, clip_path2, clip_path3)
         clip_type = getattr(comfy.sd.CLIPType, type.upper(), comfy.sd.CLIPType.STABLE_DIFFUSION)
         return (CLIPLoaderGGUF.load_patcher(self, clip_paths, clip_type, CLIPLoaderGGUF.load_data(self, clip_paths)),)
-        # return (CLIPLoaderGGUF.load_patcher(self, clip_paths, get_clip_type(type), CLIPLoaderGGUF.load_data(self, clip_paths)),)
 
 class QuadrupleCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, clip_name3, clip_name4, type="stable_diffusion"):
@@ -230,4 +225,4 @@ class QuadrupleCLIPLoaderGGUF(CLIPLoaderGGUF):
         clip_path4 = folder_paths.get_full_path("clip", clip_name4)
         clip_paths = (clip_path1, clip_path2, clip_path3, clip_path4)
         clip_type = getattr(comfy.sd.CLIPType, type.upper(), comfy.sd.CLIPType.STABLE_DIFFUSION)
-        return (self.load_patcher(clip_paths, clip_type, self.load_data(clip_paths)),)
+        return (CLIPLoaderGGUF.load_patcher(self, clip_paths, clip_type, CLIPLoaderGGUF.load_data(self, clip_paths)),)

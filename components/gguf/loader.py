@@ -10,8 +10,8 @@ from .ops import GGMLTensor
 from .dequant import is_quantized, dequantize_tensor
 
 IMG_ARCH_LIST = {"flux", "sd1", "sdxl", "sd3", "aura", "hidream", "cosmos", "ltxv", "hyvid", "wan", "lumina2", "qwen_image"}
-TXT_ARCH_LIST = {"t5", "t5encoder", "llama", "qwen2vl"}
-VIS_TYPE_LIST = {"clip-vision"}
+TXT_ARCH_LIST = {"t5", "t5encoder", "llama", "qwen2vl", "qwen3", "qwen3vl"}
+VIS_TYPE_LIST = {"clip-vision", "mmproj"}
 
 def get_orig_shape(reader, tensor_name):
     field_key = f"comfy.gguf.orig_shape.{tensor_name}"
@@ -74,9 +74,9 @@ def gguf_sd_loader(path, handle_prefix="model.diffusion_model.", return_arch=Fal
     compat = None
     arch_str = get_field(reader, "general.architecture", str)
     type_str = get_field(reader, "general.type", str)
-    if arch_str in [None, "pig"]:
+    if arch_str in [None, "pig", "cow"]:
         if is_text_model:
-            raise ValueError(f"This text model is incompatible with llama.cpp!\nConsider using the safetensors version\n({path})")
+            raise ValueError(f"This gguf file is incompatible with llama.cpp!\nConsider using safetensors or a compatible gguf file\n({path})")
         compat = "sd.cpp" if arch_str is None else arch_str
         # import here to avoid changes to convert.py breaking regular models
         from .tools.convert import detect_arch
@@ -119,6 +119,10 @@ def gguf_sd_loader(path, handle_prefix="model.diffusion_model.", return_arch=Fal
             torch_tensor = torch_tensor.view(*shape)
         state_dict[sd_key] = GGMLTensor(torch_tensor, tensor_type=tensor.tensor_type, tensor_shape=shape)
 
+        # 1D tensors shouldn't be quantized, this is a fix for BF16
+        if len(shape) <= 1 and tensor.tensor_type == gguf.GGMLQuantizationType.BF16:
+            state_dict[sd_key] = dequantize_tensor(state_dict[sd_key], dtype=torch.float32)
+
         # keep track of loaded tensor types
         tensor_type_str = getattr(tensor.tensor_type, "name", repr(tensor.tensor_type))
         qtype_dict[tensor_type_str] = qtype_dict.get(tensor_type_str, 0) + 1
@@ -157,6 +161,9 @@ T5_SD_MAP = {
 LLAMA_SD_MAP = {
     "blk.": "model.layers.",
     "attn_norm": "input_layernorm",
+    "attn_q_norm.": "self_attn.q_norm.",
+    "attn_k_norm.": "self_attn.k_norm.",
+    "attn_v_norm.": "self_attn.v_norm.",
     "attn_q": "self_attn.q_proj",
     "attn_k": "self_attn.k_proj",
     "attn_v": "self_attn.v_proj",
@@ -324,6 +331,49 @@ def gguf_tokenizer_loader(path, temb_shape):
     del reader
     return torch.ByteTensor(list(spm.SerializeToString()))
 
+def gguf_tekken_tokenizer_loader(path, temb_shape):
+    # convert ggml (hf) tokenizer metadata to tekken/comfy data
+    logging.info("Attempting to recreate tekken tokenizer from GGUF file metadata...")
+    import json
+    import base64
+    from transformers.convert_slow_tokenizer import bytes_to_unicode
+
+    reader = gguf.GGUFReader(path)
+
+    model_str = get_field(reader, "tokenizer.ggml.model", str)
+    if model_str == "gpt2":
+        if temb_shape == (131072, 5120): # probably Mistral
+            data = {
+                "config": {"num_vocab_tokens": 150000, "default_vocab_size": 131072},
+                "vocab": [],
+                "special_tokens": [],
+            }
+        else:
+            raise NotImplementedError("Unknown model, can't set tokenizer!")
+    else:
+        raise NotImplementedError("Unknown model, can't set tokenizer!")
+
+    tokens = get_list_field(reader, "tokenizer.ggml.tokens", str)
+    toktypes = get_list_field(reader, "tokenizer.ggml.token_type", int)
+
+    decoder = {v: k for k, v in bytes_to_unicode().items()}
+    for idx, (token, toktype) in enumerate(zip(tokens, toktypes)):
+        if toktype == 3:
+            data["special_tokens"].append(
+                {'rank': idx, 'token_str': token, 'is_control': True}
+            )
+        else:
+            tok = bytes([decoder[char] for char in token])
+            data["vocab"].append({
+                "rank": len(data["vocab"]),
+                "token_bytes": base64.b64encode(tok).decode("ascii"),
+                "token_str": tok.decode("utf-8", errors="replace") # ?
+            })
+
+    logging.info(f"Created tekken tokenizer with vocab size of {len(data['vocab'])} (+{len(data['special_tokens'])})")
+    del reader
+    return torch.ByteTensor(list(json.dumps(data).encode('utf-8')))
+
 def gguf_clip_loader(path):
     sd, arch = gguf_sd_loader(path, return_arch=True, is_text_model=True)
     if arch in {"t5", "t5encoder"}:
@@ -335,16 +385,19 @@ def gguf_clip_loader(path):
             logging.warning(f"Dequantizing {temb_key} to prevent runtime OOM.")
             sd[temb_key] = dequantize_tensor(sd[temb_key], dtype=torch.float16)
         sd = sd_map_replace(sd, T5_SD_MAP)
-    elif arch in {"llama", "qwen2vl"}:
+    elif arch in {"llama", "qwen2vl", "qwen3", "qwen3vl"}:
         # TODO: pass model_options["vocab_size"] to loader somehow
         temb_key = "token_embd.weight"
         if temb_key in sd and sd[temb_key].shape[0] >= (64 * 1024):
+            if arch == "llama" and sd[temb_key].shape == (131072, 5120):
+                # non-standard Comfy-Org tokenizer
+                sd["tekken_model"] = gguf_tekken_tokenizer_loader(path, sd[temb_key].shape)
             # See note above for T5.
             logging.warning(f"Dequantizing {temb_key} to prevent runtime OOM.")
             sd[temb_key] = dequantize_tensor(sd[temb_key], dtype=torch.float16)
         sd = sd_map_replace(sd, LLAMA_SD_MAP)
         if arch == "llama":
-            sd = llama_permute(sd, 32, 8) # L3
+            sd = llama_permute(sd, 32, 8) # L3 / Mistral
         if arch == "qwen2vl":
             vsd = gguf_mmproj_loader(path)
             sd.update(vsd)

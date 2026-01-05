@@ -1071,7 +1071,7 @@ class PrimereAestheticCKPTScorer:
                         is_random_style = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'random_prompt', prompt)
                         if is_random_style == True:
                             styles_csv = PrimereVisualStyle.styles_csv
-                            seed = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereSeed', 'seed', prompt)
+                            seed = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereFastSeed', 'seed', prompt)
                             random.seed(seed)
                             styleKey = styles_csv['name'] == selectedStyle
                             try:

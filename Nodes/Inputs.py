@@ -241,7 +241,7 @@ class PrimereRefinerPrompt:
             OUTPUT_MODEL = LOADED_CHECKPOINT[0]
             clip = LOADED_CHECKPOINT[1]
             if refiner_vae != 'None':
-                OUTPUT_VAE = nodes.VAELoader.load_vae(self, refiner_vae)[0]
+                OUTPUT_VAE = utility.vae_loader_class.load_vae(refiner_vae)[0]
             else:
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
@@ -1742,12 +1742,12 @@ class PrimereMultiImage:
                         inputValue_batch = imagesx_chw_resized.permute(0, 2, 3, 1)
                 else:
                     if height_res_first is not None and width_res_first is not None:
-                        inputValue_batch = nodes_images.ResizeAndPadImage.resize_and_pad(self, inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
+                        inputValue_batch = nodes_images.ResizeAndPadImage.execute(inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
                 image_list_cat.append(inputValue_batch)
 
                 if padded_list == True:
                     if height_res_first is not None and width_res_first is not None:
-                        inputValue_padded = nodes_images.ResizeAndPadImage.resize_and_pad(self, inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
+                        inputValue_padded = nodes_images.ResizeAndPadImage.execute(inputValue, width_res_first, height_res_first, batch_padding_color, 'lanczos')[0]
                         image_list.append(inputValue_padded)
                 else:
                     image_list.append(inputValue)
@@ -1766,7 +1766,7 @@ class PrimereMultiImage:
                         if (c + 1) < inputcount:
                             new_image = image_list[c + 1]
                             if type(new_image).__name__ == "Tensor":
-                                image_concat = nodes_images.ImageStitch.stitch(self, image_concat, direction, concat_match_size, concat_spacing_width, concat_spacing_color, new_image)[0]
+                                image_concat = nodes_images.ImageStitch.execute(image_concat, direction, concat_match_size, concat_spacing_width, concat_spacing_color, new_image)[0]
 
             if concat_resize_mode == True:
                 width_res = image_concat.shape[2]

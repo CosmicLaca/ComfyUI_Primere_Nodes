@@ -177,7 +177,7 @@ def PSamplerPixart(self, device, seed, model,
 
     if 'refiner' in model and model['refiner'] is not None:
         PIXART_VAE_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_vae', prompt)
-        PIXART_VAE = nodes.VAELoader.load_vae(self, PIXART_VAE_NAME)[0]
+        PIXART_VAE = utility.vae_loader_class.load_vae(PIXART_VAE_NAME)[0]
         RAW_IMAGE = nodes.VAEDecode.decode(self, PIXART_VAE, samples_main)[0]
         REFINER_MODEL_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_model', prompt)
         PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, REFINER_MODEL_NAME)

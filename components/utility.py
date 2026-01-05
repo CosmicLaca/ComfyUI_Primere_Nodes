@@ -51,11 +51,11 @@ MAX_RESOLUTION = 8192
 VALID_SHAPES = np.arange(256, 4096, 256).tolist()
 # PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
 PREVIEW_ROOT = os.path.join(here, 'front_end', "images")
-SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Turbo", "Flux", "Nunchaku", "QwenGen", "QwenEdit", "WanImg", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512",  "AuraFlow", "HiDream", "Mochi", "WanT2V", "WanI2V", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "SD09", "StableAudio"]
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Turbo", "Flux", "Nunchaku", "QwenGen", "QwenEdit", "WanImg", "KwaiKolors", "Hunyuan", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512",  "AuraFlow", "HiDream", "Mochi", "WanT2V", "WanI2V", "Cosmos", "Flux2", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "SD09", "StableAudio"]
 CONCEPT_RESOLUTIONS = {
     "512": ['SD09', 'SD1', "Turbo", "SANA512", "WanT2V", "WanI2V"],
     "768": ['SD2', "LCM"],
-    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "QwenEdit", "WanImg", "AuraFlow", "HiDream", "Mochi"],
+    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "QwenEdit", "WanImg", "AuraFlow", "HiDream", "Mochi", "Cosmos", "Flux2"],
     "1328": ["QwenGen"],
     "1280": ["Nunchaku"]
 }
@@ -74,6 +74,7 @@ WORKFLOW_SORT_LIST = ['exif_status', 'exif_data_count', 'meta_source', 'pic2stor
                       'cfg', 'seed', 'width', 'height', 'size_string', 'preferred', 'saved_image_width', 'saved_image_heigth', 'upscaler_ratio',
                       'vae_name_sd', 'vae_name_sdxl', 'concept_data']
 
+vae_loader_class = nodes.VAELoader()
 
 def merge_str_to_tuple(item1, item2):
     if not isinstance(item1, tuple):

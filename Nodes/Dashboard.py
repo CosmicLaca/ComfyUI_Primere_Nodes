@@ -147,7 +147,7 @@ class PrimereVAELoader:
         if (vae_name == 'External VAE'):
             vae_name = folder_paths.get_filename_list("vae")[0]
 
-        return nodes.VAELoader.load_vae(self, vae_name)
+        return utility.vae_loader_class.load_vae(vae_name)[0]
 
 class PrimereModelConceptSelector:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT",
@@ -347,6 +347,10 @@ class PrimereModelConceptSelector:
             "auraflow_clip": (["None"] + CLIPLIST,),
             "auraflow_vae": (["None"] + VAELIST,),
         },
+        "hidden": {
+            "extra_pnginfo": "EXTRA_PNGINFO",
+            "prompt": "PROMPT"
+        },
         "optional": SAMPLER_INPUTS
     }
 
@@ -362,6 +366,7 @@ class PrimereModelConceptSelector:
                              qwen_edit_model, qwen_edit_clip, qwen_edit_vae,
                              auraflow_clip, auraflow_vae,
                              zimage_model, zimage_clip, zimage_vae,
+                             prompt,
                              override_steps=False,
                              use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
                              use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
@@ -397,6 +402,12 @@ class PrimereModelConceptSelector:
 
         if model_concept == 'Auto' and model_version is not None:
             model_concept = model_version
+
+        if model_concept == 'QwenEdit':
+            WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+            editmodel_images = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereMultiImage', 'process_list', prompt)
+            if not editmodel_images:
+                model_concept = 'QwenGen'
 
         vae = 'Baked'
         if vae_selection == True:
@@ -1047,7 +1058,7 @@ class PrimereCKPTLoader:
                     else:
                         OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
 
-                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, auraflow_vae)[0]
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(auraflow_vae)[0]
                     OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, auraflow_clip, 'stable_diffusion')[0]
                     return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
                 else:
@@ -1182,11 +1193,11 @@ class PrimereCKPTLoader:
                 else:
                     PIXART_REFINER_CHECKPOINT[0] = None
                     PIXART_REFINER_CHECKPOINT[1] = None
-                    PIXART_VAE = nodes.VAELoader.load_vae(self, pixart_vae)[0]
+                    PIXART_VAE = utility.vae_loader_class.load_vae(pixart_vae)[0]
                 return ({'main': PIXART_CHECKPOINT, 'refiner': PIXART_REFINER_CHECKPOINT[0]},) + ({'main': PIXART_CLIP, 'refiner': PIXART_REFINER_CHECKPOINT[1]},) + (PIXART_VAE,) + (MODEL_VERSION,)
 
             case 'Hunyuan':
-                HUNYUAN_VAE = nodes.VAELoader.load_vae(self, hunyuan_vae)[0]
+                HUNYUAN_VAE = utility.vae_loader_class.load_vae(hunyuan_vae)[0]
                 T5 = None
                 try:
                     LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
@@ -1262,18 +1273,18 @@ class PrimereCKPTLoader:
 
                 if vae_name != "Baked":
                     print('1')
-                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
                 else:
                     vae_list = folder_paths.get_filename_list("vae")
                     allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSDXLvae[0])[0]
 
                 return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
 
             case 'StableCascade':
                 if cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
                     OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
-                    OUTPUT_VAE_CAS = nodes.VAELoader.load_vae(self, cascade_stage_a)[0]
+                    OUTPUT_VAE_CAS = utility.vae_loader_class.load_vae(cascade_stage_a)[0]
                     if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
                         fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
                         is_link = os.path.islink(str(fullpathFile))
@@ -1350,7 +1361,7 @@ class PrimereCKPTLoader:
                     MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
 
                 ZIMAGE_CLIP = nodes.CLIPLoader.load_clip(self, zimage_clip, 'flux2')[0]
-                ZIMAGE_VAE = nodes.VAELoader.load_vae(self, zimage_vae)[0]
+                ZIMAGE_VAE = utility.vae_loader_class.load_vae(zimage_vae)[0]
                 return (MODEL_DIFFUSION,) + (ZIMAGE_CLIP,) + (ZIMAGE_VAE,) + (MODEL_VERSION,)
 
             case 'QwenGen' | 'QwenEdit':
@@ -1391,11 +1402,10 @@ class PrimereCKPTLoader:
 
                 if model_concept == 'QwenGen':
                     QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_gen_clip, concept_type)[0]
-                    QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_gen_vae)[0]
+                    QWEN_VAE = utility.vae_loader_class.load_vae(qwen_gen_vae)[0]
                 if model_concept == 'QwenEdit':
                     QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_edit_clip, concept_type)[0]
-                    QWEN_VAE = nodes.VAELoader.load_vae(self, qwen_edit_vae)[0]
-
+                    QWEN_VAE = utility.vae_loader_class.load_vae(qwen_edit_vae)[0]
 
                 if use_qwen_gen_lightning_lora == True and model_concept == 'QwenGen':
                     QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
@@ -1555,18 +1565,18 @@ class PrimereCKPTLoader:
                             except Exception:
                                 MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(flux_diffusion)[0]
                             DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                            FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                            FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
 
                         case 'GGUF':
                             MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
                             DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                            FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                            FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
 
                         case 'SAFETENSOR':
                             if is_link == False:
                                 MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
                                 DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
                             else:
                                 linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
                                 linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
@@ -1585,18 +1595,18 @@ class PrimereCKPTLoader:
                                     else:
                                         MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
                                         DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
                                 elif 'unet' in str(File_link):
                                     try:
                                         MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
                                     except Exception:
                                         MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
                                 else:
                                     MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, linkedFileName)[0]
                                     DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = nodes.VAELoader.load_vae(self, flux_vae)[0]
+                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
 
                     finalLoras = None
                     extra_lora_strength = 0
@@ -1796,7 +1806,7 @@ class PrimereCKPTLoader:
             if len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
                 OUTPUT_VAE = LOADED_CHECKPOINT[2]
             else:
-                OUTPUT_VAE = nodes.VAELoader.load_vae(self, sd3_unet_vae)[0]
+                OUTPUT_VAE = utility.vae_loader_class.load_vae(sd3_unet_vae)[0]
 
             if use_sd3_hyper_lora == True:
                 SD3_LORA4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors?download=true'
@@ -1980,15 +1990,15 @@ class PrimereCKPTLoader:
 
         if len(LOADED_CHECKPOINT) < 3 or (len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ != 'VAE') or vae_selection == False:
             if vae_name != "Baked":
-                OUTPUT_VAE = nodes.VAELoader.load_vae(self, vae_name)[0]
+                OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
             else:
                 vae_list = folder_paths.get_filename_list("vae")
                 if MODEL_VERSION == 'SD1':
                     allLSD1vae = list(filter(lambda a: 'sdxl'.casefold() not in a.casefold() and 'flux'.casefold() not in a.casefold() and 'hunyuan'.casefold() not in a.casefold() and 'stage'.casefold() not in a.casefold(), vae_list))
-                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSD1vae[0])[0]
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSD1vae[0])[0]
                 else:
                     allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    OUTPUT_VAE = nodes.VAELoader.load_vae(self, allLSDXLvae[0])[0]
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSDXLvae[0])[0]
         else:
             OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
@@ -2609,7 +2619,7 @@ class PrimereCLIP:
 
                 return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
-        if model_concept == 'QwenEdit' and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor" or edit_image_list is None):
+        if model_concept == 'QwenEdit' and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor" and edit_image_list is not None):
             if type(edit_image_list).__name__ == "Tensor":
                 edit_image_list = [edit_image_list]
 
