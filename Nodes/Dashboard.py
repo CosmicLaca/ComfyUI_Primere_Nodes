@@ -406,8 +406,8 @@ class PrimereModelConceptSelector:
         if model_concept == 'QwenEdit':
             WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
             editmodel_images = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereMultiImage', 'process_list', prompt)
-            if not editmodel_images:
-                model_concept = 'QwenGen'
+            if editmodel_images != True:
+               model_concept = 'QwenGen'
 
         vae = 'Baked'
         if vae_selection == True:
@@ -588,6 +588,16 @@ class PrimereModelConceptSelector:
                 use_flux_hyper_lora = False
                 use_sd3_hyper_lora = False
                 use_flux_turbo_lora = False
+                use_qwen_gen_lightning_lora = False
+                use_qwen_edit_lightning_lora = False
+            elif 'lightning' in model_name:
+                steps = 5
+                use_flux_hyper_lora = False
+                use_sd3_hyper_lora = False
+                use_flux_turbo_lora = False
+                use_qwen_gen_lightning_lora = False
+                use_qwen_edit_lightning_lora = False
+                cfg_scale = 1.1
 
         if model_concept == 'Flux' and use_flux_hyper_lora == True:
             steps = flux_hyper_lora_step
