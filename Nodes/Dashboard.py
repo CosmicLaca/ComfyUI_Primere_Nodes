@@ -290,7 +290,7 @@ class PrimereModelConceptSelector:
             "flux_nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
             "zimage_model": (["None"] + DIFFUSIONLIST,),
-            "zimage_clip": (["None"] + TEXT_ENCODERS,),
+            "zimage_clip": (["None"] + TEXT_ENCODERS + CLIPLIST,),
             "zimage_vae": (["None"] + VAELIST,),
 
             "hunyuan_clip_t5xxl": (["None"] + CLIPLIST,),
@@ -1370,7 +1370,12 @@ class PrimereCKPTLoader:
                 else:
                     MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
 
-                ZIMAGE_CLIP = nodes.CLIPLoader.load_clip(self, zimage_clip, 'flux2')[0]
+                clip_ext = os.path.splitext(zimage_clip)[1].lower()
+                if clip_ext == '.gguf':
+                    ZIMAGE_CLIP = gguf_nodes.CLIPLoaderGGUF.load_clip(self, zimage_clip, 'qwen_image')[0]
+                else:
+                    ZIMAGE_CLIP = nodes.CLIPLoader.load_clip(self, zimage_clip, 'flux2')[0]
+
                 ZIMAGE_VAE = utility.vae_loader_class.load_vae(zimage_vae)[0]
                 return (MODEL_DIFFUSION,) + (ZIMAGE_CLIP,) + (ZIMAGE_VAE,) + (MODEL_VERSION,)
 
@@ -1382,6 +1387,12 @@ class PrimereCKPTLoader:
                     qwen_weight_dtype = 'e4m3fn'
 
                 fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                qwen_ver_list = re.findall(r'(?<!\d)\d{4}(?!\d)', ckpt_name)
+                if len(qwen_ver_list) < 1:
+                    qwen_ver = '2509'
+                else:
+                    qwen_ver = str(qwen_ver_list[0])
+
                 is_link = os.path.islink(str(fullpathFile))
                 if is_link == True:
                     File_link = Path(str(fullpathFile)).resolve()
@@ -1449,7 +1460,19 @@ class PrimereCKPTLoader:
                     utility.fileDownloader(DOWNLOADED_QWENGEN_8_V2_BF16, QWENGEN_8_V2_BF16)
 
                     downloaded_filelist_filtered = utility.getDownloadedFiles()
-                    allQwenLoras = list(filter(lambda a: 'qwen-image-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    if qwen_ver != '2509':
+                        allQwenLoras = list(filter(lambda a: 'qwen-image'.casefold() in a.casefold() and 'edit'.casefold() not in a.casefold() and qwen_ver.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    else:
+                        allQwenLoras = list(filter(lambda a: 'qwen-image'.casefold() in a.casefold() and 'edit'.casefold() not in a.casefold() and (qwen_ver.casefold() in a.casefold() or '25'.casefold() not in a.casefold()), downloaded_filelist_filtered))
+
+                    if qwen_weight_dtype != 'default':
+                        allQwenLoras_bytype = list(filter(lambda a: qwen_weight_dtype.casefold() in a.casefold(), allQwenLoras))
+                    else:
+                        allQwenLoras_bytype = list(filter(lambda a: 'e4m3fn'.casefold() not in a.casefold(), allQwenLoras))
+
+                    if len(allQwenLoras_bytype) > 0:
+                        allQwenLoras = allQwenLoras_bytype
+
                     qwen_gen_ver = f"v{qwen_gen_lightning_lora_version:.1f}"
 
                     if qwen_gen_lightning_precision == False:
@@ -1457,11 +1480,25 @@ class PrimereCKPTLoader:
                     else:
                         finalLoras = list(filter(lambda a: str(qwen_gen_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_gen_ver.casefold() in a.casefold(), allQwenLoras))
 
+                    if len(finalLoras) == 0 and len(allQwenLoras) > 0:
+                        if qwen_gen_lightning_precision == False:
+                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() in a.casefold(), allQwenLoras))
+                        else:
+                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() not in a.casefold(), allQwenLoras))
+                        if len(finalLoras_bfcheck) > 0:
+                            finalLoras = finalLoras_bfcheck[0]
+                        else:
+                            finalLoras = allQwenLoras[0]
+
                     if len(finalLoras) > 0:
                         LORA_FILE = finalLoras[0]
                         FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
 
+                    print(f'=================== lora check for QWEN-GEN for {ckpt_name} and {qwen_weight_dtype} and V:{qwen_ver} step: {qwen_gen_lightning_lora_step} / {qwen_gen_lightning_precision} ============================')
+                    print(finalLoras)
+
                     if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                        print(FULL_LORA_PATH)
                         if qwen_gen_lightning_lora_strength != 0:
                             lora = None
                             if self.loaded_lora is not None:
@@ -1476,6 +1513,8 @@ class PrimereCKPTLoader:
                                 lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
                                 self.loaded_lora = (FULL_LORA_PATH, lora)
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_gen_lightning_lora_strength, 0)[0]
+
+                    print('===================lora check end============================')
 
                 if use_qwen_edit_lightning_lora == True and model_concept == 'QwenEdit':
                     QWENEDIT_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors?download=true'
@@ -1509,10 +1548,18 @@ class PrimereCKPTLoader:
                     utility.fileDownloader(DOWNLOADED_QWENEDIT_8_2509_V1_BF16, QWENEDIT_8_2509_V1_BF16)
 
                     downloaded_filelist_filtered = utility.getDownloadedFiles()
-                    if '2509' in ckpt_name:
-                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit-2509-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    allQwenLoras = list(filter(lambda a: 'qwen-image-edit'.casefold() in a.casefold() and qwen_ver.casefold() in a.casefold(), downloaded_filelist_filtered))
+                    if len(allQwenLoras) < 1:
+                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit'.casefold() in a.casefold() and (qwen_ver.casefold() in a.casefold() or '25'.casefold() not in a.casefold()), downloaded_filelist_filtered))
+
+                    if qwen_weight_dtype != 'default':
+                        allQwenLoras_bytype = list(filter(lambda a: qwen_weight_dtype.casefold() in a.casefold(), allQwenLoras))
                     else:
-                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit-lightning'.casefold() in a.casefold(), downloaded_filelist_filtered))
+                        allQwenLoras_bytype = list(filter(lambda a: 'e4m3fn'.casefold() not in a.casefold(), allQwenLoras))
+
+                    if len(allQwenLoras_bytype) > 0:
+                        allQwenLoras = allQwenLoras_bytype
+
                     qwen_edit_ver = f"v{qwen_edit_lightning_lora_version:.1f}"
 
                     if qwen_edit_lightning_precision == False:
@@ -1520,11 +1567,25 @@ class PrimereCKPTLoader:
                     else:
                         finalLoras = list(filter(lambda a: str(qwen_edit_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_edit_ver.casefold() in a.casefold(), allQwenLoras))
 
+                    if len(finalLoras) == 0 and len(allQwenLoras) > 0:
+                        if qwen_edit_lightning_precision == False:
+                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() in a.casefold(), allQwenLoras))
+                        else:
+                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() not in a.casefold(), allQwenLoras))
+                        if len(finalLoras_bfcheck) > 0:
+                            finalLoras = finalLoras_bfcheck[0]
+                        else:
+                            finalLoras = allQwenLoras[0]
+
                     if len(finalLoras) > 0:
                         LORA_FILE = finalLoras[0]
                         FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
 
+                    print(f'=================== lora check for QWEN-EDIT for {ckpt_name} and {qwen_weight_dtype} and V:{qwen_ver} step: {qwen_edit_lightning_lora_step} / {qwen_edit_lightning_precision} ============================')
+                    print(finalLoras)
+
                     if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
+                        print(FULL_LORA_PATH)
                         if qwen_edit_lightning_lora_strength != 0:
                             lora = None
                             if self.loaded_lora is not None:
@@ -1539,6 +1600,8 @@ class PrimereCKPTLoader:
                                 lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
                                 self.loaded_lora = (FULL_LORA_PATH, lora)
                                 MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_edit_lightning_lora_strength, 0)[0]
+
+                    print('===================lora check end============================')
 
                 if model_concept == 'QwenEdit':
                     MODEL_DIFFUSION = nodes_model_advanced.ModelSamplingSD3.patch(self, MODEL_DIFFUSION, 3, 1.0)[0]

@@ -55,8 +55,8 @@ SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade",
 CONCEPT_RESOLUTIONS = {
     "512": ['SD09', 'SD1', "Turbo", "SANA512", "WanT2V", "WanI2V"],
     "768": ['SD2', "LCM"],
-    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "QwenEdit", "WanImg", "AuraFlow", "HiDream", "Mochi", "Cosmos", "Flux2"],
-    "1328": ["QwenGen"],
+    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "WanImg", "AuraFlow", "HiDream", "Mochi", "Cosmos", "Flux2"],
+    "1328": ["QwenGen", "QwenEdit"],
     "1280": ["Nunchaku"]
 }
 

@@ -1,6 +1,7 @@
 # (c) City96 || Apache-2.0 (apache.org/licenses/LICENSE-2.0)
 import torch
 import logging
+import inspect
 import collections
 
 import nodes
@@ -151,9 +152,15 @@ class UnetLoaderGGUF:
 
         # init model
         unet_path = folder_paths.get_full_path("unet", unet_name)
-        sd = gguf_sd_loader(unet_path)
+        sd, extra = gguf_sd_loader(unet_path)
+
+        kwargs = {}
+        valid_params = inspect.signature(comfy.sd.load_diffusion_model_state_dict).parameters
+        if "metadata" in valid_params:
+            kwargs["metadata"] = extra.get("metadata", {})
+
         model = comfy.sd.load_diffusion_model_state_dict(
-            sd, model_options={"custom_operations": ops}
+            sd, model_options={"custom_operations": ops}, **kwargs,
         )
         if model is None:
             logging.error("ERROR UNSUPPORTED UNET {}".format(unet_path))
@@ -198,7 +205,7 @@ class CLIPLoaderGGUF:
     def load_clip(self, clip_name, type="stable_diffusion"):
         clip_path = folder_paths.get_full_path("clip", clip_name)
         clip_type = getattr(comfy.sd.CLIPType, type.upper(), comfy.sd.CLIPType.STABLE_DIFFUSION)
-        return (self.load_patcher([clip_path], clip_type, self.load_data([clip_path])),)
+        return (CLIPLoaderGGUF.load_patcher(self, [clip_path], clip_type, CLIPLoaderGGUF.load_data(self, [clip_path])),)
 
 class DualCLIPLoaderGGUF(CLIPLoaderGGUF):
     def load_clip(self, clip_name1, clip_name2, type):
