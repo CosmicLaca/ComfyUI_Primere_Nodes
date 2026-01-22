@@ -605,9 +605,11 @@ class PrimereModelConceptSelector:
             steps = flux_turbo_lora_step
 
         if model_concept == 'QwenGen' and use_qwen_gen_lightning_lora == True:
-            steps = qwen_gen_lightning_lora_step
+            steps = qwen_gen_lightning_lora_step + 1
+            cfg_scale = 1.1
         if model_concept == 'QwenEdit' and use_qwen_edit_lightning_lora == True:
-            steps = qwen_edit_lightning_lora_step
+            steps = qwen_edit_lightning_lora_step + 1
+            cfg_scale = 1.1
 
         if model_concept == 'SD3' and use_sd3_hyper_lora == True:
             fullpathFile = folder_paths.get_full_path('checkpoints', model_name)
