@@ -673,19 +673,32 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
 function previewSorter(operator, sortType) {
     if (operator == 'ASC') {
         $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            //alert($(a).attr('data-' + sortType) + ' -> ' + isNaN(parseInt($(a).attr('data-' + sortType))));
-            if (isNaN(parseInt($(a).attr('data-' + sortType))) && isNaN(parseInt($(b).attr('data-' + sortType)))) {
-                return $(a).attr('data-' + sortType).toUpperCase() > $(b).attr('data-' + sortType).toUpperCase();
+            var aVal = $(a).attr('data-' + sortType);
+            var bVal = $(b).attr('data-' + sortType);
+
+            if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
+                // String comparison
+                aVal = aVal.toUpperCase();
+                bVal = bVal.toUpperCase();
+                return aVal < bVal ? -1 : (aVal > bVal ? 1 : 0);
             } else {
-                return parseInt($(a).attr('data-' + sortType)) > parseInt($(b).attr('data-' + sortType));
+                // Numeric comparison
+                return parseInt(aVal) - parseInt(bVal);
             }
         }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
     } else {
         $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            if (isNaN(parseInt($(a).attr('data-' + sortType))) && isNaN(parseInt($(b).attr('data-' + sortType)))) {
-                return $(a).attr('data-' + sortType).toUpperCase() < $(b).attr('data-' + sortType).toUpperCase();
+            var aVal = $(a).attr('data-' + sortType);
+            var bVal = $(b).attr('data-' + sortType);
+
+            if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
+                // String comparison (descending)
+                aVal = aVal.toUpperCase();
+                bVal = bVal.toUpperCase();
+                return aVal > bVal ? -1 : (aVal < bVal ? 1 : 0);
             } else {
-                return parseInt($(a).attr('data-' + sortType)) < parseInt($(b).attr('data-' + sortType));
+                // Numeric comparison (descending)
+                return parseInt(bVal) - parseInt(aVal);
             }
         }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
     }
