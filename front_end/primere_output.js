@@ -103,18 +103,22 @@ class MiniPreviewControl {
 
 function showPreviewIfExist(coordX, coordY) {
     if (SaveIsValid == true && SaveMode == true && PreviewExist == true) {
-        $('div#primere_previewbox').css({
-           top: coordY + 'px',
-           left: coordX + 'px',
-        });
-        $("div#primere_previewbox img.privewbox_image").attr("src", previewURL);
-        $('div#primere_previewbox').show();
+        const previewBox = document.querySelector('div#primere_previewbox');
+        const previewImage = document.querySelector('div#primere_previewbox img.privewbox_image');
+        if (!previewBox || !previewImage) {
+            return;
+        }
+        previewBox.style.top = coordY + 'px';
+        previewBox.style.left = coordX + 'px';
+        previewImage.src = previewURL;
+        previewBox.style.display = 'block';
     }
 }
 
 function checkPreviewExample() {
-    if ($('div#primere_previewbox').is(":visible")) {
-        $('div#primere_previewbox').hide();
+    const previewBox = document.querySelector('div#primere_previewbox');
+    if (previewBox && previewBox.style.display !== 'none') {
+        previewBox.style.display = 'none';
     }
 }
 
@@ -209,11 +213,14 @@ app.registerExtension({
                 document.body.appendChild(previewbox);
             }
 
-            $(document).on('click', 'div#primere_previewbox div.preview_closebutton', function(e) {
-                $('div#primere_previewbox').hide();
-            });
-            $(document).on('click', 'body', function(e) {
-                checkPreviewExample();
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('div#primere_previewbox div.preview_closebutton')) {
+                    checkPreviewExample();
+                    return;
+                }
+                if (e.target.closest('body')) {
+                    checkPreviewExample();
+                }
             });
         }
 
@@ -242,13 +249,15 @@ function VisualDataReceiver(event) { // 01
 }
 
 function UrlExists(url, cb) {
-    jQuery.ajax({
-        url: url,
-        dataType: 'text',
-        type: 'GET',
-        complete: function (xhr) {
-            if (typeof cb === 'function')
-                cb.apply(this, [xhr.status]);
+    fetch(url, {
+        method: 'GET',
+    }).then((response) => {
+        if (typeof cb === 'function') {
+            cb.apply(this, [response.status]);
+        }
+    }).catch(() => {
+        if (typeof cb === 'function') {
+            cb.apply(this, [0]);
         }
     });
 }

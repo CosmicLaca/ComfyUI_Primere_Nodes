@@ -2,14 +2,34 @@ import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
 let PrompteventListenerInit = false;
-const realPath = "/extensions/ComfyUI_Primere_Nodes";
 const validClasses = ['PrimerePrompt'];
 let PositivePrompt = '';
 let NegativePrompt = '';
 let SubPath = '';
 let Model = 'None';
 let Orientation = 'None';
-let PromptData = {}
+let PromptData = {};
+
+function isVisible(element) {
+    return !!(element && element.offsetParent !== null);
+}
+
+function setVisible(element, visible) {
+    if (element) {
+        element.style.display = visible ? '' : 'none';
+    }
+}
+
+function appendOption(selectElement, value, text, selected = false) {
+    if (!selectElement) {
+        return;
+    }
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = text;
+    option.selected = selected;
+    selectElement.appendChild(option);
+}
 
 app.registerExtension({
     name: "Primere.PromptSaver",
@@ -51,100 +71,107 @@ class PromptSaver {
         }
 
         function PromptModalHandler() {
-            var scripts = document.getElementsByTagName('script');
-            var jqueryCheck = false;
-            $(scripts).each(function(index, value) {
-                if (value.src.includes('jquery-1.9.0.min.js')) {
-                    jqueryCheck = true;
+            PrompteventListenerInit = true;
+            PromptData['replace'] = 0;
+
+            document.body.addEventListener('click', async function (event) {
+                const promptmodal = document.getElementById("primere_promptsaver_modal");
+                if (!promptmodal) {
+                    return;
+                }
+
+                if (event.target.closest('div#primere_promptsaver_modal button.promptmodal-closer')) {
+                    promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;');
+                    return;
+                }
+
+                if (!event.target.closest('div#primere_promptsaver_modal button.prompt_saver_button')) {
+                    return;
+                }
+
+                PromptData['prompt'] = promptmodal.querySelector('textarea[name="positive_prompt"]')?.value ?? '';
+                PromptData['negative_prompt'] = promptmodal.querySelector('textarea[name="negative_prompt"]')?.value ?? '';
+                PromptData['preferred_model'] = promptmodal.querySelector('input[name="model"]')?.value ?? '';
+                PromptData['preferred_orientation'] = promptmodal.querySelector('input[name="orientation"]')?.value ?? '';
+
+                const promptNameInput = promptmodal.querySelector('input#prompt_name');
+                const promptNameSelect = promptmodal.querySelector('select#name');
+                const promptPathInput = promptmodal.querySelector('input#prompt_path');
+                const promptPathSelect = promptmodal.querySelector('select#preferred_subpath');
+
+                if (isVisible(promptNameInput)) {
+                    PromptData['replace'] = 0;
+                    PromptData['name'] = promptNameInput?.value ?? '';
+                    const promptNameLower = PromptData['name'].toLowerCase();
+                    const optionExists = Array.from(promptNameSelect?.options ?? []).some((option) => option.value.toLowerCase() === promptNameLower);
+                    if (optionExists && PromptData['name'].length > 0) {
+                        if (confirm('The [' + PromptData['name'] + '] prompt already exist. Replace existing prompt by this name?')) {
+                            PromptData['replace'] = 1;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else {
+                    PromptData['replace'] = 1;
+                    PromptData['name'] = promptNameSelect?.value ?? '';
+                }
+
+                if (isVisible(promptPathInput)) {
+                    PromptData['preferred_subpath'] = promptPathInput?.value ?? '';
+                } else {
+                    PromptData['preferred_subpath'] = promptPathSelect?.value ?? '';
+                }
+
+                if (PromptData['prompt'].length < 3 || PromptData['name'].length < 1) {
+                    alert('Required data missing...');
                     return false;
+                }
+
+                const isSaved = await savePromptData('stylecsv', 'styles', 'csv', JSON.stringify(PromptData));
+                if (isSaved == false) {
+                    alert('Cannot save new prompt to CSV file.');
+                } else {
+                    alert('New prompt: [' + PromptData['name'] + '] added to CSV file.');
+                    promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;');
                 }
             });
 
-            PrompteventListenerInit = true;
-            let head = document.getElementsByTagName('HEAD')[0];
-            let js = document.createElement("script");
-            if (jqueryCheck === false) {
-                js.src = realPath + "/jquery/jquery-1.9.0.min.js";
-                head.appendChild(js);
-            }
+            document.body.addEventListener('change', function (event) {
+                const promptmodal = document.getElementById("primere_promptsaver_modal");
+                if (!promptmodal) {
+                    return;
+                }
 
-            //js.onload = function(e) {
-                $(document).ready(function () {
-                    var promptmodal = null;
-                    PromptData['replace'] = 0;
-
-                    $('body').on("click", 'div#primere_promptsaver_modal button.promptmodal-closer', function () { // modal close
-                        promptmodal = document.getElementById("primere_promptsaver_modal");
-                        promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;')
-                    });
-
-                    $('body').on("change", 'div#primere_promptsaver_modal select#name', function () { // name list change
-                        if (this.value == '') {
-                            $('div#primere_promptsaver_modal input#prompt_name').show();
-                            $('span.prompt_replace_warning').hide()
-                        } else {
-                            $('div#primere_promptsaver_modal input#prompt_name').hide();
-                            $('div#primere_promptsaver_modal input#prompt_name').val('');
-                            $('span.prompt_replace_warning').show()
+                const nameSelect = event.target.closest('div#primere_promptsaver_modal select#name');
+                if (nameSelect) {
+                    const promptNameInput = promptmodal.querySelector('input#prompt_name');
+                    const replaceWarning = promptmodal.querySelector('span.prompt_replace_warning');
+                    if (nameSelect.value == '') {
+                        setVisible(promptNameInput, true);
+                        setVisible(replaceWarning, false);
+                    } else {
+                        setVisible(promptNameInput, false);
+                        if (promptNameInput) {
+                            promptNameInput.value = '';
                         }
-                    });
+                        setVisible(replaceWarning, true);
+                    }
+                    return;
+                }
 
-                    $('body').on("change", 'div#primere_promptsaver_modal select#preferred_subpath', function () { // preferred_subpath list change
-                        if (this.value == '') {
-                            $('div#primere_promptsaver_modal input#prompt_path').show();
-                        } else {
-                            $('div#primere_promptsaver_modal input#prompt_path').hide();
-                            $('div#primere_promptsaver_modal input#prompt_path').val('');
+                const subpathSelect = event.target.closest('div#primere_promptsaver_modal select#preferred_subpath');
+                if (subpathSelect) {
+                    const promptPathInput = promptmodal.querySelector('input#prompt_path');
+                    if (subpathSelect.value == '') {
+                        setVisible(promptPathInput, true);
+                    } else {
+                        setVisible(promptPathInput, false);
+                        if (promptPathInput) {
+                            promptPathInput.value = '';
                         }
-                    });
-
-                    $('body').on("click", 'div#primere_promptsaver_modal button.prompt_saver_button', async function () { // save
-                        PromptData['prompt'] = $('div#primere_promptsaver_modal textarea[name="positive_prompt"]').val();
-                        PromptData['negative_prompt'] = $('div#primere_promptsaver_modal textarea[name="negative_prompt"]').val();
-                        PromptData['preferred_model'] = $('div#primere_promptsaver_modal input[name="model"]').val();
-                        PromptData['preferred_orientation'] = $('div#primere_promptsaver_modal input[name="orientation"]').val();
-
-                        if ($('div#primere_promptsaver_modal input#prompt_name').is(":visible")) {
-                            PromptData['replace'] = 0;
-                            PromptData['name'] = $('div#primere_promptsaver_modal input#prompt_name').val();
-                            if ($('div#primere_promptsaver_modal select#name option').filter(function () {
-                                return $(this).val().toLowerCase() == PromptData['name'].toLowerCase();
-                            }).length) {
-                                if (PromptData['name'].length < 1) {
-                                    alert('Required prompt name missing...')
-                                } else {
-                                    alert('Prompt name already exist...')
-                                }
-                                return false;
-                            }
-                        } else {
-                            PromptData['replace'] = 1;
-                            PromptData['name'] = $('div#primere_promptsaver_modal select#name').val();
-                        }
-
-                        if ($('div#primere_promptsaver_modal input#prompt_path').is(":visible")) {
-                            PromptData['preferred_subpath'] = $('div#primere_promptsaver_modal input#prompt_path').val();
-                        } else {
-                            PromptData['preferred_subpath'] = $('div#primere_promptsaver_modal select#preferred_subpath').val();
-                        }
-
-                        if (PromptData['prompt'].length < 3 || PromptData['name'].length < 1) {
-                            alert('Required data missing...')
-                            return false;
-                        }
-
-                        //alert(JSON.stringify(PromptData));
-                        var isSaved = await savePromptData('stylecsv', 'styles', 'csv', JSON.stringify(PromptData));
-                        if (isSaved == false) {
-                            alert('Cannot save new prompt to CSV file.');
-                        } else {
-                            alert('New prompt: [' + PromptData['name'] + '] added to CSV file.')
-                            promptmodal = document.getElementById("primere_promptsaver_modal");
-                            promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;')
-                        }
-                    });
-                });
-            //}
+                    }
+                }
+            });
         }
 
         for (var px = 0; px < node.widgets.length; ++px) {
@@ -181,7 +208,7 @@ async function setup_promptsaver_modal() {
     if (!modal) {
         modal = document.createElement("div");
         modal.classList.add("comfy-modal");
-        modal.setAttribute("id","primere_promptsaver_modal");
+        modal.setAttribute("id", "primere_promptsaver_modal");
         modal.innerHTML = '<div class="promptmodal_header"><div class="prompt_modal_title">Save prompt to external file</div></div>';
 
         let container = document.createElement("div");
@@ -190,51 +217,44 @@ async function setup_promptsaver_modal() {
 
         document.body.appendChild(modal);
     } else {
-        $('div#primere_promptsaver_modal div.promptmodal_header h3.prompt_modal_title').html('💾 Save prompt to file...');
+        const modalTitle = document.querySelector('div#primere_promptsaver_modal div.promptmodal_header .prompt_modal_title');
+        if (modalTitle) {
+            modalTitle.textContent = '💾 Save prompt to file...';
+        }
     }
 
     var PromptData = await getPromptData('stylecsv', 'styles', 'csv', ['name', 'preferred_subpath']);
 
     container = modal.getElementsByClassName("prompt-container")[0];
     container.innerHTML = "<p></p><label>Prompt name:</label><select name='name' id='name'>";
-    $('select#name').append($('<option>', {
-        value: '',
-        text : 'Add new name'
-    }));
-    $.each(PromptData['name'], function (i, item) {
-        $('select#name').append($('<option>', {
-            value: item,
-            text: item
-        }));
-    });
+
+    const promptNameSelect = container.querySelector('select#name');
+    appendOption(promptNameSelect, '', 'Add new name');
+    for (const item of PromptData['name']) {
+        appendOption(promptNameSelect, item, item);
+    }
+
     container.innerHTML += "<input type='text' name='prompt_name' id='prompt_name' value='' placeholder='Enter new prompt name'>";
     container.innerHTML += "<span class='prompt_replace_warning'>This setting will replace the existing prompt by selected name!</span>";
-    $(container).find('span.prompt_replace_warning').hide();
+    setVisible(container.querySelector('span.prompt_replace_warning'), false);
 
     var category_match = false;
     container.innerHTML += "<label>Prompt category (subpath):</label><select name='preferred_subpath' id='preferred_subpath'>";
-    $('select#preferred_subpath').append($('<option>', {
-        value: '',
-        text : 'Add new category'
-    }));
-    $.each(PromptData['preferred_subpath'], function (i, item) {
+
+    const promptSubpathSelect = container.querySelector('select#preferred_subpath');
+    appendOption(promptSubpathSelect, '', 'Add new category');
+    for (const item of PromptData['preferred_subpath']) {
         if (SubPath == item) {
             category_match = true;
-            $('select#preferred_subpath').append($('<option>', {
-                value: item,
-                text: item
-            }).attr('selected', true));
+            appendOption(promptSubpathSelect, item, item, true);
         } else {
-            $('select#preferred_subpath').append($('<option>', {
-                value: item,
-                text: item
-            }));
+            appendOption(promptSubpathSelect, item, item);
         }
-    });
+    }
 
     if (category_match == true) {
         container.innerHTML += "<input type='text' name='prompt_path' id='prompt_path' value='' placeholder='Enter new prompt category (subpath)'>";
-        $(container).find('input#prompt_path').hide();
+        setVisible(container.querySelector('input#prompt_path'), false);
     } else {
         container.innerHTML += "<input type='text' name='prompt_path' id='prompt_path' value='" + SubPath + "' placeholder='Enter new prompt category (subpath)'>";
     }
@@ -246,7 +266,7 @@ async function setup_promptsaver_modal() {
     container.innerHTML += '<button type="button" class="promptmodal-closer">Close without save</button>';
     container.innerHTML += "<button type='button' class='prompt_saver_button'>Save prompt to external CSV file</button>";
 
-    modal.setAttribute('style','display: block; width: 30%; height: 60%;');
+    modal.setAttribute('style', 'display: block; width: 30%; height: 60%;');
 }
 
 // ************************* getPromptData PromptDataResponse
