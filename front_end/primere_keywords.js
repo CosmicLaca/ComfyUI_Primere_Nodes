@@ -2,7 +2,7 @@ import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
 let LoadedNodeKey = null;
-let CKPTLoaderName = null;
+const CKPTLoaderTypes = new Set(["PrimereCKPT", "PrimereVisualCKPT"]);
 
 app.registerExtension({
     name: "Primere.PrimereKeywords",
@@ -12,33 +12,45 @@ app.registerExtension({
     }, */
 
     async setup(app) {
-        await sleep(100);
-        for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
-            var wts_1 = app.canvas.visible_nodes[its_1];
-            if (wts_1.type == CKPTLoaderName) {
-                for (var its_2 = 0; its_2 < wts_1.widgets.length; ++its_2) {
-                    var wts_2 = wts_1.widgets[its_2];
-                    if (wts_2.name == 'base_model') {
-                        var modelvalue = wts_2.value;
-                        if (typeof modelvalue != 'undefined') {
-                            sendPOSTModelName(wts_2.value);
-                        }
-                    }
+        // Front-end/node widget values may still be hydrating during early setup.
+        // Poll briefly to avoid pushing invalid values (e.g. NaN) on first load.
+        for (let attempt = 0; attempt < 8; attempt++) {
+            let sentAny = false;
+            for (const node of app.canvas.visible_nodes) {
+                if (!CKPTLoaderTypes.has(node.type)) {
+                    continue;
+                }
+                const baseModelWidget = node.widgets?.find((widget) => widget?.name === 'base_model');
+                if (!baseModelWidget) {
+                    continue;
+                }
+                const modelValue = baseModelWidget.value;
+                if (isValidModelName(modelValue)) {
+                    sendPOSTModelName(modelValue);
+                    sentAny = true;
                 }
             }
+
+            if (sentAny) {
+                break;
+            }
+            await sleep(100);
         }
     },
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (nodeData.name === "PrimereCKPT" || nodeData.name === 'PrimereVisualCKPT') {
+        if (CKPTLoaderTypes.has(nodeData.name)) {
+            const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
-                CKPTLoaderName = nodeData.name;
-                PrimereModelChange.apply(this, [this, CKPTLoaderName]);
+                onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
+                PrimereModelChange.apply(this, [this]);
             };
         }
 
         if (nodeData.name === "PrimereModelKeyword") {
+            const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
+                onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
                 PrimereKeywordList.apply(this, [this, 'PrimereKeywordSelector']);
             };
         }
@@ -66,12 +78,29 @@ function PrimereKeywordList(node, inputName) {
     LoadedNodeKey = node;
     return {widget: widget};
 }
-function PrimereModelChange(node, inputName) {
+function PrimereModelChange(node) {
+    const previousWidgetChanged = node.onWidgetChanged;
     node.onWidgetChanged = function(name, value, old_value){
+        if (typeof previousWidgetChanged === 'function') {
+            previousWidgetChanged.apply(this, [name, value, old_value]);
+        }
         if (name == 'base_model') {
-            sendPOSTModelName(value);
+            if (isValidModelName(value)) {
+                sendPOSTModelName(value);
+            }
         }
     };
+}
+
+function isValidModelName(value) {
+    if (typeof value !== 'string') {
+        return false;
+    }
+    const trimmed = value.trim();
+    if (!trimmed || trimmed.toLowerCase() === 'nan') {
+        return false;
+    }
+    return true;
 }
 
 api.addEventListener("ModelKeywordResponse", ModelKeywordResponse);

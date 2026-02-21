@@ -40,6 +40,35 @@ let FileDateResponse = {};
 let FileLinkResponse = {};
 let RawImageDataResponse = {};
 
+function setText(selector, value) {
+    const el = document.querySelector(selector);
+    if (el) {
+        el.textContent = value;
+    }
+}
+
+function getFilterInput() {
+    return document.querySelector('body div.subdirtab input');
+}
+
+function clearModalCardsKeepingSelected() {
+    const cards = document.querySelectorAll('div.primere-modal-content div.visual-ckpt');
+    for (const card of cards) {
+        if (!card.classList.contains('visual-ckpt-selected')) {
+            card.remove();
+        }
+    }
+}
+
+function clearSelectedPathButtons() {
+    const buttons = document.querySelectorAll('div.subdirtab button');
+    for (const button of buttons) {
+        if (!button.classList.contains('preview_sort') && !button.classList.contains('preview_sort_direction')) {
+            button.classList.remove('selected_path');
+        }
+    }
+}
+
 app.registerExtension({
     name: "Primere.VisualMenu",
 
@@ -141,7 +170,10 @@ class ModalControl {
                 node_object = node;
 
                 if (ShowModal === true) {
-                    $('div.litegraph.litecontextmenu.litemenubar-panel').hide();
+                    const contextMenu = document.querySelector('div.litegraph.litecontextmenu.litemenubar-panel');
+                    if (contextMenu) {
+                        contextMenu.style.display = 'none';
+                    }
 
                     nodeHelper = hiddenWidgets[currentClass]
                     source_subdirname = nodeHelper['subdir'];
@@ -151,11 +183,19 @@ class ModalControl {
                         ModalHandler();
                     }
 
-                    if ($('div.primere-modal-content div.visual-ckpt').length) {
-                        $('div.primere-modal-content.ckpt-container').empty();
+                    if (document.querySelector('div.primere-modal-content div.visual-ckpt')) {
+                        const ckptContainer = document.querySelector('div.primere-modal-content.ckpt-container');
+                        if (ckptContainer) {
+                            ckptContainer.innerHTML = '';
+                        }
                     }
 
-                    if (widget_object.name.match(nodematch) && $.isNumeric(widget_object.name.substr(-1)) === isnumeric_end) {
+                    // Cross-browser safe check to mirror the old jQuery behavior:
+                    // stacked nodes use numbered widgets (...1, ...2), CKPT does not.
+                    // Number('') is 0 in Chromium (true-ish), which can block CKPT modal opening,
+                    // so we explicitly check only a trailing digit.
+                    const widgetNumericEnd = /\d$/.test(String(widget_object?.name ?? ''));
+                    if (widget_object.name.match(nodematch) && widgetNumericEnd === isnumeric_end) {
                         SelectedModel = node_object.widgets[nx].value;
                         setup_visual_modal(modaltitle, 'AllModels', ShowHidden, SelectedModel, source_subdirname, node_object, PreviewPath);
                         callbackfunct = inner_clicked.bind(widget_object);
@@ -192,241 +232,243 @@ class ModalControl {
         }
 
         function ModalHandler() { // 02
-            var scripts = document.getElementsByTagName('script');
-            var jqueryCheck = false;
-            $(scripts).each(function(index, value) {
-                if (value.src.includes('jquery-1.9.0.min.js')) {
-                    jqueryCheck = true;
-                    return false;
-                }
-            });
-
             eventListenerInit = true;
-            let head = document.getElementsByTagName('HEAD')[0];
-            let js = document.createElement("script");
-            if (jqueryCheck === false) {
-                js.src = realPath + "/jquery/jquery-1.9.0.min.js";
-                head.appendChild(js);
-            }
 
-            //js.onload = function(e) {
-                $(document).ready(function () {
-                    var modal = null;
+            document.body.addEventListener("click", async function (event) {
+                let modal = null;
 
-                    $('body').on("click", 'button.modal-closer', async function () { // modal close
-                        modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
-                        var lastDirValue = 'All'
-                        if (lastDirObject.hasOwnProperty(currentClass) === true) {
-                            lastDirValue = lastDirObject[currentClass];
+                const closeButton = event.target.closest('button.modal-closer');
+                if (closeButton) {
+                    modal = document.getElementById("primere_visual_modal");
+                    if (modal) {
+                        modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
+                    }
+                    var lastDirValue = 'All';
+                    if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                        lastDirValue = lastDirObject[currentClass];
+                    }
+
+                    if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                        if (AutoFilter !== true) {
+                            await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                            await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                            const filter = getFilterInput()?.value ?? '';
+                            await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                            await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                            await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
                         }
+                    }
+                    return;
+                }
 
-                        if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
-                            if (AutoFilter !== true) {
-                                await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
-                                await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
-                                var filter = $('body div.subdirtab input').val();
-                                await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
-                                await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
-                                await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                const selectedImage = event.target.closest('div.primere-modal-content div.visual-ckpt img');
+                if (selectedImage) {
+                    var ckptName = selectedImage.dataset.ckptname;
+                    modal = document.getElementById("primere_visual_modal");
+                    if (modal) {
+                        modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
+                    }
+                    var lastDirValue = 'All';
+                    if (lastDirObject.hasOwnProperty(currentClass) === true) {
+                        lastDirValue = lastDirObject[currentClass];
+                    }
+
+                    if (source_subdirname == 'styles') {
+                        let pathLastIndex = ckptName.lastIndexOf('\\');
+                        ckptName = ckptName.substring(pathLastIndex + 1);
+                    }
+
+                    if (ckptName && typeof callbackfunct == 'function') {
+                        callbackfunct(ckptName);
+                        sendPOSTModelName(ckptName);
+                    }
+
+                    if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                        if (AutoFilter !== true) {
+                            await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
+                            await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
+                            const filter = getFilterInput()?.value ?? '';
+                            await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
+                            await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
+                            await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
+                        }
+                    }
+                    return;
+                }
+
+                var subdirName = 'All';
+                var filteredCheckpoints = 0;
+
+                const subdirButton = event.target.closest('div.subdirtab button.subdirfilter');
+                if (subdirButton) {
+                    const filterInput = getFilterInput();
+                    if (filterInput) {
+                        filterInput.value = '';
+                    }
+                    subdirName = subdirButton.dataset.ckptsubdir;
+                    if (currentClass !== false) {
+                        lastDirObject[currentClass] = subdirName;
+                    }
+
+                    filteredCheckpoints = 0;
+                    clearModalCardsKeepingSelected();
+
+                    if (source_subdirname != 'styles') {
+                        ModelsByVersion = await getModelData(cache_key + '_version');
+                    }
+                    ModelList = await getModelDatabyPath(source_subdirname, subdirName);
+
+                    if (source_subdirname == 'styles') {
+                        if (ModelList.includes(SelectedModel) || ModelList.includes(subdirName + '\\' + SelectedModel)) {
+                            var index_pre = (ModelList.indexOf(SelectedModel) + ModelList.indexOf(subdirName + '\\' + SelectedModel)) + 1;
+                            if (index_pre !== -1) {
+                                await ModelList.splice(index_pre, 1);
                             }
                         }
-                    });
+                    }
 
-                    $('body').on("click", 'div.primere-modal-content div.visual-ckpt img', async function () { // image choosen
-                        var ckptName = $(this).data('ckptname');
-                        modal = document.getElementById("primere_visual_modal");
-                        modal.setAttribute('style', 'display: none; width: 80%; height: 70%;')
-                        var lastDirValue = 'All'
-                        if (lastDirObject.hasOwnProperty(currentClass) === true) {
-                            lastDirValue = lastDirObject[currentClass];
+                    for (var checkpoint of ModelList) {
+                        let firstletter = checkpoint.charAt(0);
+
+                        var filterpass = true;
+                        if (SelectedModel == checkpoint) {
+                            filterpass = false;
                         }
 
-                        if (source_subdirname == 'styles') {
-                            let pathLastIndex = ckptName.lastIndexOf('\\');
-                            ckptName = ckptName.substring(pathLastIndex + 1);
-                        }
+                        if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                            let pathLastIndex = checkpoint.lastIndexOf('\\');
+                            let ckptName_full = checkpoint.substring(pathLastIndex + 1);
+                            let dotLastIndex = ckptName_full.lastIndexOf('.');
+                            var ckptName = ckptName_full.substring(0, dotLastIndex);
+                            var CategoryName = 'Unknown';
 
-                        apply_modal(ckptName);
-
-                        if (typeof nodeHelper['sortbuttons'] !== "object" || typeof nodeHelper['sortbuttons'][0] !== "object" || nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
-                            if (AutoFilter !== true) {
-                                await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + cache_key);
-                                await categoryHandler(FilterType, 'add', 'last_visual_category_type' + '_' + cache_key);
-                                var filter = $('body div.subdirtab input').val();
-                                await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + cache_key);
-                                await categoryHandler(sortType, 'add', 'last_visual_sort_type' + '_' + cache_key);
-                                await categoryHandler(operator, 'add', 'last_visual_sort_operator' + '_' + cache_key);
-                            }
-                        }
-
-                        function apply_modal(Selected) { // apply
-                            if (Selected && typeof callbackfunct == 'function') {
-                                callbackfunct(Selected);
-                                sendPOSTModelName(Selected);
-                                //return false;
-                            }
-                        }
-                    });
-
-                    var subdirName = 'All';
-                    var filteredCheckpoints = 0;
-                    $('body').on("click", 'div.subdirtab button.subdirfilter', async function () { // subdir filter
-                        $('div.subdirtab input').val('');
-                        subdirName = $(this).data('ckptsubdir');
-                        if (currentClass !== false) {
-                            lastDirObject[currentClass] = subdirName;
-                        }
-
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).each(function (cont_index, cont_obj) {
-                            if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
-                                cont_obj.remove();
-                            }
-                        });
-
-                        if (source_subdirname != 'styles') {
-                            ModelsByVersion = await getModelData(cache_key + '_version');
-                        }
-                        ModelList = await getModelDatabyPath(source_subdirname, subdirName);
-
-                        if (source_subdirname == 'styles') {
-                            if (ModelList.includes(SelectedModel) || ModelList.includes(subdirName + '\\' + SelectedModel)) {
-                                var index_pre = (ModelList.indexOf(SelectedModel) + ModelList.indexOf(subdirName + '\\' + SelectedModel)) + 1;
-                                if (index_pre !== -1) {
-                                    await ModelList.splice(index_pre, 1);
+                            for (const [ver_index, ver_value] of Object.entries(ModelsByVersion)) {
+                                if (ver_value.includes(ckptName)) {
+                                    CategoryName = ver_index;
                                 }
                             }
-                        }
 
-                        for (var checkpoint of ModelList) {
-                            let firstletter = checkpoint.charAt(0);
-
-                            var filterpass = true;
-                            if (SelectedModel == checkpoint) {
-                                filterpass = false;
-                            }
-
-                            if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
-                                let pathLastIndex = checkpoint.lastIndexOf('\\');
-                                let ckptName_full = checkpoint.substring(pathLastIndex + 1);
-                                let dotLastIndex = ckptName_full.lastIndexOf('.');
-                                var ckptName = ckptName_full.substring(0, dotLastIndex);
-                                var CategoryName = 'Unknown';
-
-                                $.each(ModelsByVersion, function (ver_index, ver_value) {
-                                    if (ver_value.includes(ckptName)) {
-                                        CategoryName = ver_index;
-                                    }
-                                });
-
-                                var container = $('div.primere-modal-content.ckpt-container')[0];
-                                if (subdirName === 'Root') {
-                                    let isSubdirExist = checkpoint.lastIndexOf('\\');
-                                    if (isSubdirExist < 0) {
-                                        filteredCheckpoints++;
-                                        await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName);
-                                    }
-                                } else {
+                            var container = document.querySelector('div.primere-modal-content.ckpt-container');
+                            if (subdirName === 'Root') {
+                                let isSubdirExist = checkpoint.lastIndexOf('\\');
+                                if (isSubdirExist < 0) {
                                     filteredCheckpoints++;
                                     await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName);
                                 }
-                            }
-                            $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
-                        }
-                        //await sleep(600);
-                        previewSorter(operator, sortType);
-
-                        $('div#primere_visual_modal div.modal_header label.ckpt-name').text(subdirName);
-                        $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Subdir');
-                        $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
-                        $(this).addClass('selected_path');
-                        FilterType = 'Subdir';
-                    });
-
-                    $('body').on("click", 'div.subdirtab button.verfilter', async function () { // model version filter
-                        $('div.subdirtab input').val('');
-                        var versionName = $(this).data('ckptver');
-                        if (currentClass !== false) {
-                            lastDirObject[currentClass] = versionName;
-                        }
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).each(function (cont_index, cont_obj) {
-                            if ($(cont_obj).find('img').parent().closest(".visual-ckpt-selected").length === 0) {
-                                cont_obj.remove();
-                            }
-                        });
-
-                        ModelList = await getModelDatabyVersion(source_subdirname, cache_key + '_version', versionName);
-
-                        for (var checkpoint of ModelList) {
-                            let firstletter = checkpoint.charAt(0);
-                            var filterpass = true;
-                            if (SelectedModel == checkpoint) {
-                                filterpass = false;
-                            }
-                            if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
+                            } else {
                                 filteredCheckpoints++;
-                                var container = $('div.primere-modal-content.ckpt-container')[0];
-                                await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName);
+                                await createCardElement(checkpoint, container, SelectedModel, source_subdirname, CategoryName);
                             }
-                            $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints);
                         }
+                        setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints));
+                    }
 
-                        //await sleep(600);
-                        previewSorter(operator, sortType);
+                    previewSorter(operator, sortType);
 
-                        $('div#primere_visual_modal div.modal_header label.ckpt-name').text(versionName);
-                        $('div#primere_visual_modal div.modal_header label.ckpt-ver').text('Version');
-                        $('div.subdirtab button').not('button.preview_sort').not('button.preview_sort_direction').removeClass("selected_path");
-                        $(this).addClass('selected_path');
-                        FilterType = 'Version';
-                    });
+                    setText('div#primere_visual_modal div.modal_header label.ckpt-name', subdirName);
+                    setText('div#primere_visual_modal div.modal_header label.ckpt-ver', 'Subdir');
+                    clearSelectedPathButtons();
+                    subdirButton.classList.add('selected_path');
+                    FilterType = 'Subdir';
+                    return;
+                }
 
-                    $('body').on("keyup", 'div.subdirtab input', function() { // keyword filter
-                        var filter = $(this).val();
-                        previewFilter(filter);
-                    });
+                const versionButton = event.target.closest('div.subdirtab button.verfilter');
+                if (versionButton) {
+                    const filterInput = getFilterInput();
+                    if (filterInput) {
+                        filterInput.value = '';
+                    }
+                    var versionName = versionButton.dataset.ckptver;
 
-                    $('body').on("click", 'div.subdirtab button.filter_clear', function() { // keyword inut clear
-                        $('div.subdirtab input').val('');
-                        var imageContainers = $('div.primere-modal-content div.visual-ckpt');
-                        filteredCheckpoints = 0;
-                        $(imageContainers).find('img').each(function (img_index, img_obj) {
-                            $(img_obj).parent().show();
+                    if (currentClass !== false) {
+                        lastDirObject[currentClass] = versionName;
+                    }
+
+                    filteredCheckpoints = 0;
+                    clearModalCardsKeepingSelected();
+
+                    ModelList = await getModelDatabyVersion(source_subdirname, cache_key + '_version', versionName);
+
+                    for (var checkpoint of ModelList) {
+                        let firstletter = checkpoint.charAt(0);
+                        var filterpass = true;
+                        if (SelectedModel == checkpoint) {
+                            filterpass = false;
+                        }
+                        if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')) && filterpass == true) {
                             filteredCheckpoints++;
-                        });
-                        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-                    });
-
-                    $('body').on("click", 'div.subdirtab button.preview_sort', function() { // preview sort type
-                        sortType = $(this).data('sortsource');
-                        operator = $('button.preview_sort_direction').text();
-                        previewSorter(operator, sortType);
-                        $('div.subdirtab button.preview_sort').removeClass("selected_path");
-                        $(this).addClass('selected_path');
-                    });
-
-                    $('body').on("click", 'div.subdirtab button.preview_sort_direction', function () { // preview sort direction
-                        operator = $('button.preview_sort_direction').text();
-                        if (operator == 'ASC') {
-                            $('button.preview_sort_direction').text('DESC');
-                            operator = 'DESC';
-                            $('div.subdirtab button.preview_sort_direction').addClass("selected_path");
-                        } else {
-                            $('button.preview_sort_direction').text('ASC');
-                            operator = 'ASC';
-                            $('div.subdirtab button.preview_sort_direction').removeClass("selected_path");
+                            var container = document.querySelector('div.primere-modal-content.ckpt-container');
+                            await createCardElement(checkpoint, container, SelectedModel, source_subdirname, versionName);
                         }
-                        previewSorter(operator, sortType);
-                    });
-                });
-            //};
+                        setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints));
+                    }
+
+                    previewSorter(operator, sortType);
+
+                    setText('div#primere_visual_modal div.modal_header label.ckpt-name', versionName);
+                    setText('div#primere_visual_modal div.modal_header label.ckpt-ver', 'Version');
+                    clearSelectedPathButtons();
+                    versionButton.classList.add('selected_path');
+                    FilterType = 'Version';
+                    return;
+                }
+
+                const clearButton = event.target.closest('div.subdirtab button.filter_clear');
+                if (clearButton) {
+                    const filterInput = getFilterInput();
+                    if (filterInput) {
+                        filterInput.value = '';
+                    }
+                    const images = document.querySelectorAll('div.primere-modal-content div.visual-ckpt img');
+                    filteredCheckpoints = 0;
+                    for (const image of images) {
+                        const parent = image.parentElement;
+                        if (parent) {
+                            parent.style.display = '';
+                            filteredCheckpoints++;
+                        }
+                    }
+                    setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints - 1));
+                    return;
+                }
+
+                const sortButton = event.target.closest('div.subdirtab button.preview_sort');
+                if (sortButton) {
+                    sortType = sortButton.dataset.sortsource;
+                    operator = document.querySelector('button.preview_sort_direction')?.textContent ?? 'ASC';
+                    previewSorter(operator, sortType);
+                    const sortButtons = document.querySelectorAll('div.subdirtab button.preview_sort');
+                    for (const button of sortButtons) {
+                        button.classList.remove('selected_path');
+                    }
+                    sortButton.classList.add('selected_path');
+                    return;
+                }
+
+                const sortDirectionButton = event.target.closest('div.subdirtab button.preview_sort_direction');
+                if (sortDirectionButton) {
+                    operator = sortDirectionButton.textContent;
+                    if (operator == 'ASC') {
+                        sortDirectionButton.textContent = 'DESC';
+                        operator = 'DESC';
+                        sortDirectionButton.classList.add('selected_path');
+                    } else {
+                        sortDirectionButton.textContent = 'ASC';
+                        operator = 'ASC';
+                        sortDirectionButton.classList.remove('selected_path');
+                    }
+                    previewSorter(operator, sortType);
+                }
+            });
+
+            document.body.addEventListener("keyup", function (event) {
+                const filterInput = event.target.closest('div.subdirtab input');
+                if (filterInput) {
+                    previewFilter(filterInput.value);
+                }
+            });
         }
-    }
-}
 
 async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node, PreviewPath) { //3
     var container = null;
@@ -449,7 +491,10 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
 
         document.body.appendChild(modal);
     } else {
-        $('div#primere_visual_modal div.modal_header h3.visual_modal_title').html(combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label>');
+        const title = document.querySelector('div#primere_visual_modal div.modal_header h3.visual_modal_title');
+        if (title) {
+            title.innerHTML = combo_name.replace("_", " ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label>';
+        }
     }
 
     container = modal.getElementsByClassName("ckpt-container")[0];
@@ -617,9 +662,9 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         }
     }
 
-    $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(ModelList.length);
-    $('div#primere_visual_modal div.modal_header label.ckpt-name').text(LastCat);
-    $('div#primere_visual_modal div.modal_header label.ckpt-ver').text(LastCatType);
+    setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(ModelList.length));
+    setText('div#primere_visual_modal div.modal_header label.ckpt-name', LastCat);
+    setText('div#primere_visual_modal div.modal_header label.ckpt-ver', LastCatType);
 
     var CKPTElements = 0;
     modal.setAttribute('style','display: block; width: 80%; height: 70%;');
@@ -634,11 +679,11 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         if (((firstletter === '.' && ShowHidden === true) || firstletter !== '.') && ((checkpoint.match('^NSFW') && ShowHidden === true) || !checkpoint.match('^NSFW')))  {
             var CategoryName = 'Unknown';
 
-            $.each(ModelsByVersion, function(ver_index, ver_value) {
+            for (const [ver_index, ver_value] of Object.entries(ModelsByVersion)) {
                 if (ver_value.includes(ckptName)) {
                     CategoryName = ver_index;
                 }
-            });
+            }
 
             if (LastCat === 'Root') {
                 let isSubdirExist = checkpoint.lastIndexOf('\\');
@@ -651,73 +696,81 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
                 await createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName);
             }
         }
-        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(CKPTElements);
+        setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(CKPTElements));
     }
 
     if (savedfilter.length > 0) {
-        $('body div.subdirtab input').val(savedfilter);
+        const filterInput = getFilterInput();
+        if (filterInput) {
+            filterInput.value = savedfilter;
+        }
         previewFilter(savedfilter);
     }
-    $('button.preview_sort_direction').text(operator);
-    if (operator != 'ASC') {
-        $('div.subdirtab button.preview_sort_direction').addClass("selected_path");
+    const sortDirectionButton = document.querySelector('button.preview_sort_direction');
+    if (sortDirectionButton) {
+        sortDirectionButton.textContent = operator;
     }
-    $('div.subdirtab button.preview_sort[data-sortsource="' + sortType + '"]').addClass('selected_path');
+    if (operator != 'ASC') {
+        document.querySelector('div.subdirtab button.preview_sort_direction')?.classList.add("selected_path");
+    }
+    document.querySelector('div.subdirtab button.preview_sort[data-sortsource="' + sortType + '"]')?.classList.add('selected_path');
     previewSorter(operator, sortType);
 
-    if (!$('#primere_visual_modal div.subdirtab button.selected_path').length) {
-        $('#primere_visual_modal div.subdirtab button[data-ckptsubdir="All"]').addClass('selected_path');
+    if (!document.querySelector('#primere_visual_modal div.subdirtab button.selected_path')) {
+        document.querySelector('#primere_visual_modal div.subdirtab button[data-ckptsubdir="All"]')?.classList.add('selected_path');
     }
 }
 
 function previewSorter(operator, sortType) {
-    if (operator == 'ASC') {
-        $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            var aVal = $(a).attr('data-' + sortType);
-            var bVal = $(b).attr('data-' + sortType);
+    const container = document.querySelector('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
+    if (!container) {
+        return;
+    }
+    const cards = Array.from(container.querySelectorAll('div.visual-ckpt:not(.visual-ckpt-selected)'));
+    cards.sort(function (a, b) {
+        var aVal = a.dataset[sortType] ?? '';
+        var bVal = b.dataset[sortType] ?? '';
 
-            if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
-                // String comparison
-                aVal = aVal.toUpperCase();
-                bVal = bVal.toUpperCase();
+        if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
+            aVal = String(aVal).toUpperCase();
+            bVal = String(bVal).toUpperCase();
+            if (operator == 'ASC') {
                 return aVal < bVal ? -1 : (aVal > bVal ? 1 : 0);
-            } else {
-                // Numeric comparison
-                return parseInt(aVal) - parseInt(bVal);
             }
-        }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
-    } else {
-        $('div.primere-modal-content.ckpt-container.ckpt-grid-layout').find('div.visual-ckpt').not('.visual-ckpt-selected').sort(function (a, b) {
-            var aVal = $(a).attr('data-' + sortType);
-            var bVal = $(b).attr('data-' + sortType);
+            return aVal > bVal ? -1 : (aVal < bVal ? 1 : 0);
+        }
 
-            if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
-                // String comparison (descending)
-                aVal = aVal.toUpperCase();
-                bVal = bVal.toUpperCase();
-                return aVal > bVal ? -1 : (aVal < bVal ? 1 : 0);
-            } else {
-                // Numeric comparison (descending)
-                return parseInt(bVal) - parseInt(aVal);
-            }
-        }).appendTo('div.primere-modal-content.ckpt-container.ckpt-grid-layout');
+        if (operator == 'ASC') {
+            return parseInt(aVal) - parseInt(bVal);
+        }
+        return parseInt(bVal) - parseInt(aVal);
+    });
+
+    for (const card of cards) {
+        container.appendChild(card);
     }
 }
 
 function previewFilter(filterString) {
-    var imageContainers = $('div.primere-modal-content div.visual-ckpt');
+    var imageContainers = document.querySelectorAll('div.primere-modal-content div.visual-ckpt img');
     var filteredCheckpoints = 0;
-    $(imageContainers).find('img').each(function (img_index, img_obj) {
-        var versiontext = $(img_obj).data('ckptver');
-        var ImageCheckpoint = $(img_obj).data('ckptname') + '_' + versiontext;
-        if (ImageCheckpoint.toLowerCase().indexOf(filterString.toLowerCase()) >= 0 || $(img_obj).parent().closest(".visual-ckpt-selected").length > 0) {
-            $(img_obj).parent().show();
+    for (const img_obj of imageContainers) {
+        var versiontext = img_obj.dataset.ckptver;
+        var ImageCheckpoint = img_obj.dataset.ckptname + '_' + versiontext;
+        const parentCard = img_obj.parentElement;
+        const selectedCard = parentCard?.closest('.visual-ckpt-selected');
+        if (ImageCheckpoint.toLowerCase().indexOf(filterString.toLowerCase()) >= 0 || selectedCard) {
+            if (parentCard) {
+                parentCard.style.display = '';
+            }
             filteredCheckpoints++;
         } else {
-            $(img_obj).parent().hide();
+            if (parentCard) {
+                parentCard.style.display = 'none';
+            }
         }
-        $('div#primere_visual_modal div.modal_header label.ckpt-counter').text(filteredCheckpoints - 1);
-    });
+        setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints - 1));
+    }
 }
 
 async function createCardElement(checkpoint, container, SelectedModel, ModelType, CategoryName) {
@@ -776,21 +829,21 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
 
     if (FileDateResponse.hasOwnProperty(ckptName) === true) {
         var timestamp = FileDateResponse[ckptName];
-        $(card).attr('data-date', timestamp);
+        card.dataset.date = String(timestamp);
     } else {
-        $(card).attr('data-date', 0);
+        card.dataset.date = '0';
     }
 
     if (FileLinkResponse.hasOwnProperty(ckptName) === true) {
         var unetname = FileLinkResponse[ckptName];
-        $(card).attr('data-symlink', unetname);
+        card.dataset.symlink = unetname;
         var unetnameShort = unetname;
         if (unetname == 'diffusion_models') { unetnameShort = 'DiMo'}
         if (unetname == 'diffusers') { unetnameShort = 'Diff'}
         symlinkWidget = '<div class="visual-symlink-type" title="Symlinked from: ' + unetname + '">' + unetnameShort + '</div>';
         card_html += symlinkWidget;
     } else {
-        $(card).attr('data-symlink', "");
+        card.dataset.symlink = "";
     }
 
     if (SelectedModel === checkpoint) {
@@ -801,7 +854,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         var aestString = AscoreDataResponse[ckptName];
         var aestArray = aestString.split("|");
         var aestAVGValue = Math.floor(aestArray[1] / aestArray[0]);
-        $(card).attr('data-ascore', aestAVGValue);
+        card.dataset.ascore = String(aestAVGValue);
         var aeScorePercentLine = Math.floor(((aestAVGValue - aeScoreMin) / (aeScoreMax - aeScoreMin)) * 100);
         if (aeScorePercentLine < 0) {
             aeScorePercentLine = 0;
@@ -812,24 +865,24 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         aesthWidget = '<div class="visual-aesthetic-score" title="' + aestAVGValue + ' / ' + aeScorePercentLine + '%">' + aestAVGValue + '<span> - ' + aeScorePercentLine + '%</span><hr style="width: ' + aeScorePercentLine + '%"></div>';
         card_html += aesthWidget;
     } else {
-        $(card).attr('data-ascore', 0);
+        card.dataset.ascore = '0';
     }
 
     if (STimeDataResponse != null && STimeDataResponse.hasOwnProperty(ckptName) === true) {
         var stimeString = STimeDataResponse[ckptName];
         var stimestArray = stimeString.split("|");
         var stimestAVGValue = Math.floor(stimestArray[1] / stimestArray[0]);
-        $(card).attr('data-stime', stimestAVGValue);
+        card.dataset.stime = String(stimestAVGValue);
         stimeWidget = '<div class="visual-stime" title="Average sampling time: ' + stimestAVGValue + ' sec">' + stimestAVGValue + 's</div>';
         card_html += stimeWidget;
     } else {
-        $(card).attr('data-stime', 0);
+        card.dataset.stime = '0';
     }
 
-    $(card).attr('data-name', ckptName);
+    card.dataset.name = ckptName;
     if (CategoryName == 'StableCascade') { CategoryName = 'Cascade'; }
-    $(card).attr('data-version', CategoryName);
-    $(card).attr('data-path', path_only);
+    card.dataset.version = CategoryName;
+    card.dataset.path = path_only;
 
     if (RawImageDataResponse != null &&  Object.keys(RawImageDataResponse).length > 0) {
         if (RawImageDataResponse.hasOwnProperty(finalName) === true) {
@@ -865,9 +918,9 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
 
 function createSortButtons(buttondata) {
     var sort_html = '<label class="sort_by_label"><br> Sort by: </label>';
-    $.each(buttondata, function() {
-        sort_html += '<button type="button" class="preview_sort" data-sortsource="' + this.toLowerCase() + '">' + this + '</button>';
-    });
+    for (const buttonName of buttondata) {
+        sort_html += '<button type="button" class="preview_sort" data-sortsource="' + buttonName.toLowerCase() + '">' + buttonName + '</button>';
+    }
     sort_html += '<label> | </label><button type="button" class="preview_sort_direction">ASC</button>';
     return sort_html;
 }
@@ -875,7 +928,7 @@ function createSortButtons(buttondata) {
 function createTypeMenu(ModelsByVersion, supportedModels, LastCat, LastCatType) {
     var version_html = '';
 
-    $.each(ModelsByVersion, function(ver_index, ver_value) {
+    for (const [ver_index, ver_value] of Object.entries(ModelsByVersion)) {
         var addWhiteClass = '';
         if (supportedModels.includes(ver_index)) {
             if (!version_html.includes('data-ckptver="' + ver_index + '"')) {
@@ -885,7 +938,7 @@ function createTypeMenu(ModelsByVersion, supportedModels, LastCat, LastCatType) 
                 version_html += '<button type="button" data-ckptver="' + ver_index + '" class="verfilter' + addWhiteClass + '">' + ver_index + '</button>';
             }
         }
-    });
+    }
 
     version_html += '<label> | </label>';
     return version_html;
