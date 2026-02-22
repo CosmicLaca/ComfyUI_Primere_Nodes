@@ -3,6 +3,7 @@ import { api } from "/scripts/api.js";
 
 let LoadedNodeKey = null;
 let CKPTLoaderName = null;
+let MainNodeFound = false;
 
 app.registerExtension({
     name: "Primere.PrimereKeywords",
@@ -12,7 +13,7 @@ app.registerExtension({
     }, */
 
     async setup(app) {
-        await sleep(100);
+        //await sleep(100);
         for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
             var wts_1 = app.canvas.visible_nodes[its_1];
             if (wts_1.type == CKPTLoaderName) {
@@ -49,29 +50,38 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function PrimereKeywordList(node, inputName) {
+async function PrimereKeywordList(node, inputName) {
+    //await sleep(200);
     node.name = inputName;
 
     const widget = {
         type: "primere_keyword_lister",
         name: `w${inputName}`,
-        callback: () => {},
+        callback: () => {
+        },
     };
 
-    node.addWidget("combo", "select_keyword", 'Select in order', () => {
+    /* node.addWidget("combo", "select_keyword", 'Select in order', () => {
     },{
         values: ["None", "Select in order", "Random select"],
-    });
+    }); */
 
     LoadedNodeKey = node;
     return {widget: widget};
 }
 function PrimereModelChange(node, inputName) {
-    node.onWidgetChanged = function(name, value, old_value){
-        if (name == 'base_model') {
-            sendPOSTModelName(value);
+    if (MainNodeFound == false) {
+        if (inputName == 'PrimereVisualCKPT') {
+            MainNodeFound = true;
+            CKPTLoaderName = 'PrimereVisualCKPT';
         }
-    };
+
+        node.onWidgetChanged = function (name, value, old_value) {
+            if (name == 'base_model') {
+                sendPOSTModelName(value);
+            }
+        };
+    }
 }
 
 api.addEventListener("ModelKeywordResponse", ModelKeywordResponse);

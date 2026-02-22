@@ -193,6 +193,7 @@ class ModalControl {
                     const widgetNumericEnd = /\d$/.test(String(widget_object?.name ?? ''));
                     //const widgetNumericEnd = Number.isFinite(Number(widget_object.name.substr(-1)));
                     if (widget_object.name.match(nodematch) && widgetNumericEnd === isnumeric_end) {
+                        await sleep(200);
                         SelectedModel = node_object.widgets[nx].value;
                         // setup_visual_modal(modaltitle, 'AllModels', ShowHidden, SelectedModel, source_subdirname, node_object, PreviewPath);
                         await new Promise((resolve) => requestAnimationFrame(resolve));

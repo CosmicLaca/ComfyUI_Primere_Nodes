@@ -571,6 +571,7 @@ function sendPOSTmessage(message) {
     body.append('previewdata', message);
     api.fetchApi("/primere_preview_post", {method: "POST", body,});
 }
+
 api.addEventListener("PreviewSaveResponse", PreviewSaveResponse);
 function PreviewSaveResponse(event) {
     var ResponseText = event.detail;
