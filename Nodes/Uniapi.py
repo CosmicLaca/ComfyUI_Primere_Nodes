@@ -49,14 +49,39 @@ class PrimereApiProcessor:
         return all_services or ["default"]
 
     @classmethod
+    def _parameter_options(cls):
+        options: dict[str, list[str]] = {}
+        for provider_services in cls.API_SCHEMA_REGISTRY.values():
+            for schema in provider_services.values():
+                possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+                if not isinstance(possible, dict):
+                    continue
+                for key, values in possible.items():
+                    key_name = str(key)
+                    if key_name == "prompt":
+                        continue
+                    value_list = [str(v) for v in values] if isinstance(values, list) else []
+                    if len(value_list) == 0:
+                        value_list = [f"default_{key_name}"]
+                    existing = options.get(key_name, [])
+                    merged = sorted(set(existing + value_list))
+                    options[key_name] = merged
+        return options
+
+    @classmethod
     def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "api_provider": (cls._provider_list(),),
-                "api_service": (cls._service_list(),),            }
+        required_inputs = {
+            "api_provider": (cls._provider_list(),),
+            "api_service": (cls._service_list(),),
+            "prompt": ("STRING", {"forceInput": True}),
         }
 
-    def process_uniapi(self, api_provider, api_service):
+        for key, values in cls._parameter_options().items():
+            required_inputs[key] = (values,)
+
+        return {"required": required_inputs}
+
+    def process_uniapi(self, api_provider, api_service, prompt, **kwargs):
         config_json = self.API_RESULT
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
 
@@ -76,8 +101,14 @@ class PrimereApiProcessor:
         schema["provider"] = api_provider
         schema["service"] = selected_service or api_service
 
-        rendered, used_values = api_json_to_requestbody.render_from_schema(schema)
-        # return (client, api_provider, schema, rendered, used_values)
+        selected_parameters = {"prompt": prompt}
+        possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+        if isinstance(possible_parameters, dict):
+            for key in possible_parameters.keys():
+                if key in kwargs and kwargs[key] not in (None, ""):
+                    selected_parameters[key] = kwargs[key]
+
+        rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
 
         api_result = None
         api_error = None
@@ -122,6 +153,7 @@ class PrimereApiProcessor:
         api_schemas = (
             {
                 "schema": schema,
+                "selected_parameters": selected_parameters,
                 "used_values": used_values,
                 "selected_service": selected_service,
                 "rendered": rendered.__dict__,

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,15 @@ SNIPPET_FILENAME = "snippet.py"
 RESULT_FILENAME = "result.json"
 DEFAULT_PROVIDER = ""
 DEFAULT_SERVICE = ""
+PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
+
+KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
+    "model": ["gemini-3-pro-image-preview", "gemini-2.5-flash-image"],
+    "aspect_ratio": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+    "resolution": ["1K", "2K", "4K"],
+}
+
+EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities"}
 
 
 def dotted_name(node: ast.AST) -> str:
@@ -100,6 +110,57 @@ def find_first_call(tree: ast.AST) -> ast.Call:
     raise SnippetParseError("No function call found in snippet.")
 
 
+def _collect_placeholders(node: Any) -> set[str]:
+    found: set[str] = set()
+
+    def walk(item: Any) -> None:
+        if isinstance(item, dict):
+            for v in item.values():
+                walk(v)
+            return
+        if isinstance(item, list):
+            for v in item:
+                walk(v)
+            return
+        if isinstance(item, str):
+            for m in PLACEHOLDER_RE.finditer(item):
+                found.add(m.group(1))
+
+    walk(node)
+    return found
+
+
+def _canonical_param_name(name: str) -> str:
+    low = name.lower()
+    if "aspect_ratio" in low:
+        return "aspect_ratio"
+    if "resolution" in low or "image_size" in low:
+        return "resolution"
+    if low == "model" or low.endswith("_model"):
+        return "model"
+    if "prompt" in low or "contents" in low:
+        return "prompt"
+    if "response_modalities" in low:
+        return "response_modalities"
+    return name
+
+
+def build_possible_parameters(request_schema: dict[str, Any]) -> dict[str, list[str]]:
+    placeholders = sorted(_collect_placeholders(request_schema))
+    possible: dict[str, list[str]] = {}
+
+    for name in placeholders:
+        canonical = _canonical_param_name(name)
+        if canonical in EXCLUDED_PARAMETER_KEYS:
+            continue
+        if canonical in KNOWN_PARAM_OPTIONS:
+            possible[canonical] = KNOWN_PARAM_OPTIONS[canonical]
+        elif canonical not in possible:
+            possible[canonical] = [f"fake_{canonical}_value_1", f"fake_{canonical}_value_2"]
+
+    return possible
+
+
 def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service: str = DEFAULT_SERVICE) -> dict[str, Any]:
     tree = ast.parse(snippet)
     call = find_first_call(tree)
@@ -111,17 +172,20 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
         for idx, kw in enumerate(call.keywords)
     }
 
+    request_schema = {
+        "method": "SDK",
+        "endpoint": endpoint,
+        "sdk_call": {
+            "args": args_template,
+            "kwargs": kwargs_template,
+        },
+    }
+
     return {
         "provider": provider,
         "service": service,
-        "request": {
-            "method": "SDK",
-            "endpoint": endpoint,
-            "sdk_call": {
-                "args": args_template,
-                "kwargs": kwargs_template,
-            },
-        },
+        "possible_parameters": build_possible_parameters(request_schema),
+        "request": request_schema,
     }
 
 

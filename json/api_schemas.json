@@ -3,6 +3,29 @@
     "text2image": {
       "provider": "Gemini",
       "service": "text2image",
+      "possible_parameters": {
+        "aspect_ratio": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "resolution": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "model": [
+          "gemini-3-pro-image-preview",
+          "gemini-2.5-flash-image"
+        ]
+      },
       "request": {
         "method": "SDK",
         "endpoint": "client.models.generate_content",
