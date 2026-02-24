@@ -23,7 +23,7 @@ def _default_value(name: str) -> Any:
     if "response_modalities" in k:
         return "IMAGE"
     if "model" in k:
-        return "gemini-2.5-flash-image"
+        return "gemini-3-pro-image-preview"
     if "aspect_ratio" in k:
         return "1:1"
     if "resolution" in k:
