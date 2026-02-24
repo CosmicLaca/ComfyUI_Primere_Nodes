@@ -1,0 +1,32 @@
+{
+  "provider": "Gemini T2I",
+  "request": {
+    "method": "SDK",
+    "endpoint": "client.models.generate_content",
+    "sdk_call": {
+      "args": [],
+      "kwargs": {
+        "model": "{{model}}",
+        "contents": "{{prompt}}",
+        "config": {
+          "$call": "types.GenerateContentConfig",
+          "$args": [],
+          "$kwargs": {
+            "response_modalities": [
+              "{{config_response_modalities_0}}",
+              "{{config_response_modalities_1}}"
+            ],
+            "image_config": {
+              "$call": "types.ImageConfig",
+              "$args": [],
+              "$kwargs": {
+                "aspect_ratio": "{{aspect_ratio}}",
+                "image_size": "{{resolution}}"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

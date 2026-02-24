@@ -1,0 +1,37 @@
+{
+  "OpenAI":
+  {
+    "Name": "Open AI",
+    "APIKEY": "*************************"
+  },
+  "BlackForest":
+  {
+    "Name": "Black Forest",
+    "APIKEY": "*************************"
+  },
+  "Gemini":
+  {
+    "Name": "Gemini",
+    "APIKEY": "*************************"
+  },
+  "Anthropic":
+  {
+    "Name": "Anthropic",
+    "APIKEY": "*************************"
+  },
+  "HeyGen":
+  {
+    "Name": "HeyGen",
+    "APIKEY": "*************************"
+  },
+  "FAL":
+  {
+    "Name": "FAL",
+    "APIKEY": "*************************"
+  },
+    "Elevenlabs":
+  {
+    "Name": "Elevenlabs",
+    "APIKEY": "*************************"
+  }
+}

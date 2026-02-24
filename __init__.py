@@ -11,9 +11,10 @@ from .Nodes import Outputs
 from .Nodes import Visuals
 from .Nodes import Networks
 from .Nodes import Segments
+from .Nodes import Uniapi
 import shutil
 
-__version__ = "1.7.0"
+__version__ = "2.0.0"
 
 comfy_frontend = os.path.join(comfy_dir, 'web', 'extensions')
 frontend_target = os.path.join(comfy_frontend, 'Primere')
@@ -141,6 +142,8 @@ NODE_CLASS_MAPPINGS = {
     "PrimereImageSegments": Segments.PrimereImageSegments,
     "PrimereAnyDetailer": Segments.PrimereAnyDetailer,
     "PrimereFaceAnalyzer": Segments.PrimereFaceAnalyzer,
+
+    "PrimereApiProcessor": Uniapi.PrimereApiProcessor
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -217,4 +220,20 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereImageSegments": 'Primere Image Segments',
     "PrimereAnyDetailer": 'Primere Any Detailer',
     "PrimereFaceAnalyzer": "Primere Face Analyzer",
+
+    "PrimereApiProcessor": "Primere Api Processor"
 }
+
+def init_sentry():
+    sentry_dsn = os.environ.get("SENTRY_DSN")
+    app_env = os.environ.get("APP_ENV", "local")
+
+    if sentry_dsn and app_env:
+        import sentry_sdk
+        sentry_sdk.init(
+            sentry_dsn,
+            environment=app_env,
+            send_default_pii=True,
+        )
+
+init_sentry()

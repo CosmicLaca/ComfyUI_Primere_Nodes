@@ -1472,3 +1472,16 @@ def edit_encoder(clip, prompt, vae, images=None):
     if len(ref_latents) > 0:
         conditioning = node_helpers.conditioning_set_values(conditioning, {"reference_latents": ref_latents}, append=True)
     return conditioning
+
+def json2tuple(json_path):
+    data_tuple = None
+
+    ifConfigExist = os.path.isfile(json_path)
+    if ifConfigExist:
+        with open(json_path) as f:
+            try:
+                data_tuple = json.load(f)
+            except ValueError as e:
+                data_tuple = None
+
+    return data_tuple
