@@ -20,6 +20,7 @@ import comfy.utils
 
 from ..components.API import api_json_to_requestbody
 from ..components.API import external_api_backend
+from ..components.API import api_schema_registry
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
@@ -28,25 +29,54 @@ class PrimereApiProcessor:
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
+    API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'json', 'api_schemas.json'))
+    API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
+
+    @classmethod
+    def _provider_list(cls):
+        providers = list(cls.API_RESULT.keys()) if isinstance(cls.API_RESULT, dict) else []
+        if not providers:
+            providers = api_schema_registry.list_providers(cls.API_SCHEMA_REGISTRY)
+        return providers or ["custom"]
+
+    @classmethod
+    def _service_list(cls):
+        all_services = sorted({
+            service
+            for provider in cls.API_SCHEMA_REGISTRY
+            for service in cls.API_SCHEMA_REGISTRY.get(provider, {})
+        })
+        return all_services or ["default"]
 
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "api_provider": (list(cls.API_RESULT.keys()),),
-            }
+                "api_provider": (cls._provider_list(),),
+                "api_service": (cls._service_list(),),            }
         }
 
-    def process_uniapi(self, api_provider):
+    def process_uniapi(self, api_provider, api_service):
         config_json = self.API_RESULT
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
 
-        path = os.path.join(PRIMERE_ROOT, 'json')
-        fp = os.path.join(path, 'api_schemas.json')
-        schema = utility.json2tuple(fp)
+        schema, selected_service = api_schema_registry.get_schema(self.API_SCHEMA_REGISTRY, api_provider, api_service)
+        if schema is None:
+            schema = {
+                "provider": api_provider,
+                "service": api_service,
+                "request": {
+                    "method": "SDK",
+                    "endpoint": "",
+                    "sdk_call": {"args": [], "kwargs": {}},
+                },
+            }
+            selected_service = api_service
+
+        schema["provider"] = api_provider
+        schema["service"] = selected_service or api_service
 
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema)
-
         # return (client, api_provider, schema, rendered, used_values)
 
         api_result = None
@@ -93,6 +123,7 @@ class PrimereApiProcessor:
             {
                 "schema": schema,
                 "used_values": used_values,
+                "selected_service": selected_service,
                 "rendered": rendered.__dict__,
                 "api_result": api_result,
                 "api_error": api_error,
