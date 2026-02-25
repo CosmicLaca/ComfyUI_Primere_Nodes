@@ -10,6 +10,7 @@ import folder_paths
 import random
 import argparse
 import json
+import copy
 from pathlib import Path
 from typing import Any
 import requests
@@ -142,6 +143,8 @@ class PrimereApiProcessor:
         selected_parameters = {"prompt": prompt}
         if aspect_ratio not in (None, ""):
             selected_parameters["aspect_ratio"] = aspect_ratio
+        if len(img_binary_api) > 0:
+            selected_parameters["reference_images"] = img_binary_api
 
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
         if isinstance(possible_parameters, dict):
@@ -150,7 +153,36 @@ class PrimereApiProcessor:
                     selected_parameters[key] = kwargs[key]
 
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
-        rendered_payload = rendered.__dict__
+        # rendered_payload = rendered.__dict__
+        rendered_payload = copy.deepcopy(rendered.__dict__)
+        if len(img_binary_api) > 0:
+            def _redact_reference_images(node):
+                if isinstance(node, dict):
+                    sanitized = {}
+                    for key, value in node.items():
+                        if key == "reference_images":
+                            sanitized[key] = "[reference_images omitted]"
+                        else:
+                            sanitized[key] = _redact_reference_images(value)
+                    return sanitized
+                if isinstance(node, list):
+                    return [_redact_reference_images(value) for value in node]
+                return node
+
+            rendered_payload = _redact_reference_images(rendered_payload)
+            sdk_call = rendered_payload.get("sdk_call")
+            if isinstance(sdk_call, dict):
+                sdk_kwargs = sdk_call.get("kwargs")
+                if isinstance(sdk_kwargs, dict):
+                    contents = sdk_kwargs.get("contents")
+                    if isinstance(contents, list):
+                        sanitized_contents = []
+                        for content_item in contents:
+                            if isinstance(content_item, list) and len(content_item) > 0 and all(isinstance(item, (Image.Image, str)) for item in content_item):
+                                sanitized_contents.append("[reference_images omitted]")
+                            else:
+                                sanitized_contents.append(content_item)
+                        sdk_kwargs["contents"] = sanitized_contents
 
         api_result = None
         api_error = None
@@ -191,10 +223,12 @@ class PrimereApiProcessor:
         except Exception as e:
             api_error = str(e)
 
+        selected_parameters_output = {k: v for k, v in selected_parameters.items() if k != "reference_images"}
+
         api_schemas = (
             {
                 "schema": schema,
-                "selected_parameters": selected_parameters,
+                "selected_parameters": selected_parameters_output,
                 "used_values": used_values,
                 "selected_service": selected_service,
                 # "rendered": rendered.__dict__,
@@ -203,6 +237,9 @@ class PrimereApiProcessor:
                 "api_error": api_error,
             },
         )
+
+        if api_error is not None:
+            raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
             if api_result.candidates[0].content is not None and api_result.candidates[0].content.parts is not None:
@@ -236,4 +273,3 @@ class PrimereApiProcessor:
                             result_image = s
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)
-
