@@ -50,10 +50,6 @@
       "provider": "Gemini",
       "service": "VEO",
       "possible_parameters": {
-        "config_aspectRatio": [
-          "16:9",
-          "9:16"
-        ],
         "config_durationSeconds": [
           "4",
           "6",
