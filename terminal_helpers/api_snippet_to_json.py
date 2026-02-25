@@ -1,4 +1,6 @@
 """Convert `snippet.py` into grouped provider->service API schema JSON."""
+# python api_snippet_to_json.py --provider Gemini --service Imagen
+
 
 from __future__ import annotations
 

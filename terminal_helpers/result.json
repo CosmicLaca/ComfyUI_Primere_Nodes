@@ -111,6 +111,11 @@
           "imagen-4.0-generate-001",
           "imagen-4.0-ultra-generate-001",
           "imagen-4.0-fast-generate-001"
+        ],
+        "person_generation": [
+          "allow_all",
+          "allow_adult",
+          "dont_allow"
         ]
       },
       "request": {
@@ -127,7 +132,8 @@
               "$kwargs": {
                 "number_of_images": "{{config_number_of_images}}",
                 "aspect_ratio": "{{config_aspect_ratio}}",
-                "image_size": "{{config_image_size}}"
+                "image_size": "{{config_image_size}}",
+                "person_generation": "{{config_person_generation}}"
               }
             }
           }

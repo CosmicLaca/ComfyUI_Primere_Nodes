@@ -1,0 +1,44 @@
+{
+  "Gemini": {
+    "Imagen": {
+      "provider": "Gemini",
+      "service": "Imagen",
+      "possible_parameters": {
+        "resolution": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "config_number_of_images": [
+          "fake_config_number_of_images_value_1",
+          "fake_config_number_of_images_value_2"
+        ],
+        "model": [
+          "gemini-3-pro-image-preview",
+          "gemini-2.5-flash-image"
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.models.generate_images",
+        "sdk_call": {
+          "args": [],
+          "kwargs": {
+            "model": "{{model}}",
+            "prompt": "{{prompt}}",
+            "config": {
+              "$call": "types.GenerateImagesConfig",
+              "$args": [],
+              "$kwargs": {
+                "number_of_images": "{{config_number_of_images}}",
+                "aspect_ratio": "{{config_aspect_ratio}}",
+                "image_size": "{{config_image_size}}",
+                "person_generation": "{{config_person_generation}}"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
