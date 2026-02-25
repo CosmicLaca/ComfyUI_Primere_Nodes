@@ -92,6 +92,9 @@ class PrimereApiProcessor:
         return {"required": required_inputs, "optional": optional_inputs}
 
     def process_uniapi(self, processor, api_provider, api_service, prompt, batch = 1, reference_images = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
+        if not processor:
+            return (None, api_provider, None, None, None, None, reference_images)
+
         config_json = self.API_RESULT
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
 
@@ -112,6 +115,9 @@ class PrimereApiProcessor:
         schema["service"] = selected_service or api_service
 
         selected_parameters = {"prompt": prompt}
+        if aspect_ratio not in (None, ""):
+            selected_parameters["aspect_ratio"] = aspect_ratio
+
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
         if isinstance(possible_parameters, dict):
             for key in possible_parameters.keys():
@@ -119,6 +125,8 @@ class PrimereApiProcessor:
                     selected_parameters[key] = kwargs[key]
 
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
+        # rendered_pretty = json.dumps(rendered.__dict__, indent=2, ensure_ascii=False, default=str)
+        rendered_payload = rendered.__dict__
 
         api_result = None
         api_error = None
@@ -164,7 +172,8 @@ class PrimereApiProcessor:
                 "selected_parameters": selected_parameters,
                 "used_values": used_values,
                 "selected_service": selected_service,
-                "rendered": rendered.__dict__,
+                # "rendered": rendered.__dict__,
+                "rendered": rendered_payload,
                 "api_result": api_result,
                 "api_error": api_error,
             },
@@ -201,5 +210,5 @@ class PrimereApiProcessor:
                             s = torch.cat((current_single_image, single_image), dim=0)
                             result_image = s
 
-        return (client, api_provider, schema, rendered, api_schemas, api_result, result_image)
+        return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)
 
