@@ -5,7 +5,9 @@ from ..components.tree import PRIMERE_ROOT
 import os
 from ..components import utility
 from ..components.API import api_helper
+import folder_paths
 
+import random
 import argparse
 import json
 from pathlib import Path
@@ -92,6 +94,29 @@ class PrimereApiProcessor:
         return {"required": required_inputs, "optional": optional_inputs}
 
     def process_uniapi(self, processor, api_provider, api_service, prompt, batch = 1, reference_images = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
+        img_binary_api = []
+
+        if reference_images is not None:
+            if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
+                source_images = []
+                if type(reference_images).__name__ == "list":
+                    source_images = reference_images
+                else:
+                    source_images.append(reference_images)
+
+                for single_image in source_images:
+                    r1 = random.randint(1000, 9999)
+                    if single_image is not None and type(single_image).__name__ == "Tensor":
+                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
+                        ref_file = Image.fromarray(ref_image)
+                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
+                        ref_file.save(TEMP_FILE_REF, format="PNG")
+                        if api_provider == "Gemini":
+                            gemini_image_data = Image.open(TEMP_FILE_REF)
+                            img_binary_api.append(gemini_image_data)
+                        else:
+                            img_binary_api.append(TEMP_FILE_REF)
+
         if not processor:
             return (None, api_provider, None, None, None, None, reference_images)
 
@@ -125,7 +150,6 @@ class PrimereApiProcessor:
                     selected_parameters[key] = kwargs[key]
 
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
-        # rendered_pretty = json.dumps(rendered.__dict__, indent=2, ensure_ascii=False, default=str)
         rendered_payload = rendered.__dict__
 
         api_result = None
@@ -133,6 +157,7 @@ class PrimereApiProcessor:
         final_batch_img = []
         result_image = None
         image_list = []
+        batch = max(1, int(batch))
 
         try:
             if rendered.method.upper() == "SDK":
