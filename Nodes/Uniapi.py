@@ -71,17 +71,27 @@ class PrimereApiProcessor:
     @classmethod
     def INPUT_TYPES(cls):
         required_inputs = {
+            "processor": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
             "api_provider": (cls._provider_list(),),
             "api_service": (cls._service_list(),),
             "prompt": ("STRING", {"forceInput": True}),
+            "batch": ("INT", {"default": 1, "max": 10, "min": 1, "step": 1})
+        }
+
+        optional_inputs = {
+            "reference_images": ("IMAGE", {"default": None, "forceInput": True}),
+            "width": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
+            "height": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
+            "aspect_ratio": ("STRING", {"forceInput": True, "default": "1:1"}),
+            "seed": ("INT", {"default": 1, "min": 0, "max": (2 ** 32) - 1, "forceInput": True})
         }
 
         for key, values in cls._parameter_options().items():
             required_inputs[key] = (values,)
 
-        return {"required": required_inputs}
+        return {"required": required_inputs, "optional": optional_inputs}
 
-    def process_uniapi(self, api_provider, api_service, prompt, **kwargs):
+    def process_uniapi(self, processor, api_provider, api_service, prompt, batch = 1, reference_images = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
         config_json = self.API_RESULT
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
 
@@ -118,7 +128,6 @@ class PrimereApiProcessor:
 
         try:
             if rendered.method.upper() == "SDK":
-                print('Rendering SDK ====================================')
                 context = {"client": client}
                 allowed_roots = {"client"}
 
@@ -131,7 +140,6 @@ class PrimereApiProcessor:
 
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
-                print('Rendering NOT SDK ================================')
                 import requests
 
                 response = requests.request(

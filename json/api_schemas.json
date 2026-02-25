@@ -1,21 +1,9 @@
 {
   "Gemini": {
-    "text2image": {
+    "Nanobanana": {
       "provider": "Gemini",
-      "service": "text2image",
+      "service": "Nanobanana",
       "possible_parameters": {
-        "aspect_ratio": [
-          "1:1",
-          "2:3",
-          "3:2",
-          "3:4",
-          "4:3",
-          "4:5",
-          "5:4",
-          "9:16",
-          "16:9",
-          "21:9"
-        ],
         "resolution": [
           "1K",
           "2K",
@@ -34,7 +22,8 @@
           "kwargs": {
             "model": "{{model}}",
             "contents": [
-              "{{prompt}}"
+              "{{prompt}}",
+              "{{reference_images}}"
             ],
             "config": {
               "$call": "types.GenerateContentConfig",
