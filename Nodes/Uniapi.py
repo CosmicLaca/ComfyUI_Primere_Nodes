@@ -34,41 +34,83 @@ class PrimereApiProcessor:
     API_RESULT = api_helper.get_api_config("apiconfig.json")
     API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'json', 'api_schemas.json'))
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
+    NANOBANANA_ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
+    VEO_ASPECT_RATIOS = ["9:16", "16:9"]
+
+    @classmethod
+    def _default_provider_service(cls):
+        if isinstance(cls.API_SCHEMA_REGISTRY, dict) and len(cls.API_SCHEMA_REGISTRY) > 0:
+            first_provider = next(iter(cls.API_SCHEMA_REGISTRY))
+            provider_services = cls.API_SCHEMA_REGISTRY.get(first_provider, {})
+            if isinstance(provider_services, dict) and len(provider_services) > 0:
+                first_service = next(iter(provider_services))
+                return first_provider, first_service
+            return first_provider, "default"
+
+        providers = list(cls.API_RESULT.keys()) if isinstance(cls.API_RESULT, dict) else []
+        if len(providers) > 0:
+            return providers[0], "default"
+
+        return "custom", "default"
 
     @classmethod
     def _provider_list(cls):
-        providers = list(cls.API_RESULT.keys()) if isinstance(cls.API_RESULT, dict) else []
-        if not providers:
-            providers = api_schema_registry.list_providers(cls.API_SCHEMA_REGISTRY)
-        return providers or ["custom"]
+        default_provider, _ = cls._default_provider_service()
+        config_providers = []
+        if isinstance(cls.API_RESULT, dict):
+            config_providers = [str(provider) for provider in cls.API_RESULT.keys()]
+        schema_provider_set = set()
+        if isinstance(cls.API_SCHEMA_REGISTRY, dict):
+            schema_provider_set = {str(provider) for provider in cls.API_SCHEMA_REGISTRY.keys()}
+
+        common_providers = [provider for provider in config_providers if provider in schema_provider_set]
+
+        if len(common_providers) == 0:
+            return [default_provider]
+        ordered_providers = []
+        if default_provider in common_providers:
+            ordered_providers.append(default_provider)
+        for provider in common_providers:
+            if provider not in ordered_providers:
+                ordered_providers.append(provider)
+
+        return ordered_providers
 
     @classmethod
     def _service_list(cls):
-        all_services = sorted({
-            service
-            for provider in cls.API_SCHEMA_REGISTRY
-            for service in cls.API_SCHEMA_REGISTRY.get(provider, {})
-        })
-        return all_services or ["default"]
+        default_provider, default_service = cls._default_provider_service()
+        services = []
+        if isinstance(cls.API_SCHEMA_REGISTRY, dict):
+            provider_services = cls.API_SCHEMA_REGISTRY.get(default_provider, {})
+            if isinstance(provider_services, dict):
+                services = [str(service) for service in provider_services.keys()]
+        ordered_services = [default_service]
+        for service in services:
+            if service not in ordered_services:
+                ordered_services.append(service)
+
+        return ordered_services
 
     @classmethod
     def _parameter_options(cls):
+        default_provider, default_service = cls._default_provider_service()
+        provider_services = cls.API_SCHEMA_REGISTRY.get(default_provider, {}) if isinstance(cls.API_SCHEMA_REGISTRY, dict) else {}
+        schema = provider_services.get(default_service, {}) if isinstance(provider_services, dict) else {}
+
         options: dict[str, list[str]] = {}
-        for provider_services in cls.API_SCHEMA_REGISTRY.values():
-            for schema in provider_services.values():
-                possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
-                if not isinstance(possible, dict):
-                    continue
-                for key, values in possible.items():
-                    key_name = str(key)
-                    if key_name == "prompt":
-                        continue
-                    value_list = [str(v) for v in values] if isinstance(values, list) else []
-                    if len(value_list) == 0:
-                        value_list = [f"default_{key_name}"]
-                    existing = options.get(key_name, [])
-                    merged = sorted(set(existing + value_list))
-                    options[key_name] = merged
+
+        possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+        if not isinstance(possible, dict):
+            return options
+        for key, values in possible.items():
+            key_name = str(key)
+            if key_name == "prompt":
+                continue
+            value_list = [str(v) for v in values] if isinstance(values, list) else []
+            if len(value_list) == 0:
+                value_list = [f"default_{key_name}"]
+            options[key_name] = value_list
+
         return options
 
     @classmethod
@@ -82,7 +124,7 @@ class PrimereApiProcessor:
         }
 
         optional_inputs = {
-            "negative_prompt": ("STRING", {"forceInput": True}),
+            "negative_prompt": ("STRING", {"default": None, "forceInput": True}),
             "reference_images": ("IMAGE", {"default": None, "forceInput": True}),
             "first_image": ("IMAGE", {"default": None, "forceInput": True}),
             "last_image": ("IMAGE", {"default": None, "forceInput": True}),
@@ -97,7 +139,51 @@ class PrimereApiProcessor:
 
         return {"required": required_inputs, "optional": optional_inputs}
 
-    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
+    @classmethod
+    def _parse_ratio(cls, value):
+        if not isinstance(value, str):
+            return None
+        cleaned = value.strip()
+        if ":" not in cleaned:
+            return None
+        left, right = cleaned.split(":", 1)
+        try:
+            numerator = float(left)
+            denominator = float(right)
+        except ValueError:
+            return None
+        if denominator == 0:
+            return None
+        return numerator / denominator
+
+    @classmethod
+    def _closest_valid_ratio(cls, value, valid_ratios):
+        if not isinstance(valid_ratios, list) or len(valid_ratios) == 0:
+            return value
+
+        normalized_valid = [str(ratio) for ratio in valid_ratios]
+        candidate = str(value).strip() if value is not None else ""
+        if candidate in normalized_valid:
+            return candidate
+
+        candidate_ratio = cls._parse_ratio(candidate)
+        if candidate_ratio is None:
+            return normalized_valid[0]
+
+        best_value = normalized_valid[0]
+        best_diff = float("inf")
+        for ratio_text in normalized_valid:
+            parsed_ratio = cls._parse_ratio(ratio_text)
+            if parsed_ratio is None:
+                continue
+            diff = abs(parsed_ratio - candidate_ratio)
+            if diff < best_diff:
+                best_diff = diff
+                best_value = ratio_text
+
+        return best_value
+
+    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
         img_binary_api = []
 
         if reference_images is not None:
@@ -145,7 +231,11 @@ class PrimereApiProcessor:
 
         selected_parameters = {"prompt": prompt}
         if aspect_ratio not in (None, ""):
-            selected_parameters["aspect_ratio"] = aspect_ratio
+            selected_aspect_ratio = aspect_ratio
+            if api_provider == "Gemini" and (selected_service or api_service) == "Nanobanana":
+                selected_aspect_ratio = self._closest_valid_ratio(aspect_ratio, self.NANOBANANA_ASPECT_RATIOS)
+            selected_parameters["aspect_ratio"] = selected_aspect_ratio
+
         if len(img_binary_api) > 0:
             selected_parameters["reference_images"] = img_binary_api
 
