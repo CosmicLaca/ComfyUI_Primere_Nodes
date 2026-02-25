@@ -37,7 +37,7 @@ if os.path.isdir(frontend_target) == True:
             os.unlink(frontend_target)
             print('Primere front-end symlinks deleted.')
         except Exception:
-            print('[ERROR] - Cannnot unlink Primere front-end folder. Please delete symlink: ' + frontend_target + ' manially from: ' + frontend_source)
+            print('[ERROR] - Cannnot unlink Primere front-end folder. Please delete symlink: ' + frontend_target + ' manually from: ' + frontend_source)
 
 if os.path.exists(frontend_target):
     try:
@@ -64,7 +64,7 @@ valid_FElist = [s for s in mainDirs if s not in IGNORE_FRONTEND] + [frontend_sou
 
 for subdirs in valid_FElist:
     scanPath = os.path.join(frontend_source, subdirs)
-    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css')) + list(Path(scanPath).glob('*.jpg'))
+    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.json')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css')) + list(Path(scanPath).glob('*.jpg'))
     for regFile in scanFiles:
         nodes.append(regFile)
 
