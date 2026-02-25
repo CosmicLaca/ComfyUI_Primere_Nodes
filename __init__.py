@@ -25,7 +25,7 @@ is_frontend_symlinked = False
 WEB_DIRECTORY = "./front_end"
 __all__ = ['NODE_CLASS_MAPPINGS', 'WEB_DIRECTORY']
 
-if os.path.isdir(frontend_target) == True:
+'''if os.path.isdir(frontend_target) == True:
     try:
         is_link = os.readlink(frontend_target)
         is_frontend_symlinked = True
@@ -55,7 +55,7 @@ if os.path.isdir(frontend_preview_target) == True:
         shutil.rmtree(original_prv_path)
         print('Primere previews removed from Comfy web path.')
     except Exception:
-        print('[ERROR] - Cannnot copy Primere previews to right path. Please copy manually from: ' + frontend_preview_target + ' to: ' + preview_images)
+        print('[ERROR] - Cannnot copy Primere previews to right path. Please copy manually from: ' + frontend_preview_target + ' to: ' + preview_images)'''
 
 nodes = []
 IGNORE_FRONTEND = ['fonts', 'keywords', 'jquery', 'vendor']
@@ -64,7 +64,7 @@ valid_FElist = [s for s in mainDirs if s not in IGNORE_FRONTEND] + [frontend_sou
 
 for subdirs in valid_FElist:
     scanPath = os.path.join(frontend_source, subdirs)
-    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('*.json')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css')) + list(Path(scanPath).glob('*.jpg'))
+    scanFiles = list(Path(scanPath).glob('*.js')) + list(Path(scanPath).glob('api_schemas.json')) + list(Path(scanPath).glob('*.map')) + list(Path(scanPath).glob('*.css')) + list(Path(scanPath).glob('*.jpg'))
     for regFile in scanFiles:
         nodes.append(regFile)
 

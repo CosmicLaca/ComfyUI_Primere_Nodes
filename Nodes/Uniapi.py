@@ -32,7 +32,7 @@ class PrimereApiProcessor:
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
-    API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'json', 'api_schemas.json'))
+    API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json'))
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
     NANOBANANA_ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
     VEO_ASPECT_RATIOS = ["9:16", "16:9"]
