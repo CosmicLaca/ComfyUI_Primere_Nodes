@@ -50,12 +50,12 @@
       "provider": "Gemini",
       "service": "VEO",
       "possible_parameters": {
-        "config_durationSeconds": [
+        "durationSeconds": [
           "4",
           "6",
           "8"
         ],
-        "config_personGeneration": [
+        "personGeneration": [
           "allow_all",
           "allow_adult",
           "dont_allow"
