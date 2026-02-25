@@ -82,7 +82,10 @@ class PrimereApiProcessor:
         }
 
         optional_inputs = {
+            "negative_prompt": ("STRING", {"forceInput": True}),
             "reference_images": ("IMAGE", {"default": None, "forceInput": True}),
+            "first_image": ("IMAGE", {"default": None, "forceInput": True}),
+            "last_image": ("IMAGE", {"default": None, "forceInput": True}),
             "width": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
             "height": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
             "aspect_ratio": ("STRING", {"forceInput": True, "default": "1:1"}),
@@ -94,7 +97,7 @@ class PrimereApiProcessor:
 
         return {"required": required_inputs, "optional": optional_inputs}
 
-    def process_uniapi(self, processor, api_provider, api_service, prompt, batch = 1, reference_images = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
+    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
         img_binary_api = []
 
         if reference_images is not None:

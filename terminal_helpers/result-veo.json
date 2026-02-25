@@ -1,51 +1,5 @@
 {
   "Gemini": {
-    "Nanobanana": {
-      "provider": "Gemini",
-      "service": "Nanobanana",
-      "possible_parameters": {
-        "resolution": [
-          "1K",
-          "2K",
-          "4K"
-        ],
-        "model": [
-          "gemini-3-pro-image-preview",
-          "gemini-2.5-flash-image"
-        ]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "client.models.generate_content",
-        "sdk_call": {
-          "args": [],
-          "kwargs": {
-            "model": "{{model}}",
-            "contents": [
-              "{{prompt}}",
-              "{{reference_images}}"
-            ],
-            "config": {
-              "$call": "types.GenerateContentConfig",
-              "$args": [],
-              "$kwargs": {
-                "response_modalities": [
-                  "{{config_response_modalities_0}}"
-                ],
-                "image_config": {
-                  "$call": "types.ImageConfig",
-                  "$args": [],
-                  "$kwargs": {
-                    "aspect_ratio": "{{config_image_config_aspect_ratio}}",
-                    "image_size": "{{config_image_config_image_size}}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "VEO": {
       "provider": "Gemini",
       "service": "VEO",
@@ -86,7 +40,7 @@
           "kwargs": {
             "model": "{{model}}",
             "prompt": "{{prompt}}",
-            "image": "{{first_image}}",
+            "image": "{{image}}",
             "config": {
               "$call": "types.GenerateVideosConfig",
               "$args": [],
