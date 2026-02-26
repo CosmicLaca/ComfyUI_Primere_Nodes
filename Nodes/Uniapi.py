@@ -31,8 +31,8 @@ class PrimereApiProcessor:
     API_RESULT = api_helper.get_api_config("apiconfig.json")
     API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json'))
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
-    NANOBANANA_ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
-    VEO_ASPECT_RATIOS = ["9:16", "16:9"]
+    # NANOBANANA_ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
+    # VEO_ASPECT_RATIOS = ["9:16", "16:9"]
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -109,8 +109,9 @@ class PrimereApiProcessor:
         selected_parameters = {"prompt": prompt}
         if aspect_ratio not in (None, ""):
             selected_aspect_ratio = aspect_ratio
-            if api_provider == "Gemini" and (selected_service or api_service) == "Nanobanana":
-                selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, self.NANOBANANA_ASPECT_RATIOS)
+            schema_aspect_ratios = external_api_backend.schema_possible_values(self, api_provider, (selected_service or api_service), "aspect_ratio",)
+            if len(schema_aspect_ratios) > 0:
+                selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, schema_aspect_ratios)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
 
         if len(img_binary_api) > 0:

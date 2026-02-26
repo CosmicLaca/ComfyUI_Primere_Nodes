@@ -186,6 +186,30 @@ def service_list(node_data):
 
     return ordered_services
 
+def canonical_parameter_key(name: Any) -> str:
+    text = str(name or "").strip().lower()
+    # canonical matching: remove underscores (and other non-alnum separators), then compare.
+    normalized = re.sub(r"[^a-z0-9]+", "", text)
+    return normalized
+
+def schema_possible_values(node_data, provider: str, service: str, parameter_name: str) -> list[Any]:
+    registry = node_data.API_SCHEMA_REGISTRY if isinstance(node_data.API_SCHEMA_REGISTRY, dict) else {}
+    provider_services = registry.get(str(provider), {}) if isinstance(registry, dict) else {}
+    schema = provider_services.get(str(service), {}) if isinstance(provider_services, dict) else {}
+    possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+    if not isinstance(possible, dict):
+        return []
+
+    if parameter_name in possible and isinstance(possible.get(parameter_name), list):
+        return list(possible.get(parameter_name) or [])
+
+    expected = _canonical_parameter_key(parameter_name)
+    for key, values in possible.items():
+        if _canonical_parameter_key(key) == expected and isinstance(values, list):
+            return list(values)
+
+    return []
+
 def parameter_options(node_data):
     default_provider, default_service = default_provider_service(node_data)
     provider_services = node_data.API_SCHEMA_REGISTRY.get(default_provider, {}) if isinstance(node_data.API_SCHEMA_REGISTRY, dict) else {}
