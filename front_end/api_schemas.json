@@ -137,5 +137,94 @@
         }
       }
     }
+  },
+  "FAL": {
+    "Seedream_V5_T2I": {
+      "provider": "FAL",
+      "service": "Seedream_V5_T2I",
+      "possible_parameters": {
+        "arguments_enable_safety_checker": [
+          false,
+          true
+        ],
+        "with_logs": [
+          false,
+          true
+        ],
+        "enhance_prompt_mode": [
+          "fast",
+          "standard"
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.submit",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "image_size": {
+                "width": "{{arguments_image_size_width}}",
+                "height": "{{arguments_image_size_height}}"
+              },
+              "num_images": "{{batch}}",
+              "max_images": "{{arguments_max_images}}",
+              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
+              "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
+              "seed": "{{seed}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    },
+    "Seedream_V5_I2I": {
+      "provider": "FAL",
+      "service": "Seedream_V5_I2I",
+      "possible_parameters": {
+        "arguments_enable_safety_checker": [
+          false,
+          true
+        ],
+        "with_logs": [
+          false,
+          true
+        ],
+        "enhance_prompt_mode": [
+          "fast",
+          "standard"
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "lient.submit",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "img_urls": [
+                "{{images}}"
+              ],
+              "image_size": {
+                "width": "{{arguments_image_size_width}}",
+                "height": "{{arguments_image_size_height}}"
+              },
+              "num_images": "{{batch}}",
+              "max_images": "{{arguments_max_images}}",
+              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
+              "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
+              "seed": "{{seed}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    }
   }
 }
