@@ -9,14 +9,6 @@ def _is_service_schema(node: Any) -> bool:
 
 
 def normalize_registry(raw: dict[str, Any] | None) -> dict[str, dict[str, dict[str, Any]]]:
-    """Normalize API schema JSON to provider->service->schema mapping.
-
-    Supports legacy single-schema format:
-      {"provider": "Gemini", "request": {...}}
-
-    And new grouped format:
-      {"Gemini": {"Text2Image Nanobanana": {"provider": "Gemini", "service": "...", "request": {...}}}}
-    """
     if not isinstance(raw, dict):
         return {}
 

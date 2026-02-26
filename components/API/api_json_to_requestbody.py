@@ -19,11 +19,11 @@ def _canonical_param_name(name: str) -> str:
 def _default_value(name: str) -> Any:
     k = name.lower()
     if "prompt" in k:
-        return "default prompt"
+        return "cute cat walking in the futuristic metropolis"
     if "response_modalities" in k:
         return "IMAGE"
     if "model" in k:
-        return "gemini-3-pro-image-preview"
+        return "valid-model-name"
     if "aspect_ratio" in k:
         return "1:1"
     if "resolution" in k:

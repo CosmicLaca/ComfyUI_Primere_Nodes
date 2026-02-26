@@ -23,7 +23,7 @@ DEFAULT_SERVICE = ""
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 
 KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
-    "model": ["gemini-3-pro-image-preview", "gemini-2.5-flash-image"],
+    "model": ["example-model-1", "example-model-2"],
     "resolution": ["1K", "2K", "4K"],
 }
 
