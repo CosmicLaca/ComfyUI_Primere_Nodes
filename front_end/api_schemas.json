@@ -4,7 +4,18 @@
       "provider": "Gemini",
       "service": "Nanobanana",
       "possible_parameters": {
-        "aspect_ratio": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+        "aspect_ratio": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
         "resolution": [
           "1K",
           "2K",
@@ -51,7 +62,10 @@
       "provider": "Gemini",
       "service": "VEO",
       "possible_parameters": {
-        "aspectRatio": ["9:16", "16:9"],
+        "aspectRatio": [
+          "9:16",
+          "16:9"
+        ],
         "durationSeconds": [
           "4",
           "6",
@@ -105,7 +119,18 @@
       "provider": "Gemini",
       "service": "Imagen",
       "possible_parameters": {
-        "aspect_ratio": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+        "aspect_ratio": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
         "resolution": [
           "1K",
           "2K"
@@ -220,6 +245,140 @@
               "enable_safety_checker": "{{arguments_enable_safety_checker}}",
               "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
               "seed": "{{seed}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    },
+    "Seedream_V4.5_I2I": {
+      "provider": "FAL",
+      "service": "Seedream_V4.5_I2I",
+      "possible_parameters": {
+        "arguments_enable_safety_checker": [
+          false,
+          true
+        ],
+        "with_logs": [
+          false,
+          true
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "lient.submit",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "img_urls": [
+                "{{images}}"
+              ],
+              "image_size": {
+                "width": "{{arguments_image_size_width}}",
+                "height": "{{arguments_image_size_height}}"
+              },
+              "num_images": "{{batch}}",
+              "max_images": "{{arguments_max_images}}",
+              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
+              "seed": "{{seed}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    },
+    "Seedream_V4.5_T2I": {
+      "provider": "FAL",
+      "service": "Seedream_V4.5_T2I",
+      "possible_parameters": {
+        "arguments_enable_safety_checker": [
+          false,
+          true
+        ],
+        "with_logs": [
+          false,
+          true
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.submit",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "image_size": {
+                "width": "{{arguments_image_size_width}}",
+                "height": "{{arguments_image_size_height}}"
+              },
+              "num_images": "{{arguments_num_images}}",
+              "max_images": "{{arguments_max_images}}",
+              "enable_safety_checker": "{{true}}",
+              "seed": "{{seed}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    },
+    "Kling_V3PRO_T2V": {
+      "provider": "FAL",
+      "service": "Kling_V3PRO_T2V",
+      "possible_parameters": {
+        "aspect_ratio": ["16:9", "9:16", "1:1"],
+        "arguments_duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "arguments_generate_audio": [false, true],
+        "with_logs": [false, true]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.submit",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "duration": "{{arguments_duration}}",
+              "aspect_ratio": "{{arguments_aspect_ratio}}",
+              "generate_audio": "{{arguments_generate_audio}}"
+            },
+            "with_logs": "{{with_logs}}"
+          }
+        }
+      }
+    },
+    "Kling_V3PRO_I2V": {
+      "provider": "FAL",
+      "service": "Kling_V3PRO_I2V",
+      "possible_parameters": {
+        "aspect_ratio": ["16:9", "9:16", "1:1"],
+        "arguments_duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "arguments_generate_audio": [false, true],
+        "with_logs": [false, true]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.subscribe",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "start_image_url": "{{reference_image}}",
+              "duration": "{{arguments_duration}}",
+              "aspect_ratio": "{{arguments_aspect_ratio}}",
+              "generate_audio": "{{arguments_generate_audio}}"
             },
             "with_logs": "{{with_logs}}"
           }

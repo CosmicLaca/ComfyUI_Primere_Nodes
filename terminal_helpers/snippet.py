@@ -1,16 +1,10 @@
-handler = lient.submit("fal-ai/bytedance/seedream/v5/lite/edit",
+result = client.subscribe("fal-ai/kling-video/o3/pro/reference-to-video",
     arguments={
         "prompt": prompt,
-        "img_urls": [images],
-        "image_size": {
-          "width": 1280,
-          "height": 720
-        },
-        "num_images": batch,
-        "max_images": 1,
-        "enable_safety_checker": False,
-        "enhance_prompt_mode": "standard",
-        "seed": seed
+        "multi_prompt": null,
+        "start_image_url": reference_image,
+        "duration": "8",
+        "aspect_ratio": "16:9"
     },
     with_logs=False
 )
