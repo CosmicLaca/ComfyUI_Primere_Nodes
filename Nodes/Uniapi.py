@@ -16,10 +16,7 @@ from typing import Any
 import requests
 import sys
 from PIL import Image
-from io import BytesIO
 import numpy as np
-import torch
-import comfy.utils
 
 from ..components.API import api_json_to_requestbody
 from ..components.API import external_api_backend
@@ -38,87 +35,11 @@ class PrimereApiProcessor:
     VEO_ASPECT_RATIOS = ["9:16", "16:9"]
 
     @classmethod
-    def _default_provider_service(cls):
-        if isinstance(cls.API_SCHEMA_REGISTRY, dict) and len(cls.API_SCHEMA_REGISTRY) > 0:
-            first_provider = next(iter(cls.API_SCHEMA_REGISTRY))
-            provider_services = cls.API_SCHEMA_REGISTRY.get(first_provider, {})
-            if isinstance(provider_services, dict) and len(provider_services) > 0:
-                first_service = next(iter(provider_services))
-                return first_provider, first_service
-            return first_provider, "default"
-
-        providers = list(cls.API_RESULT.keys()) if isinstance(cls.API_RESULT, dict) else []
-        if len(providers) > 0:
-            return providers[0], "default"
-
-        return "custom", "default"
-
-    @classmethod
-    def _provider_list(cls):
-        default_provider, _ = cls._default_provider_service()
-        config_providers = []
-        if isinstance(cls.API_RESULT, dict):
-            config_providers = [str(provider) for provider in cls.API_RESULT.keys()]
-        schema_provider_set = set()
-        if isinstance(cls.API_SCHEMA_REGISTRY, dict):
-            schema_provider_set = {str(provider) for provider in cls.API_SCHEMA_REGISTRY.keys()}
-
-        common_providers = [provider for provider in config_providers if provider in schema_provider_set]
-
-        if len(common_providers) == 0:
-            return [default_provider]
-        ordered_providers = []
-        if default_provider in common_providers:
-            ordered_providers.append(default_provider)
-        for provider in common_providers:
-            if provider not in ordered_providers:
-                ordered_providers.append(provider)
-
-        return ordered_providers
-
-    @classmethod
-    def _service_list(cls):
-        default_provider, default_service = cls._default_provider_service()
-        services = []
-        if isinstance(cls.API_SCHEMA_REGISTRY, dict):
-            provider_services = cls.API_SCHEMA_REGISTRY.get(default_provider, {})
-            if isinstance(provider_services, dict):
-                services = [str(service) for service in provider_services.keys()]
-        ordered_services = [default_service]
-        for service in services:
-            if service not in ordered_services:
-                ordered_services.append(service)
-
-        return ordered_services
-
-    @classmethod
-    def _parameter_options(cls):
-        default_provider, default_service = cls._default_provider_service()
-        provider_services = cls.API_SCHEMA_REGISTRY.get(default_provider, {}) if isinstance(cls.API_SCHEMA_REGISTRY, dict) else {}
-        schema = provider_services.get(default_service, {}) if isinstance(provider_services, dict) else {}
-
-        options: dict[str, list[str]] = {}
-
-        possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
-        if not isinstance(possible, dict):
-            return options
-        for key, values in possible.items():
-            key_name = str(key)
-            if key_name == "prompt":
-                continue
-            value_list = [str(v) for v in values] if isinstance(values, list) else []
-            if len(value_list) == 0:
-                value_list = [f"default_{key_name}"]
-            options[key_name] = value_list
-
-        return options
-
-    @classmethod
     def INPUT_TYPES(cls):
         required_inputs = {
             "processor": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
-            "api_provider": (cls._provider_list(),),
-            "api_service": (cls._service_list(),),
+            "api_provider": (external_api_backend.provider_list(cls),),
+            "api_service": (external_api_backend.service_list(cls),),
             "prompt": ("STRING", {"forceInput": True}),
             "batch": ("INT", {"default": 1, "max": 10, "min": 1, "step": 1})
         }
@@ -134,54 +55,10 @@ class PrimereApiProcessor:
             "seed": ("INT", {"default": 1, "min": 0, "max": (2 ** 32) - 1, "forceInput": True})
         }
 
-        # for key, values in cls._parameter_options().items():
+        # for key, values in external_api_backend.parameter_options(cls).items():
         #    required_inputs[key] = (values,)
 
         return {"required": required_inputs, "optional": optional_inputs}
-
-    @classmethod
-    def _parse_ratio(cls, value):
-        if not isinstance(value, str):
-            return None
-        cleaned = value.strip()
-        if ":" not in cleaned:
-            return None
-        left, right = cleaned.split(":", 1)
-        try:
-            numerator = float(left)
-            denominator = float(right)
-        except ValueError:
-            return None
-        if denominator == 0:
-            return None
-        return numerator / denominator
-
-    @classmethod
-    def _closest_valid_ratio(cls, value, valid_ratios):
-        if not isinstance(valid_ratios, list) or len(valid_ratios) == 0:
-            return value
-
-        normalized_valid = [str(ratio) for ratio in valid_ratios]
-        candidate = str(value).strip() if value is not None else ""
-        if candidate in normalized_valid:
-            return candidate
-
-        candidate_ratio = cls._parse_ratio(candidate)
-        if candidate_ratio is None:
-            return normalized_valid[0]
-
-        best_value = normalized_valid[0]
-        best_diff = float("inf")
-        for ratio_text in normalized_valid:
-            parsed_ratio = cls._parse_ratio(ratio_text)
-            if parsed_ratio is None:
-                continue
-            diff = abs(parsed_ratio - candidate_ratio)
-            if diff < best_diff:
-                best_diff = diff
-                best_value = ratio_text
-
-        return best_value
 
     def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
         img_binary_api = []
@@ -233,7 +110,7 @@ class PrimereApiProcessor:
         if aspect_ratio not in (None, ""):
             selected_aspect_ratio = aspect_ratio
             if api_provider == "Gemini" and (selected_service or api_service) == "Nanobanana":
-                selected_aspect_ratio = self._closest_valid_ratio(aspect_ratio, self.NANOBANANA_ASPECT_RATIOS)
+                selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, self.NANOBANANA_ASPECT_RATIOS)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
 
         if len(img_binary_api) > 0:
@@ -249,20 +126,7 @@ class PrimereApiProcessor:
         # rendered_payload = rendered.__dict__
         rendered_payload = copy.deepcopy(rendered.__dict__)
         if len(img_binary_api) > 0:
-            def _redact_reference_images(node):
-                if isinstance(node, dict):
-                    sanitized = {}
-                    for key, value in node.items():
-                        if key == "reference_images":
-                            sanitized[key] = "[reference_images omitted]"
-                        else:
-                            sanitized[key] = _redact_reference_images(value)
-                    return sanitized
-                if isinstance(node, list):
-                    return [_redact_reference_images(value) for value in node]
-                return node
-
-            rendered_payload = _redact_reference_images(rendered_payload)
+            rendered_payload = external_api_backend.redact_reference_images(rendered_payload)
             sdk_call = rendered_payload.get("sdk_call")
             if isinstance(sdk_call, dict):
                 sdk_kwargs = sdk_call.get("kwargs")
@@ -279,9 +143,7 @@ class PrimereApiProcessor:
 
         api_result = None
         api_error = None
-        final_batch_img = []
         result_image = None
-        image_list = []
         batch = max(1, int(batch))
 
         try:
@@ -336,43 +198,9 @@ class PrimereApiProcessor:
 
         if api_error is None:
             if api_provider == "Gemini" and (selected_service or api_service) == "Nanobanana":
-                if api_result.candidates[0].content is not None and api_result.candidates[0].content.parts is not None:
-                    image_parts = [
-                        part.inline_data.data
-                        for part in api_result.candidates[0].content.parts
-                        if part.inline_data
-                    ]
-                    if image_parts:
-                        result_image = Image.open(BytesIO(image_parts[0]))
-                        if result_image is not None:
-                            result_image = result_image.convert("RGB")
-                            result_image = np.array(result_image).astype(np.float32) / 255.0
-                            result_image = torch.from_numpy(result_image)[None,]
-                            final_batch_img.append(result_image)
-
-                    if type(final_batch_img).__name__ == "list" and len(final_batch_img) > 1:
-                        image_list = final_batch_img
-                        single_image_start = final_batch_img[0]
-                        batch_count = 0
-                        s = None
-                        for single_image in final_batch_img:
-                            if (batch_count + 1) < len(final_batch_img):
-                                current_single_image = final_batch_img[batch_count + 1]
-                                if single_image_start.shape[1:] != current_single_image.shape[1:]:
-                                    current_single_image = comfy.utils.common_upscale(current_single_image.movedim(-1, 1), single_image_start.shape[2], single_image_start.shape[1], "bilinear", "center").movedim(1, -1)
-                                batch_count = batch_count + 1
-                                if s is not None:
-                                    single_image = s
-                                s = torch.cat((current_single_image, single_image), dim=0)
-                                result_image = s
+                result_image = external_api_backend.get_gemini_nanobanana(api_result)
 
             if api_provider == "Gemini" and (selected_service or api_service) == "Imagen":
-                if api_result.generated_images[0].image is not None and api_result.generated_images[0].image.image_bytes is not None:
-                    generated_image = api_result.generated_images[0].image.image_bytes
-                    result_image = Image.open(BytesIO(generated_image))
-                    if result_image is not None:
-                        result_image = result_image.convert("RGB")
-                        result_image = np.array(result_image).astype(np.float32) / 255.0
-                        result_image = torch.from_numpy(result_image)[None,]
+                result_image = external_api_backend.get_gemini_imagen(api_result)
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)

@@ -3,6 +3,11 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from typing import Any
+from PIL import Image
+from io import BytesIO
+import numpy as np
+import torch
+import comfy.utils
 
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 
@@ -129,3 +134,177 @@ def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed
     safe_args = [_materialize_sdk_value(a, context, roots) for a in args]
     safe_kwargs = {k: _materialize_sdk_value(v, context, roots) for k, v in kwargs.items()}
     return fn(*safe_args, **safe_kwargs)
+
+def default_provider_service(node_data):
+    if isinstance(node_data.API_SCHEMA_REGISTRY, dict) and len(node_data.API_SCHEMA_REGISTRY) > 0:
+        first_provider = next(iter(node_data.API_SCHEMA_REGISTRY))
+        provider_services = node_data.API_SCHEMA_REGISTRY.get(first_provider, {})
+        if isinstance(provider_services, dict) and len(provider_services) > 0:
+            first_service = next(iter(provider_services))
+            return first_provider, first_service
+        return first_provider, "default"
+
+    providers = list(node_data.API_RESULT.keys()) if isinstance(node_data.API_RESULT, dict) else []
+    if len(providers) > 0:
+        return providers[0], "default"
+
+    return "custom", "default"
+
+def provider_list(node_data):
+    default_provider, _ = default_provider_service(node_data)
+    config_providers = []
+    if isinstance(node_data.API_RESULT, dict):
+        config_providers = [str(provider) for provider in node_data.API_RESULT.keys()]
+    schema_provider_set = set()
+    if isinstance(node_data.API_SCHEMA_REGISTRY, dict):
+        schema_provider_set = {str(provider) for provider in node_data.API_SCHEMA_REGISTRY.keys()}
+
+    common_providers = [provider for provider in config_providers if provider in schema_provider_set]
+
+    if len(common_providers) == 0:
+        return [default_provider]
+    ordered_providers = []
+    if default_provider in common_providers:
+        ordered_providers.append(default_provider)
+    for provider in common_providers:
+        if provider not in ordered_providers:
+            ordered_providers.append(provider)
+
+    return ordered_providers
+
+def service_list(node_data):
+    default_provider, default_service = default_provider_service(node_data)
+    services = []
+    if isinstance(node_data.API_SCHEMA_REGISTRY, dict):
+        provider_services = node_data.API_SCHEMA_REGISTRY.get(default_provider, {})
+        if isinstance(provider_services, dict):
+            services = [str(service) for service in provider_services.keys()]
+    ordered_services = [default_service]
+    for service in services:
+        if service not in ordered_services:
+            ordered_services.append(service)
+
+    return ordered_services
+
+def parameter_options(node_data):
+    default_provider, default_service = default_provider_service(node_data)
+    provider_services = node_data.API_SCHEMA_REGISTRY.get(default_provider, {}) if isinstance(node_data.API_SCHEMA_REGISTRY, dict) else {}
+    schema = provider_services.get(default_service, {}) if isinstance(provider_services, dict) else {}
+
+    options: dict[str, list[str]] = {}
+
+    possible = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+    if not isinstance(possible, dict):
+        return options
+    for key, values in possible.items():
+        key_name = str(key)
+        if key_name == "prompt":
+            continue
+        value_list = [str(v) for v in values] if isinstance(values, list) else []
+        if len(value_list) == 0:
+            value_list = [f"default_{key_name}"]
+        options[key_name] = value_list
+
+    return options
+
+def redact_reference_images(node):
+    if isinstance(node, dict):
+        sanitized = {}
+        for key, value in node.items():
+            if key == "reference_images":
+                sanitized[key] = "[reference_images omitted]"
+            else:
+                sanitized[key] = redact_reference_images(value)
+        return sanitized
+    if isinstance(node, list):
+        return [redact_reference_images(value) for value in node]
+    return node
+
+def parse_ratio(value):
+    if not isinstance(value, str):
+        return None
+    cleaned = value.strip()
+    if ":" not in cleaned:
+        return None
+    left, right = cleaned.split(":", 1)
+    try:
+        numerator = float(left)
+        denominator = float(right)
+    except ValueError:
+        return None
+    if denominator == 0:
+        return None
+    return numerator / denominator
+def closest_valid_ratio(value, valid_ratios):
+    if not isinstance(valid_ratios, list) or len(valid_ratios) == 0:
+        return value
+
+    normalized_valid = [str(ratio) for ratio in valid_ratios]
+    candidate = str(value).strip() if value is not None else ""
+    if candidate in normalized_valid:
+        return candidate
+
+    candidate_ratio = parse_ratio(candidate)
+    if candidate_ratio is None:
+        return normalized_valid[0]
+
+    best_value = normalized_valid[0]
+    best_diff = float("inf")
+    for ratio_text in normalized_valid:
+        parsed_ratio = parse_ratio(ratio_text)
+        if parsed_ratio is None:
+            continue
+        diff = abs(parsed_ratio - candidate_ratio)
+        if diff < best_diff:
+            best_diff = diff
+            best_value = ratio_text
+
+    return best_value
+
+def get_gemini_nanobanana(api_result):
+    result_image = None
+    image_list = []
+    final_batch_img = []
+    if api_result.candidates[0].content is not None and api_result.candidates[0].content.parts is not None:
+        image_parts = [
+            part.inline_data.data
+            for part in api_result.candidates[0].content.parts
+            if part.inline_data
+        ]
+        if image_parts:
+            result_image = Image.open(BytesIO(image_parts[0]))
+            if result_image is not None:
+                result_image = result_image.convert("RGB")
+                result_image = np.array(result_image).astype(np.float32) / 255.0
+                result_image = torch.from_numpy(result_image)[None,]
+                final_batch_img.append(result_image)
+
+        if type(final_batch_img).__name__ == "list" and len(final_batch_img) > 1:
+            image_list = final_batch_img
+            single_image_start = final_batch_img[0]
+            batch_count = 0
+            s = None
+            for single_image in final_batch_img:
+                if (batch_count + 1) < len(final_batch_img):
+                    current_single_image = final_batch_img[batch_count + 1]
+                    if single_image_start.shape[1:] != current_single_image.shape[1:]:
+                        current_single_image = comfy.utils.common_upscale(current_single_image.movedim(-1, 1), single_image_start.shape[2], single_image_start.shape[1], "bilinear", "center").movedim(1, -1)
+                    batch_count = batch_count + 1
+                    if s is not None:
+                        single_image = s
+                    s = torch.cat((current_single_image, single_image), dim=0)
+                    result_image = s
+
+    return result_image
+
+def get_gemini_imagen(api_result):
+    result_image = None
+    if api_result.generated_images[0].image is not None and api_result.generated_images[0].image.image_bytes is not None:
+        generated_image = api_result.generated_images[0].image.image_bytes
+        result_image = Image.open(BytesIO(generated_image))
+        if result_image is not None:
+            result_image = result_image.convert("RGB")
+            result_image = np.array(result_image).astype(np.float32) / 255.0
+            result_image = torch.from_numpy(result_image)[None,]
+
+    return result_image
