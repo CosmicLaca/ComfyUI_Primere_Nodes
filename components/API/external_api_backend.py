@@ -203,9 +203,9 @@ def schema_possible_values(node_data, provider: str, service: str, parameter_nam
     if parameter_name in possible and isinstance(possible.get(parameter_name), list):
         return list(possible.get(parameter_name) or [])
 
-    expected = _canonical_parameter_key(parameter_name)
+    expected = canonical_parameter_key(parameter_name)
     for key, values in possible.items():
-        if _canonical_parameter_key(key) == expected and isinstance(values, list):
+        if canonical_parameter_key(key) == expected and isinstance(values, list):
             return list(values)
 
     return []
