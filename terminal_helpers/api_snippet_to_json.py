@@ -1,5 +1,5 @@
 """Convert `snippet.py` into grouped provider->service API schema JSON."""
-# python api_snippet_to_json.py --provider Gemini --service Imagen
+# python api_snippet_to_json.py --provider Gemini --service Imagen --replace
 
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
     "resolution": ["1K", "2K", "4K"],
 }
 
-EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities"}
+EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "aspect_ratio", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
 
 
 def dotted_name(node: ast.AST) -> str:
