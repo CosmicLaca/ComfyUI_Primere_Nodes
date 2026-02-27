@@ -49,8 +49,8 @@
                   "$call": "types.ImageConfig",
                   "$args": [],
                   "$kwargs": {
-                    "aspect_ratio": "{{config_image_config_aspect_ratio}}",
-                    "image_size": "{{config_image_config_image_size}}"
+                    "aspect_ratio": "{{aspect_ratio}}",
+                    "image_size": "{{image_size}}"
                   }
                 }
               }
@@ -63,7 +63,7 @@
       "provider": "Gemini",
       "service": "VEO",
       "possible_parameters": {
-        "aspectRatio": [
+        "aspect_ratio": [
           "9:16",
           "16:9"
         ],
@@ -104,10 +104,10 @@
               "$call": "types.GenerateVideosConfig",
               "$args": [],
               "$kwargs": {
-                "aspectRatio": "{{config_aspectRatio}}",
+                "aspectRatio": "{{aspect_ratio}}",
                 "resolution": "{{config_resolution}}",
-                "durationSeconds": "{{config_durationSeconds}}",
-                "personGeneration": "{{config_personGeneration}}",
+                "durationSeconds": "{{durationSeconds}}",
+                "personGeneration": "{{personGeneration}}",
                 "reference_images": "{{reference_images}}",
                 "last_frame": "{{last_image}}"
               }
@@ -149,9 +149,9 @@
               "$call": "types.GenerateImagesConfig",
               "$args": [],
               "$kwargs": {
-                "number_of_images": "{{config_number_of_images}}",
-                "aspect_ratio": "{{config_aspect_ratio}}",
-                "image_size": "{{config_image_size}}"
+                "number_of_images": "{{batch}}",
+                "aspect_ratio": "{{aspect_ratio}}",
+                "image_size": "{{resolution}}"
               }
             }
           }
@@ -233,13 +233,13 @@
                 "{{images}}"
               ],
               "image_size": {
-                "width": "{{arguments_image_size_width}}",
-                "height": "{{arguments_image_size_height}}"
+                "width": "{{width}}",
+                "height": "{{height}}"
               },
               "num_images": "{{batch}}",
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
-              "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
+              "enhance_prompt_mode": "{{enhance_prompt_mode}}",
               "seed": "{{seed}}"
             },
             "with_logs": "{{with_logs}}"
@@ -329,8 +329,8 @@
       "service": "Kling_V3PRO_T2V",
       "possible_parameters": {
         "aspect_ratio": ["16:9", "9:16", "1:1"],
-        "arguments_duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        "arguments_generate_audio": [false, true],
+        "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "generate_audio": [false, true],
         "with_logs": [false, true]
       },
       "request": {
@@ -343,9 +343,9 @@
           "kwargs": {
             "arguments": {
               "prompt": "{{prompt}}",
-              "duration": "{{arguments_duration}}",
-              "aspect_ratio": "{{arguments_aspect_ratio}}",
-              "generate_audio": "{{arguments_generate_audio}}"
+              "duration": "{{duration}}",
+              "aspect_ratio": "{{aspect_ratio}}",
+              "generate_audio": "{{generate_audio}}"
             },
             "with_logs": "{{with_logs}}"
           }
@@ -357,8 +357,8 @@
       "service": "Kling_V3PRO_I2V",
       "possible_parameters": {
         "aspect_ratio": ["16:9", "9:16", "1:1"],
-        "arguments_duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        "arguments_generate_audio": [false, true],
+        "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "generate_audio": [false, true],
         "with_logs": [false, true]
       },
       "request": {
@@ -372,9 +372,9 @@
             "arguments": {
               "prompt": "{{prompt}}",
               "start_image_url": "{{reference_image}}",
-              "duration": "{{arguments_duration}}",
-              "aspect_ratio": "{{arguments_aspect_ratio}}",
-              "generate_audio": "{{arguments_generate_audio}}"
+              "duration": "{{duration}}",
+              "aspect_ratio": "{{aspect_ratio}}",
+              "generate_audio": "{{generate_audio}}"
             },
             "with_logs": "{{with_logs}}"
           }
