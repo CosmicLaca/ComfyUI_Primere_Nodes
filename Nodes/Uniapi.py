@@ -57,7 +57,7 @@ class PrimereApiProcessor:
 
         hidden_inputs = {
             "extra_pnginfo": "EXTRA_PNGINFO",
-            "prompt": "PROMPT"
+            "prompt_extra": "PROMPT"
         }
 
         # for key, values in external_api_backend.parameter_options(cls).items():
@@ -69,12 +69,13 @@ class PrimereApiProcessor:
         img_binary_api = []
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-        custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', prompt)
+        custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', kwargs['prompt_extra'])
 
         custom_user_inputs = {k: v for k, v in custom_values.items() if k not in self.required_inputs}
         custom_user_inputs = {k: v for k, v in custom_user_inputs.items() if k not in self.optional_inputs}
-
         # return (None, api_provider, None, custom_user_inputs, None, None, None)
+        del kwargs['extra_pnginfo']
+        del kwargs['prompt_extra']
 
         if reference_images is not None:
             if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
@@ -120,6 +121,23 @@ class PrimereApiProcessor:
         schema["service"] = selected_service or api_service
 
         selected_parameters = {"prompt": prompt}
+
+        local_inputs = locals()
+        required_keys = set(self.required_inputs.keys()) if isinstance(getattr(self, "required_inputs", None), dict) else set()
+        optional_keys = set(self.optional_inputs.keys()) if isinstance(getattr(self, "optional_inputs", None), dict) else set()
+        reserved_keys = {"processor", "api_provider", "api_service"}
+
+        for key in (required_keys | optional_keys):
+            if key in reserved_keys:
+                continue
+            if key in local_inputs and local_inputs[key] not in (None, ""):
+                selected_parameters[key] = local_inputs[key]
+
+        if isinstance(custom_user_inputs, dict):
+            for key, value in custom_user_inputs.items():
+                if value not in (None, ""):
+                    selected_parameters[key] = value
+
         if aspect_ratio not in (None, ""):
             selected_aspect_ratio = aspect_ratio
             schema_aspect_ratios = external_api_backend.schema_possible_values(self, api_provider, (selected_service or api_service), "aspect_ratio",)
@@ -172,6 +190,7 @@ class PrimereApiProcessor:
                 except Exception:
                     pass
 
+                # return (None, api_provider, None, rendered_payload, None, None, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
