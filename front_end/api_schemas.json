@@ -339,62 +339,137 @@
           }
         }
       }
-    },
-    "GPT": {
-      "T2I": {
-        "provider": "GPT",
-        "service": "T2I",
-        "possible_parameters": {
-          "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
-          "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
-          "quality": ["standard", "low", "medium", "high", "auto"],
-          "input_fidelity": ["high", "low"],
-          "background": ["auto", "transparent", "opaque"]
-        },
-        "request": {
-          "method": "SDK",
-          "endpoint": "client.images.generate",
-          "sdk_call": {
-            "args": [],
-            "kwargs": {
-              "model": "{{model}}",
+    }
+  },
+  "BlackForest": {
+    "FluxExpandPro": {
+      "provider": "BlackForest",
+      "service": "FluxExpandPro",
+      "possible_parameters": {
+        "blackforest_guidance": "FLOAT",
+        "blackforest_steps": "INT",
+        "top": "INT",
+        "bottom": "INT",
+        "left": "INT",
+        "right": "INT",
+        "safety_tolerance": [1, 2, 3, 4, 5, 6]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "requests.post",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "payload": {
+              "image": "{{reference_images}}",
+              "top": "{{top}}",
+              "bottom": "{{bottom}}",
+              "left": "{{left}}",
+              "right": "{{right}}",
               "prompt": "{{prompt}}",
-              "n": "{{batch}}",
-              "size": "{{size}}",
-              "quality": "{{quality}}",
-              "input_fidelity": "{{input_fidelity}}",
-              "background": "{{background}}",
-              "output_format": "png"
+              "steps": "{{blackforest_steps}}",
+              "prompt_upsampling": false,
+              "seed": "{{seed}}",
+              "guidance": "{{blackforest_guidance}}",
+              "output_format": "png",
+              "safety_tolerance": "{{safety_tolerance}}"
             }
           }
         }
+      }
+    },
+    "FluxFillPro": {
+      "provider": "BlackForest",
+      "service": "FluxFillPro",
+      "possible_parameters": {
+        "blackforest_guidance": "FLOAT",
+        "blackforest_steps": "INT",
+        "safety_tolerance": [1, 2, 3, 4, 5, 6]
       },
-      "I2I": {
-        "provider": "GPT",
-        "service": "I2I",
-        "possible_parameters": {
-          "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
-          "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
-          "quality": ["standard", "low", "medium", "high", "auto"],
-          "input_fidelity": ["high", "low"],
-          "background": ["auto", "transparent", "opaque"]
-        },
-        "request": {
-          "method": "SDK",
-          "endpoint": "client.images.edit",
-          "sdk_call": {
-            "args": [],
-            "kwargs": {
-              "model": "{{model}}",
+      "request": {
+        "method": "SDK",
+        "endpoint": "requests.post",
+        "sdk_call": {
+          "args": [
+            "{{arg0}}"
+          ],
+          "kwargs": {
+            "payload": {
+              "output_format": "png",
               "image": "{{reference_images}}",
+              "mask": "{{mask_images}}",
+              "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
-              "n": "{{batch}}",
-              "size": "{{size}}",
-              "quality": "{{quality}}",
-              "input_fidelity": "{{input_fidelity}}",
-              "background": "{{background}}",
-              "output_format": "png"
+              "seed": "{{seed}}",
+              "aspect_ratio": "{{aspect_ratio}}",
+              "prompt_upsampling": false,
+              "guidance": "{{guidance}}",
+              "steps": "{{blackforest_steps}}"
             }
+          }
+        }
+      }
+    }
+  },
+  "OpenAI": {
+    "GPT_T2I": {
+      "provider": "OpenAI",
+      "service": "GPT_T2I",
+      "possible_parameters": {
+        "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
+        "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
+        "quality": ["standard", "low", "medium", "high", "auto"],
+        "input_fidelity": ["high", "low"],
+        "background": ["auto", "transparent", "opaque"],
+        "moderation": ["low", "high"]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.images.generate",
+        "sdk_call": {
+          "args": [],
+          "kwargs": {
+            "model": "{{model}}",
+            "prompt": "{{prompt}}",
+            "n": "{{batch}}",
+            "size": "{{size}}",
+            "quality": "{{quality}}",
+            "input_fidelity": "{{input_fidelity}}",
+            "background": "{{background}}",
+            "moderation": "{{moderation}}",
+            "output_format": "png"
+          }
+        }
+      }
+    },
+    "GPT_I2I": {
+      "provider": "OpenAI",
+      "service": "GPT_I2I",
+      "possible_parameters": {
+        "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
+        "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
+        "quality": ["standard", "low", "medium", "high", "auto"],
+        "input_fidelity": ["high", "low"],
+        "background": ["auto", "transparent", "opaque"]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.images.edit",
+        "sdk_call": {
+          "args": [],
+          "kwargs": {
+            "model": "{{model}}",
+            "image": "{{reference_images}}",
+            "mask": "{{mask}}",
+            "prompt": "{{prompt}}",
+            "n": "{{batch}}",
+            "size": "{{size}}",
+            "quality": "{{quality}}",
+            "input_fidelity": "{{input_fidelity}}",
+            "background": "{{background}}",
+            "output_format": "png"
           }
         }
       }

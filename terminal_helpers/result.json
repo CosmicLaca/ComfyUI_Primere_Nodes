@@ -1,23 +1,33 @@
 {
-  "GPT": {
-    "I2I": {
-      "provider": "GPT",
-      "service": "I2I",
+  "BlackForest": {
+    "FluxFillPro": {
+      "provider": "BlackForest",
+      "service": "FluxFillPro",
       "possible_parameters": {
-        "model": [
-          "example-model-1",
-          "example-model-2"
-        ]
+        "blackforest_guidance": "FLOAT",
+        "blackforest_steps": "INT",
+        "safety_tolerance": [1, 2, 3, 4, 5, 6]
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.images.edit",
+        "endpoint": "requests.post",
         "sdk_call": {
-          "args": [],
+          "args": [
+            "{{arg0}}"
+          ],
           "kwargs": {
-            "model": "{{model}}",
-            "image": "{{reference_images}}",
-            "prompt": "{{prompt}}"
+            "payload": {
+              "output_format": "png",
+              "image": "{{reference_images}}",
+              "mask": "{{mask_images}}",
+              "safety_tolerance": "{{safety_tolerance}}",
+              "prompt": "{{prompt}}",
+              "seed": "{{seed}}",
+              "aspect_ratio": "{{aspect_ratio}}",
+              "prompt_upsampling": false,
+              "guidance": "{{guidance}}",
+              "steps": "{{blackforest_steps}}"
+            }
           }
         }
       }

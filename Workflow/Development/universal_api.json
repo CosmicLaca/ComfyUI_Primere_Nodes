@@ -196,7 +196,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "Gemini"
+        "BlackForest"
       ]
     },
     {
@@ -357,39 +357,6 @@
       "bgcolor": "#353"
     },
     {
-      "id": 5,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        230.59455853316146,
-        -100.89937981917723
-      ],
-      "size": [
-        892.8762223497116,
-        1184.1444272121767
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 199
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"default_reference_images\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 2,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -417,7 +384,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x00000174814E1E50>"
+        "true"
       ]
     },
     {
@@ -515,10 +482,81 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [265521689861266]"
+        "Last seed: [939180638562112]"
       ],
       "color": "#223",
       "bgcolor": "#335"
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -986.5673238030835,
+        652.6400381393415
+      ],
+      "size": [
+        1186.4116689112548,
+        1251.0239458395386
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 198
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"BlackForest\",\n    \"service\": \"FluxExpandPro\",\n    \"possible_parameters\": {\n        \"blackforest_guidance\": \"FLOAT\",\n        \"blackforest_steps\": \"INT\",\n        \"top\": \"INT\",\n        \"bottom\": \"INT\",\n        \"left\": \"INT\",\n        \"right\": \"INT\",\n        \"safety_tolerance\": [\n            1,\n            2,\n            3,\n            4,\n            5,\n            6\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"requests.post\",\n        \"sdk_call\": {\n            \"args\": [\n                \"{{arg0}}\"\n            ],\n            \"kwargs\": {\n                \"payload\": {\n                    \"image\": \"{{reference_images}}\",\n                    \"top\": \"{{top}}\",\n                    \"bottom\": \"{{bottom}}\",\n                    \"left\": \"{{left}}\",\n                    \"right\": \"{{right}}\",\n                    \"prompt\": \"{{prompt}}\",\n                    \"steps\": \"{{blackforest_steps}}\",\n                    \"prompt_upsampling\": false,\n                    \"seed\": \"{{seed}}\",\n                    \"guidance\": \"{{blackforest_guidance}}\",\n                    \"output_format\": \"png\",\n                    \"safety_tolerance\": \"{{safety_tolerance}}\"\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1138.0166844099545,
+        -551.4778817538785
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 202
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e",
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
     },
     {
       "id": 17,
@@ -648,77 +686,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 4,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        -986.5673238030835,
-        652.6400381393415
-      ],
-      "size": [
-        1186.4116689112548,
-        1251.0239458395386
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 198
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana_V1\",\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-3-pro-image-preview\",\n            \"gemini-2.5-flash-image\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1138.0166844099545,
-        -551.4778817538785
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 202
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e",
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "ERROR: Cannot list target for Checkpoint",
-        null
-      ]
-    },
-    {
       "id": 34,
       "type": "PrimereApiProcessor",
       "pos": [
@@ -726,8 +693,8 @@
         -548.3233034269158
       ],
       "size": [
-        661.2005535888673,
-        386
+        670.1635931396486,
+        482
       ],
       "flags": {},
       "order": 9,
@@ -846,14 +813,52 @@
       "widgets_values": [
         true,
         true,
-        "Gemini",
-        "Nanobanana_V1",
+        "BlackForest",
+        "FluxExpandPro",
         1,
-        "1K",
-        "gemini-2.5-flash-image"
+        "default_blackforest_guidance",
+        "default_blackforest_steps",
+        "default_top",
+        "default_bottom",
+        "default_left",
+        "default_right",
+        "1"
       ],
       "color": "#233",
       "bgcolor": "#355"
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        232.38710736128647,
+        -0.5141344578491387
+      ],
+      "size": [
+        892.8762223497116,
+        1184.1444272121767
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 199
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"BlackForest\",\n    \"endpoint\": \"requests.post\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [\n            \"default_arg0\"\n        ],\n        \"kwargs\": {\n            \"payload\": {\n                \"image\": \"default_reference_images\",\n                \"top\": \"default_top\",\n                \"bottom\": \"default_bottom\",\n                \"left\": \"default_left\",\n                \"right\": \"default_right\",\n                \"prompt\": \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"steps\": \"default_blackforest_steps\",\n                \"prompt_upsampling\": false,\n                \"seed\": 939180638562112,\n                \"guidance\": \"default_blackforest_guidance\",\n                \"output_format\": \"png\",\n                \"safety_tolerance\": \"1\"\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
     }
   ],
   "links": [
@@ -1014,10 +1019,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5131581182307069,
+      "scale": 0.8264462809917359,
       "offset": [
-        1952.299825555616,
-        757.989525725939
+        868.9079250938589,
+        645.4712544479279
       ]
     },
     "frontendVersion": "1.39.19"
