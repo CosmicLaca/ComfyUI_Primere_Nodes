@@ -1,9 +1,13 @@
 {
   "Gemini": {
-    "Nonnobanana": {
+    "Nonnobanana_V2": {
       "provider": "Gemini",
-      "service": "Nonnobanana",
+      "service": "Nonnobanana_V2",
       "possible_parameters": {
+        "aspect_ratio": [
+          "fake_aspect_ratio_value_1",
+          "fake_aspect_ratio_value_2"
+        ],
         "resolution": [
           "1K",
           "2K",
@@ -12,6 +16,10 @@
         "model": [
           "example-model-1",
           "example-model-2"
+        ],
+        "thinking_level": [
+          "fake_thinking_level_value_1",
+          "fake_thinking_level_value_2"
         ]
       },
       "request": {
@@ -32,12 +40,14 @@
                 "response_modalities": [
                   "{{response_modalities_0}}"
                 ],
-                "image_config": {
-                  "$call": "types.ImageConfig",
+                "thinking_config": {
+                  "$call": "types.ThinkingConfig",
                   "$args": [],
                   "$kwargs": {
                     "aspect_ratio": "{{aspect_ratio}}",
-                    "image_size": "{{image_size}}"
+                    "image_size": "{{image_size}}",
+                    "thinking_level": "{{thinking_level}}",
+                    "include_thoughts": false
                   }
                 }
               }

@@ -1,8 +1,8 @@
 {
   "Gemini": {
-    "Nanobanana": {
+    "Nanobanana_V1": {
       "provider": "Gemini",
-      "service": "Nanobanana",
+      "service": "Nanobanana_V1",
       "possible_parameters": {
         "aspect_ratio": [
           "1:1",
@@ -22,7 +22,6 @@
           "4K"
         ],
         "model": [
-          "gemini-3.1-flash-image-preview",
           "gemini-3-pro-image-preview",
           "gemini-2.5-flash-image"
         ]
@@ -51,6 +50,57 @@
                   "$kwargs": {
                     "aspect_ratio": "{{aspect_ratio}}",
                     "image_size": "{{image_size}}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Nonnobanana_V2": {
+      "provider": "Gemini",
+      "service": "Nonnobanana_V2",
+      "possible_parameters": {
+        "aspect_ratio": ["1:1","1:4","1:8","2:3","3:2","3:4","4:1","4:3","4:5","5:4","8:1","9:16","16:9","21:9"],
+        "resolution": [
+          "512px",
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "model": ["gemini-3.1-flash-image-preview"],
+        "thinking_level": [
+          "minimal",
+          "high"
+        ]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.models.generate_content",
+        "sdk_call": {
+          "args": [],
+          "kwargs": {
+            "model": "{{model}}",
+            "contents": [
+              "{{prompt}}",
+              "{{reference_images}}"
+            ],
+            "config": {
+              "$call": "types.GenerateContentConfig",
+              "$args": [],
+              "$kwargs": {
+                "response_modalities": [
+                  "{{response_modalities_0}}"
+                ],
+                "thinking_config": {
+                  "$call": "types.ThinkingConfig",
+                  "$args": [],
+                  "$kwargs": {
+                    "aspect_ratio": "{{aspect_ratio}}",
+                    "image_size": "{{image_size}}",
+                    "thinking_level": "{{thinking_level}}",
+                    "include_thoughts": false
                   }
                 }
               }
@@ -230,7 +280,7 @@
             "arguments": {
               "prompt": "{{prompt}}",
               "img_urls": [
-                "{{images}}"
+                "{{reference_images}}"
               ],
               "image_size": {
                 "width": "{{width}}",
@@ -271,11 +321,11 @@
             "arguments": {
               "prompt": "{{prompt}}",
               "img_urls": [
-                "{{images}}"
+                "{{reference_images}}"
               ],
               "image_size": {
-                "width": "{{arguments_image_size_width}}",
-                "height": "{{arguments_image_size_height}}"
+                "width": "{{width}}",
+                "height": "{{height}}"
               },
               "num_images": "{{batch}}",
               "max_images": 1,
@@ -311,8 +361,8 @@
             "arguments": {
               "prompt": "{{prompt}}",
               "image_size": {
-                "width": "{{arguments_image_size_width}}",
-                "height": "{{arguments_image_size_height}}"
+                "width": "{{width}}",
+                "height": "{{height}}"
               },
               "num_images": "{{batch}}",
               "max_images": 1,
@@ -371,7 +421,7 @@
           "kwargs": {
             "arguments": {
               "prompt": "{{prompt}}",
-              "start_image_url": "{{reference_image}}",
+              "start_image_url": "{{reference_images}}",
               "duration": "{{duration}}",
               "aspect_ratio": "{{aspect_ratio}}",
               "generate_audio": "{{generate_audio}}"

@@ -28,7 +28,7 @@ KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
     "resolution": ["1K", "2K", "4K"],
 }
 
-EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "aspect_ratio", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
+EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
 
 
 def dotted_name(node: ast.AST) -> str:

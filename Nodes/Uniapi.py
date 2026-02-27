@@ -38,6 +38,7 @@ class PrimereApiProcessor:
     def INPUT_TYPES(cls):
         cls.required_inputs = {
             "processor": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
+            "debug_mode": ("BOOLEAN", {"default": False, "label_on": "DEBUG ONLY", "label_off": "PRODUCTION"}),
             "api_provider": (external_api_backend.provider_list(cls),),
             "api_service": (external_api_backend.service_list(cls),),
             "prompt": ("STRING", {"forceInput": True}),
@@ -65,7 +66,7 @@ class PrimereApiProcessor:
 
         return {"required": cls.required_inputs, "optional": cls.optional_inputs, "hidden": hidden_inputs}
 
-    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
+    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, **kwargs):
         img_binary_api = []
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
@@ -192,7 +193,8 @@ class PrimereApiProcessor:
                 except Exception:
                     pass
 
-                return (None, api_provider, None, rendered_payload, None, None, None)
+                if debug_mode:
+                    return (client, api_provider, schema, rendered_payload, None, api_result, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
