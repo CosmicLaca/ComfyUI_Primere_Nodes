@@ -10,7 +10,10 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+import os
 
+COMPONENTS = Path(__file__).parent.absolute()
+PRIMERE_ROOT = COMPONENTS.parent
 
 class SnippetParseError(RuntimeError):
     """Raised when call extraction fails."""
@@ -198,10 +201,40 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
     return {
         "provider": provider,
         "service": service,
+        "response_handler": response_handler_filename(provider, service),
         "possible_parameters": build_possible_parameters(request_schema),
         "request": request_schema,
     }
 
+def _sanitize_name(value: str) -> str:
+    clean = re.sub(r"[^A-Za-z0-9_]+", "_", str(value or "").strip())
+    clean = re.sub(r"_+", "_", clean).strip("_")
+    return clean or "default"
+
+
+def response_handler_filename(provider: str, service: str) -> str:
+    return f"{_sanitize_name(provider)}_{_sanitize_name(service)}.py"
+
+
+def _response_handlers_dir() -> Path:
+    return Path(os.path.join(PRIMERE_ROOT, "components", "API", "responses"))
+
+
+def ensure_response_handler_file(filename: str) -> Path:
+    responses_dir = _response_handlers_dir()
+    responses_dir.mkdir(parents=True, exist_ok=True)
+    target = responses_dir / filename
+    if target.exists():
+        return target
+
+    template = (
+        "from __future__ import annotations\n\n"
+        "from typing import Any\n\n\n"
+        "def handle_response(api_result: Any, schema: dict[str, Any] | None = None):\n"
+        "    return None\n"
+    )
+    target.write_text(template, encoding="utf-8")
+    return target
 
 def _ensure_mapping(node: Any) -> dict[str, Any]:
     return node if isinstance(node, dict) else {}
@@ -236,6 +269,7 @@ def convert_default_files(
 
     snippet = snippet_path.read_text(encoding="utf-8")
     service_schema = build_service_schema(snippet, provider=provider, service=service)
+    ensure_response_handler_file(str(service_schema.get("response_handler") or ""))
 
     result_path = root / RESULT_FILENAME
     if append and result_path.exists():

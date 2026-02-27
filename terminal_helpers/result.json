@@ -3,6 +3,7 @@
     "FluxExpandPro": {
       "provider": "BlackForest",
       "service": "FluxExpandPro",
+      "response_handler": "BlackForest_FluxExpandPro.py",
       "possible_parameters": {
         "aspect_ratio": [
           "fake_aspect_ratio_value_1",
