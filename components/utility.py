@@ -1064,6 +1064,29 @@ def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
 
     return results
 
+def getInputsFromWorkflowByNode(workflow, nodeName, prompt):
+    filtered = {}
+
+    for node in workflow:
+        node_id = None
+        name = node["type"]
+        if "properties" in node:
+            if "Node name for S&R" in node["properties"]:
+                name = node["properties"]["Node name for S&R"]
+        if name == nodeName:
+            node_id = node["id"]
+        else:
+            if "title" in node:
+                name = node["title"]
+            if name == nodeName:
+                node_id = node["id"]
+        if node_id is None:
+            continue
+        if str(node_id) in prompt:
+            values = prompt[str(node_id)]["inputs"]
+            filtered = {k: v for k, v in values.items() if not isinstance(v, list)}
+
+    return filtered
 
 def collect_state(extra_pnginfo, prompt):
     workflow = extra_pnginfo["workflow"]

@@ -36,7 +36,7 @@ class PrimereApiProcessor:
 
     @classmethod
     def INPUT_TYPES(cls):
-        required_inputs = {
+        cls.required_inputs = {
             "processor": ("BOOLEAN", {"default": True, "label_on": "ON", "label_off": "OFF"}),
             "api_provider": (external_api_backend.provider_list(cls),),
             "api_service": (external_api_backend.service_list(cls),),
@@ -44,7 +44,7 @@ class PrimereApiProcessor:
             "batch": ("INT", {"default": 1, "max": 10, "min": 1, "step": 1})
         }
 
-        optional_inputs = {
+        cls.optional_inputs = {
             "negative_prompt": ("STRING", {"default": None, "forceInput": True}),
             "reference_images": ("IMAGE", {"default": None, "forceInput": True}),
             "first_image": ("IMAGE", {"default": None, "forceInput": True}),
@@ -55,13 +55,26 @@ class PrimereApiProcessor:
             "seed": ("INT", {"default": 1, "min": 0, "max": (2 ** 32) - 1, "forceInput": True})
         }
 
+        hidden_inputs = {
+            "extra_pnginfo": "EXTRA_PNGINFO",
+            "prompt": "PROMPT"
+        }
+
         # for key, values in external_api_backend.parameter_options(cls).items():
         #    required_inputs[key] = (values,)
 
-        return {"required": required_inputs, "optional": optional_inputs}
+        return {"required": cls.required_inputs, "optional": cls.optional_inputs, "hidden": hidden_inputs}
 
     def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, **kwargs):
         img_binary_api = []
+
+        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', prompt)
+
+        custom_user_inputs = {k: v for k, v in custom_values.items() if k not in self.required_inputs}
+        custom_user_inputs = {k: v for k, v in custom_user_inputs.items() if k not in self.optional_inputs}
+
+        # return (None, api_provider, None, custom_user_inputs, None, None, None)
 
         if reference_images is not None:
             if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
