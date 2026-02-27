@@ -30,14 +30,14 @@
               "$args": [],
               "$kwargs": {
                 "response_modalities": [
-                  "{{config_response_modalities_0}}"
+                  "{{response_modalities_0}}"
                 ],
                 "image_config": {
                   "$call": "types.ImageConfig",
                   "$args": [],
                   "$kwargs": {
-                    "aspect_ratio": "{{config_image_config_aspect_ratio}}",
-                    "image_size": "{{config_image_config_image_size}}"
+                    "aspect_ratio": "{{aspect_ratio}}",
+                    "image_size": "{{image_size}}"
                   }
                 }
               }

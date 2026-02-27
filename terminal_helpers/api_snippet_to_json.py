@@ -21,6 +21,7 @@ RESULT_FILENAME = "result.json"
 DEFAULT_PROVIDER = ""
 DEFAULT_SERVICE = ""
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
+PLACEHOLDER_ALIASES = {"number_of_images": "seed", "aspectRatio": "aspect_ratio"}
 
 KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
     "model": ["example-model-1", "example-model-2"],
@@ -40,6 +41,7 @@ def dotted_name(node: ast.AST) -> str:
 
 
 def placeholder(name: str) -> str:
+    name = PLACEHOLDER_ALIASES.get(name, name)
     clean = "".join(ch if ch.isalnum() or ch == "_" else "_" for ch in name)
     while "__" in clean:
         clean = clean.replace("__", "_")
@@ -48,9 +50,14 @@ def placeholder(name: str) -> str:
 
 def node_to_template(node: ast.AST, path: str) -> Any:
     if isinstance(node, ast.Constant):
+        if node.value is None or isinstance(node.value, bool):
+            return node.value
         return placeholder(path)
 
     if isinstance(node, ast.Name):
+        special_literals = {"null": None, "true": True, "false": False}
+        if node.id in special_literals:
+            return special_literals[node.id]
         return placeholder(node.id)
 
     if isinstance(node, ast.Dict):
@@ -60,7 +67,7 @@ def node_to_template(node: ast.AST, path: str) -> Any:
                 key = key_node.value
             else:
                 key = ast.unparse(key_node)
-            out[key] = node_to_template(value_node, f"{path}_{key}")
+            out[key] = node_to_template(value_node, key)
         return out
 
     if isinstance(node, ast.List):
@@ -71,9 +78,9 @@ def node_to_template(node: ast.AST, path: str) -> Any:
 
     if isinstance(node, ast.Call):
         call_name = dotted_name(node.func)
-        args = [node_to_template(arg, f"{path}_arg{idx}") for idx, arg in enumerate(node.args)]
+        args = [node_to_template(arg, f"arg{idx}") for idx, arg in enumerate(node.args)]
         kwargs = {
-            kw.arg if kw.arg else f"kw_{idx}": node_to_template(kw.value, f"{path}_{kw.arg if kw.arg else f'kw_{idx}'}")
+            kw.arg if kw.arg else f"kw_{idx}": node_to_template(kw.value, kw.arg if kw.arg else f"kw_{idx}")
             for idx, kw in enumerate(node.keywords)
         }
         return {
@@ -116,7 +123,9 @@ def _collect_placeholders(node: Any) -> set[str]:
 
     def walk(item: Any) -> None:
         if isinstance(item, dict):
-            for v in item.values():
+            for k, v in item.items():
+                if k in {"$args", "args"}:
+                    continue
                 walk(v)
             return
         if isinstance(item, list):
@@ -139,6 +148,8 @@ def _canonical_param_name(name: str) -> str:
         return "resolution"
     if low == "model" or low.endswith("_model"):
         return "model"
+    if low == "number_of_images":
+        return "seed"
     if "prompt" in low or "contents" in low:
         return "prompt"
     if "response_modalities" in low:
