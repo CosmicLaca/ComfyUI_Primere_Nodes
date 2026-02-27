@@ -40,9 +40,9 @@
         }
       }
     },
-    "Nonnobanana_V2": {
+    "Nanobanana_V2": {
       "provider": "Gemini",
-      "service": "Nonnobanana_V2",
+      "service": "Nanobanana_V2",
       "possible_parameters": {
         "aspect_ratio": ["1:1","1:4","1:8","2:3","3:2","3:4","4:1","4:3","4:5","5:4","8:1","9:16","16:9","21:9"],
         "resolution": ["512px", "1K", "2K", "4K"],
