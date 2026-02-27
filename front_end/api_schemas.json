@@ -164,7 +164,7 @@
       "provider": "FAL",
       "service": "Seedream_V5_T2I",
       "possible_parameters": {
-        "arguments_enable_safety_checker": [
+        "enable_safety_checker": [
           false,
           true
         ],
@@ -188,13 +188,13 @@
             "arguments": {
               "prompt": "{{prompt}}",
               "image_size": {
-                "width": "{{arguments_image_size_width}}",
-                "height": "{{arguments_image_size_height}}"
+                "width": "{{width}}",
+                "height": "{{height}}"
               },
               "num_images": "{{batch}}",
-              "max_images": "{{arguments_max_images}}",
-              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
-              "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
+              "max_images": 1,
+              "enable_safety_checker": "{{enable_safety_checker}}",
+              "enhance_prompt_mode": "{{enhance_prompt_mode}}",
               "seed": "{{seed}}"
             },
             "with_logs": "{{with_logs}}"
@@ -206,7 +206,7 @@
       "provider": "FAL",
       "service": "Seedream_V5_I2I",
       "possible_parameters": {
-        "arguments_enable_safety_checker": [
+        "enable_safety_checker": [
           false,
           true
         ],
@@ -237,8 +237,8 @@
                 "height": "{{arguments_image_size_height}}"
               },
               "num_images": "{{batch}}",
-              "max_images": "{{arguments_max_images}}",
-              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
+              "max_images": 1,
+              "enable_safety_checker": "{{enable_safety_checker}}",
               "enhance_prompt_mode": "{{arguments_enhance_prompt_mode}}",
               "seed": "{{seed}}"
             },
@@ -251,7 +251,7 @@
       "provider": "FAL",
       "service": "Seedream_V4.5_I2I",
       "possible_parameters": {
-        "arguments_enable_safety_checker": [
+        "enable_safety_checker": [
           false,
           true
         ],
@@ -278,8 +278,8 @@
                 "height": "{{arguments_image_size_height}}"
               },
               "num_images": "{{batch}}",
-              "max_images": "{{arguments_max_images}}",
-              "enable_safety_checker": "{{arguments_enable_safety_checker}}",
+              "max_images": 1,
+              "enable_safety_checker": "{{enable_safety_checker}}",
               "seed": "{{seed}}"
             },
             "with_logs": "{{with_logs}}"
@@ -291,7 +291,7 @@
       "provider": "FAL",
       "service": "Seedream_V4.5_T2I",
       "possible_parameters": {
-        "arguments_enable_safety_checker": [
+        "enable_safety_checker": [
           false,
           true
         ],
@@ -314,9 +314,9 @@
                 "width": "{{arguments_image_size_width}}",
                 "height": "{{arguments_image_size_height}}"
               },
-              "num_images": "{{arguments_num_images}}",
-              "max_images": "{{arguments_max_images}}",
-              "enable_safety_checker": "{{true}}",
+              "num_images": "{{batch}}",
+              "max_images": 1,
+              "enable_safety_checker": "{{enable_safety_checker}}",
               "seed": "{{seed}}"
             },
             "with_logs": "{{with_logs}}"

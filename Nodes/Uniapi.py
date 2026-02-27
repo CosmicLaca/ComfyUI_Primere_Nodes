@@ -121,6 +121,8 @@ class PrimereApiProcessor:
         schema["service"] = selected_service or api_service
 
         selected_parameters = {"prompt": prompt}
+        selected_parameters = {"width": width}
+        selected_parameters = {"height": height}
 
         local_inputs = locals()
         required_keys = set(self.required_inputs.keys()) if isinstance(getattr(self, "required_inputs", None), dict) else set()
@@ -190,7 +192,7 @@ class PrimereApiProcessor:
                 except Exception:
                     pass
 
-                # return (None, api_provider, None, rendered_payload, None, None, None)
+                return (None, api_provider, None, rendered_payload, None, None, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests

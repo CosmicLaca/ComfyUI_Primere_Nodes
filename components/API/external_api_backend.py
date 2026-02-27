@@ -174,15 +174,15 @@ def provider_list(node_data):
 
 def service_list(node_data):
     default_provider, default_service = default_provider_service(node_data)
-    services = []
-    if isinstance(node_data.API_SCHEMA_REGISTRY, dict):
-        provider_services = node_data.API_SCHEMA_REGISTRY.get(default_provider, {})
-        if isinstance(provider_services, dict):
-            services = [str(service) for service in provider_services.keys()]
     ordered_services = [default_service]
-    for service in services:
-        if service not in ordered_services:
-            ordered_services.append(service)
+    registry = node_data.API_SCHEMA_REGISTRY if isinstance(node_data.API_SCHEMA_REGISTRY, dict) else {}
+    for provider_services in registry.values():
+        if not isinstance(provider_services, dict):
+            continue
+        for service in provider_services.keys():
+            service_name = str(service)
+            if service_name not in ordered_services:
+                ordered_services.append(service_name)
 
     return ordered_services
 
