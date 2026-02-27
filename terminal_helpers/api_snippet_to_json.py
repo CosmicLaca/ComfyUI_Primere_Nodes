@@ -52,6 +52,8 @@ def node_to_template(node: ast.AST, path: str) -> Any:
     if isinstance(node, ast.Constant):
         if node.value is None or isinstance(node.value, bool):
             return node.value
+        if isinstance(node.value, str) and node.value in {"INT", "FLOAT", "STRING"}:
+            return node.value
         return placeholder(path)
 
     if isinstance(node, ast.Name):

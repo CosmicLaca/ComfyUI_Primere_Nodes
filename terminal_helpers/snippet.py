@@ -7,7 +7,7 @@ response = requests.post("https://api.bfl.ai/v1/flux-pro-1.0-fill",
         "prompt": prompt,
         "seed": seed,
         "aspect_ratio": aspect_ratio,
-        "prompt_upsampling": False,
+        "prompt_upsampling": "STRING",
         "guidance": "FLOAT",
         "steps": "INT"
     }

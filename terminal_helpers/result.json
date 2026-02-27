@@ -1,12 +1,25 @@
 {
   "BlackForest": {
-    "FluxFillPro": {
+    "FluxExpandPro": {
       "provider": "BlackForest",
-      "service": "FluxFillPro",
+      "service": "FluxExpandPro",
       "possible_parameters": {
-        "blackforest_guidance": "FLOAT",
-        "blackforest_steps": "INT",
-        "safety_tolerance": [1, 2, 3, 4, 5, 6]
+        "aspect_ratio": [
+          "fake_aspect_ratio_value_1",
+          "fake_aspect_ratio_value_2"
+        ],
+        "mask_images": [
+          "fake_mask_images_value_1",
+          "fake_mask_images_value_2"
+        ],
+        "output_format": [
+          "fake_output_format_value_1",
+          "fake_output_format_value_2"
+        ],
+        "safety_tolerance": [
+          "fake_safety_tolerance_value_1",
+          "fake_safety_tolerance_value_2"
+        ]
       },
       "request": {
         "method": "SDK",
@@ -17,16 +30,16 @@
           ],
           "kwargs": {
             "payload": {
-              "output_format": "png",
+              "output_format": "{{output_format}}",
               "image": "{{reference_images}}",
               "mask": "{{mask_images}}",
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
               "seed": "{{seed}}",
               "aspect_ratio": "{{aspect_ratio}}",
-              "prompt_upsampling": false,
-              "guidance": "{{guidance}}",
-              "steps": "{{blackforest_steps}}"
+              "prompt_upsampling": "STRING",
+              "guidance": "FLOAT",
+              "steps": "INT"
             }
           }
         }

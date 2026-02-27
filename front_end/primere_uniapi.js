@@ -94,17 +94,59 @@ function ensureBooleanWidget(node, widgetName, values) {
     return markDynamicWidget(node, widgetName);
 }
 
+function ensureNumberWidget(node, widgetName, valueType) {
+    const isInteger = valueType === "INT";
+    const defaultValue = isInteger ? 1 : 1.0;
+    const expectedStep = isInteger ? 1 : 0.01;
+    const expectedPrecision = isInteger ? 0 : 4;
+
+    let widget = getWidget(node, widgetName);
+    if (!widget || widget.type !== "number") {
+        removeWidgetByName(node, widgetName);
+        widget = node.addWidget("number", widgetName, defaultValue, () => {}, {
+            step: expectedStep,
+            precision: expectedPrecision,
+        });
+    }
+
+    widget.options = widget.options || {};
+    widget.options.step = expectedStep;
+    widget.options.precision = expectedPrecision;
+
+    if (typeof widget.value !== "number" || Number.isNaN(widget.value)) {
+        widget.value = defaultValue;
+    } else if (isInteger) {
+        widget.value = Math.round(widget.value);
+    }
+
+    return markDynamicWidget(node, widgetName);
+}
+
+function ensureStringWidget(node, widgetName) {
+    let widget = getWidget(node, widgetName);
+    if (!widget || widget.type !== "text") {
+        removeWidgetByName(node, widgetName);
+        widget = node.addWidget("text", widgetName, "", () => {}, {});
+    }
+
+    if (widget.value == null) {
+        widget.value = "";
+    }
+
+    return markDynamicWidget(node, widgetName);
+}
+
 function detectParameterType(values) {
+    if (values === "INT" || values === "FLOAT" || values === "STRING") {
+        return values;
+    }
+
     if (!Array.isArray(values) || values.length === 0) {
         return "combo";
     }
 
     if (values.every((value) => typeof value === "boolean")) {
         return "boolean";
-    }
-
-    if (values.every((value) => Number.isInteger(value))) {
-        return "integer";
     }
 
     return "combo";
@@ -229,6 +271,14 @@ function updateParameterWidgets(node, schemaRegistry) {
             const paramType = detectParameterType(values);
             if (paramType === "boolean") {
                 ensureBooleanWidget(node, paramName, values);
+                continue;
+            }
+            if (paramType === "INT" || paramType === "FLOAT") {
+                ensureNumberWidget(node, paramName, paramType);
+                continue;
+            }
+            if (paramType === "STRING") {
+                ensureStringWidget(node, paramName);
                 continue;
             }
             ensureComboWidget(node, paramName, values);
