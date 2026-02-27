@@ -1,8 +1,8 @@
 {
   "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
   "revision": 0,
-  "last_node_id": 34,
-  "last_link_id": 202,
+  "last_node_id": 35,
+  "last_link_id": 203,
   "nodes": [
     {
       "id": 22,
@@ -196,7 +196,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "FAL"
+        "Gemini"
       ]
     },
     {
@@ -357,44 +357,6 @@
       "bgcolor": "#353"
     },
     {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1138.0166844099545,
-        -551.4778817538785
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 202
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e",
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "ERROR: Cannot list target for Checkpoint",
-        null
-      ]
-    },
-    {
       "id": 5,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -422,7 +384,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"FAL\",\n    \"endpoint\": \"lient.submit\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [\n            \"default_arg0\"\n        ],\n        \"kwargs\": {\n            \"arguments\": {\n                \"prompt\": \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"img_urls\": [\n                    \"default_reference_images\"\n                ],\n                \"image_size\": {\n                    \"width\": 768,\n                    \"height\": 1365\n                },\n                \"num_images\": 1,\n                \"max_images\": 1,\n                \"enable_safety_checker\": false,\n                \"seed\": 331451528682931\n            },\n            \"with_logs\": false\n        }\n    }\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"default_reference_images\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -455,7 +417,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "true"
+        "<google.genai.client.Client object at 0x00000174814E1E50>"
       ]
     },
     {
@@ -553,7 +515,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [331451528682931]"
+        "Last seed: [265521689861266]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -686,6 +648,77 @@
       "bgcolor": "#653"
     },
     {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -986.5673238030835,
+        652.6400381393415
+      ],
+      "size": [
+        1186.4116689112548,
+        1251.0239458395386
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 198
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana_V1\",\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-3-pro-image-preview\",\n            \"gemini-2.5-flash-image\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1138.0166844099545,
+        -551.4778817538785
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 202
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e",
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
       "id": 34,
       "type": "PrimereApiProcessor",
       "pos": [
@@ -813,47 +846,14 @@
       "widgets_values": [
         true,
         true,
-        "FAL",
-        "Seedream_V4.5_I2I",
+        "Gemini",
+        "Nanobanana_V1",
         1,
-        false,
-        false
+        "1K",
+        "gemini-2.5-flash-image"
       ],
       "color": "#233",
       "bgcolor": "#355"
-    },
-    {
-      "id": 4,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        -986.5673238030835,
-        652.6400381393415
-      ],
-      "size": [
-        1186.4116689112548,
-        1251.0239458395386
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 198
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"FAL\",\n    \"service\": \"Seedream_V4.5_I2I\",\n    \"possible_parameters\": {\n        \"enable_safety_checker\": [\n            false,\n            true\n        ],\n        \"with_logs\": [\n            false,\n            true\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"lient.submit\",\n        \"sdk_call\": {\n            \"args\": [\n                \"{{arg0}}\"\n            ],\n            \"kwargs\": {\n                \"arguments\": {\n                    \"prompt\": \"{{prompt}}\",\n                    \"img_urls\": [\n                        \"{{reference_images}}\"\n                    ],\n                    \"image_size\": {\n                        \"width\": \"{{width}}\",\n                        \"height\": \"{{height}}\"\n                    },\n                    \"num_images\": \"{{batch}}\",\n                    \"max_images\": 1,\n                    \"enable_safety_checker\": \"{{enable_safety_checker}}\",\n                    \"seed\": \"{{seed}}\"\n                },\n                \"with_logs\": \"{{with_logs}}\"\n            }\n        }\n    }\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
     }
   ],
   "links": [
@@ -1014,10 +1014,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6209213230591556,
+      "scale": 0.5131581182307069,
       "offset": [
-        1924.4169166984045,
-        652.5150520664386
+        1952.299825555616,
+        757.989525725939
       ]
     },
     "frontendVersion": "1.39.19"

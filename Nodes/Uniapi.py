@@ -234,10 +234,10 @@ class PrimereApiProcessor:
             raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
-            if api_provider == "Gemini" and (selected_service or api_service) == "Nanobanana":
+            if api_provider == "Gemini" and (selected_service or api_service) in ["Nanobanana_V1", "Nanobanana_V2", "Nanobanana"]:
                 result_image = external_api_backend.get_gemini_nanobanana(api_result)
 
-            if api_provider == "Gemini" and (selected_service or api_service) == "Imagen":
+            if api_provider == "Gemini" and (selected_service or api_service) in ["Imagen"]:
                 result_image = external_api_backend.get_gemini_imagen(api_result)
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)

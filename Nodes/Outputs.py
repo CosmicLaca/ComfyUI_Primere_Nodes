@@ -874,6 +874,11 @@ class PrimerePreviewImage():
         self.output_dir = folder_paths.get_output_directory()
         self.type = "output"
 
+        if images is None or type(images).__name__ != "Tensor":
+            INVALID_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+            INVALID_IMAGE = os.path.join(INVALID_IMAGE_PATH, "invalid.jpg")
+            images = utility.ImageLoaderFromPath(INVALID_IMAGE)
+
         VISUAL_NODE_NAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS', 'PrimereVisualStyle']
         VISUAL_NODE_FILENAMES = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS']
         WIDGET_DATA = {
