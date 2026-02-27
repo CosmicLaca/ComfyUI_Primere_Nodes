@@ -196,7 +196,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "Gemini"
+        "FAL"
       ]
     },
     {
@@ -422,7 +422,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"default_reference_images\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"provider\": \"FAL\",\n    \"endpoint\": \"lient.submit\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [\n            \"default_arg0\"\n        ],\n        \"kwargs\": {\n            \"arguments\": {\n                \"prompt\": \"Dye her hair red, have her standing with a glass of champagne in her hand in a modern beauty salon, and dress her in a blue leather jacket with the zipper pulled down and a red silk top underneath. Put a baseball cap on her head. She is wearing black jeans and a blue belt. \",\n                \"img_urls\": [\n                    \"default_reference_images\"\n                ],\n                \"image_size\": {\n                    \"width\": 768,\n                    \"height\": 1365\n                },\n                \"num_images\": 1,\n                \"max_images\": 1,\n                \"enable_safety_checker\": false,\n                \"seed\": 331451528682931\n            },\n            \"with_logs\": false\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -455,41 +455,8 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x0000018401511550>"
+        "true"
       ]
-    },
-    {
-      "id": 4,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        -986.5673238030835,
-        652.6400381393415
-      ],
-      "size": [
-        1186.4116689112548,
-        1251.0239458395386
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 198
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
-        "Node name for S&R": "PrimereAnyOutput"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana_V1\",\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-3-pro-image-preview\",\n            \"gemini-2.5-flash-image\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
     },
     {
       "id": 6,
@@ -554,143 +521,6 @@
       ]
     },
     {
-      "id": 34,
-      "type": "PrimereApiProcessor",
-      "pos": [
-        -261.240011586027,
-        -548.3233034269158
-      ],
-      "size": [
-        661.2005535888673,
-        386
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt",
-          "type": "STRING",
-          "link": 190
-        },
-        {
-          "name": "negative_prompt",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "reference_images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 191
-        },
-        {
-          "name": "first_image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "last_image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "width",
-          "shape": 7,
-          "type": "INT",
-          "link": 192
-        },
-        {
-          "name": "height",
-          "shape": 7,
-          "type": "INT",
-          "link": 193
-        },
-        {
-          "name": "aspect_ratio",
-          "shape": 7,
-          "type": "STRING",
-          "link": 194
-        },
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 195
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CLIENT",
-          "type": "APICLIENT",
-          "links": [
-            196
-          ]
-        },
-        {
-          "name": "PROVIDER",
-          "type": "STRING",
-          "links": [
-            197
-          ]
-        },
-        {
-          "name": "SCHEMA",
-          "type": "TUPLE",
-          "links": [
-            198
-          ]
-        },
-        {
-          "name": "RENDERED",
-          "type": "TUPLE",
-          "links": [
-            199
-          ]
-        },
-        {
-          "name": "API_SCHEMAS",
-          "type": "TUPLE",
-          "links": [
-            200
-          ]
-        },
-        {
-          "name": "API_RESULT",
-          "type": "TUPLE",
-          "links": [
-            201
-          ]
-        },
-        {
-          "name": "RESULT_IMAGE",
-          "type": "IMAGE",
-          "links": [
-            202
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5b62c22c373c0e012a5fff7314f983b6678c8029",
-        "Node name for S&R": "PrimereApiProcessor"
-      },
-      "widgets_values": [
-        true,
-        true,
-        "Gemini",
-        "Nanobanana_V1",
-        1,
-        "1K",
-        "gemini-2.5-flash-image"
-      ],
-      "color": "#233",
-      "bgcolor": "#355"
-    },
-    {
       "id": 16,
       "type": "PrimereFastSeed",
       "pos": [
@@ -723,7 +553,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [649200983751120]"
+        "Last seed: [331451528682931]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -854,6 +684,176 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 34,
+      "type": "PrimereApiProcessor",
+      "pos": [
+        -261.240011586027,
+        -548.3233034269158
+      ],
+      "size": [
+        661.2005535888673,
+        386
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 190
+        },
+        {
+          "name": "negative_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "reference_images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 191
+        },
+        {
+          "name": "first_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "last_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 192
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 193
+        },
+        {
+          "name": "aspect_ratio",
+          "shape": 7,
+          "type": "STRING",
+          "link": 194
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 195
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CLIENT",
+          "type": "APICLIENT",
+          "links": [
+            196
+          ]
+        },
+        {
+          "name": "PROVIDER",
+          "type": "STRING",
+          "links": [
+            197
+          ]
+        },
+        {
+          "name": "SCHEMA",
+          "type": "TUPLE",
+          "links": [
+            198
+          ]
+        },
+        {
+          "name": "RENDERED",
+          "type": "TUPLE",
+          "links": [
+            199
+          ]
+        },
+        {
+          "name": "API_SCHEMAS",
+          "type": "TUPLE",
+          "links": [
+            200
+          ]
+        },
+        {
+          "name": "API_RESULT",
+          "type": "TUPLE",
+          "links": [
+            201
+          ]
+        },
+        {
+          "name": "RESULT_IMAGE",
+          "type": "IMAGE",
+          "links": [
+            202
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "5b62c22c373c0e012a5fff7314f983b6678c8029",
+        "Node name for S&R": "PrimereApiProcessor"
+      },
+      "widgets_values": [
+        true,
+        true,
+        "FAL",
+        "Seedream_V4.5_I2I",
+        1,
+        false,
+        false
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -986.5673238030835,
+        652.6400381393415
+      ],
+      "size": [
+        1186.4116689112548,
+        1251.0239458395386
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 198
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361",
+        "Node name for S&R": "PrimereAnyOutput"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"FAL\",\n    \"service\": \"Seedream_V4.5_I2I\",\n    \"possible_parameters\": {\n        \"enable_safety_checker\": [\n            false,\n            true\n        ],\n        \"with_logs\": [\n            false,\n            true\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"lient.submit\",\n        \"sdk_call\": {\n            \"args\": [\n                \"{{arg0}}\"\n            ],\n            \"kwargs\": {\n                \"arguments\": {\n                    \"prompt\": \"{{prompt}}\",\n                    \"img_urls\": [\n                        \"{{reference_images}}\"\n                    ],\n                    \"image_size\": {\n                        \"width\": \"{{width}}\",\n                        \"height\": \"{{height}}\"\n                    },\n                    \"num_images\": \"{{batch}}\",\n                    \"max_images\": 1,\n                    \"enable_safety_checker\": \"{{enable_safety_checker}}\",\n                    \"seed\": \"{{seed}}\"\n                },\n                \"with_logs\": \"{{with_logs}}\"\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
     }
   ],
   "links": [
@@ -1014,10 +1014,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537777,
+      "scale": 0.6209213230591556,
       "offset": [
-        2118.105828506862,
-        748.2994228833901
+        1924.4169166984045,
+        652.5150520664386
       ]
     },
     "frontendVersion": "1.39.19"
