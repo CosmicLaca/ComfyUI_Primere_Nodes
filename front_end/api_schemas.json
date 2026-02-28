@@ -65,16 +65,14 @@
               "$args": [],
               "$kwargs": {
                 "response_modalities": [
-                  "{{response_modalities_0}}"
+                  "{{config_response_modalities_0}}"
                 ],
-                "thinking_config": {
-                  "$call": "types.ThinkingConfig",
+                "image_config": {
+                  "$call": "types.ImageConfig",
                   "$args": [],
                   "$kwargs": {
                     "aspect_ratio": "{{aspect_ratio}}",
-                    "image_size": "{{image_size}}",
-                    "thinking_level": "{{thinking_level}}",
-                    "include_thoughts": false
+                    "image_size": "{{image_size}}"
                   }
                 }
               }

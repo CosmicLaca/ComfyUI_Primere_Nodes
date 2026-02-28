@@ -1,8 +1,13 @@
 from __future__ import annotations
+from ...components.tree import PRIMERE_ROOT
 
 import re
+import os
 from dataclasses import dataclass
 from typing import Any
+from pathlib import Path
+import importlib.util
+
 from PIL import Image
 from io import BytesIO
 import numpy as np
@@ -285,7 +290,7 @@ def closest_valid_ratio(value, valid_ratios):
 
     return best_value
 
-def get_gemini_nanobanana(api_result):
+'''def get_gemini_nanobanana(api_result):
     result_image = None
     image_list = []
     final_batch_img = []
@@ -331,4 +336,43 @@ def get_gemini_imagen(api_result):
             result_image = np.array(result_image).astype(np.float32) / 255.0
             result_image = torch.from_numpy(result_image)[None,]
 
-    return result_image
+    return result_image'''
+
+def _safe_response_handler_filename(name: str) -> str:
+    filename = str(name or "").strip()
+    if not filename:
+        return ""
+    if filename.startswith("/") or ".." in filename or "/" in filename or "\\" in filename:
+        raise ExternalAPIError(f"Invalid response handler filename: {filename}")
+    if not filename.endswith(".py"):
+        raise ExternalAPIError(f"Response handler must be a .py file: {filename}")
+    return filename
+
+
+def _load_response_handler(filename: str):
+    safe_name = _safe_response_handler_filename(filename)
+    base_dir = os.path.join(PRIMERE_ROOT, 'components', 'API', 'responses')
+    module_path = os.path.join(base_dir, safe_name)
+    if not Path(module_path).exists():
+        raise ExternalAPIError(f"Response handler file not found: {safe_name}")
+
+    module_name = f"{safe_name[:-3].replace('.', '_').replace('-', '_')}"
+    spec = importlib.util.spec_from_file_location(module_name, str(module_path))
+    if spec is None or spec.loader is None:
+        raise ExternalAPIError(f"Cannot import response handler: {safe_name}")
+
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    handler = getattr(module, "handle_response", None)
+    if not callable(handler):
+        raise ExternalAPIError(f"Response handler '{safe_name}' must define callable handle_response(api_result, schema)")
+
+    return handler
+
+def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provider: str = "", service: str = "") -> Any:
+    if api_result is None:
+        return None
+
+    handler_file = f'{provider}_{service}.py'
+    handler = _load_response_handler(handler_file)
+    return handler(api_result)

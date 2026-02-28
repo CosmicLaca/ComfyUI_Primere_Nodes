@@ -31,8 +31,6 @@ class PrimereApiProcessor:
     API_RESULT = api_helper.get_api_config("apiconfig.json")
     API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json'))
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
-    # NANOBANANA_ASPECT_RATIOS = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
-    # VEO_ASPECT_RATIOS = ["9:16", "16:9"]
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -234,10 +232,12 @@ class PrimereApiProcessor:
             raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
-            if api_provider == "Gemini" and (selected_service or api_service) in ["Nanobanana_V1", "Nanobanana_V2", "Nanobanana"]:
+            '''if api_provider == "Gemini" and (selected_service or api_service) in ["Nanobanana_V1", "Nanobanana_V2", "Nanobanana"]:
                 result_image = external_api_backend.get_gemini_nanobanana(api_result)
 
             if api_provider == "Gemini" and (selected_service or api_service) in ["Imagen"]:
-                result_image = external_api_backend.get_gemini_imagen(api_result)
+                result_image = external_api_backend.get_gemini_imagen(api_result)'''
+
+            result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service))
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)
