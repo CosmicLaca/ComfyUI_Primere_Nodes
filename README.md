@@ -20,6 +20,14 @@ After nodepack update of **12/3/2024 - v1.0.2** ComfyUI front-end must be update
 
 <hr>
 
+> [!TIP]
+> ## Something different: Universal API node 🚀
+> Explore the Uniapi quick manual: **[PrimereApiProcessor (Uniapi) guide](Workflow/Manual/nodes/uniapi.md)**.
+> 
+> <img src="./Workflow/Manual/nodes/uniapi.jpg" width="500px">
+
+<hr>
+
 ## Minimal workflow: 
 
 <img src="./Workflow/Manual/wf_minimal.jpg" width="800px">
