@@ -46,3 +46,9 @@ pyrallis
 mmengine
 open_clip_torch
 omegaconf
+fal-client
+anthropic
+openai
+google-genai>=1.65.0
+dotenv
+elevenlabs
