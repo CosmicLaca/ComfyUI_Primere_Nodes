@@ -11,6 +11,7 @@ import random
 import argparse
 import json
 import copy
+import importlib
 from pathlib import Path
 from typing import Any
 import requests
@@ -184,6 +185,8 @@ class PrimereApiProcessor:
                 context = {"client": client}
                 allowed_roots = {"client"}
 
+                # context, allowed_roots = external_api_backend.build_sdk_context(rendered, client)
+
                 try:
                     from google.genai import types as genai_types
                     context["types"] = genai_types
@@ -232,12 +235,6 @@ class PrimereApiProcessor:
             raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
-            '''if api_provider == "Gemini" and (selected_service or api_service) in ["Nanobanana_V1", "Nanobanana_V2", "Nanobanana"]:
-                result_image = external_api_backend.get_gemini_nanobanana(api_result)
-
-            if api_provider == "Gemini" and (selected_service or api_service) in ["Imagen"]:
-                result_image = external_api_backend.get_gemini_imagen(api_result)'''
-
             result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service))
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)

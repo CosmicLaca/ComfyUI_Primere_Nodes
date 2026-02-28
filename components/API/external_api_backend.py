@@ -2,6 +2,8 @@ from __future__ import annotations
 from ...components.tree import PRIMERE_ROOT
 
 import re
+import sys
+import importlib
 import os
 from dataclasses import dataclass
 from typing import Any
@@ -98,6 +100,60 @@ def normalize_sdk_call(sdk_call: dict[str, Any] | None) -> tuple[list[Any], dict
     if "args" in sdk_call or "kwargs" in sdk_call:
         return list(sdk_call.get("args", [])), dict(sdk_call.get("kwargs", {}))
     return [], dict(sdk_call)
+
+def _collect_sdk_roots(node: Any, roots: set[str]) -> None:
+    if isinstance(node, dict):
+        call_path = node.get("$call")
+        if isinstance(call_path, str) and "." in call_path:
+            roots.add(call_path.split(".", 1)[0])
+        for value in node.values():
+            _collect_sdk_roots(value, roots)
+        return
+    if isinstance(node, list):
+        for value in node:
+            _collect_sdk_roots(value, roots)
+
+
+def _resolve_context_root(root_name: str, provider_client: Any) -> Any:
+    if root_name == "client":
+        return provider_client
+    if root_name in sys.modules:
+        return sys.modules[root_name]
+
+    module_candidates = [root_name]
+    client_module = getattr(getattr(provider_client, "__class__", None), "__module__", "")
+    module_parts = [part for part in str(client_module).split(".") if part]
+    for i in range(len(module_parts), 0, -1):
+        module_candidates.append(".".join(module_parts[:i] + [root_name]))
+
+    tried = set()
+    for module_name in module_candidates:
+        if module_name in tried:
+            continue
+        tried.add(module_name)
+        try:
+            return importlib.import_module(module_name)
+        except Exception:
+            continue
+    raise ImportError(f"Unable to resolve SDK context root '{root_name}'")
+
+
+def build_sdk_context(rendered: RenderResult, client: Any) -> tuple[dict[str, Any], set[str]]:
+    context: dict[str, Any] = {"client": client}
+    allowed_roots: set[str] = {"client"}
+
+    required_roots = set()
+    if isinstance(rendered.endpoint, str) and "." in rendered.endpoint:
+        required_roots.add(rendered.endpoint.split(".", 1)[0])
+    _collect_sdk_roots(rendered.sdk_call, required_roots)
+
+    for root_name in sorted(required_roots):
+        if root_name in context:
+            continue
+        context[root_name] = _resolve_context_root(root_name, client)
+        allowed_roots.add(root_name)
+
+    return context, allowed_roots
 
 
 def _resolve_dotted_from_context(path: str, context: dict[str, Any], allowed_roots: set[str]) -> Any:
@@ -290,54 +346,6 @@ def closest_valid_ratio(value, valid_ratios):
 
     return best_value
 
-'''def get_gemini_nanobanana(api_result):
-    result_image = None
-    image_list = []
-    final_batch_img = []
-    if api_result.candidates[0].content is not None and api_result.candidates[0].content.parts is not None:
-        image_parts = [
-            part.inline_data.data
-            for part in api_result.candidates[0].content.parts
-            if part.inline_data
-        ]
-        if image_parts:
-            result_image = Image.open(BytesIO(image_parts[0]))
-            if result_image is not None:
-                result_image = result_image.convert("RGB")
-                result_image = np.array(result_image).astype(np.float32) / 255.0
-                result_image = torch.from_numpy(result_image)[None,]
-                final_batch_img.append(result_image)
-
-        if type(final_batch_img).__name__ == "list" and len(final_batch_img) > 1:
-            image_list = final_batch_img
-            single_image_start = final_batch_img[0]
-            batch_count = 0
-            s = None
-            for single_image in final_batch_img:
-                if (batch_count + 1) < len(final_batch_img):
-                    current_single_image = final_batch_img[batch_count + 1]
-                    if single_image_start.shape[1:] != current_single_image.shape[1:]:
-                        current_single_image = comfy.utils.common_upscale(current_single_image.movedim(-1, 1), single_image_start.shape[2], single_image_start.shape[1], "bilinear", "center").movedim(1, -1)
-                    batch_count = batch_count + 1
-                    if s is not None:
-                        single_image = s
-                    s = torch.cat((current_single_image, single_image), dim=0)
-                    result_image = s
-
-    return result_image
-
-def get_gemini_imagen(api_result):
-    result_image = None
-    if api_result.generated_images[0].image is not None and api_result.generated_images[0].image.image_bytes is not None:
-        generated_image = api_result.generated_images[0].image.image_bytes
-        result_image = Image.open(BytesIO(generated_image))
-        if result_image is not None:
-            result_image = result_image.convert("RGB")
-            result_image = np.array(result_image).astype(np.float32) / 255.0
-            result_image = torch.from_numpy(result_image)[None,]
-
-    return result_image'''
-
 def _safe_response_handler_filename(name: str) -> str:
     filename = str(name or "").strip()
     if not filename:
@@ -373,6 +381,7 @@ def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provi
     if api_result is None:
         return None
 
-    handler_file = f'{provider}_{service}.py'
+    configured_handler = schema.get("response_handler") if isinstance(schema, dict) else None
+    handler_file = str(configured_handler).strip() if configured_handler not in (None, "") else f'{provider}_{service}.py'
     handler = _load_response_handler(handler_file)
     return handler(api_result)

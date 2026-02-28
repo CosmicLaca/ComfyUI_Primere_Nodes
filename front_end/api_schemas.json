@@ -3,6 +3,7 @@
     "Nanobanana_V1": {
       "provider": "Gemini",
       "service": "Nanobanana_V1",
+      "response_handler": "Gemini_Nanobanana.py",
       "possible_parameters": {
         "aspect_ratio": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
         "resolution": ["1K", "2K", "4K"],
@@ -43,6 +44,7 @@
     "Nanobanana_V2": {
       "provider": "Gemini",
       "service": "Nanobanana_V2",
+      "response_handler": "Gemini_Nanobanana.py",
       "possible_parameters": {
         "aspect_ratio": ["1:1","1:4","1:8","2:3","3:2","3:4","4:1","4:3","4:5","5:4","8:1","9:16","16:9","21:9"],
         "resolution": ["512px", "1K", "2K", "4K"],
