@@ -33,6 +33,12 @@ KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
 
 EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
 
+DEFAULT_IMPORT_MODULES: dict[str, list[str]] = {
+    "generic": [
+        "import your_provider_sdk",
+        "from your_provider_sdk import types",
+    ]
+}
 
 def dotted_name(node: ast.AST) -> str:
     if isinstance(node, ast.Name):
@@ -178,6 +184,35 @@ def build_possible_parameters(request_schema: dict[str, Any]) -> dict[str, list[
 
     return possible
 
+def build_import_modules(snippet: str, provider: str = "") -> list[str]:
+    """Extract import statements so schema keeps service-specific dependencies editable."""
+    tree = ast.parse(snippet)
+    imports: list[str] = []
+
+    for node in tree.body:
+        if isinstance(node, ast.Import):
+            rendered = ", ".join(
+                f"{alias.name} as {alias.asname}" if alias.asname else alias.name
+                for alias in node.names
+            )
+            imports.append(f"import {rendered}")
+        elif isinstance(node, ast.ImportFrom):
+            module_name = "." * node.level + (node.module or "")
+            rendered = ", ".join(
+                f"{alias.name} as {alias.asname}" if alias.asname else alias.name
+                for alias in node.names
+            )
+            imports.append(f"from {module_name} import {rendered}")
+
+    # Preserve order while dropping accidental duplicates.
+    unique_imports = list(dict.fromkeys(imports))
+    if unique_imports:
+        return unique_imports
+
+    provider_key = str(provider or "").strip().lower()
+    if provider_key in DEFAULT_IMPORT_MODULES:
+        return DEFAULT_IMPORT_MODULES[provider_key]
+    return DEFAULT_IMPORT_MODULES["generic"]
 
 def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service: str = DEFAULT_SERVICE) -> dict[str, Any]:
     tree = ast.parse(snippet)
@@ -203,6 +238,7 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
         "provider": provider,
         "service": service,
         "response_handler": response_handler_filename(provider, service),
+        "import_modules": build_import_modules(snippet, provider=provider),
         "possible_parameters": build_possible_parameters(request_schema),
         "request": request_schema,
     }

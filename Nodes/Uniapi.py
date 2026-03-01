@@ -11,7 +11,6 @@ import random
 import argparse
 import json
 import copy
-import importlib
 from pathlib import Path
 from typing import Any
 import requests
@@ -60,12 +59,13 @@ class PrimereApiProcessor:
             "prompt_extra": "PROMPT"
         }
 
-        # for key, values in external_api_backend.parameter_options(cls).items():
-        #    required_inputs[key] = (values,)
-
         return {"required": cls.required_inputs, "optional": cls.optional_inputs, "hidden": hidden_inputs}
 
     def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, **kwargs):
+        API_SCHEMAS_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json')
+        API_CONFIG_PATH = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
+        API_SCHEMA_REGISTRY = api_schema_registry.load_and_validate_api_schema_registry(API_SCHEMAS_PATH, API_CONFIG_PATH)
+
         img_binary_api = []
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
@@ -104,7 +104,7 @@ class PrimereApiProcessor:
         config_json = self.API_RESULT
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
 
-        schema, selected_service = api_schema_registry.get_schema(self.API_SCHEMA_REGISTRY, api_provider, api_service)
+        schema, selected_service = api_schema_registry.get_schema(API_SCHEMA_REGISTRY, api_provider, api_service)
         if schema is None:
             schema = {
                 "provider": api_provider,
@@ -119,6 +119,10 @@ class PrimereApiProcessor:
 
         schema["provider"] = api_provider
         schema["service"] = selected_service or api_service
+        schema_import_modules = schema.get("import_modules", []) if isinstance(schema, dict) else []
+        if not isinstance(schema_import_modules, list):
+            raise RuntimeError("Schema key 'import_modules' must be a list of import statements.")
+        schema["import_modules"] = schema_import_modules
 
         selected_parameters = {"prompt": prompt}
         selected_parameters = {"width": width}
@@ -187,12 +191,9 @@ class PrimereApiProcessor:
 
                 # context, allowed_roots = external_api_backend.build_sdk_context(rendered, client)
 
-                try:
-                    from google.genai import types as genai_types
-                    context["types"] = genai_types
-                    allowed_roots.add("types")
-                except Exception:
-                    pass
+                imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
+                context.update(imported_context)
+                allowed_roots.update(imported_roots)
 
                 if debug_mode:
                     return (client, api_provider, schema, rendered_payload, None, api_result, None)

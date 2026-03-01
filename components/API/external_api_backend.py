@@ -5,6 +5,7 @@ import re
 import sys
 import importlib
 import os
+import json
 from dataclasses import dataclass
 from typing import Any
 from pathlib import Path
@@ -20,7 +21,6 @@ PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 
 class ExternalAPIError(RuntimeError):
     pass
-
 
 @dataclass
 class RenderResult:
@@ -155,6 +155,49 @@ def build_sdk_context(rendered: RenderResult, client: Any) -> tuple[dict[str, An
 
     return context, allowed_roots
 
+def load_import_modules(import_modules: list[str] | None) -> tuple[dict[str, Any], set[str]]:
+    """Load schema-defined imports into SDK execution context."""
+    context: dict[str, Any] = {}
+    allowed_roots: set[str] = set()
+
+    for import_line in import_modules or []:
+        if not isinstance(import_line, str):
+            continue
+        line = import_line.strip()
+        if not line:
+            continue
+
+        if line.startswith("import "):
+            module_specs = [part.strip() for part in line[len("import "):].split(",") if part.strip()]
+            for spec in module_specs:
+                if " as " in spec:
+                    module_name, alias = [part.strip() for part in spec.split(" as ", 1)]
+                else:
+                    module_name = spec
+                    alias = module_name.split(".")[-1]
+                module_obj = importlib.import_module(module_name)
+                context[alias] = module_obj
+                allowed_roots.add(alias)
+            continue
+
+        if line.startswith("from ") and " import " in line:
+            module_name, imported = line[len("from "):].split(" import ", 1)
+            module_name = module_name.strip()
+            module_obj = importlib.import_module(module_name)
+            symbol_specs = [part.strip() for part in imported.split(",") if part.strip()]
+            for spec in symbol_specs:
+                if " as " in spec:
+                    symbol_name, alias = [part.strip() for part in spec.split(" as ", 1)]
+                else:
+                    symbol_name = spec
+                    alias = symbol_name
+                context[alias] = getattr(module_obj, symbol_name)
+                allowed_roots.add(alias)
+            continue
+
+        raise ExternalAPIError(f"Unsupported import syntax in schema import_modules: {import_line}")
+
+    return context, allowed_roots
 
 def _resolve_dotted_from_context(path: str, context: dict[str, Any], allowed_roots: set[str]) -> Any:
     if not path:
@@ -320,31 +363,73 @@ def parse_ratio(value):
     if denominator == 0:
         return None
     return numerator / denominator
+
+def _parse_ratio_parts(value: Any) -> tuple[float, float] | None:
+    text = str(value).strip() if value is not None else ""
+    if ":" not in text:
+        return None
+
+    left, right = text.split(":", 1)
+    try:
+        a = float(left.strip())
+        b = float(right.strip())
+    except ValueError:
+        return None
+
+    if a <= 0 or b <= 0:
+        return None
+    return a, b
+
+
+def _ratio_orientation(a: float, b: float) -> str:
+    if a > b:
+        return "horizontal"
+    if a < b:
+        return "vertical"
+    return "square"
+
 def closest_valid_ratio(value, valid_ratios):
-    if not isinstance(valid_ratios, list) or len(valid_ratios) == 0:
+    if not isinstance(valid_ratios, (list, tuple)) or len(valid_ratios) == 0:
         return value
 
-    normalized_valid = [str(ratio) for ratio in valid_ratios]
     candidate = str(value).strip() if value is not None else ""
+    normalized_valid = [str(ratio).strip() for ratio in valid_ratios if str(ratio).strip()]
+    if len(normalized_valid) == 0:
+        return value
     if candidate in normalized_valid:
         return candidate
 
-    candidate_ratio = parse_ratio(candidate)
-    if candidate_ratio is None:
+    candidate_parts = _parse_ratio_parts(candidate)
+    if candidate_parts is None:
         return normalized_valid[0]
 
-    best_value = normalized_valid[0]
-    best_diff = float("inf")
-    for ratio_text in normalized_valid:
-        parsed_ratio = parse_ratio(ratio_text)
-        if parsed_ratio is None:
-            continue
-        diff = abs(parsed_ratio - candidate_ratio)
-        if diff < best_diff:
-            best_diff = diff
-            best_value = ratio_text
+    input_a, input_b = candidate_parts
+    input_product = input_a * input_b
+    input_orientation = _ratio_orientation(input_a, input_b)
 
-    return best_value
+    same_orientation_matches: list[tuple[str, float]] = []
+    fallback_matches: list[tuple[str, float]] = []
+
+    for ratio_text in normalized_valid:
+        ratio_parts = _parse_ratio_parts(ratio_text)
+        if ratio_parts is None:
+            continue
+
+        valid_a, valid_b = ratio_parts
+        valid_product = valid_a * valid_b
+        product_diff = abs(valid_product - input_product)
+        valid_orientation = _ratio_orientation(valid_a, valid_b)
+
+        fallback_matches.append((ratio_text, product_diff))
+        if valid_orientation == input_orientation:
+            same_orientation_matches.append((ratio_text, product_diff))
+
+    pool = same_orientation_matches if len(same_orientation_matches) > 0 else fallback_matches
+    if len(pool) == 0:
+        return normalized_valid[0]
+
+    pool.sort(key=lambda item: item[1])
+    return pool[0][0]
 
 def _safe_response_handler_filename(name: str) -> str:
     filename = str(name or "").strip()

@@ -1,14 +1,11 @@
-response = requests.post("https://api.bfl.ai/v1/flux-pro-1.0-fill",
-    payload={
-        "output_format": "png",
-        "image": reference_images,
-        "mask": mask_images,
-        "safety_tolerance": safety_tolerance,
-        "prompt": prompt,
-        "seed": seed,
-        "aspect_ratio": aspect_ratio,
-        "prompt_upsampling": "STRING",
-        "guidance": "FLOAT",
-        "steps": "INT"
-    }
+response = client.models.generate_content(
+    model="gemini-3-pro-image-preview",
+    contents=[prompt, reference_images],
+    config=types.GenerateContentConfig(
+        response_modalities=["IMAGE"],
+        image_config=types.ImageConfig(
+            aspect_ratio="16:9",
+            image_size="1K",
+        )
+    )
 )
