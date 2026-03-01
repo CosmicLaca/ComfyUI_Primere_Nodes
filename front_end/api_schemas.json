@@ -57,7 +57,8 @@
         "aspect_ratio": ["1:1","1:4","1:8","2:3","3:2","3:4","4:1","4:3","4:5","5:4","8:1","9:16","16:9","21:9"],
         "resolution": ["512px", "1K", "2K", "4K"],
         "model": ["gemini-3.1-flash-image-preview"],
-        "thinking_level": ["minimal", "high"]
+        "thinking_level": ["minimal", "high"],
+        "include_thoughts": [false, true]
       },
       "request": {
         "method": "SDK",
@@ -84,6 +85,14 @@
                     "aspect_ratio": "{{aspect_ratio}}",
                     "image_size": "{{image_size}}"
                   }
+                },
+                "thinking_config": {
+                  "$call": "types.ThinkingConfig",
+                  "$args": [],
+                  "$kwargs": {
+                    "thinking_level": "{{thinking_level}}",
+                    "include_thoughts": "{{include_thoughts}}"
+                  }
                 }
               }
             }
@@ -94,6 +103,10 @@
     "VEO": {
       "provider": "Gemini",
       "service": "VEO",
+      "import_modules": [
+        "from google import genai",
+        "from google.genai import types"
+      ],
       "possible_parameters": {
         "aspect_ratio": ["9:16", "16:9"],
         "durationSeconds": ["4", "6", "8"],
@@ -164,6 +177,10 @@
     "Seedream_V5_T2I": {
       "provider": "FAL",
       "service": "Seedream_V5_T2I",
+      "response_handler": "FAL_Image.py",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true],
@@ -171,7 +188,7 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.submit",
+        "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
             "{{arg0}}"
@@ -187,9 +204,9 @@
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
               "enhance_prompt_mode": "{{enhance_prompt_mode}}",
-              "seed": "{{seed}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "seed": "{{seed}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
@@ -223,9 +240,9 @@
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
               "enhance_prompt_mode": "{{enhance_prompt_mode}}",
-              "seed": "{{seed}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "seed": "{{seed}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
@@ -257,9 +274,9 @@
               "num_images": "{{batch}}",
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
-              "seed": "{{seed}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "seed": "{{seed}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
@@ -288,9 +305,9 @@
               "num_images": "{{batch}}",
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
-              "seed": "{{seed}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "seed": "{{seed}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
@@ -316,9 +333,9 @@
               "prompt": "{{prompt}}",
               "duration": "{{duration}}",
               "aspect_ratio": "{{aspect_ratio}}",
-              "generate_audio": "{{generate_audio}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "generate_audio": "{{generate_audio}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
@@ -345,9 +362,9 @@
               "start_image_url": "{{reference_images}}",
               "duration": "{{duration}}",
               "aspect_ratio": "{{aspect_ratio}}",
-              "generate_audio": "{{generate_audio}}"
-            },
-            "with_logs": "{{with_logs}}"
+              "generate_audio": "{{generate_audio}}",
+              "with_logs": "{{with_logs}}"
+            }
           }
         }
       }
