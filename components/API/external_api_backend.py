@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from typing import Any
 from pathlib import Path
 import importlib.util
+import inspect
 
 from PIL import Image
 from io import BytesIO
@@ -462,11 +463,28 @@ def _load_response_handler(filename: str):
 
     return handler
 
-def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provider: str = "", service: str = "") -> Any:
+def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provider: str = "", service: str = "", response_context: dict[str, Any] | None = None) -> Any:
     if api_result is None:
         return None
 
     configured_handler = schema.get("response_handler") if isinstance(schema, dict) else None
     handler_file = str(configured_handler).strip() if configured_handler not in (None, "") else f'{provider}_{service}.py'
     handler = _load_response_handler(handler_file)
-    return handler(api_result)
+    safe_schema = schema if isinstance(schema, dict) else {}
+    context = response_context if isinstance(response_context, dict) else {}
+
+    try:
+        signature = inspect.signature(handler)
+        accepted = set(signature.parameters.keys())
+    except (TypeError, ValueError):
+        accepted = set()
+
+    kwargs: dict[str, Any] = {}
+    if "schema" in accepted:
+        kwargs["schema"] = safe_schema
+
+    for key, value in context.items():
+        if key in accepted:
+            kwargs[key] = value
+
+    return handler(api_result, **kwargs)

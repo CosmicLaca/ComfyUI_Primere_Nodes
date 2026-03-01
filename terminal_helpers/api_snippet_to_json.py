@@ -234,7 +234,7 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
         },
     }
 
-    return {
+    service_schema = {
         "provider": provider,
         "service": service,
         "response_handler": response_handler_filename(provider, service),
@@ -242,6 +242,8 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
         "possible_parameters": build_possible_parameters(request_schema),
         "request": request_schema,
     }
+
+    return service_schema
 
 def _sanitize_name(value: str) -> str:
     clean = re.sub(r"[^A-Za-z0-9_]+", "_", str(value or "").strip())

@@ -191,7 +191,7 @@
         "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "fal-ai/bytedance/seedream/v5/lite/text-to-image"
           ],
           "kwargs": {
             "arguments": {
@@ -214,6 +214,7 @@
     "Seedream_V5_I2I": {
       "provider": "FAL",
       "service": "Seedream_V5_I2I",
+      "response_handler": "FAL_Image.py",
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true],
@@ -221,10 +222,10 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "lient.submit",
+        "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "fal-ai/bytedance/seedream/v5/lite/edit"
           ],
           "kwargs": {
             "arguments": {
@@ -256,7 +257,7 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "lient.submit",
+        "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
             "{{arg0}}"
@@ -290,7 +291,7 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.submit",
+        "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
             "{{arg0}}"
@@ -323,7 +324,7 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.submit",
+        "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
             "{{arg0}}"
@@ -351,7 +352,7 @@
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.subscribe",
+        "endpoint": "fal_client.subscribe",
         "sdk_call": {
           "args": [
             "{{arg0}}"

@@ -1,41 +1,38 @@
 {
   "Gemini": {
-    "Nanobanana": {
+    "Nanox": {
       "provider": "Gemini",
-      "service": "Nanobanana",
-      "response_handler": "Gemini_Nanobanana.py",
+      "service": "Nanox",
+      "response_handler": "Gemini_Nanox.py",
       "import_modules": [
-        "from google import genai",
-        "from google.genai import types"
+        "import your_provider_sdk",
+        "from your_provider_sdk import types"
       ],
-      "possible_parameters": {},
+      "possible_parameters": {
+        "reference_image": [
+          "fake_reference_image_value_1",
+          "fake_reference_image_value_2"
+        ],
+        "with_logs": [
+          "fake_with_logs_value_1",
+          "fake_with_logs_value_2"
+        ]
+      },
       "request": {
         "method": "SDK",
-        "endpoint": "client.models.generate_content",
+        "endpoint": "fal_client.subscribe",
         "sdk_call": {
-          "args": [],
+          "args": [
+            "fal-ai/kling-video/o3/pro/reference-to-video"
+          ],
           "kwargs": {
-            "model": "gemini-3-pro-image-preview",
-            "contents": [
-              "{{prompt}}",
-              "{{reference_images}}"
-            ],
-            "config": {
-              "$call": "types.GenerateContentConfig",
-              "$args": [],
-              "$kwargs": {
-                "response_modalities": [
-                  "IMAGE"
-                ],
-                "image_config": {
-                  "$call": "types.ImageConfig",
-                  "$args": [],
-                  "$kwargs": {
-                    "aspect_ratio": "16:9",
-                    "image_size": "1K"
-                  }
-                }
-              }
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "multi_prompt": null,
+              "start_image_url": "{{reference_image}}",
+              "duration": "8",
+              "aspect_ratio": "16:9",
+              "with_logs": "{{with_logs}}"
             }
           }
         }

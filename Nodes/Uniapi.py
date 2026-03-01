@@ -77,27 +77,6 @@ class PrimereApiProcessor:
         del kwargs['extra_pnginfo']
         del kwargs['prompt_extra']
 
-        if reference_images is not None:
-            if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
-                source_images = []
-                if type(reference_images).__name__ == "list":
-                    source_images = reference_images
-                else:
-                    source_images.append(reference_images)
-
-                for single_image in source_images:
-                    r1 = random.randint(1000, 9999)
-                    if single_image is not None and type(single_image).__name__ == "Tensor":
-                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
-                        ref_file = Image.fromarray(ref_image)
-                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
-                        ref_file.save(TEMP_FILE_REF, format="PNG")
-                        if api_provider == "Gemini":
-                            gemini_image_data = Image.open(TEMP_FILE_REF)
-                            img_binary_api.append(gemini_image_data)
-                        else:
-                            img_binary_api.append(TEMP_FILE_REF)
-
         if not processor:
             return (None, api_provider, None, None, None, None, reference_images)
 
@@ -151,6 +130,30 @@ class PrimereApiProcessor:
                 selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, schema_aspect_ratios)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
 
+        if reference_images is not None:
+            if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
+                source_images = []
+                if type(reference_images).__name__ == "list":
+                    source_images = reference_images
+                else:
+                    source_images.append(reference_images)
+
+                for single_image in source_images:
+                    r1 = random.randint(1000, 9999)
+                    if single_image is not None and type(single_image).__name__ == "Tensor":
+                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
+                        ref_file = Image.fromarray(ref_image)
+                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
+                        ref_file.save(TEMP_FILE_REF, format="PNG")
+                        if api_provider == "Gemini":
+                            gemini_image_data = Image.open(TEMP_FILE_REF)
+                            img_binary_api.append(gemini_image_data)
+                        if api_provider == 'FAL':
+                            ref_url = client.upload_file(TEMP_FILE_REF)
+                            img_binary_api.append(ref_url)
+                        else:
+                            img_binary_api.append(TEMP_FILE_REF)
+
         if len(img_binary_api) > 0:
             selected_parameters["reference_images"] = img_binary_api
 
@@ -183,20 +186,28 @@ class PrimereApiProcessor:
         api_error = None
         result_image = None
         batch = max(1, int(batch))
+        sdk_context = {}
+        response_url = None
+        loaded_client = client
 
         try:
             if rendered.method.upper() == "SDK":
                 context = {"client": client}
                 allowed_roots = {"client"}
-
-                # context, allowed_roots = external_api_backend.build_sdk_context(rendered, client)
-
                 imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
                 context.update(imported_context)
                 allowed_roots.update(imported_roots)
+                sdk_context = dict(context)
+                sdk_call_data = rendered.sdk_call if isinstance(rendered.sdk_call, dict) else {}
+                sdk_args = sdk_call_data.get("args", []) if isinstance(sdk_call_data, dict) else []
+                if isinstance(sdk_args, list) and len(sdk_args) > 0 and isinstance(sdk_args[0], str):
+                    response_url = sdk_args[0]
+
+                endpoint_root = rendered.endpoint.split(".", 1)[0] if isinstance(rendered.endpoint, str) and "." in rendered.endpoint else "client"
+                loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (client, api_provider, schema, rendered_payload, None, api_result, None)
+                    return (loaded_client, api_provider, schema, rendered_payload, None, api_result, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
@@ -236,6 +247,8 @@ class PrimereApiProcessor:
             raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
-            result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service))
+            # result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service))
+            response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
+            result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
 
         return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)
