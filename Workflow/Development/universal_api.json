@@ -37,7 +37,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [499771936453052]"
+        "Last seed: [495317862155542]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -101,7 +101,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x0000022201034230>"
+        "<google.genai.client.Client object at 0x000002840020ED50>"
       ]
     },
     {
@@ -163,7 +163,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n                \"default_reference_images\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"16:9\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"contents\": [\n                \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n                \"default_reference_images\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"16:9\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -913,87 +913,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 15,
-      "type": "PrimereResolution",
-      "pos": [
-        440.0936904135445,
-        171.844172799759
-      ],
-      "size": [
-        361.37166959228534,
-        310
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 53
-        },
-        {
-          "name": "model_version",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            192
-          ]
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            193
-          ]
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "ASPECT_RATIO",
-          "type": "STRING",
-          "links": [
-            194
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
-      },
-      "widgets_values": [
-        "HD+ screen [16:10]",
-        true,
-        1024,
-        false,
-        "Horizontal",
-        false,
-        false,
-        1.6,
-        2.8
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
       "id": 34,
       "type": "PrimereApiProcessor",
       "pos": [
@@ -1125,10 +1044,91 @@
         "Nanobanana_V1",
         1,
         "1K",
-        "gemini-2.5-flash-image"
+        "gemini-3-pro-image-preview"
       ],
       "color": "#233",
       "bgcolor": "#355"
+    },
+    {
+      "id": 15,
+      "type": "PrimereResolution",
+      "pos": [
+        440.0936904135445,
+        171.844172799759
+      ],
+      "size": [
+        361.37166959228534,
+        310
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 53
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            192
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            193
+          ]
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "ASPECT_RATIO",
+          "type": "STRING",
+          "links": [
+            194
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "HD+ screen [16:10]",
+        false,
+        1024,
+        false,
+        "Horizontal",
+        false,
+        false,
+        1.6,
+        2.8
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
     }
   ],
   "links": [
@@ -1347,8 +1347,8 @@
     "ds": {
       "scale": 0.5644739300537776,
       "offset": [
-        1803.7626251739487,
-        803.8351710145441
+        1418.1025375378404,
+        801.6006607724177
       ]
     },
     "frontendVersion": "1.39.19"
