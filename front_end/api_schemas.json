@@ -184,7 +184,7 @@
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true],
-        "enhance_prompt_mode": ["fast", "standard"]
+        "enhance_prompt_mode": ["standard", "fast"]
       },
       "request": {
         "method": "SDK",
@@ -215,10 +215,13 @@
       "provider": "FAL",
       "service": "Seedream_V5_I2I",
       "response_handler": "FAL_Image.py",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true],
-        "enhance_prompt_mode": ["fast", "standard"]
+        "enhance_prompt_mode": ["standard", "fast"]
       },
       "request": {
         "method": "SDK",
@@ -230,9 +233,7 @@
           "kwargs": {
             "arguments": {
               "prompt": "{{prompt}}",
-              "img_urls": [
-                "{{reference_images}}"
-              ],
+              "image_urls": "{{reference_images}}",
               "image_size": {
                 "width": "{{width}}",
                 "height": "{{height}}"
@@ -251,6 +252,10 @@
     "Seedream_V4.5_I2I": {
       "provider": "FAL",
       "service": "Seedream_V4.5_I2I",
+      "response_handler": "FAL_Image.py",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true]
@@ -260,14 +265,12 @@
         "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "fal-ai/bytedance/seedream/v4.5/edit"
           ],
           "kwargs": {
             "arguments": {
               "prompt": "{{prompt}}",
-              "img_urls": [
-                "{{reference_images}}"
-              ],
+              "image_urls": "{{reference_images}}",
               "image_size": {
                 "width": "{{width}}",
                 "height": "{{height}}"
@@ -285,6 +288,10 @@
     "Seedream_V4.5_T2I": {
       "provider": "FAL",
       "service": "Seedream_V4.5_T2I",
+      "response_handler": "FAL_Image.py",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true]
@@ -294,7 +301,7 @@
         "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "fal-ai/bytedance/seedream/v4.5/text-to-image"
           ],
           "kwargs": {
             "arguments": {
@@ -316,6 +323,9 @@
     "Kling_V3PRO_T2V": {
       "provider": "FAL",
       "service": "Kling_V3PRO_T2V",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "aspect_ratio": ["16:9", "9:16", "1:1"],
         "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -344,6 +354,9 @@
     "Kling_V3PRO_I2V": {
       "provider": "FAL",
       "service": "Kling_V3PRO_I2V",
+      "import_modules": [
+        "import fal_client"
+      ],
       "possible_parameters": {
         "aspect_ratio": ["16:9", "9:16", "1:1"],
         "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],

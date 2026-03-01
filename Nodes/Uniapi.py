@@ -103,6 +103,38 @@ class PrimereApiProcessor:
             raise RuntimeError("Schema key 'import_modules' must be a list of import statements.")
         schema["import_modules"] = schema_import_modules
 
+        if not debug_mode:
+            imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
+            endpoint_value = (((schema.get("request") or {}).get("endpoint")) if isinstance(schema, dict) else "") or ""
+            endpoint_root = endpoint_value.split(".", 1)[0] if isinstance(endpoint_value, str) and "." in endpoint_value else "client"
+            loaded_client_for_upload = imported_context.get(endpoint_root, client)
+
+            if reference_images is not None:
+                if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
+                    source_images = []
+                    if type(reference_images).__name__ == "list":
+                        source_images = reference_images
+                    else:
+                        source_images.append(reference_images)
+
+                    for single_image in source_images:
+                        r1 = random.randint(1000, 9999)
+                        if single_image is not None and type(single_image).__name__ == "Tensor":
+                            ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
+                            ref_file = Image.fromarray(ref_image)
+                            TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
+                            ref_file.save(TEMP_FILE_REF, format="PNG")
+                            if api_provider == "Gemini":
+                                gemini_image_data = Image.open(TEMP_FILE_REF)
+                                img_binary_api.append(gemini_image_data)
+                            elif hasattr(loaded_client_for_upload, "upload_file"):
+                                uploaded_reference = loaded_client_for_upload.upload_file(TEMP_FILE_REF)
+                                img_binary_api.append(uploaded_reference)
+                            else:
+                                img_binary_api.append(TEMP_FILE_REF)
+        else:
+            img_binary_api = 'Debug mode, reference images ignored.'
+
         selected_parameters = {"prompt": prompt}
         selected_parameters = {"width": width}
         selected_parameters = {"height": height}
@@ -129,30 +161,6 @@ class PrimereApiProcessor:
             if len(schema_aspect_ratios) > 0:
                 selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, schema_aspect_ratios)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
-
-        if reference_images is not None:
-            if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
-                source_images = []
-                if type(reference_images).__name__ == "list":
-                    source_images = reference_images
-                else:
-                    source_images.append(reference_images)
-
-                for single_image in source_images:
-                    r1 = random.randint(1000, 9999)
-                    if single_image is not None and type(single_image).__name__ == "Tensor":
-                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
-                        ref_file = Image.fromarray(ref_image)
-                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
-                        ref_file.save(TEMP_FILE_REF, format="PNG")
-                        if api_provider == "Gemini":
-                            gemini_image_data = Image.open(TEMP_FILE_REF)
-                            img_binary_api.append(gemini_image_data)
-                        if api_provider == 'FAL':
-                            ref_url = client.upload_file(TEMP_FILE_REF)
-                            img_binary_api.append(ref_url)
-                        else:
-                            img_binary_api.append(TEMP_FILE_REF)
 
         if len(img_binary_api) > 0:
             selected_parameters["reference_images"] = img_binary_api
@@ -207,7 +215,7 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (loaded_client, api_provider, schema, rendered_payload, None, api_result, None)
+                    return (loaded_client, api_provider, schema, rendered_payload, None, api_result, reference_images)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
