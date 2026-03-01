@@ -104,6 +104,9 @@ You can edit generated entries directly. Minimal service shape:
       "provider": "Provider",
       "service": "Service",
       "response_handler": "Provider_Service.py",
+      "import_modules": [
+        "import module_name"
+      ],      
       "possible_parameters": {
         "model": ["model-a", "model-b"],
         "quality": ["low", "high"]
@@ -112,7 +115,7 @@ You can edit generated entries directly. Minimal service shape:
         "method": "SDK",
         "endpoint": "client.images.generate",
         "sdk_call": {
-          "args": [],
+          "args": ["access_url"],
           "kwargs": {
             "model": "{{model}}",
             "quality": "{{quality}}",
@@ -213,6 +216,45 @@ Example override:
 ```json
 "response_handler": "BlackForest_FluxExpandPro.py"
 ```
+
+### Reusing one response handler file for multiple services/providers
+
+You can point many different services (even from different providers) to the **same** `response_handler` filename.
+
+This is useful when output formats are similar and you want fewer files under `components/API/responses`.
+
+Example (shared file):
+
+```json
+"response_handler": "Shared_Image_Response.py"
+```
+
+As long as `components/API/responses/Shared_Image_Response.py` exists and exposes `handle_response(...)`, Uniapi can reuse it for all mapped services.
+
+### Universal `handle_response()` signature (recommended)
+
+Uniapi can now forward runtime context to response handlers. Use a universal signature with optional kwargs:
+
+```python
+def handle_response(
+    api_result,
+    schema=None,
+    loaded_client=None,
+    response_url=None,
+    client=None,
+    sdk_context=None,
+):
+    ...
+```
+
+Meaning of parameters:
+
+- `api_result`: raw API SDK/HTTP result returned by the request execution.
+- `schema`: selected service schema from `api_schemas.json`.
+- `loaded_client`: provider root object used for the SDK call (universal; can be module or client object).
+- `response_url`: first SDK positional route argument from `request.sdk_call.args[0]` when present.
+- `client`: base API client from `api_helper.create_api_client(...)`.
+- `sdk_context`: loaded import context dictionary.
 
 ---
 
