@@ -340,11 +340,11 @@ Meaning of parameters:
 ## 6) Runtime expectations
 
 - JSON syntax in `front_end/api_schemas.json` is strictly validated at load time (line/column errors are raised).
-- Provider keys in `api_schemas.json` must exist in `json/apiconfig.example.json`.
+- Provider keys in `api_schemas.json` must exist in `json/apiconfig.json`.
 - Service key must match inner `"service"`, and provider key must match inner `"provider"`.
 - `import_modules` must be a list of non-empty strings.
 - `api_provider` and `api_service` must map to an existing registry entry.
 - Schema placeholders must align with node/runtime inputs.
 - Response helper module must exist in `components/API/responses`.
 
-Response helper implementation is user-owned by design.
+Response helper implementation is user-owned by design. But examples already exist in `components/API/responses`
