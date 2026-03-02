@@ -1,4 +1,4 @@
-response = requests.post("https://api.bfl.ai/v1/flux-2-klein-4b",
+response = requests.post("https://{{regions}}/{{version}}/{{model_name}}",
      headers={
          "accept": "application/json",
          "x-key": os.environ.get("BFL_API_KEY"),

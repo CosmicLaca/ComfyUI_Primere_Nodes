@@ -1,20 +1,44 @@
 {
-  "BFL": {
-    "BFL_SERVICE": {
-      "provider": "BFL",
-      "service": "BFL_SERVICE",
-      "response_handler": "BFL_BFL_SERVICE.py",
+  "BlackForest": {
+    "BFL_service": {
+      "provider": "BlackForest",
+      "service": "BFL_service",
+      "response_handler": "BlackForest_BFL_service.py",
       "import_modules": [
+        "import your_provider_sdk",
+        "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "safety_tolerance": [0, 1, 2, 3, 4, 5]
+        "guidance": "FLOAT",
+        "model_name": [
+          "fake_model_name_value_1",
+          "fake_model_name_value_2"
+        ],
+        "prompt_upsampling": [
+          false,
+          true
+        ],
+        "regions": [
+          "api.bfl.ai",
+          "api.eu.bfl.ai",
+          "api.us.bfl.ai"
+        ],
+        "safety_tolerance": [
+          "fake_safety_tolerance_value_1",
+          "fake_safety_tolerance_value_2"
+        ],
+        "steps": "INT",
+        "version": [
+          "fake_version_value_1",
+          "fake_version_value_2"
+        ]
       },
       "request": {
         "method": "SDK",
         "endpoint": "requests.post",
         "sdk_call": {
           "args": [
-            "https://api.bfl.ai/v1/flux-2-klein-4b"
+            "https://{{regions}}/{{version}}/{{model_name}}"
           ],
           "kwargs": {
             "headers": {
@@ -22,7 +46,7 @@
               "x-key": {
                 "$call": "os.environ.get",
                 "$args": [
-                  "{{BFL_API_KEY}}"
+                  "BFL_API_KEY"
                 ],
                 "$kwargs": {}
               },
@@ -36,9 +60,9 @@
               "seed": "{{seed}}",
               "width": "{{width}}",
               "height": "{{height}}",
-              "prompt_upsampling": "BOOLEAN",
-              "guidance": "FLOAT",
-              "steps": "INT"
+              "prompt_upsampling": "{{prompt_upsampling}}",
+              "guidance": "{{guidance}}",
+              "steps": "{{steps}}"
             }
           }
         }
