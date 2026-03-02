@@ -1,0 +1,48 @@
+{
+  "BFL": {
+    "BFL_SERVICE": {
+      "provider": "BFL",
+      "service": "BFL_SERVICE",
+      "response_handler": "BFL_BFL_SERVICE.py",
+      "import_modules": [
+      ],
+      "possible_parameters": {
+        "safety_tolerance": [0, 1, 2, 3, 4, 5]
+      },
+      "request": {
+        "method": "SDK",
+        "endpoint": "requests.post",
+        "sdk_call": {
+          "args": [
+            "https://api.bfl.ai/v1/flux-2-klein-4b"
+          ],
+          "kwargs": {
+            "headers": {
+              "accept": "application/json",
+              "x-key": {
+                "$call": "os.environ.get",
+                "$args": [
+                  "{{BFL_API_KEY}}"
+                ],
+                "$kwargs": {}
+              },
+              "Content-Type": "application/json"
+            },
+            "json": {
+              "output_format": "png",
+              "image_prompt": "{{reference_images}}",
+              "safety_tolerance": "{{safety_tolerance}}",
+              "prompt": "{{prompt}}",
+              "seed": "{{seed}}",
+              "width": "{{width}}",
+              "height": "{{height}}",
+              "prompt_upsampling": "BOOLEAN",
+              "guidance": "FLOAT",
+              "steps": "INT"
+            }
+          }
+        }
+      }
+    }
+  }
+}

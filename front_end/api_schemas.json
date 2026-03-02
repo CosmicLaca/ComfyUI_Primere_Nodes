@@ -385,71 +385,48 @@
     }
   },
   "BlackForest": {
-    "FluxExpandPro": {
+    "flux-2-klein-4b": {
       "provider": "BlackForest",
-      "service": "FluxExpandPro",
+      "service": "flux-2-klein-4b",
+      "response_handler": "Blackforest_Image.py",
+      "import_modules": [
+      ],
       "possible_parameters": {
-        "blackforest_guidance": "FLOAT",
-        "blackforest_steps": "INT",
-        "top": "INT",
-        "bottom": "INT",
-        "left": "INT",
-        "right": "INT",
-        "safety_tolerance": [1, 2, 3, 4, 5, 6]
+        "safety_tolerance": [0, 1, 2, 3, 4, 5],
+        "prompt_upsampling": [false, true],
+        "guidance": "FLOAT",
+        "steps": "INT"
       },
       "request": {
         "method": "SDK",
         "endpoint": "requests.post",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "https://api.bfl.ai/v1/flux-2-klein-4b"
           ],
           "kwargs": {
-            "payload": {
-              "image": "{{reference_images}}",
-              "top": "{{top}}",
-              "bottom": "{{bottom}}",
-              "left": "{{left}}",
-              "right": "{{right}}",
-              "prompt": "{{prompt}}",
-              "steps": "{{blackforest_steps}}",
-              "prompt_upsampling": false,
-              "seed": "{{seed}}",
-              "guidance": "{{blackforest_guidance}}",
+            "headers": {
+              "accept": "application/json",
+              "x-key": {
+                "$call": "os.environ.get",
+                "$args": [
+                  "{{BFL_API_KEY}}"
+                ],
+                "$kwargs": {}
+              },
+              "Content-Type": "application/json"
+            },
+            "json": {
               "output_format": "png",
-              "safety_tolerance": "{{safety_tolerance}}"
-            }
-          }
-        }
-      }
-    },
-    "FluxFillPro": {
-      "provider": "BlackForest",
-      "service": "FluxFillPro",
-      "possible_parameters": {
-        "blackforest_guidance": "FLOAT",
-        "blackforest_steps": "INT",
-        "safety_tolerance": [1, 2, 3, 4, 5, 6]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "requests.post",
-        "sdk_call": {
-          "args": [
-            "{{arg0}}"
-          ],
-          "kwargs": {
-            "payload": {
-              "output_format": "png",
-              "image": "{{reference_images}}",
-              "mask": "{{mask_images}}",
+              "image_prompt": "{{reference_images}}",
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
               "seed": "{{seed}}",
-              "aspect_ratio": "{{aspect_ratio}}",
-              "prompt_upsampling": false,
+              "width": "{{width}}",
+              "height": "{{height}}",
+              "prompt_upsampling": "{{prompt_upsampling}}",
               "guidance": "{{guidance}}",
-              "steps": "{{blackforest_steps}}"
+              "steps": "{{steps}}"
             }
           }
         }
@@ -457,16 +434,21 @@
     }
   },
   "OpenAI": {
-    "GPT_T2I": {
+    "OpenAI_GPT_T2I": {
       "provider": "OpenAI",
-      "service": "GPT_T2I",
+      "service": "OpenAI_GPT_T2I",
+      "response_handler": "OpenAI_Image.py",
+      "import_modules": [
+        "from openai import OpenAI"
+      ],
       "possible_parameters": {
-        "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
-        "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
-        "quality": ["standard", "low", "medium", "high", "auto"],
-        "input_fidelity": ["high", "low"],
+        "model": ["gpt-image-1.5", "gpt-image-1", "gpt-image-1-mini"],
         "background": ["auto", "transparent", "opaque"],
-        "moderation": ["low", "high"]
+        "moderation": ["low", "auto"],
+        "output_format": ["jpeg", "png", "webp"],
+        "output_compression": "INT",
+        "quality": ["high", "low", "medium", "auto"],
+        "size": ["1024x1024", "1536x1024", "1024x1536", "auto"]
       },
       "request": {
         "method": "SDK",
@@ -477,42 +459,43 @@
             "model": "{{model}}",
             "prompt": "{{prompt}}",
             "n": "{{batch}}",
-            "size": "{{size}}",
-            "quality": "{{quality}}",
-            "input_fidelity": "{{input_fidelity}}",
-            "background": "{{background}}",
             "moderation": "{{moderation}}",
-            "output_format": "png"
+            "background": "{{background}}",
+            "output_format": "{{output_format}}",
+            "output_compression": "{{output_compression}}",
+            "size": "{{size}}",
+            "quality": "{{quality}}"
           }
         }
       }
     },
-    "GPT_I2I": {
+    "OpenAI_DALL-E_T2I": {
       "provider": "OpenAI",
-      "service": "GPT_I2I",
+      "service": "OpenAI_DALL-E_T2I",
+      "response_handler": "OpenAI_Image.py",
+      "import_modules": [
+        "from openai import OpenAI"
+      ],
       "possible_parameters": {
-        "model": ["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5", "chatgpt-image-latest", "dall-e-2"],
-        "size": ["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536", "auto"],
-        "quality": ["standard", "low", "medium", "high", "auto"],
-        "input_fidelity": ["high", "low"],
-        "background": ["auto", "transparent", "opaque"]
+        "model": ["dall-e-2", "dall-e-3"],
+        "quality": ["standard", "hd"],
+        "response_format": ["b64_json", "url"],
+        "size": ["1024x1024", "1792x1024", "1024x1792"],
+        "style": ["vivid", "natural"]
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.images.edit",
+        "endpoint": "client.images.generate",
         "sdk_call": {
           "args": [],
           "kwargs": {
             "model": "{{model}}",
-            "image": "{{reference_images}}",
-            "mask": "{{mask}}",
             "prompt": "{{prompt}}",
-            "n": "{{batch}}",
+            "n": 1,
             "size": "{{size}}",
             "quality": "{{quality}}",
-            "input_fidelity": "{{input_fidelity}}",
-            "background": "{{background}}",
-            "output_format": "png"
+            "response_format": "{{response_format}}",
+            "style": "{{style}}"
           }
         }
       }
