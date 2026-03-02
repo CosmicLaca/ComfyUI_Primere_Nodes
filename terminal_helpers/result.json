@@ -1,67 +1,58 @@
 {
-  "OpenAI": {
-    "OpenAI_T2I": {
-      "provider": "OpenAI",
-      "service": "OpenAI_T2I",
-      "response_handler": "OpenAI_OpenAI_T2I.py",
+  "BlackForest": {
+    "BFL_service": {
+      "provider": "BlackForest",
+      "service": "BFL_service",
+      "response_handler": "BlackForest_BFL_service.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "background": [
-          "fake_background_value_1",
-          "fake_background_value_2"
+        "guidance": [
+          "fake_guidance_value_1",
+          "fake_guidance_value_2"
         ],
-        "batch": [
-          "fake_batch_value_1",
-          "fake_batch_value_2"
+        "safety_tolerance": [
+          "fake_safety_tolerance_value_1",
+          "fake_safety_tolerance_value_2"
         ],
-        "model": [
-          "example-model-1",
-          "example-model-2"
-        ],
-        "moderation": [
-          "fake_moderation_value_1",
-          "fake_moderation_value_2"
-        ],
-        "output_compression": [
-          "fake_output_compression_value_1",
-          "fake_output_compression_value_2"
-        ],
-        "output_format": [
-          "fake_output_format_value_1",
-          "fake_output_format_value_2"
-        ],
-        "quality": [
-          "fake_quality_value_1",
-          "fake_quality_value_2"
-        ],
-        "response_format": [
-          "fake_response_format_value_1",
-          "fake_response_format_value_2"
-        ],
-        "size": [
-          "fake_size_value_1",
-          "fake_size_value_2"
+        "steps": [
+          "fake_steps_value_1",
+          "fake_steps_value_2"
         ]
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.images.generate",
+        "endpoint": "requests.post",
         "sdk_call": {
-          "args": [],
+          "args": [
+            "https://api.bfl.ai/v1/flux-2-klein-4b"
+          ],
           "kwargs": {
-            "model": "{{model}}",
-            "prompt": "{{prompt}}",
-            "n": "{{batch}}",
-            "moderation": "{{moderation}}",
-            "background": "{{background}}",
-            "output_format": "{{output_format}}",
-            "output_compression": "{{output_compression}}",
-            "size": "{{size}}",
-            "quality": "{{quality}}",
-            "response_format": "{{response_format}}"
+            "headers": {
+              "accept": "application/json",
+              "x-key": {
+                "$call": "os.environ.get",
+                "$args": [
+                  "BFL_API_KEY"
+                ],
+                "$kwargs": {}
+              },
+              "Content-Type": "application/json"
+            },
+            "json": {
+              "output_format": "png",
+              "image_prompt": "{{reference_images}}",
+              "safety_tolerance": "{{safety_tolerance}}",
+              "prompt": "{{prompt}}",
+              "seed": "{{seed}}",
+              "width": "{{width}}",
+              "height": "{{height}}",
+              "prompt_upsampling": "BOOLEAN",
+              "guidance": "{{guidance}}",
+              "steps": "{{steps}}"
+            }
           }
         }
       }
