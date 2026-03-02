@@ -229,6 +229,20 @@ def _materialize_sdk_value(value: Any, context: dict[str, Any], allowed_roots: s
         return {k: _materialize_sdk_value(v, context, allowed_roots) for k, v in value.items()}
     return value
 
+def _apply_auth_header_fallback(kwargs: dict[str, Any], context: dict[str, Any]) -> None:
+    headers = kwargs.get("headers") if isinstance(kwargs, dict) else None
+    if not isinstance(headers, dict):
+        return
+
+    provider_api_key = context.get("provider_api_key")
+    if provider_api_key in (None, ""):
+        return
+
+    for auth_key in ("x-key", "x_api_key", "api-key", "authorization", "Authorization"):
+        if auth_key not in headers:
+            continue
+        if headers.get(auth_key) in (None, "", "null"):
+            headers[auth_key] = provider_api_key
 
 def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed_roots: set[str] | None = None) -> Any:
     if rendered.method.upper() != "SDK":
@@ -238,6 +252,7 @@ def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed
     args, kwargs = normalize_sdk_call(rendered.sdk_call)
     safe_args = [_materialize_sdk_value(a, context, roots) for a in args]
     safe_kwargs = {k: _materialize_sdk_value(v, context, roots) for k, v in kwargs.items()}
+    _apply_auth_header_fallback(safe_kwargs, context)
     return fn(*safe_args, **safe_kwargs)
 
 def default_provider_service(node_data):

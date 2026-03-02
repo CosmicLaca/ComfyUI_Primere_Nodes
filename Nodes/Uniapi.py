@@ -127,6 +127,20 @@ class PrimereApiProcessor:
                             if api_provider == "Gemini":
                                 gemini_image_data = Image.open(TEMP_FILE_REF)
                                 img_binary_api.append(gemini_image_data)
+                            if api_provider == "BlackForest":
+                                encoded_image = None
+                                single_image = source_images[0]
+                                width_original = single_image.shape[2]
+                                height_original = single_image.shape[1]
+                                image_np_bf = (single_image.numpy() * 255).astype(np.uint8)
+                                img_bf = Image.fromarray(image_np_bf)
+                                img_byte_arr_bf = io.BytesIO()
+                                img_bf.save(img_byte_arr_bf, format="PNG")
+                                img_byte_arr_bf.seek(0)
+                                encoded_string = base64.b64encode(img_byte_arr_bf.read())
+                                img_binary_api = encoded_string.decode('ascii')
+                                break
+
                             elif hasattr(loaded_client_for_upload, "upload_file"):
                                 uploaded_reference = loaded_client_for_upload.upload_file(TEMP_FILE_REF)
                                 img_binary_api.append(uploaded_reference)
@@ -200,11 +214,20 @@ class PrimereApiProcessor:
 
         try:
             if rendered.method.upper() == "SDK":
-                context = {"client": client}
+                provider_config = config_json.get(api_provider, {}) if isinstance(config_json, dict) else {}
+                provider_api_key = provider_config.get("APIKEY") if isinstance(provider_config, dict) else None
+                context = {"client": client, "provider_api_key": provider_api_key}
                 allowed_roots = {"client"}
                 imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
                 context.update(imported_context)
                 allowed_roots.update(imported_roots)
+
+                auto_context, auto_roots = external_api_backend.build_sdk_context(rendered, client)
+                for root_name in auto_roots:
+                    if root_name not in context and root_name in auto_context:
+                        context[root_name] = auto_context[root_name]
+                        allowed_roots.add(root_name)
+
                 sdk_context = dict(context)
                 sdk_call_data = rendered.sdk_call if isinstance(rendered.sdk_call, dict) else {}
                 sdk_args = sdk_call_data.get("args", []) if isinstance(sdk_call_data, dict) else []

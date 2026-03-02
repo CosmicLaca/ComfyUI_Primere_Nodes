@@ -29,8 +29,11 @@ PLACEHOLDER_ALIASES = {"number_of_images": "seed", "aspectRatio": "aspect_ratio"
 KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
     "model": ["example-model-1", "example-model-2"],
     "resolution": ["1K", "2K", "4K"],
+    "regions": ["api.bfl.ai", "api.eu.bfl.ai", "api.us.bfl.ai"],
 }
 
+TYPE_MARKERS = {"INT", "FLOAT", "STRING", "BOOLEAN"}
+INLINE_PLACEHOLDER_RE = re.compile(r"(?<!\{)\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}(?!\})")
 EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
 
 DEFAULT_IMPORT_MODULES: dict[str, list[str]] = {
@@ -56,14 +59,18 @@ def placeholder(name: str) -> str:
         clean = clean.replace("__", "_")
     return f"{{{{{clean.strip('_') or 'value'}}}}}"
 
+def normalize_inline_placeholders(value: str) -> str:
+    return INLINE_PLACEHOLDER_RE.sub(lambda m: placeholder(m.group(1)), value)
+
 
 def node_to_template(node: ast.AST, path: str) -> Any:
     if isinstance(node, ast.Constant):
         if node.value is None or isinstance(node.value, bool):
             return node.value
         if isinstance(node.value, str):
-            if node.value in {"INT", "FLOAT", "STRING"}:
+            if node.value in TYPE_MARKERS:
                 return placeholder(path)
+            return normalize_inline_placeholders(node.value)
         return node.value
 
     if isinstance(node, ast.Name):
@@ -136,7 +143,7 @@ def _collect_placeholders(node: Any) -> set[str]:
     def walk(item: Any) -> None:
         if isinstance(item, dict):
             for k, v in item.items():
-                if k in {"$args", "args"}:
+                if k in {"$args"}:
                     continue
                 walk(v)
             return
@@ -162,20 +169,58 @@ def _canonical_param_name(name: str) -> str:
         return "model"
     if low == "number_of_images":
         return "seed"
-    if "prompt" in low or "contents" in low:
+    if low in {"prompt", "contents"} or low.endswith("_prompt"):
         return "prompt"
     if "response_modalities" in low:
         return "response_modalities"
     return name
 
+def _collect_type_markers(node: ast.AST) -> dict[str, str]:
+    marked: dict[str, str] = {}
 
-def build_possible_parameters(request_schema: dict[str, Any]) -> dict[str, list[str]]:
+    def walk(item: ast.AST) -> None:
+        if isinstance(item, ast.Dict):
+            for key_node, value_node in zip(item.keys, item.values):
+                if isinstance(key_node, ast.Constant) and isinstance(key_node.value, str):
+                    key = key_node.value
+                else:
+                    key = ast.unparse(key_node)
+
+                if isinstance(value_node, ast.Constant) and isinstance(value_node.value, str) and value_node.value in TYPE_MARKERS:
+                    marked[key] = value_node.value
+
+                walk(value_node)
+            return
+
+        if isinstance(item, (ast.List, ast.Tuple, ast.Set)):
+            for child in item.elts:
+                walk(child)
+            return
+
+        if isinstance(item, ast.Call):
+            for child in item.args:
+                walk(child)
+            for kw in item.keywords:
+                walk(kw.value)
+
+    walk(node)
+    return marked
+
+def build_possible_parameters(request_schema: dict[str, Any], type_markers: dict[str, str] | None = None) -> dict[str, Any]:
     placeholders = sorted(_collect_placeholders(request_schema))
-    possible: dict[str, list[str]] = {}
+    possible: dict[str, Any] = {}
+    marker_map = {_canonical_param_name(k): v for k, v in (type_markers or {}).items()}
 
     for name in placeholders:
         canonical = _canonical_param_name(name)
         if canonical in EXCLUDED_PARAMETER_KEYS:
+            continue
+        marker = marker_map.get(canonical)
+        if marker == "BOOLEAN":
+            possible[canonical] = [False, True]
+            continue
+        if marker in {"INT", "FLOAT", "STRING"}:
+            possible[canonical] = marker
             continue
         if canonical in KNOWN_PARAM_OPTIONS:
             possible[canonical] = KNOWN_PARAM_OPTIONS[canonical]
@@ -234,12 +279,14 @@ def build_service_schema(snippet: str, provider: str = DEFAULT_PROVIDER, service
         },
     }
 
+    type_markers = _collect_type_markers(call)
+
     service_schema = {
         "provider": provider,
         "service": service,
         "response_handler": response_handler_filename(provider, service),
         "import_modules": build_import_modules(snippet, provider=provider),
-        "possible_parameters": build_possible_parameters(request_schema),
+        "possible_parameters": build_possible_parameters(request_schema, type_markers=type_markers),
         "request": request_schema,
     }
 

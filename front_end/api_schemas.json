@@ -385,14 +385,17 @@
     }
   },
   "BlackForest": {
-    "flux-2-klein-4b": {
+    "Flux": {
       "provider": "BlackForest",
-      "service": "flux-2-klein-4b",
+      "service": "Flux",
       "response_handler": "Blackforest_Image.py",
       "import_modules": [
       ],
       "possible_parameters": {
-        "safety_tolerance": [0, 1, 2, 3, 4, 5],
+        "model_name": ["flux-kontext-pro", "flux-kontext-max", "flux-pro-1.0-fill", "flux-pro-1.0-expand", "flux-pro", "flux-pro-1.1", "flux-pro-1.1-ultra", "flux-2-flex", "flux-2-pro", "flux-2-max", "flux-2-klein-4b", "flux-2-klein-9b"],
+        "regions": ["api.bfl.ai", "api.eu.bfl.ai", "api.us.bfl.ai"],
+        "version": ["v1"],
+        "safety_tolerance": [0, 1, 2, 3, 4, 5, 6],
         "prompt_upsampling": [false, true],
         "guidance": "FLOAT",
         "steps": "INT"
@@ -402,23 +405,20 @@
         "endpoint": "requests.post",
         "sdk_call": {
           "args": [
-            "https://api.bfl.ai/v1/flux-2-klein-4b"
+            "https://{{regions}}/{{version}}/{{model_name}}"
           ],
           "kwargs": {
             "headers": {
               "accept": "application/json",
               "x-key": {
                 "$call": "os.environ.get",
-                "$args": [
-                  "{{BFL_API_KEY}}"
-                ],
+                "$args": ["{{BFL_API_KEY}}"],
                 "$kwargs": {}
               },
               "Content-Type": "application/json"
             },
             "json": {
               "output_format": "png",
-              "image_prompt": "{{reference_images}}",
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
               "seed": "{{seed}}",

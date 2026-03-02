@@ -9,17 +9,28 @@
         "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "guidance": [
-          "fake_guidance_value_1",
-          "fake_guidance_value_2"
+        "guidance": "FLOAT",
+        "model_name": [
+          "fake_model_name_value_1",
+          "fake_model_name_value_2"
+        ],
+        "prompt_upsampling": [
+          false,
+          true
+        ],
+        "regions": [
+          "api.bfl.ai",
+          "api.eu.bfl.ai",
+          "api.us.bfl.ai"
         ],
         "safety_tolerance": [
           "fake_safety_tolerance_value_1",
           "fake_safety_tolerance_value_2"
         ],
-        "steps": [
-          "fake_steps_value_1",
-          "fake_steps_value_2"
+        "steps": "INT",
+        "version": [
+          "fake_version_value_1",
+          "fake_version_value_2"
         ]
       },
       "request": {
@@ -27,7 +38,7 @@
         "endpoint": "requests.post",
         "sdk_call": {
           "args": [
-            "https://api.bfl.ai/v1/flux-2-klein-4b"
+            "https://{{regions}}/{{version}}/{{model_name}}"
           ],
           "kwargs": {
             "headers": {
@@ -49,7 +60,7 @@
               "seed": "{{seed}}",
               "width": "{{width}}",
               "height": "{{height}}",
-              "prompt_upsampling": "BOOLEAN",
+              "prompt_upsampling": "{{prompt_upsampling}}",
               "guidance": "{{guidance}}",
               "steps": "{{steps}}"
             }
