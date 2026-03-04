@@ -206,6 +206,62 @@ If an import line is invalid or module is missing, Uniapi raises an explicit run
 
 No `output_format` entry in `possible_parameters` if you want it hard-fixed.
 
+### `request_exclusions` (universal conditional removal)
+
+Use `request_exclusions` at service level when some request fields are incompatible in specific cases.
+
+- `when` (or `if`): condition object.
+  - `path` (or `key`): key path checked in rendered payload.
+  - `equals` (or `value`): value that must match.
+- `remove`: one path string or list of paths to remove.
+
+This is universal (provider/service agnostic) and works for SDK schemas.
+
+Example with fake names:
+
+```json
+"request_exclusions": [
+  {
+    "when": {"path": "model", "equals": "model-fast-preview"},
+    "remove": ["config.image_size"]
+  }
+]
+```
+
+Result: if `model == "model-fast-preview"`, key `config.image_size` is removed before the SDK call.
+
+#### OR logic (multiple models)
+
+Use multiple rules with the same `remove` target:
+
+```json
+"request_exclusions": [
+  {
+    "when": {"path": "model", "equals": "model-fast-preview"},
+    "remove": ["config.advanced_options"]
+  },
+  {
+    "when": {"path": "model", "equals": "model-pro-preview"},
+    "remove": ["config.advanced_options"]
+  }
+]
+```
+
+#### Removing a whole nested object
+
+To remove an entire nested block, remove its parent key:
+
+```json
+"request_exclusions": [
+  {
+    "when": {"path": "mode", "equals": "lite"},
+    "remove": ["config.thinking_config"]
+  }
+]
+```
+
+This removes full `thinking_config` object (all child fields under it).
+
 ### URL-part placeholders controlled by node inputs
 
 You can make **parts of request URL** configurable from node inputs by using placeholders in `request.sdk_call.args`.

@@ -3,59 +3,55 @@ from __future__ import annotations
 import time
 from urllib.parse import urlparse
 import requests
+import json
 from . import response_helper
 
 def handle_response(api_result, schema=None, loaded_client=None, response_url=None):
-    status_accepted = ["Ready", "Pending", "Task not found"]
+    status_accepted = ['Ready', 'Pending', 'Task not found']
     parsed_url = urlparse(response_url)
     blackforest_api_region = parsed_url.netloc or None
     path_parts = [part for part in parsed_url.path.split("/") if part]
     blackforest_api_version = path_parts[0] if len(path_parts) > 0 else None
+
     try:
         json_object = json.loads(api_result.text)
-    except ValueError as exc:
-        raise RuntimeError(f"Input object failed: {api_result}") from exc
+    except ValueError as e:
+        raise RuntimeError(f"Input object failed: {api_result}")
 
-    polling_url = json_object.get("polling_url")
-    if not polling_url:
-        raise RuntimeError(f"No polling_url in response: {json_object}")
+    if 'polling_url' in json_object:
+        resp = requests.get(json_object['polling_url'])
+        resp_json_object = json.loads(resp.text)
 
-    resp = requests.get(polling_url, timeout=60)
-    resp.raise_for_status()
-    resp_json_object = json.loads(resp.text)
-    status = "Start"
-    request_tryout = 0
-    error_tryout = 0
+        status = 'Start'
+        request_tryout = 0
+        error_tryout = 0
 
-    while error_tryout <= 1:
-        while status != "Ready" or request_tryout <= 20:
-            url_res = f"https://{blackforest_api_region}/{blackforest_api_version}/get_result"
-            querystring = {"id": resp_json_object["id"]}
-            response = requests.get(url_res, params=querystring, timeout=60)
-            response.raise_for_status()
-            resp_json_object = json.loads(response.text)
-            status = resp_json_object.get("status")
-            if status not in status_accepted:
-                resp_error = requests.get(polling_url, timeout=60)
-                resp_error.raise_for_status()
-                resp_error_json_object = json.loads(resp_error.text)
-                error_status = resp_error_json_object.get("status")
-                raise RuntimeError(f"Response status: {status}, error status: {error_status}")
-            if status == "Ready":
+        while error_tryout <= 1:
+            while status != 'Ready' or request_tryout <= 20:
+                url_res = f"https://{blackforest_api_region}/{blackforest_api_version}/get_result"
+                querystring = {"id": resp_json_object['id']}
+                response = requests.request("GET", url_res, params=querystring)
+                resp_json_object = json.loads(response.text)
+                status = resp_json_object['status']
+                if status not in status_accepted:
+                    resp_error = requests.get(json_object['polling_url'])
+                    resp_error_json_object = json.loads(resp_error.text)
+                    error_status = resp_error_json_object['status']
+                    raise RuntimeError(f"Response status: {status}, error status: {error_status}")
+                if status == 'Ready':
+                    break
+                time.sleep(2)
+                request_tryout = request_tryout + 1
+            time.sleep(1)
+            if status == 'Ready':
                 break
             error_tryout = error_tryout + 1
-            time.sleep(2)
-            request_tryout += 1
-        time.sleep(1)
-        if status == "Ready":
-            break
-        error_tryout += 1
 
-    if status != "Ready":
-        raise RuntimeError("No result image...")
+        if status != "Ready":
+            raise RuntimeError("No result image...")
 
-    image_url = resp_json_object.get("result", {}).get("sample")
-    if not image_url:
-        raise RuntimeError("No result image...")
+        image_url = resp_json_object.get("result", {}).get("sample")
+        if not image_url:
+            raise RuntimeError("No result image...")
 
-    return response_helper.url_to_tensor(image_url)
+        return response_helper.url_to_tensor(image_url)

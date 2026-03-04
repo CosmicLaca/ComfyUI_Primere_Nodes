@@ -14,10 +14,13 @@ import os
 
 COMPONENTS = Path(__file__).parent.absolute()
 PRIMERE_ROOT = COMPONENTS.parent
+if str(PRIMERE_ROOT) not in sys.path:
+    sys.path.insert(0, str(PRIMERE_ROOT))
+
+from components.API.external_api_backend import canonical_param_name
 
 class SnippetParseError(RuntimeError):
     """Raised when call extraction fails."""
-
 
 SNIPPET_FILENAME = "snippet.py"
 RESULT_FILENAME = "result.json"
@@ -61,7 +64,6 @@ def placeholder(name: str) -> str:
 
 def normalize_inline_placeholders(value: str) -> str:
     return INLINE_PLACEHOLDER_RE.sub(lambda m: placeholder(m.group(1)), value)
-
 
 def node_to_template(node: ast.AST, path: str) -> Any:
     if isinstance(node, ast.Constant):
@@ -110,14 +112,12 @@ def node_to_template(node: ast.AST, path: str) -> Any:
 
     return placeholder(path)
 
-
 def _last_call_in_node(node: ast.AST) -> ast.Call | None:
     found: ast.Call | None = None
     for child in ast.walk(node):
         if isinstance(child, ast.Call):
             found = child
     return found
-
 
 def find_first_call(tree: ast.AST) -> ast.Call:
     if isinstance(tree, ast.Module) and tree.body:
@@ -135,7 +135,6 @@ def find_first_call(tree: ast.AST) -> ast.Call:
     if found_any is not None:
         return found_any
     raise SnippetParseError("No function call found in snippet.")
-
 
 def _collect_placeholders(node: Any) -> set[str]:
     found: set[str] = set()
@@ -158,8 +157,7 @@ def _collect_placeholders(node: Any) -> set[str]:
     walk(node)
     return found
 
-
-def _canonical_param_name(name: str) -> str:
+'''def _canonical_param_name(name: str) -> str:
     low = name.lower()
     if "aspect_ratio" in low:
         return "aspect_ratio"
@@ -173,7 +171,7 @@ def _canonical_param_name(name: str) -> str:
         return "prompt"
     if "response_modalities" in low:
         return "response_modalities"
-    return name
+    return name'''
 
 def _collect_type_markers(node: ast.AST) -> dict[str, str]:
     marked: dict[str, str] = {}
@@ -209,10 +207,12 @@ def _collect_type_markers(node: ast.AST) -> dict[str, str]:
 def build_possible_parameters(request_schema: dict[str, Any], type_markers: dict[str, str] | None = None) -> dict[str, Any]:
     placeholders = sorted(_collect_placeholders(request_schema))
     possible: dict[str, Any] = {}
-    marker_map = {_canonical_param_name(k): v for k, v in (type_markers or {}).items()}
+    # marker_map = {_canonical_param_name(k): v for k, v in (type_markers or {}).items()}
+    marker_map = {canonical_param_name(k, number_of_images_as_seed=True): v for k, v in (type_markers or {}).items()}
 
     for name in placeholders:
-        canonical = _canonical_param_name(name)
+        # canonical = _canonical_param_name(name)
+        canonical = canonical_param_name(name, number_of_images_as_seed=True)
         if canonical in EXCLUDED_PARAMETER_KEYS:
             continue
         marker = marker_map.get(canonical)

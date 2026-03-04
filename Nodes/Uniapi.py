@@ -24,8 +24,8 @@ from ..components.API import api_schema_registry
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
-    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
-    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "API_SCHEMAS", "API_RESULT")
+    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
+    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "REQUEST_BODY", "API_SCHEMAS", "API_RESULT")
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
@@ -238,7 +238,7 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values, api_result)
+                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values, api_result, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
@@ -284,4 +284,4 @@ class PrimereApiProcessor:
             response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
             result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
 
-        return (result_image, client, api_provider, schema, rendered_payload, api_schemas, api_result)
+        return (result_image, client, api_provider, schema, rendered_payload, used_values, api_schemas, api_result_debug)

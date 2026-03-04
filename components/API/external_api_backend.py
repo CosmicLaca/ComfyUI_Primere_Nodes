@@ -114,53 +114,58 @@ def _canonical_used_value_name(name: str) -> str:
         return "response_modalities"
     return str(name)
 
-def _rule_matches_used_values(used_values: dict[str, Any], rule: dict[str, Any]) -> bool:
-    condition = rule.get("when") if isinstance(rule.get("when"), dict) else rule.get("if")
-    if not isinstance(condition, dict):
-        return True
 
-    path = condition.get("path") or condition.get("key")
-    if not isinstance(path, str) or path.strip() == "":
-        return False
+def _prepare_used_value_exclusions(exclusions: Any) -> list[dict[str, Any]]:
+    if not isinstance(exclusions, list):
+        return []
 
-    expected = condition.get("equals", condition.get("value"))
-    path_parts = [part for part in path.split(".") if part]
-    if len(path_parts) == 0:
-        return False
+    prepared: list[dict[str, Any]] = []
+    for rule in exclusions:
+        if not isinstance(rule, dict):
+            continue
 
-    key_name = path_parts[-1]
-    canonical_name = _canonical_used_value_name(key_name)
-    for key, value in used_values.items():
-        if key == key_name or _canonical_used_value_name(key) == canonical_name:
-            return value == expected
-    return False
+        normalized_rule = dict(rule)
+        condition = normalized_rule.get("when") if isinstance(normalized_rule.get("when"), dict) else normalized_rule.get("if")
+        if isinstance(condition, dict):
+            normalized_condition = dict(condition)
+            path = normalized_condition.get("path") or normalized_condition.get("key")
+            if isinstance(path, str):
+                leaf = [part for part in path.split(".") if part]
+                if len(leaf) > 0:
+                    normalized_condition["path"] = leaf[-1]
+            if isinstance(normalized_rule.get("when"), dict):
+                normalized_rule["when"] = normalized_condition
+            else:
+                normalized_rule["if"] = normalized_condition
+
+        remove_spec = normalized_rule.get("remove")
+        normalized_remove: list[str] = []
+        if isinstance(remove_spec, str):
+            remove_spec = [remove_spec]
+        if isinstance(remove_spec, list):
+            for path in remove_spec:
+                if not isinstance(path, str):
+                    continue
+                leaf = [part for part in path.split(".") if part]
+                if len(leaf) > 0:
+                    normalized_remove.append(leaf[-1])
+
+        normalized_rule["remove"] = normalized_remove
+        prepared.append(normalized_rule)
+
+    return prepared
 
 
 def remove_excluded_used_values(used_values: dict[str, Any], exclusions: Any) -> dict[str, Any]:
     filtered = dict(used_values) if isinstance(used_values, dict) else {}
-    if not isinstance(exclusions, list):
-        return filtered
+    prepared_exclusions = _prepare_used_value_exclusions(exclusions)
 
-    for rule in exclusions:
-        if not isinstance(rule, dict) or not _rule_matches_used_values(filtered, rule):
-            continue
-        remove_spec = rule.get("remove")
-        remove_paths: list[str] = []
-        if isinstance(remove_spec, str):
-            remove_paths = [remove_spec]
-        elif isinstance(remove_spec, list):
-            remove_paths = [item for item in remove_spec if isinstance(item, str)]
-        for remove_path in remove_paths:
-            path_parts = [part for part in str(remove_path).split(".") if part]
-            if len(path_parts) == 0:
-                continue
-            removed_leaf = path_parts[-1]
-            canonical_leaf = _canonical_used_value_name(removed_leaf)
-            for key in list(filtered.keys()):
-                if key == removed_leaf or _canonical_used_value_name(key) == canonical_leaf:
-                    filtered.pop(key, None)
-
-    return filtered
+    return request_exceptions.apply_exclusions_to_payload(
+        filtered,
+        prepared_exclusions,
+        use_kwargs_fallback=False,
+        canonicalize_key=canonical_param_name,
+    )
 
 def normalize_sdk_call(sdk_call: dict[str, Any] | None) -> tuple[list[Any], dict[str, Any]]:
     if sdk_call is None:
@@ -584,7 +589,15 @@ def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provi
 
 def sanitize_debug_value(value: Any) -> Any:
     if isinstance(value, dict):
-        return {k: sanitize_debug_value(v) for k, v in value.items()}
+        sanitized_dict = {}
+        for k, v in value.items():
+            key_name = str(k or "").lower()
+            if key_name == "b64_json":
+                encoded_size = len(v) if isinstance(v, (str, bytes, bytearray, memoryview)) else 0
+                sanitized_dict[k] = f"[base64 omitted: {encoded_size} chars]"
+                continue
+            sanitized_dict[k] = sanitize_debug_value(v)
+        return sanitized_dict
     if isinstance(value, list):
         return [sanitize_debug_value(v) for v in value]
     if isinstance(value, tuple):
@@ -607,8 +620,29 @@ def sanitize_debug_value(value: Any) -> Any:
         for key, field_value in vars(value).items():
             if key.startswith("_"):
                 continue
+            key_name = str(key or "").lower()
+            if key_name == "b64_json":
+                encoded_size = len(field_value) if isinstance(field_value, (str, bytes, bytearray, memoryview)) else 0
+                safe_fields[key] = f"[base64 omitted: {encoded_size} chars]"
+                continue
             safe_fields[key] = sanitize_debug_value(field_value)
         if len(safe_fields) > 0:
             return {"_type": value.__class__.__name__, **safe_fields}
 
     return value
+
+def canonical_param_name(name: str, *, number_of_images_as_seed: bool = False) -> str:
+    low = str(name or "").lower()
+    if "aspect_ratio" in low:
+        return "aspect_ratio"
+    if "resolution" in low or "image_size" in low:
+        return "resolution"
+    if low == "model" or low.endswith("_model"):
+        return "model"
+    if number_of_images_as_seed and low == "number_of_images":
+        return "seed"
+    if low in {"prompt", "contents"} or low.endswith("_prompt"):
+        return "prompt"
+    if "response_modalities" in low:
+        return "response_modalities"
+    return str(name)

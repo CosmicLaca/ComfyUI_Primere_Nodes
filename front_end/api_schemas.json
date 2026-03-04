@@ -1,53 +1,8 @@
 {
   "Gemini": {
-    "Nanobanana_V1": {
+    "Nanobanana": {
       "provider": "Gemini",
-      "service": "Nanobanana_V1",
-      "response_handler": "Gemini_Nanobanana.py",
-      "import_modules": [
-        "from google import genai",
-        "from google.genai import types"
-      ],
-      "possible_parameters": {
-        "aspect_ratio": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
-        "resolution": ["1K", "2K", "4K"],
-        "model": ["gemini-3-pro-image-preview", "gemini-2.5-flash-image"]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "client.models.generate_content",
-        "sdk_call": {
-          "args": [],
-          "kwargs": {
-            "model": "{{model}}",
-            "contents": [
-              "{{prompt}}",
-              "{{reference_images}}"
-            ],
-            "config": {
-              "$call": "types.GenerateContentConfig",
-              "$args": [],
-              "$kwargs": {
-                "response_modalities": [
-                  "{{config_response_modalities_0}}"
-                ],
-                "image_config": {
-                  "$call": "types.ImageConfig",
-                  "$args": [],
-                  "$kwargs": {
-                    "aspect_ratio": "{{aspect_ratio}}",
-                    "image_size": "{{image_size}}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Nanobanana_V2": {
-      "provider": "Gemini",
-      "service": "Nanobanana_V2",
+      "service": "Nanobanana",
       "response_handler": "Gemini_Nanobanana.py",
       "import_modules": [
         "from google import genai",
@@ -55,11 +10,21 @@
       ],
       "possible_parameters": {
         "aspect_ratio": ["1:1","1:4","1:8","2:3","3:2","3:4","4:1","4:3","4:5","5:4","8:1","9:16","16:9","21:9"],
-        "resolution": ["512px", "1K", "2K", "4K"],
-        "model": ["gemini-3.1-flash-image-preview"],
+        "resolution": ["1K", "512px", "2K", "4K"],
+        "model": ["gemini-2.5-flash-image", "gemini-3-pro-image-preview", "gemini-3.1-flash-image-preview"],
         "thinking_level": ["minimal", "high"],
         "include_thoughts": [false, true]
       },
+      "request_exclusions": [
+        {
+          "when": { "path": "model", "equals": "gemini-2.5-flash-image" },
+          "remove": ["config.thinking_config", "thinking_level", "include_thoughts"]
+        },
+        {
+          "when": { "path": "model", "equals": "gemini-3-pro-image-preview" },
+          "remove": ["config.thinking_config", "thinking_level", "include_thoughts"]
+        }
+      ],
       "request": {
         "method": "SDK",
         "endpoint": "client.models.generate_content",
@@ -180,9 +145,9 @@
     }
   },
   "FAL": {
-    "Seedream_V5_T2I": {
+    "Seedream": {
       "provider": "FAL",
-      "service": "Seedream_V5_T2I",
+      "service": "Seedream",
       "response_handler": "FAL_Image.py",
       "import_modules": [
         "import fal_client"
@@ -190,51 +155,26 @@
       "possible_parameters": {
         "enable_safety_checker": [false, true],
         "with_logs": [false, true],
-        "enhance_prompt_mode": ["standard", "fast"]
+        "enhance_prompt_mode": ["standard", "fast"],
+        "model_type": ["text-to-image", "edit"],
+        "version": ["v4.5", "v5/lite"]
       },
-      "request": {
-        "method": "SDK",
-        "endpoint": "fal_client.submit",
-        "sdk_call": {
-          "args": [
-            "fal-ai/bytedance/seedream/v5/lite/text-to-image"
-          ],
-          "kwargs": {
-            "arguments": {
-              "prompt": "{{prompt}}",
-              "image_size": {
-                "width": "{{width}}",
-                "height": "{{height}}"
-              },
-              "num_images": "{{batch}}",
-              "max_images": 1,
-              "enable_safety_checker": "{{enable_safety_checker}}",
-              "enhance_prompt_mode": "{{enhance_prompt_mode}}",
-              "seed": "{{seed}}",
-              "with_logs": "{{with_logs}}"
-            }
-          }
+      "request_exclusions": [
+        {
+          "when": {"path": "model_type", "equals": "edit"},
+          "remove": ["enhance_prompt_mode"]
+        },
+        {
+          "when": {"path": "model_type", "equals": "text-to-image"},
+          "remove": ["reference_images"]
         }
-      }
-    },
-    "Seedream_V5_I2I": {
-      "provider": "FAL",
-      "service": "Seedream_V5_I2I",
-      "response_handler": "FAL_Image.py",
-      "import_modules": [
-        "import fal_client"
       ],
-      "possible_parameters": {
-        "enable_safety_checker": [false, true],
-        "with_logs": [false, true],
-        "enhance_prompt_mode": ["standard", "fast"]
-      },
       "request": {
         "method": "SDK",
         "endpoint": "fal_client.submit",
         "sdk_call": {
           "args": [
-            "fal-ai/bytedance/seedream/v5/lite/edit"
+            "fal-ai/bytedance/seedream/{{version}}/{{model_type}}"
           ],
           "kwargs": {
             "arguments": {
@@ -248,77 +188,6 @@
               "max_images": 1,
               "enable_safety_checker": "{{enable_safety_checker}}",
               "enhance_prompt_mode": "{{enhance_prompt_mode}}",
-              "seed": "{{seed}}",
-              "with_logs": "{{with_logs}}"
-            }
-          }
-        }
-      }
-    },
-    "Seedream_V4.5_I2I": {
-      "provider": "FAL",
-      "service": "Seedream_V4.5_I2I",
-      "response_handler": "FAL_Image.py",
-      "import_modules": [
-        "import fal_client"
-      ],
-      "possible_parameters": {
-        "enable_safety_checker": [false, true],
-        "with_logs": [false, true]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "fal_client.submit",
-        "sdk_call": {
-          "args": [
-            "fal-ai/bytedance/seedream/v4.5/edit"
-          ],
-          "kwargs": {
-            "arguments": {
-              "prompt": "{{prompt}}",
-              "image_urls": "{{reference_images}}",
-              "image_size": {
-                "width": "{{width}}",
-                "height": "{{height}}"
-              },
-              "num_images": "{{batch}}",
-              "max_images": 1,
-              "enable_safety_checker": "{{enable_safety_checker}}",
-              "seed": "{{seed}}",
-              "with_logs": "{{with_logs}}"
-            }
-          }
-        }
-      }
-    },
-    "Seedream_V4.5_T2I": {
-      "provider": "FAL",
-      "service": "Seedream_V4.5_T2I",
-      "response_handler": "FAL_Image.py",
-      "import_modules": [
-        "import fal_client"
-      ],
-      "possible_parameters": {
-        "enable_safety_checker": [false, true],
-        "with_logs": [false, true]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "fal_client.submit",
-        "sdk_call": {
-          "args": [
-            "fal-ai/bytedance/seedream/v4.5/text-to-image"
-          ],
-          "kwargs": {
-            "arguments": {
-              "prompt": "{{prompt}}",
-              "image_size": {
-                "width": "{{width}}",
-                "height": "{{height}}"
-              },
-              "num_images": "{{batch}}",
-              "max_images": 1,
-              "enable_safety_checker": "{{enable_safety_checker}}",
               "seed": "{{seed}}",
               "with_logs": "{{with_logs}}"
             }
@@ -456,6 +325,12 @@
         "quality": ["high", "low", "medium", "auto"],
         "size": ["1024x1024", "1536x1024", "1024x1536", "auto"]
       },
+      "request_exclusions": [
+        {
+          "when": {"path": "output_format", "equals": "png"},
+          "remove": ["output_compression"]
+        }
+      ],
       "request": {
         "method": "SDK",
         "endpoint": "client.images.generate",
@@ -489,6 +364,12 @@
         "size": ["1024x1024", "1792x1024", "1024x1792"],
         "style": ["vivid", "natural"]
       },
+      "request_exclusions": [
+        {
+          "when": {"path": "model", "equals": "dall-e-2"},
+          "remove": ["quality", "style"]
+        }
+      ],
       "request": {
         "method": "SDK",
         "endpoint": "client.images.generate",
