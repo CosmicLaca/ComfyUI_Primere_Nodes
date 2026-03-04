@@ -7,7 +7,6 @@ import comfy.utils
 import numpy as np
 import torch
 from PIL import Image
-import fal_client
 from io import BytesIO
 import base64
 

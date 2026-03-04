@@ -37,7 +37,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [617966036249554]"
+        "Last seed: [699225504522153]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -101,7 +101,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x00000230BC9F02D0>"
+        "<google.genai.client.Client object at 0x000002ADF955ECF0>"
       ]
     },
     {
@@ -132,7 +132,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Imagen\",\n    \"import_modules\": [\n        \"from google import genai\",\n        \"from google.genai import types\"\n    ],\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"3:4\",\n            \"4:3\",\n            \"9:16\",\n            \"16:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\"\n        ],\n        \"model\": [\n            \"imagen-4.0-generate-001\",\n            \"imagen-4.0-ultra-generate-001\",\n            \"imagen-4.0-fast-generate-001\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_images\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"prompt\": \"{{prompt}}\",\n                \"config\": {\n                    \"$call\": \"types.GenerateImagesConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"number_of_images\": \"{{batch}}\",\n                        \"aspect_ratio\": \"{{aspect_ratio}}\",\n                        \"image_size\": \"{{resolution}}\"\n                    }\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana_V1\",\n    \"response_handler\": \"Gemini_Nanobanana.py\",\n    \"import_modules\": [\n        \"from google import genai\",\n        \"from google.genai import types\"\n    ],\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-3-pro-image-preview\",\n            \"gemini-2.5-flash-image\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -350,7 +350,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "sdk_http_response=None generated_images=[GeneratedImage(\n  image=Image(\n    image_bytes=b'\\x89PNG\\r\\n\\x1a\\n\\x00\\x00\\x00\\rIHDR\\x00\\x00\\x05\\x80\\x00\\x00\\x03\\x00\\x08\\x02\\x00\\x00\\x00\\x12ST\\x9b\\x00\\x00\\x00\\x83zTXtRaw profile type iptc\\x00\\x00\\x08\\x99M\\x8b;\\x0e\\xc20\\x10\\x05{\\x9f\"G\\xd8\\xdd\\xbc\\xfd\\xa4\\xa6\\xa2\\xa3\\xe0\\x02\\xb6\\xe3\\x95\\x90\"\\x05q\\xff\\x02...',\n    mime_type='image/png'\n  ),\n  safety_attributes=SafetyAttributes()\n)] positive_prompt_safety_attributes=None"
+        "None"
       ]
     },
     {
@@ -436,47 +436,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 18,
-      "type": "LoadImage",
-      "pos": [
-        -1463.6929609110477,
-        -541.514916458471
-      ],
-      "size": [
-        412.12756911804206,
-        508.84732322692867
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            215
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "348368277_936696344247420_4680049320151257292_n.jpg",
-        "image"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 29,
       "type": "LoadImage",
       "pos": [
@@ -488,7 +447,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -529,7 +488,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -570,7 +529,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -611,7 +570,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -652,7 +611,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -709,45 +668,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "({'schema': {'provider': 'Gemini', 'service': 'Imagen', 'import_modules': ['from google import genai', 'from google.genai import types'], 'possible_parameters': {'aspect_ratio': ['1:1', '3:4', '4:3', '9:16', '16:9'], 'resolution': ['1K', '2K'], 'model': ['imagen-4.0-generate-001', 'imagen-4.0-ultra-generate-001', 'imagen-4.0-fast-generate-001']}, 'request': {'method': 'SDK', 'endpoint': 'client.models.generate_images', 'sdk_call': {'args': [], 'kwargs': {'model': '{{model}}', 'prompt': '{{prompt}}', 'config': {'$call': 'types.GenerateImagesConfig', '$args': [], '$kwargs': {'number_of_images': '{{batch}}', 'aspect_ratio': '{{aspect_ratio}}', 'image_size': '{{resolution}}'}}}}}}, 'selected_parameters': {'height': 768, 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'aspect_ratio': '16:9', 'batch': 1, 'width': 1365, 'seed': 617966036249554, 'debug_mode': False, 'resolution': '1K', 'model': 'imagen-4.0-generate-001'}, 'used_values': {'aspect_ratio': '16:9', 'batch': 1, 'model': 'imagen-4.0-generate-001', 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'resolution': '1K'}, 'selected_service': 'Imagen', 'rendered': {'provider': 'Gemini', 'endpoint': 'client.models.generate_images', 'method': 'SDK', 'headers': {}, 'query': {}, 'body': None, 'sdk_call': {'args': [], 'kwargs': {'model': 'imagen-4.0-generate-001', 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'config': {'$call': 'types.GenerateImagesConfig', '$args': [], '$kwargs': {'number_of_images': 1, 'aspect_ratio': '16:9', 'image_size': '1K'}}}}}, 'api_result': GenerateImagesResponse(\n  generated_images=[\n    GeneratedImage(\n      image=Image(\n        image_bytes=b'\\x89PNG\\r\\n\\x1a\\n\\x00\\x00\\x00\\rIHDR\\x00\\x00\\x05\\x80\\x00\\x00\\x03\\x00\\x08\\x02\\x00\\x00\\x00\\x12ST\\x9b\\x00\\x00\\x00\\x83zTXtRaw profile type iptc\\x00\\x00\\x08\\x99M\\x8b;\\x0e\\xc20\\x10\\x05{\\x9f\"G\\xd8\\xdd\\xbc\\xfd\\xa4\\xa6\\xa2\\xa3\\xe0\\x02\\xb6\\xe3\\x95\\x90\"\\x05q\\xff\\x02...',\n        mime_type='image/png'\n      ),\n      safety_attributes=SafetyAttributes()\n    ),\n  ]\n), 'api_error': None},)"
-      ]
-    },
-    {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1147.8759983747982,
-        -552.3740084628628
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 228
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "ERROR: Cannot list target for Checkpoint",
-        null
+        "None"
       ]
     },
     {
@@ -778,7 +699,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_images\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"imagen-4.0-generate-001\",\n            \"prompt\": \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n            \"config\": {\n                \"$call\": \"types.GenerateImagesConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"number_of_images\": 1,\n                    \"aspect_ratio\": \"16:9\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"contents\": [\n                \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n                \"Debug mode, reference images ignored.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"16:9\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -1118,15 +1039,94 @@
       },
       "widgets_values": [
         true,
-        false,
+        true,
         "Gemini",
-        "Imagen",
+        "Nanobanana_V1",
         1,
         "1K",
-        "imagen-4.0-generate-001"
+        "gemini-3-pro-image-preview"
       ],
       "color": "#233",
       "bgcolor": "#355"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1182.3832132185478,
+        -519.8384348544639
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 228
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
+      "id": 18,
+      "type": "LoadImage",
+      "pos": [
+        -1463.6929609110477,
+        -541.514916458471
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            215
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "348368277_936696344247420_4680049320151257292_n.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -1343,10 +1343,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537781,
+      "scale": 0.7513148009015777,
       "offset": [
-        1618.1757855855335,
-        649.2627330737597
+        1793.0782068147337,
+        850.2017506323473
       ]
     },
     "frontendVersion": "1.39.19"
