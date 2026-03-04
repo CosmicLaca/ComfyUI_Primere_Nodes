@@ -11,6 +11,7 @@ from typing import Any
 from pathlib import Path
 import importlib.util
 import inspect
+import dataclasses
 
 from PIL import Image
 from io import BytesIO
@@ -18,6 +19,8 @@ import numpy as np
 import torch
 import comfy.utils
 import types
+
+from . import request_exceptions
 
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 
@@ -33,6 +36,7 @@ class RenderResult:
     query: dict[str, Any]
     body: dict[str, Any] | list[Any] | None
     sdk_call: dict[str, Any] | None
+    request_exclusions: list[dict[str, Any]] | None
 
 
 def _replace_string_template(template: str, values: dict[str, Any]) -> Any:
@@ -93,8 +97,70 @@ def build_request(spec: dict[str, Any], values: dict[str, Any]) -> RenderResult:
         query=render_template(request.get("query", {}), values),
         body=render_template(request.get("body"), values) if request.get("body") is not None else None,
         sdk_call=render_template(request.get("sdk_call"), values) if request.get("sdk_call") is not None else None,
+        request_exclusions=spec.get("request_exclusions") if isinstance(spec.get("request_exclusions"), list) else []
     )
 
+def _canonical_used_value_name(name: str) -> str:
+    low = str(name or "").lower()
+    if "aspect_ratio" in low:
+        return "aspect_ratio"
+    if "resolution" in low or "image_size" in low:
+        return "resolution"
+    if low == "model" or low.endswith("_model"):
+        return "model"
+    if low in {"prompt", "contents"} or low.endswith("_prompt"):
+        return "prompt"
+    if "response_modalities" in low:
+        return "response_modalities"
+    return str(name)
+
+def _rule_matches_used_values(used_values: dict[str, Any], rule: dict[str, Any]) -> bool:
+    condition = rule.get("when") if isinstance(rule.get("when"), dict) else rule.get("if")
+    if not isinstance(condition, dict):
+        return True
+
+    path = condition.get("path") or condition.get("key")
+    if not isinstance(path, str) or path.strip() == "":
+        return False
+
+    expected = condition.get("equals", condition.get("value"))
+    path_parts = [part for part in path.split(".") if part]
+    if len(path_parts) == 0:
+        return False
+
+    key_name = path_parts[-1]
+    canonical_name = _canonical_used_value_name(key_name)
+    for key, value in used_values.items():
+        if key == key_name or _canonical_used_value_name(key) == canonical_name:
+            return value == expected
+    return False
+
+
+def remove_excluded_used_values(used_values: dict[str, Any], exclusions: Any) -> dict[str, Any]:
+    filtered = dict(used_values) if isinstance(used_values, dict) else {}
+    if not isinstance(exclusions, list):
+        return filtered
+
+    for rule in exclusions:
+        if not isinstance(rule, dict) or not _rule_matches_used_values(filtered, rule):
+            continue
+        remove_spec = rule.get("remove")
+        remove_paths: list[str] = []
+        if isinstance(remove_spec, str):
+            remove_paths = [remove_spec]
+        elif isinstance(remove_spec, list):
+            remove_paths = [item for item in remove_spec if isinstance(item, str)]
+        for remove_path in remove_paths:
+            path_parts = [part for part in str(remove_path).split(".") if part]
+            if len(path_parts) == 0:
+                continue
+            removed_leaf = path_parts[-1]
+            canonical_leaf = _canonical_used_value_name(removed_leaf)
+            for key in list(filtered.keys()):
+                if key == removed_leaf or _canonical_used_value_name(key) == canonical_leaf:
+                    filtered.pop(key, None)
+
+    return filtered
 
 def normalize_sdk_call(sdk_call: dict[str, Any] | None) -> tuple[list[Any], dict[str, Any]]:
     if sdk_call is None:
@@ -251,8 +317,9 @@ def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed
     roots = allowed_roots or set(context.keys())
     fn = _resolve_dotted_from_context(str(rendered.endpoint), context, roots)
     args, kwargs = normalize_sdk_call(rendered.sdk_call)
-    safe_args = [_materialize_sdk_value(a, context, roots) for a in args]
-    safe_kwargs = {k: _materialize_sdk_value(v, context, roots) for k, v in kwargs.items()}
+    filtered_args, filtered_kwargs = request_exceptions.apply_sdk_request_exclusions(args=list(args), kwargs=dict(kwargs), exclusions=rendered.request_exclusions)
+    safe_args = [_materialize_sdk_value(a, context, roots) for a in filtered_args]
+    safe_kwargs = {k: _materialize_sdk_value(v, context, roots) for k, v in filtered_kwargs.items()}
     _apply_auth_header_fallback(safe_kwargs, context)
     return fn(*safe_args, **safe_kwargs)
 
@@ -514,3 +581,34 @@ def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provi
             kwargs[key] = value
 
     return handler(api_result, **kwargs)
+
+def sanitize_debug_value(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {k: sanitize_debug_value(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [sanitize_debug_value(v) for v in value]
+    if isinstance(value, tuple):
+        return tuple(sanitize_debug_value(v) for v in value)
+    if isinstance(value, (bytes, bytearray, memoryview)):
+        return f"[binary data omitted: {len(value)} bytes]"
+    if isinstance(value, Image.Image):
+        return f"[PIL.Image omitted: mode={value.mode}, size={value.size}]"
+    if isinstance(value, np.ndarray):
+        return f"[numpy.ndarray omitted: shape={value.shape}, dtype={value.dtype}]"
+
+    if dataclasses.is_dataclass(value):
+        return {
+            "_type": value.__class__.__name__,
+            **{field.name: sanitize_debug_value(getattr(value, field.name)) for field in dataclasses.fields(value)},
+        }
+
+    if hasattr(value, "__dict__") and not isinstance(value, (str, int, float, bool)):
+        safe_fields = {}
+        for key, field_value in vars(value).items():
+            if key.startswith("_"):
+                continue
+            safe_fields[key] = sanitize_debug_value(field_value)
+        if len(safe_fields) > 0:
+            return {"_type": value.__class__.__name__, **safe_fields}
+
+    return value

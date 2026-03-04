@@ -129,4 +129,6 @@ def _build_values(spec: dict[str, Any], values: dict[str, Any] | None = None) ->
 
 def render_from_schema(spec: dict[str, Any], values: dict[str, Any] | None = None):
     used_values = _build_values(spec, values)
-    return external_api_backend.build_request(spec, used_values), used_values
+    request_exclusions = spec.get("request_exclusions") if isinstance(spec, dict) else None
+    filtered_used_values = external_api_backend.remove_excluded_used_values(used_values, request_exclusions)
+    return external_api_backend.build_request(spec, used_values), filtered_used_values

@@ -24,8 +24,8 @@ from ..components.API import api_schema_registry
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
-    RETURN_TYPES = ("APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "IMAGE")
-    RETURN_NAMES = ("CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "API_SCHEMAS", "API_RESULT", "RESULT_IMAGE")
+    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
+    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "API_SCHEMAS", "API_RESULT")
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
@@ -238,7 +238,7 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (loaded_client, api_provider, schema, rendered_payload, None, api_result, reference_images)
+                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values, api_result)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
@@ -261,6 +261,7 @@ class PrimereApiProcessor:
 
         selected_parameters_output = {k: v for k, v in selected_parameters.items() if k != "reference_images"}
 
+        api_result_debug = external_api_backend.sanitize_debug_value(api_result)
         api_schemas = (
             {
                 "schema": schema,
@@ -269,7 +270,8 @@ class PrimereApiProcessor:
                 "selected_service": selected_service,
                 # "rendered": rendered.__dict__,
                 "rendered": rendered_payload,
-                "api_result": api_result,
+                # "api_result": api_result,
+                "api_result": api_result_debug,
                 "api_error": api_error,
             },
         )
@@ -282,4 +284,4 @@ class PrimereApiProcessor:
             response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
             result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
 
-        return (client, api_provider, schema, rendered_payload, api_schemas, api_result, result_image)
+        return (result_image, client, api_provider, schema, rendered_payload, api_schemas, api_result)
