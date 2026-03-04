@@ -2,9 +2,9 @@
 
 Start here: [https://www.youtube.com/watch?v=FcKcMQoU1rM](https://www.youtube.com/watch?v=FcKcMQoU1rM)
 
-## 1) Mandatory provider config (do this first)
-
 <hr>
+
+## 1) Mandatory provider config (do this first)
 
 Before using Uniapi, rename:
 
