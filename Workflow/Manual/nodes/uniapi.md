@@ -4,6 +4,8 @@ Start here: [https://www.youtube.com/watch?v=FcKcMQoU1rM](https://www.youtube.co
 
 ## 1) Mandatory provider config (do this first)
 
+<hr>
+
 Before using Uniapi, rename:
 
 - `json/apiconfig.example.json` → `json/apiconfig.json`
