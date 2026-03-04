@@ -17,6 +17,7 @@ from io import BytesIO
 import numpy as np
 import torch
 import comfy.utils
+import types
 
 PLACEHOLDER_RE = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 
@@ -465,12 +466,22 @@ def _load_response_handler(filename: str):
     if not Path(module_path).exists():
         raise ExternalAPIError(f"Response handler file not found: {safe_name}")
 
-    module_name = f"{safe_name[:-3].replace('.', '_').replace('-', '_')}"
+    # module_name = f"{safe_name[:-3].replace('.', '_').replace('-', '_')}"
+    package_name = "primere_response_handlers"
+    package = sys.modules.get(package_name)
+    if package is None:
+        package = types.ModuleType(package_name)
+        package.__path__ = [base_dir]
+        sys.modules[package_name] = package
+
+    module_stem = safe_name[:-3].replace('.', '_').replace('-', '_')
+    module_name = f"{package_name}.{module_stem}"
     spec = importlib.util.spec_from_file_location(module_name, str(module_path))
     if spec is None or spec.loader is None:
         raise ExternalAPIError(f"Cannot import response handler: {safe_name}")
 
     module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
     spec.loader.exec_module(module)
     handler = getattr(module, "handle_response", None)
     if not callable(handler):
