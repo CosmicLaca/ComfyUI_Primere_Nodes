@@ -6,7 +6,21 @@ def handle_response(api_result, schema=None, loaded_client=None, response_url=No
     request_id = api_result.request_id
     loaded_client.status(response_url, request_id, with_logs=False)
     result = loaded_client.result(response_url, request_id)
-    json_object = response_helper.load_json_object(result, "Invalid FAL response received")
-    remote_images = json_object.get("images") or []
-    image_urls = [item.get("url") for item in remote_images if isinstance(item, dict) and item.get("url")]
-    return response_helper.merge_image_tensors(response_helper.image_urls_to_tensors(image_urls))
+
+    try:
+        json_object = json.loads(json.dumps(result))
+    except ValueError as exc:
+        raise RuntimeError(f"Invalid JSON response received: {api_result}") from exc
+
+    remote_images = json_object.get("images", [])
+    image_tensors = []
+    for remote_image in remote_images:
+        image_url = remote_image.get("url") if isinstance(remote_image, dict) else None
+        if not image_url:
+            continue
+
+        tensor = response_helper.url_to_tensor(image_url)
+        if tensor is not None:
+            image_tensors.append(tensor)
+
+    return response_helper.stack_image_tensors(image_tensors)

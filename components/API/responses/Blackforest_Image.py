@@ -1,20 +1,61 @@
 from __future__ import annotations
 
+import time
+from urllib.parse import urlparse
+import requests
 from . import response_helper
 
 def handle_response(api_result, schema=None, loaded_client=None, response_url=None):
-    json_object = response_helper.load_json_object(getattr(api_result, "text", api_result), "Input object failed")
+    status_accepted = ["Ready", "Pending", "Task not found"]
+    parsed_url = urlparse(response_url)
+    blackforest_api_region = parsed_url.netloc or None
+    path_parts = [part for part in parsed_url.path.split("/") if part]
+    blackforest_api_version = path_parts[0] if len(path_parts) > 0 else None
+    try:
+        json_object = json.loads(api_result.text)
+    except ValueError as exc:
+        raise RuntimeError(f"Input object failed: {api_result}") from exc
+
     polling_url = json_object.get("polling_url")
     if not polling_url:
         raise RuntimeError(f"No polling_url in response: {json_object}")
 
-    result_payload = response_helper.poll_result_endpoint(polling_url=polling_url, response_url=response_url)
-    image_url = ((result_payload.get("result") or {}).get("sample"))
-    if not image_url:
-        raise RuntimeError(f"No result sample image in response: {result_payload}")
+    resp = requests.get(polling_url, timeout=60)
+    resp.raise_for_status()
+    resp_json_object = json.loads(resp.text)
+    status = "Start"
+    request_tryout = 0
+    error_tryout = 0
 
-    tensor = response_helper.image_url_to_tensor(image_url)
-    if tensor is None:
+    while error_tryout <= 1:
+        while status != "Ready" or request_tryout <= 20:
+            url_res = f"https://{blackforest_api_region}/{blackforest_api_version}/get_result"
+            querystring = {"id": resp_json_object["id"]}
+            response = requests.get(url_res, params=querystring, timeout=60)
+            response.raise_for_status()
+            resp_json_object = json.loads(response.text)
+            status = resp_json_object.get("status")
+            if status not in status_accepted:
+                resp_error = requests.get(polling_url, timeout=60)
+                resp_error.raise_for_status()
+                resp_error_json_object = json.loads(resp_error.text)
+                error_status = resp_error_json_object.get("status")
+                raise RuntimeError(f"Response status: {status}, error status: {error_status}")
+            if status == "Ready":
+                break
+            error_tryout = error_tryout + 1
+            time.sleep(2)
+            request_tryout += 1
+        time.sleep(1)
+        if status == "Ready":
+            break
+        error_tryout += 1
+
+    if status != "Ready":
         raise RuntimeError("No result image...")
 
-    return response_helper.merge_image_tensors([tensor])
+    image_url = resp_json_object.get("result", {}).get("sample")
+    if not image_url:
+        raise RuntimeError("No result image...")
+
+    return response_helper.url_to_tensor(image_url)
