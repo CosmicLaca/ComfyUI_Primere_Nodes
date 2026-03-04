@@ -1,8 +1,8 @@
 {
   "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
   "revision": 0,
-  "last_node_id": 42,
-  "last_link_id": 215,
+  "last_node_id": 43,
+  "last_link_id": 228,
   "nodes": [
     {
       "id": 16,
@@ -25,7 +25,7 @@
           "type": "INT",
           "links": [
             53,
-            195
+            221
           ]
         }
       ],
@@ -37,7 +37,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [416642982778676]"
+        "Last seed: [617966036249554]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -60,7 +60,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 197
+          "link": 223
         }
       ],
       "outputs": [],
@@ -91,7 +91,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 196
+          "link": 222
         }
       ],
       "outputs": [],
@@ -101,7 +101,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x0000021000D90440>"
+        "<google.genai.client.Client object at 0x00000230BC9F02D0>"
       ]
     },
     {
@@ -122,7 +122,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 198
+          "link": 224
         }
       ],
       "outputs": [],
@@ -132,7 +132,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana_V1\",\n    \"response_handler\": \"Gemini_Nanobanana.py\",\n    \"import_modules\": [\n        \"from google import genai\",\n        \"from google.genai import types\"\n    ],\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-3-pro-image-preview\",\n            \"gemini-2.5-flash-image\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Imagen\",\n    \"import_modules\": [\n        \"from google import genai\",\n        \"from google.genai import types\"\n    ],\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"3:4\",\n            \"4:3\",\n            \"9:16\",\n            \"16:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"2K\"\n        ],\n        \"model\": [\n            \"imagen-4.0-generate-001\",\n            \"imagen-4.0-ultra-generate-001\",\n            \"imagen-4.0-fast-generate-001\"\n        ]\n    },\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_images\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"prompt\": \"{{prompt}}\",\n                \"config\": {\n                    \"$call\": \"types.GenerateImagesConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"number_of_images\": \"{{batch}}\",\n                        \"aspect_ratio\": \"{{aspect_ratio}}\",\n                        \"image_size\": \"{{resolution}}\"\n                    }\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -239,7 +239,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            190
+            216
           ]
         }
       ],
@@ -323,39 +323,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 5,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        334.5469444580026,
-        603.196416400811
-      ],
-      "size": [
-        788.4326008611985,
-        1006.7218207101077
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 199
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n                \"Debug mode, reference images ignored.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"21:9\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 8,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -373,7 +340,7 @@
         {
           "name": "input",
           "type": "*",
-          "link": 201
+          "link": 227
         }
       ],
       "outputs": [],
@@ -383,120 +350,8 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "None"
+        "sdk_http_response=None generated_images=[GeneratedImage(\n  image=Image(\n    image_bytes=b'\\x89PNG\\r\\n\\x1a\\n\\x00\\x00\\x00\\rIHDR\\x00\\x00\\x05\\x80\\x00\\x00\\x03\\x00\\x08\\x02\\x00\\x00\\x00\\x12ST\\x9b\\x00\\x00\\x00\\x83zTXtRaw profile type iptc\\x00\\x00\\x08\\x99M\\x8b;\\x0e\\xc20\\x10\\x05{\\x9f\"G\\xd8\\xdd\\xbc\\xfd\\xa4\\xa6\\xa2\\xa3\\xe0\\x02\\xb6\\xe3\\x95\\x90\"\\x05q\\xff\\x02...',\n    mime_type='image/png'\n  ),\n  safety_attributes=SafetyAttributes()\n)] positive_prompt_safety_attributes=None"
       ]
-    },
-    {
-      "id": 6,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        280.7089655193559,
-        1741.2400769334017
-      ],
-      "size": [
-        1967.0424954794948,
-        747.5331024629525
-      ],
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 200
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "None"
-      ]
-    },
-    {
-      "id": 15,
-      "type": "PrimereResolution",
-      "pos": [
-        440.0936904135445,
-        171.844172799759
-      ],
-      "size": [
-        361.37166959228534,
-        310
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 53
-        },
-        {
-          "name": "model_version",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            192
-          ]
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            193
-          ]
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "ASPECT_RATIO",
-          "type": "STRING",
-          "links": [
-            194
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
-      },
-      "widgets_values": [
-        "Photo [19:13]",
-        false,
-        1024,
-        false,
-        "Horizontal",
-        false,
-        false,
-        1.6,
-        2.8
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
     },
     {
       "id": 30,
@@ -579,181 +434,6 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
-    },
-    {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1138.0166844099545,
-        -551.4778817538785
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 202
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        "ERROR: Cannot list target for Checkpoint",
-        null
-      ]
-    },
-    {
-      "id": 34,
-      "type": "PrimereApiProcessor",
-      "pos": [
-        -261.240011586027,
-        -548.3233034269158
-      ],
-      "size": [
-        648.737226759225,
-        482
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "prompt",
-          "type": "STRING",
-          "link": 190
-        },
-        {
-          "name": "negative_prompt",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "reference_images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 191
-        },
-        {
-          "name": "first_image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "last_image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "width",
-          "shape": 7,
-          "type": "INT",
-          "link": 192
-        },
-        {
-          "name": "height",
-          "shape": 7,
-          "type": "INT",
-          "link": 193
-        },
-        {
-          "name": "aspect_ratio",
-          "shape": 7,
-          "type": "STRING",
-          "link": 194
-        },
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 195
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CLIENT",
-          "type": "APICLIENT",
-          "links": [
-            196
-          ]
-        },
-        {
-          "name": "PROVIDER",
-          "type": "STRING",
-          "links": [
-            197
-          ]
-        },
-        {
-          "name": "SCHEMA",
-          "type": "TUPLE",
-          "links": [
-            198
-          ]
-        },
-        {
-          "name": "RENDERED",
-          "type": "TUPLE",
-          "links": [
-            199
-          ]
-        },
-        {
-          "name": "API_SCHEMAS",
-          "type": "TUPLE",
-          "links": [
-            200
-          ]
-        },
-        {
-          "name": "API_RESULT",
-          "type": "TUPLE",
-          "links": [
-            201
-          ]
-        },
-        {
-          "name": "RESULT_IMAGE",
-          "type": "IMAGE",
-          "links": [
-            202
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereApiProcessor",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5b62c22c373c0e012a5fff7314f983b6678c8029"
-      },
-      "widgets_values": [
-        true,
-        true,
-        "Gemini",
-        "Nanobanana_V1",
-        1,
-        "1K",
-        "gemini-2.5-flash-image"
-      ],
-      "color": "#233",
-      "bgcolor": "#355"
     },
     {
       "id": 18,
@@ -1002,6 +682,108 @@
       "bgcolor": "#653"
     },
     {
+      "id": 6,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        280.7089655193559,
+        1741.2400769334017
+      ],
+      "size": [
+        1967.0424954794948,
+        747.5331024629525
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 226
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "({'schema': {'provider': 'Gemini', 'service': 'Imagen', 'import_modules': ['from google import genai', 'from google.genai import types'], 'possible_parameters': {'aspect_ratio': ['1:1', '3:4', '4:3', '9:16', '16:9'], 'resolution': ['1K', '2K'], 'model': ['imagen-4.0-generate-001', 'imagen-4.0-ultra-generate-001', 'imagen-4.0-fast-generate-001']}, 'request': {'method': 'SDK', 'endpoint': 'client.models.generate_images', 'sdk_call': {'args': [], 'kwargs': {'model': '{{model}}', 'prompt': '{{prompt}}', 'config': {'$call': 'types.GenerateImagesConfig', '$args': [], '$kwargs': {'number_of_images': '{{batch}}', 'aspect_ratio': '{{aspect_ratio}}', 'image_size': '{{resolution}}'}}}}}}, 'selected_parameters': {'height': 768, 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'aspect_ratio': '16:9', 'batch': 1, 'width': 1365, 'seed': 617966036249554, 'debug_mode': False, 'resolution': '1K', 'model': 'imagen-4.0-generate-001'}, 'used_values': {'aspect_ratio': '16:9', 'batch': 1, 'model': 'imagen-4.0-generate-001', 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'resolution': '1K'}, 'selected_service': 'Imagen', 'rendered': {'provider': 'Gemini', 'endpoint': 'client.models.generate_images', 'method': 'SDK', 'headers': {}, 'query': {}, 'body': None, 'sdk_call': {'args': [], 'kwargs': {'model': 'imagen-4.0-generate-001', 'prompt': \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\", 'config': {'$call': 'types.GenerateImagesConfig', '$args': [], '$kwargs': {'number_of_images': 1, 'aspect_ratio': '16:9', 'image_size': '1K'}}}}}, 'api_result': GenerateImagesResponse(\n  generated_images=[\n    GeneratedImage(\n      image=Image(\n        image_bytes=b'\\x89PNG\\r\\n\\x1a\\n\\x00\\x00\\x00\\rIHDR\\x00\\x00\\x05\\x80\\x00\\x00\\x03\\x00\\x08\\x02\\x00\\x00\\x00\\x12ST\\x9b\\x00\\x00\\x00\\x83zTXtRaw profile type iptc\\x00\\x00\\x08\\x99M\\x8b;\\x0e\\xc20\\x10\\x05{\\x9f\"G\\xd8\\xdd\\xbc\\xfd\\xa4\\xa6\\xa2\\xa3\\xe0\\x02\\xb6\\xe3\\x95\\x90\"\\x05q\\xff\\x02...',\n        mime_type='image/png'\n      ),\n      safety_attributes=SafetyAttributes()\n    ),\n  ]\n), 'api_error': None},)"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1147.8759983747982,
+        -552.3740084628628
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 228
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        334.5469444580026,
+        603.196416400811
+      ],
+      "size": [
+        788.4326008611985,
+        1006.7218207101077
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 225
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_images\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"imagen-4.0-generate-001\",\n            \"prompt\": \"The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\",\n            \"config\": {\n                \"$call\": \"types.GenerateImagesConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"number_of_images\": 1,\n                    \"aspect_ratio\": \"16:9\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 17,
       "type": "PrimereMultiImage",
       "pos": [
@@ -1093,7 +875,7 @@
           "name": "IMAGE_LIST",
           "type": "IMAGE",
           "links": [
-            191
+            217
           ]
         },
         {
@@ -1129,6 +911,222 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 15,
+      "type": "PrimereResolution",
+      "pos": [
+        440.0936904135445,
+        171.844172799759
+      ],
+      "size": [
+        361.37166959228534,
+        310
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 53
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            218
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            219
+          ]
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "ASPECT_RATIO",
+          "type": "STRING",
+          "links": [
+            220
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "HD screen [16:9]",
+        false,
+        1024,
+        false,
+        "Horizontal",
+        false,
+        false,
+        1.6,
+        2.8
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 43,
+      "type": "PrimereApiProcessor",
+      "pos": [
+        -261.240011586027,
+        -548.3233034269158
+      ],
+      "size": [
+        648.737226759225,
+        530
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 216
+        },
+        {
+          "name": "negative_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "reference_images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 217
+        },
+        {
+          "name": "first_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "last_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 218
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 219
+        },
+        {
+          "name": "aspect_ratio",
+          "shape": 7,
+          "type": "STRING",
+          "link": 220
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 221
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CLIENT",
+          "type": "APICLIENT",
+          "links": [
+            222
+          ]
+        },
+        {
+          "name": "PROVIDER",
+          "type": "STRING",
+          "links": [
+            223
+          ]
+        },
+        {
+          "name": "SCHEMA",
+          "type": "TUPLE",
+          "links": [
+            224
+          ]
+        },
+        {
+          "name": "RENDERED",
+          "type": "TUPLE",
+          "links": [
+            225
+          ]
+        },
+        {
+          "name": "API_SCHEMAS",
+          "type": "TUPLE",
+          "links": [
+            226
+          ]
+        },
+        {
+          "name": "API_RESULT",
+          "type": "TUPLE",
+          "links": [
+            227
+          ]
+        },
+        {
+          "name": "RESULT_IMAGE",
+          "type": "IMAGE",
+          "links": [
+            228
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereApiProcessor"
+      },
+      "widgets_values": [
+        true,
+        false,
+        "Gemini",
+        "Imagen",
+        1,
+        "1K",
+        "imagen-4.0-generate-001"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
     }
   ],
   "links": [
@@ -1139,110 +1137,6 @@
       15,
       0,
       "INT"
-    ],
-    [
-      190,
-      9,
-      0,
-      34,
-      0,
-      "STRING"
-    ],
-    [
-      191,
-      17,
-      0,
-      34,
-      2,
-      "IMAGE"
-    ],
-    [
-      192,
-      15,
-      0,
-      34,
-      5,
-      "INT"
-    ],
-    [
-      193,
-      15,
-      1,
-      34,
-      6,
-      "INT"
-    ],
-    [
-      194,
-      15,
-      3,
-      34,
-      7,
-      "STRING"
-    ],
-    [
-      195,
-      16,
-      0,
-      34,
-      8,
-      "INT"
-    ],
-    [
-      196,
-      34,
-      0,
-      2,
-      0,
-      "APICLIENT"
-    ],
-    [
-      197,
-      34,
-      1,
-      3,
-      0,
-      "STRING"
-    ],
-    [
-      198,
-      34,
-      2,
-      4,
-      0,
-      "TUPLE"
-    ],
-    [
-      199,
-      34,
-      3,
-      5,
-      0,
-      "TUPLE"
-    ],
-    [
-      200,
-      34,
-      4,
-      6,
-      0,
-      "TUPLE"
-    ],
-    [
-      201,
-      34,
-      5,
-      8,
-      0,
-      "TUPLE"
-    ],
-    [
-      202,
-      34,
-      6,
-      27,
-      0,
-      "IMAGE"
     ],
     [
       204,
@@ -1339,16 +1233,120 @@
       17,
       10,
       "IMAGE"
+    ],
+    [
+      216,
+      9,
+      0,
+      43,
+      0,
+      "STRING"
+    ],
+    [
+      217,
+      17,
+      0,
+      43,
+      2,
+      "IMAGE"
+    ],
+    [
+      218,
+      15,
+      0,
+      43,
+      5,
+      "INT"
+    ],
+    [
+      219,
+      15,
+      1,
+      43,
+      6,
+      "INT"
+    ],
+    [
+      220,
+      15,
+      3,
+      43,
+      7,
+      "STRING"
+    ],
+    [
+      221,
+      16,
+      0,
+      43,
+      8,
+      "INT"
+    ],
+    [
+      222,
+      43,
+      0,
+      2,
+      0,
+      "APICLIENT"
+    ],
+    [
+      223,
+      43,
+      1,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      224,
+      43,
+      2,
+      4,
+      0,
+      "TUPLE"
+    ],
+    [
+      225,
+      43,
+      3,
+      5,
+      0,
+      "TUPLE"
+    ],
+    [
+      226,
+      43,
+      4,
+      6,
+      0,
+      "TUPLE"
+    ],
+    [
+      227,
+      43,
+      5,
+      8,
+      0,
+      "TUPLE"
+    ],
+    [
+      228,
+      43,
+      6,
+      27,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537776,
+      "scale": 0.5644739300537781,
       "offset": [
-        2281.1911665886682,
-        952.8034739970412
+        1618.1757855855335,
+        649.2627330737597
       ]
     },
     "frontendVersion": "1.39.19"

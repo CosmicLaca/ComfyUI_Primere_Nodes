@@ -1,19 +1,15 @@
-response = requests.post("https://{{regions}}/{{version}}/{{model_name}}",
-     headers={
-         "accept": "application/json",
-         "x-key": os.environ.get("BFL_API_KEY"),
-         "Content-Type": "application/json",
-     },
-     json={
-         "output_format": "png",
-         "image_prompt": reference_images,
-         "safety_tolerance": safety_tolerance,
-         "prompt": prompt,
-         "seed": seed,
-         "width": width,
-         "height": height,
-         "prompt_upsampling": "BOOLEAN",
-         "guidance": "FLOAT",
-         "steps": "INT",
-     },
- )
+response = client.models.generate_content(
+    model="gemini-3.1-flash-image-preview",
+    contents=prompt,
+    config=types.GenerateContentConfig(
+        response_modalities=['TEXT', 'IMAGE'],
+        image_config=types.ImageConfig(
+            aspect_ratio=aspect_ratio,
+            image_size=resolution
+        ),
+        thinking_config=types.ThinkingConfig(
+            thinking_level="High",
+            include_thoughts=True
+        ),
+    )
+)

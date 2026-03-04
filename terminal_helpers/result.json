@@ -1,68 +1,58 @@
 {
-  "BlackForest": {
-    "BFL_service": {
-      "provider": "BlackForest",
-      "service": "BFL_service",
-      "response_handler": "BlackForest_BFL_service.py",
+  "Gemini": {
+    "Nano2": {
+      "provider": "Gemini",
+      "service": "Nano2",
+      "response_handler": "Gemini_Nano2.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "guidance": "FLOAT",
-        "model_name": [
-          "fake_model_name_value_1",
-          "fake_model_name_value_2"
+        "aspect_ratio": [
+          "fake_aspect_ratio_value_1",
+          "fake_aspect_ratio_value_2"
         ],
-        "prompt_upsampling": [
-          false,
-          true
-        ],
-        "regions": [
-          "api.bfl.ai",
-          "api.eu.bfl.ai",
-          "api.us.bfl.ai"
-        ],
-        "safety_tolerance": [
-          "fake_safety_tolerance_value_1",
-          "fake_safety_tolerance_value_2"
-        ],
-        "steps": "INT",
-        "version": [
-          "fake_version_value_1",
-          "fake_version_value_2"
+        "resolution": [
+          "512px",
+          "1K",
+          "2K",
+          "4K"
         ]
       },
       "request": {
         "method": "SDK",
-        "endpoint": "requests.post",
+        "endpoint": "client.models.generate_content",
         "sdk_call": {
-          "args": [
-            "https://{{regions}}/{{version}}/{{model_name}}"
-          ],
+          "args": [],
           "kwargs": {
-            "headers": {
-              "accept": "application/json",
-              "x-key": {
-                "$call": "os.environ.get",
-                "$args": [
-                  "BFL_API_KEY"
+            "model": "gemini-3.1-flash-image-preview",
+            "contents": "{{prompt}}",
+            "config": {
+              "$call": "types.GenerateContentConfig",
+              "$args": [],
+              "$kwargs": {
+                "response_modalities": [
+                  "TEXT",
+                  "IMAGE"
                 ],
-                "$kwargs": {}
-              },
-              "Content-Type": "application/json"
-            },
-            "json": {
-              "output_format": "png",
-              "image_prompt": "{{reference_images}}",
-              "safety_tolerance": "{{safety_tolerance}}",
-              "prompt": "{{prompt}}",
-              "seed": "{{seed}}",
-              "width": "{{width}}",
-              "height": "{{height}}",
-              "prompt_upsampling": "{{prompt_upsampling}}",
-              "guidance": "{{guidance}}",
-              "steps": "{{steps}}"
+                "image_config": {
+                  "$call": "types.ImageConfig",
+                  "$args": [],
+                  "$kwargs": {
+                    "aspect_ratio": "{{aspect_ratio}}",
+                    "image_size": "{{resolution}}"
+                  }
+                },
+                "thinking_config": {
+                  "$call": "types.ThinkingConfig",
+                  "$args": [],
+                  "$kwargs": {
+                    "thinking_level": "High",
+                    "include_thoughts": true
+                  }
+                }
+              }
             }
           }
         }
