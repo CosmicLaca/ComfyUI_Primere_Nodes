@@ -267,7 +267,7 @@
       "import_modules": [
       ],
       "possible_parameters": {
-        "model_name": ["flux-kontext-pro", "flux-kontext-max", "flux-pro-1.0-fill", "flux-pro-1.0-expand", "flux-pro", "flux-pro-1.1", "flux-pro-1.1-ultra", "flux-2-flex", "flux-2-pro", "flux-2-max", "flux-2-klein-4b", "flux-2-klein-9b"],
+        "model_name": ["flux-kontext-pro", "flux-kontext-max", "flux-dev", "flux-pro", "flux-pro-1.1", "flux-pro-1.1-ultra", "flux-2-flex", "flux-2-pro-preview", "flux-2-pro", "flux-2-max", "flux-2-flex", "flux-2-klein-4b", "flux-2-klein-9b", "flux-pro-1.0-fill", "flux-pro-1.0-expand"],
         "regions": ["api.bfl.ai", "api.eu.bfl.ai", "api.us.bfl.ai"],
         "version": ["v1"],
         "safety_tolerance": [0, 1, 2, 3, 4, 5, 6],
@@ -297,6 +297,7 @@
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
               "seed": "{{seed}}",
+              "aspect_ratio": "{{aspect_ratio}}",
               "width": "{{width}}",
               "height": "{{height}}",
               "prompt_upsampling": "{{prompt_upsampling}}",
