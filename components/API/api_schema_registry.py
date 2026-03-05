@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import os
 from copy import deepcopy
 from typing import Any
 from pathlib import Path
 import json
+
+from ..tree import PRIMERE_ROOT
 
 
 def _is_service_schema(node: Any) -> bool:

@@ -106,21 +106,6 @@ def build_request(spec: dict[str, Any], values: dict[str, Any]) -> RenderResult:
         request_exclusions=spec.get("request_exclusions") if isinstance(spec.get("request_exclusions"), list) else []
     )
 
-def _canonical_used_value_name(name: str) -> str:
-    low = str(name or "").lower()
-    if "aspect_ratio" in low:
-        return "aspect_ratio"
-    if "resolution" in low or "image_size" in low:
-        return "resolution"
-    if low == "model" or low.endswith("_model"):
-        return "model"
-    if low in {"prompt", "contents"} or low.endswith("_prompt"):
-        return "prompt"
-    if "response_modalities" in low:
-        return "response_modalities"
-    return str(name)
-
-
 def _prepare_used_value_exclusions(exclusions: Any) -> list[dict[str, Any]]:
     if not isinstance(exclusions, list):
         return []

@@ -1,14 +1,6 @@
 import os
 from ..tree import PRIMERE_ROOT
 from .. import utility
-import fal_client
-from dotenv import load_dotenv
-from elevenlabs.client import ElevenLabs
-from elevenlabs import play, save, stream, Voice, VoiceSettings
-from google import genai
-from google.genai import types
-import anthropic
-from openai import OpenAI
 
 def get_api_config(name: str) -> dict:
     path = os.path.join(PRIMERE_ROOT, 'json')
@@ -38,19 +30,25 @@ def create_api_client(api_provider, config_json):
     if api_provider in config_json:
         match api_provider:
             case "OpenAI":
+                from openai import OpenAI
                 APIClient = OpenAI(api_key=config_json['OpenAI']['APIKEY'])
             case "Anthropic":
+                import anthropic
                 APIClient = anthropic.Anthropic(api_key=config_json['Anthropic']['APIKEY'])
             case "BlackForest":
                 APIClient = True
             case "Gemini":
+                from google import genai
                 APIClient = genai.Client(api_key=config_json['Gemini']['APIKEY'])
             case "HeyGen":
-                APIClient = True  # genai.Client(api_key=config_json['HeyGen']['APIKEY'])
+                APIClient = True
             case "FAL":
+                import fal_client  # noqa: F401 — registers FAL SDK; key is set via env
                 APIClient = True
                 os.environ["FAL_KEY"] = config_json['FAL']['APIKEY']
             case "Elevenlabs":
+                from dotenv import load_dotenv
+                from elevenlabs.client import ElevenLabs
                 load_dotenv()
                 APIClient = ElevenLabs(api_key=config_json['Elevenlabs']['APIKEY'])
             case _:

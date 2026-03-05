@@ -24,8 +24,8 @@ from ..components.API import api_schema_registry
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
-    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
-    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "REQUEST_BODY", "API_SCHEMAS", "API_RESULT")
+    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
+    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "RAW_PAYLOAD", "REQUEST_BODY", "API_SCHEMAS", "API_RESULT")
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
@@ -66,7 +66,6 @@ class PrimereApiProcessor:
         API_CONFIG_PATH = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
         API_SCHEMA_REGISTRY = api_schema_registry.load_and_validate_api_schema_registry(API_SCHEMAS_PATH, API_CONFIG_PATH)
 
-        # img_binary_api = []
         img_binary_api = None
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
@@ -74,15 +73,17 @@ class PrimereApiProcessor:
 
         custom_user_inputs = {k: v for k, v in custom_values.items() if k not in self.required_inputs}
         custom_user_inputs = {k: v for k, v in custom_user_inputs.items() if k not in self.optional_inputs}
-        # return (None, api_provider, None, custom_user_inputs, None, None, None)
         del kwargs['extra_pnginfo']
         del kwargs['prompt_extra']
 
         if not processor:
-            return (None, api_provider, None, None, None, None, reference_images)
+            return (None, None, api_provider, None, None, None, None, None, None)
 
         config_json = self.API_RESULT
+        _requested_provider = api_provider
         client, api_provider = api_helper.create_api_client(api_provider, config_json)
+        if client is None:
+            raise RuntimeError(f"Unknown or unconfigured API provider '{_requested_provider}'. Check apiconfig.json.")
 
         schema, selected_service = api_schema_registry.get_schema(API_SCHEMA_REGISTRY, api_provider, api_service)
         if schema is None:
@@ -175,7 +176,6 @@ class PrimereApiProcessor:
                     selected_parameters[key] = kwargs[key]
 
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
-        # rendered_payload = rendered.__dict__
         rendered_payload = copy.deepcopy(rendered.__dict__)
         if img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
             rendered_payload = external_api_backend.sanitize_api_debug_payload(rendered_payload)
@@ -194,6 +194,13 @@ class PrimereApiProcessor:
                         sdk_kwargs["contents"] = sanitized_contents
 
         used_values_output = external_api_backend.sanitize_api_debug_payload(used_values)
+
+        if isinstance(rendered.sdk_call, dict):
+            raw_payload = external_api_backend.sanitize_api_debug_payload(copy.deepcopy(rendered.sdk_call.get("kwargs", {})))
+        elif rendered.body is not None:
+            raw_payload = external_api_backend.sanitize_api_debug_payload(copy.deepcopy(rendered.body))
+        else:
+            raw_payload = {}
 
         api_result = None
         api_error = None
@@ -229,11 +236,9 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values_output, api_result, None)
+                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_result, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots, match_context=used_values)
             else:
-                import requests
-
                 response = requests.request(
                     method=rendered.method,
                     url=rendered.endpoint,
@@ -260,9 +265,7 @@ class PrimereApiProcessor:
                 "selected_parameters": selected_parameters_output,
                 "used_values": used_values_output,
                 "selected_service": selected_service,
-                # "rendered": rendered.__dict__,
                 "rendered": rendered_payload,
-                # "api_result": api_result,
                 "api_result": api_result_debug,
                 "api_error": api_error,
             },
@@ -272,8 +275,7 @@ class PrimereApiProcessor:
             raise RuntimeError(f"API call failed for {api_provider}/{selected_service}: {api_error}")
 
         if api_error is None:
-            # result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service))
             response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
             result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
 
-        return (result_image, client, api_provider, schema, rendered_payload, used_values_output, api_schemas, api_result_debug)
+        return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug)
