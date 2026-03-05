@@ -66,7 +66,8 @@ class PrimereApiProcessor:
         API_CONFIG_PATH = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
         API_SCHEMA_REGISTRY = api_schema_registry.load_and_validate_api_schema_registry(API_SCHEMAS_PATH, API_CONFIG_PATH)
 
-        img_binary_api = []
+        # img_binary_api = []
+        img_binary_api = None
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
         custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', kwargs['prompt_extra'])
@@ -109,43 +110,28 @@ class PrimereApiProcessor:
             endpoint_root = endpoint_value.split(".", 1)[0] if isinstance(endpoint_value, str) and "." in endpoint_value else "client"
             loaded_client_for_upload = imported_context.get(endpoint_root, client)
 
-            if reference_images is not None:
-                if (type(reference_images).__name__ == "list" or type(reference_images).__name__ == "Tensor") and len(reference_images) > 0:
-                    source_images = []
-                    if type(reference_images).__name__ == "list":
-                        source_images = reference_images
-                    else:
-                        source_images.append(reference_images)
+            ref_type_name = type(reference_images).__name__ if reference_images is not None else ""
+            if ref_type_name in {"list", "Tensor"} and len(reference_images) > 0:
+                source_images = reference_images if ref_type_name == "list" else [reference_images]
+                img_binary_api = []
 
-                    for single_image in source_images:
-                        r1 = random.randint(1000, 9999)
-                        if single_image is not None and type(single_image).__name__ == "Tensor":
-                            ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
-                            ref_file = Image.fromarray(ref_image)
-                            TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
-                            ref_file.save(TEMP_FILE_REF, format="PNG")
-                            if api_provider == "Gemini":
-                                gemini_image_data = Image.open(TEMP_FILE_REF)
-                                img_binary_api.append(gemini_image_data)
-                            if api_provider == "BlackForest":
-                                encoded_image = None
-                                single_image = source_images[0]
-                                width_original = single_image.shape[2]
-                                height_original = single_image.shape[1]
-                                image_np_bf = (single_image.numpy() * 255).astype(np.uint8)
-                                img_bf = Image.fromarray(image_np_bf)
-                                img_byte_arr_bf = io.BytesIO()
-                                img_bf.save(img_byte_arr_bf, format="PNG")
-                                img_byte_arr_bf.seek(0)
-                                encoded_string = base64.b64encode(img_byte_arr_bf.read())
-                                img_binary_api = encoded_string.decode('ascii')
-                                break
-
-                            elif hasattr(loaded_client_for_upload, "upload_file"):
-                                uploaded_reference = loaded_client_for_upload.upload_file(TEMP_FILE_REF)
-                                img_binary_api.append(uploaded_reference)
-                            else:
-                                img_binary_api.append(TEMP_FILE_REF)
+                for single_image in source_images:
+                    r1 = random.randint(1000, 9999)
+                    if single_image is not None and type(single_image).__name__ == "Tensor":
+                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
+                        ref_file = Image.fromarray(ref_image)
+                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
+                        ref_file.save(TEMP_FILE_REF, format="PNG")
+                        handler_context = {
+                            "img_binary_api": img_binary_api,
+                            "single_image": single_image,
+                            "source_images": source_images,
+                            "temp_file_ref": TEMP_FILE_REF,
+                            "loaded_client_for_upload": loaded_client_for_upload,
+                        }
+                        img_binary_api = external_api_backend.apply_reference_images_handler(schema, api_provider, handler_context)
+                        if not isinstance(img_binary_api, list):
+                            break
         else:
             img_binary_api = 'Debug mode, reference images ignored.'
 
@@ -156,7 +142,7 @@ class PrimereApiProcessor:
         local_inputs = locals()
         required_keys = set(self.required_inputs.keys()) if isinstance(getattr(self, "required_inputs", None), dict) else set()
         optional_keys = set(self.optional_inputs.keys()) if isinstance(getattr(self, "optional_inputs", None), dict) else set()
-        reserved_keys = {"processor", "api_provider", "api_service"}
+        reserved_keys = {"processor", "api_provider", "api_service", "reference_images"}
 
         for key in (required_keys | optional_keys):
             if key in reserved_keys:
@@ -176,7 +162,7 @@ class PrimereApiProcessor:
                 selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, schema_aspect_ratios)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
 
-        if len(img_binary_api) > 0:
+        if img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
             selected_parameters["reference_images"] = img_binary_api
 
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
@@ -188,7 +174,7 @@ class PrimereApiProcessor:
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
         # rendered_payload = rendered.__dict__
         rendered_payload = copy.deepcopy(rendered.__dict__)
-        if len(img_binary_api) > 0:
+        if isinstance(img_binary_api, list) and len(img_binary_api) > 0:
             rendered_payload = external_api_backend.redact_reference_images(rendered_payload)
             sdk_call = rendered_payload.get("sdk_call")
             if isinstance(sdk_call, dict):

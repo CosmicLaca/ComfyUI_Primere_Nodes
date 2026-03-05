@@ -166,7 +166,7 @@
         },
         {
           "when": {"path": "model_type", "equals": "text-to-image"},
-          "remove": ["reference_images"]
+          "remove": ["reference_images", "image_urls"]
         }
       ],
       "request": {
@@ -296,6 +296,7 @@
               "output_format": "png",
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
+              "input_image": "{{reference_images}}",
               "seed": "{{seed}}",
               "aspect_ratio": "{{aspect_ratio}}",
               "width": "{{width}}",

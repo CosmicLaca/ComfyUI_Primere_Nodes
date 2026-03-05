@@ -397,6 +397,76 @@ Meaning of parameters:
 
 ---
 
+### `reference_images_handler` (short tutorial)
+
+Reference image conversion/upload is also schema-driven and provider-pluggable.
+
+Handler files are loaded from:
+
+- `components/API/references`
+
+Resolution order:
+
+1. `reference_images_handler` from service schema (if defined)
+2. `<provider>.py`
+3. `default.py`
+
+Minimal fake example in `api_schemas.json`:
+
+```json
+{
+  "FakeProvider": {
+    "FakeEditService": {
+      "provider": "FakeProvider",
+      "service": "FakeEditService",
+      "reference_images_handler": "FakeProvider.py",
+      "response_handler": "FakeProvider_FakeEditService.py",
+      "request": {
+        "method": "SDK",
+        "endpoint": "client.images.edit",
+        "sdk_call": {
+          "args": [],
+          "kwargs": {
+            "prompt": "{{prompt}}",
+            "image": "{{reference_images}}"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Custom override example (shared handler name):
+
+```json
+"reference_images_handler": "SharedUploadHandler.py"
+```
+
+Minimal fake handler file:
+
+```python
+def handle_reference_images(
+    img_binary_api=None,
+    temp_file_ref="",
+    loaded_client_for_upload=None,
+    **kwargs,
+):
+    output = img_binary_api if isinstance(img_binary_api, list) else []
+    if temp_file_ref and hasattr(loaded_client_for_upload, "upload_file"):
+        output.append(loaded_client_for_upload.upload_file(temp_file_ref))
+    elif temp_file_ref:
+        output.append(temp_file_ref)
+    return output
+```
+
+Notes:
+
+- If no reference image input is connected, Uniapi does not send `reference_images`.
+- Any `None` value is removed from rendered request structures before API call.
+
+---
+
 ## 6) Runtime expectations
 
 - JSON syntax in `front_end/api_schemas.json` is strictly validated at load time (line/column errors are raised).

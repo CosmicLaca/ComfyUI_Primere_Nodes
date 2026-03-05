@@ -567,6 +567,49 @@ def _load_response_handler(filename: str):
 
     return handler
 
+def _load_reference_images_handler(filename: str):
+    safe_name = _safe_response_handler_filename(filename)
+    base_dir = os.path.join(PRIMERE_ROOT, 'components', 'API', 'references')
+    module_path = os.path.join(base_dir, safe_name)
+    if not Path(module_path).exists():
+        return None
+
+    package_name = "primere_reference_handlers"
+    package = sys.modules.get(package_name)
+    if package is None:
+        package = types.ModuleType(package_name)
+        package.__path__ = [base_dir]
+        sys.modules[package_name] = package
+
+    module_stem = safe_name[:-3].replace('.', '_').replace('-', '_')
+    module_name = f"{package_name}.{module_stem}"
+    spec = importlib.util.spec_from_file_location(module_name, str(module_path))
+    if spec is None or spec.loader is None:
+        raise ExternalAPIError(f"Cannot import reference images handler: {safe_name}")
+
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    handler = getattr(module, "handle_reference_images", None)
+    if not callable(handler):
+        raise ExternalAPIError(f"Reference images handler '{safe_name}' must define callable handle_reference_images(**kwargs)")
+
+    return handler
+
+
+def apply_reference_images_handler(schema: dict[str, Any] | None, provider: str, handler_context: dict[str, Any] | None = None) -> Any:
+    safe_provider = str(provider or "").strip()
+    configured_handler = schema.get("reference_images_handler") if isinstance(schema, dict) else None
+    handler_file = str(configured_handler).strip() if configured_handler not in (None, "") else f"{safe_provider}.py"
+    handler = _load_reference_images_handler(handler_file)
+    if handler is None:
+        handler = _load_reference_images_handler("default.py")
+    if handler is None:
+        raise ExternalAPIError("Reference images handler file not found: default.py")
+
+    context = handler_context if isinstance(handler_context, dict) else {}
+    return handler(**context)
+
 def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provider: str = "", service: str = "", response_context: dict[str, Any] | None = None) -> Any:
     if api_result is None:
         return None
@@ -594,6 +637,9 @@ def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provi
     return handler(api_result, **kwargs)
 
 def sanitize_debug_value(value: Any) -> Any:
+    if isinstance(value, torch.Tensor):
+        return f"[torch.Tensor omitted: shape={tuple(value.shape)}, dtype={value.dtype}]"
+
     if isinstance(value, dict):
         sanitized_dict = {}
         for k, v in value.items():
@@ -605,8 +651,14 @@ def sanitize_debug_value(value: Any) -> Any:
             sanitized_dict[k] = sanitize_debug_value(v)
         return sanitized_dict
     if isinstance(value, list):
+        tensor_count = sum(1 for item in value if isinstance(item, torch.Tensor))
+        if tensor_count == len(value) and tensor_count > 0:
+            return f"[tensor list omitted: {tensor_count} tensors]"
         return [sanitize_debug_value(v) for v in value]
     if isinstance(value, tuple):
+        tensor_count = sum(1 for item in value if isinstance(item, torch.Tensor))
+        if tensor_count == len(value) and tensor_count > 0:
+            return f"[tensor tuple omitted: {tensor_count} tensors]"
         return tuple(sanitize_debug_value(v) for v in value)
     if isinstance(value, (bytes, bytearray, memoryview)):
         return f"[binary data omitted: {len(value)} bytes]"
