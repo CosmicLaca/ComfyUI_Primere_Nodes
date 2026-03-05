@@ -14,10 +14,6 @@ import os
 
 COMPONENTS = Path(__file__).parent.absolute()
 PRIMERE_ROOT = COMPONENTS.parent
-if str(PRIMERE_ROOT) not in sys.path:
-    sys.path.insert(0, str(PRIMERE_ROOT))
-
-from components.API.external_api_backend import canonical_param_name
 
 class SnippetParseError(RuntimeError):
     """Raised when call extraction fails."""
@@ -37,7 +33,7 @@ KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
 
 TYPE_MARKERS = {"INT", "FLOAT", "STRING", "BOOLEAN"}
 INLINE_PLACEHOLDER_RE = re.compile(r"(?<!\{)\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}(?!\})")
-EXCLUDED_PARAMETER_KEYS = {"prompt", "response_modalities", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
+EXCLUDED_PARAMETER_KEYS = {"prompt", "batch", "response_modalities", "width", "height", "seed", "reference_images", "first_image", "last_image", "negative_prompt"}
 
 DEFAULT_IMPORT_MODULES: dict[str, list[str]] = {
     "generic": [
@@ -157,21 +153,21 @@ def _collect_placeholders(node: Any) -> set[str]:
     walk(node)
     return found
 
-'''def _canonical_param_name(name: str) -> str:
-    low = name.lower()
+def canonical_param_name(name: str, *, number_of_images_as_seed: bool = False) -> str:
+    low = str(name or "").lower()
     if "aspect_ratio" in low:
         return "aspect_ratio"
     if "resolution" in low or "image_size" in low:
         return "resolution"
     if low == "model" or low.endswith("_model"):
         return "model"
-    if low == "number_of_images":
+    if number_of_images_as_seed and low == "number_of_images":
         return "seed"
     if low in {"prompt", "contents"} or low.endswith("_prompt"):
         return "prompt"
     if "response_modalities" in low:
         return "response_modalities"
-    return name'''
+    return str(name)
 
 def _collect_type_markers(node: ast.AST) -> dict[str, str]:
     marked: dict[str, str] = {}

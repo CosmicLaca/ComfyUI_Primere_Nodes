@@ -1,9 +1,9 @@
 {
   "Gemini": {
-    "Nano2": {
+    "Imagen": {
       "provider": "Gemini",
-      "service": "Nano2",
-      "response_handler": "Gemini_Nano2.py",
+      "service": "Imagen",
+      "response_handler": "Gemini_Imagen.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
@@ -14,7 +14,6 @@
           "fake_aspect_ratio_value_2"
         ],
         "resolution": [
-          "512px",
           "1K",
           "2K",
           "4K"
@@ -33,7 +32,6 @@
               "$args": [],
               "$kwargs": {
                 "response_modalities": [
-                  "TEXT",
                   "IMAGE"
                 ],
                 "image_config": {
