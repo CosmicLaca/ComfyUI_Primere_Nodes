@@ -434,7 +434,8 @@ def redact_reference_images(node):
     if isinstance(node, dict):
         sanitized = {}
         for key, value in node.items():
-            if key == "reference_images":
+            key_name = str(key or "").lower()
+            if key_name == "reference_images" or key_name == "input_image" or key_name.startswith("input_image_"):
                 sanitized[key] = "[reference_images omitted]"
             else:
                 sanitized[key] = redact_reference_images(value)
@@ -648,6 +649,18 @@ def sanitize_debug_value(value: Any) -> Any:
                 encoded_size = len(v) if isinstance(v, (str, bytes, bytearray, memoryview)) else 0
                 sanitized_dict[k] = f"[base64 omitted: {encoded_size} chars]"
                 continue
+            if key_name in {"reference_images", "input_image"} or key_name.startswith("input_image_"):
+                if isinstance(v, str):
+                    sanitized_dict[k] = f"[image payload omitted: {len(v)} chars]"
+                elif isinstance(v, list):
+                    sanitized_dict[k] = f"[image payload list omitted: {len(v)} items]"
+                elif isinstance(v, tuple):
+                    sanitized_dict[k] = f"[image payload tuple omitted: {len(v)} items]"
+                elif isinstance(v, dict):
+                    sanitized_dict[k] = f"[image payload object omitted: {len(v)} keys]"
+                else:
+                    sanitized_dict[k] = "[image payload omitted]"
+                continue
             sanitized_dict[k] = sanitize_debug_value(v)
         return sanitized_dict
     if isinstance(value, list):
@@ -689,6 +702,8 @@ def sanitize_debug_value(value: Any) -> Any:
 
     return value
 
+def sanitize_api_debug_payload(value: Any) -> Any:
+    return redact_reference_images(sanitize_debug_value(value))
 def canonical_param_name(name: str, *, number_of_images_as_seed: bool = False) -> str:
     low = str(name or "").lower()
     if "aspect_ratio" in low:

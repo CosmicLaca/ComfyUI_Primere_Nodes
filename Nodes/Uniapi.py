@@ -104,36 +104,39 @@ class PrimereApiProcessor:
             raise RuntimeError("Schema key 'import_modules' must be a list of import statements.")
         schema["import_modules"] = schema_import_modules
 
-        if not debug_mode:
-            imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
-            endpoint_value = (((schema.get("request") or {}).get("endpoint")) if isinstance(schema, dict) else "") or ""
-            endpoint_root = endpoint_value.split(".", 1)[0] if isinstance(endpoint_value, str) and "." in endpoint_value else "client"
-            loaded_client_for_upload = imported_context.get(endpoint_root, client)
+        imported_context, imported_roots = external_api_backend.load_import_modules(schema_import_modules)
+        endpoint_value = (((schema.get("request") or {}).get("endpoint")) if isinstance(schema, dict) else "") or ""
+        endpoint_root = endpoint_value.split(".", 1)[0] if isinstance(endpoint_value, str) and "." in endpoint_value else "client"
+        loaded_client_for_upload = imported_context.get(endpoint_root, client)
 
-            ref_type_name = type(reference_images).__name__ if reference_images is not None else ""
-            if ref_type_name in {"list", "Tensor"} and len(reference_images) > 0:
-                source_images = reference_images if ref_type_name == "list" else [reference_images]
-                img_binary_api = []
+        ref_type_name = type(reference_images).__name__ if reference_images is not None else ""
+        if ref_type_name in {"list", "Tensor"} and len(reference_images) > 0:
+            source_images = reference_images if ref_type_name == "list" else [reference_images]
+            img_binary_api = []
 
-                for single_image in source_images:
-                    r1 = random.randint(1000, 9999)
-                    if single_image is not None and type(single_image).__name__ == "Tensor":
-                        ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
-                        ref_file = Image.fromarray(ref_image)
-                        TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
-                        ref_file.save(TEMP_FILE_REF, format="PNG")
-                        handler_context = {
-                            "img_binary_api": img_binary_api,
-                            "single_image": single_image,
-                            "source_images": source_images,
-                            "temp_file_ref": TEMP_FILE_REF,
-                            "loaded_client_for_upload": loaded_client_for_upload,
-                        }
+            for single_image in source_images:
+                r1 = random.randint(1000, 9999)
+                if single_image is not None and type(single_image).__name__ == "Tensor":
+                    ref_image = (single_image[0].numpy() * 255).astype(np.uint8)
+                    ref_file = Image.fromarray(ref_image)
+                    TEMP_FILE_REF = os.path.join(folder_paths.temp_directory, f"{api_provider}_edit_{r1}.png")
+                    ref_file.save(TEMP_FILE_REF, format="PNG")
+                    handler_context = {
+                        "img_binary_api": img_binary_api,
+                        "single_image": single_image,
+                        "source_images": source_images,
+                        "temp_file_ref": TEMP_FILE_REF,
+                        "loaded_client_for_upload": loaded_client_for_upload,
+                    }
+                    if not debug_mode:
                         img_binary_api = external_api_backend.apply_reference_images_handler(schema, api_provider, handler_context)
                         if not isinstance(img_binary_api, list):
                             break
+                    else:
+                        img_binary_api = f'Debug mode, data or view of [{len(reference_images)}] reference images ignored.'
         else:
-            img_binary_api = 'Debug mode, reference images ignored.'
+            if debug_mode:
+                img_binary_api = 'Reference images off. Please check the source.'
 
         selected_parameters = {"prompt": prompt}
         selected_parameters = {"width": width}
@@ -162,7 +165,9 @@ class PrimereApiProcessor:
                 selected_aspect_ratio = external_api_backend.closest_valid_ratio(aspect_ratio, schema_aspect_ratios)
             selected_parameters["aspect_ratio"] = selected_aspect_ratio
 
-        if img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
+        if isinstance(img_binary_api, dict) and len(img_binary_api) > 0:
+            selected_parameters.update(img_binary_api)
+        elif img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
             selected_parameters["reference_images"] = img_binary_api
 
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
@@ -174,8 +179,8 @@ class PrimereApiProcessor:
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
         # rendered_payload = rendered.__dict__
         rendered_payload = copy.deepcopy(rendered.__dict__)
-        if isinstance(img_binary_api, list) and len(img_binary_api) > 0:
-            rendered_payload = external_api_backend.redact_reference_images(rendered_payload)
+        if img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
+            rendered_payload = external_api_backend.sanitize_api_debug_payload(rendered_payload)
             sdk_call = rendered_payload.get("sdk_call")
             if isinstance(sdk_call, dict):
                 sdk_kwargs = sdk_call.get("kwargs")
@@ -189,6 +194,8 @@ class PrimereApiProcessor:
                             else:
                                 sanitized_contents.append(content_item)
                         sdk_kwargs["contents"] = sanitized_contents
+
+        used_values_output = external_api_backend.sanitize_api_debug_payload(used_values)
 
         api_result = None
         api_error = None
@@ -224,7 +231,7 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values, api_result, None)
+                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values_output, api_result, None)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
             else:
                 import requests
@@ -246,13 +253,14 @@ class PrimereApiProcessor:
             api_error = str(e)
 
         selected_parameters_output = {k: v for k, v in selected_parameters.items() if k != "reference_images"}
+        selected_parameters_output = external_api_backend.sanitize_api_debug_payload(selected_parameters_output)
 
         api_result_debug = external_api_backend.sanitize_debug_value(api_result)
         api_schemas = (
             {
                 "schema": schema,
                 "selected_parameters": selected_parameters_output,
-                "used_values": used_values,
+                "used_values": used_values_output,
                 "selected_service": selected_service,
                 # "rendered": rendered.__dict__,
                 "rendered": rendered_payload,
@@ -270,4 +278,4 @@ class PrimereApiProcessor:
             response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
             result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
 
-        return (result_image, client, api_provider, schema, rendered_payload, used_values, api_schemas, api_result_debug)
+        return (result_image, client, api_provider, schema, rendered_payload, used_values_output, api_schemas, api_result_debug)

@@ -73,7 +73,11 @@ def _default_value(name: str) -> Any:
 
 def _is_optional_image_input(name: str) -> bool:
     low = str(name or "").lower()
-    return low in {"reference_images", "first_image", "last_image"}
+    if low in {"reference_images", "first_image", "last_image"}:
+        return True
+    if low == "input_image" or low.startswith("input_image_"):
+        return True
+    return False
 
 def _build_values(spec: dict[str, Any], values: dict[str, Any] | None = None) -> dict[str, Any]:
     user_values = values or {}
@@ -190,6 +194,7 @@ def render_from_schema(spec: dict[str, Any], values: dict[str, Any] | None = Non
         dict(rendered_kwargs),
         request_exclusions,
         use_kwargs_fallback=True,
+        match_context=used_values,
     )
 
     filtered_used_values = _filter_used_values_from_template(spec, used_values, matched_remove_paths)

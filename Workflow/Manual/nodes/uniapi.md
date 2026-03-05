@@ -307,6 +307,31 @@ How runtime resolves URL placeholders:
 
 This is universal and works for any provider/service that uses placeholder-based URL templates.
 
+### Endpoint placeholders (SDK method templating)
+
+You can also template `request.endpoint` directly, for example to switch between generate/edit methods:
+
+```json
+"request": {
+  "method": "SDK",
+  "endpoint": "client.images.{{gen_method}}",
+  "sdk_call": {
+    "args": [],
+    "kwargs": {
+      "model": "{{model}}",
+      "image": "{{reference_images}}",
+      "prompt": "{{prompt}}"
+    }
+  }
+},
+"possible_parameters": {
+  "gen_method": ["generate", "edit"]
+}
+```
+
+Runtime behavior is the same as URL placeholders: selected value is injected before SDK execution,
+so endpoint becomes either `client.images.generate` or `client.images.edit`.
+
 ### Header authentication placeholders (`{{api_key}}`)
 
 For providers that expect auth in headers, you can keep schema portable by using an auth placeholder:

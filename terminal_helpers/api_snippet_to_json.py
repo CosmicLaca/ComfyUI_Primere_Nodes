@@ -29,6 +29,7 @@ KNOWN_PARAM_OPTIONS: dict[str, list[str]] = {
     "model": ["example-model-1", "example-model-2"],
     "resolution": ["1K", "2K", "4K"],
     "regions": ["api.bfl.ai", "api.eu.bfl.ai", "api.us.bfl.ai"],
+    "gen_method": ["generate", "edit"],
 }
 
 TYPE_MARKERS = {"INT", "FLOAT", "STRING", "BOOLEAN"}

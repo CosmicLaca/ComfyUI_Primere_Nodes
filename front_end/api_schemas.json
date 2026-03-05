@@ -273,8 +273,63 @@
         "safety_tolerance": [0, 1, 2, 3, 4, 5, 6],
         "prompt_upsampling": [false, true],
         "guidance": "FLOAT",
-        "steps": "INT"
+        "steps": "INT",
+        "image_prompt_strength": "FLOAT"
       },
+      "request_exclusions": [
+        {
+          "when": {"path": "model_name", "equals": "flux-pro-1.1"},
+          "remove": ["aspect_ratio", "image", "mask", "reference_mask", "image_prompt_strength", "input_image", "input_image_2", "input_image_3", "input_image_4", "input_image_5", "input_image_6", "input_image_7", "input_image_8"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-dev"},
+          "remove": ["aspect_ratio", "image", "mask", "reference_mask", "image_prompt_strength", "input_image", "input_image_2", "input_image_3", "input_image_4", "input_image_5", "input_image_6", "input_image_7", "input_image_8"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-pro-1.1-ultra"},
+          "remove": ["width", "height", "image", "mask", "reference_mask", "input_image", "input_image_2", "input_image_3", "input_image_4", "input_image_5", "input_image_6", "input_image_7", "input_image_8"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-pro-1.0-fill"},
+          "remove": ["width", "height", "aspect_ratio", "input_image", "image_prompt", "input_image_2", "input_image_3", "input_image_4", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-pro-1.0-expand"},
+          "remove": ["width", "height", "aspect_ratio", "mask", "reference_mask", "input_image", "image_prompt", "input_image_2", "input_image_3", "input_image_4", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-kontext-pro"},
+          "remove": ["width", "height", "mask", "reference_mask", "image", "image_prompt", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-kontext-max"},
+          "remove": ["width", "height", "mask", "reference_mask", "image", "image_prompt", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-max"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-klein-9b"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-klein-4b"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "input_image_5", "input_image_6", "input_image_7", "input_image_8", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-pro-preview"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-pro"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "image_prompt_strength"]
+        },
+        {
+          "when": {"path": "model_name", "equals": "flux-2-flex"},
+          "remove": ["aspect_ratio", "mask", "reference_mask", "image", "image_prompt", "image_prompt_strength"]
+        }
+      ],
       "request": {
         "method": "SDK",
         "endpoint": "requests.post",
@@ -296,7 +351,18 @@
               "output_format": "png",
               "safety_tolerance": "{{safety_tolerance}}",
               "prompt": "{{prompt}}",
-              "input_image": "{{reference_images}}",
+              "image": "{{input_image}}",
+              "mask": "{{reference_mask}}",
+              "image_prompt": "{{input_image}}",
+              "input_image": "{{input_image}}",
+              "input_image_2": "{{input_image_2}}",
+              "input_image_3": "{{input_image_3}}",
+              "input_image_4": "{{input_image_4}}",
+              "input_image_5": "{{input_image_5}}",
+              "input_image_6": "{{input_image_6}}",
+              "input_image_7": "{{input_image_7}}",
+              "input_image_8": "{{input_image_8}}",
+              "image_prompt_strength": "{{image_prompt_strength}}",
               "seed": "{{seed}}",
               "aspect_ratio": "{{aspect_ratio}}",
               "width": "{{width}}",
@@ -311,17 +377,19 @@
     }
   },
   "OpenAI": {
-    "OpenAI_GPT_T2I": {
+    "OpenAI_GPT": {
       "provider": "OpenAI",
-      "service": "OpenAI_GPT_T2I",
+      "service": "OpenAI_GPT",
       "response_handler": "OpenAI_Image.py",
       "import_modules": [
         "from openai import OpenAI"
       ],
       "possible_parameters": {
-        "model": ["gpt-image-1.5", "gpt-image-1", "gpt-image-1-mini"],
+        "model": ["chatgpt-image-latest", "gpt-image-1.5", "gpt-image-1", "gpt-image-1-mini"],
+        "gen_method": ["generate", "edit"],
         "background": ["auto", "transparent", "opaque"],
         "moderation": ["low", "auto"],
+        "input_fidelity": ["high", "low"],
         "output_format": ["jpeg", "png", "webp"],
         "output_compression": "INT",
         "quality": ["high", "low", "medium", "auto"],
@@ -331,18 +399,28 @@
         {
           "when": {"path": "output_format", "equals": "png"},
           "remove": ["output_compression"]
+        },
+        {
+          "when": {"path": "gen_method", "equals": "edit"},
+          "remove": ["moderation"]
+        },
+        {
+          "when": {"path": "gen_method", "equals": "generate"},
+          "remove": ["image", "reference_images", "input_fidelity"]
         }
       ],
       "request": {
         "method": "SDK",
-        "endpoint": "client.images.generate",
+        "endpoint": "client.images.{{gen_method}}",
         "sdk_call": {
           "args": [],
           "kwargs": {
             "model": "{{model}}",
+            "image": "{{reference_images}}",
             "prompt": "{{prompt}}",
             "n": "{{batch}}",
             "moderation": "{{moderation}}",
+            "input_fidelity": "{{input_fidelity}}",
             "background": "{{background}}",
             "output_format": "{{output_format}}",
             "output_compression": "{{output_compression}}",
