@@ -138,9 +138,7 @@ class PrimereApiProcessor:
             if debug_mode:
                 img_binary_api = 'Reference images off. Please check the source.'
 
-        selected_parameters = {"prompt": prompt}
-        selected_parameters = {"width": width}
-        selected_parameters = {"height": height}
+        selected_parameters = {"prompt": prompt, "width": width, "height": height}
 
         local_inputs = locals()
         required_keys = set(self.required_inputs.keys()) if isinstance(getattr(self, "required_inputs", None), dict) else set()
@@ -232,7 +230,7 @@ class PrimereApiProcessor:
 
                 if debug_mode:
                     return (reference_images, loaded_client, api_provider, schema, rendered_payload, used_values_output, api_result, None)
-                api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots)
+                api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots, match_context=used_values)
             else:
                 import requests
 

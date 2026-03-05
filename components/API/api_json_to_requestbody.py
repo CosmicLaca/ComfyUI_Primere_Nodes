@@ -200,6 +200,11 @@ def render_from_schema(spec: dict[str, Any], values: dict[str, Any] | None = Non
     filtered_used_values = _filter_used_values_from_template(spec, used_values, matched_remove_paths)
     filtered_used_values = {k: v for k, v in filtered_used_values.items() if v is not None}
 
+    if matched_remove_paths and isinstance(rendered.sdk_call, dict):
+        sdk_kwargs = rendered.sdk_call.get("kwargs")
+        if isinstance(sdk_kwargs, dict):
+            request_exceptions.apply_remove_paths(sdk_kwargs, matched_remove_paths, use_kwargs_fallback=True)
+
     rendered.headers = _remove_none_values(rendered.headers) if isinstance(rendered.headers, dict) else rendered.headers
     rendered.query = _remove_none_values(rendered.query) if isinstance(rendered.query, dict) else rendered.query
     rendered.body = _remove_none_values(rendered.body)

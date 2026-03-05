@@ -322,13 +322,13 @@ def _apply_auth_header_fallback(kwargs: dict[str, Any], context: dict[str, Any])
         if headers.get(auth_key) in (None, "", "null"):
             headers[auth_key] = provider_api_key
 
-def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed_roots: set[str] | None = None) -> Any:
+def execute_sdk_request(rendered: RenderResult, context: dict[str, Any], allowed_roots: set[str] | None = None, match_context: dict[str, Any] | None = None) -> Any:
     if rendered.method.upper() != "SDK":
         raise ExternalAPIError("execute_sdk_request expects SDK method")
     roots = allowed_roots or set(context.keys())
     fn = _resolve_dotted_from_context(str(rendered.endpoint), context, roots)
     args, kwargs = normalize_sdk_call(rendered.sdk_call)
-    filtered_args, filtered_kwargs = request_exceptions.apply_sdk_request_exclusions(args=list(args), kwargs=dict(kwargs), exclusions=rendered.request_exclusions)
+    filtered_args, filtered_kwargs = request_exceptions.apply_sdk_request_exclusions(args=list(args), kwargs=dict(kwargs), exclusions=rendered.request_exclusions, match_context=match_context)
     safe_args = [_materialize_sdk_value(a, context, roots) for a in filtered_args]
     safe_kwargs = {k: _materialize_sdk_value(v, context, roots) for k, v in filtered_kwargs.items()}
     _apply_auth_header_fallback(safe_kwargs, context)

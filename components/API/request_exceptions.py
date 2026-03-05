@@ -253,6 +253,7 @@ def apply_sdk_request_exclusions(
     args: list[Any],
     kwargs: dict[str, Any],
     exclusions: list[dict[str, Any]] | None,
+    match_context: dict[str, Any] | None = None,
 ) -> tuple[list[Any], dict[str, Any]]:
     """Apply schema-driven exclusion rules to SDK kwargs."""
     if not isinstance(kwargs, dict):
@@ -263,5 +264,6 @@ def apply_sdk_request_exclusions(
         exclusions,
         use_kwargs_fallback=True,
         canonicalize_key=None,
+        match_context=match_context,
     )
     return args, filtered_kwargs
