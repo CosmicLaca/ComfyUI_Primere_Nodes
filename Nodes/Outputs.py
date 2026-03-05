@@ -859,8 +859,11 @@ class PrimerePreviewImage():
                 "image_quality": ("INT",  {"default": 95, "min": 10, "max": 100, "step": 5}),
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
                 "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
-
-                "images": ("IMAGE", ),
+                "embed_metadata": ("BOOLEAN", {"default": False, "label_on": "Embed metadata", "label_off": "No metadata"}),
+            },
+            "optional": {
+                "images": ("IMAGE", {"default": None}),
+                "image_metadata": ('TUPLE', {"forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -870,7 +873,7 @@ class PrimerePreviewImage():
             },
         }
 
-    def preview_img_saver(self, images, *args, **kwargs):
+    def preview_img_saver(self, image_save_as, image_type, image_resize, image_quality, preview_target, preview_save_mode, embed_metadata, images=None, image_metadata=None, **kwargs):
         self.output_dir = folder_paths.get_output_directory()
         self.type = "output"
 
@@ -919,8 +922,22 @@ class PrimerePreviewImage():
                     VISUAL_DATA[ITEM_TYPE] = VALUE_LIST
                     VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VALUE_LIST_ORIGINAL
 
-        results = nodes.SaveImage.save_images(self, images, filename_prefix = "ComfyUI", prompt = None, extra_pnginfo = None)
-        VISUAL_DATA['SaveImages'] = results['ui']['images']
+        extra_pnginfo_embed = None
+        prompt_embed = None
+        if embed_metadata and not args.disable_metadata:
+            prompt_embed = kwargs.get('prompt')
+            if image_metadata is not None and isinstance(image_metadata, dict):
+                try:
+                    extra_pnginfo_embed = {"gendata": image_metadata}
+                except Exception:
+                    pass
+            elif image_metadata is None and kwargs.get('extra_pnginfo') is not None:
+                extra_pnginfo_embed = kwargs.get('extra_pnginfo')
+
+        results = nodes.SaveImage.save_images(self, images, filename_prefix="ComfyUI", prompt=prompt_embed, extra_pnginfo=extra_pnginfo_embed)
+        ui_images = results.get('ui', {}).get('images', [])
+        VISUAL_DATA['SaveImages'] = ui_images
+        VISUAL_DATA['node_id'] = kwargs.get('id')
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
         return results
