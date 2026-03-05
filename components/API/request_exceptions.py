@@ -130,6 +130,31 @@ def apply_exclusions_to_payload(
     if not isinstance(payload, dict):
         return payload
 
+    remove_paths = collect_matching_remove_paths(
+        payload,
+        exclusions,
+        use_kwargs_fallback=use_kwargs_fallback,
+        canonicalize_key=canonicalize_key,
+    )
+    apply_remove_paths(
+        payload,
+        remove_paths,
+        use_kwargs_fallback=use_kwargs_fallback,
+        canonicalize_key=canonicalize_key,
+    )
+
+    return payload
+
+
+def collect_matching_remove_paths(
+    payload: dict[str, Any],
+    exclusions: list[dict[str, Any]] | None,
+    *,
+    use_kwargs_fallback: bool,
+    canonicalize_key: Callable[[str], str] | None = None,
+) -> list[str]:
+    paths: list[str] = []
+
     for rule in exclusions or []:
         if not isinstance(rule, dict):
             continue
@@ -145,21 +170,30 @@ def apply_exclusions_to_payload(
                 continue
 
         remove_spec = rule.get("remove")
-        remove_paths: list[str] = []
         if isinstance(remove_spec, str):
-            remove_paths = [remove_spec]
+            paths.append(remove_spec)
         elif isinstance(remove_spec, list):
-            remove_paths = [item for item in remove_spec if isinstance(item, str)]
+            paths.extend([item for item in remove_spec if isinstance(item, str)])
 
-        for remove_path in remove_paths:
-            _remove_by_path(
-                payload,
-                remove_path,
-                use_kwargs_fallback=use_kwargs_fallback,
-                canonicalize_key=canonicalize_key,
-            )
+    return paths
 
+
+def apply_remove_paths(
+    payload: dict[str, Any],
+    remove_paths: list[str],
+    *,
+    use_kwargs_fallback: bool,
+    canonicalize_key: Callable[[str], str] | None = None,
+) -> dict[str, Any]:
+    for remove_path in remove_paths:
+        _remove_by_path(
+            payload,
+            remove_path,
+            use_kwargs_fallback=use_kwargs_fallback,
+            canonicalize_key=canonicalize_key,
+        )
     return payload
+
 
 def apply_sdk_request_exclusions(
     args: list[Any],

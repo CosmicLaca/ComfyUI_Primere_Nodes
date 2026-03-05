@@ -22,7 +22,7 @@
         },
         {
           "when": { "path": "model", "equals": "gemini-3-pro-image-preview" },
-          "remove": ["config.thinking_config", "thinking_level", "include_thoughts"]
+          "remove": ["config.thinking_config"]
         }
       ],
       "request": {

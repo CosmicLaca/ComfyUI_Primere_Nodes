@@ -68,7 +68,13 @@ def render_template(template: Any, values: dict[str, Any]) -> Any:
 
 
 def list_placeholders(template: Any) -> list[str]:
-    found: set[str] = set()
+    found_order: list[str] = []
+    found_set: set[str] = set()
+    def add_placeholder(name: str) -> None:
+        if name in found_set:
+            return
+        found_set.add(name)
+        found_order.append(name)
 
     def walk(node: Any) -> None:
         if isinstance(node, dict):
@@ -81,10 +87,10 @@ def list_placeholders(template: Any) -> list[str]:
             return
         if isinstance(node, str):
             for m in PLACEHOLDER_RE.finditer(node):
-                found.add(m.group(1))
+                add_placeholder(m.group(1))
 
     walk(template)
-    return sorted(found)
+    return found_order
 
 
 def build_request(spec: dict[str, Any], values: dict[str, Any]) -> RenderResult:
