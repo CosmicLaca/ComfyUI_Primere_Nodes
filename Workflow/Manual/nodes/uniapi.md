@@ -1,16 +1,39 @@
 # PrimereApiProcessor (Uniapi) — Operator Guide
 
-Start here: [https://www.youtube.com/watch?v=FcKcMQoU1rM](https://www.youtube.com/watch?v=FcKcMQoU1rM)
+**Video walkthrough:** [https://www.youtube.com/watch?v=FcKcMQoU1rM](https://www.youtube.com/watch?v=FcKcMQoU1rM)
 
-<hr>
+---
 
-## 1) Mandatory provider config (do this first)
+## Table of Contents
+
+1. [Setup — provider config](#1-setup--provider-config)
+2. [How it works — operating model](#2-how-it-works--operating-model)
+3. [Schema workflow — snippet to JSON](#3-schema-workflow--snippet-to-json)
+4. [Schema reference — editing `api_schemas.json`](#4-schema-reference--editing-api_schemasjson)
+   - 4.1 [Minimal schema structure](#41-minimal-schema-structure)
+   - 4.2 [Placeholders — `{{key}}` syntax](#42-placeholders--key-syntax)
+   - 4.3 [`possible_parameters`](#43-possible_parameters)
+   - 4.4 [`import_modules`](#44-import_modules)
+   - 4.5 [`request_exclusions`](#45-request_exclusions)
+   - 4.6 [URL-part and endpoint placeholders](#46-url-part-and-endpoint-placeholders)
+   - 4.7 [Header authentication placeholders](#47-header-authentication-placeholders)
+5. [Handlers](#5-handlers)
+   - 5.1 [`response_handler`](#51-response_handler)
+   - 5.2 [`reference_images_handler`](#52-reference_images_handler)
+6. [Runtime rules and validation](#6-runtime-rules-and-validation)
+7. [Debug outputs — understanding and using them](#7-debug-outputs--understanding-and-using-them)
+
+---
+
+## 1) Setup — provider config
 
 Before using Uniapi, rename:
 
-- `json/apiconfig.example.json` → `json/apiconfig.json`
+```
+json/apiconfig.example.json  →  json/apiconfig.json
+```
 
-Then fill only providers you actually use (recommended for security and clarity), e.g.:
+Fill only providers you actually use (recommended for security and clarity):
 
 ```json
 {
@@ -21,36 +44,34 @@ Then fill only providers you actually use (recommended for security and clarity)
 }
 ```
 
-> ### IMPORTANT RULE:
-> #### Critical provider-name matching rule
-> 
-> Provider key + `Name` value in `apiconfig.json` must match provider naming in `front_end/api_schemas.json`:
-> 
-> - `apiconfig.json`:
->   - top-level key: `"ProviderName"`
->   - `"Name": "ProviderName"`
-> - `api_schemas.json`:
->   - top-level key: `"ProviderName"`
->   - service entry contains `"provider": "ProviderName"`
-> 
-> #### If these names are not aligned exactly, provider/service resolution will fail.
+### Critical provider-name matching rule
+
+Provider key and `Name` value in `apiconfig.json` **must exactly match** the provider naming in `front_end/api_schemas.json`:
+
+| File | Key | Field |
+|---|---|---|
+| `apiconfig.json` | top-level key | `"Name"` value |
+| `api_schemas.json` | top-level key | `"provider"` value inside each service |
+
+All four of these must be the same string. If they are not aligned exactly, provider/service resolution will fail.
 
 ---
 
-## 2) Operating model (user perspective)
+## 2) How it works — operating model
 
 `PrimereApiProcessor` is driven by a registry schema (`front_end/api_schemas.json`) generated from a request snippet (`terminal_helpers/snippet.py`) via the helper script (`terminal_helpers/api_snippet_to_json.py`).
 
-Practical flow:
-1. Capture/prepare one provider-service API call snippet in `terminal_helpers/snippet.py`.
-2. Generate/update schema JSON with `api_snippet_to_json.py`.
-3. Optionally edit generated service schema (especially `possible_parameters`, placeholders, and optional `response_handler`).
+**Practical flow:**
+
+1. Capture or prepare one provider-service API call snippet in `terminal_helpers/snippet.py`.
+2. Generate or update schema JSON with `api_snippet_to_json.py`.
+3. Optionally edit the generated service schema (especially `possible_parameters`, placeholders, and optional `response_handler`).
 4. Run the node using `api_provider` + `api_service` matching the registry entry.
 5. Response parsing is delegated to `components/API/responses/<handler>.py`.
 
 ---
 
-## 3) Parameterizing the snippet-to-json helper
+## 3) Schema workflow — snippet to JSON
 
 Run from `terminal_helpers/`:
 
@@ -60,14 +81,10 @@ python api_snippet_to_json.py --provider <ProviderName> --service <ServiceName>
 
 ### Modes
 
-- **Upsert mode (default)**: merges/updates only the specified provider/service into `result.json`.
-- **Replace mode**:
-
-```bash
-python api_snippet_to_json.py --provider <ProviderName> --service <ServiceName> --replace
-```
-
-This rewrites `result.json` with only the generated entry.
+| Mode | Command | Behavior |
+|---|---|---|
+| Upsert (default) | *(no flag)* | Merges/updates only the specified provider/service into `result.json` |
+| Replace | `--replace` | Rewrites `result.json` with only the generated entry |
 
 ### What the helper extracts
 
@@ -76,30 +93,36 @@ This rewrites `result.json` with only the generated entry.
 - Placeholders (`{{...}}`) for variable-like values.
 - `possible_parameters` from detected placeholders, excluding internal/common keys.
 
-### Important conversion rule
+### Fixed constants vs. variable placeholders
 
-Fixed constants remain fixed and **do not** become `possible_parameters`:
+Fixed constants remain fixed in the `request` body and **do not** become `possible_parameters`:
 
-- `"output_format": "png"` → fixed in `request`, excluded from `possible_parameters`
-- `"numeric_context": 5` → fixed in `request`, excluded from `possible_parameters`
+```
+"output_format": "png"     →  fixed in request, excluded from possible_parameters
+"numeric_context": 5       →  fixed in request, excluded from possible_parameters
+```
 
 Variable-like values become placeholders and can appear in `possible_parameters`:
 
-- `"image": reference_images`
-- `"mask": mask_images`
-- `"safety_tolerance": safety_tolerance`
+```
+"image": reference_images
+"mask": mask_images
+"safety_tolerance": safety_tolerance
+```
 
-Type-marker strings are treated as variable placeholders:
+Type-marker strings are also treated as variable placeholders:
 
-- `"guidance": "FLOAT"`
-- `"steps": "INT"`
-- `"prompt_upsampling": "STRING"`
+```
+"guidance": "FLOAT"
+"steps": "INT"
+"prompt_upsampling": "STRING"
+```
 
 ---
 
-## 4) Editing `api_schemas.json` (advanced usage)
+## 4) Schema reference — editing `api_schemas.json`
 
-You can edit generated entries directly. Minimal service shape:
+### 4.1 Minimal schema structure
 
 ```json
 {
@@ -110,7 +133,7 @@ You can edit generated entries directly. Minimal service shape:
       "response_handler": "Provider_Service.py",
       "import_modules": [
         "import module_name"
-      ],      
+      ],
       "possible_parameters": {
         "model": ["model-a", "model-b"],
         "quality": ["low", "high"]
@@ -132,49 +155,28 @@ You can edit generated entries directly. Minimal service shape:
 }
 ```
 
-### `possible_parameters` significance
+---
+
+### 4.2 Placeholders — `{{key}}` syntax
+
+Placeholders in the form `{{key}}` are resolved at runtime from node/workflow inputs and `possible_parameters`. They can appear anywhere in the schema: `kwargs`, `args`, `endpoint`, and `headers`.
+
+Any `None` value left after resolution is removed from the rendered request before the API call.
+
+---
+
+### 4.3 `possible_parameters`
 
 `possible_parameters` is the editable parameter registry for that service.
 
 - Keys represent service-level knobs expected in templates/placeholders.
-- Values are option lists presented/consumed as selectable presets/defaults.
-- Omit keys that are fixed in request body (constants).
-- Keep keys for values you want configurable at runtime.
+- Values are option lists presented/consumed as selectable presets or defaults.
+- **Omit** keys that are fixed constants in the request body.
+- **Keep** keys for values you want configurable at runtime.
 
-### `import_modules` required for SDK dependencies
+**Common patterns:**
 
-`import_modules` is a **service-level list of Python import lines** loaded before SDK request execution.
-
-This allows each provider/service to define its own runtime dependencies without hardcoding imports in `Uniapi.py`.
-
-Example for Google Gemini services:
-
-```json
-"import_modules": [
-  "from google import genai",
-  "from google.genai import types"
-]
-```
-
-Supported line formats:
-
-- `import module`
-- `import module as alias`
-- `from package import symbol`
-- `from package import symbol as alias`
-
-How it works at runtime:
-
-1. Node selects the schema by `api_provider` + `api_service`.
-2. Uniapi reads `schema["import_modules"]`.
-3. Import lines are loaded into SDK execution context.
-4. Request body (`request.sdk_call`) can safely reference those roots, e.g. `types.GenerateContentConfig`.
-
-If an import line is invalid or module is missing, Uniapi raises an explicit runtime error.
-
-### Common edit patterns
-
-1. **Constrain models**
+Constrain models:
 
 ```json
 "possible_parameters": {
@@ -182,7 +184,7 @@ If an import line is invalid or module is missing, Uniapi raises an explicit run
 }
 ```
 
-2. **Expose provider-specific tuning**
+Expose provider-specific tuning:
 
 ```json
 "possible_parameters": {
@@ -191,7 +193,7 @@ If an import line is invalid or module is missing, Uniapi raises an explicit run
 }
 ```
 
-3. **Keep fixed constants out of runtime controls**
+Keep a fixed constant out of runtime controls (no `output_format` in `possible_parameters`):
 
 ```json
 "request": {
@@ -204,20 +206,51 @@ If an import line is invalid or module is missing, Uniapi raises an explicit run
 }
 ```
 
-No `output_format` entry in `possible_parameters` if you want it hard-fixed.
+---
 
-### `request_exclusions` (universal conditional removal)
+### 4.4 `import_modules`
 
-Use `request_exclusions` at service level when some request fields are incompatible in specific cases.
+`import_modules` is a **service-level list of Python import lines** loaded before SDK request execution. This allows each provider/service to define its own runtime dependencies without hardcoding imports in `Uniapi.py`.
+
+Example for Google Gemini services:
+
+```json
+"import_modules": [
+  "from google import genai",
+  "from google.genai import types"
+]
+```
+
+**Supported line formats:**
+
+- `import module`
+- `import module as alias`
+- `from package import symbol`
+- `from package import symbol as alias`
+
+**How it works at runtime:**
+
+1. Node selects the schema by `api_provider` + `api_service`.
+2. Uniapi reads `schema["import_modules"]`.
+3. Import lines are loaded into SDK execution context.
+4. Request body (`request.sdk_call`) can safely reference those roots, e.g. `types.GenerateContentConfig`.
+
+If an import line is invalid or module is missing, Uniapi raises an explicit runtime error.
+
+---
+
+### 4.5 `request_exclusions`
+
+Use `request_exclusions` at service level when some request fields are incompatible in specific cases. Exclusions are evaluated after placeholder resolution and applied to the rendered payload before the API call.
+
+**Rule structure:**
 
 - `when` (or `if`): condition object.
   - `path` (or `key`): key path checked in rendered payload.
   - `equals` (or `value`): value that must match.
 - `remove`: one path string or list of paths to remove.
 
-This is universal (provider/service agnostic) and works for SDK schemas.
-
-Example with fake names:
+**Basic example:**
 
 ```json
 "request_exclusions": [
@@ -230,9 +263,7 @@ Example with fake names:
 
 Result: if `model == "model-fast-preview"`, key `config.image_size` is removed before the SDK call.
 
-#### OR logic (multiple models)
-
-Use multiple rules with the same `remove` target:
+**OR logic — multiple conditions for the same removal:**
 
 ```json
 "request_exclusions": [
@@ -247,9 +278,9 @@ Use multiple rules with the same `remove` target:
 ]
 ```
 
-#### Removing a whole nested object
+**Removing a whole nested object:**
 
-To remove an entire nested block, remove its parent key:
+Target the parent key to remove the entire block including all child fields:
 
 ```json
 "request_exclusions": [
@@ -260,13 +291,13 @@ To remove an entire nested block, remove its parent key:
 ]
 ```
 
-This removes full `thinking_config` object (all child fields under it).
+---
 
-### URL-part placeholders controlled by node inputs
+### 4.6 URL-part and endpoint placeholders
 
-You can make **parts of request URL** configurable from node inputs by using placeholders in `request.sdk_call.args`.
+#### URL-part placeholders
 
-Example:
+Parts of `request.sdk_call.args` (the URL string) can be templated with placeholders:
 
 ```json
 "request": {
@@ -289,7 +320,7 @@ Example:
 }
 ```
 
-Then define runtime-selectable values in `possible_parameters`:
+Then define selectable values in `possible_parameters`:
 
 ```json
 "possible_parameters": {
@@ -299,17 +330,11 @@ Then define runtime-selectable values in `possible_parameters`:
 }
 ```
 
-How runtime resolves URL placeholders:
+Runtime resolution: `render_from_schema(...)` resolves all placeholders including those inside `sdk_call.args`, so the final SDK call receives a fully rendered URL such as `https://region_1/v1/model_2`.
 
-1. Uniapi collects selected values from node/workflow inputs.
-2. `render_from_schema(...)` resolves all placeholders (including placeholders inside `sdk_call.args`).
-3. Final SDK call receives rendered URL, e.g. `https://region_1/v1/region_1`.
+#### Endpoint placeholders
 
-This is universal and works for any provider/service that uses placeholder-based URL templates.
-
-### Endpoint placeholders (SDK method templating)
-
-You can also template `request.endpoint` directly, for example to switch between generate/edit methods:
+`request.endpoint` can also be templated to switch between SDK methods:
 
 ```json
 "request": {
@@ -329,12 +354,13 @@ You can also template `request.endpoint` directly, for example to switch between
 }
 ```
 
-Runtime behavior is the same as URL placeholders: selected value is injected before SDK execution,
-so endpoint becomes either `client.images.generate` or `client.images.edit`.
+Runtime behavior is the same as URL placeholders: selected value is injected before SDK execution, so endpoint becomes either `client.images.generate` or `client.images.edit`.
 
-### Header authentication placeholders (`{{api_key}}`)
+---
 
-For providers that expect auth in headers, you can keep schema portable by using an auth placeholder:
+### 4.7 Header authentication placeholders
+
+For providers that expect auth in headers, use an auth placeholder to keep schemas portable:
 
 ```json
 "headers": {
@@ -348,13 +374,13 @@ This works in both locations:
 1. `request.headers` (non-SDK HTTP mode)
 2. `request.sdk_call.kwargs.headers` (SDK mode, e.g. `endpoint: "requests.post"`)
 
-Runtime resolution order for `{{api_key}}`:
+**Runtime resolution order for `{{api_key}}`:**
 
-1. explicit node/workflow input value (if provided)
-2. provider API key from `json/apiconfig.json` (with environment overrides)
-3. fallback defaults
+1. Explicit node/workflow input value (if provided)
+2. Provider API key from `json/apiconfig.json` (with environment variable overrides)
+3. Fallback defaults
 
-You can also use env-token placeholders directly (for call-based schemas), for example:
+You can also use env-token placeholders via a `$call` pattern for call-based schemas:
 
 ```json
 "x-key": {
@@ -364,16 +390,18 @@ You can also use env-token placeholders directly (for call-based schemas), for e
 }
 ```
 
-This pattern resolves to `os.environ.get("ENV_API_KEY")` at runtime.
+This resolves to `os.environ.get("ENV_API_KEY")` at runtime.
 
 ---
 
-## 5) `response_handler` selection behavior
+## 5) Handlers
+
+### 5.1 `response_handler`
 
 Service-level `response_handler` is optional:
 
 - If defined, that filename is used.
-- If omitted/empty, fallback is `<provider>_<service>.py`.
+- If omitted or empty, fallback is `<provider>_<service>.py`.
 
 Example override:
 
@@ -381,13 +409,9 @@ Example override:
 "response_handler": "BlackForest_FluxExpandPro.py"
 ```
 
-### Reusing one response handler file for multiple services/providers
+#### Reusing one handler across multiple services
 
-You can point many different services (even from different providers) to the **same** `response_handler` filename.
-
-This is useful when output formats are similar and you want fewer files under `components/API/responses`.
-
-Example (shared file):
+You can point many services (even from different providers) to the **same** `response_handler` filename. This is useful when output formats are similar and you want fewer files under `components/API/responses`.
 
 ```json
 "response_handler": "Shared_Image_Response.py"
@@ -395,9 +419,9 @@ Example (shared file):
 
 As long as `components/API/responses/Shared_Image_Response.py` exists and exposes `handle_response(...)`, Uniapi can reuse it for all mapped services.
 
-### Universal `handle_response()` signature (recommended)
+#### Universal `handle_response()` signature
 
-Uniapi can now forward runtime context to response handlers. Use a universal signature with optional kwargs:
+Uniapi forwards runtime context to response handlers. Recommended signature:
 
 ```python
 def handle_response(
@@ -411,32 +435,28 @@ def handle_response(
     ...
 ```
 
-Meaning of parameters:
-
-- `api_result`: raw API SDK/HTTP result returned by the request execution.
-- `schema`: selected service schema from `api_schemas.json`.
-- `loaded_client`: provider root object used for the SDK call (universal; can be module or client object).
-- `response_url`: first SDK positional route argument from `request.sdk_call.args[0]` when present.
-- `client`: base API client from `api_helper.create_api_client(...)`.
-- `sdk_context`: loaded import context dictionary.
+| Parameter | Description |
+|---|---|
+| `api_result` | Raw API SDK/HTTP result returned by request execution |
+| `schema` | Selected service schema from `api_schemas.json` |
+| `loaded_client` | Provider root object used for the SDK call (module or client object) |
+| `response_url` | First SDK positional route argument from `request.sdk_call.args[0]` when present |
+| `client` | Base API client from `api_helper.create_api_client(...)` |
+| `sdk_context` | Loaded import context dictionary |
 
 ---
 
-### `reference_images_handler` (short tutorial)
+### 5.2 `reference_images_handler`
 
-Reference image conversion/upload is also schema-driven and provider-pluggable.
+Reference image conversion and upload is also schema-driven and provider-pluggable. Handler files are loaded from `components/API/references/`.
 
-Handler files are loaded from:
-
-- `components/API/references`
-
-Resolution order:
+**Resolution order:**
 
 1. `reference_images_handler` from service schema (if defined)
 2. `<provider>.py`
 3. `default.py`
 
-Minimal fake example in `api_schemas.json`:
+**Schema entry example:**
 
 ```json
 {
@@ -462,13 +482,13 @@ Minimal fake example in `api_schemas.json`:
 }
 ```
 
-Custom override example (shared handler name):
+Custom override to a shared handler:
 
 ```json
 "reference_images_handler": "SharedUploadHandler.py"
 ```
 
-Minimal fake handler file:
+**Minimal handler file:**
 
 ```python
 def handle_reference_images(
@@ -485,21 +505,117 @@ def handle_reference_images(
     return output
 ```
 
-Notes:
+**Notes:**
 
 - If no reference image input is connected, Uniapi does not send `reference_images`.
-- Any `None` value is removed from rendered request structures before API call.
+- Any `None` value is removed from rendered request structures before the API call.
 
 ---
 
-## 6) Runtime expectations
+## 6) Runtime rules and validation
 
-- JSON syntax in `front_end/api_schemas.json` is strictly validated at load time (line/column errors are raised).
-- Provider keys in `api_schemas.json` must exist in `json/apiconfig.json`.
-- Service key must match inner `"service"`, and provider key must match inner `"provider"`.
-- `import_modules` must be a list of non-empty strings.
-- `api_provider` and `api_service` must map to an existing registry entry.
-- Schema placeholders must align with node/runtime inputs.
-- Response helper module must exist in `components/API/responses`.
+| Rule | Detail |
+|---|---|
+| JSON syntax | `front_end/api_schemas.json` is strictly validated at load time — line/column errors are raised |
+| Provider keys | Every provider key in `api_schemas.json` must exist in `json/apiconfig.json` |
+| Name consistency | Service key must match inner `"service"` field; provider key must match inner `"provider"` field |
+| `import_modules` | Must be a list of non-empty strings |
+| Provider/service | `api_provider` and `api_service` must map to an existing registry entry |
+| Placeholders | Schema placeholders must align with node/runtime inputs |
+| Response handler | Handler module must exist in `components/API/responses/` |
 
-Response helper implementation is user-owned by design. But examples already exist in `components/API/responses`
+Response handler implementation is user-owned by design. Examples already exist in `components/API/responses/`.
+
+---
+
+## 7) Debug outputs — understanding and using them
+
+`PrimereApiProcessor` exposes several outputs for inspection. These are most useful during schema development: they let you verify what the node resolved, what was sent, and what came back — without reading source code.
+
+### The `debug_mode` toggle
+
+When `debug_mode` is **ON**, the node builds the full request context but **stops before making the API call**. All debug outputs are populated with the resolved data so you can inspect the intended payload safely.
+
+When `debug_mode` is **OFF** (production), the node executes the call normally and all outputs reflect actual sent and received data.
+
+---
+
+### Debug output reference
+
+The node provides the following outputs, in order:
+
+| # | Output | Type | Contains |
+|---|---|---|---|
+| 1 | `RESULT` | IMAGE | Final rendered image from the API (or `None` in debug mode) |
+| 2 | `CLIENT` | APICLIENT | The initialized provider SDK client object |
+| 3 | `PROVIDER` | STRING | Resolved provider name (e.g. `"OpenAI"`) |
+| 4 | `SCHEMA` | TUPLE | The full selected service schema from `api_schemas.json` |
+| 5 | `RENDERED` | TUPLE | The complete rendered request object — all fields including endpoint, method, headers, query, body, and sdk_call |
+| 6 | `RAW_PAYLOAD` | TUPLE | Only the SDK `kwargs` dict (or HTTP `body` dict) — the exact data sent to the provider |
+| 7 | `REQUEST_BODY` | TUPLE | The resolved placeholder values — what each `{{key}}` was filled with |
+| 8 | `API_SCHEMAS` | TUPLE | Full debug bundle: schema, selected parameters, used values, rendered payload, API result, and any error |
+| 9 | `API_RESULT` | TUPLE | Raw response returned by the provider SDK or HTTP call |
+
+---
+
+### Differences between RENDERED, RAW_PAYLOAD, and REQUEST_BODY
+
+These three outputs answer different questions at different levels of abstraction:
+
+**`REQUEST_BODY`** — *What inputs were resolved?*
+Shows the flat dictionary of values that were matched to placeholders: which `{{key}}` resolved to what value. This is the input side of the rendering process. Use this to verify that node inputs, `possible_parameters`, and workflow values are being picked up correctly.
+
+```
+{ "prompt": "a red car", "model": "gpt-image-1", "width": 1024, "height": 1024 }
+```
+
+**`RENDERED`** — *What was the full request object after rendering?*
+Shows the complete `RenderResult` object after all placeholders have been substituted, all exclusions applied, and all structure assembled. Includes endpoint, method, headers, query params, body, and sdk_call in full. Binary data (reference images) is sanitized to `[reference_images omitted]` for display. Use this to verify the full request structure, including nested objects and headers, before they reach the provider.
+
+```
+{ "endpoint": "client.images.edit", "method": "SDK", "headers": {...},
+  "sdk_call": { "args": [], "kwargs": { "model": "gpt-image-1", "prompt": "a red car", ... } } }
+```
+
+**`RAW_PAYLOAD`** — *What exact data was handed to the provider?*
+Shows only the `sdk_call.kwargs` dict (SDK mode) or `body` dict (HTTP mode) — stripped of all Uniapi envelope fields. This is the minimal "what was actually sent" view. Binary data is sanitized. Use this when debugging provider-side errors: if the provider rejects a request, compare `RAW_PAYLOAD` against the provider's API documentation.
+
+```
+{ "model": "gpt-image-1", "prompt": "a red car", "size": "1024x1024", "n": 1 }
+```
+
+---
+
+### `API_SCHEMAS` — the full debug bundle
+
+`API_SCHEMAS` is a single output combining all debug data into one inspectable object:
+
+```
+{
+  "schema":               the full service schema,
+  "selected_parameters":  resolved node/workflow inputs (without reference images),
+  "used_values":          placeholder-to-value mapping (REQUEST_BODY content),
+  "selected_service":     the service name that was matched,
+  "rendered":             full rendered request (RENDERED content),
+  "api_result":           raw provider response (API_RESULT content),
+  "api_error":            error string if the call failed, otherwise null
+}
+```
+
+Connect this to a `PrimereAnyOutput` node for a complete one-stop view during development.
+
+---
+
+### How debug outputs help when designing a new schema
+
+When writing a new service schema from scratch or adapting an existing one, the debug outputs replace trial-and-error by showing you exactly what the system does with your schema at each step:
+
+1. **Start with `REQUEST_BODY`** to confirm your `possible_parameters` keys and placeholder names are being picked up. If a value is missing here, the placeholder cannot be resolved and will be sent as a literal `{{key}}` string to the provider.
+
+2. **Check `RENDERED`** to verify nested structure. If your schema has nested `kwargs` (e.g. `config.thinking_config`), this output shows whether the nesting survived rendering correctly and whether `request_exclusions` removed what they should.
+
+3. **Compare `RAW_PAYLOAD`** against the provider's official API documentation. The provider receives exactly what is shown here (minus binary fields). If keys are present that should not be, add a `request_exclusions` rule. If keys are missing, check that the placeholder name in `kwargs` matches a key in `possible_parameters` or a standard node input.
+
+4. **Use `debug_mode = ON`** during the design phase — the API call is never made, so there is no cost and no rate limit risk. Iterate on the schema until all three payload outputs look correct, then switch to production mode.
+
+5. **Read `API_SCHEMAS`** after a failed production call. The `api_error` field contains the provider error message. Combined with `rendered` and `api_result` in the same object, you can diagnose whether the error is a structural problem (wrong key, wrong nesting, wrong type) or a credential/quota problem.
