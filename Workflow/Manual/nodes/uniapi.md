@@ -326,7 +326,7 @@ Then define selectable values in `possible_parameters`:
 "possible_parameters": {
   "regions": ["region_1", "region_2", "region_3"],
   "version": ["v1", "v2"],
-  "model_name": ["region_1", "model_2"]
+  "model_name": ["model_1", "model_2"]
 }
 ```
 
