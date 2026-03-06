@@ -173,7 +173,7 @@ async function PrimerePreviewSaverWidget(node, inputName) {
             values: ["select target..."],
         });
 
-        node.addWidget("button", '⛔ Image not available for save. Please load one.', null, () => {
+        const saveBtn = node.addWidget("button", '⛔ Image not available for save. Please load one.', null, () => {
             const state = ensureNodeState(node);
             if (state.saveIsValid === true) {
                 if (typeof node['imgs'] != "undefined") {
@@ -190,6 +190,32 @@ async function PrimerePreviewSaverWidget(node, inputName) {
                 alert('Current settings is invalid to save image.\n\nERROR: ' + (btn ? btn.name : 'Unknown'));
             }
         });
+
+        const BTN_HEIGHT = 32;
+        const BTN_COLOR = "#771a1a";
+        const BTN_COLOR_ACTIVE = "#932424";
+        const BTN_RADIUS = 6;
+        const BTN_FONT = "bold 15px sans-serif";
+
+        saveBtn.computeSize = () => [0, BTN_HEIGHT];
+        saveBtn.draw = function (ctx, node, widget_width, y) {
+            ctx.save();
+            const margin = 15;
+            ctx.fillStyle = this.clicked ? BTN_COLOR_ACTIVE : BTN_COLOR;
+            if (this.clicked) {
+                this.clicked = false;
+                node.setDirtyCanvas?.(true);
+            }
+            ctx.beginPath();
+            ctx.roundRect(margin, y, widget_width - margin * 2, BTN_HEIGHT, BTN_RADIUS);
+            ctx.fill();
+            ctx.fillStyle = "#dad570";
+            ctx.font = BTN_FONT;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(this.name, widget_width * 0.5, y + BTN_HEIGHT * 0.5);
+            ctx.restore();
+        };
 
         return { widget: widget };
     }

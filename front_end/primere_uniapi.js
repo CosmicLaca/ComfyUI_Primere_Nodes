@@ -303,6 +303,54 @@ async function initializeUniApiNode(node) {
     }
     node.__primereUniApiWidgetHooked = true;
 
+    const refreshBtn = node.addWidget("button", "↺  Reload API Schema", null, async () => {
+        schemaCache = null;
+        schemaPromise = null;
+        try {
+            const freshRegistry = await loadSchemas();
+            if (!freshRegistry || Object.keys(freshRegistry).length === 0) {
+                alert("API Schema reload failed.\nThe schema file returned empty or could not be parsed.\nCheck front_end/api_schemas.json for syntax errors.");
+                return;
+            }
+            updateServiceWidget(node, freshRegistry);
+            updateParameterWidgets(node, freshRegistry);
+            const providerCount = Object.keys(freshRegistry).length;
+            const serviceCount = Object.values(freshRegistry).reduce((sum, p) => sum + Object.keys(p).length, 0);
+            alert(`API Schema reloaded successfully.\n${providerCount} provider(s), ${serviceCount} service(s) loaded.`);
+        } catch (error) {
+            alert(`API Schema reload failed.\n${error.message}`);
+        }
+    });
+    node.widgets.splice(node.widgets.indexOf(refreshBtn), 1);
+    node.widgets.unshift(refreshBtn);
+
+    const BTN_HEIGHT = 32;
+    const BTN_COLOR = "#771a1a";
+    const BTN_COLOR_ACTIVE = "#932424";
+    const BTN_RADIUS = 6;
+    const BTN_FONT = "bold 15px sans-serif";
+
+    refreshBtn.computeSize = () => [0, BTN_HEIGHT];
+    refreshBtn.draw = function (ctx, node, widget_width, y) {
+        ctx.save();
+        const margin = 15;
+        ctx.fillStyle = this.clicked ? BTN_COLOR_ACTIVE : BTN_COLOR;
+        if (this.clicked) {
+            this.clicked = false;
+            node.setDirtyCanvas?.(true);
+        }
+        ctx.beginPath();
+        ctx.roundRect(margin, y, widget_width - margin * 2, BTN_HEIGHT, BTN_RADIUS);
+        ctx.fill();
+        ctx.fillStyle = "#dad570";
+        ctx.font = BTN_FONT;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.name, widget_width * 0.5, y + BTN_HEIGHT * 0.5);
+        ctx.restore();
+    };
+
+
     const originalOnWidgetChanged = node.onWidgetChanged;
     node.onWidgetChanged = function (name, value, oldValue, widget) {
         originalOnWidgetChanged?.call(this, name, value, oldValue, widget);
@@ -312,9 +360,9 @@ async function initializeUniApiNode(node) {
         }
 
         if (name === "api_provider") {
-            updateServiceWidget(this, schemaRegistry);
+            updateServiceWidget(this, schemaCache || {});
         }
-        updateParameterWidgets(this, schemaRegistry);
+        updateParameterWidgets(this, schemaCache || {});
     };
 }
 

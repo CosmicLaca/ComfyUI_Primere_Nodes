@@ -74,6 +74,8 @@ All four of these must be the same string. If they are not aligned exactly, prov
 4. Run the node using `api_provider` + `api_service` matching the registry entry.
 5. Response parsing is delegated to `components/API/responses/<handler>.py`.
 
+After editing `api_schemas.json`, use the **↺ Reload API Schema** button at the top of the node to apply changes immediately — no browser reload or ComfyUI restart needed. A confirmation alert shows how many providers and services were loaded.
+
 ---
 
 ## 3) Schema workflow — snippet to JSON
