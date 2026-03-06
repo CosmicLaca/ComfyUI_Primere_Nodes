@@ -68,16 +68,17 @@
     "VEO": {
       "provider": "Gemini",
       "service": "VEO",
+      "reference_images_handler": "Gemini_VEO.py",
       "import_modules": [
         "from google import genai",
         "from google.genai import types"
       ],
       "possible_parameters": {
-        "aspect_ratio": ["9:16", "16:9"],
-        "durationSeconds": ["4", "6", "8"],
-        "personGeneration": ["allow_all", "allow_adult", "dont_allow"],
-        "resolution": ["720p", "1080p", "4K"],
-        "model": ["veo-3.0-generate", "veo-3.0-fast-generate", "veo-3.1-generate-preview", "veo-3.1-generate", "veo-3.1-fast-generate-preview", "veo-3.1-fast-generate"]
+        "model": ["veo-2.0-generate-001", "veo-3.1-fast-generate-preview", "veo-3.1-generate-preview"],
+        "aspect_ratio": ["16:9", "16:10", "9:16", "10:16"],
+        "duration_seconds": [4, 5, 6, 7, 8],
+        "person_generation": ["allow_adult", "allow_all", "dont_allow"],
+        "resolution": ["720p", "1080p", "4K"]
       },
       "request": {
         "method": "SDK",
@@ -93,11 +94,13 @@
               "$args": [],
               "$kwargs": {
                 "aspectRatio": "{{aspect_ratio}}",
+                "number_of_videos": "{{batch}}",
                 "resolution": "{{config_resolution}}",
-                "durationSeconds": "{{durationSeconds}}",
-                "personGeneration": "{{personGeneration}}",
+                "durationSeconds": "{{duration_seconds}}",
+                "personGeneration": "{{person_generation}}",
                 "reference_images": "{{reference_images}}",
-                "last_frame": "{{last_image}}"
+                "last_frame": "{{last_image}}",
+                "negative_prompt": "{{negative_prompt}}"
               }
             }
           }

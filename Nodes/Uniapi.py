@@ -24,6 +24,7 @@ from ..components.API import api_json_to_requestbody
 from ..components.API import external_api_backend
 from ..components.API import api_schema_registry
 from ..components import file_output
+from server import PromptServer
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
@@ -75,12 +76,13 @@ class PrimereApiProcessor:
 
         hidden_inputs = {
             "extra_pnginfo": "EXTRA_PNGINFO",
-            "prompt_extra": "PROMPT"
+            "prompt_extra": "PROMPT",
+            "unique_id": "UNIQUE_ID",
         }
 
         return {"required": cls.required_inputs, "optional": cls.optional_inputs, "hidden": hidden_inputs}
 
-    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, **kwargs):
+    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, unique_id = None, **kwargs):
         API_SCHEMAS_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json')
         API_CONFIG_PATH = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
         API_SCHEMA_REGISTRY = api_schema_registry.load_and_validate_api_schema_registry(API_SCHEMAS_PATH, API_CONFIG_PATH)
@@ -187,6 +189,20 @@ class PrimereApiProcessor:
             selected_parameters.update(img_binary_api)
         elif img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
             selected_parameters["reference_images"] = img_binary_api
+
+        if first_image is not None:
+            first_image_source = first_image
+        elif reference_images is not None:
+            first_image_source = reference_images[0] if isinstance(reference_images, list) else reference_images
+        else:
+            first_image_source = None
+        if first_image_source is not None:
+            first_image_result = external_api_backend.apply_reference_images_handler(
+                schema, api_provider,
+                {"img_binary_api": first_image_source, "loaded_client_for_upload": loaded_client_for_upload}
+            )
+            if isinstance(first_image_result, dict) and first_image_result:
+                selected_parameters.update(first_image_result)
 
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
         if isinstance(possible_parameters, dict):
@@ -306,6 +322,11 @@ class PrimereApiProcessor:
         # --- File naming and output path resolution ---
         auto_save_result = kwargs.get('auto_save_result', False)
         if auto_save_result and result_image is not None:
+            if type(result_image).__name__ == "str":
+                SAVED_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+                SAVED_IMAGE = os.path.join(SAVED_IMAGE_PATH, "file_saved.jpg")
+                result_image = utility.ImageLoaderFromPath(SAVED_IMAGE)
+
             output_path_input = kwargs.get('output_path', '[time(%Y-%m-%d)]')
             subpath = kwargs.get('subpath', 'None')
             add_provider_to_path = kwargs.get('add_provider_to_path', False)
@@ -350,17 +371,30 @@ class PrimereApiProcessor:
             )
 
             Path(folder_paths.temp_directory).mkdir(parents=True, exist_ok=True)
-            file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
+            try:
+                saved_path = file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
 
-            save_data = {
-                "provider": api_provider,
-                "service": selected_service or api_service,
-                "selected_parameters": selected_parameters_output,
-                "used_values": used_values_output,
-                # "rendered": rendered_payload,
-                "raw_payload": raw_payload,
-                # "api_result": api_result_debug,
-            }
-            file_output.save_metadata(save_data, json_file, txt_file, save_data_to_json, save_data_to_txt, used_values_output)
+                save_data = {
+                    "provider": api_provider,
+                    "service": selected_service or api_service,
+                    "selected_parameters": selected_parameters_output,
+                    "used_values": used_values_output,
+                    # "rendered": rendered_payload,
+                    "raw_payload": raw_payload,
+                    # "api_result": api_result_debug,
+                }
+                file_output.save_metadata(save_data, json_file, txt_file, save_data_to_json, save_data_to_txt, used_values_output)
+
+                PromptServer.instance.send_sync("primere.save_result", {
+                    "node_id": unique_id,
+                    "status": "success",
+                    "path": saved_path,
+                })
+            except Exception as save_error:
+                PromptServer.instance.send_sync("primere.save_result", {
+                    "node_id": unique_id,
+                    "status": "failed",
+                    "error": str(save_error),
+                })
 
         return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug)

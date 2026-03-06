@@ -389,46 +389,52 @@ class PreviewSaver {
             saveImageName = state.targetFileName;
         }
 
+        const renderToCanvas = (blob) => new Promise((resolve, reject) => {
+            const blobUrl = URL.createObjectURL(blob);
+            const img = new Image();
+            img.onload = () => {
+                URL.revokeObjectURL(blobUrl);
+                const canvas = document.createElement('canvas');
+                let w = img.naturalWidth;
+                let h = img.naturalHeight;
+                if (maxWidth && w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+                if (maxHeight && h > maxHeight) { w = Math.round(w * maxHeight / h); h = maxHeight; }
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(img, 0, 0, w, h);
+                resolve(canvas);
+            };
+            img.onerror = () => {
+                URL.revokeObjectURL(blobUrl);
+                reject(new Error('Failed to decode image: ' + imageName));
+            };
+            img.src = blobUrl;
+        });
+
         fetch(imageSource)
         .then((res) => res.blob())
-        .then((blob) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const file = dataURLtoFile(reader.result, imageName);
-                loadImage(file, function (img) {
-                    if (typeof img.toDataURL === "function") {
-                        const resampledImage = img.toDataURL(imgMime, wv.targetQuality);
-                        if (wv.saveMode === false) {
-                            downloadImage(resampledImage, extension, saveImageName);
-                        } else {
-                            sendPOSTmessage(JSON.stringify({
-                                "PreviewTarget": wv.previewTarget,
-                                "PreviewTargetOriginal": state.selectedTarget,
-                                "extension": extension,
-                                "ImageName": imageName,
-                                "ImagePath": ImagePath,
-                                "SaveImageName": saveImageName,
-                                "maxWidth": img.width,
-                                "maxHeight": img.height,
-                                "TargetQuality": wv.targetQuality,
-                                "PrwSaveMode": wv.prwSaveMode,
-                            }));
-                        }
-                    } else {
-                        alert('Source image: ' + imageName + ' does not exist, maybe deleted.');
-                    }
-                }, {
-                    maxWidth: maxWidth,
-                    maxHeight: maxHeight,
-                    canvas: true,
-                    pixelRatio: 1,
-                    downsamplingRatio: wv.targetQuality / 100,
-                    orientation: true,
-                    imageSmoothingEnabled: true,
-                    imageSmoothingQuality: 'high',
-                });
-            };
-            reader.readAsDataURL(blob);
+        .then((blob) => renderToCanvas(blob))
+        .then((canvas) => {
+            const resampledImage = canvas.toDataURL(imgMime, wv.targetQuality / 100);
+            if (wv.saveMode === false) {
+                downloadImage(resampledImage, extension, saveImageName);
+            } else {
+                sendPOSTmessage(JSON.stringify({
+                    "PreviewTarget": wv.previewTarget,
+                    "PreviewTargetOriginal": state.selectedTarget,
+                    "extension": extension,
+                    "ImageName": imageName,
+                    "ImagePath": ImagePath,
+                    "SaveImageName": saveImageName,
+                    "maxWidth": canvas.width,
+                    "maxHeight": canvas.height,
+                    "TargetQuality": wv.targetQuality,
+                    "PrwSaveMode": wv.prwSaveMode,
+                }));
+            }
         })
         .catch((err) => {
             alert('Failed to load source image: ' + err.message);

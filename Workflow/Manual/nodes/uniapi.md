@@ -811,7 +811,7 @@ File saving only runs when `auto_save_result` is ON and the API returned a valid
 
 | Input | Default | Description |
 |---|---|---|
-| `output_path` | `[time(%Y-%m-%d)]` | Base output directory. Supports `[time(...)]` tokens. Relative paths are anchored to the ComfyUI output directory. Absolute paths are used as-is. |
+| `output_path` | `[time(%Y-%m-%d)]` | Base output directory. Supports `[time(...)]` tokens. Relative paths are anchored to the ComfyUI output directory. Absolute paths are used as-is — e.g. `e:\!Works\AI\AIPICS\ComfyAPI\[time(%Y-%m-Week-%W)]` saves outside ComfyUI to any location on disk. |
 | `subpath` | `Project` | Fixed subdirectory appended after provider/service/model dirs. Select `None` to skip. |
 | `add_provider_to_path` | OFF | Adds the API provider name as a subdirectory (e.g. `Gemini`). |
 | `add_service_to_path` | OFF | Adds the selected service name as a subdirectory (e.g. `Imagen`). |
@@ -854,6 +854,9 @@ The actual file type is detected from the API response bytes (MIME detection), n
 | `video/*` | `.mp4` |
 | `text/*` | `.txt` (UTF-8) |
 | other / unknown | extension from `image_extension` |
+
+> **Important — non-image results have no display or player.**
+> Video, audio, and text results are saved to disk only. There is no preview, no image output, and no playback inside ComfyUI. When the file is saved successfully, a toast notification appears on the node with the saved file path. If `auto_save_result` is **OFF**, the result is permanently lost — it exists only in memory for the duration of that execution and is not recoverable afterward.
 
 ### Metadata files
 
