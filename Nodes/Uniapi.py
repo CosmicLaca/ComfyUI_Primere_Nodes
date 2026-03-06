@@ -194,6 +194,7 @@ class PrimereApiProcessor:
                 if key in kwargs and kwargs[key] not in (None, ""):
                     selected_parameters[key] = kwargs[key]
 
+        selected_parameters = external_api_backend.apply_parameter_constraints(selected_parameters, schema)
         rendered, used_values = api_json_to_requestbody.render_from_schema(schema, selected_parameters)
         rendered_payload = copy.deepcopy(rendered.__dict__)
         if img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):

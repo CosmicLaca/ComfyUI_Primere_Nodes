@@ -689,6 +689,64 @@ def sanitize_debug_value(value: Any) -> Any:
 
 def sanitize_api_debug_payload(value: Any) -> Any:
     return redact_reference_images(sanitize_debug_value(value))
+def apply_parameter_constraints(selected_parameters: dict[str, Any], schema: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(schema, dict):
+        return selected_parameters
+    constraints = schema.get("parameter_constraints")
+    if not isinstance(constraints, dict) or not constraints:
+        return selected_parameters
+
+    result = dict(selected_parameters)
+
+    for param, constraint in constraints.items():
+        if param not in result:
+            continue
+        value = result[param]
+        if isinstance(value, str):
+            try:
+                value = int(value) if '.' not in value else float(value)
+            except (ValueError, TypeError):
+                continue
+        if not isinstance(value, (int, float)):
+            continue
+
+        active = None
+        if isinstance(constraint, dict):
+            active = constraint
+        elif isinstance(constraint, list):
+            for rule in constraint:
+                if not isinstance(rule, dict):
+                    continue
+                when = rule.get("when") or rule.get("if")
+                if not isinstance(when, dict):
+                    active = rule
+                    break
+                path = when.get("path") or when.get("key")
+                equals = when.get("equals") or when.get("value")
+                if path is not None and str(result.get(path, "")) == str(equals):
+                    active = rule
+                    break
+
+        if not active:
+            continue
+
+        min_val = active.get("min")
+        max_val = active.get("max")
+        step = active.get("step")
+
+        if max_val is not None:
+            value = min(value, max_val)
+        if min_val is not None:
+            value = max(value, min_val)
+        if step is not None and int(step) > 0:
+            value = (int(value) // int(step)) * int(step)
+            if min_val is not None:
+                value = max(int(min_val), value)
+
+        result[param] = value
+
+    return result
+
 def canonical_param_name(name: str, *, number_of_images_as_seed: bool = False) -> str:
     low = str(name or "").lower()
     if "aspect_ratio" in low:
