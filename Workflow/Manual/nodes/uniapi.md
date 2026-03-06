@@ -686,6 +686,10 @@ def handle_reference_images(
     return output
 ```
 
+**`first_image` input routing (for video and single-image models):**
+
+If `first_image` is connected, it is used exclusively and `reference_images` is ignored. If `first_image` is empty, the node falls back to `reference_images` — using the first item from the list, or the Tensor directly if no list is attached.
+
 **Notes:**
 
 - If no reference image input is connected, Uniapi does not send `reference_images`.
