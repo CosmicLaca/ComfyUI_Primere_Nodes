@@ -9,6 +9,9 @@
 1. [Setup — provider config](#1-setup--provider-config)
 2. [How it works — operating model](#2-how-it-works--operating-model)
 3. [Schema workflow — snippet to JSON](#3-schema-workflow--snippet-to-json)
+   - 3.1 [Write modes](#31-write-modes)
+   - 3.2 [All parameters](#32-all-parameters)
+   - 3.3 [What the helper extracts](#33-what-the-helper-extracts)
 4. [Schema reference — editing `api_schemas.json`](#4-schema-reference--editing-api_schemasjson)
    - 4.1 [Minimal schema structure](#41-minimal-schema-structure)
    - 4.2 [Placeholders — `{{key}}` syntax](#42-placeholders--key-syntax)
@@ -79,14 +82,119 @@ Run from `terminal_helpers/`:
 python api_snippet_to_json.py --provider <ProviderName> --service <ServiceName>
 ```
 
-### Modes
+If `--provider` or `--service` are omitted, the script will prompt you to type them interactively instead of failing immediately.
 
-| Mode | Command | Behavior |
-|---|---|---|
-| Upsert (default) | *(no flag)* | Merges/updates only the specified provider/service into `result.json` |
-| Replace | `--replace` | Rewrites `result.json` with only the generated entry |
+---
 
-### What the helper extracts
+### 3.1 Write modes
+
+| Flag | Behavior |
+|---|---|
+| *(no flag)* | Upsert — merges/updates only the specified provider/service into `result.json` |
+| `--replace` | Rewrites `result.json` from scratch with only the generated entry |
+
+---
+
+### 3.2 All parameters
+
+#### `--provider <name>`
+
+Top-level provider key (e.g. `Gemini`, `OpenAI`). Must match the key in `apiconfig.json` and `api_schemas.json`. Prompted interactively if omitted.
+
+#### `--service <name>`
+
+Service name nested under the provider (e.g. `Imagen`, `text2image`). Prompted interactively if omitted.
+
+#### `--replace`
+
+Replaces `result.json` entirely with only the newly generated entry. Without this flag, the script upserts — existing entries for other providers/services are preserved.
+
+#### `--snippet <path>`
+
+Path to a custom snippet file. By default the script looks for `snippet.py` in the current directory. Use this to point to any file anywhere:
+
+```bash
+python api_snippet_to_json.py --provider Gemini --service Imagen --snippet /path/to/my_call.py
+```
+
+`result.json` is always written to the current working directory regardless of where the snippet file is.
+
+#### `--dry-run`
+
+Builds and prints the generated schema to the terminal without writing `result.json` or creating any handler files. Use this to preview the output before committing:
+
+```bash
+python api_snippet_to_json.py --provider Gemini --service Imagen --dry-run
+```
+
+Can be combined with `--validate` — validation runs first, then the schema is printed without writing.
+
+#### `--validate`
+
+Checks the generated schema for issues before writing. Runs two types of checks:
+
+**Non-blocking warnings** (printed, writing continues):
+
+- Missing or empty required fields (`provider`, `service`, `response_handler`, `import_modules`, `possible_parameters`, `request`, `request.method`, `request.endpoint`)
+- Conflicts — if the same `provider/service` already exists in `front_end/api_schemas.json`
+
+**Hard error — cancels writing** (no `result.json` is touched):
+
+- Provider name not found in `json/apiconfig.json` — because every provider used by the node must have credentials registered there. If the provider is missing, the schema would be unusable at runtime anyway.
+
+```bash
+python api_snippet_to_json.py --provider Gemini --service Imagen --validate
+```
+
+Example hard error output when provider is missing from `apiconfig.json`:
+
+```
+[VALIDATE] Schema looks good.
+ERROR: Provider 'Gemini' not found in apiconfig.json.
+  Registered providers: BlackForest, OpenAI
+  Add 'Gemini' to json/apiconfig.json before writing this schema.
+```
+
+Validation output is printed to the terminal. Writing `result.json` is cancelled only on the provider hard error — non-blocking warnings do not stop the write. Combine with `--dry-run` to preview without writing regardless.
+
+#### `--list`
+
+Lists all `provider / service` pairs currently registered in `result.json` (the local working output file). No snippet or provider/service arguments needed:
+
+```bash
+python api_snippet_to_json.py --list
+```
+
+Example output:
+
+```
+Registered services in result.json:
+  Gemini / Imagen
+  OpenAI / DallE
+```
+
+#### `--prodlist`
+
+Lists all `provider / service` pairs currently registered in `front_end/api_schemas.json` (the production schema file loaded by the node). No snippet or provider/service arguments needed:
+
+```bash
+python api_snippet_to_json.py --prodlist
+```
+
+Example output:
+
+```
+Registered services in front_end/api_schemas.json:
+  BlackForest / FluxPro
+  Gemini / Imagen
+  OpenAI / DallE
+```
+
+Use `--list` to see your local draft entries and `--prodlist` to see what is actually live in the node.
+
+---
+
+### 3.3 What the helper extracts from the snippet
 
 - `request.endpoint` from the call target.
 - `request.sdk_call.args/kwargs` from snippet args/kwargs.

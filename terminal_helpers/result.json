@@ -1,9 +1,10 @@
 {
   "Gemini": {
-    "Imagen": {
+    "Nanobanana_2": {
       "provider": "Gemini",
-      "service": "Imagen",
-      "response_handler": "Gemini_Imagen.py",
+      "service": "Nanobanana_2",
+      "response_handler": "Gemini_Nanobanana_2.py",
+      "reference_images_handler": "Gemini.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
