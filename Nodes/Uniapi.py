@@ -11,16 +11,19 @@ import random
 import argparse
 import json
 import copy
+import datetime
 from pathlib import Path
 from typing import Any
 import requests
 import sys
 from PIL import Image
+from io import BytesIO
 import numpy as np
 
 from ..components.API import api_json_to_requestbody
 from ..components.API import external_api_backend
 from ..components.API import api_schema_registry
+from ..components import file_output
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
@@ -40,7 +43,23 @@ class PrimereApiProcessor:
             "api_provider": (external_api_backend.provider_list(cls),),
             "api_service": (external_api_backend.service_list(cls),),
             "prompt": ("STRING", {"forceInput": True}),
-            "batch": ("INT", {"default": 1, "max": 10, "min": 1, "step": 1})
+            "batch": ("INT", {"default": 1, "max": 10, "min": 1, "step": 1}),
+            "auto_save_result": ("BOOLEAN", {"default": False, "label_on": "Save result", "label_off": "Don't save result"}),
+            "output_path": ("STRING", {"default": '[time(%Y-%m-%d)]', "multiline": False}),
+            "subpath": (["None", "Dev", "Test", "Serie", "Production", "Preview", "NewModel", "Project", "Portfolio", "Civitai", "Behance", "Facebook", "Instagram", "Character", "Style", "Product", "Fun", "SFW", "NSFW"], {"default": "Project"}),
+            "add_provider_to_path": ("BOOLEAN", {"default": False}),
+            "add_service_to_path": ("BOOLEAN", {"default": False}),
+            "add_model_to_path": ("BOOLEAN", {"default": False}),
+            "filename_prefix": ("STRING", {"default": "API"}),
+            "filename_delimiter": ("STRING", {"default": "_"}),
+            "add_date_to_filename": ("BOOLEAN", {"default": True}),
+            "add_time_to_filename": ("BOOLEAN", {"default": True}),
+            "filename_number_padding": ("INT", {"default": 2, "min": 1, "max": 9, "step": 1}),
+            "filename_number_start": ("BOOLEAN", {"default": False}),
+            "image_extension": ([ext.lstrip('.') for ext in file_output.ALLOWED_EXT], {"default": "jpg"}),
+            "image_quality": ("INT", {"default": 95, "min": 1, "max": 100, "step": 1}),
+            "save_data_to_json": ("BOOLEAN", {"default": False}),
+            "save_data_to_txt": ("BOOLEAN", {"default": False}),
         }
 
         cls.optional_inputs = {
@@ -205,6 +224,7 @@ class PrimereApiProcessor:
         api_result = None
         api_error = None
         result_image = None
+        save_bytes = None
         batch = max(1, int(batch))
         sdk_context = {}
         response_url = None
@@ -276,6 +296,70 @@ class PrimereApiProcessor:
 
         if api_error is None:
             response_context = {"response_url": response_url, "call_url": response_url, "loaded_client": loaded_client, "client": client, "sdk_context": sdk_context}
-            result_image = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
+            handler_result = external_api_backend.apply_response_handler(schema, api_result, provider=api_provider, service=(selected_service or api_service), response_context=response_context)
+            if isinstance(handler_result, list) and len(handler_result) == 2:
+                result_image, save_bytes = handler_result
+            else:
+                result_image = handler_result
+
+        # --- File naming and output path resolution ---
+        auto_save_result = kwargs.get('auto_save_result', False)
+        if auto_save_result and result_image is not None:
+            output_path_input = kwargs.get('output_path', '[time(%Y-%m-%d)]')
+            subpath = kwargs.get('subpath', 'None')
+            add_provider_to_path = kwargs.get('add_provider_to_path', False)
+            add_service_to_path = kwargs.get('add_service_to_path', False)
+            filename_prefix = kwargs.get('filename_prefix', 'API')
+            filename_delimiter = kwargs.get('filename_delimiter', '_')
+            add_date_to_filename = kwargs.get('add_date_to_filename', True)
+            add_time_to_filename = kwargs.get('add_time_to_filename', True)
+            filename_number_padding = kwargs.get('filename_number_padding', 2)
+            filename_number_start = kwargs.get('filename_number_start', False)
+            image_extension = kwargs.get('image_extension', 'jpg')
+            image_quality = kwargs.get('image_quality', 95)
+            save_data_to_json = kwargs.get('save_data_to_json', False)
+            save_data_to_txt = kwargs.get('save_data_to_txt', False)
+            add_model_to_path = kwargs.get('add_model_to_path', False)
+
+            model_subdir = None
+            if add_model_to_path:
+                model_subdir = next((custom_values[k] for k in ('model', 'model_name', 'version') if custom_values.get(k)), None)
+            if model_subdir:
+                model_subdir = file_output.sanitize_path_part(model_subdir)
+
+            if not os.path.isabs(output_path_input):
+                output_path_input = file_output.sanitize_path_part(output_path_input)
+            filename_prefix = file_output.sanitize_path_part(filename_prefix)
+
+            subdirs = []
+            if add_provider_to_path and api_provider:
+                subdirs.append(file_output.sanitize_path_part(api_provider))
+            if add_service_to_path and (selected_service or api_service):
+                subdirs.append(file_output.sanitize_path_part(selected_service or api_service))
+            if model_subdir:
+                subdirs.append(model_subdir)
+            if subpath and subpath != 'None' and subpath.strip():
+                subdirs.append(file_output.sanitize_path_part(subpath))
+
+            output_file, json_file, txt_file = file_output.resolve_output_file(
+                output_path_input, folder_paths.output_directory, subdirs,
+                filename_prefix, filename_delimiter,
+                add_date_to_filename, add_time_to_filename,
+                filename_number_padding, filename_number_start, image_extension,
+            )
+
+            Path(folder_paths.temp_directory).mkdir(parents=True, exist_ok=True)
+            file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
+
+            save_data = {
+                "provider": api_provider,
+                "service": selected_service or api_service,
+                "selected_parameters": selected_parameters_output,
+                "used_values": used_values_output,
+                # "rendered": rendered_payload,
+                "raw_payload": raw_payload,
+                # "api_result": api_result_debug,
+            }
+            file_output.save_metadata(save_data, json_file, txt_file, save_data_to_json, save_data_to_txt, used_values_output)
 
         return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug)

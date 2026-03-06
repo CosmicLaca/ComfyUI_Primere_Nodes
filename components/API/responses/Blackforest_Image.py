@@ -54,4 +54,5 @@ def handle_response(api_result, schema=None, loaded_client=None, response_url=No
         if not image_url:
             raise RuntimeError("No result image...")
 
-        return response_helper.url_to_tensor(image_url)
+        image_bytes = response_helper.fetch_url_bytes(image_url)
+        return [response_helper.bytes_to_tensor(image_bytes), image_bytes]

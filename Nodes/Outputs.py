@@ -18,6 +18,7 @@ import comfy_extras.nodes_flux as nodes_flux
 import torch
 from ..components import utility
 from ..components import primeresamplers
+from ..components import file_output
 from server import PromptServer
 from ..components.tree import PRIMERE_ROOT
 from comfy.cli_args import args
@@ -28,7 +29,7 @@ from transformers import pipeline
 from torchvision.transforms import functional as TF
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 
-ALLOWED_EXT = ('.jpeg', '.jpg', '.png', '.tiff', '.gif', '.bmp', '.webp')
+ALLOWED_EXT = file_output.ALLOWED_EXT
 
 class PrimereMetaSave:
     RETURN_TYPES = ("STRING",)
@@ -105,10 +106,10 @@ class PrimereMetaSave:
 
         delimiter = filename_delimiter
         number_padding = filename_number_padding
-        tokens = TextTokens()
+        tokens = file_output.TextTokens()
 
         original_output = self.output_dir
-        filename_prefix = tokens.parseTokens(filename_prefix)
+        filename_prefix = file_output.sanitize_path_part(tokens.parseTokens(filename_prefix))
         nowdate = datetime.datetime.now()
         if image_metadata is None:
             image_metadata = {}
@@ -137,39 +138,28 @@ class PrimereMetaSave:
             if 'width' in image_metadata:
                 filename_prefix = filename_prefix + '_' + str(image_metadata['saved_image_width']) + 'x' + str(image_metadata['saved_image_heigth'])
 
-        if output_path in [None, '', "none", "."]:
-            output_path = self.output_dir
-        else:
-            output_path = tokens.parseTokens(output_path)
-        if not os.path.isabs(output_path):
-            output_path = os.path.join(self.output_dir, output_path)
+        output_path = file_output.parse_output_path_base(output_path, self.output_dir)
         base_output = os.path.basename(output_path)
         if output_path.endswith("ComfyUI/output") or output_path.endswith("ComfyUI\output"):
             base_output = ""
 
-        if add_concept_to_path == True and 'model_concept' in image_metadata:
-            path = Path(output_path)
-            ConceptStartPath = output_path.replace(path.stem, '')
-            ConceptPath = image_metadata['model_concept']
-            if image_metadata['model_concept'] == 'Auto':
-                if 'model_version' in image_metadata:
-                    match image_metadata['model_version']:
-                        case 'SDXL_2048':
-                            ConceptPath = 'SDXL'
-                        case 'BaseModel_768':
-                            ConceptPath = 'SD1'
-                        case 'SD3_1024':
-                            ConceptPath = 'SD3'
-                        case 'Stable_Zero123_768':
-                            ConceptPath = 'Stable_Zero'
-            ConceptPath = Path(ConceptPath)
+        subdirs = []
 
-            output_path = ConceptStartPath + ConceptPath.stem.upper() + os.sep + path.stem
+        if add_concept_to_path == True and 'model_concept' in image_metadata:
+            concept_name = image_metadata['model_concept']
+            if concept_name == 'Auto' and 'model_version' in image_metadata:
+                match image_metadata['model_version']:
+                    case 'SDXL_2048':
+                        concept_name = 'SDXL'
+                    case 'BaseModel_768':
+                        concept_name = 'SD1'
+                    case 'SD3_1024':
+                        concept_name = 'SD3'
+                    case 'Stable_Zero123_768':
+                        concept_name = 'Stable_Zero'
+            subdirs.append(file_output.sanitize_path_part(Path(concept_name).stem.upper()))
 
         if add_modelname_to_path == True and 'model' in image_metadata:
-            path = Path(output_path)
-            ModelStartPath = output_path.replace(path.stem, '')
-
             if 'model_concept' in image_metadata and 'model_version' in image_metadata:
                 original_model_concept_selector = 'Auto'
                 if extra_pnginfo is not None:
@@ -184,55 +174,27 @@ class PrimereMetaSave:
                                 image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
                         case 'StableCascade':
                             image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
+            subdirs.append(file_output.sanitize_path_part(Path(image_metadata['model']).stem.upper()))
 
-
-            ModelPath = Path(image_metadata['model'])
-
-            if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred']:
-                if image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
-                    subpath = image_metadata['preferred']['subpath']
-                output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
-            else:
-                if subpath_priority == False and subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
-                    output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + subpath + os.sep + path.stem
-                else:
-                    output_path = ModelStartPath + ModelPath.stem.upper() + os.sep + path.stem
-        else:
-            if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred'] and image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
-                path = Path(output_path)
-                ModelStartPath = output_path.replace(path.stem, '')
+        if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred']:
+            if image_metadata['preferred']['subpath'] is not None and len(image_metadata['preferred']['subpath'].strip()) > 0:
                 subpath = image_metadata['preferred']['subpath']
-                output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
-            else:
-                path = Path(output_path)
-                ModelStartPath = output_path.replace(path.stem, '')
-                if subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
-                    output_path = ModelStartPath + os.sep + subpath + os.sep + path.stem
-                else:
-                    output_path = ModelStartPath + os.sep + path.stem
+            subdirs.append(file_output.sanitize_path_part(subpath))
+        elif subpath_priority == False and subpath is not None and subpath != 'None' and len(subpath.strip()) > 0:
+            subdirs.append(file_output.sanitize_path_part(subpath))
 
-        if output_path.strip() != '':
-            if not os.path.isabs(output_path):
-                output_path = os.path.join(folder_paths.output_directory, output_path)
-            if not os.path.exists(output_path.strip()):
-                print(f'The path `{output_path.strip()}` specified doesn\'t exist! Creating directory.')
-                os.makedirs(output_path, exist_ok=True)
+        output_path = file_output.append_subdirs_before_stem(output_path, subdirs)
+        output_path = file_output.ensure_output_dir(output_path)
 
-        if filename_number_start == 'true':
-            pattern = f"(\\d{{{filename_number_padding}}}){re.escape(delimiter)}{re.escape(filename_prefix)}"
-        else:
-            pattern = f"{re.escape(filename_prefix)}{re.escape(delimiter)}(\\d{{{filename_number_padding}}})"
-        existing_counters = [int(re.search(pattern, filename).group(1)) for filename in os.listdir(output_path) if re.match(pattern, os.path.basename(filename))]
-        existing_counters.sort(reverse=True)
-
-        if existing_counters:
-            counter = existing_counters[0] + 1
-        else:
-            counter = 1
-
-        file_extension = '.' + extension
-        if file_extension not in ALLOWED_EXT:
-            file_extension = "jpg"
+        file, counter = file_output.build_filename_and_counter(
+            output_path=output_path,
+            prefix=filename_prefix,
+            delimiter=delimiter,
+            number_padding=number_padding,
+            number_start=filename_number_start,
+            extension=extension,
+            overwrite_mode=overwrite_mode,
+        )
 
         results = list()
         # for image in images:
@@ -249,16 +211,6 @@ class PrimereMetaSave:
                 if extra_pnginfo is not None:
                     for x in extra_pnginfo:
                         metadata.add_text(x, json.dumps(extra_pnginfo[x]))
-
-        if overwrite_mode == 'prefix_as_filename':
-            file = f"{filename_prefix}{file_extension}"
-        else:
-            if filename_number_start == 'true':
-                file = f"{counter:0{number_padding}}{delimiter}{filename_prefix}{file_extension}"
-            else:
-                file = f"{filename_prefix}{delimiter}{counter:0{number_padding}}{file_extension}"
-            if os.path.exists(os.path.join(output_path, file)):
-                counter += 1
 
         exif_metadata_A11 = None
         try:
@@ -383,36 +335,6 @@ Steps: {str(image_metadata['steps'])}, Sampler: {a11samplername}, CFG scale: {st
         subfolder_parts = image_parts[len(common_parts):]
         subfolder_path = os.sep.join(subfolder_parts[:-1])
         return subfolder_path
-
-class TextTokens:
-    def __init__(self):
-        self.tokens = {
-            '[time]': str(time.time()).replace('.', '_')
-        }
-        if '.' in self.tokens['[time]']: self.tokens['[time]'] = self.tokens['[time]'].split('.')[0]
-
-    def format_time(self, format_code):
-        return time.strftime(format_code, time.localtime(time.time()))
-
-    def parseTokens(self, text):
-        tokens = self.tokens.copy()
-
-        # Update time
-        tokens['[time]'] = str(time.time())
-        if '.' in tokens['[time]']:
-            tokens['[time]'] = tokens['[time]'].split('.')[0]
-
-        for token, value in tokens.items():
-            if token.startswith('[time('):
-                continue
-            text = text.replace(token, value)
-
-        def replace_custom_time(match):
-            format_code = match.group(1)
-            return self.format_time(format_code)
-
-        text = re.sub(r'\[time\((.*?)\)\]', replace_custom_time, text)
-        return text
 
 class AnyType(str):
   def __ne__(self, __value: object) -> bool:

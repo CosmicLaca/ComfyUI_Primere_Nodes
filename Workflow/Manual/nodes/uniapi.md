@@ -25,6 +25,7 @@
    - 5.2 [`reference_images_handler`](#52-reference_images_handler)
 6. [Runtime rules and validation](#6-runtime-rules-and-validation)
 7. [Debug outputs — understanding and using them](#7-debug-outputs--understanding-and-using-them)
+8. [File save settings](#8-file-save-settings)
 
 ---
 
@@ -727,3 +728,66 @@ When writing a new service schema from scratch or adapting an existing one, the 
 4. **Use `debug_mode = ON`** during the design phase — the API call is never made, so there is no cost and no rate limit risk. Iterate on the schema until all three payload outputs look correct, then switch to production mode.
 
 5. **Read `API_SCHEMAS`** after a failed production call. The `api_error` field contains the provider error message. Combined with `rendered` and `api_result` in the same object, you can diagnose whether the error is a structural problem (wrong key, wrong nesting, wrong type) or a credential/quota problem.
+
+---
+
+## 8) File save settings
+
+File saving only runs when `auto_save_result` is ON and the API returned a valid result. If the response is `None` (no API error but no result), nothing is written.
+
+### Output path
+
+| Input | Default | Description |
+|---|---|---|
+| `output_path` | `[time(%Y-%m-%d)]` | Base output directory. Supports `[time(...)]` tokens. Relative paths are anchored to the ComfyUI output directory. Absolute paths are used as-is. |
+| `subpath` | `Project` | Fixed subdirectory appended after provider/service/model dirs. Select `None` to skip. |
+| `add_provider_to_path` | OFF | Adds the API provider name as a subdirectory (e.g. `Gemini`). |
+| `add_service_to_path` | OFF | Adds the selected service name as a subdirectory (e.g. `Imagen`). |
+| `add_model_to_path` | OFF | Adds the model identifier as a subdirectory. Reads `model_name` first, then `model`, then `version` from service parameters. |
+
+Directory structure example with all path options enabled:
+
+```
+<output_path> / <provider> / <service> / <model> / <subpath> / <filename>
+```
+
+User-supplied strings (provider, service, model, subpath, output_path) are automatically sanitized before use as path components: spaces and special characters (` / \ . , ; - `) are replaced with `_`, consecutive underscores collapsed to one.
+
+### Filename
+
+| Input | Default | Description |
+|---|---|---|
+| `filename_prefix` | `API` | Base name for the saved file. |
+| `filename_delimiter` | `_` | Separator between prefix, date, time, and counter parts. |
+| `add_date_to_filename` | ON | Appends current date (`YYYY-MM-DD`) to filename. |
+| `add_time_to_filename` | ON | Appends current time (`HHMMSS`) to filename. |
+| `filename_number_padding` | `2` | Zero-padding width for the auto-increment counter. |
+| `filename_number_start` | OFF | If ON, counter is placed before the prefix instead of after. |
+
+### Image format
+
+| Input | Default | Description |
+|---|---|---|
+| `image_extension` | `jpg` | Target image format. Options: `jpeg jpg png tiff gif bmp webp`. |
+| `image_quality` | `95` | Compression quality for JPEG and WEBP. PNG, TIFF, GIF ignore this. |
+
+### Non-image results
+
+The actual file type is detected from the API response bytes (MIME detection), not assumed from `image_extension`. If the API returns audio, video, or text, the correct extension is used automatically:
+
+| MIME type | Saved extension |
+|---|---|
+| `image/*` | uses `image_extension` input |
+| `audio/*` | `.mp3` |
+| `video/*` | `.mp4` |
+| `text/*` | `.txt` (UTF-8) |
+| other / unknown | extension from `image_extension` |
+
+### Metadata files
+
+| Input | Default | Description |
+|---|---|---|
+| `save_data_to_json` | OFF | Saves a `.json` file alongside the result containing provider, service, selected parameters, used values, and raw payload. |
+| `save_data_to_txt` | OFF | Saves a `.txt` file alongside the result containing provider, service, and all used parameter values (flattened key: value lines). |
+
+Both files share the same base path and filename as the saved result, only the extension differs.

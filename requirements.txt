@@ -52,3 +52,4 @@ openai
 google-genai>=1.65.0
 dotenv
 elevenlabs
+python-magic-bin
