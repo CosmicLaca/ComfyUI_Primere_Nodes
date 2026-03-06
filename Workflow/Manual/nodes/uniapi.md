@@ -20,6 +20,7 @@
    - 4.5 [`request_exclusions`](#45-request_exclusions)
    - 4.6 [URL-part and endpoint placeholders](#46-url-part-and-endpoint-placeholders)
    - 4.7 [Header authentication placeholders](#47-header-authentication-placeholders)
+   - 4.8 [`parameter_constraints`](#48-parameter_constraints)
 5. [Handlers](#5-handlers)
    - 5.1 [`response_handler`](#51-response_handler)
    - 5.2 [`reference_images_handler`](#52-reference_images_handler)
@@ -500,6 +501,75 @@ You can also use env-token placeholders via a `$call` pattern for call-based sch
 ```
 
 This resolves to `os.environ.get("ENV_API_KEY")` at runtime.
+
+---
+
+### 4.8 `parameter_constraints`
+
+`parameter_constraints` is an optional service-level block that automatically corrects numeric parameter values before they reach the API. It runs after all inputs are resolved and before the request is rendered — so corrected values appear in debug outputs too.
+
+Use it when a provider enforces numeric limits that differ from what ComfyUI nodes produce (e.g. resolution from an upstream node, or a safety setting that varies by model).
+
+#### Unconditional constraint
+
+Applies to every call regardless of other parameter values:
+
+```json
+"parameter_constraints": {
+  "width":  {"min": 256, "max": 1440, "step": 32},
+  "height": {"min": 256, "max": 1440, "step": 32}
+}
+```
+
+| Field | Description |
+|---|---|
+| `min` | Lower bound. Value is raised to this if below it. Optional. |
+| `max` | Upper bound. Value is capped to this if above it. Optional. |
+| `step` | Snap to nearest lower multiple of this value after clamping. Then re-clamp to `min` if needed. Optional. |
+
+Processing order: clamp to `max` → clamp to `min` → snap down to `step` multiple → re-clamp to `min`.
+
+Example: input `width = 1500` → capped to `1440` → already a multiple of 32 → result `1440`.
+Example: input `width = 260` → within range → snapped down to `256` (nearest multiple of 32) → re-clamped to `256` → result `256`.
+
+#### Conditional constraint
+
+A list of rules, each with a `when` condition using the same syntax as `request_exclusions`. The first matching rule is applied; if no rule matches, the value passes through unchanged.
+
+```json
+"parameter_constraints": {
+  "safety_tolerance": [
+    {"when": {"path": "model_name", "equals": "flux-pro-1.1"},       "max": 5},
+    {"when": {"path": "model_name", "equals": "flux-pro-1.1-ultra"}, "max": 6}
+  ]
+}
+```
+
+Each rule can include `min`, `max`, and/or `step`. The `when` condition checks the resolved value of `path` against `equals` (string comparison).
+
+If none of the rules match (e.g. a model not listed), no constraint is applied.
+
+#### Combining both in one block
+
+Unconditional and conditional constraints can coexist in the same `parameter_constraints` block:
+
+```json
+"parameter_constraints": {
+  "width":            {"min": 256, "max": 1440, "step": 32},
+  "height":           {"min": 256, "max": 1440, "step": 32},
+  "safety_tolerance": [
+    {"when": {"path": "model_name", "equals": "flux-2-pro"}, "max": 5},
+    {"when": {"path": "model_name", "equals": "flux-2-max"}, "max": 5}
+  ]
+}
+```
+
+#### Notes
+
+- The block is fully optional. If absent, all values pass through unchanged.
+- Only numeric values are constrained (integers and floats). Non-numeric values are skipped.
+- String values from COMBO widgets (dropdown lists) are automatically converted to numbers before the constraint is applied.
+- Corrected values flow into `used_values` and `RAW_PAYLOAD` debug outputs, so you can verify the correction without reading source code.
 
 ---
 
