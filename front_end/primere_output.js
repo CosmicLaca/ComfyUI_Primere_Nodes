@@ -1,6 +1,7 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 import { ComfyWidgets } from "/scripts/widgets.js";
+import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 let hasShownAlertForUpdatingInt = false;
 
 let currentClass = false;
@@ -183,39 +184,15 @@ async function PrimerePreviewSaverWidget(node, inputName) {
                     state.saveIsValid = false;
                     const errTitle = '⛔ Image not available for save. Please load one.';
                     applyWidgetValues(node, errTitle, state.targetSelValues);
-                    alert('Current settings is invalid to save image.\n\nERROR: ' + errTitle);
+                    showToast("error", 'Current settings is invalid to save image. ERROR: ' + errTitle);
                 }
             } else {
                 const btn = node.widgets.find(w => w.type === 'button');
-                alert('Current settings is invalid to save image.\n\nERROR: ' + (btn ? btn.name : 'Unknown'));
+                showToast("error", 'Current settings is invalid to save image. ERROR: ' + (btn ? btn.name : 'Unknown'));
             }
         });
 
-        const BTN_HEIGHT = 32;
-        const BTN_COLOR = "#771a1a";
-        const BTN_COLOR_ACTIVE = "#932424";
-        const BTN_RADIUS = 6;
-        const BTN_FONT = "bold 15px sans-serif";
-
-        saveBtn.computeSize = () => [0, BTN_HEIGHT];
-        saveBtn.draw = function (ctx, node, widget_width, y) {
-            ctx.save();
-            const margin = 15;
-            ctx.fillStyle = this.clicked ? BTN_COLOR_ACTIVE : BTN_COLOR;
-            if (this.clicked) {
-                this.clicked = false;
-                node.setDirtyCanvas?.(true);
-            }
-            ctx.beginPath();
-            ctx.roundRect(margin, y, widget_width - margin * 2, BTN_HEIGHT, BTN_RADIUS);
-            ctx.fill();
-            ctx.fillStyle = "#dad570";
-            ctx.font = BTN_FONT;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(this.name, widget_width * 0.5, y + BTN_HEIGHT * 0.5);
-            ctx.restore();
-        };
+        applyPrimereButtonStyle(saveBtn);
 
         return { widget: widget };
     }
@@ -437,7 +414,7 @@ class PreviewSaver {
             }
         })
         .catch((err) => {
-            alert('Failed to load source image: ' + err.message);
+            showToast("error", 'Failed to load source image: ' + err.message);
         });
     }
 }
@@ -596,7 +573,7 @@ function sendPOSTmessage(message) {
 
 api.addEventListener("PreviewSaveResponse", PreviewSaveResponse);
 function PreviewSaveResponse(event) {
-    alert(event.detail);
+    showToast("success", event.detail);
     if (pendingSaveNode) {
         ButtonLabelCreator(pendingSaveNode);
         pendingSaveNode = null;
