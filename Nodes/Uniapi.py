@@ -68,6 +68,8 @@ class PrimereApiProcessor:
             "reference_images": ("IMAGE", {"default": None, "forceInput": True}),
             "first_image": ("IMAGE", {"default": None, "forceInput": True}),
             "last_image": ("IMAGE", {"default": None, "forceInput": True}),
+            "frontal_image": ("IMAGE", {"default": None, "forceInput": True}),
+            "reference_video": ("VIDEO", {"default": None, "forceInput": True}),
             "width": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
             "height": ("INT", {"default": 1024, "max": 8192, "min": 64, "step": 64, "forceInput": True}),
             "aspect_ratio": ("STRING", {"forceInput": True, "default": "1:1"}),
@@ -82,7 +84,7 @@ class PrimereApiProcessor:
 
         return {"required": cls.required_inputs, "optional": cls.optional_inputs, "hidden": hidden_inputs}
 
-    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, unique_id = None, **kwargs):
+    def process_uniapi(self, processor, api_provider, api_service, prompt, negative_prompt = None, batch = 1, reference_images = None, first_image = None, last_image = None, frontal_image = None, reference_video = None, width = 1024, height = 1024, aspect_ratio = '1:1', seed = None, debug_mode = False, unique_id = None, **kwargs):
         API_SCHEMAS_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json')
         API_CONFIG_PATH = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
         API_SCHEMA_REGISTRY = api_schema_registry.load_and_validate_api_schema_registry(API_SCHEMAS_PATH, API_CONFIG_PATH)
@@ -187,22 +189,27 @@ class PrimereApiProcessor:
 
         if isinstance(img_binary_api, dict) and len(img_binary_api) > 0:
             selected_parameters.update(img_binary_api)
-        elif img_binary_api not in (None, "") and (not isinstance(img_binary_api, list) or len(img_binary_api) > 0):
+        elif isinstance(img_binary_api, list) and len(img_binary_api) > 0:
             selected_parameters["reference_images"] = img_binary_api
 
-        if first_image is not None:
-            first_image_source = first_image
-        elif reference_images is not None:
-            first_image_source = reference_images[0] if isinstance(reference_images, list) else reference_images
-        else:
-            first_image_source = None
-        if first_image_source is not None:
-            first_image_result = external_api_backend.apply_reference_images_handler(
-                schema, api_provider,
-                {"img_binary_api": first_image_source, "loaded_client_for_upload": loaded_client_for_upload}
-            )
-            if isinstance(first_image_result, dict) and first_image_result:
-                selected_parameters.update(first_image_result)
+        first_image_source = first_image if first_image is not None else (reference_images[0] if isinstance(reference_images, list) else reference_images) if reference_images is not None else None
+
+        single_ref_inputs = [
+            ("first_image", first_image_source),
+            ("last_image", last_image),
+            ("frontal_image", frontal_image),
+            ("reference_video", reference_video),
+        ]
+        if not debug_mode:
+            for ref_key, ref_source in single_ref_inputs:
+                if ref_source is None:
+                    continue
+                ref_result = external_api_backend.apply_reference_images_handler(
+                    schema, api_provider,
+                    {"img_binary_api": ref_source, "loaded_client_for_upload": loaded_client_for_upload, "target_key": ref_key}
+                )
+                if isinstance(ref_result, dict) and ref_result:
+                    selected_parameters.update(ref_result)
 
         possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
         if isinstance(possible_parameters, dict):

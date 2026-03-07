@@ -1,8 +1,8 @@
 {
   "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
   "revision": 0,
-  "last_node_id": 74,
-  "last_link_id": 657,
+  "last_node_id": 76,
+  "last_link_id": 678,
   "nodes": [
     {
       "id": 22,
@@ -303,13 +303,13 @@
         1262.834388548706
       ],
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 652
+          "link": 670
         }
       ],
       "outputs": [],
@@ -419,13 +419,13 @@
         88
       ],
       "flags": {},
-      "order": 21,
+      "order": 22,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 651
+          "link": 669
         }
       ],
       "outputs": [],
@@ -532,13 +532,13 @@
         88
       ],
       "flags": {},
-      "order": 20,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 650
+          "link": 668
         }
       ],
       "outputs": [],
@@ -548,73 +548,8 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x000001F67AF58D10>"
+        "<google.genai.client.Client object at 0x000001EB76885D10>"
       ]
-    },
-    {
-      "id": 16,
-      "type": "PrimereFastSeed",
-      "pos": [
-        866.7850392596297,
-        23.212314541041348
-      ],
-      "size": [
-        330.364340787964,
-        149.12278620629877
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "SEED",
-          "type": "INT",
-          "links": [
-            53,
-            648
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereFastSeed",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
-      },
-      "widgets_values": [
-        "Random",
-        42,
-        "Last seed: [275143688740681]"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 42,
-      "type": "PreviewImage",
-      "pos": [
-        -1911.866591853913,
-        -1189.5097461843127
-      ],
-      "size": [
-        2324.0069677273495,
-        581.7454612396214
-      ],
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 205
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
     },
     {
       "id": 44,
@@ -628,13 +563,13 @@
         739.8065007039345
       ],
       "flags": {},
-      "order": 27,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 657
+          "link": 675
         }
       ],
       "outputs": [],
@@ -645,7 +580,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"_type\": \"GenerateContentResponse\",\n    \"sdk_http_response\": {\n        \"_type\": \"HttpResponse\",\n        \"headers\": {\n            \"content-type\": \"application/json; charset=UTF-8\",\n            \"vary\": \"Origin, X-Origin, Referer\",\n            \"content-encoding\": \"gzip\",\n            \"date\": \"Fri, 06 Mar 2026 21:43:07 GMT\",\n            \"server\": \"scaffolding on HTTPServer2\",\n            \"x-xss-protection\": \"0\",\n            \"x-frame-options\": \"SAMEORIGIN\",\n            \"x-content-type-options\": \"nosniff\",\n            \"server-timing\": \"gfet4t7; dur=6047\",\n            \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n            \"transfer-encoding\": \"chunked\"\n        },\n        \"body\": null\n    },\n    \"candidates\": [\n        {\n            \"_type\": \"Candidate\",\n            \"content\": {\n                \"_type\": \"Content\",\n                \"parts\": [\n                    {\n                        \"_type\": \"Part\",\n                        \"media_resolution\": null,\n                        \"code_execution_result\": null,\n                        \"executable_code\": null,\n                        \"file_data\": null,\n                        \"function_call\": null,\n                        \"function_response\": null,\n                        \"inline_data\": {\n                            \"_type\": \"Blob\",\n                            \"data\": \"[binary data omitted: 1534895 bytes]\",\n                            \"display_name\": null,\n                            \"mime_type\": \"image/png\"\n                        },\n                        \"text\": null,\n                        \"thought\": null,\n                        \"thought_signature\": null,\n                        \"video_metadata\": null\n                    }\n                ],\n                \"role\": \"model\"\n            },\n            \"citation_metadata\": null,\n            \"finish_message\": null,\n            \"token_count\": null,\n            \"finish_reason\": \"STOP\",\n            \"grounding_metadata\": null,\n            \"avg_logprobs\": null,\n            \"index\": 0,\n            \"logprobs_result\": null,\n            \"safety_ratings\": null,\n            \"url_context_metadata\": null\n        }\n    ],\n    \"create_time\": null,\n    \"model_version\": \"gemini-2.5-flash-image\",\n    \"prompt_feedback\": null,\n    \"response_id\": \"a0qrafmnM7C028oPzozYUQ\",\n    \"usage_metadata\": {\n        \"_type\": \"GenerateContentResponseUsageMetadata\",\n        \"cache_tokens_details\": null,\n        \"cached_content_token_count\": null,\n        \"candidates_token_count\": 1290,\n        \"candidates_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"IMAGE\",\n                \"token_count\": 1290\n            }\n        ],\n        \"prompt_token_count\": 11,\n        \"prompt_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"TEXT\",\n                \"token_count\": 11\n            }\n        ],\n        \"thoughts_token_count\": null,\n        \"tool_use_prompt_token_count\": null,\n        \"tool_use_prompt_tokens_details\": null,\n        \"total_token_count\": 1301,\n        \"traffic_type\": null\n    },\n    \"automatic_function_calling_history\": [],\n    \"parsed\": null\n}"
+        "{\n    \"_type\": \"GenerateContentResponse\",\n    \"sdk_http_response\": {\n        \"_type\": \"HttpResponse\",\n        \"headers\": {\n            \"content-type\": \"application/json; charset=UTF-8\",\n            \"vary\": \"Origin, X-Origin, Referer\",\n            \"content-encoding\": \"gzip\",\n            \"date\": \"Sat, 07 Mar 2026 13:13:13 GMT\",\n            \"server\": \"scaffolding on HTTPServer2\",\n            \"x-xss-protection\": \"0\",\n            \"x-frame-options\": \"SAMEORIGIN\",\n            \"x-content-type-options\": \"nosniff\",\n            \"server-timing\": \"gfet4t7; dur=16857\",\n            \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n            \"transfer-encoding\": \"chunked\"\n        },\n        \"body\": null\n    },\n    \"candidates\": [\n        {\n            \"_type\": \"Candidate\",\n            \"content\": {\n                \"_type\": \"Content\",\n                \"parts\": [\n                    {\n                        \"_type\": \"Part\",\n                        \"media_resolution\": null,\n                        \"code_execution_result\": null,\n                        \"executable_code\": null,\n                        \"file_data\": null,\n                        \"function_call\": null,\n                        \"function_response\": null,\n                        \"inline_data\": {\n                            \"_type\": \"Blob\",\n                            \"data\": \"[binary data omitted: 675850 bytes]\",\n                            \"display_name\": null,\n                            \"mime_type\": \"image/jpeg\"\n                        },\n                        \"text\": null,\n                        \"thought\": null,\n                        \"thought_signature\": \"[binary data omitted: 1241489 bytes]\",\n                        \"video_metadata\": null\n                    }\n                ],\n                \"role\": \"model\"\n            },\n            \"citation_metadata\": null,\n            \"finish_message\": null,\n            \"token_count\": null,\n            \"finish_reason\": \"STOP\",\n            \"grounding_metadata\": null,\n            \"avg_logprobs\": null,\n            \"index\": 0,\n            \"logprobs_result\": null,\n            \"safety_ratings\": null,\n            \"url_context_metadata\": null\n        }\n    ],\n    \"create_time\": null,\n    \"model_version\": \"gemini-3-pro-image-preview\",\n    \"prompt_feedback\": null,\n    \"response_id\": \"aSSsabvDI6fXvdIPyd2WiQw\",\n    \"usage_metadata\": {\n        \"_type\": \"GenerateContentResponseUsageMetadata\",\n        \"cache_tokens_details\": null,\n        \"cached_content_token_count\": null,\n        \"candidates_token_count\": 1202,\n        \"candidates_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"IMAGE\",\n                \"token_count\": 1120\n            }\n        ],\n        \"prompt_token_count\": 30,\n        \"prompt_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"TEXT\",\n                \"token_count\": 30\n            }\n        ],\n        \"thoughts_token_count\": 197,\n        \"tool_use_prompt_token_count\": null,\n        \"tool_use_prompt_tokens_details\": null,\n        \"total_token_count\": 1429,\n        \"traffic_type\": null\n    },\n    \"automatic_function_calling_history\": [],\n    \"parsed\": null\n}"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -662,13 +597,13 @@
         1163.5127427084483
       ],
       "flags": {},
-      "order": 26,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 656
+          "link": 674
         }
       ],
       "outputs": [],
@@ -679,7 +614,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "[\n    {\n        \"schema\": {\n            \"provider\": \"Gemini\",\n            \"service\": \"Nanobanana\",\n            \"response_handler\": \"Gemini_Nanobanana.py\",\n            \"import_modules\": [\n                \"from google import genai\",\n                \"from google.genai import types\"\n            ],\n            \"possible_parameters\": {\n                \"aspect_ratio\": [\n                    \"1:1\",\n                    \"1:4\",\n                    \"1:8\",\n                    \"2:3\",\n                    \"3:2\",\n                    \"3:4\",\n                    \"4:1\",\n                    \"4:3\",\n                    \"4:5\",\n                    \"5:4\",\n                    \"8:1\",\n                    \"9:16\",\n                    \"16:9\",\n                    \"21:9\"\n                ],\n                \"resolution\": [\n                    \"1K\",\n                    \"512px\",\n                    \"2K\",\n                    \"4K\"\n                ],\n                \"model\": [\n                    \"gemini-2.5-flash-image\",\n                    \"gemini-3-pro-image-preview\",\n                    \"gemini-3.1-flash-image-preview\"\n                ],\n                \"thinking_level\": [\n                    \"minimal\",\n                    \"high\"\n                ],\n                \"include_thoughts\": [\n                    false,\n                    true\n                ]\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ],\n            \"request\": {\n                \"method\": \"SDK\",\n                \"endpoint\": \"client.models.generate_content\",\n                \"sdk_call\": {\n                    \"args\": [],\n                    \"kwargs\": {\n                        \"model\": \"{{model}}\",\n                        \"contents\": [\n                            \"{{prompt}}\",\n                            \"{{reference_images}}\"\n                        ],\n                        \"config\": {\n                            \"$call\": \"types.GenerateContentConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"response_modalities\": [\n                                    \"{{config_response_modalities_0}}\"\n                                ],\n                                \"image_config\": {\n                                    \"$call\": \"types.ImageConfig\",\n                                    \"$args\": [],\n                                    \"$kwargs\": {\n                                        \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                        \"image_size\": \"{{image_size}}\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"selected_parameters\": {\n            \"prompt\": \"The cat and the dog playing in the kitchen.\",\n            \"width\": 1365,\n            \"height\": 768,\n            \"first_image\": \"[torch.Tensor omitted: shape=(1, 1012, 1094, 3), dtype=torch.float32]\",\n            \"batch\": 1,\n            \"seed\": 275143688740681,\n            \"debug_mode\": false,\n            \"aspect_ratio\": \"16:9\",\n            \"resolution\": \"1K\",\n            \"model\": \"gemini-2.5-flash-image\",\n            \"thinking_level\": \"minimal\",\n            \"include_thoughts\": false\n        },\n        \"used_values\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"prompt\": \"The cat and the dog playing in the kitchen.\",\n            \"config_response_modalities_0\": \"IMAGE\",\n            \"aspect_ratio\": \"16:9\",\n            \"image_size\": \"1K\"\n        },\n        \"selected_service\": \"Nanobanana\",\n        \"rendered\": {\n            \"provider\": \"Gemini\",\n            \"endpoint\": \"client.models.generate_content\",\n            \"method\": \"SDK\",\n            \"headers\": {},\n            \"query\": {},\n            \"body\": null,\n            \"sdk_call\": {\n                \"args\": [],\n                \"kwargs\": {\n                    \"model\": \"gemini-2.5-flash-image\",\n                    \"contents\": [\n                        \"The cat and the dog playing in the kitchen.\"\n                    ],\n                    \"config\": {\n                        \"$call\": \"types.GenerateContentConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"response_modalities\": [\n                                \"IMAGE\"\n                            ],\n                            \"image_config\": {\n                                \"$call\": \"types.ImageConfig\",\n                                \"$args\": [],\n                                \"$kwargs\": {\n                                    \"aspect_ratio\": \"16:9\",\n                                    \"image_size\": \"1K\"\n                                }\n                            }\n                        }\n                    }\n                }\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ]\n        },\n        \"api_result\": {\n            \"_type\": \"GenerateContentResponse\",\n            \"sdk_http_response\": {\n                \"_type\": \"HttpResponse\",\n                \"headers\": {\n                    \"content-type\": \"application/json; charset=UTF-8\",\n                    \"vary\": \"Origin, X-Origin, Referer\",\n                    \"content-encoding\": \"gzip\",\n                    \"date\": \"Fri, 06 Mar 2026 21:43:07 GMT\",\n                    \"server\": \"scaffolding on HTTPServer2\",\n                    \"x-xss-protection\": \"0\",\n                    \"x-frame-options\": \"SAMEORIGIN\",\n                    \"x-content-type-options\": \"nosniff\",\n                    \"server-timing\": \"gfet4t7; dur=6047\",\n                    \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n                    \"transfer-encoding\": \"chunked\"\n                },\n                \"body\": null\n            },\n            \"candidates\": [\n                {\n                    \"_type\": \"Candidate\",\n                    \"content\": {\n                        \"_type\": \"Content\",\n                        \"parts\": [\n                            {\n                                \"_type\": \"Part\",\n                                \"media_resolution\": null,\n                                \"code_execution_result\": null,\n                                \"executable_code\": null,\n                                \"file_data\": null,\n                                \"function_call\": null,\n                                \"function_response\": null,\n                                \"inline_data\": {\n                                    \"_type\": \"Blob\",\n                                    \"data\": \"[binary data omitted: 1534895 bytes]\",\n                                    \"display_name\": null,\n                                    \"mime_type\": \"image/png\"\n                                },\n                                \"text\": null,\n                                \"thought\": null,\n                                \"thought_signature\": null,\n                                \"video_metadata\": null\n                            }\n                        ],\n                        \"role\": \"model\"\n                    },\n                    \"citation_metadata\": null,\n                    \"finish_message\": null,\n                    \"token_count\": null,\n                    \"finish_reason\": \"STOP\",\n                    \"grounding_metadata\": null,\n                    \"avg_logprobs\": null,\n                    \"index\": 0,\n                    \"logprobs_result\": null,\n                    \"safety_ratings\": null,\n                    \"url_context_metadata\": null\n                }\n            ],\n            \"create_time\": null,\n            \"model_version\": \"gemini-2.5-flash-image\",\n            \"prompt_feedback\": null,\n            \"response_id\": \"a0qrafmnM7C028oPzozYUQ\",\n            \"usage_metadata\": {\n                \"_type\": \"GenerateContentResponseUsageMetadata\",\n                \"cache_tokens_details\": null,\n                \"cached_content_token_count\": null,\n                \"candidates_token_count\": 1290,\n                \"candidates_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"IMAGE\",\n                        \"token_count\": 1290\n                    }\n                ],\n                \"prompt_token_count\": 11,\n                \"prompt_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"TEXT\",\n                        \"token_count\": 11\n                    }\n                ],\n                \"thoughts_token_count\": null,\n                \"tool_use_prompt_token_count\": null,\n                \"tool_use_prompt_tokens_details\": null,\n                \"total_token_count\": 1301,\n                \"traffic_type\": null\n            },\n            \"automatic_function_calling_history\": [],\n            \"parsed\": null\n        },\n        \"api_error\": null\n    }\n]"
+        "[\n    {\n        \"schema\": {\n            \"provider\": \"Gemini\",\n            \"service\": \"Nanobanana\",\n            \"response_handler\": \"Gemini_Nanobanana.py\",\n            \"import_modules\": [\n                \"from google import genai\",\n                \"from google.genai import types\"\n            ],\n            \"possible_parameters\": {\n                \"aspect_ratio\": [\n                    \"1:1\",\n                    \"1:4\",\n                    \"1:8\",\n                    \"2:3\",\n                    \"3:2\",\n                    \"3:4\",\n                    \"4:1\",\n                    \"4:3\",\n                    \"4:5\",\n                    \"5:4\",\n                    \"8:1\",\n                    \"9:16\",\n                    \"16:9\",\n                    \"21:9\"\n                ],\n                \"resolution\": [\n                    \"1K\",\n                    \"512px\",\n                    \"2K\",\n                    \"4K\"\n                ],\n                \"model\": [\n                    \"gemini-2.5-flash-image\",\n                    \"gemini-3-pro-image-preview\",\n                    \"gemini-3.1-flash-image-preview\"\n                ],\n                \"thinking_level\": [\n                    \"minimal\",\n                    \"high\"\n                ],\n                \"include_thoughts\": [\n                    false,\n                    true\n                ]\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ],\n            \"request\": {\n                \"method\": \"SDK\",\n                \"endpoint\": \"client.models.generate_content\",\n                \"sdk_call\": {\n                    \"args\": [],\n                    \"kwargs\": {\n                        \"model\": \"{{model}}\",\n                        \"contents\": [\n                            \"{{prompt}}\",\n                            \"{{reference_images}}\"\n                        ],\n                        \"config\": {\n                            \"$call\": \"types.GenerateContentConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"response_modalities\": [\n                                    \"{{config_response_modalities_0}}\"\n                                ],\n                                \"image_config\": {\n                                    \"$call\": \"types.ImageConfig\",\n                                    \"$args\": [],\n                                    \"$kwargs\": {\n                                        \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                        \"image_size\": \"{{image_size}}\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"selected_parameters\": {\n            \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n            \"width\": 768,\n            \"height\": 1365,\n            \"aspect_ratio\": \"9:16\",\n            \"batch\": 1,\n            \"seed\": 909722619731632,\n            \"debug_mode\": false,\n            \"resolution\": \"1K\",\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"thinking_level\": \"minimal\",\n            \"include_thoughts\": false\n        },\n        \"used_values\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n            \"config_response_modalities_0\": \"IMAGE\",\n            \"aspect_ratio\": \"9:16\",\n            \"image_size\": \"1K\"\n        },\n        \"selected_service\": \"Nanobanana\",\n        \"rendered\": {\n            \"provider\": \"Gemini\",\n            \"endpoint\": \"client.models.generate_content\",\n            \"method\": \"SDK\",\n            \"headers\": {},\n            \"query\": {},\n            \"body\": null,\n            \"sdk_call\": {\n                \"kwargs\": {\n                    \"model\": \"gemini-3-pro-image-preview\",\n                    \"contents\": [\n                        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n                    ],\n                    \"config\": {\n                        \"$call\": \"types.GenerateContentConfig\",\n                        \"$kwargs\": {\n                            \"response_modalities\": [\n                                \"IMAGE\"\n                            ],\n                            \"image_config\": {\n                                \"$call\": \"types.ImageConfig\",\n                                \"$kwargs\": {\n                                    \"aspect_ratio\": \"9:16\",\n                                    \"image_size\": \"1K\"\n                                }\n                            }\n                        }\n                    }\n                }\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ]\n        },\n        \"api_result\": {\n            \"_type\": \"GenerateContentResponse\",\n            \"sdk_http_response\": {\n                \"_type\": \"HttpResponse\",\n                \"headers\": {\n                    \"content-type\": \"application/json; charset=UTF-8\",\n                    \"vary\": \"Origin, X-Origin, Referer\",\n                    \"content-encoding\": \"gzip\",\n                    \"date\": \"Sat, 07 Mar 2026 13:13:13 GMT\",\n                    \"server\": \"scaffolding on HTTPServer2\",\n                    \"x-xss-protection\": \"0\",\n                    \"x-frame-options\": \"SAMEORIGIN\",\n                    \"x-content-type-options\": \"nosniff\",\n                    \"server-timing\": \"gfet4t7; dur=16857\",\n                    \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n                    \"transfer-encoding\": \"chunked\"\n                },\n                \"body\": null\n            },\n            \"candidates\": [\n                {\n                    \"_type\": \"Candidate\",\n                    \"content\": {\n                        \"_type\": \"Content\",\n                        \"parts\": [\n                            {\n                                \"_type\": \"Part\",\n                                \"media_resolution\": null,\n                                \"code_execution_result\": null,\n                                \"executable_code\": null,\n                                \"file_data\": null,\n                                \"function_call\": null,\n                                \"function_response\": null,\n                                \"inline_data\": {\n                                    \"_type\": \"Blob\",\n                                    \"data\": \"[binary data omitted: 675850 bytes]\",\n                                    \"display_name\": null,\n                                    \"mime_type\": \"image/jpeg\"\n                                },\n                                \"text\": null,\n                                \"thought\": null,\n                                \"thought_signature\": \"[binary data omitted: 1241489 bytes]\",\n                                \"video_metadata\": null\n                            }\n                        ],\n                        \"role\": \"model\"\n                    },\n                    \"citation_metadata\": null,\n                    \"finish_message\": null,\n                    \"token_count\": null,\n                    \"finish_reason\": \"STOP\",\n                    \"grounding_metadata\": null,\n                    \"avg_logprobs\": null,\n                    \"index\": 0,\n                    \"logprobs_result\": null,\n                    \"safety_ratings\": null,\n                    \"url_context_metadata\": null\n                }\n            ],\n            \"create_time\": null,\n            \"model_version\": \"gemini-3-pro-image-preview\",\n            \"prompt_feedback\": null,\n            \"response_id\": \"aSSsabvDI6fXvdIPyd2WiQw\",\n            \"usage_metadata\": {\n                \"_type\": \"GenerateContentResponseUsageMetadata\",\n                \"cache_tokens_details\": null,\n                \"cached_content_token_count\": null,\n                \"candidates_token_count\": 1202,\n                \"candidates_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"IMAGE\",\n                        \"token_count\": 1120\n                    }\n                ],\n                \"prompt_token_count\": 30,\n                \"prompt_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"TEXT\",\n                        \"token_count\": 30\n                    }\n                ],\n                \"thoughts_token_count\": 197,\n                \"tool_use_prompt_token_count\": null,\n                \"tool_use_prompt_tokens_details\": null,\n                \"total_token_count\": 1429,\n                \"traffic_type\": null\n            },\n            \"automatic_function_calling_history\": [],\n            \"parsed\": null\n        },\n        \"api_error\": null\n    }\n]"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -696,13 +631,13 @@
         628.220628990278
       ],
       "flags": {},
-      "order": 25,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 655
+          "link": 673
         }
       ],
       "outputs": [],
@@ -713,41 +648,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"prompt\": \"The cat and the dog playing in the kitchen.\",\n    \"config_response_modalities_0\": \"IMAGE\",\n    \"aspect_ratio\": \"16:9\",\n    \"image_size\": \"1K\"\n}"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 47,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        341.6491199516921,
-        459.7499835308432
-      ],
-      "size": [
-        887.1002652508323,
-        1079.130111868482
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 654
-        }
-      ],
-      "outputs": [],
-      "title": "Primere Any Debug - RAW PAYLOAD",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"contents\": [\n        \"The cat and the dog playing in the kitchen.\"\n    ],\n    \"config\": {\n        \"$call\": \"types.GenerateContentConfig\",\n        \"$args\": [],\n        \"$kwargs\": {\n            \"response_modalities\": [\n                \"IMAGE\"\n            ],\n            \"image_config\": {\n                \"$call\": \"types.ImageConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"aspect_ratio\": \"16:9\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+        "{\n    \"model\": \"gemini-3-pro-image-preview\",\n    \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n    \"config_response_modalities_0\": \"IMAGE\",\n    \"aspect_ratio\": \"9:16\",\n    \"image_size\": \"1K\"\n}"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -764,13 +665,13 @@
         1078.7652401045225
       ],
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
           "name": "input",
           "type": "*",
-          "link": 653
+          "link": 671
         }
       ],
       "outputs": [],
@@ -781,10 +682,345 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [],\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"The cat and the dog playing in the kitchen.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$args\": [],\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$args\": [],\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"16:9\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ]\n}"
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"kwargs\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"contents\": [\n                \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ]\n}"
       ],
       "color": "#322",
       "bgcolor": "#533"
+    },
+    {
+      "id": 16,
+      "type": "PrimereFastSeed",
+      "pos": [
+        919.9262216082626,
+        -135.12732131406113
+      ],
+      "size": [
+        330.364340787964,
+        149.12278620629877
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            53,
+            666
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereFastSeed",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "Random",
+        42,
+        "Last seed: [909722619731632]"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 9,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        480.79284780821257,
+        -541.1178926016723
+      ],
+      "size": [
+        776.6426780712893,
+        348.84780081063036
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            659
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 47,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        341.6491199516921,
+        459.7499835308432
+      ],
+      "size": [
+        887.1002652508323,
+        1079.130111868482
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 672
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RAW PAYLOAD",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"model\": \"gemini-3-pro-image-preview\",\n    \"contents\": [\n        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n    ],\n    \"config\": {\n        \"$call\": \"types.GenerateContentConfig\",\n        \"$kwargs\": {\n            \"response_modalities\": [\n                \"IMAGE\"\n            ],\n            \"image_config\": {\n                \"$call\": \"types.ImageConfig\",\n                \"$kwargs\": {\n                    \"aspect_ratio\": \"9:16\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 15,
+      "type": "PrimereResolution",
+      "pos": [
+        907.2304520484324,
+        74.63197113044764
+      ],
+      "size": [
+        361.37166959228534,
+        310
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 53
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            663
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            664
+          ]
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "ASPECT_RATIO",
+          "type": "STRING",
+          "links": [
+            665
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "HD screen [16:9]",
+        false,
+        1024,
+        false,
+        "Vertical",
+        false,
+        false,
+        1.6,
+        2.8
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 75,
+      "type": "LoadImage",
+      "pos": [
+        480.25580173339836,
+        13.971520803833
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            662
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A642_20260902_134125_832184619664671_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 42,
+      "type": "PreviewImage",
+      "pos": [
+        -1905.940566463288,
+        -1196.1764179372424
+      ],
+      "size": [
+        2324.0069677273495,
+        581.7454612396214
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 205
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 55,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        1408.3168031778405,
+        -1012.4710264421508
+      ],
+      "size": [
+        733.2619240917973,
+        382.46790301705124
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\n\ne:\\!Works\\AI\\AIPICS\\ComfyAPI\\[time(%Y-%m-Week-%W)]"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1278.8618109713557,
+        -569.2493081772483
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 667
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
     },
     {
       "id": 17,
@@ -798,7 +1034,7 @@
         518
       ],
       "flags": {},
-      "order": 15,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -878,7 +1114,7 @@
           "name": "IMAGE_LIST",
           "type": "IMAGE",
           "links": [
-            643
+            677
           ]
         },
         {
@@ -916,122 +1152,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 15,
-      "type": "PrimereResolution",
-      "pos": [
-        463.6623051612252,
-        -94.55294258110021
-      ],
-      "size": [
-        361.37166959228534,
-        310
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 53
-        },
-        {
-          "name": "model_version",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "model_concept",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": [
-            645
-          ]
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": [
-            646
-          ]
-        },
-        {
-          "name": "SQUARE_SHAPE",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "ASPECT_RATIO",
-          "type": "STRING",
-          "links": [
-            647
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolution",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
-      },
-      "widgets_values": [
-        "HD screen [16:9]",
-        false,
-        1024,
-        false,
-        "Horizontal",
-        false,
-        false,
-        1.6,
-        2.8
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 9,
-      "type": "PrimitiveStringMultiline",
-      "pos": [
-        480.79284780821257,
-        -541.1178926016723
-      ],
-      "size": [
-        733.2619240917973,
-        382.46790301705124
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            642
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "The cat and the dog playing in the kitchen."
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
       "id": 58,
       "type": "LoadImage",
       "pos": [
@@ -1043,15 +1163,15 @@
         386.2967736602784
       ],
       "flags": {},
-      "order": 13,
-      "mode": 0,
+      "order": 15,
+      "mode": 4,
       "inputs": [],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            644
+            678
           ]
         },
         {
@@ -1066,110 +1186,31 @@
         "ver": "0.14.1"
       },
       "widgets_values": [
-        "2020-12-17_10-46-18.jpg",
+        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
         "image"
       ],
       "color": "#432",
       "bgcolor": "#653"
     },
     {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1278.8618109713557,
-        -569.2493081772483
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 19,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 649
-        },
-        {
-          "name": "image_metadata",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": null
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        false,
-        "ERROR: Cannot list target for Checkpoint",
-        null
-      ]
-    },
-    {
-      "id": 55,
-      "type": "PrimitiveStringMultiline",
-      "pos": [
-        1408.3168031778405,
-        -1012.4710264421508
-      ],
-      "size": [
-        733.2619240917973,
-        382.46790301705124
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": []
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimitiveStringMultiline",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\n\ne:\\!Works\\AI\\AIPICS\\ComfyAPI\\[time(%Y-%m-Week-%W)]"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 74,
+      "id": 76,
       "type": "PrimereApiProcessor",
       "pos": [
-        -261.240011586027,
-        -548.3233034269158
+        -253.36638311324856,
+        -548.3233034269159
       ],
       "size": [
         687.9337945859295,
         950
       ],
       "flags": {},
-      "order": 18,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
           "name": "prompt",
           "type": "STRING",
-          "link": 642
+          "link": 659
         },
         {
           "name": "negative_prompt",
@@ -1181,43 +1222,55 @@
           "name": "reference_images",
           "shape": 7,
           "type": "IMAGE",
-          "link": 643
+          "link": 677
         },
         {
           "name": "first_image",
           "shape": 7,
           "type": "IMAGE",
-          "link": 644
+          "link": 678
         },
         {
           "name": "last_image",
           "shape": 7,
           "type": "IMAGE",
+          "link": 662
+        },
+        {
+          "name": "frontal_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "reference_video",
+          "shape": 7,
+          "type": "VIDEO",
           "link": null
         },
         {
           "name": "width",
           "shape": 7,
           "type": "INT",
-          "link": 645
+          "link": 663
         },
         {
           "name": "height",
           "shape": 7,
           "type": "INT",
-          "link": 646
+          "link": 664
         },
         {
           "name": "aspect_ratio",
           "shape": 7,
           "type": "STRING",
-          "link": 647
+          "link": 665
         },
         {
           "name": "seed",
           "shape": 7,
           "type": "INT",
-          "link": 648
+          "link": 666
         }
       ],
       "outputs": [
@@ -1225,63 +1278,63 @@
           "name": "RESULT",
           "type": "IMAGE",
           "links": [
-            649
+            667
           ]
         },
         {
           "name": "CLIENT",
           "type": "APICLIENT",
           "links": [
-            650
+            668
           ]
         },
         {
           "name": "PROVIDER",
           "type": "STRING",
           "links": [
-            651
+            669
           ]
         },
         {
           "name": "SCHEMA",
           "type": "TUPLE",
           "links": [
-            652
+            670
           ]
         },
         {
           "name": "RENDERED",
           "type": "TUPLE",
           "links": [
-            653
+            671
           ]
         },
         {
           "name": "RAW_PAYLOAD",
           "type": "TUPLE",
           "links": [
-            654
+            672
           ]
         },
         {
           "name": "REQUEST_BODY",
           "type": "TUPLE",
           "links": [
-            655
+            673
           ]
         },
         {
           "name": "API_SCHEMAS",
           "type": "TUPLE",
           "links": [
-            656
+            674
           ]
         },
         {
           "name": "API_RESULT",
           "type": "TUPLE",
           "links": [
-            657
+            675
           ]
         }
       ],
@@ -1305,14 +1358,14 @@
         "_",
         true,
         true,
-        2,
+        1,
         false,
         "jpg",
         95,
         true,
         true,
         "1K",
-        "gemini-2.5-flash-image",
+        "gemini-3-pro-image-preview",
         "minimal",
         false
       ],
@@ -1426,142 +1479,150 @@
       "IMAGE"
     ],
     [
-      642,
+      659,
       9,
       0,
-      74,
+      76,
       0,
       "STRING"
     ],
     [
-      643,
-      17,
+      662,
+      75,
       0,
-      74,
-      2,
+      76,
+      4,
       "IMAGE"
     ],
     [
-      644,
-      58,
-      0,
-      74,
-      3,
-      "IMAGE"
-    ],
-    [
-      645,
+      663,
       15,
       0,
-      74,
-      5,
+      76,
+      7,
       "INT"
     ],
     [
-      646,
+      664,
       15,
       1,
-      74,
-      6,
-      "INT"
-    ],
-    [
-      647,
-      15,
-      3,
-      74,
-      7,
-      "STRING"
-    ],
-    [
-      648,
-      16,
-      0,
-      74,
+      76,
       8,
       "INT"
     ],
     [
-      649,
-      74,
+      665,
+      15,
+      3,
+      76,
+      9,
+      "STRING"
+    ],
+    [
+      666,
+      16,
+      0,
+      76,
+      10,
+      "INT"
+    ],
+    [
+      667,
+      76,
       0,
       27,
       0,
       "IMAGE"
     ],
     [
-      650,
-      74,
+      668,
+      76,
       1,
       2,
       0,
       "APICLIENT"
     ],
     [
-      651,
-      74,
+      669,
+      76,
       2,
       3,
       0,
       "STRING"
     ],
     [
-      652,
-      74,
+      670,
+      76,
       3,
       4,
       0,
       "TUPLE"
     ],
     [
-      653,
-      74,
+      671,
+      76,
       4,
       5,
       0,
       "TUPLE"
     ],
     [
-      654,
-      74,
+      672,
+      76,
       5,
       47,
       0,
       "TUPLE"
     ],
     [
-      655,
-      74,
+      673,
+      76,
       6,
       6,
       0,
       "TUPLE"
     ],
     [
-      656,
-      74,
+      674,
+      76,
       7,
       8,
       0,
       "TUPLE"
     ],
     [
-      657,
-      74,
+      675,
+      76,
       8,
       44,
       0,
       "TUPLE"
+    ],
+    [
+      677,
+      17,
+      0,
+      76,
+      2,
+      "IMAGE"
+    ],
+    [
+      678,
+      58,
+      0,
+      76,
+      3,
+      "IMAGE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909098,
+      "scale": 0.7513148009015777,
       "offset": [
-        1074.1559852024538,
-        856.1419736308026
+        1337.6906736324606,
+        661.849601344323
       ]
     },
     "frontendVersion": "1.39.19"

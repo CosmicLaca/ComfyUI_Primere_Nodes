@@ -181,6 +181,8 @@ def canonical_param_name(name: str) -> str:
         return "resolution"
     if low == "model" or low.endswith("_model"):
         return "model"
+    if low in {"negative_prompt", "multi_prompt", "system_prompt"}:
+        return low
     if low in {"prompt", "contents"} or low.endswith("_prompt"):
         return "prompt"
     if "response_modalities" in low:

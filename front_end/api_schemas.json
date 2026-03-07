@@ -89,6 +89,9 @@
             "model": "{{model}}",
             "prompt": "{{prompt}}",
             "image": "{{first_image}}",
+            "lastFrame": "{{last_image}}",
+            "referenceImages": "{{reference_images}}",
+            "video": "{{reference_video}}",
             "config": {
               "$call": "types.GenerateVideosConfig",
               "$args": [],
@@ -99,7 +102,6 @@
                 "durationSeconds": "{{duration_seconds}}",
                 "personGeneration": "{{person_generation}}",
                 "reference_images": "{{reference_images}}",
-                "last_frame": "{{last_image}}",
                 "negative_prompt": "{{negative_prompt}}"
               }
             }
@@ -198,60 +200,141 @@
         }
       }
     },
-    "Kling_V3PRO_T2V": {
+    "Kling": {
       "provider": "FAL",
-      "service": "Kling_V3PRO_T2V",
+      "service": "Kling",
+      "response_handler": "FAL_Kling.py",
+      "reference_images_handler": "FAL_Kling.py",
       "import_modules": [
         "import fal_client"
       ],
       "possible_parameters": {
-        "aspect_ratio": ["16:9", "9:16", "1:1"],
-        "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        "generate_audio": [false, true],
-        "with_logs": [false, true]
+        "aspect_ratio": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "duration": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "generate_audio": [
+          false,
+          true
+        ],
+        "with_logs": [
+          false,
+          true
+        ],
+        "model_type": [
+          "text-to-video",
+          "image-to-video"
+        ],
+        "version": [
+          "v3/pro",
+          "v3/standard",
+          "o3/pro",
+          "o3/standard"
+        ],
+        "cfg_scale": "FLOAT"
       },
-      "request": {
-        "method": "SDK",
-        "endpoint": "fal_client.submit",
-        "sdk_call": {
-          "args": [
-            "{{arg0}}"
-          ],
-          "kwargs": {
-            "arguments": {
-              "prompt": "{{prompt}}",
-              "duration": "{{duration}}",
-              "aspect_ratio": "{{aspect_ratio}}",
-              "generate_audio": "{{generate_audio}}",
-              "with_logs": "{{with_logs}}"
-            }
-          }
+      "request_exclusions": [
+        {
+          "when": {
+            "path": "version",
+            "equals": "v3/pro"
+          },
+          "remove": [
+            "image_url"
+          ]
+        },
+        {
+          "when": {
+            "path": "version",
+            "equals": "v3/standard"
+          },
+          "remove": [
+            "image_url"
+          ]
+        },
+        {
+          "when": {
+            "path": "version",
+            "equals": "o3/standard"
+          },
+          "remove": [
+            "negative_prompt",
+            "cfg_scale",
+            "start_image_url",
+            "elements",
+            "aspect_ratio"
+          ]
+        },
+        {
+          "when": {
+            "path": "version",
+            "equals": "o3/pro"
+          },
+          "remove": [
+            "negative_prompt",
+            "cfg_scale",
+            "start_image_url",
+            "elements",
+            "aspect_ratio"
+          ]
+        },
+        {
+          "when": {
+            "path": "model_type",
+            "equals": "text-to-video"
+          },
+          "remove": [
+            "multi_prompt",
+            "start_image_url",
+            "image_url",
+            "elements"
+          ]
         }
-      }
-    },
-    "Kling_V3PRO_I2V": {
-      "provider": "FAL",
-      "service": "Kling_V3PRO_I2V",
-      "import_modules": [
-        "import fal_client"
       ],
-      "possible_parameters": {
-        "aspect_ratio": ["16:9", "9:16", "1:1"],
-        "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        "generate_audio": [false, true],
-        "with_logs": [false, true]
+      "parameter_constraints": {
+        "cfg_scale": {"max": 1.0}
       },
       "request": {
         "method": "SDK",
         "endpoint": "fal_client.subscribe",
         "sdk_call": {
           "args": [
-            "{{arg0}}"
+            "fal-ai/kling-video/{{version}}/{{model_type}}"
           ],
           "kwargs": {
             "arguments": {
               "prompt": "{{prompt}}",
-              "start_image_url": "{{reference_images}}",
+              "negative_prompt": "{{negative_prompt}}",
+              "multi_prompt": "{{multi_prompt}}",
+              "cfg_scale": "{{cfg_scale}}",
+              "start_image_url": "{{first_image}}",
+              "image_url": "{{first_image}}",
+              "end_image_url": "{{last_image}}",
+              "elements": [
+                {
+                  "reference_image_urls": "{{reference_images}}",
+                  "frontal_image_url": "{{frontal_image}}"
+                },
+                {
+                  "video_url": "{{reference_video}}"
+                }
+              ],
               "duration": "{{duration}}",
               "aspect_ratio": "{{aspect_ratio}}",
               "generate_audio": "{{generate_audio}}",

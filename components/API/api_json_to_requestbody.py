@@ -57,8 +57,8 @@ def _marker_default(marker: Any) -> Any:
 
 def _default_value(name: str) -> Any:
     k = name.lower()
-    if "prompt" in k:
-        return "cute cat walking in the futuristic metropolis"
+    if k in {"prompt", "negative_prompt", "multi_prompt"}:
+        return None
     if "response_modalities" in k:
         return "IMAGE"
     if "model" in k:
@@ -69,7 +69,7 @@ def _default_value(name: str) -> Any:
         return "1K"
     if "number" in k or "count" in k or "width" in k or "height" in k:
         return 1
-    return f"default_{name}"
+    return None
 
 def _is_optional_image_input(name: str) -> bool:
     low = str(name or "").lower()
@@ -121,6 +121,21 @@ def _build_values(spec: dict[str, Any], values: dict[str, Any] | None = None) ->
                     marker_selected = _marker_default(possible_parameters.get(canonical))
                 selected = marker_selected if marker_selected is not None else _default_value(canonical)
 
+        if selected is not None:
+            raw_marker = possible_parameters.get(key) if not isinstance(possible_parameters.get(key), list) else possible_parameters.get(canonical)
+            if isinstance(raw_marker, str):
+                t = raw_marker.strip().upper()
+                if t == "INT":
+                    try:
+                        selected = int(selected)
+                    except (ValueError, TypeError):
+                        pass
+                elif t == "FLOAT":
+                    try:
+                        selected = round(float(selected), 1)
+                    except (ValueError, TypeError):
+                        pass
+
         resolved[key] = selected
 
     return resolved
@@ -165,21 +180,30 @@ def _remove_none_values(value: Any) -> Any:
         for key, child in value.items():
             if child is None:
                 continue
-            cleaned[key] = _remove_none_values(child)
+            result = _remove_none_values(child)
+            if result == {} or result == []:
+                continue
+            cleaned[key] = result
         return cleaned
     if isinstance(value, list):
         cleaned_list = []
         for child in value:
             if child is None:
                 continue
-            cleaned_list.append(_remove_none_values(child))
+            result = _remove_none_values(child)
+            if result == {} or result == []:
+                continue
+            cleaned_list.append(result)
         return cleaned_list
     if isinstance(value, tuple):
         cleaned_tuple = []
         for child in value:
             if child is None:
                 continue
-            cleaned_tuple.append(_remove_none_values(child))
+            result = _remove_none_values(child)
+            if result == {} or result == []:
+                continue
+            cleaned_tuple.append(result)
         return tuple(cleaned_tuple)
     return value
 

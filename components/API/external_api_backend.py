@@ -757,6 +757,8 @@ def canonical_param_name(name: str, *, number_of_images_as_seed: bool = False) -
         return "model"
     if number_of_images_as_seed and low == "number_of_images":
         return "seed"
+    if low in {"negative_prompt", "multi_prompt", "system_prompt"}:
+        return low
     if low in {"prompt", "contents"} or low.endswith("_prompt"):
         return "prompt"
     if "response_modalities" in low:
