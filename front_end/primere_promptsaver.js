@@ -1,5 +1,6 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
+import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 
 let PrompteventListenerInit = false;
 const validClasses = ['PrimerePrompt'];
@@ -55,9 +56,10 @@ async function PrimerePromptSaverWidget(node, inputName) {
             },
         };
 
-        node.addWidget("button", '💾 Save prompt to file...', null, () => {
+        const saveBtn = node.addWidget("button", '💾 Save prompt to file...', null, () => {
             node.PromptSaver = new PromptSaver(node);
         });
+        applyPrimereButtonStyle(saveBtn);
 
         LoadedNode = node;
         return {widget: widget};
@@ -123,15 +125,15 @@ class PromptSaver {
                 }
 
                 if (PromptData['prompt'].length < 3 || PromptData['name'].length < 1) {
-                    alert('Required data missing...');
+                    showToast('error', 'Required data missing...');
                     return false;
                 }
 
                 const isSaved = await savePromptData('stylecsv', 'styles', 'csv', JSON.stringify(PromptData));
                 if (isSaved == false) {
-                    alert('Cannot save new prompt to CSV file.');
+                    showToast('error', 'Cannot save new prompt to CSV file.');
                 } else {
-                    alert('New prompt: [' + PromptData['name'] + '] added to CSV file.');
+                    showToast('success', 'New prompt: [' + PromptData['name'] + '] added to CSV file.');
                     promptmodal.setAttribute('style', 'display: none; width: 30%; height: 60%;');
                 }
             });
@@ -193,7 +195,7 @@ class PromptSaver {
         }
 
         if (PositivePrompt.length < 3) {
-            alert('⛔ Positive prompt required...');
+            showToast('error', '⛔ Positive prompt required...');
             return false;
         }
 

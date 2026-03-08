@@ -2093,16 +2093,9 @@ class PrimerePromptSwitch:
 
     @classmethod
     def INPUT_TYPES(cls):
-        any_typ = AnyType("*")
-
         return {
             "required": {
                 "select": ("INT", {"default": 1, "min": 1, "max": 20, "step": 1}),
-            },
-            "optional": {
-                "prompt_pos_1": (any_typ,),
-                "prompt_neg_1": (any_typ,),
-                "preferred_1": (any_typ,),
             },
         }
 
