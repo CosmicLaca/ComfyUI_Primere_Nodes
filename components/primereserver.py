@@ -285,9 +285,6 @@ async def primere_get_version(request):
             typefilter = categories_by_type[versionName]
             category_modelnames = [s for s in allSource if any(x + '.' in s for x in typefilter)]
 
-    if len(category_modelnames) == 0:
-        category_modelnames = allSource
-
     PromptServer.instance.send_sync("VersionListResponse", category_modelnames)
     return web.json_response({})
 
