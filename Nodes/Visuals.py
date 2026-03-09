@@ -16,10 +16,10 @@ class PrimereVisualCKPT:
     RETURN_NAMES = ("MODEL_NAME", "MODEL_VERSION")
     FUNCTION = "load_ckpt_visual_list"
     CATEGORY = TREE_VISUALS
-    allModels = folder_paths.get_filename_list("checkpoints")
 
     @classmethod
     def INPUT_TYPES(cls):
+        cls.allModels = folder_paths.get_filename_list("checkpoints")
         return {
             "required": {
                 "base_model": (cls.allModels,),

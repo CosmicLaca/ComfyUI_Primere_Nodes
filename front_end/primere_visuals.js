@@ -113,6 +113,12 @@ app.registerExtension({
             }
         }
     },
+
+    loadedGraphNode(node) {
+        if (validClasses.includes(node.type)) {
+            new ModalControl(node);
+        }
+    },
 });
 
 function ModalHandler() {
@@ -365,6 +371,7 @@ class ModalControl {
                     if (contextMenu) contextMenu.style.display = 'none';
 
                     state.nodeHelper = state.hiddenWidgets[state.currentClass];
+                    if (!state.nodeHelper) return;
                     state.source_subdirname = state.nodeHelper['subdir'];
                     state.cache_key = state.nodeHelper['cache_key'];
 
