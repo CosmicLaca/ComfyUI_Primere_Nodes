@@ -1,8 +1,8 @@
 {
   "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
   "revision": 0,
-  "last_node_id": 76,
-  "last_link_id": 678,
+  "last_node_id": 77,
+  "last_link_id": 691,
   "nodes": [
     {
       "id": 22,
@@ -24,7 +24,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            207
+            681
           ]
         },
         {
@@ -65,7 +65,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            213
+            687
           ]
         },
         {
@@ -106,7 +106,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            214
+            688
           ]
         },
         {
@@ -147,7 +147,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            209
+            683
           ]
         },
         {
@@ -188,7 +188,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            210
+            684
           ]
         },
         {
@@ -229,7 +229,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            211
+            685
           ]
         },
         {
@@ -270,7 +270,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            215
+            689
           ]
         },
         {
@@ -345,7 +345,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            245
+            679
           ]
         },
         {
@@ -386,7 +386,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            244
+            680
           ]
         },
         {
@@ -458,7 +458,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            212
+            686
           ]
         },
         {
@@ -499,7 +499,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            208
+            682
           ]
         },
         {
@@ -548,7 +548,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "<google.genai.client.Client object at 0x000001EB76885D10>"
+        "<google.genai.client.Client object at 0x000001963CA9F100>"
       ]
     },
     {
@@ -580,7 +580,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"_type\": \"GenerateContentResponse\",\n    \"sdk_http_response\": {\n        \"_type\": \"HttpResponse\",\n        \"headers\": {\n            \"content-type\": \"application/json; charset=UTF-8\",\n            \"vary\": \"Origin, X-Origin, Referer\",\n            \"content-encoding\": \"gzip\",\n            \"date\": \"Sat, 07 Mar 2026 13:13:13 GMT\",\n            \"server\": \"scaffolding on HTTPServer2\",\n            \"x-xss-protection\": \"0\",\n            \"x-frame-options\": \"SAMEORIGIN\",\n            \"x-content-type-options\": \"nosniff\",\n            \"server-timing\": \"gfet4t7; dur=16857\",\n            \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n            \"transfer-encoding\": \"chunked\"\n        },\n        \"body\": null\n    },\n    \"candidates\": [\n        {\n            \"_type\": \"Candidate\",\n            \"content\": {\n                \"_type\": \"Content\",\n                \"parts\": [\n                    {\n                        \"_type\": \"Part\",\n                        \"media_resolution\": null,\n                        \"code_execution_result\": null,\n                        \"executable_code\": null,\n                        \"file_data\": null,\n                        \"function_call\": null,\n                        \"function_response\": null,\n                        \"inline_data\": {\n                            \"_type\": \"Blob\",\n                            \"data\": \"[binary data omitted: 675850 bytes]\",\n                            \"display_name\": null,\n                            \"mime_type\": \"image/jpeg\"\n                        },\n                        \"text\": null,\n                        \"thought\": null,\n                        \"thought_signature\": \"[binary data omitted: 1241489 bytes]\",\n                        \"video_metadata\": null\n                    }\n                ],\n                \"role\": \"model\"\n            },\n            \"citation_metadata\": null,\n            \"finish_message\": null,\n            \"token_count\": null,\n            \"finish_reason\": \"STOP\",\n            \"grounding_metadata\": null,\n            \"avg_logprobs\": null,\n            \"index\": 0,\n            \"logprobs_result\": null,\n            \"safety_ratings\": null,\n            \"url_context_metadata\": null\n        }\n    ],\n    \"create_time\": null,\n    \"model_version\": \"gemini-3-pro-image-preview\",\n    \"prompt_feedback\": null,\n    \"response_id\": \"aSSsabvDI6fXvdIPyd2WiQw\",\n    \"usage_metadata\": {\n        \"_type\": \"GenerateContentResponseUsageMetadata\",\n        \"cache_tokens_details\": null,\n        \"cached_content_token_count\": null,\n        \"candidates_token_count\": 1202,\n        \"candidates_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"IMAGE\",\n                \"token_count\": 1120\n            }\n        ],\n        \"prompt_token_count\": 30,\n        \"prompt_tokens_details\": [\n            {\n                \"_type\": \"ModalityTokenCount\",\n                \"modality\": \"TEXT\",\n                \"token_count\": 30\n            }\n        ],\n        \"thoughts_token_count\": 197,\n        \"tool_use_prompt_token_count\": null,\n        \"tool_use_prompt_tokens_details\": null,\n        \"total_token_count\": 1429,\n        \"traffic_type\": null\n    },\n    \"automatic_function_calling_history\": [],\n    \"parsed\": null\n}"
+        "None"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -614,7 +614,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "[\n    {\n        \"schema\": {\n            \"provider\": \"Gemini\",\n            \"service\": \"Nanobanana\",\n            \"response_handler\": \"Gemini_Nanobanana.py\",\n            \"import_modules\": [\n                \"from google import genai\",\n                \"from google.genai import types\"\n            ],\n            \"possible_parameters\": {\n                \"aspect_ratio\": [\n                    \"1:1\",\n                    \"1:4\",\n                    \"1:8\",\n                    \"2:3\",\n                    \"3:2\",\n                    \"3:4\",\n                    \"4:1\",\n                    \"4:3\",\n                    \"4:5\",\n                    \"5:4\",\n                    \"8:1\",\n                    \"9:16\",\n                    \"16:9\",\n                    \"21:9\"\n                ],\n                \"resolution\": [\n                    \"1K\",\n                    \"512px\",\n                    \"2K\",\n                    \"4K\"\n                ],\n                \"model\": [\n                    \"gemini-2.5-flash-image\",\n                    \"gemini-3-pro-image-preview\",\n                    \"gemini-3.1-flash-image-preview\"\n                ],\n                \"thinking_level\": [\n                    \"minimal\",\n                    \"high\"\n                ],\n                \"include_thoughts\": [\n                    false,\n                    true\n                ]\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ],\n            \"request\": {\n                \"method\": \"SDK\",\n                \"endpoint\": \"client.models.generate_content\",\n                \"sdk_call\": {\n                    \"args\": [],\n                    \"kwargs\": {\n                        \"model\": \"{{model}}\",\n                        \"contents\": [\n                            \"{{prompt}}\",\n                            \"{{reference_images}}\"\n                        ],\n                        \"config\": {\n                            \"$call\": \"types.GenerateContentConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"response_modalities\": [\n                                    \"{{config_response_modalities_0}}\"\n                                ],\n                                \"image_config\": {\n                                    \"$call\": \"types.ImageConfig\",\n                                    \"$args\": [],\n                                    \"$kwargs\": {\n                                        \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                        \"image_size\": \"{{image_size}}\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"selected_parameters\": {\n            \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n            \"width\": 768,\n            \"height\": 1365,\n            \"aspect_ratio\": \"9:16\",\n            \"batch\": 1,\n            \"seed\": 909722619731632,\n            \"debug_mode\": false,\n            \"resolution\": \"1K\",\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"thinking_level\": \"minimal\",\n            \"include_thoughts\": false\n        },\n        \"used_values\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n            \"config_response_modalities_0\": \"IMAGE\",\n            \"aspect_ratio\": \"9:16\",\n            \"image_size\": \"1K\"\n        },\n        \"selected_service\": \"Nanobanana\",\n        \"rendered\": {\n            \"provider\": \"Gemini\",\n            \"endpoint\": \"client.models.generate_content\",\n            \"method\": \"SDK\",\n            \"headers\": {},\n            \"query\": {},\n            \"body\": null,\n            \"sdk_call\": {\n                \"kwargs\": {\n                    \"model\": \"gemini-3-pro-image-preview\",\n                    \"contents\": [\n                        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n                    ],\n                    \"config\": {\n                        \"$call\": \"types.GenerateContentConfig\",\n                        \"$kwargs\": {\n                            \"response_modalities\": [\n                                \"IMAGE\"\n                            ],\n                            \"image_config\": {\n                                \"$call\": \"types.ImageConfig\",\n                                \"$kwargs\": {\n                                    \"aspect_ratio\": \"9:16\",\n                                    \"image_size\": \"1K\"\n                                }\n                            }\n                        }\n                    }\n                }\n            },\n            \"request_exclusions\": [\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-2.5-flash-image\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\",\n                        \"thinking_level\",\n                        \"include_thoughts\"\n                    ]\n                },\n                {\n                    \"when\": {\n                        \"path\": \"model\",\n                        \"equals\": \"gemini-3-pro-image-preview\"\n                    },\n                    \"remove\": [\n                        \"config.thinking_config\"\n                    ]\n                }\n            ]\n        },\n        \"api_result\": {\n            \"_type\": \"GenerateContentResponse\",\n            \"sdk_http_response\": {\n                \"_type\": \"HttpResponse\",\n                \"headers\": {\n                    \"content-type\": \"application/json; charset=UTF-8\",\n                    \"vary\": \"Origin, X-Origin, Referer\",\n                    \"content-encoding\": \"gzip\",\n                    \"date\": \"Sat, 07 Mar 2026 13:13:13 GMT\",\n                    \"server\": \"scaffolding on HTTPServer2\",\n                    \"x-xss-protection\": \"0\",\n                    \"x-frame-options\": \"SAMEORIGIN\",\n                    \"x-content-type-options\": \"nosniff\",\n                    \"server-timing\": \"gfet4t7; dur=16857\",\n                    \"alt-svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000\",\n                    \"transfer-encoding\": \"chunked\"\n                },\n                \"body\": null\n            },\n            \"candidates\": [\n                {\n                    \"_type\": \"Candidate\",\n                    \"content\": {\n                        \"_type\": \"Content\",\n                        \"parts\": [\n                            {\n                                \"_type\": \"Part\",\n                                \"media_resolution\": null,\n                                \"code_execution_result\": null,\n                                \"executable_code\": null,\n                                \"file_data\": null,\n                                \"function_call\": null,\n                                \"function_response\": null,\n                                \"inline_data\": {\n                                    \"_type\": \"Blob\",\n                                    \"data\": \"[binary data omitted: 675850 bytes]\",\n                                    \"display_name\": null,\n                                    \"mime_type\": \"image/jpeg\"\n                                },\n                                \"text\": null,\n                                \"thought\": null,\n                                \"thought_signature\": \"[binary data omitted: 1241489 bytes]\",\n                                \"video_metadata\": null\n                            }\n                        ],\n                        \"role\": \"model\"\n                    },\n                    \"citation_metadata\": null,\n                    \"finish_message\": null,\n                    \"token_count\": null,\n                    \"finish_reason\": \"STOP\",\n                    \"grounding_metadata\": null,\n                    \"avg_logprobs\": null,\n                    \"index\": 0,\n                    \"logprobs_result\": null,\n                    \"safety_ratings\": null,\n                    \"url_context_metadata\": null\n                }\n            ],\n            \"create_time\": null,\n            \"model_version\": \"gemini-3-pro-image-preview\",\n            \"prompt_feedback\": null,\n            \"response_id\": \"aSSsabvDI6fXvdIPyd2WiQw\",\n            \"usage_metadata\": {\n                \"_type\": \"GenerateContentResponseUsageMetadata\",\n                \"cache_tokens_details\": null,\n                \"cached_content_token_count\": null,\n                \"candidates_token_count\": 1202,\n                \"candidates_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"IMAGE\",\n                        \"token_count\": 1120\n                    }\n                ],\n                \"prompt_token_count\": 30,\n                \"prompt_tokens_details\": [\n                    {\n                        \"_type\": \"ModalityTokenCount\",\n                        \"modality\": \"TEXT\",\n                        \"token_count\": 30\n                    }\n                ],\n                \"thoughts_token_count\": 197,\n                \"tool_use_prompt_token_count\": null,\n                \"tool_use_prompt_tokens_details\": null,\n                \"total_token_count\": 1429,\n                \"traffic_type\": null\n            },\n            \"automatic_function_calling_history\": [],\n            \"parsed\": null\n        },\n        \"api_error\": null\n    }\n]"
+        "None"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -648,44 +648,10 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"model\": \"gemini-3-pro-image-preview\",\n    \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n    \"config_response_modalities_0\": \"IMAGE\",\n    \"aspect_ratio\": \"9:16\",\n    \"image_size\": \"1K\"\n}"
+        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n    \"config_response_modalities_0\": \"IMAGE\",\n    \"aspect_ratio\": \"9:16\",\n    \"image_size\": \"1K\"\n}"
       ],
       "color": "#232",
       "bgcolor": "#353"
-    },
-    {
-      "id": 5,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        -609.6945083896912,
-        461.75327312736374
-      ],
-      "size": [
-        926.2206882503098,
-        1078.7652401045225
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 671
-        }
-      ],
-      "outputs": [],
-      "title": "Primere Any Debug - RENDERED",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"kwargs\": {\n            \"model\": \"gemini-3-pro-image-preview\",\n            \"contents\": [\n                \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ]\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
     },
     {
       "id": 16,
@@ -720,7 +686,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [909722619731632]"
+        "Last seed: [654139151080403]"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -756,40 +722,6 @@
       },
       "widgets_values": [
         "The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance."
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 47,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        341.6491199516921,
-        459.7499835308432
-      ],
-      "size": [
-        887.1002652508323,
-        1079.130111868482
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 672
-        }
-      ],
-      "outputs": [],
-      "title": "Primere Any Debug - RAW PAYLOAD",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "{\n    \"model\": \"gemini-3-pro-image-preview\",\n    \"contents\": [\n        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n    ],\n    \"config\": {\n        \"$call\": \"types.GenerateContentConfig\",\n        \"$kwargs\": {\n            \"response_modalities\": [\n                \"IMAGE\"\n            ],\n            \"image_config\": {\n                \"$call\": \"types.ImageConfig\",\n                \"$kwargs\": {\n                    \"aspect_ratio\": \"9:16\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -876,47 +808,6 @@
       "bgcolor": "#353"
     },
     {
-      "id": 75,
-      "type": "LoadImage",
-      "pos": [
-        480.25580173339836,
-        13.971520803833
-      ],
-      "size": [
-        327.5351346026613,
-        386.2967736602784
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            662
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "Image_A642_20260902_134125_832184619664671_2072x3024_1.jpg",
-        "image"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 42,
       "type": "PreviewImage",
       "pos": [
@@ -934,7 +825,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 205
+          "link": 691
         }
       ],
       "outputs": [],
@@ -955,7 +846,7 @@
         382.46790301705124
       ],
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -975,222 +866,6 @@
       ],
       "color": "#232",
       "bgcolor": "#353"
-    },
-    {
-      "id": 27,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1278.8618109713557,
-        -569.2493081772483
-      ],
-      "size": [
-        1073.2593828125005,
-        1628.4858571984864
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 667
-        },
-        {
-          "name": "image_metadata",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": null
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        false,
-        "ERROR: Cannot list target for Checkpoint",
-        null
-      ]
-    },
-    {
-      "id": 17,
-      "type": "PrimereMultiImage",
-      "pos": [
-        -590.2012907744918,
-        -546.0380461675578
-      ],
-      "size": [
-        289.7421875,
-        518
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 245
-        },
-        {
-          "name": "image_2",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 244
-        },
-        {
-          "name": "image_3",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 207
-        },
-        {
-          "name": "image_4",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 208
-        },
-        {
-          "name": "image_5",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 209
-        },
-        {
-          "name": "image_6",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 210
-        },
-        {
-          "name": "image_7",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 211
-        },
-        {
-          "name": "image_8",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 212
-        },
-        {
-          "name": "image_9",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 213
-        },
-        {
-          "name": "image_10",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 214
-        },
-        {
-          "name": "image_11",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 215
-        },
-        {
-          "name": "image_12",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE_LIST",
-          "type": "IMAGE",
-          "links": [
-            677
-          ]
-        },
-        {
-          "name": "IMAGE_BATCH",
-          "type": "IMAGE",
-          "links": null
-        },
-        {
-          "name": "IMAGE_CONCAT",
-          "type": "IMAGE",
-          "links": [
-            205
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMultiImage",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
-      },
-      "widgets_values": [
-        false,
-        true,
-        1,
-        true,
-        true,
-        "white",
-        true,
-        "Horizontal",
-        true,
-        0,
-        "white"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 58,
-      "type": "LoadImage",
-      "pos": [
-        -600.5867539794923,
-        16.56309913330077
-      ],
-      "size": [
-        327.5351346026613,
-        386.2967736602784
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            678
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
-        "image"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
     },
     {
       "id": 76,
@@ -1222,7 +897,7 @@
           "name": "reference_images",
           "shape": 7,
           "type": "IMAGE",
-          "link": 677
+          "link": 690
         },
         {
           "name": "first_image",
@@ -1365,12 +1040,360 @@
         true,
         true,
         "1K",
-        "gemini-3-pro-image-preview",
+        "gemini-2.5-flash-image",
         "minimal",
         false
       ],
       "color": "#233",
       "bgcolor": "#355"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1299.5657499361994,
+        -535.7278327133808
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 667
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -622.5113949863711,
+        654.0087654979694
+      ],
+      "size": [
+        926.2206882503098,
+        1078.7652401045225
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 671
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RENDERED",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ]\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 47,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        356.4381352104812,
+        677.639492808187
+      ],
+      "size": [
+        887.1002652508323,
+        1079.130111868482
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 672
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RAW PAYLOAD",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"contents\": [\n        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n    ],\n    \"config\": {\n        \"$call\": \"types.GenerateContentConfig\",\n        \"$kwargs\": {\n            \"response_modalities\": [\n                \"IMAGE\"\n            ],\n            \"image_config\": {\n                \"$call\": \"types.ImageConfig\",\n                \"$kwargs\": {\n                    \"aspect_ratio\": \"9:16\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 58,
+      "type": "LoadImage",
+      "pos": [
+        -614.3897861450196,
+        140.78979964904784
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            678
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 75,
+      "type": "LoadImage",
+      "pos": [
+        474.340228125,
+        195.38193028869628
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            662
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A642_20260902_134125_832184619664671_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 77,
+      "type": "PrimereMultiImage",
+      "pos": [
+        -590.2012907744918,
+        -546.0380461675578
+      ],
+      "size": [
+        308.59738991477275,
+        622
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 679
+        },
+        {
+          "name": "image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 680
+        },
+        {
+          "name": "image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 681
+        },
+        {
+          "name": "image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 682
+        },
+        {
+          "name": "image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 683
+        },
+        {
+          "name": "image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 684
+        },
+        {
+          "name": "image_7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 685
+        },
+        {
+          "name": "image_8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 686
+        },
+        {
+          "name": "image_9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 687
+        },
+        {
+          "name": "image_10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 688
+        },
+        {
+          "name": "image_11",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 689
+        },
+        {
+          "name": "image_12",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_13",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_14",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_15",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_16",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE_LIST",
+          "type": "IMAGE",
+          "links": [
+            690
+          ]
+        },
+        {
+          "name": "IMAGE_BATCH",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "IMAGE_CONCAT",
+          "type": "IMAGE",
+          "links": [
+            691
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMultiImage"
+      },
+      "widgets_values": [
+        false,
+        3,
+        true,
+        1.2,
+        true,
+        true,
+        "white",
+        true,
+        "Horizontal",
+        true,
+        6,
+        "black"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -1381,102 +1404,6 @@
       15,
       0,
       "INT"
-    ],
-    [
-      205,
-      17,
-      2,
-      42,
-      0,
-      "IMAGE"
-    ],
-    [
-      207,
-      22,
-      0,
-      17,
-      2,
-      "IMAGE"
-    ],
-    [
-      208,
-      29,
-      0,
-      17,
-      3,
-      "IMAGE"
-    ],
-    [
-      209,
-      28,
-      0,
-      17,
-      4,
-      "IMAGE"
-    ],
-    [
-      210,
-      37,
-      0,
-      17,
-      5,
-      "IMAGE"
-    ],
-    [
-      211,
-      40,
-      0,
-      17,
-      6,
-      "IMAGE"
-    ],
-    [
-      212,
-      41,
-      0,
-      17,
-      7,
-      "IMAGE"
-    ],
-    [
-      213,
-      30,
-      0,
-      17,
-      8,
-      "IMAGE"
-    ],
-    [
-      214,
-      36,
-      0,
-      17,
-      9,
-      "IMAGE"
-    ],
-    [
-      215,
-      18,
-      0,
-      17,
-      10,
-      "IMAGE"
-    ],
-    [
-      244,
-      38,
-      0,
-      17,
-      1,
-      "IMAGE"
-    ],
-    [
-      245,
-      39,
-      0,
-      17,
-      0,
-      "IMAGE"
     ],
     [
       659,
@@ -1599,19 +1526,115 @@
       "TUPLE"
     ],
     [
-      677,
-      17,
+      678,
+      58,
+      0,
+      76,
+      3,
+      "IMAGE"
+    ],
+    [
+      679,
+      39,
+      0,
+      77,
+      0,
+      "IMAGE"
+    ],
+    [
+      680,
+      38,
+      0,
+      77,
+      1,
+      "IMAGE"
+    ],
+    [
+      681,
+      22,
+      0,
+      77,
+      2,
+      "IMAGE"
+    ],
+    [
+      682,
+      29,
+      0,
+      77,
+      3,
+      "IMAGE"
+    ],
+    [
+      683,
+      28,
+      0,
+      77,
+      4,
+      "IMAGE"
+    ],
+    [
+      684,
+      37,
+      0,
+      77,
+      5,
+      "IMAGE"
+    ],
+    [
+      685,
+      40,
+      0,
+      77,
+      6,
+      "IMAGE"
+    ],
+    [
+      686,
+      41,
+      0,
+      77,
+      7,
+      "IMAGE"
+    ],
+    [
+      687,
+      30,
+      0,
+      77,
+      8,
+      "IMAGE"
+    ],
+    [
+      688,
+      36,
+      0,
+      77,
+      9,
+      "IMAGE"
+    ],
+    [
+      689,
+      18,
+      0,
+      77,
+      10,
+      "IMAGE"
+    ],
+    [
+      690,
+      77,
       0,
       76,
       2,
       "IMAGE"
     ],
     [
-      678,
-      58,
+      691,
+      77,
+      2,
+      42,
       0,
-      76,
-      3,
       "IMAGE"
     ]
   ],
@@ -1619,10 +1642,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 0.5644739300537774,
       "offset": [
-        1337.6906736324606,
-        661.849601344323
+        2315.655835256307,
+        1306.1255550018536
       ]
     },
     "frontendVersion": "1.39.19"

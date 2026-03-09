@@ -28,6 +28,7 @@ import math
 import torch.nn.functional as torchfunc
 import torch
 import comfy_extras.nodes_images as nodes_images
+from itertools import islice
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -1672,6 +1673,7 @@ class PrimereMultiImage:
             "required": {
                 "image": ("IMAGE",),
                 "process_list": ("BOOLEAN", {"default": True, "label_on": "Image list on", "label_off": "Image list off"}),
+                "number_of_images": ("INT", {"default": 16, "min": 1, "max": 16, "step": 1},),
                 "resize_source": ("BOOLEAN", {"default": True}),
                 "resize_source_mpx": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 48.00, "step": 0.01}),
                 "padded_list": ("BOOLEAN", {"default": True, "label_on": "Pad listed images", "label_off": "Keep original ratio"}),
@@ -1694,11 +1696,15 @@ class PrimereMultiImage:
                 "image_9": ("IMAGE", {"default": None}),
                 "image_10": ("IMAGE", {"default": None}),
                 "image_11": ("IMAGE", {"default": None}),
-                "image_12": ("IMAGE", {"default": None})
+                "image_12": ("IMAGE", {"default": None}),
+                "image_13": ("IMAGE", {"default": None}),
+                "image_14": ("IMAGE", {"default": None}),
+                "image_15": ("IMAGE", {"default": None}),
+                "image_16": ("IMAGE", {"default": None})
             },
         }
 
-    def multi_image_source(self, process_list, resize_source, resize_source_mpx, padded_list, batch_match, batch_padding_color, concat_resize_mode, concat_mode, concat_match_size, concat_spacing_width, concat_spacing_color, **kwargs):
+    def multi_image_source(self, process_list, number_of_images, resize_source, resize_source_mpx, padded_list, batch_match, batch_padding_color, concat_resize_mode, concat_mode, concat_match_size, concat_spacing_width, concat_spacing_color, **kwargs):
         image_list = []
         image_list_cat = []
         input_data = kwargs
@@ -1708,7 +1714,7 @@ class PrimereMultiImage:
         width_res_first = None
         height_res_first = None
 
-        for inputKey, inputValue in input_data.items():
+        for inputKey, inputValue in islice(input_data.items(), number_of_images):
             if inputValue is not None and type(inputValue).__name__ == 'Tensor':
                 if height_res_first is None and width_res_first is None and resize_source == False:
                     width_res_first = inputValue.shape[2]

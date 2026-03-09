@@ -209,102 +209,34 @@
         "import fal_client"
       ],
       "possible_parameters": {
-        "aspect_ratio": [
-          "16:9",
-          "9:16",
-          "1:1"
-        ],
-        "duration": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15
-        ],
-        "generate_audio": [
-          false,
-          true
-        ],
-        "with_logs": [
-          false,
-          true
-        ],
-        "model_type": [
-          "text-to-video",
-          "image-to-video"
-        ],
-        "version": [
-          "v3/pro",
-          "v3/standard",
-          "o3/pro",
-          "o3/standard"
-        ],
+        "aspect_ratio": ["16:9", "9:16", "1:1"],
+        "duration": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "generate_audio": [false, true],
+        "with_logs": [false, true],
+        "model_type": ["text-to-video", "image-to-video"],
+        "version": ["v3/pro", "v3/standard", "o3/pro", "o3/standard"],
         "cfg_scale": "FLOAT"
       },
       "request_exclusions": [
         {
-          "when": {
-            "path": "version",
-            "equals": "v3/pro"
-          },
-          "remove": [
-            "image_url"
-          ]
+          "when": {"path": "version", "equals": "v3/pro"},
+          "remove": ["image_url"]
         },
         {
-          "when": {
-            "path": "version",
-            "equals": "v3/standard"
-          },
-          "remove": [
-            "image_url"
-          ]
+          "when": {"path": "version", "equals": "v3/standard"},
+          "remove": ["image_url"]
         },
         {
-          "when": {
-            "path": "version",
-            "equals": "o3/standard"
-          },
-          "remove": [
-            "negative_prompt",
-            "cfg_scale",
-            "start_image_url",
-            "elements",
-            "aspect_ratio"
-          ]
+          "when": {"path": "version", "equals": "o3/standard"},
+          "remove": ["negative_prompt", "cfg_scale", "start_image_url", "elements", "aspect_ratio"]
         },
         {
-          "when": {
-            "path": "version",
-            "equals": "o3/pro"
-          },
-          "remove": [
-            "negative_prompt",
-            "cfg_scale",
-            "start_image_url",
-            "elements",
-            "aspect_ratio"
-          ]
+          "when": {"path": "version", "equals": "o3/pro"},
+          "remove": ["negative_prompt", "cfg_scale", "start_image_url", "elements", "aspect_ratio"]
         },
         {
-          "when": {
-            "path": "model_type",
-            "equals": "text-to-video"
-          },
-          "remove": [
-            "multi_prompt",
-            "start_image_url",
-            "image_url",
-            "elements"
-          ]
+          "when": {"path": "model_type", "equals": "text-to-video"},
+          "remove": ["multi_prompt", "start_image_url", "image_url", "elements"]
         }
       ],
       "parameter_constraints": {
