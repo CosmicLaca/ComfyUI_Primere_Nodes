@@ -13,6 +13,7 @@
    - 3.2 [All parameters](#32-all-parameters)
    - 3.3 [What the helper extracts](#33-what-the-helper-extracts)
 4. [Schema reference — editing `api_schemas.json`](#4-schema-reference--editing-api_schemasjson)
+   - 4.0 [Schema file — example and user copy](#40-schema-file--example-and-user-copy)
    - 4.1 [Minimal schema structure](#41-minimal-schema-structure)
    - 4.2 [Placeholders — `{{key}}` syntax](#42-placeholders--key-syntax)
    - 4.3 [`possible_parameters`](#43-possible_parameters)
@@ -233,6 +234,24 @@ Type-marker strings are also treated as variable placeholders:
 ---
 
 ## 4) Schema reference — editing `api_schemas.json`
+
+### 4.0 Schema file — example and user copy
+
+`front_end/api_schemas.example.json` is always present in the node package and serves as the built-in fallback. It contains the pre-configured provider/service definitions shipped with the node.
+
+The node and the front-end both look for `front_end/api_schemas.json` first. If that file does not exist, they automatically fall back to `api_schemas.example.json`. This means the node works out of the box with no schema setup required.
+
+**To create your own custom schema:**
+
+1. Copy `front_end/api_schemas.example.json` to `front_end/api_schemas.json`.
+2. Edit `front_end/api_schemas.json` freely — add, remove, or modify provider/service entries as described in the sections below.
+3. Once `front_end/api_schemas.json` exists, the node and front-end use it exclusively. The example file is no longer consulted.
+
+`api_schemas.example.json` is never overwritten or modified by the node — it always remains available as a reference and fallback.
+
+After editing your schema, use the **↺ Reload API Schema** button on the node to apply changes immediately without restarting ComfyUI. The same fallback logic applies on reload: if your `api_schemas.json` has been deleted or moved, the node silently falls back to the example file.
+
+---
 
 ### 4.1 Minimal schema structure
 
