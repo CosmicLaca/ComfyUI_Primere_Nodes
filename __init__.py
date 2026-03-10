@@ -70,7 +70,7 @@ for subdirs in valid_FElist:
 
 NODE_CLASS_MAPPINGS = {
     "PrimereSamplersSteps": Dashboard.PrimereSamplersSteps,
-    "PrimereControlledSamplersSteps": Dashboard.PrimereControlledSamplersSteps,
+    "PrimereAutoSamplerSettings": Dashboard.PrimereAutoSamplerSettings,
     "PrimereVAE": Dashboard.PrimereVAE,
     "PrimereCKPT": Dashboard.PrimereCKPT,
     "PrimereVAELoader": Dashboard.PrimereVAELoader,
@@ -149,7 +149,7 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereSamplersSteps": "Primere Samplers & Steps & Cfg",
-    "PrimereControlledSamplersSteps": "Primere Controlled Sampler Setting",
+    "PrimereAutoSamplerSettings": "Primere Auto Sampler Settings",
     "PrimereVAE": "Primere VAE Selector",
     "PrimereCKPT": "Primere CKPT Selector",
     "PrimereVAELoader": "Primere VAE Loader",

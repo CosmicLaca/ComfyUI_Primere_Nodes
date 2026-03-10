@@ -1,6 +1,7 @@
 import math
 from ..components.tree import TREE_DASHBOARD
 from ..components.tree import PRIMERE_ROOT
+from server import PromptServer
 import comfy.samplers
 import folder_paths
 import nodes
@@ -645,11 +646,12 @@ class PrimereModelConceptSelector:
                 zimage_model, zimage_clip, zimage_vae
                 )
 
-class PrimereControlledSamplersSteps:
+class PrimereAutoSamplerSettings:
     CATEGORY = TREE_DASHBOARD
-    RETURN_TYPES = ("STRING", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT")
-    RETURN_NAMES = ("MODEL_CONCEPT", "SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG")
-    FUNCTION = "get_controlledsampler_step"
+    RETURN_TYPES = ("TUPLE",)
+    RETURN_NAMES = ("DATA",)
+    FUNCTION = "get_controlledsampler"
+    OUTPUT_NODE = True
 
     kolors_schedulers = ["EulerDiscreteScheduler", "EulerAncestralDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler_SDE_karras", "UniPCMultistepScheduler", "DEISMultistepScheduler"]
     sana_schedulers = ['flow_dpm-solver']
@@ -662,8 +664,20 @@ class PrimereControlledSamplersSteps:
     CLIPLIST = PrimereModelConceptSelector.CLIPLIST
     MODELLIST = PrimereModelConceptSelector.MODELLIST
     TEXT_ENCODERS_PATHS = PrimereModelConceptSelector.TEXT_ENCODERS_PATHS
-
     CONCEPT_LIST =  PrimereModelConceptSelector.CONCEPT_LIST
+
+    CUSTOMLORA_DIR = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads')
+    folder_paths.add_model_folder_path("customlora", CUSTOMLORA_DIR)
+    CustomLoras = folder_paths.get_filename_list("customlora")
+    CustomLorasList = folder_paths.filter_files_extensions(CustomLoras, ['.safetensors'])
+
+    LCM_LORAS       = [n for n in CustomLorasList if "lcm" in n.lower()]
+    SPEED_LORAS     = [n for n in CustomLorasList if any(s in n.lower() for s in ("lightning", "hyper", "turbo"))]
+    SRPO_LORAS      = [n for n in CustomLorasList if "srpo" in n.lower() and "svdq" not in n.lower()]
+    SRPO_SVDQ_LORAS = [n for n in CustomLorasList if "srpo" in n.lower() and "svdq" in n.lower()]
+    NUNCHAKU_LORAS  = [n for n in CustomLorasList if "nunchaku" in n.lower()]
+
+    REFINER_MODELS  = [n for n in PrimereModelConceptSelector.MODELLIST if "refiner" in os.path.basename(n).lower() or "refiner" in os.path.dirname(n).lower()]
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -674,31 +688,41 @@ class PrimereControlledSamplersSteps:
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
                 "scheduler_name": (cls.sana_schedulers + cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+                "override_steps": ("BOOLEAN", {"default": False, "label_off": "Set by sampler settings", "label_on": "Set by model filename"}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
-                "vae": (["None"] + cls.VAELIST,),
-                "encoder_1": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
-                "encoder_2": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
-                "encoder_3": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
-                "sampler": (["None"] + ["custom_advanced", "ksampler"], {"default": "ksampler"}),
+                "vae": (cls.VAELIST,),
+                "vae_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
+                "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
+                "encoder_1": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
+                "encoder_2": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
+                "encoder_3": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
+                "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
                 "guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
                 "weight_dtype": (["None"] + ["Auto", "default", "fp16", "bf16", "fp32", "fp8_e4m3fn", "fp8_e5m2"], {"default": "default"}),
                 "precision": (["None"] + ['fp32', 'fp16', 'quant8', 'quant4'], {"default": "fp16"}),
-                "use_speed_lora": ("BOOLEAN", {"default": False, "label_on": "Seed lora ON", "label_off": "Seed lora OFF"}),
-                "speed_lora": (["None"],),
-                "speed_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
-                "speed_lora_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
-                "speed_lora_step": ([4, 6, 8, 10, 12, 16], {"default": 8}),
+                "lcm_lora": ("BOOLEAN", {"default": False, "label_on": "LCM lora ON", "label_off": "LCM lora OFF"}),
+                # "lcm_lora_name": (cls.LCM_LORAS,),
+                "lcm_lora_strength": ("FLOAT", {"default": 1.000, "min": -20.000, "max": 20.000, "step": 0.001}),
+                "speed_lora": ("BOOLEAN", {"default": False, "label_on": "Speed lora ON", "label_off": "Speed lora OFF"}),
+                "speed_lora_name": (cls.SPEED_LORAS,),
+                # "speed_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
+                # "speed_lora_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
+                # "speed_lora_step": ([4, 6, 8, 10, 12, 16], {"default": 8}),
                 "speed_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
-                "use_srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
-                "use_srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO-NUNCHAKU Lora", "label_off": "Ignore SRPO-NUNCHAKU Lora"}),
-                "srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
-                "srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
+                "srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
+                "srpo_lora_name": (cls.SRPO_LORAS,),
+                # "srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
+                # "srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
                 "srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
-                "use_nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
-                "nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer", "anything_extracted"], {"default": "anything_extracted"}),
-                "nunchaku_lora_rank": ([64, 256], {"default": 64}),
+                "srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO SVDQ Lora", "label_off": "Ignore SRPO SVDQ Lora"}),
+                "srpo_svdq_lora_name": (cls.SRPO_SVDQ_LORAS,),
+                "nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
+                "nunchaku_lora_name": (cls.NUNCHAKU_LORAS,),
+                # "nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer", "anything_extracted"], {"default": "anything_extracted"}),
+                # "nunchaku_lora_rank": ([64, 256], {"default": 64}),
                 "nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
-                "pixart_refiner_model": (["None"] + cls.MODELLIST,),
+                "refiner": ("BOOLEAN", {"default": False, "label_on": "Refiner ON", "label_off": "Refiner OFF"}),
+                "refiner_model": (cls.REFINER_MODELS,),
                 "refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
                 "refiner_scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
                 "refiner_cfg": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 100, "step": 0.01}),
@@ -709,12 +733,40 @@ class PrimereControlledSamplersSteps:
             }
         }
 
-    def get_controlledsampler_step(self, model_concept, sampler_name, scheduler_name, steps=12, cfg=7, **kwargs):
-        return model_concept, sampler_name, scheduler_name, steps, round(cfg, 2)
+    def get_controlledsampler(self, **kwargs):
+        model_concept = kwargs.pop('model_concept', 'SD1')
+        concepts = kwargs.pop('concepts', 'Auto')
+        sampler_name = kwargs.pop('sampler_name', comfy.samplers.KSampler.SAMPLERS[0])
+        scheduler_name = kwargs.pop('scheduler_name', comfy.samplers.KSampler.SCHEDULERS[0])
+        steps = kwargs.pop('steps', 12)
+        cfg = kwargs.pop('cfg', 7.0)
+        active_concept = model_concept if concepts == "Auto" else concepts
+        json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
+        concept_data = utility.json2tuple(json_path)
+        if not concept_data or active_concept not in concept_data:
+            PromptServer.instance.send_sync("primere.concept_setting", {"status": "missing", "concept": active_concept})
+        else:
+            saved = concept_data[active_concept]
+            sampler_name = saved.get('sampler_name', sampler_name)
+            scheduler_name = saved.get('scheduler_name', scheduler_name)
+            steps = saved.get('steps', steps)
+            cfg = saved.get('cfg', cfg)
+            for k, v in saved.items():
+                if k in kwargs:
+                    kwargs[k] = v
+        suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
+        kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
+        kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]
+        kwargs['model_concept'] = active_concept
+        kwargs['sampler_name'] = sampler_name
+        kwargs['scheduler_name'] = scheduler_name
+        kwargs['steps'] = steps
+        kwargs['cfg'] = round(cfg, 2)
+        return {"ui": {"active_concept": [active_concept]}, "result": (kwargs,)}
 
 class PrimereConceptDataTuple:
-    RETURN_TYPES = ("TUPLE",)
-    RETURN_NAMES = ("CONCEPT_DATA",)
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "TUPLE",)
+    RETURN_NAMES = ("SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "DATA",)
     FUNCTION = "load_concept_collector"
     CATEGORY = TREE_DASHBOARD
 
@@ -722,120 +774,16 @@ class PrimereConceptDataTuple:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
-                "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True}),
-                "steps": ("INT", {"forceInput": True}),
-                "cfg": ("FLOAT", {"forceInput": True}),
-
-                "override_steps": ("OVERRIDE_STEPS", {"default": False, "forceInput": True}),
-                "clip_selection": ("CLIP_SELECTION", {"default": True, "forceInput": True}),
-                "vae_selection": ("VAE_SELECTION", {"default": True, "forceInput": True}),
-                "vae_name": ("VAE_NAME", {"default": "Baked", "forceInput": True}),
-
-                "strength_lcm_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
-
-                "lightning_selector": ("STRING", {"default": "SAFETENSOR", "forceInput": True}),
-                "lightning_model_step": ("INT", {"default": 8, "forceInput": True}),
-                "strength_lightning_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
-
-                "cascade_stage_a": ("STRING", {"forceInput": True}),
-                "cascade_stage_b": ("STRING", {"forceInput": True}),
-                "cascade_stage_c": ("STRING", {"forceInput": True}),
-                "cascade_clip": ("STRING", {"forceInput": True}),
-
-                "hypersd_selector": ("STRING", {"default": "LORA", "forceInput": True}),
-                "hypersd_model_step": ("INT", {"default": 8, "forceInput": True}),
-                "strength_hypersd_lora_model": ("FLOAT", {"default": 1, "forceInput": True}),
-
-                "flux_selector": ("STRING", {"default": "DIFFUSION", "forceInput": True}),
-                "flux_diffusion": ("STRING", {"forceInput": True}),
-                "flux_weight_dtype": ("STRING", {"forceInput": True}),
-                "flux_gguf": ("STRING", {"forceInput": True}),
-                "flux_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "flux_clip_l": ("STRING", {"forceInput": True}),
-                "flux_clip_guidance": ("FLOAT", {"default": 3.5, "forceInput": True}),
-                "flux_vae": ("STRING", {"forceInput": True}),
-                "flux_sampler": ("STRING", {"forceInput": True}),
-                "use_flux_hyper_lora": ("FLUX_HYPER_LORA", {"forceInput": True}),
-                "flux_hyper_lora_type": ("STRING", {"forceInput": True}),
-                "flux_hyper_lora_step": ("INT", {"forceInput": True}),
-                "flux_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
-                "use_flux_turbo_lora": ("FLUX_TURBO_LORA", {"forceInput": True}),
-                "flux_turbo_lora_type": ("STRING", {"forceInput": True}),
-                "flux_turbo_lora_step": ("INT", {"forceInput": True}),
-                "flux_turbo_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
-                "use_flux_srpo_lora": ("FLUX_SRPO_LORA", {"forceInput": True}),
-                "use_flux_srpo_svdq_lora": ("FLUX_SRPO_SVDQ_LORA", {"forceInput": True}),
-                "flux_srpo_lora_type": ("STRING", {"default": "oficial", "forceInput": True}),
-                "flux_srpo_lora_rank": ("INT", {"default": 8, "forceInput": True}),
-                "flux_srpo_lora_strength": ("FLOAT", {"default": 1.000, "forceInput": True}),
-                "use_flux_nunchaku_lora": ("FLUX_NUNCHAKU_LORA", {"forceInput": True}),
-                "flux_nunchaku_lora_type": ("STRING", {"default": "anything_extracted", "forceInput": True}),
-                "flux_nunchaku_lora_rank": ("INT", {"default": 64, "forceInput": True}),
-                "flux_nunchaku_lora_strength": ("FLOAT", {"default": 1.000, "forceInput": True}),
-
-                "hunyuan_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "hunyuan_clip_l": ("STRING", {"forceInput": True}),
-                "hunyuan_vae": ("STRING", {"forceInput": True}),
-
-                "sd3_clip_g": ("STRING", {"forceInput": True}),
-                "sd3_clip_l": ("STRING", {"forceInput": True}),
-                "sd3_clip_t5xxl": ("STRING", {"forceInput": True}),
-                "sd3_unet_vae": ("STRING", {"forceInput": True}),
-                "use_sd3_hyper_lora": ("SD3_HYPER_LORA", {"forceInput": True}),
-                "sd3_hyper_lora_step": ("INT", {"default": 8, "forceInput": True}),
-                "sd3_hyper_lora_strength": ("FLOAT", {"default": 0.125, "forceInput": True}),
-
-                "kolors_precision": ("STRING", {"forceInput": True}),
-
-                "pixart_model_type": ("STRING", {"forceInput": True}),
-                "pixart_T5_encoder": ("STRING", {"forceInput": True}),
-                "pixart_vae": ("STRING", {"forceInput": True}),
-                "pixart_denoise": ("FLOAT", {"forceInput": True}),
-                "pixart_refiner_model": ("STRING", {"forceInput": True}),
-                "pixart_refiner_sampler": ("STRING", {"forceInput": True}),
-                "pixart_refiner_scheduler": ("STRING", {"forceInput": True}),
-                "pixart_refiner_cfg": ("FLOAT", {"forceInput": True}),
-                "pixart_refiner_steps": ("INT", {"forceInput": True}),
-                "pixart_refiner_start": ("INT", {"forceInput": True}),
-                "pixart_refiner_denoise": ("FLOAT", {"forceInput": True}),
-                "pixart_refiner_ignore_prompt": ("BOOLEAN", {"forceInput": True}),
-
-                "sana_model": ("STRING", {"forceInput": True}),
-                "sana_encoder": ("STRING", {"forceInput": True}),
-                "sana_vae": ("STRING", {"forceInput": True}),
-                "sana_weight_dtype": ("STRING", {"forceInput": True}),
-                "sana_precision": ("STRING", {"forceInput": True}),
-
-                "qwen_gen_model": ("STRING", {"forceInput": True}),
-                "qwen_gen_clip": ("STRING", {"forceInput": True}),
-                "qwen_gen_vae":("STRING", {"forceInput": True}),
-                "use_qwen_gen_lightning_lora": ("QWEN_GEN_LIGHTNING_LORA", {"forceInput": True}),
-                "qwen_gen_lightning_lora_version": ("FLOAT", {"forceInput": True}),
-                "qwen_gen_lightning_precision": ("QWEN_GEN_LORA_PRECISION", {"forceInput": True}),
-                "qwen_gen_lightning_lora_step": ("INT", {"default": 8, "forceInput": True}),
-                "qwen_gen_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True}),
-
-                "qwen_edit_model": ("STRING", {"forceInput": True}),
-                "qwen_edit_clip": ("STRING", {"forceInput": True}),
-                "qwen_edit_vae": ("STRING", {"forceInput": True}),
-                "use_qwen_edit_lightning_lora": ("QWEN_EDIT_LIGHTNING_LORA", {"forceInput": True}),
-                "qwen_edit_lightning_lora_version": ("FLOAT", {"forceInput": True}),
-                "qwen_edit_lightning_precision": ("QWEN_EDIT_LORA_PRECISION", {"forceInput": True}),
-                "qwen_edit_lightning_lora_step": ("INT", {"default": 8, "forceInput": True}),
-                "qwen_edit_lightning_lora_strength": ("FLOAT", {"default": 1.00, "forceInput": True}),
-
-                "auraflow_clip": ("STRING", {"forceInput": True}),
-                "auraflow_vae": ("STRING", {"forceInput": True}),
-
-                "zimage_model": ("STRING", {"forceInput": True}),
-                "zimage_clip": ("STRING", {"forceInput": True}),
-                "zimage_vae": ("STRING", {"forceInput": True})
+                "data": ("TUPLE", {"forceInput": True}),
             },
         }
 
-    def load_concept_collector(self, **kwargs):
-        return (kwargs,)
+    def load_concept_collector(self, data):
+        sampler_name = data.get("sampler_name", comfy.samplers.KSampler.SAMPLERS[0])
+        scheduler_name = data.get("scheduler_name", comfy.samplers.KSampler.SCHEDULERS[0])
+        steps = data.get("steps", 20)
+        cfg = data.get("cfg", 7.0)
+        return (sampler_name, scheduler_name, steps, cfg, data,)
 
 class PrimereCKPTLoader:
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)

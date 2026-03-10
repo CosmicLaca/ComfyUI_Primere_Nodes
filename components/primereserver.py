@@ -528,3 +528,18 @@ routes17 = PromptServer.instance.routes
 async def primere_apiconfig_check(request):
     config_path = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
     return web.json_response({"exists": os.path.isfile(config_path)})
+
+routes18 = PromptServer.instance.routes
+@routes18.post('/primere_model_concept_save')
+async def primere_model_concept_save(request):
+    post = await request.json()
+    concept = post.get('concept')
+    data = post.get('data')
+    if not concept or data is None:
+        return web.json_response({"success": False, "error": "Missing concept or data"}, status=400)
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
+    existing = utility.json2tuple(json_path) or {}
+    existing[concept] = data
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(existing, f, indent=2)
+    return web.json_response({"success": True})
