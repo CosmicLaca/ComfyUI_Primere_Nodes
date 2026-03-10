@@ -645,6 +645,73 @@ class PrimereModelConceptSelector:
                 zimage_model, zimage_clip, zimage_vae
                 )
 
+class PrimereControlledSamplersSteps:
+    CATEGORY = TREE_DASHBOARD
+    RETURN_TYPES = ("STRING", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT")
+    RETURN_NAMES = ("MODEL_CONCEPT", "SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG")
+    FUNCTION = "get_controlledsampler_step"
+
+    kolors_schedulers = ["EulerDiscreteScheduler", "EulerAncestralDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler_SDE_karras", "UniPCMultistepScheduler", "DEISMultistepScheduler"]
+    sana_schedulers = ['flow_dpm-solver']
+
+    UNETLIST = PrimereModelConceptSelector.UNETLIST
+    DIFFUSIONLIST = PrimereModelConceptSelector.DIFFUSIONLIST
+    TEXT_ENCODERS = PrimereModelConceptSelector.TEXT_ENCODERS
+    GGUFLIST = PrimereModelConceptSelector.GGUFLIST
+    VAELIST = PrimereModelConceptSelector.VAELIST
+    CLIPLIST = PrimereModelConceptSelector.CLIPLIST
+    MODELLIST = PrimereModelConceptSelector.MODELLIST
+    TEXT_ENCODERS_PATHS = PrimereModelConceptSelector.TEXT_ENCODERS_PATHS
+
+    CONCEPT_LIST =  PrimereModelConceptSelector.CONCEPT_LIST
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "model_concept": ("STRING", {"default": None, "forceInput": True}),
+                "concepts": (["Auto"] + cls.CONCEPT_LIST,),
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
+                "scheduler_name": (cls.sana_schedulers + cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
+                "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+                "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
+                "vae": (["None"] + cls.VAELIST,),
+                "encoder_1": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
+                "encoder_2": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
+                "encoder_3": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.TEXT_ENCODERS_PATHS,),
+                "sampler": (["None"] + ["custom_advanced", "ksampler"], {"default": "ksampler"}),
+                "guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
+                "weight_dtype": (["None"] + ["Auto", "default", "fp16", "bf16", "fp32", "fp8_e4m3fn", "fp8_e5m2"], {"default": "default"}),
+                "precision": (["None"] + ['fp32', 'fp16', 'quant8', 'quant4'], {"default": "fp16"}),
+                "use_speed_lora": ("BOOLEAN", {"default": False, "label_on": "Seed lora ON", "label_off": "Seed lora OFF"}),
+                "speed_lora": (["None"],),
+                "speed_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
+                "speed_lora_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
+                "speed_lora_step": ([4, 6, 8, 10, 12, 16], {"default": 8}),
+                "speed_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
+                "use_srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
+                "use_srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO-NUNCHAKU Lora", "label_off": "Ignore SRPO-NUNCHAKU Lora"}),
+                "srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
+                "srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
+                "srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+                "use_nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
+                "nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer", "anything_extracted"], {"default": "anything_extracted"}),
+                "nunchaku_lora_rank": ([64, 256], {"default": 64}),
+                "nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+                "pixart_refiner_model": (["None"] + cls.MODELLIST,),
+                "refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
+                "refiner_scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
+                "refiner_cfg": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 100, "step": 0.01}),
+                "refiner_steps": ("INT", {"default": 22, "min": 10, "max": 30, "step": 1}),
+                "refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+                "refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "refiner_ignore_prompt": ("BOOLEAN", {"default": False, "label_on": "Send prompt to refiner", "label_off": "Ignore prompt"}),
+            }
+        }
+
+    def get_controlledsampler_step(self, model_concept, sampler_name, scheduler_name, steps=12, cfg=7, **kwargs):
+        return model_concept, sampler_name, scheduler_name, steps, round(cfg, 2)
+
 class PrimereConceptDataTuple:
     RETURN_TYPES = ("TUPLE",)
     RETURN_NAMES = ("CONCEPT_DATA",)

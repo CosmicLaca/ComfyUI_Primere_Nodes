@@ -522,3 +522,9 @@ async def primere_prompt_saver(request):
     else:
         PromptServer.instance.send_sync("PromptDataSaveResponse", False)
     return web.json_response({})
+
+routes17 = PromptServer.instance.routes
+@routes17.get('/primere_apiconfig_check')
+async def primere_apiconfig_check(request):
+    config_path = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
+    return web.json_response({"exists": os.path.isfile(config_path)})

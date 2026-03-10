@@ -7,6 +7,9 @@ def get_api_config(name: str) -> dict:
     fp = os.path.join(path, name)
     config_json = utility.json2tuple(fp)
 
+    if not config_json:
+        return {}
+
     for k, v in config_json.items():
         match k:
             case "OpenAI":

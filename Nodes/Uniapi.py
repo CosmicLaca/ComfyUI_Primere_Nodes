@@ -33,7 +33,9 @@ class PrimereApiProcessor:
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
-    API_SCHEMAS_RAW = utility.json2tuple(os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json'))
+    _schema_file = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json')
+    _schema_example = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.example.json')
+    API_SCHEMAS_RAW = utility.json2tuple(_schema_file if Path(_schema_file).is_file() else _schema_example)
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
 
     @classmethod

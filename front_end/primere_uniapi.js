@@ -3,9 +3,11 @@ import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 
 const TARGET_NODE_NAME = "PrimereApiProcessor";
 const SCHEMA_URL = new URL("/extensions/ComfyUI_Primere_Nodes/api_schemas.json", import.meta.url).href;
+const SCHEMA_EXAMPLE_URL = new URL("/extensions/ComfyUI_Primere_Nodes/api_schemas.example.json", import.meta.url).href;
 
 let schemaCache = null;
 let schemaPromise = null;
+let apiconfigChecked = false;
 
 async function loadSchemas() {
     if (schemaCache) {
@@ -16,7 +18,12 @@ async function loadSchemas() {
         schemaPromise = fetch(SCHEMA_URL)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error(`Cannot load schema file (${response.status})`);
+                    return fetch(SCHEMA_EXAMPLE_URL).then((fallback) => {
+                        if (!fallback.ok) {
+                            throw new Error(`Cannot load schema file (${fallback.status})`);
+                        }
+                        return fallback.json();
+                    });
                 }
                 return response.json();
             })
@@ -25,7 +32,7 @@ async function loadSchemas() {
                 return schemaCache;
             })
             .catch((error) => {
-                console.error("[Primere UniApi] Failed to load json/api_schemas.json", error);
+                console.error("[Primere UniApi] Failed to load api_schemas.json and api_schemas.example.json", error);
                 return {};
             });
     }
@@ -301,6 +308,15 @@ async function initializeUniApiNode(node) {
         const refreshBtn = node.addWidget("button", "↺  Reload API Schema", null, async () => {
             schemaCache = null;
             schemaPromise = null;
+            let apiconfigMissing = false;
+            try {
+                const r = await fetch("/primere_apiconfig_check");
+                const data = r.ok ? await r.json() : null;
+                if (data && !data.exists) {
+                    apiconfigMissing = true;
+                    showToast("error", "API config file (json/apiconfig.json) not found. Create it with your API keys before using this node. See the manual for details.");
+                }
+            } catch (_) {}
             try {
                 const freshRegistry = await loadSchemas();
                 if (!freshRegistry || Object.keys(freshRegistry).length === 0) {
@@ -309,9 +325,11 @@ async function initializeUniApiNode(node) {
                 }
                 updateServiceWidget(node, freshRegistry);
                 updateParameterWidgets(node, freshRegistry);
-                const providerCount = Object.keys(freshRegistry).length;
-                const serviceCount = Object.values(freshRegistry).reduce((sum, p) => sum + Object.keys(p).length, 0);
-                showToast("success", `API Schema reloaded successfully. ${providerCount} provider(s), ${serviceCount} service(s) loaded.`);
+                if (!apiconfigMissing) {
+                    const providerCount = Object.keys(freshRegistry).length;
+                    const serviceCount = Object.values(freshRegistry).reduce((sum, p) => sum + Object.keys(p).length, 0);
+                    showToast("success", `API Schema reloaded successfully. ${providerCount} provider(s), ${serviceCount} service(s) loaded.`);
+                }
             } catch (error) {
                 showToast("error", `API Schema reload failed. ${error.message}`);
             }
@@ -348,6 +366,18 @@ async function initializeUniApiNode(node) {
             }
             updateParameterWidgets(this, schemaCache || {});
         };
+    }
+
+    if (!apiconfigChecked) {
+        apiconfigChecked = true;
+        fetch("/primere_apiconfig_check")
+            .then((r) => r.ok ? r.json() : null)
+            .then((data) => {
+                if (data && !data.exists) {
+                    showToast("error", "API config file (json/apiconfig.json) not found. Create it with your API keys before using this node. See the manual for details.");
+                }
+            })
+            .catch(() => {});
     }
 
     const schemaRegistry = await loadSchemas();

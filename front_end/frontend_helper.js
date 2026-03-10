@@ -82,7 +82,7 @@ export function showToast(status, message) {
 
     const textEl = document.createElement("span");
     textEl.textContent = message;
-    Object.assign(textEl.style, { flex: "1", lineHeight: "1.5", wordBreak: "break-all" });
+    Object.assign(textEl.style, { flex: "1", lineHeight: "1.5", wordBreak: "normal", overflowWrap: "break-word" });
 
     const closeBtn = document.createElement("button");
     closeBtn.textContent = "✕";
