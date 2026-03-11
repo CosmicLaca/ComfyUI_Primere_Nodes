@@ -4,6 +4,9 @@ from comfy.sd1_clip import load_embed, ClipTokenWeightEncoder
 from comfy.sd1_clip import token_weights, escape_important, unescape_important
 from comfy import model_management
 import comfy
+import comfy_extras.nodes_sd3 as nodes_sd3
+import comfy_extras.nodes_flux as nodes_flux
+from . import utility
 
 class SDLongClipModel(torch.nn.Module, ClipTokenWeightEncoder):
     LAYERS = [
@@ -437,3 +440,87 @@ def HunyuanClipping(self, text, text_t5, CLIP, T5):
             "context_t5_mask": t5_mask.float()
         }
     ]],)
+
+
+def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode_fn):
+    if adv_encode:
+        tokens_p = clip.tokenize(positive_text)
+        tokens_n = clip.tokenize(negative_text)
+        if 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
+            embeddings_final_pos, pooled_pos = advanced_encode_fn(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            embeddings_final_neg, pooled_neg = advanced_encode_fn(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+            return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        else:
+            if 'l' in clip.tokenize(positive_l):
+                tokens_p["l"] = clip.tokenize(positive_l)["l"]
+                if len(tokens_p["l"]) != len(tokens_p["g"]):
+                    empty = clip.tokenize("")
+                    while len(tokens_p["l"]) < len(tokens_p["g"]):
+                        tokens_p["l"] += empty["l"]
+                    while len(tokens_p["l"]) > len(tokens_p["g"]):
+                        tokens_p["g"] += empty["g"]
+            if 'l' in clip.tokenize(negative_l):
+                tokens_n["l"] = clip.tokenize(negative_l)["l"]
+                if len(tokens_n["l"]) != len(tokens_n["g"]):
+                    empty = clip.tokenize("")
+                    while len(tokens_n["l"]) < len(tokens_n["g"]):
+                        tokens_n["l"] += empty["l"]
+                    while len(tokens_n["l"]) > len(tokens_n["g"]):
+                        tokens_n["g"] += empty["g"]
+            cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
+            cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
+            return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, "", positive_l, negative_l, workflow_tuple)
+    else:
+        tokens_pos = clip.tokenize(positive_text)
+        tokens_neg = clip.tokenize(negative_text)
+        try:
+            comfy.model_management.soft_empty_cache()
+        except Exception:
+            pass
+        out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+        out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+        cond_pos = out_pos.pop("cond")
+        cond_neg = out_neg.pop("cond")
+        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+
+
+def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
+    if t5xxl_prompt:
+        pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
+        tokens_neg = clip.tokenize(negative_text)
+        out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+        cond_neg = out_neg.pop("cond")
+        return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    else:
+        tokens_pos = clip.tokenize(positive_text)
+        tokens_neg = clip.tokenize(negative_text)
+        out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+        out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+        cond_pos = out_pos.pop("cond")
+        cond_neg = out_neg.pop("cond")
+        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
+
+
+def encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple):
+    positive_text = utility.DiT_cleaner(positive_text)
+    negative_text = utility.DiT_cleaner(negative_text)
+    tokens_pos = clip.tokenize(positive_text)
+    tokens_neg = clip.tokenize(negative_text)
+    cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
+    cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
+    return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", workflow_tuple)
+
+
+def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple):
+    flux_sampler = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
+    flux_guidance = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0
+    if flux_sampler == 'ksampler':
+        cond_pos = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, flux_guidance)[0]
+        if concept_data is not None and float(concept_data.get('cfg', 2.0)) < 1.2:
+            cond_neg = cond_pos
+        else:
+            cond_neg = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, flux_guidance)[0]
+        return (cond_pos, cond_neg, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    else:
+        cond_pos = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, flux_guidance)[0]
+        return (cond_pos, cond_pos, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
