@@ -68,6 +68,25 @@ async function loadConceptValues(node, key) {
         }
         w.callback?.(w.value);
     }
+
+    if (saved.speed_lora === true && saved.speed_lora_name) {
+        const stepMatch = saved.speed_lora_name.match(/(\d+)step/i);
+        if (stepMatch) {
+            const stepsWidget = node.widgets?.find((w) => w.name === "steps");
+            if (stepsWidget) {
+                stepsWidget.value = parseInt(stepMatch[1], 10);
+                stepsWidget.callback?.(stepsWidget.value);
+            }
+        }
+        if (saved.speed_lora_cfg != null) {
+            const cfgWidget = node.widgets?.find((w) => w.name === "cfg");
+            if (cfgWidget) {
+                cfgWidget.value = saved.speed_lora_cfg;
+                cfgWidget.callback?.(cfgWidget.value);
+            }
+        }
+    }
+
     node.setDirtyCanvas?.(true, true);
 }
 

@@ -197,14 +197,11 @@ def PSamplerPixart(self, device, seed, model,
 
     return (samples_main,)
 
-def PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image, prompt):
-    FLUX_GUIDANCE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt))
-    if FLUX_GUIDANCE is None:
-        FLUX_GUIDANCE = 3.5
-    if FLUX_GUIDANCE <= 0:
+def PSamplerAdvanced(self, model, seed, guidance, positive, scheduler_name, sampler_name, steps, denoise, latent_image):
+    if guidance <= 0:
         CONDITIONING_POS = positive
     else:
-        CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, FLUX_GUIDANCE)[0]
+        CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, guidance)[0]
     FLUX_GUIDER = nodes_custom_sampler.BasicGuider.get_guider(self, model, CONDITIONING_POS)[0]
     FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model, scheduler_name, steps, denoise=denoise)[0]
     FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]

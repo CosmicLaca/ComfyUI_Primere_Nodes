@@ -648,8 +648,8 @@ class PrimereModelConceptSelector:
 
 class PrimereAutoSamplerSettings:
     CATEGORY = TREE_DASHBOARD
-    RETURN_TYPES = ("TUPLE",)
-    RETURN_NAMES = ("DATA",)
+    RETURN_TYPES = ("TUPLE", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
+    RETURN_NAMES = ("DATA", "SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
     FUNCTION = "get_controlledsampler"
     OUTPUT_NODE = True
 
@@ -711,6 +711,7 @@ class PrimereAutoSamplerSettings:
                 # "speed_lora_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
                 # "speed_lora_step": ([4, 6, 8, 10, 12, 16], {"default": 8}),
                 "speed_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
+                "speed_lora_cfg": ("FLOAT", {"default": 1.0, "min": 0.1, "max": 100, "step": 0.01}),
                 "srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
                 "srpo_lora_name": (cls.SRPO_LORAS,),
                 # "srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
@@ -766,6 +767,21 @@ class PrimereAutoSamplerSettings:
             for k, v in saved.items():
                 if k in kwargs:
                     kwargs[k] = v
+
+        if kwargs.get('override_steps') == True:
+            found = re.findall(r"(?i)(\d+)step", model_name.lower())
+            if found:
+                steps = int(found[0])
+
+        if kwargs.get('speed_lora') == True:
+            speed_lora_name_val = kwargs.get('speed_lora_name', '')
+            if speed_lora_name_val:
+                found = re.findall(r"(?i)(\d+)step", speed_lora_name_val.lower())
+                if found:
+                    steps = int(found[0])
+            speed_lora_cfg_val = kwargs.get('speed_lora_cfg')
+            if speed_lora_cfg_val is not None:
+                cfg = float(speed_lora_cfg_val)
         suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
         kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
         kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]
@@ -774,7 +790,7 @@ class PrimereAutoSamplerSettings:
         kwargs['scheduler_name'] = scheduler_name
         kwargs['steps'] = steps
         kwargs['cfg'] = round(cfg, 2)
-        return {"ui": {"active_concept": [active_display]}, "result": (kwargs,)}
+        return {"ui": {"active_concept": [active_display]}, "result": (kwargs, sampler_name, scheduler_name, steps, round(cfg, 2), active_concept,)}
 
 class PrimereConceptDataTuple:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "TUPLE",)
@@ -814,7 +830,7 @@ class PrimereCKPTLoader:
                 "use_yaml": ("BOOLEAN", {"default": False}),
             },
             "optional": {
-                "model_concept": ("STRING", {"forceInput": True}),
+                # "model_concept": ("STRING", {"forceInput": True}),
                 "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
@@ -822,32 +838,12 @@ class PrimereCKPTLoader:
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml,
-                          model_concept=None, concept_data=None,
-                          clip_selection=True, vae_selection=True, vae_name="Baked",
-                          strength_lcm_lora_model=1,
-                          lightning_selector='LORA', lightning_model_step=8,
-                          strength_lightning_lora_model=1,
-                          hypersd_selector='LORA', hypersd_model_step=8,
-                          strength_hypersd_lora_model=1,
-                          cascade_stage_a=None, cascade_stage_b=None, cascade_stage_c=None, cascade_clip=None,
-                          loaded_model=None, loaded_clip=None, loaded_vae=None,
-                          flux_selector='DIFFUSION', flux_diffusion=None, flux_weight_dtype=None, flux_gguf=None, flux_clip_t5xxl=None, flux_clip_l=None, flux_clip_guidance=None, flux_vae=None,
-                          use_flux_hyper_lora=False, flux_hyper_lora_type='FLUX.1-dev-fp16', flux_hyper_lora_step=8, flux_hyper_lora_strength=0.125, use_flux_turbo_lora=False, flux_turbo_lora_type="TurboAlpha", flux_turbo_lora_step=8, flux_turbo_lora_strength=1,
-                          use_flux_srpo_lora=False, use_flux_srpo_svdq_lora=False, flux_srpo_lora_type='oficial', flux_srpo_lora_rank=8, flux_srpo_lora_strength=1, use_flux_nunchaku_lora=False, flux_nunchaku_lora_type='anything_extracted', flux_nunchaku_lora_rank=64, flux_nunchaku_lora_strength=1,
-                          hunyuan_clip_t5xxl=None, hunyuan_clip_l=None, hunyuan_vae=None,
-                          sd3_clip_g=None, sd3_clip_l=None, sd3_clip_t5xxl=None, sd3_unet_vae=None, use_sd3_hyper_lora=False, sd3_hyper_lora_step=8, sd3_hyper_lora_strength=0.125,
-                          qwen_gen_model=None, qwen_gen_clip=None, qwen_gen_vae=None, use_qwen_gen_lightning_lora=False, qwen_gen_lightning_lora_version=1.1, qwen_gen_lightning_precision=True, qwen_gen_lightning_lora_step=8, qwen_gen_lightning_lora_strength=1.00,
-                          qwen_edit_model=None, qwen_edit_clip=None, qwen_edit_vae=None, use_qwen_edit_lightning_lora=False, qwen_edit_lightning_lora_version=1.1, qwen_edit_lightning_precision=True, qwen_edit_lightning_lora_step=8, qwen_edit_lightning_lora_strength=1.00,
-                          kolors_precision='quant8',
-                          pixart_model_type="PixArtMS_Sigma_XL_2", pixart_T5_encoder='None', pixart_vae='None', pixart_denoise=0.9, pixart_refiner_model='None', pixart_refiner_sampler='dpmpp_2m', pixart_refiner_scheduler='Normal', pixart_refiner_cfg=2.0, pixart_refiner_steps=22, pixart_refiner_start=12, pixart_refiner_denoise=0.9, pixart_refiner_ignore_prompt=False,
-                          sana_model="None", sana_encoder="None", sana_vae="None", sana_weight_dtype="Auto", sana_precision="fp16",
-                          auraflow_vae=None, auraflow_clip=None,
-                          zimage_model=None, zimage_clip=None, zimage_vae=None
-                          ):
+    def load_primere_ckpt(self, ckpt_name, use_yaml, concept_data=None, loaded_model=None, loaded_clip=None, loaded_vae=None):
 
         playground_sigma_max = 120
         playground_sigma_min = 0.002
+
+        model_concept = concept_data['model_concept']
 
         try:
             comfy.model_management.soft_empty_cache()
@@ -856,996 +852,11 @@ class PrimereCKPTLoader:
         except Exception:
             print('No need to clear cache...')
 
-        if concept_data is not None:
-            if 'clip_selection' in concept_data:
-                clip_selection = concept_data['clip_selection']
-            if 'vae_selection' in concept_data:
-                vae_selection = concept_data['vae_selection']
-            if 'vae_name' in concept_data:
-                vae_name = concept_data['vae_name']
-
-            if 'strength_lcm_lora_model' in concept_data:
-                strength_lcm_lora_model = concept_data['strength_lcm_lora_model']
-
-            if 'lightning_selector' in concept_data:
-                lightning_selector = concept_data['lightning_selector']
-            if 'lightning_model_step' in concept_data:
-                lightning_model_step = concept_data['lightning_model_step']
-            if 'strength_lightning_lora_model' in concept_data:
-                strength_lightning_lora_model = concept_data['strength_lightning_lora_model']
-
-            if 'hypersd_selector' in concept_data:
-                hypersd_selector = concept_data['hypersd_selector']
-            if 'hypersd_model_step' in concept_data:
-                hypersd_model_step = concept_data['hypersd_model_step']
-            if 'strength_hypersd_lora_model' in concept_data:
-                strength_hypersd_lora_model = concept_data['strength_hypersd_lora_model']
-
-            if 'cascade_stage_a' in concept_data:
-                cascade_stage_a = concept_data['cascade_stage_a']
-            if 'cascade_stage_b' in concept_data:
-                cascade_stage_b = concept_data['cascade_stage_b']
-            if 'cascade_stage_c' in concept_data:
-                cascade_stage_c = concept_data['cascade_stage_c']
-            if 'cascade_clip' in concept_data:
-                cascade_clip = concept_data['cascade_clip']
-
-            if 'flux_selector' in concept_data:
-                flux_selector = concept_data['flux_selector']
-            if 'flux_diffusion' in concept_data:
-                flux_diffusion = concept_data['flux_diffusion']
-            if 'flux_weight_dtype' in concept_data:
-                flux_weight_dtype = concept_data['flux_weight_dtype']
-            if 'flux_gguf' in concept_data:
-                flux_gguf = concept_data['flux_gguf']
-            if 'flux_clip_t5xxl' in concept_data:
-                flux_clip_t5xxl = concept_data['flux_clip_t5xxl']
-            if 'flux_clip_l' in concept_data:
-                flux_clip_l = concept_data['flux_clip_l']
-            if 'flux_clip_guidance' in concept_data:
-                flux_clip_guidance = concept_data['flux_clip_guidance']
-            if 'flux_vae' in concept_data:
-                flux_vae = concept_data['flux_vae']
-            if 'use_flux_hyper_lora' in concept_data:
-                use_flux_hyper_lora = concept_data['use_flux_hyper_lora']
-            if 'flux_hyper_lora_type' in concept_data:
-                flux_hyper_lora_type = concept_data['flux_hyper_lora_type']
-            if 'flux_hyper_lora_step' in concept_data:
-                flux_hyper_lora_step = concept_data['flux_hyper_lora_step']
-            if 'flux_hyper_lora_strength' in concept_data:
-                flux_hyper_lora_strength = concept_data['flux_hyper_lora_strength']
-            if 'use_flux_turbo_lora' in concept_data:
-                use_flux_turbo_lora = concept_data['use_flux_turbo_lora']
-            if 'flux_turbo_lora_type' in concept_data:
-                flux_turbo_lora_type = concept_data['flux_turbo_lora_type']
-            if 'flux_turbo_lora_step' in concept_data:
-                flux_turbo_lora_step = concept_data['flux_turbo_lora_step']
-            if 'flux_turbo_lora_strength' in concept_data:
-                flux_turbo_lora_strength = concept_data['flux_turbo_lora_strength']
-            if 'use_flux_srpo_lora' in concept_data:
-                use_flux_srpo_lora = concept_data['use_flux_srpo_lora']
-            if 'use_flux_srpo_svdq_lora' in concept_data:
-                use_flux_srpo_svdq_lora = concept_data['use_flux_srpo_svdq_lora']
-            if 'flux_srpo_lora_type' in concept_data:
-                flux_srpo_lora_type = concept_data['flux_srpo_lora_type']
-            if 'flux_srpo_lora_rank' in concept_data:
-                flux_srpo_lora_rank = concept_data['flux_srpo_lora_rank']
-            if 'flux_srpo_lora_strength' in concept_data:
-                flux_srpo_lora_strength = concept_data['flux_srpo_lora_strength']
-            if 'use_flux_nunchaku_lora' in concept_data:
-                use_flux_nunchaku_lora = concept_data['use_flux_nunchaku_lora']
-            if 'flux_nunchaku_lora_type' in concept_data:
-                flux_nunchaku_lora_type = concept_data['flux_nunchaku_lora_type']
-            if 'flux_nunchaku_lora_rank' in concept_data:
-                flux_nunchaku_lora_rank = concept_data['flux_nunchaku_lora_rank']
-            if 'flux_nunchaku_lora_strength' in concept_data:
-                flux_nunchaku_lora_strength = concept_data['flux_nunchaku_lora_strength']
-
-            if 'hunyuan_clip_t5xxl' in concept_data:
-                hunyuan_clip_t5xxl = concept_data['hunyuan_clip_t5xxl']
-            if 'hunyuan_clip_l' in concept_data:
-                hunyuan_clip_l = concept_data['hunyuan_clip_l']
-            if 'hunyuan_vae' in concept_data:
-                hunyuan_vae = concept_data['hunyuan_vae']
-
-            if 'zimage_model' in concept_data:
-                zimage_model = concept_data['zimage_model']
-            if 'zimage_clip' in concept_data:
-                zimage_clip = concept_data['zimage_clip']
-            if 'zimage_vae' in concept_data:
-                zimage_vae = concept_data['zimage_vae']
-
-            # if 'flux_sampler' in concept_data:
-            #    flux_sampler = concept_data['flux_sampler']
-            if 'sd3_clip_g' in concept_data:
-                sd3_clip_g = concept_data['sd3_clip_g']
-            if 'sd3_clip_l' in concept_data:
-                sd3_clip_l = concept_data['sd3_clip_l']
-            if 'sd3_clip_t5xxl' in concept_data:
-                sd3_clip_t5xxl = concept_data['sd3_clip_t5xxl']
-            if 'sd3_unet_vae' in concept_data:
-                sd3_unet_vae = concept_data['sd3_unet_vae']
-            if 'use_sd3_hyper_lora' in concept_data:
-                use_sd3_hyper_lora = concept_data['use_sd3_hyper_lora']
-            if 'sd3_hyper_lora_step' in concept_data:
-                sd3_hyper_lora_step = concept_data['sd3_hyper_lora_step']
-            if 'sd3_hyper_lora_strength' in concept_data:
-                sd3_hyper_lora_strength = concept_data['sd3_hyper_lora_strength']
-
-            if 'qwen_gen_model' in concept_data:
-                qwen_gen_model = concept_data['qwen_gen_model']
-            if 'qwen_gen_clip' in concept_data:
-                qwen_gen_clip = concept_data['qwen_gen_clip']
-            if 'qwen_gen_vae' in concept_data:
-                qwen_gen_vae = concept_data['qwen_gen_vae']
-            if 'use_qwen_gen_lightning_lora' in concept_data:
-                use_qwen_gen_lightning_lora = concept_data['use_qwen_gen_lightning_lora']
-            if 'qwen_gen_lightning_lora_version' in concept_data:
-                qwen_gen_lightning_lora_version = concept_data['qwen_gen_lightning_lora_version']
-            if 'qwen_gen_lightning_precision' in concept_data:
-                qwen_gen_lightning_precision = concept_data['qwen_gen_lightning_precision']
-            if 'qwen_gen_lightning_lora_step' in concept_data:
-                qwen_gen_lightning_lora_step = concept_data['qwen_gen_lightning_lora_step']
-            if 'qwen_gen_lightning_lora_strength' in concept_data:
-                qwen_gen_lightning_lora_strength = concept_data['qwen_gen_lightning_lora_strength']
-
-            if 'qwen_edit_model' in concept_data:
-                qwen_edit_model = concept_data['qwen_edit_model']
-            if 'qwen_edit_clip' in concept_data:
-                qwen_edit_clip = concept_data['qwen_edit_clip']
-            if 'qwen_edit_vae' in concept_data:
-                qwen_edit_vae = concept_data['qwen_edit_vae']
-            if 'use_qwen_edit_lightning_lora' in concept_data:
-                use_qwen_edit_lightning_lora = concept_data['use_qwen_edit_lightning_lora']
-            if 'qwen_edit_lightning_lora_version' in concept_data:
-                qwen_edit_lightning_lora_version = concept_data['qwen_edit_lightning_lora_version']
-            if 'qwen_edit_lightning_precision' in concept_data:
-                qwen_edit_lightning_precision = concept_data['qwen_edit_lightning_precision']
-            if 'qwen_edit_lightning_lora_step' in concept_data:
-                qwen_edit_lightning_lora_step = concept_data['qwen_edit_lightning_lora_step']
-            if 'qwen_edit_lightning_lora_strength' in concept_data:
-                qwen_edit_lightning_lora_strength = concept_data['qwen_edit_lightning_lora_strength']
-
-            if 'kolors_precision' in concept_data:
-                kolors_precision = concept_data['kolors_precision']
-
-            if 'pixart_model_type' in concept_data:
-                pixart_model_type = concept_data['pixart_model_type']
-            if 'pixart_T5_encoder' in concept_data:
-                pixart_T5_encoder = concept_data['pixart_T5_encoder']
-            if 'pixart_vae' in concept_data:
-                pixart_vae = concept_data['pixart_vae']
-            if 'pixart_denoise' in concept_data:
-                pixart_denoise = concept_data['pixart_denoise']
-            if 'pixart_refiner_model' in concept_data:
-                pixart_refiner_model = concept_data['pixart_refiner_model']
-            if 'pixart_refiner_sampler' in concept_data:
-                pixart_refiner_sampler = concept_data['pixart_refiner_sampler']
-            if 'pixart_refiner_scheduler' in concept_data:
-                pixart_refiner_scheduler = concept_data['pixart_refiner_scheduler']
-            if 'pixart_refiner_cfg' in concept_data:
-                pixart_refiner_cfg = concept_data['pixart_refiner_cfg']
-            if 'pixart_refiner_steps' in concept_data:
-                pixart_refiner_steps = concept_data['pixart_refiner_steps']
-            if 'pixart_refiner_start' in concept_data:
-                pixart_refiner_start = concept_data['pixart_refiner_start']
-            if 'pixart_refiner_denoise' in concept_data:
-                pixart_refiner_denoise = concept_data['pixart_refiner_denoise']
-            if 'pixart_refiner_ignore_prompt' in concept_data:
-                pixart_refiner_ignore_prompt = concept_data['pixart_refiner_ignore_prompt']
-
-            # if 'sana_model' in concept_data:
-            #    sana_model = concept_data['sana_model']
-            if 'sana_encoder' in concept_data:
-                sana_encoder = concept_data['sana_encoder']
-            if 'sana_vae' in concept_data:
-                sana_vae = concept_data['sana_vae']
-            if 'sana_weight_dtype' in concept_data:
-                sana_weight_dtype = concept_data['sana_weight_dtype']
-            if 'sana_precision' in concept_data:
-                sana_precision = concept_data['sana_precision']
-
-            if 'auraflow_clip' in concept_data:
-                auraflow_clip = concept_data['auraflow_clip']
-            if 'auraflow_vae' in concept_data:
-                auraflow_vae = concept_data['auraflow_vae']
-
         modelname_only = Path(ckpt_name).stem
         MODEL_VERSION_ORIGINAL = utility.get_value_from_cache('model_version', modelname_only)
         if MODEL_VERSION_ORIGINAL is None:
             MODEL_VERSION_ORIGINAL = utility.getModelType(ckpt_name, 'checkpoints')
             utility.add_value_to_cache('model_version', ckpt_name, MODEL_VERSION_ORIGINAL)
-
-        if model_concept == "LCM" or (model_concept == 'Lightning' and lightning_selector == 'LORA') or (model_concept == 'Hyper' and hypersd_selector == 'LORA'):
-            MODEL_VERSION = MODEL_VERSION_ORIGINAL
-        else:
-            if model_concept is not None:
-                MODEL_VERSION = model_concept
-            else:
-                MODEL_VERSION = MODEL_VERSION_ORIGINAL
-
-        def lcm(self, model, zsnr=False):
-            m = model.clone()
-            # sampling_base = comfy.model_sampling.ModelSamplingDiscrete
-            sampling_type = nodes_model_advanced.LCM
-            sampling_base = utility.ModelSamplingDiscreteLCM
-            class ModelSamplingAdvanced(sampling_base, sampling_type):
-                pass
-            model_sampling = ModelSamplingAdvanced()
-            if zsnr:
-                model_sampling.set_sigmas(nodes_model_advanced.rescale_zero_terminal_snr_sigmas(model_sampling.sigmas))
-            m.add_object_patch("model_sampling", model_sampling)
-            return m
-
-        sd3_gguf = False
-        match model_concept:
-            case 'AuraFlow':
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    File_link = Path(str(fullpathFile)).resolve()
-                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                    model_ext = os.path.splitext(linkedFileName)[1].lower()
-                    if str(Path(linkName_U).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                    if str(Path(linkName_D).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-                    if model_ext == '.gguf':
-                        OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                    else:
-                        OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
-
-                    OUTPUT_VAE = utility.vae_loader_class.load_vae(auraflow_vae)[0]
-                    OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, auraflow_clip, 'stable_diffusion')[0]
-                    return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
-                else:
-                    OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
-
-            case 'SANA1024' | 'SANA512':
-                precision = sana_precision
-                encoder_path = sana_encoder
-                device = model_management.get_torch_device()
-                if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
-                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    is_link = os.path.islink(str(fullpathFile))
-                    if is_link == True:
-                        fullpathFile = Path(str(fullpathFile)).resolve()
-
-                    dtype = utility.get_dtype_by_name(sana_weight_dtype)
-                    text_encoder_dir = os.path.join(folder_paths.models_dir, 'text_encoders', encoder_path)
-                    if os.path.exists(text_encoder_dir) == False:
-                        LLM_PRIMERE_ROOT = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'LLM')
-                        text_encoder_dir = os.path.join(LLM_PRIMERE_ROOT, encoder_path)
-
-                    vae_path = folder_paths.get_full_path("vae", sana_vae)
-                    text_encoder_dtype = model_management.text_encoder_dtype(device)
-
-                    if concept_data['scheduler_name'] == 'flow_dpm-solver':
-                        cfg = create_dc_ae_model_cfg('dc-ae-f32c32-sana-1.0')
-                        vae = DCAE(cfg)
-                        state_dict = comfy.utils.load_torch_file(vae_path, safe_load=True)
-                        vae.load_state_dict(state_dict, strict=False)
-                        vae_dtype = model_management.vae_dtype(device, [torch.float16, torch.bfloat16, torch.float32])
-                        vae.to(vae_dtype).eval()
-
-                        if "T5" in encoder_path:
-                            tokenizer = T5Tokenizer.from_pretrained(str(text_encoder_dir))
-                            llm_model = None
-                            text_encoder = T5EncoderModel.from_pretrained(str(text_encoder_dir), torch_dtype=text_encoder_dtype)
-                        else:
-                            tokenizer = AutoTokenizer.from_pretrained(text_encoder_dir)
-                            quantization_config = BitsAndBytesConfig(load_in_8bit=True) if precision == '8-bit' else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=text_encoder_dtype) if precision == '4-bit' else None
-                            llm_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, quantization_config=quantization_config, torch_dtype=text_encoder_dtype) if '-4bit' not in encoder_path else AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype=text_encoder_dtype)
-                            tokenizer.padding_side = "right"
-                            text_encoder = llm_model.get_decoder()
-
-                        text_encoder.to(device)
-                        state_dict = comfy.utils.load_torch_file(str(fullpathFile), safe_load=True)
-                        is_1600M = state_dict['final_layer.scale_shift_table'].shape[1] == 2240  # 1.6b: 2240 0.6b: 1152
-                        if '512px' in ckpt_name:
-                            config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_1600M_img512.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '512ms', 'Sana_600M_img512.yaml')
-                        else:
-                            config_path = os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_1600M_img1024_AdamW.yaml') if is_1600M else os.path.join(PRIMERE_ROOT, 'components', 'sana', 'configs', 'sana_config', '1024ms', 'Sana_600M_img1024.yaml')
-                        config = pyrallis.load(SanaConfig, open(config_path))
-
-                        pred_sigma = getattr(config.scheduler, "pred_sigma", True)
-                        learn_sigma = getattr(config.scheduler, "learn_sigma", True) and pred_sigma
-                        image_size = config.model.image_size
-                        latent_size = image_size // config.vae.vae_downsample_rate
-                        model_kwargs = {
-                            "input_size": latent_size,
-                            "pe_interpolation": config.model.pe_interpolation,
-                            "config": config,
-                            "model_max_length": config.text_encoder.model_max_length,
-                            "qk_norm": config.model.qk_norm,
-                            "micro_condition": config.model.micro_condition,
-                            "caption_channels": text_encoder.config.hidden_size,  # Gemma2: 2304
-                            "y_norm": config.text_encoder.y_norm,
-                            "attn_type": config.model.attn_type,
-                            "ffn_type": config.model.ffn_type,
-                            "mlp_ratio": config.model.mlp_ratio,
-                            "mlp_acts": list(config.model.mlp_acts),
-                            "in_channels": config.vae.vae_latent_dim,
-                            "y_norm_scale_factor": config.text_encoder.y_norm_scale_factor,
-                            "use_pe": config.model.use_pe,
-                            "pred_sigma": pred_sigma,
-                            "learn_sigma": learn_sigma,
-                            "use_fp32_attention": config.model.get("fp32_attention", False) and config.model.mixed_precision != "bf16",
-                        }
-                        unet = build_model(config.model.model, **model_kwargs)
-                        unet.to(dtype)
-                        state_dict = state_dict.get("state_dict", state_dict)
-                        if "pos_embed" in state_dict:
-                            del state_dict["pos_embed"]
-                        missing, unexpected = unet.load_state_dict(state_dict, strict=False)
-                        del state_dict
-                        unet.eval().to(dtype)
-                        pipe = SanaPipeline(config, vae, dtype, unet)
-
-                        SANA_MODEL = {
-                            'pipe': pipe,
-                            'unet': unet,
-                            'text_encoder_model': llm_model,
-                            'tokenizer': tokenizer,
-                            'text_encoder': text_encoder,
-                            'vae': vae,
-                            'device': device
-                        }
-
-                        SANA_VAE = sana_utils.first_stage_model(vae)
-                        SANA_CLIP = sana_utils.cond_stage_model(tokenizer, text_encoder)
-                    else:
-                        model = list(sana_conf.keys())
-                        model_conf = sana_conf[model[1]]
-                        SANA_MODEL = load_sana(model_path = str(fullpathFile), model_conf = model_conf)
-
-                        vae_config = vae_conf['dcae-f32c32-sana-1.0']
-                        SANA_VAE = EXVAE(vae_path, vae_config, string_to_dtype(sana_weight_dtype.upper(), "vae"))
-
-                        tokenizer = AutoTokenizer.from_pretrained(text_encoder_dir)
-                        text_encoder_model = AutoModelForCausalLM.from_pretrained(text_encoder_dir, torch_dtype = text_encoder_dtype)
-                        tokenizer.padding_side = "right"
-                        text_encoder = text_encoder_model.get_decoder()
-                        if device != "cpu":
-                            text_encoder = text_encoder.to(device)
-
-                        SANA_CLIP = {
-                            "tokenizer": tokenizer,
-                            "text_encoder": text_encoder,
-                            "text_encoder_model": text_encoder_model,
-                        }
-
-                    return (SANA_MODEL,) + (SANA_CLIP,) + (SANA_VAE,) + (MODEL_VERSION,)
-
-            case 'PixartSigma':
-                ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-                model_conf = pixart_conf[pixart_model_type]
-                PIXART_CHECKPOINT = load_pixart(model_path=ckpt_path, model_conf=model_conf, )
-                PIXART_CLIP = nodes.CLIPLoader.load_clip(self, pixart_T5_encoder, 'sd3')[0]
-
-                PIXART_REFINER_CHECKPOINT = {}
-                if pixart_refiner_model != 'None':
-                    PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, pixart_refiner_model)
-                    PIXART_VAE = PIXART_REFINER_CHECKPOINT[2]
-                else:
-                    PIXART_REFINER_CHECKPOINT[0] = None
-                    PIXART_REFINER_CHECKPOINT[1] = None
-                    PIXART_VAE = utility.vae_loader_class.load_vae(pixart_vae)[0]
-                return ({'main': PIXART_CHECKPOINT, 'refiner': PIXART_REFINER_CHECKPOINT[0]},) + ({'main': PIXART_CLIP, 'refiner': PIXART_REFINER_CHECKPOINT[1]},) + (PIXART_VAE,) + (MODEL_VERSION,)
-
-            case 'Hunyuan':
-                HUNYUAN_VAE = utility.vae_loader_class.load_vae(hunyuan_vae)[0]
-                T5 = None
-                try:
-                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
-                    HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
-                    CLIP = LOADED_CHECKPOINT[1]
-                except Exception:
-                    model = 'G/2-1.2'
-                    ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-                    model_conf = hydit_conf[model]
-                    HUNYUAN_MODEL = load_hydit(model_path=ckpt_path, model_conf=model_conf)
-
-                    dtype = string_to_dtype('FP32', "text_encoder")
-                    device = 'GPU'
-                    CLIP = load_clip(
-                        model_path=folder_paths.get_full_path("clip", hunyuan_clip_l),
-                        device=device,
-                        dtype=dtype
-                    )
-
-                    T5_DIR = os.path.join(folder_paths.models_dir, 't5')
-                    if os.path.isdir(T5_DIR):
-                        folder_paths.add_model_folder_path("p_t5", T5_DIR)
-                        T5FileFullPath = folder_paths.get_full_path("p_t5", hunyuan_clip_t5xxl)
-                        if T5FileFullPath is None:
-                            T5FileFullPath = folder_paths.get_full_path("clip", hunyuan_clip_t5xxl)
-
-                        T5 = load_t5(
-                            model_path=T5FileFullPath,
-                            device=device,
-                            dtype=dtype
-                        )
-
-                HUNYUAN_CLIP = {'clip': CLIP, 't5': T5}
-                return (HUNYUAN_MODEL,) + (HUNYUAN_CLIP,) + (HUNYUAN_VAE,) + (MODEL_VERSION,)
-
-            case 'KwaiKolors':
-                precision = kolors_precision
-                model_name = Path(ckpt_name).stem
-
-                if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
-                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    is_link = os.path.islink(str(fullpathFile))
-                    if is_link == True:
-                        LinkPath = Path(str(fullpathFile)).resolve()
-                        model_name = Path(LinkPath.parent.parent).stem
-
-                dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}['fp16']
-                pbar = comfy.utils.ProgressBar(4)
-                model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
-                pbar.update(1)
-                scheduler = EulerDiscreteScheduler.from_pretrained(model_path, subfolder='scheduler')
-                unet = UNet2DConditionModel.from_pretrained(model_path, subfolder='unet', variant="fp16", revision=None, low_cpu_mem_usage=True).to(dtype).eval()
-                pipeline = StableDiffusionXLPipeline(unet=unet, scheduler=scheduler)
-                KOLORS_MODEL = {'pipeline': pipeline, 'dtype': dtype}
-
-                pbar = comfy.utils.ProgressBar(2)
-                text_encoder_path = os.path.join(model_path, "text_encoder")
-                pbar.update(1)
-                text_encoder = ChatGLMModel.from_pretrained(text_encoder_path, torch_dtype=torch.float16)
-                if precision == 'quant8':
-                    try:
-                        text_encoder.quantize(8)
-                    except Exception:
-                        print('Quantitization 8 faliled...')
-                elif precision == 'quant4':
-                    try:
-                        text_encoder.quantize(4)
-                    except Exception:
-                        print('Quantitization 4 faliled...')
-                tokenizer = ChatGLMTokenizer.from_pretrained(text_encoder_path)
-                pbar.update(1)
-                CHATGLM3_MODEL = {'text_encoder': text_encoder, 'tokenizer': tokenizer}
-
-                if vae_name != "Baked":
-                    print('1')
-                    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
-                else:
-                    vae_list = folder_paths.get_filename_list("vae")
-                    allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSDXLvae[0])[0]
-
-                return (KOLORS_MODEL,) + (CHATGLM3_MODEL,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
-
-            case 'StableCascade':
-                if cascade_stage_a is not None and cascade_stage_b is not None and cascade_stage_c is not None and cascade_clip is not None:
-                    OUTPUT_CLIP_CAS = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
-                    OUTPUT_VAE_CAS = utility.vae_loader_class.load_vae(cascade_stage_a)[0]
-                    if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
-                        fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                        is_link = os.path.islink(str(fullpathFile))
-                        if is_link == False:
-                            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')[0]
-                        else:
-                            File_link = Path(str(fullpathFile)).resolve()
-                            linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                            linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                            linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-
-                            if str(Path(linkName_U).stem) in linkedFileName:
-                                linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                            if str(Path(linkName_D).stem) in linkedFileName:
-                                linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-
-                            MODEL_C_CAS = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
-                    else:
-                        MODEL_C_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_c, 'default')[0]
-                    MODEL_B_CAS = nodes.UNETLoader.load_unet(self, cascade_stage_b, 'default')[0]
-
-                    OUTPUT_MODEL_CAS = [MODEL_B_CAS, MODEL_C_CAS]
-                    return (OUTPUT_MODEL_CAS,) + (OUTPUT_CLIP_CAS,) + (OUTPUT_VAE_CAS,) + (MODEL_VERSION,)
-
-            case 'SD3':
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    File_link = Path(str(fullpathFile)).resolve()
-                    model_ext = os.path.splitext(File_link)[1].lower()
-                    if model_ext == '.gguf':
-                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                        sd3_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                        if str(Path(linkName_U).stem) in sd3_gguf:
-                            sd3_gguf = sd3_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
-                        if str(Path(linkName_D).stem) in sd3_gguf:
-                            sd3_gguf = sd3_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
-
-            case "Z-Image":
-                zimage_weight_dtype = 'default'
-                if 'e4m3fn' in ckpt_name:
-                    zimage_weight_dtype = 'fp8_e4m3fn'
-                if 'e5m2' in ckpt_name:
-                    zimage_weight_dtype = 'fp8_e5m2'
-
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    File_link = Path(str(fullpathFile)).resolve()
-                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                    model_ext = os.path.splitext(linkedFileName)[1].lower()
-                    if str(Path(linkName_U).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                    if str(Path(linkName_D).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-
-                    if 'diffusion_models' in str(File_link):
-                        if model_ext == '.gguf':
-                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                        else:
-                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, zimage_weight_dtype)[0]
-                    elif 'unet' in str(File_link):
-                        if model_ext == '.gguf':
-                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                        else:
-                            try:
-                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, zimage_weight_dtype)[0]
-                            except Exception:
-                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
-                else:
-                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
-
-                clip_ext = os.path.splitext(zimage_clip)[1].lower()
-                if clip_ext == '.gguf':
-                    ZIMAGE_CLIP = gguf_nodes.CLIPLoaderGGUF.load_clip(self, zimage_clip, 'qwen_image')[0]
-                else:
-                    ZIMAGE_CLIP = nodes.CLIPLoader.load_clip(self, zimage_clip, 'flux2')[0]
-
-                ZIMAGE_VAE = utility.vae_loader_class.load_vae(zimage_vae)[0]
-                return (MODEL_DIFFUSION,) + (ZIMAGE_CLIP,) + (ZIMAGE_VAE,) + (MODEL_VERSION,)
-
-            case 'QwenGen' | 'QwenEdit':
-                FULL_LORA_PATH = None
-                concept_type = 'qwen_image'
-                qwen_weight_dtype = 'default'
-                if 'e4m3fn' in ckpt_name:
-                    qwen_weight_dtype = 'e4m3fn'
-
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                qwen_ver_list = re.findall(r'(?<!\d)\d{4}(?!\d)', ckpt_name)
-                if len(qwen_ver_list) < 1:
-                    qwen_ver = '2509'
-                else:
-                    qwen_ver = str(qwen_ver_list[0])
-
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    File_link = Path(str(fullpathFile)).resolve()
-                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                    model_ext = os.path.splitext(linkedFileName)[1].lower()
-                    if str(Path(linkName_U).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                    if str(Path(linkName_D).stem) in linkedFileName:
-                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-
-                    if 'diffusion_models' in str(File_link):
-                        if model_ext == '.gguf':
-                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                        else:
-                            MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, qwen_weight_dtype)[0]
-                    elif 'unet' in str(File_link):
-                        if model_ext == '.gguf':
-                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                        else:
-                            try:
-                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, qwen_weight_dtype)[0]
-                            except Exception:
-                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
-                else:
-                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
-
-                if model_concept == 'QwenGen':
-                    QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_gen_clip, concept_type)[0]
-                    QWEN_VAE = utility.vae_loader_class.load_vae(qwen_gen_vae)[0]
-                if model_concept == 'QwenEdit':
-                    QWEN_CLIP = nodes.CLIPLoader.load_clip(self, qwen_edit_clip, concept_type)[0]
-                    QWEN_VAE = utility.vae_loader_class.load_vae(qwen_edit_vae)[0]
-
-                if use_qwen_gen_lightning_lora == True and model_concept == 'QwenGen':
-                    QWENGEN_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0.safetensors?download=true'
-                    QWENGEN_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors?download=true'
-                    QWENGEN_4_V2 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors?download=true'
-                    QWENGEN_4_V2_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors?download=true'
-                    QWENGEN_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.0.safetensors?download=true'
-                    QWENGEN_8_V1_1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1.safetensors?download=true'
-                    QWENGEN_8_V1_1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors?download=true'
-                    QWENGEN_8_V2 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors?download=true'
-                    QWENGEN_8_V2_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors?download=true'
-
-                    DOWNLOADED_QWENGEN_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0.safetensors')
-                    DOWNLOADED_QWENGEN_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors')
-                    DOWNLOADED_QWENGEN_4_V2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V2.0.safetensors')
-                    DOWNLOADED_QWENGEN_4_V2_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors')
-                    DOWNLOADED_QWENGEN_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.0.safetensors')
-                    DOWNLOADED_QWENGEN_8_V1_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1.safetensors')
-                    DOWNLOADED_QWENGEN_8_V1_1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V1.1-bf16.safetensors')
-                    DOWNLOADED_QWENGEN_8_V2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V2.0.safetensors')
-                    DOWNLOADED_QWENGEN_8_V2_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors')
-
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1, QWENGEN_4_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V1_BF16, QWENGEN_4_V1_BF16)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V2, QWENGEN_4_V2)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_4_V2_BF16, QWENGEN_4_V2_BF16)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1, QWENGEN_8_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1, QWENGEN_8_V1_1)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V1_1_BF16, QWENGEN_8_V1_1_BF16)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V2, QWENGEN_8_V2)
-                    utility.fileDownloader(DOWNLOADED_QWENGEN_8_V2_BF16, QWENGEN_8_V2_BF16)
-
-                    downloaded_filelist_filtered = utility.getDownloadedFiles()
-                    if qwen_ver != '2509':
-                        allQwenLoras = list(filter(lambda a: 'qwen-image'.casefold() in a.casefold() and 'edit'.casefold() not in a.casefold() and qwen_ver.casefold() in a.casefold(), downloaded_filelist_filtered))
-                    else:
-                        allQwenLoras = list(filter(lambda a: 'qwen-image'.casefold() in a.casefold() and 'edit'.casefold() not in a.casefold() and (qwen_ver.casefold() in a.casefold() or '25'.casefold() not in a.casefold()), downloaded_filelist_filtered))
-
-                    if qwen_weight_dtype != 'default':
-                        allQwenLoras_bytype = list(filter(lambda a: qwen_weight_dtype.casefold() in a.casefold(), allQwenLoras))
-                    else:
-                        allQwenLoras_bytype = list(filter(lambda a: 'e4m3fn'.casefold() not in a.casefold(), allQwenLoras))
-
-                    if len(allQwenLoras_bytype) > 0:
-                        allQwenLoras = allQwenLoras_bytype
-
-                    qwen_gen_ver = f"v{qwen_gen_lightning_lora_version:.1f}"
-
-                    if qwen_gen_lightning_precision == False:
-                        finalLoras = list(filter(lambda a: str(qwen_gen_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() in a.casefold() and qwen_gen_ver.casefold() in a.casefold(), allQwenLoras))
-                    else:
-                        finalLoras = list(filter(lambda a: str(qwen_gen_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_gen_ver.casefold() in a.casefold(), allQwenLoras))
-
-                    if len(finalLoras) == 0 and len(allQwenLoras) > 0:
-                        if qwen_gen_lightning_precision == False:
-                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() in a.casefold(), allQwenLoras))
-                        else:
-                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() not in a.casefold(), allQwenLoras))
-                        if len(finalLoras_bfcheck) > 0:
-                            finalLoras = finalLoras_bfcheck[0]
-                        else:
-                            finalLoras = allQwenLoras[0]
-
-                    if len(finalLoras) > 0:
-                        LORA_FILE = finalLoras[0]
-                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-
-                    print(f'=================== lora check for QWEN-GEN for {ckpt_name} and {qwen_weight_dtype} and V:{qwen_ver} step: {qwen_gen_lightning_lora_step} / {qwen_gen_lightning_precision} ============================')
-                    print(finalLoras)
-
-                    if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                        print(FULL_LORA_PATH)
-                        if qwen_gen_lightning_lora_strength != 0:
-                            lora = None
-                            if self.loaded_lora is not None:
-                                if self.loaded_lora[0] == FULL_LORA_PATH:
-                                    lora = self.loaded_lora[1]
-                                else:
-                                    temp = self.loaded_lora
-                                    self.loaded_lora = None
-                                    del temp
-
-                            if lora is None:
-                                lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                                self.loaded_lora = (FULL_LORA_PATH, lora)
-                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_gen_lightning_lora_strength, 0)[0]
-
-                    print('===================lora check end============================')
-
-                if use_qwen_edit_lightning_lora == True and model_concept == 'QwenEdit':
-                    QWENEDIT_4_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors?download=true'
-                    QWENEDIT_4_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors?download=true'
-                    QWENEDIT_8_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors?download=true'
-                    QWENEDIT_8_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors?download=true'
-
-                    QWENEDIT_4_2509_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-fp32.safetensors?download=true'
-                    QWENEDIT_4_2509_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors?download=true'
-                    QWENEDIT_8_2509_V1 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-fp32.safetensors?download=true'
-                    QWENEDIT_8_2509_V1_BF16 = 'https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-2509/Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors?download=true'
-
-                    DOWNLOADED_QWENEDIT_4_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors')
-                    DOWNLOADED_QWENEDIT_4_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors')
-                    DOWNLOADED_QWENEDIT_8_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors')
-                    DOWNLOADED_QWENEDIT_8_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors')
-
-                    DOWNLOADED_QWENEDIT_4_2509_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-4steps-V1.0.safetensors')
-                    DOWNLOADED_QWENEDIT_4_2509_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors')
-                    DOWNLOADED_QWENEDIT_8_2509_V1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-8steps-V1.0.safetensors')
-                    DOWNLOADED_QWENEDIT_8_2509_V1_BF16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Qwen-Image-Edit-2509-Lightning-8steps-V1.0-bf16.safetensors')
-
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1, QWENEDIT_4_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_V1_BF16, QWENEDIT_4_V1_BF16)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1, QWENEDIT_8_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_V1_BF16, QWENEDIT_8_V1_BF16)
-
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_2509_V1, QWENEDIT_4_2509_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_4_2509_V1_BF16, QWENEDIT_4_2509_V1_BF16)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_2509_V1, QWENEDIT_8_2509_V1)
-                    utility.fileDownloader(DOWNLOADED_QWENEDIT_8_2509_V1_BF16, QWENEDIT_8_2509_V1_BF16)
-
-                    downloaded_filelist_filtered = utility.getDownloadedFiles()
-                    allQwenLoras = list(filter(lambda a: 'qwen-image-edit'.casefold() in a.casefold() and qwen_ver.casefold() in a.casefold(), downloaded_filelist_filtered))
-                    if len(allQwenLoras) < 1:
-                        allQwenLoras = list(filter(lambda a: 'qwen-image-edit'.casefold() in a.casefold() and (qwen_ver.casefold() in a.casefold() or '25'.casefold() not in a.casefold()), downloaded_filelist_filtered))
-
-                    if qwen_weight_dtype != 'default':
-                        allQwenLoras_bytype = list(filter(lambda a: qwen_weight_dtype.casefold() in a.casefold(), allQwenLoras))
-                    else:
-                        allQwenLoras_bytype = list(filter(lambda a: 'e4m3fn'.casefold() not in a.casefold(), allQwenLoras))
-
-                    if len(allQwenLoras_bytype) > 0:
-                        allQwenLoras = allQwenLoras_bytype
-
-                    qwen_edit_ver = f"v{qwen_edit_lightning_lora_version:.1f}"
-
-                    if qwen_edit_lightning_precision == False:
-                        finalLoras = list(filter(lambda a: str(qwen_edit_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() in a.casefold() and qwen_edit_ver.casefold() in a.casefold(), allQwenLoras))
-                    else:
-                        finalLoras = list(filter(lambda a: str(qwen_edit_lightning_lora_step) + 'step'.casefold() in a.casefold() and '-bf16'.casefold() not in a.casefold() and qwen_edit_ver.casefold() in a.casefold(), allQwenLoras))
-
-                    if len(finalLoras) == 0 and len(allQwenLoras) > 0:
-                        if qwen_edit_lightning_precision == False:
-                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() in a.casefold(), allQwenLoras))
-                        else:
-                            finalLoras_bfcheck = list(filter(lambda a: '-bf16'.casefold() not in a.casefold(), allQwenLoras))
-                        if len(finalLoras_bfcheck) > 0:
-                            finalLoras = finalLoras_bfcheck[0]
-                        else:
-                            finalLoras = allQwenLoras[0]
-
-                    if len(finalLoras) > 0:
-                        LORA_FILE = finalLoras[0]
-                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-
-                    print(f'=================== lora check for QWEN-EDIT for {ckpt_name} and {qwen_weight_dtype} and V:{qwen_ver} step: {qwen_edit_lightning_lora_step} / {qwen_edit_lightning_precision} ============================')
-                    print(finalLoras)
-
-                    if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                        print(FULL_LORA_PATH)
-                        if qwen_edit_lightning_lora_strength != 0:
-                            lora = None
-                            if self.loaded_lora is not None:
-                                if self.loaded_lora[0] == FULL_LORA_PATH:
-                                    lora = self.loaded_lora[1]
-                                else:
-                                    temp = self.loaded_lora
-                                    self.loaded_lora = None
-                                    del temp
-
-                            if lora is None:
-                                lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                                self.loaded_lora = (FULL_LORA_PATH, lora)
-                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, qwen_edit_lightning_lora_strength, 0)[0]
-
-                    print('===================lora check end============================')
-
-                if model_concept == 'QwenEdit':
-                    MODEL_DIFFUSION = nodes_model_advanced.ModelSamplingSD3.patch(self, MODEL_DIFFUSION, 3, 1.0)[0]
-                    MODEL_DIFFUSION = nodes_cfg.CFGNorm.execute(MODEL_DIFFUSION, 1)[0]
-
-                return (MODEL_DIFFUSION,) + (QWEN_CLIP,) + (QWEN_VAE,) + (MODEL_VERSION,)
-
-            case 'Flux':
-                downloaded_filelist_filtered = utility.getDownloadedFiles()
-                if flux_selector is not None and flux_diffusion is not None and flux_weight_dtype is not None and flux_gguf is not None and flux_clip_t5xxl is not None and flux_clip_l is not None and flux_clip_guidance is not None and flux_vae is not None:
-                    if MODEL_VERSION == MODEL_VERSION_ORIGINAL:
-                        flux_selector = 'SAFETENSOR'
-                        fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                        is_link = os.path.islink(str(fullpathFile))
-                        if is_link == True:
-                            File_link = Path(str(fullpathFile)).resolve()
-                            model_ext = os.path.splitext(File_link)[1].lower()
-                            match model_ext:
-                                case '.gguf':
-                                    flux_selector = 'GGUF'
-                                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                                    flux_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-
-                                    if str(Path(linkName_U).stem) in flux_gguf:
-                                        flux_gguf = flux_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
-                                    if str(Path(linkName_D).stem) in flux_gguf:
-                                        flux_gguf = flux_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
-
-                    match flux_selector:
-                        case 'DIFFUSION':
-                            try:
-                                MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, flux_diffusion, flux_weight_dtype)[0]
-                            except Exception:
-                                MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(flux_diffusion)[0]
-                            DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                            FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-
-                        case 'GGUF':
-                            MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, flux_gguf)[0]
-                            DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                            FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-
-                        case 'SAFETENSOR':
-                            if is_link == False:
-                                MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
-                                DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-                            else:
-                                linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                                linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                                linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-
-                                if str(Path(linkName_U).stem) in linkedFileName:
-                                    linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                                if str(Path(linkName_D).stem) in linkedFileName:
-                                    linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-
-                                if 'diffusion_models' in str(File_link):
-                                    model_ext = os.path.splitext(linkedFileName)[1].lower()
-                                    if model_ext == '.gguf':
-                                        MODEL_DIFFUSION = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
-                                        DUAL_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    else:
-                                        MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
-                                        DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-                                elif 'unet' in str(File_link):
-                                    try:
-                                        MODEL_DIFFUSION = nodes.UNETLoader.load_unet(self, linkedFileName, flux_weight_dtype)[0]
-                                    except Exception:
-                                        MODEL_DIFFUSION = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
-                                    DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-                                else:
-                                    MODEL_DIFFUSION = nodes.CheckpointLoaderSimple.load_checkpoint(self, linkedFileName)[0]
-                                    DUAL_CLIP = nodes.DualCLIPLoader.load_clip(self, flux_clip_t5xxl, flux_clip_l, 'flux')[0]
-                                    FLUX_VAE = utility.vae_loader_class.load_vae(flux_vae)[0]
-
-                    finalLoras = None
-                    extra_lora_strength = 0
-                    if use_flux_srpo_lora == True and use_flux_srpo_svdq_lora == False and use_flux_nunchaku_lora == False:
-                        allSRPOFluxLoras = list(filter(lambda a: 'srpo_'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() not in a.casefold() and f"{flux_srpo_lora_type}".casefold() in a.casefold() and f"_{flux_srpo_lora_rank}_".casefold() in a.casefold(), allSRPOFluxLoras))
-                        extra_lora_strength = flux_srpo_lora_strength
-
-                    if use_flux_srpo_svdq_lora == True and use_flux_nunchaku_lora == False:
-                        allSRPO_SVDQFluxLoras = list(filter(lambda a: '-srpo_'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        finalLoras = list(filter(lambda a: 'svdq-'.casefold() in a.casefold() and f"{flux_srpo_lora_type}".casefold() in a.casefold() and f"_{flux_srpo_lora_rank}_".casefold() in a.casefold(), allSRPO_SVDQFluxLoras))
-                        extra_lora_strength = flux_srpo_lora_strength
-
-                    if use_flux_nunchaku_lora == True:
-                        allNunchakuFluxLoras = list(filter(lambda a: '_nunchaku'.casefold() in a.casefold() or 'insert-anything_extracted'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        print(allNunchakuFluxLoras)
-                        finalLoras = list(filter(lambda a: f"{flux_nunchaku_lora_type}".casefold() in a.casefold() and (f"_{flux_nunchaku_lora_rank}".casefold() in a.casefold() or (f"_{flux_nunchaku_lora_rank}".casefold() not in a.casefold()) and '_nunchaku'.casefold() in a.casefold()), allNunchakuFluxLoras))
-                        extra_lora_strength = flux_nunchaku_lora_strength
-
-                    if finalLoras is not None and type(finalLoras).__name__ == "list" and len(finalLoras) > 0:
-                        LORA_FILE = finalLoras[0]
-                        print(LORA_FILE)
-                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-                        print(FULL_LORA_PATH)
-                        if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                            if flux_hyper_lora_strength != 0:
-                                lora = None
-                                if self.loaded_lora is not None:
-                                    if self.loaded_lora[0] == FULL_LORA_PATH:
-                                        lora = self.loaded_lora[1]
-                                    else:
-                                        temp = self.loaded_lora
-                                        self.loaded_lora = None
-                                        del temp
-
-                                if lora is None:
-                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                                    self.loaded_lora = (FULL_LORA_PATH, lora)
-
-                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, extra_lora_strength, 0)[0]
-
-                    if use_flux_hyper_lora == True:
-                        FLUX_DEV_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-8steps-lora.safetensors?download=true'
-                        FLUX_DEV_FP16_LORA8 = 'https://huggingface.co/nakodanei/Hyper-FLUX.1-dev-8steps-lora-fp16/resolve/main/Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors?download=true'
-                        FLUX_DEV_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-FLUX.1-dev-16steps-lora.safetensors?download=true'
-
-                        DOWNLOADED_FLUX_DEV_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora-fp16.safetensors')
-                        DOWNLOADED_FLUX_DEV_FP16_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-8steps-lora.safetensors')
-                        DOWNLOADED_FLUX_DEV_LORA16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-FLUX.1-dev-16steps-lora.safetensors')
-
-                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA8, FLUX_DEV_LORA8)
-                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_FP16_LORA8, FLUX_DEV_FP16_LORA8)
-                        utility.fileDownloader(DOWNLOADED_FLUX_DEV_LORA16, FLUX_DEV_LORA16)
-
-                        allHyperFluxLoras = list(filter(lambda a: 'hyper-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        finalLoras = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() not in a.casefold(), allHyperFluxLoras))
-                        if flux_hyper_lora_type == 'FLUX.1-dev-fp16':
-                            finalLoras_pre = list(filter(lambda a: str(flux_hyper_lora_step) + 'step'.casefold() in a.casefold() and '-fp16'.casefold() in a.casefold(), allHyperFluxLoras))
-                            if len(finalLoras_pre) > 0:
-                                finalLoras = finalLoras_pre
-
-                        LORA_FILE = finalLoras[0]
-                        FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-
-                        if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                            if flux_hyper_lora_strength != 0:
-                                lora = None
-                                if self.loaded_lora is not None:
-                                    if self.loaded_lora[0] == FULL_LORA_PATH:
-                                        lora = self.loaded_lora[1]
-                                    else:
-                                        temp = self.loaded_lora
-                                        self.loaded_lora = None
-                                        del temp
-
-                                if lora is None:
-                                    lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                                    self.loaded_lora = (FULL_LORA_PATH, lora)
-
-                                MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_hyper_lora_strength, 0)[0]
-
-                    if use_flux_turbo_lora == True:
-                        FLUX_TURBO_LORA8 = 'https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha/resolve/main/diffusion_pytorch_model.safetensors?download=true'
-                        FLUX_TURBORENDER_LORA = 'https://huggingface.co/DarkMoonDragon/TurboRender-flux-dev/resolve/main/pytorch_lora_weights.safetensors?download=true'
-
-                        DOWNLOADED_FLUX_TURBO_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Turbo-FLUX.1-dev-8steps-lora.safetensors')
-                        DOWNLOADED_FLUX_TURBORENDER_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Turbo-FLUX.1-dev-turborender-lora.safetensors')
-
-                        utility.fileDownloader(DOWNLOADED_FLUX_TURBO_LORA8, FLUX_TURBO_LORA8)
-                        utility.fileDownloader(DOWNLOADED_FLUX_TURBORENDER_LORA, FLUX_TURBORENDER_LORA)
-
-                        allTurboTFluxLoras = list(filter(lambda a: 'turbo-flux'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                        LORA_FILE = None
-                        if flux_turbo_lora_type == 'TurboAlpha' and 'Turbo-FLUX.1-dev-8steps-lora.safetensors' in allTurboTFluxLoras:
-                            LORA_FILE = 'Turbo-FLUX.1-dev-8steps-lora.safetensors'
-                        elif flux_turbo_lora_type == 'TurboRender' and 'Turbo-FLUX.1-dev-turborender-lora.safetensors' in allTurboTFluxLoras:
-                            LORA_FILE = 'Turbo-FLUX.1-dev-turborender-lora.safetensors'
-                        else:
-                            finalTLoras_pre = list(filter(lambda a: str(flux_turbo_lora_step) + 'step'.casefold() in a.casefold(), allTurboTFluxLoras))
-                            if len(finalTLoras_pre) > 0:
-                                finalTLoras = finalTLoras_pre
-                                LORA_FILE = finalTLoras[0]
-
-                        if LORA_FILE is not None:
-                            FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-                            if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                                if flux_turbo_lora_strength != 0:
-                                    lora = None
-                                    if self.loaded_lora is not None:
-                                        if self.loaded_lora[0] == FULL_LORA_PATH:
-                                            lora = self.loaded_lora[1]
-                                        else:
-                                            temp = self.loaded_lora
-                                            self.loaded_lora = None
-                                            del temp
-
-                                    if lora is None:
-                                        lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                                        self.loaded_lora = (FULL_LORA_PATH, lora)
-
-                                    MODEL_DIFFUSION = comfy.sd.load_lora_for_models(MODEL_DIFFUSION, None, lora, flux_turbo_lora_strength, 0)[0]
-
-                    return (MODEL_DIFFUSION,) + (DUAL_CLIP,) + (FLUX_VAE,) + (MODEL_VERSION,)
-
-            case 'Hyper':
-                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    hypersd_selector = 'UNET'
-
-                if hypersd_selector == 'UNET':
-                    ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, 'SDXL')
-                    lora_name = ModelConceptChanges['lora_name']
-                    unet_name = ModelConceptChanges['unet_name']
-                    hyperModeValid = ModelConceptChanges['hyperModeValid']
-                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, None, lora_name, unet_name, None)
-                    return (OUTPUT_MODEL[0],) + (OUTPUT_MODEL[1],) + (OUTPUT_MODEL[2],) + (MODEL_VERSION,)
 
         path = Path(ckpt_name)
         ModelName = path.stem
@@ -1858,8 +869,9 @@ class PrimereCKPTLoader:
             LOADED_CHECKPOINT.insert(1, loaded_clip)
             LOADED_CHECKPOINT.insert(2, loaded_vae)
             OUTPUT_MODEL = LOADED_CHECKPOINT[0]
-        else:
-            if sd3_gguf == False:
+
+        match model_concept:
+            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious':
                 if os.path.isfile(ModelConfigFullPath) and use_yaml == True:
                     ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
                     try:
@@ -1867,244 +879,224 @@ class PrimereCKPTLoader:
                     except Exception:
                         LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
                 else:
-                    fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
-                    is_link = os.path.islink(str(fullpathFile))
-                    if is_link == False:
-                        try:
-                            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
-                        except Exception:
-                            LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')
-                        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
-                    else:
-                        File_link = Path(str(fullpathFile)).resolve()
-                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
-                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-                        linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-                        model_ext = os.path.splitext(linkedFileName)[1].lower()
-                        if str(Path(linkName_U).stem) in linkedFileName:
-                            linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-                        if str(Path(linkName_D).stem) in linkedFileName:
-                            linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
-                        if model_ext == '.gguf':
-                            LOADED_CHECKPOINT = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)
-                        else:
-                            LOADED_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')
-                        clip_list = folder_paths.get_filename_list("clip")
-                        allLSDXLclip = list(filter(lambda a: 'clip_l'.casefold() in a.casefold(), clip_list))
-                        OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, allLSDXLclip[0], 'stable_diffusion')[0]
-                        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
-                        LOADED_CHECKPOINT.insert(1, OUTPUT_CLIP)
-
-        if model_concept == 'SD3':
-            if sd3_gguf != False:
-                use_sd3_hyper_lora = False
-                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, sd3_gguf)[0]
-
-            if len(LOADED_CHECKPOINT) < 2 or (len(LOADED_CHECKPOINT) >= 2 and type(LOADED_CHECKPOINT[1]).__name__ != 'CLIP') or clip_selection == False:
-                OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.execute(sd3_clip_g, sd3_clip_l, sd3_clip_t5xxl)[0]
-            else:
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                OUTPUT_MODEL = LOADED_CHECKPOINT[0]
                 OUTPUT_CLIP = LOADED_CHECKPOINT[1]
 
-            if len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
-                OUTPUT_VAE = LOADED_CHECKPOINT[2]
-            else:
-                OUTPUT_VAE = utility.vae_loader_class.load_vae(sd3_unet_vae)[0]
-
-            if use_sd3_hyper_lora == True:
-                SD3_LORA4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-4steps-CFG-lora.safetensors?download=true'
-                SD3_LORA8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-8steps-CFG-lora.safetensors?download=true'
-                SD3_LORA16 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD3-16steps-CFG-lora.safetensors?download=true'
-
-                DOWNLOADED_SD3_LORA4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-4steps-CFG-lora.safetensors')
-                DOWNLOADED_SD3_LORA8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-8steps-CFG-lora.safetensors')
-                DOWNLOADED_SD3_LORA16 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD3-16steps-CFG-lora.safetensors')
-
-                utility.fileDownloader(DOWNLOADED_SD3_LORA4, SD3_LORA4)
-                utility.fileDownloader(DOWNLOADED_SD3_LORA8, SD3_LORA8)
-                utility.fileDownloader(DOWNLOADED_SD3_LORA16, SD3_LORA16)
-                downloaded_filelist_filtered = utility.getDownloadedFiles()
-                allHyperSD3Loras = list(filter(lambda a: 'hyper-sd3'.casefold() in a.casefold(), downloaded_filelist_filtered))
-                finalLoras = list(filter(lambda a: str(sd3_hyper_lora_step) + 'step'.casefold() in a.casefold(), allHyperSD3Loras))
-                LORA_FILE = finalLoras[0]
-                FULL_LORA_PATH = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', LORA_FILE)
-
-                if FULL_LORA_PATH is not None and os.path.exists(FULL_LORA_PATH) == True:
-                    if sd3_hyper_lora_strength != 0:
-                        lora = None
-                        if self.loaded_lora is not None:
-                            if self.loaded_lora[0] == FULL_LORA_PATH:
-                                lora = self.loaded_lora[1]
-                            else:
-                                temp = self.loaded_lora
-                                self.loaded_lora = None
-                                del temp
-
-                        if lora is None:
-                            lora = comfy.utils.load_torch_file(FULL_LORA_PATH, safe_load=True)
-                            self.loaded_lora = (FULL_LORA_PATH, lora)
-
-                        OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, sd3_hyper_lora_strength, 0)[0]
-
-            return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
-        else:
-            OUTPUT_CLIP = LOADED_CHECKPOINT[1]
-
-        if model_concept == 'Lightning' and lightning_selector == 'LORA' and MODEL_VERSION != 'SDXL':
-            model_concept = MODEL_VERSION
-
-        match model_concept:
-            case 'Hyper' | 'Lightning':
-                if ckpt_name is not None and model_concept == 'Lightning' and lightning_selector == 'CUSTOM':
-                    is_force_lora = re.findall(r"(FoLo)", ckpt_name)
-                    if len(is_force_lora) > 0:
-                        lightning_selector = 'LORA'
-
-                HYPER_LIGHTNING_ORIGINAL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
-                if lightning_selector == 'LORA':
-                    Lightning_SDXL_2 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_2step_lora.safetensors?download=true'
-                    DOWNLOADED_Lightning_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_2step_lora.safetensors')
-
-                    Lightning_SDXL_4 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_4step_lora.safetensors?download=true'
-                    DOWNLOADED_Lightning_SDXL_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_4step_lora.safetensors')
-
-                    Lightning_SDXL_8 = 'https://huggingface.co/ByteDance/SDXL-Lightning/resolve/main/sdxl_lightning_8step_lora.safetensors?download=true'
-                    DOWNLOADED_Lightning_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'sdxl_lightning_8step_lora.safetensors')
-
-                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_2, Lightning_SDXL_2)
-                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_4, Lightning_SDXL_4)
-                    utility.fileDownloader(DOWNLOADED_Lightning_SDXL_8, Lightning_SDXL_8)
-
-                if hypersd_selector == 'LORA':
-                    Hyper_SD_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-1step-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SD_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-1step-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SD_1, Hyper_SD_1)
-
-                    Hyper_SD_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-2steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SD_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-2steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SD_2, Hyper_SD_2)
-
-                    Hyper_SD_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-4steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SD_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-4steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SD_4, Hyper_SD_4)
-
-                    Hyper_SD_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-8steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SD_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-8steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SD_8, Hyper_SD_8)
-
-                    Hyper_SD_12 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SD15-12steps-CFG-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SD_12 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SD15-12steps-CFG-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SD_12, Hyper_SD_12)
-
-                    Hyper_SDXL_1 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-1step-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SDXL_1 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-1step-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_1, Hyper_SDXL_1)
-
-                    Hyper_SDXL_2 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-2steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SDXL_2 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-2steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_2, Hyper_SDXL_2)
-
-                    Hyper_SDXL_4 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SDXL_4 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-4steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_4, Hyper_SDXL_4)
-
-                    Hyper_SDXL_8 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-8steps-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SDXL_8 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-8steps-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_8, Hyper_SDXL_8)
-
-                    Hyper_SDXL_12 = 'https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-12steps-CFG-lora.safetensors?download=true'
-                    DOWNLOADED_Hyper_SDXL_12 = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'Hyper-SDXL-12steps-CFG-lora.safetensors')
-                    utility.fileDownloader(DOWNLOADED_Hyper_SDXL_12, Hyper_SDXL_12)
-
-                ModelConceptChanges = utility.ModelConceptNames(ckpt_name, model_concept, lightning_selector, lightning_model_step, hypersd_selector, hypersd_model_step, HYPER_LIGHTNING_ORIGINAL_VERSION)
-                ckpt_name = ModelConceptChanges['ckpt_name']
-                if ModelConceptChanges['lora_name'] is not None:
-                    lora_name = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', ModelConceptChanges['lora_name'])
+                vae_selection = concept_data.get('vae_selection', True)
+                vae_name = concept_data.get('vae', None)
+                if not vae_selection and vae_name:
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+                elif len(LOADED_CHECKPOINT) >= 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
+                    OUTPUT_VAE = LOADED_CHECKPOINT[2]
+                elif vae_name:
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
                 else:
-                    lora_name = None
-                unet_name = ModelConceptChanges['unet_name']
-                lightningModeValid = ModelConceptChanges['lightningModeValid']
-                hyperModeValid = ModelConceptChanges['hyperModeValid']
+                    OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
-                if model_concept == MODEL_VERSION and model_concept == 'Lightning':
-                    if lora_name is None and unet_name is None and lightningModeValid == False and ckpt_name is not None and loaded_model is None:
-                        OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, True, 'SAFETENSOR', lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
+                return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
-                force_lora_weighth = re.findall(r"(?i)(\d+)LoWe", ckpt_name)
-                if len(force_lora_weighth) > 0:
-                    if len(str(force_lora_weighth[0])) > 1:
-                        FirstWCH = str(force_lora_weighth[0])[:1]
-                        OtherWCH = str(force_lora_weighth[0])[1:]
-                        strength_lora_float = float(FirstWCH + '.' + OtherWCH)
-                        strength_lightning_lora_model = strength_lora_float
-                        strength_hypersd_lora_model = strength_lora_float
-                    else:
-                        strength_lightning_lora_model = int(force_lora_weighth[0])
-                        strength_hypersd_lora_model = int(force_lora_weighth[0])
+            case 'SD3':
+                sd3_gguf = False
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    model_ext = os.path.splitext(File_link)[1].lower()
+                    if model_ext == '.gguf':
+                        linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                        linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                        sd3_gguf = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                        if str(Path(linkName_U).stem) in sd3_gguf:
+                            sd3_gguf = sd3_gguf.split(Path(linkName_U).stem + '\\', 1)[1]
+                        if str(Path(linkName_D).stem) in sd3_gguf:
+                            sd3_gguf = sd3_gguf.split(Path(linkName_D).stem + '\\', 1)[1]
 
-                if lightningModeValid == True and loaded_model is None:
-                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, lightningModeValid, lightning_selector, lightning_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_lightning_lora_model)
+                if sd3_gguf:
+                    OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, sd3_gguf)[0]
+                else:
+                    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)
+                    OUTPUT_MODEL = LOADED_CHECKPOINT[0]
 
-                if hyperModeValid == True and loaded_model is None:
-                    OUTPUT_MODEL = utility.BDanceConceptHelper(self, model_concept, hyperModeValid, hypersd_selector, hypersd_model_step, OUTPUT_MODEL, lora_name, unet_name, ckpt_name, strength_hypersd_lora_model)
-                    vae_selection = True
+                clip_selection = concept_data.get('clip_selection', True)
+                clip_from_ckpt = len(LOADED_CHECKPOINT) >= 2 and type(LOADED_CHECKPOINT[1]).__name__ == 'CLIP'
+                if not clip_selection or not clip_from_ckpt:
+                    encoder_1 = concept_data.get('encoder_1', None)
+                    encoder_2 = concept_data.get('encoder_2', None)
+                    encoder_3 = concept_data.get('encoder_3', None)
+                    OUTPUT_CLIP = nodes_sd3.TripleCLIPLoader.execute(encoder_3, encoder_2, encoder_1)[0]
+                else:
+                    OUTPUT_CLIP = LOADED_CHECKPOINT[1]
 
-            case 'LCM':
-                vae_selection = True
-                if MODEL_VERSION == 'SD1' or MODEL_VERSION == 'SDXL':
-                    SDXL_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true'
-                    SD_LORA = 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true'
+                vae_name = concept_data.get('vae', None)
+                if len(LOADED_CHECKPOINT) >= 3 and type(LOADED_CHECKPOINT[2]).__name__ == 'VAE':
+                    OUTPUT_VAE = LOADED_CHECKPOINT[2]
+                elif vae_name:
+                    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+                else:
+                    OUTPUT_VAE = LOADED_CHECKPOINT[2]
 
-                    DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
-                    DOWNLOADED_SDXL_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sdxl.safetensors')
-
-                    utility.fileDownloader(DOWNLOADED_SD_LORA, SD_LORA)
-                    utility.fileDownloader(DOWNLOADED_SDXL_LORA, SDXL_LORA)
-
-                    LORA_PATH = None
-                    if MODEL_VERSION == 'SDXL':
-                        LORA_PATH = DOWNLOADED_SDXL_LORA
-                    elif MODEL_VERSION == 'SD1':
-                        LORA_PATH = DOWNLOADED_SD_LORA
-
-                    if LORA_PATH is not None and os.path.exists(LORA_PATH) == True:
-                        if strength_lcm_lora_model != 0:
+                if concept_data.get('speed_lora') == True:
+                    speed_lora_name = concept_data.get('speed_lora_name', None)
+                    speed_lora_strength = concept_data.get('speed_lora_strength', 1)
+                    if speed_lora_name and speed_lora_strength != 0:
+                        lora_path = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', speed_lora_name)
+                        if os.path.exists(lora_path):
                             lora = None
                             if self.loaded_lora is not None:
-                                if self.loaded_lora[0] == LORA_PATH:
+                                if self.loaded_lora[0] == lora_path:
                                     lora = self.loaded_lora[1]
                                 else:
                                     temp = self.loaded_lora
                                     self.loaded_lora = None
                                     del temp
-
                             if lora is None:
-                                lora = comfy.utils.load_torch_file(LORA_PATH, safe_load=True)
-                                self.loaded_lora = (LORA_PATH, lora)
+                                lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                                self.loaded_lora = (lora_path, lora)
 
-                            MODEL_LORA = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, strength_lcm_lora_model, 0)[0]
-                            OUTPUT_MODEL = lcm(self, MODEL_LORA, False)
+                            OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, speed_lora_strength, 0)[0]
 
-            case 'Playground':
-                OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(self, OUTPUT_MODEL, 'edm_playground_v2.5', playground_sigma_max, playground_sigma_min)[0]
+                return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
-        if model_concept == 'SD2':
-            vae_selection = True
+            case 'StableCascade':
+                stage_b = concept_data.get('encoder_1', None)
+                cascade_clip = concept_data.get('encoder_3', None)
+                vae_name = concept_data.get('vae', None)
 
-        if len(LOADED_CHECKPOINT) < 3 or (len(LOADED_CHECKPOINT) == 3 and type(LOADED_CHECKPOINT[2]).__name__ != 'VAE') or vae_selection == False:
-            if vae_name != "Baked":
+                OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, cascade_clip, 'stable_cascade')[0]
                 OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
-            else:
-                vae_list = folder_paths.get_filename_list("vae")
-                if MODEL_VERSION == 'SD1':
-                    allLSD1vae = list(filter(lambda a: 'sdxl'.casefold() not in a.casefold() and 'flux'.casefold() not in a.casefold() and 'hunyuan'.casefold() not in a.casefold() and 'stage'.casefold() not in a.casefold(), vae_list))
-                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSD1vae[0])[0]
-                else:
-                    allLSDXLvae = list(filter(lambda a: 'sdxl_'.casefold() in a.casefold(), vae_list))
-                    OUTPUT_VAE = utility.vae_loader_class.load_vae(allLSDXLvae[0])[0]
-        else:
-            OUTPUT_VAE = LOADED_CHECKPOINT[2]
+                MODEL_B = nodes.UNETLoader.load_unet(self, stage_b, 'default')[0]
 
-        return (OUTPUT_MODEL,) + (OUTPUT_CLIP,) + (OUTPUT_VAE,) + (MODEL_VERSION,)
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if not is_link:
+                    MODEL_C = nodes.UNETLoader.load_unet(self, ckpt_name, 'default')[0]
+                else:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+                    MODEL_C = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
+
+                OUTPUT_MODEL = [MODEL_B, MODEL_C]
+                return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
+
+            case 'Z-Image':
+                weight_dtype = concept_data.get('weight_dtype', 'default')
+                if 'e4m3fn' in ckpt_name:
+                    weight_dtype = 'fp8_e4m3fn'
+                if 'e5m2' in ckpt_name:
+                    weight_dtype = 'fp8_e5m2'
+
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    model_ext = os.path.splitext(linkedFileName)[1].lower()
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+
+                    if 'diffusion_models' in str(File_link):
+                        if model_ext == '.gguf':
+                            OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, weight_dtype)[0]
+                    elif 'unet' in str(File_link):
+                        if model_ext == '.gguf':
+                            OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                        else:
+                            try:
+                                OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, weight_dtype)[0]
+                            except Exception:
+                                OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
+                else:
+                    OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+
+                encoder_1 = concept_data.get('encoder_1', None)
+                clip_ext = os.path.splitext(encoder_1)[1].lower() if encoder_1 else ''
+                if clip_ext == '.gguf':
+                    OUTPUT_CLIP = gguf_nodes.CLIPLoaderGGUF.load_clip(self, encoder_1, 'qwen_image')[0]
+                else:
+                    OUTPUT_CLIP = nodes.CLIPLoader.load_clip(self, encoder_1, 'flux2')[0]
+
+                vae_name = concept_data.get('vae', None)
+                OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+                return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
+
+            case 'Flux':
+                weight_dtype = concept_data.get('weight_dtype', 'default')
+                is_gguf_model = False
+                fullpathFile = folder_paths.get_full_path('checkpoints', ckpt_name)
+                is_link = os.path.islink(str(fullpathFile))
+                if is_link:
+                    File_link = Path(str(fullpathFile)).resolve()
+                    model_ext = os.path.splitext(File_link)[1].lower()
+                    linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
+                    linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
+                    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
+                    if str(Path(linkName_U).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
+                    if str(Path(linkName_D).stem) in linkedFileName:
+                        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+                    if 'diffusion_models' in str(File_link) or 'unet' in str(File_link):
+                        if model_ext == '.gguf':
+                            OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(self, linkedFileName)[0]
+                            is_gguf_model = True
+                        else:
+                            try:
+                                OUTPUT_MODEL = nodes.UNETLoader.load_unet(self, linkedFileName, weight_dtype)[0]
+                            except Exception:
+                                OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
+                    else:
+                        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, linkedFileName)[0]
+                else:
+                    OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(self, ckpt_name)[0]
+                encoder_1 = concept_data.get('encoder_1', None)
+                encoder_2 = concept_data.get('encoder_2', None)
+                clip_ext_1 = os.path.splitext(encoder_1)[1].lower() if encoder_1 else ''
+                clip_ext_2 = os.path.splitext(encoder_2)[1].lower() if encoder_2 else ''
+                use_gguf_clip = is_gguf_model or clip_ext_1 == '.gguf' or clip_ext_2 == '.gguf'
+                if use_gguf_clip:
+                    OUTPUT_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(self, encoder_2, encoder_1, 'flux')[0]
+                else:
+                    OUTPUT_CLIP = nodes.DualCLIPLoader.load_clip(self, encoder_2, encoder_1, 'flux')[0]
+                vae_name = concept_data.get('vae', None)
+                OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+
+                if concept_data.get('speed_lora') == True:
+                    flux_lora_name = concept_data.get('speed_lora_name', None)
+                    flux_lora_strength = concept_data.get('speed_lora_strength', 1)
+                elif concept_data.get('srpo_lora') == True:
+                    flux_lora_name = concept_data.get('srpo_lora_name', None)
+                    flux_lora_strength = concept_data.get('srpo_lora_strength', 1)
+                else:
+                    flux_lora_name = None
+                    flux_lora_strength = 0
+                if flux_lora_name and flux_lora_strength != 0:
+                    lora_path = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', flux_lora_name)
+                    if os.path.exists(lora_path):
+                        lora = None
+                        if self.loaded_lora is not None:
+                            if self.loaded_lora[0] == lora_path:
+                                lora = self.loaded_lora[1]
+                            else:
+                                temp = self.loaded_lora
+                                self.loaded_lora = None
+                                del temp
+                        if lora is None:
+                            lora = comfy.utils.load_torch_file(lora_path, safe_load=True)
+                            self.loaded_lora = (lora_path, lora)
+                        OUTPUT_MODEL = comfy.sd.load_lora_for_models(OUTPUT_MODEL, None, lora, flux_lora_strength, 0)[0]
+                return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
 class AnyType(str):
     def __ne__(self, __value: object) -> bool:
@@ -2349,7 +1341,7 @@ class PrimereCLIP:
         return {
             "required": {
                 "clip": ("CLIP", {"forceInput": True}),
-                "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
+                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 "clip_mode": ("BOOLEAN", {"default": True, "label_on": "CLIP", "label_off": "Long-CLIP"}),
@@ -2371,7 +1363,6 @@ class PrimereCLIP:
                 "enhanced_prompt": ("STRING", {"forceInput": True}),
                 "enhanced_prompt_usage": (['None', 'Add', 'Replace', 'T5-XXL'], {"default": "T5-XXL"}),
                 "enhanced_prompt_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
-                "model_concept": ("STRING", {"default": "SD1", "forceInput": True}),
                 "edit_image_list": ("IMAGE", {"forceInput": True}, {"default": None}),
                 "edit_vae": ("VAE", {"forceInput": True}, {"default": None}),
                 "model_keywords": ("MODEL_KEYWORD", {"forceInput": True}),
@@ -2408,18 +1399,15 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, model_version="SDXL", model_concept="Normal", edit_image_list=None, edit_vae=None, workflow_tuple=None):
+    def clip_encode(self, clip, concept_data, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, workflow_tuple=None):
         copy_prompt_to_l = True
+        model_concept = concept_data.get('model_concept', 'SD1')
 
         clip_mode_default = ['PixartSigma', 'StableCascade', 'Hunyuan', 'SD3', 'Hyper', 'Pony', 'AuraFlow']
         if model_concept in clip_mode_default:
             clip_mode = True
             clip_model = 'Default'
             longclip_model = 'Default'
-
-        model_version_default = ['Hunyuan', 'KwaiKolors', 'SD3', 'Playground', 'StableCascade', 'Turbo', 'Flux', "Z-Image", 'Lightning', 'Illustrious', 'QwenGen', 'QwenEdit']
-        if model_concept in model_version_default:
-            model_version = 'SDXL'
 
         advanced_default = ['StableCascade', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
         if model_concept in advanced_default:
@@ -2428,66 +1416,6 @@ class PrimereCLIP:
         if model_concept == 'Flux':
             last_layer = 0
             clip_model = 'Default'
-            # longclip_model = 'Default'
-
-        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
-            if 'prompt_encoder' in workflow_tuple and len(workflow_tuple['prompt_encoder']) > 0 and 'setup_states' in workflow_tuple and 'clip_encoder_setup' in workflow_tuple['setup_states']:
-                if workflow_tuple['setup_states']['clip_encoder_setup'] == True:
-                    clip_mode = workflow_tuple['prompt_encoder']['clip_mode']
-                    last_layer = workflow_tuple['prompt_encoder']['last_layer']
-                    negative_strength = workflow_tuple['prompt_encoder']['negative_strength']
-                    adv_encode = workflow_tuple['prompt_encoder']['adv_encode']
-                    token_normalization = workflow_tuple['prompt_encoder']['token_normalization']
-                    weight_interpretation = workflow_tuple['prompt_encoder']['weight_interpretation']
-                    copy_prompt_to_l = workflow_tuple['prompt_encoder']['copy_prompt_to_l']
-                    l_strength = workflow_tuple['prompt_encoder']['l_strength']
-                    clip_model = workflow_tuple['prompt_encoder']['clip_model']
-                    longclip_model = workflow_tuple['prompt_encoder']['longclip_model']
-                    if 'use_int_style' in workflow_tuple['prompt_encoder']:
-                        use_int_style = workflow_tuple['prompt_encoder']['use_int_style']
-                    if 'int_style_pos' in workflow_tuple['prompt_encoder']:
-                        int_style_pos = workflow_tuple['prompt_encoder']['int_style_pos']
-                    if 'int_style_pos_strength' in workflow_tuple['prompt_encoder']:
-                        int_style_pos_strength = workflow_tuple['prompt_encoder']['int_style_pos_strength']
-                    if 'int_style_neg' in workflow_tuple['prompt_encoder']:
-                        int_style_neg = workflow_tuple['prompt_encoder']['int_style_neg']
-                    if 'int_style_neg_strength' in workflow_tuple['prompt_encoder']:
-                        int_style_neg_strength = workflow_tuple['prompt_encoder']['int_style_neg_strength']
-                    if 'enhanced_prompt_usage' in workflow_tuple['prompt_encoder']:
-                        enhanced_prompt_usage = workflow_tuple['prompt_encoder']['enhanced_prompt_usage']
-                    if 'enhanced_prompt_strength' in workflow_tuple['prompt_encoder']:
-                        enhanced_prompt_strength = workflow_tuple['prompt_encoder']['enhanced_prompt_strength']
-                    if 'style_handling' in workflow_tuple['prompt_encoder']:
-                        style_handling = workflow_tuple['prompt_encoder']['style_handling']
-                    if 'style_swap' in workflow_tuple['prompt_encoder']:
-                        style_swap = workflow_tuple['prompt_encoder']['style_swap']
-                if workflow_tuple['setup_states']['clip_optional_prompts'] == True:
-                    opt_pos_prompt = workflow_tuple['prompt_encoder']['opt_pos_prompt']
-                    opt_pos_strength = workflow_tuple['prompt_encoder']['opt_pos_strength']
-                    opt_neg_prompt = workflow_tuple['prompt_encoder']['opt_neg_prompt']
-                    opt_neg_strength = workflow_tuple['prompt_encoder']['opt_neg_strength']
-                if workflow_tuple['setup_states']['enhanced_prompt_usage'] != 'None':
-                    enhanced_prompt = workflow_tuple['prompt_encoder']['enhanced_prompt']
-                if workflow_tuple['setup_states']['clip_style_prompts'] == True:
-                    style_pos_prompt = workflow_tuple['prompt_encoder']['style_pos_prompt']
-                    style_pos_strength = workflow_tuple['prompt_encoder']['style_pos_strength']
-                    style_neg_prompt = workflow_tuple['prompt_encoder']['style_neg_prompt']
-                    style_neg_strength = workflow_tuple['prompt_encoder']['style_neg_strength']
-                    style_position = workflow_tuple['prompt_encoder']['style_position']
-                if workflow_tuple['setup_states']['clip_additional_keywords'] == True:
-                    model_keywords = workflow_tuple['prompt_encoder']['model_keywords']
-                    lora_keywords = workflow_tuple['prompt_encoder']['lora_keywords']
-                    lycoris_keywords = workflow_tuple['prompt_encoder']['lycoris_keywords']
-                    embedding_pos = workflow_tuple['prompt_encoder']['embedding_pos']
-                    embedding_neg = workflow_tuple['prompt_encoder']['embedding_neg']
-
-        if workflow_tuple is None:
-            workflow_tuple = {}
-
-        is_sdxl = 0
-        match model_version:
-            case 'SDXL' | 'AuraFlow' | 'Z-Image':
-                is_sdxl = 1
 
         t5xxl_prompt = ""
         if len(enhanced_prompt) > 5:
@@ -2622,235 +1550,6 @@ class PrimereCLIP:
                 else:
                     negative_text = negative_text + ', ' + embn_keyword
 
-        WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-        CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
-        if CONCEPT_SELECTOR == 'Flux' and (model_concept == 'Flux' and model_concept is not None):
-            adv_encode = False
-            clip_model = 'Default'
-            # clip_mode = True
-            last_layer = 0
-
-        if 'SANA' in model_concept:
-            device = model_management.get_torch_device()
-
-            if 'scheduler_name' in workflow_tuple:
-                sana_scheduler_name = workflow_tuple['scheduler_name']
-            else:
-                sana_scheduler_name = 'flow_dpm-solver'
-
-            preset_te_prompt = ['Create one detailed perfect prompt from given User Prompt for stable diffusion text-to-image text2image modern DiT models.', 'Generate only the one enhanced description for the prompt below, avoid including any additional questions comments or evaluations.', 'User Prompt: ']
-            chi_prompt = "\n".join(preset_te_prompt)
-
-            if sana_scheduler_name == 'flow_dpm-solver' and hasattr(clip, 'text_encoder'):
-                base_ratios = eval(f"ASPECT_RATIO_{1024}_TEST")
-                clip.text_encoder.to(device)
-
-                null_caption_token = clip.tokenizer(
-                    negative_text,
-                    max_length=300,
-                    padding="max_length",
-                    truncation=True,
-                    return_tensors="pt",
-                ).to(device)
-                null_caption_embs = clip.text_encoder(null_caption_token.input_ids, null_caption_token.attention_mask)[0]
-                prompts = []
-                with torch.no_grad():
-                    prompts.append(prepare_prompt_ar(positive_text, base_ratios, device=device, show=False)[0].strip())
-                    prompts_all = [chi_prompt + positive_text]
-                    num_chi_prompt_tokens = len(clip.tokenizer.encode(chi_prompt))
-                    max_length_all = (num_chi_prompt_tokens + 300 - 2)  # magic number 2: [bos], [_]
-                    caption_token = clip.tokenizer(
-                        prompts_all,
-                        max_length=max_length_all,
-                        padding="max_length",
-                        truncation=True,
-                        return_tensors="pt",
-                    ).to(device)
-                    select_index = [0] + list(range(-300 + 1, 0))
-                    caption_embs = clip.text_encoder(caption_token.input_ids, caption_token.attention_mask)[0][:, None][:, :, select_index]
-                    emb_masks = caption_token.attention_mask[:, select_index]
-                    null_y = null_caption_embs.repeat(len(prompts), 1, 1)[:, None]
-
-                clip.text_encoder.to(model_management.text_encoder_offload_device())
-                comfy.model_management.soft_empty_cache(True)
-
-                return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-            else:
-                tokenizer = clip["tokenizer"]
-                text_encoder = clip["text_encoder"]
-                with torch.no_grad():
-                    full_prompt = chi_prompt + positive_text
-                    num_chi_tokens = len(tokenizer.encode(chi_prompt))
-                    max_length = num_chi_tokens + 300 - 2
-
-                    tokens = tokenizer(
-                        [full_prompt],
-                        max_length=max_length,
-                        padding="max_length",
-                        truncation=True,
-                        return_tensors="pt"
-                    ).to(text_encoder.device)
-                    select_idx = [0] + list(range(-300 + 1, 0))
-                    embs_plus = text_encoder(tokens.input_ids, tokens.attention_mask)[0][:, None][:, :, select_idx]
-                    emb_plus_masks = tokens.attention_mask[:, select_idx]
-                sana_embs_pos = embs_plus * emb_plus_masks.unsqueeze(-1)
-
-                with torch.no_grad():
-                    full_prompt = chi_prompt + negative_text
-                    num_chi_tokens = len(tokenizer.encode(chi_prompt))
-                    max_length = num_chi_tokens + 300 - 2
-
-                    tokens = tokenizer(
-                        [full_prompt],
-                        max_length=max_length,
-                        padding="max_length",
-                        truncation=True,
-                        return_tensors="pt"
-                    ).to(text_encoder.device)
-                    select_idx = [0] + list(range(-300 + 1, 0))
-                    embs_minus = text_encoder(tokens.input_ids, tokens.attention_mask)[0][:, None][:, :, select_idx]
-                    emb_minus_masks = tokens.attention_mask[:, select_idx]
-                sana_embs_neg = embs_minus * emb_minus_masks.unsqueeze(-1)
-
-                return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-
-        if model_concept == 'QwenEdit' and (type(edit_image_list).__name__ == "list" or type(edit_image_list).__name__ == "Tensor" and edit_image_list is not None):
-            if type(edit_image_list).__name__ == "Tensor":
-                edit_image_list = [edit_image_list]
-
-            positive_text = utility.DiT_cleaner(positive_text)
-            negative_text = utility.DiT_cleaner(negative_text)
-
-            conditioning = utility.edit_encoder(clip, positive_text, edit_vae, edit_image_list)
-
-            tokens_neg = clip.tokenize(negative_text, images=[])
-            conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
-
-            return (conditioning, conditioning_neg, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-
-        if model_concept == 'PixartSigma':
-            cond_pos_ref = None
-            out_pos_ref = None
-            cond_neg_ref = None
-            out_neg_ref = None
-
-            positive_text = utility.DiT_cleaner(positive_text)
-            negative_text = utility.DiT_cleaner(negative_text)
-
-            if clip['refiner'] is not None:
-                clipRef = clip['refiner']
-                tokens_pos_ref = clipRef.tokenize(positive_text)
-                tokens_neg_ref = clipRef.tokenize(negative_text)
-                out_pos_ref = clipRef.encode_from_tokens(tokens_pos_ref, return_pooled=True, return_dict=True)
-                out_neg_ref = clipRef.encode_from_tokens(tokens_neg_ref, return_pooled=True, return_dict=True)
-                cond_pos_ref = out_pos_ref.pop("cond")
-                cond_neg_ref = out_neg_ref.pop("cond")
-
-            clipMain = clip['main']
-            tokens_pos_main = clipMain.tokenize(positive_text)
-            tokens_neg_main = clipMain.tokenize(negative_text)
-            out_pos_main = clipMain.encode_from_tokens(tokens_pos_main, return_pooled=True, return_dict=True)
-            out_neg_main = clipMain.encode_from_tokens(tokens_neg_main, return_pooled=True, return_dict=True)
-            cond_pos_main = out_pos_main.pop("cond")
-            cond_neg_main = out_neg_main.pop("cond")
-
-            return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-
-        if model_concept == 'Hunyuan':
-            last_layer = 0
-            if clip['t5'] is not None:
-                CLIPDIT = clip['clip']
-                CLIPT5 = clip['t5']
-
-                positive_text = utility.DiT_cleaner(positive_text, 0)
-                negative_text = utility.DiT_cleaner(negative_text, 0)
-                t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt, 0)
-
-                pos_out = clipping.HunyuanClipping(self, positive_text, t5xxl_prompt, CLIPDIT, CLIPT5)
-                neg_out = clipping.HunyuanClipping(self, negative_text, "", CLIPDIT, CLIPT5)
-                return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-            else:
-                clip = clip['clip']
-                positive_text = utility.DiT_cleaner(positive_text, 512)
-                negative_text = utility.DiT_cleaner(negative_text, 512)
-
-        if model_concept == 'KwaiKolors':
-            positive_text = utility.DiT_cleaner(positive_text)
-            negative_text = utility.DiT_cleaner(negative_text)
-
-            # device = model_management.get_torch_device()
-            # device = "cuda" if torch.cuda.is_available() else "cpu"
-            device = model_management.text_encoder_device()
-            # offload_device = model_management.unet_offload_device()
-            # offload_device = model_management.text_encoder_offload_device()
-            try:
-                model_management.unload_all_models()
-                model_management.soft_empty_cache()
-            except Exception:
-                print('Cannot clear cache...')
-            tokenizer = clip['tokenizer']
-            text_encoder = clip['text_encoder']
-            model_management.soft_empty_cache()
-
-            prompt_embeds_dtype = torch.float16
-            if text_encoder is not None:
-                prompt_embeds_dtype = text_encoder.dtype
-            try:
-                text_encoder.to(dtype = prompt_embeds_dtype, device=device) # todo: python error!
-            except Exception:
-                print('Device init error...')
-            text_inputs = tokenizer(positive_text, padding="max_length", max_length=256, truncation=True, return_tensors="pt", ).to(device)
-            output = text_encoder(input_ids=text_inputs['input_ids'], attention_mask=text_inputs['attention_mask'], position_ids=text_inputs['position_ids'], output_hidden_states=True)
-            prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone()
-            text_proj = output.hidden_states[-1][-1, :, :].clone()
-            bs_embed, seq_len, _ = prompt_embeds.shape
-
-            num_images_per_prompt = 1
-            batch_size = 1
-            prompt_embeds = prompt_embeds.repeat(1, num_images_per_prompt, 1)
-            prompt_embeds = prompt_embeds.view(bs_embed * num_images_per_prompt, seq_len, -1)
-
-            uncond_tokens = [negative_text]
-            max_length = prompt_embeds.shape[1]
-            uncond_input = tokenizer(uncond_tokens, padding="max_length", max_length=max_length, truncation=True, return_tensors="pt", ).to(device)
-            output = text_encoder(input_ids=uncond_input['input_ids'], attention_mask=uncond_input['attention_mask'], position_ids=uncond_input['position_ids'], output_hidden_states=True)
-            negative_prompt_embeds = output.hidden_states[-2].permute(1, 0, 2).clone()
-            negative_text_proj = output.hidden_states[-1][-1, :, :].clone()
-            seq_len = negative_prompt_embeds.shape[1]
-            negative_prompt_embeds = negative_prompt_embeds.to(dtype=text_encoder.dtype, device=device)
-            negative_prompt_embeds = negative_prompt_embeds.repeat(1, num_images_per_prompt, 1)
-            negative_prompt_embeds = negative_prompt_embeds.view(batch_size * num_images_per_prompt, seq_len, -1)
-
-            bs_embed = text_proj.shape[0]
-            text_proj = text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
-            negative_text_proj = negative_text_proj.repeat(1, num_images_per_prompt).view(bs_embed * num_images_per_prompt, -1)
-            # text_encoder.to(offload_device)
-            text_encoder.to(device)
-            try:
-                model_management.soft_empty_cache()
-            except Exception:
-                print('Cannot clear cache...')
-            gc.collect()
-            kolors_embeds = {
-                'prompt_embeds': prompt_embeds.half(),
-                'negative_prompt_embeds': negative_prompt_embeds.half(),
-                'pooled_prompt_embeds': text_proj.half(),
-                'negative_pooled_prompt_embeds': negative_text_proj.half()
-            }
-
-            # kolors_embeds = nodes_kwai.KolorsTextEncode.encode(self, clip, positive_text, negative_text, 1)[0]
-            return (kolors_embeds, None, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-
-        if model_concept == 'SD3':
-            if len(enhanced_prompt) > 1 and enhanced_prompt_usage == 'T5-XXL' and len(t5xxl_prompt) > 5:
-                pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
-
-                tokens_neg = clip.tokenize(negative_text)
-                out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
-                cond_neg = out_neg.pop("cond")
-
-                return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-
         if clip_mode == False:
             if longclip_model == 'Default':
                 longclip_model = 'longclip-L.pt'
@@ -2867,162 +1566,110 @@ class PrimereCLIP:
                 if (ModelDownload == True):
                     clipFiles = folder_paths.get_filename_list("clip")
 
-            if longclip_model in clipFiles:
-                if model_concept == 'Normal' and (CONCEPT_SELECTOR == 'Normal' or CONCEPT_SELECTOR is None):
-                    if (is_sdxl == 0):
-                        clip = long_clip.SDLongClip.sd_longclip(self, longclip_model)[0]
-                        adv_encode = False
-                    else:
-                        clip = long_clip.SDXLLongClip.sdxl_longclip(self, longclip_model, clip)[0]
-                if model_concept == 'Flux' and (CONCEPT_SELECTOR == 'Flux' or CONCEPT_SELECTOR is None):
-                    clip = long_clip.FluxLongClip.flux_longclip(self, longclip_model, clip)[0]
+            # if longclip_model in clipFiles:
+            #   clip = long_clip.SDLongClip.sd_longclip(self, longclip_model)[0]
+            #   adv_encode = False
 
         if (last_layer < 0):
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
 
-        if workflow_tuple is not None:
-            workflow_tuple['prompt_encoder'] = {}
-            # workflow_tuple['prompt_encoder']['positive_prompt'] = positive_prompt
-            # workflow_tuple['prompt_encoder']['negative_prompt'] = negative_prompt
-            workflow_tuple['prompt_encoder']['clip_model'] = clip_model
-            workflow_tuple['prompt_encoder']['longclip_model'] = longclip_model
-            workflow_tuple['prompt_encoder']['clip_mode'] = clip_mode
-            workflow_tuple['prompt_encoder']['last_layer'] = last_layer
-            workflow_tuple['prompt_encoder']['negative_strength'] = negative_strength
-            workflow_tuple['prompt_encoder']['use_int_style'] = use_int_style
-            if use_int_style == True and int_style_pos != 'None':
-                workflow_tuple['prompt_encoder']['int_style_pos'] = int_style_pos
-                workflow_tuple['prompt_encoder']['int_style_pos_strength'] = int_style_pos_strength
-            if use_int_style == True and int_style_neg != 'None':
-                workflow_tuple['prompt_encoder']['int_style_neg'] = int_style_neg
-                workflow_tuple['prompt_encoder']['int_style_neg_strength'] = int_style_neg_strength
-            workflow_tuple['prompt_encoder']['adv_encode'] = adv_encode
-            workflow_tuple['prompt_encoder']['token_normalization'] = token_normalization
-            workflow_tuple['prompt_encoder']['weight_interpretation'] = weight_interpretation
-
-            workflow_tuple['prompt_encoder']['model_keywords'] = model_keywords
-            workflow_tuple['prompt_encoder']['lora_keywords'] = lora_keywords
-            workflow_tuple['prompt_encoder']['lycoris_keywords'] = lycoris_keywords
-            workflow_tuple['prompt_encoder']['embedding_pos'] = embedding_pos
-            workflow_tuple['prompt_encoder']['embedding_neg'] = embedding_neg
-
-            workflow_tuple['prompt_encoder']['opt_pos_prompt'] = opt_pos_prompt
-            workflow_tuple['prompt_encoder']['opt_pos_strength'] = opt_pos_strength
-            workflow_tuple['prompt_encoder']['opt_neg_prompt'] = opt_neg_prompt
-            workflow_tuple['prompt_encoder']['opt_neg_strength'] = opt_neg_strength
-
-            workflow_tuple['prompt_encoder']['style_position'] = style_position
-            workflow_tuple['prompt_encoder']['style_pos_prompt'] = style_pos_prompt
-            workflow_tuple['prompt_encoder']['enhanced_prompt'] = enhanced_prompt
-            workflow_tuple['prompt_encoder']['enhanced_prompt_usage'] = enhanced_prompt_usage
-            workflow_tuple['prompt_encoder']['enhanced_prompt_strength'] = enhanced_prompt_strength
-            workflow_tuple['prompt_encoder']['style_pos_strength'] = style_pos_strength
-            workflow_tuple['prompt_encoder']['style_neg_prompt'] = style_neg_prompt
-            workflow_tuple['prompt_encoder']['style_neg_strength'] = style_neg_strength
-
-            if copy_prompt_to_l == False:
-                workflow_tuple['prompt_encoder']['positive_l'] = positive_l
-                workflow_tuple['prompt_encoder']['negative_l'] = negative_l
-            workflow_tuple['prompt_encoder']['copy_prompt_to_l'] = copy_prompt_to_l
-            workflow_tuple['prompt_encoder']['l_strength'] = l_strength
-
-        if clip_model != 'Default' and clip_mode == True:
-            if is_sdxl == 1:
-                # adv_encode = False
-                clip_model_g = 'clip_g.safetensors'
-                clip_g_path = folder_paths.get_full_path("clip", clip_model_g)
-                if clip_g_path is not None:
-                    if model_concept == 'Flux':
-                        concept_type = 'flux'
-                    else:
-                        concept_type = 'sdxl'
-                    clip = nodes.DualCLIPLoader.load_clip(self, clip_model, clip_model_g, concept_type)[0]
-            else:
-                clip_path = folder_paths.get_full_path("clip", clip_model)
-                if clip_path is not None:
-                    if model_concept == 'StableCascade':
-                        concept_type = 'stable_cascade'
-                    else:
+        match model_concept:
+            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image':
+                if clip_model != 'Default' and clip_mode == True:
+                    clip_path = folder_paths.get_full_path("clip", clip_model)
+                    if clip_path is not None:
                         concept_type = 'stable_diffusion'
-                    clip = nodes.CLIPLoader.load_clip(self, clip_model, concept_type)[0]
+                        clip = nodes.CLIPLoader.load_clip(self, clip_model, concept_type)[0]
 
-        if adv_encode == True:
-            tokens_p = clip.tokenize(positive_text)
-            tokens_n = clip.tokenize(negative_text)
-            if is_sdxl == 0 or 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
-                embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-                embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-                return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-            else:
-                # tokens_p = clip.tokenize(positive_text)
-                if 'l' in clip.tokenize(positive_l):
-                    tokens_p["l"] = clip.tokenize(positive_l)["l"]
-                    if len(tokens_p["l"]) != len(tokens_p["g"]):
-                        empty = clip.tokenize("")
-                        while len(tokens_p["l"]) < len(tokens_p["g"]):
-                            tokens_p["l"] += empty["l"]
-                        while len(tokens_p["l"]) > len(tokens_p["g"]):
-                            tokens_p["g"] += empty["g"]
-
-                # tokens_n = clip.tokenize(negative_text)
-                if 'l' in clip.tokenize(negative_l):
-                    tokens_n["l"] = clip.tokenize(negative_l)["l"]
-
-                    if len(tokens_n["l"]) != len(tokens_n["g"]):
-                        empty = clip.tokenize("")
-                        while len(tokens_n["l"]) < len(tokens_n["g"]):
-                            tokens_n["l"] += empty["l"]
-                        while len(tokens_n["l"]) > len(tokens_n["g"]):
-                            tokens_n["g"] += empty["g"]
-
-                cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
-                cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
-
-                return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, positive_l, negative_l, workflow_tuple)
-
-        else:
-            if clip_mode == True:
-                if model_concept == 'Flux':
-                    WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                    FLUX_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_sampler', prompt)
-                    FLUX_GUIDANCE = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt)
-                    if FLUX_GUIDANCE is None:
-                        FLUX_GUIDANCE = 2
-                    if FLUX_SAMPLER == 'ksampler':
-                        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-                        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
-                            CONDITIONING_NEG = CONDITIONING_POS
-                        else:
-                            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
-                        return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                if adv_encode == True:
+                    tokens_p = clip.tokenize(positive_text)
+                    tokens_n = clip.tokenize(negative_text)
+                    if 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
+                        embeddings_final_pos, pooled_pos = advanced_encode(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+                        embeddings_final_neg, pooled_neg = advanced_encode(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
+                        return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
                     else:
-                        if (enhanced_prompt_usage == 'T5-XXL' or style_handling == True) and len(t5xxl_prompt) > 5:
-                            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-                            return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                        # tokens_p = clip.tokenize(positive_text)
+                        if 'l' in clip.tokenize(positive_l):
+                            tokens_p["l"] = clip.tokenize(positive_l)["l"]
+                            if len(tokens_p["l"]) != len(tokens_p["g"]):
+                                empty = clip.tokenize("")
+                                while len(tokens_p["l"]) < len(tokens_p["g"]):
+                                    tokens_p["l"] += empty["l"]
+                                while len(tokens_p["l"]) > len(tokens_p["g"]):
+                                    tokens_p["g"] += empty["g"]
 
-            tokens_pos = clip.tokenize(positive_text)
-            tokens_neg = clip.tokenize(negative_text)
+                        # tokens_n = clip.tokenize(negative_text)
+                        if 'l' in clip.tokenize(negative_l):
+                            tokens_n["l"] = clip.tokenize(negative_l)["l"]
 
-            if model_concept == 'StableCascade':
+                            if len(tokens_n["l"]) != len(tokens_n["g"]):
+                                empty = clip.tokenize("")
+                                while len(tokens_n["l"]) < len(tokens_n["g"]):
+                                    tokens_n["l"] += empty["l"]
+                                while len(tokens_n["l"]) > len(tokens_n["g"]):
+                                    tokens_n["g"] += empty["g"]
+
+                        cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
+                        cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
+
+                        return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, "", positive_l, negative_l, workflow_tuple)
+
+                else:
+                    tokens_pos = clip.tokenize(positive_text)
+                    tokens_neg = clip.tokenize(negative_text)
+
+                    try:
+                        comfy.model_management.soft_empty_cache()
+                    except Exception:
+                        print('No need to clear cache...')
+
+                    out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+                    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+
+                    cond_pos = out_pos.pop("cond")
+                    cond_neg = out_neg.pop("cond")
+
+                    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+
+            case 'SD3':
+                if t5xxl_prompt:
+                    pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
+                    tokens_neg = clip.tokenize(negative_text)
+                    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+                    cond_neg = out_neg.pop("cond")
+                    return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                else:
+                    tokens_pos = clip.tokenize(positive_text)
+                    tokens_neg = clip.tokenize(negative_text)
+                    out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+                    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+                    cond_pos = out_pos.pop("cond")
+                    cond_neg = out_neg.pop("cond")
+                    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
+
+            case 'StableCascade':
                 positive_text = utility.DiT_cleaner(positive_text)
                 negative_text = utility.DiT_cleaner(negative_text)
-
+                tokens_pos = clip.tokenize(positive_text)
+                tokens_neg = clip.tokenize(negative_text)
                 cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
                 cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
-                return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", workflow_tuple)
 
-            try:
-                comfy.model_management.soft_empty_cache()
-            except Exception:
-                print('No need to clear cache...')
-
-            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
-            out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
-
-            cond_pos = out_pos.pop("cond")
-            cond_neg = out_neg.pop("cond")
-
-            return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+            case 'Flux':
+                FLUX_SAMPLER = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
+                FLUX_GUIDANCE = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0
+                if FLUX_SAMPLER == 'ksampler':
+                    CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                    if concept_data is not None and float(concept_data.get('cfg', 2.0)) < 1.2:
+                        CONDITIONING_NEG = CONDITIONING_POS
+                    else:
+                        CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+                    return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+                else:
+                    CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+                    return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT", "STRING")

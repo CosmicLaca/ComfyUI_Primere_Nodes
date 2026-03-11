@@ -649,47 +649,25 @@ class PrimereKSampler:
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None)[0]
 
-            case  'Flux':
-                WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                FLUX_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_selector', prompt)
-                FLUX_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_sampler', prompt)
+            case 'Flux':
+                FLUX_SAMPLER = workflow_tuple.get('sampler', 'ksampler') if workflow_tuple else 'ksampler'
+                FLUX_GUIDANCE = float(workflow_tuple.get('guidance', 3.5)) if workflow_tuple else 3.5
                 align_your_steps = False
-
-                if FLUX_SELECTOR == 'DIFFUSION':
-                    if FLUX_SAMPLER == 'custom_advanced':
-                        samples_out = primeresamplers.PSamplerAdvanced(self, model, seed, WORKFLOWDATA, positive, scheduler_name, sampler_name, steps, denoise, latent_image, prompt)[0]
-                    elif FLUX_SAMPLER == 'ksampler':
-                        FLUX_GUIDANCE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_clip_guidance', prompt))
-                        CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, FLUX_GUIDANCE)[0]
-                        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
-                            CONDITIONING_NEG = CONDITIONING_POS
-                        else:
-                            CONDITIONING_NEG = nodes_flux.FluxGuidance.execute(negative, FLUX_GUIDANCE)[0]
-                        samples_out = primeresamplers.PKSampler(self, device, seed, model,
-                                                                steps, cfg, sampler_name, scheduler_name,
-                                                                CONDITIONING_POS, CONDITIONING_NEG,
-                                                                latent_image, denoise,
-                                                                variation_extender, variation_batch_step_original,
-                                                                batch_counter, variation_extender_original,
-                                                                variation_batch_step, variation_level, variation_limit,
-                                                                align_your_steps, noise_extender_ksampler, None)[0]
+                if FLUX_SAMPLER == 'custom_advanced':
+                    samples_out = primeresamplers.PSamplerAdvanced(self, model, seed, FLUX_GUIDANCE, positive, scheduler_name, sampler_name, steps, denoise, latent_image)[0]
+                elif FLUX_SAMPLER == 'ksampler':
+                    CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, FLUX_GUIDANCE)[0] if FLUX_GUIDANCE > 0 else positive
+                    if workflow_tuple is not None and float(workflow_tuple.get('cfg', 2.0)) < 1.2:
+                        CONDITIONING_NEG = CONDITIONING_POS
                     else:
-                        samples_out = primeresamplers.PKSampler(self, device, seed, model,
-                                                                steps, cfg, sampler_name, scheduler_name,
-                                                                positive, negative,
-                                                                latent_image, denoise,
-                                                                variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                                align_your_steps, noise_extender_ksampler, None)[0]
-
-                if FLUX_SELECTOR == 'GGUF':
+                        CONDITIONING_NEG = nodes_flux.FluxGuidance.execute(negative, FLUX_GUIDANCE)[0]
                     samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                             steps, cfg, sampler_name, scheduler_name,
-                                                            positive, negative,
+                                                            CONDITIONING_POS, CONDITIONING_NEG,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                             align_your_steps, noise_extender_ksampler, None)[0]
-
-                if FLUX_SELECTOR == 'SAFETENSOR':
+                else:
                     samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                             steps, cfg, sampler_name, scheduler_name,
                                                             positive, negative,
