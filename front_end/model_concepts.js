@@ -116,12 +116,7 @@ function initializeSamplerNode(node) {
     saveBtn.serialize = false;
     saveBtn.options = saveBtn.options || {};
     saveBtn.options.serialize = false;
-    //node.widgets.splice(node.widgets.indexOf(saveBtn), 1);
-    // Do NOT unshift here. Button stays at the end so configure() can assign
-    // widget values by position without the button consuming index [0].
-    // The unshift happens in onConfigure, after configure() has already run.
     applyPrimereButtonStyle(saveBtn);
-    node.__primereSaveBtn = saveBtn;
 
     const originalOnWidgetChanged = node.onWidgetChanged;
     node.onWidgetChanged = function (name, value, oldValue, widget) {
