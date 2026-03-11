@@ -442,6 +442,114 @@ def HunyuanClipping(self, text, text_t5, CLIP, T5):
     ]],)
 
 
+def apply_weight(text, strength):
+    if text is None or text.strip(' ,;') == '':
+        return ''
+    return f'({text}:{strength:.2f})'
+
+
+def apply_weight_optional(text, strength):
+    if text is None or text.strip(' ,;') == '':
+        return ''
+    result = f'({text}:{strength:.2f})' if strength != 1 else str(text)
+    return result.replace(":1.00", "")
+
+
+def inject_keyword(text, keyword_list):
+    if keyword_list is None:
+        return text
+    items = list(filter(None, keyword_list))
+    if len(items) != 2:
+        return text
+    keyword, placement = items
+    return keyword + ', ' + text if placement == 'First' else text + ', ' + keyword
+
+
+def build_prompt_context(
+    model_concept, positive_prompt, negative_prompt,
+    enhanced_prompt, enhanced_prompt_usage, enhanced_prompt_strength,
+    style_pos_prompt, style_neg_prompt,
+    style_handling, style_swap, style_position,
+    style_pos_strength, style_neg_strength,
+    opt_pos_prompt, opt_neg_prompt, opt_pos_strength, opt_neg_strength,
+    negative_strength,
+    int_style_pos, int_style_neg, int_style_pos_strength, int_style_neg_strength,
+    use_int_style, default_pos, default_neg,
+    l_strength, positive_l, negative_l,
+    model_keywords, lora_keywords, lycoris_keywords,
+    embedding_pos, embedding_neg,
+):
+    copy_prompt_to_l = True
+    t5xxl_prompt = ""
+
+    if len(enhanced_prompt) > 5:
+        match enhanced_prompt_usage:
+            case 'Add':
+                if enhanced_prompt_strength != 1:
+                    enhanced_prompt = f'({enhanced_prompt}:{enhanced_prompt_strength:.2f})'
+                if enhanced_prompt_strength != 0:
+                    positive_prompt = positive_prompt + ', ' + enhanced_prompt
+            case 'Replace':
+                positive_prompt = enhanced_prompt
+            case 'T5-XXL':
+                t5xxl_prompt = enhanced_prompt
+    else:
+        if len(style_pos_prompt) > 5 and style_handling == True:
+            if style_swap == True:
+                positive_prompt, style_pos_prompt = style_pos_prompt, positive_prompt
+            t5xxl_prompt = style_pos_prompt
+            style_pos_prompt = None
+            positive_l = style_pos_prompt
+            copy_prompt_to_l = False
+
+    additional_positive = None
+    additional_negative = None
+    if use_int_style:
+        if int_style_pos != 'None':
+            additional_positive = default_pos[int_style_pos]['positive'].strip(' ,;')
+        if int_style_neg != 'None':
+            additional_negative = default_neg[int_style_neg]['negative'].strip(' ,;')
+
+    additional_positive = apply_weight(additional_positive, int_style_pos_strength) if additional_positive else ''
+    additional_negative = apply_weight(additional_negative, int_style_neg_strength) if additional_negative else ''
+    negative_prompt = apply_weight(negative_prompt, negative_strength)
+    opt_pos_prompt = apply_weight(opt_pos_prompt, opt_pos_strength)
+    opt_neg_prompt = apply_weight(opt_neg_prompt, opt_neg_strength)
+    style_pos_prompt = apply_weight_optional(style_pos_prompt, style_pos_strength)
+    style_neg_prompt = apply_weight(style_neg_prompt, style_neg_strength)
+
+    if style_pos_prompt or style_neg_prompt or model_concept != "Normal":
+        copy_prompt_to_l = False
+
+    if copy_prompt_to_l:
+        positive_l = positive_prompt
+        negative_l = negative_prompt
+
+    positive_l = apply_weight_optional(positive_l, l_strength)
+    negative_l = apply_weight_optional(negative_l, l_strength)
+
+    if style_pos_prompt.startswith('((') and style_pos_prompt.endswith('))'):
+        style_pos_prompt = '(' + style_pos_prompt.strip('()') + ')'
+    if style_neg_prompt.startswith('((') and style_neg_prompt.endswith('))'):
+        style_neg_prompt = '(' + style_neg_prompt.strip('()') + ')'
+
+    _clean = lambda s: s.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
+    if not style_position:
+        positive_text = _clean(f'{positive_prompt}, {opt_pos_prompt}, {style_pos_prompt}, {additional_positive}')
+        negative_text = _clean(f'{negative_prompt}, {opt_neg_prompt}, {style_neg_prompt}, {additional_negative}')
+    else:
+        positive_text = _clean(f'{style_pos_prompt}, {opt_pos_prompt}, {positive_prompt}, {additional_positive}')
+        negative_text = _clean(f'{style_neg_prompt}, {opt_neg_prompt}, {negative_prompt}, {additional_negative}')
+
+    positive_text = inject_keyword(positive_text, model_keywords)
+    positive_text = inject_keyword(positive_text, lora_keywords)
+    positive_text = inject_keyword(positive_text, lycoris_keywords)
+    positive_text = inject_keyword(positive_text, embedding_pos)
+    negative_text = inject_keyword(negative_text, embedding_neg)
+
+    return positive_text, negative_text, t5xxl_prompt, positive_l, negative_l
+
+
 def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode_fn):
     if adv_encode:
         tokens_p = clip.tokenize(positive_text)

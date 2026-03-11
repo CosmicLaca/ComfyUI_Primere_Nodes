@@ -840,10 +840,8 @@ class PrimereCKPTLoader:
         }
 
     def load_primere_ckpt(self, ckpt_name, use_yaml, concept_data=None, loaded_model=None, loaded_clip=None, loaded_vae=None):
-
         playground_sigma_max = 120
         playground_sigma_min = 0.002
-
         model_concept = concept_data['model_concept']
 
         try:
@@ -1187,7 +1185,6 @@ class PrimereCLIP:
         }
 
     def clip_encode(self, clip, concept_data, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, workflow_tuple=None):
-        copy_prompt_to_l = True
         model_concept = concept_data.get('model_concept', 'SD1')
 
         clip_mode_default = ['PixartSigma', 'StableCascade', 'Hunyuan', 'SD3', 'Hyper', 'Pony', 'AuraFlow']
@@ -1204,138 +1201,20 @@ class PrimereCLIP:
             last_layer = 0
             clip_model = 'Default'
 
-        t5xxl_prompt = ""
-        if len(enhanced_prompt) > 5:
-            match enhanced_prompt_usage:  # 'None', 'Add', 'Replace', 'T5-XXL'
-                case 'Add':
-                    if enhanced_prompt_strength != 1:
-                        enhanced_prompt = f'({enhanced_prompt}:{enhanced_prompt_strength:.2f})'
-                    if enhanced_prompt_strength != 0:
-                        positive_prompt = positive_prompt + ', ' + enhanced_prompt
-                case 'Replace':
-                    positive_prompt = enhanced_prompt
-                case 'T5-XXL':
-                    t5xxl_prompt = enhanced_prompt
-        else:
-            if len(style_pos_prompt) > 5 and style_handling == True:
-                if style_swap == True:
-                    positive_prompt_tmp = positive_prompt
-                    positive_prompt = style_pos_prompt
-                    style_pos_prompt = positive_prompt_tmp
-
-                enhanced_prompt = style_pos_prompt
-                t5xxl_prompt = enhanced_prompt
-                style_pos_prompt = None
-                positive_l = style_pos_prompt
-                copy_prompt_to_l = False
-
-        additional_positive = int_style_pos
-        additional_negative = int_style_neg
-        if int_style_pos == 'None' or use_int_style == False:
-            additional_positive = None
-        if int_style_neg == 'None' or use_int_style == False:
-            additional_negative = None
-
-        if use_int_style == True:
-            if int_style_pos != 'None':
-                additional_positive = self.default_pos[int_style_pos]['positive'].strip(' ,;')
-            if int_style_neg != 'None':
-                additional_negative = self.default_neg[int_style_neg]['negative'].strip(' ,;')
-
-        additional_positive = f'({additional_positive}:{int_style_pos_strength:.2f})' if additional_positive is not None and additional_positive != '' else ''
-        additional_negative = f'({additional_negative}:{int_style_neg_strength:.2f})' if additional_negative is not None and additional_negative != '' else ''
-
-        negative_prompt = f'({negative_prompt}:{negative_strength:.2f})' if negative_prompt is not None and negative_prompt.strip(' ,;') != '' else ''
-
-        opt_pos_prompt = f'({opt_pos_prompt}:{opt_pos_strength:.2f})' if opt_pos_prompt is not None and opt_pos_prompt.strip(' ,;') != '' else ''
-        opt_neg_prompt = f'({opt_neg_prompt}:{opt_neg_strength:.2f})' if opt_neg_prompt is not None and opt_neg_prompt.strip(' ,;') != '' else ''
-
-        if style_pos_strength != 1:
-            style_pos_prompt = f'({style_pos_prompt}:{style_pos_strength:.2f})' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
-        else:
-            style_pos_prompt = f'{style_pos_prompt}' if style_pos_prompt is not None and style_pos_prompt.strip(' ,;') != '' else ''
-
-        if style_neg_prompt != 1:
-            style_neg_prompt = f'({style_neg_prompt}:{style_neg_strength:.2f})' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
-        else:
-            style_neg_prompt = f'{style_neg_prompt}' if style_neg_prompt is not None and style_neg_prompt.strip(' ,;') != '' else ''
-
-        if (style_pos_prompt is not None and style_pos_prompt != '') or (style_neg_prompt is not None and style_neg_prompt != '') or model_concept != "Normal":
-            copy_prompt_to_l = False
-
-        if copy_prompt_to_l == True:
-            positive_l = positive_prompt
-            negative_l = negative_prompt
-
-        if l_strength != 1:
-            positive_l = f'({positive_l}:{l_strength:.2f})'.replace(":1.00", "") if positive_l is not None and positive_l.strip(' ,;') != '' else ''
-            negative_l = f'({negative_l}:{l_strength:.2f})'.replace(":1.00", "") if negative_l is not None and negative_l.strip(' ,;') != '' else ''
-        else:
-            positive_l = f'{positive_l}'.replace(":1.00", "") if positive_l is not None and positive_l.strip(' ,;') != '' else ''
-            negative_l = f'{negative_l}'.replace(":1.00", "") if negative_l is not None and negative_l.strip(' ,;') != '' else ''
-
-        if (style_pos_prompt.startswith('((') and style_pos_prompt.endswith('))')):
-            style_pos_prompt = '(' + style_pos_prompt.strip('()') + ')'
-
-        if (style_neg_prompt.startswith('((') and style_neg_prompt.endswith('))')):
-            style_neg_prompt = '(' + style_neg_prompt.strip('()') + ')'
-
-        if style_position == False:
-            positive_text = f'{positive_prompt}, {opt_pos_prompt}, {style_pos_prompt}, {additional_positive}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
-            negative_text = f'{negative_prompt}, {opt_neg_prompt}, {style_neg_prompt}, {additional_negative}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
-        else:
-            positive_text = f'{style_pos_prompt}, {opt_pos_prompt}, {positive_prompt}, {additional_positive}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
-            negative_text = f'{style_neg_prompt}, {opt_neg_prompt}, {negative_prompt}, {additional_negative}'.strip(' ,;').replace(", , ", ", ").replace(", , ", ", ").replace(":1.00", "")
-
-        if model_keywords is not None:
-            mkw_list = list(filter(None, model_keywords))
-            if len(mkw_list) == 2:
-                model_keyword = mkw_list[0]
-                mplacement = mkw_list[1]
-                if (mplacement == 'First'):
-                    positive_text = model_keyword + ', ' + positive_text
-                else:
-                    positive_text = positive_text + ', ' + model_keyword
-
-        if lora_keywords is not None:
-            lkw_list = list(filter(None, lora_keywords))
-            if len(lkw_list) == 2:
-                lora_keyword = lkw_list[0]
-                lplacement = lkw_list[1]
-                if (lplacement == 'First'):
-                    positive_text = lora_keyword + ', ' + positive_text
-                else:
-                    positive_text = positive_text + ', ' + lora_keyword
-
-        if lycoris_keywords is not None:
-            lykw_list = list(filter(None, lycoris_keywords))
-            if len(lykw_list) == 2:
-                lyco_keyword = lykw_list[0]
-                lyplacement = lykw_list[1]
-                if (lyplacement == 'First'):
-                    positive_text = lyco_keyword + ', ' + positive_text
-                else:
-                    positive_text = positive_text + ', ' + lyco_keyword
-
-        if embedding_pos is not None:
-            embp_list = list(filter(None, embedding_pos))
-            if len(embp_list) == 2:
-                embp_keyword = embp_list[0]
-                embp_placement = embp_list[1]
-                if (embp_placement == 'First'):
-                    positive_text = embp_keyword + ', ' + positive_text
-                else:
-                    positive_text = positive_text + ', ' + embp_keyword
-
-        if embedding_neg is not None:
-            embn_list = list(filter(None, embedding_neg))
-            if len(embn_list) == 2:
-                embn_keyword = embn_list[0]
-                embn_placement = embn_list[1]
-                if (embn_placement == 'First'):
-                    negative_text = embn_keyword + ', ' + negative_text
-                else:
-                    negative_text = negative_text + ', ' + embn_keyword
+        positive_text, negative_text, t5xxl_prompt, positive_l, negative_l = clipping.build_prompt_context(
+            model_concept, positive_prompt, negative_prompt,
+            enhanced_prompt, enhanced_prompt_usage, enhanced_prompt_strength,
+            style_pos_prompt, style_neg_prompt,
+            style_handling, style_swap, style_position,
+            style_pos_strength, style_neg_strength,
+            opt_pos_prompt, opt_neg_prompt, opt_pos_strength, opt_neg_strength,
+            negative_strength,
+            int_style_pos, int_style_neg, int_style_pos_strength, int_style_neg_strength,
+            use_int_style, self.default_pos, self.default_neg,
+            l_strength, positive_l, negative_l,
+            model_keywords, lora_keywords, lycoris_keywords,
+            embedding_pos, embedding_neg,
+        )
 
         if clip_mode == False:
             if longclip_model == 'Default':
