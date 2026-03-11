@@ -684,7 +684,9 @@ class PrimereAutoSamplerSettings:
         return {
             "required": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
+                "model_name": ("CHECKPOINT_NAME", {"default": None, "forceInput": True}),
                 "concepts": (["Auto"] + cls.CONCEPT_LIST,),
+                "models": (["Auto"] + cls.MODELLIST,),
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
                 "scheduler_name": (cls.sana_schedulers + cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
@@ -735,18 +737,28 @@ class PrimereAutoSamplerSettings:
 
     def get_controlledsampler(self, **kwargs):
         model_concept = kwargs.pop('model_concept', 'SD1')
+        model_name = kwargs.pop('model_name', None)
         concepts = kwargs.pop('concepts', 'Auto')
+        models = kwargs.pop('models', 'Auto')
         sampler_name = kwargs.pop('sampler_name', comfy.samplers.KSampler.SAMPLERS[0])
         scheduler_name = kwargs.pop('scheduler_name', comfy.samplers.KSampler.SCHEDULERS[0])
         steps = kwargs.pop('steps', 12)
         cfg = kwargs.pop('cfg', 7.0)
         active_concept = model_concept if concepts == "Auto" else concepts
+        raw_model = models if models != "Auto" else model_name
+        model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model and raw_model != "Auto" else None
         json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
         concept_data = utility.json2tuple(json_path)
-        if not concept_data or active_concept not in concept_data:
+        if model_key and concept_data and model_key in concept_data:
+            lookup_key = model_key
+        else:
+            lookup_key = active_concept
+            model_key = None
+        active_display = model_key if model_key else active_concept
+        if not concept_data or lookup_key not in concept_data:
             PromptServer.instance.send_sync("primere.concept_setting", {"status": "missing", "concept": active_concept})
         else:
-            saved = concept_data[active_concept]
+            saved = concept_data[lookup_key]
             sampler_name = saved.get('sampler_name', sampler_name)
             scheduler_name = saved.get('scheduler_name', scheduler_name)
             steps = saved.get('steps', steps)
@@ -762,7 +774,7 @@ class PrimereAutoSamplerSettings:
         kwargs['scheduler_name'] = scheduler_name
         kwargs['steps'] = steps
         kwargs['cfg'] = round(cfg, 2)
-        return {"ui": {"active_concept": [active_concept]}, "result": (kwargs,)}
+        return {"ui": {"active_concept": [active_display]}, "result": (kwargs,)}
 
 class PrimereConceptDataTuple:
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "TUPLE",)

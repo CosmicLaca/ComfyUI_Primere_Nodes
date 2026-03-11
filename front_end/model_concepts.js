@@ -5,8 +5,13 @@ import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 const TARGET_NODE_NAME = "PrimereAutoSamplerSettings";
 const CONCEPT_JSON_URL = new URL("/extensions/ComfyUI_Primere_Nodes/model_concept.json", import.meta.url).href;
 
+function modelNameToKey(modelPath) {
+    const base = modelPath.split(/[\\/]/).pop();
+    return base.replace(/\.[^/.]+$/, "");
+}
+
 function collectNodeData(node) {
-    const SKIP_KEYS = new Set(["concepts", "runtime_concept"]);
+    const SKIP_KEYS = new Set(["concepts", "models", "runtime_concept"]);
     const widgets = node.widgets || [];
 
     const loraBooleans = new Set(
@@ -33,12 +38,12 @@ function collectNodeData(node) {
     return data;
 }
 
-async function loadConceptValues(node, concept) {
+async function loadConceptValues(node, key) {
     let data;
     try {
         const response = await fetch(CONCEPT_JSON_URL + "?t=" + Date.now());
         if (!response.ok) {
-            showToast("error", `No saved settings found. Save settings for "${concept}" first.`);
+            showToast("error", `No saved settings found. Save settings for "${key}" first.`);
             return;
         }
         data = await response.json();
@@ -46,12 +51,12 @@ async function loadConceptValues(node, concept) {
         return;
     }
 
-    if (!data[concept]) {
-        showToast("error", `No saved settings for model type "${concept}".`);
+    if (!data[key]) {
+        showToast("error", `No saved settings for "${key}".`);
         return;
     }
 
-    const saved = data[concept];
+    const saved = data[key];
     for (const w of node.widgets || []) {
         if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) continue;
         const newValue = saved[w.name];
@@ -71,11 +76,21 @@ function initializeSamplerNode(node) {
     node.__primereSamplerHooked = true;
 
     const saveBtn = node.addWidget("button", "💾  Save node setting", null, async () => {
+        const modelsWidget = node.widgets?.find((w) => w.name === "models");
         const conceptsWidget = node.widgets?.find((w) => w.name === "concepts");
-        const concept = conceptsWidget?.value;
 
-        if (!concept || concept === "Auto") {
-            showToast("error", "Cannot save: 'Auto' does not identify a model type. Select a specific model type first.");
+        let saveKey = null;
+        const modelVal = modelsWidget?.value;
+        const conceptVal = conceptsWidget?.value;
+
+        if (modelVal && modelVal !== "Auto") {
+            saveKey = modelNameToKey(modelVal);
+        } else if (conceptVal && conceptVal !== "Auto") {
+            saveKey = conceptVal;
+        }
+
+        if (!saveKey) {
+            showToast("error", "Cannot save: select a specific model or model type first.");
             return;
         }
 
@@ -85,13 +100,13 @@ function initializeSamplerNode(node) {
             const response = await fetch("/primere_model_concept_save", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ concept, data }),
+                body: JSON.stringify({ concept: saveKey, data }),
             });
             const result = response.ok ? await response.json() : null;
             if (result?.success) {
-                showToast("success", `Model type "${concept}" settings saved.`);
+                showToast("success", `Settings saved for "${saveKey}".`);
             } else {
-                showToast("error", `Failed to save settings for "${concept}".`);
+                showToast("error", `Failed to save settings for "${saveKey}".`);
             }
         } catch (error) {
             showToast("error", `Save error: ${error.message}`);
@@ -106,8 +121,11 @@ function initializeSamplerNode(node) {
     const originalOnWidgetChanged = node.onWidgetChanged;
     node.onWidgetChanged = function (name, value, oldValue, widget) {
         originalOnWidgetChanged?.call(this, name, value, oldValue, widget);
-        if (name !== "concepts" || value === "Auto") return;
-        loadConceptValues(this, value);
+        if (name === "concepts" && value !== "Auto") {
+            loadConceptValues(this, value);
+        } else if (name === "models" && value !== "Auto") {
+            loadConceptValues(this, modelNameToKey(value));
+        }
     };
 
     node.conceptDisplayWidget = ComfyWidgets["STRING"](node, "runtime_concept", ["STRING", { multiline: true }], app).widget;
@@ -118,14 +136,15 @@ function initializeSamplerNode(node) {
     const originalOnExecuted = node.onExecuted;
     node.onExecuted = function (message) {
         originalOnExecuted?.call(this, message);
-        const concept = message?.active_concept?.[0];
-        if (!concept) return;
+        const displayKey = message?.active_concept?.[0];
+        if (!displayKey) return;
         if (this.conceptDisplayWidget) {
-            this.conceptDisplayWidget.value = concept;
+            this.conceptDisplayWidget.value = displayKey;
         }
+        const modelsWidget = this.widgets?.find((w) => w.name === "models");
         const conceptsWidget = this.widgets?.find((w) => w.name === "concepts");
-        if (conceptsWidget?.value !== "Auto") return;
-        loadConceptValues(this, concept);
+        if (conceptsWidget?.value !== "Auto" || modelsWidget?.value !== "Auto") return;
+        loadConceptValues(this, displayKey);
     };
 }
 
