@@ -341,7 +341,9 @@ class ModalControl {
 
             let nx = i;
             node.widgets[i].mouse = async function (event, pos, node) {
+                if (event.type == 'pointerup' && (pos[0] < 35 || pos[0] > node.size[0] - 35)) return false;
                 if (event.type == 'pointermove' && validClasses.includes(node.type)) return false;
+                if (event.type == 'pointerdown' && (pos[0] < 35 || pos[0] > node.size[0] - 35)) return false;
 
                 const isnumeric_end = stackedClasses.includes(node.type);
 

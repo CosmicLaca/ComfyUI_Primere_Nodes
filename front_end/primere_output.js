@@ -123,10 +123,28 @@ class MiniPreviewControl {
     constructor(node) {
         node.onMouseDown = function(event, pos, graphcanvas) {
             if (event.type == 'pointerdown') {
-                if (pos[1] >= 218 && pos[1] <= 248) {
+                if (pos[1] >= 212 && pos[1] <= 265) {
                     showPreviewIfExist(node, event.clientX, event.clientY);
                 } else {
                     checkPreviewExample();
+                }
+            }
+        };
+
+        node.onMouseMove = function(event, pos, graphcanvas) {
+            if (event.type == 'pointermove') {
+                const previewBox = document.querySelector('div#primere_previewbox');
+                const btn = node.widgets.find(w => w.type === 'button');
+                if (!previewBox || previewBox.style.display === 'none') {
+                    if (pos[1] >= btn.last_y && pos[1] <= btn.last_y + 30) {
+                        showPreviewIfExist(node, event.clientX, event.clientY);
+                    } else {
+                        checkPreviewExample();
+                    }
+                } else {
+                    if (pos[1] <= btn.last_y || pos[1] >= btn.last_y + 30) {
+                        checkPreviewExample();
+                    }
                 }
             }
         };

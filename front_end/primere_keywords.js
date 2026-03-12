@@ -30,8 +30,11 @@ app.registerExtension({
         if (nodeData.name === "PrimereCKPT" || nodeData.name === "PrimereVisualCKPT") {
             const thisNodeType = nodeData.name;
             nodeType.prototype.onNodeCreated = function () {
-                this.onWidgetChanged = function (name, value) {
-                    if (name !== 'base_model') return;
+                const widget = this.widgets?.find(w => w.name === 'base_model');
+                if (!widget) return;
+                const origCallback = widget.callback;
+                widget.callback = function (value) {
+                    origCallback?.apply(this, arguments);
                     if (getActiveCKPTSource() !== thisNodeType) return;
                     sendPOSTModelName(value);
                 };
