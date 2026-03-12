@@ -130,6 +130,8 @@ async def primere_keyword_parser(request):
                         else:
                             keyword_list = ['None', "Select in order", "Random select"] + [keywords]
 
+            utility.KEYWORD_SELECTOR_VALUES.clear()
+            utility.KEYWORD_SELECTOR_VALUES.extend(keyword_list)
             PromptServer.instance.send_sync("ModelKeywordResponse", keyword_list)
 
     return web.json_response({})

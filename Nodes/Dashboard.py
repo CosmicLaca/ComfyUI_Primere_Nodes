@@ -1954,13 +1954,15 @@ class PrimereModelKeyword:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": ""}),
                 "use_model_keyword": ("BOOLEAN", {"default": False}),
                 "model_keyword_placement": (["First", "Last"], {"default": "Last"}),
                 # "model_keyword_selection": (["Select in order", "Random select"], {"default": "Select in order"}),
                 "model_keywords_num": ("INT", {"default": 1, "min": 1, "max": 50, "step": 1}),
                 "model_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
-                "select_keyword": (["None", "Select in order", "Random select"], {"default": "Select in order"}),
+                "select_keyword": (utility.KEYWORD_SELECTOR_VALUES, {"default": "Select in order"}),
+            },
+            "optional": {
+                "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": None})
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",

@@ -1,116 +1,73 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
-let LoadedNodeKey = null;
-let CKPTLoaderName = null;
-let MainNodeFound = false;
+let loadedKeywordNode = null;
+
+function getActiveCKPTSource() {
+    const nodes = app.graph._nodes;
+    if (nodes.some(n => n.type === 'PrimereVisualCKPT')) return 'PrimereVisualCKPT';
+    if (nodes.some(n => n.type === 'PrimereCKPT'))       return 'PrimereCKPT';
+    return null;
+}
 
 app.registerExtension({
     name: "Primere.PrimereKeywords",
 
-    /* async init(app) {
+    async setup() {
+        const sourceType = getActiveCKPTSource();
+        if (!sourceType) return;
 
-    }, */
-
-    async setup(app) {
-        //await sleep(100);
-        for (var its_1 = 0; its_1 < app.canvas.visible_nodes.length; ++its_1) {
-            var wts_1 = app.canvas.visible_nodes[its_1];
-            if (wts_1.type == CKPTLoaderName) {
-                for (var its_2 = 0; its_2 < wts_1.widgets.length; ++its_2) {
-                    var wts_2 = wts_1.widgets[its_2];
-                    if (wts_2.name == 'base_model') {
-                        var modelvalue = wts_2.value;
-                        if (typeof modelvalue != 'undefined') {
-                            sendPOSTModelName(wts_2.value);
-                        }
-                    }
-                }
+        for (const node of app.graph._nodes) {
+            if (node.type !== sourceType) continue;
+            const widget = node.widgets?.find(w => w.name === 'base_model');
+            if (widget?.value !== undefined) {
+                sendPOSTModelName(widget.value);
             }
         }
     },
 
-    async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if (nodeData.name === "PrimereCKPT" || nodeData.name === 'PrimereVisualCKPT') {
+    async beforeRegisterNodeDef(nodeType, nodeData) {
+        if (nodeData.name === "PrimereCKPT" || nodeData.name === "PrimereVisualCKPT") {
+            const thisNodeType = nodeData.name;
             nodeType.prototype.onNodeCreated = function () {
-                CKPTLoaderName = nodeData.name;
-                PrimereModelChange.apply(this, [this, CKPTLoaderName]);
+                this.onWidgetChanged = function (name, value) {
+                    if (name !== 'base_model') return;
+                    if (getActiveCKPTSource() !== thisNodeType) return;
+                    sendPOSTModelName(value);
+                };
             };
         }
 
         if (nodeData.name === "PrimereModelKeyword") {
             nodeType.prototype.onNodeCreated = function () {
-                PrimereKeywordList.apply(this, [this, 'PrimereKeywordSelector']);
+                this.name = 'PrimereKeywordSelector';
+                loadedKeywordNode = this;
             };
         }
     },
 });
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+api.addEventListener("ModelKeywordResponse", onModelKeywordResponse);
 
-async function PrimereKeywordList(node, inputName) {
-    //await sleep(200);
-    node.name = inputName;
+function onModelKeywordResponse(event) {
+    if (!loadedKeywordNode) return;
 
-    const widget = {
-        type: "primere_keyword_lister",
-        name: `w${inputName}`,
-        callback: () => {
-        },
-    };
+    const responseValues = event.detail;
+    const widget = loadedKeywordNode.widgets.find(w => !w.disabled && w.name === 'select_keyword');
+    if (!widget) return;
 
-    /* node.addWidget("combo", "select_keyword", 'Select in order', () => {
-    },{
-        values: ["None", "Select in order", "Random select"],
-    }); */
-
-    LoadedNodeKey = node;
-    return {widget: widget};
-}
-function PrimereModelChange(node, inputName) {
-    if (MainNodeFound == false) {
-        if (inputName == 'PrimereVisualCKPT') {
-            MainNodeFound = true;
-            CKPTLoaderName = 'PrimereVisualCKPT';
-        }
-
-        node.onWidgetChanged = function (name, value, old_value) {
-            if (name == 'base_model') {
-                sendPOSTModelName(value);
-            }
-        };
-    }
-}
-
-api.addEventListener("ModelKeywordResponse", ModelKeywordResponse);
-function ModelKeywordResponse(event) {
-    if (LoadedNodeKey != null) {
-        var ResponseText = event.detail;
-        for (var iln = 0; iln < LoadedNodeKey.widgets.length; ++iln) {
-            var wln = LoadedNodeKey.widgets[iln];
-            if (!wln || wln.disabled)
-                continue;
-
-            if (wln.name == 'select_keyword') {
-                wln.options.values = ResponseText;
-                if (typeof ResponseText[3] === 'undefined') {
-                    if (typeof ResponseText[1] === 'undefined') {
-                        wln.value = ResponseText[0];
-                    } else {
-                        wln.value = ResponseText[1];
-                    }
-                } else {
-                    wln.value = ResponseText[3];
-                }
-            }
-        }
+    widget.options.values = responseValues;
+    if (responseValues[3] !== undefined) {
+        widget.value = responseValues[3];
+    } else if (responseValues[1] !== undefined) {
+        widget.value = responseValues[1];
+    } else {
+        widget.value = responseValues[0];
     }
 }
 
 function sendPOSTModelName(modelName) {
     const body = new FormData();
     body.append('modelName', modelName);
-    api.fetchApi("/primere_keyword_parser", {method: "POST", body,});
+    api.fetchApi("/primere_keyword_parser", { method: "POST", body });
 }
