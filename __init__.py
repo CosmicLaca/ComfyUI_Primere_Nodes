@@ -25,38 +25,6 @@ is_frontend_symlinked = False
 WEB_DIRECTORY = "./front_end"
 __all__ = ['NODE_CLASS_MAPPINGS', 'WEB_DIRECTORY']
 
-'''if os.path.isdir(frontend_target) == True:
-    try:
-        is_link = os.readlink(frontend_target)
-        is_frontend_symlinked = True
-    except OSError:
-        is_frontend_symlinked = False
-
-    if is_frontend_symlinked == True:
-        try:
-            os.unlink(frontend_target)
-            print('Primere front-end symlinks deleted.')
-        except Exception:
-            print('[ERROR] - Cannnot unlink Primere front-end folder. Please delete symlink: ' + frontend_target + ' manually from: ' + frontend_source)
-
-if os.path.exists(frontend_target):
-    try:
-        shutil.rmtree(frontend_target)
-        print('Primere front-end folder deleted.')
-    except Exception:
-        print('[ERROR] - Cannnot delete Primere front-end folder. Please delete manually: ' + frontend_target + ' from: ' + frontend_source)
-
-if os.path.isdir(frontend_preview_target) == True:
-    preview_images = os.path.join(frontend_source, 'images')
-    try:
-        shutil.copytree(frontend_preview_target, preview_images, dirs_exist_ok=True, symlinks=False, ignore=None)
-        print('Primere previews copied back to the original node directory.')
-        original_prv_path = os.path.join(comfy_frontend, 'PrimerePreviews')
-        shutil.rmtree(original_prv_path)
-        print('Primere previews removed from Comfy web path.')
-    except Exception:
-        print('[ERROR] - Cannnot copy Primere previews to right path. Please copy manually from: ' + frontend_preview_target + ' to: ' + preview_images)'''
-
 nodes = []
 IGNORE_FRONTEND = ['fonts', 'keywords', 'jquery', 'vendor']
 mainDirs = list(os.walk(frontend_source))[0][1]

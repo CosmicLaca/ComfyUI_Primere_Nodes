@@ -747,27 +747,30 @@ class PrimereAutoSamplerSettings:
         steps = kwargs.pop('steps', 12)
         cfg = kwargs.pop('cfg', 7.0)
         active_concept = model_concept if concepts == "Auto" else concepts
-        raw_model = models if models != "Auto" else model_name
-        model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model and raw_model != "Auto" else None
-        json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
-        concept_data = utility.json2tuple(json_path)
-        if model_key and concept_data and model_key in concept_data:
-            lookup_key = model_key
+        if concepts == "Auto" and models == "Auto":
+            raw_model = model_name
+            model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model else None
+            json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
+            concept_data = utility.json2tuple(json_path)
+            if model_key and concept_data and model_key in concept_data:
+                lookup_key = model_key
+            else:
+                lookup_key = active_concept
+                model_key = None
+            active_display = model_key if model_key else active_concept
+            if not concept_data or lookup_key not in concept_data:
+                PromptServer.instance.send_sync("primere.concept_setting", {"status": "missing", "concept": active_concept})
+            else:
+                saved = concept_data[lookup_key]
+                sampler_name = saved.get('sampler_name', sampler_name)
+                scheduler_name = saved.get('scheduler_name', scheduler_name)
+                steps = saved.get('steps', steps)
+                cfg = saved.get('cfg', cfg)
+                for k, v in saved.items():
+                    if k in kwargs:
+                        kwargs[k] = v
         else:
-            lookup_key = active_concept
-            model_key = None
-        active_display = model_key if model_key else active_concept
-        if not concept_data or lookup_key not in concept_data:
-            PromptServer.instance.send_sync("primere.concept_setting", {"status": "missing", "concept": active_concept})
-        else:
-            saved = concept_data[lookup_key]
-            sampler_name = saved.get('sampler_name', sampler_name)
-            scheduler_name = saved.get('scheduler_name', scheduler_name)
-            steps = saved.get('steps', steps)
-            cfg = saved.get('cfg', cfg)
-            for k, v in saved.items():
-                if k in kwargs:
-                    kwargs[k] = v
+            active_display = active_concept
 
         if kwargs.get('override_steps') == True:
             found = re.findall(r"(?i)(\d+)step", model_name.lower())
@@ -880,6 +883,10 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_zimage_model(self, ckpt_name, concept_data)
             case 'Flux':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_flux_model(self, ckpt_name, concept_data)
+            case 'LCM':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, concept_data)
+            case 'Hyper' | 'Lightning':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lightning_hyper_model(self, ckpt_name, concept_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1240,7 +1247,7 @@ class PrimereCLIP:
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
 
         match model_concept:
-            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image':
+            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image' | 'LCM' | 'Hyper' | 'Lightning':
                 if clip_model != 'Default' and clip_mode == True:
                     clip_path = folder_paths.get_full_path("clip", clip_model)
                     if clip_path is not None:

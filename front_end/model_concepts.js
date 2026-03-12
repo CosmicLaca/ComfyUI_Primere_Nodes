@@ -142,8 +142,6 @@ function initializeSamplerNode(node) {
         originalOnWidgetChanged?.call(this, name, value, oldValue, widget);
         if (name === "concepts" && value !== "Auto") {
             loadConceptValues(this, value);
-        } else if (name === "models" && value !== "Auto") {
-            loadConceptValues(this, modelNameToKey(value));
         }
     };
 

@@ -5,6 +5,7 @@ import comfy.utils
 import folder_paths
 import nodes
 import comfy_extras.nodes_sd3 as nodes_sd3
+import comfy_extras.nodes_model_advanced as nodes_model_advanced
 from pathlib import Path
 from .tree import PRIMERE_ROOT
 from . import utility
@@ -179,4 +180,61 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
         OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name), lora_strength)
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+
+def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
+    model_concept = concept_data.get('model_concept')
+    lora_path = None
+    lora_strength = 1.0
+    if concept_data.get('speed_lora') == True:
+        lora_name = concept_data.get('speed_lora_name')
+        if lora_name:
+            lora_path = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name)
+            lora_strength = concept_data.get('speed_lora_strength', 1.0)
+
+    if model_concept == 'Hyper':
+        _, unet_name, _ = resolve_symlink(ckpt_name)
+        if unet_name is not None:
+            checkpoint_result = utility.BDanceConceptHelper(loader_self, model_concept, True, 'UNET', None, None, None, unet_name, None, lora_strength)
+            OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = checkpoint_result[0], checkpoint_result[1], checkpoint_result[2]
+        else:
+            checkpoint_result = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, None, None, ckpt_name, None, lora_strength)
+            OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = checkpoint_result[0], checkpoint_result[1], checkpoint_result[2]
+        if lora_path:
+            OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
+    else:
+        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
+        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+        OUTPUT_CLIP = LOADED_CHECKPOINT[1]
+        OUTPUT_VAE = LOADED_CHECKPOINT[2]
+        if lora_path:
+            OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
+
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+
+def load_lcm_model(loader_self, ckpt_name, concept_data):
+    LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
+    OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+    OUTPUT_CLIP = LOADED_CHECKPOINT[1]
+    OUTPUT_VAE = LOADED_CHECKPOINT[2]
+
+    MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
+
+    if concept_data.get('lcm_lora') == True:
+        DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
+        DOWNLOADED_SDXL_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sdxl.safetensors')
+        utility.fileDownloader(DOWNLOADED_SD_LORA, 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true')
+        utility.fileDownloader(DOWNLOADED_SDXL_LORA, 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true')
+        lora_path = DOWNLOADED_SDXL_LORA if MODEL_VERSION == 'SDXL' else DOWNLOADED_SD_LORA
+        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, concept_data.get('lcm_lora_strength', 1.0))
+
+    class ModelSamplingAdvanced(utility.ModelSamplingDiscreteLCM, nodes_model_advanced.LCM):
+        pass
+
+    m = OUTPUT_MODEL.clone()
+    m.add_object_patch("model_sampling", ModelSamplingAdvanced())
+    OUTPUT_MODEL = m
+
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
