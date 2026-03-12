@@ -170,11 +170,12 @@ async def primere_modelpaths(request):
     models_by_path = []
 
     if subdirType != 'styles':
+        excluded = ['.locks', 'Bjornulf_civitAI', 'depthfm', 'models--xiaozaa--cat-tryoff-flux']
         allSource = folder_paths.get_filename_list(subdirType)
         for Source in allSource:
             if "\\" in Source:
                 modelSubdir = Source[:Source.index("\\")]
-                if modelSubdir not in models_by_path:
+                if modelSubdir not in models_by_path and modelSubdir not in excluded:
                     models_by_path.append(modelSubdir)
     else:
         STYLE_DIR = os.path.join(PRIMERE_ROOT, 'stylecsv')

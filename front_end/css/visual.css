@@ -39,7 +39,7 @@
 #primere_visual_modal .primere-modal-content {
     z-index: 10000;
     overflow: auto;
-    height: 80%;
+    height: 76%;
 }
 #primere_visual_modal .visual-ckpt {
     width: min-content;
@@ -171,8 +171,27 @@
     margin-right: 5px;
     padding-left: 9px;
     padding-right: 10px;
-    font-size: 16px;
+    font-size: 14px;
+    padding-bottom: 2px;
+    padding-top: 3px;
+    border-radius: 5px;
     box-shadow: inset 1px 1px 3px #bdbdbd;
+}
+
+#primere_visual_modal .subdirtab button.subdirfilter {
+    background-color: #133b51;
+}
+#primere_visual_modal .subdirtab button.verfilter {
+    background-color: #372222;
+}
+#primere_visual_modal .subdirtab button.preview_sort {
+    background-color: #24471c;
+}
+#primere_visual_modal .subdirtab button.filter_clear {
+    background-color: #24471c;
+}
+#primere_visual_modal .subdirtab input.filter_input {
+    background-color: #dbda9c;
 }
 
 #primere_visual_modal .subdirtab label {
@@ -180,9 +199,9 @@
 }
 
 #primere_visual_modal .selected_path {
-    color: #626262 !important;
-    background: white !important;
-    border: white solid 2px !important;
+    color: #443535 !important;
+    background: #bdbdbd !important;
+    border: white solid 1px !important;
 }
 
 #primere_visual_modal .visual-aesthetic-score hr {
