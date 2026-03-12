@@ -693,6 +693,8 @@ class PrimereAutoSamplerSettings:
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "override_steps": ("BOOLEAN", {"default": False, "label_off": "Set by sampler settings", "label_on": "Set by model filename"}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
+                "sigma_max": ("FLOAT", {"default": 120, "min": 1, "max": 200, "step": 0.001}),
+                "sigma_min": ("FLOAT", {"default": 1, "min": 0.001, "max": 100, "step": 0.001}),
                 "vae": (cls.VAELIST,),
                 "vae_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
                 "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
@@ -733,7 +735,8 @@ class PrimereAutoSamplerSettings:
                 "refiner_steps": ("INT", {"default": 22, "min": 10, "max": 30, "step": 1}),
                 "refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
-                "refiner_ignore_prompt": ("BOOLEAN", {"default": False, "label_on": "Send prompt to refiner", "label_off": "Ignore prompt"}),
+                "refiner_sampling_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "refiner_ignore_prompt": ("BOOLEAN", {"default": True, "label_on": "Ignore prompt", "label_off": "Send prompt to refiner"}),
             }
         }
 
@@ -843,8 +846,6 @@ class PrimereCKPTLoader:
         }
 
     def load_primere_ckpt(self, ckpt_name, use_yaml, concept_data=None, loaded_model=None, loaded_clip=None, loaded_vae=None):
-        playground_sigma_max = 120
-        playground_sigma_min = 0.002
         model_concept = concept_data['model_concept']
 
         try:
@@ -873,7 +874,7 @@ class PrimereCKPTLoader:
             OUTPUT_MODEL = LOADED_CHECKPOINT[0]
 
         match model_concept:
-            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious':
+            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'Turbo' | 'Pony':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd_model(self, ckpt_name, use_yaml, ModelConfigFullPath, concept_data)
             case 'SD3':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd3_model(self, ckpt_name, concept_data)
@@ -887,6 +888,10 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, concept_data)
             case 'Hyper' | 'Lightning':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lightning_hyper_model(self, ckpt_name, concept_data)
+            case 'Playground':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, concept_data)
+            case 'PixartSigma':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, concept_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1247,7 +1252,7 @@ class PrimereCLIP:
             clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
 
         match model_concept:
-            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image' | 'LCM' | 'Hyper' | 'Lightning':
+            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image' | 'LCM' | 'Hyper' | 'Lightning' | 'Turbo' | 'Playground' | 'Pony':
                 if clip_model != 'Default' and clip_mode == True:
                     clip_path = folder_paths.get_full_path("clip", clip_model)
                     if clip_path is not None:
@@ -1259,6 +1264,8 @@ class PrimereCLIP:
                 return clipping.encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple)
             case 'Flux':
                 return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple)
+            case 'PixartSigma':
+                return clipping.encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT", "STRING")

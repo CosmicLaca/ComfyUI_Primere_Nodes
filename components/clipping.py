@@ -619,6 +619,32 @@ def encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple):
     return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", workflow_tuple)
 
 
+def encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple):
+    positive_text = utility.DiT_cleaner(positive_text)
+    negative_text = utility.DiT_cleaner(negative_text)
+
+    cond_pos_ref = cond_neg_ref = out_pos_ref = out_neg_ref = None
+
+    if clip['refiner'] is not None:
+        clipRef = clip['refiner']
+        tokens_pos_ref = clipRef.tokenize(positive_text)
+        tokens_neg_ref = clipRef.tokenize(negative_text)
+        out_pos_ref = clipRef.encode_from_tokens(tokens_pos_ref, return_pooled=True, return_dict=True)
+        out_neg_ref = clipRef.encode_from_tokens(tokens_neg_ref, return_pooled=True, return_dict=True)
+        cond_pos_ref = out_pos_ref.pop("cond")
+        cond_neg_ref = out_neg_ref.pop("cond")
+
+    clipMain = clip['main']
+    tokens_pos_main = clipMain.tokenize(positive_text)
+    tokens_neg_main = clipMain.tokenize(negative_text)
+    out_pos_main = clipMain.encode_from_tokens(tokens_pos_main, return_pooled=True, return_dict=True)
+    out_neg_main = clipMain.encode_from_tokens(tokens_neg_main, return_pooled=True, return_dict=True)
+    cond_pos_main = out_pos_main.pop("cond")
+    cond_neg_main = out_neg_main.pop("cond")
+
+    return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, "", "", "", workflow_tuple)
+
+
 def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple):
     flux_sampler = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
     flux_guidance = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0

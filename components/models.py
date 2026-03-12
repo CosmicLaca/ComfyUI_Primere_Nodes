@@ -11,6 +11,10 @@ from .tree import PRIMERE_ROOT
 from . import utility
 from . import nf4_helper
 from .gguf import nodes as gguf_nodes
+import difflib
+import numpy as np
+from ComfyUI_ExtraModels.PixArt.loader import load_pixart
+from ComfyUI_ExtraModels.PixArt.conf import pixart_conf
 
 
 def resolve_symlink(ckpt_name):
@@ -180,6 +184,48 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
         OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name), lora_strength)
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+
+def load_pixart_model(loader_self, ckpt_name, concept_data):
+    ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+
+    pixart_model_name = Path(ckpt_name).stem
+    pixart_types = list(pixart_conf.keys())
+    cutoff_list = list(np.around(np.arange(0.1, 1.01, 0.01).tolist(), 2))[::-1]
+    is_found = []
+    trycut = 0
+    for trycut in cutoff_list:
+        is_found = difflib.get_close_matches(pixart_model_name, pixart_types, cutoff=trycut)
+        if len(is_found) > 0:
+            break
+    pixart_model_type = 'PixArtMS_Sigma_XL_2' if trycut <= 0.35 else is_found[0]
+    model_conf = pixart_conf[pixart_model_type]
+
+    OUTPUT_MODEL_MAIN = load_pixart(model_path=ckpt_path, model_conf=model_conf)
+
+    encoder_1 = concept_data.get('encoder_1', None)
+    OUTPUT_CLIP_MAIN = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'sd3')[0]
+
+    refiner_model = concept_data.get('refiner_model', None)
+    OUTPUT_MODEL_REFINER = None
+    OUTPUT_CLIP_REFINER = None
+    if concept_data.get('refiner') == True and refiner_model and refiner_model != 'None':
+        REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, refiner_model)
+        OUTPUT_MODEL_REFINER = REFINER_CHECKPOINT[0]
+        OUTPUT_CLIP_REFINER = REFINER_CHECKPOINT[1]
+        OUTPUT_VAE = REFINER_CHECKPOINT[2]
+    else:
+        OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
+
+    return {'main': OUTPUT_MODEL_MAIN, 'refiner': OUTPUT_MODEL_REFINER}, {'main': OUTPUT_CLIP_MAIN, 'refiner': OUTPUT_CLIP_REFINER}, OUTPUT_VAE
+
+
+def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data):
+    OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data)
+    sigma_max = concept_data.get('sigma_max', 120)
+    sigma_min = concept_data.get('sigma_min', 0.002)
+    OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(loader_self, OUTPUT_MODEL, 'edm_playground_v2.5', sigma_max, sigma_min)[0]
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 

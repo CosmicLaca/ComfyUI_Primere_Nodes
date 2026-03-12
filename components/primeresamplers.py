@@ -47,7 +47,7 @@ def PKSampler(self, device, seed, model,
 
                 sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
                 sampler = comfy.samplers.sampler_object(sampler_name)
-                AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                 samples = (AYS_samples[0],)
             else:
                 samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
@@ -55,9 +55,9 @@ def PKSampler(self, device, seed, model,
     return samples
 
 def PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name):
-    sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
+    sigmas = nodes_custom_sampler.SDTurboScheduler.execute(model, steps, denoise)
     sampler = comfy.samplers.sampler_object(sampler_name)
-    turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+    turbo_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
     samples = (turbo_samples[0],)
     return samples
 
@@ -109,14 +109,14 @@ def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negati
     if (HyperSDSelector == 'UNET'):
         sigmas = utility.get_hypersd_sigmas(model)
         sampler = comfy.samplers.sampler_object(sampler_name)
-        hyper_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+        hyper_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
         samples = (hyper_samples[0],)
     else:
         SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta=0.8)
         model = SamplingDiscreteResults[0]
         sampler = SamplingDiscreteResults[1]
         sigmas = SamplingDiscreteResults[2]
-        hyper_lora_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
+        hyper_lora_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
         samples = (hyper_lora_samples[0],)
 
     return samples
@@ -155,10 +155,16 @@ def PSamplerPixart(self, device, seed, model,
                    steps, cfg, sampler_name, scheduler_name,
                    positive, negative,
                    latent_image, denoise,
-                   variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, WORKFLOWDATA, prompt):
+                   variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, workflow_tuple):
 
-    PIXART_DENOISE = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_denoise', prompt))
-    sigmas_main = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
+    if workflow_tuple:
+        sampler_name = workflow_tuple.get('sampler_name', sampler_name)
+        scheduler_name = workflow_tuple.get('scheduler_name', scheduler_name)
+        steps = workflow_tuple.get('steps', steps)
+        cfg = workflow_tuple.get('cfg', cfg)
+    PIXART_DENOISE = float(workflow_tuple.get('refiner_sampling_denoise', denoise)) if workflow_tuple and workflow_tuple.get('refiner') == True else denoise
+
+    sigmas_main = nodes_custom_sampler.BasicScheduler.execute(model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
     sampler = comfy.samplers.sampler_object(sampler_name)
     if variation_level == True:
         samples_main = latentnoise.noisy_samples(model['main'], device, steps, cfg, sampler_name, scheduler_name, positive['main'], negative['main'], latent_image, PIXART_DENOISE, seed, noise_extender)[0]
@@ -170,30 +176,36 @@ def PSamplerPixart(self, device, seed, model,
                 model_type = 'SDXL'
                 sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
                 sampler = comfy.samplers.sampler_object(sampler_name)
-                AYS_samples = nodes_custom_sampler.SamplerCustom().sample(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas[0], latent_image)
+                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas[0], latent_image)
                 samples_main = AYS_samples[0]
             else:
-                samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
+                samples_main = nodes_custom_sampler.SamplerCustom.execute(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
 
     if 'refiner' in model and model['refiner'] is not None:
-        PIXART_VAE_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_vae', prompt)
-        PIXART_VAE = utility.vae_loader_class.load_vae(PIXART_VAE_NAME)[0]
+        PIXART_VAE = utility.vae_loader_class.load_vae(workflow_tuple.get('vae'))[0]
         RAW_IMAGE = nodes.VAEDecode.decode(self, PIXART_VAE, samples_main)[0]
-        REFINER_MODEL_NAME = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_model', prompt)
-        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, REFINER_MODEL_NAME)
+        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple.get('refiner_model'))
         RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, PIXART_REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
 
-        REFINER_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_sampler', prompt)
-        REFINER_SCHEDULER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_scheduler', prompt)
-        REFINER_CFG = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_cfg', prompt))
-        REFINER_STEPS = int(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_steps', prompt))
-        PIXART_DENOISE_REFINER = float(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_denoise', prompt))
-        PIXART_REFINER_START = int(utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'pixart_refiner_start', prompt))
+        REFINER_SAMPLER = workflow_tuple.get('refiner_sampler', 'dpmpp_2m')
+        REFINER_SCHEDULER = workflow_tuple.get('refiner_scheduler', 'normal')
+        REFINER_CFG = float(workflow_tuple.get('refiner_cfg', 2.0))
+        REFINER_STEPS = int(workflow_tuple.get('refiner_steps', 22))
+        PIXART_DENOISE_REFINER = float(workflow_tuple.get('refiner_denoise', 0.9))
+        PIXART_REFINER_START = int(workflow_tuple.get('refiner_start', 12))
 
-        sigmas_refiner = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model['refiner'], REFINER_SCHEDULER, REFINER_STEPS, denoise=PIXART_DENOISE_REFINER)[0]
-        splitted_low_sigma = nodes_custom_sampler.SplitSigmas.get_sigmas(self, sigmas_refiner, PIXART_REFINER_START)[1]
+        sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(model['refiner'], REFINER_SCHEDULER, REFINER_STEPS, PIXART_DENOISE_REFINER)[0]
+        splitted_low_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, PIXART_REFINER_START)[1]
         sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
-        samples_main = nodes_custom_sampler.SamplerCustom.sample(self, model['refiner'], True, seed, REFINER_CFG, positive['refiner'], negative['refiner'], sampler_refiner, splitted_low_sigma, RAW_IMAGE_ENCODED)[0]
+        REFINER_IGNORE_PROMPT = workflow_tuple.get('refiner_ignore_prompt', False)
+        if REFINER_IGNORE_PROMPT:
+            empty_cond = nodes.CLIPTextEncode.encode(self, PIXART_REFINER_CHECKPOINT[1], "")[0]
+            refiner_pos = empty_cond
+            refiner_neg = empty_cond
+        else:
+            refiner_pos = positive['refiner']
+            refiner_neg = negative['refiner']
+        samples_main = nodes_custom_sampler.SamplerCustom.execute(model['refiner'], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_low_sigma, RAW_IMAGE_ENCODED)[0]
 
     return (samples_main,)
 
@@ -202,11 +214,11 @@ def PSamplerAdvanced(self, model, seed, guidance, positive, scheduler_name, samp
         CONDITIONING_POS = positive
     else:
         CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, guidance)[0]
-    FLUX_GUIDER = nodes_custom_sampler.BasicGuider.get_guider(self, model, CONDITIONING_POS)[0]
-    FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.get_sigmas(self, model, scheduler_name, steps, denoise=denoise)[0]
-    FLUX_NOISE = nodes_custom_sampler.RandomNoise.get_noise(self, seed)[0]
+    FLUX_GUIDER = nodes_custom_sampler.BasicGuider.execute(model, CONDITIONING_POS)[0]
+    FLUX_SIGMAS = nodes_custom_sampler.BasicScheduler.execute(model, scheduler_name, steps, denoise=denoise)[0]
+    FLUX_NOISE = nodes_custom_sampler.RandomNoise.execute(seed)[0]
     sampler_object = comfy.samplers.sampler_object(sampler_name)
-    samples = (nodes_custom_sampler.SamplerCustomAdvanced.sample(self, FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
+    samples = (nodes_custom_sampler.SamplerCustomAdvanced.execute(FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
     return samples
 
 def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 2.5, multiplier = 1000):
