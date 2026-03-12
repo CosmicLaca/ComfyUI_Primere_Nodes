@@ -7,6 +7,8 @@ import comfy
 import comfy_extras.nodes_sd3 as nodes_sd3
 import comfy_extras.nodes_flux as nodes_flux
 from . import utility
+import nodes
+from ..Nodes.modules import long_clip as long_clip_module
 
 class SDLongClipModel(torch.nn.Module, ClipTokenWeightEncoder):
     LAYERS = [
@@ -548,6 +550,37 @@ def build_prompt_context(
     negative_text = inject_keyword(negative_text, embedding_neg)
 
     return positive_text, negative_text, t5xxl_prompt, positive_l, negative_l
+
+
+SDXL_CONCEPTS = {'SDXL', 'Illustrious', 'Pony', 'Playground'}
+
+def apply_clip_overrides(loader_self, clip, workflow_tuple):
+    if not workflow_tuple:
+        return clip
+    encoder_1 = workflow_tuple.get('encoder_1', None)
+    last_layer = int(workflow_tuple.get('last_layer', 0))
+    baked_clip = clip
+
+    if encoder_1 and encoder_1 != 'None' and not workflow_tuple.get('clip_selection', False):
+        try:
+            model_concept = workflow_tuple.get('model_concept', 'SD1')
+            is_longclip = 'longclip' in encoder_1.lower() or encoder_1.lower().endswith('.pt')
+            if is_longclip:
+                if model_concept in SDXL_CONCEPTS:
+                    clip = long_clip_module.SDXLLongClip.sdxl_longclip(loader_self, encoder_1, baked_clip)[0]
+                else:
+                    clip = long_clip_module.SDLongClip.sd_longclip(loader_self, encoder_1)[0]
+            else:
+                clip = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'stable_diffusion')[0]
+        except Exception:
+            if baked_clip is None:
+                raise RuntimeError(f"Clip model '{encoder_1}' is incompatible with this checkpoint and no baked CLIP is available.")
+            clip = baked_clip
+
+    if last_layer < 0:
+        clip = nodes.CLIPSetLastLayer.set_last_layer(loader_self, clip, last_layer)[0]
+
+    return clip
 
 
 def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode_fn):

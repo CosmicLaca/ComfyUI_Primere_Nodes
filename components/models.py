@@ -105,7 +105,9 @@ def load_sd3_model(loader_self, ckpt_name, concept_data):
         OUTPUT_VAE = LOADED_CHECKPOINT[2]
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
-        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name), lora_strength)
+        lora_path = folder_paths.get_full_path('loras', lora_name)
+        if lora_path:
+            OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -183,7 +185,24 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
-        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name), lora_strength)
+        lora_path = folder_paths.get_full_path('loras', lora_name)
+        if lora_path:
+            OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+
+def load_auraflow_model(loader_self, ckpt_name, concept_data):
+    File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
+    if File_link:
+        if model_ext == '.gguf':
+            OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+        else:
+            OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, 'default')[0]
+    else:
+        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
+    encoder_1 = concept_data.get('encoder_1', None)
+    OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'stable_diffusion')[0]
+    OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -236,7 +255,7 @@ def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
     if concept_data.get('speed_lora') == True:
         lora_name = concept_data.get('speed_lora_name')
         if lora_name:
-            lora_path = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name)
+            lora_path = folder_paths.get_full_path('loras', lora_name)
             lora_strength = concept_data.get('speed_lora_strength', 1.0)
 
     if model_concept == 'Hyper':
@@ -269,12 +288,11 @@ def load_lcm_model(loader_self, ckpt_name, concept_data):
     MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
 
     if concept_data.get('lcm_lora') == True:
-        DOWNLOADED_SD_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sd.safetensors')
-        DOWNLOADED_SDXL_LORA = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', 'lcm_lora_sdxl.safetensors')
-        utility.fileDownloader(DOWNLOADED_SD_LORA, 'https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors?download=true')
-        utility.fileDownloader(DOWNLOADED_SDXL_LORA, 'https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors?download=true')
-        lora_path = DOWNLOADED_SDXL_LORA if MODEL_VERSION == 'SDXL' else DOWNLOADED_SD_LORA
-        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, concept_data.get('lcm_lora_strength', 1.0))
+        lora_name = concept_data.get('lcm_lora_name', None)
+        if lora_name:
+            lora_path = folder_paths.get_full_path('loras', lora_name)
+            if lora_path:
+                OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, concept_data.get('lcm_lora_strength', 1.0))
 
     class ModelSamplingAdvanced(utility.ModelSamplingDiscreteLCM, nodes_model_advanced.LCM):
         pass

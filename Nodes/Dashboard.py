@@ -693,14 +693,15 @@ class PrimereAutoSamplerSettings:
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "override_steps": ("BOOLEAN", {"default": False, "label_off": "Set by sampler settings", "label_on": "Set by model filename"}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
+                "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "sigma_max": ("FLOAT", {"default": 120, "min": 1, "max": 200, "step": 0.001}),
                 "sigma_min": ("FLOAT", {"default": 1, "min": 0.001, "max": 100, "step": 0.001}),
                 "vae": (cls.VAELIST,),
                 "vae_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
                 "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
-                "encoder_1": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
-                "encoder_2": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
-                "encoder_3": (["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS,),
+                "encoder_1": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
+                "encoder_2": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
+                "encoder_3": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
                 "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
                 "guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
                 "weight_dtype": (["None"] + ["Auto", "default", "fp16", "bf16", "fp32", "fp8_e4m3fn", "fp8_e5m2"], {"default": "default"}),
@@ -892,6 +893,8 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, concept_data)
             case 'PixartSigma':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, concept_data)
+            case 'AuraFlow':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_auraflow_model(self, ckpt_name, concept_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1141,10 +1144,6 @@ class PrimereCLIP:
                 "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
-                "clip_mode": ("BOOLEAN", {"default": True, "label_on": "CLIP", "label_off": "Long-CLIP"}),
-                "clip_model": (['Default'] + sorted(cls.CLIPLIST),),
-                "longclip_model": (['Default'] + sorted(cls.CLIPLIST),),
-                "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "use_int_style": ("BOOLEAN", {"default": False}),
                 "int_style_pos": (['None'] + sorted(list(cls.default_pos.keys())),),
@@ -1156,7 +1155,6 @@ class PrimereCLIP:
                 "weight_interpretation": (["comfy", "A1111", "compel", "comfy++", "down_weight"], {"default": "comfy++"}),
             },
             "optional": {
-                # "clip_raw": ("CLIP", {"forceInput": True}),
                 "enhanced_prompt": ("STRING", {"forceInput": True}),
                 "enhanced_prompt_usage": (['None', 'Add', 'Replace', 'T5-XXL'], {"default": "T5-XXL"}),
                 "enhanced_prompt_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -1184,7 +1182,6 @@ class PrimereCLIP:
 
                 "positive_l": ("STRING", {"forceInput": True}),
                 "negative_l": ("STRING", {"forceInput": True}),
-                # "copy_prompt_to_l": ("BOOLEAN", {"default": True}),
                 "l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
@@ -1196,22 +1193,12 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, concept_data, clip_mode, last_layer, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, workflow_tuple=None):
+    def clip_encode(self, clip, concept_data, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, workflow_tuple=None):
         model_concept = concept_data.get('model_concept', 'SD1')
-
-        clip_mode_default = ['PixartSigma', 'StableCascade', 'Hunyuan', 'SD3', 'Hyper', 'Pony', 'AuraFlow']
-        if model_concept in clip_mode_default:
-            clip_mode = True
-            clip_model = 'Default'
-            longclip_model = 'Default'
 
         advanced_default = ['StableCascade', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
         if model_concept in advanced_default:
             adv_encode = False
-
-        if model_concept == 'Flux':
-            last_layer = 0
-            clip_model = 'Default'
 
         positive_text, negative_text, t5xxl_prompt, positive_l, negative_l = clipping.build_prompt_context(
             model_concept, positive_prompt, negative_prompt,
@@ -1228,36 +1215,7 @@ class PrimereCLIP:
             embedding_pos, embedding_neg,
         )
 
-        if clip_mode == False:
-            if longclip_model == 'Default':
-                longclip_model = 'longclip-L.pt'
-
-            LONGCLIPL_PATH = os.path.join(folder_paths.models_dir, 'clip')
-            if os.path.exists(LONGCLIPL_PATH) == False:
-                Path(LONGCLIPL_PATH).mkdir(parents=True, exist_ok=True)
-            clipFiles = folder_paths.get_filename_list("clip")
-
-            if longclip_model not in clipFiles and longclip_model == 'Default':
-                FileUrl = 'https://huggingface.co/BeichenZhang/LongCLIP-L/resolve/main/longclip-L.pt?download=true'
-                FullFilePath = os.path.join(LONGCLIPL_PATH, 'longclip-L.pt')
-                ModelDownload = utility.downloader(FileUrl, FullFilePath)
-                if (ModelDownload == True):
-                    clipFiles = folder_paths.get_filename_list("clip")
-
-            # if longclip_model in clipFiles:
-            #   clip = long_clip.SDLongClip.sd_longclip(self, longclip_model)[0]
-            #   adv_encode = False
-
-        if (last_layer < 0):
-            clip = nodes.CLIPSetLastLayer.set_last_layer(self, clip, last_layer)[0]
-
         match model_concept:
-            case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'AuraFlow' | 'Z-Image' | 'LCM' | 'Hyper' | 'Lightning' | 'Turbo' | 'Playground' | 'Pony':
-                if clip_model != 'Default' and clip_mode == True:
-                    clip_path = folder_paths.get_full_path("clip", clip_model)
-                    if clip_path is not None:
-                        clip = nodes.CLIPLoader.load_clip(self, clip_model, 'stable_diffusion')[0]
-                return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode)
             case 'SD3':
                 return clipping.encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
             case 'StableCascade':
@@ -1266,6 +1224,9 @@ class PrimereCLIP:
                 return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple)
             case 'PixartSigma':
                 return clipping.encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple)
+            case _:
+                clip = clipping.apply_clip_overrides(self, clip, workflow_tuple)
+                return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT", "STRING")
