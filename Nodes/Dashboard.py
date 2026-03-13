@@ -895,6 +895,10 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, concept_data)
             case 'AuraFlow':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_auraflow_model(self, ckpt_name, concept_data)
+            case 'SANA1024' | 'SANA512':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, concept_data)
+            case 'KwaiKolors':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, concept_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1224,6 +1228,10 @@ class PrimereCLIP:
                 return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple)
             case 'PixartSigma':
                 return clipping.encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple)
+            case 'SANA1024' | 'SANA512':
+                return clipping.encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+            case 'KwaiKolors':
+                return clipping.encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
             case _:
                 clip = clipping.apply_clip_overrides(self, clip, workflow_tuple)
                 return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode)
