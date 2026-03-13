@@ -691,43 +691,19 @@ def encode_chroma(clip, positive_text, negative_text, workflow_tuple):
     return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
 
 
-def encode_flux(self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple, enhanced_prompt_usage):
+def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     FLUX_SAMPLER = workflow_tuple.get('sampler', 'ksampler')
     FLUX_GUIDANCE = workflow_tuple.get('guidance', 2)
-
-    print('-------------------------------')
-    print(FLUX_SAMPLER)
-    print('-------------------------------')
-    print(FLUX_GUIDANCE)
-    print(positive_text)
-    print(negative_text)
-    print('-------------------------------')
-    print(workflow_tuple)
-    print('-------------------------------')
-
-    if FLUX_SAMPLER == 'ksampler':
+    if FLUX_SAMPLER == 'custom_advanced' and len(t5xxl_prompt) > 5:
         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
-            CONDITIONING_NEG = CONDITIONING_POS
-        else:
-            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
-        return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-    else:
-        if (enhanced_prompt_usage == 'T5-XXL' or style_handling == True) and len(t5xxl_prompt) > 5:
-            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-            return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
-        else:
-            encoders = workflow_tuple.get('encoders')
-            clip = nodes.DualCLIPLoader.load_clip(self, encoders[0], encoders[1], 'flux')[0]
-            tokens_pos = clip.tokenize(positive_text)
-            tokens_neg = clip.tokenize(negative_text)
-            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
-            out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
-
-            cond_pos = out_pos.pop("cond")
-            cond_neg = out_neg.pop("cond")
-
-            return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    tokens_pos = clip.tokenize(positive_text)
+    tokens_neg = clip.tokenize(negative_text)
+    out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+    cond_pos = out_pos.pop("cond")
+    cond_neg = out_neg.pop("cond")
+    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
 
 _SANA_MAX_TOKENS = 300
@@ -844,9 +820,9 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tup
 
 def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     if clip['t5'] is not None:
-        positive_text = utility.DiT_cleaner(positive_text, 0)
-        negative_text = utility.DiT_cleaner(negative_text, 0)
-        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt, 0)
+        positive_text = utility.DiT_cleaner(positive_text)
+        negative_text = utility.DiT_cleaner(negative_text)
+        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
         pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
         neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
         return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)

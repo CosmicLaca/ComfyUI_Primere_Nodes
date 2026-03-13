@@ -1236,7 +1236,7 @@ class PrimereCLIP:
             case 'StableCascade':
                 return clipping.encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple)
             case 'Flux':
-                return clipping.encode_flux(self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple, enhanced_prompt_usage)
+                return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
             case 'PixartSigma':
                 return clipping.encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple)
             case 'SANA1024' | 'SANA512':
