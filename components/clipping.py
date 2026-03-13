@@ -691,22 +691,43 @@ def encode_chroma(clip, positive_text, negative_text, workflow_tuple):
     return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
 
 
-def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple):
-    positive_text = utility.DiT_cleaner(positive_text)
-    negative_text = utility.DiT_cleaner(negative_text)
+def encode_flux(self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple, enhanced_prompt_usage):
+    FLUX_SAMPLER = workflow_tuple.get('sampler', 'ksampler')
+    FLUX_GUIDANCE = workflow_tuple.get('guidance', 2)
 
-    flux_sampler = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
-    flux_guidance = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0
-    if flux_sampler == 'ksampler':
-        cond_pos = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, flux_guidance)[0]
-        if concept_data is not None and float(concept_data.get('cfg', 2.0)) < 1.2:
-            cond_neg = cond_pos
+    print('-------------------------------')
+    print(FLUX_SAMPLER)
+    print('-------------------------------')
+    print(FLUX_GUIDANCE)
+    print(positive_text)
+    print(negative_text)
+    print('-------------------------------')
+    print(workflow_tuple)
+    print('-------------------------------')
+
+    if FLUX_SAMPLER == 'ksampler':
+        CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+        if workflow_tuple is not None and 'cfg' in workflow_tuple and int(workflow_tuple['cfg']) < 1.2:
+            CONDITIONING_NEG = CONDITIONING_POS
         else:
-            cond_neg = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, flux_guidance)[0]
-        return (cond_pos, cond_neg, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+            CONDITIONING_NEG = nodes_flux.CLIPTextEncodeFlux.execute(clip, negative_text, negative_text, FLUX_GUIDANCE)[0]
+        return (CONDITIONING_POS, CONDITIONING_NEG, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
     else:
-        cond_pos = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, flux_guidance)[0]
-        return (cond_pos, cond_pos, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        if (enhanced_prompt_usage == 'T5-XXL' or style_handling == True) and len(t5xxl_prompt) > 5:
+            CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
+            return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        else:
+            encoders = workflow_tuple.get('encoders')
+            clip = nodes.DualCLIPLoader.load_clip(self, encoders[0], encoders[1], 'flux')[0]
+            tokens_pos = clip.tokenize(positive_text)
+            tokens_neg = clip.tokenize(negative_text)
+            out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+            out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+
+            cond_pos = out_pos.pop("cond")
+            cond_neg = out_neg.pop("cond")
+
+            return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
 
 
 _SANA_MAX_TOKENS = 300
@@ -729,10 +750,6 @@ def _sana_encode_text(tokenizer, text_encoder, text, device):
 
 
 def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
-    positive_text = utility.DiT_cleaner(positive_text)
-    negative_text = utility.DiT_cleaner(negative_text)
-    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
-
     scheduler_name = workflow_tuple.get('scheduler_name', 'flow_dpm-solver') if workflow_tuple else 'flow_dpm-solver'
     device = model_management.get_torch_device()
 
@@ -767,8 +784,6 @@ def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prom
         edit_image_list = [edit_image_list]
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
-    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
-
     conditioning = utility.edit_encoder(clip, positive_text, edit_vae, edit_image_list)
     tokens_neg = clip.tokenize(negative_text, images=[])
     conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
@@ -778,9 +793,8 @@ def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prom
 def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
-    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
-
     device = model_management.text_encoder_device()
+
     try:
         model_management.unload_all_models()
         model_management.soft_empty_cache()
@@ -830,9 +844,9 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tup
 
 def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     if clip['t5'] is not None:
-        positive_text = utility.DiT_cleaner(positive_text)
-        negative_text = utility.DiT_cleaner(negative_text)
-        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
+        positive_text = utility.DiT_cleaner(positive_text, 0)
+        negative_text = utility.DiT_cleaner(negative_text, 0)
+        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt, 0)
         pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
         neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
         return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
