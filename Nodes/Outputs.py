@@ -638,6 +638,10 @@ class PrimereKSampler:
                                                         0, variation_batch_step_original, batch_counter, variation_extender_original, 0, False, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None)[0]
 
+            case 'Chroma':
+                align_your_steps = False
+                samples_out = primeresamplers.PSamplerChroma(self, model, seed, cfg, positive, negative, scheduler_name, sampler_name, steps, denoise, latent_image)[0]
+
             case 'Z-Image':
                 align_your_steps = False
                 model = nodes_model_advanced.ModelSamplingSD3.patch(self, model, 2.8, 1.0)[0]

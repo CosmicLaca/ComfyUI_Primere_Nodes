@@ -221,6 +221,14 @@ def PSamplerAdvanced(self, model, seed, guidance, positive, scheduler_name, samp
     samples = (nodes_custom_sampler.SamplerCustomAdvanced.execute(FLUX_NOISE, FLUX_GUIDER, sampler_object, FLUX_SIGMAS, latent_image)[0],)
     return samples
 
+def PSamplerChroma(self, model, seed, cfg, positive, negative, scheduler_name, sampler_name, steps, denoise, latent_image):
+    guider = nodes_custom_sampler.CFGGuider.execute(model, positive, negative, cfg)[0]
+    sigmas = nodes_custom_sampler.BasicScheduler.execute(model, scheduler_name, steps, denoise=denoise)[0]
+    sampler = nodes_custom_sampler.KSamplerSelect.execute(sampler_name)[0]
+    noise = nodes_custom_sampler.RandomNoise.execute(seed)[0]
+    samples = (nodes_custom_sampler.SamplerCustomAdvanced.execute(noise, guider, sampler, sigmas, latent_image)[0],)
+    return samples
+
 def PSamplerSD3(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling = 2.5, multiplier = 1000):
     sd3sampling = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, multiplier)[0]
     samples = nodes.KSampler.sample(self, sd3sampling, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)

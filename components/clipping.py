@@ -681,6 +681,16 @@ def encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple):
     return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, "", "", "", workflow_tuple)
 
 
+def encode_chroma(clip, positive_text, negative_text, workflow_tuple):
+    tokens_pos = clip.tokenize(positive_text)
+    tokens_neg = clip.tokenize(negative_text)
+    out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+    cond_pos = out_pos.pop("cond")
+    cond_neg = out_neg.pop("cond")
+    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
+
+
 def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple):
     flux_sampler = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
     flux_guidance = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0

@@ -574,3 +574,39 @@ def load_qwen_model(loader_self, ckpt_name, concept_data):
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
+def load_chroma_model(loader_self, ckpt_name, concept_data):
+    weight_dtype = concept_data.get('weight_dtype', 'default')
+    is_gguf_model = False
+    File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
+    if File_link:
+        if 'diffusion_models' in str(File_link) or 'unet' in str(File_link):
+            if model_ext == '.gguf':
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+                is_gguf_model = True
+            else:
+                try:
+                    OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
+                except Exception:
+                    OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
+        else:
+            OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, linkedFileName)[0]
+    else:
+        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
+    encoder_1 = concept_data.get('encoder_1', None)
+    clip_ext_1 = os.path.splitext(encoder_1)[1].lower() if encoder_1 else ''
+    if is_gguf_model or clip_ext_1 == '.gguf':
+        OUTPUT_CLIP = gguf_nodes.CLIPLoaderGGUF.load_clip(loader_self, encoder_1, 'chroma')[0]
+    else:
+        OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'chroma')[0]
+    OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
+    lora_name, lora_strength = pick_lora(concept_data)
+    if lora_name:
+        lora_path = folder_paths.get_full_path('loras', lora_name)
+        if lora_path:
+            OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
+    rescale_cfg = concept_data.get('rescale_cfg', 1.0)
+    if rescale_cfg != 1.0:
+        OUTPUT_MODEL = nodes_model_advanced.RescaleCFG.patch(loader_self, OUTPUT_MODEL, rescale_cfg)[0]
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+

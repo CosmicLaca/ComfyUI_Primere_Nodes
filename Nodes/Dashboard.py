@@ -908,6 +908,8 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, concept_data)
             case 'QwenGen' | 'QwenEdit':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, concept_data)
+            case 'Chroma':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_chroma_model(self, ckpt_name, concept_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1245,6 +1247,8 @@ class PrimereCLIP:
                 return clipping.encode_hunyuan(self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
             case 'QwenEdit':
                 return clipping.encode_qwen_edit(self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, workflow_tuple)
+            # case 'Chroma':
+            #    return clipping.encode_chroma(clip, positive_text, negative_text, workflow_tuple)
             case _:
                 clip = clipping.apply_clip_overrides(self, clip, workflow_tuple)
                 return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode)
