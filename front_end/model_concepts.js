@@ -38,12 +38,12 @@ function collectNodeData(node, includeLoraToggles = false) {
     return data;
 }
 
-async function loadConceptValues(node, key) {
+async function loadConceptValues(node, key, silent = false) {
     let data;
     try {
         const response = await fetch(CONCEPT_JSON_URL + "?t=" + Date.now());
         if (!response.ok) {
-            showToast("error", `No saved settings found. Save settings for "${key}" first.`);
+            if (!silent) showToast("error", `No saved settings found. Save settings for "${key}" first.`);
             return;
         }
         data = await response.json();
@@ -52,7 +52,7 @@ async function loadConceptValues(node, key) {
     }
 
     if (!data[key]) {
-        showToast("error", `No saved settings for "${key}".`);
+        if (!silent) showToast("error", `No saved settings for "${key}".`);
         return;
     }
 
@@ -74,7 +74,8 @@ async function loadConceptValues(node, key) {
         if (stepMatch) {
             const stepsWidget = node.widgets?.find((w) => w.name === "steps");
             if (stepsWidget) {
-                stepsWidget.value = parseInt(stepMatch[1], 10);
+                const offset = saved.speed_lora_steps_offset ?? 0;
+                stepsWidget.value = Math.max(1, parseInt(stepMatch[1], 10) + offset);
                 stepsWidget.callback?.(stepsWidget.value);
             }
         }
@@ -142,6 +143,12 @@ function initializeSamplerNode(node) {
         originalOnWidgetChanged?.call(this, name, value, oldValue, widget);
         if (name === "concepts" && value !== "Auto") {
             loadConceptValues(this, value);
+        }
+        if (name === "models" && value !== "Auto") {
+            const conceptsWidget = this.widgets?.find((w) => w.name === "concepts");
+            if (conceptsWidget?.value === "Auto") {
+                loadConceptValues(this, modelNameToKey(value), true);
+            }
         }
     };
 

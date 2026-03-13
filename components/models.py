@@ -7,6 +7,7 @@ import folder_paths
 import nodes
 import comfy_extras.nodes_sd3 as nodes_sd3
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
+import comfy_extras.nodes_cfg as nodes_cfg
 from comfy import model_management
 from pathlib import Path
 from .tree import PRIMERE_ROOT
@@ -19,6 +20,9 @@ import numpy as np
 import pyrallis
 from ComfyUI_ExtraModels.PixArt.loader import load_pixart
 from ComfyUI_ExtraModels.PixArt.conf import pixart_conf
+from ComfyUI_ExtraModels.HunYuanDiT.conf import hydit_conf
+from ComfyUI_ExtraModels.HunYuanDiT.loader import load_hydit
+from ComfyUI_ExtraModels.HunYuanDiT.tenc import load_clip as load_hydit_clip, load_t5 as load_hydit_t5
 from diffusers import UNet2DConditionModel, EulerDiscreteScheduler
 from .kolors.pipelines.pipeline_stable_diffusion_xl_chatglm_256 import StableDiffusionXLPipeline
 from .kolors.models.tokenization_chatglm import ChatGLMTokenizer
@@ -492,3 +496,81 @@ def load_kolors_model(loader_self, ckpt_name, concept_data):
     OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
 
     return KOLORS_MODEL, CHATGLM3_MODEL, OUTPUT_VAE
+
+
+def load_hunyuan_model(loader_self, ckpt_name, concept_data):
+    vae_name = concept_data.get('vae')
+    encoder_1 = concept_data.get('encoder_1')
+    encoder_2 = concept_data.get('encoder_2')
+    weight_dtype = concept_data.get('weight_dtype', 'fp32')
+
+    HUNYUAN_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+    T5 = None
+
+    try:
+        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
+        HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
+        CLIP = LOADED_CHECKPOINT[1]
+    except Exception:
+        ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+        HUNYUAN_MODEL = load_hydit(model_path=ckpt_path, model_conf=hydit_conf['G/2-1.2'])
+
+        dtype = string_to_dtype(weight_dtype, "text_encoder")
+        CLIP = load_hydit_clip(
+            model_path=folder_paths.get_full_path("clip", encoder_2),
+            device='GPU',
+            dtype=dtype,
+        )
+
+        if encoder_1:
+            t5_path = folder_paths.get_full_path("clip", encoder_1)
+            if t5_path is None:
+                t5_path = folder_paths.get_full_path("text_encoders", encoder_1)
+            if t5_path:
+                T5 = load_hydit_t5(model_path=t5_path, device='GPU', dtype=dtype)
+
+    return HUNYUAN_MODEL, {'clip': CLIP, 't5': T5}, HUNYUAN_VAE
+
+
+def load_qwen_model(loader_self, ckpt_name, concept_data):
+    model_concept = concept_data.get('model_concept', 'QwenGen')
+    weight_dtype = concept_data.get('weight_dtype', 'default')
+    encoder_1 = concept_data.get('encoder_1')
+    vae_name = concept_data.get('vae')
+
+    if 'e4m3fn' in ckpt_name:
+        weight_dtype = 'fp8_e4m3fn'
+    elif 'e5m2' in ckpt_name:
+        weight_dtype = 'fp8_e5m2'
+
+    File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
+    if File_link:
+        if 'diffusion_models' in str(File_link) or 'unet' in str(File_link):
+            if model_ext == '.gguf':
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+            else:
+                try:
+                    OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
+                except Exception:
+                    OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
+        else:
+            OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
+    else:
+        OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
+
+    OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'qwen_image')[0]
+    OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
+
+    lora_name, lora_strength = pick_lora(concept_data)
+    if lora_name:
+        lora_path = folder_paths.get_full_path('loras', lora_name)
+        if lora_path:
+            OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
+
+    if model_concept == 'QwenEdit':
+        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingSD3.patch(loader_self, OUTPUT_MODEL, 3, 1.0)[0]
+        OUTPUT_MODEL = nodes_cfg.CFGNorm.execute(OUTPUT_MODEL, 1)[0]
+
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+
+
