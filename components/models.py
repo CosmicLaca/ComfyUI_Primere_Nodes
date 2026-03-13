@@ -208,9 +208,7 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
-        lora_path = folder_paths.get_full_path('loras', lora_name)
-        if lora_path:
-            OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
+        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_name), lora_strength)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -469,7 +467,7 @@ def load_kolors_model(loader_self, ckpt_name, concept_data):
     model_path = os.path.join(folder_paths.models_dir, "diffusers", model_name)
     pbar = comfy.utils.ProgressBar(4)
     scheduler = EulerDiscreteScheduler.from_pretrained(model_path, subfolder='scheduler')
-    unet = UNet2DConditionModel.from_pretrained(model_path, subfolder='unet', variant="fp16", revision=None, low_cpu_mem_usage=True).to(dtype).eval()
+    unet = UNet2DConditionModel.from_pretrained(model_path, subfolder='unet', variant="fp16", revision=None, low_cpu_mem_usage=True, torch_dtype=dtype).eval()
     pipeline = StableDiffusionXLPipeline(unet=unet, scheduler=scheduler)
     KOLORS_MODEL = {'pipeline': pipeline, 'dtype': dtype}
     pbar.update(1)

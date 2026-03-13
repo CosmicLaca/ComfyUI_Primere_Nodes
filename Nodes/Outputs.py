@@ -764,6 +764,7 @@ class PrimerePreviewImage():
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
                 "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
                 "embed_metadata": ("BOOLEAN", {"default": False, "label_on": "Embed metadata", "label_off": "No metadata"}),
+                # "auto_save_path": ("BOOLEAN", {"default": False, "label_on": "Comfy output folder", "label_off": "Temp folder, will be deleted"}),
             },
             "optional": {
                 "images": ("IMAGE", {"default": None}),
@@ -777,7 +778,7 @@ class PrimerePreviewImage():
             },
         }
 
-    def preview_img_saver(self, image_save_as, image_type, image_resize, image_quality, preview_target, preview_save_mode, embed_metadata, images=None, image_metadata=None, **kwargs):
+    def preview_img_saver(self, image_save_as, image_type, image_resize, image_quality, preview_target, preview_save_mode, embed_metadata, auto_save_path = False, images=None, image_metadata=None, **kwargs):
         self.output_dir = folder_paths.get_output_directory()
         self.type = "output"
 
@@ -838,6 +839,7 @@ class PrimerePreviewImage():
             elif image_metadata is None and kwargs.get('extra_pnginfo') is not None:
                 extra_pnginfo_embed = kwargs.get('extra_pnginfo')
 
+        # if auto_save_path:
         results = nodes.SaveImage.save_images(self, images, filename_prefix="ComfyUI", prompt=prompt_embed, extra_pnginfo=extra_pnginfo_embed)
         ui_images = results.get('ui', {}).get('images', [])
         VISUAL_DATA['SaveImages'] = ui_images

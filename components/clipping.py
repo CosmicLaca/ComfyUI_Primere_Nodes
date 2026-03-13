@@ -692,6 +692,9 @@ def encode_chroma(clip, positive_text, negative_text, workflow_tuple):
 
 
 def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, concept_data, workflow_tuple):
+    positive_text = utility.DiT_cleaner(positive_text)
+    negative_text = utility.DiT_cleaner(negative_text)
+
     flux_sampler = concept_data.get('sampler', 'ksampler') if concept_data else 'ksampler'
     flux_guidance = float(concept_data.get('guidance', 2.0)) if concept_data else 2.0
     if flux_sampler == 'ksampler':
@@ -726,6 +729,10 @@ def _sana_encode_text(tokenizer, text_encoder, text, device):
 
 
 def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
+    positive_text = utility.DiT_cleaner(positive_text)
+    negative_text = utility.DiT_cleaner(negative_text)
+    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
+
     scheduler_name = workflow_tuple.get('scheduler_name', 'flow_dpm-solver') if workflow_tuple else 'flow_dpm-solver'
     device = model_management.get_torch_device()
 
@@ -760,6 +767,8 @@ def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prom
         edit_image_list = [edit_image_list]
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
+    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
+
     conditioning = utility.edit_encoder(clip, positive_text, edit_vae, edit_image_list)
     tokens_neg = clip.tokenize(negative_text, images=[])
     conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
@@ -769,8 +778,9 @@ def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prom
 def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
-    device = model_management.text_encoder_device()
+    t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
 
+    device = model_management.text_encoder_device()
     try:
         model_management.unload_all_models()
         model_management.soft_empty_cache()
@@ -820,9 +830,9 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tup
 
 def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
     if clip['t5'] is not None:
-        positive_text = utility.DiT_cleaner(positive_text, 0)
-        negative_text = utility.DiT_cleaner(negative_text, 0)
-        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt, 0)
+        positive_text = utility.DiT_cleaner(positive_text)
+        negative_text = utility.DiT_cleaner(negative_text)
+        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
         pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
         neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
         return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
