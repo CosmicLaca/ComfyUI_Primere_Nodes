@@ -136,13 +136,13 @@ class MiniPreviewControl {
                 const previewBox = document.querySelector('div#primere_previewbox');
                 const btn = node.widgets.find(w => w.type === 'button');
                 if (!previewBox || previewBox.style.display === 'none') {
-                    if (pos[1] >= btn.last_y && pos[1] <= btn.last_y + 30) {
+                    if (pos[1] >= btn.last_y && pos[1] <= btn.last_y + 30 && pos[0] >= 14 && pos[0] <= 160) {
                         showPreviewIfExist(node, event.clientX, event.clientY);
                     } else {
                         checkPreviewExample();
                     }
                 } else {
-                    if (pos[1] <= btn.last_y || pos[1] >= btn.last_y + 30) {
+                    if (pos[1] <= btn.last_y || pos[1] >= btn.last_y + 30 || pos[0] <= 14 || pos[0] >= 160) {
                         checkPreviewExample();
                     }
                 }
@@ -280,6 +280,8 @@ function VisualDataReceiver(event) {
 
     const state = ensureNodeState(targetNode);
     state.workflowData = data;
+
+    if (data['ImagePath']) ImagePath = data['ImagePath'];
 
     const imgs = data['SaveImages'];
     if (!imgs || imgs.length === 0) return;

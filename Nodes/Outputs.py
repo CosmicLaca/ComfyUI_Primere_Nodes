@@ -764,7 +764,7 @@ class PrimerePreviewImage():
                 "preview_target": (['Checkpoint', 'CSV Prompt', 'Lora', 'Lycoris', 'Hypernetwork', 'Embedding'],),
                 "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
                 "embed_metadata": ("BOOLEAN", {"default": False, "label_on": "Embed metadata", "label_off": "No metadata"}),
-                # "auto_save_path": ("BOOLEAN", {"default": False, "label_on": "Comfy output folder", "label_off": "Temp folder, will be deleted"}),
+                "auto_save_path": ("BOOLEAN", {"default": False, "label_on": "Comfy output folder", "label_off": "Temp folder, will be deleted"}),
             },
             "optional": {
                 "images": ("IMAGE", {"default": None}),
@@ -779,8 +779,9 @@ class PrimerePreviewImage():
         }
 
     def preview_img_saver(self, image_save_as, image_type, image_resize, image_quality, preview_target, preview_save_mode, embed_metadata, auto_save_path = False, images=None, image_metadata=None, **kwargs):
-        self.output_dir = folder_paths.get_output_directory()
-        self.type = "output"
+        if auto_save_path:
+            self.output_dir = folder_paths.get_output_directory()
+            self.type = "output"
 
         if images is None or type(images).__name__ != "Tensor":
             INVALID_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
@@ -839,11 +840,20 @@ class PrimerePreviewImage():
             elif image_metadata is None and kwargs.get('extra_pnginfo') is not None:
                 extra_pnginfo_embed = kwargs.get('extra_pnginfo')
 
-        # if auto_save_path:
-        results = nodes.SaveImage.save_images(self, images, filename_prefix="ComfyUI", prompt=prompt_embed, extra_pnginfo=extra_pnginfo_embed)
+        if auto_save_path:
+            results = nodes.SaveImage.save_images(self, images, filename_prefix="Primere_ComfyUI", prompt=prompt_embed, extra_pnginfo=extra_pnginfo_embed)
+        else:
+            r1 = random.randint(1000, 9999)
+            temp_filename = f"Primere_ComfyUI_{r1}.png"
+            os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
+            TEMP_FILE = os.path.join(folder_paths.get_temp_directory(), temp_filename)
+            utility.tensor_to_image(images[0]).save(TEMP_FILE)
+            results = {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": ()}
+
         ui_images = results.get('ui', {}).get('images', [])
         VISUAL_DATA['SaveImages'] = ui_images
         VISUAL_DATA['node_id'] = kwargs.get('id')
+        VISUAL_DATA['ImagePath'] = folder_paths.get_output_directory() if auto_save_path else folder_paths.get_temp_directory()
         PromptServer.instance.send_sync("getVisualTargets", VISUAL_DATA)
 
         return results
