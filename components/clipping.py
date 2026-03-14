@@ -7,6 +7,7 @@ from comfy import model_management
 import comfy
 import comfy_extras.nodes_sd3 as nodes_sd3
 import comfy_extras.nodes_flux as nodes_flux
+import comfy_extras.nodes_attention_multiply as nodes_attention_multiply
 from . import utility
 import nodes
 from ..Nodes.modules import long_clip as long_clip_module
@@ -557,6 +558,22 @@ def build_prompt_context(
 
 SDXL_CONCEPTS = {'SDXL', 'Illustrious', 'Pony', 'Playground'}
 
+CLIP_ATTN_PRESETS = {
+    "Off":              (1.00, 1.00, 1.00, 1.00),
+    "Natural":          (1.00, 1.02, 0.98, 1.00),
+    "Realism":          (1.00, 1.05, 0.95, 1.00),
+    "Photography":      (1.02, 1.05, 0.93, 0.98),
+    "Cinematic":        (1.05, 1.05, 1.00, 0.95),
+    "Portrait":         (1.03, 1.08, 0.92, 0.97),
+    "Art":              (0.95, 0.95, 1.10, 1.05),
+    "Illustration":     (0.90, 1.00, 1.15, 1.00),
+    "Anime":            (0.88, 0.95, 1.18, 1.05),
+    "Prompt adherence": (1.10, 1.10, 1.00, 1.00),
+    "Abstract":         (0.85, 0.88, 1.18, 1.12),
+    "Creative":         (0.85, 0.90, 1.20, 1.10),
+    "Surreal":          (0.80, 0.85, 1.25, 1.15),
+}
+
 def apply_clip_overrides(loader_self, clip, workflow_tuple):
     if not workflow_tuple:
         return clip
@@ -584,6 +601,21 @@ def apply_clip_overrides(loader_self, clip, workflow_tuple):
         clip = nodes.CLIPSetLastLayer.set_last_layer(loader_self, clip, last_layer)[0]
 
     return clip
+
+
+def apply_clip_attention_multiply(clip, workflow_tuple):
+    if not workflow_tuple:
+        return clip
+    q = float(workflow_tuple.get('clip_attn_q', 1.0))
+    k = float(workflow_tuple.get('clip_attn_k', 1.0))
+    v = float(workflow_tuple.get('clip_attn_v', 1.0))
+    out = float(workflow_tuple.get('clip_attn_out', 1.0))
+    if q == 1.0 and k == 1.0 and v == 1.0 and out == 1.0:
+        return clip
+    try:
+        return nodes_attention_multiply.CLIPAttentionMultiply.execute(clip, q, k, v, out)[0]
+    except Exception:
+        return clip
 
 
 def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode_fn):
