@@ -54,6 +54,42 @@ function apiPost(endpoint, eventName, params = {}) {
     });
 }
 
+const BADGE_OVERRIDES = {
+    'SD1': 'SD 1.x', 'SD2': 'SD 2.x', 'SD3': 'SD 3.x',
+    'StableCascade': 'Cascade', 'KwaiKolors': 'Kolors',
+    'StableAudio': 'S.Audio', 'Playground': 'PG', 'PixartSigma': 'Σ',
+    'Illustrious': 'Ill', 'Unknown': '?',
+};
+
+function typeHash(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) h = (h * 33 ^ str.charCodeAt(i)) >>> 0;
+    return h;
+}
+
+function badgeLabel(type) {
+    if (BADGE_OVERRIDES[type]) return BADGE_OVERRIDES[type];
+    return type.length < 10 ? type : type.substring(0, 6);
+}
+
+function injectTypeStyles(types) {
+    const existing = document.getElementById('primere-type-styles');
+    if (existing) existing.remove();
+    const rules = types.map(type => {
+        const h = typeHash(type);
+        const hue = h % 360;
+        const satBg    = 30 + (h >> 4)  % 20;
+        const satBadge = 45 + (h >> 8)  % 20;
+        const label = badgeLabel(type).replace(/'/g, "\\'");
+        return `#primere_visual_modal .background-${type}{background:hsl(${hue},${satBg}%,80%);}` +
+               `#primere_visual_modal .ckpt-version.${type}-ckpt::before{content:'${label}';background:hsl(${hue},${satBadge}%,22%);color:#ffffff;}`;
+    }).join('\n');
+    const style = document.createElement('style');
+    style.id = 'primere-type-styles';
+    style.textContent = rules;
+    document.head.appendChild(style);
+}
+
 const categoryHandler      = (setupValue, method, setupKey) => apiPost('/primere_category_handler',  'LastCategoryResponse',   { setupValue, setupMethod: method, setupKey });
 const getSupportedModels   = ()                              => apiPost('/primere_supported_models',  'SupportedModelsResponse', { models: 'get' });
 const getAllPath            = (sourceType)                   => apiPost('/primere_modelpaths',         'AllPathResponse',         { sourceType });
@@ -526,6 +562,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
     state.ModelsByVersion = {};
     if (ModelType != 'styles') {
         state.supportedModels = await getSupportedModels();
+        injectTypeStyles(state.supportedModels);
         state.ModelsByVersion = await getModelData(state.cache_key + '_version');
         state.VersionCacheData = await getCacheByKey(state.cache_key + '_version');
     }
