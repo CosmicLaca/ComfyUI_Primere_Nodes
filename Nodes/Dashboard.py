@@ -709,7 +709,7 @@ class PrimereModelControl:
                 "encoder_2": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
                 "encoder_3": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
 
-                "attn_preset": (["Custom", "Auto"] + list(clipping.ATTN_PRESETS.keys()), {"default": "Off"}),
+                "attn_preset": (["Custom"] + list(clipping.ATTN_PRESETS.keys()), {"default": "Off"}),
                 "attn_query": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_key": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_value": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
@@ -718,6 +718,7 @@ class PrimereModelControl:
                 "attn_cross_key": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_cross_value": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_cross_output": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_expander": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 3.00, "step": 0.01}),
 
                 "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
                 "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
@@ -831,6 +832,7 @@ class PrimereModelControl:
         attn_cross_key = kwargs.pop('attn_cross_key', 1.0)
         attn_cross_value = kwargs.pop('attn_cross_value', 1.0)
         attn_cross_output = kwargs.pop('attn_cross_output', 1.0)
+        attn_expander = kwargs.pop('attn_expander', 1.0)
         if attn_preset == 'Auto':
             attn_preset = clipping.detect_attn_preset(model_name)
             attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out = clipping.ATTN_PRESETS.get(attn_preset, (1.0,)*8)
@@ -839,6 +841,11 @@ class PrimereModelControl:
             cross_q, cross_k, cross_v, cross_out = attn_cross_query, attn_cross_key, attn_cross_value, attn_cross_output
         else:
             attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out = clipping.ATTN_PRESETS.get(attn_preset, (1.0,)*8)
+        if attn_expander != 1.0:
+            attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out = (
+                round(1.0 + (v - 1.0) * attn_expander, 2)
+                for v in (attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out)
+            )
         suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
         kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
         kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]
@@ -1180,6 +1187,16 @@ class PrimereFractalLatent:
 
         return {'samples': latents}, tensors, control_data
 
+CLIP_SAVE_KEYS = frozenset({
+    'negative_strength', 'adv_encode', 'token_normalization', 'weight_interpretation',
+    'use_int_style', 'int_style_pos', 'int_style_pos_strength', 'int_style_neg', 'int_style_neg_strength',
+    'enhanced_prompt_usage', 'enhanced_prompt_strength',
+    'opt_pos_strength', 'opt_neg_strength',
+    'style_handling', 'style_position', 'style_swap',
+    'style_pos_strength', 'style_neg_strength',
+    'l_strength', 'width', 'height'
+})
+
 class PrimereCLIP:
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING", "STRING", "STRING", "STRING", "TUPLE")
     RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "T5XXL_PROMPT", "PROMPT L+", "PROMPT L-", "CONTROL_DATA")
@@ -1209,7 +1226,6 @@ class PrimereCLIP:
         return {
             "required": {
                 "clip": ("CLIP", {"forceInput": True}),
-                "control_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -1253,7 +1269,7 @@ class PrimereCLIP:
                 "l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
-                "control_data": ("TUPLE", {"default": None}),
+                "control_data": ("TUPLE", {"default": None, "forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -1261,7 +1277,53 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, control_data=None):
+    def clip_encode(self, clip, extra_pnginfo, prompt, control_data=None, **kwargs):
+        if control_data and control_data.get('exif_status') == 'SUCCEED':
+            if 'prompt_encoder' in control_data and control_data.get('setup_states', {}).get('clip_encoder_setup') == True:
+                kwargs.update(control_data['prompt_encoder'])
+
+        negative_strength = kwargs.get('negative_strength', 1.2)
+        use_int_style = kwargs.get('use_int_style', False)
+        int_style_pos = kwargs.get('int_style_pos', 'None')
+        int_style_pos_strength = kwargs.get('int_style_pos_strength', 1)
+        int_style_neg = kwargs.get('int_style_neg', 'None')
+        int_style_neg_strength = kwargs.get('int_style_neg_strength', 1)
+        adv_encode = kwargs.get('adv_encode', False)
+        token_normalization = kwargs.get('token_normalization', 'mean')
+        weight_interpretation = kwargs.get('weight_interpretation', 'comfy++')
+        enhanced_prompt_usage = kwargs.get('enhanced_prompt_usage', 'T5-XXL')
+        enhanced_prompt_strength = kwargs.get('enhanced_prompt_strength', 1)
+        style_handling = kwargs.get('style_handling', False)
+        style_position = kwargs.get('style_position', False)
+        style_swap = kwargs.get('style_swap', False)
+        opt_pos_strength = kwargs.get('opt_pos_strength', 1)
+        opt_neg_strength = kwargs.get('opt_neg_strength', 1)
+        style_pos_strength = kwargs.get('style_pos_strength', 1)
+        style_neg_strength = kwargs.get('style_neg_strength', 1)
+        l_strength = kwargs.get('l_strength', 1)
+        positive_prompt = kwargs.get('positive_prompt', '')
+        negative_prompt = kwargs.get('negative_prompt', '')
+        enhanced_prompt = kwargs.get('enhanced_prompt', '')
+        model_keywords = kwargs.get('model_keywords', None)
+        lora_keywords = kwargs.get('lora_keywords', None)
+        lycoris_keywords = kwargs.get('lycoris_keywords', None)
+        embedding_pos = kwargs.get('embedding_pos', None)
+        embedding_neg = kwargs.get('embedding_neg', None)
+        opt_pos_prompt = kwargs.get('opt_pos_prompt', '')
+        opt_neg_prompt = kwargs.get('opt_neg_prompt', '')
+        style_pos_prompt = kwargs.get('style_pos_prompt', '')
+        style_neg_prompt = kwargs.get('style_neg_prompt', '')
+        positive_l = kwargs.get('positive_l', '')
+        negative_l = kwargs.get('negative_l', '')
+        width = kwargs.get('width', 1024)
+        height = kwargs.get('height', 1024)
+        edit_image_list = kwargs.get('edit_image_list', None)
+        edit_vae = kwargs.get('edit_vae', None)
+
+        if control_data is not None:
+            _lv = locals()
+            control_data['prompt_encoder'] = {k: _lv[k] for k in CLIP_SAVE_KEYS}
+
         model_concept = control_data.get('model_concept', 'SD1')
 
         advanced_default = ['StableCascade', 'Chroma', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']

@@ -384,20 +384,16 @@ class PrimereMetaCollector:
 
     INPUT_DICT = {
         "required": {
-            "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
             "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing on the street of metropolis"}),
             "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
         }, "optional": {
-            "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
+            "positive_decoded": ('STRING', {"forceInput": True, "default": "Red sportcar racing on the street of metropolis"}),
+            "negative_decoded": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"}),
             "control_data": ("TUPLE", {"default": None, "forceInput": True}),
             "seed": ('INT', {"forceInput": True, "default": 1}),
             "t5_xxl_prompt": ('STRING', {"forceInput": True}),
             "positive_l": ('STRING', {"forceInput": True}),
             "negative_l": ('STRING', {"forceInput": True}),
-            "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
-            "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-            "cfg": ('FLOAT', {"forceInput": True, "default": 7}),
-            "steps": ('INT', {"forceInput": True, "default": 12}),
             "width": ('INT', {"forceInput": True, "default": 512}),
             "height": ('INT', {"forceInput": True, "default": 512}),
             "preferred": ("TUPLE", {"default": None, "forceInput": True}),
@@ -423,6 +419,10 @@ class PrimereMetaCollector:
                     data_json[key_l2] = default_value
                 else:
                     data_json[key_l2] = kwargs[key_l2]
+
+        nested_control = data_json.pop('control_data', None)
+        if nested_control and isinstance(nested_control, dict):
+            data_json.update(nested_control)
 
         return (data_json,)
 
@@ -979,6 +979,7 @@ class PrimereAestheticCKPTScorer:
                                         score = str(int(style_ascore_list[1]) + int(final_prediction))
                                         utility.add_value_to_cache('styles_ascores', selectedStyle, counter + '|' + score)
 
+        result_int = int(final_prediction) if final_prediction.isdigit() else 0
         if isinstance(final_prediction, str) and final_prediction.isdigit():
             if AE_SCORE_MIN is not None and AE_SCORE_MAX is not None:
                 final_prediction = max(0, min(100, int(((int(final_prediction) - AE_SCORE_MIN) / (AE_SCORE_MAX - AE_SCORE_MIN)) * 100)))
@@ -987,8 +988,7 @@ class PrimereAestheticCKPTScorer:
         else:
             final_prediction = '*** Aesthetic scorer error ***'
 
-        result_int = final_prediction if isinstance(final_prediction, int) else 0
-        return {"ui": {"text": [final_prediction]}, "result": (result_int,)}
+        return {"ui": {"text": [f'{result_int} / {final_prediction}%']}, "result": (result_int,)}
 
 class DebugToFile():
     CATEGORY = TREE_OUTPUTS
