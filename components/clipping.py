@@ -558,32 +558,55 @@ def build_prompt_context(
 
 SDXL_CONCEPTS = {'SDXL', 'Illustrious', 'Pony', 'Playground'}
 
-CLIP_ATTN_PRESETS = {
-    "Off":              (1.00, 1.00, 1.00, 1.00),
-    "Natural":          (1.00, 1.02, 0.98, 1.00),
-    "Realism":          (1.00, 1.05, 0.95, 1.00),
-    "Photography":      (1.02, 1.05, 0.93, 0.98),
-    "Cinematic":        (1.05, 1.05, 1.00, 0.95),
-    "Portrait":         (1.03, 1.08, 0.92, 0.97),
-    "Art":              (0.95, 0.95, 1.10, 1.05),
-    "Illustration":     (0.90, 1.00, 1.15, 1.00),
-    "Anime":            (0.88, 0.95, 1.18, 1.05),
-    "Prompt adherence": (1.10, 1.10, 1.00, 1.00),
-    "Abstract":         (0.85, 0.88, 1.18, 1.12),
-    "Creative":         (0.85, 0.90, 1.20, 1.10),
-    "Surreal":          (0.80, 0.85, 1.25, 1.15),
+# Unified preset: (q, k, v, out,  cross_q, cross_k, cross_v, cross_out)
+# First 4: applied to CLIP attention + UNet self-attention (attn1)
+# Last 4:  applied to UNet cross-attention (attn2) — ignored for clip-only models
+ATTN_PRESETS = {
+    "Off":              (1.00, 1.00, 1.00, 1.00,   1.00, 1.00, 1.00, 1.00),
+    "Natural":          (1.00, 1.02, 0.98, 1.00,   1.00, 1.02, 0.98, 1.00),
+    "Realism":          (1.00, 1.05, 0.95, 1.00,   1.05, 1.05, 0.95, 1.00),
+    "Photography":      (1.02, 1.05, 0.93, 0.98,   1.05, 1.05, 0.93, 0.98),
+    "Cinematic":        (1.05, 1.05, 1.00, 0.95,   1.05, 1.05, 1.00, 0.95),
+    "Portrait":         (1.03, 1.08, 0.92, 0.97,   1.05, 1.10, 0.90, 1.00),
+    "Art":              (0.95, 0.95, 1.10, 1.05,   0.90, 0.95, 1.10, 1.00),
+    "Illustration":     (0.90, 1.00, 1.15, 1.00,   0.90, 1.00, 1.15, 1.00),
+    "Anime":            (0.88, 0.95, 1.18, 1.05,   0.88, 0.95, 1.18, 1.00),
+    "Prompt adherence": (1.10, 1.10, 1.00, 1.00,   1.10, 1.10, 1.00, 1.00),
+    "Abstract":         (0.85, 0.88, 1.18, 1.12,   0.85, 0.88, 1.15, 1.05),
+    "Creative":         (0.85, 0.90, 1.20, 1.10,   0.85, 0.90, 1.15, 1.05),
 }
 
-def apply_clip_overrides(loader_self, clip, workflow_tuple):
-    if not workflow_tuple:
+ATTN_PRESET_KEYWORDS = {
+    'Anime':            ['anime', 'waifu', 'nai', 'hentai', 'manga'],
+    'Photography':      ['photo', 'realistic', 'realvis', 'realism'],
+    'Illustration':     ['illustration', 'illus', 'cartoon', 'draw'],
+    'Cinematic':        ['cinematic', 'film', 'movie', 'cinema'],
+    'Portrait':         ['portrait'],
+    'Art':              ['paint', 'artistic', 'watercolor'],
+    'Natural':          ['natural'],
+    'Abstract':         ['abstract', 'surreal'],
+}
+
+
+def detect_attn_preset(model_name, default='Off'):
+    if not model_name:
+        return default
+    name = model_name.lower().replace('\\', '/').split('/')[-1].split('.')[0]
+    for preset, keywords in ATTN_PRESET_KEYWORDS.items():
+        if any(kw in name for kw in keywords):
+            return preset
+    return default
+
+def apply_clip_overrides(loader_self, clip, control_data):
+    if not control_data:
         return clip
-    encoder_1 = workflow_tuple.get('encoder_1', None)
-    last_layer = int(workflow_tuple.get('last_layer', 0))
+    encoder_1 = control_data.get('encoder_1', None)
+    last_layer = int(control_data.get('last_layer', 0))
     baked_clip = clip
 
-    if encoder_1 and encoder_1 != 'None' and not workflow_tuple.get('clip_selection', False):
+    if encoder_1 and encoder_1 != 'None' and not control_data.get('clip_selection', False):
         try:
-            model_concept = workflow_tuple.get('model_concept', 'SD1')
+            model_concept = control_data.get('model_concept', 'SD1')
             is_longclip = 'longclip' in encoder_1.lower() or encoder_1.lower().endswith('.pt')
             if is_longclip:
                 if model_concept in SDXL_CONCEPTS:
@@ -603,13 +626,13 @@ def apply_clip_overrides(loader_self, clip, workflow_tuple):
     return clip
 
 
-def apply_clip_attention_multiply(clip, workflow_tuple):
-    if not workflow_tuple:
+def apply_clip_attention_multiply(clip, control_data):
+    if not control_data:
         return clip
-    q = float(workflow_tuple.get('clip_attn_q', 1.0))
-    k = float(workflow_tuple.get('clip_attn_k', 1.0))
-    v = float(workflow_tuple.get('clip_attn_v', 1.0))
-    out = float(workflow_tuple.get('clip_attn_out', 1.0))
+    q = float(control_data.get('clip_attn_q', 1.0))
+    k = float(control_data.get('clip_attn_k', 1.0))
+    v = float(control_data.get('clip_attn_v', 1.0))
+    out = float(control_data.get('clip_attn_out', 1.0))
     if q == 1.0 and k == 1.0 and v == 1.0 and out == 1.0:
         return clip
     try:
@@ -618,14 +641,14 @@ def apply_clip_attention_multiply(clip, workflow_tuple):
         return clip
 
 
-def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode_fn):
+def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, control_data, advanced_encode_fn):
     if adv_encode:
         tokens_p = clip.tokenize(positive_text)
         tokens_n = clip.tokenize(negative_text)
         if 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
             embeddings_final_pos, pooled_pos = advanced_encode_fn(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
             embeddings_final_neg, pooled_neg = advanced_encode_fn(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-            return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+            return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
         else:
             if 'l' in clip.tokenize(positive_l):
                 tokens_p["l"] = clip.tokenize(positive_l)["l"]
@@ -645,7 +668,7 @@ def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode
                         tokens_n["g"] += empty["g"]
             cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
             cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
-            return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, "", positive_l, negative_l, workflow_tuple)
+            return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, "", positive_l, negative_l, control_data)
     else:
         tokens_pos = clip.tokenize(positive_text)
         tokens_neg = clip.tokenize(negative_text)
@@ -657,16 +680,16 @@ def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
-def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
+def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data):
     if t5xxl_prompt:
         pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
         tokens_neg = clip.tokenize(negative_text)
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_neg = out_neg.pop("cond")
-        return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     else:
         tokens_pos = clip.tokenize(positive_text)
         tokens_neg = clip.tokenize(negative_text)
@@ -674,20 +697,20 @@ def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
+        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", control_data)
 
 
-def encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple):
+def encode_stable_cascade(clip, positive_text, negative_text, control_data):
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
     cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
-    return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", workflow_tuple)
+    return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", control_data)
 
 
-def encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple):
+def encode_pixart_sigma(clip, positive_text, negative_text, control_data):
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
 
@@ -710,32 +733,32 @@ def encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple):
     cond_pos_main = out_pos_main.pop("cond")
     cond_neg_main = out_neg_main.pop("cond")
 
-    return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, "", "", "", workflow_tuple)
+    return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, "", "", "", control_data)
 
 
-def encode_chroma(clip, positive_text, negative_text, workflow_tuple):
+def encode_chroma(clip, positive_text, negative_text, control_data):
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
     out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
     cond_pos = out_pos.pop("cond")
     cond_neg = out_neg.pop("cond")
-    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", workflow_tuple)
+    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", control_data)
 
 
-def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
-    FLUX_SAMPLER = workflow_tuple.get('sampler', 'ksampler')
-    FLUX_GUIDANCE = workflow_tuple.get('guidance', 2)
+def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, control_data):
+    FLUX_SAMPLER = control_data.get('sampler', 'ksampler')
+    FLUX_GUIDANCE = control_data.get('guidance', 2)
     if FLUX_SAMPLER == 'custom_advanced' and len(t5xxl_prompt) > 5:
         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
     out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
     cond_pos = out_pos.pop("cond")
     cond_neg = out_neg.pop("cond")
-    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
 _SANA_MAX_TOKENS = 300
@@ -757,8 +780,8 @@ def _sana_encode_text(tokenizer, text_encoder, text, device):
     return embs * masks.unsqueeze(-1)
 
 
-def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
-    scheduler_name = workflow_tuple.get('scheduler_name', 'flow_dpm-solver') if workflow_tuple else 'flow_dpm-solver'
+def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, control_data):
+    scheduler_name = control_data.get('scheduler_name', 'flow_dpm-solver') if control_data else 'flow_dpm-solver'
     device = model_management.get_torch_device()
 
     if scheduler_name == 'flow_dpm-solver' and hasattr(clip, 'text_encoder'):
@@ -776,7 +799,7 @@ def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple
             null_y = null_embs.repeat(len(prompts), 1, 1)[:, None]
         clip.text_encoder.to(model_management.text_encoder_offload_device())
         comfy.model_management.soft_empty_cache(True)
-        return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return ([[caption_embs, {"emb_masks": emb_masks}]], [[null_y, {}]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     else:
         tokenizer = clip["tokenizer"]
         text_encoder = clip["text_encoder"]
@@ -784,10 +807,10 @@ def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple
         with torch.no_grad():
             sana_embs_pos = _sana_encode_text(tokenizer, text_encoder, positive_text, enc_device)
             sana_embs_neg = _sana_encode_text(tokenizer, text_encoder, negative_text, enc_device)
-        return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return ([[sana_embs_pos, {}]], [[sana_embs_neg, {}]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
-def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, workflow_tuple):
+def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, control_data):
     if type(edit_image_list).__name__ == "Tensor":
         edit_image_list = [edit_image_list]
     positive_text = utility.DiT_cleaner(positive_text)
@@ -795,10 +818,10 @@ def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prom
     conditioning = utility.edit_encoder(clip, positive_text, edit_vae, edit_image_list)
     tokens_neg = clip.tokenize(negative_text, images=[])
     conditioning_neg = clip.encode_from_tokens_scheduled(tokens_neg)
-    return (conditioning, conditioning_neg, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    return (conditioning, conditioning_neg, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
-def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
+def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data):
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
     device = model_management.text_encoder_device()
@@ -847,17 +870,17 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tup
         'pooled_prompt_embeds': text_proj.half(),
         'negative_pooled_prompt_embeds': negative_text_proj.half(),
     }
-    return (kolors_embeds, None, positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+    return (kolors_embeds, None, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
-def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple):
+def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, control_data):
     if clip['t5'] is not None:
         positive_text = utility.DiT_cleaner(positive_text)
         negative_text = utility.DiT_cleaner(negative_text)
         t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
         pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
         neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
-        return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     else:
         clip_model = clip['clip']
         positive_text = utility.DiT_cleaner(positive_text, 512)
@@ -866,4 +889,4 @@ def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt
         out_neg = clip_model.encode_from_tokens(clip_model.tokenize(negative_text), return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", workflow_tuple)
+        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)

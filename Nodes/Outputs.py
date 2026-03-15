@@ -160,20 +160,8 @@ class PrimereMetaSave:
             subdirs.append(file_output.sanitize_path_part(Path(concept_name).stem.upper()))
 
         if add_modelname_to_path == True and 'model' in image_metadata:
-            if 'model_concept' in image_metadata and 'model_version' in image_metadata:
-                original_model_concept_selector = 'Auto'
-                if extra_pnginfo is not None:
-                    WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-                    original_model_concept_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
-                if image_metadata['model_concept'] != image_metadata['model_version'] or original_model_concept_selector != 'Auto':
-                    match image_metadata['model_concept']:
-                        case 'Flux':
-                            if image_metadata['concept_data']['flux_selector'] == 'GGUF':
-                                image_metadata['model'] = image_metadata['concept_data']['flux_gguf']
-                            else:
-                                image_metadata['model'] = image_metadata['concept_data']['flux_diffusion']
-                        case 'StableCascade':
-                            image_metadata['model'] = image_metadata['concept_data']['cascade_stage_c']
+            if image_metadata.get('model_name'):
+                image_metadata['model'] = image_metadata['model_name']
             subdirs.append(file_output.sanitize_path_part(Path(image_metadata['model']).stem.upper()))
 
         if subpath_priority == True and 'preferred' in image_metadata and type(image_metadata['preferred']).__name__ == 'dict' and len(image_metadata['preferred']) > 0 and 'subpath' in image_metadata['preferred']:
@@ -396,27 +384,22 @@ class PrimereMetaCollector:
 
     INPUT_DICT = {
         "required": {
-            "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing"}),
+            "model_name": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
+            "positive": ('STRING', {"forceInput": True, "default": "Red sportcar racing on the street of metropolis"}),
             "negative": ('STRING', {"forceInput": True, "default": "Cute cat, nsfw, nude, nudity, porn"})
         }, "optional": {
+            "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
+            "control_data": ("TUPLE", {"default": None, "forceInput": True}),
             "seed": ('INT', {"forceInput": True, "default": 1}),
+            "t5_xxl_prompt": ('STRING', {"forceInput": True}),
             "positive_l": ('STRING', {"forceInput": True}),
             "negative_l": ('STRING', {"forceInput": True}),
-            "positive_r": ('STRING', {"forceInput": True}),
-            "negative_r": ('STRING', {"forceInput": True}),
-            "model": ('CHECKPOINT_NAME', {"forceInput": True, "default": None}),
-            "model_version": ("STRING", {"default": 'SD1', "forceInput": True}),
-            "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
-            "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
             "sampler": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True, "default": "euler"}),
             "scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True, "default": "normal"}),
-            "width": ('INT', {"forceInput": True, "default": 512}),
-            "height": ('INT', {"forceInput": True, "default": 512}),
-            "model_shapes": ('TUPLE', {"forceInput": True, "default": None}),
             "cfg": ('FLOAT', {"forceInput": True, "default": 7}),
             "steps": ('INT', {"forceInput": True, "default": 12}),
-            "vae_name_sd": ('VAE_NAME', {"forceInput": True, "default": None}),
-            "vae_name_sdxl": ('VAE_NAME', {"forceInput": True, "default": None}),
+            "width": ('INT', {"forceInput": True, "default": 512}),
+            "height": ('INT', {"forceInput": True, "default": 512}),
             "preferred": ("TUPLE", {"default": None, "forceInput": True}),
             "aesthetic_score": ('INT', {"forceInput": True, "default": 0})
         },
@@ -446,7 +429,7 @@ class PrimereMetaCollector:
 class PrimereKSampler:
     CATEGORY = TREE_OUTPUTS
     RETURN_TYPES = ("LATENT", "TUPLE")
-    RETURN_NAMES = ("LATENT", "WORKFLOW_TUPLE")
+    RETURN_NAMES = ("LATENT", "CONTROL_DATA")
     FUNCTION = "pk_sampler"
 
     def __init__(self):
@@ -471,13 +454,11 @@ class PrimereKSampler:
                 "variation_extender": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "variation_batch_step": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
                 "variation_level": ("BOOLEAN", {"default": False, "label_on": "Maximize", "label_off": "Off"}),
-                # "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
-                "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'}),
-                # "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
+                "device": (["DEFAULT", "GPU", "CPU"], {"default": 'DEFAULT'})
             },
             "optional": {
                 "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
-                "workflow_tuple": ("TUPLE", {"default": None}),
+                "control_data": ("TUPLE", {"default": None}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -490,24 +471,24 @@ class PrimereKSampler:
         if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0 or kwargs['variation_level'] == True:
             return float("NaN")
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Auto", workflow_tuple = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False):
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Auto", control_data = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False):
         timestamp_start = time.time()
-        if workflow_tuple is not None:
-            align_your_steps = workflow_tuple.get('align_your_steps', align_your_steps)
-            model_sampling = workflow_tuple.get('model_sampling', model_sampling)
-        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
-            if 'sampler_settings' in workflow_tuple and len(workflow_tuple['sampler_settings']) > 0 and 'setup_states' in workflow_tuple and 'sampler_setup' in workflow_tuple['setup_states']:
-                if workflow_tuple['setup_states']['sampler_setup'] == True:
+        if control_data is not None:
+            align_your_steps = control_data.get('align_your_steps', align_your_steps)
+            model_sampling = control_data.get('model_sampling', model_sampling)
+        if control_data is not None and len(control_data) > 0 and 'exif_status' in control_data and control_data['exif_status'] == 'SUCCEED':
+            if 'sampler_settings' in control_data and len(control_data['sampler_settings']) > 0 and 'setup_states' in control_data and 'sampler_setup' in control_data['setup_states']:
+                if control_data['setup_states']['sampler_setup'] == True:
                     variation_batch_step = 0
                     variation_level = False
-                    denoise = workflow_tuple['sampler_settings']['denoise']
-                    device = workflow_tuple['sampler_settings']['device']
-                    align_your_steps = workflow_tuple['sampler_settings']['align_your_steps']
-                    model_sampling = workflow_tuple['sampler_settings']['model_sampling']
-                    if workflow_tuple['sampler_settings']['variation_level'] == True:
-                        variation_extender = workflow_tuple['sampler_settings']['noise_constant']
+                    denoise = control_data['sampler_settings']['denoise']
+                    device = control_data['sampler_settings']['device']
+                    align_your_steps = control_data['sampler_settings']['align_your_steps']
+                    model_sampling = control_data['sampler_settings']['model_sampling']
+                    if control_data['sampler_settings']['variation_level'] == True:
+                        variation_extender = control_data['sampler_settings']['noise_constant']
                     else:
-                        variation_extender = workflow_tuple['sampler_settings']['variation_extender_original']
+                        variation_extender = control_data['sampler_settings']['variation_extender_original']
 
         samples_out = latent_image
         # out = latent_image.copy()
@@ -605,7 +586,7 @@ class PrimereKSampler:
                                                              variation_extender, variation_batch_step_original,
                                                              batch_counter, variation_extender_original,
                                                              variation_batch_step, variation_level, variation_limit,
-                                                             align_your_steps, noise_extender_ksampler, workflow_tuple)[0]
+                                                             align_your_steps, noise_extender_ksampler, control_data)[0]
             case "KwaiKolors":
                 samples_out = primeresamplers.PSamplerKOROLS(self, model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name, scheduler_name, model_sampling, 1000)[0]
             case "SD3":
@@ -617,20 +598,17 @@ class PrimereKSampler:
                 noise_constant = noise_extender_cascade
                 samples_out = primeresamplers.PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, device, variation_level, variation_limit, variation_extender_original, variation_batch_step_original, variation_extender, variation_batch_step, batch_counter, noise_extender_cascade)[0]
             case "Hyper":
-                CONCEPT_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
-                OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+                CONCEPT_SELECTOR = control_data.get('model_concept') if control_data else None
+                OriginalBaseModel = control_data.get('model_name') if control_data else None
                 fullpathFile = folder_paths.get_full_path('checkpoints', OriginalBaseModel)
                 is_link = os.path.islink(str(fullpathFile))
-                if is_link == True:
-                    HYPERSD_SELECTOR = 'UNET'
-                else:
-                    HYPERSD_SELECTOR = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
-                HYPERSD_SAMPLER = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_sampler', prompt)
+                HYPERSD_SELECTOR = 'UNET' if is_link else 'LORA'
+                HYPERSD_SAMPLER = True
 
                 if model_concept == 'Hyper' and (CONCEPT_SELECTOR == 'Hyper' or CONCEPT_SELECTOR == 'Auto') and steps == 12 and HYPERSD_SELECTOR == 'LORA' and HYPERSD_SAMPLER == True:
-                    cfg = 3.80
-                    scheduler_name = 'normal'
-                samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt)[0]
+                    cfg = float(control_data.get('cfg', 3.80))
+                    scheduler_name = control_data.get('scheduler_name', "normal")
+                samples_out = primeresamplers.PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt, control_data)[0]
 
             case 'QwenGen' | 'QwenEdit':
                 align_your_steps = False
@@ -657,14 +635,14 @@ class PrimereKSampler:
                                                         align_your_steps, noise_extender_ksampler, None)[0]
 
             case 'Flux':
-                FLUX_SAMPLER = workflow_tuple.get('sampler', 'ksampler') if workflow_tuple else 'ksampler'
-                FLUX_GUIDANCE = float(workflow_tuple.get('guidance', 3.5)) if workflow_tuple else 3.5
+                FLUX_SAMPLER = control_data.get('sampler', 'ksampler') if control_data else 'ksampler'
+                FLUX_GUIDANCE = float(control_data.get('guidance', 3.5)) if control_data else 3.5
                 align_your_steps = False
                 if FLUX_SAMPLER == 'custom_advanced':
                     samples_out = primeresamplers.PSamplerAdvanced(self, model, seed, FLUX_GUIDANCE, positive, scheduler_name, sampler_name, steps, denoise, latent_image)[0]
                 elif FLUX_SAMPLER == 'ksampler':
                     CONDITIONING_POS = nodes_flux.FluxGuidance.execute(positive, FLUX_GUIDANCE)[0] if FLUX_GUIDANCE > 0 else positive
-                    if workflow_tuple is not None and float(workflow_tuple.get('cfg', 2.0)) < 1.2:
+                    if control_data is not None and float(control_data.get('cfg', 2.0)) < 1.2:
                         CONDITIONING_NEG = CONDITIONING_POS
                     else:
                         CONDITIONING_NEG = nodes_flux.FluxGuidance.execute(negative, FLUX_GUIDANCE)[0]
@@ -673,14 +651,14 @@ class PrimereKSampler:
                                                             CONDITIONING_POS, CONDITIONING_NEG,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps, noise_extender_ksampler, None)[0]
+                                                            align_your_steps, noise_extender_ksampler, None, control_data)[0]
                 else:
                     samples_out = primeresamplers.PKSampler(self, device, seed, model,
                                                             steps, cfg, sampler_name, scheduler_name,
                                                             positive, negative,
                                                             latent_image, denoise,
                                                             variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                            align_your_steps, noise_extender_ksampler, None)[0]
+                                                            align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
             case _:
                 if model_concept == 'AuraFlow' and model_sampling is not None and model_sampling > 0:
@@ -690,25 +668,24 @@ class PrimereKSampler:
                                                         positive, negative,
                                                         latent_image, denoise,
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
-                                                        align_your_steps, noise_extender_ksampler, None)[0]
+                                                        align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
-        if workflow_tuple is not None:
-            workflow_tuple['sampler_settings'] = {}
-            workflow_tuple['sampler_settings']['denoise'] = denoise
-            workflow_tuple['sampler_settings']['variation_extender_original'] = variation_extender_original
-            workflow_tuple['sampler_settings']['variation_batch_step_original'] = variation_batch_step_original
-            workflow_tuple['sampler_settings']['variation_level'] = variation_level
-            workflow_tuple['sampler_settings']['device'] = device
-            workflow_tuple['sampler_settings']['align_your_steps'] = align_your_steps
-            workflow_tuple['sampler_settings']['noise_constant'] = noise_constant
-            workflow_tuple['sampler_settings']['variation_seed'] = seed
-            workflow_tuple['sampler_settings']['batch_counter'] = batch_counter
-            workflow_tuple['sampler_settings']['model_sampling'] = model_sampling
+        if control_data is not None:
+            control_data['sampler_settings'] = {}
+            control_data['sampler_settings']['denoise'] = denoise
+            control_data['sampler_settings']['variation_extender_original'] = variation_extender_original
+            control_data['sampler_settings']['variation_batch_step_original'] = variation_batch_step_original
+            control_data['sampler_settings']['variation_level'] = variation_level
+            control_data['sampler_settings']['device'] = device
+            control_data['sampler_settings']['align_your_steps'] = align_your_steps
+            control_data['sampler_settings']['noise_constant'] = noise_constant
+            control_data['sampler_settings']['variation_seed'] = seed
+            control_data['sampler_settings']['batch_counter'] = batch_counter
+            control_data['sampler_settings']['model_sampling'] = model_sampling
 
         timestamp_diff = int(time.time() - timestamp_start)
-        original_model_concept_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'model_concept', prompt)
         is_random_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'random_model', prompt)
-        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+        selected_model = control_data.get('model_name') if control_data else utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
         if is_random_model == True:
             fullSource = PrimereVisualCKPT.allModels
             slashIndex = selected_model.find('\\')
@@ -717,17 +694,6 @@ class PrimereKSampler:
                 models_by_path = list(filter(lambda x: x.startswith(subdirType), fullSource))
                 random.seed(seed)
                 selected_model = random.choice(models_by_path)
-
-        if original_model_concept_selector != 'Auto':
-            match original_model_concept_selector:
-                case 'Flux':
-                    flux_selector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_selector', prompt)
-                    if flux_selector == 'GGUF':
-                        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_gguf', prompt)
-                    else:
-                        selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'flux_diffusion', prompt)
-                case 'StableCascade':
-                    selected_model = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'cascade_stage_c', prompt)
 
         if selected_model is not None:
             modelname_only = Path(selected_model).stem
@@ -740,7 +706,7 @@ class PrimereKSampler:
                 diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
                 utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
-        return (samples_out, workflow_tuple)
+        return (samples_out, control_data)
 
 class PrimerePreviewImage():
     CATEGORY = TREE_OUTPUTS
@@ -878,7 +844,7 @@ class PrimereAestheticCKPTScorer:
                 "image": ("IMAGE", ),
             },
             "optional": {
-                "workflow_data": ('TUPLE', {"forceInput": True}),
+                "control_data": ('TUPLE', {"forceInput": True}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -886,59 +852,17 @@ class PrimereAestheticCKPTScorer:
             },
         }
 
-    def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, dual_mode = True, workflow_data = None, **kwargs):
+    def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, dual_mode = True, control_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
         models = []
+        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+        AE_SCORE_MIN = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_min', prompt)
+        AE_SCORE_MAX = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_max', prompt)
+
         def pipe(model):
             return pipeline(task="image-classification", model=model, device=model_management.get_torch_device())
 
         if (get_aesthetic_score == True):
-            '''AESTHETIC_PATH = os.path.join(folder_paths.models_dir, 'aesthetic')
-            folder_paths.add_model_folder_path("aesthetic", AESTHETIC_PATH)
-            if os.path.exists(AESTHETIC_PATH) == False:
-                Path(AESTHETIC_PATH).mkdir(parents=True, exist_ok=True)
-            AESTH_FULL_LIST = folder_paths.get_filename_list("aesthetic")
-            aestheticFiles = folder_paths.filter_files_extensions(AESTH_FULL_LIST, ['.pth'])
-
-            if 'chadscorer.pth' not in aestheticFiles:
-                FileUrl = 'https://huggingface.co/primerecomfydev/chadscorer/resolve/main/chadscorer.pth?download=true'
-                FullFilePath = os.path.join(AESTHETIC_PATH, 'chadscorer.pth')
-                ModelDownload = utility.downloader(FileUrl, FullFilePath)
-                if (ModelDownload == True):
-                    AESTH_FULL_LIST = folder_paths.get_filename_list("aesthetic")
-                    aestheticFiles = folder_paths.filter_files_extensions(AESTH_FULL_LIST, ['.pth'])
-
-            if 'chadscorer.pth' in aestheticFiles:
-                folder_paths.folder_names_and_paths["aesthetic"] = ([os.path.join(folder_paths.models_dir, "aesthetic")], folder_paths.supported_pt_extensions)
-                m_path = folder_paths.folder_names_and_paths["aesthetic"][0]
-                aesthetic_model = os.path.join(m_path[0], 'chadscorer.pth')
-                fsize = os.path.getsize(aesthetic_model)
-                freemem = comfy.model_management.get_free_memory()
-                if (fsize * 1.2) < freemem:
-                    model = utility.MLP(768)
-                    s = torch.load(aesthetic_model)
-                    model.load_state_dict(s)
-                    model.to("cuda")
-                    model.eval()
-                    device = "cuda"
-                    try:
-                        model2, preprocess = clip.load("ViT-L/14", device=device)  # RN50x64
-                        tensor_image = image[0]
-                        img = (tensor_image * 255).to(torch.uint8).numpy()
-                        pil_image = Image.fromarray(img, mode='RGB')
-                        image2 = preprocess(pil_image).unsqueeze(0).to(device)
-                        with torch.no_grad():
-                            image_features = model2.encode_image(image2)
-                            pass
-                        im_emb_arr = utility.normalized(image_features.cpu().detach().numpy())
-                        prediction = model(torch.from_numpy(im_emb_arr).to(device).type(torch.cuda.FloatTensor))
-                        final_prediction = int(float(prediction[0]) * 100)
-                        del model
-                    except Exception:
-                        final_prediction = 0
-                else:
-                    final_prediction = 0'''
-
             AE_MODEL_ROOT = os.path.join(folder_paths.models_dir, 'aesthetic')
             AEMODELS_ENCODERS_PATHS = utility.getValidAscorerPaths(AE_MODEL_ROOT)
             if len(AEMODELS_ENCODERS_PATHS) > 0:
@@ -985,13 +909,15 @@ class PrimereAestheticCKPTScorer:
             else:
                 final_prediction = '*** No aesthetic models downloaded ***'
 
-            if (type(final_prediction) != 'str'):
+            if type(final_prediction) != str:
                 final_prediction = str(final_prediction)
 
-            if workflow_data is not None and final_prediction.isdigit():
-                if add_to_checkpoint == True and (workflow_data['model_concept'] == workflow_data['model_version']):
-                    if 'model' in workflow_data:
-                        selected_model = workflow_data['model']
+            if control_data is not None and final_prediction.isdigit():
+                if add_to_checkpoint == True and (control_data['model_concept']):
+                    if 'model_name' in control_data:
+                        AE_SCORE_MIN = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_min', prompt)
+                        AE_SCORE_MAX = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_max', prompt)
+                        selected_model = control_data['model_name']
                         modelname_only = Path(selected_model).stem
                         model_ascore = utility.get_value_from_cache('model_ascores', modelname_only)
                         if model_ascore is None:
@@ -1003,8 +929,7 @@ class PrimereAestheticCKPTScorer:
                             utility.add_value_to_cache('model_ascores', modelname_only, counter + '|' + score)
 
                 if add_to_saved_prompt == True and final_prediction.isdigit():
-                    if 'positive' in workflow_data:
-                        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+                    if 'positive' in control_data:
                         selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'styles', prompt)
                         if selectedStyle is None:
                             selectedStyle = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereStyleLoader', 'styles', prompt)
@@ -1042,7 +967,9 @@ class PrimereAestheticCKPTScorer:
                             if (positive_prompt is not None):
                                 if len(positive_prompt) > 100:
                                     positive_prompt = positive_prompt[:100]
-                                if positive_prompt in workflow_data['positive']:
+                                if positive_prompt in control_data['positive']:
+                                    AE_SCORE_MIN = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'aescore_percent_min', prompt)
+                                    AE_SCORE_MAX = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualStyle', 'aescore_percent_max', prompt)
                                     style_ascore = utility.get_value_from_cache('styles_ascores', selectedStyle)
                                     if style_ascore is None:
                                         utility.add_value_to_cache('styles_ascores', selectedStyle, '1|' + final_prediction)
@@ -1052,7 +979,16 @@ class PrimereAestheticCKPTScorer:
                                         score = str(int(style_ascore_list[1]) + int(final_prediction))
                                         utility.add_value_to_cache('styles_ascores', selectedStyle, counter + '|' + score)
 
-        return {"ui": {"text": [final_prediction]}, "result": (final_prediction,)}
+        if isinstance(final_prediction, str) and final_prediction.isdigit():
+            if AE_SCORE_MIN is not None and AE_SCORE_MAX is not None:
+                final_prediction = max(0, min(100, int(((int(final_prediction) - AE_SCORE_MIN) / (AE_SCORE_MAX - AE_SCORE_MIN)) * 100)))
+            else:
+                final_prediction = int(final_prediction)
+        else:
+            final_prediction = '*** Aesthetic scorer error ***'
+
+        result_int = final_prediction if isinstance(final_prediction, int) else 0
+        return {"ui": {"text": [final_prediction]}, "result": (result_int,)}
 
 class DebugToFile():
     CATEGORY = TREE_OUTPUTS

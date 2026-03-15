@@ -25,32 +25,71 @@ def PKSampler(self, device, seed, model,
               steps, cfg, sampler_name, scheduler_name,
               positive, negative,
               latent_image, denoise,
-              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, model_sampling = None):
+              variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, model_sampling=None, control_data=None):
 
     if model_sampling is not None and model_sampling > 0:
         model = nodes_model_advanced.ModelSamplingSD3.patch(self, model, model_sampling, 1.0)[0]
 
-    if variation_level == True:
-        samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
-    else:
-        if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
+    samples = None
+
+    if scheduler_name == 'beta' and control_data is not None:
+        beta_alpha = float(control_data.get('beta_alpha', 0.6))
+        beta_beta = float(control_data.get('beta_beta', 0.6))
+        try:
+            sigmas = comfy.samplers.beta_scheduler(model.get_model_object("model_sampling"), steps, alpha=beta_alpha, beta=beta_beta)
+            sampler = comfy.samplers.sampler_object(sampler_name)
+            samples = (nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)[0],)
+        except Exception as e:
+            print(f"Primere: BetaSamplingScheduler failed: {e}")
+
+    if samples is None:
+        if variation_level == True:
             samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
         else:
-            if align_your_steps == True:
-                modelname_only = model
-                model_version = utility.get_value_from_cache('model_version', modelname_only)
-                match model_version:
-                    case 'SDXL':
-                        model_type = 'SDXL'
-                    case _:
-                        model_type = 'SD1'
-
-                sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
-                sampler = comfy.samplers.sampler_object(sampler_name)
-                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
-                samples = (AYS_samples[0],)
+            if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
+                samples = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)
             else:
-                samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+                if align_your_steps == True:
+                    modelname_only = model
+                    model_version = utility.get_value_from_cache('model_version', modelname_only)
+                    match model_version:
+                        case 'SDXL':
+                            model_type = 'SDXL'
+                        case _:
+                            model_type = 'SD1'
+                    sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
+                    sampler = comfy.samplers.sampler_object(sampler_name)
+                    AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                    samples = (AYS_samples[0],)
+                else:
+                    samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
+
+    if control_data and control_data.get('refiner') == True:
+        refiner_model_name = control_data.get('refiner_model', None)
+        if refiner_model_name and refiner_model_name != 'None':
+            try:
+                REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model_name)
+                RAW_IMAGE = nodes.VAEDecode.decode(self, REFINER_CHECKPOINT[2], samples[0])[0]
+                RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
+                REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
+                REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
+                REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
+                REFINER_STEPS = int(control_data.get('refiner_steps', 22))
+                REFINER_DENOISE = float(control_data.get('refiner_denoise', 0.9))
+                REFINER_START = int(control_data.get('refiner_start', 12))
+                sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(REFINER_CHECKPOINT[0], REFINER_SCHEDULER, REFINER_STEPS, REFINER_DENOISE)[0]
+                splitted_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, REFINER_START)[1]
+                sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
+                if control_data.get('refiner_ignore_prompt', True):
+                    empty_cond = nodes.CLIPTextEncode.encode(self, REFINER_CHECKPOINT[1], "")[0]
+                    refiner_pos = empty_cond
+                    refiner_neg = empty_cond
+                else:
+                    refiner_pos = positive
+                    refiner_neg = negative
+                samples = (nodes_custom_sampler.SamplerCustom.execute(REFINER_CHECKPOINT[0], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_sigma, RAW_IMAGE_ENCODED)[0],)
+            except Exception as e:
+                print(f"Primere: Refiner sampling failed: {e}")
 
     return samples
 
@@ -97,16 +136,15 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
 
     return samples
 
-def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt):
-    WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
-    OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
+def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negative, sampler_name, scheduler_name, latent_image, denoise, prompt, control_data):
+    # WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
+    OriginalBaseModel = control_data['model_name'] # OriginalBaseModel = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'base_model', prompt)
     fullpathFile = folder_paths.get_full_path('checkpoints', OriginalBaseModel)
     is_link = os.path.islink(str(fullpathFile))
+    HyperSDSelector = None
     if is_link == True:
         HyperSDSelector = 'UNET'
-    else:
-        HyperSDSelector = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereModelConceptSelector', 'hypersd_selector', prompt)
-    if (HyperSDSelector == 'UNET'):
+    if HyperSDSelector == 'UNET':
         sigmas = utility.get_hypersd_sigmas(model)
         sampler = comfy.samplers.sampler_object(sampler_name)
         hyper_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
@@ -155,14 +193,14 @@ def PSamplerPixart(self, device, seed, model,
                    steps, cfg, sampler_name, scheduler_name,
                    positive, negative,
                    latent_image, denoise,
-                   variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, workflow_tuple):
+                   variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit, align_your_steps, noise_extender, control_data):
 
-    if workflow_tuple:
-        sampler_name = workflow_tuple.get('sampler_name', sampler_name)
-        scheduler_name = workflow_tuple.get('scheduler_name', scheduler_name)
-        steps = workflow_tuple.get('steps', steps)
-        cfg = workflow_tuple.get('cfg', cfg)
-    PIXART_DENOISE = float(workflow_tuple.get('refiner_sampling_denoise', denoise)) if workflow_tuple and workflow_tuple.get('refiner') == True else denoise
+    if control_data:
+        sampler_name = control_data.get('sampler_name', sampler_name)
+        scheduler_name = control_data.get('scheduler_name', scheduler_name)
+        steps = control_data.get('steps', steps)
+        cfg = control_data.get('cfg', cfg)
+    PIXART_DENOISE = float(control_data.get('refiner_sampling_denoise', denoise)) if control_data and control_data.get('refiner') == True else denoise
 
     sigmas_main = nodes_custom_sampler.BasicScheduler.execute(model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
     sampler = comfy.samplers.sampler_object(sampler_name)
@@ -182,22 +220,22 @@ def PSamplerPixart(self, device, seed, model,
                 samples_main = nodes_custom_sampler.SamplerCustom.execute(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
 
     if 'refiner' in model and model['refiner'] is not None:
-        PIXART_VAE = utility.vae_loader_class.load_vae(workflow_tuple.get('vae'))[0]
+        PIXART_VAE = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
         RAW_IMAGE = nodes.VAEDecode.decode(self, PIXART_VAE, samples_main)[0]
-        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, workflow_tuple.get('refiner_model'))
+        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, control_data.get('refiner_model'))
         RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, PIXART_REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
 
-        REFINER_SAMPLER = workflow_tuple.get('refiner_sampler', 'dpmpp_2m')
-        REFINER_SCHEDULER = workflow_tuple.get('refiner_scheduler', 'normal')
-        REFINER_CFG = float(workflow_tuple.get('refiner_cfg', 2.0))
-        REFINER_STEPS = int(workflow_tuple.get('refiner_steps', 22))
-        PIXART_DENOISE_REFINER = float(workflow_tuple.get('refiner_denoise', 0.9))
-        PIXART_REFINER_START = int(workflow_tuple.get('refiner_start', 12))
+        REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
+        REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
+        REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
+        REFINER_STEPS = int(control_data.get('refiner_steps', 22))
+        PIXART_DENOISE_REFINER = float(control_data.get('refiner_denoise', 0.9))
+        PIXART_REFINER_START = int(control_data.get('refiner_start', 12))
 
         sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(model['refiner'], REFINER_SCHEDULER, REFINER_STEPS, PIXART_DENOISE_REFINER)[0]
         splitted_low_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, PIXART_REFINER_START)[1]
         sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
-        REFINER_IGNORE_PROMPT = workflow_tuple.get('refiner_ignore_prompt', False)
+        REFINER_IGNORE_PROMPT = control_data.get('refiner_ignore_prompt', False)
         if REFINER_IGNORE_PROMPT:
             empty_cond = nodes.CLIPTextEncode.encode(self, PIXART_REFINER_CHECKPOINT[1], "")[0]
             refiner_pos = empty_cond

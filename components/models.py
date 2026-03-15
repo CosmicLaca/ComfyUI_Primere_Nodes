@@ -8,6 +8,7 @@ import nodes
 import comfy_extras.nodes_sd3 as nodes_sd3
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_cfg as nodes_cfg
+from comfy_extras.nodes_attention_multiply import attention_multiply
 from comfy import model_management
 from pathlib import Path
 from .tree import PRIMERE_ROOT
@@ -56,6 +57,56 @@ def resolve_symlink(ckpt_name):
     return File_link, linkedFileName, model_ext
 
 
+DISCRETE_CONCEPTS = {'SD1', 'SD2', 'SDXL', 'Illustrious', 'Turbo', 'Pony', 'Hyper', 'Lightning'}
+UNET_CONCEPTS = {'SD1', 'SD2', 'SDXL', 'Illustrious', 'Turbo', 'Pony', 'Hyper', 'Lightning', 'Playground', 'LCM'}
+
+
+def apply_generic_patches(loader_self, model, concept_data):
+    model_concept = concept_data.get('model_concept', '')
+
+    discrete_sampling = concept_data.get('discrete_sampling', 'default')
+    if discrete_sampling != 'default' and model_concept in DISCRETE_CONCEPTS:
+        try:
+            discrete_zsnr = bool(concept_data.get('discrete_zsnr', False))
+            model = nodes_model_advanced.ModelSamplingDiscrete.patch(loader_self, model, discrete_sampling, discrete_zsnr)[0]
+        except Exception as e:
+            print(f"Primere: ModelSamplingDiscrete failed: {e}")
+
+    if model_concept in UNET_CONCEPTS:
+        self_q = concept_data.get('clip_attn_q', 1.0)
+        self_k = concept_data.get('clip_attn_k', 1.0)
+        self_v = concept_data.get('clip_attn_v', 1.0)
+        self_out = concept_data.get('clip_attn_out', 1.0)
+        if (self_q, self_k, self_v, self_out) != (1.0, 1.0, 1.0, 1.0):
+            try:
+                model = attention_multiply("attn1", model, self_q, self_k, self_v, self_out)
+            except Exception as e:
+                print(f"Primere: UNet self-attention multiply failed: {e}")
+
+    if model_concept in UNET_CONCEPTS:
+        cross_q = concept_data.get('attn_cross_q', 1.0)
+        cross_k = concept_data.get('attn_cross_k', 1.0)
+        cross_v = concept_data.get('attn_cross_v', 1.0)
+        cross_out = concept_data.get('attn_cross_out', 1.0)
+        if (cross_q, cross_k, cross_v, cross_out) != (1.0, 1.0, 1.0, 1.0):
+            try:
+                model = attention_multiply("attn2", model, cross_q, cross_k, cross_v, cross_out)
+            except Exception as e:
+                print(f"Primere: UNet cross-attention multiply failed: {e}")
+
+    precision = concept_data.get('precision', None)
+    if precision and precision not in ('quant8', 'quant4'):
+        dtype_map = {'fp32': 'fp32', 'fp16': 'fp16'}
+        dtype = dtype_map.get(precision)
+        if dtype:
+            try:
+                model = nodes_model_advanced.ModelComputeDtype.patch(loader_self, model, dtype)[0]
+            except Exception as e:
+                print(f"Primere: ModelComputeDtype failed: {e}")
+
+    return model
+
+
 def apply_lora(loader_self, model, lora_path, strength):
     if not os.path.exists(lora_path) or strength == 0:
         return model
@@ -102,6 +153,7 @@ def load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, conc
         OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
     else:
         OUTPUT_VAE = LOADED_CHECKPOINT[2]
+    OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -131,6 +183,7 @@ def load_sd3_model(loader_self, ckpt_name, concept_data):
         lora_path = folder_paths.get_full_path('loras', lora_name)
         if lora_path:
             OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
+    OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -212,6 +265,13 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     rescale_cfg = concept_data.get('rescale_cfg', 1.0)
     if rescale_cfg != 1.0:
         OUTPUT_MODEL = nodes_model_advanced.RescaleCFG.patch(loader_self, OUTPUT_MODEL, rescale_cfg)[0]
+    flux_max_shift = concept_data.get('flux_max_shift', 1.15)
+    flux_base_shift = concept_data.get('flux_base_shift', 0.5)
+    try:
+        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingFlux.patch(loader_self, OUTPUT_MODEL, flux_max_shift, flux_base_shift, 1024, 1024)[0]
+    except Exception as e:
+        print(f"Primere: ModelSamplingFlux failed: {e}")
+    OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -268,7 +328,11 @@ def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_pa
     OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data)
     sigma_max = concept_data.get('sigma_max', 120)
     sigma_min = concept_data.get('sigma_min', 0.002)
-    OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(loader_self, OUTPUT_MODEL, 'edm_playground_v2.5', sigma_max, sigma_min)[0]
+    edm_sampling = concept_data.get('edm_sampling', 'edm_playground_v2.5')
+    try:
+        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(loader_self, OUTPUT_MODEL, edm_sampling, sigma_max, sigma_min)[0]
+    except Exception as e:
+        print(f"Primere: ModelSamplingContinuousEDM failed: {e}")
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -300,6 +364,7 @@ def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
         if lora_path:
             OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
 
+    OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -312,11 +377,9 @@ def load_lcm_model(loader_self, ckpt_name, concept_data):
     MODEL_VERSION = utility.getModelType(ckpt_name, 'checkpoints')
 
     if concept_data.get('lcm_lora') == True:
-        lora_name = concept_data.get('lcm_lora_name', None)
-        if lora_name:
-            lora_path = folder_paths.get_full_path('loras', lora_name)
-            if lora_path:
-                OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, concept_data.get('lcm_lora_strength', 1.0))
+        lora_file = 'lcm_lora_sdxl.safetensors' if 'SDXL' in MODEL_VERSION else 'lcm_lora_sd.safetensors'
+        lora_path = os.path.join(PRIMERE_ROOT, 'Nodes', 'Downloads', lora_file)
+        OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, concept_data.get('lcm_lora_strength', 1.0))
 
     class ModelSamplingAdvanced(utility.ModelSamplingDiscreteLCM, nodes_model_advanced.LCM):
         pass

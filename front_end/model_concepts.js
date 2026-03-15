@@ -2,8 +2,10 @@ import { app } from "/scripts/app.js";
 import { ComfyWidgets } from "/scripts/widgets.js";
 import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 
-const TARGET_NODE_NAME = "PrimereAutoSamplerSettings";
+const TARGET_NODE_NAME = "PrimereModelControl";
 const CONCEPT_JSON_URL = new URL("/extensions/ComfyUI_Primere_Nodes/model_concept.json", import.meta.url).href;
+
+const JSON_EXCLUDE_KEYS = new Set(["model_name"]);
 
 function modelNameToKey(modelPath) {
     const base = modelPath.split(/[\\/]/).pop();
@@ -11,7 +13,7 @@ function modelNameToKey(modelPath) {
 }
 
 function collectNodeData(node, includeLoraToggles = false) {
-    const SKIP_KEYS = new Set(["concepts", "models", "runtime_concept"]);
+    const SKIP_KEYS = new Set(["concepts", "models", "runtime_concept", ...JSON_EXCLUDE_KEYS]);
     const widgets = node.widgets || [];
 
     const loraBooleans = new Set(
@@ -175,7 +177,7 @@ function initializeSamplerNode(node) {
 }
 
 app.registerExtension({
-    name: "Primere.AutoSamplerSettings",
+    name: "Primere.ModelControl",
 
     setup() {
         app.api.addEventListener("primere.concept_setting", (event) => {

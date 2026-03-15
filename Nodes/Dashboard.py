@@ -647,11 +647,14 @@ class PrimereModelConceptSelector:
                 zimage_model, zimage_clip, zimage_vae
                 )
 
-class PrimereAutoSamplerSettings:
+class PrimereModelControl:
+    def __init__(self):
+        pass
+
     CATEGORY = TREE_DASHBOARD
     RETURN_TYPES = ("TUPLE", comfy.samplers.KSampler.SAMPLERS, comfy.samplers.KSampler.SCHEDULERS, "INT", "FLOAT", "STRING")
-    RETURN_NAMES = ("DATA", "SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
-    FUNCTION = "get_controlledsampler"
+    RETURN_NAMES = ("CONTROL_DATA", "SAMPLER_NAME", "SCHEDULER_NAME", "STEPS", "CFG", "MODEL_CONCEPT")
+    FUNCTION = "get_primeremodelcontrol"
     OUTPUT_NODE = True
 
     kolors_schedulers = ["EulerDiscreteScheduler", "EulerAncestralDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler_SDE_karras", "UniPCMultistepScheduler", "DEISMultistepScheduler"]
@@ -686,57 +689,74 @@ class PrimereAutoSamplerSettings:
             "required": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
                 "model_name": ("CHECKPOINT_NAME", {"default": None, "forceInput": True}),
+
                 "concepts": (["Auto"] + cls.CONCEPT_LIST,),
                 "models": (["Auto"] + cls.MODELLIST,),
+
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
                 "scheduler_name": (cls.sana_schedulers + cls.kolors_schedulers + comfy.samplers.KSampler.SCHEDULERS,),
                 "steps": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "override_steps": ("BOOLEAN", {"default": False, "label_off": "Set by sampler settings", "label_on": "Set by model filename"}),
                 "cfg": ("FLOAT", {"default": 7, "min": 0.1, "max": 100, "step": 0.01}),
                 "rescale_cfg": ("FLOAT", {"default": 1, "min": 0.0, "max": 1.0, "step": 0.01}),
-                "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
-                "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
-                "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
-                "sigma_max": ("FLOAT", {"default": 120, "min": 1, "max": 200, "step": 0.001}),
-                "sigma_min": ("FLOAT", {"default": 1, "min": 0.001, "max": 100, "step": 0.001}),
+
                 "vae": (cls.VAELIST,),
                 "vae_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
                 "clip_selection": ("BOOLEAN", {"default": True, "label_on": "Use baked if exist", "label_off": "Always use custom"}),
+                "last_layer": ("INT", {"default": 0, "min": -24, "max": 0, "step": 1}),
+
                 "encoder_1": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
                 "encoder_2": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
                 "encoder_3": (list(dict.fromkeys(["None"] + cls.TEXT_ENCODERS + cls.CLIPLIST + cls.UNETLIST + cls.TEXT_ENCODERS_PATHS)),),
-                "clip_attn": (["Custom"] + list(clipping.CLIP_ATTN_PRESETS.keys()), {"default": "Natural"}),
-                "clip_attn_mult_query": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
-                "clip_attn_mult_key": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
-                "clip_attn_mult_value": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
-                "clip_attn_mult_output": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
+
+                "attn_preset": (["Custom", "Auto"] + list(clipping.ATTN_PRESETS.keys()), {"default": "Off"}),
+                "attn_query": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_key": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_value": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_output": ('FLOAT', {"default": 1.00, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_cross_query": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_cross_key": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_cross_value": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
+                "attn_cross_output": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
+
                 "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
+                "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
+                "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
+                "edm_sampling": (["edm_playground_v2.5", "v_prediction", "edm", "eps", "cosmos_rflow"], {"default": "edm_playground_v2.5"}),
+                "discrete_sampling": (["default", "eps", "v_prediction", "x0"], {"default": "default"}),
+                "discrete_zsnr": ("BOOLEAN", {"default": False, "label_on": "Zero SNR", "label_off": "No Zero SNR"}),
+                "sigma_max": ("FLOAT", {"default": 120, "min": 1, "max": 200, "step": 0.001}),
+                "sigma_min": ("FLOAT", {"default": 1, "min": 0.001, "max": 100, "step": 0.001}),
+                "flux_max_shift": ("FLOAT", {"default": 1.15, "min": 0.0, "max": 100.0, "step": 0.01}),
+                "flux_base_shift": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 100.0, "step": 0.01}),
+                "beta_alpha": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 50.0, "step": 0.01}),
+                "beta_beta": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 50.0, "step": 0.01}),
+
                 "guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
                 "weight_dtype": (["None"] + ["Auto", "default", "fp16", "bf16", "fp32", "fp8_e4m3fn", "fp8_e5m2"], {"default": "default"}),
                 "precision": (["None"] + ['fp32', 'fp16', 'quant8', 'quant4'], {"default": "fp16"}),
+
                 "lcm_lora": ("BOOLEAN", {"default": False, "label_on": "LCM lora ON", "label_off": "LCM lora OFF"}),
-                # "lcm_lora_name": (cls.LCM_LORAS,),
                 "lcm_lora_strength": ("FLOAT", {"default": 1.000, "min": -20.000, "max": 20.000, "step": 0.001}),
+
                 "speed_lora": ("BOOLEAN", {"default": False, "label_on": "Speed lora ON", "label_off": "Speed lora OFF"}),
                 "speed_lora_name": (cls.SPEED_LORAS,),
-                # "speed_lora_version": ([1.0, 1.1, 2.0], {"default": 2.0}),
-                # "speed_lora_precision": ("BOOLEAN", {"default": True, "label_on": "FP32", "label_off": "BF16"}),
-                # "speed_lora_step": ([4, 6, 8, 10, 12, 16], {"default": 8}),
                 "speed_lora_strength": ("FLOAT", {"default": 1.00, "min": -20.00, "max": 20.00, "step": 0.01}),
                 "speed_lora_cfg": ("FLOAT", {"default": 1.0, "min": 0.1, "max": 100, "step": 0.01}),
                 "speed_lora_steps_offset": ("INT", {"default": 0, "min": -5, "max": 5, "step": 1}),
+
                 "srpo_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO Lora", "label_off": "Ignore SRPO Lora"}),
                 "srpo_lora_name": (cls.SRPO_LORAS,),
-                # "srpo_lora_type": (["R&Q", "RockerBOO", "oficial", "adaptive"], {"default": "oficial"}),
-                # "srpo_lora_rank": ([8, 16, 32, 64, 128, 256], {"default": 8}),
                 "srpo_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+
                 "srpo_svdq_lora": ("BOOLEAN", {"default": False, "label_on": "Use SRPO SVDQ Lora", "label_off": "Ignore SRPO SVDQ Lora"}),
                 "srpo_svdq_lora_name": (cls.SRPO_SVDQ_LORAS,),
+                "srpo_svdq_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+
                 "nunchaku_lora": ("BOOLEAN", {"default": False, "label_on": "Use nunchaku Lora", "label_off": "Ignore nunchaku Lora"}),
                 "nunchaku_lora_name": (cls.NUNCHAKU_LORAS,),
-                # "nunchaku_lora_type": (["kontext_deblur", "kontext_face_detailer", "anything_extracted"], {"default": "anything_extracted"}),
-                # "nunchaku_lora_rank": ([64, 256], {"default": 64}),
                 "nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
+
                 "refiner": ("BOOLEAN", {"default": False, "label_on": "Refiner ON", "label_off": "Refiner OFF"}),
                 "refiner_model": (cls.REFINER_MODELS,),
                 "refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
@@ -746,11 +766,11 @@ class PrimereAutoSamplerSettings:
                 "refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
                 "refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "refiner_sampling_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
-                "refiner_ignore_prompt": ("BOOLEAN", {"default": True, "label_on": "Ignore prompt", "label_off": "Send prompt to refiner"}),
+                "refiner_ignore_prompt": ("BOOLEAN", {"default": True, "label_on": "Ignore prompt", "label_off": "Send prompt to refiner"})
             }
         }
 
-    def get_controlledsampler(self, **kwargs):
+    def get_primeremodelcontrol(self, **kwargs):
         model_concept = kwargs.pop('model_concept', 'SD1')
         model_name = kwargs.pop('model_name', None)
         concepts = kwargs.pop('concepts', 'Auto')
@@ -802,18 +822,27 @@ class PrimereAutoSamplerSettings:
             speed_lora_cfg_val = kwargs.get('speed_lora_cfg')
             if speed_lora_cfg_val is not None:
                 cfg = float(speed_lora_cfg_val)
-        clip_attn = kwargs.pop('clip_attn', 'Natural')
-        clip_attn_mult_query = kwargs.pop('clip_attn_mult_query', 1.0)
-        clip_attn_mult_key = kwargs.pop('clip_attn_mult_key', 1.0)
-        clip_attn_mult_value = kwargs.pop('clip_attn_mult_value', 1.0)
-        clip_attn_mult_output = kwargs.pop('clip_attn_mult_output', 1.0)
-        if clip_attn == 'Custom':
-            attn_q, attn_k, attn_v, attn_out = clip_attn_mult_query, clip_attn_mult_key, clip_attn_mult_value, clip_attn_mult_output
+        attn_preset = kwargs.pop('attn_preset', 'Off')
+        attn_query = kwargs.pop('attn_query', 1.0)
+        attn_key = kwargs.pop('attn_key', 1.0)
+        attn_value = kwargs.pop('attn_value', 1.0)
+        attn_output = kwargs.pop('attn_output', 1.0)
+        attn_cross_query = kwargs.pop('attn_cross_query', 1.0)
+        attn_cross_key = kwargs.pop('attn_cross_key', 1.0)
+        attn_cross_value = kwargs.pop('attn_cross_value', 1.0)
+        attn_cross_output = kwargs.pop('attn_cross_output', 1.0)
+        if attn_preset == 'Auto':
+            attn_preset = clipping.detect_attn_preset(model_name)
+            attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out = clipping.ATTN_PRESETS.get(attn_preset, (1.0,)*8)
+        elif attn_preset == 'Custom':
+            attn_q, attn_k, attn_v, attn_out = attn_query, attn_key, attn_value, attn_output
+            cross_q, cross_k, cross_v, cross_out = attn_cross_query, attn_cross_key, attn_cross_value, attn_cross_output
         else:
-            attn_q, attn_k, attn_v, attn_out = clipping.CLIP_ATTN_PRESETS.get(clip_attn, (1.0, 1.0, 1.0, 1.0))
+            attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out = clipping.ATTN_PRESETS.get(attn_preset, (1.0,)*8)
         suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
         kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
         kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]
+        kwargs['model_name'] = model_name
         kwargs['model_concept'] = active_concept
         kwargs['sampler_name'] = sampler_name
         kwargs['scheduler_name'] = scheduler_name
@@ -823,6 +852,10 @@ class PrimereAutoSamplerSettings:
         kwargs['clip_attn_k'] = attn_k
         kwargs['clip_attn_v'] = attn_v
         kwargs['clip_attn_out'] = attn_out
+        kwargs['attn_cross_q'] = cross_q
+        kwargs['attn_cross_k'] = cross_k
+        kwargs['attn_cross_v'] = cross_v
+        kwargs['attn_cross_out'] = cross_out
         return {"ui": {"active_concept": [active_display]}, "result": (kwargs, sampler_name, scheduler_name, steps, round(cfg, 2), active_concept,)}
 
 class PrimereConceptDataTuple:
@@ -864,15 +897,15 @@ class PrimereCKPTLoader:
             },
             "optional": {
                 # "model_concept": ("STRING", {"forceInput": True}),
-                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
+                "control_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "loaded_model": ('MODEL', {"forceInput": True, "default": None}),
                 "loaded_clip": ('CLIP', {"forceInput": True, "default": None}),
                 "loaded_vae": ('VAE', {"forceInput": True, "default": None}),
             },
         }
 
-    def load_primere_ckpt(self, ckpt_name, use_yaml, concept_data=None, loaded_model=None, loaded_clip=None, loaded_vae=None):
-        model_concept = concept_data['model_concept']
+    def load_primere_ckpt(self, ckpt_name, use_yaml, control_data=None, loaded_model=None, loaded_clip=None, loaded_vae=None):
+        model_concept = control_data['model_concept']
 
         try:
             comfy.model_management.soft_empty_cache()
@@ -901,35 +934,35 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'Turbo' | 'Pony':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd_model(self, ckpt_name, use_yaml, ModelConfigFullPath, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
             case 'SD3':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd3_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd3_model(self, ckpt_name, control_data)
             case 'StableCascade':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_stable_cascade_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
             case 'Z-Image':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_zimage_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_zimage_model(self, ckpt_name, control_data)
             case 'Flux':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_flux_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_flux_model(self, ckpt_name, control_data)
             case 'LCM':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, control_data)
             case 'Hyper' | 'Lightning':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lightning_hyper_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lightning_hyper_model(self, ckpt_name, control_data)
             case 'Playground':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
             case 'PixartSigma':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, control_data)
             case 'AuraFlow':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_auraflow_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_auraflow_model(self, ckpt_name, control_data)
             case 'SANA1024' | 'SANA512':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, control_data)
             case 'KwaiKolors':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, control_data)
             case 'Hunyuan':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, control_data)
             case 'QwenGen' | 'QwenEdit':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, control_data)
             case 'Chroma':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_chroma_model(self, ckpt_name, concept_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_chroma_model(self, ckpt_name, control_data)
 
         return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
 
@@ -1036,7 +1069,7 @@ class PrimereFastSeed:
 
 class PrimereFractalLatent:
     RETURN_TYPES = ("LATENT", "IMAGE", "TUPLE")
-    RETURN_NAMES = ("LATENTS", "PREVIEWS", "WORKFLOW_TUPLE")
+    RETURN_NAMES = ("LATENTS", "PREVIEWS", "CONTROL_DATA")
     FUNCTION = "primere_latent_noise"
     CATEGORY = TREE_DASHBOARD
 
@@ -1062,7 +1095,7 @@ class PrimereFractalLatent:
         },
         "optional": {
             "optional_vae": ("VAE",),
-            "workflow_tuple": ("TUPLE", {"default": None}),
+            "control_data": ("TUPLE", {"default": None}),
         }
     }
 
@@ -1075,19 +1108,19 @@ class PrimereFractalLatent:
         if kwargs['expand_random_limits'] == True or kwargs['rand_noise_type'] == True or kwargs['rand_device'] == True or kwargs['rand_alpha_exponent'] == True or kwargs['rand_modulator'] == True:
             return float('NaN')
 
-    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae=None, workflow_tuple=None, expand_random_limits=False):
-        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
-            if 'latent_data' in workflow_tuple and len(workflow_tuple['latent_data']) > 0 and 'setup_states' in workflow_tuple and 'latent_setup' in workflow_tuple['setup_states']:
-                if workflow_tuple['setup_states']['latent_setup'] == True:
+    def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae=None, control_data=None, expand_random_limits=False):
+        if control_data is not None and len(control_data) > 0 and 'exif_status' in control_data and control_data['exif_status'] == 'SUCCEED':
+            if 'latent_data' in control_data and len(control_data['latent_data']) > 0 and 'setup_states' in control_data and 'latent_setup' in control_data['setup_states']:
+                if control_data['setup_states']['latent_setup'] == True:
                     expand_random_limits = False
                     rand_device = False
                     rand_alpha_exponent = False
                     rand_modulator = False
                     rand_noise_type = False
-                    noise_type = workflow_tuple['latent_data']['noise_type']
-                    device = workflow_tuple['latent_data']['device']
-                    alpha_exponent = workflow_tuple['latent_data']['alpha_exponent']
-                    modulator = workflow_tuple['latent_data']['modulator']
+                    noise_type = control_data['latent_data']['noise_type']
+                    device = control_data['latent_data']['device']
+                    alpha_exponent = control_data['latent_data']['alpha_exponent']
+                    modulator = control_data['latent_data']['modulator']
 
         if expand_random_limits == True:
             rand_device = True
@@ -1124,7 +1157,7 @@ class PrimereFractalLatent:
         if optional_vae is None:
             latents = tensors.permute(0, 3, 1, 2)
             latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
-            return {'samples': latents}, tensors, workflow_tuple
+            return {'samples': latents}, tensors, control_data
 
         encoder = nodes.VAEEncode()
         latents = []
@@ -1135,21 +1168,21 @@ class PrimereFractalLatent:
             except Exception:
                 latents = tensors.permute(0, 3, 1, 2)
                 latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
-                return {'samples': latents}, tensors, workflow_tuple
+                return {'samples': latents}, tensors, control_data
         latents = torch.cat(latents)
 
-        if workflow_tuple is not None:
-            workflow_tuple['latent_data'] = {}
-            workflow_tuple['latent_data']['noise_type'] = noise_type
-            workflow_tuple['latent_data']['alpha_exponent'] = alpha_exponent
-            workflow_tuple['latent_data']['modulator'] = modulator
-            workflow_tuple['latent_data']['device'] = device
+        if control_data is not None:
+            control_data['latent_data'] = {}
+            control_data['latent_data']['noise_type'] = noise_type
+            control_data['latent_data']['alpha_exponent'] = alpha_exponent
+            control_data['latent_data']['modulator'] = modulator
+            control_data['latent_data']['device'] = device
 
-        return {'samples': latents}, tensors, workflow_tuple
+        return {'samples': latents}, tensors, control_data
 
 class PrimereCLIP:
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING", "STRING", "STRING", "STRING", "TUPLE")
-    RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "T5XXL_PROMPT", "PROMPT L+", "PROMPT L-", "WORKFLOW_TUPLE")
+    RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "T5XXL_PROMPT", "PROMPT L+", "PROMPT L-", "CONTROL_DATA")
     FUNCTION = "clip_encode"
     CATEGORY = TREE_DASHBOARD
 
@@ -1176,7 +1209,7 @@ class PrimereCLIP:
         return {
             "required": {
                 "clip": ("CLIP", {"forceInput": True}),
-                "concept_data": ("TUPLE", {"default": None, "forceInput": True}),
+                "control_data": ("TUPLE", {"default": None, "forceInput": True}),
                 "positive_prompt": ("STRING", {"forceInput": True}),
                 "negative_prompt": ("STRING", {"forceInput": True}),
                 "negative_strength": ("FLOAT", {"default": 1.2, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -1220,7 +1253,7 @@ class PrimereCLIP:
                 "l_strength": ("FLOAT", {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}),
                 "width": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
                 "height": ("INT", {"default": 1024.0, "min": 0, "max": MAX_RESOLUTION, "forceInput": True}),
-                "workflow_tuple": ("TUPLE", {"default": None}),
+                "control_data": ("TUPLE", {"default": None}),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -1228,8 +1261,8 @@ class PrimereCLIP:
             }
         }
 
-    def clip_encode(self, clip, concept_data, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, workflow_tuple=None):
-        model_concept = concept_data.get('model_concept', 'SD1')
+    def clip_encode(self, clip, negative_strength, int_style_pos_strength, int_style_neg_strength, opt_pos_strength, opt_neg_strength, style_pos_strength, style_neg_strength, style_handling, style_swap, enhanced_prompt_strength, int_style_pos, int_style_neg, adv_encode, token_normalization, weight_interpretation, l_strength, extra_pnginfo, prompt, copy_prompt_to_l=True, width=1024, height=1024, positive_prompt="", negative_prompt="", enhanced_prompt="", enhanced_prompt_usage="T5-XXL", clip_model='Default', longclip_model='Default', model_keywords=None, lora_keywords=None, lycoris_keywords=None, embedding_pos=None, embedding_neg=None, opt_pos_prompt="", opt_neg_prompt="", style_position=False, style_neg_prompt="", style_pos_prompt="", positive_l="", negative_l="", use_int_style=False, edit_image_list=None, edit_vae=None, control_data=None):
+        model_concept = control_data.get('model_concept', 'SD1')
 
         advanced_default = ['StableCascade', 'Chroma', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
         if model_concept in advanced_default:
@@ -1250,29 +1283,29 @@ class PrimereCLIP:
             embedding_pos, embedding_neg,
         )
 
-        clip = clipping.apply_clip_attention_multiply(clip, workflow_tuple)
+        clip = clipping.apply_clip_attention_multiply(clip, control_data)
         match model_concept:
             case 'SD3':
-                return clipping.encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+                return clipping.encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'StableCascade':
-                return clipping.encode_stable_cascade(clip, positive_text, negative_text, workflow_tuple)
+                return clipping.encode_stable_cascade(clip, positive_text, negative_text, control_data)
             case 'Flux':
-                return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+                return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'PixartSigma':
-                return clipping.encode_pixart_sigma(clip, positive_text, negative_text, workflow_tuple)
+                return clipping.encode_pixart_sigma(clip, positive_text, negative_text, control_data)
             case 'SANA1024' | 'SANA512':
-                return clipping.encode_sana(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+                return clipping.encode_sana(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'KwaiKolors':
-                return clipping.encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+                return clipping.encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'Hunyuan':
-                return clipping.encode_hunyuan(self, clip, positive_text, negative_text, t5xxl_prompt, workflow_tuple)
+                return clipping.encode_hunyuan(self, clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'QwenEdit':
-                return clipping.encode_qwen_edit(self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, workflow_tuple)
+                return clipping.encode_qwen_edit(self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, control_data)
             # case 'Chroma':
-            #    return clipping.encode_chroma(clip, positive_text, negative_text, workflow_tuple)
+            #    return clipping.encode_chroma(clip, positive_text, negative_text, control_data)
             case _:
-                clip = clipping.apply_clip_overrides(self, clip, workflow_tuple)
-                return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, workflow_tuple, advanced_encode)
+                clip = clipping.apply_clip_overrides(self, clip, control_data)
+                return clipping.encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, control_data, advanced_encode)
 
 class PrimereResolution:
     RETURN_TYPES = ("INT", "INT", "INT", "STRING")
@@ -1750,37 +1783,37 @@ class PrimereNetworkTagLoader:
                 "lycoris_keyword_weight": ("FLOAT", {"default": 1.0, "min": 0, "max": 10.0, "step": 0.1}),
             },
             "optional": {
-                "workflow_tuple": ("TUPLE", {"default": None}),
+                "control_data": ("TUPLE", {"default": None}),
             }
         }
 
-    def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load=True, workflow_tuple=None):
-        if workflow_tuple is not None and len(workflow_tuple) > 0 and 'setup_states' in workflow_tuple and 'exif_status' in workflow_tuple and workflow_tuple['exif_status'] == 'SUCCEED':
+    def load_networks(self, model, clip, positive_prompt, process_lora, process_lycoris, process_hypernetwork, copy_weight_to_clip, lora_clip_custom_weight, lycoris_clip_custom_weight, use_lora_keyword, use_lycoris_keyword, lora_keyword_placement, lycoris_keyword_placement, lora_keyword_selection, lycoris_keyword_selection, lora_keywords_num, lycoris_keywords_num, lora_keyword_weight, lycoris_keyword_weight, hypernetwork_safe_load=True, control_data=None):
+        if control_data is not None and len(control_data) > 0 and 'setup_states' in control_data and 'exif_status' in control_data and control_data['exif_status'] == 'SUCCEED':
             concept = 'Auto'
-            stack_version = workflow_tuple['model_version']
-            if 'model_concept' in workflow_tuple:
-                concept = workflow_tuple['model_concept']
-            if 'model_version' in workflow_tuple:
-                if concept == 'Auto' and workflow_tuple['model_version'] == 'SDXL':
+            stack_version = control_data['model_version']
+            if 'model_concept' in control_data:
+                concept = control_data['model_concept']
+            if 'model_version' in control_data:
+                if concept == 'Auto' and control_data['model_version'] == 'SDXL':
                     stack_version = 'SDXL'
 
-            if 'setup_states' in workflow_tuple and 'network_data' in workflow_tuple:
-                if 'lora_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lora_setup'] == True:
-                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'lora', self.LORASCOUNT, True, stack_version)
+            if 'setup_states' in control_data and 'network_data' in control_data:
+                if 'lora_setup' in control_data['setup_states'] and control_data['setup_states']['lora_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(control_data, 'lora', self.LORASCOUNT, True, stack_version)
                     if len(loader) > 0:
                         networkData = networkhandler.LoraHandler(self, loader, model, clip, [], False, lora_keywords_num, use_lora_keyword, lora_keyword_selection, lora_keyword_weight, lora_keyword_placement)
                         model = networkData[0]
                         clip = networkData[1]
 
-                if 'lycoris_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['lycoris_setup'] == True:
-                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'lycoris', self.LYCOSCOUNT, True, stack_version)
+                if 'lycoris_setup' in control_data['setup_states'] and control_data['setup_states']['lycoris_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(control_data, 'lycoris', self.LYCOSCOUNT, True, stack_version)
                     if len(loader) > 0:
                         networkData = networkhandler.LycorisHandler(self, loader, model, clip, [], False, lycoris_keywords_num, use_lycoris_keyword, lycoris_keyword_selection, lycoris_keyword_weight, lycoris_keyword_placement)
                         model = networkData[0]
                         clip = networkData[1]
 
-                if 'embedding_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['embedding_setup'] == True:
-                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'embedding', self.EMBCOUNT, False, stack_version)
+                if 'embedding_setup' in control_data['setup_states'] and control_data['setup_states']['embedding_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(control_data, 'embedding', self.EMBCOUNT, False, stack_version)
                     if len(loader) > 0:
                         networkData = networkhandler.EmbeddingHandler(self, loader, None, None)
                         if networkData[0][0] is not None:
@@ -1788,8 +1821,8 @@ class PrimereNetworkTagLoader:
                             tokens = clip.tokenize(positive_prompt)
                             clip = clip.encode_from_tokens(tokens, return_pooled=False)
 
-                if 'hypernetwork_setup' in workflow_tuple['setup_states'] and workflow_tuple['setup_states']['hypernetwork_setup'] == True:
-                    loader = networkhandler.getNetworkLoader(workflow_tuple, 'hypernetwork', self.HNCOUNT, False, stack_version)
+                if 'hypernetwork_setup' in control_data['setup_states'] and control_data['setup_states']['hypernetwork_setup'] == True:
+                    loader = networkhandler.getNetworkLoader(control_data, 'hypernetwork', self.HNCOUNT, False, stack_version)
                     if len(loader) > 0:
                         networkData = networkhandler.HypernetworkHandler(self, loader, model, hypernetwork_safe_load)
                         model = networkData[0]
