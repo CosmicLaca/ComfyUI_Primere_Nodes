@@ -189,6 +189,30 @@ def PSamplerSana(self, device, seed, model,
 
     return (latent_out,)
 
+def _run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, samples_main, control_data, seed):
+    main_vae = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
+    raw_image = nodes.VAEDecode.decode(self, main_vae, samples_main)[0]
+    refiner_ckpt = nodes.CheckpointLoaderSimple.load_checkpoint(self, control_data.get('refiner_model'))
+    encoded_image = nodes.VAEEncode.encode(self, refiner_ckpt[2], raw_image)[0]
+    refiner_sampler = control_data.get('refiner_sampler', 'dpmpp_2m')
+    refiner_scheduler = control_data.get('refiner_scheduler', 'normal')
+    refiner_cfg = float(control_data.get('refiner_cfg', 2.0))
+    refiner_steps = int(control_data.get('refiner_steps', 22))
+    refiner_denoise = float(control_data.get('refiner_denoise', 0.9))
+    refiner_start = int(control_data.get('refiner_start', 12))
+    sigmas = nodes_custom_sampler.BasicScheduler.execute(refiner_model, refiner_scheduler, refiner_steps, refiner_denoise)[0]
+    low_sigmas = nodes_custom_sampler.SplitSigmas.execute(sigmas, refiner_start)[1]
+    sampler = comfy.samplers.sampler_object(refiner_sampler)
+    if control_data.get('refiner_ignore_prompt', True):
+        empty_cond = nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
+        pos_cond = empty_cond
+        neg_cond = empty_cond
+    else:
+        pos_cond = refiner_cond_pos if refiner_cond_pos is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
+        neg_cond = refiner_cond_neg if refiner_cond_neg is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
+    return nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)[0]
+
+
 def PSamplerPixart(self, device, seed, model,
                    steps, cfg, sampler_name, scheduler_name,
                    positive, negative,
@@ -200,50 +224,25 @@ def PSamplerPixart(self, device, seed, model,
         scheduler_name = control_data.get('scheduler_name', scheduler_name)
         steps = control_data.get('steps', steps)
         cfg = control_data.get('cfg', cfg)
-    PIXART_DENOISE = float(control_data.get('refiner_sampling_denoise', denoise)) if control_data and control_data.get('refiner') == True else denoise
+    if control_data and control_data.get('refiner') == True:
+        denoise = float(control_data.get('refiner_sampling_denoise', denoise))
 
-    sigmas_main = nodes_custom_sampler.BasicScheduler.execute(model['main'], scheduler_name, steps, denoise=PIXART_DENOISE)[0]
+    sigmas_main = nodes_custom_sampler.BasicScheduler.execute(model, scheduler_name, steps, denoise=denoise)[0]
     sampler = comfy.samplers.sampler_object(sampler_name)
     if variation_level == True:
-        samples_main = latentnoise.noisy_samples(model['main'], device, steps, cfg, sampler_name, scheduler_name, positive['main'], negative['main'], latent_image, PIXART_DENOISE, seed, noise_extender)[0]
+        samples_main = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)[0]
     else:
         if variation_extender_original > 0 or device != 'DEFAULT' or variation_batch_step_original > 0:
-            samples_main = latentnoise.noisy_samples(model['main'], device, steps, cfg, sampler_name, scheduler_name, positive['main'], negative['main'], latent_image, PIXART_DENOISE, seed, noise_extender)[0]
+            samples_main = latentnoise.noisy_samples(model, device, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise, seed, noise_extender)[0]
         else:
             if align_your_steps == True:
                 model_type = 'SDXL'
                 sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
                 sampler = comfy.samplers.sampler_object(sampler_name)
-                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas[0], latent_image)
+                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                 samples_main = AYS_samples[0]
             else:
-                samples_main = nodes_custom_sampler.SamplerCustom.execute(model['main'], True, seed, cfg, positive['main'], negative['main'], sampler, sigmas_main, latent_image)[0]
-
-    if 'refiner' in model and model['refiner'] is not None:
-        PIXART_VAE = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
-        RAW_IMAGE = nodes.VAEDecode.decode(self, PIXART_VAE, samples_main)[0]
-        PIXART_REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, control_data.get('refiner_model'))
-        RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, PIXART_REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
-
-        REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
-        REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
-        REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
-        REFINER_STEPS = int(control_data.get('refiner_steps', 22))
-        PIXART_DENOISE_REFINER = float(control_data.get('refiner_denoise', 0.9))
-        PIXART_REFINER_START = int(control_data.get('refiner_start', 12))
-
-        sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(model['refiner'], REFINER_SCHEDULER, REFINER_STEPS, PIXART_DENOISE_REFINER)[0]
-        splitted_low_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, PIXART_REFINER_START)[1]
-        sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
-        REFINER_IGNORE_PROMPT = control_data.get('refiner_ignore_prompt', False)
-        if REFINER_IGNORE_PROMPT:
-            empty_cond = nodes.CLIPTextEncode.encode(self, PIXART_REFINER_CHECKPOINT[1], "")[0]
-            refiner_pos = empty_cond
-            refiner_neg = empty_cond
-        else:
-            refiner_pos = positive['refiner']
-            refiner_neg = negative['refiner']
-        samples_main = nodes_custom_sampler.SamplerCustom.execute(model['refiner'], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_low_sigma, RAW_IMAGE_ENCODED)[0]
+                samples_main = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas_main, latent_image)[0]
 
     return (samples_main,)
 

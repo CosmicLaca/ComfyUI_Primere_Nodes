@@ -546,6 +546,19 @@ class PrimereKSampler:
         noise_constant = noise_extender_ksampler
         WORKFLOWDATA = extra_pnginfo['workflow']['nodes']
 
+        refiner_model_data = None
+        if isinstance(model, dict) and 'main' in model:
+            refiner_model_data = model.get('refiner')
+            model = model['main']
+        refiner_cond_pos = None
+        refiner_cond_neg = None
+        if isinstance(positive, dict) and 'main' in positive:
+            refiner_cond_pos = positive.get('refiner')
+            positive = positive['main']
+        if isinstance(negative, dict) and 'main' in negative:
+            refiner_cond_neg = negative.get('refiner')
+            negative = negative['main']
+
         match model_concept:
             case 'SANA1024' | 'SANA512':
                 if scheduler_name == 'flow_dpm-solver':
@@ -669,6 +682,9 @@ class PrimereKSampler:
                                                         latent_image, denoise,
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
+
+        if refiner_model_data is not None:
+            samples_out = primeresamplers._run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)
 
         if control_data is not None:
             control_data['sampler_settings'] = {}

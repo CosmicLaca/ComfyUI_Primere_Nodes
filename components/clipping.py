@@ -600,6 +600,10 @@ def detect_attn_preset(model_name, default='Off'):
 def apply_clip_overrides(loader_self, clip, control_data):
     if not control_data:
         return clip
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
     encoder_1 = control_data.get('encoder_1', None)
     last_layer = int(control_data.get('last_layer', 0))
     baked_clip = clip
@@ -623,6 +627,8 @@ def apply_clip_overrides(loader_self, clip, control_data):
     if last_layer < 0:
         clip = nodes.CLIPSetLastLayer.set_last_layer(loader_self, clip, last_layer)[0]
 
+    if refiner_clip is not None:
+        return {'main': clip, 'refiner': refiner_clip}
     return clip
 
 
@@ -635,20 +641,45 @@ def apply_clip_attention_multiply(clip, control_data):
     out = float(control_data.get('clip_attn_out', 1.0))
     if q == 1.0 and k == 1.0 and v == 1.0 and out == 1.0:
         return clip
+    if isinstance(clip, dict):
+        try:
+            clip['main'] = nodes_attention_multiply.CLIPAttentionMultiply.execute(clip['main'], q, k, v, out)[0]
+        except Exception:
+            pass
+        return clip
     try:
         return nodes_attention_multiply.CLIPAttentionMultiply.execute(clip, q, k, v, out)[0]
     except Exception:
         return clip
 
 
+def _maybe_wrap_cond(pos_cond, neg_cond, refiner_clip, positive_text, negative_text):
+    if refiner_clip is None:
+        return pos_cond, neg_cond
+    tokens_pos = refiner_clip.tokenize(positive_text)
+    tokens_neg = refiner_clip.tokenize(negative_text)
+    out_pos = refiner_clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+    out_neg = refiner_clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+    cond_pos_ref = out_pos.pop("cond")
+    cond_neg_ref = out_neg.pop("cond")
+    return {'main': pos_cond, 'refiner': [[cond_pos_ref, out_pos]]}, {'main': neg_cond, 'refiner': [[cond_neg_ref, out_neg]]}
+
+
 def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode, token_normalization, weight_interpretation, positive_l, negative_l, width, height, control_data, advanced_encode_fn):
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
     if adv_encode:
         tokens_p = clip.tokenize(positive_text)
         tokens_n = clip.tokenize(negative_text)
         if 'l' not in tokens_p or 'g' not in tokens_p or 'l' not in tokens_n or 'g' not in tokens_n:
             embeddings_final_pos, pooled_pos = advanced_encode_fn(clip, positive_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
             embeddings_final_neg, pooled_neg = advanced_encode_fn(clip, negative_text, token_normalization, weight_interpretation, w_max=1.0, apply_to_pooled=True)
-            return ([[embeddings_final_pos, {"pooled_output": pooled_pos}]], [[embeddings_final_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+            pos_cond = [[embeddings_final_pos, {"pooled_output": pooled_pos}]]
+            neg_cond = [[embeddings_final_neg, {"pooled_output": pooled_neg}]]
+            pos_cond, neg_cond = _maybe_wrap_cond(pos_cond, neg_cond, refiner_clip, positive_text, negative_text)
+            return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
         else:
             if 'l' in clip.tokenize(positive_l):
                 tokens_p["l"] = clip.tokenize(positive_l)["l"]
@@ -668,7 +699,10 @@ def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode
                         tokens_n["g"] += empty["g"]
             cond_p, pooled_p = clip.encode_from_tokens(tokens_p, return_pooled=True)
             cond_n, pooled_n = clip.encode_from_tokens(tokens_n, return_pooled=True)
-            return ([[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]], positive_text, negative_text, "", positive_l, negative_l, control_data)
+            pos_cond = [[cond_p, {"pooled_output": pooled_p, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]]
+            neg_cond = [[cond_n, {"pooled_output": pooled_n, "width": width, "height": height, "crop_w": 0, "crop_h": 0, "target_width": width, "target_height": height}]]
+            pos_cond, neg_cond = _maybe_wrap_cond(pos_cond, neg_cond, refiner_clip, positive_text, negative_text)
+            return (pos_cond, neg_cond, positive_text, negative_text, "", positive_l, negative_l, control_data)
     else:
         tokens_pos = clip.tokenize(positive_text)
         tokens_neg = clip.tokenize(negative_text)
@@ -680,16 +714,22 @@ def encode_standard(clip, positive_text, negative_text, t5xxl_prompt, adv_encode
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+        pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+        return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
 def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data):
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
     if t5xxl_prompt:
         pos_out = nodes_sd3.CLIPTextEncodeSD3.execute(clip, positive_text, positive_text, t5xxl_prompt, 'none')
         tokens_neg = clip.tokenize(negative_text)
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_neg = out_neg.pop("cond")
-        return (pos_out[0], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+        pos_cond, neg_cond = _maybe_wrap_cond(pos_out[0], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+        return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     else:
         tokens_pos = clip.tokenize(positive_text)
         tokens_neg = clip.tokenize(negative_text)
@@ -697,68 +737,74 @@ def encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data):
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", control_data)
+        pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+        return (pos_cond, neg_cond, positive_text, negative_text, "", "", "", control_data)
 
 
 def encode_stable_cascade(clip, positive_text, negative_text, control_data):
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     cond_pos, pooled_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True)
     cond_neg, pooled_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True)
-    return ([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], positive_text, negative_text, "", "", "", control_data)
+    pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, {"pooled_output": pooled_pos}]], [[cond_neg, {"pooled_output": pooled_neg}]], refiner_clip, positive_text, negative_text)
+    return (pos_cond, neg_cond, positive_text, negative_text, "", "", "", control_data)
 
 
 def encode_pixart_sigma(clip, positive_text, negative_text, control_data):
+    refiner_clip = clip.get('refiner') if isinstance(clip, dict) else None
+    clip = clip['main'] if isinstance(clip, dict) else clip
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)
-
-    cond_pos_ref = cond_neg_ref = out_pos_ref = out_neg_ref = None
-
-    if clip['refiner'] is not None:
-        clipRef = clip['refiner']
-        tokens_pos_ref = clipRef.tokenize(positive_text)
-        tokens_neg_ref = clipRef.tokenize(negative_text)
-        out_pos_ref = clipRef.encode_from_tokens(tokens_pos_ref, return_pooled=True, return_dict=True)
-        out_neg_ref = clipRef.encode_from_tokens(tokens_neg_ref, return_pooled=True, return_dict=True)
-        cond_pos_ref = out_pos_ref.pop("cond")
-        cond_neg_ref = out_neg_ref.pop("cond")
-
-    clipMain = clip['main']
-    tokens_pos_main = clipMain.tokenize(positive_text)
-    tokens_neg_main = clipMain.tokenize(negative_text)
-    out_pos_main = clipMain.encode_from_tokens(tokens_pos_main, return_pooled=True, return_dict=True)
-    out_neg_main = clipMain.encode_from_tokens(tokens_neg_main, return_pooled=True, return_dict=True)
-    cond_pos_main = out_pos_main.pop("cond")
-    cond_neg_main = out_neg_main.pop("cond")
-
-    return ({'refiner': [[cond_pos_ref, out_pos_ref]], 'main': [[cond_pos_main, out_pos_main]]}, {'refiner': [[cond_neg_ref, out_neg_ref]], 'main': [[cond_neg_main, out_neg_main]]}, positive_text, negative_text, "", "", "", control_data)
-
-
-def encode_chroma(clip, positive_text, negative_text, control_data):
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
     out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
     cond_pos = out_pos.pop("cond")
     cond_neg = out_neg.pop("cond")
-    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, "", "", "", control_data)
+    pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+    return (pos_cond, neg_cond, positive_text, negative_text, "", "", "", control_data)
+
+
+def encode_chroma(clip, positive_text, negative_text, control_data):
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
+    tokens_pos = clip.tokenize(positive_text)
+    tokens_neg = clip.tokenize(negative_text)
+    out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+    out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
+    cond_pos = out_pos.pop("cond")
+    cond_neg = out_neg.pop("cond")
+    pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+    return (pos_cond, neg_cond, positive_text, negative_text, "", "", "", control_data)
 
 
 def encode_flux(clip, positive_text, negative_text, t5xxl_prompt, control_data):
+    refiner_clip = None
+    if isinstance(clip, dict):
+        refiner_clip = clip.get('refiner')
+        clip = clip['main']
     FLUX_SAMPLER = control_data.get('sampler', 'ksampler')
     FLUX_GUIDANCE = control_data.get('guidance', 2)
     if FLUX_SAMPLER == 'custom_advanced' and len(t5xxl_prompt) > 5:
         CONDITIONING_POS = nodes_flux.CLIPTextEncodeFlux.execute(clip, positive_text, t5xxl_prompt, FLUX_GUIDANCE)[0]
-        return (CONDITIONING_POS, CONDITIONING_POS, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+        pos_cond, neg_cond = _maybe_wrap_cond(CONDITIONING_POS, CONDITIONING_POS, refiner_clip, positive_text, negative_text)
+        return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
     tokens_pos = clip.tokenize(positive_text)
     tokens_neg = clip.tokenize(negative_text)
     out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
     out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
     cond_pos = out_pos.pop("cond")
     cond_neg = out_neg.pop("cond")
-    return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+    pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+    return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
 
 
 _SANA_MAX_TOKENS = 300

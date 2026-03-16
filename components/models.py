@@ -132,6 +132,23 @@ def pick_lora(concept_data):
     return None, 0
 
 
+def _load_refiner(loader_self, concept_data):
+    if concept_data.get('refiner') != True:
+        return None, None, None
+    refiner_model_name = concept_data.get('refiner_model')
+    if not refiner_model_name or refiner_model_name == 'None':
+        return None, None, None
+    ckpt = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, refiner_model_name)
+    return ckpt[0], ckpt[1], ckpt[2]
+
+
+def _wrap_refiner(output_model, output_clip, output_vae, loader_self, concept_data):
+    ref_model, ref_clip, ref_vae = _load_refiner(loader_self, concept_data)
+    if ref_model is None:
+        return output_model, output_clip, output_vae
+    return {'main': output_model, 'refiner': ref_model}, {'main': output_clip, 'refiner': ref_clip}, output_vae
+
+
 def load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data):
     if os.path.isfile(model_config_full_path) and use_yaml:
         ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
@@ -154,7 +171,7 @@ def load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, conc
     else:
         OUTPUT_VAE = LOADED_CHECKPOINT[2]
     OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_sd3_model(loader_self, ckpt_name, concept_data):
@@ -184,7 +201,7 @@ def load_sd3_model(loader_self, ckpt_name, concept_data):
         if lora_path:
             OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
     OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_stable_cascade_model(loader_self, ckpt_name, concept_data):
@@ -199,7 +216,7 @@ def load_stable_cascade_model(loader_self, ckpt_name, concept_data):
         MODEL_C = nodes.UNETLoader.load_unet(loader_self, linkedFileName, 'default')[0]
     else:
         MODEL_C = nodes.UNETLoader.load_unet(loader_self, ckpt_name, 'default')[0]
-    return [MODEL_B, MODEL_C], OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner([MODEL_B, MODEL_C], OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_zimage_model(loader_self, ckpt_name, concept_data):
@@ -229,7 +246,7 @@ def load_zimage_model(loader_self, ckpt_name, concept_data):
     else:
         OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'flux2')[0]
     OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_flux_model(loader_self, ckpt_name, concept_data):
@@ -272,7 +289,7 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     except Exception as e:
         print(f"Primere: ModelSamplingFlux failed: {e}")
     OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_auraflow_model(loader_self, ckpt_name, concept_data):
@@ -287,7 +304,7 @@ def load_auraflow_model(loader_self, ckpt_name, concept_data):
     encoder_1 = concept_data.get('encoder_1', None)
     OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'stable_diffusion')[0]
     OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_pixart_model(loader_self, ckpt_name, concept_data):
@@ -309,19 +326,8 @@ def load_pixart_model(loader_self, ckpt_name, concept_data):
 
     encoder_1 = concept_data.get('encoder_1', None)
     OUTPUT_CLIP_MAIN = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'sd3')[0]
-
-    refiner_model = concept_data.get('refiner_model', None)
-    OUTPUT_MODEL_REFINER = None
-    OUTPUT_CLIP_REFINER = None
-    if concept_data.get('refiner') == True and refiner_model and refiner_model != 'None':
-        REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, refiner_model)
-        OUTPUT_MODEL_REFINER = REFINER_CHECKPOINT[0]
-        OUTPUT_CLIP_REFINER = REFINER_CHECKPOINT[1]
-        OUTPUT_VAE = REFINER_CHECKPOINT[2]
-    else:
-        OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
-
-    return {'main': OUTPUT_MODEL_MAIN, 'refiner': OUTPUT_MODEL_REFINER}, {'main': OUTPUT_CLIP_MAIN, 'refiner': OUTPUT_CLIP_REFINER}, OUTPUT_VAE
+    OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
+    return _wrap_refiner(OUTPUT_MODEL_MAIN, OUTPUT_CLIP_MAIN, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data):
@@ -329,10 +335,15 @@ def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_pa
     sigma_max = concept_data.get('sigma_max', 120)
     sigma_min = concept_data.get('sigma_min', 0.002)
     edm_sampling = concept_data.get('edm_sampling', 'edm_playground_v2.5')
+    main_model = OUTPUT_MODEL['main'] if isinstance(OUTPUT_MODEL, dict) else OUTPUT_MODEL
     try:
-        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingContinuousEDM.patch(loader_self, OUTPUT_MODEL, edm_sampling, sigma_max, sigma_min)[0]
+        main_model = nodes_model_advanced.ModelSamplingContinuousEDM.patch(loader_self, main_model, edm_sampling, sigma_max, sigma_min)[0]
     except Exception as e:
         print(f"Primere: ModelSamplingContinuousEDM failed: {e}")
+    if isinstance(OUTPUT_MODEL, dict):
+        OUTPUT_MODEL['main'] = main_model
+    else:
+        OUTPUT_MODEL = main_model
     return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
 
 
@@ -365,7 +376,7 @@ def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
             OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
 
     OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_lcm_model(loader_self, ckpt_name, concept_data):
@@ -388,7 +399,7 @@ def load_lcm_model(loader_self, ckpt_name, concept_data):
     m.add_object_patch("model_sampling", ModelSamplingAdvanced())
     OUTPUT_MODEL = m
 
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_sana_model(loader_self, ckpt_name, concept_data):
@@ -513,7 +524,7 @@ def load_sana_model(loader_self, ckpt_name, concept_data):
             "text_encoder_model": text_encoder_model,
         }
 
-    return SANA_MODEL, SANA_CLIP, SANA_VAE
+    return _wrap_refiner(SANA_MODEL, SANA_CLIP, SANA_VAE, loader_self, concept_data)
 
 
 def load_kolors_model(loader_self, ckpt_name, concept_data):
@@ -559,7 +570,7 @@ def load_kolors_model(loader_self, ckpt_name, concept_data):
         raise ValueError("KwaiKolors requires an explicit VAE. Set 'vae' in the concept data (e.g. 'kolors\\diffusion_pytorch_model.fp16.safetensors').")
     OUTPUT_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
 
-    return KOLORS_MODEL, CHATGLM3_MODEL, OUTPUT_VAE
+    return _wrap_refiner(KOLORS_MODEL, CHATGLM3_MODEL, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_hunyuan_model(loader_self, ckpt_name, concept_data):
@@ -593,7 +604,7 @@ def load_hunyuan_model(loader_self, ckpt_name, concept_data):
             if t5_path:
                 T5 = load_hydit_t5(model_path=t5_path, device='GPU', dtype=dtype)
 
-    return HUNYUAN_MODEL, {'clip': CLIP, 't5': T5}, HUNYUAN_VAE
+    return _wrap_refiner(HUNYUAN_MODEL, {'clip': CLIP, 't5': T5}, HUNYUAN_VAE, loader_self, concept_data)
 
 
 def load_qwen_model(loader_self, ckpt_name, concept_data):
@@ -635,7 +646,7 @@ def load_qwen_model(loader_self, ckpt_name, concept_data):
         OUTPUT_MODEL = nodes_model_advanced.ModelSamplingSD3.patch(loader_self, OUTPUT_MODEL, 3, 1.0)[0]
         OUTPUT_MODEL = nodes_cfg.CFGNorm.execute(OUTPUT_MODEL, 1)[0]
 
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
 def load_chroma_model(loader_self, ckpt_name, concept_data):
@@ -671,6 +682,6 @@ def load_chroma_model(loader_self, ckpt_name, concept_data):
     rescale_cfg = concept_data.get('rescale_cfg', 1.0)
     if rescale_cfg != 1.0:
         OUTPUT_MODEL = nodes_model_advanced.RescaleCFG.patch(loader_self, OUTPUT_MODEL, rescale_cfg)[0]
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 
 
