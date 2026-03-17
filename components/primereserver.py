@@ -172,7 +172,7 @@ async def primere_modelpaths(request):
     models_by_path = []
 
     if subdirType != 'styles':
-        excluded = ['.locks', 'Bjornulf_civitAI', 'depthfm', 'models--xiaozaa--cat-tryoff-flux']
+        excluded = ['.locks', 'Bjornulf_civitAI', 'depthfm', 'models--xiaozaa--cat-tryoff-flux', 'SUPIR', 'Refiners']
         allSource = folder_paths.get_filename_list(subdirType)
         for Source in allSource:
             if "\\" in Source:

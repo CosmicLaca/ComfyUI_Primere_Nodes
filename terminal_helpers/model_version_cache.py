@@ -14,7 +14,7 @@ sys.path.append(components_path)
 
 import utility
 
-EXCLUDED_SUBDIRS = {'.locks', 'Bjornulf_civitAI', 'depthfm', 'models--xiaozaa--cat-tryoff-flux'}
+EXCLUDED_SUBDIRS = {'.locks', 'Bjornulf_civitAI', 'depthfm', 'models--xiaozaa--cat-tryoff-flux', 'SUPIR', 'Refiners'}
 
 def match_supported(name):
     name_lower = name.lower()
