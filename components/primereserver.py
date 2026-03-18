@@ -546,3 +546,25 @@ async def primere_model_concept_save(request):
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(existing, f, indent=2)
     return web.json_response({"success": True})
+
+routes19 = PromptServer.instance.routes
+@routes19.get('/primere_rasterix_read')
+async def primere_rasterix_read(request):
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
+    data = utility.json2tuple(json_path) or {}
+    return web.json_response(data)
+
+routes20 = PromptServer.instance.routes
+@routes20.post('/primere_rasterix_save')
+async def primere_rasterix_save(request):
+    post = await request.json()
+    section = post.get('section')
+    data = post.get('data')
+    if not section or data is None:
+        return web.json_response({"success": False}, status=400)
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
+    existing = utility.json2tuple(json_path) or {}
+    existing[section] = data
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(existing, f, indent=2)
+    return web.json_response({"success": True})

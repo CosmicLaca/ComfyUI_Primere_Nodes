@@ -1,4 +1,5 @@
 import math
+import json
 from ..components.tree import TREE_DASHBOARD
 from ..components.tree import PRIMERE_ROOT
 from server import PromptServer
@@ -2189,7 +2190,7 @@ class PrimereRasterix:
                 "unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
                 "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
                 "jpeg_cycles":       ("INT",     {"default": 3,     "min": 0,    "max": 6,    "step": 1}),
-            }
+            },
         }
 
     def primere_rasterix(self, image, auto_normalize, auto_levels_threshold, shade_level, shade_radius, brightness, contrast, use_legacy, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles):
@@ -2201,17 +2202,23 @@ class PrimereRasterix:
         if brightness != 0 or contrast != 0:
             pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
 
-        if color_balance_cyan_red != 0 or color_balance_magenta_green != 0 or color_balance_yellow_blue != 0:
-            pil_img = img_color_balance.img_color_balance(image=pil_img, cyan_red=color_balance_cyan_red, magenta_green=color_balance_magenta_green, yellow_blue=color_balance_yellow_blue, tone=color_balance_tone, preserve_luminosity=color_balance_preserve_luminosity)
+        rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
+        rasterix_data = utility.json2tuple(rasterix_json_path) or {}
 
-        if hue_saturation_hue != 0 or hue_saturation_saturation != 0 or hue_saturation_lightness != 0 or hue_saturation_vibrance != 0:
-            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channel=hue_saturation_channel, hue=hue_saturation_hue, saturation=hue_saturation_saturation, lightness=hue_saturation_lightness, vibrance=hue_saturation_vibrance)
+        cb_data = rasterix_data.get('color_balance', {})
+        for tone, vals in cb_data.items():
+            if vals.get('cyan_red', 0) != 0 or vals.get('magenta_green', 0) != 0 or vals.get('yellow_blue', 0) != 0:
+                pil_img = img_color_balance.img_color_balance(image=pil_img, cyan_red=vals['cyan_red'], magenta_green=vals['magenta_green'], yellow_blue=vals['yellow_blue'], tone=tone, preserve_luminosity=color_balance_preserve_luminosity)
+
+        hs_data = rasterix_data.get('hue_saturation', {})
+        if hs_data:
+            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data)
 
         shade_radius = None if shade_radius == 0 else shade_radius
         if shade_level != 0:
             pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=shade_level, radius=shade_radius)
 
         if ai_detection:
-            pil_img = detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles)
+            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles)
 
         return (utility.image_to_tensor(pil_img),)
