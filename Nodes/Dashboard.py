@@ -2165,6 +2165,7 @@ class PrimereRasterix:
 
                 "shade_level":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
                 "shade_radius": ("FLOAT", {"default": 0, "min": 0, "max": 50, "step": 0.5}),
+                "detail_mode": (["fine", "medium", "broad"], {"default": "medium"}),
 
                 "brightness": ("FLOAT", {"default": 0, "min": -150, "max": 150, "step": 1}),
                 "contrast":   ("FLOAT", {"default": 0, "min": -50,  "max": 100, "step": 1}),
@@ -2190,12 +2191,18 @@ class PrimereRasterix:
                 "vignette_strength": ("FLOAT",   {"default": 0.18,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
                 "unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
                 "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
-                "jpeg_cycles":       ("INT",     {"default": 3,     "min": 0,    "max": 6,    "step": 1}),
+                "jpeg_cycles":       ("INT",     {"default": 4,     "min": 0,    "max": 6,    "step": 1}),
+                "resize_scale": ("FLOAT",   {"default": 0.96,  "min": 0.88,  "max": 0.98,  "step": 0.01}),
+                "blur_radius": ("FLOAT",   {"default": 0.35,  "min": 0.0,  "max": 1.0,  "step": 0.05}),
             },
         }
 
-    def primere_rasterix(self, image, auto_normalize, auto_levels_threshold, shade_level, shade_radius, brightness, contrast, use_legacy, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles):
+    def primere_rasterix(self, image, auto_normalize, auto_levels_threshold, shade_level, shade_radius, detail_mode, brightness, contrast, use_legacy, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles, resize_scale, blur_radius):
         pil_img = utility.tensor_to_image(image)
+
+        # img_selective_tone.img_selective_tone(image, highlights=0, midtones=0, shadows=0, blacks=0)
+        # img_smart_lighting.img_smart_lighting(image, intensity=0)
+        # img_blur.img_blur(image, blur_type="gaussian", intensity=1.0, radius=2.0, angle=0.0, edge_only=False)
 
         if auto_normalize:
             pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold)
@@ -2217,10 +2224,10 @@ class PrimereRasterix:
 
         shade_radius = None if shade_radius == 0 else shade_radius
         if shade_level != 0:
-            pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=shade_level, radius=shade_radius)
+            pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=shade_level, radius=shade_radius, detail_mode=detail_mode)
 
         if ai_detection:
-            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles)
+            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles, resize_scale=resize_scale, blur_radius=blur_radius)
 
         return (utility.image_to_tensor(pil_img),)
 
