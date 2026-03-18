@@ -68,6 +68,12 @@ from transformers import AutoTokenizer, T5Tokenizer, T5EncoderModel, AutoModelFo
 from ..components.sana.diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST
 import node_helpers
 from comfy_api.latest import ComfyExtension, io
+from ..components.images import img_shade_level as img_shade_level
+from ..components.images import img_brightness_contrast as img_brightness_contrast
+from ..components.images import img_color_balance as img_color_balance
+from ..components.images import img_hue_saturation as img_hue_saturation
+from ..components.images import img_levels_auto as img_levels_auto
+from ..components.images import isgen_detect_ext_full as isgen_detect_ext_full
 
 class PrimereSamplersSteps:
     CATEGORY = TREE_DASHBOARD
@@ -2140,3 +2146,72 @@ class PrimereUpscaleModel:
     def load_upscaler(self, model_name):
         out = nodes_upscale_model.UpscaleModelLoader.execute(model_name)[0]
         return (out, model_name,)
+
+class PrimereRasterix:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_rasterix"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image":                 ("IMAGE", {"forceInput": True}),
+                "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
+                "auto_levels_threshold": ("FLOAT",   {"default": 2.0, "min": 0.0, "max": 10.0, "step": 0.1}),
+
+                "shade_level":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "shade_radius": ("FLOAT", {"default": 0, "min": 0, "max": 50, "step": 0.5}),
+
+                "brightness": ("FLOAT", {"default": 0, "min": -150, "max": 150, "step": 1}),
+                "contrast":   ("FLOAT", {"default": 0, "min": -50,  "max": 100, "step": 1}),
+                "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
+
+                "color_balance_cyan_red": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "color_balance_magenta_green": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "color_balance_yellow_blue": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "color_balance_tone": (["highlights", "midtones", "shadows"], {"default": "midtones"}),
+                "color_balance_preserve_luminosity": ("BOOLEAN", {"default": False, "label_off": "Modify luminosity", "label_on": "Restore original luminosity"}),
+
+                "hue_saturation_channel": (["master", "r", "g", "b"], {"default": "master"}),
+                "hue_saturation_hue": ("FLOAT", {"default": 0, "min": -180, "max": 180, "step": 1}),
+                "hue_saturation_saturation": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "hue_saturation_lightness": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "hue_saturation_vibrance": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+
+                "ai_detection": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
+                "grain_intensity":   ("FLOAT",   {"default": 6.5,   "min": 0.0,  "max": 20.0, "step": 0.5}),
+                "freq_strength":     ("FLOAT",   {"default": 0.019, "min": 0.0,  "max": 0.1,  "step": 0.001}),
+                "variance_strength": ("FLOAT",   {"default": 0.32,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
+                "ca_strength":       ("FLOAT",   {"default": 1.2,   "min": 0.0,  "max": 5.0,  "step": 0.1}),
+                "vignette_strength": ("FLOAT",   {"default": 0.18,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
+                "unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
+                "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
+                "jpeg_cycles":       ("INT",     {"default": 3,     "min": 0,    "max": 6,    "step": 1}),
+            }
+        }
+
+    def primere_rasterix(self, image, auto_normalize, auto_levels_threshold, shade_level, shade_radius, brightness, contrast, use_legacy, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles):
+        pil_img = utility.tensor_to_image(image)
+
+        if auto_normalize:
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold)
+
+        if brightness != 0 or contrast != 0:
+            pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
+
+        if color_balance_cyan_red != 0 or color_balance_magenta_green != 0 or color_balance_yellow_blue != 0:
+            pil_img = img_color_balance.img_color_balance(image=pil_img, cyan_red=color_balance_cyan_red, magenta_green=color_balance_magenta_green, yellow_blue=color_balance_yellow_blue, tone=color_balance_tone, preserve_luminosity=color_balance_preserve_luminosity)
+
+        if hue_saturation_hue != 0 or hue_saturation_saturation != 0 or hue_saturation_lightness != 0 or hue_saturation_vibrance != 0:
+            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channel=hue_saturation_channel, hue=hue_saturation_hue, saturation=hue_saturation_saturation, lightness=hue_saturation_lightness, vibrance=hue_saturation_vibrance)
+
+        shade_radius = None if shade_radius == 0 else shade_radius
+        if shade_level != 0:
+            pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=shade_level, radius=shade_radius)
+
+        if ai_detection:
+            pil_img = detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles)
+
+        return (utility.image_to_tensor(pil_img),)

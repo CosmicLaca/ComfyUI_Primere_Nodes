@@ -1195,6 +1195,14 @@ def tensor_to_image(tensor):
     image = Image.fromarray(image_np, mode='RGB')
     return image
 
+def image_to_tensor(image: Image.Image | None) -> torch.Tensor | None:
+    if image is None:
+        return None
+
+    rgb_image = image.convert("RGB")
+    image_array = np.array(rgb_image).astype(np.float32) / 255.0
+    return torch.from_numpy(image_array)[None,]
+
 def florence_img2prompt(model, processor, image, max_new_tokens, num_beams, do_sample, text_input=None, llm_options=None):
     if text_input is None:
         text_input = 'detailed enhanced prompt for text2image models'
