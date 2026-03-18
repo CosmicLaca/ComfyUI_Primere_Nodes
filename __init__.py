@@ -59,6 +59,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
     "PrimereUpscaleModel": Dashboard.PrimereUpscaleModel,
     "PrimereRasterix": Dashboard.PrimereRasterix,
+    "PrimereRasterixGrain": Dashboard.PrimereRasterixGrain,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -139,6 +140,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereConceptDataTuple": "Primere Concept Tuple",
     "PrimereUpscaleModel": "Primere Upscale Models",
     "PrimereRasterix": "Primere Rasterix (The ToneLab)",
+    "PrimereRasterixGrain": "Primere Rasterix Grain",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

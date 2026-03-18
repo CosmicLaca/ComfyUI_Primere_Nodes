@@ -55,6 +55,7 @@ from ComfyUI_ExtraModels.Sana.loader import load_sana
 from ComfyUI_ExtraModels.VAE.conf import vae_conf
 from ComfyUI_ExtraModels.VAE.loader import EXVAE
 import numpy as np
+from PIL import Image
 import difflib
 import datetime
 from ..components import llm_enhancer
@@ -2222,3 +2223,26 @@ class PrimereRasterix:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles)
 
         return (utility.image_to_tensor(pil_img),)
+
+
+class PrimereRasterixGrain:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_rasterix_grain"
+    CATEGORY = TREE_DASHBOARD
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image":           ("IMAGE", {"forceInput": True}),
+                "grain_intensity": ("FLOAT", {"default": 6.5, "min": 0.0, "max": 30.0, "step": 0.5}),
+            }
+        }
+
+    def primere_rasterix_grain(self, image, grain_intensity):
+        if grain_intensity == 0:
+            return (image,)
+        pil_img = utility.tensor_to_image(image)
+        arr = isgen_detect_ext_full.add_film_grain(np.array(pil_img), intensity=grain_intensity)
+        return (utility.image_to_tensor(Image.fromarray(arr)),)
