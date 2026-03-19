@@ -2160,6 +2160,9 @@ class PrimereRasterix:
     FUNCTION = "primere_rasterix"
     CATEGORY = TREE_DASHBOARD
 
+    MODELLIST = PrimereModelConceptSelector.MODELLIST
+    CONCEPT_LIST =  PrimereModelConceptSelector.CONCEPT_LIST
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -2229,7 +2232,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, model_concept, model_name):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
