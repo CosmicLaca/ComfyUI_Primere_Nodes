@@ -2162,23 +2162,26 @@ class PrimereRasterix:
     def INPUT_TYPES(cls):
         return {
             "required": {
+                "concepts": (["Auto"] + cls.CONCEPT_LIST,),
+                "models": (["Auto"] + cls.MODELLIST,),
+
                 "image":                 ("IMAGE", {"forceInput": True}),
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 2.0, "min": 0.0, "max": 10.0, "step": 0.1}),
+
+                "smart_lighting": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 1}),
 
                 "blur_type":      (["gaussian", "box", "bilateral", "lens"], {"default": "bilateral"}),
                 "blur_intensity": ("FLOAT",   {"default": 0.0, "min": 0.0, "max": 5.0,  "step": 0.1}),
                 "blur_radius":    ("FLOAT",   {"default": 2.0, "min": 0.5, "max": 50.0, "step": 0.5}),
                 "blur_edge_only": ("BOOLEAN", {"default": False, "label_off": "Blur full image", "label_on": "Blur flat areas only"}),
 
-                "smart_lighting": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 1}),
-
                 "brightness": ("FLOAT", {"default": 0, "min": -150, "max": 150, "step": 1}),
                 "contrast":   ("FLOAT", {"default": 0, "min": -50,  "max": 100, "step": 1}),
                 "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
 
-                "selective_tone_zone":  (["highlights", "midtones", "shadows", "blacks"], {"default": "midtones"}),
                 "selective_tone_value": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "selective_tone_zone": (["highlights", "midtones", "shadows", "blacks"], {"default": "midtones"}),
 
                 "color_balance_cyan_red":           ("FLOAT",   {"default": 0, "min": -100, "max": 100, "step": 1}),
                 "color_balance_magenta_green":       ("FLOAT",   {"default": 0, "min": -100, "max": 100, "step": 1}),
@@ -2186,31 +2189,35 @@ class PrimereRasterix:
                 "color_balance_tone":                (["highlights", "midtones", "shadows"], {"default": "midtones"}),
                 "color_balance_preserve_luminosity": ("BOOLEAN", {"default": False, "label_off": "Modify luminosity", "label_on": "Restore original luminosity"}),
 
-                "hue_saturation_channel":   (["master", "r", "g", "b"], {"default": "master"}),
                 "hue_saturation_hue":        ("FLOAT", {"default": 0, "min": -180, "max": 180, "step": 1}),
                 "hue_saturation_saturation": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
                 "hue_saturation_lightness":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
                 "hue_saturation_vibrance":   ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "hue_saturation_channel": (["master", "red", "green", "blue"], {"default": "master"}),
 
                 "shade_level":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
                 "shade_radius": ("FLOAT", {"default": 0, "min": 0,    "max": 50,  "step": 0.5}),
                 "detail_mode":  (["fine", "medium", "broad"], {"default": "medium"}),
 
                 "ai_detection":      ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
-                "grain_intensity":   ("FLOAT",   {"default": 6.5,   "min": 0.0,  "max": 20.0, "step": 0.5}),
-                "freq_strength":     ("FLOAT",   {"default": 0.019, "min": 0.0,  "max": 0.1,  "step": 0.001}),
-                "variance_strength": ("FLOAT",   {"default": 0.32,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
-                "ca_strength":       ("FLOAT",   {"default": 1.2,   "min": 0.0,  "max": 5.0,  "step": 0.1}),
-                "vignette_strength": ("FLOAT",   {"default": 0.18,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
-                "unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
-                "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
-                "jpeg_cycles":       ("INT",     {"default": 4,     "min": 0,    "max": 6,    "step": 1}),
-                "resize_scale":      ("FLOAT",   {"default": 0.96,  "min": 0.88, "max": 0.98, "step": 0.01}),
-                "ai_blur_radius":    ("FLOAT",   {"default": 0.35,  "min": 0.0,  "max": 1.0,  "step": 0.05}),
+                # "grain_intensity":   ("FLOAT",   {"default": 6.5,   "min": 0.0,  "max": 20.0, "step": 0.5}),
+                "ad_freq_strength":     ("FLOAT",   {"default": 0.019, "min": 0.0,  "max": 0.1,  "step": 0.001}),
+                "ad_variance_strength": ("FLOAT",   {"default": 0.32,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
+                "ad_ca_strength":       ("FLOAT",   {"default": 1.2,   "min": 0.0,  "max": 5.0,  "step": 0.1}),
+                "ad_vignette_strength": ("FLOAT",   {"default": 0.18,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
+                "ad_unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
+                # "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
+                "ad_jpeg_cycles":       ("INT",     {"default": 4,     "min": 0,    "max": 6,    "step": 1}),
+                # "resize_scale":      ("FLOAT",   {"default": 0.96,  "min": 0.88, "max": 0.98, "step": 0.01}),
+                # "ai_blur_radius":    ("FLOAT",   {"default": 0.35,  "min": 0.0,  "max": 1.0,  "step": 0.05}),
             },
+            "optional": {
+                "model_concept": ("STRING", {"default": None, "forceInput": True}),
+                "model_name": ("CHECKPOINT_NAME", {"default": None, "forceInput": True}),
+            }
         }
 
-    def primere_rasterix(self, image, auto_normalize, auto_levels_threshold, blur_type, blur_intensity, blur_radius, blur_edge_only, smart_lighting, brightness, contrast, use_legacy, selective_tone_zone, selective_tone_value, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, shade_level, shade_radius, detail_mode, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles, resize_scale, ai_blur_radius):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, blur_type, blur_intensity, blur_radius, blur_edge_only, smart_lighting, brightness, contrast, use_legacy, selective_tone_zone, selective_tone_value, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, shade_level, shade_radius, detail_mode, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles, resize_scale, ai_blur_radius, model_concept, model_name):
         pil_img = utility.tensor_to_image(image)
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
@@ -2253,7 +2260,7 @@ class PrimereRasterix:
                 pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad if rad != 0 else None, detail_mode=mode)
 
         if ai_detection:
-            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=grain_intensity, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=jpeg_quality, jpeg_cycles=jpeg_cycles, resize_scale=resize_scale, blur_radius=ai_blur_radius)
+            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=0, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=100, jpeg_cycles=jpeg_cycles, resize_scale=1, blur_radius=0)
 
         return (utility.image_to_tensor(pil_img),)
 

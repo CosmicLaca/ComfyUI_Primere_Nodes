@@ -2,20 +2,61 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 
-def img_shade_level(image: Image.Image, shade_level: float = 0, radius: float = None, detail_mode: str = "medium",) -> Image.Image:
+
+def img_shade_level(
+    image:       Image.Image,
+    shade_level: float = 0,
+    radius:      float = 0,
+    strength:    float = 0.5,
+) -> Image.Image:
+    """
+    Micro-contrast / shade density adjustment on the L channel only.
+    Hue and saturation are never modified.
+
+    Args:
+        image       : PIL Image (RGB)
+        shade_level : -100 … +100.  0 = no change (passthrough).
+                      Positive = amplify local shade differences (more texture,
+                                 less plastic/flat look).
+                      Negative = suppress local shade differences (smoother,
+                                 more painterly).
+        radius      : 0.0 … 50.0. Gaussian blur radius in pixels.
+                      Defines the spatial scale of the effect:
+                      0     = auto: ~1% of the shorter image dimension.
+                      1–3   = pixel-level texture and fine grain only.
+                      4–10  = mid-level detail, good for portraits.
+                      15–50 = broad tonal area transitions.
+                      Tip: smaller radius = sharper/grainier effect.
+                           larger radius  = smoother/broader contrast lift.
+        strength    : 0.0 … 1.0. Controls the ceiling of what shade_level
+                      ±100 can do, and balances the positive/negative asymmetry.
+                      0.0 = very subtle — positive and negative equally gentle.
+                      0.5 = default     — positive ~3× stronger than negative
+                                         (amplifying detail is more dramatic
+                                          than suppressing it).
+                      1.0 = maximum     — positive very aggressive,
+                                          negative also stronger than default.
+                      Positive multiplier: 1.0 + strength * 4.0  (1.0 … 5.0)
+                      Negative multiplier: 0.5 + strength * 1.0  (0.5 … 1.5)
+    Returns:
+        PIL Image (RGB)
+    """
     if shade_level == 0:
         return image.convert("RGB")
 
     if not (-100 <= shade_level <= 100):
         raise ValueError(f"shade_level must be -100 … +100, got {shade_level}")
 
-    valid_modes = {"fine", "medium", "broad"}
-    if detail_mode not in valid_modes:
-        raise ValueError(f"detail_mode must be one of {valid_modes}, got '{detail_mode}'")
+    if not (0.0 <= strength <= 1.0):
+        raise ValueError(f"strength must be 0.0 … 1.0, got {strength}")
+
+    if not (0.0 <= radius <= 50.0):
+        raise ValueError(f"radius must be 0.0 … 50.0, got {radius}")
 
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32) / 255.0
 
+    # ── RGB → Lab ─────────────────────────────────────────────────────────────
     def rgb_to_lab(rgb):
         linear = np.where(
             rgb <= 0.04045,
@@ -58,21 +99,27 @@ def img_shade_level(image: Image.Image, shade_level: float = 0, radius: float = 
                           1.055 * np.power(np.clip(linear, 0, None), 1.0/2.4) - 0.055)
         return np.clip(srgb, 0.0, 1.0)
 
-    lab = rgb_to_lab(arr)
-    L   = lab[..., 0]
-    H, W = L.shape
+    # ── Resolve radius ─────────────────────────────────────────────────────────
+    lab    = rgb_to_lab(arr)
+    L      = lab[..., 0]
+    H, W   = L.shape
 
-    if radius is None:
-        short = min(H, W)
-        radius = {"fine": max(1.0, short * 0.005),
-                  "medium": max(1.0, short * 0.01),
-                  "broad":  max(2.0, short * 0.03)}[detail_mode]
+    r = radius if radius > 0.0 else max(1.0, min(H, W) * 0.01)
 
-    L_blurred = gaussian_filter(L, sigma=radius)
+    # ── Detail layer ──────────────────────────────────────────────────────────
+    L_blurred = gaussian_filter(L, sigma=r)
     detail    = L - L_blurred
-    strength  = (shade_level / 100.0) * (3.0 if shade_level > 0 else 1.0)
 
-    lab_new        = lab.copy()
-    lab_new[..., 0] = np.clip(L + strength * detail, 0.0, 100.0)
+    # ── Strength-controlled asymmetric multiplier ─────────────────────────────
+    # Positive ceiling: 1.0 … 5.0  (amplifying detail is inherently stronger)
+    # Negative ceiling: 0.5 … 1.5  (suppression is gentler by nature)
+    if shade_level > 0:
+        multiplier = 1.0 + strength * 4.0
+    else:
+        multiplier = 0.5 + strength * 1.0
+
+    raw_strength         = (shade_level / 100.0) * multiplier
+    lab_new              = lab.copy()
+    lab_new[..., 0]      = np.clip(L + raw_strength * detail, 0.0, 100.0)
 
     return Image.fromarray((lab_to_rgb(lab_new) * 255).astype(np.uint8), mode="RGB")

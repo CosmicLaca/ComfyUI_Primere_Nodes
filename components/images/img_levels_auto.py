@@ -7,7 +7,23 @@ def img_levels_auto(
     auto_normalize: bool  = True,
     threshold:      float = 2.0,
 ) -> Image.Image:
+    """
+    Photoshop-style per-channel auto levels normalization.
 
+    Args:
+        image          : PIL Image (RGB)
+        auto_normalize : True  = apply auto levels (default)
+                         False = passthrough, return image unchanged
+        threshold      : 0.0 … 100.0. Horizontal line height as percent of
+                         total pixels per channel. Controls how aggressively
+                         the black and white points are clipped.
+                         ~1–2  = subtle, clip only extreme outlier pixels
+                         ~5    = moderate
+                         ~10+  = aggressive colour shift
+                         Default: 2.0
+    Returns:
+        PIL Image (RGB)
+    """
     img = image.convert("RGB")
 
     if not auto_normalize:
@@ -20,13 +36,8 @@ def img_levels_auto(
     out = np.empty_like(arr)
 
     for ch in range(3):
-        channel = arr[:, :, ch]
-
-        hist, _ = np.histogram(channel, bins=256, range=(0, 256))
-
-        peak         = hist.max()
-        cutoff_count = peak * (threshold / 100.0)
-
+        channel      = arr[:, :, ch]
+        hist, _      = np.histogram(channel, bins=256, range=(0, 256))
         cumulative   = np.cumsum(hist)
         total_pixels = cumulative[-1]
         abs_cutoff   = total_pixels * (threshold / 100.0)
