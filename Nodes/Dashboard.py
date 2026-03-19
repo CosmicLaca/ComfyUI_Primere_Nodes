@@ -80,6 +80,9 @@ from ..components.images import img_film_grain as img_film_grain
 from ..components.images import img_blur as img_blur
 from ..components.images import img_selective_tone as img_selective_tone
 from ..components.images import img_smart_lighting as img_smart_lighting
+from ..components.images import img_white_balance as img_white_balance
+from ..components.images import img_film_rendering as img_film_rendering
+from ..components.images.img_film_rendering import FILM_PRESETS
 from ..components.images import img_lens_effects as img_lens_effects
 
 class PrimereSamplersSteps:
@@ -2174,6 +2177,10 @@ class PrimereRasterix:
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 2.0, "min": 0.0, "max": 10.0, "step": 0.1}),
 
+                "use_white_balance": ("BOOLEAN", {"default": False, "label_off": "Ignore white balance", "label_on": "Apply white balance"}),
+                "wb_temperature": ("FLOAT", {"default": 6500, "min": 2000, "max": 12000, "step": 100}),
+                "wb_tint":        ("FLOAT", {"default": 0,    "min": -100, "max": 100,   "step": 1}),
+
                 "use_smart_lighting": ("BOOLEAN", {"default": False, "label_off": "Ignore smart lightning", "label_on": "Apply smart lightning"}),
                 "smart_lighting": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 1}),
 
@@ -2190,6 +2197,10 @@ class PrimereRasterix:
                 "brightness": ("FLOAT", {"default": 0, "min": -150, "max": 150, "step": 1}),
                 "contrast":   ("FLOAT", {"default": 0, "min": -50,  "max": 100, "step": 1}),
                 "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
+
+                "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
+                "film_rendering": (list(FILM_PRESETS.keys()), {"default": "kodak_kodachrome_64_CF"}),
+                "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 100, "step": 1}),
 
                 "use_selective_tone": ("BOOLEAN", {"default": False, "label_off": "Ignore selective tone", "label_on": "Apply selective tone"}),
                 "selective_tone_value":      ("FLOAT", {"default": 0,   "min": -100, "max": 100, "step": 1}),
@@ -2232,7 +2243,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
@@ -2240,6 +2251,9 @@ class PrimereRasterix:
 
         if auto_normalize:
             pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold)
+
+        if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
+            pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
 
         if use_blur and blur_intensity != 0:
             pil_img = img_blur.img_blur(image=pil_img, blur_type=blur_type, intensity=blur_intensity, radius=blur_radius, angle=angle, edge_only=blur_edge_only, bilateral_edge_sensitivity=bilateral_edge_sensitivity, edge_threshold=edge_threshold)
@@ -2249,6 +2263,9 @@ class PrimereRasterix:
 
         if use_brightness_contrast and (brightness != 0 or contrast != 0):
             pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
+
+        if use_film_rendering and film_rendering_intensity != 0:
+            pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity)
 
         st_data = rasterix_data.get('selective_tone', {})
         if use_selective_tone and st_data:
