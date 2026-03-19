@@ -4,15 +4,6 @@ from PIL import Image, ImageFilter
 from scipy.ndimage import uniform_filter
 
 
-def add_film_grain(arr: np.ndarray, intensity: float = 6.5) -> np.ndarray:
-    arr = arr.astype(np.float32)
-    luminance = np.mean(arr, axis=-1, keepdims=True) / 255.0
-    grain = np.random.normal(0, intensity, arr.shape[:2])[..., np.newaxis]
-    grain *= (0.4 + 0.8 * (1 - luminance))
-    color_shift = np.random.normal(0, intensity * 0.3, (1, 1, 3))
-    return np.clip(arr + grain * color_shift, 0, 255).astype(np.uint8)
-
-
 def perturb_frequency(arr: np.ndarray, strength: float = 0.019) -> np.ndarray:
     arr = arr.astype(np.float32)
     result = np.zeros_like(arr)
@@ -58,6 +49,7 @@ def add_vignette(arr: np.ndarray, strength: float = 0.18) -> np.ndarray:
     vignette = np.clip(vignette[..., np.newaxis], 0.75, 1.0)
     return np.clip(arr * vignette, 0, 255).astype(np.uint8)
 
+
 def apply_jpeg_cycles(img: Image.Image, quality: int = 92, cycles: int = 3) -> Image.Image:
     for _ in range(cycles):
         buf = io.BytesIO()
@@ -66,17 +58,19 @@ def apply_jpeg_cycles(img: Image.Image, quality: int = 92, cycles: int = 3) -> I
         img = Image.open(buf).convert("RGB")
     return img
 
-def apply_resize_artifacts(img: Image.Image, scale: float = 0.94) -> Image.Image:
-    w, h = img.size
-    small = img.resize((int(w * scale), int(h * scale)), Image.BICUBIC)
-    return small.resize((w, h), Image.BICUBIC)
 
-
-def bypass_ai_detector(image: Image.Image, grain_intensity: float = 6.8, freq_strength: float = 0.021, variance_strength: float = 0.35, ca_strength: float = 1.3, vignette_strength: float = 0.20, unsharp_percent: int = 42, jpeg_quality: int = 90, jpeg_cycles: int = 4, resize_scale: float = 0.94, blur_radius: float = 0.35) -> Image.Image:
+def bypass_ai_detector(
+    image:             Image.Image,
+    freq_strength:     float = 0.019,
+    variance_strength: float = 0.32,
+    ca_strength:       float = 1.2,
+    vignette_strength: float = 0.18,
+    unsharp_percent:   int   = 38,
+    jpeg_cycles:       int   = 4,
+) -> Image.Image:
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32)
 
-    arr = add_film_grain(arr, intensity=grain_intensity)
     arr = perturb_frequency(arr, strength=freq_strength)
     arr = adjust_local_variance(arr, strength=variance_strength)
     arr = add_chromatic_aberration(arr, strength=ca_strength)
@@ -84,10 +78,8 @@ def bypass_ai_detector(image: Image.Image, grain_intensity: float = 6.8, freq_st
 
     edited = Image.fromarray(arr.astype(np.uint8))
     edited = edited.filter(ImageFilter.UnsharpMask(radius=0.8, percent=unsharp_percent, threshold=0))
-    edited = edited.filter(ImageFilter.GaussianBlur(radius=blur_radius))
-    edited = apply_resize_artifacts(edited, scale=resize_scale)
 
     if jpeg_cycles > 0:
-        edited = apply_jpeg_cycles(edited, quality=jpeg_quality, cycles=jpeg_cycles)
+        edited = apply_jpeg_cycles(edited, quality=92, cycles=jpeg_cycles)
 
     return edited

@@ -76,6 +76,7 @@ from ..components.images import img_color_balance as img_color_balance
 from ..components.images import img_hue_saturation as img_hue_saturation
 from ..components.images import img_levels_auto as img_levels_auto
 from ..components.images import isgen_detect_ext_full as isgen_detect_ext_full
+from ..components.images import img_film_grain as img_film_grain
 from ..components.images import img_blur as img_blur
 from ..components.images import img_selective_tone as img_selective_tone
 from ..components.images import img_smart_lighting as img_smart_lighting
@@ -2169,47 +2170,59 @@ class PrimereRasterix:
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 2.0, "min": 0.0, "max": 10.0, "step": 0.1}),
 
+                "use_smart_lighting": ("BOOLEAN", {"default": False, "label_off": "Ignore smart lightning", "label_on": "Apply smart lightning"}),
                 "smart_lighting": ("FLOAT", {"default": 0, "min": 0, "max": 100, "step": 1}),
 
-                "blur_type":      (["gaussian", "box", "bilateral", "lens"], {"default": "bilateral"}),
-                "blur_intensity": ("FLOAT",   {"default": 0.0, "min": 0.0, "max": 5.0,  "step": 0.1}),
-                "blur_radius":    ("FLOAT",   {"default": 2.0, "min": 0.5, "max": 50.0, "step": 0.5}),
-                "blur_edge_only": ("BOOLEAN", {"default": False, "label_off": "Blur full image", "label_on": "Blur flat areas only"}),
+                "use_blur": ("BOOLEAN", {"default": False, "label_off": "Ignore blur", "label_on": "Apply blur"}),
+                "blur_type":      (["gaussian", "box", "motion", "bilateral", "lens"], {"default": "bilateral"}),
+                "blur_intensity": ("FLOAT",   {"default": 0.0, "min": 0.0, "max": 5.0,   "step": 0.1}),
+                "blur_radius":    ("FLOAT",   {"default": 2.0, "min": 0.5, "max": 50.0,  "step": 0.5}),
+                "angle":          ("FLOAT",   {"default": 0.0, "min": 0.0, "max": 360.0, "step": 1.0}),
+                "bilateral_edge_sensitivity": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "blur_edge_only": ("BOOLEAN", {"default": False, "label_off": "Full image blur", "label_on": "Flat areas only, edges protected"}),
+                "edge_threshold": ("FLOAT",   {"default": 0.0, "min": 0.0, "max": 1.0,   "step": 0.01}),
 
+                "use_brightness_contrast": ("BOOLEAN", {"default": False, "label_off": "Ignore brightness-contrast", "label_on": "Apply brightness-contrast"}),
                 "brightness": ("FLOAT", {"default": 0, "min": -150, "max": 150, "step": 1}),
                 "contrast":   ("FLOAT", {"default": 0, "min": -50,  "max": 100, "step": 1}),
                 "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
 
-                "selective_tone_value": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "selective_tone_zone": (["highlights", "midtones", "shadows", "blacks"], {"default": "midtones"}),
+                "use_selective_tone": ("BOOLEAN", {"default": False, "label_off": "Ignore selective tone", "label_on": "Apply selective tone"}),
+                "selective_tone_value":      ("FLOAT", {"default": 0,   "min": -100, "max": 100, "step": 1}),
+                "selective_tone_zone":       (["highlights", "midtones", "shadows", "blacks"], {"default": "midtones"}),
+                "selective_tone_separation": ("FLOAT", {"default": 50,  "min": 0,    "max": 100, "step": 1}),
+                "selective_tone_strength":   ("FLOAT", {"default": 0.5, "min": 0.0,  "max": 1.0, "step": 0.01}),
 
-                "color_balance_cyan_red":           ("FLOAT",   {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "color_balance_magenta_green":       ("FLOAT",   {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "color_balance_yellow_blue":         ("FLOAT",   {"default": 0, "min": -100, "max": 100, "step": 1}),
+                "use_color_balance": ("BOOLEAN", {"default": False, "label_off": "Ignore color balance", "label_on": "Apply color balance"}),
+                "color_balance_cyan_red":           ("FLOAT",   {"default": 0,  "min": -100, "max": 100, "step": 1}),
+                "color_balance_magenta_green":       ("FLOAT",   {"default": 0,  "min": -100, "max": 100, "step": 1}),
+                "color_balance_yellow_blue":         ("FLOAT",   {"default": 0,  "min": -100, "max": 100, "step": 1}),
                 "color_balance_tone":                (["highlights", "midtones", "shadows"], {"default": "midtones"}),
                 "color_balance_preserve_luminosity": ("BOOLEAN", {"default": False, "label_off": "Modify luminosity", "label_on": "Restore original luminosity"}),
+                "color_balance_separation":          ("FLOAT",   {"default": 50, "min": 0,    "max": 100, "step": 1}),
 
-                "hue_saturation_hue":        ("FLOAT", {"default": 0, "min": -180, "max": 180, "step": 1}),
-                "hue_saturation_saturation": ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "hue_saturation_lightness":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "hue_saturation_vibrance":   ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "hue_saturation_channel": (["master", "red", "green", "blue"], {"default": "master"}),
+                "use_hsl": ("BOOLEAN", {"default": False, "label_off": "Ignore HSL", "label_on": "Apply HSL"}),
+                "hsl_hue":           ("FLOAT",   {"default": 0,    "min": -180, "max": 180, "step": 1}),
+                "hsl_saturation":    ("FLOAT",   {"default": 0,    "min": -100, "max": 100, "step": 1}),
+                "hsl_lightness":     ("FLOAT",   {"default": 0,    "min": -100, "max": 100, "step": 1}),
+                "hsl_vibrance":      ("FLOAT",   {"default": 0,    "min": -100, "max": 100, "step": 1}),
+                "hsl_channel":       (["master", "red", "green", "blue"], {"default": "master"}),
+                "hsl_channel_width": ("FLOAT",   {"default": 50,   "min": 0,    "max": 100, "step": 1}),
+                "hsl_skin_protection": ("BOOLEAN", {"default": True, "label_off": "Vibrance affects skin tones", "label_on": "Skin tones protected from vibrance"}),
 
-                "shade_level":  ("FLOAT", {"default": 0, "min": -100, "max": 100, "step": 1}),
-                "shade_radius": ("FLOAT", {"default": 0, "min": 0,    "max": 50,  "step": 0.5}),
-                "detail_mode":  (["fine", "medium", "broad"], {"default": "medium"}),
+                "use_shade_detailer": ("BOOLEAN", {"default": False, "label_off": "Ignore shade detailer", "label_on": "Apply shade detailer"}),
+                "shade_level":    ("FLOAT", {"default": 0,   "min": -100, "max": 100, "step": 1}),
+                "shade_radius":   ("FLOAT", {"default": 0,   "min": 0,    "max": 50,  "step": 0.5}),
+                "detail_mode":    (["fine", "medium", "broad"], {"default": "medium"}),
+                "shade_strength": ("FLOAT", {"default": 0.5, "min": 0.0,  "max": 1.0, "step": 0.01}),
 
-                "ai_detection":      ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
-                # "grain_intensity":   ("FLOAT",   {"default": 6.5,   "min": 0.0,  "max": 20.0, "step": 0.5}),
-                "ad_freq_strength":     ("FLOAT",   {"default": 0.019, "min": 0.0,  "max": 0.1,  "step": 0.001}),
-                "ad_variance_strength": ("FLOAT",   {"default": 0.32,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
-                "ad_ca_strength":       ("FLOAT",   {"default": 1.2,   "min": 0.0,  "max": 5.0,  "step": 0.1}),
-                "ad_vignette_strength": ("FLOAT",   {"default": 0.18,  "min": 0.0,  "max": 1.0,  "step": 0.01}),
-                "ad_unsharp_percent":   ("INT",     {"default": 38,    "min": 0,    "max": 150,  "step": 1}),
-                # "jpeg_quality":      ("INT",     {"default": 95,    "min": 60,   "max": 100,  "step": 1}),
-                "ad_jpeg_cycles":       ("INT",     {"default": 4,     "min": 0,    "max": 6,    "step": 1}),
-                # "resize_scale":      ("FLOAT",   {"default": 0.96,  "min": 0.88, "max": 0.98, "step": 0.01}),
-                # "ai_blur_radius":    ("FLOAT",   {"default": 0.35,  "min": 0.0,  "max": 1.0,  "step": 0.05}),
+                "use_ai_detection_bypasser": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
+                "adb_freq_strength":     ("FLOAT", {"default": 0.019, "min": 0.0, "max": 0.1,  "step": 0.001}),
+                "adb_variance_strength": ("FLOAT", {"default": 0.32,  "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "adb_ca_strength":       ("FLOAT", {"default": 1.2,   "min": 0.0, "max": 5.0,  "step": 0.1}),
+                "adb_vignette_strength": ("FLOAT", {"default": 0.18,  "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "adb_unsharp_percent":   ("INT",   {"default": 38,    "min": 0,   "max": 150,  "step": 1}),
+                "adb_jpeg_cycles":       ("INT",   {"default": 4,     "min": 0,   "max": 6,    "step": 1}),
             },
             "optional": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
@@ -2217,7 +2230,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, blur_type, blur_intensity, blur_radius, blur_edge_only, smart_lighting, brightness, contrast, use_legacy, selective_tone_zone, selective_tone_value, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, hue_saturation_channel, hue_saturation_hue, hue_saturation_saturation, hue_saturation_lightness, hue_saturation_vibrance, shade_level, shade_radius, detail_mode, ai_detection, grain_intensity, freq_strength, variance_strength, ca_strength, vignette_strength, unsharp_percent, jpeg_quality, jpeg_cycles, resize_scale, ai_blur_radius, model_concept, model_name):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_ca_strength, adb_vignette_strength, adb_unsharp_percent, adb_jpeg_cycles, model_concept, model_name):
         pil_img = utility.tensor_to_image(image)
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
@@ -2226,41 +2239,37 @@ class PrimereRasterix:
         if auto_normalize:
             pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold)
 
-        if blur_intensity != 0:
-            pil_img = img_blur.img_blur(image=pil_img, blur_type=blur_type, intensity=blur_intensity, radius=blur_radius, edge_only=blur_edge_only)
+        if use_blur and blur_intensity != 0:
+            pil_img = img_blur.img_blur(image=pil_img, blur_type=blur_type, intensity=blur_intensity, radius=blur_radius, angle=angle, edge_only=blur_edge_only, bilateral_edge_sensitivity=bilateral_edge_sensitivity, edge_threshold=edge_threshold)
 
-        if smart_lighting != 0:
+        if use_smart_lighting and smart_lighting != 0:
             pil_img = img_smart_lighting.img_smart_lighting(image=pil_img, intensity=smart_lighting)
 
-        if brightness != 0 or contrast != 0:
+        if use_brightness_contrast and (brightness != 0 or contrast != 0):
             pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
 
         st_data = rasterix_data.get('selective_tone', {})
-        if st_data:
-            pil_img = img_selective_tone.img_selective_tone(image=pil_img,
-                highlights=st_data.get('highlights', 0),
-                midtones=st_data.get('midtones', 0),
-                shadows=st_data.get('shadows', 0),
-                blacks=st_data.get('blacks', 0))
+        if use_selective_tone and st_data:
+            pil_img = img_selective_tone.img_selective_tone(image=pil_img, channels_data=st_data, separation=selective_tone_separation, strength=selective_tone_strength)
 
         cb_data = rasterix_data.get('color_balance', {})
-        for tone, vals in cb_data.items():
-            if vals.get('cyan_red', 0) != 0 or vals.get('magenta_green', 0) != 0 or vals.get('yellow_blue', 0) != 0:
-                pil_img = img_color_balance.img_color_balance(image=pil_img, cyan_red=vals['cyan_red'], magenta_green=vals['magenta_green'], yellow_blue=vals['yellow_blue'], tone=tone, preserve_luminosity=color_balance_preserve_luminosity)
+        if use_color_balance and cb_data:
+            pil_img = img_color_balance.img_color_balance(image=pil_img, channels_data=cb_data, preserve_luminosity=color_balance_preserve_luminosity, separation=color_balance_separation)
 
         hs_data = rasterix_data.get('hue_saturation', {})
-        if hs_data:
-            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data)
+        if use_hsl and hs_data:
+            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data, channel_width=hsl_channel_width, skin_protection=hsl_skin_protection)
 
         shade_data = rasterix_data.get('shade', {})
-        for mode, vals in shade_data.items():
-            lvl = vals.get('shade_level', 0)
-            if lvl != 0:
-                rad = vals.get('shade_radius', 0)
-                pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad if rad != 0 else None, detail_mode=mode)
+        if use_shade_detailer and shade_data:
+            for mode, vals in shade_data.items():
+                lvl = vals.get('shade_level', 0)
+                if lvl != 0:
+                    rad = vals.get('shade_radius', 0)
+                    pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad, strength=shade_strength)
 
-        if ai_detection:
-            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, grain_intensity=0, freq_strength=freq_strength, variance_strength=variance_strength, ca_strength=ca_strength, vignette_strength=vignette_strength, unsharp_percent=unsharp_percent, jpeg_quality=100, jpeg_cycles=jpeg_cycles, resize_scale=1, blur_radius=0)
+        if use_ai_detection_bypasser:
+            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, ca_strength=adb_ca_strength, vignette_strength=adb_vignette_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
         return (utility.image_to_tensor(pil_img),)
 
@@ -2275,14 +2284,41 @@ class PrimereRasterixGrain:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "image":           ("IMAGE", {"forceInput": True}),
-                "grain_intensity": ("FLOAT", {"default": 6.5, "min": 0.0, "max": 30.0, "step": 0.5}),
+                "image":              ("IMAGE", {"forceInput": True}),
+                "intensity":          ("FLOAT", {"default": 20.0, "min": 0.0,  "max": 100.0, "step": 0.5}),
+                "grain_size":         ("FLOAT", {"default": 1.0,  "min": 0.5,  "max": 8.0,   "step": 0.1}),
+                "grain_type":         (["gaussian", "organic", "salt_pepper", "fine"], {"default": "gaussian"}),
+                "color_mode":         (["color", "monochrome"], {"default": "color"}),
+                "color_tint":         (["neutral", "warm", "cool", "green", "custom"], {"default": "neutral"}),
+                "color_tint_r":       ("FLOAT", {"default": 0, "min": -50, "max": 50, "step": 1}),
+                "color_tint_g":       ("FLOAT", {"default": 0, "min": -50, "max": 50, "step": 1}),
+                "color_tint_b":       ("FLOAT", {"default": 0, "min": -50, "max": 50, "step": 1}),
+                "shadow_strength":    ("FLOAT", {"default": 1.0, "min": 0.0, "max": 3.0, "step": 0.05}),
+                "highlight_strength": ("FLOAT", {"default": 0.3, "min": 0.0, "max": 3.0, "step": 0.05}),
+                "midtone_peak":       ("FLOAT", {"default": 0.4, "min": 0.0, "max": 1.0, "step": 0.05}),
+                "vignette_boost":     ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.05}),
+            },
+            "optional": {
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff, "forceInput": True}),
             }
         }
 
-    def primere_rasterix_grain(self, image, grain_intensity):
-        if grain_intensity == 0:
+    def primere_rasterix_grain(self, image, intensity, grain_size, grain_type, color_mode, color_tint, color_tint_r, color_tint_g, color_tint_b, shadow_strength, highlight_strength, midtone_peak, vignette_boost, seed=None):
+        if intensity == 0:
             return (image,)
         pil_img = utility.tensor_to_image(image)
-        arr = isgen_detect_ext_full.add_film_grain(np.array(pil_img), intensity=grain_intensity)
-        return (utility.image_to_tensor(Image.fromarray(arr)),)
+        pil_img = img_film_grain.img_film_grain(
+            image=pil_img,
+            intensity=intensity,
+            grain_size=grain_size,
+            grain_type=grain_type,
+            color_mode=color_mode,
+            color_tint=color_tint,
+            color_tint_rgb=(color_tint_r, color_tint_g, color_tint_b),
+            shadow_strength=shadow_strength,
+            highlight_strength=highlight_strength,
+            midtone_peak=midtone_peak,
+            vignette_boost=vignette_boost,
+            seed=seed,
+        )
+        return (utility.image_to_tensor(pil_img),)

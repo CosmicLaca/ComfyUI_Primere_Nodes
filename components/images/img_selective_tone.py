@@ -3,35 +3,16 @@ from PIL import Image
 
 
 def img_selective_tone(
-    image:      Image.Image,
-    highlights: float = 0,
-    midtones:   float = 0,
-    shadows:    float = 0,
-    blacks:     float = 0,
-    separation: float = 50,
-    strength:   float = 0.5,
+    image:         Image.Image,
+    channels_data: dict,
+    separation:    float = 50,
+    strength:      float = 0.5,
 ) -> Image.Image:
-    """
-    DxO-style Selective Tone — independent luminance adjustment for four
-    tonal zones with controllable zone separation and strength ceiling.
+    highlights = channels_data.get('highlights', 0)
+    midtones   = channels_data.get('midtones',   0)
+    shadows    = channels_data.get('shadows',    0)
+    blacks     = channels_data.get('blacks',     0)
 
-    Args:
-        image      : PIL Image (RGB)
-        highlights : -100 … +100  (lum zone peaks at ~0.80)
-        midtones   : -100 … +100  (lum zone peaks at ~0.50)
-        shadows    : -100 … +100  (lum zone peaks at ~0.25)
-        blacks     : -100 … +100  (lum zone peaks at ~0.00)
-        separation : 0 … 100. Controls zone isolation.
-                     0   = sharpest zones, minimal cross-influence.
-                     50  = default balanced overlap.
-                     100 = maximum overlap, zones bleed into each other.
-        strength   : 0.0 … 1.0. Ceiling of what slider ±100 can do.
-                     0.0 = subtle   — max luminance shift ±0.10 (~26/255)
-                     0.5 = default  — max luminance shift ±0.35 (~89/255)
-                     1.0 = dramatic — max luminance shift ±0.60 (~153/255)
-    Returns:
-        PIL Image (RGB)
-    """
     if highlights == 0 and midtones == 0 and shadows == 0 and blacks == 0:
         return image.convert("RGB")
 
@@ -46,7 +27,6 @@ def img_selective_tone(
 
     lum = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
 
-    # ── Zone bell widths (separation) ─────────────────────────────────────────
     t           = separation / 100.0
     width_mid   = 0.06 + t * 0.26
     width_black = 0.05 + t * 0.17
@@ -59,8 +39,6 @@ def img_selective_tone(
     mask_midtones   = bell(lum, 0.50, width_mid)
     mask_highlights = bell(lum, 0.80, width_mid)
 
-    # ── Strength ceiling ───────────────────────────────────────────────────────
-    # strength 0.0 → SCALE=0.10,  0.5 → SCALE=0.35,  1.0 → SCALE=0.60
     SCALE  = 0.10 + strength * 0.50
 
     delta  = np.zeros_like(lum)
