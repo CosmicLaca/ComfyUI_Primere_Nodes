@@ -117,6 +117,25 @@ app.registerExtension({
             let prevShMd  = wShMode?.value  ?? "medium";
             let updating  = false;
 
+            function updateHistogramDisplay(showInput) {
+                const fname = showInput ? "input_histogram.jpg" : "output_histogram.jpg";
+                const url   = `/extensions/ComfyUI_Primere_Nodes/images/${fname}?t=${Date.now()}`;
+                if (!node.imgs) node.imgs = [new Image()];
+                node.imgs[0].onload = () => app.canvas?.setDirty(true);
+                node.imgs[0].src = url;
+                app.canvas?.setDirty(true);
+            }
+
+            node.onExecuted = function() {
+                const showInput = fw("show_input_histogram")?.value ?? false;
+                if (node.imgs?.[0]) {
+                    node.imgs[0].onload = () => app.canvas?.setDirty(true);
+                    node.imgs[0].src = `/extensions/ComfyUI_Primere_Nodes/images/${showInput ? "input_histogram.jpg" : "output_histogram.jpg"}?t=${Date.now()}`;
+                } else {
+                    updateHistogramDisplay(showInput);
+                }
+            };
+
             // ── Color Balance ─────────────────────────────────────────────────
             function applyCbSliders(tone) {
                 if (!wCR) return;
@@ -237,6 +256,9 @@ app.registerExtension({
                     name === "shade_radius"
                 ) {
                     captureShSliders(wShMode?.value ?? prevShMd);
+
+                } else if (name === "show_input_histogram") {
+                    updateHistogramDisplay(value);
                 }
             };
         };
