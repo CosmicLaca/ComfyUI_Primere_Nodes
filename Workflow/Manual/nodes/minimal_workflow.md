@@ -742,3 +742,149 @@ The Upscaler group increases image resolution intelligently using pre-trained up
 ---
 
 <hr>
+
+## File Saver Group
+
+The File Saver group saves generated images to disk with flexible metadata, naming conventions, and format options.
+
+<img src="./File_saver_group.jpg" width="1200px">
+
+<hr>
+
+### Primiere Image Meta Saver
+
+**Purpose:** Save images with customizable filename, path, metadata embedding, and aesthetic score filtering.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `images` | Image tensor to save (required) |
+| `image_metadata` | Optional metadata tuple from workflow (e.g., from Aesthetic Scorer) |
+
+#### Save Control:
+
+| Setting | Purpose                                                                                                          |
+|---------|------------------------------------------------------------------------------------------------------------------|
+| `save_image` | Enable/disable image saving (ON/OFF, default ON)                                                                 |
+| `aesthetic_trigger` | Minimum aesthetic score threshold (0-1000, default 0). Only save if image score ≥ this value. Set 0 to save all. |
+
+#### Path Configuration:
+
+| Setting | Purpose |
+|---------|---------|
+| `output_path` | Base output directory path template. Use `[time(%Y-%m-%d)]` for date folders, `[time(%H:%M:%S)]` for time, etc. |
+| `subpath` | Category subfolder: None, Dev, Test, Serie, Production, Preview, NewModel, Project, Portfolio, Civitai, Behance, Facebook, Instagram, Character, Style, Product, Fun, SFW, NSFW (default "Project") |
+| `subpath_priority` | Use subpath as primary folder structure: "Preferred" (ON) or "Selected subpath" (OFF) |
+| `add_modelname_to_path` | Append checkpoint name to path (ON/OFF, default OFF) |
+| `add_concept_to_path` | Append model concept (SD1, Flux, etc.) to path (ON/OFF, default OFF) |
+
+#### Filename Configuration:
+
+| Setting | Purpose |
+|---------|---------|
+| `filename_prefix` | Prefix for all filenames (default "ComfyUI", e.g., "PrimereMinimal") |
+| `filename_delimiter` | Character between filename components (default "_") |
+| `filename_number_padding` | Zero-padding for sequence number (1-9 digits, default 2 = "01", "02"...) |
+| `filename_number_start` | Start numbering from 0 instead of 1 (ON/OFF, default OFF) |
+
+#### Filename Components (Optional):
+
+| Setting | Purpose |
+|---------|---------|
+| `add_date_to_filename` | Append generation date (ON/OFF, default ON) |
+| `add_time_to_filename` | Append generation time (ON/OFF, default ON) |
+| `add_seed_to_filename` | Append seed value (ON/OFF, default ON) |
+| `add_size_to_filename` | Append image dimensions WxH (ON/OFF, default ON) |
+| `add_ascore_to_filename` | Append aesthetic score (ON/OFF, default ON) |
+
+**Example filename with all components:**
+`PrimereMinimal_20250320_143022_42195_1024x768_685.png`
+
+#### Format & Encoding:
+
+| Setting | Purpose |
+|---------|---------|
+| `extension` | File format: png, jpeg, jpg, gif, tiff, webp (default jpg) |
+| `quality` | JPEG/WebP quality 1-100 (default 95) |
+| `png_embed_workflow` | Embed ComfyUI workflow in PNG metadata (ON/OFF, default OFF) |
+| `png_embed_data` | Embed generation data in PNG (ON/OFF, default OFF) |
+| `image_embed_exif` | Embed EXIF data in image (ON/OFF, default OFF) |
+| `a1111_civitai_meta` | Add A1111/Civitai metadata format (ON/OFF, default OFF) |
+
+#### Metadata & Overwrite:
+
+| Setting | Purpose |
+|---------|---------|
+| `save_meta_to_json` | Save generation metadata to separate .json file (ON/OFF, default OFF) |
+| `save_info_to_txt` | Save generation info to separate .txt file (ON/OFF, default OFF) |
+| `overwrite_mode` | "false" = never overwrite, "prefix_as_filename" = allow overwrite if prefix matches (default "false") |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `SAVED_INFO` | String with path and metadata of saved image(s) |
+
+#### Workflow Benefits:
+
+**Aesthetic Filtering:**
+- Set `aesthetic_trigger` to save only high-quality images (e.g., ≥600 for scores from Aesthetic Scorer)
+- Perfect for portfolio building
+
+**Organized File Structure:**
+- Automatic date/time subfolder creation
+- Category-based organization via `subpath`
+- Model/concept tracking in path
+
+**Filename Tracking:**
+- Automatically track seed, size, quality score
+- Never lose generation parameters
+- Easy batch identification with prefixes
+
+#### Example Workflows:
+
+**Portfolio Output (quality-filtered):**
+```
+aesthetic_trigger: 600
+subpath: Portfolio
+add_date_to_filename: ON
+add_ascore_to_filename: ON
+extension: png
+```
+Result: Only images with score ≥600 saved as `Portfolio/2025-03-20/Primiere_20250320_143022_42195_1024x768_685.png`
+
+**Development/Testing (all outputs):**
+```
+aesthetic_trigger: 0
+subpath: Dev
+add_time_to_filename: ON
+add_seed_to_filename: ON
+extension: jpg
+quality: 85
+```
+Result: All images saved with seed tracking for reproducibility
+
+---
+
+### Primiere Text Output
+
+**Purpose:** Display generation metadata and file save path information as text output.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `text` | Any text or metadata string to display |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `output` | Text pass-through for display |
+
+**Functionality:** Shows saving path, metadata, and generation info without saving to disk. Useful for preview/verification before committing files.
+
+---
+
+<hr>
