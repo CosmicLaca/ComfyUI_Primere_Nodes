@@ -2170,6 +2170,20 @@ def _rasterix_histogram(pil_img):
         canvas += mask[:, :, np.newaxis] * np.array(color, dtype=np.float32)
     return Image.fromarray(np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
 
+def _rasterix_histogram_channel(pil_img, channel):
+    arr     = np.array(pil_img.convert("RGB"), dtype=np.float32)
+    hist_h, hist_w = 160, 512
+    canvas  = np.zeros((hist_h, hist_w, 3), dtype=np.float32)
+    x_idx   = np.linspace(0, 255, hist_w)
+    row_idx = np.arange(hist_h).reshape(-1, 1)
+    ch_map  = {"RED": (0, (1.0, 0.2, 0.2)), "GREEN": (1, (0.2, 1.0, 0.2)), "BLUE": (2, (0.2, 0.4, 1.0))}
+    ch_idx, color = ch_map[channel]
+    hist, _ = np.histogram(arr[:, :, ch_idx], bins=256, range=(0, 256))
+    cols    = np.interp(x_idx, np.arange(256), hist.astype(np.float32) / (hist.max() or 1))
+    mask    = row_idx >= (hist_h - (cols * hist_h).astype(int))
+    canvas += mask[:, :, np.newaxis] * np.array(color, dtype=np.float32)
+    return Image.fromarray(np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
+
 class PrimereRasterix:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("IMAGE",)
@@ -2256,7 +2270,8 @@ class PrimereRasterix:
                 "adb_unsharp_percent":   ("INT",   {"default": 38,    "min": 0,   "max": 150,  "step": 1}),
                 "adb_jpeg_cycles":       ("INT",   {"default": 4,     "min": 0,   "max": 6,    "step": 1}),
 
-                "show_input_histogram": ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
+                "show_histogram":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
+                "histogram_channel":    (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
             },
             "optional": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
@@ -2264,7 +2279,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_input_histogram=False, model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -2320,10 +2335,17 @@ class PrimereRasterix:
         hist_out = _rasterix_histogram(pil_img)
         hist_in.save( os.path.join(hist_dir, 'input_histogram.jpg'),  quality=90)
         hist_out.save(os.path.join(hist_dir, 'output_histogram.jpg'), quality=90)
+        for ch in ("RED", "GREEN", "BLUE"):
+            _rasterix_histogram_channel(pil_img_input, ch).save(os.path.join(hist_dir, f'input_histogram_{ch.lower()}.jpg'),  quality=90)
+            _rasterix_histogram_channel(pil_img,       ch).save(os.path.join(hist_dir, f'output_histogram_{ch.lower()}.jpg'), quality=90)
 
-        active_hist = hist_in if show_input_histogram else hist_out
-        suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
-        temp_file   = f"rasterix_hist_{suffix}.png"
+        if histogram_channel == "RGB":
+            active_hist = hist_in if show_histogram else hist_out
+        else:
+            active_hist = _rasterix_histogram_channel(pil_img_input if show_histogram else pil_img, histogram_channel)
+
+        suffix    = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
+        temp_file = f"rasterix_hist_{suffix}.png"
         active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
 
         return {

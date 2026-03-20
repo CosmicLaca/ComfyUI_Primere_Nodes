@@ -117,23 +117,25 @@ app.registerExtension({
             let prevShMd  = wShMode?.value  ?? "medium";
             let updating  = false;
 
-            function updateHistogramDisplay(showInput) {
-                const fname = showInput ? "input_histogram.jpg" : "output_histogram.jpg";
-                const url   = `/extensions/ComfyUI_Primere_Nodes/images/${fname}?t=${Date.now()}`;
-                if (!node.imgs) node.imgs = [new Image()];
-                node.imgs[0].onload = () => app.canvas?.setDirty(true);
-                node.imgs[0].src = url;
-                app.canvas?.setDirty(true);
+            function updateHistogramDisplay(showInput, channel) {
+                const prefix = showInput ? "input" : "output";
+                const suffix = (!channel || channel === "RGB") ? "" : `_${channel.toLowerCase()}`;
+                const fname  = `${prefix}_histogram${suffix}.jpg`;
+                const url    = `/extensions/ComfyUI_Primere_Nodes/images/${fname}?t=${Date.now()}`;
+                const img    = new Image();
+                img.onload = () => {
+                    if (!node.imgs) node.imgs = [img];
+                    else node.imgs[0] = img;
+                    app.canvas?.setDirty(true);
+                };
+                img.onerror = () => {};
+                img.src = url;
             }
 
             node.onExecuted = function() {
-                const showInput = fw("show_input_histogram")?.value ?? false;
-                if (node.imgs?.[0]) {
-                    node.imgs[0].onload = () => app.canvas?.setDirty(true);
-                    node.imgs[0].src = `/extensions/ComfyUI_Primere_Nodes/images/${showInput ? "input_histogram.jpg" : "output_histogram.jpg"}?t=${Date.now()}`;
-                } else {
-                    updateHistogramDisplay(showInput);
-                }
+                const showInput = fw("show_histogram")?.value ?? false;
+                const channel   = fw("histogram_channel")?.value ?? "RGB";
+                updateHistogramDisplay(showInput, channel);
             };
 
             // ── Color Balance ─────────────────────────────────────────────────
@@ -257,8 +259,12 @@ app.registerExtension({
                 ) {
                     captureShSliders(wShMode?.value ?? prevShMd);
 
-                } else if (name === "show_input_histogram") {
-                    updateHistogramDisplay(value);
+                } else if (name === "show_histogram") {
+                    const channel = fw("histogram_channel")?.value ?? "RGB";
+                    updateHistogramDisplay(value, channel);
+                } else if (name === "histogram_channel") {
+                    const showInput = fw("show_histogram")?.value ?? false;
+                    updateHistogramDisplay(showInput, value);
                 }
             };
         };
