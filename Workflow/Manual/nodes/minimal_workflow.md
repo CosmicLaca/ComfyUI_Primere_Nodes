@@ -664,3 +664,81 @@ Example prompt: `beautiful portrait, <lora:detail-enhancer:0.8>, <lycoris:style-
 ---
 
 <hr>
+
+## Upscaler Group
+
+The Upscaler group increases image resolution intelligently using pre-trained upscaler models. This group handles calculation of target megapixels, upscale method selection, and model loading.
+
+<img src="./Upascaler_group.jpg" width="1200px">
+
+<hr>
+
+### Primiere Resolution MPX
+
+**Purpose:** Calculate upscaling dimensions based on target megapixels (area), with optional pre-scaling triggers and image interpolation.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `width` | Current image width in pixels (from Resolution Selector) |
+| `height` | Current image height in pixels (from Resolution Selector) |
+
+#### Settings:
+
+| Setting | Purpose |
+|---------|---------|
+| `use_multiplier` | Enable megapixel-based calculation (ON/OFF, default ON) |
+| `upscale_to_mpx` | Target resolution in megapixels (0.01 - 48.00, default 12.00) |
+| `triggered_prescale` | Enable area-based pre-scaling trigger (ON/OFF, default OFF) |
+| `area_trigger_mpx` | If current area below this MPX, trigger prescale (0.01 - max, default 0.60) |
+| `area_target_mpx` | Target MPX if prescale triggered (0.25 - max, default 1.05) |
+| `upscale_model` | Upscaler model to apply (None, or specific upscaler name, default None) |
+| `upscale_method` | Image interpolation method: nearest-exact, bilinear, area, bicubic, lanczos (default bicubic) |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `WIDTH` | Calculated upscaled width in pixels |
+| `HEIGHT` | Calculated upscaled height in pixels |
+| `UPSCALE_RATIO` | Calculated upscaling ratio (multiplier) |
+| `IMAGE` | Interpolated image (if image input provided) |
+
+#### Workflow:
+
+1. **Calculate target dimensions:** Input width/height → calculate to reach `upscale_to_mpx`
+2. **Pre-scale trigger (optional):** If current area < `area_trigger_mpx`, pre-scale to `area_target_mpx` first
+3. **Interpolation:** Apply `upscale_method` to image (if provided)
+4. **Output:** New width, height, ratio ready for upscaler node
+
+#### Example Calculation:
+
+- Input: 512×512 (0.26 MPX) with `upscale_to_mpx=12.00`
+- Output: ~2448×2448 (5.98 MPX actual, closest to 12.00 respecting aspect ratio)
+- Ratio: ~4.78x
+
+---
+
+### Primiere Upscale Models
+
+**Purpose:** Load and select upscaler model from filesystem.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `model_name` | Upscaler model filename from `upscale_models` folder |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `UPSCALE_MODEL` | Loaded upscaler model tensor |
+| `MODEL_NAME` | Selected model filename |
+
+**Supported Models:** Any upscaler in ComfyUI `models/upscale_models/` folder (e.g., RealESRGAN, SwinIR, etc.)
+
+---
+
+<hr>
