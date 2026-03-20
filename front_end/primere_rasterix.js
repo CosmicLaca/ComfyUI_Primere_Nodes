@@ -117,10 +117,11 @@ app.registerExtension({
             let prevShMd  = wShMode?.value  ?? "medium";
             let updating  = false;
 
-            function updateHistogramDisplay(showInput, channel) {
+            function updateHistogramDisplay(showInput, channel, style) {
                 const prefix = showInput ? "input" : "output";
-                const suffix = (!channel || channel === "RGB") ? "" : `_${channel.toLowerCase()}`;
-                const fname  = `${prefix}_histogram${suffix}.jpg`;
+                const ch     = (channel || "RGB").toLowerCase();
+                const st     = style || "gradient";
+                const fname  = `${prefix}_histogram_${ch}_${st}.jpg`;
                 const url    = `/extensions/ComfyUI_Primere_Nodes/images/${fname}?t=${Date.now()}`;
                 const img    = new Image();
                 img.onload = () => {
@@ -132,10 +133,17 @@ app.registerExtension({
                 img.src = url;
             }
 
+            function currentHistState() {
+                return {
+                    showInput: fw("show_histogram")?.value      ?? false,
+                    channel:   fw("histogram_channel")?.value   ?? "RGB",
+                    style:     fw("histogram_style")?.value     ?? "gradient",
+                };
+            }
+
             node.onExecuted = function() {
-                const showInput = fw("show_histogram")?.value ?? false;
-                const channel   = fw("histogram_channel")?.value ?? "RGB";
-                updateHistogramDisplay(showInput, channel);
+                const { showInput, channel, style } = currentHistState();
+                updateHistogramDisplay(showInput, channel, style);
             };
 
             // ── Color Balance ─────────────────────────────────────────────────
@@ -260,11 +268,14 @@ app.registerExtension({
                     captureShSliders(wShMode?.value ?? prevShMd);
 
                 } else if (name === "show_histogram") {
-                    const channel = fw("histogram_channel")?.value ?? "RGB";
-                    updateHistogramDisplay(value, channel);
+                    const { channel, style } = currentHistState();
+                    updateHistogramDisplay(value, channel, style);
                 } else if (name === "histogram_channel") {
-                    const showInput = fw("show_histogram")?.value ?? false;
-                    updateHistogramDisplay(showInput, value);
+                    const { showInput, style } = currentHistState();
+                    updateHistogramDisplay(showInput, value, style);
+                } else if (name === "histogram_style") {
+                    const { showInput, channel } = currentHistState();
+                    updateHistogramDisplay(showInput, channel, value);
                 }
             };
         };

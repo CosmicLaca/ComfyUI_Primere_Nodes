@@ -55,7 +55,7 @@ from ComfyUI_ExtraModels.Sana.loader import load_sana
 from ComfyUI_ExtraModels.VAE.conf import vae_conf
 from ComfyUI_ExtraModels.VAE.loader import EXVAE
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 import difflib
 import datetime
 from ..components import llm_enhancer
@@ -2157,32 +2157,60 @@ class PrimereUpscaleModel:
         out = nodes_upscale_model.UpscaleModelLoader.execute(model_name)[0]
         return (out, model_name,)
 
-def _rasterix_histogram(pil_img):
-    arr     = np.array(pil_img.convert("RGB"), dtype=np.float32)
-    hist_h, hist_w = 160, 512
-    canvas  = np.zeros((hist_h, hist_w, 3), dtype=np.float32)
-    x_idx   = np.linspace(0, 255, hist_w)
-    row_idx = np.arange(hist_h).reshape(-1, 1)
-    for ch, color in enumerate([(1.0, 0.2, 0.2), (0.2, 1.0, 0.2), (0.2, 0.4, 1.0)]):
-        hist, _ = np.histogram(arr[:, :, ch], bins=256, range=(0, 256))
-        cols    = np.interp(x_idx, np.arange(256), hist.astype(np.float32) / (hist.max() or 1))
-        mask    = row_idx >= (hist_h - (cols * hist_h).astype(int))
-        canvas += mask[:, :, np.newaxis] * np.array(color, dtype=np.float32)
-    return Image.fromarray(np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
+_HIST_CH_DEFS = {
+    "RGB":   [(0, (1.0, 0.22, 0.22)), (1, (0.22, 1.0, 0.22)), (2, (0.22, 0.44, 1.0))],
+    "RED":   [(0, (1.0, 0.22, 0.22))],
+    "GREEN": [(1, (0.22, 1.0, 0.22))],
+    "BLUE":  [(2, (0.22, 0.44, 1.0))],
+}
 
-def _rasterix_histogram_channel(pil_img, channel):
-    arr     = np.array(pil_img.convert("RGB"), dtype=np.float32)
-    hist_h, hist_w = 160, 512
-    canvas  = np.zeros((hist_h, hist_w, 3), dtype=np.float32)
-    x_idx   = np.linspace(0, 255, hist_w)
-    row_idx = np.arange(hist_h).reshape(-1, 1)
-    ch_map  = {"RED": (0, (1.0, 0.2, 0.2)), "GREEN": (1, (0.2, 1.0, 0.2)), "BLUE": (2, (0.2, 0.4, 1.0))}
-    ch_idx, color = ch_map[channel]
-    hist, _ = np.histogram(arr[:, :, ch_idx], bins=256, range=(0, 256))
-    cols    = np.interp(x_idx, np.arange(256), hist.astype(np.float32) / (hist.max() or 1))
-    mask    = row_idx >= (hist_h - (cols * hist_h).astype(int))
-    canvas += mask[:, :, np.newaxis] * np.array(color, dtype=np.float32)
-    return Image.fromarray(np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
+def _rasterix_histogram_render(pil_img, channel="RGB", style="gradient"):
+    arr      = np.array(pil_img.convert("RGB"), dtype=np.float32)
+    hist_h, hist_w = 256, 512
+    x_idx    = np.linspace(0, 255, hist_w)
+    row_idx  = np.arange(hist_h).reshape(-1, 1)
+    channels = _HIST_CH_DEFS.get(channel, _HIST_CH_DEFS["RGB"])
+
+    canvas = np.full((hist_h, hist_w, 3), 18.0 / 255.0, dtype=np.float32)
+    for frac in (0.25, 0.5, 0.75):
+        canvas[int((1.0 - frac) * (hist_h - 1)), :] = 0.32
+        canvas[:, int(frac * (hist_w - 1)), :] = 0.32
+
+    sigma = 1.5 if style == "bars" else 3.0
+    def _smooth(h):
+        size = max(int(sigma * 4) | 1, 3)
+        kx = np.arange(size) - size // 2
+        k  = np.exp(-0.5 * (kx / sigma) ** 2); k /= k.sum()
+        return np.convolve(h.astype(np.float32), k, mode='same')
+
+    for ch_idx, color in channels:
+        raw, _   = np.histogram(arr[:, :, ch_idx], bins=256, range=(0, 256))
+        cols     = np.interp(x_idx, np.arange(256), _smooth(raw) / (_smooth(raw).max() or 1.0))
+        heights  = (cols * (hist_h - 1)).astype(int)
+        col_arr  = np.array(color, dtype=np.float32)
+        fill_mask = row_idx >= (hist_h - heights)
+
+        if style == "lines":
+            for dy in range(2):
+                rs = np.clip(hist_h - heights - dy, 0, hist_h - 1)
+                xs = np.arange(hist_w)[heights > 0]
+                for ci, cv in enumerate(color):
+                    canvas[rs[xs], xs, ci] = np.maximum(canvas[rs[xs], xs, ci], cv)
+        elif style == "gradient":
+            safe_h = np.maximum(heights, 1).astype(np.float32)
+            dist_b = (hist_h - 1 - row_idx).astype(np.float32)
+            grad   = np.clip(0.28 + 0.72 * (dist_b / safe_h), 0.0, 1.0)
+            for ci, cv in enumerate(color):
+                canvas[:, :, ci] = np.where(fill_mask, np.maximum(canvas[:, :, ci], grad * cv), canvas[:, :, ci])
+        else:
+            for ci, cv in enumerate(color):
+                canvas[:, :, ci] = np.where(fill_mask, np.maximum(canvas[:, :, ci], cv), canvas[:, :, ci])
+
+    result = Image.fromarray(np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
+    if style == "glow":
+        bloom    = result.filter(ImageFilter.GaussianBlur(radius=5))
+        result   = Image.fromarray(np.clip(np.array(result, dtype=np.float32) + np.array(bloom, dtype=np.float32) * 0.55, 0, 255).astype(np.uint8), mode="RGB")
+    return result
 
 class PrimereRasterix:
     RETURN_TYPES = ("IMAGE",)
@@ -2272,6 +2300,7 @@ class PrimereRasterix:
 
                 "show_histogram":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
                 "histogram_channel":    (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
+                "histogram_style":      (["gradient", "bars", "glow", "lines"], {"default": "gradient"}),
             },
             "optional": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
@@ -2279,7 +2308,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -2324,28 +2353,24 @@ class PrimereRasterix:
                     rad = vals.get('shade_radius', 0)
                     pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad, strength=shade_strength)
 
-        if use_ai_detection_bypasser:
-            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
-
         if normalize_gaps or normalize_midpeaks:
             pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=0, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, auto_gamma=False, gamma_target=128)
 
-        hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
-        hist_in  = _rasterix_histogram(pil_img_input)
-        hist_out = _rasterix_histogram(pil_img)
-        hist_in.save( os.path.join(hist_dir, 'input_histogram.jpg'),  quality=90)
-        hist_out.save(os.path.join(hist_dir, 'output_histogram.jpg'), quality=90)
-        for ch in ("RED", "GREEN", "BLUE"):
-            _rasterix_histogram_channel(pil_img_input, ch).save(os.path.join(hist_dir, f'input_histogram_{ch.lower()}.jpg'),  quality=90)
-            _rasterix_histogram_channel(pil_img,       ch).save(os.path.join(hist_dir, f'output_histogram_{ch.lower()}.jpg'), quality=90)
+        if use_ai_detection_bypasser:
+            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
-        if histogram_channel == "RGB":
-            active_hist = hist_in if show_histogram else hist_out
-        else:
-            active_hist = _rasterix_histogram_channel(pil_img_input if show_histogram else pil_img, histogram_channel)
+        hist_dir  = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+        rendered  = {}
+        for st in ("gradient", "bars", "glow", "lines"):
+            for ch in ("RGB", "RED", "GREEN", "BLUE"):
+                rendered[("in",  ch, st)] = _rasterix_histogram_render(pil_img_input, ch, st)
+                rendered[("out", ch, st)] = _rasterix_histogram_render(pil_img,       ch, st)
+                rendered[("in",  ch, st)].save(os.path.join(hist_dir, f'input_histogram_{ch.lower()}_{st}.jpg'),  quality=90)
+                rendered[("out", ch, st)].save(os.path.join(hist_dir, f'output_histogram_{ch.lower()}_{st}.jpg'), quality=90)
 
-        suffix    = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
-        temp_file = f"rasterix_hist_{suffix}.png"
+        active_hist = rendered[("in" if show_histogram else "out", histogram_channel, histogram_style)]
+        suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
+        temp_file   = f"rasterix_hist_{suffix}.png"
         active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
 
         return {
