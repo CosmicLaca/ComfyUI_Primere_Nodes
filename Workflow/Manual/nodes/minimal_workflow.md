@@ -67,6 +67,298 @@ Automatically loads selected checkpoint, VAE, and CLIP model based on Visual Che
 
 ---
 
+### Primiere Model Control
+
+**Purpose:** Central hub that controls ALL generation settings (sampling, CFG, steps, VAE, CLIP, encoders, LoRAs, refiners, etc.) per model type or individual checkpoint. Auto-saves/loads settings to/from JSON config files for reproducibility and system-wide automation.
+
+<img src="./model_control.jpg" width="400px">
+
+#### Core Concept:
+
+This node is the **system backbone** that automates workflow adaptation based on selected model. Instead of manually tweaking 50+ parameters, Model Control:
+
+1. **Reads selected model** from Checkpoint Selector or model name input
+2. **Loads saved settings** for that model type/name from JSON config
+3. **Outputs control_data tuple** containing all settings to downstream nodes
+4. **Allows testing & saving** new settings for specific models
+5. **Reverts to "Auto" mode** for external control via workflow inputs
+
+#### Dual Operation Modes:
+
+---
+
+#### Mode 1: "Auto" (Automated via Workflow Inputs)
+
+When `concepts` and `models` both set to "Auto":
+- Reads `model_concept` from Checkpoint Loader `CONTROL_DATA`
+- Reads `model_name` from Checkpoint Selector
+- **Automatically loads** all saved settings for this model from JSON
+- All sampler, CFG, VAE, encoder settings auto-applied downstream
+- Workflow fully automated — just select checkpoint, everything else adjusts
+
+**Use case:** Production workflows where model selection drives all parameters.
+
+---
+
+#### Mode 2: Manual Testing & Saving
+
+When you set `concepts` or `models` to specific values (not "Auto"):
+- **Override** auto-loaded settings with manual values
+- Test different configurations for a checkpoint
+- Click "Save node setting" button to persist settings to JSON
+- Next time "Auto" is selected, these new settings load automatically
+
+**Use case:** Tuning optimal parameters for a new checkpoint, then saving for future use.
+
+---
+
+#### Model Selection:
+
+| Input | Purpose |
+|-------|---------|
+| `model_concept` | Auto-detected from Checkpoint Loader, or manually override (SD1, SD2, SDXL, Flux, etc.) |
+| `model_name` | Auto-detected checkpoint name, or manually select from dropdown |
+| `concepts` | Set to "Auto" for auto-control, or choose specific concept to test |
+| `models` | Set to "Auto" for auto-control, or choose specific model to test |
+
+---
+
+#### Sampling Control:
+
+| Setting | Purpose |
+|---------|---------|
+| `sampler_name` | Sampling algorithm: euler, dpmpp_2m, dpmpp_sde, etc. (all KSampler samplers) |
+| `scheduler_name` | Noise schedule: karras, normal, exponential, etc. (all KSampler + KwaiKolors + SANA schedulers) |
+| `steps` | Number of diffusion steps (1-1000, default 12) |
+| `override_steps` | "Set by sampler settings" (OFF) reads from sampler config, "Set by model filename" (ON) extracts steps from checkpoint name |
+| `cfg` | Classifier-free guidance scale (0.1-100, default 7.0) |
+| `rescale_cfg` | CFG rescaling for improved quality (0.0-1.0, default 1.0) |
+
+---
+
+#### VAE & CLIP Selection:
+
+| Setting | Purpose |
+|---------|---------|
+| `vae` | VAE model selection from available models |
+| `vae_selection` | "Use baked if exist" (ON) = prefer VAE baked into checkpoint, "Always use custom" (OFF) = use selected VAE |
+| `clip_selection` | "Use baked if exist" (ON) = prefer CLIP in checkpoint, "Always use custom" (OFF) = use selected CLIP |
+| `last_layer` | CLIP layer to use (-24 to 0, default 0 = all layers) |
+
+---
+
+#### Multi-Encoder Configuration (Advanced):
+
+Support for models with multiple text encoders (SDXL, SD3, Flux, Hunyuan, etc.):
+
+| Setting | Purpose |
+|---------|---------|
+| `encoder_1` | Primary text encoder (None or specific encoder) |
+| `encoder_2` | Secondary text encoder (None or specific encoder) |
+| `encoder_3` | Tertiary text encoder (None or specific encoder) |
+
+Each encoder can be: None, custom text encoder, CLIP, UNET, or path reference.
+
+---
+
+#### Attention Control (Advanced):
+
+Fine-tune attention mechanisms for quality/style adjustment:
+
+| Setting | Purpose |
+|---------|---------|
+| `attn_preset` | Quick preset: Custom, Off, or saved presets from `ATTN_PRESETS` |
+| `attn_query` | Query attention weight (0.80-1.20, default 1.00) |
+| `attn_key` | Key attention weight (0.80-1.20, default 1.00) |
+| `attn_value` | Value attention weight (0.80-1.20, default 1.00) |
+| `attn_output` | Output attention weight (0.80-1.20, default 1.00) |
+| `attn_cross_query` | Cross-attention query (0.80-1.20, default 1.0) |
+| `attn_cross_key` | Cross-attention key (0.80-1.20, default 1.0) |
+| `attn_cross_value` | Cross-attention value (0.80-1.20, default 1.0) |
+| `attn_cross_output` | Cross-attention output (0.80-1.20, default 1.0) |
+| `attn_expander` | Attention expansion factor (0.10-3.00, default 1.00) |
+
+---
+
+#### Sampling Mode Selection:
+
+| Setting | Purpose |
+|---------|---------|
+| `sampler` | "ksampler" (standard) or "custom_advanced" (advanced sampling modes) |
+| `align_your_steps` | Use AlignYourSteps optimization (ON/OFF, default OFF) |
+
+---
+
+#### Sampling Parameters (Model-Specific):
+
+**EDM Sampling (Playground, etc.):**
+| Setting | Purpose |
+|---------|---------|
+| `model_sampling` | Sampling scale (0.0-10.0, default 2.5) |
+| `edm_sampling` | EDM variant: edm_playground_v2.5, v_prediction, edm, eps, cosmos_rflow |
+
+**Discrete Sampling (SD1/SDXL/SD3):**
+| Setting | Purpose |
+|---------|---------|
+| `discrete_sampling` | default, eps, v_prediction, or x0 |
+| `discrete_zsnr` | Zero SNR mode (ON/OFF, default OFF) |
+
+**Sigma Control:**
+| Setting | Purpose |
+|---------|---------|
+| `sigma_max` | Maximum sigma value (1-200, default 120) |
+| `sigma_min` | Minimum sigma value (0.001-100, default 1) |
+
+**Flux-Specific:**
+| Setting | Purpose |
+|---------|---------|
+| `flux_max_shift` | Max shift for Flux sampling (0.0-100.0, default 1.15) |
+| `flux_base_shift` | Base shift for Flux (0.0-100.0, default 0.5) |
+
+**Beta Parameters:**
+| Setting | Purpose |
+|---------|---------|
+| `beta_alpha` | Beta alpha for noise schedule (0.0-50.0, default 0.6) |
+| `beta_beta` | Beta beta for noise schedule (0.0-50.0, default 0.6) |
+
+---
+
+#### Model Precision & Guidance:
+
+| Setting | Purpose |
+|---------|---------|
+| `guidance` | Global guidance scale (0.0-100.0, default 3.5) |
+| `weight_dtype` | Weight data type: None, Auto, default, fp16, bf16, fp32, fp8 |
+| `precision` | Model precision: None, fp32, fp16, quant8, quant4 |
+
+---
+
+#### Speed LoRAs (Pre-built for fast generation):
+
+**LCM LoRA:**
+| Setting | Purpose |
+|---------|---------|
+| `lcm_lora` | Enable LCM (Latent Consistency Model) LoRA (ON/OFF, default OFF) |
+| `lcm_lora_strength` | LCM strength (-20.0 to 20.0, default 1.0) |
+
+**Speed LoRAs (Lightning, Hyper, Turbo):**
+| Setting | Purpose |
+|---------|---------|
+| `speed_lora` | Enable speed LoRA (ON/OFF, default OFF) |
+| `speed_lora_name` | Choose: Lightning, Hyper, Turbo variant |
+| `speed_lora_strength` | Strength (-20.0 to 20.0, default 1.0) |
+| `speed_lora_cfg` | CFG adjustment for speed LoRA (0.1-100, default 1.0) |
+| `speed_lora_steps_offset` | Step offset (-5 to 5, default 0) |
+
+**SRPO LoRA (Quality enhancement):**
+| Setting | Purpose |
+|---------|---------|
+| `srpo_lora` | Enable SRPO quality LoRA (ON/OFF, default OFF) |
+| `srpo_lora_name` | Select SRPO variant |
+| `srpo_lora_strength` | Strength (-20.0 to 20.0, default 1.0) |
+
+**SRPO SVDQ LoRA:**
+| Setting | Purpose |
+|---------|---------|
+| `srpo_svdq_lora` | Enable SRPO SVDQ LoRA (ON/OFF, default OFF) |
+| `srpo_svdq_lora_name` | Select SRPO SVDQ variant |
+| `srpo_svdq_lora_strength` | Strength (-20.0 to 20.0, default 1.0) |
+
+**Nunchaku LoRA:**
+| Setting | Purpose |
+|---------|---------|
+| `nunchaku_lora` | Enable Nunchaku LoRA (ON/OFF, default OFF) |
+| `nunchaku_lora_name` | Select Nunchaku variant |
+| `nunchaku_lora_strength` | Strength (-20.0 to 20.0, default 1.0) |
+
+---
+
+#### Refiner Stage (Two-Stage Generation):
+
+| Setting | Purpose |
+|---------|---------|
+| `refiner` | Enable refiner model for second generation stage (ON/OFF, default OFF) |
+| `refiner_model` | Refiner checkpoint (e.g., RealESRGAN Refiner, etc.) |
+| `refiner_sampler` | Refiner sampling algorithm |
+| `refiner_scheduler` | Refiner noise schedule |
+| `refiner_cfg` | Refiner CFG scale (0.1-100, default 2.0) |
+| `refiner_steps` | Refiner steps (10-30, default 22) |
+| `refiner_start` | When to start refiner stage (1-1000, default 12) |
+| `refiner_denoise` | Refiner denoise strength (0.0-1.0, default 0.9) |
+| `refiner_sampling_denoise` | Refiner sampling denoise (0.0-1.0, default 0.9) |
+| `refiner_ignore_prompt` | "Ignore prompt" (ON) = skip prompt for refiner, "Send prompt to refiner" (OFF) = use original prompt |
+
+---
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `CONTROL_DATA` | Main output: tuple containing all settings (sent to other nodes) |
+| `SAMPLER_NAME` | Selected sampler algorithm |
+| `SCHEDULER_NAME` | Selected noise schedule |
+| `STEPS` | Number of steps |
+| `CFG` | CFG scale value |
+| `MODEL_CONCEPT` | Detected/selected model concept (SD1, Flux, etc.) |
+
+---
+
+#### Workflow Integration:
+
+**Control Flow:**
+1. Visual Checkpoint Selector → `model_concept` + `model_name` inputs (auto mode)
+2. Model Control reads saved JSON settings for this model
+3. Model Control outputs `CONTROL_DATA` tuple
+4. Downstream nodes (Sampler, Encoder, etc.) read `CONTROL_DATA` for all their settings
+5. No manual sampler/CFG/VAE tuning needed — fully automated
+
+**Customization & Persistence:**
+1. Set `concepts` or `models` to specific values (override "Auto")
+2. Adjust any settings manually
+3. Click "Save node setting" button
+4. Settings stored to JSON per model concept/name
+5. Switch back to "Auto" mode
+6. Next time this model selected, custom settings auto-load
+
+---
+
+#### Example Workflows:
+
+**Production (Fully Automated):**
+```
+concepts: Auto
+models: Auto
+refiner: ON (if supporting model)
+speed_lora: OFF
+```
+→ Select checkpoint in Visual Selector, everything else auto-configures
+
+**Testing New Checkpoint:**
+```
+concepts: Flux (manual)
+models: my-new-flux-model.safetensors (manual)
+sampler_name: euler
+steps: 25
+cfg: 7.5
+refiner: OFF
+speed_lora: ON (test with Lightning)
+```
+→ Test and save settings, then switch back to "Auto"
+
+**Fast Generation (Speed LoRA):**
+```
+speed_lora: ON
+speed_lora_name: Lightning-SD15-Steps (example)
+speed_lora_strength: 1.0
+steps: 8
+cfg: 3.5
+```
+→ 4-8 step generation with quality preservation
+
+---
+
+<hr>
+
 ### Fast Seed Control
 
 `Why fast? Because no fron-tend for seed generation, only for result display. For large queue settings much faster than anything else.` 
