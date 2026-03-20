@@ -747,7 +747,7 @@ The Upscaler group increases image resolution intelligently using pre-trained up
 
 The File Saver group saves generated images to disk with flexible metadata, naming conventions, and format options.
 
-<img src="./File_saver_group.jpg" width="1200px">
+<img src="./File_saver_group.jpg" width="500px">
 
 <hr>
 
@@ -764,9 +764,9 @@ The File Saver group saves generated images to disk with flexible metadata, nami
 
 #### Save Control:
 
-| Setting | Purpose                                                                                                          |
-|---------|------------------------------------------------------------------------------------------------------------------|
-| `save_image` | Enable/disable image saving (ON/OFF, default ON)                                                                 |
+| Setting | Purpose |
+|---------|---------|
+| `save_image` | Enable/disable image saving (ON/OFF, default ON) |
 | `aesthetic_trigger` | Minimum aesthetic score threshold (0-1000, default 0). Only save if image score ≥ this value. Set 0 to save all. |
 
 #### Path Configuration:
@@ -884,6 +884,117 @@ Result: All images saved with seed tracking for reproducibility
 | `output` | Text pass-through for display |
 
 **Functionality:** Shows saving path, metadata, and generation info without saving to disk. Useful for preview/verification before committing files.
+
+---
+
+### Primiere Image Preview and Save As
+
+**Purpose:** Manual image saving with two modes: save-as dialog for any format/resolution, or save preview images for checkpoint/prompt selectors. Includes preview comparison feature.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `images` | Image tensor to save |
+| `image_metadata` | Optional metadata tuple from workflow |
+
+#### Save Mode Selection:
+
+| Setting | Purpose |
+|---------|---------|
+| `image_save_as` | Toggle between two modes: "Save as preview" (ON) or "Save as any..." (OFF) |
+
+---
+
+#### Mode 1: "Save as any..." (Standard Save Dialog)
+
+When `image_save_as` = OFF (default), opens standard system file save dialog for one-time image export.
+
+##### Settings:
+
+| Setting | Purpose                                                                                |
+|---------|----------------------------------------------------------------------------------------|
+| `image_type` | File format: jpeg, png, webp                                                           |
+| `image_resize` | Optional resize dimension (0 = no resize, max 8192px)                                  |
+| `image_quality` | Quality setting 10-100, step 5 (default 95)                                            |
+| `embed_metadata` | Embed image metadata in file (ON/OFF, default OFF)                                     |
+| `auto_save_path` | Temporary location: "Comfy output folder" (ON) or "Temp folder, will be deleted" (OFF) |
+
+##### Workflow:
+1. Click "Save image as JPEG format..." button
+2. Standard OS file save dialog opens
+3. Choose location and filename
+4. Image saved at selected resolution/format/quality
+
+<img src="./manual_img_saver.jpg" width="500px">
+
+---
+
+#### Mode 2: "Save as preview" (Visual Selector Preview)
+
+When `image_save_as` = ON, saves preview image for use in Visual Checkpoint Selector or Visual Style Selector modals.
+
+##### Settings:
+
+| Setting | Purpose |
+|---------|---------|
+| `preview_target` | What to create preview for: Checkpoint, CSV Prompt, LoRA, LyCoris, Hypernetwork, Embedding |
+| `preview_save_mode` | How to save: Overwrite (replace existing), Keep (append new), Join horizontal, Join vertical |
+
+##### Preview Save Modes:
+
+| Mode | Purpose                                                                    |
+|------|----------------------------------------------------------------------------|
+| **Overwrite** | Replace existing preview with new image (1 preview per target)             |
+| **Keep** | Keep the existing preview, don't replace with loaded new. Security reason. |
+| **Join horizontal** | Stack previews side-by-side for comparison                                 |
+| **Join vertical** | Stack previews vertically for comparison                                   |
+
+##### Workflow:
+1. Set `preview_target` to desired model/prompt type
+2. Click save button
+3. Preview automatically saved to correct modal folder
+4. Next time Visual Checkpoint/Style Selector opens, new preview visible
+
+<img src="./preview_secret.jpg" width="500px">
+
+---
+
+#### Preview Comparison Feature:
+
+**Hover over save button left edge** to temporarily display the currently saved preview image for this target.
+
+**Benefit:** Compare old vs. new preview before confirming save, verify visual consistency without leaving workflow.
+
+---
+
+#### Use Cases:
+
+**Mode 1: Testing & One-off Exports**
+```
+image_save_as: OFF
+image_type: png
+auto_save_path: ON (output folder)
+```
+→ Save promising generation to disk without modal setup
+
+**Mode 2: Building Checkpoint Preview Library**
+```
+image_save_as: ON
+preview_target: Checkpoint
+preview_save_mode: Overwrite
+
+```
+→ Create one key preview per checkpoint for Visual Selector modal
+
+**Mode 2: Building Style Library with Comparisons**
+```
+image_save_as: ON
+preview_target: CSV Prompt
+preview_save_mode: Join horizontal
+
+```
+→ Stack variations side-by-side for prompt style comparison
 
 ---
 
