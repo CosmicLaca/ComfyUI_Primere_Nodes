@@ -1,0 +1,533 @@
+{
+  "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
+  "revision": 0,
+  "last_node_id": 32,
+  "last_link_id": 56,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "GetImageSize+",
+      "pos": [
+        579.1998318304896,
+        100.62578163273214
+      ],
+      "size": [
+        162.8169921875,
+        66
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 4,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        838.5635238218697,
+        -67.28753663244441
+      ],
+      "size": [
+        270.330078125,
+        262
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 6
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 7
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            55
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        true,
+        1,
+        true,
+        20,
+        2,
+        "None",
+        "bicubic"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        79.46283680308944,
+        208.10568667325114
+      ],
+      "size": [
+        693.8732809271694,
+        952.8310587228822
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Image_A661_20260602_174537_145527295209879_2072x3024_1.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "PrimereRasterixLens",
+      "pos": [
+        1266.1823495219114,
+        250.46019779341822
+      ],
+      "size": [
+        370.7737915039063,
+        1162
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixLens"
+      },
+      "widgets_values": [
+        true,
+        0.3,
+        0.6,
+        0.75,
+        "circular",
+        false,
+        3,
+        0.16,
+        "red_blue",
+        false,
+        8,
+        0,
+        0.3,
+        0,
+        true,
+        0.05,
+        0.02,
+        1,
+        false,
+        0.59,
+        0.72,
+        0.67,
+        9,
+        0.74,
+        2,
+        "neutral",
+        true,
+        0.04,
+        15,
+        0.75,
+        0.8,
+        true,
+        25.4,
+        "radial",
+        0.28,
+        0.67,
+        0.49,
+        true,
+        0.2,
+        5,
+        "centre",
+        false,
+        0.5,
+        "blue",
+        0.8,
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": 31,
+      "type": "PrimereRasterixGrain",
+      "pos": [
+        1663.1246468851937,
+        253.2010257353129
+      ],
+      "size": [
+        270,
+        366
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 53
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            54
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixGrain"
+      },
+      "widgets_values": [
+        true,
+        67,
+        1,
+        "organic",
+        "color",
+        "neutral",
+        0,
+        0,
+        0,
+        1,
+        0.3,
+        0.4,
+        0
+      ]
+    },
+    {
+      "id": 32,
+      "type": "PrimereRasterix",
+      "pos": [
+        798.0394815240021,
+        243.60560689425668
+      ],
+      "size": [
+        444.8747145067508,
+        1750
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 55
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_name",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            56
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterix"
+      },
+      "widgets_values": [
+        "Auto",
+        "Auto",
+        true,
+        0.2,
+        true,
+        true,
+        true,
+        128,
+        true,
+        6900,
+        10,
+        true,
+        45,
+        false,
+        "bilateral",
+        0.5,
+        2,
+        22.0740966796875,
+        0.5,
+        true,
+        0.09,
+        true,
+        -8.18524169921875,
+        -1.77789306640625,
+        true,
+        true,
+        "kodak_ultramax_400_CF",
+        50.1480712890625,
+        true,
+        -6,
+        "midtones",
+        45.1851806640625,
+        0.45,
+        false,
+        0,
+        0,
+        0,
+        "highlights",
+        false,
+        50,
+        true,
+        0,
+        2.370361328125,
+        -1.703857421875,
+        4.37030029296875,
+        "master",
+        50,
+        true,
+        false,
+        1.5555419921875,
+        3,
+        "fine",
+        0.5,
+        false,
+        0.1,
+        1,
+        27,
+        6,
+        false,
+        "RGB",
+        "lines"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1953.2068937702336,
+        259.2644674475974
+      ],
+      "size": [
+        917.553486772017,
+        1093.286338112571
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 54
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        false,
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    }
+  ],
+  "links": [
+    [
+      3,
+      2,
+      0,
+      4,
+      2,
+      "IMAGE"
+    ],
+    [
+      5,
+      2,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      5,
+      0,
+      4,
+      0,
+      "INT"
+    ],
+    [
+      7,
+      5,
+      1,
+      4,
+      1,
+      "INT"
+    ],
+    [
+      53,
+      27,
+      0,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      54,
+      31,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      55,
+      4,
+      3,
+      32,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      32,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.693433494944141,
+      "offset": [
+        194.8610949816998,
+        -1.535503378225735
+      ]
+    },
+    "frontendVersion": "1.41.21"
+  },
+  "version": 0.4
+}
