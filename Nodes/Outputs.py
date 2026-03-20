@@ -871,9 +871,12 @@ class PrimereAestheticCKPTScorer:
     def aesthetic_scorer(self, image, get_aesthetic_score, add_to_checkpoint, add_to_saved_prompt, prompt, dual_mode = True, control_data = None, **kwargs):
         final_prediction = '*** Aesthetic scorer off ***'
         models = []
-        WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-        AE_SCORE_MIN = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_min', prompt)
-        AE_SCORE_MAX = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_max', prompt)
+        AE_SCORE_MIN = None
+        AE_SCORE_MAX = None
+        if 'extra_pnginfo' in kwargs:
+            WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
+            AE_SCORE_MIN = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_min', prompt)
+            AE_SCORE_MAX = utility.getDataFromWorkflowByName(WORKFLOWDATA, 'PrimereVisualCKPT', 'aescore_percent_max', prompt)
 
         def pipe(model):
             return pipeline(task="image-classification", model=model, device=model_management.get_torch_device())
