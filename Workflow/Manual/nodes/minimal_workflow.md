@@ -466,3 +466,201 @@ The Encoder, Sampler, Decoder group handles prompt encoding to latent space, noi
 ---
 
 <hr>
+
+## Network Tag Handler Group
+
+The Network Tag Handler group manages network injection (LoRA, LyCoris, Hypernetwork, Embedding) from A1111-style prompt syntax. This group cleans incompatible tags and injects appropriate networks based on model architecture.
+
+<img src="./Network_gropup.jpg" width="600px">
+
+<hr>
+
+### Primiere Network Tag Cleaner
+
+**Purpose:** Remove incompatible network tags from prompts based on model architecture to prevent errors and ensure workflow compatibility.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `model_version` | Current model concept (auto-detected from checkpoint) |
+| `positive_prompt` | Positive prompt text potentially containing network tags |
+| `negative_prompt` | Negative prompt text potentially containing network tags |
+
+#### Cleaning Modes:
+
+**Auto Cleaner Mode:**
+- `auto_remover`: Enable automatic removal based on detected model concept
+- When ON: Automatically removes all incompatible network tags for the selected model concept
+- Only keeps tags compatible with current checkpoint architecture
+
+**Manual Cleaner Mode:**
+- `auto_remover`: OFF
+- Manually enable/disable per network type: embedding, LoRA, LyCoris, Hypernetwork
+- Architecture-specific toggles for each model concept:
+
+| Setting | Purpose |
+|---------|---------|
+| `remove_embedding` | Remove embedding tags (ON/OFF) |
+| `remove_lora` | Remove LoRA tags (ON/OFF) |
+| `remove_lycoris` | Remove LyCoris tags (ON/OFF) |
+| `remove_hypernetwork` | Remove Hypernetwork tags (ON/OFF) |
+| `remove_from_sd1` | Remove SD1-specific tags (ON/OFF) |
+| `remove_from_sd2` | Remove SD2-specific tags (ON/OFF) |
+| `remove_from_sdxl` | Remove SDXL-specific tags (ON/OFF) |
+| `remove_from_illustrious` | Remove Illustrious-specific tags (ON/OFF) |
+| `remove_from_sd3` | Remove SD3-specific tags (ON/OFF) |
+| `remove_from_stablecascade` | Remove Stable Cascade-specific tags (ON/OFF) |
+| `remove_from_chroma` | Remove Chroma-specific tags (ON/OFF) |
+| `remove_from_z_image` | Remove Z-Image-specific tags (ON/OFF) |
+| `remove_from_turbo` | Remove Turbo-specific tags (ON/OFF) |
+| `remove_from_flux` | Remove Flux-specific tags (ON/OFF) |
+| `remove_from_nunchaku` | Remove Nunchaku-specific tags (ON/OFF) |
+| `remove_from_qwengen` | Remove QwenGen-specific tags (ON/OFF) |
+| `remove_from_qwenedit` | Remove QwenEdit-specific tags (ON/OFF) |
+| `remove_from_wanimg` | Remove WanImg-specific tags (ON/OFF) |
+| `remove_from_kwaikolors` | Remove KwaiKolors-specific tags (ON/OFF) |
+| `remove_from_hunyuan` | Remove Hunyuan-specific tags (ON/OFF) |
+| `remove_from_playground` | Remove Playground-specific tags (ON/OFF) |
+| `remove_from_pony` | Remove Pony-specific tags (ON/OFF) |
+| `remove_from_lcm` | Remove LCM-specific tags (ON/OFF) |
+| `remove_from_lightning` | Remove Lightning-specific tags (ON/OFF) |
+| `remove_from_hyper` | Remove Hyper-specific tags (ON/OFF) |
+| `remove_from_pixartsigma` | Remove PixArt-Sigma-specific tags (ON/OFF) |
+| `remove_from_sana1024` | Remove SANA1024-specific tags (ON/OFF) |
+| `remove_from_sana512` | Remove SANA512-specific tags (ON/OFF) |
+| `remove_from_auraflow` | Remove AuraFlow-specific tags (ON/OFF) |
+| `remove_from_hidream` | Remove HiDream-specific tags (ON/OFF) |
+
+**Note:** Architecture-specific toggles automatically update when supported model concepts change system-wide.
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `PROMPT+` | Cleaned positive prompt |
+| `PROMPT-` | Cleaned negative prompt |
+
+#### Use Cases:
+
+**Auto Mode (Recommended for general use):**
+- Workflow automatically adapts to selected checkpoint
+- Prevents errors from incompatible network types
+- No manual intervention needed
+
+**Manual Mode (For specific needs):**
+- Keep SDXL LoRAs while removing others
+- Selectively remove certain network types
+- Fine-grain control over tag cleanup
+
+---
+
+### Primiere Network Tag Loader
+
+**Purpose:** Process A1111-style network tags from prompt and inject appropriate networks `(LoRA, LyCoris, Hypernetwork)` into model and `CLIP` with customizable weights and keywords.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `model` | Diffusion model from Checkpoint Loader |
+| `clip` | CLIP model from Checkpoint Loader |
+| `positive_prompt` | Positive prompt containing network tags in A1111 format (e.g., `<lora:filename:weight>`) |
+| `control_data` | Optional metadata tuple from workflow |
+
+#### Network Processing Settings:
+
+| Setting | Purpose |
+|---------|---------|
+| `process_lora` | Enable LoRA injection from prompt (ON/OFF) |
+| `process_lycoris` | Enable LyCoris injection from prompt (ON/OFF) |
+| `process_hypernetwork` | Enable Hypernetwork injection from prompt (ON/OFF) |
+| `hypernetwork_safe_load` | Safe loading mode for hypernetworks to prevent conflicts (ON/OFF) |
+
+#### Weight Configuration:
+
+| Setting | Purpose |
+|---------|---------|
+| `copy_weight_to_clip` | Apply model weight to CLIP model as well (ON/OFF) |
+| `lora_clip_custom_weight` | Custom weight multiplier for LoRA on CLIP (default 1.00) |
+| `lycoris_clip_custom_weight` | Custom weight multiplier for LyCoris on CLIP (default 1.00) |
+
+#### LoRA Keyword Injection:
+
+| Setting | Purpose |
+|---------|---------|
+| `use_lora_keyword` | Extract and inject LoRA-specific keywords into prompt (ON/OFF) |
+| `lora_keyword_placement` | Where to place LoRA keyword: First, Last, etc. |
+| `lora_keyword_selection` | Selection method: Select in order, Random, etc. |
+| `lora_keywords_num` | Number of LoRA keywords to include (default 1) |
+| `lora_keyword_weight` | Weight multiplier for LoRA keywords (default 1.0) |
+
+#### LyCoris Keyword Injection:
+
+| Setting | Purpose |
+|---------|---------|
+| `use_lycoris_keyword` | Extract and inject LyCoris-specific keywords into prompt (ON/OFF) |
+| `lycoris_keyword_placement` | Where to place LyCoris keyword: First, Last, etc. |
+| `lycoris_keyword_selection` | Selection method: Select in order, Random, etc. |
+| `lycoris_keywords_num` | Number of LyCoris keywords to include (default 1) |
+| `lycoris_keyword_weight` | Weight multiplier for LyCoris keywords (default 1.0) |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `MODEL` | Model with injected networks |
+| `CLIP` | CLIP with injected networks (if applicable) |
+| `LORA_STACK` | Stack of applied LoRAs |
+| `LYCORIS_STACK` | Stack of applied LyCoris |
+| `HYPERNETWORK_STACK` | Stack of applied hypernetworks |
+| `LORA_KEYWORD` | Extracted LoRA keywords used |
+| `LYCORIS_KEYWORD` | Extracted LyCoris keywords used |
+
+#### A1111 Syntax Support:
+
+Network tags in prompts use A1111 format:
+- `<lora:filename:weight>` — applies LoRA with specified weight
+- `<lycoris:filename:weight>` — applies LyCoris with specified weight
+- `<hypernet:filename:weight>` — applies Hypernetwork with specified weight
+- `embedding:name` or just `name` — textual inversion embedding (converted by Embedding Handler)
+
+Example prompt: `beautiful portrait, <lora:detail-enhancer:0.8>, <lycoris:style-modifier:0.6>, professional lighting`
+
+---
+
+### Primiere Model Keyword
+
+**Purpose:** Automatically inject model-specific keywords into prompt based on selected checkpoint to optimize generation quality for that model.
+
+#### Inputs:
+
+| Input | Purpose |
+|-------|---------|
+| `model_name` | Checkpoint name (auto-detected from checkpoint loader) |
+
+#### Settings:
+
+| Setting | Purpose |
+|---------|---------|
+| `use_model_keyword` | Enable automatic model keyword injection (ON/OFF) |
+| `model_keyword_placement` | Where to inject keyword: First, Last. |
+| `model_keywords_num` | Number of model keywords to include (default 1) |
+| `model_keyword_weight` | Weight multiplier for model keywords (default 1.4) |
+| `select_keyword` | Manually choose specific keyword if multiple available (None to auto-select) |
+
+#### Outputs:
+
+| Output | Purpose |
+|--------|---------|
+| `MODEL_KEYWORD` | Extracted keyword(s) for this model |
+
+#### Benefits:
+
+- Automatically tunes prompts for specific model architectures
+- Improves generation quality without manual keyword research
+- Weight adjustment allows fine-tuning keyword influence
+
+---
+
+<hr>
