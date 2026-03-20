@@ -2,7 +2,6 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter, map_coordinates, convolve
 
-
 def img_lens_effect(
     image: Image.Image,
     # ── Vignette ──────────────────────────────────────────────────────────────
@@ -53,81 +52,7 @@ def img_lens_effect(
     anamorphic_oval_bokeh:      float = 0.4,
     anamorphic_blue_bias:       float = 0.3,
 ) -> Image.Image:
-    """
-    Camera lens optical effects. All effects are optional — any effect whose
-    primary intensity/strength parameter is 0 is skipped entirely.
-    Effects are applied in correct optical order: geometry first, bloom last.
-
-    ── Vignette ──────────────────────────────────────────────────────────────
-    vignette_strength   : 0.0 … 1.0   Corner/edge darkening. 0 = off.
-    vignette_radius     : 0.0 … 1.0   How close to centre darkening starts.
-    vignette_feather    : 0.0 … 1.0   Transition softness.
-    vignette_shape      : "circular" | "oval" | "corner"
-
-    ── Chromatic Aberration ──────────────────────────────────────────────────
-    chroma_intensity    : 0.0 … 10.0  Colour fringing toward edges. 0 = off.
-                                       1–2 = realistic, 5+ = stylised.
-    chroma_falloff      : 0.0 … 1.0   How shift grows from centre to edge.
-    chroma_fringe_color : "red_blue" | "green_magenta" | "yellow_purple"
-
-    ── Bokeh ─────────────────────────────────────────────────────────────────
-    bokeh_radius        : 0.0 … 40.0  Defocus blur radius. 0 = off.
-    bokeh_blades        : 0           Circular (default). 5/6/8 = polygon.
-    bokeh_highlight_boost: 0.0 … 1.0  Extra brightness on specular highlights.
-    bokeh_cat_eye       : 0.0 … 1.0   Oval bokeh toward frame edges.
-
-    ── Lens Distortion ───────────────────────────────────────────────────────
-    distortion_barrel   : 0.0 … 1.0   Barrel distortion, wide-angle look. 0 = off.
-    distortion_pincushion: 0.0 … 1.0  Pincushion distortion, telephoto look.
-    distortion_zoom     : 0.5 … 2.0   Scale compensation (try 1.05 with barrel).
-
-    ── Lens Flare ────────────────────────────────────────────────────────────
-    flare_intensity     : 0.0 … 1.0   Star-burst + ghost flare. 0 = off.
-    flare_pos_x         : 0.0 … 1.0   Horizontal light source position.
-    flare_pos_y         : 0.0 … 1.0   Vertical light source position.
-    flare_streak_count  : 2 … 12      Number of star-burst arms.
-    flare_streak_length : 0.1 … 1.0   Streak reach across frame.
-    flare_ghost_count   : 0 … 8       Ghost ring reflections on flare axis.
-    flare_color         : "warm" | "cool" | "neutral" | "rainbow"
-
-    ── Halation ─────────────────────────────────────────────────────────────
-    halation_intensity  : 0.0 … 1.0   Highlight bloom / film halation. 0 = off.
-    halation_radius     : 2.0 … 50.0  Glow spread radius in pixels.
-    halation_threshold  : 0.0 … 1.0   Luminance above which glow starts.
-    halation_warmth     : 0.0 … 1.0   Warmth of glow (0 = white, 1 = orange-red).
-
-    ── Focus Falloff ─────────────────────────────────────────────────────────
-    focus_blur_radius   : 0.0 … 30.0  Out-of-focus area blur strength. 0 = off.
-    focus_mode          : "horizontal" | "vertical" | "radial" | "oval"
-    focus_pos           : 0.0 … 1.0   Centre of the sharp zone.
-    focus_width         : 0.0 … 1.0   Width of the sharp zone.
-    focus_feather       : 0.0 … 1.0   Sharp-to-blurry transition softness.
-
-    ── Spherical Aberration ──────────────────────────────────────────────────
-    spherical_intensity : 0.0 … 1.0   Vintage lens softness / glow. 0 = off.
-    spherical_radius    : 0.5 … 15.0  Aberration blur size in pixels.
-    spherical_zone      : "centre" | "edge" | "global"
-
-    ── Anamorphic ────────────────────────────────────────────────────────────
-    anamorphic_intensity    : 0.0 … 1.0   Cinema anamorphic look. 0 = off.
-    anamorphic_streak_color : "blue" | "warm" | "white"
-    anamorphic_streak_length: 0.0 … 1.0   Horizontal streak reach.
-    anamorphic_oval_bokeh   : 0.0 … 1.0   Vertical bokeh compression.
-    anamorphic_blue_bias    : 0.0 … 1.0   Blue tint in shadow areas.
-    """
-
     img = image.convert("RGB")
-
-    # Effects applied in optical order:
-    # 1. Geometry (distortion)
-    # 2. Focus / blur
-    # 3. Bokeh
-    # 4. Aberrations (spherical, chromatic)
-    # 5. Anamorphic
-    # 6. Bloom / halation
-    # 7. Flare
-    # 8. Vignette (always last — it's a post-optical effect)
-
     if distortion_barrel != 0 or distortion_pincushion != 0:
         img = _distortion(img, distortion_barrel, distortion_pincushion, distortion_zoom)
 
@@ -166,10 +91,6 @@ def img_lens_effect(
     return img
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Internal helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _f(img):
     return np.array(img.convert("RGB"), dtype=np.float32) / 255.0
 
@@ -181,10 +102,6 @@ def _radial(H, W):
     y, x   = np.mgrid[0:H, 0:W]
     return np.sqrt(((y-cy)/cy)**2 + ((x-cx)/cx)**2) / np.sqrt(2.0)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Effect implementations
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _vignette(img, strength, radius, feather, shape):
     arr  = _f(img)

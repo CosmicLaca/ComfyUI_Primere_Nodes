@@ -13,41 +13,6 @@ def img_blur(
     bilateral_edge_sensitivity: float = 0.5,
     edge_threshold:           float = 0.0,
 ) -> Image.Image:
-    """
-    Multi-type blur with consistent interface.
-
-    Args:
-        image                    : PIL Image (RGB)
-        blur_type                : "gaussian" | "box" | "motion" |
-                                   "bilateral" | "lens"
-        intensity                : 0.0 … 5.0. Overall strength multiplier.
-                                   0.0 = no effect (passthrough).
-        radius                   : 0.5 … 50.0. Blur radius in pixels.
-        angle                    : 0 … 360. Motion blur direction in degrees.
-                                   Only used for blur_type="motion".
-        edge_only                : If True, blur is applied only to flat/smooth
-                                   areas. Edges are preserved using a Sobel map.
-        bilateral_edge_sensitivity: 0.0 … 1.0. Only used for blur_type="bilateral".
-                                   Controls how strongly edges are protected.
-                                   0.0 = very strong edge protection — only
-                                         near-flat areas are blurred, sharp
-                                         edges are untouched.
-                                   0.5 = balanced (default).
-                                   1.0 = weak edge protection — edges also
-                                         receive some blur.
-        edge_threshold           : 0.0 … 1.0. Only used when edge_only=True.
-                                   Pixels with edge strength above this value
-                                   are kept fully sharp. Pixels below are
-                                   blurred proportionally.
-                                   0.0 = no threshold, all pixels get some
-                                         blur (default, previous behaviour).
-                                   0.3 = moderate — clear separation between
-                                         sharp edges and blurred flat areas.
-                                   0.7 = aggressive — only the strongest edges
-                                         are protected, most areas are blurred.
-    Returns:
-        PIL Image (RGB)
-    """
     if intensity == 0:
         return image.convert("RGB")
 

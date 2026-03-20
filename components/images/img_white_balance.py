@@ -7,33 +7,6 @@ def img_white_balance(
     temperature: float = 6500,
     tint:        float = 0,
 ) -> Image.Image:
-    """
-    RGB white balance adjustment using colour temperature in Kelvin.
-    Approximates the DxO-style cool/warm slider with real Kelvin values.
-
-    Works on JPEG/PNG by applying per-channel RGB gain corrections derived
-    from the difference between the target temperature and neutral (6500K).
-    This is an approximation — true white balance requires RAW data — but
-    produces visually correct and useful results on rendered images.
-
-    Args:
-        image       : PIL Image (RGB)
-        temperature : 2000 … 12000. Colour temperature in Kelvin.
-                      2000K = very warm / candlelight (strong orange)
-                      3200K = tungsten / indoor lamp (warm)
-                      5500K = daylight / flash (neutral-warm)
-                      6500K = sRGB standard white point (no change)
-                      7500K = overcast / shade (cool-blue)
-                      10000K = deep shade / very blue sky (very cool)
-                      12000K = extreme cool (strong blue)
-        tint        : -100 … +100. Green/magenta tint correction.
-                      Negative = shift toward magenta.
-                      Positive = shift toward green.
-                      0 = no tint (default).
-
-    Returns:
-        PIL Image (RGB)
-    """
     if temperature == 6500 and tint == 0:
         return image.convert("RGB")
 
@@ -44,12 +17,6 @@ def img_white_balance(
 
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32) / 255.0
-
-    # ── Kelvin → RGB gain ─────────────────────────────────────────────────────
-    # Derived from Tanner Helland's empirical Kelvin→RGB formula, then
-    # normalised so 6500K = (1.0, 1.0, 1.0) — no change at neutral point.
-    # We compute gain for the target temp and divide by the 6500K gain to
-    # get the relative correction needed on a sRGB-origin image.
 
     def kelvin_to_rgb(K):
         K = K / 100.0

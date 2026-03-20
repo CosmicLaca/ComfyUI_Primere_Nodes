@@ -687,77 +687,6 @@ def img_film_rendering(
     rendering: str   = "kodak_kodachrome_64_CF",
     intensity: float = 100,
 ) -> Image.Image:
-    """
-    Film and digital sensor rendering simulation.
-    Supports colour film (_CF), B&W film (_BWF), and digital camera sensors (_CCD).
-
-    Args:
-        image     : PIL Image (RGB)
-
-        rendering : Preset name — suffix indicates type:
-                    _CF  = colour film
-                    _BWF = black and white film
-                    _CCD = digital camera sensor
-
-                    ── Colour film (_CF) ─────────────────────────────────────
-                    "fuji_astia_100_CF"           Soft, neutral skin, low contrast
-                    "fuji_provia_100_CF"          Standard, accurate, moderate contrast
-                    "fuji_velvia_100_CF"          Vivid, high contrast, punchy colours
-                    "fuji_superia_400_CF"         Warm greens, consumer negative
-                    "fuji_400h_CF"                Soft highlights, cool shadows, portrait
-                    "kodak_kodachrome_64_CF"      Warm reds, deep blues, high contrast
-                    "kodak_ektachrome_100vs_CF"   Very saturated, cool blues
-                    "kodak_portra_160_CF"         Warm skin, soft highlights, fine grain
-                    "kodak_portra_400_CF"         Warm, lifted shadows, versatile portrait
-                    "kodak_gold_200_CF"           Warm golden, boosted yellows
-                    "kodak_ultramax_400_CF"       Vivid warm, punchy, street film
-                    "kodak_tri_x_400_CF"          Strong contrast, warm shadow tint
-                    "agfa_vista_200_CF"           Cool shadows, blue-green tint
-                    "lomography_lomo_100_CF"      High contrast, cross-process
-                    "ilford_xp2_400_CF"           Neutral, clean, minimal colour shift
-                    "kodak_vision3_500t_CF"       Cinema negative, warm shadows, teal hi
-                    "fuji_eterna_250d_CF"         Soft cinema, desaturated highlights
-
-                    ── B&W film (_BWF) ───────────────────────────────────────
-                    "ilford_hp5_400_BWF"          Neutral panchromatic, forgiving
-                    "ilford_delta_100_BWF"        Fine grain, cool tone, sharp
-                    "ilford_delta_3200_BWF"       High ISO, lifted shadows, pushed look
-                    "kodak_tmax_100_BWF"          Ultra-fine grain, high contrast, sharp
-                    "kodak_tmax_400_BWF"          Fine grain, excellent tonal range
-                    "kodak_tri_x_400_BWF"         Iconic, punchy, photojournalism classic
-                    "agfa_apx_100_BWF"            Smooth midtones, slightly warm neutral
-                    "agfa_apx_400_BWF"            Medium grain, contrasty midtones
-                    "rollei_rpx_400_BWF"          Very deep blacks, punchy street look
-                    "fomapan_100_BWF"             Soft, orthochromatic character, vintage
-                    "selenium_tone_BWF"           Cool blue-purple shadows, archival
-                    "sepia_tone_BWF"              Warm brown throughout, Victorian vintage
-                    "gold_tone_BWF"               Warm golden highlights, cooler shadows
-                    "cyanotype_BWF"               Deep cyan-blue, alternative process
-                    "platinum_palladium_BWF"      Long tonal scale, subtle warm neutral
-
-                    ── Digital sensors (_CCD) ────────────────────────────────
-                    "canon_5d_mark2_CCD"          Warm romantic, gentle rolloff, skin tones
-                    "canon_5d_mark1_CCD"          Original full-frame CCD, warm character
-                    "canon_1dx_CCD"               Neutral accurate, punchy, professional
-                    "sony_a7iii_CCD"              Neutral, cool shadows, high dynamic range
-                    "sony_a7rii_CCD"              Very neutral-cool, extremely detailed
-                    "nikon_d800_CCD"              Neutral accurate, slightly cool, landscape
-                    "nikon_d3_CCD"                Warm classic, photojournalism standard
-                    "fuji_xt3_CCD"                Film-simulation-inspired, vivid natural
-                    "fuji_gfx_CCD"                Medium format, neutral, exceptional tonal
-                    "leica_m9_CCD"                Iconic true CCD, warm, highlight glow
-                    "leica_m11_CCD"               Modern Leica, very neutral and clinical
-                    "hasselblad_x2d_CCD"          100MP MF, clinical precision, wide tonal
-                    "olympus_omd_CCD"             Punchy vivid, slightly cool, contrasty
-
-        intensity : 0 … 100. Blend between original and full rendering.
-                    0   = passthrough.
-                    50  = 50/50 blend.
-                    100 = full rendering (default).
-
-    Returns:
-        PIL Image (RGB)
-    """
     if intensity == 0:
         return image.convert("RGB")
 
@@ -797,10 +726,6 @@ def list_presets_by_type() -> dict:
         result[v["type"]].append(k)
     return result
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Internal rendering paths
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _apply_lut(channel: np.ndarray, pts: list) -> np.ndarray:
     pts_arr = np.array(pts, dtype=np.float64)

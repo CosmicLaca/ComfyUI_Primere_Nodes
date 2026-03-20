@@ -8,48 +8,6 @@ def img_hue_saturation(
     channel_width:   float = 50,
     skin_protection: bool  = True,
 ) -> Image.Image:
-    """
-    Photoshop-style Hue / Saturation / Lightness + Vibrance.
-
-    Args:
-        image           : PIL Image (RGB)
-        channels_data   : dict of channel adjustments. Keys are channel names,
-                          values are dicts with optional keys:
-                            'hue'        : -180 … +180
-                            'saturation' : -100 … +100
-                            'lightness'  : -100 … +100
-                            'vibrance'   : -100 … +100
-
-                          Valid channel keys:
-                            'master' — affects all pixels equally
-                            'red'    — hue range centred at   0° (reds)
-                            'green'  — hue range centred at 120° (greens)
-                            'blue'   — hue range centred at 240° (blues)
-
-                          Example:
-                            {
-                                'master': {'saturation': +21, 'lightness': -1},
-                                'blue':   {'hue': +15, 'saturation': +10},
-                            }
-
-        channel_width   : 0 … 100. Controls R/G/B channel selection zone width.
-                          0   = narrowest — only pixels very close to the
-                                channel's pure hue are affected. Tight
-                                selection, minimal bleed into adjacent colours.
-                          50  = default — balanced zone (previous behaviour).
-                          100 = widest  — broad selection, neighbouring hues
-                                are also pulled in.
-                          Has no effect on 'master' channel (always full image).
-
-        skin_protection : True  = vibrance skips skin-tone pixels (hues near
-                                  orange ~25°), protecting faces from going
-                                  oversaturated. Default: True.
-                          False = vibrance applies uniformly to all pixels
-                                  including skin tones.
-    Returns:
-        PIL Image (RGB)
-    """
-
     VALID_CHANNELS  = {'master', 'red', 'green', 'blue'}
     CHANNEL_CENTRES = {'red': 0.0, 'green': 120.0, 'blue': 240.0}
 
@@ -91,10 +49,6 @@ def img_hue_saturation(
         s = np.where(Cmax == 0, 0.0, delta / Cmax)
     v = Cmax
 
-    # ── Channel mask geometry from channel_width ──────────────────────────────
-    # channel_width 0   → hard_deg=20,  feather_deg=10  (total half-width 30°)
-    # channel_width 50  → hard_deg=45,  feather_deg=30  (total half-width 75°)
-    # channel_width 100 → hard_deg=75,  feather_deg=45  (total half-width 120°)
     t          = channel_width / 100.0
     hard_deg   = 20  + t * 55    #  20° …  75°
     feather_deg = 10 + t * 35    #  10° …  45°
