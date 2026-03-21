@@ -697,14 +697,48 @@ def img_film_rendering(
         arr_out = _apply_colour(arr, preset)
 
     # ── Blend with overdrive support ──────────────────────────────────────────
-    # intensity 0–100: linear blend  orig → arr_out
-    # intensity 100–200: extrapolate beyond arr_out
+    # CF and CCD: intensity 0–200 extrapolates continuously.
     #   result = orig + blend * (arr_out - orig)
-    # At blend=1.0 (intensity=100): result = arr_out  (same as before)
-    # At blend=2.0 (intensity=200): result = 2*arr_out - orig (double push)
-    blend  = intensity / 100.0
-    result = orig + blend * (arr_out - orig)
-    result = np.clip(result, 0.0, 1.0)
+    #   blend=1.0 (100) = full preset, blend=2.0 (200) = double push
+    #
+    # BWF: intensity 0–100 = normal blend to greyscale.
+    #   intensity 101–200 = push-processing simulation on the greyscale output.
+    #   Stays fully greyscale — applies increasing contrast and shadow
+    #   compression to arr_out, simulating darkroom push-processing of B&W film.
+    #   No colour is reintroduced at any intensity value.
+
+    if preset["type"] == "BWF" and intensity > 100:
+        # First blend to full greyscale at intensity=100
+        result = arr_out.copy()
+        # Push amount: 0.0 at intensity=100, 1.0 at intensity=200
+        push = (intensity - 100) / 100.0
+        # Push-processing effect on greyscale:
+        #   - Increase contrast (S-curve steepening)
+        #   - Compress shadows further (deeper blacks)
+        #   - Protect highlights (slight shoulder compression)
+        # Applied to the greyscale channel (all three are equal in BWF output)
+        grey = result[..., 0]
+        # Contrast boost: push midtones away from 0.5, steepen the S-curve
+        contrast_factor = 1.0 + push * 0.8
+        grey = np.clip((grey - 0.5) * contrast_factor + 0.5, 0.0, 1.0)
+        # Shadow compression: pull dark tones down further (deeper blacks)
+        shadow_power = 1.0 + push * 0.6   # >1 = shadow compression
+        grey = np.power(np.clip(grey, 0.0, 1.0), shadow_power)
+        # Highlight rolloff: gentle compression to avoid blowout
+        hi_push = 0.85 - push * 0.10      # rolloff starts earlier as push increases
+        hi_mask = np.clip((grey - hi_push) / (1.0 - hi_push + 1e-6), 0.0, 1.0)
+        grey = np.where(grey > hi_push,
+                        hi_push + (1.0 - hi_push) * (1.0 - (1.0 - hi_mask) ** 2),
+                        grey)
+        grey = np.clip(grey, 0.0, 1.0)
+        # Apply toning tint if present (for selenium, sepia, etc.)
+        tint = np.array(preset.get("tint", (1.0, 1.0, 1.0)), dtype=np.float32)
+        result = np.stack([grey * tint[0], grey * tint[1], grey * tint[2]], axis=-1)
+        result = np.clip(result, 0.0, 1.0)
+    else:
+        blend  = intensity / 100.0
+        result = orig + blend * (arr_out - orig)
+        result = np.clip(result, 0.0, 1.0)
 
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")
 
