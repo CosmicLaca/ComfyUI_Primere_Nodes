@@ -2261,7 +2261,7 @@ class PrimereRasterix:
 
                 "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
                 "film_rendering": (list(FILM_PRESETS.keys()), {"default": "kodak_kodachrome_64_CF"}),
-                "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 100, "step": 1}),
+                "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
 
                 "use_selective_tone": ("BOOLEAN", {"default": False, "label_off": "Ignore selective tone", "label_on": "Apply selective tone"}),
                 "selective_tone_value":      ("FLOAT", {"default": 0,   "min": -100, "max": 100, "step": 1}),
