@@ -1,62 +1,15 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 32,
-  "last_link_id": 56,
+  "last_node_id": 43,
+  "last_link_id": 81,
   "nodes": [
-    {
-      "id": 5,
-      "type": "GetImageSize+",
-      "pos": [
-        579.1998318304896,
-        100.62578163273214
-      ],
-      "size": [
-        162.8169921875,
-        66
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "links": [
-            6
-          ]
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "links": [
-            7
-          ]
-        },
-        {
-          "name": "count",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GetImageSize+"
-      },
-      "widgets_values": []
-    },
     {
       "id": 4,
       "type": "PrimereResolutionMultiplierMPX",
       "pos": [
-        838.5635238218697,
-        -67.28753663244441
+        206.38969459574838,
+        -251.76943638206146
       ],
       "size": [
         270.330078125,
@@ -103,7 +56,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            55
+            80
           ]
         }
       ],
@@ -121,49 +74,58 @@
       ]
     },
     {
-      "id": 2,
-      "type": "LoadImage",
+      "id": 5,
+      "type": "GetImageSize+",
       "pos": [
-        79.46283680308944,
-        208.10568667325114
+        -134.3723733943388,
+        -84.4971224369933
       ],
       "size": [
-        693.8732809271694,
-        952.8310587228822
+        162.8169921875,
+        66
       ],
       "flags": {},
-      "order": 0,
+      "order": 1,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
       "outputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
+          "name": "width",
+          "type": "INT",
           "links": [
-            3,
-            5
+            6
           ]
         },
         {
-          "name": "MASK",
-          "type": "MASK",
+          "name": "height",
+          "type": "INT",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage"
+        "Node name for S&R": "GetImageSize+"
       },
-      "widgets_values": [
-        "Image_A661_20260602_174537_145527295209879_2072x3024_1.jpg",
-        "image"
-      ]
+      "widgets_values": []
     },
     {
       "id": 27,
       "type": "PrimereRasterixLens",
       "pos": [
-        1266.1823495219114,
-        250.46019779341822
+        1285.1190575869148,
+        1320.8184130109485
       ],
       "size": [
         370.7737915039063,
@@ -176,7 +138,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 56
+          "link": 81
         }
       ],
       "outputs": [
@@ -206,7 +168,7 @@
         0,
         0.3,
         0,
-        true,
+        false,
         0.05,
         0.02,
         1,
@@ -229,7 +191,7 @@
         0.28,
         0.67,
         0.49,
-        true,
+        false,
         0.2,
         5,
         "centre",
@@ -245,8 +207,8 @@
       "id": 31,
       "type": "PrimereRasterixGrain",
       "pos": [
-        1663.1246468851937,
-        253.2010257353129
+        1706.3390093548971,
+        1322.879291032087
       ],
       "size": [
         270,
@@ -273,7 +235,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            54
+            59
           ]
         }
       ],
@@ -281,7 +243,7 @@
         "Node name for S&R": "PrimereRasterixGrain"
       },
       "widgets_values": [
-        true,
+        false,
         67,
         1,
         "organic",
@@ -297,15 +259,53 @@
       ]
     },
     {
-      "id": 32,
-      "type": "PrimereRasterix",
+      "id": 2,
+      "type": "LoadImage",
       "pos": [
-        798.0394815240021,
-        243.60560689425668
+        -71.29003299076548,
+        187.79952200018283
       ],
       "size": [
-        444.8747145067508,
-        1750
+        847.8209835466038,
+        1173.17325790213
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Image_A659_20260602_190430_102020915537757_1984x3176_1.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 43,
+      "type": "PrimereRasterix",
+      "pos": [
+        796.6007994467783,
+        -235.88225949091918
+      ],
+      "size": [
+        448.60015207866036,
+        1822
       ],
       "flags": {},
       "order": 3,
@@ -314,7 +314,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 55
+          "link": 80
         },
         {
           "name": "model_concept",
@@ -334,7 +334,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            56
+            81
           ]
         }
       ],
@@ -345,36 +345,38 @@
         "Auto",
         "Auto",
         true,
-        0.2,
+        true,
+        0.1,
         true,
         true,
+        3,
         true,
-        128,
+        110,
         true,
-        6900,
-        10,
+        6500,
+        0,
         true,
-        45,
+        20.03704833984375,
         false,
         "bilateral",
-        0.5,
+        0,
         2,
-        22.0740966796875,
+        0,
         0.5,
+        false,
+        0,
+        false,
+        0,
+        0,
+        false,
         true,
-        0.09,
-        true,
-        -8.18524169921875,
-        -1.77789306640625,
-        true,
-        true,
-        "kodak_ultramax_400_CF",
-        50.1480712890625,
+        "canon_5d_mark2_CCD",
+        200,
         true,
         -6,
-        "midtones",
-        45.1851806640625,
-        0.45,
+        "highlights",
+        50,
+        0.5,
         false,
         0,
         0,
@@ -384,37 +386,38 @@
         50,
         true,
         0,
-        2.370361328125,
-        -1.703857421875,
-        4.37030029296875,
+        -2.629638671875,
+        -7.703857421875,
+        8.37030029296875,
         "master",
         50,
         true,
-        false,
-        1.5555419921875,
-        3,
+        true,
+        5.5555419921875,
+        1.5,
         "fine",
         0.5,
-        false,
-        0.1,
-        1,
-        27,
-        6,
+        true,
+        0.019,
+        0.32,
+        38,
+        4,
+        true,
         false,
         "RGB",
-        "lines"
+        "bars"
       ]
     },
     {
       "id": 8,
       "type": "PrimerePreviewImage",
       "pos": [
-        1953.2068937702336,
-        259.2644674475974
+        1266.9216441227743,
+        -151.64173777195148
       ],
       "size": [
-        917.553486772017,
-        1093.286338112571
+        1128.4106290470122,
+        1408.4781444463952
       ],
       "flags": {},
       "order": 6,
@@ -424,7 +427,7 @@
           "name": "images",
           "shape": 7,
           "type": "IMAGE",
-          "link": 54
+          "link": 59
         },
         {
           "name": "image_metadata",
@@ -493,7 +496,7 @@
       "IMAGE"
     ],
     [
-      54,
+      59,
       31,
       0,
       8,
@@ -501,16 +504,16 @@
       "IMAGE"
     ],
     [
-      55,
+      80,
       4,
       3,
-      32,
+      43,
       0,
       "IMAGE"
     ],
     [
-      56,
-      32,
+      81,
+      43,
       0,
       27,
       0,
@@ -521,10 +524,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.693433494944141,
+      "scale": 0.6934334949441732,
       "offset": [
-        194.8610949816998,
-        -1.535503378225735
+        795.0106485186893,
+        330.2327009981918
       ]
     },
     "frontendVersion": "1.41.21"
