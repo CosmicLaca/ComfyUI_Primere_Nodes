@@ -169,26 +169,37 @@ def levels_normalize_midpeaks(
     amp  = peak_width / 2.0
     half = amp / 2.0
 
+    # Generate ONE noise array for the entire channel — all qualifying bins
+    # use the same amplitude (peak_width / 2) so a single TPDF noise field
+    # covers all of them. Each bin's mask selects which pixels receive it.
+    # This reduces rng calls from 2 × N_bins to 2 total — the critical fix
+    # for performance on large images with many qualifying bins.
+    noise = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
+             rng_spike.uniform(-half, half, result.shape).astype(np.float32))
+
+    # Build qualifying bin mask vectorized using numpy
+    # A bin qualifies if any bin within peak_width distance is a gap.
+    gap_arr   = np.zeros(256, dtype=bool)
+    for g in gap_bins:
+        gap_arr[g] = True
+
+    # For each bin b, check if any position in [b-pw, b+pw] is a gap
+    # Equivalent to convolving gap_arr with a window of width 2*peak_width+1
+    from numpy.lib.stride_tricks import sliding_window_view
+    pad       = peak_width
+    padded    = np.pad(gap_arr, pad, mode='constant', constant_values=False)
+    windows   = sliding_window_view(padded, 2 * pad + 1)  # shape (256, 2*pad+1)
+    near_gap  = windows.any(axis=1)                        # shape (256,)
+
+    # Build combined mask: all pixels in qualifying non-gap bins
+    qualify_mask = np.zeros(result.shape, dtype=bool)
     for b in range(9, 247):
-        if s_hist[b] == 0:
-            continue   # skip gap bins themselves
-
-        # Check if this bin is within peak_width of any gap
-        near_gap = any(
-            (b - d) in gap_bins or (b + d) in gap_bins
-            for d in range(1, peak_width + 1)
-        )
-        if not near_gap:
+        if s_hist[b] == 0 or not near_gap[b]:
             continue
+        qualify_mask |= (s_int == b)
 
-        # Targeted TPDF dithering — only pixels in this bin
-        mask = (s_int == b)
-        if not mask.any():
-            continue
-
-        extra = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
-                 rng_spike.uniform(-half, half, result.shape).astype(np.float32))
-        result = np.where(mask, np.clip(result + extra, 0.0, 255.0), result)
+    # Apply noise only to qualifying pixels
+    result = np.where(qualify_mask, np.clip(result + noise, 0.0, 255.0), result)
 
     return result
 
