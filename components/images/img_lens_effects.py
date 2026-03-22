@@ -191,6 +191,7 @@ def _distortion(img, barrel, pincushion, zoom):
     yn = (y - cy) / cy
     xn = (x - cx) / cx
     r2 = xn**2 + yn**2
+    zoom = max(zoom, 0.01)   # guard against division by zero
     d  = (1.0 + barrel*0.4*r2 - pincushion*0.4*r2**2) / zoom
     sy = np.clip(yn*d*cy + cy, 0, H-1)
     sx = np.clip(xn*d*cx + cx, 0, W-1)

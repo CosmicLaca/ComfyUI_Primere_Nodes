@@ -371,20 +371,17 @@ def img_levels_auto(
         channel = arr[:, :, ch]
 
         # 1. Detect black / white points
-        black_point, white_point, scale = levels_detect_points(
-            channel, threshold, max_val)
+        black_point, white_point, scale = levels_detect_points(channel, threshold, max_val)
 
         # 2. Stretch
         stretched = levels_stretch(channel, black_point, white_point, max_val)
 
         # 3. Edge spread (always on)
-        stretched = levels_edge_spread(
-            channel, stretched, black_point, white_point, max_val)
+        stretched = levels_edge_spread(channel, stretched, black_point, white_point, max_val)
 
         # 4. Peak smoothing (before gap dithering)
         if normalize_midpeaks:
-            stretched = levels_normalize_midpeaks(
-                stretched, peak_width, rng_spike, max_val)
+            stretched = levels_normalize_midpeaks(stretched, peak_width, rng_spike, max_val)
 
         # 5. Gap dithering
         if normalize_gaps:
