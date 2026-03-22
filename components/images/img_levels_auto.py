@@ -6,14 +6,9 @@ from PIL import Image
 # Constants
 # ─────────────────────────────────────────────────────────────────────────────
 
-EDGE_SPREAD    = 8.0    # bins to spread clipped edge pixels across
-SPIKE_WIDTH    = 8      # max run width (bins) for classic isolated spike
-SPIKE_RATIO    = 3.0    # classic spike: peak must exceed this × context median
-SPIKE_RATIO_GN = 1.5    # gap-neighbor spike: lower threshold (single bin adj. to gap)
-SPIKE_SEARCH   = 8      # bins each side used to measure neighbor context
-SPIKE_AMP_MAX  = 4.0    # max dither amplitude for spike correction (pixels)
-GAMMA_MIN      = 0.25   # clamp auto gamma to safe range
-GAMMA_MAX      = 4.0
+EDGE_SPREAD   = 8.0    # bins to spread clipped edge pixels across
+GAMMA_MIN     = 0.25   # clamp auto gamma to safe range
+GAMMA_MAX     = 4.0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -21,9 +16,9 @@ GAMMA_MAX      = 4.0
 # ─────────────────────────────────────────────────────────────────────────────
 
 def levels_detect_points(
-    channel:    np.ndarray,
-    threshold:  float,
-) -> tuple[int, int, float]:
+    channel:   np.ndarray,
+    threshold: float,
+) -> tuple:
     """
     Detect black and white points from a single channel histogram.
 
@@ -90,15 +85,12 @@ def levels_edge_spread(
     Rank-based edge spread — always applied, not gated by any boolean.
 
     Pixels below black_point all clipped to 0 after stretch. Rather than
-    piling them into bin 0 (creating an artificial edge spike), they are
-    spread uniformly across [0 … EDGE_SPREAD] using rank ordering.
+    piling them into bin 0, they are spread uniformly across [0 … EDGE_SPREAD]
+    using rank ordering — flat distribution regardless of input clustering.
     Same for white-clipped pixels spread to [255-EDGE_SPREAD … 255].
 
-    Rank ordering guarantees flat distribution regardless of how tightly
-    input pixels cluster near the clipping boundary.
-
     Args:
-        channel     : original 2D float32 channel (before stretch)
+        channel     : original 2D float32 channel before stretch
         stretched   : 2D float32 array after stretch, values 0–255
         black_point : black point used in stretch
         white_point : white point used in stretch
@@ -132,91 +124,71 @@ def levels_edge_spread(
 
 
 def levels_normalize_midpeaks(
-    stretched: np.ndarray,
-    rng_spike: np.random.Generator,
+    stretched:  np.ndarray,
+    peak_width: int,
+    rng_spike:  np.random.Generator,
 ) -> np.ndarray:
     """
-    Anti-spike filter — mid-histogram spike removal.
+    Anti-spike filter — smooths histogram peaks near quantization gaps.
 
-    Runs on the raw stretched histogram BEFORE gap dithering so that
-    gap-neighbor peaks are still detectable (dithering fills gaps and makes
-    those peaks indistinguishable from the surrounding distribution).
+    After integer stretch with scale > 1, a comb pattern appears: some output
+    bins receive no pixels (gaps) while adjacent bins receive the displaced
+    pixels and appear as thin peaks visually. This function redistributes
+    pixels from peak bins into neighboring gap bins by applying targeted
+    TPDF dithering only to pixels in bins within peak_width distance of a gap.
 
-    Detects two types of spikes in bins 9–246:
+    Detection: a bin qualifies as a peak if it has at least one zero bin
+    within peak_width positions on either side. No ratio threshold — the
+    user controls sensitivity directly via peak_width.
 
-      Classic isolated spike:
-        A run of consecutive non-zero bins where:
-          - run width ≤ SPIKE_WIDTH (narrow — not a legitimate tonal concentration)
-          - peak > SPIKE_RATIO × context median (significantly taller than context)
-
-      Gap-neighbor peak:
-        A single bin adjacent to a zero bin where:
-          - peak > SPIKE_RATIO_GN × context median
-        These are the "comb teeth" — bins inflated by the quantization pattern.
-        They have a lower threshold because they are always isolated (one bin wide)
-        and their context is artificially suppressed by the neighboring gap.
-
-    Correction: targeted TPDF dithering applied ONLY to pixels in the detected
-    bin. Amplitude = min((ratio − 1) × 1.5, SPIKE_AMP_MAX). Spike pixels spread
-    into neighboring bins — the peak flattens without removing pixels from the image.
+    Correction: targeted TPDF dithering applied ONLY to pixels in the
+    qualifying bin. Amplitude = peak_width / 2 pixels. Wider peak_width
+    both catches more bins AND spreads their pixels further — double effect.
 
     Args:
-        stretched : 2D float32 array, values 0–255, after edge spread
-        rng_spike : np.random.Generator for spike dithering noise
-                    (kept separate from gap dithering RNG)
+        stretched  : 2D float32 array, values 0–255, after edge spread
+        peak_width : 1–10. Distance from a gap within which a bin is
+                     considered a peak and gets smoothed.
+                     1  = only bins directly adjacent to gaps (surgical)
+                     3  = bins within 3 of any gap (default, balanced)
+                     10 = wide smoothing around all gap regions
+        rng_spike  : np.random.Generator, kept separate from gap dithering
 
     Returns:
-        Float32 array with spike bins redistributed
+        Float32 array with peak bins redistributed toward gap bins
     """
     result = stretched.copy()
     s_int  = np.clip(np.round(result).astype(np.int32), 0, 255)
     s_hist = np.bincount(s_int.ravel(), minlength=256).astype(np.float64)
 
-    b = 9
-    while b < 247:
+    # Build set of gap bins for fast lookup
+    gap_bins = set(int(b) for b in range(9, 247) if s_hist[b] == 0)
+    if not gap_bins:
+        return result   # no gaps to smooth
+
+    amp  = peak_width / 2.0
+    half = amp / 2.0
+
+    for b in range(9, 247):
         if s_hist[b] == 0:
-            b += 1
+            continue   # skip gap bins themselves
+
+        # Check if this bin is within peak_width of any gap
+        near_gap = any(
+            (b - d) in gap_bins or (b + d) in gap_bins
+            for d in range(1, peak_width + 1)
+        )
+        if not near_gap:
             continue
 
-        # Find extent of the current non-zero run
-        run_start = b
-        while b < 247 and s_hist[b] > 0:
-            b += 1
-        run_end   = b          # first zero bin after run (or 247)
-        run_width = run_end - run_start
+        # Targeted TPDF dithering — only pixels in this bin
+        mask = (s_int == b)
+        if not mask.any():
+            continue
 
-        # Context: SPIKE_SEARCH bins each side, non-zero only, median
-        left_ctx  = s_hist[max(0, run_start - SPIKE_SEARCH):run_start]
-        right_ctx = s_hist[run_end:min(256, run_end + SPIKE_SEARCH)]
-        ctx_nz    = np.concatenate([left_ctx, right_ctx])
-        ctx_nz    = ctx_nz[ctx_nz > 0]
-        ctx_med   = float(np.median(ctx_nz)) if len(ctx_nz) > 0 else 1.0
-
-        run_peak = s_hist[run_start:run_end].max()
-        ratio    = run_peak / (ctx_med + 1e-6)
-
-        # Classic isolated spike: narrow AND significantly above context
-        is_classic = (run_width <= SPIKE_WIDTH and ratio > SPIKE_RATIO)
-
-        # Gap-neighbor peaks: run is flanked by at least one zero bin AND
-        # above the lower gap-neighbor threshold. Only single bins qualify
-        # (run_width == 1) to avoid flattening multi-bin tonal concentrations.
-        gap_left    = (run_start > 0   and s_hist[run_start - 1] == 0)
-        gap_right   = (run_end   < 255 and s_hist[run_end]        == 0)
-        is_gap_nbr  = (run_width == 1 and (gap_left or gap_right)
-                       and ratio > SPIKE_RATIO_GN)
-
-        if is_classic or is_gap_nbr:
-            spike_amp = min((ratio - 1.0) * 1.5, SPIKE_AMP_MAX)
-            half      = spike_amp / 2.0
-            # Apply dithering to each bin in the run independently
-            for bin_b in range(run_start, run_end):
-                mask = (s_int == bin_b)
-                if not mask.any():
-                    continue
-                extra = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
-                         rng_spike.uniform(-half, half, result.shape).astype(np.float32))
-                result = np.where(mask, np.clip(result + extra, 0.0, 255.0), result)
+        extra = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
+                 rng_spike.uniform(-half, half, result.shape).astype(np.float32))
+        result = np.where(mask, np.clip(result + extra, 0.0, 255.0), result)
 
     return result
 
@@ -231,19 +203,13 @@ def levels_normalize_gaps(
 
     Fills quantization gaps (zero bins) created by integer rounding when
     the stretch scale factor is non-integer. Applied to ALL pixels including
-    the edge-spread region so that edge jaggedness at higher threshold values
-    is also smoothed.
+    the edge-spread region.
 
-    Noise model: TPDF (Triangular Probability Density Function) — sum of two
-    independent uniform distributions. Zero mean → no brightness drift.
-    Max pixel change = ±amplitude.
+    Noise model: TPDF — sum of two uniform distributions. Zero mean,
+    max change = ±amplitude.
 
-    Amplitude auto-scales from the stretch factor:
+    Amplitude auto-scales:
       amplitude = max(1.0, (scale / 1.275) ^ 2.2)
-
-    Anchored at threshold=2 (scale≈1.275) where amplitude=1.0 (±1 px max).
-    Power of 2.2 derived empirically: threshold=10 needs amplitude≈1.5 to
-    reduce visible roughness to the same order as threshold=2.
 
       threshold=2  → scale≈1.28 → amplitude=1.00  (±1.0 px max)
       threshold=6  → scale≈1.43 → amplitude=1.28  (±1.3 px max)
@@ -272,14 +238,9 @@ def levels_auto_gamma(
     """
     Auto gamma correction — pushes mean brightness toward gamma_target.
 
-    Computes per-channel gamma from the current mean and target:
-      gamma = log(current_mean_norm) / log(target_norm)
-
-    Applied as a power curve:
-      output = (input / 255) ^ (1 / gamma) × 255
-
-    Black (0) and white (255) stay anchored. Gamma is clamped to
-    [GAMMA_MIN, GAMMA_MAX] to prevent extreme corrections on unusual images.
+    Formula: gamma = log(current_mean_norm) / log(target_norm)
+    Applied as: output = (input / 255) ^ (1 / gamma) × 255
+    Black (0) and white (255) stay anchored.
 
     Args:
         stretched    : 2D float32 array, values 0–255
@@ -314,6 +275,7 @@ def img_levels_auto(
     threshold:           float = 2.0,
     normalize_gaps:      bool  = True,
     normalize_midpeaks:  bool  = False,
+    peak_width:          int   = 3,
     auto_gamma:          bool  = True,
     gamma_target:        float = 128.0,
 ) -> Image.Image:
@@ -331,16 +293,27 @@ def img_levels_auto(
                              ~1–2 = subtle,  ~5 = moderate,  ~10+ = aggressive.
 
         normalize_gaps     : True  = Anti-comb filter. TPDF dithering fills
-                             quantization gaps created by integer rounding
-                             during stretch. Amplitude auto-scales with scale
-                             factor. Default: True.
+                             quantization gaps created by integer rounding.
+                             Amplitude auto-scales with stretch factor.
+                             Independent of normalize_midpeaks.
+                             Default: True.
 
-        normalize_midpeaks : True  = Anti-spike filter. Detects and flattens
-                             isolated spikes in mid-histogram (bins 9–246)
-                             BEFORE gap dithering. Two detection modes:
-                             classic narrow spike (SPIKE_WIDTH, SPIKE_RATIO)
-                             and single-bin gap-neighbor peak (SPIKE_RATIO_GN).
+        normalize_midpeaks : True  = Anti-spike filter. Smooths histogram bins
+                             that are near quantization gaps, reducing the thin-
+                             peak appearance of the comb pattern. Operates by
+                             targeted dithering on qualifying bins only.
+                             False = function is completely skipped, regardless
+                             of normalize_gaps state.
                              Default: False.
+
+        peak_width         : 1 … 10. Controls which bins qualify as peaks and
+                             how far their pixels are spread.
+                             1  = only bins directly adjacent to a gap
+                             3  = bins within 3 positions of any gap (default)
+                             10 = wide smoothing around all gap regions
+                             Larger values catch more bins AND spread pixels
+                             further (double effect). Only used when
+                             normalize_midpeaks=True.
 
         auto_gamma         : True  = auto per-channel gamma after stretch to
                              push mean brightness toward gamma_target.
@@ -356,7 +329,7 @@ def img_levels_auto(
         1. levels_detect_points   — black / white point via threshold
         2. levels_stretch         — linear stretch to [0 … 255]
         3. levels_edge_spread     — rank-based edge spread (always on)
-        4. levels_normalize_midpeaks — spike removal (if normalize_midpeaks)
+        4. levels_normalize_midpeaks — peak smoothing (if normalize_midpeaks)
         5. levels_normalize_gaps  — TPDF gap dithering (if normalize_gaps)
         6. levels_auto_gamma      — gamma correction (if auto_gamma)
     """
@@ -369,6 +342,8 @@ def img_levels_auto(
         raise ValueError(f"threshold must be 0.0–100.0, got {threshold}")
     if not (0.0 <= gamma_target <= 255.0):
         raise ValueError(f"gamma_target must be 0–255, got {gamma_target}")
+    if not (1 <= peak_width <= 10):
+        raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
     arr = np.array(img, dtype=np.float32)
     out = np.empty_like(arr)
@@ -388,14 +363,14 @@ def img_levels_auto(
         # 2. Stretch
         stretched = levels_stretch(channel, black_point, white_point)
 
-        # 3. Edge spread (always on — eliminates boundary spikes)
+        # 3. Edge spread (always on)
         stretched = levels_edge_spread(channel, stretched, black_point, white_point)
 
-        # 4. Spike removal (before gap dithering — gaps still visible in histogram)
+        # 4. Peak smoothing — completely skipped when normalize_midpeaks=False
         if normalize_midpeaks:
-            stretched = levels_normalize_midpeaks(stretched, rng_spike)
+            stretched = levels_normalize_midpeaks(stretched, peak_width, rng_spike)
 
-        # 5. Gap dithering (after spike removal — fills remaining gaps cleanly)
+        # 5. Gap dithering — independent of normalize_midpeaks
         if normalize_gaps:
             stretched = levels_normalize_gaps(stretched, scale, rng_gap)
 
