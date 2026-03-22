@@ -6,9 +6,10 @@ from PIL import Image
 # Constants
 # ─────────────────────────────────────────────────────────────────────────────
 
-EDGE_SPREAD   = 8.0    # bins to spread clipped edge pixels across
-GAMMA_MIN     = 0.25   # clamp auto gamma to safe range
-GAMMA_MAX     = 4.0
+EDGE_SPREAD_RATIO = 8.0 / 255.0   # edge spread as fraction of max value
+                                    # 8-bit:  8 bins,  16-bit: 2056 bins
+GAMMA_MIN         = 0.25
+GAMMA_MAX         = 4.0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -16,41 +17,44 @@ GAMMA_MAX     = 4.0
 # ─────────────────────────────────────────────────────────────────────────────
 
 def levels_detect_points(
-    channel:   np.ndarray,
-    threshold: float,
+    channel:    np.ndarray,
+    threshold:  float,
+    max_val:    float = 255.0,
 ) -> tuple:
     """
     Detect black and white points from a single channel histogram.
 
     Args:
-        channel   : 2D float32 array, values 0–255
+        channel   : 2D float32 array, values 0–max_val
         threshold : 0.0–100.0, percent of pixels to clip at each end
+        max_val   : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
         (black_point, white_point, scale)
-        scale = 255 / (white_point - black_point)
+        scale = max_val / (white_point - black_point)
     """
-    hist, _      = np.histogram(channel, bins=256, range=(0, 256))
-    cumulative   = np.cumsum(hist)
-    total_pixels = int(cumulative[-1])
-    abs_cutoff   = total_pixels * (threshold / 100.0)
+    n_bins     = int(max_val) + 1
+    hist, _    = np.histogram(channel, bins=n_bins, range=(0, max_val + 1))
+    cumulative = np.cumsum(hist)
+    total      = int(cumulative[-1])
+    cutoff     = total * (threshold / 100.0)
 
     black_point = 0
-    for i in range(256):
-        if cumulative[i] >= abs_cutoff:
+    for i in range(n_bins):
+        if cumulative[i] >= cutoff:
             black_point = i
             break
 
-    white_point = 255
-    for i in range(255, -1, -1):
-        if (total_pixels - cumulative[i]) >= abs_cutoff:
+    white_point = int(max_val)
+    for i in range(n_bins - 1, -1, -1):
+        if (total - cumulative[i]) >= cutoff:
             white_point = i
             break
 
     if white_point <= black_point:
-        white_point = min(black_point + 1, 255)
+        white_point = min(black_point + 1, int(max_val))
 
-    scale = 255.0 / (white_point - black_point)
+    scale = max_val / (white_point - black_point)
     return black_point, white_point, scale
 
 
@@ -58,21 +62,23 @@ def levels_stretch(
     channel:     np.ndarray,
     black_point: int,
     white_point: int,
+    max_val:     float = 255.0,
 ) -> np.ndarray:
     """
-    Linear stretch of channel values to [0 … 255].
+    Linear stretch of channel values to [0 … max_val].
 
     Args:
-        channel     : 2D float32 array, values 0–255
+        channel     : 2D float32 array
         black_point : input value that maps to 0
-        white_point : input value that maps to 255
+        white_point : input value that maps to max_val
+        max_val     : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
-        Stretched float32 array clipped to [0, 255]
+        Stretched float32 array clipped to [0, max_val]
     """
-    scale     = 255.0 / (white_point - black_point)
+    scale     = max_val / (white_point - black_point)
     stretched = (channel - black_point) * scale
-    return np.clip(stretched, 0.0, 255.0)
+    return np.clip(stretched, 0.0, max_val)
 
 
 def levels_edge_spread(
@@ -80,25 +86,27 @@ def levels_edge_spread(
     stretched:   np.ndarray,
     black_point: int,
     white_point: int,
+    max_val:     float = 255.0,
 ) -> np.ndarray:
     """
     Rank-based edge spread — always applied, not gated by any boolean.
 
-    Pixels below black_point all clipped to 0 after stretch. Rather than
-    piling them into bin 0, they are spread uniformly across [0 … EDGE_SPREAD]
-    using rank ordering — flat distribution regardless of input clustering.
-    Same for white-clipped pixels spread to [255-EDGE_SPREAD … 255].
+    Spreads clipped pixels uniformly across [0 … edge_spread] and
+    [max_val-edge_spread … max_val]. Edge spread width scales proportionally
+    with max_val so the same fraction of the range is used at any bit depth.
 
     Args:
         channel     : original 2D float32 channel before stretch
-        stretched   : 2D float32 array after stretch, values 0–255
+        stretched   : 2D float32 array after stretch
         black_point : black point used in stretch
         white_point : white point used in stretch
+        max_val     : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
         Float32 array with edge pixels redistributed
     """
-    result = stretched.copy()
+    edge_spread = EDGE_SPREAD_RATIO * max_val   # ~8 at 8-bit, ~2056 at 16-bit
+    result      = stretched.copy()
 
     if black_point > 0:
         below_mask = channel < black_point
@@ -107,17 +115,17 @@ def levels_edge_spread(
             n          = len(flat_idx)
             rank_order = np.argsort(np.argsort(channel.ravel()[flat_idx]))
             flat_out   = result.ravel().copy()
-            flat_out[flat_idx] = EDGE_SPREAD * rank_order / max(n - 1, 1)
+            flat_out[flat_idx] = edge_spread * rank_order / max(n - 1, 1)
             result = flat_out.reshape(result.shape)
 
-    if white_point < 255:
+    if white_point < int(max_val):
         above_mask = channel > white_point
         if above_mask.any():
             flat_idx   = np.where(above_mask.ravel())[0]
             n          = len(flat_idx)
             rank_order = np.argsort(np.argsort(channel.ravel()[flat_idx]))
             flat_out   = result.ravel().copy()
-            flat_out[flat_idx] = (255.0 - EDGE_SPREAD) + EDGE_SPREAD * rank_order / max(n - 1, 1)
+            flat_out[flat_idx] = (max_val - edge_spread) + edge_spread * rank_order / max(n - 1, 1)
             result = flat_out.reshape(result.shape)
 
     return result
@@ -127,80 +135,65 @@ def levels_normalize_midpeaks(
     stretched:  np.ndarray,
     peak_width: int,
     rng_spike:  np.random.Generator,
+    max_val:    float = 255.0,
 ) -> np.ndarray:
     """
-    Anti-spike filter — smooths histogram peaks near quantization gaps.
+    Anti-spike filter — smooths histogram bins near quantization gaps.
 
-    After integer stretch with scale > 1, a comb pattern appears: some output
-    bins receive no pixels (gaps) while adjacent bins receive the displaced
-    pixels and appear as thin peaks visually. This function redistributes
-    pixels from peak bins into neighboring gap bins by applying targeted
-    TPDF dithering only to pixels in bins within peak_width distance of a gap.
-
-    Detection: a bin qualifies as a peak if it has at least one zero bin
-    within peak_width positions on either side. No ratio threshold — the
-    user controls sensitivity directly via peak_width.
-
-    Correction: targeted TPDF dithering applied ONLY to pixels in the
-    qualifying bin. Amplitude = peak_width / 2 pixels. Wider peak_width
-    both catches more bins AND spreads their pixels further — double effect.
+    A bin qualifies as a peak if it has at least one zero bin within
+    peak_width positions. Targeted TPDF dithering is applied to qualifying
+    pixels using a single pre-generated noise field (not per-bin), making
+    the operation O(1) in the number of qualifying bins.
 
     Args:
-        stretched  : 2D float32 array, values 0–255, after edge spread
-        peak_width : 1–10. Distance from a gap within which a bin is
-                     considered a peak and gets smoothed.
-                     1  = only bins directly adjacent to gaps (surgical)
-                     3  = bins within 3 of any gap (default, balanced)
-                     10 = wide smoothing around all gap regions
-        rng_spike  : np.random.Generator, kept separate from gap dithering
+        stretched  : 2D float32 array after edge spread
+        peak_width : 1–10, distance from a gap that qualifies a bin
+        rng_spike  : np.random.Generator (independent from gap dithering)
+        max_val    : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
-        Float32 array with peak bins redistributed toward gap bins
+        Float32 array with peak bins redistributed
     """
+    n_bins = int(max_val) + 1
     result = stretched.copy()
-    s_int  = np.clip(np.round(result).astype(np.int32), 0, 255)
-    s_hist = np.bincount(s_int.ravel(), minlength=256).astype(np.float64)
+    s_int  = np.clip(np.round(result).astype(np.int64), 0, int(max_val))
+    s_hist = np.bincount(s_int.ravel(), minlength=n_bins).astype(np.float64)
 
-    # Build set of gap bins for fast lookup
-    gap_bins = set(int(b) for b in range(9, 247) if s_hist[b] == 0)
+    # Mid-range: exclude edge-spread zones (bins 0–edge and max-edge–max)
+    edge_bins = int(EDGE_SPREAD_RATIO * max_val) + 1
+    lo = edge_bins
+    hi = n_bins - edge_bins
+
+    gap_bins = set(int(b) for b in range(lo, hi) if s_hist[b] == 0)
     if not gap_bins:
-        return result   # no gaps to smooth
+        return result
 
-    amp  = peak_width / 2.0
+    amp  = (peak_width / 2.0) * (max_val / 255.0)  # scale amplitude with bit depth
     half = amp / 2.0
 
-    # Generate ONE noise array for the entire channel — all qualifying bins
-    # use the same amplitude (peak_width / 2) so a single TPDF noise field
-    # covers all of them. Each bin's mask selects which pixels receive it.
-    # This reduces rng calls from 2 × N_bins to 2 total — the critical fix
-    # for performance on large images with many qualifying bins.
+    # Generate noise once for the full channel
     noise = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
              rng_spike.uniform(-half, half, result.shape).astype(np.float32))
 
-    # Build qualifying bin mask vectorized using numpy
-    # A bin qualifies if any bin within peak_width distance is a gap.
-    gap_arr   = np.zeros(256, dtype=bool)
+    # Vectorized near-gap detection via sliding window
+    gap_arr = np.zeros(n_bins, dtype=bool)
     for g in gap_bins:
         gap_arr[g] = True
 
-    # For each bin b, check if any position in [b-pw, b+pw] is a gap
-    # Equivalent to convolving gap_arr with a window of width 2*peak_width+1
     from numpy.lib.stride_tricks import sliding_window_view
-    pad       = peak_width
-    padded    = np.pad(gap_arr, pad, mode='constant', constant_values=False)
-    windows   = sliding_window_view(padded, 2 * pad + 1)  # shape (256, 2*pad+1)
-    near_gap  = windows.any(axis=1)                        # shape (256,)
+    pad      = peak_width
+    padded   = np.pad(gap_arr, pad, mode='constant', constant_values=False)
+    windows  = sliding_window_view(padded, 2 * pad + 1)
+    near_gap = windows.any(axis=1)   # shape (n_bins,)
 
-    # Build combined mask: all pixels in qualifying non-gap bins
+    # Build mask: all pixels in qualifying non-gap bins
     qualify_mask = np.zeros(result.shape, dtype=bool)
-    for b in range(9, 247):
+    for b in range(lo, hi):
         if s_hist[b] == 0 or not near_gap[b]:
             continue
         qualify_mask |= (s_int == b)
 
-    # Apply noise only to qualifying pixels
-    result = np.where(qualify_mask, np.clip(result + noise, 0.0, 255.0), result)
-
+    result = np.where(qualify_mask, np.clip(result + noise, 0.0, max_val), result)
     return result
 
 
@@ -208,72 +201,72 @@ def levels_normalize_gaps(
     stretched: np.ndarray,
     scale:     float,
     rng_gap:   np.random.Generator,
+    max_val:   float = 255.0,
 ) -> np.ndarray:
     """
     Anti-comb filter — TPDF gap dithering.
 
-    Fills quantization gaps (zero bins) created by integer rounding when
-    the stretch scale factor is non-integer. Applied to ALL pixels including
-    the edge-spread region.
+    Fills quantization gaps from non-integer stretch scale factors.
+    At 16-bit the gaps are far smaller (1/65535 vs 1/255) and largely
+    invisible, but dithering is still applied for completeness.
 
-    Noise model: TPDF — sum of two uniform distributions. Zero mean,
-    max change = ±amplitude.
-
-    Amplitude auto-scales:
-      amplitude = max(1.0, (scale / 1.275) ^ 2.2)
-
-      threshold=2  → scale≈1.28 → amplitude=1.00  (±1.0 px max)
-      threshold=6  → scale≈1.43 → amplitude=1.28  (±1.3 px max)
-      threshold=10 → scale≈1.53 → amplitude=1.49  (±1.5 px max)
-      threshold=20 → scale≈2.02 → amplitude=2.76  (±2.8 px max)
+    Amplitude formula is ratio-based so it works at any bit depth:
+      amplitude = max(1.0, (scale / 1.275) ^ 2.2) × (max_val / 255)
 
     Args:
-        stretched : 2D float32 array, values 0–255
-        scale     : stretch scale factor (255 / tonal_range)
-        rng_gap   : np.random.Generator for gap dithering noise
+        stretched : 2D float32 array
+        scale     : stretch scale factor
+        rng_gap   : np.random.Generator
+        max_val   : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
-        Float32 array with quantization gaps filled
+        Float32 array with gaps filled
     """
-    amplitude = max(1.0, (scale / 1.275) ** 2.2)
+    amplitude = max(1.0, (scale / 1.275) ** 2.2) * (max_val / 255.0)
     half      = amplitude / 2.0
     noise     = (rng_gap.uniform(-half, half, stretched.shape).astype(np.float32) +
                  rng_gap.uniform(-half, half, stretched.shape).astype(np.float32))
-    return np.clip(stretched + noise, 0.0, 255.0)
+    return np.clip(stretched + noise, 0.0, max_val)
 
 
 def levels_auto_gamma(
     stretched:    np.ndarray,
     gamma_target: float,
+    max_val:      float = 255.0,
 ) -> np.ndarray:
     """
     Auto gamma correction — pushes mean brightness toward gamma_target.
 
     Formula: gamma = log(current_mean_norm) / log(target_norm)
-    Applied as: output = (input / 255) ^ (1 / gamma) × 255
-    Black (0) and white (255) stay anchored.
+    Applied: output = (input / max_val) ^ (1 / gamma) × max_val
+    Black and white stay anchored. gamma_target is always on 0–255 scale
+    regardless of bit depth — it is normalised internally.
 
     Args:
-        stretched    : 2D float32 array, values 0–255
-        gamma_target : target mean brightness 0–255 (128 = neutral 50% grey)
+        stretched    : 2D float32 array, values 0–max_val
+        gamma_target : target mean brightness 0–255 (normalised internally)
+        max_val      : 255.0 for 8-bit, 65535.0 for 16-bit
 
     Returns:
         Float32 array with gamma correction applied
     """
     current_mean = float(stretched.mean())
-    if not (0.5 < current_mean < 254.5):
+    low_guard    = 0.5 * (max_val / 255.0)
+    high_guard   = max_val - low_guard
+
+    if not (low_guard < current_mean < high_guard):
         return stretched
 
     target_norm  = float(np.clip(gamma_target / 255.0, 0.01, 0.99))
-    current_norm = float(np.clip(current_mean / 255.0, 0.01, 0.99))
+    current_norm = float(np.clip(current_mean / max_val, 0.01, 0.99))
     gamma        = np.log(current_norm) / np.log(target_norm)
     gamma        = float(np.clip(gamma, GAMMA_MIN, GAMMA_MAX))
 
     if abs(gamma - 1.0) <= 0.01:
         return stretched
 
-    norm = np.clip(stretched / 255.0, 0.0, 1.0)
-    return np.clip(np.power(norm, 1.0 / gamma) * 255.0, 0.0, 255.0)
+    norm = np.clip(stretched / max_val, 0.0, 1.0)
+    return np.clip(np.power(norm, 1.0 / gamma) * max_val, 0.0, max_val)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -289,6 +282,7 @@ def img_levels_auto(
     peak_width:          int   = 3,
     auto_gamma:          bool  = True,
     gamma_target:        float = 128.0,
+    precision:           bool  = False,
 ) -> Image.Image:
     """
     Photoshop-style per-channel auto levels normalization.
@@ -304,41 +298,42 @@ def img_levels_auto(
                              ~1–2 = subtle,  ~5 = moderate,  ~10+ = aggressive.
 
         normalize_gaps     : True  = Anti-comb filter. TPDF dithering fills
-                             quantization gaps created by integer rounding.
-                             Amplitude auto-scales with stretch factor.
-                             Independent of normalize_midpeaks.
+                             quantization gaps. Independent of normalize_midpeaks.
                              Default: True.
 
-        normalize_midpeaks : True  = Anti-spike filter. Smooths histogram bins
-                             that are near quantization gaps, reducing the thin-
-                             peak appearance of the comb pattern. Operates by
-                             targeted dithering on qualifying bins only.
-                             False = function is completely skipped, regardless
-                             of normalize_gaps state.
+        normalize_midpeaks : True  = Anti-spike filter. Smooths bins near gaps.
+                             False = completely skipped regardless of other flags.
                              Default: False.
 
-        peak_width         : 1 … 10. Controls which bins qualify as peaks and
-                             how far their pixels are spread.
-                             1  = only bins directly adjacent to a gap
-                             3  = bins within 3 positions of any gap (default)
-                             10 = wide smoothing around all gap regions
-                             Larger values catch more bins AND spread pixels
-                             further (double effect). Only used when
+        peak_width         : 1 … 10. Distance from a gap that qualifies a bin
+                             as a peak for smoothing. Only used when
                              normalize_midpeaks=True.
+                             1  = only directly adjacent bins (surgical)
+                             3  = within 3 bins of any gap (default)
+                             10 = wide smoothing
 
-        auto_gamma         : True  = auto per-channel gamma after stretch to
-                             push mean brightness toward gamma_target.
+        auto_gamma         : True  = auto per-channel gamma after stretch.
                              Default: True.
 
-        gamma_target       : 0 … 255. Target mean brightness.
+        gamma_target       : 0 … 255. Target mean brightness for auto gamma.
                              128 = neutral (default), 110 = moody, 150 = airy.
+                             Always specified on 0–255 scale regardless of
+                             precision setting.
+
+        precision     : False = 8-bit pipeline, returns PIL Image RGB.
+                             True  = 16-bit pipeline (65536 histogram bins),
+                             returns PIL Image RGB encoded at 16-bit precision
+                             scaled back to 8-bit output. Use for AI-generated
+                             tensors where higher internal precision reduces
+                             quantization artefacts before final 8-bit output.
+                             Default: False.
 
     Returns:
         PIL Image (RGB)
 
     Pipeline per channel:
         1. levels_detect_points   — black / white point via threshold
-        2. levels_stretch         — linear stretch to [0 … 255]
+        2. levels_stretch         — linear stretch to [0 … max_val]
         3. levels_edge_spread     — rank-based edge spread (always on)
         4. levels_normalize_midpeaks — peak smoothing (if normalize_midpeaks)
         5. levels_normalize_gaps  — TPDF gap dithering (if normalize_gaps)
@@ -356,39 +351,56 @@ def img_levels_auto(
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
-    arr = np.array(img, dtype=np.float32)
+    # ── Bit depth configuration ───────────────────────────────────────────────
+    max_val = 65535.0 if precision else 255.0
+
+    # ── Load image into float array ───────────────────────────────────────────
+    # Always read as 8-bit uint8 from PIL, then scale up to max_val if needed
+    arr_8 = np.array(img, dtype=np.float32)          # 0–255 always
+    if precision:
+        arr = arr_8 * (65535.0 / 255.0)              # scale to 0–65535
+    else:
+        arr = arr_8
+
     out = np.empty_like(arr)
 
     for ch in range(3):
-        # Independent RNGs per channel — seeded by channel index so that
-        # spike correction firing on one channel cannot shift the noise
-        # sequence of gap dithering on any other channel.
         rng_gap   = np.random.default_rng(ch)
         rng_spike = np.random.default_rng(ch + 100)
 
         channel = arr[:, :, ch]
 
         # 1. Detect black / white points
-        black_point, white_point, scale = levels_detect_points(channel, threshold)
+        black_point, white_point, scale = levels_detect_points(
+            channel, threshold, max_val)
 
         # 2. Stretch
-        stretched = levels_stretch(channel, black_point, white_point)
+        stretched = levels_stretch(channel, black_point, white_point, max_val)
 
         # 3. Edge spread (always on)
-        stretched = levels_edge_spread(channel, stretched, black_point, white_point)
+        stretched = levels_edge_spread(
+            channel, stretched, black_point, white_point, max_val)
 
-        # 4. Peak smoothing — completely skipped when normalize_midpeaks=False
+        # 4. Peak smoothing (before gap dithering)
         if normalize_midpeaks:
-            stretched = levels_normalize_midpeaks(stretched, peak_width, rng_spike)
+            stretched = levels_normalize_midpeaks(
+                stretched, peak_width, rng_spike, max_val)
 
-        # 5. Gap dithering — independent of normalize_midpeaks
+        # 5. Gap dithering
         if normalize_gaps:
-            stretched = levels_normalize_gaps(stretched, scale, rng_gap)
+            stretched = levels_normalize_gaps(stretched, scale, rng_gap, max_val)
 
         # 6. Auto gamma
         if auto_gamma:
-            stretched = levels_auto_gamma(stretched, gamma_target)
+            stretched = levels_auto_gamma(stretched, gamma_target, max_val)
 
         out[:, :, ch] = stretched
 
-    return Image.fromarray(out.astype(np.uint8), mode="RGB")
+    # ── Convert back to uint8 for PIL output ──────────────────────────────────
+    if precision:
+        # Scale 16-bit result back to 8-bit for PIL output
+        out_8 = np.clip(out * (255.0 / 65535.0), 0, 255).astype(np.uint8)
+    else:
+        out_8 = np.clip(out, 0, 255).astype(np.uint8)
+
+    return Image.fromarray(out_8, mode="RGB")

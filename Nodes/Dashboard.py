@@ -2230,6 +2230,7 @@ class PrimereRasterix:
                 "models": (["Auto"] + cls.MODELLIST,),
 
                 "image":                 ("IMAGE", {"forceInput": True}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
 
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 2.0, "min": 0.0, "max": 10.0, "step": 0.1}),
@@ -2309,7 +2310,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -2317,7 +2318,7 @@ class PrimereRasterix:
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
 
         if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
 
         if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
             pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
