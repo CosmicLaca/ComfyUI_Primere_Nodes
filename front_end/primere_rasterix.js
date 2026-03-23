@@ -135,7 +135,7 @@ app.registerExtension({
 
             function currentHistState() {
                 return {
-                    showInput: fw("show_histogram")?.value      ?? false,
+                    showInput: fw("histogram_source")?.value      ?? false,
                     channel:   fw("histogram_channel")?.value   ?? "RGB",
                     style:     fw("histogram_style")?.value     ?? "gradient",
                 };
@@ -267,7 +267,7 @@ app.registerExtension({
                 ) {
                     captureShSliders(wShMode?.value ?? prevShMd);
 
-                } else if (name === "show_histogram") {
+                } else if (name === "histogram_source") {
                     const { channel, style } = currentHistState();
                     updateHistogramDisplay(value, channel, style);
                 } else if (name === "histogram_channel") {

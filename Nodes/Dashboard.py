@@ -2249,7 +2249,8 @@ class PrimereRasterix:
 
                 # "final_peaks": ("BOOLEAN", {"default": False, "label_on": "End peak normalization: ON", "label_off": "End peak normalization: OFF"}),
 
-                "show_histogram":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
+                "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
+                "histogram_source":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
                 "histogram_channel":    (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
                 "histogram_style":      (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade"], {"default": "bars"}),
             },
@@ -2259,7 +2260,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -2310,28 +2311,35 @@ class PrimereRasterix:
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
-        hist_dir  = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
-        rendered  = {}
-        hstyle = ["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade"]
-        hchannels = ["RGB", "RED", "GREEN", "BLUE"]
-        pbar = comfy.utils.ProgressBar(len(hstyle) * len(hchannels))
-        for st in hstyle:
-            for ch in hchannels:
-                rendered[("in",  ch, st)] = histogram.rasterix_histogram_render(pil_img_input, ch, st, precision)
-                rendered[("out", ch, st)] = histogram.rasterix_histogram_render(pil_img,       ch, st, precision)
-                rendered[("in",  ch, st)].save(os.path.join(hist_dir, f'input_histogram_{ch.lower()}_{st}.jpg'),  quality=90)
-                rendered[("out", ch, st)].save(os.path.join(hist_dir, f'output_histogram_{ch.lower()}_{st}.jpg'), quality=90)
-                pbar.update(1)
+        if show_histogram:
+            hist_dir  = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+            rendered  = {}
+            hstyle = ["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade"]
+            hchannels = ["RGB", "RED", "GREEN", "BLUE"]
+            pbar = comfy.utils.ProgressBar(len(hstyle) * len(hchannels))
+            for st in hstyle:
+                for ch in hchannels:
+                    rendered[("in",  ch, st)] = histogram.rasterix_histogram_render(pil_img_input, ch, st, precision)
+                    rendered[("out", ch, st)] = histogram.rasterix_histogram_render(pil_img,       ch, st, precision)
+                    rendered[("in",  ch, st)].save(os.path.join(hist_dir, f'input_histogram_{ch.lower()}_{st}.jpg'),  quality=90)
+                    rendered[("out", ch, st)].save(os.path.join(hist_dir, f'output_histogram_{ch.lower()}_{st}.jpg'), quality=90)
+                    pbar.update(1)
 
-        active_hist = rendered[("in" if show_histogram else "out", histogram_channel, histogram_style)]
-        suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
-        temp_file   = f"rasterix_hist_{suffix}.png"
-        active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
-
-        return {
-            "ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}]},
-            "result": (utility.image_to_tensor(pil_img),),
-        }
+            active_hist = rendered[("in" if histogram_source else "out", histogram_channel, histogram_style)]
+            suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
+            temp_file   = f"rasterix_hist_{suffix}.png"
+            active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
+            return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),), }
+        else:
+            INVALID_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+            INVALID_IMAGE = os.path.join(INVALID_IMAGE_PATH, "No_histogram_08.jpg")
+            images = utility.ImageLoaderFromPath(INVALID_IMAGE)
+            r1 = random.randint(1000, 9999)
+            temp_filename = f"Primere_ComfyUI_{r1}.png"
+            os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
+            TEMP_FILE = os.path.join(folder_paths.get_temp_directory(), temp_filename)
+            utility.tensor_to_image(images[0]).save(TEMP_FILE)
+            return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),),}
 
 
 class PrimereRasterixGrain:
