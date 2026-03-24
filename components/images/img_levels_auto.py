@@ -130,73 +130,6 @@ def levels_edge_spread(
 
     return result
 
-
-def levels_normalize_midpeaks(
-    stretched:  np.ndarray,
-    peak_width: int,
-    rng_spike:  np.random.Generator,
-    max_val:    float = 255.0,
-) -> np.ndarray:
-    """
-    Anti-spike filter — smooths histogram bins near quantization gaps.
-
-    A bin qualifies as a peak if it has at least one zero bin within
-    peak_width positions. Targeted TPDF dithering is applied to qualifying
-    pixels using a single pre-generated noise field (not per-bin), making
-    the operation O(1) in the number of qualifying bins.
-
-    Args:
-        stretched  : 2D float32 array after edge spread
-        peak_width : 1–10, distance from a gap that qualifies a bin
-        rng_spike  : np.random.Generator (independent from gap dithering)
-        max_val    : 255.0 for 8-bit, 65535.0 for 16-bit
-
-    Returns:
-        Float32 array with peak bins redistributed
-    """
-    n_bins = int(max_val) + 1
-    result = stretched.copy()
-    s_int  = np.clip(np.round(result).astype(np.int64), 0, int(max_val))
-    s_hist = np.bincount(s_int.ravel(), minlength=n_bins).astype(np.float64)
-
-    # Mid-range: exclude edge-spread zones (bins 0–edge and max-edge–max)
-    edge_bins = int(EDGE_SPREAD_RATIO * max_val) + 1
-    lo = edge_bins
-    hi = n_bins - edge_bins
-
-    gap_bins = set(int(b) for b in range(lo, hi) if s_hist[b] == 0)
-    if not gap_bins:
-        return result
-
-    amp  = (peak_width / 2.0) * (max_val / 255.0)  # scale amplitude with bit depth
-    half = amp / 2.0
-
-    # Generate noise once for the full channel
-    noise = (rng_spike.uniform(-half, half, result.shape).astype(np.float32) +
-             rng_spike.uniform(-half, half, result.shape).astype(np.float32))
-
-    # Vectorized near-gap detection via sliding window
-    gap_arr = np.zeros(n_bins, dtype=bool)
-    for g in gap_bins:
-        gap_arr[g] = True
-
-    from numpy.lib.stride_tricks import sliding_window_view
-    pad      = peak_width
-    padded   = np.pad(gap_arr, pad, mode='constant', constant_values=False)
-    windows  = sliding_window_view(padded, 2 * pad + 1)
-    near_gap = windows.any(axis=1)   # shape (n_bins,)
-
-    # Build mask: all pixels in qualifying non-gap bins
-    qualify_mask = np.zeros(result.shape, dtype=bool)
-    for b in range(lo, hi):
-        if s_hist[b] == 0 or not near_gap[b]:
-            continue
-        qualify_mask |= (s_int == b)
-
-    result = np.where(qualify_mask, np.clip(result + noise, 0.0, max_val), result)
-    return result
-
-
 def levels_normalize_gaps(
     stretched: np.ndarray,
     scale:     float,
@@ -275,12 +208,12 @@ def levels_auto_gamma(
 
 def img_levels_auto(
     image:               Image.Image,
-    auto_normalize:      bool  = True,
+    auto_normalize:      bool  = False,
     threshold:           float = 2.0,
-    normalize_gaps:      bool  = True,
-    normalize_midpeaks:  bool  = False,
-    peak_width:          int   = 3,
-    auto_gamma:          bool  = True,
+    # normalize_gaps:      bool  = False,
+    # normalize_midpeaks:  bool  = False,
+    # peak_width:          int   = 3,
+    auto_gamma:          bool  = False,
     gamma_target:        float = 128.0,
     precision:           bool  = False,
 ) -> Image.Image:
@@ -340,6 +273,9 @@ def img_levels_auto(
         6. levels_auto_gamma      — gamma correction (if auto_gamma)
     """
     img = image.convert("RGB")
+    stretched_gaps_spike = []
+    scale_spike = []
+    rng_gap_spike = []
 
     if not auto_normalize:
         return img
@@ -348,8 +284,8 @@ def img_levels_auto(
         raise ValueError(f"threshold must be 0.0–100.0, got {threshold}")
     if not (0.0 <= gamma_target <= 255.0):
         raise ValueError(f"gamma_target must be 0–255, got {gamma_target}")
-    if not (1 <= peak_width <= 10):
-        raise ValueError(f"peak_width must be 1–10, got {peak_width}")
+    # if not (1 <= peak_width <= 10):
+    #    raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
     # ── Bit depth configuration ───────────────────────────────────────────────
     max_val = 65535.0 if precision else 255.0
@@ -366,7 +302,7 @@ def img_levels_auto(
 
     for ch in range(3):
         rng_gap   = np.random.default_rng(ch)
-        rng_spike = np.random.default_rng(ch + 100)
+        # rng_spike = np.random.default_rng(ch + 100)
 
         channel = arr[:, :, ch]
 
@@ -380,12 +316,15 @@ def img_levels_auto(
         stretched = levels_edge_spread(channel, stretched, black_point, white_point, max_val)
 
         # 4. Peak smoothing (before gap dithering)
-        if normalize_midpeaks:
-            stretched = levels_normalize_midpeaks(stretched, peak_width, rng_spike, max_val)
+        # if normalize_midpeaks:
+        #    stretched = levels_normalize_midpeaks(stretched, peak_width, rng_spike, max_val)
 
         # 5. Gap dithering
-        if normalize_gaps:
+        ''' if normalize_gaps:
             stretched = levels_normalize_gaps(stretched, scale, rng_gap, max_val)
+            stretched_gaps_spike.append(stretched)
+            scale_spike.append(scale)
+            rng_gap_spike.append(rng_gap) '''
 
         # 6. Auto gamma
         if auto_gamma:

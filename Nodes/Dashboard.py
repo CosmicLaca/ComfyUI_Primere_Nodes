@@ -85,6 +85,7 @@ from ..components.images import img_film_rendering as img_film_rendering
 from ..components.images.img_film_rendering import FILM_PRESETS
 from ..components.images import img_lens_effects as img_lens_effects
 from ..components.images import img_levels_compress as img_levels_compress
+from ..components.images import img_dithering as img_dithering
 from ..components.images import histogram as histogram
 
 class PrimereSamplersSteps:
@@ -2182,9 +2183,9 @@ class PrimereRasterix:
 
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 0.2, "min": 0.0, "max": 10.0, "step": 0.1}),
-                "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
-                "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
-                "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
+                # "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
+                # "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
+                # "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
                 "auto_gamma": ("BOOLEAN", {"default": False, "label_on": "Auto gamma: ON", "label_off": "Auto gamma:: OFF"}),
                 "gamma_target": ("FLOAT", {"default": 128.0, "min": 0.0, "max": 255.0, "step": 0.1}),
 
@@ -2212,6 +2213,7 @@ class PrimereRasterix:
                 "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
                 "film_rendering": (list(FILM_PRESETS.keys()), {"default": "kodak_kodachrome_64_CF"}),
                 "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
+                "iso_grain": ("BOOLEAN", {"default": False, "label_off": "Ignore ISO grain", "label_on": "Add ISO grain"}),
 
                 "use_selective_tone": ("BOOLEAN", {"default": False, "label_off": "Ignore selective tone", "label_on": "Apply selective tone"}),
                 "selective_tone_value":      ("FLOAT", {"default": 0,   "min": -100, "max": 100, "step": 1}),
@@ -2242,18 +2244,23 @@ class PrimereRasterix:
                 "detail_mode":    (["fine", "medium", "broad"], {"default": "medium"}),
                 "shade_strength": ("FLOAT", {"default": 0.5, "min": 0.0,  "max": 1.0, "step": 0.01}),
 
+                "use_level_endpoints": ("BOOLEAN", {"default": False, "label_off": "Ignore endpoint offset", "label_on": "Apply endpoint offset"}),
+                "black_offset": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 25.0, "step": 0.1}),
+                "white_offset": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 25.0, "step": 0.1}),
+                "skip_if_no_clip": ("BOOLEAN", {"default": False, "label_off": "Offset all values", "label_on": "Skip if no clips"}),
+
+                "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
+                "dither_quantization": ("BOOLEAN", {"default": False, "label_off": "Dither quantization OFF", "label_on": "Dither quantization ON"}),
+                "adaptive_dither_strength": ("BOOLEAN", {"default": False, "label_off": "Keep dither strength", "label_on": "Increase dither strength"}),
+                "error_diffusion": ("BOOLEAN", {"default": False, "label_off": "Ignore endpoint offset", "label_on": "Apply endpoint offset"}),
+                "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
+                "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
+
                 "use_ai_detection_bypasser": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
                 "adb_freq_strength":     ("FLOAT", {"default": 0.019, "min": 0.0, "max": 0.1,  "step": 0.001}),
                 "adb_variance_strength": ("FLOAT", {"default": 0.32,  "min": 0.0, "max": 1.0,  "step": 0.01}),
                 "adb_unsharp_percent":   ("INT",   {"default": 38,    "min": 0,   "max": 150,  "step": 1}),
                 "adb_jpeg_cycles":       ("INT",   {"default": 4,     "min": 0,   "max": 6,    "step": 1}),
-
-                # "final_peaks": ("BOOLEAN", {"default": False, "label_on": "End peak normalization: ON", "label_off": "End peak normalization: OFF"}),
-
-                "use_level_endpoints": ("BOOLEAN", {"default": False, "label_off": "Ignore endpoint offset", "label_on": "Apply endpoint offset"}),
-                "black_offset": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 25.0, "step": 0.1}),
-                "white_offset": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 25.0, "step": 0.1}),
-                "skip_if_no_clip": ("BOOLEAN", {"default": False, "label_off": "Offset all values", "label_on": "Skip if no clips"}),
 
                 "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
                 "histogram_source":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
@@ -2266,15 +2273,18 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_gaps, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, use_level_endpoints,  black_offset, white_offset, skip_if_no_clip, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, use_level_endpoints,  black_offset, white_offset, skip_if_no_clip, normalize_gaps, dither_quantization, adaptive_dither_strength, error_diffusion, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
+        stretched_gaps_spike = []
+        scale_spike = []
+        rng_gap_spike = []
 
         if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
 
         if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
             pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
@@ -2289,7 +2299,7 @@ class PrimereRasterix:
             pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
 
         if use_film_rendering and film_rendering_intensity != 0:
-            pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity)
+            pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity, add_grain=iso_grain)
 
         st_data = rasterix_data.get('selective_tone', {})
         if use_selective_tone and st_data:
@@ -2311,14 +2321,14 @@ class PrimereRasterix:
                     rad = vals.get('shade_radius', 0)
                     pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad, strength=shade_strength)
 
-        # if final_peaks:
-        #    pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=True, threshold=0, normalize_gaps=False, normalize_midpeaks=True, peak_width=peak_width, auto_gamma=False, gamma_target=128)
+        if use_level_endpoints and (black_offset != 0 or white_offset != 0):
+            pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=black_offset, white_offset=white_offset, skip_if_no_clip=skip_if_no_clip, high_precision=precision)
+
+        if dither_quantization or error_diffusion or normalize_midpeaks:
+            pil_img = img_dithering.img_dithering(image=pil_img, normalize_gaps_legacy=normalize_gaps, stretched_gaps_spike=stretched_gaps_spike, scale_spike=scale_spike, rng_gap_spike=rng_gap_spike, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision)
 
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
-
-        if use_level_endpoints and (black_offset != 0 or white_offset != 0):
-            pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=black_offset, white_offset=white_offset, skip_if_no_clip=skip_if_no_clip, high_precision=precision)
 
         if show_histogram:
             hist_dir  = os.path.join(PRIMERE_ROOT, 'front_end', 'images')

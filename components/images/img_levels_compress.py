@@ -139,8 +139,9 @@ def img_levels_compress(
 
     # Convert back to uint8
     if high_precision:
-        out_8 = np.clip(out * (255.0 / max_val), 0, 255).astype(np.uint8)
+        out_8f = np.clip(out * (255.0 / max_val), 0, 255)
     else:
-        out_8 = np.clip(out, 0, 255).astype(np.uint8)
+        out_8f = np.clip(out, 0, 255)
+    out_8 = np.clip(np.rint(out_8f), 0, 255).astype(np.uint8)
 
     return Image.fromarray(out_8, mode="RGB")
