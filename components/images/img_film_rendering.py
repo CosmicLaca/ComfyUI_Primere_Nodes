@@ -116,16 +116,16 @@ FILM_PRESETS = {
     },
 
     "kodak_portra_400_CF": {
-        "desc": "Kodak Portra 400 — versatile portrait film, warm, slightly lifted shadows",
+        "desc": "Kodak Portra 400 — Warm skin tones, soft highlights, signature yellow-red bias",
         "iso": 400, "grain_type": "gaussian", "grain_color": "color",
         "bw": False, "type": "CF",
-        "bias": (1.03, 1.00, 0.96),
-        "rolloff": 0.73,
+        "bias": (1.06, 0.98, 0.92),
+        "rolloff": 0.72,
         "shadow_lift": (0.05, 0.04, 0.04),
         "hd": {
-            "r": {"toe": 0.37, "gamma": 0.85, "shoulder": 0.40},
-            "g": {"toe": 0.35, "gamma": 0.83, "shoulder": 0.38},
-            "b": {"toe": 0.33, "gamma": 0.80, "shoulder": 0.36},
+            "r": {"toe": 0.32, "gamma": 0.85, "shoulder": 0.38},
+            "g": {"toe": 0.35, "gamma": 0.88, "shoulder": 0.40},
+            "b": {"toe": 0.40, "gamma": 0.95, "shoulder": 0.45},
         },
     },
 
@@ -238,6 +238,34 @@ FILM_PRESETS = {
             "r": {"toe": 0.33, "gamma": 0.80, "shoulder": 0.36},
             "g": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
             "b": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
+        },
+    },
+
+    "fuji_natura_1600_CF": {
+        "desc": "Fujifilm Natura 1600 — High-speed nostalgia, magenta shadows, high grain",
+        "iso": 1600, "grain_type": "organic", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.02, 0.97, 1.05),
+        "rolloff": 0.65,
+        "shadow_lift": (0.08, 0.04, 0.09),
+        "hd": {
+            "r": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+            "g": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+            "b": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+        },
+    },
+
+    "cinestill_800t_CF": {
+        "desc": "CineStill 800T (Cinema) — Tungsten balanced, cool shadows, halation-heavy look",
+        "iso": 800, "grain_type": "organic", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (0.90, 0.96, 1.15),
+        "rolloff": 0.75,
+        "shadow_lift": (0.02, 0.05, 0.08),
+        "hd": {
+            "r": {"toe": 0.45, "gamma": 1.10, "shoulder": 0.50},
+            "g": {"toe": 0.40, "gamma": 0.95, "shoulder": 0.45},
+            "b": {"toe": 0.35, "gamma": 0.85, "shoulder": 0.40},
         },
     },
 
@@ -587,17 +615,17 @@ FILM_PRESETS = {
     },
 
     "leica_m9_CCD": {
-        "desc": "Leica M9 CCD — iconic true CCD sensor, warm romantic colour, beautiful highlight glow",
+        "desc": "Leica M9 CCD — Iconic Kodak KAF-18500 sensor, deep reds, high micro-contrast",
         "iso": 160, "grain_type": "fine", "grain_color": "monochrome",
         "bw": False, "type": "CCD",
-        "bias": (1.05, 1.01, 0.94),
-        "matrix": [[1.07,-0.04,-0.03],[-0.03,1.05,-0.02],[-0.02,-0.08,1.10]],
-        "shadow_lift": (0.010, 0.008, 0.007),
-        "highlight_rolloff": 0.50,
+        "bias": (1.06, 1.00, 0.98),
+        "matrix": [[1.18, -0.12, -0.06], [-0.05, 1.10, -0.05], [-0.02, -0.10, 1.12]],
+        "shadow_lift": (0.005, 0.005, 0.008),
+        "highlight_rolloff": 0.45,
         "curves": {
-            "r": [(0.0,0.02),(0.25,0.27),(0.5,0.53),(0.75,0.78),(1.0,0.97)],
-            "g": [(0.0,0.02),(0.25,0.27),(0.5,0.52),(0.75,0.77),(1.0,0.97)],
-            "b": [(0.0,0.01),(0.25,0.24),(0.5,0.50),(0.75,0.74),(1.0,0.95)],
+            "r": [(0.0, 0.01), (0.25, 0.27), (0.5, 0.53), (0.75, 0.78), (1.0, 0.97)],
+            "g": [(0.0, 0.01), (0.25, 0.26), (0.5, 0.52), (0.75, 0.77), (1.0, 0.97)],
+            "b": [(0.0, 0.02), (0.25, 0.25), (0.5, 0.50), (0.75, 0.74), (1.0, 0.95)],
         },
     },
 
@@ -645,6 +673,34 @@ FILM_PRESETS = {
             "b": [(0.0,0.01),(0.25,0.26),(0.5,0.52),(0.75,0.78),(1.0,0.99)],
         },
     },
+
+    "iphone4_MOB": {
+        "desc": "iPhone 4 MOB — Small sensor look, harsh digital clipping, high saturation",
+        "iso": 80, "grain_type": "gaussian", "grain_color": "color",
+        "bw": False, "type": "MOB",
+        "bias": (1.02, 1.00, 1.05),
+        "matrix": [[1.20,-0.10,-0.10],[-0.10,1.20,-0.10],[-0.10,-0.10,1.20]],
+        "shadow_lift": (0.01, 0.01, 0.01),
+        "highlight_rolloff": 0.05,
+        "curves": {
+            "r": [(0,0),(1,1)], "g": [(0,0),(1,1)], "b": [(0,0),(1,1)]
+        },
+    },
+
+    "google_pixel3_MOB": {
+        "desc": "Pixel 3 MOB — Computational HDR look, lifted shadows, cool clean bias",
+        "iso": 50, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (0.98, 1.00, 1.02),
+        "matrix": [[1.05,0,0],[0,1.05,0],[0,0,1.05]],
+        "shadow_lift": (0.06, 0.06, 0.07),
+        "highlight_rolloff": 0.30,
+        "curves": {
+            "r": [(0,0.1),(0.5,0.5),(1,0.9)],
+            "g": [(0,0.1),(0.5,0.5),(1,0.9)],
+            "b": [(0,0.1),(0.5,0.5),(1,0.9)]
+        },
+    },
 }
 
 def img_film_rendering(
@@ -653,8 +709,13 @@ def img_film_rendering(
     intensity: float = 100,
     add_grain: bool  = False,
     add_halation: bool = False,
+    expiration_years: float = 0.0
 ) -> Image.Image:
     if intensity == 0:
+        return image.convert("RGB")
+
+    preset = FILM_PRESETS.get(rendering)
+    if not preset:
         return image.convert("RGB")
 
     if rendering not in FILM_PRESETS:
@@ -675,7 +736,7 @@ def img_film_rendering(
 
     if preset_base["type"] == "BWF":
         arr_out = _apply_bw(arr, preset)
-    elif preset_base["type"] == "CCD":
+    elif preset["type"] in ["CCD", "MOB"]:
         arr_out = _apply_sensor(arr, preset)
     else:
         arr_out = _apply_colour(arr, preset)
@@ -702,13 +763,17 @@ def img_film_rendering(
         result = orig + blend * (arr_out - orig)
         result = np.clip(result, 0.0, 1.0)
 
-    # Apply Halation first (before grain) because light scatters in the emulsion
-    # before the physical grain structure is fully developed/perceived
+    if expiration_years > 0 and preset["type"] != "CCD":
+        result = _apply_expiration(result, expiration_years)
+
     if add_halation:
         result = _apply_halation(result, preset_base, H, W)
 
     if add_grain:
         result = _apply_grain(result, preset_base, H, W)
+
+    blend = intensity / 100.0
+    result = np.clip(orig + blend * (result - orig), 0.0, 1.0)
 
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")
 
@@ -951,6 +1016,24 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     return out
 
 
+def _apply_expiration(arr: np.ndarray, years: float) -> np.ndarray:
+    """Simulates dye fading and chemical degradation over years."""
+    out = arr.copy()
+
+    # Base Fog: Shadows lift as chemicals break down
+    fog = np.clip(years * 0.006, 0, 0.18)
+    out = out + fog * (1.0 - out)
+
+    # Dye Fading: Blue channel sensitive layers usually degrade fastest
+    blue_fade = np.clip(1.0 - (years * 0.012), 0.65, 1.0)
+    out[..., 2] *= blue_fade
+
+    # Contrast loss
+    contrast = np.clip(1.0 - (years * 0.01), 0.7, 1.0)
+    out = np.clip((out - 0.5) * contrast + 0.5, 0.0, 1.0)
+
+    return out
+
 def _apply_halation(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     from scipy.ndimage import gaussian_filter
 
@@ -1023,14 +1106,12 @@ def _hd_curve(x: np.ndarray, toe: float, gamma: float, shoulder: float) -> np.nd
     return np.clip(result, 0.0, 1.0)
 
 def _apply_lut(channel: np.ndarray, pts: list) -> np.ndarray:
-
     pts_arr = np.array(pts, dtype=np.float64)
     lut     = np.interp(np.linspace(0, 1, 256), pts_arr[:,0], pts_arr[:,1]).astype(np.float32)
     indices = np.clip((channel * 255).astype(np.int32), 0, 255)
     return lut[indices]
 
 def _apply_colour(arr: np.ndarray, preset: dict) -> np.ndarray:
-
     bias = np.array(preset["bias"], dtype=np.float32)
     arr  = np.clip(arr * bias, 0.0, 1.0)
 
@@ -1079,7 +1160,6 @@ def _apply_bw(arr: np.ndarray, preset: dict) -> np.ndarray:
     ], axis=-1), 0.0, 1.0)
 
 def _apply_sensor(arr: np.ndarray, preset: dict) -> np.ndarray:
-
     linear = np.where(arr <= 0.04045, arr/12.92, ((arr+0.055)/1.055)**2.4)
     bias   = np.array(preset["bias"], dtype=np.float32)
     linear = np.clip(linear * bias, 0, 1)

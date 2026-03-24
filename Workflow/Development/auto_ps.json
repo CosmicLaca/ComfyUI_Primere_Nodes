@@ -1,8 +1,8 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 47,
-  "last_link_id": 89,
+  "last_node_id": 58,
+  "last_link_id": 111,
   "nodes": [
     {
       "id": 5,
@@ -50,144 +50,6 @@
         "Node name for S&R": "GetImageSize+"
       },
       "widgets_values": []
-    },
-    {
-      "id": 27,
-      "type": "PrimereRasterixLens",
-      "pos": [
-        1285.1190575869148,
-        1320.8184130109485
-      ],
-      "size": [
-        370.7737915039063,
-        1162
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 89
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            53
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereRasterixLens"
-      },
-      "widgets_values": [
-        true,
-        0.3,
-        0.6,
-        0.75,
-        "circular",
-        false,
-        3,
-        0.16,
-        "red_blue",
-        false,
-        8,
-        0,
-        0.3,
-        0,
-        false,
-        0.05,
-        0.02,
-        1,
-        false,
-        0.59,
-        0.72,
-        0.67,
-        9,
-        0.74,
-        2,
-        "neutral",
-        true,
-        0.04,
-        15,
-        0.75,
-        0.8,
-        true,
-        25.4,
-        "radial",
-        0.28,
-        0.67,
-        0.49,
-        false,
-        0.2,
-        5,
-        "centre",
-        false,
-        0.5,
-        "blue",
-        0.8,
-        0.4,
-        0.3
-      ]
-    },
-    {
-      "id": 31,
-      "type": "PrimereRasterixGrain",
-      "pos": [
-        1706.3390093548971,
-        1322.879291032087
-      ],
-      "size": [
-        270,
-        366
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 53
-        },
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            59
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereRasterixGrain"
-      },
-      "widgets_values": [
-        false,
-        67,
-        1,
-        "organic",
-        "color",
-        "neutral",
-        0,
-        0,
-        0,
-        1,
-        0.3,
-        0.4,
-        0
-      ]
     },
     {
       "id": 4,
@@ -241,7 +103,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            88
+            110
           ]
         }
       ],
@@ -259,11 +121,149 @@
       ]
     },
     {
+      "id": 27,
+      "type": "PrimereRasterixLens",
+      "pos": [
+        1318.136814808686,
+        1617.9783080239445
+      ],
+      "size": [
+        370.7737915039063,
+        1162
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 111
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixLens"
+      },
+      "widgets_values": [
+        true,
+        0.3,
+        0.6,
+        0.75,
+        "circular",
+        false,
+        3,
+        0.16,
+        "red_blue",
+        false,
+        8,
+        0,
+        0.9,
+        0,
+        false,
+        0.05,
+        0.02,
+        1,
+        false,
+        0.59,
+        0.72,
+        0.67,
+        9,
+        0.74,
+        2,
+        "neutral",
+        true,
+        0.04,
+        15,
+        0.75,
+        0.8,
+        true,
+        25.4,
+        "radial",
+        0.28,
+        0.67,
+        0.49,
+        false,
+        0.2,
+        5,
+        "centre",
+        false,
+        0.5,
+        "blue",
+        0.8,
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": 31,
+      "type": "PrimereRasterixGrain",
+      "pos": [
+        1715.07895213786,
+        1624.8949409737754
+      ],
+      "size": [
+        270,
+        366
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 53
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            59
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixGrain"
+      },
+      "widgets_values": [
+        false,
+        67,
+        1,
+        "organic",
+        "color",
+        "neutral",
+        0,
+        0,
+        0,
+        1,
+        0.3,
+        0.4,
+        0
+      ]
+    },
+    {
       "id": 8,
       "type": "PrimerePreviewImage",
       "pos": [
-        1266.9216441227743,
-        -151.64173777195148
+        1298.7592610433578,
+        139.53898173310924
       ],
       "size": [
         1128.4106290470122,
@@ -337,20 +337,20 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "Image_A665_20260902_022607_111887358084773_1872x3344_1.jpg",
+        "Image_A663_20261901_163510_889971657158189_2072x3040_1.jpg",
         "image"
       ]
     },
     {
-      "id": 47,
+      "id": 58,
       "type": "PrimereRasterix",
       "pos": [
-        796.0573009725758,
-        -246.97599137501211
+        799.2292999839543,
+        -68.60792352958772
       ],
       "size": [
-        453.9414985036317,
-        1816.7358977703848
+        482.72561911056664,
+        2062
       ],
       "flags": {},
       "order": 3,
@@ -359,7 +359,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 88
+          "link": 110
         },
         {
           "name": "model_concept",
@@ -379,7 +379,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            89
+            111
           ]
         }
       ],
@@ -392,16 +392,13 @@
         true,
         true,
         0.2,
-        true,
-        true,
-        3,
         false,
         128,
         false,
         6500,
         0,
-        false,
-        0,
+        true,
+        10.111083984375,
         false,
         "bilateral",
         0,
@@ -414,42 +411,56 @@
         0,
         0,
         false,
+        true,
+        "kodak_vision3_500t_CF",
+        95,
         false,
-        "kodak_kodachrome_64_CF",
-        100,
-        false,
-        0,
+        true,
+        3,
+        true,
+        -14.8148193359375,
+        "shadows",
+        70.25927734375,
+        0.3,
+        true,
+        -4,
+        -3,
+        -3,
         "midtones",
-        50,
-        0.5,
-        false,
-        0,
-        0,
-        0,
-        "midtones",
-        false,
+        true,
         50,
         false,
         0,
         0,
         0,
-        0,
+        55.5556640625,
         "master",
         50,
         true,
-        false,
-        0,
-        0,
-        "medium",
+        true,
+        24.70367431640625,
+        1,
+        "fine",
         0.5,
+        false,
+        2,
+        2,
+        true,
+        false,
+        true,
+        3,
+        true,
+        true,
+        false,
         false,
         0.019,
         0.32,
         38,
         4,
+        true,
         false,
         "RGB",
-        "bars"
+        "stacked"
       ]
     }
   ],
@@ -503,16 +514,16 @@
       "IMAGE"
     ],
     [
-      88,
+      110,
       4,
       3,
-      47,
+      58,
       0,
       "IMAGE"
     ],
     [
-      89,
-      47,
+      111,
+      58,
       0,
       27,
       0,
@@ -523,10 +534,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6934334949441758,
+      "scale": 0.9229599817707144,
       "offset": [
-        562.1560040420882,
-        333.72248743687595
+        54.477210225714884,
+        -188.12061874807
       ]
     },
     "frontendVersion": "1.41.21"
