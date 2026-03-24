@@ -47,7 +47,7 @@ def img_levels_compress(
 
                           True — Skip if no data reaches the extreme:
                             Each offset is applied to a channel side only if
-                            the channel's data actually touches that extreme:
+                            the channel's data reaches that side threshold:
                               Black side: apply only if channel_min <= black_offset
                               White side: apply only if channel_max >= (255 - white_offset)
                             If a channel's brightest pixel is 245 and white_offset=5
@@ -110,15 +110,14 @@ def img_levels_compress(
 
         if skip_if_no_clip:
             # Per-side threshold check:
-            # Black side fires only if the channel has pixels BELOW the new
-            # black point (i.e. pixels that would be in the compressed zone).
-            # White side fires only if the channel has pixels ABOVE the new
-            # white point. Strict inequality — if ch_min == bo exactly, the
-            # channel touches but does not cross the boundary, so skip.
+            # Black side fires only if the channel has pixels at or below the
+            # new black point threshold.
+            # White side fires only if the channel has pixels at or above the
+            # new white point threshold.
             ch_min = float(channel.min())
             ch_max = float(channel.max())
-            black_active = ch_min < bo
-            white_active = ch_max > (max_val - wo)
+            black_active = ch_min <= bo
+            white_active = ch_max >= (max_val - wo)
         else:
             black_active = True
             white_active = True
