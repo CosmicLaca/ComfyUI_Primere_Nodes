@@ -60,14 +60,23 @@ def _floyd_steinberg_quantize(arr: np.ndarray, max_val: float) -> np.ndarray:
 
 
 def _normalize_midpeaks_channel(
-    channel: np.ndarray,
-    peak_width: int,
-    max_val: float,
-    rng: np.random.Generator,
+        channel: np.ndarray,
+        peak_width: int,
+        max_val: float,
+        rng: np.random.Generator,
 ) -> np.ndarray:
     """
-    Histogram-aware anti-spike smoothing near empty bins (gaps),
-    adapted from levels_auto for standalone post-process use.
+    Histogram-aware anti-spike smoothing near empty bins (gaps).
+
+    IMPROVED (March 2026):
+      • Previous amplitude was far too weak (~1–2 LSB) → result looked almost
+        identical to input on spiky histograms.
+      • Now uses a much stronger, bit-depth-aware TPDF amplitude that
+        actually flattens sudden protrusions and pins while remaining universal
+        across any input (AI-generated, filtered, 8-bit or 16-bit).
+      • Strength still controlled by peak_width (larger = more aggressive).
+      • Only pixels whose rounded value sits next to a histogram gap are dithered
+        → tonal structure and overall contrast are preserved.
     """
     n_bins = int(max_val) + 1
     result = channel.copy()
@@ -83,12 +92,15 @@ def _normalize_midpeaks_channel(
     windows = sliding_window_view(padded, 2 * pad + 1)
     near_gap = windows.any(axis=1)
 
-    # Use a bit-depth-scaled TPDF noise amplitude similar to levels_auto.
-    amp = (peak_width / 2.0) * (max_val / 255.0)
+    # ── STRONGER AMPLITUDE FOR REAL SPIKE REMOVAL ─────────────────────────────
+    #  • Base 12 LSB at default peak_width=3 (8-bit) → easily fills pins
+    #  • Scales with peak_width so width=1 is light, width=7–10 is very strong
+    #  • Automatically scales to 16-bit when high_precision=True
+    amp = (peak_width * 4.0) * (max_val / 255.0)
     half = amp / 2.0
     noise = (
-        rng.uniform(-half, half, result.shape).astype(np.float32) +
-        rng.uniform(-half, half, result.shape).astype(np.float32)
+            rng.uniform(-half, half, result.shape).astype(np.float32) +
+            rng.uniform(-half, half, result.shape).astype(np.float32)
     )
 
     qualify_mask = near_gap[c_int] & (~gap_arr[c_int])
@@ -96,13 +108,13 @@ def _normalize_midpeaks_channel(
 
 
 def img_dithering(
-    image: Image.Image,
-    dither_quantization: bool = True,
-    adaptive_dither_strength: bool = True,
-    error_diffusion: bool = False,
-    normalize_midpeaks: bool = False,
-    peak_width: int = 3,
-    high_precision: bool = False,
+        image: Image.Image,
+        dither_quantization: bool = True,
+        adaptive_dither_strength: bool = True,
+        error_diffusion: bool = False,
+        normalize_midpeaks: bool = False,
+        peak_width: int = 3,
+        high_precision: bool = False,
 ) -> Image.Image:
     """
     Standalone quantization dither stage for post-processing.
@@ -115,9 +127,10 @@ def img_dithering(
         high_precision: False = process in 8-bit domain (0..255),
                         True  = process in 16-bit domain (0..65535),
                         then convert back to 8-bit RGB output.
-        normalize_midpeaks: Alternative/extra anti-spike smoothing near
-                            histogram gaps before final quantization.
+        normalize_midpeaks: Anti-spike smoothing near histogram gaps.
+                            Now significantly stronger (see _normalize_midpeaks_channel).
         peak_width: 1..10 neighborhood used by normalize_midpeaks.
+                    Higher values = stronger spike removal.
     """
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
