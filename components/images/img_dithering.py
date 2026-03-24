@@ -147,29 +147,28 @@ def img_dithering(
     normalize_midpeaks: bool = False,
     peak_width: int = 3,
     high_precision: bool = False,
-    numba_accelerated: bool = True,          # ← NEW: set True after `pip install numba`
+    numba_accelerated: bool = True,
 ) -> Image.Image:
     """
     Standalone quantization dither stage for post-processing.
 
-    NEW (March 2026):
-      • numba_accelerated=True makes error_diffusion 20–50× faster on CPU
-        (the only truly slow part of the pipeline).
-      • Full exact Floyd-Steinberg on GPU is possible but complex and usually
-        requires approximations or custom CUDA kernels (not worth it for most
-        use-cases). Numba is the practical, drop-in solution.
+    IMPORTANT FIX (March 2026):
+      When ONLY error_diffusion=True (and all other dither flags are False),
+      the input image coming from img_levels_auto is already exactly integer
+      values (0–255 or 0–65535). Pure Floyd-Steinberg then produces ZERO
+      visible change because there is no quantization error to diffuse.
 
-    PROCESSING ORDER (when multiple flags are True):
-      1. normalize_midpeaks (if enabled)
-      2. Then either error_diffusion or dither_quantization
+      Solution: A tiny pre-dither (±0.5 LSB TPDF) is automatically added
+      before the error-diffusion loop. This is a standard trick used in
+      professional tools (Photoshop, GIMP, etc.) when applying FS on already-
+      quantized 8-bit images. It guarantees a visible dither texture while
+      keeping the classic Floyd-Steinberg look and speed.
 
-    Install once:   pip install numba
-    Then set numba_accelerated=True when you enable error_diffusion.
+      The Numba path remains 20–50× faster.
     """
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
-    # ── Optional Numba acceleration for error_diffusion only ─────────────────
     if error_diffusion and numba_accelerated and not NUMBA_AVAILABLE:
         print("⚠️  numba_accelerated=True but Numba is not installed. "
               "Falling back to pure Python (slow). Run: pip install numba")
@@ -187,10 +186,15 @@ def img_dithering(
 
     # ── 2. Final quantization stage ──────────────────────────────────────────
     if error_diffusion:
+        # ── FIX: tiny pre-dither so error diffusion is always visible ────────
+        pre_amp = 0.5 * (max_val / 255.0)          # ±0.5 LSB — classic value
+        arr = arr + _tpdf_noise(arr.shape, pre_amp)
+
         if NUMBA_AVAILABLE and numba_accelerated:
             quantized = _floyd_steinberg_quantize_numba(arr, max_val)
         else:
             quantized = _floyd_steinberg_quantize_python(arr, max_val)
+
     else:
         quant_input = arr
         if dither_quantization:
