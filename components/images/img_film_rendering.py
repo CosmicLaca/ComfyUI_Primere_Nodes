@@ -652,6 +652,7 @@ def img_film_rendering(
     rendering: str   = "kodak_kodachrome_64_CF",
     intensity: float = 100,
     add_grain: bool  = False,
+    add_halation: bool = False,
 ) -> Image.Image:
     if intensity == 0:
         return image.convert("RGB")
@@ -700,6 +701,11 @@ def img_film_rendering(
         blend  = intensity / 100.0
         result = orig + blend * (arr_out - orig)
         result = np.clip(result, 0.0, 1.0)
+
+    # Apply Halation first (before grain) because light scatters in the emulsion
+    # before the physical grain structure is fully developed/perceived
+    if add_halation:
+        result = _apply_halation(result, preset_base, H, W)
 
     if add_grain:
         result = _apply_grain(result, preset_base, H, W)
@@ -753,18 +759,18 @@ def _analyse_image(arr: np.ndarray) -> dict:
         "is_desaturated":     mean_saturation < 0.08,
     }
 
-def _adapt_preset(preset: dict, analysis: dict) -> dict:
 
+def _adapt_preset(preset: dict, analysis: dict) -> dict:
     import copy
     p = copy.deepcopy(preset)
 
-    median  = analysis["median_lum"]
-    std     = analysis["lum_std"]
+    median = analysis["median_lum"]
+    std = analysis["lum_std"]
     hi_frac = analysis["highlight_fraction"]
     sh_frac = analysis["shadow_fraction"]
-    cast    = analysis["dominant_cast"]
-    desat   = analysis["is_desaturated"]
-    flat    = analysis["is_flat"]
+    cast = analysis["dominant_cast"]
+    desat = analysis["is_desaturated"]
+    flat = analysis["is_flat"]
 
     if "hd" in p:
         if flat:
@@ -805,15 +811,26 @@ def _adapt_preset(preset: dict, analysis: dict) -> dict:
 
     if "bias" in p and not p.get("bw", False):
         bias = np.array(p["bias"], dtype=np.float32)
-        compensation = cast * 0.30
-        bias = np.clip(bias - compensation, 0.7, 1.4)
-        p["bias"] = tuple(float(v) for v in bias)
 
-    if desat and "bias" in p and not p.get("bw", False):
-        bias = np.array(p["bias"], dtype=np.float32)
-        deviation = bias - 1.0
-        bias = np.clip(1.0 + deviation * 1.5, 0.7, 1.4)
-        p["bias"] = tuple(float(v) for v in bias)
+        # 1. Cast compensation
+        compensation = cast * 0.30
+        bias = bias - compensation
+
+        # 2. LAB SCANNER AUTO-EXPOSURE (Using the 'median' variable)
+        # Gently push dark images and pull bright images
+        if median < 0.35:
+            push = (0.35 - median) * 0.75
+            bias += push
+        elif median > 0.65:
+            pull = (median - 0.65) * 0.75
+            bias -= pull
+
+        # 3. Desaturation compensation
+        if desat:
+            deviation = bias - 1.0
+            bias = 1.0 + deviation * 1.5
+
+        p["bias"] = tuple(float(v) for v in np.clip(bias, 0.7, 1.4))
 
     return p
 
@@ -866,24 +883,24 @@ def _make_grain_params(preset: dict, H: int, W: int) -> dict:
         "midtone_peak":       0.4,
     }
 
-def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
 
+def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     from scipy.ndimage import gaussian_filter
 
-    params  = _make_grain_params(preset, H, W)
-    iso     = preset.get("iso", 400)
-    gt      = params["grain_type"]
-    cm      = params["color_mode"]
+    params = _make_grain_params(preset, H, W)
+    iso = preset.get("iso", 400)  # Now actively used for chroma correlation
+    gt = params["grain_type"]
+    cm = params["color_mode"]
 
     rng = np.random.default_rng(None)
 
     sigma = (params["intensity"] / 255.0 * 40.0) / 255.0
-    gs    = params["grain_size"]
-    mp    = params["midtone_peak"]
+    gs = params["grain_size"]
+    mp = params["midtone_peak"]
 
-    lum  = 0.299*arr[...,0] + 0.587*arr[...,1] + 0.114*arr[...,2]
+    lum = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
     bell = np.exp(-0.5 * ((lum - mp) / 0.28) ** 2)
-    shadow_mask    = np.clip(1.0 - lum / (mp + 1e-6), 0, 1)
+    shadow_mask = np.clip(1.0 - lum / (mp + 1e-6), 0, 1)
     highlight_mask = np.clip((lum - mp) / (1.0 - mp + 1e-6), 0, 1)
     lum_mask = bell * (1.0 + shadow_mask * (params["shadow_strength"] - 1.0) + highlight_mask * (params["highlight_strength"] - 1.0))
     lum_mask = np.clip(lum_mask, 0, None)
@@ -896,8 +913,8 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
         elif gt == "organic":
             coarse = gaussian_filter(
                 rng.standard_normal(shape).astype(np.float32), sigma=gs * 2.0)
-            fine   = gaussian_filter(raw, sigma=gs * 0.3)
-            raw    = coarse * 0.6 + fine * 0.4
+            fine = gaussian_filter(raw, sigma=gs * 0.3)
+            raw = coarse * 0.6 + fine * 0.4
         elif gt == "fine":
             raw = gaussian_filter(raw, sigma=max(0.3, gs * 0.2))
         return raw
@@ -906,13 +923,21 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
         base = make_noise((H, W))
         nr = ng = nb = base
     else:
-        nr = make_noise((H, W))
-        nb = make_noise((H, W))
-        if gs > 0.6 and gt == "gaussian":
-            ng = gaussian_filter(rng.standard_normal((H,W)).astype(np.float32),
-                                 sigma=gs * 0.35)
-        else:
-            ng = make_noise((H, W))
+        # ISO-BASED CHROMA CORRELATION (Using the 'iso' variable)
+        # Low ISO = highly correlated channels (monochromatic-ish grain)
+        # High ISO = uncorrelated channels (colorful, blotchy dye clouds)
+        correlation = float(np.clip(1.0 - (iso / 1600.0), 0.3, 0.9))
+
+        base_lum = make_noise((H, W))
+        nr = base_lum * correlation + make_noise((H, W)) * (1.0 - correlation)
+        ng = base_lum * correlation + make_noise((H, W)) * (1.0 - correlation)
+        nb = base_lum * correlation + make_noise((H, W)) * (1.0 - correlation)
+
+        # Normalize variance so the overall intensity matches the sigma requested
+        norm_factor = 1.0 / np.sqrt(correlation ** 2 + (1.0 - correlation) ** 2)
+        nr *= norm_factor
+        ng *= norm_factor
+        nb *= norm_factor
 
     if params["color_tint"] == "cool":
         tr, tg, tb = 0.80, 0.95, 1.25
@@ -923,6 +948,55 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     out[..., 0] = np.clip(arr[..., 0] + nr * sigma * lum_mask * tr, 0, 1)
     out[..., 1] = np.clip(arr[..., 1] + ng * sigma * lum_mask * tg, 0, 1)
     out[..., 2] = np.clip(arr[..., 2] + nb * sigma * lum_mask * tb, 0, 1)
+    return out
+
+
+def _apply_halation(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
+    from scipy.ndimage import gaussian_filter
+
+    # Dynamically scale the glow radius based on image size (crucial for ComfyUI upscales)
+    area_scale = np.sqrt((H * W) / (1920 * 1280))
+    base_radius = 8.0 * area_scale
+
+    # Check the preset to determine halation character
+    desc = preset.get("desc", "").lower()
+    is_cinema = "cinema" in desc or "vision3" in desc
+    is_bw = preset.get("bw", False)
+
+    # Cinema films usually have removed rem-jet backings when cross-processed,
+    # or naturally stronger halation. Standard film has less.
+    strength = 0.55 if is_cinema else 0.25
+
+    # 1. Isolate the absolute brightest spots (luminance > 80%)
+    lum = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
+    threshold = 0.80
+
+    # Soft mask to ensure smooth roll-off into the glow
+    hi_mask = np.clip((lum - threshold) / (1.0 - threshold + 1e-6), 0.0, 1.0)
+
+    # Square the mask to tightly restrict the core of the halation
+    bright_spots = arr * (hi_mask ** 2)[..., None]
+
+    out = arr.copy()
+
+    if is_bw:
+        # B&W halation is just a diffuse white/luma glow in the silver halides
+        blur = gaussian_filter(bright_spots[..., 0], sigma=base_radius)
+        out[..., 0] = np.clip(out[..., 0] + blur * strength, 0.0, 1.0)
+        out[..., 1] = np.clip(out[..., 1] + blur * strength, 0.0, 1.0)
+        out[..., 2] = np.clip(out[..., 2] + blur * strength, 0.0, 1.0)
+    else:
+        # Color halation is predominantly red, with a tiny bit of green for a warm orange roll-off.
+        # Blue scatters the least.
+        r_blur = gaussian_filter(bright_spots[..., 0], sigma=base_radius)
+        g_blur = gaussian_filter(bright_spots[..., 1], sigma=base_radius * 0.6)
+        b_blur = gaussian_filter(bright_spots[..., 2], sigma=base_radius * 0.2)
+
+        # Additive blend back onto the original image
+        out[..., 0] = np.clip(out[..., 0] + r_blur * strength * 1.2, 0.0, 1.0)
+        out[..., 1] = np.clip(out[..., 1] + g_blur * strength * 0.3, 0.0, 1.0)
+        out[..., 2] = np.clip(out[..., 2] + b_blur * strength * 0.0, 0.0, 1.0)
+
     return out
 
 def _hd_curve(x: np.ndarray, toe: float, gamma: float, shoulder: float) -> np.ndarray:
