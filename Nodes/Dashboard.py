@@ -2250,11 +2250,11 @@ class PrimereRasterix:
                 "skip_if_no_clip": ("BOOLEAN", {"default": False, "label_off": "Offset all values", "label_on": "Skip if no clips"}),
 
                 "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
-                "dither_quantization": ("BOOLEAN", {"default": False, "label_off": "Dither quantization OFF", "label_on": "Dither quantization ON"}),
-                "adaptive_dither_strength": ("BOOLEAN", {"default": False, "label_off": "Keep dither strength", "label_on": "Increase dither strength"}),
-                "error_diffusion": ("BOOLEAN", {"default": False, "label_off": "Ignore endpoint offset", "label_on": "Apply endpoint offset"}),
                 "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
                 "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
+                "dither_quantization": ("BOOLEAN", {"default": False, "label_off": "Dither quantization OFF", "label_on": "Dither quantization ON"}),
+                "adaptive_dither_strength": ("BOOLEAN", {"default": False, "label_off": "Keep dither strength", "label_on": "Increase dither strength"}),
+                "error_diffusion": ("BOOLEAN", {"default": False, "label_off": "Error diffusion OFF", "label_on": "Error diffusion ON"}),
 
                 "use_ai_detection_bypasser": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
                 "adb_freq_strength":     ("FLOAT", {"default": 0.019, "min": 0.0, "max": 0.1,  "step": 0.001}),
@@ -2279,12 +2279,9 @@ class PrimereRasterix:
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
-        stretched_gaps_spike = []
-        scale_spike = []
-        rng_gap_spike = []
 
         if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=False, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
 
         if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
             pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
@@ -2325,7 +2322,7 @@ class PrimereRasterix:
             pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=black_offset, white_offset=white_offset, skip_if_no_clip=skip_if_no_clip, high_precision=precision)
 
         if dither_quantization or error_diffusion or normalize_midpeaks:
-            pil_img = img_dithering.img_dithering(image=pil_img, normalize_gaps_legacy=normalize_gaps, stretched_gaps_spike=stretched_gaps_spike, scale_spike=scale_spike, rng_gap_spike=rng_gap_spike, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision)
+            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision)
 
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
