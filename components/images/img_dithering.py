@@ -2,7 +2,6 @@ import numpy as np
 from PIL import Image
 from numpy.lib.stride_tricks import sliding_window_view
 
-
 def _adaptive_dither_amplitude(scale: float, adaptive: bool, max_val: float) -> float:
     """
     Return dither amplitude in output-code units (LSB of 8-bit domain).
@@ -102,28 +101,15 @@ def _normalize_gaps_legacy(
     max_val:   float = 255.0,
 ) -> np.ndarray:
     """
-    Anti-comb filter — TPDF gap dithering.
+    Anti-comb filter — TPDF gap dithering (moved from img_levels_auto).
 
     Fills quantization gaps from non-integer stretch scale factors.
-    At 16-bit the gaps are far smaller (1/65535 vs 1/255) and largely
-    invisible, but dithering is still applied for completeness.
-
-    Amplitude formula is ratio-based so it works at any bit depth:
-      amplitude = max(1.0, (scale / 1.275) ^ 2.2) × (max_val / 255)
-
-    Args:
-        stretched : 2D float32 array
-        scale     : stretch scale factor
-        rng_gap   : np.random.Generator
-        max_val   : 255.0 for 8-bit, 65535.0 for 16-bit
-
-    Returns:
-        Float32 array with gaps filled
     """
+    print('------------ 5 -------------------')
     amplitude = max(1.0, (scale / 1.275) ** 2.2) * (max_val / 255.0)
     half      = amplitude / 2.0
-    noise     = (rng_gap.uniform(-half, half, stretched.shape).astype(np.float32) +
-                 rng_gap.uniform(-half, half, stretched.shape).astype(np.float32))
+    noise     = (rng_gap.uniform(-half, half, stretched.shape).astype(np.float32) + rng_gap.uniform(-half, half, stretched.shape).astype(np.float32))
+
     return np.clip(stretched + noise, 0.0, max_val)
 
 
@@ -143,16 +129,34 @@ def img_dithering(
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
+    print('------------ 2 -------------------')
     arr_8f = np.array(image.convert("RGB"), dtype=np.float32)
     max_val = 65535.0 if high_precision else 255.0
     scale_factor = max_val / 255.0
     arr = arr_8f * scale_factor if high_precision else arr_8f
 
-    # 1) Legacy anti-comb (must run first when enabled and scale is known)
-    if normalize_gaps_legacy and len(stretched_gaps_spike) > 0:
-        for ch in range(3):
-            # arr = _normalize_gaps_legacy(arr, float(scale), rng_gap, max_val)
-            arr[:, :, ch] = _normalize_gaps_legacy(stretched_gaps_spike[:, :, ch], scale_spike[:, :, ch], rng_gap_spike[:, :, ch], max_val)
+    # 1) Legacy anti-comb (TPDF gap dither from auto-levels stretch)
+    #    - If lists were provided by img_levels_auto → use exact per-channel scale + RNG
+    #    - Otherwise (auto-levels was off) → fallback to a useful non-specific scale
+    #      estimated from the current image tonal span (exactly as you requested).
+    if normalize_gaps_legacy:
+        print('------------ 3 -------------------')
+        if len(stretched_gaps_spike) > 0 and len(scale_spike) > 0 and len(rng_gap_spike) > 0:
+            print('------------ 4a -------------------')
+            # Auto-levels was used → use its exact stretch parameters
+            for ch in range(3):
+                scale = scale_spike[ch]
+                rng_gap = rng_gap_spike[ch]
+                # Apply to the current image (post-gamma if auto_gamma was enabled).
+                # This is the cleanest logical placement now that the function lives here.
+                arr[:, :, ch] = _normalize_gaps_legacy(arr[:, :, ch], scale, rng_gap, max_val)
+        else:
+            print('------------ 4b -------------------')
+            # Auto-levels was OFF → run with useful non-specific parameters
+            local_scale = _estimate_global_scale(arr, max_val)
+            for ch in range(3):
+                rng_gap = np.random.default_rng(ch)          # same seeding style as levels_auto
+                arr[:, :, ch] = _normalize_gaps_legacy(arr[:, :, ch], local_scale, rng_gap, max_val)
 
     # 2) Mid-peak smoothing
     if normalize_midpeaks:
@@ -166,7 +170,7 @@ def img_dithering(
     else:
         quant_input = arr
         if dither_quantization:
-            local_scale = float(scale) if scale is not None else _estimate_global_scale(quant_input, max_val)
+            local_scale = _estimate_global_scale(quant_input, max_val)
             amp = _adaptive_dither_amplitude(local_scale, adaptive_dither_strength, max_val)
             quant_input = quant_input + _tpdf_noise(quant_input.shape, amp)
         quantized = np.clip(np.rint(quant_input), 0, max_val)
