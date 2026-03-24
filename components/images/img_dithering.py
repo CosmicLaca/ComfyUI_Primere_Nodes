@@ -7,10 +7,7 @@ def _adaptive_dither_amplitude(scale: float, adaptive: bool, max_val: float) -> 
     """
     Return dither amplitude in output-code units (LSB of 8-bit domain).
 
-    UPDATED (stronger defaults):
-      • Non-adaptive now defaults to 1.5 LSB (was 1.0)
-      • Adaptive now ranges from 1.2 LSB (full tonal span) to 4.0 LSB (narrow span)
-        → the adaptive flag now makes a much more visible difference.
+    (Already strengthened in previous version — unchanged)
     """
     base_lsb = max_val / 255.0
     if not adaptive:
@@ -22,8 +19,6 @@ def _adaptive_dither_amplitude(scale: float, adaptive: bool, max_val: float) -> 
 def _estimate_global_scale(arr: np.ndarray, max_val: float) -> float:
     """
     Estimate effective tonal span (0..1) from channel min/max.
-    Used for adaptive dither strength when the operation is applied
-    as a standalone post-process.
     """
     mins = arr.reshape(-1, 3).min(axis=0)
     maxs = arr.reshape(-1, 3).max(axis=0)
@@ -63,6 +58,14 @@ def _floyd_steinberg_quantize(arr: np.ndarray, max_val: float) -> np.ndarray:
     return np.clip(work, 0.0, max_val)
 
 
+def _get_spikiness_factor(c_hist: np.ndarray, total: float) -> float:
+    """Return 0.0–2.0 boost factor when histogram has tall spikes."""
+    if total <= 0:
+        return 0.0
+    peak_ratio = c_hist.max() / (c_hist.mean() + 1e-8)
+    return np.clip((peak_ratio - 4.0) / 12.0, 0.0, 2.0)
+
+
 def _normalize_midpeaks_channel(
         channel: np.ndarray,
         peak_width: int,
@@ -71,7 +74,15 @@ def _normalize_midpeaks_channel(
 ) -> np.ndarray:
     """
     Histogram-aware anti-spike smoothing near empty bins (gaps).
-    (Already strengthened in previous version — unchanged)
+
+    MAJOR STRENGTHENING (March 2026):
+      • Base amplitude raised from 4× to 8× (much more aggressive).
+      • Automatic extra boost (up to 3×) when the histogram is spiky
+        — exactly the case where you still saw pins/protrusions.
+      • Now universally strong on any input (AI-generated, filtered,
+        8-bit or 16-bit) while still only touching pixels next to gaps.
+      • peak_width still controls neighbourhood size (and base strength):
+        3 = moderate, 5–6 = strong, 8–10 = very aggressive.
     """
     n_bins = int(max_val) + 1
     result = channel.copy()
@@ -82,17 +93,23 @@ def _normalize_midpeaks_channel(
     if not gap_arr.any():
         return result
 
-    pad = peak_width
-    padded = np.pad(gap_arr, pad, mode='constant', constant_values=False)
-    windows = sliding_window_view(padded, 2 * pad + 1)
-    near_gap = windows.any(axis=1)
+    # ── Stronger amplitude + automatic spikiness boost ───────────────────────
+    amp = (peak_width * 8.0) * (max_val / 255.0)  # base is now much stronger
 
-    amp = (peak_width * 4.0) * (max_val / 255.0)
+    total = c_hist.sum()
+    spikiness = _get_spikiness_factor(c_hist, total)
+    amp *= (1.0 + spikiness)  # up to 3× on very spiky images
+
     half = amp / 2.0
     noise = (
             rng.uniform(-half, half, result.shape).astype(np.float32) +
             rng.uniform(-half, half, result.shape).astype(np.float32)
     )
+
+    pad = peak_width
+    padded = np.pad(gap_arr, pad, mode='constant', constant_values=False)
+    windows = sliding_window_view(padded, 2 * pad + 1)
+    near_gap = windows.any(axis=1)
 
     qualify_mask = near_gap[c_int] & (~gap_arr[c_int])
     return np.where(qualify_mask, np.clip(result + noise, 0.0, max_val), result)
@@ -110,17 +127,19 @@ def img_dithering(
     """
     Standalone quantization dither stage for post-processing.
 
-    MAJOR IMPROVEMENTS (March 2026):
-      • adaptive_dither_strength now has much stronger defaults (1.2–4.0 LSB)
-        → you will immediately see a bigger difference when the flag is True.
-      • dither_quantization now automatically detects high histogram peaks
-        (exactly the "spiky" case you described) and boosts the TPDF amplitude
-        up to 3× stronger. No new parameters needed — it is fully automatic
-        and universal for any input (AI-generated, filtered, etc.).
-      • The quantization dither is now noticeably stronger overall while still
-        preserving natural look.
+    PROCESSING ORDER (when multiple flags are True):
+      1. normalize_midpeaks (if enabled)  ← first: cleans spikes/pins
+      2. Then either:
+         • error_diffusion (Floyd-Steinberg)   or
+         • dither_quantization (TPDF + rounding)
 
-    Use normalize_midpeaks=True + peak_width=5–8 for the strongest pin/spike removal.
+    This order is intentional and optimal:
+      • Mid-peak smoothing runs on the clean input image first
+      • Final quantization (with its own auto-boost on spiky histograms)
+        then locks everything into discrete levels.
+      • You can safely turn on any combination — the pipeline stays logical.
+
+    normalize_midpeaks is now dramatically stronger (see function docstring).
     """
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
@@ -130,11 +149,13 @@ def img_dithering(
     scale_factor = max_val / 255.0
     arr = arr_8f * scale_factor if high_precision else arr_8f
 
+    # ── 1. Mid-peak spike removal (now extremely effective) ──────────────────
     if normalize_midpeaks:
         for ch in range(3):
             rng = np.random.default_rng(100 + ch)
             arr[:, :, ch] = _normalize_midpeaks_channel(arr[:, :, ch], peak_width, max_val, rng)
 
+    # ── 2. Final quantization stage ──────────────────────────────────────────
     if error_diffusion:
         quantized = _floyd_steinberg_quantize(arr, max_val)
     else:
@@ -143,18 +164,12 @@ def img_dithering(
             scale = _estimate_global_scale(quant_input, max_val)
             amp = _adaptive_dither_amplitude(scale, adaptive_dither_strength, max_val)
 
-            # ── NEW: Automatic extra boost when histogram has high peaks ─────────
-            # Detects exactly the "peaks too high" situation you mentioned and
-            # makes the dither much stronger automatically.
+            # (already has automatic spikiness boost from previous version)
             flat = np.clip(np.round(quant_input).astype(np.int64), 0, int(max_val)).ravel()
             c_hist = np.bincount(flat, minlength=int(max_val) + 1).astype(np.float64)
             total = c_hist.sum()
-            if total > 0:
-                peak_ratio = c_hist.max() / (c_hist.mean() + 1e-8)
-                # peak_ratio ≈ 1  = smooth histogram
-                # peak_ratio ≈ 10+ = very spiky (exactly your case)
-                spikiness = np.clip((peak_ratio - 4.0) / 12.0, 0.0, 2.0)
-                amp *= (1.0 + spikiness)  # up to 3× stronger on very spiky images
+            spikiness = _get_spikiness_factor(c_hist, total)
+            amp *= (1.0 + spikiness)
 
             quant_input = quant_input + _tpdf_noise(quant_input.shape, amp)
         quantized = np.clip(np.rint(quant_input), 0, max_val)
