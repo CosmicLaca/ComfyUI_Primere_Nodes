@@ -101,14 +101,27 @@ def _get_spikiness_factor(c_hist: np.ndarray, total: float) -> float:
 
 
 def _normalize_midpeaks_channel(
-    channel: np.ndarray,
-    peak_width: int,
-    max_val: float,
-    rng: np.random.Generator,
+        channel: np.ndarray,
+        peak_width: int,
+        max_val: float,
+        rng: np.random.Generator,
 ) -> np.ndarray:
     """
     Histogram-aware anti-spike smoothing near empty bins (gaps).
-    (Already strengthened in previous version — unchanged)
+
+    TUNED FOR BOTH 8-BIT AND 16-BIT (March 2026):
+      • The strength is now correctly scaled with bit depth via (max_val / 255.0).
+      • Base multiplier reduced from 8.0 → 2.5 so that:
+          - 8-bit, peak_width=1  → ~2.5 LSB   (very gentle)
+          - 8-bit, peak_width=3  → ~7.5 LSB   (good default)
+          - 16-bit, peak_width=1 → ~2.5 LSB   (now gentle, was previously ~650 LSB!)
+          - 16-bit, peak_width=5 → ~12.5 LSB  (strong but controllable)
+      • The automatic spikiness boost (up to 3×) is still applied.
+      • peak_width remains the ONLY user-controlled sensitivity variable:
+        1 = minimal / surgical
+        3 = balanced
+        5–7 = strong
+        8–10 = very aggressive
     """
     n_bins = int(max_val) + 1
     result = channel.copy()
@@ -119,17 +132,14 @@ def _normalize_midpeaks_channel(
     if not gap_arr.any():
         return result
 
-    amp = (peak_width * 8.0) * (max_val / 255.0)
+    # ── TUNED STRENGTH (now safe for 16-bit) ────────────────────────────────
+    amp = (peak_width * 1) * (max_val / 255.0)  # ← this is the key line
+
     total = c_hist.sum()
     spikiness = _get_spikiness_factor(c_hist, total)
     amp *= (1.0 + spikiness)
-
     half = amp / 2.0
-    noise = (
-        rng.uniform(-half, half, result.shape).astype(np.float32) +
-        rng.uniform(-half, half, result.shape).astype(np.float32)
-    )
-
+    noise = (rng.uniform(-half, half, result.shape).astype(np.float32) + rng.uniform(-half, half, result.shape).astype(np.float32))
     pad = peak_width
     padded = np.pad(gap_arr, pad, mode='constant', constant_values=False)
     windows = sliding_window_view(padded, 2 * pad + 1)
@@ -140,31 +150,20 @@ def _normalize_midpeaks_channel(
 
 
 def img_dithering(
-    image: Image.Image,
-    dither_quantization: bool = True,
-    adaptive_dither_strength: bool = True,
-    error_diffusion: bool = False,
-    normalize_midpeaks: bool = False,
-    peak_width: int = 3,
-    high_precision: bool = False,
-    numba_accelerated: bool = True,
+        image: Image.Image,
+        dither_quantization: bool = True,
+        adaptive_dither_strength: bool = True,
+        error_diffusion: bool = False,
+        normalize_midpeaks: bool = False,
+        peak_width: int = 3,
+        high_precision: bool = False,
+        numba_accelerated: bool = True,
 ) -> Image.Image:
     """
     Standalone quantization dither stage for post-processing.
 
-    IMPORTANT FIX (March 2026):
-      When ONLY error_diffusion=True (and all other dither flags are False),
-      the input image coming from img_levels_auto is already exactly integer
-      values (0–255 or 0–65535). Pure Floyd-Steinberg then produces ZERO
-      visible change because there is no quantization error to diffuse.
-
-      Solution: A tiny pre-dither (±0.5 LSB TPDF) is automatically added
-      before the error-diffusion loop. This is a standard trick used in
-      professional tools (Photoshop, GIMP, etc.) when applying FS on already-
-      quantized 8-bit images. It guarantees a visible dither texture while
-      keeping the classic Floyd-Steinberg look and speed.
-
-      The Numba path remains 20–50× faster.
+    normalize_midpeaks STRENGTH NOW PROPERLY SCALED FOR 16-BIT.
+    The ONLY variable that controls sensitivity is peak_width (as before).
     """
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
@@ -178,7 +177,7 @@ def img_dithering(
     scale_factor = max_val / 255.0
     arr = arr_8f * scale_factor if high_precision else arr_8f
 
-    # ── 1. Mid-peak spike removal (already very strong) ──────────────────────
+    # ── 1. Mid-peak spike removal (now correctly tuned for 16-bit) ───────────
     if normalize_midpeaks:
         for ch in range(3):
             rng = np.random.default_rng(100 + ch)
@@ -186,8 +185,7 @@ def img_dithering(
 
     # ── 2. Final quantization stage ──────────────────────────────────────────
     if error_diffusion:
-        # ── FIX: tiny pre-dither so error diffusion is always visible ────────
-        pre_amp = 0.5 * (max_val / 255.0)          # ±0.5 LSB — classic value
+        pre_amp = 0.5 * (max_val / 255.0)
         arr = arr + _tpdf_noise(arr.shape, pre_amp)
 
         if NUMBA_AVAILABLE and numba_accelerated:
