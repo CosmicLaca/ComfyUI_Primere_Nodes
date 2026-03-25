@@ -588,8 +588,9 @@ async def primere_rasterix_histogram_generate(request):
         return web.json_response({"success": False, "error": "Histogram cache is missing"}, status=404)
 
     source_img = Image.open(source_path).convert("RGB")
-    rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
     source_prefix = "input" if histogram_source else "output"
     target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
-    rendered.save(target_file, quality=90)
+    if not os.path.isfile(target_file):
+        rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
+        rendered.save(target_file, quality=90)
     return web.json_response({"success": True, "filename": os.path.basename(target_file)})

@@ -23,30 +23,6 @@ from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
 
-def _rasterix_hist_cache_paths():
-    hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
-    os.makedirs(hist_dir, exist_ok=True)
-    return (
-        hist_dir,
-        os.path.join(hist_dir, "rasterix_hist_cache_input.png"),
-        os.path.join(hist_dir, "rasterix_hist_cache_output.png"),
-    )
-
-
-def _rasterix_hist_cache_store(pil_input, pil_output):
-    _, in_path, out_path = _rasterix_hist_cache_paths()
-    pil_input.save(in_path, compress_level=1)
-    pil_output.save(out_path, compress_level=1)
-
-
-def _rasterix_hist_render_selected(pil_input, pil_output, precision, histogram_source, histogram_channel, histogram_style):
-    hist_dir, _, _ = _rasterix_hist_cache_paths()
-    source_prefix = "input" if histogram_source else "output"
-    source_image = pil_input if histogram_source else pil_output
-    rendered = histogram.rasterix_histogram_render(source_image, histogram_channel, histogram_style, precision)
-    rendered.save(os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg'), quality=90)
-    return rendered
-
 class PrimereRasterix:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("IMAGE",)
@@ -213,8 +189,8 @@ class PrimereRasterix:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
         if show_histogram:
-            _rasterix_hist_cache_store(pil_img_input, pil_img)
-            active_hist = _rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style,)
+            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
+            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style,)
             suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file   = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
@@ -787,8 +763,8 @@ class PrimereHistogram:
         pil_img_input = pil_img.copy()
 
         if show_histogram:
-            _rasterix_hist_cache_store(pil_img_input, pil_img)
-            active_hist = _rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style,)
+            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
+            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style,)
             suffix = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)

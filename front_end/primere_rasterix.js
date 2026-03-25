@@ -135,6 +135,18 @@ app.registerExtension({
                 img.src = url;
             }
 
+            function showHistogramOffImage() {
+                const url = `/extensions/ComfyUI_Primere_Nodes/images/No_histogram_08.jpg?t=${Date.now()}`;
+                const img = new Image();
+                img.onload = () => {
+                    if (!node.imgs) node.imgs = [img];
+                    else node.imgs[0] = img;
+                    app.canvas?.setDirty(true);
+                };
+                img.onerror = () => {};
+                img.src = url;
+            }
+
             async function generateHistogram(showInput, channel, style) {
                 try {
                     await fetch('/primere_rasterix_histogram_generate', {
@@ -171,7 +183,10 @@ app.registerExtension({
 
             node.onExecuted = async function() {
                 const { enabled, showInput, channel, style } = currentHistState();
-                if (!enabled) return;
+                if (!enabled) {
+                    showHistogramOffImage();
+                    return;
+                }
                 await generateHistogram(showInput, channel, style);
                 updateHistogramDisplay(showInput, channel, style);
             };
@@ -308,7 +323,12 @@ app.registerExtension({
                     if (enabled) scheduleHistogramGenerate(showInput, channel, value);
                 } else if (name === "show_histogram") {
                     const { showInput, channel, style } = currentHistState();
-                    if (value) scheduleHistogramGenerate(showInput, channel, style, 50);
+                    if (value) {
+                        scheduleHistogramGenerate(showInput, channel, style, 50);
+                    } else {
+                        if (histogramDebounceTimer) clearTimeout(histogramDebounceTimer);
+                        showHistogramOffImage();
+                    }
                 }
             };
         };
