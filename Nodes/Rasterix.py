@@ -188,6 +188,7 @@ class PrimereRasterix:
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
+        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
         if show_histogram:
             histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
             active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style,)
@@ -761,6 +762,8 @@ class PrimereHistogram:
     def primere_histogram(self, image, precision, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="gradient"):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
+
+        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
 
         if show_histogram:
             histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)

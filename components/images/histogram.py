@@ -6,6 +6,7 @@ import json
 from ..tree import PRIMERE_ROOT
 from .. import utility
 import os
+from PIL import Image
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Channel definitions
@@ -553,7 +554,7 @@ def rasterix_hist_render_selected(pil_input, pil_output, precision, histogram_so
     source_prefix = "input" if histogram_source else "output"
     target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
     if os.path.isfile(target_file):
-        return utility.ImageLoaderFromPath(target_file)[0]
+        return Image.open(target_file).convert("RGB")
     source_image = pil_input if histogram_source else pil_output
     rendered = rasterix_histogram_render(source_image, histogram_channel, histogram_style, precision)
     rendered.save(target_file, quality=90)

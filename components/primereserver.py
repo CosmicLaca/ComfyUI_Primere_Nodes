@@ -578,6 +578,7 @@ async def primere_rasterix_histogram_generate(request):
     histogram_channel = post.get('histogram_channel', 'RGB')
     histogram_style = post.get('histogram_style', 'bars')
     precision = bool(post.get('precision', False))
+    force = bool(post.get('force', False))
 
     hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
     input_cache = os.path.join(hist_dir, "rasterix_hist_cache_input.png")
@@ -590,7 +591,7 @@ async def primere_rasterix_histogram_generate(request):
     source_img = Image.open(source_path).convert("RGB")
     source_prefix = "input" if histogram_source else "output"
     target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
-    if not os.path.isfile(target_file):
+    if force or not os.path.isfile(target_file):
         rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
         rendered.save(target_file, quality=90)
     return web.json_response({"success": True, "filename": os.path.basename(target_file)})

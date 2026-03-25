@@ -147,6 +147,27 @@ app.registerExtension({
                 img.src = url;
             }
 
+            function histogramFileUrl(showInput, channel, style) {
+                const prefix = showInput ? "input" : "output";
+                const ch = (channel || "RGB").toLowerCase();
+                const st = style || "bars";
+                return `/extensions/ComfyUI_Primere_Nodes/images/${prefix}_histogram_${ch}_${st}.jpg`;
+            }
+
+            async function histogramFileExists(showInput, channel, style) {
+                const url = `${histogramFileUrl(showInput, channel, style)}?t=${Date.now()}`;
+                try {
+                    const headResp = await fetch(url, { method: "HEAD" });
+                    if (headResp.ok) return true;
+                } catch (_) {}
+                try {
+                    const getResp = await fetch(url, { method: "GET" });
+                    return getResp.ok;
+                } catch (_) {
+                    return false;
+                }
+            }
+
             async function generateHistogram(showInput, channel, style) {
                 try {
                     await fetch('/primere_rasterix_histogram_generate', {
@@ -172,6 +193,15 @@ app.registerExtension({
                 }, delayMs);
             }
 
+            async function requestHistogramSwitch(showInput, channel, style) {
+                if (await histogramFileExists(showInput, channel, style)) {
+                    if (histogramDebounceTimer) clearTimeout(histogramDebounceTimer);
+                    updateHistogramDisplay(showInput, channel, style);
+                    return;
+                }
+                scheduleHistogramGenerate(showInput, channel, style, 1000);
+            }
+
             function currentHistState() {
                 return {
                     enabled:   fw("show_histogram")?.value     ?? false,
@@ -185,6 +215,10 @@ app.registerExtension({
                 const { enabled, showInput, channel, style } = currentHistState();
                 if (!enabled) {
                     showHistogramOffImage();
+                    return;
+                }
+                if (await histogramFileExists(showInput, channel, style)) {
+                    updateHistogramDisplay(showInput, channel, style);
                     return;
                 }
                 await generateHistogram(showInput, channel, style);
@@ -314,17 +348,17 @@ app.registerExtension({
 
                 } else if (name === "histogram_source") {
                     const { enabled, channel, style } = currentHistState();
-                    if (enabled) scheduleHistogramGenerate(value, channel, style);
+                    if (enabled) requestHistogramSwitch(value, channel, style);
                 } else if (name === "histogram_channel") {
                     const { enabled, showInput, style } = currentHistState();
-                    if (enabled) scheduleHistogramGenerate(showInput, value, style);
+                    if (enabled) requestHistogramSwitch(showInput, value, style);
                 } else if (name === "histogram_style") {
                     const { enabled, showInput, channel } = currentHistState();
-                    if (enabled) scheduleHistogramGenerate(showInput, channel, value);
+                    if (enabled) requestHistogramSwitch(showInput, channel, value);
                 } else if (name === "show_histogram") {
                     const { showInput, channel, style } = currentHistState();
                     if (value) {
-                        scheduleHistogramGenerate(showInput, channel, style, 50);
+                        requestHistogramSwitch(showInput, channel, style);
                     } else {
                         if (histogramDebounceTimer) clearTimeout(histogramDebounceTimer);
                         showHistogramOffImage();
