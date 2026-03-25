@@ -5,6 +5,7 @@ from .utils import comfy_dir
 from .utils import here
 
 from .Nodes import Dashboard
+from .Nodes import Rasterix
 from .Nodes import Inputs
 from .Nodes import Styles
 from .Nodes import Outputs
@@ -58,9 +59,10 @@ NODE_CLASS_MAPPINGS = {
     "PrimereNetworkTagLoader": Dashboard.PrimereNetworkTagLoader,
     "PrimereModelKeyword": Dashboard.PrimereModelKeyword,
     "PrimereUpscaleModel": Dashboard.PrimereUpscaleModel,
-    "PrimereRasterix": Dashboard.PrimereRasterix,
-    "PrimereRasterixGrain": Dashboard.PrimereRasterixGrain,
-    "PrimereRasterixLens": Dashboard.PrimereRasterixLens,
+
+    "PrimereRasterix": Rasterix.PrimereRasterix,
+    "PrimereRasterixGrain": Rasterix.PrimereRasterixGrain,
+    "PrimereRasterixLens": Rasterix.PrimereRasterixLens,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
