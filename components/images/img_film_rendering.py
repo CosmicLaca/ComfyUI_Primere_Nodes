@@ -763,7 +763,7 @@ def img_film_rendering(
         result = orig + blend * (arr_out - orig)
         result = np.clip(result, 0.0, 1.0)
 
-    if expiration_years > 0 and preset["type"] != "CCD":
+    if expiration_years > 0 and preset["type"] not in ["CCD", "MOB"]:
         result = _apply_expiration(result, expiration_years)
 
     if add_halation:
@@ -782,7 +782,6 @@ def list_film_presets() -> dict:
     return {k: v["desc"] for k, v in FILM_PRESETS.items()}
 
 def list_presets_by_type() -> dict:
-
     result = {"CF": [], "BWF": [], "CCD": []}
     for k, v in FILM_PRESETS.items():
         result[v["type"]].append(k)
