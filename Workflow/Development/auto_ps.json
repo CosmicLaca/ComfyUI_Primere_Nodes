@@ -1,8 +1,8 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 58,
-  "last_link_id": 111,
+  "last_node_id": 59,
+  "last_link_id": 113,
   "nodes": [
     {
       "id": 5,
@@ -103,7 +103,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            110
+            112
           ]
         }
       ],
@@ -138,7 +138,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 111
+          "link": 113
         }
       ],
       "outputs": [
@@ -337,19 +337,19 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "Image_A663_20261901_163510_889971657158189_2072x3040_1.jpg",
+        "Image_A663_20260602_212234_701159744464569_1984x3176_1.jpg",
         "image"
       ]
     },
     {
-      "id": 58,
+      "id": 59,
       "type": "PrimereRasterix",
       "pos": [
-        799.2292999839543,
-        -68.60792352958772
+        797.3146009620405,
+        -203.3120988264702
       ],
       "size": [
-        482.72561911056664,
+        479.515414244137,
         2062
       ],
       "flags": {},
@@ -359,7 +359,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 110
+          "link": 112
         },
         {
           "name": "model_concept",
@@ -379,7 +379,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            111
+            113
           ]
         }
       ],
@@ -390,7 +390,7 @@
         "Auto",
         "Auto",
         true,
-        true,
+        false,
         0.2,
         false,
         128,
@@ -398,7 +398,7 @@
         6500,
         0,
         true,
-        10.111083984375,
+        30,
         false,
         "bilateral",
         0,
@@ -413,38 +413,38 @@
         false,
         true,
         "kodak_vision3_500t_CF",
-        95,
+        90,
         false,
         true,
-        3,
+        2,
         true,
-        -14.8148193359375,
-        "shadows",
-        70.25927734375,
+        -20,
+        "midtones",
+        70,
         0.3,
         true,
         -4,
         -3,
         -3,
         "midtones",
-        true,
-        50,
         false,
-        0,
-        0,
-        0,
-        55.5556640625,
-        "master",
         50,
         true,
+        0,
+        0,
+        0,
+        10,
+        "master",
+        95,
         true,
-        24.70367431640625,
+        true,
+        30,
         1,
         "fine",
-        0.5,
-        false,
-        2,
-        2,
+        0.65,
+        true,
+        5,
+        5,
         true,
         false,
         true,
@@ -460,7 +460,7 @@
         true,
         false,
         "RGB",
-        "stacked"
+        "bars"
       ]
     }
   ],
@@ -514,16 +514,16 @@
       "IMAGE"
     ],
     [
-      110,
+      112,
       4,
       3,
-      58,
+      59,
       0,
       "IMAGE"
     ],
     [
-      111,
-      58,
+      113,
+      59,
       0,
       27,
       0,
@@ -534,10 +534,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9229599817707144,
+      "scale": 0.7627768444386085,
       "offset": [
-        54.477210225714884,
-        -188.12061874807
+        379.19690551470893,
+        -204.7747397205311
       ]
     },
     "frontendVersion": "1.41.21"
