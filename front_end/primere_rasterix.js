@@ -75,7 +75,7 @@ app.registerExtension({
     name: "Primere.Rasterix",
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        const rasterixNodes = ["PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance", "PrimereHSL", "PrimereShadeDetailer"];
+        const rasterixNodes = ["PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance", "PrimereHSL", "PrimereShadeDetailer", "PrimereHistogram"];
         if (!rasterixNodes.includes(nodeData.name)) return;
 
         const onNodeCreated = nodeType.prototype.onNodeCreated;

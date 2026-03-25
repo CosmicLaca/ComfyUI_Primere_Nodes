@@ -76,6 +76,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereAIDetectionBypasser": Rasterix.PrimereAIDetectionBypasser,
     "PrimereRasterixGrain": Rasterix.PrimereRasterixGrain,
     "PrimereRasterixLens": Rasterix.PrimereRasterixLens,
+    "PrimereHistogram": Rasterix.PrimereHistogram,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -172,6 +173,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereAIDetectionBypasser": "Primere Rasterix (AI Detection Bypasser)",
     "PrimereRasterixGrain": "Primere Rasterix (Grain)",
     "PrimereRasterixLens": "Primere Rasterix (Lens)",
+    "PrimereHistogram": "Primere Rasterix (Histogram)",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",
