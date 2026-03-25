@@ -1,4 +1,4 @@
-## Primere Rasterix (The ToneLab)
+Primere Rasterix (The ToneLab)
 ---
 ### Film and CCD rendering node
 
@@ -6,7 +6,7 @@ Applies analog film emulation, digital sensor looks, or mobile camera rendering 
 
 ---
 
-(Insert node screenshot here)
+<img src="./rasterix_film_rendering.jpg" width="500px">
 
 
 ### Inputs
@@ -75,16 +75,21 @@ Grain parameters are taken from the preset:
 
 ---
 
-Example Images
+### Example Images:
 
-Original vs Processed Examples
-(Insert before/after example images here)
+<img src="./CF.jpg" width="800px">
 
-Different Presets Comparison
-(Insert comparison grid or multiple preset examples here)
+---
 
-With Grain + Halation
-(Insert examples showing grain and halation effects here)
+<img src="./CF-int.jpg" width="800px">
+
+---
+
+<img src="./BF.jpg" width="800px">
+
+---
+
+<img src="./BF-int.jpg" width="800px">
 
 ---
 #### Usage Tips

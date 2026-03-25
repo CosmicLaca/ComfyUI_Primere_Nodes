@@ -1,8 +1,10 @@
-## Primere Rasterix (The ToneLab)
+Primere Rasterix (The ToneLab)
 ---
 ### Auto Levels Node
 
 Per-channel automatic levels normalization with edge protection, anti-comb/anti-spike dithering and optional auto gamma.
+
+<img src="./rasterix_auto_levels.jpg" width="500px">
 
 ### Inputs
 
@@ -120,32 +122,6 @@ Computes gamma per channel to reach `gamma_target` while anchoring black and whi
 
 #### precision
 Enables full 16-bit internal processing (65536 bins) for cleaner results on generated content, then scales back to 8-bit output.
-
----
-
-### Node Screenshot
-
-*(Insert node screenshot here)*
-
-### Example Images
-
-**Original vs Auto Levels**  
-*(Insert before/after comparison images here)*
-
-**Different Threshold Values**  
-*(Insert examples with threshold 0.5 / 2.0 / 5.0 here)*
-
-**Edge Spread vs Hard Clip**  
-*(Insert comparison showing edge spread protection here)*
-
-**TPDF Dithering Effect (Gaps vs Midpeaks)**  
-*(Insert examples demonstrating dithering removal of banding here)*
-
-**With and Without Auto Gamma**  
-*(Insert side-by-side examples here)*
-
-**16-bit Precision Mode**  
-*(Insert examples showing precision=True vs False here)*
 
 ---
 
