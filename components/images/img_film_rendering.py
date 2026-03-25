@@ -73,6 +73,62 @@ FILM_PRESETS = {
         },
     },
 
+    "fuji_eterna_250d_CF": {
+        "desc": "Fuji Eterna 250D — cinema film, daylight balanced, soft contrast, desaturated highlights",
+        "iso": 250, "grain_type": "fine", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (0.99, 1.01, 1.03),
+        "rolloff": 0.72,
+        "shadow_lift": (0.05, 0.05, 0.05),
+        "hd": {
+            "r": {"toe": 0.33, "gamma": 0.80, "shoulder": 0.36},
+            "g": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
+            "b": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
+        },
+    },
+
+    "fuji_natura_1600_CF": {
+        "desc": "Fujifilm Natura 1600 — High-speed nostalgia, magenta shadows, high grain",
+        "iso": 1600, "grain_type": "organic", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.02, 0.97, 1.05),
+        "rolloff": 0.65,
+        "shadow_lift": (0.08, 0.04, 0.09),
+        "hd": {
+            "r": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+            "g": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+            "b": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
+        },
+    },
+
+    "fuji_reala_100_CF": {
+        "desc": "Fuji Reala 100 — accurate colour, natural skin, superb fine grain",
+        "iso": 100, "grain_type": "fine", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.00, 1.01, 1.01),
+        "rolloff": 0.82,
+        "shadow_lift": (0.02, 0.02, 0.02),
+        "hd": {
+            "r": {"toe": 0.38, "gamma": 0.88, "shoulder": 0.48},
+            "g": {"toe": 0.40, "gamma": 0.90, "shoulder": 0.50},
+            "b": {"toe": 0.40, "gamma": 0.90, "shoulder": 0.50},
+        },
+    },
+
+    "kodak_vision3_500t_CF": {
+        "desc": "Kodak Vision3 500T — cinema negative, tungsten balanced, warm shadows, teal highlights",
+        "iso": 500, "grain_type": "gaussian", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.03, 0.99, 0.96),
+        "rolloff": 0.74,
+        "shadow_lift": (0.05, 0.04, 0.06),
+        "hd": {
+            "r": {"toe": 0.38, "gamma": 0.85, "shoulder": 0.45},
+            "g": {"toe": 0.36, "gamma": 0.83, "shoulder": 0.43},
+            "b": {"toe": 0.40, "gamma": 0.83, "shoulder": 0.44},
+        },
+    },
+
     "kodak_kodachrome_64_CF": {
         "desc": "Kodak Kodachrome 64 — iconic warm reds, deep blues, high contrast, rich shadows",
         "iso": 64, "grain_type": "fine", "grain_color": "color",
@@ -171,6 +227,34 @@ FILM_PRESETS = {
         },
     },
 
+    "kodak_ektar_100_CF": {
+        "desc": "Kodak Ektar 100 — finest grain colour negative, ultra-vivid, strong reds",
+        "iso": 100, "grain_type": "fine", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.06, 1.00, 0.93),
+        "rolloff": 0.79,
+        "shadow_lift": (0.01, 0.01, 0.01),
+        "hd": {
+            "r": {"toe": 0.55, "gamma": 1.10, "shoulder": 0.68},
+            "g": {"toe": 0.48, "gamma": 1.00, "shoulder": 0.60},
+            "b": {"toe": 0.38, "gamma": 0.85, "shoulder": 0.48},
+        },
+    },
+
+    "kodak_colorplus_200_CF": {
+        "desc": "Kodak ColorPlus 200 — entry-level warmth, slightly flat, classic holiday snap",
+        "iso": 200, "grain_type": "gaussian", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.04, 1.02, 0.94),
+        "rolloff": 0.76,
+        "shadow_lift": (0.03, 0.03, 0.02),
+        "hd": {
+            "r": {"toe": 0.42, "gamma": 0.90, "shoulder": 0.50},
+            "g": {"toe": 0.40, "gamma": 0.88, "shoulder": 0.48},
+            "b": {"toe": 0.30, "gamma": 0.76, "shoulder": 0.36},
+        },
+    },
+
     "agfa_vista_200_CF": {
         "desc": "Agfa Vista 200 — cool shadows, slight blue-green tint, soft contrast",
         "iso": 200, "grain_type": "gaussian", "grain_color": "color",
@@ -210,48 +294,6 @@ FILM_PRESETS = {
             "r": {"toe": 0.38, "gamma": 0.88, "shoulder": 0.48},
             "g": {"toe": 0.38, "gamma": 0.88, "shoulder": 0.48},
             "b": {"toe": 0.38, "gamma": 0.88, "shoulder": 0.48},
-        },
-    },
-
-    "kodak_vision3_500t_CF": {
-        "desc": "Kodak Vision3 500T — cinema negative, tungsten balanced, warm shadows, teal highlights",
-        "iso": 500, "grain_type": "gaussian", "grain_color": "color",
-        "bw": False, "type": "CF",
-        "bias": (1.03, 0.99, 0.96),
-        "rolloff": 0.74,
-        "shadow_lift": (0.05, 0.04, 0.06),
-        "hd": {
-            "r": {"toe": 0.38, "gamma": 0.85, "shoulder": 0.45},
-            "g": {"toe": 0.36, "gamma": 0.83, "shoulder": 0.43},
-            "b": {"toe": 0.40, "gamma": 0.83, "shoulder": 0.44},
-        },
-    },
-
-    "fuji_eterna_250d_CF": {
-        "desc": "Fuji Eterna 250D — cinema film, daylight balanced, soft contrast, desaturated highlights",
-        "iso": 250, "grain_type": "fine", "grain_color": "color",
-        "bw": False, "type": "CF",
-        "bias": (0.99, 1.01, 1.03),
-        "rolloff": 0.72,
-        "shadow_lift": (0.05, 0.05, 0.05),
-        "hd": {
-            "r": {"toe": 0.33, "gamma": 0.80, "shoulder": 0.36},
-            "g": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
-            "b": {"toe": 0.35, "gamma": 0.82, "shoulder": 0.38},
-        },
-    },
-
-    "fuji_natura_1600_CF": {
-        "desc": "Fujifilm Natura 1600 — High-speed nostalgia, magenta shadows, high grain",
-        "iso": 1600, "grain_type": "organic", "grain_color": "color",
-        "bw": False, "type": "CF",
-        "bias": (1.02, 0.97, 1.05),
-        "rolloff": 0.65,
-        "shadow_lift": (0.08, 0.04, 0.09),
-        "hd": {
-            "r": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
-            "g": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
-            "b": {"toe": 0.35, "gamma": 0.80, "shoulder": 0.40},
         },
     },
 
@@ -309,6 +351,34 @@ FILM_PRESETS = {
         "hd": {"r": {"toe": 0.30, "gamma": 0.75, "shoulder": 0.35},
                "g": {"toe": 0.30, "gamma": 0.75, "shoulder": 0.35},
                "b": {"toe": 0.30, "gamma": 0.75, "shoulder": 0.35}},
+    },
+
+    "ilford_sfx_200_BWF": {
+        "desc": "Ilford SFX 200 — extended red sensitivity, pseudo-infrared, dark skies, bright foliage",
+        "iso": 200, "grain_type": "gaussian", "grain_color": "monochrome",
+        "bw": True, "type": "BWF",
+        "mix": (0.60, 0.30, 0.10),
+        "tint": (1.00, 1.00, 1.00),
+        "bias": (1.00, 1.00, 1.00),
+        "rolloff": 0.80,
+        "shadow_lift": (0.00, 0.00, 0.00),
+        "hd": {"r": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65},
+               "g": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65},
+               "b": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65}},
+    },
+
+    "kodak_technical_pan_BWF": {
+        "desc": "Kodak Technical Pan — ultra-high contrast, extremely fine grain, scientific/forensic",
+        "iso": 25, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": True, "type": "BWF",
+        "mix": (0.25, 0.65, 0.10),
+        "tint": (1.00, 1.00, 1.00),
+        "bias": (1.00, 1.00, 1.00),
+        "rolloff": 0.84,
+        "shadow_lift": (0.00, 0.00, 0.00),
+        "hd": {"r": {"toe": 0.70, "gamma": 1.30, "shoulder": 0.80},
+               "g": {"toe": 0.70, "gamma": 1.30, "shoulder": 0.80},
+               "b": {"toe": 0.70, "gamma": 1.30, "shoulder": 0.80}},
     },
 
     "kodak_tmax_100_BWF": {
@@ -687,25 +757,100 @@ FILM_PRESETS = {
         },
     },
 
+    "iphone12_MOB": {
+        "desc": "iPhone 12 MOB — Smart HDR, deep fusion, punchy contrast, warm skin bias",
+        "iso": 32, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.03, 1.01, 0.97),
+        "matrix": [[1.06,-0.03,-0.03],[-0.02,1.06,-0.04],[-0.01,-0.03,1.04]],
+        "shadow_lift": (0.04, 0.04, 0.05),
+        "highlight_rolloff": 0.35,
+        "curves": {
+            "r": [(0,0.02),(0.25,0.27),(0.5,0.52),(0.75,0.78),(1,0.97)],
+            "g": [(0,0.02),(0.25,0.27),(0.5,0.52),(0.75,0.77),(1,0.97)],
+            "b": [(0,0.02),(0.25,0.26),(0.5,0.51),(0.75,0.76),(1,0.96)],
+        },
+    },
+
+    "iphone15_pro_MOB": {
+        "desc": "iPhone 15 Pro MOB — 48MP main, photogenic realism, cinematic colour science",
+        "iso": 16, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.02, 1.01, 0.99),
+        "matrix": [[1.04,-0.02,-0.02],[-0.01,1.04,-0.03],[0.00,-0.02,1.02]],
+        "shadow_lift": (0.03, 0.03, 0.04),
+        "highlight_rolloff": 0.40,
+        "curves": {
+            "r": [(0,0.01),(0.25,0.26),(0.5,0.51),(0.75,0.77),(1,0.98)],
+            "g": [(0,0.01),(0.25,0.26),(0.5,0.52),(0.75,0.77),(1,0.98)],
+            "b": [(0,0.01),(0.25,0.26),(0.5,0.51),(0.75,0.76),(1,0.97)],
+        },
+    },
+
+    "samsung_s24_ultra_MOB": {
+        "desc": "Samsung S24 Ultra MOB — 200MP, vivid punchy colour, boosted saturation",
+        "iso": 25, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.04, 1.02, 0.96),
+        "matrix": [[1.08,-0.04,-0.04],[-0.02,1.06,-0.04],[-0.01,-0.04,1.05]],
+        "shadow_lift": (0.02, 0.02, 0.03),
+        "highlight_rolloff": 0.25,
+        "curves": {
+            "r": [(0,0.00),(0.25,0.26),(0.5,0.53),(0.75,0.80),(1,1.00)],
+            "g": [(0,0.00),(0.25,0.26),(0.5,0.53),(0.75,0.80),(1,1.00)],
+            "b": [(0,0.01),(0.25,0.25),(0.5,0.50),(0.75,0.76),(1,0.97)],
+        },
+    },
+
+    "google_pixel8_pro_MOB": {
+        "desc": "Pixel 8 Pro MOB — Tensor G3, natural skin tones, excellent dynamic range",
+        "iso": 20, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.00, 1.01, 1.01),
+        "matrix": [[1.03,-0.01,-0.02],[0.00,1.04,-0.04],[0.00,-0.02,1.02]],
+        "shadow_lift": (0.05, 0.05, 0.06),
+        "highlight_rolloff": 0.38,
+        "curves": {
+            "r": [(0,0.02),(0.25,0.26),(0.5,0.51),(0.75,0.76),(1,0.97)],
+            "g": [(0,0.02),(0.25,0.27),(0.5,0.52),(0.75,0.77),(1,0.97)],
+            "b": [(0,0.02),(0.25,0.26),(0.5,0.51),(0.75,0.76),(1,0.97)],
+        },
+    },
+
     "google_pixel3_MOB": {
         "desc": "Pixel 3 MOB — Computational HDR look, lifted shadows, cool clean bias",
         "iso": 50, "grain_type": "fine", "grain_color": "monochrome",
         "bw": False, "type": "MOB",
         "bias": (0.98, 1.00, 1.02),
-        "matrix": [[1.05,0,0],[0,1.05,0],[0,0,1.05]],
+        "matrix": [[1.05, 0, 0], [0, 1.05, 0], [0, 0, 1.05]],
         "shadow_lift": (0.06, 0.06, 0.07),
         "highlight_rolloff": 0.30,
         "curves": {
-            "r": [(0,0.1),(0.5,0.5),(1,0.9)],
-            "g": [(0,0.1),(0.5,0.5),(1,0.9)],
-            "b": [(0,0.1),(0.5,0.5),(1,0.9)]
+            "r": [(0, 0.1), (0.5, 0.5), (1, 0.9)],
+            "g": [(0, 0.1), (0.5, 0.5), (1, 0.9)],
+            "b": [(0, 0.1), (0.5, 0.5), (1, 0.9)]
+        },
+    },
+
+    "sony_zv1_MOB": {
+        "desc": "Sony ZX1 MOB — 1-inch sensor vlog camera, cinematic colour, wide DR",
+        "iso": 125, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.01, 1.01, 1.00),
+        "matrix": [[1.03,-0.01,-0.02],[-0.01,1.04,-0.03],[0.00,-0.02,1.02]],
+        "shadow_lift": (0.006, 0.005, 0.006),
+        "highlight_rolloff": 0.32,
+        "curves": {
+            "r": [(0,0.01),(0.25,0.25),(0.5,0.51),(0.75,0.76),(1,0.98)],
+            "g": [(0,0.01),(0.25,0.26),(0.5,0.52),(0.75,0.77),(1,0.98)],
+            "b": [(0,0.01),(0.25,0.26),(0.5,0.51),(0.75,0.76),(1,0.97)],
         },
     },
 }
 
 def img_film_rendering(
     image:     Image.Image,
-    rendering: str   = "kodak_kodachrome_64_CF",
+    rendering: str   = "kodak_vision3_500t_CF",
     intensity: float = 100,
     add_grain: bool  = False,
     add_halation: bool = False,
@@ -772,23 +917,21 @@ def img_film_rendering(
     if add_grain:
         result = _apply_grain(result, preset_base, H, W)
 
-    blend = intensity / 100.0
-    result = np.clip(orig + blend * (result - orig), 0.0, 1.0)
-
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")
 
 def list_film_presets() -> dict:
-
     return {k: v["desc"] for k, v in FILM_PRESETS.items()}
 
 def list_presets_by_type() -> dict:
-    result = {"CF": [], "BWF": [], "CCD": []}
+    result = {"CF": [], "BWF": [], "CCD": [], "MOB": []}
     for k, v in FILM_PRESETS.items():
-        result[v["type"]].append(k)
+        t = v["type"]
+        if t not in result:
+            result[t] = []
+        result[t].append(k)
     return result
 
 def _analyse_image(arr: np.ndarray) -> dict:
-
     lum = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
     lum_flat = lum.ravel()
 
@@ -822,7 +965,6 @@ def _analyse_image(arr: np.ndarray) -> dict:
         "is_flat":            lum_std < 0.12,
         "is_desaturated":     mean_saturation < 0.08,
     }
-
 
 def _adapt_preset(preset: dict, analysis: dict) -> dict:
     import copy
@@ -876,12 +1018,9 @@ def _adapt_preset(preset: dict, analysis: dict) -> dict:
     if "bias" in p and not p.get("bw", False):
         bias = np.array(p["bias"], dtype=np.float32)
 
-        # 1. Cast compensation
         compensation = cast * 0.30
         bias = bias - compensation
 
-        # 2. LAB SCANNER AUTO-EXPOSURE (Using the 'median' variable)
-        # Gently push dark images and pull bright images
         if median < 0.35:
             push = (0.35 - median) * 0.75
             bias += push
@@ -889,7 +1028,6 @@ def _adapt_preset(preset: dict, analysis: dict) -> dict:
             pull = (median - 0.65) * 0.75
             bias -= pull
 
-        # 3. Desaturation compensation
         if desat:
             deviation = bias - 1.0
             bias = 1.0 + deviation * 1.5
@@ -899,23 +1037,22 @@ def _adapt_preset(preset: dict, analysis: dict) -> dict:
     return p
 
 _ISO_GRAIN = {
-      25: (5,  0.55),
-      50: (7,  0.60),
-      64: (9,  0.65),
-     100: (12, 0.70),
-     160: (15, 0.80),
-     200: (18, 0.90),
-     250: (20, 0.95),
-     400: (26, 1.10),
-     500: (30, 1.20),
-     800: (38, 1.50),
-    1600: (50, 2.00),
-    3200: (65, 2.80),
+      25: (12,  0.55),
+      50: (16,  0.60),
+      64: (20,  0.65),
+     100: (28,  0.70),
+     160: (36,  0.80),
+     200: (42,  0.90),
+     250: (48,  0.95),
+     400: (60,  1.10),
+     500: (68,  1.20),
+     800: (85,  1.50),
+    1600: (110, 2.00),
+    3200: (145, 2.80),
 }
 _ISO_REFERENCE_AREA = 1920 * 1280
 
 def _make_grain_params(preset: dict, H: int, W: int) -> dict:
-
     iso        = preset.get("iso", 400)
     grain_type = preset.get("grain_type", "gaussian")
     grain_color = preset.get("grain_color", "monochrome")
@@ -947,12 +1084,11 @@ def _make_grain_params(preset: dict, H: int, W: int) -> dict:
         "midtone_peak":       0.4,
     }
 
-
 def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     from scipy.ndimage import gaussian_filter
 
     params = _make_grain_params(preset, H, W)
-    iso = preset.get("iso", 400)  # Now actively used for chroma correlation
+    iso = preset.get("iso", 400)
     gt = params["grain_type"]
     cm = params["color_mode"]
 
@@ -987,9 +1123,6 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
         base = make_noise((H, W))
         nr = ng = nb = base
     else:
-        # ISO-BASED CHROMA CORRELATION (Using the 'iso' variable)
-        # Low ISO = highly correlated channels (monochromatic-ish grain)
-        # High ISO = uncorrelated channels (colorful, blotchy dye clouds)
         correlation = float(np.clip(1.0 - (iso / 1600.0), 0.3, 0.9))
 
         base_lum = make_noise((H, W))
@@ -997,7 +1130,6 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
         ng = base_lum * correlation + make_noise((H, W)) * (1.0 - correlation)
         nb = base_lum * correlation + make_noise((H, W)) * (1.0 - correlation)
 
-        # Normalize variance so the overall intensity matches the sigma requested
         norm_factor = 1.0 / np.sqrt(correlation ** 2 + (1.0 - correlation) ** 2)
         nr *= norm_factor
         ng *= norm_factor
@@ -1014,20 +1146,15 @@ def _apply_grain(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     out[..., 2] = np.clip(arr[..., 2] + nb * sigma * lum_mask * tb, 0, 1)
     return out
 
-
 def _apply_expiration(arr: np.ndarray, years: float) -> np.ndarray:
-    """Simulates dye fading and chemical degradation over years."""
     out = arr.copy()
 
-    # Base Fog: Shadows lift as chemicals break down
     fog = np.clip(years * 0.006, 0, 0.18)
     out = out + fog * (1.0 - out)
 
-    # Dye Fading: Blue channel sensitive layers usually degrade fastest
     blue_fade = np.clip(1.0 - (years * 0.012), 0.65, 1.0)
     out[..., 2] *= blue_fade
 
-    # Contrast loss
     contrast = np.clip(1.0 - (years * 0.01), 0.7, 1.0)
     out = np.clip((out - 0.5) * contrast + 0.5, 0.0, 1.0)
 
@@ -1036,45 +1163,34 @@ def _apply_expiration(arr: np.ndarray, years: float) -> np.ndarray:
 def _apply_halation(arr: np.ndarray, preset: dict, H: int, W: int) -> np.ndarray:
     from scipy.ndimage import gaussian_filter
 
-    # Dynamically scale the glow radius based on image size (crucial for ComfyUI upscales)
     area_scale = np.sqrt((H * W) / (1920 * 1280))
     base_radius = 8.0 * area_scale
 
-    # Check the preset to determine halation character
     desc = preset.get("desc", "").lower()
     is_cinema = "cinema" in desc or "vision3" in desc
     is_bw = preset.get("bw", False)
 
-    # Cinema films usually have removed rem-jet backings when cross-processed,
-    # or naturally stronger halation. Standard film has less.
     strength = 0.55 if is_cinema else 0.25
 
-    # 1. Isolate the absolute brightest spots (luminance > 80%)
     lum = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
     threshold = 0.80
 
-    # Soft mask to ensure smooth roll-off into the glow
     hi_mask = np.clip((lum - threshold) / (1.0 - threshold + 1e-6), 0.0, 1.0)
 
-    # Square the mask to tightly restrict the core of the halation
     bright_spots = arr * (hi_mask ** 2)[..., None]
 
     out = arr.copy()
 
     if is_bw:
-        # B&W halation is just a diffuse white/luma glow in the silver halides
         blur = gaussian_filter(bright_spots[..., 0], sigma=base_radius)
         out[..., 0] = np.clip(out[..., 0] + blur * strength, 0.0, 1.0)
         out[..., 1] = np.clip(out[..., 1] + blur * strength, 0.0, 1.0)
         out[..., 2] = np.clip(out[..., 2] + blur * strength, 0.0, 1.0)
     else:
-        # Color halation is predominantly red, with a tiny bit of green for a warm orange roll-off.
-        # Blue scatters the least.
         r_blur = gaussian_filter(bright_spots[..., 0], sigma=base_radius)
         g_blur = gaussian_filter(bright_spots[..., 1], sigma=base_radius * 0.6)
         b_blur = gaussian_filter(bright_spots[..., 2], sigma=base_radius * 0.2)
 
-        # Additive blend back onto the original image
         out[..., 0] = np.clip(out[..., 0] + r_blur * strength * 1.2, 0.0, 1.0)
         out[..., 1] = np.clip(out[..., 1] + g_blur * strength * 0.3, 0.0, 1.0)
         out[..., 2] = np.clip(out[..., 2] + b_blur * strength * 0.0, 0.0, 1.0)
@@ -1134,7 +1250,6 @@ def _apply_colour(arr: np.ndarray, preset: dict) -> np.ndarray:
     return np.clip(arr, 0.0, 1.0)
 
 def _apply_bw(arr: np.ndarray, preset: dict) -> np.ndarray:
-
     mix  = preset["mix"]
     grey = np.clip(arr[...,0]*mix[0] + arr[...,1]*mix[1] + arr[...,2]*mix[2], 0.0, 1.0)
 

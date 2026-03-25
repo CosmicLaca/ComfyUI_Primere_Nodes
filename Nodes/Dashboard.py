@@ -2183,9 +2183,6 @@ class PrimereRasterix:
 
                 "auto_normalize":        ("BOOLEAN", {"default": False, "label_off": "No auto levels", "label_on": "Apply auto levels"}),
                 "auto_levels_threshold": ("FLOAT",   {"default": 0.2, "min": 0.0, "max": 10.0, "step": 0.1}),
-                # "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
-                # "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
-                # "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
                 "auto_gamma": ("BOOLEAN", {"default": False, "label_on": "Auto gamma: ON", "label_off": "Auto gamma:: OFF"}),
                 "gamma_target": ("FLOAT", {"default": 128.0, "min": 0.0, "max": 255.0, "step": 0.1}),
 
@@ -2211,7 +2208,7 @@ class PrimereRasterix:
                 "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
 
                 "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
-                "film_rendering": (list(FILM_PRESETS.keys()), {"default": "kodak_kodachrome_64_CF"}),
+                "film_rendering": (list(FILM_PRESETS.keys()), {"default": list(FILM_PRESETS.keys())[0]}),
                 "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
                 "iso_grain": ("BOOLEAN", {"default": False, "label_off": "Ignore ISO grain", "label_on": "Add ISO grain"}),
                 "halation": ("BOOLEAN", {"default": False, "label_off": "Ignore halation", "label_on": "Add halation"}),
