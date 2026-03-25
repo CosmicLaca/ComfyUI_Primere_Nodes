@@ -156,9 +156,10 @@ def rasterix_histogram_render(
                     # "percentile" — gradient + percentile marker lines
                     # "inverse"    — light-background gradient
 
-        precision : False = 8-bit histogram (256 bins, sigma=1.0, linear norm)
-                    True  = 16-bit histogram (65536→256 bins, sigma=0.75,
-                            sqrt normalisation)
+        precision : False = 8-bit raw histogram source
+                    True  = 16-bit raw histogram source (downsampled to 256 bins)
+                    Note: rendering normalisation is intentionally identical for both
+                    so equal input gives equal visual histogram height.
 
     Returns:
         PIL Image (RGB) — 1024 × 256 px (parade: 1536 × 256 px)
@@ -169,10 +170,11 @@ def rasterix_histogram_render(
     arr      = np.array(pil_img.convert("RGB"), dtype=np.float32)
     hist_h   = 192
     hist_w   = 512
-    sqrt_norm = precision
+    # Keep visual scale identical between 8-bit and 16-bit rendering.
+    # Precision only changes raw-bin acquisition, not display normalisation.
+    sqrt_norm = False
 
-    sigma    = (0.5 if style in ("bars","step","dots") else 0.75) if precision else \
-               (0.75 if style in ("bars","step","dots") else 1.0)
+    sigma = 0.75 if style in ("bars", "step", "dots") else 1.0
     smooth   = _make_smooth(sigma)
     channels = _HIST_CH_DEFS.get(channel, _HIST_CH_DEFS["RGB"])
 

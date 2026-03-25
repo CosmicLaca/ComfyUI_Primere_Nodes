@@ -117,6 +117,7 @@ app.registerExtension({
             let prevStZn  = wStZone?.value  ?? "midtones";
             let prevShMd  = wShMode?.value  ?? "medium";
             let updating  = false;
+            let histogramDebounceTimer = null;
 
             function updateHistogramDisplay(showInput, channel, style) {
                 const prefix = showInput ? "input" : "output";
@@ -134,16 +135,44 @@ app.registerExtension({
                 img.src = url;
             }
 
+            async function generateHistogram(showInput, channel, style) {
+                try {
+                    await fetch('/primere_rasterix_histogram_generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            histogram_source: showInput,
+                            histogram_channel: channel || "RGB",
+                            histogram_style: style || "bars",
+                            precision: fw("precision")?.value ?? false,
+                        }),
+                    });
+                } catch (e) {
+                    console.warn('[Primere Rasterix] histogram render failed:', e);
+                }
+            }
+
+            function scheduleHistogramGenerate(showInput, channel, style, delayMs = 1000) {
+                if (histogramDebounceTimer) clearTimeout(histogramDebounceTimer);
+                histogramDebounceTimer = setTimeout(async () => {
+                    await generateHistogram(showInput, channel, style);
+                    updateHistogramDisplay(showInput, channel, style);
+                }, delayMs);
+            }
+
             function currentHistState() {
                 return {
+                    enabled:   fw("show_histogram")?.value     ?? false,
                     showInput: fw("histogram_source")?.value      ?? false,
                     channel:   fw("histogram_channel")?.value   ?? "RGB",
-                    style:     fw("histogram_style")?.value     ?? "gradient",
+                    style:     fw("histogram_style")?.value     ?? "bars",
                 };
             }
 
-            node.onExecuted = function() {
-                const { showInput, channel, style } = currentHistState();
+            node.onExecuted = async function() {
+                const { enabled, showInput, channel, style } = currentHistState();
+                if (!enabled) return;
+                await generateHistogram(showInput, channel, style);
                 updateHistogramDisplay(showInput, channel, style);
             };
 
@@ -269,14 +298,17 @@ app.registerExtension({
                     captureShSliders(wShMode?.value ?? prevShMd);
 
                 } else if (name === "histogram_source") {
-                    const { channel, style } = currentHistState();
-                    updateHistogramDisplay(value, channel, style);
+                    const { enabled, channel, style } = currentHistState();
+                    if (enabled) scheduleHistogramGenerate(value, channel, style);
                 } else if (name === "histogram_channel") {
-                    const { showInput, style } = currentHistState();
-                    updateHistogramDisplay(showInput, value, style);
+                    const { enabled, showInput, style } = currentHistState();
+                    if (enabled) scheduleHistogramGenerate(showInput, value, style);
                 } else if (name === "histogram_style") {
-                    const { showInput, channel } = currentHistState();
-                    updateHistogramDisplay(showInput, channel, value);
+                    const { enabled, showInput, channel } = currentHistState();
+                    if (enabled) scheduleHistogramGenerate(showInput, channel, value);
+                } else if (name === "show_histogram") {
+                    const { showInput, channel, style } = currentHistState();
+                    if (value) scheduleHistogramGenerate(showInput, channel, style, 50);
                 }
             };
         };

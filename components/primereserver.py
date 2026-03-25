@@ -15,6 +15,7 @@ from ..Nodes.Inputs import PrimereStyleLoader
 import csv
 import shutil
 from ..utils import here
+from ..components.images import histogram as histogram
 
 '''
 ************ TEST *******************
@@ -568,3 +569,27 @@ async def primere_rasterix_save(request):
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(existing, f, indent=2)
     return web.json_response({"success": True})
+
+routes21 = PromptServer.instance.routes
+@routes21.post('/primere_rasterix_histogram_generate')
+async def primere_rasterix_histogram_generate(request):
+    post = await request.json()
+    histogram_source = bool(post.get('histogram_source', False))
+    histogram_channel = post.get('histogram_channel', 'RGB')
+    histogram_style = post.get('histogram_style', 'bars')
+    precision = bool(post.get('precision', False))
+
+    hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
+    input_cache = os.path.join(hist_dir, "rasterix_hist_cache_input.png")
+    output_cache = os.path.join(hist_dir, "rasterix_hist_cache_output.png")
+
+    source_path = input_cache if histogram_source else output_cache
+    if not os.path.isfile(source_path):
+        return web.json_response({"success": False, "error": "Histogram cache is missing"}, status=404)
+
+    source_img = Image.open(source_path).convert("RGB")
+    rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
+    source_prefix = "input" if histogram_source else "output"
+    target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
+    rendered.save(target_file, quality=90)
+    return web.json_response({"success": True, "filename": os.path.basename(target_file)})
