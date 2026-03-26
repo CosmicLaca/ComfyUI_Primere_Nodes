@@ -16,6 +16,7 @@ import csv
 import shutil
 from ..utils import here
 from ..components.images import histogram as histogram
+from ..components.API import api_schema_registry
 
 '''
 ************ TEST *******************
@@ -617,3 +618,44 @@ async def primere_rasterix_setting_save(request):
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(existing, f, indent=2)
     return web.json_response({"success": True})
+
+routes24 = PromptServer.instance.routes
+@routes24.get('/primere_uniapi_schema_read')
+async def primere_uniapi_schema_read(request):
+    schema_path = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.json')
+    schema_example_path = os.path.join(PRIMERE_ROOT, 'front_end', 'api_schemas.example.json')
+    apiconfig_path = os.path.join(PRIMERE_ROOT, 'json', 'apiconfig.json')
+
+    source_path = schema_path if os.path.isfile(schema_path) else schema_example_path
+    source_name = os.path.basename(source_path)
+    if not os.path.isfile(source_path):
+        return web.json_response({"success": False, "error": "Schema file is missing", "source": source_name, "registry": {},}, status=404)
+
+    try:
+        source_data = Path(source_path).read_text(encoding='utf-8-sig')
+    except UnicodeDecodeError:
+        file_encoding = utility.get_file_encoding(source_path) or 'utf-8'
+        source_data = Path(source_path).read_text(encoding=file_encoding)
+    except Exception as e:
+        return web.json_response({"success": False, "error": f"Cannot read schema file: {e}", "source": source_name, "registry": {},}, status=500)
+
+    try:
+        raw_schema = json.loads(source_data)
+    except json.JSONDecodeError as e:
+        return web.json_response({"success": False, "error": f"Invalid JSON syntax at line {e.lineno}, column {e.colno}: {e.msg}", "source": source_name, "registry": {},}, status=400)
+
+    if not isinstance(raw_schema, dict):
+        return web.json_response({"success": False, "error": "Schema root must be a JSON object.", "source": source_name, "registry": {},}, status=400)
+
+    warning = None
+    if os.path.isfile(apiconfig_path):
+        try:
+            registry = api_schema_registry.load_and_validate_api_schema_registry(source_path, apiconfig_path)
+        except Exception as e:
+            warning = str(e)
+            registry = api_schema_registry.normalize_registry(raw_schema)
+    else:
+        warning = "API config file missing, loaded schema without provider validation."
+        registry = api_schema_registry.normalize_registry(raw_schema)
+
+    return web.json_response({"success": True, "source": source_name, "warning": warning, "registry": registry,})

@@ -1,125 +1,9 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 59,
-  "last_link_id": 113,
+  "last_node_id": 63,
+  "last_link_id": 119,
   "nodes": [
-    {
-      "id": 5,
-      "type": "GetImageSize+",
-      "pos": [
-        -134.3723733943388,
-        -84.4971224369933
-      ],
-      "size": [
-        162.8169921875,
-        66
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "links": [
-            6
-          ]
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "links": [
-            7
-          ]
-        },
-        {
-          "name": "count",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "GetImageSize+"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 4,
-      "type": "PrimereResolutionMultiplierMPX",
-      "pos": [
-        206.38969459574838,
-        -251.76943638206146
-      ],
-      "size": [
-        270.330078125,
-        262
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "width",
-          "type": "INT",
-          "link": 6
-        },
-        {
-          "name": "height",
-          "type": "INT",
-          "link": 7
-        },
-        {
-          "name": "image",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "WIDTH",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "HEIGHT",
-          "type": "INT",
-          "links": null
-        },
-        {
-          "name": "UPSCALE_RATIO",
-          "type": "FLOAT",
-          "links": null
-        },
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            112
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereResolutionMultiplierMPX"
-      },
-      "widgets_values": [
-        true,
-        1,
-        true,
-        20,
-        2,
-        "None",
-        "bicubic"
-      ]
-    },
     {
       "id": 27,
       "type": "PrimereRasterixLens",
@@ -132,13 +16,13 @@
         1162
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 4,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 113
+          "link": 119
         }
       ],
       "outputs": [
@@ -215,7 +99,7 @@
         366
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 4,
       "inputs": [
         {
@@ -270,7 +154,7 @@
         1408.4781444463952
       ],
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
@@ -299,16 +183,132 @@
         "Overwrite",
         false,
         false,
-        "ERROR: Cannot list target for Checkpoint",
+        "Style\\comiccraftLCM_beta4.safetensors",
         null
       ]
+    },
+    {
+      "id": 4,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        235.02097256266737,
+        -367.48762465423255
+      ],
+      "size": [
+        270.330078125,
+        262
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 6
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 7
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            116
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        true,
+        1,
+        true,
+        20,
+        2,
+        "None",
+        "bicubic"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "GetImageSize+",
+      "pos": [
+        -130.79347593569014,
+        -363.6522177738312
+      ],
+      "size": [
+        162.8169921875,
+        66
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
     },
     {
       "id": 2,
       "type": "LoadImage",
       "pos": [
-        -71.29003299076548,
-        187.79952200018283
+        -289.6036872223329,
+        357.20135646032696
       ],
       "size": [
         847.8209835466038,
@@ -337,41 +337,84 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "Image_A663_20260602_212234_701159744464569_1984x3176_1.jpg",
+        "Image_A685_20242710_163452_191939868053378_848x1232_1.jpg",
         "image"
       ]
     },
     {
-      "id": 59,
-      "type": "PrimereRasterix",
+      "id": 62,
+      "type": "PrimereVisualCKPT",
       "pos": [
-        797.3146009620405,
-        -203.3120988264702
+        -154.07278970585884,
+        19.522936131427095
       ],
       "size": [
-        479.515414244137,
-        2062
+        572.2316514105224,
+        246
       ],
       "flags": {},
-      "order": 3,
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            118
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            117
+          ]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "Style\\comiccraftLCM_beta4.safetensors",
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ]
+    },
+    {
+      "id": 63,
+      "type": "PrimereRasterix",
+      "pos": [
+        604.0534009620402,
+        -175.8738358279656
+      ],
+      "size": [
+        639.3734729990199,
+        2102.7723547668456
+      ],
+      "flags": {},
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 112
+          "link": 116
         },
         {
           "name": "model_concept",
           "shape": 7,
           "type": "STRING",
-          "link": null
+          "link": 117
         },
         {
           "name": "model_name",
           "shape": 7,
           "type": "CHECKPOINT_NAME",
-          "link": null
+          "link": 118
         }
       ],
       "outputs": [
@@ -379,7 +422,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            113
+            119
           ]
         }
       ],
@@ -389,15 +432,15 @@
       "widgets_values": [
         "Auto",
         "Auto",
-        true,
         false,
-        0.2,
+        false,
+        1,
         false,
         128,
-        false,
-        6500,
-        0,
         true,
+        10648.14453125,
+        0,
+        false,
         30,
         false,
         "bilateral",
@@ -405,20 +448,20 @@
         2,
         0,
         0.5,
-        false,
-        0,
-        false,
-        0,
-        0,
-        false,
         true,
+        0.96,
+        true,
+        31.111083984375,
+        26.666748046875,
+        false,
+        false,
         "kodak_vision3_500t_CF",
         90,
         false,
         true,
         2,
         true,
-        -20,
+        -25,
         "midtones",
         70,
         0.3,
@@ -429,26 +472,26 @@
         "midtones",
         false,
         50,
-        true,
+        false,
+        -128.888916015625,
         0,
+        -4.5926513671875,
         0,
-        0,
-        10,
         "master",
         95,
         true,
         true,
-        30,
-        1,
+        -10.370361328125,
+        7,
         "fine",
         0.65,
         true,
         5,
         5,
         true,
-        false,
         true,
-        3,
+        true,
+        1,
         true,
         true,
         false,
@@ -457,7 +500,7 @@
         0.32,
         38,
         4,
-        true,
+        false,
         false,
         "RGB",
         "bars"
@@ -514,16 +557,32 @@
       "IMAGE"
     ],
     [
-      112,
+      116,
       4,
       3,
-      59,
+      63,
       0,
       "IMAGE"
     ],
     [
-      113,
-      59,
+      117,
+      62,
+      1,
+      63,
+      1,
+      "STRING"
+    ],
+    [
+      118,
+      62,
+      0,
+      63,
+      2,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      119,
+      63,
       0,
       27,
       0,
@@ -534,10 +593,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7627768444386085,
+      "scale": 0.5644739300537773,
       "offset": [
-        379.19690551470893,
-        -204.7747397205311
+        1251.2668145158682,
+        511.7212641255675
       ]
     },
     "frontendVersion": "1.41.21"

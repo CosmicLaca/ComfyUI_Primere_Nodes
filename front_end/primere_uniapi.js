@@ -2,12 +2,12 @@ import { app } from "/scripts/app.js";
 import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 
 const TARGET_NODE_NAME = "PrimereApiProcessor";
-const SCHEMA_URL = new URL("/extensions/ComfyUI_Primere_Nodes/api_schemas.json", import.meta.url).href;
-const SCHEMA_EXAMPLE_URL = new URL("/extensions/ComfyUI_Primere_Nodes/api_schemas.example.json", import.meta.url).href;
-
+const SCHEMA_ENDPOINT = "/primere_uniapi_schema_read";
 let schemaCache = null;
 let schemaPromise = null;
 let apiconfigChecked = false;
+
+
 
 async function loadSchemas() {
     if (schemaCache) {
@@ -15,24 +15,20 @@ async function loadSchemas() {
     }
 
     if (!schemaPromise) {
-        schemaPromise = fetch(SCHEMA_URL)
-            .then((response) => {
-                if (!response.ok) {
-                    return fetch(SCHEMA_EXAMPLE_URL).then((fallback) => {
-                        if (!fallback.ok) {
-                            throw new Error(`Cannot load schema file (${fallback.status})`);
-                        }
-                        return fallback.json();
-                    });
+        schemaPromise = fetch(SCHEMA_ENDPOINT)
+            .then(async (response) => {
+                const payload = response.ok ? await response.json() : null;
+                if (!response.ok || !payload?.success) {
+                    throw new Error(payload?.error || `Cannot load schema file (${response.status})`);
                 }
-                return response.json();
-            })
-            .then((json) => {
-                schemaCache = json;
+                if (payload?.warning) {
+                    console.warn("[Primere UniApi] Schema read warning:", payload.warning);
+                }
+                schemaCache = payload.registry || {};
                 return schemaCache;
             })
             .catch((error) => {
-                console.error("[Primere UniApi] Failed to load api_schemas.json and api_schemas.example.json", error);
+                console.error("[Primere UniApi] Failed to load schema registry from PromptServer", error);
                 return {};
             });
     }
@@ -320,7 +316,7 @@ async function initializeUniApiNode(node) {
             try {
                 const freshRegistry = await loadSchemas();
                 if (!freshRegistry || Object.keys(freshRegistry).length === 0) {
-                    showToast("error", "API Schema reload failed. The schema file returned empty or could not be parsed. Check front_end/api_schemas.json for syntax errors.");
+                    showToast("error", "API Schema reload failed. PromptServer returned empty registry.");
                     return;
                 }
                 updateServiceWidget(node, freshRegistry);
