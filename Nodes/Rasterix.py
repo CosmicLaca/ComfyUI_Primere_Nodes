@@ -126,7 +126,7 @@ class PrimereRasterix:
                 "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
                 "histogram_source":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
                 "histogram_channel":    (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
-                "histogram_style":      (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade"], {"default": "bars"}),
+                "histogram_style":      (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade", "gradient", "glow", "dots", "step", "log", "percentile", "inverse"], {"default": "bars"}),
             },
             "optional": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
@@ -134,7 +134,7 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, halation, expiration_years, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, use_level_endpoints,  black_offset, white_offset, skip_if_no_clip, normalize_gaps, dither_quantization, adaptive_dither_strength, error_diffusion, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="gradient", model_concept=None, model_name=None):
+    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, halation, expiration_years, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, use_level_endpoints,  black_offset, white_offset, skip_if_no_clip, normalize_gaps, dither_quantization, adaptive_dither_strength, error_diffusion, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="bars", model_concept=None, model_name=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -755,11 +755,11 @@ class PrimereHistogram:
                 "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
                 # "histogram_source": ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
                 "histogram_channel": (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
-                "histogram_style": (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade"], {"default": "bars"}),
+                "histogram_style": (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade", "gradient", "glow", "dots", "step", "log", "percentile", "inverse"], {"default": "bars"}),
             }
         }
 
-    def primere_histogram(self, image, precision, show_histogram=False, histogram_channel="RGB", histogram_style="gradient"):
+    def primere_histogram(self, image, precision, show_histogram=False, histogram_channel="RGB", histogram_style="bars"):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 

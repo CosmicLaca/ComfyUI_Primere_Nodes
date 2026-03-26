@@ -21,20 +21,20 @@ _HIST_CH_DEFS = {
 
 # All valid style names
 VALID_STYLES = {
-    # "gradient",     # original — filled area with top-to-bottom brightness fade
+    "gradient",     # original — filled area with top-to-bottom brightness fade
     "bars",         # original — flat filled area
     "lines",        # original — thin outline only (2px)
-    # "glow",         # original — bars + gaussian bloom
+    "glow",         # original — bars + gaussian bloom
     "waveform",     # center-line oscilloscope, mirrored above/below midpoint
     "heatmap",      # single-channel density map using perceptual colour ramp
     "stacked",      # R/G/B channels stacked (not overlapping)
-    # "dots",         # vertical dot columns, density proportional to count
-    # "step",         # raw unsmoothed step function — shows true comb pattern
+    "dots",         # vertical dot columns, density proportional to count
+    "step",         # raw unsmoothed step function — shows true comb pattern
     "luma",         # gradient + luminosity curve overlaid in white
-    # "log",          # gradient with log-scale Y axis
+    "log",          # gradient with log-scale Y axis
     "parade",       # R | G | B panels side by side (ignores channel arg)
-    # "percentile",   # gradient + vertical lines at 10/25/50/75/90 percentiles
-    # "inverse",      # light background variant of gradient
+    "percentile",   # gradient + vertical lines at 10/25/50/75/90 percentiles
+    "inverse",      # light background variant of gradient
 }
 
 
