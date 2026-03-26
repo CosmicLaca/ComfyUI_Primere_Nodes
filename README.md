@@ -72,8 +72,6 @@ Future support: `HiDream, Mochi, WanT2V, WanI2V, Cosmos, Flux2, SSD, SegmindVega
 - Aesthetic scorer for final image quality assessment
 - Upscaler (selectable Ultimate SD and hiresFix)
 - Dynamic prompt support
-
-**by Central model orchestrator:**
 - Two-stage refiner support (quality refinement stage)
 - Speed LoRAs: LCM, Lightning, Hyper for fast generation
 
@@ -85,7 +83,7 @@ Future support: `HiDream, Mochi, WanT2V, WanI2V, Cosmos, Flux2, SSD, SegmindVega
 
 ### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/basic_workflow.md)</ins>
 
-Professional prompt development workflow. Extended prompt management for testing and iteration.
+Professional prompt development workflow. Extended prompt management for testing and iteration. Adds postprocessing and style injection capabilities to Minimal workflow.
 
 **Same central orchestration and model support as Minimal workflow.**
 
@@ -94,7 +92,10 @@ Professional prompt development workflow. Extended prompt management for testing
 #### Same as Minimal workflow plus:
 
 - 12 prompt inputs with 1-click selector for prompt switching
-- Efficient workflow for prompt developers testing multiple variations
+- Style injection node: Select result art style for prompt injection
+- Photoshop-style postprocessing nodes: Image manipulation and effects
+- Histogram for result checking
+- Efficient workflow for prompt developers testing multiple variations with integrated finishing
 
 <hr>
 
@@ -121,24 +122,27 @@ Full production pipeline with styling, refinement, and selective output.
 
 ## Workflow Comparison
 
-| Feature                                | Minimal         | Basic | Basic Production |
-|----------------------------------------|-----------------|-------|------------------|
-| **Primary Use**                        | Core generation | Prompt development | Production pipeline |
-| **Prompt Inputs**                      | 4               | 12 | 19 |
-| **Prompt Selector**                    | 1-click         | 1-click | 1-click |
-| **Model Concepts**                     | 25+             | 25+ | 25+ |
-| **Central Model Orchestrator**         | ✓               | ✓ | ✓ |
-| **Model Keyword Insertion**            | ✓               | ✓ | ✓ |
-| **CSV/TOML Readers**                   | ✓               | ✓ | ✓ |
-| **Network Injection**                  | ✓               | ✓ | ✓ |
-| **Network Tag Cleaner**                | ✓               | ✓ | ✓ |
-| **Variation Extender**                 | ✓               | ✓ | ✓ |
-| **Image Saver**                        | ✓               | ✓ | ✓ |
-| **Aesthetic Scorer**                   | ✓               | ✓ | ✓ |
-| **Speed LoRAs**                        | ✓               | ✓ | ✓ |
-| **Two-Stage Refiner**                  | ✓               | ✓ | ✓ |
-| **Style Block**                        | —               | — | ✓ |
-| **Refiner Detailers**                  | —               | — | ✓ (Face, Eye, Mouth, Hands) |
-| **Selective result and preview saver** | ✓               | ✓ | ✓ |
+| Feature                        | Minimal         | Basic | Basic Production |
+|--------------------------------|-----------------|-------|------------------|
+| **Primary Use**                | Core generation | Prompt dev + postprocessing | Production pipeline |
+| **Prompt Inputs**              | 4               | 12 | 19 |
+| **Prompt Selector**            | 1-click         | 1-click | 1-click |
+| **Model Concepts**             | 25+             | 25+ | 25+ |
+| **Central Model Orchestrator** | ✓               | ✓ | ✓ |
+| **Model Keyword Insertion**    | ✓               | ✓ | ✓ |
+| **CSV/TOML Readers**           | ✓               | ✓ | ✓ |
+| **Network Injection**          | ✓               | ✓ | ✓ |
+| **Network Tag Cleaner**        | ✓               | ✓ | ✓ |
+| **Variation Extender**         | ✓               | ✓ | ✓ |
+| **Image Saver**                | ✓               | ✓ | ✓ |
+| **Aesthetic Scorer**           | ✓               | ✓ | ✓ |
+| **Speed LoRAs**                | ✓               | ✓ | ✓ |
+| **Two-Stage Refiner**          | ✓               | ✓ | ✓ |
+| **Style Injection Node**       | —               | ✓ | ✓ |
+| **Postprocessing Nodes**       | —               | ✓ | ✓ |
+| **Histogram**                  | —               | ✓ | ✓ |
+| **Style Block**                | —               | — | ✓ |
+| **Refiner Detailers**          | —               | — | ✓ (Face, Eye, Mouth, Hands) |
+| **Selective Saver**            | —               | — | ✓ |
 
 <hr>

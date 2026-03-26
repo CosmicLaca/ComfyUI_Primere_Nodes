@@ -1,8 +1,8 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 63,
-  "last_link_id": 119,
+  "last_node_id": 68,
+  "last_link_id": 135,
   "nodes": [
     {
       "id": 27,
@@ -22,7 +22,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 119
+          "link": 135
         }
       ],
       "outputs": [
@@ -183,7 +183,7 @@
         "Overwrite",
         false,
         false,
-        "Style\\comiccraftLCM_beta4.safetensors",
+        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
         null
       ]
     },
@@ -239,7 +239,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            116
+            132
           ]
         }
       ],
@@ -361,20 +361,20 @@
           "name": "MODEL_NAME",
           "type": "CHECKPOINT_NAME",
           "links": [
-            118
+            134
           ]
         },
         {
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            117
+            133
           ]
         }
       ],
       "properties": {},
       "widgets_values": [
-        "Style\\comiccraftLCM_beta4.safetensors",
+        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
         true,
         true,
         true,
@@ -385,15 +385,15 @@
       ]
     },
     {
-      "id": 63,
+      "id": 68,
       "type": "PrimereRasterix",
       "pos": [
-        604.0534009620402,
-        -175.8738358279656
+        585.9729935888138,
+        -312.80792579963776
       ],
       "size": [
-        639.3734729990199,
-        2102.7723547668456
+        687.0483287464491,
+        2205.2276553503416
       ],
       "flags": {},
       "order": 4,
@@ -402,19 +402,25 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 116
+          "link": 132
         },
         {
           "name": "model_concept",
           "shape": 7,
           "type": "STRING",
-          "link": 117
+          "link": 133
         },
         {
           "name": "model_name",
           "shape": 7,
           "type": "CHECKPOINT_NAME",
-          "link": 118
+          "link": 134
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": null
         }
       ],
       "outputs": [
@@ -422,7 +428,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            119
+            135
           ]
         }
       ],
@@ -432,75 +438,76 @@
       "widgets_values": [
         "Auto",
         "Auto",
-        false,
-        false,
-        1,
-        false,
+        true,
+        true,
+        0.6,
+        true,
         128,
         true,
-        10648.14453125,
+        6500,
         0,
-        false,
-        30,
+        true,
+        11.851806640625,
         false,
         "bilateral",
         0,
         2,
         0,
         0.5,
-        true,
-        0.96,
-        true,
-        31.111083984375,
-        26.666748046875,
         false,
+        0,
         false,
-        "kodak_vision3_500t_CF",
-        90,
+        0,
+        0,
         false,
         true,
-        2,
+        "All",
+        "canon_5d_mark2_CCD",
+        100,
         true,
-        -25,
+        true,
+        8,
+        false,
+        0,
         "midtones",
-        70,
-        0.3,
-        true,
-        -4,
-        -3,
-        -3,
+        50,
+        0.5,
+        false,
+        0,
+        0,
+        0,
         "midtones",
         false,
         50,
         false,
-        -128.888916015625,
         0,
-        -4.5926513671875,
+        0,
+        0,
         0,
         "master",
-        95,
+        50,
         true,
-        true,
-        -10.370361328125,
-        7,
-        "fine",
-        0.65,
-        true,
-        5,
-        5,
-        true,
-        true,
-        true,
-        1,
-        true,
-        true,
+        false,
+        0,
+        0,
+        "medium",
+        0.5,
+        false,
+        0,
+        0,
+        false,
+        false,
+        false,
+        3,
+        false,
+        false,
         false,
         false,
         0.019,
         0.32,
         38,
         4,
-        false,
+        true,
         false,
         "RGB",
         "bars"
@@ -557,32 +564,32 @@
       "IMAGE"
     ],
     [
-      116,
+      132,
       4,
       3,
-      63,
+      68,
       0,
       "IMAGE"
     ],
     [
-      117,
+      133,
       62,
       1,
-      63,
+      68,
       1,
       "STRING"
     ],
     [
-      118,
+      134,
       62,
       0,
-      63,
+      68,
       2,
       "CHECKPOINT_NAME"
     ],
     [
-      119,
-      63,
+      135,
+      68,
       0,
       27,
       0,
@@ -593,10 +600,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537773,
+      "scale": 0.5131581182307067,
       "offset": [
-        1251.2668145158682,
-        511.7212641255675
+        1005.9521183144615,
+        563.8783530202974
       ]
     },
     "frontendVersion": "1.41.21"
