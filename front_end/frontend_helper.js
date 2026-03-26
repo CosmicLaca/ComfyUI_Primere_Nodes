@@ -1,5 +1,4 @@
-const TOAST_DURATION_MS = 10000;
-
+const TOAST_DURATION_MS = 6000;
 const BTN_HEIGHT = 32;
 const BTN_COLOR = "#771a1a";
 const BTN_COLOR_ACTIVE = "#932424";
