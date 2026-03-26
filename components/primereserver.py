@@ -595,3 +595,25 @@ async def primere_rasterix_histogram_generate(request):
         rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
         rendered.save(target_file, quality=90)
     return web.json_response({"success": True, "filename": os.path.basename(target_file)})
+
+routes22 = PromptServer.instance.routes
+@routes22.get('/primere_rasterix_setting_read')
+async def primere_rasterix_setting_read(request):
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix_settings.json')
+    data = utility.json2tuple(json_path) or {}
+    return web.json_response(data)
+
+routes23 = PromptServer.instance.routes
+@routes23.post('/primere_rasterix_setting_save')
+async def primere_rasterix_setting_save(request):
+    post = await request.json()
+    concept = post.get('concept')
+    data = post.get('data')
+    if not concept or data is None:
+        return web.json_response({"success": False, "error": "Missing concept or data"}, status=400)
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix_settings.json')
+    existing = utility.json2tuple(json_path) or {}
+    existing[concept] = data
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(existing, f, indent=2)
+    return web.json_response({"success": True})

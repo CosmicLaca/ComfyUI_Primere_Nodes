@@ -22,6 +22,7 @@ from ..components.images import histogram as histogram
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
+from server import PromptServer
 
 class PrimereRasterix:
     RETURN_TYPES = ("IMAGE",)
@@ -134,7 +135,93 @@ class PrimereRasterix:
             }
         }
 
-    def primere_rasterix(self, concepts, models, image, precision, auto_normalize, auto_levels_threshold, normalize_midpeaks, peak_width, auto_gamma, gamma_target, use_white_balance, wb_temperature, wb_tint, use_blur, blur_type, blur_intensity, blur_radius, angle, bilateral_edge_sensitivity, blur_edge_only, edge_threshold, use_smart_lighting, smart_lighting, use_brightness_contrast, brightness, contrast, use_legacy, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, halation, expiration_years, use_selective_tone, selective_tone_value, selective_tone_zone, selective_tone_separation, selective_tone_strength, use_color_balance, color_balance_cyan_red, color_balance_magenta_green, color_balance_yellow_blue, color_balance_tone, color_balance_preserve_luminosity, color_balance_separation, use_hsl, hsl_hue, hsl_saturation, hsl_lightness, hsl_vibrance, hsl_channel, hsl_channel_width, hsl_skin_protection, use_shade_detailer, shade_level, shade_radius, detail_mode, shade_strength, use_ai_detection_bypasser, adb_freq_strength, adb_variance_strength, adb_unsharp_percent, adb_jpeg_cycles, use_level_endpoints,  black_offset, white_offset, skip_if_no_clip, normalize_gaps, dither_quantization, adaptive_dither_strength, error_diffusion, show_histogram=False, histogram_source=False, histogram_channel="RGB", histogram_style="bars", model_concept=None, model_name=None):
+    def primere_rasterix(self, **kwargs):
+        concepts = kwargs.get('concepts', 'Auto')
+        models = kwargs.get('models', 'Auto')
+        model_concept = kwargs.get('model_concept', None)
+        model_name = kwargs.get('model_name', None)
+        active_concept = model_concept if concepts == "Auto" else concepts
+        active_display = active_concept
+
+        if concepts == "Auto" and models == "Auto":
+            raw_model = model_name
+            model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model else None
+            json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix_settings.json')
+            concept_data = utility.json2tuple(json_path)
+            if model_key and concept_data and model_key in concept_data:
+                lookup_key = model_key
+                active_display = model_key
+            else:
+                lookup_key = active_concept
+                active_display = active_concept
+            if not concept_data or lookup_key not in concept_data:
+                PromptServer.instance.send_sync("primere.rasterix_setting", {"status": "missing", "concept": active_concept})
+            else:
+                saved = concept_data[lookup_key]
+                for k, v in saved.items():
+                    if k in kwargs:
+                        kwargs[k] = v
+
+        image = kwargs.get('image')
+        precision = kwargs.get('precision', False)
+        auto_normalize = kwargs.get('auto_normalize', False)
+        auto_levels_threshold = kwargs.get('auto_levels_threshold', 0.2)
+        normalize_midpeaks = kwargs.get('normalize_midpeaks', False)
+        peak_width = kwargs.get('peak_width', 3)
+        auto_gamma = kwargs.get('auto_gamma', False)
+        gamma_target = kwargs.get('gamma_target', 128.0)
+        use_white_balance = kwargs.get('use_white_balance', False)
+        wb_temperature = kwargs.get('wb_temperature', 6500)
+        wb_tint = kwargs.get('wb_tint', 0)
+        use_blur = kwargs.get('use_blur', False)
+        blur_type = kwargs.get('blur_type', "bilateral")
+        blur_intensity = kwargs.get('blur_intensity', 0.0)
+        blur_radius = kwargs.get('blur_radius', 2.0)
+        angle = kwargs.get('angle', 0.0)
+        bilateral_edge_sensitivity = kwargs.get('bilateral_edge_sensitivity', 0.5)
+        blur_edge_only = kwargs.get('blur_edge_only', False)
+        edge_threshold = kwargs.get('edge_threshold', 0.0)
+        use_smart_lighting = kwargs.get('use_smart_lighting', False)
+        smart_lighting = kwargs.get('smart_lighting', 0)
+        use_brightness_contrast = kwargs.get('use_brightness_contrast', False)
+        brightness = kwargs.get('brightness', 0)
+        contrast = kwargs.get('contrast', 0)
+        use_legacy = kwargs.get('use_legacy', False)
+        use_film_rendering = kwargs.get('use_film_rendering', False)
+        film_rendering = kwargs.get('film_rendering', list(FILM_PRESETS.keys())[0])
+        film_rendering_intensity = kwargs.get('film_rendering_intensity', 100)
+        iso_grain = kwargs.get('iso_grain', False)
+        halation = kwargs.get('halation', False)
+        expiration_years = kwargs.get('expiration_years', 0)
+        use_selective_tone = kwargs.get('use_selective_tone', False)
+        selective_tone_separation = kwargs.get('selective_tone_separation', 50)
+        selective_tone_strength = kwargs.get('selective_tone_strength', 0.5)
+        use_color_balance = kwargs.get('use_color_balance', False)
+        color_balance_preserve_luminosity = kwargs.get('color_balance_preserve_luminosity', False)
+        color_balance_separation = kwargs.get('color_balance_separation', 50)
+        use_hsl = kwargs.get('use_hsl', False)
+        hsl_channel_width = kwargs.get('hsl_channel_width', 50)
+        hsl_skin_protection = kwargs.get('hsl_skin_protection', True)
+        use_shade_detailer = kwargs.get('use_shade_detailer', False)
+        shade_strength = kwargs.get('shade_strength', 0.5)
+        use_ai_detection_bypasser = kwargs.get('use_ai_detection_bypasser', False)
+        adb_freq_strength = kwargs.get('adb_freq_strength', 0.019)
+        adb_variance_strength = kwargs.get('adb_variance_strength', 0.32)
+        adb_unsharp_percent = kwargs.get('adb_unsharp_percent', 38)
+        adb_jpeg_cycles = kwargs.get('adb_jpeg_cycles', 4)
+        use_level_endpoints = kwargs.get('use_level_endpoints', False)
+        black_offset = kwargs.get('black_offset', 0.0)
+        white_offset = kwargs.get('white_offset', 0.0)
+        skip_if_no_clip = kwargs.get('skip_if_no_clip', False)
+        normalize_gaps = kwargs.get('normalize_gaps', False)
+        dither_quantization = kwargs.get('dither_quantization', False)
+        adaptive_dither_strength = kwargs.get('adaptive_dither_strength', False)
+        error_diffusion = kwargs.get('error_diffusion', False)
+        show_histogram = kwargs.get('show_histogram', False)
+        histogram_source = kwargs.get('histogram_source', False)
+        histogram_channel = kwargs.get('histogram_channel', "RGB")
+        histogram_style = kwargs.get('histogram_style', "bars")
+
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
@@ -195,7 +282,8 @@ class PrimereRasterix:
             suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file   = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
-            return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),), }
+            # return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),), }
+            return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}], "active_concept": [active_display]}, "result": (utility.image_to_tensor(pil_img),), }
         else:
             INVALID_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
             INVALID_IMAGE = os.path.join(INVALID_IMAGE_PATH, "No_histogram_08.jpg")
@@ -205,7 +293,8 @@ class PrimereRasterix:
             os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
             TEMP_FILE = os.path.join(folder_paths.get_temp_directory(), temp_filename)
             utility.tensor_to_image(images[0]).save(TEMP_FILE)
-            return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),),}
+            # return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),),}
+            return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}], "active_concept": [active_display]}, "result": (utility.image_to_tensor(pil_img),),}
 
 class PrimereAutoNormalize:
     RETURN_TYPES = ("IMAGE",)
