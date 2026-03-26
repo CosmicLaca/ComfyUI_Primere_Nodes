@@ -299,3 +299,59 @@ Pipeline position:
 `Prompt Sources / 12-Prompt Selector → Primiere Style Pile (STYLE+ / STYLE-) → Prompt Encoder → Sampler`
 
 The Style Pile node sits early in the prompt pipeline and feeds directly into the central prompt builder. It is fully compatible with CSV/TOML prompt readers and the existing style injection points.
+
+---
+
+## Prompt Development Group
+
+---
+
+The Prompt Development group adds `any` independent, fully-featured prompt input channels with a centralized 1-click selector. This turns the workflow into a professional prompt-testing environment where you can develop, compare, and iterate on multiple prompt variations simultaneously — without rebuilding or reconnecting nodes.
+
+<img src="./Prompt_group_large.jpg" width="700px">
+
+---
+
+### Primiere Prompt (×12 but expandable) + Primiere Prompt - SWITCH
+
+**Purpose:** Dedicated multi-prompt development station. Each of the 12 (but expandable) Primiere Prompt nodes provides complete positive/negative prompt fields, subject keywords, model overrides, orientation, and one-click “Save prompt to file…” functionality. The Primiere Prompt - SWITCH node lets you instantly route any of the 12 channels to the rest of the pipeline with a single index change.
+
+---
+
+**Key Features:**
+
+- 12 expandable parallel prompt channels (labeled #0 through #11 in most workflows)
+- Each channel is fully independent and always active
+- Built-in “Save prompt to file…” buttons on every slot (saves to CSV with preview if enabled)
+- Centralized **Primiere Prompt - SWITCH** node with `SELECTED_INDEX` control
+
+---
+
+**Settings (Primiere Prompt - SWITCH):**
+
+| Setting          | Purpose                                              |
+| ---------------- |------------------------------------------------------|
+| `SELECTED_INDEX` | 0–xx — instantly selects which prompt channel to use |
+
+#### Behavior:
+* Changing the index instantly swaps the active prompt (positive + negative + all metadata) downstream.
+* No need to reconnect wires or duplicate large parts of the workflow.
+* All 12 prompt nodes remain visible and editable at the same time.
+* Fully compatible with CSV/TOML readers, Dynamic Prompts, and Style nodes.
+
+#### Use Cases:
+- Rapid A/B testing of prompt variations
+- Developing and refining prompts for daily challenges or themed series
+- Comparing completely different subjects, compositions, or moods in seconds
+- Efficient batch experimentation during prompt engineering sessions
+- Keeping multiple client variations or style experiments ready to switch instantly
+
+---
+
+### Workflow Integration (Prompt Development)
+
+Pipeline position:
+
+`Prompt Development Group → Style Injection Group → Prompt Encoder → Sampler`
+
+The selected prompt channel flows directly into the Primiere Style Pile (STYLE+ / STYLE-) for seamless combination of your base prompt with artistic styling.
