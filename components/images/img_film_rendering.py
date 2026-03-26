@@ -115,6 +115,20 @@ FILM_PRESETS = {
         },
     },
 
+    "fuji_pro_400h_soft_CF": {
+        "desc": "Fuji Pro 400H Soft — pastel palette, cool shadows, portrait-friendly skin response",
+        "iso": 400, "grain_type": "gaussian", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (0.99, 1.01, 1.05),
+        "rolloff": 0.70,
+        "shadow_lift": (0.06, 0.06, 0.07),
+        "hd": {
+            "r": {"toe": 0.30, "gamma": 0.76, "shoulder": 0.34},
+            "g": {"toe": 0.32, "gamma": 0.78, "shoulder": 0.36},
+            "b": {"toe": 0.34, "gamma": 0.80, "shoulder": 0.38},
+        },
+    },
+
     "kodak_vision3_500t_CF": {
         "desc": "Kodak Vision3 500T — cinema negative, tungsten balanced, warm shadows, teal highlights",
         "iso": 500, "grain_type": "gaussian", "grain_color": "color",
@@ -182,6 +196,20 @@ FILM_PRESETS = {
             "r": {"toe": 0.32, "gamma": 0.85, "shoulder": 0.38},
             "g": {"toe": 0.35, "gamma": 0.88, "shoulder": 0.40},
             "b": {"toe": 0.40, "gamma": 0.95, "shoulder": 0.45},
+        },
+    },
+
+    "kodak_portra_800_CF": {
+        "desc": "Kodak Portra 800 — warm skin rendering, low-light latitude, soft highlight rolloff",
+        "iso": 800, "grain_type": "organic", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.05, 1.00, 0.93),
+        "rolloff": 0.70,
+        "shadow_lift": (0.06, 0.05, 0.05),
+        "hd": {
+            "r": {"toe": 0.34, "gamma": 0.84, "shoulder": 0.40},
+            "g": {"toe": 0.36, "gamma": 0.86, "shoulder": 0.42},
+            "b": {"toe": 0.40, "gamma": 0.92, "shoulder": 0.46},
         },
     },
 
@@ -297,6 +325,20 @@ FILM_PRESETS = {
         },
     },
 
+    "cinestill_400d_CF": {
+        "desc": "CineStill 400D — daylight-balanced cinema look, smooth rolloff, moderate halation",
+        "iso": 400, "grain_type": "organic", "grain_color": "color",
+        "bw": False, "type": "CF",
+        "bias": (1.01, 1.00, 0.98),
+        "rolloff": 0.73,
+        "shadow_lift": (0.04, 0.04, 0.04),
+        "hd": {
+            "r": {"toe": 0.36, "gamma": 0.84, "shoulder": 0.42},
+            "g": {"toe": 0.36, "gamma": 0.84, "shoulder": 0.42},
+            "b": {"toe": 0.34, "gamma": 0.82, "shoulder": 0.40},
+        },
+    },
+
     "cinestill_800t_CF": {
         "desc": "CineStill 800T (Cinema) — Tungsten balanced, cool shadows, halation-heavy look",
         "iso": 800, "grain_type": "organic", "grain_color": "color",
@@ -365,6 +407,34 @@ FILM_PRESETS = {
         "hd": {"r": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65},
                "g": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65},
                "b": {"toe": 0.50, "gamma": 1.05, "shoulder": 0.65}},
+    },
+
+    "ilford_fp4_125_BWF": {
+        "desc": "Ilford FP4 Plus 125 — classic medium contrast, smooth tonal transitions, fine grain",
+        "iso": 125, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": True, "type": "BWF",
+        "mix": (0.30, 0.58, 0.12),
+        "tint": (1.00, 1.00, 1.00),
+        "bias": (1.00, 1.00, 1.00),
+        "rolloff": 0.83,
+        "shadow_lift": (0.01, 0.01, 0.01),
+        "hd": {"r": {"toe": 0.40, "gamma": 0.90, "shoulder": 0.50},
+               "g": {"toe": 0.40, "gamma": 0.90, "shoulder": 0.50},
+               "b": {"toe": 0.40, "gamma": 0.90, "shoulder": 0.50}},
+    },
+
+    "kentmere_400_BWF": {
+        "desc": "Kentmere 400 — budget classic, punchier midtones, documentary street character",
+        "iso": 400, "grain_type": "organic", "grain_color": "monochrome",
+        "bw": True, "type": "BWF",
+        "mix": (0.31, 0.58, 0.11),
+        "tint": (1.00, 1.00, 1.00),
+        "bias": (1.00, 1.00, 1.00),
+        "rolloff": 0.79,
+        "shadow_lift": (0.01, 0.01, 0.01),
+        "hd": {"r": {"toe": 0.50, "gamma": 1.03, "shoulder": 0.62},
+               "g": {"toe": 0.50, "gamma": 1.03, "shoulder": 0.62},
+               "b": {"toe": 0.50, "gamma": 1.03, "shoulder": 0.62}},
     },
 
     "kodak_technical_pan_BWF": {
@@ -463,6 +533,20 @@ FILM_PRESETS = {
         "hd": {"r": {"toe": 0.62, "gamma": 1.15, "shoulder": 0.75},
                "g": {"toe": 0.62, "gamma": 1.15, "shoulder": 0.75},
                "b": {"toe": 0.62, "gamma": 1.15, "shoulder": 0.75}},
+    },
+
+    "rollei_retro_80s_BWF": {
+        "desc": "Rollei Retro 80S — high acutance look, deep skies, crisp edges and clean highlights",
+        "iso": 80, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": True, "type": "BWF",
+        "mix": (0.36, 0.54, 0.10),
+        "tint": (0.99, 1.00, 1.01),
+        "bias": (1.00, 1.00, 1.00),
+        "rolloff": 0.82,
+        "shadow_lift": (0.00, 0.00, 0.00),
+        "hd": {"r": {"toe": 0.56, "gamma": 1.10, "shoulder": 0.70},
+               "g": {"toe": 0.56, "gamma": 1.10, "shoulder": 0.70},
+               "b": {"toe": 0.56, "gamma": 1.10, "shoulder": 0.70}},
     },
 
     "fomapan_100_BWF": {
@@ -624,6 +708,21 @@ FILM_PRESETS = {
         },
     },
 
+    "nikon_d70_ccd_CCD": {
+        "desc": "Nikon D70 CCD — classic early DSLR rendering, punchy colour and crisp micro-contrast",
+        "iso": 200, "grain_type": "fine", "grain_color": "color",
+        "bw": False, "type": "CCD",
+        "bias": (1.03, 1.01, 0.98),
+        "matrix": [[1.08, -0.04, -0.03], [-0.02, 1.06, -0.04], [-0.01, -0.03, 1.05]],
+        "shadow_lift": (0.01, 0.01, 0.01),
+        "highlight_rolloff": 0.28,
+        "curves": {
+            "r": [(0, 0.00), (0.25, 0.28), (0.5, 0.54), (0.75, 0.79), (1, 0.99)],
+            "g": [(0, 0.00), (0.25, 0.27), (0.5, 0.53), (0.75, 0.78), (1, 0.99)],
+            "b": [(0, 0.00), (0.25, 0.24), (0.5, 0.49), (0.75, 0.74), (1, 0.96)],
+        },
+    },
+
     "nikon_d800_CCD": {
         "desc": "Nikon D800 — neutral accurate, slightly cool shadows, excellent detail",
         "iso": 100, "grain_type": "fine", "grain_color": "monochrome",
@@ -744,6 +843,21 @@ FILM_PRESETS = {
         },
     },
 
+    "epson_r_d1_ccd_CCD": {
+        "desc": "Epson R-D1 CCD — rangefinder CCD signature, gentle rolloff and warm analogue character",
+        "iso": 160, "grain_type": "fine", "grain_color": "color",
+        "bw": False, "type": "CCD",
+        "bias": (1.02, 1.00, 0.98),
+        "matrix": [[1.06, -0.03, -0.03], [-0.01, 1.04, -0.03], [-0.01, -0.02, 1.04]],
+        "shadow_lift": (0.02, 0.02, 0.02),
+        "highlight_rolloff": 0.32,
+        "curves": {
+            "r": [(0, 0.01), (0.25, 0.27), (0.5, 0.52), (0.75, 0.77), (1, 0.98)],
+            "g": [(0, 0.01), (0.25, 0.27), (0.5, 0.52), (0.75, 0.76), (1, 0.98)],
+            "b": [(0, 0.01), (0.25, 0.25), (0.5, 0.50), (0.75, 0.74), (1, 0.96)],
+        },
+    },
+
     "iphone4_MOB": {
         "desc": "iPhone 4 MOB — Small sensor look, harsh digital clipping, high saturation",
         "iso": 80, "grain_type": "gaussian", "grain_color": "color",
@@ -754,6 +868,21 @@ FILM_PRESETS = {
         "highlight_rolloff": 0.05,
         "curves": {
             "r": [(0,0),(1,1)], "g": [(0,0),(1,1)], "b": [(0,0),(1,1)]
+        },
+    },
+
+    "iphone6s_MOB": {
+        "desc": "iPhone 6s MOB — classic Apple mobile colour, slightly warm skin and constrained DR look",
+        "iso": 64, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (1.03, 1.01, 0.96),
+        "matrix": [[1.07, -0.04, -0.03], [-0.02, 1.06, -0.04], [-0.01, -0.03, 1.05]],
+        "shadow_lift": (0.05, 0.05, 0.06),
+        "highlight_rolloff": 0.28,
+        "curves": {
+            "r": [(0, 0.02), (0.25, 0.28), (0.5, 0.54), (0.75, 0.79), (1, 0.97)],
+            "g": [(0, 0.02), (0.25, 0.28), (0.5, 0.54), (0.75, 0.79), (1, 0.97)],
+            "b": [(0, 0.02), (0.25, 0.26), (0.5, 0.50), (0.75, 0.74), (1, 0.95)],
         },
     },
 
@@ -817,6 +946,21 @@ FILM_PRESETS = {
         },
     },
 
+    "google_pixel2_MOB": {
+        "desc": "Google Pixel 2 MOB — HDR+ era look, neutral white balance and lifted detail in shadows",
+        "iso": 50, "grain_type": "fine", "grain_color": "monochrome",
+        "bw": False, "type": "MOB",
+        "bias": (0.99, 1.01, 1.02),
+        "matrix": [[1.04, -0.02, -0.02], [0.00, 1.05, -0.05], [0.00, -0.02, 1.03]],
+        "shadow_lift": (0.06, 0.06, 0.07),
+        "highlight_rolloff": 0.34,
+        "curves": {
+            "r": [(0, 0.02), (0.25, 0.26), (0.5, 0.51), (0.75, 0.76), (1, 0.97)],
+            "g": [(0, 0.02), (0.25, 0.27), (0.5, 0.52), (0.75, 0.77), (1, 0.97)],
+            "b": [(0, 0.02), (0.25, 0.27), (0.5, 0.52), (0.75, 0.77), (1, 0.98)],
+        },
+    },
+
     "google_pixel3_MOB": {
         "desc": "Pixel 3 MOB — Computational HDR look, lifted shadows, cool clean bias",
         "iso": 50, "grain_type": "fine", "grain_color": "monochrome",
@@ -861,9 +1005,6 @@ def img_film_rendering(
 
     preset = FILM_PRESETS.get(rendering)
     if not preset:
-        return image.convert("RGB")
-
-    if rendering not in FILM_PRESETS:
         valid = ", ".join(sorted(FILM_PRESETS.keys()))
         raise ValueError(f"Unknown rendering '{rendering}'. Valid: {valid}")
 
@@ -879,14 +1020,15 @@ def img_film_rendering(
     analysis = _analyse_image(arr)
     preset   = _adapt_preset(preset_base, analysis)
 
-    if preset_base["type"] == "BWF":
+    active_type = preset.get("type", preset_base.get("type", "CF"))
+    if active_type == "BWF":
         arr_out = _apply_bw(arr, preset)
-    elif preset["type"] in ["CCD", "MOB"]:
+    elif active_type in ["CCD", "MOB"]:
         arr_out = _apply_sensor(arr, preset)
     else:
         arr_out = _apply_colour(arr, preset)
 
-    if preset_base["type"] == "BWF" and intensity > 100:
+    if active_type == "BWF" and intensity > 100:
         result = arr_out.copy()
         push = (intensity - 100) / 100.0
         grey = result[..., 0]
@@ -900,7 +1042,7 @@ def img_film_rendering(
                         hi_push + (1.0 - hi_push) * (1.0 - (1.0 - hi_mask) ** 2),
                         grey)
         grey = np.clip(grey, 0.0, 1.0)
-        tint = np.array(preset_base.get("tint", (1.0, 1.0, 1.0)), dtype=np.float32)
+        tint = np.array(preset.get("tint", (1.0, 1.0, 1.0)), dtype=np.float32)
         result = np.stack([grey * tint[0], grey * tint[1], grey * tint[2]], axis=-1)
         result = np.clip(result, 0.0, 1.0)
     else:
@@ -908,14 +1050,14 @@ def img_film_rendering(
         result = orig + blend * (arr_out - orig)
         result = np.clip(result, 0.0, 1.0)
 
-    if expiration_years > 0 and preset["type"] not in ["CCD", "MOB"]:
+    if expiration_years > 0 and active_type not in ["CCD", "MOB"]:
         result = _apply_expiration(result, expiration_years)
 
     if add_halation:
-        result = _apply_halation(result, preset_base, H, W)
+        result = _apply_halation(result, preset, H, W)
 
     if add_grain:
-        result = _apply_grain(result, preset_base, H, W)
+        result = _apply_grain(result, preset, H, W)
 
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")
 
@@ -1060,6 +1202,7 @@ def _make_grain_params(preset: dict, H: int, W: int) -> dict:
     iso_keys   = sorted(_ISO_GRAIN.keys())
     nearest    = min(iso_keys, key=lambda k: abs(k - iso))
     intensity, base_size = _ISO_GRAIN[nearest]
+    intensity = intensity / 1.5
 
     area_scale = np.sqrt((H * W) / _ISO_REFERENCE_AREA)
     grain_size = float(np.clip(base_size * area_scale, 0.5, 8.0))

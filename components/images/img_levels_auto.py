@@ -282,6 +282,7 @@ def img_levels_auto(
     auto_gamma:          bool  = True,
     gamma_target:        float = 128.0,
     precision:           bool  = False,
+    seed:                int | None = None,
 ) -> Image.Image:
     """
     Photoshop-style per-channel auto levels normalization.
@@ -360,12 +361,13 @@ def img_levels_auto(
         arr = arr_8 * (65535.0 / 255.0)              # scale to 0–65535
     else:
         arr = arr_8
-
     out = np.empty_like(arr)
-
+    base_rng = np.random.default_rng(seed)
     for ch in range(3):
-        rng_gap   = np.random.default_rng(ch)
-        rng_spike = np.random.default_rng(ch + 100)
+        channel_seed_gap = int(base_rng.integers(0, 2**31 - 1))
+        channel_seed_spike = int(base_rng.integers(0, 2**31 - 1))
+        rng_gap = np.random.default_rng(channel_seed_gap)
+        rng_spike = np.random.default_rng(channel_seed_spike)
 
         channel = arr[:, :, ch]
 

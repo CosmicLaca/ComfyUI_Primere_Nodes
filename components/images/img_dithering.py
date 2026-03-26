@@ -163,6 +163,7 @@ def img_dithering(
         peak_width: int = 3,
         high_precision: bool = False,
         numba_accelerated: bool = True,
+        seed: int | None = None,
 ) -> Image.Image:
     """
     Standalone quantization dither stage for post-processing.
@@ -180,6 +181,7 @@ def img_dithering(
               "Falling back to pure Python (slow). Run: pip install numba")
 
     arr_8f = np.array(image.convert("RGB"), dtype=np.float32)
+    base_rng = np.random.default_rng(seed)
     max_val = 65535.0 if high_precision else 255.0
     scale_factor = max_val / 255.0
     arr = arr_8f * scale_factor if high_precision else arr_8f
@@ -187,7 +189,8 @@ def img_dithering(
     # ── 1. Mid-peak spike removal (now consistent across bit depths) ─────────
     if normalize_midpeaks:
         for ch in range(3):
-            rng = np.random.default_rng(100 + ch)
+            channel_seed = int(base_rng.integers(0, 2**31 - 1))
+            rng = np.random.default_rng(channel_seed)
             arr[:, :, ch] = _normalize_midpeaks_channel(arr[:, :, ch], peak_width, max_val, rng)
 
     # ── 2. Final quantization stage ──────────────────────────────────────────

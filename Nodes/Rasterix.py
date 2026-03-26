@@ -132,6 +132,7 @@ class PrimereRasterix:
             "optional": {
                 "model_concept": ("STRING", {"default": None, "forceInput": True}),
                 "model_name": ("CHECKPOINT_NAME", {"default": None, "forceInput": True}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
             }
         }
 
@@ -164,6 +165,7 @@ class PrimereRasterix:
 
         image = kwargs.get('image')
         precision = kwargs.get('precision', False)
+        seed = kwargs.get('random_seed', 0)
         auto_normalize = kwargs.get('auto_normalize', False)
         auto_levels_threshold = kwargs.get('auto_levels_threshold', 0.2)
         normalize_midpeaks = kwargs.get('normalize_midpeaks', False)
@@ -229,7 +231,7 @@ class PrimereRasterix:
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
 
         if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=False, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=False, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision, seed=seed)
 
         if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
             pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
@@ -270,7 +272,7 @@ class PrimereRasterix:
             pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=black_offset, white_offset=white_offset, skip_if_no_clip=skip_if_no_clip, high_precision=precision)
 
         if dither_quantization or error_diffusion or normalize_midpeaks:
-            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision)
+            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision, seed=seed)
 
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
@@ -315,13 +317,16 @@ class PrimereAutoNormalize:
                 "normalize_gaps": ("BOOLEAN", {"default": False, "label_on": "Anti-comb filter: ON", "label_off": "Anti-comb filter: OFF"}),
                 "normalize_midpeaks": ("BOOLEAN", {"default": False, "label_on": "Anti-spike filter: ON", "label_off": "Anti-spike filter: OFF"}),
                 "peak_width": ("INT", {"default": 3, "min": 1, "max": 10, "step": 1}),
+            },
+            "optional": {
+                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
             }
         }
 
-    def primere_auto_normalize(self, image, precision, auto_normalize, auto_levels_threshold, auto_gamma, gamma_target, normalize_gaps, normalize_midpeaks, peak_width):
+    def primere_auto_normalize(self, image, precision, auto_normalize, auto_levels_threshold, auto_gamma, gamma_target, normalize_gaps, normalize_midpeaks, peak_width, seed):
         pil_img = utility.tensor_to_image(image)
         if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision, seed=seed)
         return (utility.image_to_tensor(pil_img),)
 
 

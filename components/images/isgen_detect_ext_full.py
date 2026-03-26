@@ -48,6 +48,15 @@ def bypass_ai_detector(
     unsharp_percent:   int   = 38,
     jpeg_cycles:       int   = 4,
 ) -> Image.Image:
+    if not (0.0 <= freq_strength <= 0.1):
+        raise ValueError(f"freq_strength must be 0.0 … 0.1, got {freq_strength}")
+    if not (0.0 <= variance_strength <= 1.0):
+        raise ValueError(f"variance_strength must be 0.0 … 1.0, got {variance_strength}")
+    if not (0 <= unsharp_percent <= 150):
+        raise ValueError(f"unsharp_percent must be 0 … 150, got {unsharp_percent}")
+    if not (0 <= jpeg_cycles <= 6):
+        raise ValueError(f"jpeg_cycles must be 0 … 6, got {jpeg_cycles}")
+
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32)
 

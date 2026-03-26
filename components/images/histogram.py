@@ -4,9 +4,7 @@ import glob
 import hashlib
 import json
 from ..tree import PRIMERE_ROOT
-from .. import utility
 import os
-from PIL import Image
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Channel definitions
@@ -303,8 +301,8 @@ def rasterix_histogram_render(
     # STEP — raw unsmoothed bins, shows true quantization comb pattern
     # ─────────────────────────────────────────────────────────────────────────
     if style == "step":
-        x_idx   = np.linspace(0, 255, hist_w)
         row_idx = np.arange(hist_h).reshape(-1, 1)
+        column_bin = np.minimum((np.arange(hist_w) * 256) // hist_w, 255).astype(np.int32)
         for ch_idx, color in draw_channels:
             raw = _get_raw(arr, ch_idx, precision)
             # No smoothing — raw bin values normalised only
@@ -312,23 +310,14 @@ def rasterix_histogram_render(
                 norm256 = np.sqrt(np.maximum(raw, 0)); norm256 /= (norm256.max() or 1.0)
             else:
                 norm256 = raw / (raw.max() or 1.0)
-            # Step: each of 256 bins gets hist_w/256 columns at same height
-            bin_w   = hist_w / 256.0
-            heights = np.zeros(hist_w, dtype=int)
-            for b in range(256):
-                x_lo = int(b * bin_w)
-                x_hi = int((b + 1) * bin_w)
-                heights[x_lo:x_hi] = int(norm256[b] * (hist_h - 1))
+            heights = (norm256[column_bin] * (hist_h - 1)).astype(int)
             fill_mask = row_idx >= (hist_h - heights)
             for ci, cv in enumerate(color):
                 canvas[:, :, ci] = np.where(
                     fill_mask, np.maximum(canvas[:, :, ci], cv * 0.9), canvas[:, :, ci])
-            # Draw top edge in bright white for each bin
-            for b in range(256):
-                x_lo = int(b * bin_w); x_hi = int((b+1) * bin_w)
-                h_val = int(norm256[b] * (hist_h - 1))
-                y = np.clip(hist_h - 1 - h_val, 0, hist_h-1)
-                canvas[y, x_lo:x_hi, :] = np.maximum(canvas[y, x_lo:x_hi, :], 0.95)
+            y = np.clip(hist_h - 1 - heights, 0, hist_h - 1)
+            x = np.arange(hist_w)
+            canvas[y, x, :] = np.maximum(canvas[y, x, :], 0.95)
         result = Image.fromarray(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
