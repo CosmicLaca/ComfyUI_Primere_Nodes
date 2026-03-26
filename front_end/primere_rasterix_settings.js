@@ -8,10 +8,12 @@ const JSON_EXCLUDE_KEYS = new Set([
     "image",
     "model_concept",
     "model_name",
+    "film_type",
     "show_histogram",
     "histogram_source",
     "histogram_channel",
     "histogram_style",
+    "$$canvas-image-preview"
 ]);
 
 function modelNameToKey(modelPath) {
@@ -60,7 +62,15 @@ async function loadSettingsValues(node, key, silent = false) {
     }
 
     const saved = data[key];
+    const filmTypeWidget = node.widgets?.find((w) => w.name === "film_type");
+    if (filmTypeWidget && filmTypeWidget.value !== "All") {
+        filmTypeWidget.value = "All";
+        filmTypeWidget.callback?.(filmTypeWidget.value);
+    }
+
+    const savedFilmRendering = saved.film_rendering;
     for (const w of node.widgets || []) {
+        if (w.name === "film_type") continue;
         if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) continue;
         const newValue = saved[w.name];
         if (w.options?.values) {
@@ -70,6 +80,17 @@ async function loadSettingsValues(node, key, silent = false) {
             w.value = newValue;
         }
         w.callback?.(w.value);
+    }
+
+    if (savedFilmRendering) {
+        const filmRenderingWidget = node.widgets?.find((w) => w.name === "film_rendering");
+        if (filmRenderingWidget) {
+            if (filmRenderingWidget.options?.values && !filmRenderingWidget.options.values.includes(savedFilmRendering)) {
+                filmRenderingWidget.options.values = [...filmRenderingWidget.options.values, savedFilmRendering];
+            }
+            filmRenderingWidget.value = savedFilmRendering;
+            filmRenderingWidget.callback?.(filmRenderingWidget.value);
+        }
     }
 
     node.setDirtyCanvas?.(true, true);

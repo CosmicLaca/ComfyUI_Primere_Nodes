@@ -24,6 +24,9 @@ from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelecto
 import os
 from server import PromptServer
 
+FILM_PRESETS_BY_TYPE = img_film_rendering.list_presets_by_type()
+FILM_TYPES = ["All"] + sorted(FILM_PRESETS_BY_TYPE.keys())
+
 class PrimereRasterix:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("IMAGE",)
@@ -33,6 +36,8 @@ class PrimereRasterix:
 
     MODELLIST = PrimereModelConceptSelector.MODELLIST
     CONCEPT_LIST =  PrimereModelConceptSelector.CONCEPT_LIST
+    FILM_TYPES = FILM_TYPES
+    FILM_PRESETS_BY_TYPE = FILM_PRESETS_BY_TYPE
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -71,6 +76,7 @@ class PrimereRasterix:
                 "use_legacy": ("BOOLEAN", {"default": False, "label_off": "Use non-linear shift", "label_on": "Use adaptive offset"}),
 
                 "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
+                "film_type": (cls.FILM_TYPES, {"default": "All"}),
                 "film_rendering": (list(FILM_PRESETS.keys()), {"default": list(FILM_PRESETS.keys())[0]}),
                 "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
                 "iso_grain": ("BOOLEAN", {"default": False, "label_off": "Ignore ISO grain", "label_on": "Add ISO grain"}),
@@ -144,7 +150,9 @@ class PrimereRasterix:
         active_concept = model_concept if concepts == "Auto" else concepts
         active_display = active_concept
 
-        if concepts == "Auto" and models == "Auto":
+        auto_runtime_mode = concepts == "Auto" and models == "Auto"
+
+        if auto_runtime_mode:
             raw_model = model_name
             model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model else None
             json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix_settings.json')
@@ -165,7 +173,7 @@ class PrimereRasterix:
 
         image = kwargs.get('image')
         precision = kwargs.get('precision', False)
-        seed = kwargs.get('random_seed', 0)
+        seed = kwargs.get('seed', 0)
         auto_normalize = kwargs.get('auto_normalize', False)
         auto_levels_threshold = kwargs.get('auto_levels_threshold', 0.2)
         normalize_midpeaks = kwargs.get('normalize_midpeaks', False)
@@ -190,6 +198,7 @@ class PrimereRasterix:
         contrast = kwargs.get('contrast', 0)
         use_legacy = kwargs.get('use_legacy', False)
         use_film_rendering = kwargs.get('use_film_rendering', False)
+        film_type = "All" if auto_runtime_mode else kwargs.get('film_type', "All")
         film_rendering = kwargs.get('film_rendering', list(FILM_PRESETS.keys())[0])
         film_rendering_intensity = kwargs.get('film_rendering_intensity', 100)
         iso_grain = kwargs.get('iso_grain', False)
@@ -245,6 +254,10 @@ class PrimereRasterix:
         if use_brightness_contrast and (brightness != 0 or contrast != 0):
             pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
 
+        if film_type != "All":
+            allowed_presets = self.FILM_PRESETS_BY_TYPE.get(film_type, [])
+            if allowed_presets and film_rendering not in allowed_presets:
+                film_rendering = allowed_presets[0]
         if use_film_rendering and film_rendering_intensity != 0:
             pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity, add_grain=iso_grain, add_halation=halation, expiration_years=expiration_years)
 
@@ -436,6 +449,8 @@ class PrimereFilmRendering:
     RETURN_NAMES = ("IMAGE",)
     FUNCTION = "primere_film_rendering"
     CATEGORY = TREE_RASTERIX
+    FILM_TYPES = ["All", "CF", "BWF", "CCD", "MOB"]
+    FILM_PRESETS_BY_TYPE = img_film_rendering.list_presets_by_type()
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -443,6 +458,7 @@ class PrimereFilmRendering:
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
                 "use_film_rendering": ("BOOLEAN", {"default": False, "label_off": "Ignore film rendering", "label_on": "Apply film rendering"}),
+                "film_type": (cls.FILM_TYPES, {"default": "All"}),
                 "film_rendering": (list(FILM_PRESETS.keys()), {"default": list(FILM_PRESETS.keys())[0]}),
                 "film_rendering_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
                 "iso_grain": ("BOOLEAN", {"default": False, "label_off": "Ignore ISO grain", "label_on": "Add ISO grain"}),
@@ -451,10 +467,17 @@ class PrimereFilmRendering:
             }
         }
 
-    def primere_film_rendering(self, image, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, halation, expiration_years):
+    def primere_film_rendering(self, image, film_type, use_film_rendering, film_rendering, film_rendering_intensity, iso_grain, halation, expiration_years):
         pil_img = utility.tensor_to_image(image)
+
+        if film_type != "All":
+            allowed_presets = self.FILM_PRESETS_BY_TYPE.get(film_type, [])
+            if allowed_presets and film_rendering not in allowed_presets:
+                film_rendering = allowed_presets[0]
+
         if use_film_rendering and film_rendering_intensity != 0:
             pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity, add_grain=iso_grain, add_halation=halation, expiration_years=expiration_years)
+
         return (utility.image_to_tensor(pil_img),)
 
 

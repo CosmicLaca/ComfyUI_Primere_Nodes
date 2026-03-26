@@ -5,6 +5,18 @@ const HS_CHANNELS = ["master", "red", "green", "blue"];
 const ST_ZONES    = ["highlights", "midtones", "shadows", "blacks"];
 const SH_MODES    = ["fine", "medium", "broad"];
 
+function buildFilmPresetMap(allPresets) {
+    const byType = {};
+    for (const name of allPresets) {
+        const match = String(name).match(/_([A-Z][A-Z0-9]*)$/);
+        if (!match) continue;
+        const type = match[1];
+        if (!Array.isArray(byType[type])) byType[type] = [];
+        byType[type].push(name);
+    }
+    return byType;
+}
+
 const cbDefault = () => ({
     highlights: { cyan_red: 0, magenta_green: 0, yellow_blue: 0 },
     midtones:   { cyan_red: 0, magenta_green: 0, yellow_blue: 0 },
@@ -75,7 +87,7 @@ app.registerExtension({
     name: "Primere.Rasterix",
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        const rasterixNodes = ["PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance", "PrimereHSL", "PrimereShadeDetailer", "PrimereHistogram"];
+        const rasterixNodes = ["PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance", "PrimereHSL", "PrimereShadeDetailer", "PrimereHistogram", "PrimereFilmRendering"];
         if (!rasterixNodes.includes(nodeData.name)) return;
 
         const onNodeCreated = nodeType.prototype.onNodeCreated;
@@ -118,6 +130,37 @@ app.registerExtension({
             let prevShMd  = wShMode?.value  ?? "medium";
             let updating  = false;
             let histogramDebounceTimer = null;
+
+            function applyFilmTypeFilter() {
+                const filmTypeWidget = fw("film_type");
+                const filmRenderingWidget = fw("film_rendering");
+                if (!filmTypeWidget || !filmRenderingWidget) return;
+
+                if (!Array.isArray(node.__primereFilmAllPresets) || node.__primereFilmAllPresets.length === 0) {
+                    const initialValues = filmRenderingWidget.options?.values || [];
+                    node.__primereFilmAllPresets = [...initialValues];
+                    node.__primereFilmByType = buildFilmPresetMap(node.__primereFilmAllPresets);
+                }
+
+                const selectedType = String(filmTypeWidget.value || "All");
+                const allValues = node.__primereFilmAllPresets;
+                const byType = node.__primereFilmByType || {};
+                const nextValues = selectedType === "All"
+                    ? allValues
+                    : (byType[selectedType] && byType[selectedType].length > 0 ? byType[selectedType] : allValues);
+
+                filmRenderingWidget.options = filmRenderingWidget.options || {};
+                filmRenderingWidget.options.values = [...nextValues];
+
+                if (!nextValues.includes(filmRenderingWidget.value)) {
+                    filmRenderingWidget.value = nextValues[0] || filmRenderingWidget.value;
+                    filmRenderingWidget.callback?.(filmRenderingWidget.value);
+                }
+
+                app.canvas?.setDirty(true);
+            }
+
+            applyFilmTypeFilter();
 
             function updateHistogramDisplay(showInput, channel, style) {
                 const prefix = showInput ? "input" : "output";
@@ -306,7 +349,9 @@ app.registerExtension({
             node.onWidgetChanged = function (name, value) {
                 if (updating) return;
 
-                if (name === "color_balance_tone") {
+                if (name === "film_type") {
+                    applyFilmTypeFilter();
+                } else if (name === "color_balance_tone") {
                     captureCbSliders(prevTone);
                     applyCbSliders(value);
                     prevTone = value;
