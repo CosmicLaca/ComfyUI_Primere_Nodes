@@ -230,3 +230,72 @@ Pipeline position:
 
 #### Technical validation:
 `(no processing) → Histogram only`
+
+---
+
+## Style Injection Group
+
+---
+
+The Style Injection group adds professional-grade art style control to the Basic workflow. It enables rapid selection and injection of complex artistic styles, concepts, artists, movements, colors, directions, and moods directly into your prompts. This node works in tandem with the 12-prompt selector system for efficient style experimentation and iteration.
+
+<img src="./Basic_style_node.jpg" width="300px">
+
+---
+
+### Primiere Style Pile
+
+Purpose: Multi-category style composer that builds precise positive and negative style descriptors from curated preset lists. All combo options are dynamically loaded from the external `stylepile.toml` file, allowing easy customization and extension of available styles.
+
+---
+
+Outputs:
+
+| Output          | Purpose                                                                 |
+| --------------- | ----------------------------------------------------------------------- |
+| `opt_pos_style` | STYLE+ : Positive style injection string (ready to connect to prompt)   |
+| `opt_neg_style` | STYLE- : Negative style injection string (ready to connect to prompt)   |
+
+---
+
+Settings:
+
+| Setting                    | Purpose                                                                 |
+| -------------------------- | ----------------------------------------------------------------------- |
+| `art-type`                 | Base art format (painting, photo, digital-artwork, 3d-rendering, etc.) |
+| `art-type_strength`        | Strength multiplier for the selected art-type                           |
+| `concepts`                 | High-level conceptual qualifiers (Extreme, Masterpiece, Cinematic, etc.)|
+| `concepts_strength`        | Strength multiplier for concepts                                        |
+| `artists`                  | Artist/illustrator reference                                            |
+| `artists_strength`         | Strength multiplier for artist influence                                |
+| `art-movements`            | Historical/modern art movement (Action Painting, Surrealism, etc.)      |
+| `art-movements_strength`   | Strength multiplier for art movement                                    |
+| `colors`                   | Color palette or processing style (CMYK Colors, Vivid Colors, etc.)     |
+| `colors_strength`          | Strength multiplier for color treatment                                 |
+| `directions`               | Rendering direction/quality descriptor (Masterpiece, Realistic, etc.)   |
+| `directions_strength`      | Strength multiplier for direction                                       |
+| `moods`                    | Emotional or atmospheric tone (Energetic, Romantic, Dramatic, etc.)     |
+| `moods_strength`           | Strength multiplier for mood                                            |
+
+#### Behavior:
+* Each selected category appends the corresponding Positive/Negative text defined in `stylepile.toml`.
+* Strength values are automatically applied as weighted prompt syntax `(selected_item:strength)`.
+* Empty or default selections are safely skipped.
+* The node outputs clean, ready-to-use strings that can be injected into any prompt input without manual editing.
+* Works with the existing prompt encoder, dynamic prompts, and the 12-prompt selector system.
+
+#### Use Cases:
+* One-click style switching during prompt development (e.g. painting → photo → vector-art)
+* Artist-specific or movement-specific testing
+* Layering multiple style elements with precise strength control
+* Consistent aesthetic application across batch generations or A/B testing
+
+---
+
+### Workflow Integration (Style Injection)
+
+Pipeline position:
+
+`Prompt Sources / 12-Prompt Selector → Primiere Style Pile (STYLE+ / STYLE-) → Prompt Encoder → Sampler`
+
+The Style Pile node sits early in the prompt pipeline and feeds directly into the central prompt builder. It is fully compatible with CSV/TOML prompt readers and the existing style injection points.
