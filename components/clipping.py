@@ -859,7 +859,7 @@ def encode_sana(clip, positive_text, negative_text, t5xxl_prompt, control_data):
 def encode_qwen_edit(loader_self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, control_data):
     if type(edit_image_list).__name__ == "Tensor":
         edit_image_list = [edit_image_list]
-    if edit_image_list is None:
+    elif type(edit_image_list).__name__ == "NoneType":
         edit_image_list = []
     positive_text = utility.DiT_cleaner(positive_text)
     negative_text = utility.DiT_cleaner(negative_text)

@@ -852,8 +852,13 @@ class PrimereModelControl:
         suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
         kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
         kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]
+        kwargs['model'] = model_name
+        # kwargs['vae'] = kwargs.get('vae', None)
         kwargs['model_name'] = model_name
         kwargs['model_concept'] = active_concept
+        kwargs['model_version'] = active_concept
+        kwargs['sampler'] = sampler_name
+        kwargs['scheduler'] = scheduler_name
         kwargs['sampler_name'] = sampler_name
         kwargs['scheduler_name'] = scheduler_name
         kwargs['steps'] = steps
@@ -866,6 +871,10 @@ class PrimereModelControl:
         kwargs['attn_cross_k'] = cross_k
         kwargs['attn_cross_v'] = cross_v
         kwargs['attn_cross_out'] = cross_out
+        kwargs['concept_data'] = {}
+        kwargs['concept_data']['vae_name'] = kwargs.get('vae', 'Baked VAE')
+        kwargs['concept_data']['vae_selection'] = kwargs.get('vae_selection', True)
+        kwargs['concept_data']['clip_selection'] = kwargs.get('clip_selection', True)
         return {"ui": {"active_concept": [active_display]}, "result": (kwargs, sampler_name, scheduler_name, steps, round(cfg, 2), active_concept,)}
 
 class PrimereConceptDataTuple:
@@ -1320,7 +1329,7 @@ class PrimereCLIP:
         negative_l = kwargs.get('negative_l', '')
         width = kwargs.get('width', 1024)
         height = kwargs.get('height', 1024)
-        edit_image_list = kwargs.get('edit_image_list', [])
+        edit_image_list = kwargs.get('edit_image_list', None)
         edit_vae = kwargs.get('edit_vae', None)
 
         if control_data is not None:
