@@ -120,7 +120,7 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
         height = dimension_y
         width = dimension_x
         compression = 42
-        if type(model[0]).__name__ == 'ModelPatcher' and type(model[1]).__name__ == 'ModelPatcher':
+        if type(model[0]).__name__ == 'ModelPatcherDynamic' and type(model[1]).__name__ == 'ModelPatcherDynamic':
             c_latent = {"samples": torch.zeros([1, 16, height // compression, width // compression])}
             b_latent = {"samples": torch.zeros([1, 4, height // 4, width // 4])}
 
@@ -132,7 +132,7 @@ def PCascadeSampler(self, model, seed, steps, cfg, sampler_name, scheduler_name,
                 else:
                     samples_c = nodes.KSampler.sample(self, model[1], seed, steps, cfg, sampler_name, scheduler_name, positive, negative, c_latent, denoise=denoise)[0]
             conditining_c = nodes_stable_cascade.StableCascade_StageB_Conditioning.execute(positive, samples_c)[0]
-            samples = nodes.KSampler.sample(self, model[0], seed, 10, 1.00, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
+            samples = nodes.KSampler.sample(self, model[0], seed, int(steps/2), 1.1, sampler_name, scheduler_name, conditining_c, negative, b_latent, denoise=denoise)
 
     return samples
 
