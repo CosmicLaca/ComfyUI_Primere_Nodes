@@ -1320,7 +1320,7 @@ class PrimereCLIP:
         negative_l = kwargs.get('negative_l', '')
         width = kwargs.get('width', 1024)
         height = kwargs.get('height', 1024)
-        edit_image_list = kwargs.get('edit_image_list', None)
+        edit_image_list = kwargs.get('edit_image_list', [])
         edit_vae = kwargs.get('edit_vae', None)
 
         if control_data is not None:
