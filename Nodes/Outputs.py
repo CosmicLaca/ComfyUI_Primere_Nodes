@@ -684,7 +684,7 @@ class PrimereKSampler:
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
         if refiner_model_data is not None:
-            samples_out = primeresamplers._run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)
+            samples_out = primeresamplers.run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)[0]
 
         if control_data is not None:
             control_data['sampler_settings'] = {}

@@ -189,7 +189,7 @@ def PSamplerSana(self, device, seed, model,
 
     return (latent_out,)
 
-def _run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, samples_main, control_data, seed):
+def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, samples_main, control_data, seed):
     main_vae = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
     raw_image = nodes.VAEDecode.decode(self, main_vae, samples_main)[0]
     refiner_ckpt = nodes.CheckpointLoaderSimple.load_checkpoint(self, control_data.get('refiner_model'))
@@ -210,7 +210,7 @@ def _run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, s
     else:
         pos_cond = refiner_cond_pos if refiner_cond_pos is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
         neg_cond = refiner_cond_neg if refiner_cond_neg is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
-    return nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)[0]
+    return nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
 
 
 def PSamplerPixart(self, device, seed, model,
