@@ -872,7 +872,7 @@ class PrimereModelControl:
         kwargs['attn_cross_v'] = cross_v
         kwargs['attn_cross_out'] = cross_out
         kwargs['concept_data'] = {}
-        kwargs['concept_data']['vae_name'] = kwargs.get('vae', 'Baked VAE')
+        kwargs['concept_data']['vae_name'] = kwargs.get('vae', None)
         kwargs['concept_data']['vae_selection'] = kwargs.get('vae_selection', True)
         kwargs['concept_data']['clip_selection'] = kwargs.get('clip_selection', True)
         return {"ui": {"active_concept": [active_display]}, "result": (kwargs, sampler_name, scheduler_name, steps, round(cfg, 2), active_concept,)}

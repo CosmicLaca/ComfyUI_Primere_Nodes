@@ -49,11 +49,11 @@ def resolve_symlink(ckpt_name):
     model_ext = os.path.splitext(File_link)[1].lower()
     linkName_U = str(folder_paths.folder_names_and_paths["diffusion_models"][0][0])
     linkName_D = str(folder_paths.folder_names_and_paths["diffusion_models"][0][1])
-    linkedFileName = str(File_link).replace(linkName_U + '\\', '').replace(linkName_D + '\\', '')
-    if str(Path(linkName_U).stem) in linkedFileName:
-        linkedFileName = linkedFileName.split(Path(linkName_U).stem + '\\', 1)[1]
-    if str(Path(linkName_D).stem) in linkedFileName:
-        linkedFileName = linkedFileName.split(Path(linkName_D).stem + '\\', 1)[1]
+    linkedFileName = str(File_link).replace(linkName_U + os.sep, '').replace(linkName_D + os.sep, '')
+    if os.sep + str(Path(linkName_U).stem) in linkedFileName:
+        linkedFileName = linkedFileName.split(Path(linkName_U).stem + os.sep, 1)[1]
+    if os.sep + str(Path(linkName_D).stem) in linkedFileName:
+        linkedFileName = linkedFileName.split(Path(linkName_D).stem + os.sep, 1)[1]
     return File_link, linkedFileName, model_ext
 
 
@@ -368,10 +368,17 @@ def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
         if lora_path:
             OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
     else:
-        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
-        OUTPUT_MODEL = LOADED_CHECKPOINT[0]
-        OUTPUT_CLIP = LOADED_CHECKPOINT[1]
-        OUTPUT_VAE = LOADED_CHECKPOINT[2]
+        _, unet_name, _ = resolve_symlink(ckpt_name)
+        if unet_name is not None:
+            checkpoint_result = utility.BDanceConceptHelper(loader_self, model_concept, True, 'UNET', None, None, None, unet_name, None, lora_strength)
+            # if type(checkpoint_result).__name__ == 'ModelPatcherDynamic':
+                # wrong result
+            OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = checkpoint_result[0], checkpoint_result[1], checkpoint_result[2]
+        else:
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
+            OUTPUT_MODEL = LOADED_CHECKPOINT[0]
+            OUTPUT_CLIP = LOADED_CHECKPOINT[1]
+            OUTPUT_VAE = LOADED_CHECKPOINT[2]
         if lora_path:
             OUTPUT_MODEL = utility.BDanceConceptHelper(loader_self, model_concept, True, 'LORA', None, OUTPUT_MODEL, lora_path, None, None, lora_strength)
 
@@ -612,15 +619,23 @@ def load_qwen_model(loader_self, ckpt_name, concept_data):
     weight_dtype = concept_data.get('weight_dtype', 'default')
     encoder_1 = concept_data.get('encoder_1')
     vae_name = concept_data.get('vae')
+    shift = concept_data.get('model_sampling', 3)
+    cfg = concept_data.get('cfg', 1)
 
-    if 'e4m3fn' in ckpt_name:
-        weight_dtype = 'fp8_e4m3fn'
-    elif 'e5m2' in ckpt_name:
-        weight_dtype = 'fp8_e5m2'
+    if weight_dtype == 'default':
+        if 'e4m3fn' in ckpt_name:
+            weight_dtype = 'fp8_e4m3fn'
+        elif 'e5m2' in ckpt_name:
+            weight_dtype = 'fp8_e5m2'
 
     File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
     if File_link:
-        if 'diffusion_models' in str(File_link) or 'unet' in str(File_link):
+        if 'diffusion_models' in str(File_link):
+            if model_ext == '.gguf':
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+            else:
+                OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
+        elif 'unet' in str(File_link):
             if model_ext == '.gguf':
                 OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
             else:
@@ -628,8 +643,6 @@ def load_qwen_model(loader_self, ckpt_name, concept_data):
                     OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
                 except Exception:
                     OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
-        else:
-            OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
     else:
         OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
 
@@ -643,7 +656,7 @@ def load_qwen_model(loader_self, ckpt_name, concept_data):
             OUTPUT_MODEL = apply_lora(loader_self, OUTPUT_MODEL, lora_path, lora_strength)
 
     if model_concept == 'QwenEdit':
-        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingSD3.patch(loader_self, OUTPUT_MODEL, 3, 1.0)[0]
+        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingSD3.patch(loader_self, OUTPUT_MODEL, shift, 1.0)[0]
         OUTPUT_MODEL = nodes_cfg.CFGNorm.execute(OUTPUT_MODEL, 1)[0]
 
     return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
