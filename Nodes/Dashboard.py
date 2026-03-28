@@ -766,8 +766,8 @@ class PrimereModelControl:
                 "refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
                 "refiner_scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
                 "refiner_cfg": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 100, "step": 0.01}),
-                "refiner_steps": ("INT", {"default": 22, "min": 10, "max": 30, "step": 1}),
-                "refiner_start": ("INT", {"default": 12, "min": 1, "max": 1000, "step": 1}),
+                "refiner_steps": ("INT", {"default": 20, "min": 2, "max": 50, "step": 1}),
+                "refiner_start": ("INT", {"default": 10, "min": 1, "max": 1000, "step": 1}),
                 "refiner_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "refiner_sampling_denoise": ("FLOAT", {"default": 0.9, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "refiner_ignore_prompt": ("BOOLEAN", {"default": True, "label_on": "Ignore prompt", "label_off": "Send prompt to refiner"})
