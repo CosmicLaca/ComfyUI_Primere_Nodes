@@ -442,11 +442,11 @@ class PrimereKSampler:
         return {
             "required": {
                 "model": ("MODEL", {"forceInput": True}),
-                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
                 "steps": ("INT", {"default": 20, "min": 1, "max": 10000, "forceInput": True}),
                 "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0, "forceInput": True}),
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS, {"forceInput": True}),
                 "scheduler_name": (comfy.samplers.KSampler.SCHEDULERS, {"forceInput": True}),
+                "seed": ("INT", {"default": 42, "min": 0, "max": utility.MAX_SEED}),
                 "positive": ("CONDITIONING", ),
                 "negative": ("CONDITIONING", ),
                 "latent_image": ("LATENT", ),

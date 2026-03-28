@@ -60,13 +60,20 @@ async function loadConceptValues(node, key, silent = false) {
 
     const saved = data[key];
     for (const w of node.widgets || []) {
-        if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) continue;
-        const newValue = saved[w.name];
-        if (w.options?.values) {
-            const match = w.options.values.find((v) => String(v) === String(newValue));
-            if (match !== undefined) w.value = match;
+        if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) {
+            if (w.type == 'toggle') {
+                w.value = false;
+            } else {
+                continue;
+            }
         } else {
-            w.value = newValue;
+            const newValue = saved[w.name];
+            if (w.options?.values) {
+                const match = w.options.values.find((v) => String(v) === String(newValue));
+                if (match !== undefined) w.value = match;
+            } else {
+                w.value = newValue;
+            }
         }
         w.callback?.(w.value);
     }
