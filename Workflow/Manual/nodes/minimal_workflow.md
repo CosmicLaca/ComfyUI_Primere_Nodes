@@ -85,6 +85,30 @@ This node is the **system backbone** that automates workflow adaptation based on
 4. **Allows testing & saving** new settings for specific models
 5. **Reverts to "Auto" mode** for external control via workflow inputs
 
+---
+
+> [!IMPORTANT]
+> ## ⚙️ CRITICAL: Model Type Detection Setup
+> 
+> **Before using Model Control automation, you MUST understand how the system detects model concepts (SD1, SDXL, Flux, etc.).**
+> 
+> **📖 READ THIS GUIDE:** **[Model Version Detection & Caching Guide](./model_version_detection.md)**
+> 
+> This guide covers:
+> - How auto-detection works (metadata → directory → cache file)
+> - Terminal helper for batch model processing (50+ checkpoints)
+> - How to manually fix incorrect model type assignments
+> - Symlinked model support from other directories
+> 
+> **TL;DR:**
+> - Small collection (<20 models): Let auto-detect work, select checkpoint, done
+> - Large collection (50+ models): Run `python terminal_helpers/model_version_cache.py`, fix "UNKNOWN" entries, done
+> - Without proper model type detection, Model Control cannot auto-configure settings
+> 
+> **This is the hardest part of the system setup. Invest 5 minutes now to avoid confusion later.**
+
+---
+
 #### Dual Operation Modes:
 
 ---
@@ -1006,14 +1030,14 @@ The Upscaler group increases image resolution intelligently using pre-trained up
 
 #### Settings:
 
-| Setting | Purpose |
-|---------|---------|
-| `use_multiplier` | Enable megapixel-based calculation (ON/OFF, default ON) |
-| `upscale_to_mpx` | Target resolution in megapixels (0.01 - 48.00, default 12.00) |
-| `triggered_prescale` | Enable area-based pre-scaling trigger (ON/OFF, default OFF) |
-| `area_trigger_mpx` | If current area below this MPX, trigger prescale (0.01 - max, default 0.60) |
-| `area_target_mpx` | Target MPX if prescale triggered (0.25 - max, default 1.05) |
-| `upscale_model` | Upscaler model to apply (None, or specific upscaler name, default None) |
+| Setting | Purpose                                                                                       |
+|---------|-----------------------------------------------------------------------------------------------|
+| `use_multiplier` | Enable target megapixel-based calculation (ON/OFF, default ON)                                |
+| `upscale_to_mpx` | Target resolution in megapixels (0.01 - 48.00, default 12.00)                                 |
+| `triggered_prescale` | Enable area-based pre-scaling trigger (ON/OFF, default OFF) for much faster upscaling         |
+| `area_trigger_mpx` | If current area below this MPX, trigger prescale (0.01 - max, default 0.60)                   |
+| `area_target_mpx` | Target MPX if prescale triggered (0.25 - max, default 1.05)                                   |
+| `upscale_model` | Upscaler model to apply (None, or specific upscaler name, default None)                       |
 | `upscale_method` | Image interpolation method: nearest-exact, bilinear, area, bicubic, lanczos (default bicubic) |
 
 #### Outputs:
@@ -1034,9 +1058,9 @@ The Upscaler group increases image resolution intelligently using pre-trained up
 
 #### Example Calculation:
 
-- Input: 512×512 (0.26 MPX) with `upscale_to_mpx=12.00`
-- Output: ~2448×2448 (5.98 MPX actual, closest to 12.00 respecting aspect ratio)
-- Ratio: ~4.78x
+- Input: 512×512 (0.26 MPX) with `upscale_to_mpx=16.00`
+- Output: ~4096×496 (16 MPX actual)
+- Ratio: ~64x
 
 ---
 
