@@ -490,7 +490,10 @@ class PrimereKSampler:
                     else:
                         variation_extender = control_data['sampler_settings']['variation_extender_original']
 
-        samples_out = latent_image
+        if control_data is not None and 'refiner' in control_data and control_data['refiner'] == True and 'refiner_sampling_denoise' in control_data:
+            denoise = control_data['refiner_sampling_denoise']
+
+        # samples_out = latent_image
         # out = latent_image.copy()
         variation_extender_original = variation_extender
         variation_batch_step_original = variation_batch_step
