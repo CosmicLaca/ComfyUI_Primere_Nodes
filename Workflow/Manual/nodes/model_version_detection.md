@@ -249,6 +249,70 @@ Result: Model loads and routes through Model Control automation with Flux concep
 
 ---
 
+## Creating Symlinks to Model Files
+
+Primiere supports loading model files from other directories via symlinks. Create a symlink in `models/checkpoints/` pointing to your actual model file location.
+
+### Windows: Using `mklink` Command
+
+Open terminal (Command Prompt or PowerShell) **as Administrator** and run:
+```bash
+mklink "path\to\ComfyUI\models\checkpoints\LinkName.safetensors" "path\to\original\model\model.safetensors"
+```
+
+**Example:**
+```bash
+mklink "C:\ComfyUI\models\checkpoints\my-flux-model.safetensors" "C:\ComfyUI\models\diffusers\flux-dev\model.safetensors"
+```
+
+Result: `models/checkpoints/my-flux-model.safetensors` → points to actual model file
+
+**Note:** No `/D` or `/J` flag for file symlinks. Requires **Administrator privileges**.
+
+---
+
+### Windows: GUI Method (LinkShellExtension)
+
+For users preferring GUI over terminal:
+
+1. Download **LinkShellExtension**: https://schinagl.priv.at/nt/hardlinkshellext/linkshellextension.html
+2. Install and restart Explorer
+3. Right-click model file → **Pick Link Source**
+4. Navigate to `models/checkpoints/` → Right-click → **Drop As** → **Symbolic Link**
+
+Result: Symlink created without terminal commands.
+
+---
+
+### Linux / macOS: Using `ln` Command
+
+Open terminal and run:
+```bash
+ln -s "/path/to/original/model/model.safetensors" "/path/to/ComfyUI/models/checkpoints/LinkName.safetensors"
+```
+
+**Example:**
+```bash
+ln -s "/home/user/models/diffusers/flux-dev/model.safetensors" "/home/user/ComfyUI/models/checkpoints/my-flux-model.safetensors"
+```
+
+Result: `models/checkpoints/my-flux-model.safetensors` → points to actual model file
+
+**Note:** `-s` creates symbolic link. Use absolute paths for reliability.
+
+---
+
+### Verifying Symlinks
+
+After creating symlink, terminal helper will detect it:
+```
+Model [50] / 145 cached from directory: my-flux-model -> Flux (symlink from: /path/to/models/diffusers/flux-dev/model.safetensors)
+```
+
+The system resolves symlinks and loads the original model file correctly.
+
+---
+
 ## Workflow: Auto-Detect vs. Terminal Helper
 
 ### Scenario 1: Few Models, Good Metadata (5-20 checkpoints)
