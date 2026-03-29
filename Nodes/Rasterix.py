@@ -20,6 +20,8 @@ from ..components.images import img_levels_compress as img_levels_compress
 from ..components.images import img_dithering as img_dithering
 from ..components.images import histogram as histogram
 from ..components.images import img_posterize as img_posterize
+from ..components.images import img_solarization_bw as img_solarization_bw
+from ..components.images import img_clarity as img_clarity
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
@@ -346,7 +348,7 @@ class PrimereAutoNormalize:
             }
         }
 
-    def primere_auto_normalize(self, image, precision, auto_normalize, auto_levels_threshold, auto_gamma, gamma_target, normalize_gaps, normalize_midpeaks, peak_width, seed):
+    def primere_auto_normalize(self, image, precision, auto_normalize, auto_levels_threshold, auto_gamma, gamma_target, normalize_gaps, normalize_midpeaks, peak_width, seed = None):
         pil_img = utility.tensor_to_image(image)
         if auto_normalize:
             pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision, seed=seed)
@@ -934,3 +936,69 @@ class PrimereHistogram:
             TEMP_FILE = os.path.join(folder_paths.get_temp_directory(), temp_filename)
             utility.tensor_to_image(images[0]).save(TEMP_FILE)
             return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),),}
+
+class PrimereSolarizationBW:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_solarization_bw"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_solarization": ("BOOLEAN", {"default": False, "label_off": "Ignore solarization", "label_on": "Apply solarization"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "strength": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 2.0, "step": 0.01}),
+                "pivot": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "sigma": ("FLOAT", {"default": 0.18, "min": 0.01, "max": 0.5, "step": 0.01}),
+                "edge_boost": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 3.0, "step": 0.05}),
+                "edge_radius": ("FLOAT", {"default": 1.0, "min": 0.5, "max": 3.0, "step": 0.1}),
+                "contrast": ("FLOAT", {"default": 1.1, "min": 0.5, "max": 2.0, "step": 0.01}),
+                "hard_paper": ("BOOLEAN", {"default": False, "label_off": "Soft paper", "label_on": "Hard paper"}),
+                "grain_modulation": ("BOOLEAN", {"default": False, "label_off": "No grain modulation", "label_on": "Grain-modulated inversion"}),
+                "grain_strength": ("FLOAT", {"default": 0.15, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "grain_scale": ("FLOAT", {"default": 1.0, "min": 0.3, "max": 3.0, "step": 0.1}),
+
+            },
+            "optional": {
+                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
+            }
+        }
+
+    def primere_solarization_bw(self, image, use_solarization, precision, strength, pivot, sigma, edge_boost, edge_radius, contrast, hard_paper, grain_modulation, grain_strength, grain_scale, seed = None):
+        pil_img = utility.tensor_to_image(image)
+        if use_solarization:
+            pil_img = img_solarization_bw.img_solarization_bw(image=pil_img, strength=strength, pivot=pivot, sigma=sigma, edge_boost=edge_boost, edge_radius=edge_radius, contrast=contrast, precision=precision, hard_paper=hard_paper, grain_modulation=grain_modulation, grain_strength=grain_strength, grain_scale=grain_scale, seed=seed)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereClarity:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_clarity"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_clarity": ("BOOLEAN", {"default": False, "label_off": "Ignore clarity", "label_on": "Apply clarity"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "strength": ("FLOAT", {"default": 0.5, "min": -2.0, "max": 3.0, "step": 0.01}),
+                "radius": ("FLOAT", {"default": 2.0, "min": 0.5, "max": 10.0, "step": 0.1}),
+                "midtone_range": ("FLOAT", {"default": 0.5, "min": 0.1, "max": 1.0, "step": 0.01}),
+                "edge_preservation": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 1.0, "step": 0.01}),
+            }
+        }
+
+    def primere_clarity(self, image, use_clarity, precision, strength, radius, midtone_range, edge_preservation):
+        pil_img = utility.tensor_to_image(image)
+        if use_clarity and strength != 0:
+            pil_img = img_clarity.img_clarity(image=pil_img, strength=strength, radius=radius, midtone_range=midtone_range, edge_preservation=edge_preservation, precision=precision)
+
+        return (utility.image_to_tensor(pil_img),)
