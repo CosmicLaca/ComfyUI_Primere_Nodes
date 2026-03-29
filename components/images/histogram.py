@@ -6,10 +6,6 @@ import json
 from ..tree import PRIMERE_ROOT
 import os
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Channel definitions
-# ─────────────────────────────────────────────────────────────────────────────
-
 _HIST_CH_DEFS = {
     "RGB":   [(0, (1.0, 0.22, 0.22)), (1, (0.22, 1.0, 0.22)), (2, (0.22, 0.44, 1.0))],
     "RED":   [(0, (1.0, 0.22, 0.22))],
@@ -35,10 +31,6 @@ VALID_STYLES = {
     "inverse",      # light background variant of gradient
 }
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Internal helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _get_raw(arr: np.ndarray, ch_idx: int, precision: bool) -> np.ndarray:
     """Return 256-bin histogram for one channel."""
@@ -124,77 +116,34 @@ def _draw_lines(canvas, heights, color, hist_h, hist_w):
         for ci, cv in enumerate(color):
             canvas[rs[xs], xs, ci] = np.maximum(canvas[rs[xs], xs, ci], cv)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Main function
-# ─────────────────────────────────────────────────────────────────────────────
-
 def rasterix_histogram_render(
     pil_img:   Image.Image,
     channel:   str  = "RGB",
     style:     str  = "bars",
     precision: bool = False,
 ) -> Image.Image:
-    """
-    Render a histogram visualisation of pil_img.
 
-    Args:
-        pil_img   : PIL Image (RGB)
-
-        channel   : "RGB" | "RED" | "GREEN" | "BLUE"
-                    Ignored by "parade" style (always shows all three).
-                    Ignored by "heatmap" and "luma" (use fixed channel logic).
-
-        style     : One of:
-                    # "gradient"   — filled area with top fade (default)
-                    "bars"       — flat filled area
-                    "lines"      — thin outline only
-                    # "glow"       — bars + gaussian bloom
-                    "waveform"   — center-mirrored oscilloscope curve
-                    "heatmap"    — luminosity density with perceptual colour ramp
-                    "stacked"    — R/G/B stacked (non-overlapping areas)
-                    # "dots"       — vertical dot columns proportional to count
-                    # "step"       — raw unsmoothed step function (shows comb)
-                    "luma"       — gradient + white luminosity overlay curve
-                    # "log"        — log-scale Y axis gradient
-                    "parade"     — R | G | B side-by-side panels
-                    # "percentile" — gradient + percentile marker lines
-                    # "inverse"    — light-background gradient
-
-        precision : False = 8-bit raw histogram source
-                    True  = 16-bit raw histogram source (downsampled to 256 bins)
-                    Note: rendering normalisation is intentionally identical for both
-                    so equal input gives equal visual histogram height.
-
-    Returns:
-        PIL Image (RGB) — 1024 × 256 px (parade: 1536 × 256 px)
-    """
     if style not in VALID_STYLES:
         raise ValueError(f"style must be one of {sorted(VALID_STYLES)}, got '{style}'")
 
     arr      = np.array(pil_img.convert("RGB"), dtype=np.float32)
     hist_h   = 192
     hist_w   = 512
-    # Keep visual scale identical between 8-bit and 16-bit rendering.
-    # Precision only changes raw-bin acquisition, not display normalisation.
     sqrt_norm = False
 
     sigma = 0.75 if style in ("bars", "step", "dots") else 1.0
     smooth   = _make_smooth(sigma)
     channels = _HIST_CH_DEFS.get(channel, _HIST_CH_DEFS["RGB"])
 
-    # ── PARADE — special layout: three panels side by side ───────────────────
     if style == "parade":
         panel_w  = hist_w // 3   # 341 px each; total = 1023 px
         parade_w = panel_w * 3
         canvas   = np.full((hist_h, parade_w, 3), 18.0 / 255.0, dtype=np.float32)
-        # grid per panel
         for p in range(3):
             ox = p * panel_w
             for frac in (0.25, 0.5, 0.75):
                 canvas[int((1.0-frac)*(hist_h-1)), ox:ox+panel_w] = 0.32
                 canvas[:, ox + int(frac*(panel_w-1)), :] = 0.32
-            # separator
             if p > 0:
                 canvas[:, ox, :] = 0.45
         for p, (ch_idx, color) in enumerate(_HIST_CH_DEFS["RGB"]):
@@ -209,19 +158,15 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ── All other styles use hist_w × hist_h canvas ───────────────────────────
     if style == "inverse":
         canvas = _light_canvas(hist_h, hist_w)
-        # Darker curve colors for light background
         inv_colors = {0: (0.75, 0.10, 0.10), 1: (0.10, 0.65, 0.10), 2: (0.10, 0.25, 0.85)}
         draw_channels = [(idx, inv_colors.get(idx, col)) for idx, col in channels]
     else:
         canvas = _dark_canvas(hist_h, hist_w)
         draw_channels = channels
 
-    # ── Compute raw histograms ────────────────────────────────────────────────
     raws  = {ch_idx: _get_raw(arr, ch_idx, precision) for ch_idx, _ in channels}
-    # Also compute luma for luma/heatmap styles
     luma_raw = None
     if style in ("luma", "heatmap"):
         luma_arr = (0.299 * arr[:,:,0] + 0.587 * arr[:,:,1] + 0.114 * arr[:,:,2])
@@ -233,14 +178,10 @@ def rasterix_histogram_render(
             luma_raw, _ = np.histogram(luma_arr, bins=256, range=(0,256))
             luma_raw = luma_raw.astype(np.float32)
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # HEATMAP — luminosity density with black→blue→cyan→white ramp
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "heatmap":
         norm = _normalise(luma_raw, smooth, sqrt_norm)
         x_idx   = np.linspace(0, 255, hist_w)
         cols    = np.interp(x_idx, np.arange(256), norm)
-        # Ramp: 0→black, 0.33→deep blue, 0.66→cyan, 1.0→white
         ramp_t  = np.array([0.0,  0.33,  0.66, 1.0])
         ramp_r  = np.array([0.0,  0.05,  0.0,  1.0])
         ramp_g  = np.array([0.0,  0.05,  0.85, 1.0])
@@ -261,22 +202,16 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # STACKED — R bottom, G middle, B top (non-overlapping)
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "stacked":
         x_idx    = np.linspace(0, 255, hist_w)
         row_idx  = np.arange(hist_h).reshape(-1, 1)
-        # Stack: at each x, allocate vertical space proportionally
         norms = []
         for ch_idx, _ in _HIST_CH_DEFS["RGB"]:
             raw = _get_raw(arr, ch_idx, precision)
             norms.append(np.interp(x_idx, np.arange(256), _normalise(raw, smooth, sqrt_norm)))
         norms = np.array(norms)   # (3, hist_w)
         total = norms.sum(axis=0) + 1e-6
-        # Fractional heights per channel
         fracs = norms / total     # (3, hist_w), each col sums to 1
-        # Bottom channel (R), then G on top, then B on top
         cum_h = np.zeros(hist_w, dtype=np.float32)
         for layer, (ch_idx, color) in enumerate(_HIST_CH_DEFS["RGB"]):
             layer_h = (fracs[layer] * (hist_h - 1) * norms.max(axis=0) / norms.max()).astype(int)
@@ -297,15 +232,11 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # STEP — raw unsmoothed bins, shows true quantization comb pattern
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "step":
         row_idx = np.arange(hist_h).reshape(-1, 1)
         column_bin = np.minimum((np.arange(hist_w) * 256) // hist_w, 255).astype(np.int32)
         for ch_idx, color in draw_channels:
             raw = _get_raw(arr, ch_idx, precision)
-            # No smoothing — raw bin values normalised only
             if sqrt_norm:
                 norm256 = np.sqrt(np.maximum(raw, 0)); norm256 /= (norm256.max() or 1.0)
             else:
@@ -322,9 +253,6 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # WAVEFORM — center-line oscilloscope, mirrored above/below midpoint
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "waveform":
         x_idx   = np.linspace(0, 255, hist_w)
         mid     = hist_h // 2
@@ -337,21 +265,16 @@ def rasterix_histogram_render(
                 if amp[x] == 0: continue
                 y_lo = np.clip(mid - amp[x], 0, hist_h-1)
                 y_hi = np.clip(mid + amp[x], 0, hist_h-1)
-                # Gradient: bright at midline, fading to edges
                 for y in range(y_lo, y_hi+1):
                     dist = abs(y - mid) / max(amp[x], 1)
                     brightness = max(0.25, 1.0 - dist * 0.7)
                     for ci, cv in enumerate(color):
                         canvas[y, x, ci] = max(canvas[y, x, ci], cv * brightness)
-            # Draw center marker line
             canvas[mid, :, :] = np.maximum(canvas[mid, :, :], 0.28)
         result = Image.fromarray(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # DOTS — vertical dot columns, spacing proportional to count
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "dots":
         x_idx  = np.linspace(0, 255, hist_w)
         n_dots = 32   # max dots per column
@@ -361,7 +284,6 @@ def rasterix_histogram_render(
             cols = np.interp(x_idx, np.arange(256), norm)
             for x in range(hist_w):
                 n = max(1, int(cols[x] * n_dots))
-                # Distribute n dots evenly across the column height
                 positions = np.linspace(hist_h - 2, int((1.0 - cols[x]) * (hist_h - 1)), n)
                 for pos in positions:
                     y = int(np.clip(pos, 0, hist_h - 1))
@@ -372,9 +294,6 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # LOG — log-scale Y axis
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "log":
         x_idx = np.linspace(0, 255, hist_w)
         for ch_idx, color in draw_channels:
@@ -386,20 +305,14 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # LUMA — gradient base + white luminosity curve on top
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "luma":
         x_idx = np.linspace(0, 255, hist_w)
-        # Draw RGB gradient base first (semi-transparent feel via lower alpha)
         for ch_idx, color in draw_channels:
             raw  = _get_raw(arr, ch_idx, precision)
             norm = _normalise(raw, smooth, sqrt_norm)
             _, heights = _cols_heights(norm, hist_w, hist_h)
-            # Draw at 55% brightness so luma curve stands out
             dimmed = tuple(v * 0.55 for v in color)
             _draw_gradient(canvas, heights, dimmed, hist_h, hist_w)
-        # Draw luminosity curve in white
         norm_luma = _normalise(luma_raw, smooth, sqrt_norm)
         cols_luma = np.interp(x_idx, np.arange(256), norm_luma)
         heights_luma = (cols_luma * (hist_h - 1)).astype(int)
@@ -409,9 +322,6 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # PERCENTILE — gradient + vertical marker lines
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "percentile":
         x_idx = np.linspace(0, 255, hist_w)
         for ch_idx, color in draw_channels:
@@ -419,7 +329,6 @@ def rasterix_histogram_render(
             norm = _normalise(raw, smooth, sqrt_norm)
             _, heights = _cols_heights(norm, hist_w, hist_h)
             _draw_gradient(canvas, heights, color, hist_h, hist_w)
-        # Compute percentiles from first channel (or luma if RGB)
         if len(draw_channels) == 3:
             lum = 0.299*arr[:,:,0] + 0.587*arr[:,:,1] + 0.114*arr[:,:,2]
             flat = lum.ravel()
@@ -443,9 +352,6 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # INVERSE — light background gradient
-    # ─────────────────────────────────────────────────────────────────────────
     if style == "inverse":
         x_idx = np.linspace(0, 255, hist_w)
         for ch_idx, color in draw_channels:
@@ -457,10 +363,8 @@ def rasterix_histogram_render(
             fill_mask = row_idx >= (hist_h - heights)
             safe_h    = np.maximum(heights, 1).astype(np.float32)
             dist_b    = (hist_h - 1 - row_idx).astype(np.float32)
-            # Inverse gradient: dark at bottom, lighter toward top of fill
             grad = np.clip(0.15 + 0.85 * (1.0 - dist_b / safe_h), 0.0, 1.0)
             for ci, cv in enumerate(color):
-                # Subtract from white background
                 canvas[:, :, ci] = np.where(
                     fill_mask,
                     np.minimum(canvas[:, :, ci], 1.0 - grad * cv * 0.7),
@@ -469,9 +373,6 @@ def rasterix_histogram_render(
             np.clip(canvas * 255, 0, 255).astype(np.uint8), mode="RGB")
         return result
 
-    # ─────────────────────────────────────────────────────────────────────────
-    # Original styles: gradient, bars, lines, glow
-    # ─────────────────────────────────────────────────────────────────────────
     for ch_idx, color in draw_channels:
         raw  = _get_raw(arr, ch_idx, precision)
         norm = _normalise(raw, smooth, sqrt_norm)

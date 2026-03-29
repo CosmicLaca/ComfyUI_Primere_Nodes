@@ -14,7 +14,6 @@ def img_hue_saturation(
     if not (0 <= channel_width <= 100):
         raise ValueError(f"channel_width must be 0 … 100, got {channel_width}")
 
-    # ── Passthrough short-circuit ─────────────────────────────────────────────
     def _is_zero(v):
         return v == 0 or v is None
 
@@ -32,7 +31,6 @@ def img_hue_saturation(
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32) / 255.0
 
-    # ── RGB → HSV ─────────────────────────────────────────────────────────────
     R, G, B = arr[:,:,0], arr[:,:,1], arr[:,:,2]
     Cmax  = np.maximum(np.maximum(R, G), B)
     Cmin  = np.minimum(np.minimum(R, G), B)
@@ -54,7 +52,6 @@ def img_hue_saturation(
     feather_deg = 10 + t * 35    #  10° …  45°
     outer_deg  = hard_deg + feather_deg
 
-    # ── Accumulate adjustments across all channels ────────────────────────────
     total_hue       = np.zeros_like(h)
     total_sat       = np.zeros_like(s)
     total_lightness = np.zeros_like(h)
@@ -84,29 +81,19 @@ def img_hue_saturation(
         total_lightness += mask * (params.get('lightness',  0) / 100.0)
         total_vibrance  += mask * (params.get('vibrance',   0) / 100.0)
 
-    # ── Apply hue ─────────────────────────────────────────────────────────────
     h_new = (h + total_hue) % 360.0
-
-    # ── Apply saturation ──────────────────────────────────────────────────────
-    s_new = np.where(total_sat >= 0,
-                     s + total_sat * (1.0 - s),
-                     s + total_sat * s)
+    s_new = np.where(total_sat >= 0, s + total_sat * (1.0 - s), s + total_sat * s)
     s_new = np.clip(s_new, 0.0, 1.0)
 
-    # ── Apply vibrance (with optional skin protection) ────────────────────────
     if np.any(total_vibrance != 0):
         if skin_protection:
             skin_diff   = np.abs(((h_new - 25.0 + 180) % 360) - 180)
-            skin_mask   = np.where(skin_diff <= 35.0, 1.0,
-                          np.where(skin_diff <= 55.0,
-                                   1.0 - (skin_diff - 35.0) / 20.0, 0.0))
+            skin_mask   = np.where(skin_diff <= 35.0, 1.0, np.where(skin_diff <= 55.0, 1.0 - (skin_diff - 35.0) / 20.0, 0.0))
             vib_mask = 1.0 - skin_mask   # 0 on skin, 1 elsewhere
         else:
             vib_mask = np.ones_like(h_new)
 
-        s_new += np.where(total_vibrance >= 0,
-                          (1.0 - s_new) * vib_mask * total_vibrance,
-                          s_new         * vib_mask * total_vibrance)
+        s_new += np.where(total_vibrance >= 0, (1.0 - s_new) * vib_mask * total_vibrance, s_new * vib_mask * total_vibrance)
         s_new = np.clip(s_new, 0.0, 1.0)
 
     # ── HSV → RGB ─────────────────────────────────────────────────────────────
@@ -129,9 +116,7 @@ def img_hue_saturation(
     # ── Apply lightness ───────────────────────────────────────────────────────
     if np.any(total_lightness != 0):
         L3 = total_lightness[:, :, np.newaxis]
-        rgb_sectors = np.where(L3 > 0,
-                               rgb_sectors + L3 * (1.0 - rgb_sectors),
-                               rgb_sectors + L3 * rgb_sectors)
+        rgb_sectors = np.where(L3 > 0, rgb_sectors + L3 * (1.0 - rgb_sectors), rgb_sectors + L3 * rgb_sectors)
 
     result = np.clip(rgb_sectors, 0.0, 1.0)
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")

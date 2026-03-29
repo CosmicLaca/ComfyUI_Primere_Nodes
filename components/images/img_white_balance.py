@@ -20,21 +20,18 @@ def img_white_balance(
 
     def kelvin_to_rgb(K):
         K = K / 100.0
-        # Red
         if K <= 66:
             R = 255.0
         else:
             R = 329.698727446 * ((K - 60) ** -0.1332047592)
         R = np.clip(R, 0, 255)
 
-        # Green
         if K <= 66:
             G = 99.4708025861 * np.log(K) - 161.1195681661
         else:
             G = 288.1221695283 * ((K - 60) ** -0.0755148492)
         G = np.clip(G, 0, 255)
 
-        # Blue
         if K >= 66:
             B = 255.0
         elif K <= 19:
@@ -45,18 +42,14 @@ def img_white_balance(
 
         return np.array([R, G, B]) / 255.0
 
-    # RGB at target temperature and at neutral 6500K
     rgb_target  = kelvin_to_rgb(temperature)
     rgb_neutral = kelvin_to_rgb(6500)
 
-    # Per-channel gain relative to neutral
     with np.errstate(divide='ignore', invalid='ignore'):
         gain = np.where(rgb_neutral > 0, rgb_target / rgb_neutral, 1.0)
 
-    # ── Apply temperature gain ─────────────────────────────────────────────────
     arr = arr * gain
 
-    # ── Apply tint (green ↔ magenta on green channel) ─────────────────────────
     if tint != 0:
         tint_gain = 1.0 + (tint / 100.0) * 0.3
         arr[..., 1] = arr[..., 1] * tint_gain

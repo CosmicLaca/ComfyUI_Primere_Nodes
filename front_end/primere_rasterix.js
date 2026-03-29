@@ -1,9 +1,10 @@
 import { app } from "/scripts/app.js";
 
-const CB_TONES    = ["highlights", "midtones", "shadows"];
-const HS_CHANNELS = ["master", "red", "green", "blue"];
-const ST_ZONES    = ["highlights", "midtones", "shadows", "blacks"];
-const SH_MODES    = ["fine", "medium", "broad"];
+const CB_TONES      = ["highlights", "midtones", "shadows"];
+const HS_CHANNELS   = ["master", "red", "green", "blue"];
+const ST_ZONES      = ["highlights", "midtones", "shadows", "blacks"];
+const SH_MODES      = ["fine", "medium", "broad"];
+const POST_CHANNELS = ["Red", "Green", "Blue"];
 
 function buildFilmPresetMap(allPresets) {
     const byType = {};
@@ -17,36 +18,32 @@ function buildFilmPresetMap(allPresets) {
     return byType;
 }
 
-const cbDefault = () => ({
+const cbDefault   = () => ({
     highlights: { cyan_red: 0, magenta_green: 0, yellow_blue: 0 },
     midtones:   { cyan_red: 0, magenta_green: 0, yellow_blue: 0 },
     shadows:    { cyan_red: 0, magenta_green: 0, yellow_blue: 0 },
 });
-
-const hsDefault = () => ({
+const hsDefault   = () => ({
     master: { hue: 0, saturation: 0, lightness: 0, vibrance: 0 },
     red:    { hue: 0, saturation: 0, lightness: 0, vibrance: 0 },
     green:  { hue: 0, saturation: 0, lightness: 0, vibrance: 0 },
     blue:   { hue: 0, saturation: 0, lightness: 0, vibrance: 0 },
 });
-
-const stDefault = () => ({
-    highlights: 0,
-    midtones:   0,
-    shadows:    0,
-    blacks:     0,
-});
-
-const shDefault = () => ({
+const stDefault   = () => ({ highlights: 0, midtones: 0, shadows: 0, blacks: 0 });
+const shDefault   = () => ({
     fine:   { shade_level: 0, shade_radius: 0 },
     medium: { shade_level: 0, shade_radius: 0 },
     broad:  { shade_level: 0, shade_radius: 0 },
 });
+const postDefault = () => ({ Red: 255, Green: 255, Blue: 255 });
 
 async function rasterixLoad() {
     try {
         const resp = await fetch('/primere_rasterix_read');
-        if (!resp.ok) return { color_balance: cbDefault(), hue_saturation: hsDefault(), selective_tone: stDefault(), shade: shDefault() };
+        if (!resp.ok) return {
+            color_balance: cbDefault(), hue_saturation: hsDefault(),
+            selective_tone: stDefault(), shade: shDefault(), posterize: postDefault(),
+        };
         const data = await resp.json();
 
         const cb = data.color_balance || {};
@@ -65,9 +62,16 @@ async function rasterixLoad() {
         for (const m of SH_MODES)
             if (!sh[m]) sh[m] = { shade_level: 0, shade_radius: 0 };
 
-        return { color_balance: cb, hue_saturation: hs, selective_tone: st, shade: sh };
+        const post = data.posterize || {};
+        for (const ch of POST_CHANNELS)
+            if (post[ch] === undefined) post[ch] = 255;
+
+        return { color_balance: cb, hue_saturation: hs, selective_tone: st, shade: sh, posterize: post };
     } catch {
-        return { color_balance: cbDefault(), hue_saturation: hsDefault(), selective_tone: stDefault(), shade: shDefault() };
+        return {
+            color_balance: cbDefault(), hue_saturation: hsDefault(),
+            selective_tone: stDefault(), shade: shDefault(), posterize: postDefault(),
+        };
     }
 }
 
@@ -87,7 +91,11 @@ app.registerExtension({
     name: "Primere.Rasterix",
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        const rasterixNodes = ["PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance", "PrimereHSL", "PrimereShadeDetailer", "PrimereHistogram", "PrimereFilmRendering"];
+        const rasterixNodes = [
+            "PrimereRasterix", "PrimereSelectiveTone", "PrimereColorBalance",
+            "PrimereHSL", "PrimereShadeDetailer", "PrimereHistogram",
+            "PrimereFilmRendering", "PrimerePosterize",
+        ];
         if (!rasterixNodes.includes(nodeData.name)) return;
 
         const onNodeCreated = nodeType.prototype.onNodeCreated;
@@ -97,42 +105,43 @@ app.registerExtension({
             const node = this;
             const fw   = (name) => node.widgets?.find(w => w.name === name);
 
-            // Color Balance
             const wTone  = fw("color_balance_tone");
             const wCR    = fw("color_balance_cyan_red");
             const wMG    = fw("color_balance_magenta_green");
             const wYB    = fw("color_balance_yellow_blue");
 
-            // Hue / Saturation
             const wHsCh  = fw("hsl_channel");
             const wHsHue = fw("hsl_hue");
             const wHsSat = fw("hsl_saturation");
             const wHsLit = fw("hsl_lightness");
             const wHsVib = fw("hsl_vibrance");
 
-            // Selective Tone
             const wStZone = fw("selective_tone_zone");
             const wStVal  = fw("selective_tone_value");
 
-            // Shade
             const wShMode = fw("detail_mode");
             const wShLvl  = fw("shade_level");
             const wShRad  = fw("shade_radius");
 
-            let cbStore  = cbDefault();
-            let hsStore  = hsDefault();
-            let stStore  = stDefault();
-            let shStore  = shDefault();
+            const wPostCh  = fw("channels");
+            const wPostSh  = fw("shades");
 
-            let prevTone  = wTone?.value   ?? "midtones";
-            let prevHsCh  = wHsCh?.value   ?? "master";
-            let prevStZn  = wStZone?.value  ?? "midtones";
-            let prevShMd  = wShMode?.value  ?? "medium";
-            let updating  = false;
+            let cbStore   = cbDefault();
+            let hsStore   = hsDefault();
+            let stStore   = stDefault();
+            let shStore   = shDefault();
+            let postStore = postDefault();
+
+            let prevTone   = wTone?.value    ?? "midtones";
+            let prevHsCh   = wHsCh?.value    ?? "master";
+            let prevStZn   = wStZone?.value  ?? "midtones";
+            let prevShMd   = wShMode?.value  ?? "medium";
+            let prevPostCh = wPostCh?.value  ?? "Red";
+            let updating   = false;
             let histogramDebounceTimer = null;
 
             function applyFilmTypeFilter() {
-                const filmTypeWidget = fw("film_type");
+                const filmTypeWidget      = fw("film_type");
                 const filmRenderingWidget = fw("film_rendering");
                 if (!filmTypeWidget || !filmRenderingWidget) return;
 
@@ -143,14 +152,14 @@ app.registerExtension({
                 }
 
                 const selectedType = String(filmTypeWidget.value || "All");
-                const allValues = node.__primereFilmAllPresets;
-                const byType = node.__primereFilmByType || {};
-                const nextValues = selectedType === "All"
+                const allValues    = node.__primereFilmAllPresets;
+                const byType       = node.__primereFilmByType || {};
+                const nextValues   = selectedType === "All"
                     ? allValues
-                    : (byType[selectedType] && byType[selectedType].length > 0 ? byType[selectedType] : allValues);
+                    : (byType[selectedType]?.length > 0 ? byType[selectedType] : allValues);
 
-                filmRenderingWidget.options = filmRenderingWidget.options || {};
-                filmRenderingWidget.options.values = [...nextValues];
+                filmRenderingWidget.options         = filmRenderingWidget.options || {};
+                filmRenderingWidget.options.values  = [...nextValues];
 
                 if (!nextValues.includes(filmRenderingWidget.value)) {
                     filmRenderingWidget.value = nextValues[0] || filmRenderingWidget.value;
@@ -192,8 +201,8 @@ app.registerExtension({
 
             function histogramFileUrl(showInput, channel, style) {
                 const prefix = showInput ? "input" : "output";
-                const ch = (channel || "RGB").toLowerCase();
-                const st = style || "bars";
+                const ch     = (channel || "RGB").toLowerCase();
+                const st     = style || "bars";
                 return `/extensions/ComfyUI_Primere_Nodes/images/${prefix}_histogram_${ch}_${st}.jpg`;
             }
 
@@ -214,13 +223,13 @@ app.registerExtension({
             async function generateHistogram(showInput, channel, style) {
                 try {
                     await fetch('/primere_rasterix_histogram_generate', {
-                        method: 'POST',
+                        method:  'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            histogram_source: showInput,
+                        body:    JSON.stringify({
+                            histogram_source:  showInput,
                             histogram_channel: channel || "RGB",
-                            histogram_style: style || "bars",
-                            precision: fw("precision")?.value ?? false,
+                            histogram_style:   style   || "bars",
+                            precision:         fw("precision")?.value ?? false,
                         }),
                     });
                 } catch (e) {
@@ -247,19 +256,16 @@ app.registerExtension({
 
             function currentHistState() {
                 return {
-                    enabled:   fw("show_histogram")?.value     ?? false,
-                    showInput: fw("histogram_source")?.value      ?? false,
-                    channel:   fw("histogram_channel")?.value   ?? "RGB",
-                    style:     fw("histogram_style")?.value     ?? "bars",
+                    enabled:   fw("show_histogram")?.value    ?? false,
+                    showInput: fw("histogram_source")?.value  ?? false,
+                    channel:   fw("histogram_channel")?.value ?? "RGB",
+                    style:     fw("histogram_style")?.value   ?? "bars",
                 };
             }
 
-            node.onExecuted = async function() {
+            node.onExecuted = async function () {
                 const { enabled, showInput, channel, style } = currentHistState();
-                if (!enabled) {
-                    showHistogramOffImage();
-                    return;
-                }
+                if (!enabled) { showHistogramOffImage(); return; }
                 if (await histogramFileExists(showInput, channel, style)) {
                     updateHistogramDisplay(showInput, channel, style);
                     return;
@@ -268,7 +274,7 @@ app.registerExtension({
                 updateHistogramDisplay(showInput, channel, style);
             };
 
-            // ── Color Balance ─────────────────────────────────────────────────
+            // Color Balance
             function applyCbSliders(tone) {
                 if (!wCR) return;
                 updating = true;
@@ -285,7 +291,7 @@ app.registerExtension({
                 rasterixSave('color_balance', cbStore);
             }
 
-            // ── Hue / Saturation ──────────────────────────────────────────────
+            // Hue / Saturation
             function applyHsSliders(ch) {
                 if (!wHsHue) return;
                 updating = true;
@@ -303,7 +309,7 @@ app.registerExtension({
                 rasterixSave('hue_saturation', hsStore);
             }
 
-            // ── Selective Tone ────────────────────────────────────────────────
+            // Selective Tone
             function applyStSlider(zone) {
                 if (!wStVal) return;
                 updating = true;
@@ -317,7 +323,7 @@ app.registerExtension({
                 rasterixSave('selective_tone', stStore);
             }
 
-            // ── Shade ─────────────────────────────────────────────────────────
+            // Shade
             function applyShSliders(mode) {
                 if (!wShLvl) return;
                 updating = true;
@@ -333,24 +339,41 @@ app.registerExtension({
                 rasterixSave('shade', shStore);
             }
 
-            // ── Initial load ──────────────────────────────────────────────────
+            // Posterize
+            function applyPostSlider(ch) {
+                if (!wPostSh) return;
+                updating = true;
+                wPostSh.value = postStore[ch] ?? 255;
+                updating = false;
+                app.canvas?.setDirty(true);
+            }
+            function capturePostSlider(ch) {
+                if (!wPostSh) return;
+                postStore[ch] = wPostSh.value;
+                rasterixSave('posterize', postStore);
+            }
+
+            // Initial load
             rasterixLoad().then(loaded => {
-                cbStore = loaded.color_balance;
-                hsStore = loaded.hue_saturation;
-                stStore = loaded.selective_tone;
-                shStore = loaded.shade;
+                cbStore   = loaded.color_balance;
+                hsStore   = loaded.hue_saturation;
+                stStore   = loaded.selective_tone;
+                shStore   = loaded.shade;
+                postStore = loaded.posterize;
                 applyCbSliders(prevTone);
                 applyHsSliders(prevHsCh);
                 applyStSlider(prevStZn);
                 applyShSliders(prevShMd);
+                applyPostSlider(prevPostCh);
             });
 
-            // ── Widget change handler ─────────────────────────────────────────
+            // Widget change handler
             node.onWidgetChanged = function (name, value) {
                 if (updating) return;
 
                 if (name === "film_type") {
                     applyFilmTypeFilter();
+
                 } else if (name === "color_balance_tone") {
                     captureCbSliders(prevTone);
                     applyCbSliders(value);
@@ -390,6 +413,13 @@ app.registerExtension({
                     name === "shade_radius"
                 ) {
                     captureShSliders(wShMode?.value ?? prevShMd);
+
+                } else if (name === "channels") {
+                    capturePostSlider(prevPostCh);
+                    applyPostSlider(value);
+                    prevPostCh = value;
+                } else if (name === "shades") {
+                    capturePostSlider(wPostCh?.value ?? prevPostCh);
 
                 } else if (name === "histogram_source") {
                     const { enabled, channel, style } = currentHistState();

@@ -2,7 +2,6 @@ import numpy as np
 from PIL import Image
 
 FILM_PRESETS = {
-
     "fuji_astia_100_CF": {
         "desc": "Fuji Astia 100 — soft, low contrast, neutral skin tones, subtle colours",
         "iso": 100, "grain_type": "fine", "grain_color": "color",

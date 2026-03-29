@@ -115,8 +115,6 @@ def img_film_grain(
     else:
         tint = TINTS[color_tint]
 
-    # ── Apply grain ───────────────────────────────────────────────────────────
-    # Scale noise to sigma (pixel intensity units), apply lum_mask, apply tint
     grain_r = noise_r * sigma * lum_mask * tint[0]
     grain_g = noise_g * sigma * lum_mask * tint[1]
     grain_b = noise_b * sigma * lum_mask * tint[2]

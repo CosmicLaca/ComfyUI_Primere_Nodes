@@ -19,6 +19,7 @@ from ..components.images import img_lens_effects as img_lens_effects
 from ..components.images import img_levels_compress as img_levels_compress
 from ..components.images import img_dithering as img_dithering
 from ..components.images import histogram as histogram
+from ..components.images import img_posterize as img_posterize
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
@@ -124,6 +125,10 @@ class PrimereRasterix:
                 "adaptive_dither_strength": ("BOOLEAN", {"default": False, "label_off": "Keep dither strength", "label_on": "Increase dither strength"}),
                 "error_diffusion": ("BOOLEAN", {"default": False, "label_off": "Error diffusion OFF", "label_on": "Error diffusion ON"}),
 
+                "use_posterize": ("BOOLEAN", {"default": False, "label_off": "Ignore posterize", "label_on": "Apply posterize"}),
+                "shades": ("INT", {"default": 255, "min": 1, "max": 255, "step": 1}),
+                "channels": (["Red", "Green", "Blue"], {"default": "Red"}),
+
                 "use_ai_detection_bypasser": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
                 "adb_freq_strength":     ("FLOAT", {"default": 0.019, "min": 0.0, "max": 0.1,  "step": 0.001}),
                 "adb_variance_strength": ("FLOAT", {"default": 0.32,  "min": 0.0, "max": 1.0,  "step": 0.01}),
@@ -228,6 +233,7 @@ class PrimereRasterix:
         dither_quantization = kwargs.get('dither_quantization', False)
         adaptive_dither_strength = kwargs.get('adaptive_dither_strength', False)
         error_diffusion = kwargs.get('error_diffusion', False)
+        use_posterize = kwargs.get('use_level_endpoints', False)
         show_histogram = kwargs.get('show_histogram', False)
         histogram_source = kwargs.get('histogram_source', False)
         histogram_channel = kwargs.get('histogram_channel', "RGB")
@@ -286,6 +292,10 @@ class PrimereRasterix:
 
         if dither_quantization or error_diffusion or normalize_midpeaks:
             pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision, seed=seed)
+
+        poster_data = rasterix_data.get('posterize', {})
+        if use_posterize and poster_data:
+            pil_img = img_posterize.img_posterize(image=pil_img, channels_data=poster_data)
 
         if use_ai_detection_bypasser:
             pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
@@ -633,6 +643,31 @@ class PrimereLevelEndpoints:
 
         return (utility.image_to_tensor(pil_img),)
 
+class PrimerePosterize:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_posterize"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_posterize": ("BOOLEAN", {"default": False, "label_off": "Ignore posterize", "label_on": "Apply posterize"}),
+                "shades": ("INT", {"default": 255, "min": 1, "max": 255, "step": 1}),
+                "channels": (["Red", "Green", "Blue"], {"default": "Red"}),
+            }
+        }
+
+    def primere_posterize(self, image, use_posterize, shades, channels):
+        pil_img = utility.tensor_to_image(image)
+        rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
+        rasterix_data = utility.json2tuple(rasterix_json_path) or {}
+        poster_data = rasterix_data.get('posterize', {})
+        if use_posterize and poster_data:
+            pil_img = img_posterize.img_posterize(image=pil_img, channels_data=poster_data)
+        return (utility.image_to_tensor(pil_img),)
 
 class PrimereDithering:
     RETURN_TYPES = ("IMAGE",)

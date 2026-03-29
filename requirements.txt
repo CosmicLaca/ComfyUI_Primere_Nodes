@@ -1,4 +1,3 @@
-deepface
 Pillow
 PyYAML
 Requests
@@ -53,3 +52,4 @@ google-genai>=1.65.0
 dotenv
 elevenlabs
 python-magic-bin
+deepface

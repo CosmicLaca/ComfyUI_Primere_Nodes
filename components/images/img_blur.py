@@ -33,7 +33,6 @@ def img_blur(
 
     effective_radius = radius * intensity
 
-    # ── Blur types ────────────────────────────────────────────────────────────
     if blur_type == "gaussian":
         blurred = np.stack([
             gaussian_filter(arr[..., c], sigma=effective_radius)
@@ -56,7 +55,6 @@ def img_blur(
         ], axis=-1)
 
     elif blur_type == "bilateral":
-        # color_sigma: maps sensitivity 0.0 → 0.02 (very tight), 1.0 → 0.3 (loose)
         color_sigma = 0.02 + bilateral_edge_sensitivity * 0.28
         blurred = _bilateral_blur(arr, spatial_sigma=effective_radius,
                                   color_sigma=color_sigma)
@@ -68,7 +66,6 @@ def img_blur(
             for c in range(3)
         ], axis=-1)
 
-    # ── Edge-only mask ────────────────────────────────────────────────────────
     if edge_only:
         grey     = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
         sx       = sobel(grey, axis=0)
@@ -76,11 +73,8 @@ def img_blur(
         edge_mag = np.sqrt(sx**2 + sy**2)
         edge_mag = np.clip(edge_mag / (edge_mag.max() + 1e-6), 0, 1)
 
-        # Apply threshold: remap [threshold … 1] → [0 … 1] so pixels above
-        # threshold are fully sharp, pixels below are progressively blurred.
         if edge_threshold > 0:
-            edge_mag = np.clip((edge_mag - edge_threshold) /
-                               (1.0 - edge_threshold + 1e-6), 0, 1)
+            edge_mag = np.clip((edge_mag - edge_threshold) / (1.0 - edge_threshold + 1e-6), 0, 1)
 
         edge_mag = edge_mag[..., np.newaxis]
         blurred  = arr * edge_mag + blurred * (1.0 - edge_mag)
@@ -88,8 +82,6 @@ def img_blur(
     result = np.clip(blurred, 0.0, 1.0)
     return Image.fromarray((result * 255).astype(np.uint8), mode="RGB")
 
-
-# ── Kernel helpers ────────────────────────────────────────────────────────────
 
 def _motion_kernel(length: int, angle_deg: float) -> np.ndarray:
     angle_rad = np.deg2rad(angle_deg)

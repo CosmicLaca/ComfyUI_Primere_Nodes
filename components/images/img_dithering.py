@@ -2,10 +2,6 @@ import numpy as np
 from PIL import Image
 from numpy.lib.stride_tricks import sliding_window_view
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Optional GPU / acceleration imports (graceful fallback)
-# ─────────────────────────────────────────────────────────────────────────────
-
 try:
     from numba import njit
     NUMBA_AVAILABLE = True
@@ -15,10 +11,6 @@ except ImportError:
 
 
 def _adaptive_dither_amplitude(scale: float, adaptive: bool, max_val: float) -> float:
-    """
-    Return dither amplitude in output-code units (LSB of 8-bit domain).
-    (Already strengthened in previous version — unchanged)
-    """
     base_lsb = max_val / 255.0
     if not adaptive:
         return 1.5 * base_lsb
@@ -27,9 +19,6 @@ def _adaptive_dither_amplitude(scale: float, adaptive: bool, max_val: float) -> 
 
 
 def _estimate_global_scale(arr: np.ndarray, max_val: float) -> float:
-    """
-    Estimate effective tonal span (0..1) from channel min/max.
-    """
     mins = arr.reshape(-1, 3).min(axis=0)
     maxs = arr.reshape(-1, 3).max(axis=0)
     spans = np.clip((maxs - mins) / max_val, 0.0, 1.0)
@@ -37,7 +26,6 @@ def _estimate_global_scale(arr: np.ndarray, max_val: float) -> float:
 
 
 def _tpdf_noise(shape: tuple[int, int, int], amplitude: float) -> np.ndarray:
-    """Triangular PDF noise in [-amplitude, +amplitude], float32."""
     h, w, c = shape
     rng = np.random.default_rng()
     u1 = rng.random((h, w, c), dtype=np.float32)
@@ -46,7 +34,6 @@ def _tpdf_noise(shape: tuple[int, int, int], amplitude: float) -> np.ndarray:
 
 
 def _floyd_steinberg_quantize_python(arr: np.ndarray, max_val: float) -> np.ndarray:
-    """Original pure-Python Floyd-Steinberg (kept for when Numba is not used)."""
     work = np.clip(arr, 0.0, max_val).astype(np.float32, copy=True)
     h, w, c = work.shape
     for ch in range(c):
@@ -93,7 +80,6 @@ def _floyd_steinberg_quantize_numba(arr: np.ndarray, max_val: float) -> np.ndarr
 
 
 def _get_spikiness_factor(c_hist: np.ndarray, total: float) -> float:
-    """Return 0.0–2.0 boost factor when histogram has tall spikes."""
     if total <= 0:
         return 0.0
     peak_ratio = c_hist.max() / (c_hist.mean() + 1e-8)
@@ -106,23 +92,6 @@ def _normalize_midpeaks_channel(
         max_val: float,
         rng: np.random.Generator,
 ) -> np.ndarray:
-    """
-    Histogram-aware anti-spike smoothing near empty bins (gaps).
-
-    PRECISION-AWARE FIX (March 2026):
-      • 16-bit (high_precision=True): amp = (peak_width * 1.0) * (max_val / 255.0)
-        → exactly as you requested and liked. At peak_width=1 it already
-          smooths "every peaks" strongly — this is intentional and unchanged.
-      • 8-bit  (high_precision=False): amp = (peak_width * 12.0) * (max_val / 255.0)
-        → much stronger base multiplier so that peak_width=6 (or even 3–4)
-          now produces a clearly visible histogram smoothing effect that
-          matches the "logical" strength you see in 16-bit.
-      • Automatic spikiness boost (up to 3×) is still applied on top for both
-        bit depths.
-      • No other logic was changed — the qualify_mask, gap detection, and
-        clipping are identical. The only difference is the base amplitude
-        per bit depth so the visual/histogram result feels consistent.
-    """
     n_bins = int(max_val) + 1
     result = channel.copy()
     c_int = np.clip(np.round(result).astype(np.int64), 0, int(max_val))
@@ -132,7 +101,6 @@ def _normalize_midpeaks_channel(
     if not gap_arr.any():
         return result
 
-    # ── BIT-DEPTH-SPECIFIC STRENGTH (16-bit untouched, 8-bit now strong) ─────
     if max_val >= 65535.0:  # 16-bit — exactly as you wanted
         amp = (peak_width * 0.5) * (max_val / 255.0)
     else:  # 8-bit — fixed to give visible effect
@@ -165,14 +133,6 @@ def img_dithering(
         numba_accelerated: bool = True,
         seed: int | None = None,
 ) -> Image.Image:
-    """
-    Standalone quantization dither stage for post-processing.
-
-    PRECISION HANDLING IS NOW LOGICALLY CONSISTENT:
-      • 16-bit at peak_width=1 behaves exactly as before (strong smoothing).
-      • 8-bit now gives a clearly visible histogram-smoothing effect at
-        reasonable peak_width values (try 3–6). No more "do nothing".
-    """
     if not (1 <= peak_width <= 10):
         raise ValueError(f"peak_width must be 1–10, got {peak_width}")
 
@@ -186,14 +146,12 @@ def img_dithering(
     scale_factor = max_val / 255.0
     arr = arr_8f * scale_factor if high_precision else arr_8f
 
-    # ── 1. Mid-peak spike removal (now consistent across bit depths) ─────────
     if normalize_midpeaks:
         for ch in range(3):
             channel_seed = int(base_rng.integers(0, 2**31 - 1))
             rng = np.random.default_rng(channel_seed)
             arr[:, :, ch] = _normalize_midpeaks_channel(arr[:, :, ch], peak_width, max_val, rng)
 
-    # ── 2. Final quantization stage ──────────────────────────────────────────
     if error_diffusion:
         pre_amp = 0.5 * (max_val / 255.0)
         arr = arr + _tpdf_noise(arr.shape, pre_amp)
