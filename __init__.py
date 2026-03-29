@@ -80,6 +80,9 @@ NODE_CLASS_MAPPINGS = {
     "PrimereSolarizationBW": Rasterix.PrimereSolarizationBW,
     "PrimereClarity": Rasterix.PrimereClarity,
     "PrimereHistogram": Rasterix.PrimereHistogram,
+    "PrimereDehaze": Rasterix.PrimereDehaze,
+    "PrimereLocalLaplacian": Rasterix.PrimereLocalLaplacian,
+    "PrimereFrequencySeparation": Rasterix.PrimereFrequencySeparation,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -180,6 +183,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereSolarizationBW": "Primere Rasterix (Solarization)",
     "PrimereClarity": "Primere Rasterix (Clarity)",
     "PrimereHistogram": "Primere Rasterix (Histogram)",
+    "PrimereDehaze": "Primere Rasterix (Dehaze)",
+    "PrimereLocalLaplacian": "Primere Rasterix (Local Laplacian)",
+    "PrimereFrequencySeparation": "Primere Rasterix (Frequency Separation)",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

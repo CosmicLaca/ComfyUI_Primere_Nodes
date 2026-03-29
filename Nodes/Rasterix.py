@@ -22,6 +22,9 @@ from ..components.images import histogram as histogram
 from ..components.images import img_posterize as img_posterize
 from ..components.images import img_solarization_bw as img_solarization_bw
 from ..components.images import img_clarity as img_clarity
+from ..components.images import img_dehaze as img_dehaze
+from ..components.images import img_local_laplacian as img_local_laplacian
+from ..components.images import img_frequency_separation as img_frequency_separation
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
@@ -1000,5 +1003,88 @@ class PrimereClarity:
         pil_img = utility.tensor_to_image(image)
         if use_clarity and strength != 0:
             pil_img = img_clarity.img_clarity(image=pil_img, strength=strength, radius=radius, midtone_range=midtone_range, edge_preservation=edge_preservation, precision=precision)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereDehaze:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_dehaze"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_dehaze": ("BOOLEAN", {"default": False, "label_off": "Ignore dehaze", "label_on": "Apply dehaze"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "strength": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 2.0, "step": 0.01}),
+                "radius": ("INT", {"default": 15, "min": 3, "max": 100, "step": 1}),
+                "omega": ("FLOAT", {"default": 0.95, "min": 0.5, "max": 1.0, "step": 0.01}),
+                "t0": ("FLOAT", {"default": 0.1, "min": 0.01, "max": 0.5, "step": 0.01}),
+                "contrast": ("FLOAT", {"default": 1.05, "min": 0.5, "max": 2.0, "step": 0.01}),
+            }
+        }
+
+    def primere_dehaze(self, image, use_dehaze, precision, strength, radius, omega, t0, contrast):
+        pil_img = utility.tensor_to_image(image)
+        if use_dehaze and strength > 0:
+            pil_img = img_dehaze.img_dehaze(image=pil_img, strength=strength, radius=radius, omega=omega, t0=t0, contrast=contrast, precision=precision)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereLocalLaplacian:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_local_laplacian"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_local_laplacian": ("BOOLEAN", {"default": False, "label_off": "Ignore local laplacian", "label_on": "Apply local laplacian"}),
+
+                "sigma": ("FLOAT", {"default": 1.0, "min": 0.5, "max": 5.0, "step": 0.1}),
+                "contrast": ("FLOAT", {"default": 1.2, "min": 0.5, "max": 3.0, "step": 0.01}),
+                "detail": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 3.0, "step": 0.01}),
+                "levels": ("INT", {"default": 8, "min": 4, "max": 32, "step": 1}),
+            }
+        }
+
+    def primere_local_laplacian(self, image, use_local_laplacian, sigma, contrast, detail, levels):
+        pil_img = utility.tensor_to_image(image)
+        if use_local_laplacian:
+            pil_img = img_local_laplacian.img_local_laplacian(image=pil_img, sigma=sigma, contrast=contrast, detail=detail, levels=levels)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereFrequencySeparation:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_frequency_separation"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_frequency_separation": ("BOOLEAN", {"default": False, "label_off": "Ignore frequency separation", "label_on": "Apply frequency separation"}),
+
+                "radius": ("FLOAT", {"default": 3.0, "min": 0.5, "max": 20.0, "step": 0.1}),
+                "low_freq_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 3.0, "step": 0.01}),
+                "high_freq_strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 3.0, "step": 0.01}),
+                "blend_mode": (["add", "multiply", "overlay"], {"default": "add"}),
+            }
+        }
+
+    def primere_frequency_separation(self, image, use_frequency_separation, radius, low_freq_strength, high_freq_strength, blend_mode):
+        pil_img = utility.tensor_to_image(image)
+        if use_frequency_separation:
+            pil_img = img_frequency_separation.img_frequency_separation(image=pil_img, radius=radius, low_freq_strength=low_freq_strength, high_freq_strength=high_freq_strength, blend_mode=blend_mode)
 
         return (utility.image_to_tensor(pil_img),)
