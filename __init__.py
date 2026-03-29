@@ -83,6 +83,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereDehaze": Rasterix.PrimereDehaze,
     "PrimereLocalLaplacian": Rasterix.PrimereLocalLaplacian,
     "PrimereFrequencySeparation": Rasterix.PrimereFrequencySeparation,
+    "PrimereFilmicCurve": Rasterix.PrimereFilmicCurve,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -186,6 +187,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereDehaze": "Primere Rasterix (Dehaze)",
     "PrimereLocalLaplacian": "Primere Rasterix (Local Laplacian)",
     "PrimereFrequencySeparation": "Primere Rasterix (Frequency Separation)",
+    "PrimereFilmicCurve": "Primere Rasterix (Filmic Curve)",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

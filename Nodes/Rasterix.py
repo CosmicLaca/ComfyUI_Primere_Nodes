@@ -2,6 +2,7 @@ from ..components.tree import TREE_RASTERIX
 from ..components.tree import PRIMERE_ROOT
 import random
 import folder_paths
+
 from ..components.images import img_shade_level as img_shade_level
 from ..components.images import img_brightness_contrast as img_brightness_contrast
 from ..components.images import img_color_balance as img_color_balance
@@ -25,6 +26,8 @@ from ..components.images import img_clarity as img_clarity
 from ..components.images import img_dehaze as img_dehaze
 from ..components.images import img_local_laplacian as img_local_laplacian
 from ..components.images import img_frequency_separation as img_frequency_separation
+from ..components.images import img_filmic_curve as img_filmic_curve
+
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
@@ -1086,5 +1089,33 @@ class PrimereFrequencySeparation:
         pil_img = utility.tensor_to_image(image)
         if use_frequency_separation:
             pil_img = img_frequency_separation.img_frequency_separation(image=pil_img, radius=radius, low_freq_strength=low_freq_strength, high_freq_strength=high_freq_strength, blend_mode=blend_mode)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereFilmicCurve:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_filmic_curve"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_filmic": ("BOOLEAN", {"default": False, "label_off": "Ignore filmic", "label_on": "Apply filmic"}),
+
+                "curve_type": (["filmic", "log"], {"default": "filmic"}),
+                "contrast": ("FLOAT", {"default": 1.0, "min": 0.5, "max": 2.0, "step": 0.01}),
+                "highlight_rolloff": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "shadow_lift": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 0.5, "step": 0.01}),
+                "pivot": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+            }
+        }
+
+    def primere_filmic_curve(self, image, use_filmic, curve_type, contrast, highlight_rolloff, shadow_lift, pivot):
+        pil_img = utility.tensor_to_image(image)
+        if use_filmic:
+            pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
 
         return (utility.image_to_tensor(pil_img),)
