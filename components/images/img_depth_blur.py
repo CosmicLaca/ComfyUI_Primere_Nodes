@@ -11,6 +11,22 @@ from ...components.depth_anything_v2.dpt import DepthAnythingV2
 _depth_model = None
 _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# ===================================================================
+# AUTO-OPTIMIZE TUNABLE CONSTANTS
+# You can edit these values directly in the code later if you want
+# different behavior. No new user inputs are required.
+# ===================================================================
+AUTO_RANGE_MIN   = 0.08      # shallowest possible auto depth_range
+AUTO_RANGE_MAX   = 0.35      # widest possible auto depth_range
+AUTO_RANGE_SCALE = 1.15      # how much of the depth std we use for range
+AUTO_BLUR_FACTOR = 0.009     # stronger max_blur → slightly tighter DOF
+
+AUTO_GAMMA_BASE   = 1.05     # starting gamma
+AUTO_GAMMA_MIN    = 0.80
+AUTO_GAMMA_MAX    = 1.70
+AUTO_GAMMA_ADJUST = 2.8      # how strongly low depth variation increases gamma
+
+
 def _find_best_model():
     base = os.path.join(comfy_dir, "models", "depthanything")
 
@@ -83,11 +99,12 @@ def _predict_depth(arr):
 
 
 def img_depth_blur(
-    image:       Image.Image,
-    focus_depth: float = 0.5,
-    depth_range: float = 0.2,
-    max_blur:    float = 8.0,
-    depth_gamma: float = 1.0,
+    image:         Image.Image,
+    focus_depth:   float = 0.5,
+    depth_range:   float = 0.2,
+    max_blur:      float = 8.0,
+    depth_gamma:   float = 1.0,
+    auto_optimize: bool  = False,      # NEW SWITCH
 ) -> Image.Image:
 
     img = image.convert("RGB")
@@ -95,6 +112,24 @@ def img_depth_blur(
     h, w, _ = arr.shape
 
     depth = _predict_depth(arr)
+
+    # ===================================================================
+    # AUTO-OPTIMIZE LOGIC (only active when auto_optimize=True)
+    # Uses the actual depth map + your max_blur / focus_depth to compute
+    # good defaults for depth_gamma and depth_range.
+    # ===================================================================
+    if auto_optimize:
+        depth_std = float(np.std(depth))
+
+        # depth_range adapts to image content + max_blur
+        depth_range = max(AUTO_RANGE_MIN, min(AUTO_RANGE_MAX,
+                         depth_std * AUTO_RANGE_SCALE - max_blur * AUTO_BLUR_FACTOR))
+
+        # depth_gamma boosts contrast when depth variation is low
+        depth_gamma = max(AUTO_GAMMA_MIN, min(AUTO_GAMMA_MAX,
+                         AUTO_GAMMA_BASE + (0.22 - depth_std) * AUTO_GAMMA_ADJUST))
+
+    # Now apply (auto or user-provided) gamma and range
     depth = depth ** depth_gamma
 
     # Depth-based blur amount: 0 = perfectly in focus, 1 = maximum blur
@@ -112,7 +147,6 @@ def img_depth_blur(
         blurred_stack.append(blurred)
     blurred_stack = np.stack(blurred_stack, axis=0)
 
-    # FIXED: depth_blur is already 0-1, so we directly scale to the stack index
     idx = depth_blur * (levels - 1)
     i0 = np.floor(idx).astype(int)
     i1 = np.clip(i0 + 1, 0, levels - 1)
