@@ -84,6 +84,9 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLocalLaplacian": Rasterix.PrimereLocalLaplacian,
     "PrimereFrequencySeparation": Rasterix.PrimereFrequencySeparation,
     "PrimereFilmicCurve": Rasterix.PrimereFilmicCurve,
+    "PrimereLUT3D": Rasterix.PrimereLUT3D,
+    "PrimereEdgeJitter": Rasterix.PrimereEdgeJitter,
+    "PrimereDepthBlur": Rasterix.PrimereDepthBlur,
 
     "PrimerePrompt": Inputs.PrimereDoublePrompt,
     "PrimereStyleLoader": Inputs.PrimereStyleLoader,
@@ -188,6 +191,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLocalLaplacian": "Primere Rasterix (Local Laplacian)",
     "PrimereFrequencySeparation": "Primere Rasterix (Frequency Separation)",
     "PrimereFilmicCurve": "Primere Rasterix (Filmic Curve)",
+    "PrimereLUT3D": "Primere Rasterix (LUT 3D)",
+    "PrimereEdgeJitter": "Primere Rasterix (Edge Jitter)",
+    "PrimereDepthBlur": "Primere Rasterix (Depth Blur)",
 
     "PrimerePrompt": "Primere Prompt",
     "PrimereStyleLoader": "Primere Styles",

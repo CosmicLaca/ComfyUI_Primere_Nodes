@@ -27,6 +27,9 @@ from ..components.images import img_dehaze as img_dehaze
 from ..components.images import img_local_laplacian as img_local_laplacian
 from ..components.images import img_frequency_separation as img_frequency_separation
 from ..components.images import img_filmic_curve as img_filmic_curve
+from ..components.images import img_lut3d as img_lut3d
+from ..components.images import img_edge_jitter as img_edge_jitter
+from ..components.images import img_depth_blur as img_depth_blur
 
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
@@ -1117,5 +1120,116 @@ class PrimereFilmicCurve:
         pil_img = utility.tensor_to_image(image)
         if use_filmic:
             pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereLUT3D:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_lut3d"
+    CATEGORY = TREE_RASTERIX
+
+    LUT_DIR = os.path.join(PRIMERE_ROOT, 'components', 'images', 'luts')
+
+    @classmethod
+    def _list_luts(cls):
+        lut_entries = ["None"]
+        if not os.path.exists(cls.LUT_DIR):
+            return lut_entries
+
+        for f in sorted(os.listdir(cls.LUT_DIR)):
+            full_path = os.path.join(cls.LUT_DIR, f)
+            if os.path.isfile(full_path) and f.lower().endswith(".cube"):
+                lut_entries.append(f)
+
+        for d in sorted(os.listdir(cls.LUT_DIR)):
+            subdir = os.path.join(cls.LUT_DIR, d)
+            if os.path.isdir(subdir):
+                for f in sorted(os.listdir(subdir)):
+                    if f.lower().endswith(".cube"):
+                        lut_entries.append(f"{d}/{f}")
+
+        return lut_entries
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "lut_file": (cls._list_luts(),),
+                "intensity": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01}),
+                "interpolation": (["trilinear", "tetrahedral"], {"default": "trilinear"}),
+                "input_space": (["sRGB", "linear"], {"default": "sRGB"}),
+                "output_space": (["sRGB", "linear"], {"default": "sRGB"}),            }
+        }
+
+    def primere_lut3d(self, image, use_lut, lut_file, intensity, interpolation, input_space, output_space, precision):
+        pil_img = utility.tensor_to_image(image)
+        if use_lut and lut_file != "None":
+            lut_path = os.path.join(self.LUT_DIR, lut_file)
+            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, interpolation=interpolation, input_space=input_space, output_space=output_space, precision=precision)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereEdgeJitter:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_edge_jitter"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_edge_jitter": ("BOOLEAN", {"default": False, "label_off": "Ignore edge jitter", "label_on": "Apply edge jitter"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "strength": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 3.0, "step": 0.01}),
+                "radius": ("FLOAT", {"default": 1.5, "min": 0.5, "max": 5.0, "step": 0.1}),
+                "edge_threshold": ("FLOAT", {"default": 0.1, "min": 0.01, "max": 0.5, "step": 0.01}),
+                "randomness": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+            },
+            "optional": {
+                "seed": ("INT", {"default": 0, "min": 0, "max": utility.MAX_SEED, "forceInput": True}),
+            }
+        }
+
+    def primere_edge_jitter(self, image, use_edge_jitter, precision, strength, radius, edge_threshold, randomness, seed=None):
+        pil_img = utility.tensor_to_image(image)
+        if use_edge_jitter and strength > 0:
+            pil_img = img_edge_jitter.img_edge_jitter(image=pil_img, strength=strength, radius=radius, edge_threshold=edge_threshold, randomness=randomness, seed=seed, precision=precision)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimereDepthBlur:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_depth_blur"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_depth_blur": ("BOOLEAN", {"default": False, "label_off": "Ignore depth blur", "label_on": "Apply depth blur"}),
+                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+
+                "focus_depth": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "depth_range": ("FLOAT", {"default": 0.200, "min": 0.001, "max": 1.000, "step": 0.001}),
+                "max_blur": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 50.0, "step": 0.5}),
+                "depth_gamma": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 5.00, "step": 0.01}),
+                "sharpness_threshold": ("FLOAT", {"default": 0.20, "min": 0.00, "max": 1.00, "step": 0.01}),
+            }
+        }
+
+    def primere_depth_blur(self, image, use_depth_blur, precision, focus_depth, depth_range, max_blur, depth_gamma, sharpness_threshold):
+        pil_img = utility.tensor_to_image(image)
+        if use_depth_blur:
+            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, precision=precision, sharpness_threshold=sharpness_threshold)
 
         return (utility.image_to_tensor(pil_img),)
