@@ -1310,7 +1310,7 @@ class PrimereDepthBlur:
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
                 "use_depth_blur": ("BOOLEAN", {"default": False, "label_off": "Ignore depth blur", "label_on": "Apply depth blur"}),
-                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
+                # "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
 
                 "focus_depth": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "depth_range": ("FLOAT", {"default": 0.200, "min": 0.001, "max": 1.000, "step": 0.001}),
@@ -1320,9 +1320,9 @@ class PrimereDepthBlur:
             }
         }
 
-    def primere_depth_blur(self, image, use_depth_blur, precision, focus_depth, depth_range, max_blur, depth_gamma, sharpness_threshold):
+    def primere_depth_blur(self, image, use_depth_blur, focus_depth, depth_range, max_blur, depth_gamma, sharpness_threshold):
         pil_img = utility.tensor_to_image(image)
         if use_depth_blur:
-            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, precision=precision, sharpness_threshold=sharpness_threshold)
+            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, sharpness_threshold=sharpness_threshold)
 
         return (utility.image_to_tensor(pil_img),)
