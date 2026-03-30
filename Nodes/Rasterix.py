@@ -163,7 +163,6 @@ class PrimereRasterix:
                 "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
                 "lut_file": (cls._list_luts(),),
                 "intensity": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01}),
-                "interpolation": (["trilinear", "tetrahedral"], {"default": "trilinear"}),
                 "input_space": (["sRGB", "linear"], {"default": "sRGB"}),
                 "output_space": (["sRGB", "linear"], {"default": "sRGB"}),
 
@@ -317,7 +316,6 @@ class PrimereRasterix:
         use_lut = kwargs.get('use_lut', False)
         lut_file = kwargs.get('lut_file', "None")
         intensity = kwargs.get('intensity', 1.0)
-        interpolation = kwargs.get('interpolation', 'trilinear')
         input_space = kwargs.get('input_space', "sRGB")
         output_space = kwargs.get('output_space', "sRGB")
         use_hsl = kwargs.get('use_hsl', False)
@@ -402,7 +400,7 @@ class PrimereRasterix:
 
         if use_lut and lut_file != "None":
             lut_path = os.path.join(self.LUT_DIR, lut_file)
-            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, interpolation=interpolation, input_space=input_space, output_space=output_space, precision=precision)
+            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=input_space, output_space=output_space)
 
         hs_data = rasterix_data.get('hue_saturation', {})
         if use_hsl and hs_data:
@@ -1279,21 +1277,19 @@ class PrimereLUT3D:
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
                 "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
-                "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
 
                 "lut_file": (cls._list_luts(),),
                 "intensity": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01}),
-                "interpolation": (["trilinear", "tetrahedral"], {"default": "trilinear"}),
                 "input_space": (["sRGB", "linear"], {"default": "sRGB"}),
                 "output_space": (["sRGB", "linear"], {"default": "sRGB"}),
             }
         }
 
-    def primere_lut3d(self, image, use_lut, lut_file, intensity, interpolation, input_space, output_space, precision):
+    def primere_lut3d(self, image, use_lut, lut_file, intensity, input_space, output_space):
         pil_img = utility.tensor_to_image(image)
         if use_lut and lut_file != "None":
             lut_path = os.path.join(self.LUT_DIR, lut_file)
-            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, interpolation=interpolation, input_space=input_space, output_space=output_space, precision=precision)
+            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=input_space, output_space=output_space)
 
         return (utility.image_to_tensor(pil_img),)
 
