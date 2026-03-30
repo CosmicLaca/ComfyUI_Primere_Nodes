@@ -26,11 +26,17 @@ AUTO_GAMMA_MIN    = 0.80
 AUTO_GAMMA_MAX    = 1.70
 AUTO_GAMMA_ADJUST = 2.8      # how strongly low depth variation increases gamma
 
-# NEW: constants for automatic max_blur calculation (based on focus_depth)
 AUTO_MAXBLUR_BASE  = 4.0
 AUTO_MAXBLUR_SCALE = 28.0    # how strongly "far" depths increase the blur
 AUTO_MAXBLUR_MIN   = 2.5
 AUTO_MAXBLUR_MAX   = 16.0
+
+# Protection when focus_depth is low (foreground focus)
+AUTO_PROTECT_FOCUS_THRESHOLD = 0.4      # activate protection below this value
+AUTO_SHARPNESS_THRESHOLD     = 0.2
+AUTO_SHARPNESS_BIAS          = 1.5
+AUTO_PROTECT_BAND_SIGMA      = 0.12     # depth-band width around focus_depth
+                                         # (higher = wider protection on character)
 
 
 def _find_best_model():
@@ -104,28 +110,38 @@ def _predict_depth(arr):
     return depth
 
 
+def _to_luminance(arr):
+    return 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
+
+
+def _sharpness_map(luma, radius):
+    gx = gaussian_filter(luma, sigma=radius, order=[0, 1])
+    gy = gaussian_filter(luma, sigma=radius, order=[1, 0])
+    mag = np.sqrt(gx * gx + gy * gy)
+    return mag / (mag.max() + 1e-6)
+
+
 def img_depth_blur(
     image:         Image.Image,
     focus_depth:   float = 0.5,
     depth_range:   float = 0.2,
     max_blur:      float = 8.0,
     depth_gamma:   float = 1.0,
-    auto_optimize: bool  = False,      # ← still the only switch
+    auto_optimize: bool  = False,
 ) -> Image.Image:
 
     img = image.convert("RGB")
     arr = np.array(img, dtype=np.float32) / 255.0
     h, w, _ = arr.shape
 
-    depth = _predict_depth(arr)
+    # Raw depth (before any gamma) – used for protection logic
+    raw_depth = _predict_depth(arr)
 
     # ===================================================================
-    # AUTO-OPTIMIZE LOGIC (only active when auto_optimize=True)
-    # Now calculates ALL THREE values: depth_range, depth_gamma AND max_blur
-    # based on the depth map + the user-provided focus_depth.
+    # AUTO-OPTIMIZE LOGIC
     # ===================================================================
     if auto_optimize:
-        depth_std = float(np.std(depth))
+        depth_std = float(np.std(raw_depth))
 
         # 1. depth_range adapts to image content
         depth_range = max(AUTO_RANGE_MIN, min(AUTO_RANGE_MAX,
@@ -135,17 +151,37 @@ def img_depth_blur(
         depth_gamma = max(AUTO_GAMMA_MIN, min(AUTO_GAMMA_MAX,
                          AUTO_GAMMA_BASE + (0.22 - depth_std) * AUTO_GAMMA_ADJUST))
 
-        # 3. NEW: max_blur calculated automatically from focus_depth
-        # Measures how far most pixels are from the chosen focus plane
-        far_deviation = np.percentile(np.abs(depth - focus_depth), 92)
+        # 3. max_blur calculated automatically from focus_depth
+        far_deviation = np.percentile(np.abs(raw_depth - focus_depth), 92)
         max_blur = AUTO_MAXBLUR_BASE + far_deviation * AUTO_MAXBLUR_SCALE
         max_blur = max(AUTO_MAXBLUR_MIN, min(AUTO_MAXBLUR_MAX, max_blur))
 
-    # Now apply (auto or user-provided) gamma, range and blur strength
-    depth = depth ** depth_gamma
+    # Apply gamma to the depth map used for blur calculation
+    depth = raw_depth ** depth_gamma
 
     # Depth-based blur amount: 0 = perfectly in focus, 1 = maximum blur
     depth_blur = np.clip((depth - focus_depth) / (depth_range + 1e-6), 0.0, 1.0)
+
+    # ===================================================================
+    # IMPROVED PROTECTION (now works in BOTH manual and fully auto mode)
+    # - Uses raw_depth (pre-gamma) so the band is always accurate
+    # - Protects the ENTIRE character/object near the focus plane
+    #   (smooth skin, neck, head, thin/narrow parts)
+    # - Works perfectly when auto_optimize=True and focus_depth < 0.4
+    # ===================================================================
+    if focus_depth < AUTO_PROTECT_FOCUS_THRESHOLD:
+        luma = _to_luminance(arr)
+        sharp = _sharpness_map(luma, radius=1.0)
+        sharp_mask = np.clip((sharp - AUTO_SHARPNESS_THRESHOLD) * AUTO_SHARPNESS_BIAS, 0.0, 1.0)
+
+        # Soft band around the exact focus plane (protects whole subject)
+        focus_proximity = np.exp(-((raw_depth - focus_depth) ** 2) / (AUTO_PROTECT_BAND_SIGMA ** 2))
+
+        # Combine both masks (maximum = strongest protection)
+        protect_mask = np.maximum(sharp_mask, focus_proximity)
+
+        # Apply protection (no blur on the focused character)
+        depth_blur = depth_blur * (1.0 - protect_mask)
 
     # Variable blur via stacked Gaussian levels + linear interpolation
     levels = 5
