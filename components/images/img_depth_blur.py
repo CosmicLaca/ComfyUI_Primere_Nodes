@@ -15,8 +15,8 @@ def _find_best_model():
     base = os.path.join(comfy_dir, "models", "depthanything")
 
     priority = [
-        "depth_anything_v2_vitl_fp32.safetensors",
         "depth_anything_v2_vitl_fp16.safetensors",
+        "depth_anything_v2_vitl_fp32.safetensors",
         "depth_anything_v2_vitb_fp16.safetensors",
         "depth_anything_v2_vitb_fp32.safetensors",
         "depth_anything_v2_vits_fp16.safetensors",
