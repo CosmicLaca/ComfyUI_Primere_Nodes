@@ -139,6 +139,11 @@ class PrimereRasterix:
                 "use_photo_paper": ("BOOLEAN", {"default": False, "label_off": "Ignore H/B photo paper", "label_on": "Apply H/B photo paper"}),
                 "photo_paper": ("BOOLEAN", {"default": False, "label_off": "Soft paper", "label_on": "Hard paper"}),
 
+                "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
+                "lut_file": (cls._list_luts(),),
+                "intensity": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01}),
+                "color_space": (["sRGB", "linear"], {"default": "sRGB"}),
+
                 "use_filmic": ("BOOLEAN", {"default": False, "label_off": "Ignore filmic", "label_on": "Apply filmic"}),
                 "curve_type": (["filmic", "log"], {"default": "filmic"}),
                 "filmic_contrast": ("FLOAT", {"default": 1.0, "min": 0.5, "max": 2.0, "step": 0.01}),
@@ -159,11 +164,6 @@ class PrimereRasterix:
                 "color_balance_tone":                (["highlights", "midtones", "shadows"], {"default": "midtones"}),
                 "color_balance_preserve_luminosity": ("BOOLEAN", {"default": False, "label_off": "Modify luminosity", "label_on": "Restore original luminosity"}),
                 "color_balance_separation":          ("FLOAT",   {"default": 50, "min": 0,    "max": 100, "step": 1}),
-
-                "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
-                "lut_file": (cls._list_luts(),),
-                "intensity": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01}),
-                "color_space": (["sRGB", "linear"], {"default": "sRGB"}),
 
                 "use_hsl": ("BOOLEAN", {"default": False, "label_off": "Ignore HSL", "label_on": "Apply HSL"}),
                 "hsl_hue":           ("FLOAT",   {"default": 0,    "min": -180, "max": 180, "step": 1}),
@@ -197,16 +197,6 @@ class PrimereRasterix:
                 "dither_quantization": ("BOOLEAN", {"default": False, "label_off": "Dither quantization OFF", "label_on": "Dither quantization ON"}),
                 "adaptive_dither_strength": ("BOOLEAN", {"default": False, "label_off": "Keep dither strength", "label_on": "Increase dither strength"}),
                 "error_diffusion": ("BOOLEAN", {"default": False, "label_off": "Error diffusion OFF", "label_on": "Error diffusion ON"}),
-
-                "use_posterize": ("BOOLEAN", {"default": False, "label_off": "Ignore posterize", "label_on": "Apply posterize"}),
-                "shades": ("INT", {"default": 255, "min": 1, "max": 255, "step": 1}),
-                "channels": (["Red", "Green", "Blue"], {"default": "Red"}),
-
-                "use_ai_detection_bypasser": ("BOOLEAN", {"default": False, "label_off": "AI detection bypass off", "label_on": "AI detection bypass on"}),
-                "adb_freq_strength":     ("FLOAT", {"default": 0.019, "min": 0.0, "max": 0.1,  "step": 0.001}),
-                "adb_variance_strength": ("FLOAT", {"default": 0.32,  "min": 0.0, "max": 1.0,  "step": 0.01}),
-                "adb_unsharp_percent":   ("INT",   {"default": 38,    "min": 0,   "max": 150,  "step": 1}),
-                "adb_jpeg_cycles":       ("INT",   {"default": 4,     "min": 0,   "max": 6,    "step": 1}),
 
                 "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
                 "histogram_source":        ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
@@ -326,11 +316,6 @@ class PrimereRasterix:
         clarity_radius = kwargs.get('clarity_radius', 2.0)
         midtone_range = kwargs.get('midtone_range', 0.5)
         edge_preservation = kwargs.get('edge_preservation', 0.8)
-        use_ai_detection_bypasser = kwargs.get('use_ai_detection_bypasser', False)
-        adb_freq_strength = kwargs.get('adb_freq_strength', 0.019)
-        adb_variance_strength = kwargs.get('adb_variance_strength', 0.32)
-        adb_unsharp_percent = kwargs.get('adb_unsharp_percent', 38)
-        adb_jpeg_cycles = kwargs.get('adb_jpeg_cycles', 4)
         use_level_endpoints = kwargs.get('use_level_endpoints', False)
         black_offset = kwargs.get('black_offset', 0.0)
         white_offset = kwargs.get('white_offset', 0.0)
@@ -339,7 +324,6 @@ class PrimereRasterix:
         dither_quantization = kwargs.get('dither_quantization', False)
         adaptive_dither_strength = kwargs.get('adaptive_dither_strength', False)
         error_diffusion = kwargs.get('error_diffusion', False)
-        use_posterize = kwargs.get('use_level_endpoints', False)
         show_histogram = kwargs.get('show_histogram', False)
         histogram_source = kwargs.get('histogram_source', False)
         histogram_channel = kwargs.get('histogram_channel', "RGB")
@@ -385,6 +369,10 @@ class PrimereRasterix:
         if use_photo_paper:
             pil_img = img_solarization_bw.img_solarization_bw(image=pil_img, color_mode=False, strength=0.00, pivot=0.00, sigma=0.01, edge_boost=0.00, edge_radius=0.5, contrast=1, precision=precision, hard_paper=photo_paper, grain_modulation=False, grain_strength=0, grain_scale=1, seed=1)
 
+        if use_lut and lut_file != "None":
+            lut_path = os.path.join(self.LUT_DIR, lut_file)
+            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=color_space, output_space=color_space)
+
         if use_filmic:
             pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=filmic_contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
 
@@ -395,10 +383,6 @@ class PrimereRasterix:
         cb_data = rasterix_data.get('color_balance', {})
         if use_color_balance and cb_data:
             pil_img = img_color_balance.img_color_balance(image=pil_img, channels_data=cb_data, preserve_luminosity=color_balance_preserve_luminosity, separation=color_balance_separation)
-
-        if use_lut and lut_file != "None":
-            lut_path = os.path.join(self.LUT_DIR, lut_file)
-            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=color_space, output_space=color_space)
 
         hs_data = rasterix_data.get('hue_saturation', {})
         if use_hsl and hs_data:
@@ -420,13 +404,6 @@ class PrimereRasterix:
 
         if dither_quantization or error_diffusion or normalize_midpeaks:
             pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision, seed=seed)
-
-        poster_data = rasterix_data.get('posterize', {})
-        if use_posterize and poster_data:
-            pil_img = img_posterize.img_posterize(image=pil_img, channels_data=poster_data)
-
-        if use_ai_detection_bypasser:
-            pil_img = isgen_detect_ext_full.bypass_ai_detector(image=pil_img, freq_strength=adb_freq_strength, variance_strength=adb_variance_strength, unsharp_percent=adb_unsharp_percent, jpeg_cycles=adb_jpeg_cycles)
 
         histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
         if show_histogram:
