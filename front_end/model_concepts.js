@@ -189,7 +189,7 @@ app.registerExtension({
     setup() {
         app.api.addEventListener("primere.concept_setting", (event) => {
             const detail = event.detail;
-            if (detail?.status === "missing") {
+            if (detail?.status === "missing" && detail.concept != null) {
                 showToast("error", `No saved settings for model type "${detail.concept}". Current node values will be used.`);
             }
         });
