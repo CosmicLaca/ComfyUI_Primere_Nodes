@@ -26,6 +26,12 @@ AUTO_GAMMA_MIN    = 0.80
 AUTO_GAMMA_MAX    = 1.70
 AUTO_GAMMA_ADJUST = 2.8      # how strongly low depth variation increases gamma
 
+# NEW: constants for automatic max_blur calculation (based on focus_depth)
+AUTO_MAXBLUR_BASE  = 4.0
+AUTO_MAXBLUR_SCALE = 28.0    # how strongly "far" depths increase the blur
+AUTO_MAXBLUR_MIN   = 2.5
+AUTO_MAXBLUR_MAX   = 16.0
+
 
 def _find_best_model():
     base = os.path.join(comfy_dir, "models", "depthanything")
@@ -104,7 +110,7 @@ def img_depth_blur(
     depth_range:   float = 0.2,
     max_blur:      float = 8.0,
     depth_gamma:   float = 1.0,
-    auto_optimize: bool  = False,      # NEW SWITCH
+    auto_optimize: bool  = False,      # ← still the only switch
 ) -> Image.Image:
 
     img = image.convert("RGB")
@@ -115,21 +121,27 @@ def img_depth_blur(
 
     # ===================================================================
     # AUTO-OPTIMIZE LOGIC (only active when auto_optimize=True)
-    # Uses the actual depth map + your max_blur / focus_depth to compute
-    # good defaults for depth_gamma and depth_range.
+    # Now calculates ALL THREE values: depth_range, depth_gamma AND max_blur
+    # based on the depth map + the user-provided focus_depth.
     # ===================================================================
     if auto_optimize:
         depth_std = float(np.std(depth))
 
-        # depth_range adapts to image content + max_blur
+        # 1. depth_range adapts to image content
         depth_range = max(AUTO_RANGE_MIN, min(AUTO_RANGE_MAX,
                          depth_std * AUTO_RANGE_SCALE - max_blur * AUTO_BLUR_FACTOR))
 
-        # depth_gamma boosts contrast when depth variation is low
+        # 2. depth_gamma boosts contrast when depth variation is low
         depth_gamma = max(AUTO_GAMMA_MIN, min(AUTO_GAMMA_MAX,
                          AUTO_GAMMA_BASE + (0.22 - depth_std) * AUTO_GAMMA_ADJUST))
 
-    # Now apply (auto or user-provided) gamma and range
+        # 3. NEW: max_blur calculated automatically from focus_depth
+        # Measures how far most pixels are from the chosen focus plane
+        far_deviation = np.percentile(np.abs(depth - focus_depth), 92)
+        max_blur = AUTO_MAXBLUR_BASE + far_deviation * AUTO_MAXBLUR_SCALE
+        max_blur = max(AUTO_MAXBLUR_MIN, min(AUTO_MAXBLUR_MAX, max_blur))
+
+    # Now apply (auto or user-provided) gamma, range and blur strength
     depth = depth ** depth_gamma
 
     # Depth-based blur amount: 0 = perfectly in focus, 1 = maximum blur
