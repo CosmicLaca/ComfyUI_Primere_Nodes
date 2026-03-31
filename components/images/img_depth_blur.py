@@ -19,9 +19,6 @@ _depth_model_v3 = None
 _depth_model_v3_name = None
 _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Path to the cloned Depth-Anything-3 source (no pip install needed)
-# DA3_SOURCE_PATH = os.path.join(comfy_dir, "custom_nodes", "Depth-Anything-3")
-
 # ── Tunable constants ────────────────────────────────────────────────────────
 
 DEPTH_MAP_BLUR_SIGMA  = 2.5
@@ -48,11 +45,8 @@ AUTO_MAXBLUR_SCALE    = 28.0
 AUTO_MAXBLUR_MIN      = 2.5
 AUTO_MAXBLUR_MAX      = 16.0
 
-# V3 local model folder (you already created this)
 V3_MODEL_DIR = os.path.join(comfy_dir, "models", "depthanything3")
 
-
-# ── Model loading ─────────────────────────────────────────────────────────────
 
 def _find_best_model():
     base = os.path.join(comfy_dir, "models", "depthanything")
@@ -128,10 +122,6 @@ def _load_depth_model_v3():
     if _depth_model_v3 is not None:
         return _depth_model_v3
 
-    # Add source folder to Python path (this is the trick that avoids all conflicts)
-    # if DA3_SOURCE_PATH not in sys.path:
-    #    sys.path.insert(0, DA3_SOURCE_PATH)
-
     if not os.path.exists(V3_MODEL_DIR):
         raise RuntimeError(
             f"Depth Anything V3 model folder not found!\n"
@@ -162,8 +152,6 @@ def _load_local_depth_model_v3(model_name=None):
     _depth_model_v3_name = model_name
     return _depth_model_v3
 
-# ── Depth prediction ──────────────────────────────────────────────────────────
-
 def _predict_depth(arr, imagei, use_v3: bool = False):
     if not use_v3:
         # === V2 (unchanged) ===
@@ -191,14 +179,11 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
 
     if isinstance(depth, torch.Tensor):
         depth = depth.detach().cpu().float()
-        # DepthAnything_V3 node returns Comfy IMAGE format [B, H, W, C].
-        # Convert to a single depth map [H, W] to match V2 flow below.
         if depth.dim() == 4:
             depth = depth[0]  # [H, W, C]
             if depth.shape[-1] > 1:
                 depth = depth[..., 0]
         elif depth.dim() == 3:
-            # Handle [C, H, W] and [H, W, C] defensively.
             if depth.shape[0] in (1, 3):
                 depth = depth[0]
             elif depth.shape[-1] in (1, 3):
@@ -226,8 +211,6 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
     depth = gaussian_filter(depth, sigma=DEPTH_MAP_BLUR_SIGMA)
     return depth
 
-
-# ── Helpers (unchanged) ───────────────────────────────────────────────────────
 
 def _to_luminance(arr):
     return 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
@@ -264,8 +247,6 @@ def _build_protection_mask(raw_depth, focus_depth, protect_sigma, arr):
     focus_band = np.exp(-((raw_depth - focus_depth) ** 2) / (protect_sigma ** 2 + 1e-8))
     return np.maximum(sharp_mask, focus_band)
 
-
-# ── Main function ─────────────────────────────────────────────────────────────
 
 def img_depth_blur(
     image:         Image.Image,
