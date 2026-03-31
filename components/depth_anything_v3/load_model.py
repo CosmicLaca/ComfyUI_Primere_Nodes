@@ -13,7 +13,7 @@ from .depth_anything_v3.configs import MODEL_CONFIGS, MODEL_REPOS
 from .depth_anything_v3.model import (DepthAnything3Net, DinoV2, DualDPT, DPT,)
 from .depth_anything_v3.camera import CameraEnc, CameraDec
 from .depth_anything_v3.gs import GSDPT, GaussianAdapter
-from .utils import DEFAULT_PATCH_SIZE, logger, check_model_capabilities
+from .utils import DEFAULT_PATCH_SIZE, check_model_capabilities
 
 # Register model folder with ComfyUI's folder_paths system
 _da3_model_dir = os.path.join(folder_paths.models_dir, "depthanything3")
@@ -114,10 +114,6 @@ def detect_da3_variant(state_dict):
         return 'da3-base'
     elif encoder == 'vits':
         return 'da3-small'
-
-    # Fallback: try to guess from key count or structure
-    logger.warning(f"Could not auto-detect model variant (embed_dim={embed_dim}, "
-                   f"has_cam={has_cam}, has_gs={has_gs}). Defaulting to da3-large.")
     return 'da3-large'
 
 
@@ -241,7 +237,6 @@ class NestedModelWrapper(torch.nn.Module):
             output.depth[~non_sky_mask] = sky_depth
             output.sky = metric_output.sky
         else:
-            logger.warning("Insufficient non-sky pixels for metric alignment")
             output.sky = metric_output.sky
 
         return output
@@ -269,22 +264,12 @@ class NestedModelWrapper(torch.nn.Module):
 
 
 def _build_da3_model(model_path, model_key, dtype, attention):
-    """Build and load the DA3 model from checkpoint.
-
-    Returns a loaded nn.Module on CPU with the given dtype.
-    """
-    logger.info(f"[build] model_key={model_key}, dtype={dtype}, attention={attention}")
     config = MODEL_CONFIGS[model_key]
-    logger.info(f"[build] config: encoder={config.get('encoder')}, dim_in={config.get('dim_in')}, "
-                f"features={config.get('features')}, out_channels={config.get('out_channels')}")
-
     is_nested = config.get('is_nested', False)
     operations = comfy.ops.manual_cast
 
     with torch.device("meta"):
         if is_nested:
-            logger.info("Creating nested model with main (Giant) and metric (Large) branches")
-
             backbone_main = DinoV2(
                 name=config['encoder'],
                 out_layers=config.get('out_layers', [19, 27, 33, 39]),
@@ -403,7 +388,6 @@ def _build_da3_model(model_path, model_key, dtype, attention):
             gs_adapter = None
             if config.get('has_3d_gaussians', model_key == 'da3-giant'):
                 gs_head, gs_adapter = _build_gs_modules(config, operations)
-                logger.info("Built GS head and adapter for Giant model (Gaussian splatting enabled)")
 
             inner_model = DepthAnything3Net(
                 net=backbone,
@@ -414,12 +398,7 @@ def _build_da3_model(model_path, model_key, dtype, attention):
                 gs_adapter=gs_adapter,
             )
 
-    # Load weights
-    logger.info(f"[build] Loading model from: {model_path}")
     state_dict = load_torch_file(model_path)
-    logger.info(f"[build] Checkpoint: {len(state_dict)} keys loaded")
-
-    # Strip 'model.' prefix from keys if present
     new_state_dict = {}
     stripped_count = 0
     for key, value in state_dict.items():
@@ -429,10 +408,6 @@ def _build_da3_model(model_path, model_key, dtype, attention):
             stripped_count += 1
         new_state_dict[new_key] = value
 
-    if stripped_count > 0:
-        logger.info(f"[build] Stripped 'model.' prefix from {stripped_count} keys")
-
-    # Check if checkpoint uses da3. prefix (nested model format)
     has_da3_prefix = any(k.startswith('da3.') for k in new_state_dict.keys())
 
     if is_nested:
@@ -452,21 +427,13 @@ def _build_da3_model(model_path, model_key, dtype, attention):
                 if clone_key not in new_state_dict:
                     expanded[clone_key] = new_state_dict[key].clone()
     if expanded:
-        logger.info(f"[build] Expanded {len(expanded)} shared-weight keys for output_conv2_aux")
         new_state_dict.update(expanded)
 
-    # Load weights via assign=True (PyTorch 2.1+)
     result = model.load_state_dict(new_state_dict, strict=False, assign=True)
-    if result.missing_keys:
-        logger.info(f"[build] Missing keys ({len(result.missing_keys)}): {result.missing_keys[:10]}")
-    if result.unexpected_keys:
-        logger.info(f"[build] Unexpected keys ({len(result.unexpected_keys)}): {result.unexpected_keys[:10]}")
     model.to(dtype=dtype)
 
-    # Safety: replace any remaining meta parameters with zeros
     for name, param in list(model.named_parameters()):
         if param.device.type == 'meta':
-            logger.warning(f"[build] Meta param remaining: {name}, initializing with zeros")
             parts = name.split('.')
             parent = model
             for part in parts[:-1]:
@@ -475,10 +442,8 @@ def _build_da3_model(model_path, model_key, dtype, attention):
                 torch.zeros(param.shape, dtype=dtype), requires_grad=False
             ))
 
-    # Safety: replace any remaining meta buffers with zeros
     for name, buf in list(model.named_buffers()):
         if buf.device.type == 'meta':
-            logger.warning(f"[build] Meta buffer remaining: {name}, initializing with zeros")
             parts = name.split('.')
             parent = model
             for part in parts[:-1]:
@@ -486,7 +451,6 @@ def _build_da3_model(model_path, model_key, dtype, attention):
             parent.register_buffer(parts[-1], torch.zeros(buf.shape, dtype=buf.dtype))
 
     model.eval()
-    logger.info(f"Model ready ({dtype})")
     return model
 
 
@@ -524,7 +488,7 @@ class DownloadAndLoadDepthAnythingV3Model():
                     "Install with: pip install huggingface_hub\n"
                     "Or manually download and place in ComfyUI/models/depthanything3/"
                 )
-            logger.info(f"Auto-downloading {model} from HuggingFace ({MODEL_REPOS[model]})...")
+
             snapshot_download(
                 repo_id=MODEL_REPOS[model],
                 allow_patterns=["*.safetensors"],
@@ -537,25 +501,18 @@ class DownloadAndLoadDepthAnythingV3Model():
             if os.path.exists(hf_default) and not os.path.exists(target_path):
                 os.rename(hf_default, target_path)
             model_path = target_path
-            logger.info(f"Downloaded model to: {model_path}")
 
         if model_path is None:
             raise FileNotFoundError(
                 f"Model '{model}' not found in ComfyUI/models/depthanything3/ and not a known HuggingFace model."
             )
 
-        # Auto-detect model variant from state_dict
         sd = load_torch_file(model_path)
         model_key = detect_da3_variant_with_filename_hint(sd, model)
-        logger.info(f"Auto-detected model variant: {model_key}")
         del sd  # Free memory before building model
-
         config = MODEL_CONFIGS[model_key]
-
-        # Build and load model immediately
         loaded_model = _build_da3_model(model_path, model_key, dtype, attention)
 
-        # Wrap in ModelPatcher for ComfyUI memory management
         patcher = comfy.model_patcher.ModelPatcher(
             loaded_model,
             load_device=mm.get_torch_device(),
