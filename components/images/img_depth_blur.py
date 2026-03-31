@@ -186,7 +186,7 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
         return depth
 
     model = _load_local_depth_model_v3()
-    depth = nodes_inference.DepthAnything_V3.execute(model, imagei)
+    depth = nodes_inference.DepthAnything_V3.execute(model, imagei, normalization_mode="Raw", invert_depth=True,)
     h, w, _ = arr.shape
 
     if isinstance(depth, torch.Tensor):
