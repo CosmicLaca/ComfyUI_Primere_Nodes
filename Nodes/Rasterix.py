@@ -1010,21 +1010,23 @@ class PrimereHistogram:
                 "image": ("IMAGE", {"forceInput": True}),
                 "precision": ("BOOLEAN", {"default": False, "label_off": "8 bit", "label_on": "16 bit"}),
                 "show_histogram": ("BOOLEAN", {"default": False, "label_off": "Ignore histogram", "label_on": "Create histogram"}),
-                # "histogram_source": ("BOOLEAN", {"default": False, "label_off": "Show output histogram", "label_on": "Show input histogram"}),
                 "histogram_channel": (["RGB", "RED", "GREEN", "BLUE"], {"default": "RGB"}),
                 "histogram_style": (["bars", "lines", "waveform", "heatmap", "stacked", "luma", "parade", "gradient", "glow", "dots", "step", "log", "percentile", "inverse"], {"default": "bars"}),
+            },
+            "hidden": {
+                "id": "UNIQUE_ID",
             }
         }
 
-    def primere_histogram(self, image, precision, show_histogram=False, histogram_channel="RGB", histogram_style="bars"):
+    def primere_histogram(self, image, precision, show_histogram=False, histogram_channel="RGB", histogram_style="bars", id=None):
         pil_img = utility.tensor_to_image(image)
         pil_img_input = pil_img.copy()
 
-        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
+        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision, node_id=id)
 
         if show_histogram:
-            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision)
-            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, True, histogram_channel, histogram_style,)
+            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision, node_id=id)
+            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, True, histogram_channel, histogram_style, node_id=id)
             suffix = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)

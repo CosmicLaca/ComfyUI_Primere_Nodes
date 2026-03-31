@@ -171,12 +171,22 @@ app.registerExtension({
 
             applyFilmTypeFilter();
 
+            function currentNodeId() {
+                return String(node?.id ?? "global");
+            }
+
+            function histogramFileUrl(showInput, channel, style) {
+                const q = new URLSearchParams({
+                    node_id: currentNodeId(),
+                    histogram_source: String(!!showInput),
+                    histogram_channel: channel || "RGB",
+                    histogram_style: style || "bars",
+                });
+                return `/primere_rasterix_histogram_image?${q.toString()}`;
+            }
+
             function updateHistogramDisplay(showInput, channel, style) {
-                const prefix = showInput ? "input" : "output";
-                const ch     = (channel || "RGB").toLowerCase();
-                const st     = style || "gradient";
-                const fname  = `${prefix}_histogram_${ch}_${st}.jpg`;
-                const url    = `/extensions/ComfyUI_Primere_Nodes/images/${fname}?t=${Date.now()}`;
+                const url = `${histogramFileUrl(showInput, channel, style)}&t=${Date.now()}`;
                 const img    = new Image();
                 img.onload = () => {
                     if (!node.imgs) node.imgs = [img];
@@ -199,15 +209,8 @@ app.registerExtension({
                 img.src = url;
             }
 
-            function histogramFileUrl(showInput, channel, style) {
-                const prefix = showInput ? "input" : "output";
-                const ch     = (channel || "RGB").toLowerCase();
-                const st     = style || "bars";
-                return `/extensions/ComfyUI_Primere_Nodes/images/${prefix}_histogram_${ch}_${st}.jpg`;
-            }
-
             async function histogramFileExists(showInput, channel, style) {
-                const url = `${histogramFileUrl(showInput, channel, style)}?t=${Date.now()}`;
+                const url = `${histogramFileUrl(showInput, channel, style)}&t=${Date.now()}`;
                 try {
                     const headResp = await fetch(url, { method: "HEAD" });
                     if (headResp.ok) return true;
@@ -226,6 +229,7 @@ app.registerExtension({
                         method:  'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body:    JSON.stringify({
+                            node_id:           currentNodeId(),
                             histogram_source:  showInput,
                             histogram_channel: channel || "RGB",
                             histogram_style:   style   || "bars",

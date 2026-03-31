@@ -575,27 +575,37 @@ routes21 = PromptServer.instance.routes
 @routes21.post('/primere_rasterix_histogram_generate')
 async def primere_rasterix_histogram_generate(request):
     post = await request.json()
+    node_id = post.get('node_id')
     histogram_source = bool(post.get('histogram_source', False))
     histogram_channel = post.get('histogram_channel', 'RGB')
     histogram_style = post.get('histogram_style', 'bars')
     precision = bool(post.get('precision', False))
     force = bool(post.get('force', False))
 
-    hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
-    input_cache = os.path.join(hist_dir, "rasterix_hist_cache_input.png")
-    output_cache = os.path.join(hist_dir, "rasterix_hist_cache_output.png")
+    _, input_cache, output_cache = histogram.rasterix_hist_cache_paths(node_id=node_id)
 
     source_path = input_cache if histogram_source else output_cache
     if not os.path.isfile(source_path):
         return web.json_response({"success": False, "error": "Histogram cache is missing"}, status=404)
 
     source_img = Image.open(source_path).convert("RGB")
-    source_prefix = "input" if histogram_source else "output"
-    target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
+    target_file = histogram.rasterix_hist_render_path(node_id, histogram_source, histogram_channel, histogram_style)
     if force or not os.path.isfile(target_file):
         rendered = histogram.rasterix_histogram_render(source_img, histogram_channel, histogram_style, precision)
-        rendered.save(target_file, quality=90)
+        rendered.save(target_file, compress_level=1)
     return web.json_response({"success": True, "filename": os.path.basename(target_file)})
+
+routes21b = PromptServer.instance.routes
+@routes21b.get('/primere_rasterix_histogram_image')
+async def primere_rasterix_histogram_image(request):
+    node_id = request.rel_url.query.get("node_id")
+    histogram_source = request.rel_url.query.get("histogram_source", "false").lower() == "true"
+    histogram_channel = request.rel_url.query.get("histogram_channel", "RGB")
+    histogram_style = request.rel_url.query.get("histogram_style", "bars")
+    target_file = histogram.rasterix_hist_render_path(node_id, histogram_source, histogram_channel, histogram_style)
+    if not os.path.isfile(target_file):
+        return web.json_response({"success": False, "error": "Histogram image missing"}, status=404)
+    return web.FileResponse(target_file)
 
 routes22 = PromptServer.instance.routes
 @routes22.get('/primere_rasterix_setting_read')

@@ -3,7 +3,7 @@ from PIL import Image, ImageFilter
 import glob
 import hashlib
 import json
-from ..tree import PRIMERE_ROOT
+import folder_paths
 import os
 
 _HIST_CH_DEFS = {
@@ -398,25 +398,27 @@ def rasterix_histogram_render(
 
     return result
 
-def rasterix_hist_cache_paths():
-    hist_dir = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
-    os.makedirs(hist_dir, exist_ok=True)
-    return (
-        hist_dir,
-        os.path.join(hist_dir, "rasterix_hist_cache_input.png"),
-        os.path.join(hist_dir, "rasterix_hist_cache_output.png"),
-    )
+def _safe_node_id(node_id):
+    safe = str(node_id or "global")
+    return "".join(ch if ch.isalnum() or ch in ("-", "_") else "_" for ch in safe)
 
-def rasterix_hist_meta_path():
-    hist_dir, _, _ = rasterix_hist_cache_paths()
-    return os.path.join(hist_dir, "rasterix_hist_cache_meta.json")
+def rasterix_hist_cache_paths(node_id=None):
+    hist_dir = folder_paths.get_temp_directory()
+    os.makedirs(hist_dir, exist_ok=True)
+    safe_id = _safe_node_id(node_id)
+    return hist_dir, os.path.join(hist_dir, f"rasterix_hist_cache_{safe_id}_input.png"), os.path.join(hist_dir, f"rasterix_hist_cache_{safe_id}_output.png"),
+
+def rasterix_hist_meta_path(node_id=None):
+    hist_dir, _, _ = rasterix_hist_cache_paths(node_id=node_id)
+    return os.path.join(hist_dir, f"rasterix_hist_cache_meta_{_safe_node_id(node_id)}.json")
 
 def rasterix_hist_signature(pil_img):
     return hashlib.sha1(pil_img.tobytes()).hexdigest()
 
-def rasterix_hist_cache_store(pil_input, pil_output, precision):
-    hist_dir, in_path, out_path = rasterix_hist_cache_paths()
-    meta_path = rasterix_hist_meta_path()
+def rasterix_hist_cache_store(pil_input, pil_output, precision, node_id=None):
+    hist_dir, in_path, out_path = rasterix_hist_cache_paths(node_id=node_id)
+    meta_path = rasterix_hist_meta_path(node_id=node_id)
+    safe_id = _safe_node_id(node_id)
     current_key = f"{rasterix_hist_signature(pil_input)}::{rasterix_hist_signature(pil_output)}::{'16' if precision else '8'}"
 
     previous_key = None
@@ -428,7 +430,7 @@ def rasterix_hist_cache_store(pil_input, pil_output, precision):
             previous_key = None
 
     if current_key != previous_key:
-        for old_hist in glob.glob(os.path.join(hist_dir, "*_histogram_*_*.jpg")):
+        for old_hist in glob.glob(os.path.join(hist_dir, f"History_{safe_id}_*.png")):
             try:
                 os.remove(old_hist)
             except OSError:
@@ -439,13 +441,18 @@ def rasterix_hist_cache_store(pil_input, pil_output, precision):
     with open(meta_path, 'w', encoding='utf-8') as f:
         json.dump({"cache_key": current_key}, f)
 
-def rasterix_hist_render_selected(pil_input, pil_output, precision, histogram_source, histogram_channel, histogram_style):
-    hist_dir, _, _ = rasterix_hist_cache_paths()
+def rasterix_hist_render_path(node_id, histogram_source, histogram_channel, histogram_style):
+    hist_dir, _, _ = rasterix_hist_cache_paths(node_id=node_id)
     source_prefix = "input" if histogram_source else "output"
-    target_file = os.path.join(hist_dir, f'{source_prefix}_histogram_{histogram_channel.lower()}_{histogram_style}.jpg')
+    safe_id = _safe_node_id(node_id)
+    history_filename = f"History_{safe_id}_{source_prefix}_{histogram_channel.lower()}_{histogram_style}.png"
+    return os.path.join(hist_dir, history_filename)
+
+def rasterix_hist_render_selected(pil_input, pil_output, precision, histogram_source, histogram_channel, histogram_style, node_id=None):
+    target_file = rasterix_hist_render_path(node_id, histogram_source, histogram_channel, histogram_style)
     if os.path.isfile(target_file):
         return Image.open(target_file).convert("RGB")
     source_image = pil_input if histogram_source else pil_output
     rendered = rasterix_histogram_render(source_image, histogram_channel, histogram_style, precision)
-    rendered.save(target_file, quality=90)
+    rendered.save(target_file, compress_level=1)
     return rendered
