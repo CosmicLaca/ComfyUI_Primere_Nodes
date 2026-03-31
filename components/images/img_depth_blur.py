@@ -160,7 +160,7 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
     if isinstance(depth, torch.Tensor):
         depth = depth.cpu().numpy()
 
-    depth = depth.squeeze().cpu().numpy()
+    # depth = depth.squeeze().cpu().numpy()
     depth = (depth - depth.min()) / (depth.max() - depth.min() + 1e-6)
     depth = 1.0 - depth
     depth = np.array(Image.fromarray((depth * 255).astype(np.uint8)).resize((w, h))).astype(np.float32) / 255.0
