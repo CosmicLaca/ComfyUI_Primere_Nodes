@@ -1,4 +1,3 @@
-"""Model loading and configuration nodes for DepthAnythingV3."""
 import logging
 import torch
 import os
@@ -15,21 +14,16 @@ from .depth_anything_v3.camera import CameraEnc, CameraDec
 from .depth_anything_v3.gs import GSDPT, GaussianAdapter
 from .utils import DEFAULT_PATCH_SIZE, check_model_capabilities
 
-# Register model folder with ComfyUI's folder_paths system
 _da3_model_dir = os.path.join(folder_paths.models_dir, "depthanything3")
 os.makedirs(_da3_model_dir, exist_ok=True)
 folder_paths.add_model_folder_path("depth_anything_v3", _da3_model_dir)
 
 
 def _get_da3_model_list():
-    """Get combined model list: known HuggingFace models + locally-placed files."""
     local_models = folder_paths.get_filename_list("depth_anything_v3")
     known_models = list(MODEL_REPOS.keys())
-    # Known models first, then any extra local files, deduplicated
     return list(dict.fromkeys(known_models + local_models))
 
-
-# Encoder embed dimensions for camera modules
 ENCODER_EMBED_DIMS = {
     'vits': 384,
     'vitb': 768,
@@ -37,35 +31,22 @@ ENCODER_EMBED_DIMS = {
     'vitg': 1536,
 }
 
-
 def detect_da3_variant(state_dict):
-    """Auto-detect DA3 model variant from state_dict keys and weight shapes.
-
-    Returns the model config key (e.g. 'da3-large', 'da3mono-large', etc.).
-    """
     keys = set(state_dict.keys())
-
-    # Strip 'model.' prefix for analysis
     stripped_keys = set()
     for k in keys:
         stripped_keys.add(k[6:] if k.startswith('model.') else k)
 
-    # 1. Check for nested model (has both da3. and da3_metric. branches)
     has_da3_metric = any(k.startswith('da3_metric.') for k in stripped_keys)
     if has_da3_metric:
         return 'da3nested-giant-large'
 
-    # Determine effective key prefix (some checkpoints use da3. prefix)
     has_da3_prefix = any(k.startswith('da3.') for k in stripped_keys)
     prefix = 'da3.' if has_da3_prefix else ''
-
-    # 2. Detect encoder type from backbone embed_dim
-    # The patch_embed projection weight shape tells us the embed_dim
     patch_key = f'{prefix}net.patch_embed.proj.weight'
     if patch_key in stripped_keys:
         embed_dim = state_dict.get(patch_key, state_dict.get(f'model.{patch_key}')).shape[0]
     else:
-        # Try alternative key patterns
         embed_dim = None
         for k in stripped_keys:
             if 'patch_embed.proj.weight' in k:
@@ -74,18 +55,10 @@ def detect_da3_variant(state_dict):
                     embed_dim = state_dict[sd_key].shape[0]
                 break
 
-    # Map embed_dim to encoder name
     dim_to_encoder = {384: 'vits', 768: 'vitb', 1024: 'vitl', 1536: 'vitg'}
     encoder = dim_to_encoder.get(embed_dim)
-
-    # 3. Check for camera modules (main series vs mono/metric)
     has_cam = any('cam_enc' in k for k in stripped_keys)
-
-    # 4. Check for GS head (giant model)
     has_gs = any('gs_head' in k for k in stripped_keys)
-
-    # 5. Check head type: DPT (1-ch, mono/metric) vs DualDPT (2-ch, main series)
-    # DualDPT has output_conv1 with 2 output channels, DPT has 1
     head_output_key = f'{prefix}head.output_conv1.2.weight'
     is_dual_head = False
     if head_output_key in stripped_keys:
@@ -94,7 +67,6 @@ def detect_da3_variant(state_dict):
             out_channels = state_dict[sd_key].shape[0]
             is_dual_head = (out_channels == 2)
 
-    # Map to config key
     if encoder == 'vitg' and has_cam:
         if has_gs:
             return 'da3-giant'
@@ -103,8 +75,6 @@ def detect_da3_variant(state_dict):
         if has_cam and is_dual_head:
             return 'da3-large'
         elif not has_cam and not is_dual_head:
-            # Could be mono or metric - architecturally identical
-            # Default to mono, user can override via filename hint
             return 'da3mono-large'
         elif has_cam:
             return 'da3-large'
@@ -118,10 +88,7 @@ def detect_da3_variant(state_dict):
 
 
 def detect_da3_variant_with_filename_hint(state_dict, filename):
-    """Auto-detect variant, using filename as a hint for ambiguous cases."""
     variant = detect_da3_variant(state_dict)
-
-    # For mono/metric disambiguation (same architecture), check filename
     if variant == 'da3mono-large' and filename:
         fname_lower = filename.lower()
         if 'metric' in fname_lower:
@@ -129,9 +96,7 @@ def detect_da3_variant_with_filename_hint(state_dict, filename):
 
     return variant
 
-
 def _build_gs_modules(config, operations):
-    """Build GS head and adapter for Giant model."""
     gs_head = GSDPT(
         dim_in=config['dim_in'],
         output_dim=38,
@@ -153,7 +118,6 @@ def _build_gs_modules(config, operations):
 
 
 class DA3ModelWrapper(torch.nn.Module):
-    """Wrapper to match checkpoint parameter naming (da3.backbone... etc)"""
     def __init__(self, model):
         super().__init__()
         self.da3 = model
@@ -183,7 +147,6 @@ class DA3ModelWrapper(torch.nn.Module):
 
 
 class NestedModelWrapper(torch.nn.Module):
-    """Wrapper for nested DA3 model with two branches (main + metric)."""
     def __init__(self, da3_main, da3_metric):
         super().__init__()
         self.da3 = da3_main
@@ -417,7 +380,6 @@ def _build_da3_model(model_path, model_key, dtype, attention):
     else:
         model = inner_model
 
-    # Expand shared-weight checkpoint keys (e.g. output_conv2_aux.0.2 -> 1.2, 2.2, 3.2)
     expanded = {}
     for key in list(new_state_dict.keys()):
         if 'output_conv2_aux.0.' in key:
@@ -458,8 +420,6 @@ class DownloadAndLoadDepthAnythingV3Model():
     @classmethod
     def execute(cls, model, precision="auto", attention="auto"):
         device = mm.get_torch_device()
-
-        # Determine dtype
         if precision == "auto":
             if mm.should_use_bf16(device):
                 dtype = torch.bfloat16
@@ -474,7 +434,6 @@ class DownloadAndLoadDepthAnythingV3Model():
         else:
             dtype = torch.float32
 
-        # Resolve full path — auto-download from HuggingFace if not found locally
         model_path = folder_paths.get_full_path("depth_anything_v3", model)
 
         if model_path is None and model in MODEL_REPOS:
@@ -495,7 +454,7 @@ class DownloadAndLoadDepthAnythingV3Model():
                 local_dir=download_dir,
                 local_dir_use_symlinks=False,
             )
-            # HuggingFace may save as model.safetensors — rename to expected name
+
             hf_default = os.path.join(download_dir, "model.safetensors")
             target_path = os.path.join(download_dir, model)
             if os.path.exists(hf_default) and not os.path.exists(target_path):
@@ -519,7 +478,6 @@ class DownloadAndLoadDepthAnythingV3Model():
             offload_device=mm.unet_offload_device(),
         )
 
-        # Store metadata on patcher for use by inference nodes
         patcher.model_options["da3_capabilities"] = check_model_capabilities(loaded_model)
         patcher.model_options["da3_config"] = config
         patcher.model_options["da3_dtype"] = dtype
