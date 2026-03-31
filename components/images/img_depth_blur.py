@@ -158,7 +158,34 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
 
     # depth = pred.depth[0]
     if isinstance(depth, torch.Tensor):
-        depth = depth.cpu().numpy()
+        depth = depth.detach().cpu().float()
+        # DepthAnything_V3 node returns Comfy IMAGE format [B, H, W, C].
+        # Convert to a single depth map [H, W] to match V2 flow below.
+        if depth.dim() == 4:
+            depth = depth[0]  # [H, W, C]
+            if depth.shape[-1] > 1:
+                depth = depth[..., 0]
+        elif depth.dim() == 3:
+            # Handle [C, H, W] and [H, W, C] defensively.
+            if depth.shape[0] in (1, 3):
+                depth = depth[0]
+            elif depth.shape[-1] in (1, 3):
+                depth = depth[..., 0]
+        depth = depth.numpy()
+    elif isinstance(depth, np.ndarray):
+        if depth.ndim == 4:
+            depth = depth[0]
+        if depth.ndim == 3:
+            if depth.shape[0] in (1, 3):
+                depth = depth[0]
+            elif depth.shape[-1] in (1, 3):
+                depth = depth[..., 0]
+    else:
+        depth = np.asarray(depth)
+        if depth.ndim > 2:
+            depth = np.squeeze(depth)
+    if depth.ndim != 2:
+        depth = np.squeeze(depth)
 
     # depth = depth.squeeze().cpu().numpy()
     depth = (depth - depth.min()) / (depth.max() - depth.min() + 1e-6)
