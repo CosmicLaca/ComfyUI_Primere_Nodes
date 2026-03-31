@@ -1,0 +1,612 @@
+{
+  "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
+  "revision": 0,
+  "last_node_id": 68,
+  "last_link_id": 135,
+  "nodes": [
+    {
+      "id": 27,
+      "type": "PrimereRasterixLens",
+      "pos": [
+        1318.136814808686,
+        1617.9783080239445
+      ],
+      "size": [
+        370.7737915039063,
+        1162
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 135
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixLens"
+      },
+      "widgets_values": [
+        true,
+        0.3,
+        0.6,
+        0.75,
+        "circular",
+        false,
+        3,
+        0.16,
+        "red_blue",
+        false,
+        8,
+        0,
+        0.9,
+        0,
+        false,
+        0.05,
+        0.02,
+        1,
+        false,
+        0.59,
+        0.72,
+        0.67,
+        9,
+        0.74,
+        2,
+        "neutral",
+        true,
+        0.04,
+        15,
+        0.75,
+        0.8,
+        true,
+        25.4,
+        "radial",
+        0.28,
+        0.67,
+        0.49,
+        false,
+        0.2,
+        5,
+        "centre",
+        false,
+        0.5,
+        "blue",
+        0.8,
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "id": 31,
+      "type": "PrimereRasterixGrain",
+      "pos": [
+        1715.07895213786,
+        1624.8949409737754
+      ],
+      "size": [
+        270,
+        366
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 53
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            59
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterixGrain"
+      },
+      "widgets_values": [
+        false,
+        67,
+        1,
+        "organic",
+        "color",
+        "neutral",
+        0,
+        0,
+        0,
+        1,
+        0.3,
+        0.4,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1298.7592610433578,
+        139.53898173310924
+      ],
+      "size": [
+        1128.4106290470122,
+        1408.4781444463952
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 59
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        false,
+        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
+        null
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PrimereResolutionMultiplierMPX",
+      "pos": [
+        235.02097256266737,
+        -367.48762465423255
+      ],
+      "size": [
+        270.330078125,
+        262
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 6
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 7
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "UPSCALE_RATIO",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            132
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolutionMultiplierMPX"
+      },
+      "widgets_values": [
+        true,
+        1,
+        true,
+        20,
+        2,
+        "None",
+        "bicubic"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "GetImageSize+",
+      "pos": [
+        -130.79347593569014,
+        -363.6522177738312
+      ],
+      "size": [
+        162.8169921875,
+        66
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -289.6036872223329,
+        357.20135646032696
+      ],
+      "size": [
+        847.8209835466038,
+        1173.17325790213
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Image_A685_20242710_163452_191939868053378_848x1232_1.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 62,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        -154.07278970585884,
+        19.522936131427095
+      ],
+      "size": [
+        572.2316514105224,
+        246
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            134
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            133
+          ]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ]
+    },
+    {
+      "id": 68,
+      "type": "PrimereRasterix",
+      "pos": [
+        585.9729935888138,
+        -312.80792579963776
+      ],
+      "size": [
+        687.0483287464491,
+        2205.2276553503416
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 132
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 133
+        },
+        {
+          "name": "model_name",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": 134
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            135
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereRasterix"
+      },
+      "widgets_values": [
+        "Auto",
+        "Auto",
+        true,
+        true,
+        0.6,
+        true,
+        128,
+        true,
+        6500,
+        0,
+        true,
+        11.851806640625,
+        false,
+        "bilateral",
+        0,
+        2,
+        0,
+        0.5,
+        false,
+        0,
+        false,
+        0,
+        0,
+        false,
+        true,
+        "All",
+        "canon_5d_mark2_CCD",
+        100,
+        true,
+        true,
+        8,
+        false,
+        0,
+        "midtones",
+        50,
+        0.5,
+        false,
+        0,
+        0,
+        0,
+        "midtones",
+        false,
+        50,
+        false,
+        0,
+        0,
+        0,
+        0,
+        "master",
+        50,
+        true,
+        false,
+        0,
+        0,
+        "medium",
+        0.5,
+        false,
+        0,
+        0,
+        false,
+        false,
+        false,
+        3,
+        false,
+        false,
+        false,
+        false,
+        0.019,
+        0.32,
+        38,
+        4,
+        true,
+        false,
+        "RGB",
+        "bars"
+      ]
+    }
+  ],
+  "links": [
+    [
+      3,
+      2,
+      0,
+      4,
+      2,
+      "IMAGE"
+    ],
+    [
+      5,
+      2,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      5,
+      0,
+      4,
+      0,
+      "INT"
+    ],
+    [
+      7,
+      5,
+      1,
+      4,
+      1,
+      "INT"
+    ],
+    [
+      53,
+      27,
+      0,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      59,
+      31,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      132,
+      4,
+      3,
+      68,
+      0,
+      "IMAGE"
+    ],
+    [
+      133,
+      62,
+      1,
+      68,
+      1,
+      "STRING"
+    ],
+    [
+      134,
+      62,
+      0,
+      68,
+      2,
+      "CHECKPOINT_NAME"
+    ],
+    [
+      135,
+      68,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5131581182307067,
+      "offset": [
+        1005.9521183144615,
+        563.8783530202974
+      ]
+    },
+    "frontendVersion": "1.41.21"
+  },
+  "version": 0.4
+}

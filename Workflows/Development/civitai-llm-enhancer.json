@@ -1,0 +1,434 @@
+{
+  "last_node_id": 7,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "PrimereFastSeed",
+      "pos": [
+        482.7301940917969,
+        330.1590881347656
+      ],
+      "size": [
+        315,
+        124
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereFastSeed",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "Random",
+        42,
+        "Last seed: [740141571147692]"
+      ],
+      "color": "#1f1f48",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 6,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1416.18212890625,
+        145.95248413085938
+      ],
+      "size": [
+        400.4764099121094,
+        115.84244537353516
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful blonde woman, photographer, photomodel, workshop, glamour magazine, magazine cover"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 7,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1413.4207763671875,
+        319.6361999511719
+      ],
+      "size": [
+        411.85992431640625,
+        344.0310363769531
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereAnyOutput",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful female photographer in a workshop model and photomodel beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beauty fashion beautiful 3d concept art photomodel photomodel photomodel photomodel photomodel magazine cover glossy photomodel photomodel phot"
+      ],
+      "color": "#006691",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 4,
+      "type": "Text Multiline",
+      "pos": [
+        484.800048828125,
+        158.3708953857422
+      ],
+      "size": [
+        407.2440490722656,
+        122.38483428955078
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "pr-was-node-suite-comfyui-47064894",
+        "ver": "831199b898394c0385576d80628fce6b7931d317",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "Text Multiline",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "beautiful blonde woman, photographer, photomodel, workshop, glamour magazine, magazine cover"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 2,
+      "type": "PrimereLLMEnhancerOptions",
+      "pos": [
+        1002.2343139648438,
+        415.5357360839844
+      ],
+      "size": [
+        315,
+        274
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LLM OPTIONS",
+          "type": "TUPLE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereLLMEnhancerOptions",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        true,
+        1,
+        50,
+        1,
+        512,
+        1,
+        1,
+        0,
+        1,
+        true
+      ],
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 5,
+      "type": "Text Multiline",
+      "pos": [
+        482.5559387207031,
+        504.36004638671875
+      ],
+      "size": [
+        407.2440490722656,
+        122.38483428955078
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "cnr_id": "pr-was-node-suite-comfyui-47064894",
+        "ver": "831199b898394c0385576d80628fce6b7931d317",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "Text Multiline",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "Create detailed enhanced prompt"
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 1,
+      "type": "PrimereLLMEnhancer",
+      "pos": [
+        966.0138549804688,
+        166.6498260498047
+      ],
+      "size": [
+        400.5525817871094,
+        190
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "llm_options",
+          "type": "TUPLE",
+          "shape": 7,
+          "link": 1
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 3
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 2
+        },
+        {
+          "name": "system_prompt",
+          "type": "STRING",
+          "shape": 7,
+          "widget": {
+            "name": "system_prompt"
+          },
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROMPT",
+          "type": "STRING",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "ENHANCED_PROMPT",
+          "type": "STRING",
+          "links": [
+            6
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "963d8a7b56ab2788f1b222df13c09836ca804753",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "PrimereLLMEnhancer",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        "",
+        3100822210,
+        "randomize",
+        "None",
+        false,
+        "Default",
+        1,
+        ""
+      ],
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      1,
+      0,
+      "TUPLE"
+    ],
+    [
+      2,
+      3,
+      0,
+      1,
+      2,
+      "INT"
+    ],
+    [
+      3,
+      4,
+      0,
+      1,
+      1,
+      "STRING"
+    ],
+    [
+      4,
+      5,
+      0,
+      1,
+      3,
+      "STRING"
+    ],
+    [
+      5,
+      1,
+      0,
+      6,
+      0,
+      "*"
+    ],
+    [
+      6,
+      1,
+      1,
+      7,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.771561000000002,
+      "offset": [
+        -362.7136041107344,
+        31.621611308451854
+      ]
+    },
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

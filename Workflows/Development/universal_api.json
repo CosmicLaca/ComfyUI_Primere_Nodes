@@ -1,0 +1,1654 @@
+{
+  "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
+  "revision": 0,
+  "last_node_id": 77,
+  "last_link_id": 691,
+  "nodes": [
+    {
+      "id": 22,
+      "type": "LoadImage",
+      "pos": [
+        -1034.1039162302618,
+        -536.5149387988644
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            681
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "2025-03-18_16-10-01.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 30,
+      "type": "LoadImage",
+      "pos": [
+        -1520,
+        20
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            687
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "GP_00006-20230606215857-152545594-hq-scale-2_00x.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 36,
+      "type": "LoadImage",
+      "pos": [
+        -1060,
+        30
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            688
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "IMG_1074.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 28,
+      "type": "LoadImage",
+      "pos": [
+        -2400,
+        10
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            683
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "4FJRSS25ACABU531-94S-P-META.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 37,
+      "type": "LoadImage",
+      "pos": [
+        -2410,
+        570
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            684
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "2025-03-21_09-26-43.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 40,
+      "type": "LoadImage",
+      "pos": [
+        -1510,
+        590
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            685
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "2025-03-22_15-24-00.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 18,
+      "type": "LoadImage",
+      "pos": [
+        -1463.6929609110477,
+        -541.514916458471
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            689
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "348368277_936696344247420_4680049320151257292_n.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 4,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -1518.8590176831076,
+        1165.6289970492114
+      ],
+      "size": [
+        850.4711965960701,
+        1262.834388548706
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 670
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - SCHEMA",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"Gemini\",\n    \"service\": \"Nanobanana\",\n    \"response_handler\": \"Gemini_Nanobanana.py\",\n    \"import_modules\": [\n        \"from google import genai\",\n        \"from google.genai import types\"\n    ],\n    \"possible_parameters\": {\n        \"aspect_ratio\": [\n            \"1:1\",\n            \"1:4\",\n            \"1:8\",\n            \"2:3\",\n            \"3:2\",\n            \"3:4\",\n            \"4:1\",\n            \"4:3\",\n            \"4:5\",\n            \"5:4\",\n            \"8:1\",\n            \"9:16\",\n            \"16:9\",\n            \"21:9\"\n        ],\n        \"resolution\": [\n            \"1K\",\n            \"512px\",\n            \"2K\",\n            \"4K\"\n        ],\n        \"model\": [\n            \"gemini-2.5-flash-image\",\n            \"gemini-3-pro-image-preview\",\n            \"gemini-3.1-flash-image-preview\"\n        ],\n        \"thinking_level\": [\n            \"minimal\",\n            \"high\"\n        ],\n        \"include_thoughts\": [\n            false,\n            true\n        ]\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ],\n    \"request\": {\n        \"method\": \"SDK\",\n        \"endpoint\": \"client.models.generate_content\",\n        \"sdk_call\": {\n            \"args\": [],\n            \"kwargs\": {\n                \"model\": \"{{model}}\",\n                \"contents\": [\n                    \"{{prompt}}\",\n                    \"{{reference_images}}\"\n                ],\n                \"config\": {\n                    \"$call\": \"types.GenerateContentConfig\",\n                    \"$args\": [],\n                    \"$kwargs\": {\n                        \"response_modalities\": [\n                            \"{{config_response_modalities_0}}\"\n                        ],\n                        \"image_config\": {\n                            \"$call\": \"types.ImageConfig\",\n                            \"$args\": [],\n                            \"$kwargs\": {\n                                \"aspect_ratio\": \"{{aspect_ratio}}\",\n                                \"image_size\": \"{{image_size}}\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 39,
+      "type": "LoadImage",
+      "pos": [
+        -1960,
+        580
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            679
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "tmpbncl5y7d.png",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 38,
+      "type": "LoadImage",
+      "pos": [
+        -1912.6212466799445,
+        -539.9999999999999
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            680
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "ComfyUI_temp_ejydc_00003_.png",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 3,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        573.486169897627,
+        -710.2392168493096
+      ],
+      "size": [
+        450.9361328125,
+        88
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 669
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "Gemini"
+      ]
+    },
+    {
+      "id": 41,
+      "type": "LoadImage",
+      "pos": [
+        -1060,
+        600
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            686
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "selyemkendo-7-3.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 29,
+      "type": "LoadImage",
+      "pos": [
+        -1970,
+        10
+      ],
+      "size": [
+        412.12756911804206,
+        508.84732322692867
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            682
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "4FJRSS25TLONF542-11S-P-META.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 2,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        562.6930916032595,
+        -853.9760202140844
+      ],
+      "size": [
+        682.0786325349364,
+        88
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 668
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "<google.genai.client.Client object at 0x000001963CA9F100>"
+      ]
+    },
+    {
+      "id": 44,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        338.36461572048563,
+        1560.962322389034
+      ],
+      "size": [
+        886.5942706627679,
+        739.8065007039345
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 675
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - API RESULT",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "None"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 8,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        1268.1764423504324,
+        1143.6319790907205
+      ],
+      "size": [
+        1066.9028946534431,
+        1163.5127427084483
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 674
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - API SCHEMAS",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "None"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 6,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -611.8018295909516,
+        1557.6890585049641
+      ],
+      "size": [
+        906.2637000063987,
+        628.220628990278
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 673
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - REQUEST BODY",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"prompt\": \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\",\n    \"config_response_modalities_0\": \"IMAGE\",\n    \"aspect_ratio\": \"9:16\",\n    \"image_size\": \"1K\"\n}"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 16,
+      "type": "PrimereFastSeed",
+      "pos": [
+        919.9262216082626,
+        -135.12732131406113
+      ],
+      "size": [
+        330.364340787964,
+        149.12278620629877
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            53,
+            666
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereFastSeed",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "Random",
+        42,
+        "Last seed: [654139151080403]"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 9,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        480.79284780821257,
+        -541.1178926016723
+      ],
+      "size": [
+        776.6426780712893,
+        348.84780081063036
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            659
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 15,
+      "type": "PrimereResolution",
+      "pos": [
+        907.2304520484324,
+        74.63197113044764
+      ],
+      "size": [
+        361.37166959228534,
+        310
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 53
+        },
+        {
+          "name": "model_version",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": [
+            663
+          ]
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": [
+            664
+          ]
+        },
+        {
+          "name": "SQUARE_SHAPE",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "ASPECT_RATIO",
+          "type": "STRING",
+          "links": [
+            665
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereResolution",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "782a54aaf8138894f4bfd2254326af3564da4cbb"
+      },
+      "widgets_values": [
+        "HD screen [16:9]",
+        false,
+        1024,
+        false,
+        "Vertical",
+        false,
+        false,
+        1.6,
+        2.8
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 42,
+      "type": "PreviewImage",
+      "pos": [
+        -1905.940566463288,
+        -1196.1764179372424
+      ],
+      "size": [
+        2324.0069677273495,
+        581.7454612396214
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 691
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 55,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        1408.3168031778405,
+        -1012.4710264421508
+      ],
+      "size": [
+        733.2619240917973,
+        382.46790301705124
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "The woman is sitting on the barstool closest to the viewer in the blue kitchen. Paint her hair red, give her a glass of champagne, and dress her in a black leather jacket with the zipper pulled down to reveal a white T-shirt underneath. Place a baseball cap on her head. She is wearing black jeans and a black belt. She is also wearing an elegant, silky, red women's neck scarf. Place the porcelain vase on the kitchen table. She holds a bug spray in her other hand and sprays it at a giant spider climbing on the wall. The woman is frightened. Her dog barks at the spider. Keep everything else unchanged. Follow all attached reference images.\n\ne:\\!Works\\AI\\AIPICS\\ComfyAPI\\[time(%Y-%m-Week-%W)]"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 76,
+      "type": "PrimereApiProcessor",
+      "pos": [
+        -253.36638311324856,
+        -548.3233034269159
+      ],
+      "size": [
+        687.9337945859295,
+        950
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 659
+        },
+        {
+          "name": "negative_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "reference_images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 690
+        },
+        {
+          "name": "first_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 678
+        },
+        {
+          "name": "last_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 662
+        },
+        {
+          "name": "frontal_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "reference_video",
+          "shape": 7,
+          "type": "VIDEO",
+          "link": null
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 663
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 664
+        },
+        {
+          "name": "aspect_ratio",
+          "shape": 7,
+          "type": "STRING",
+          "link": 665
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 666
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RESULT",
+          "type": "IMAGE",
+          "links": [
+            667
+          ]
+        },
+        {
+          "name": "CLIENT",
+          "type": "APICLIENT",
+          "links": [
+            668
+          ]
+        },
+        {
+          "name": "PROVIDER",
+          "type": "STRING",
+          "links": [
+            669
+          ]
+        },
+        {
+          "name": "SCHEMA",
+          "type": "TUPLE",
+          "links": [
+            670
+          ]
+        },
+        {
+          "name": "RENDERED",
+          "type": "TUPLE",
+          "links": [
+            671
+          ]
+        },
+        {
+          "name": "RAW_PAYLOAD",
+          "type": "TUPLE",
+          "links": [
+            672
+          ]
+        },
+        {
+          "name": "REQUEST_BODY",
+          "type": "TUPLE",
+          "links": [
+            673
+          ]
+        },
+        {
+          "name": "API_SCHEMAS",
+          "type": "TUPLE",
+          "links": [
+            674
+          ]
+        },
+        {
+          "name": "API_RESULT",
+          "type": "TUPLE",
+          "links": [
+            675
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereApiProcessor"
+      },
+      "widgets_values": [
+        null,
+        true,
+        true,
+        "Gemini",
+        "Nanobanana",
+        1,
+        true,
+        "e:\\!Works\\AI\\AIPICS\\ComfyAPI\\[time(%Y-%m-Week-%W)]",
+        "None",
+        true,
+        true,
+        true,
+        "API",
+        "_",
+        true,
+        true,
+        1,
+        false,
+        "jpg",
+        95,
+        true,
+        true,
+        "1K",
+        "gemini-2.5-flash-image",
+        "minimal",
+        false
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 27,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1299.5657499361994,
+        -535.7278327133808
+      ],
+      "size": [
+        1073.2593828125005,
+        1628.4858571984864
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 667
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "834548535af27d52c9b7e6359af399a18cd8260e"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -622.5113949863711,
+        654.0087654979694
+      ],
+      "size": [
+        926.2206882503098,
+        1078.7652401045225
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 671
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RENDERED",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"Gemini\",\n    \"endpoint\": \"client.models.generate_content\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"kwargs\": {\n            \"model\": \"gemini-2.5-flash-image\",\n            \"contents\": [\n                \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n            ],\n            \"config\": {\n                \"$call\": \"types.GenerateContentConfig\",\n                \"$kwargs\": {\n                    \"response_modalities\": [\n                        \"IMAGE\"\n                    ],\n                    \"image_config\": {\n                        \"$call\": \"types.ImageConfig\",\n                        \"$kwargs\": {\n                            \"aspect_ratio\": \"9:16\",\n                            \"image_size\": \"1K\"\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"request_exclusions\": [\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-2.5-flash-image\"\n            },\n            \"remove\": [\n                \"config.thinking_config\",\n                \"thinking_level\",\n                \"include_thoughts\"\n            ]\n        },\n        {\n            \"when\": {\n                \"path\": \"model\",\n                \"equals\": \"gemini-3-pro-image-preview\"\n            },\n            \"remove\": [\n                \"config.thinking_config\"\n            ]\n        }\n    ]\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 47,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        356.4381352104812,
+        677.639492808187
+      ],
+      "size": [
+        887.1002652508323,
+        1079.130111868482
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 672
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RAW PAYLOAD",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"model\": \"gemini-2.5-flash-image\",\n    \"contents\": [\n        \"The woman drinks the champagne glass, throws it behind her, the glass breaks on the ground, and the camera shows her posing from a distance.\"\n    ],\n    \"config\": {\n        \"$call\": \"types.GenerateContentConfig\",\n        \"$kwargs\": {\n            \"response_modalities\": [\n                \"IMAGE\"\n            ],\n            \"image_config\": {\n                \"$call\": \"types.ImageConfig\",\n                \"$kwargs\": {\n                    \"aspect_ratio\": \"9:16\",\n                    \"image_size\": \"1K\"\n                }\n            }\n        }\n    }\n}"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 58,
+      "type": "LoadImage",
+      "pos": [
+        -614.3897861450196,
+        140.78979964904784
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            678
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 75,
+      "type": "LoadImage",
+      "pos": [
+        474.340228125,
+        195.38193028869628
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            662
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A642_20260902_134125_832184619664671_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 77,
+      "type": "PrimereMultiImage",
+      "pos": [
+        -590.2012907744918,
+        -546.0380461675578
+      ],
+      "size": [
+        308.59738991477275,
+        622
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 679
+        },
+        {
+          "name": "image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 680
+        },
+        {
+          "name": "image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 681
+        },
+        {
+          "name": "image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 682
+        },
+        {
+          "name": "image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 683
+        },
+        {
+          "name": "image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 684
+        },
+        {
+          "name": "image_7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 685
+        },
+        {
+          "name": "image_8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 686
+        },
+        {
+          "name": "image_9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 687
+        },
+        {
+          "name": "image_10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 688
+        },
+        {
+          "name": "image_11",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 689
+        },
+        {
+          "name": "image_12",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_13",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_14",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_15",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_16",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE_LIST",
+          "type": "IMAGE",
+          "links": [
+            690
+          ]
+        },
+        {
+          "name": "IMAGE_BATCH",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "IMAGE_CONCAT",
+          "type": "IMAGE",
+          "links": [
+            691
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMultiImage"
+      },
+      "widgets_values": [
+        false,
+        3,
+        true,
+        1.2,
+        true,
+        true,
+        "white",
+        true,
+        "Horizontal",
+        true,
+        6,
+        "black"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      53,
+      16,
+      0,
+      15,
+      0,
+      "INT"
+    ],
+    [
+      659,
+      9,
+      0,
+      76,
+      0,
+      "STRING"
+    ],
+    [
+      662,
+      75,
+      0,
+      76,
+      4,
+      "IMAGE"
+    ],
+    [
+      663,
+      15,
+      0,
+      76,
+      7,
+      "INT"
+    ],
+    [
+      664,
+      15,
+      1,
+      76,
+      8,
+      "INT"
+    ],
+    [
+      665,
+      15,
+      3,
+      76,
+      9,
+      "STRING"
+    ],
+    [
+      666,
+      16,
+      0,
+      76,
+      10,
+      "INT"
+    ],
+    [
+      667,
+      76,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      668,
+      76,
+      1,
+      2,
+      0,
+      "APICLIENT"
+    ],
+    [
+      669,
+      76,
+      2,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      670,
+      76,
+      3,
+      4,
+      0,
+      "TUPLE"
+    ],
+    [
+      671,
+      76,
+      4,
+      5,
+      0,
+      "TUPLE"
+    ],
+    [
+      672,
+      76,
+      5,
+      47,
+      0,
+      "TUPLE"
+    ],
+    [
+      673,
+      76,
+      6,
+      6,
+      0,
+      "TUPLE"
+    ],
+    [
+      674,
+      76,
+      7,
+      8,
+      0,
+      "TUPLE"
+    ],
+    [
+      675,
+      76,
+      8,
+      44,
+      0,
+      "TUPLE"
+    ],
+    [
+      678,
+      58,
+      0,
+      76,
+      3,
+      "IMAGE"
+    ],
+    [
+      679,
+      39,
+      0,
+      77,
+      0,
+      "IMAGE"
+    ],
+    [
+      680,
+      38,
+      0,
+      77,
+      1,
+      "IMAGE"
+    ],
+    [
+      681,
+      22,
+      0,
+      77,
+      2,
+      "IMAGE"
+    ],
+    [
+      682,
+      29,
+      0,
+      77,
+      3,
+      "IMAGE"
+    ],
+    [
+      683,
+      28,
+      0,
+      77,
+      4,
+      "IMAGE"
+    ],
+    [
+      684,
+      37,
+      0,
+      77,
+      5,
+      "IMAGE"
+    ],
+    [
+      685,
+      40,
+      0,
+      77,
+      6,
+      "IMAGE"
+    ],
+    [
+      686,
+      41,
+      0,
+      77,
+      7,
+      "IMAGE"
+    ],
+    [
+      687,
+      30,
+      0,
+      77,
+      8,
+      "IMAGE"
+    ],
+    [
+      688,
+      36,
+      0,
+      77,
+      9,
+      "IMAGE"
+    ],
+    [
+      689,
+      18,
+      0,
+      77,
+      10,
+      "IMAGE"
+    ],
+    [
+      690,
+      77,
+      0,
+      76,
+      2,
+      "IMAGE"
+    ],
+    [
+      691,
+      77,
+      2,
+      42,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5644739300537774,
+      "offset": [
+        2315.655835256307,
+        1306.1255550018536
+      ]
+    },
+    "frontendVersion": "1.39.19"
+  },
+  "version": 0.4
+}
