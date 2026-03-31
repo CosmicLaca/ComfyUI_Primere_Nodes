@@ -16,6 +16,7 @@ from ...components import utility
 
 _depth_model = None
 _depth_model_v3 = None
+_depth_model_v3_name = None
 _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Path to the cloned Depth-Anything-3 source (no pip install needed)
@@ -69,6 +70,41 @@ def _find_best_model():
             return path
     return None
 
+def _find_best_model_v3():
+    priority = [
+        "da3_large_1.1.safetensors",
+        "da3metric_large.safetensors",
+        "da3mono_large.safetensors",
+        "da3_large.safetensors",
+        "da3_base.safetensors",
+        "da3_small.safetensors",
+        "da3_giant_1.1.safetensors",
+        "da3_giant.safetensors",
+        "da3_nested_giant_large_1.1.safetensors",
+        "da3nested_giant_large.safetensors"
+    ]
+    for name in priority:
+        path = os.path.join(V3_MODEL_DIR, name)
+        if os.path.exists(path):
+            return name
+    return None
+
+def _find_best_model_V3():
+    base = os.path.join(comfy_dir, "models", "depthanything3")
+    priority = [
+        "depth_anything_v2_vitl_fp32.safetensors",
+        "depth_anything_v2_vitl_fp16.safetensors",
+        "depth_anything_v2_vitb_fp16.safetensors",
+        "depth_anything_v2_vitb_fp32.safetensors",
+        "depth_anything_v2_vits_fp16.safetensors",
+        "depth_anything_v2_vits_fp32.safetensors",
+    ]
+    for name in priority:
+        path = os.path.join(base, name)
+        if os.path.exists(path):
+            return path
+    return None
+
 
 def _load_depth_model():
     global _depth_model
@@ -78,6 +114,7 @@ def _load_depth_model():
     if model_path is None:
         base = os.path.join(comfy_dir, "models", "depthanything")
         raise RuntimeError(f"No Depth Anything V2 model found in {base}")
+
     model = DepthAnythingV2()
     state_dict = load_file(model_path)
     model.load_state_dict(state_dict, strict=False)
@@ -103,17 +140,27 @@ def _load_depth_model_v3():
             f"and put them inside that folder."
         )
 
-    # from depth_anything_3.api import DepthAnything3
     model = DepthAnything3.from_pretrained(V3_MODEL_DIR)   # local folder only
     model = model.to(_device)
     model.eval()
     _depth_model_v3 = model
     return _depth_model_v3
 
-def _load_local_depth_model_v3(model_name):
-    model = load_model.DownloadAndLoadDepthAnythingV3Model.execute(model_name)
-    return model
+def _load_local_depth_model_v3(model_name=None):
+    global _depth_model_v3, _depth_model_v3_name
+    if model_name is None:
+        model_name = _find_best_model_v3()
 
+    if model_name is None:
+        raise RuntimeError(f"No Depth Anything V3 model found in {V3_MODEL_DIR}. ")
+
+    if _depth_model_v3 is not None and _depth_model_v3_name == model_name:
+        return _depth_model_v3
+
+    model = load_model.DownloadAndLoadDepthAnythingV3Model.execute(model_name)
+    _depth_model_v3 = model
+    _depth_model_v3_name = model_name
+    return _depth_model_v3
 
 # ── Depth prediction ──────────────────────────────────────────────────────────
 
@@ -138,9 +185,7 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
         depth = gaussian_filter(depth, sigma=DEPTH_MAP_BLUR_SIGMA)
         return depth
 
-    # === V3 - using only the cloned source folder (no pip package) ===
-    # model = _load_depth_model_v3()
-    model = _load_local_depth_model_v3('da3_base.safetensors')
+    model = _load_local_depth_model_v3()
     depth = nodes_inference.DepthAnything_V3.execute(model, imagei)
     h, w, _ = arr.shape
 

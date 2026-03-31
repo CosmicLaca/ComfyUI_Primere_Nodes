@@ -8,7 +8,7 @@ import comfy.model_patcher
 from comfy.utils import load_torch_file
 import folder_paths
 
-from .depth_anything_v3.configs import MODEL_CONFIGS, MODEL_REPOS
+from .depth_anything_v3.configs import MODEL_CONFIGS
 from .depth_anything_v3.model import (DepthAnything3Net, DinoV2, DualDPT, DPT,)
 from .depth_anything_v3.camera import CameraEnc, CameraDec
 from .depth_anything_v3.gs import GSDPT, GaussianAdapter
@@ -20,9 +20,7 @@ folder_paths.add_model_folder_path("depth_anything_v3", _da3_model_dir)
 
 
 def _get_da3_model_list():
-    local_models = folder_paths.get_filename_list("depth_anything_v3")
-    known_models = list(MODEL_REPOS.keys())
-    return list(dict.fromkeys(known_models + local_models))
+    return folder_paths.get_filename_list("depth_anything_v3")
 
 ENCODER_EMBED_DIMS = {
     'vits': 384,
@@ -436,34 +434,9 @@ class DownloadAndLoadDepthAnythingV3Model():
 
         model_path = folder_paths.get_full_path("depth_anything_v3", model)
 
-        if model_path is None and model in MODEL_REPOS:
-            download_dir = os.path.join(folder_paths.models_dir, "depthanything3")
-            os.makedirs(download_dir, exist_ok=True)
-            try:
-                from huggingface_hub import snapshot_download
-            except ImportError:
-                raise ImportError(
-                    "huggingface_hub is required to auto-download models. "
-                    "Install with: pip install huggingface_hub\n"
-                    "Or manually download and place in ComfyUI/models/depthanything3/"
-                )
-
-            snapshot_download(
-                repo_id=MODEL_REPOS[model],
-                allow_patterns=["*.safetensors"],
-                local_dir=download_dir,
-                local_dir_use_symlinks=False,
-            )
-
-            hf_default = os.path.join(download_dir, "model.safetensors")
-            target_path = os.path.join(download_dir, model)
-            if os.path.exists(hf_default) and not os.path.exists(target_path):
-                os.rename(hf_default, target_path)
-            model_path = target_path
-
         if model_path is None:
             raise FileNotFoundError(
-                f"Model '{model}' not found in ComfyUI/models/depthanything3/ and not a known HuggingFace model."
+                f"Model '{model}' not found in [ComfyUI]/models/depthanything3/."
             )
 
         sd = load_torch_file(model_path)
