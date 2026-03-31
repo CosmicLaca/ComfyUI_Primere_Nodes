@@ -12,6 +12,7 @@ import base64
 import imagesize
 from io import BytesIO
 from ..Nodes.Inputs import PrimereStyleLoader
+from ..Nodes.Rasterix import PrimereRasterix
 import csv
 import shutil
 from ..utils import here
@@ -555,6 +556,15 @@ async def primere_rasterix_read(request):
     json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
     data = utility.json2tuple(json_path) or {}
     return web.json_response(data)
+
+routes19b = PromptServer.instance.routes
+@routes19b.get('/primere_rasterix_titles')
+async def primere_rasterix_titles(request):
+    node_name = request.rel_url.query.get("node_name", "PrimereRasterix")
+    section_map = {
+        "PrimereRasterix": PrimereRasterix.SECTION_TITLES,
+    }
+    return web.json_response({"success": True, "sections": section_map.get(node_name, [])})
 
 routes20 = PromptServer.instance.routes
 @routes20.post('/primere_rasterix_save')

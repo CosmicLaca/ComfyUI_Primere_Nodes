@@ -52,6 +52,29 @@ class PrimereRasterix:
     FILM_PRESETS_BY_TYPE = FILM_PRESETS_BY_TYPE
 
     LUT_DIR = os.path.join(PRIMERE_ROOT, 'components', 'images', 'luts')
+    SECTION_TITLES = [
+        {"before": "concepts", "title": "🧭 Main Settings", "color": "#3A3F52", "text_color": "#F2F5FF"},
+        {"after": "precision", "title": "🎚 Auto levels", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "gamma_target", "title": "🔦 White balance", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "wb_tint", "title": "💡 Smart lightning", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "smart_lighting", "title": "🌫 Dehaze", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "dehaze_contrast", "title": "🪄 Depth blur", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "depth_gamma", "title": "🫗 Blur", "color": "#364556", "text_color": "#EAF1F8"},
+        {"after": "edge_threshold", "title": "🧊 Primary Image Ops", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "use_legacy", "title": "🪒 Portrait retouching", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "blend_mode", "title": "⚔ Edge-Aware pyramid", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "levels", "title": "🎞 Analog film and CCD rendering", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "photo_paper", "title": "📷 LUT .cube file reader", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "color_space", "title": "🎥 Filmic camera", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "pivot", "title": "🎛 Selective tone", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "selective_tone_strength", "title": "⚖ Color balance", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "color_balance_separation", "title": "🪁 Hue Saturation Lightness", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "hsl_skin_protection", "title": "💎 Microcontrast - Shade detailer", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "shade_strength", "title": "🧹 Midtone claity", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "edge_preservation", "title": "🔛 Black and light endpoints", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "skip_if_no_clip", "title": "🛝 Dithering / diffusion", "color": "#355443", "text_color": "#E8F6EF"},
+        {"after": "error_diffusion", "title": "📊 Histogram", "color": "#2F4F61", "text_color": "#E6F5FF"},
+    ]
 
     @classmethod
     def _list_luts(cls):
