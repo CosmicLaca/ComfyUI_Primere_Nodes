@@ -111,9 +111,6 @@ def _load_depth_model_v3():
     return _depth_model_v3
 
 def _load_local_depth_model_v3(model_name):
-    print('*************************************')
-    print(model_name)
-    print('*************************************')
     model = load_model.DownloadAndLoadDepthAnythingV3Model.execute(model_name)
     return model
 
@@ -147,16 +144,6 @@ def _predict_depth(arr, imagei, use_v3: bool = False):
     depth = nodes_inference.DepthAnything_V3.execute(model, imagei)
     h, w, _ = arr.shape
 
-    print('=====================')
-    print(arr.shape)
-    print('=====================')
-
-    # with tempfile.TemporaryDirectory() as tmpdir:
-    #    temp_path = os.path.join(tmpdir, "temp_input.png")
-    #    Image.fromarray((arr * 255.0).astype(np.uint8)).save(temp_path)
-    #    pred = model.inference([temp_path])
-
-    # depth = pred.depth[0]
     if isinstance(depth, torch.Tensor):
         depth = depth.detach().cpu().float()
         # DepthAnything_V3 node returns Comfy IMAGE format [B, H, W, C].
@@ -226,10 +213,6 @@ def _erode_focus_mask(depth_blur, erode_px, feather_px):
 
 
 def _build_protection_mask(raw_depth, focus_depth, protect_sigma, arr):
-    print('=========== RD =================')
-    print(raw_depth)
-    print('============================')
-
     luma = _to_luminance(arr)
     sharp = _sharpness_map(luma, radius=1.0)
     sharp_mask = np.clip((sharp - PROTECT_SHARPNESS_THR) * PROTECT_SHARPNESS_BIAS, 0.0, 1.0)
