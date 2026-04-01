@@ -55,7 +55,7 @@ class PrimereRasterix:
     SECTION_TITLES = [
         {"before": "concepts", "name": "rasterix_main", "title": "🧭 Main Settings", "color": "#A13C2F", "text_color": "#EAF1F8", "label": "Choose model concept or model to save and load settings, set precision for all features at once."},
 
-        {"after": "precision", "title": "🎚 Auto levels", "color": "#4A351B", "text_color": "#EAF1F8"},
+        {"after": "precision", "name": "rasterix_alevels", "title": "🎚 Auto levels", "color": "#4A351B", "text_color": "#EAF1F8", "label": "Photoshop inspired auto levels with lightness threshold. Set target gamma onn/off."},
         {"after": "gamma_target", "title": "🔦 White balance", "color": "#4A351B", "text_color": "#EAF1F8"},
         {"after": "wb_tint", "title": "💡 Smart lightning", "color": "#4A351B", "text_color": "#EAF1F8"},
 

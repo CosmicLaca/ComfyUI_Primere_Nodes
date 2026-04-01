@@ -8,6 +8,7 @@ const TITLE_MANAGED_NODES = [
 const titleConfigCache = {};
 const titleConfigPromise = {};
 const TITLE_WIDGET_HEIGHT = 30;
+const TITLE_TOTAL_CHARS = 40;
 
 function hexToRgb(hex) {
     const clean = String(hex || "").trim().replace("#", "");
@@ -45,7 +46,7 @@ function makeTitleWidget(node, section) {
     const rawTitle = String(section?.title || "").trim();
     if (!rawTitle) return null;
 
-    const widget = node.addWidget("button", `──── ${rawTitle} ────`, null, () => {}, { serialize: false });
+    const widget = node.addWidget("button", formatTitleLine(rawTitle), null, () => {}, { serialize: false });
     widget.options = widget.options || {};
     widget.options.serialize = false;
 
@@ -92,6 +93,23 @@ function makeTitleWidget(node, section) {
         name: sectionName,
     };
     return widget;
+}
+
+function formatTitleLine(rawTitle, totalChars = TITLE_TOTAL_CHARS) {
+    const title = String(rawTitle || "").trim();
+    if (!title) return "";
+
+    const minSide = 1;
+    const spaces = 2; // one before and one after title
+    const available = totalChars - title.length - spaces;
+
+    if (available < minSide * 2) {
+        return `${"─".repeat(minSide)} ${title} ${"─".repeat(minSide)}`;
+    }
+
+    const left = Math.floor(available / 2);
+    const right = available - left;
+    return `${"─".repeat(left)} ${title} ${"─".repeat(right)}`;
 }
 
 function insertTitleWidgets(node, sections) {
@@ -162,6 +180,62 @@ function hideTitleTooltip() {
     box.style.display = "none";
 }
 
+function ensureTitlePreviewBox() {
+    let box = document.querySelector("div#primere_previewbox");
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "primere_previewbox";
+        box.style.cssText = [
+            "display:none",
+            "position:fixed",
+            "z-index:99998",
+            "padding:6px",
+            "border-radius:8px",
+            "background:rgba(18,20,24,0.96)",
+            "border:1px solid rgba(255,255,255,0.12)",
+            "box-shadow:0 8px 24px rgba(0,0,0,0.35)",
+            "pointer-events:none",
+        ].join(";");
+        const img = document.createElement("img");
+        img.className = "privewbox_image";
+        img.style.cssText = [
+            "display:block",
+            "max-width:240px",
+            "max-height:180px",
+            "border-radius:4px",
+        ].join(";");
+        box.appendChild(img);
+        document.body.appendChild(box);
+    }
+    return box;
+}
+
+function hideTitlePreview() {
+    const box = ensureTitlePreviewBox();
+    box.style.display = "none";
+}
+
+function showTitlePreview(sectionName, x, y) {
+    if (!sectionName) {
+        hideTitlePreview();
+        return;
+    }
+    const box = ensureTitlePreviewBox();
+    const img = box.querySelector("img.privewbox_image");
+    if (!img) return;
+
+    const src = `/extensions/ComfyUI_Primere_Nodes/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
+    img.onload = () => {
+        box.style.left = `${x + 12}px`;
+        box.style.top = `${y + 12}px`;
+        box.style.display = "block";
+    };
+    img.onerror = () => {
+        hideTitlePreview();
+    };
+    img.src = src;
+}
+
 function showTitleTooltip(text, x, y) {
     const box = ensureTitleTooltip();
     box.textContent = text;
@@ -187,14 +261,22 @@ function handleTitleHover(node, event, pos) {
         const y0 = Number(w.last_y || 0);
         const y1 = y0 + TITLE_WIDGET_HEIGHT;
         const insideY = pos[1] >= y0 && pos[1] <= y1;
+        const insideLeftHalf = pos[0] >= xMin && pos[0] < rightHalfStart;
         const insideRightHalf = pos[0] >= rightHalfStart && pos[0] <= xMax;
         if (insideY && insideRightHalf) {
+            hideTitlePreview();
             showTitleTooltip(meta.label, event.clientX, event.clientY);
+            return;
+        }
+        if (insideY && insideLeftHalf && meta.name) {
+            hideTitleTooltip();
+            showTitlePreview(meta.name, event.clientX, event.clientY);
             return;
         }
     }
 
     hideTitleTooltip();
+    hideTitlePreview();
 }
 
 function attachTitleHoverHandlers(node) {
@@ -214,6 +296,7 @@ function attachTitleHoverHandlers(node) {
             prevLeave.call(this, event, pos, graphcanvas);
         }
         hideTitleTooltip();
+        hideTitlePreview();
     };
 
     node.__primereTitleHoverBound = true;
