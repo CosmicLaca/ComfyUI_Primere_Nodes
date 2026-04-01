@@ -2,13 +2,12 @@ import { app } from "/scripts/app.js";
 
 // Add node names here to enable backend-driven title separators on those nodes.
 const TITLE_MANAGED_NODES = [
-    "PrimereRasterix", "PrimereModelControl", "PrimereMetaSave"
+    "PrimereRasterix", "PrimereModelControl", "PrimereMetaSave", "PrimereRasterixLens", "PrimereMetaHandler"
 ];
 
 const titleConfigCache = {};
 const titleConfigPromise = {};
 const TITLE_WIDGET_HEIGHT = 30;
-const TITLE_DRAW_HEIGHT = 14;
 const TITLE_TOTAL_CHARS = 40;
 
 function hexToRgb(hex) {

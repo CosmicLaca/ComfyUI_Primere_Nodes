@@ -660,6 +660,13 @@ class PrimereMetaHandler:
     else:
         prompts = ['Default'] + prompts
 
+    SECTION_TITLES = [
+        {"before": "data_source", "name": "imgmeta_sources", "title": "📥 Source & Prompt Control", "color": "#4C5E70", "text_color": "#EAF1F8", "label": "Master data source selector: image metadata vs current workflow settings. Fallback to Img2Prompt AI analysis when no metadata exists. Configure prompt handling and decoding mode."},
+        {"before": "model", "name": "imgmeta_core", "title": "⚙️ Core Generation Parameters", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Individually select Meta or Workflow values for model, sampler, scheduler, CFG, steps, seed, image size, VAE, and concept settings."},
+        {"before": "latent_setup", "name": "imgmeta_extensions", "title": "🔧 Advanced Extension Setups", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Enable metadata overrides for LoRA, LyCORIS, embeddings, hypernetworks, latent, sampler, CLIP encoder, and all prompt-related extensions."},
+        {"before": "preferred", "name": "imgmeta_preferred", "title": "⭐ Preferred Settings", "color": "#5C4C70", "text_color": "#EAF1F8", "label": "Special metadata fields (orientation, model name, save subdirectory) saved with prompts. Master toggle to apply or ignore preferred settings for consistent output routing."}
+    ]
+
     @classmethod
     def INPUT_TYPES(cls):
         input_dir = folder_paths.get_input_directory()

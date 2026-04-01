@@ -950,6 +950,18 @@ class PrimereRasterixLens:
     FUNCTION = "primere_rasterix_lens"
     CATEGORY = TREE_RASTERIX
 
+    SECTION_TITLES = [
+        {"before": "use_vignette", "name": "lensfx_vignette", "title": "🌑 Vignette Control", "color": "#4C5E70", "text_color": "#EAF1F8", "label": "Master toggle and parameters for vignette: darken corners/edges with strength, radius, feather, and shape. Inspired by Adobe Lightroom."},
+        {"before": "use_chroma", "name": "lensfx_chromatic", "title": "🌈 Chromatic Aberration", "color": "#6A4C70", "text_color": "#EAF1F8", "label": "Toggle and control chromatic aberration: intensity, falloff, and fringe color for realistic color fringing. Inspired by Adobe Camera Raw."},
+        {"before": "use_bokeh", "name": "lensfx_bokeh", "title": "✨ Bokeh Effect", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Enable bokeh simulation: radius, blade count, highlight boost, and cat-eye shaping for dreamy out-of-focus highlights. Inspired by Adobe Photoshop."},
+        {"before": "use_distortion", "name": "lensfx_distortion", "title": "🌀 Lens Distortion", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Toggle barrel/pincushion/zoom distortion: simulate classic lens imperfections with fine-grained controls. Inspired by DxO PhotoLab."},
+        {"before": "use_flare", "name": "lensfx_flare", "title": "☀️ Lens Flare", "color": "#705C4C", "text_color": "#EAF1F8", "label": "Activate realistic lens flare: intensity, position, streak/ghost count, length, and color tinting. Inspired by Adobe Photoshop."},
+        {"before": "use_halation", "name": "lensfx_halation", "title": "🌟 Halation Glow", "color": "#4C705E", "text_color": "#EAF1F8", "label": "Toggle halation: glow around bright areas with intensity, radius, threshold, and warmth adjustment. Inspired by Blackmagic DaVinci Resolve."},
+        {"before": "use_focus", "name": "lensfx_focus", "title": "🔍 Focus Falloff", "color": "#5C4C70", "text_color": "#EAF1F8", "label": "Enable selective focus blur: radius, mode (horizontal/vertical/radial/oval), position, width, and feather. Inspired by Adobe Photoshop."},
+        {"before": "use_spherical", "name": "lensfx_spherical", "title": "🌐 Spherical Aberration", "color": "#704C5E", "text_color": "#EAF1F8", "label": "Toggle spherical aberration: intensity, radius, and zone (centre/edge/global) for soft-focus effects."},
+        {"before": "use_anamorphic", "name": "lensfx_anamorphic", "title": "📽️ Anamorphic Lens", "color": "#4C706A", "text_color": "#EAF1F8", "label": "Apply anamorphic characteristics: intensity, streak color/length, oval bokeh, and blue bias for cinematic look. Inspired by Blackmagic DaVinci Resolve."},
+    ]
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
