@@ -257,7 +257,7 @@ function handleTitleHover(node, event, pos) {
 
     for (const w of node.widgets) {
         const meta = w?.__primereTitleMeta;
-        if (!meta?.label) continue;
+        if (!meta?.label && !meta?.name) continue;
         const y0 = Number(w.last_y || 0);
         const y1 = y0 + TITLE_WIDGET_HEIGHT;
         const insideY = pos[1] >= y0 && pos[1] <= y1;

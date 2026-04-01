@@ -52,37 +52,37 @@ class PrimereRasterix:
     FILM_PRESETS_BY_TYPE = FILM_PRESETS_BY_TYPE
 
     LUT_DIR = os.path.join(PRIMERE_ROOT, 'components', 'images', 'luts')
+
     SECTION_TITLES = [
-        {"before": "concepts", "name": "rasterix_main", "title": "🧭 Main Settings", "color": "#A13C2F", "text_color": "#EAF1F8", "label": "Choose model concept or model to save and load settings, set precision for all features at once."},
+        {"before": "concepts", "name": "rasterix_main", "title": "🧭 Project Setup", "color": "#5C3D34", "text_color": "#EAF1F8", "label": "Choose model concept/model for save-load profiles and set precision for the full pipeline."},
 
-        {"after": "precision", "name": "rasterix_alevels", "title": "🎚 Auto levels", "color": "#4A351B", "text_color": "#EAF1F8", "label": "Photoshop inspired auto levels with lightness threshold. Set target gamma onn/off."},
-        {"after": "gamma_target", "title": "🔦 White balance", "color": "#4A351B", "text_color": "#EAF1F8"},
-        {"after": "wb_tint", "title": "💡 Smart lightning", "color": "#4A351B", "text_color": "#EAF1F8"},
+        {"after": "precision", "name": "rasterix_auto_levels", "title": "🎚 Auto Levels & Gamma", "color": "#6A4A2A", "text_color": "#EAF1F8", "label": "Photoshop-style auto levels with threshold protection and optional target gamma alignment. Inspired by Adobe Photoshop."},
+        {"after": "gamma_target", "name": "rasterix_white_balance", "title": "🔦 White Balance", "color": "#6A4A2A", "text_color": "#EAF1F8", "label": "Correct temperature and tint first to establish a neutral color baseline for later grading. Inspired by Adobe Camera Raw and DxO Photolab."},
+        {"after": "wb_tint", "name": "rasterix_smart_lighting", "title": "💡 Smart Lighting", "color": "#6A4A2A", "text_color": "#EAF1F8", "label": "Adaptive light shaping to recover perceived depth and readability before local effects. Inspired by DxO Photolab"},
 
-        {"after": "smart_lighting", "title": "🌫 Dehaze", "color": "#314A2D", "text_color": "#EAF1F8"},
-        {"after": "dehaze_contrast", "title": "🪄 Depth blur", "color": "#314A2D", "text_color": "#EAF1F8"},
-        {"after": "depth_gamma", "title": "🫗 Blur", "color": "#314A2D", "text_color": "#EAF1F8"},
+        {"after": "smart_lighting", "name": "rasterix_dehaze", "title": "🌫 Atmosphere: Dehaze", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Reduce haze and veiling glow while preserving natural contrast and color balance. Inspired by Adobe Lightroom Dehaze."},
+        {"after": "dehaze_contrast", "name": "rasterix_depth_blur", "title": "🌀 Atmosphere: Depth Blur", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Depth-guided lens blur to separate subject and background with controllable focus falloff."},
+        {"after": "depth_gamma", "name": "rasterix_blur", "title": "🫗 Atmosphere: Creative Blur", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Apply additional blur styles for softness, abstraction, or cinematic diffusion."},
 
-        {"after": "edge_threshold", "title": "🧊 Brightness-contrast", "color": "#404A94", "text_color": "#EAF1F8"},
+        {"after": "edge_threshold", "name": "rasterix_brightness_contrast", "title": "🧊 Tone: Brightness & Contrast", "color": "#405985", "text_color": "#EAF1F8", "label": "Global tone shaping for exposure feel and contrast punch after atmospheric corrections. Inspired by Adobe Photoshop."},
+        {"after": "use_legacy", "name": "rasterix_portrait_retouch", "title": "🪒 Tone: Portrait Retouch", "color": "#405985", "text_color": "#EAF1F8", "label": "Frequency-based skin and texture workflow for gentle portrait cleanup and separation. Inspired by professional Photoshop retouch workflows."},
+        {"after": "blend_mode", "name": "rasterix_local_laplacian", "title": "🧱 Tone: Edge-Aware Pyramid", "color": "#405985", "text_color": "#EAF1F8", "label": "Local Laplacian contrast/detail enhancement with strong edge preservation."},
 
-        {"after": "use_legacy", "title": "🪒 Portrait retouching", "color": "#404A94", "text_color": "#EAF1F8"},
-        {"after": "blend_mode", "title": "⚔ Edge-Aware pyramid", "color": "#404A94", "text_color": "#EAF1F8"},
+        {"after": "levels", "name": "rasterix_analog_film", "title": "🎞 Creative: Analog Film / CCD", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Stylized film and sensor-era rendering for mood, palette, and texture character. Inspired by DxO."},
+        {"after": "photo_paper", "name": "rasterix_lut_reader", "title": "📷 Creative: LUT .cube Reader", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Load and blend LUT looks for fast creative direction and consistent show style. Inspired by Blackmagic DaVinci Resolve and DxO."},
+        {"after": "color_space", "name": "rasterix_filmic_camera", "title": "🎥 Creative: Filmic Camera Curve", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Camera-like highlight roll-off and tonal response for cinematic dynamic range behavior. Inspired by Adobe Camera Raw."},
 
-        {"after": "levels", "title": "🎞 Analog film and CCD rendering", "color": "#305157", "text_color": "#EAF1F8"},
-        {"after": "photo_paper", "title": "📷 LUT .cube file reader", "color": "#305157", "text_color": "#EAF1F8"},
-        {"after": "color_space", "title": "🎥 Filmic camera", "color": "#305157", "text_color": "#EAF1F8"},
+        {"after": "pivot", "name": "rasterix_selective_tone", "title": "🎛 Color: Selective Tone Zones", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Zone-based tonal pushes for highlights, midtones, shadows, and blacks. Inspired by DxO Photolab"},
+        {"after": "selective_tone_strength", "name": "rasterix_color_balance", "title": "⚖ Color: Balance Wheels", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Color-balance style adjustments per tonal range with luminosity preservation options. Inspired by DaVinci Resolve and Photoshop color wheels."},
+        {"after": "color_balance_separation", "name": "rasterix_hsl", "title": "🌈 Color: HSL Sculpting", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Hue, saturation, lightness, and vibrance targeting by color channel. Inspired by Adobe Lightroom and Photoshop HSL panel."},
 
-        {"after": "pivot", "title": "🎛 Selective tone", "color": "#52472C", "text_color": "#EAF1F8"},
-        {"after": "selective_tone_strength", "title": "⚖ Color balance", "color": "#52472C", "text_color": "#EAF1F8"},
-        {"after": "color_balance_separation", "title": "🪁 Hue Saturation Lightness", "color": "#52472C", "text_color": "#EAF1F8"},
+        {"after": "hsl_skin_protection", "name": "rasterix_shade_detailer", "title": "💎 Detail: Microcontrast", "color": "#554267", "text_color": "#EAF1F8", "label": "Fine local contrast shaping to emphasize texture and perceived detail. Inspired by DxO PhotoLab microcontrast tools."},
+        {"after": "shade_strength", "name": "rasterix_clarity", "title": "🔍 Detail: Midtone Clarity", "color": "#554267", "text_color": "#EAF1F8", "label": "Midtone-focused clarity enhancement for crispness without excessive global contrast. Inspired by Adobe Lightroom Clarity."},
 
-        {"after": "hsl_skin_protection", "title": "💎 Microcontrast - Shade detailer", "color": "#4A2D3A", "text_color": "#EAF1F8"},
-        {"after": "shade_strength", "title": "🧹 Midtone claity", "color": "#355443", "text_color": "#EAF1F8"},
+        {"after": "edge_preservation", "name": "rasterix_endpoints", "title": "🔛 Output: Black/White Endpoints", "color": "#5A603E", "text_color": "#EAF1F8", "label": "Set endpoint compression and clipping behavior for final output anchoring. Inspired by Adobe Photoshop Levels."},
+        {"after": "skip_if_no_clip", "name": "rasterix_dithering", "title": "🧩 Output: Dithering & Diffusion", "color": "#5A603E", "text_color": "#EAF1F8", "label": "Reduce banding and smooth gradients using dither and error diffusion tools. Inspired by Floyd-Steinberg error diffusion."},
 
-        {"after": "edge_preservation", "title": "🔛 Black and light endpoints", "color": "#454A2D", "text_color": "#EAF1F8"},
-        {"after": "skip_if_no_clip", "title": "🛝 Dithering / diffusion", "color": "#454A2D", "text_color": "#EAF1F8"},
-
-        {"after": "error_diffusion", "title": "📊 Histogram", "color": "#2F4F61", "text_color": "#EAF1F8"},
+        {"after": "error_diffusion", "name": "rasterix_histogram", "title": "📊 Analysis: Histogram", "color": "#35586A", "text_color": "#EAF1F8", "label": "View channel histograms for fast clipping, balance, and tonal distribution checks. Inspired by Adobe Photoshop (and all other) Histogram."},
     ]
 
     @classmethod
@@ -420,15 +420,15 @@ class PrimereRasterix:
         if use_film_rendering and film_rendering_intensity != 0:
             pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity, add_grain=iso_grain, add_halation=halation, expiration_years=expiration_years)
 
-        if use_photo_paper:
-            pil_img = img_solarization_bw.img_solarization_bw(image=pil_img, color_mode=False, strength=0.00, pivot=0.00, sigma=0.01, edge_boost=0.00, edge_radius=0.5, contrast=1, precision=precision, hard_paper=photo_paper, grain_modulation=False, grain_strength=0, grain_scale=1, seed=1)
-
         if use_lut and lut_file != "None":
             lut_path = os.path.join(self.LUT_DIR, lut_file)
             pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=color_space, output_space=color_space)
 
         if use_filmic:
             pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=filmic_contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
+
+        if use_photo_paper:
+            pil_img = img_solarization_bw.img_solarization_bw(image=pil_img, color_mode=False, strength=0.00, pivot=0.00, sigma=0.01, edge_boost=0.00, edge_radius=0.5, contrast=1, precision=precision, hard_paper=photo_paper, grain_modulation=False, grain_strength=0, grain_scale=1, seed=1)
 
         st_data = rasterix_data.get('selective_tone', {})
         if use_selective_tone and st_data:
@@ -466,7 +466,6 @@ class PrimereRasterix:
             suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file   = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
-            # return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),), }
             return {"ui": {"images": [{"filename": temp_file, "subfolder": "", "type": "temp"}], "active_concept": [active_display]}, "result": (utility.image_to_tensor(pil_img),), }
         else:
             INVALID_IMAGE_PATH = os.path.join(PRIMERE_ROOT, 'front_end', 'images')
@@ -477,7 +476,6 @@ class PrimereRasterix:
             os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
             TEMP_FILE = os.path.join(folder_paths.get_temp_directory(), temp_filename)
             utility.tensor_to_image(images[0]).save(TEMP_FILE)
-            # return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}]}, "result": (utility.image_to_tensor(pil_img),),}
             return {"ui": {"images": [{"filename": temp_filename, "subfolder": "", "type": "temp"}], "active_concept": [active_display]}, "result": (utility.image_to_tensor(pil_img),),}
 
 class PrimereAutoNormalize:
