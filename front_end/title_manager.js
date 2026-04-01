@@ -2,12 +2,13 @@ import { app } from "/scripts/app.js";
 
 // Add node names here to enable backend-driven title separators on those nodes.
 const TITLE_MANAGED_NODES = [
-    "PrimereRasterix",
+    "PrimereRasterix", "PrimereModelControl"
 ];
 
 const titleConfigCache = {};
 const titleConfigPromise = {};
 const TITLE_WIDGET_HEIGHT = 30;
+const TITLE_DRAW_HEIGHT = 14;
 const TITLE_TOTAL_CHARS = 40;
 
 function hexToRgb(hex) {
@@ -30,7 +31,7 @@ async function getNodeTitleConfig(nodeName) {
     if (titleConfigCache[nodeName]) return titleConfigCache[nodeName];
     if (!titleConfigPromise[nodeName]) {
         const q = new URLSearchParams({ node_name: nodeName });
-        titleConfigPromise[nodeName] = fetch(`/primere_rasterix_titles?${q.toString()}`)
+        titleConfigPromise[nodeName] = fetch(`/primere_titles?${q.toString()}`)
             .then(resp => resp.json())
             .then(data => {
                 const sections = Array.isArray(data?.sections) ? data.sections : [];
@@ -49,50 +50,57 @@ function makeTitleWidget(node, section) {
     const widget = node.addWidget("button", formatTitleLine(rawTitle), null, () => {}, { serialize: false });
     widget.options = widget.options || {};
     widget.options.serialize = false;
+    widget.serialize = false;
+    widget.__primereTitleWidget = true;
 
     const bgColor = section?.color ? String(section.color) : null;
     const textColor = section?.text_color ? String(section.text_color) : bestTextColor(bgColor);
     const label = section?.label ? String(section.label) : "";
     const sectionName = section?.name ? String(section.name) : "";
 
-    if (bgColor || section?.text_color) {
-        const titleText = widget.name;
-        widget.draw = function (ctx, nodeObj, widgetWidth, y, h) {
-            const x = 15;
-            const w = widgetWidth - 30;
-            const radius = 4;
-            const hh = h - 6;
-            const yy = y + 3;
+    const titleText = widget.name;
+    const color = bgColor || "#3A3A3A";
+    const tColor = textColor || "#F4F4F4";
 
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x + radius, yy);
-            ctx.lineTo(x + w - radius, yy);
-            ctx.quadraticCurveTo(x + w, yy, x + w, yy + radius);
-            ctx.lineTo(x + w, yy + hh - radius);
-            ctx.quadraticCurveTo(x + w, yy + hh, x + w - radius, yy + hh);
-            ctx.lineTo(x + radius, yy + hh);
-            ctx.quadraticCurveTo(x, yy + hh, x, yy + hh - radius);
-            ctx.lineTo(x, yy + radius);
-            ctx.quadraticCurveTo(x, yy, x + radius, yy);
-            ctx.closePath();
-            ctx.fillStyle = bgColor || "#3A3A3A";
-            ctx.fill();
+    widget.draw = function (ctx, nodeObj, widgetWidth, y, h) {
+        const x = 15;
+        const w = widgetWidth - 30;
+        const radius = 4;
+        const hh = Math.max(14, h - 6);
+        const yy = y + 3;
 
-            ctx.fillStyle = textColor || "#F4F4F4";
-            ctx.font = "12px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(titleText, widgetWidth / 2, yy + hh / 2 + 0.5);
-            ctx.restore();
-        };
-    }
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x + radius, yy);
+        ctx.lineTo(x + w - radius, yy);
+        ctx.quadraticCurveTo(x + w, yy, x + w, yy + radius);
+        ctx.lineTo(x + w, yy + hh - radius);
+        ctx.quadraticCurveTo(x + w, yy + hh, x + w - radius, yy + hh);
+        ctx.lineTo(x + radius, yy + hh);
+        ctx.quadraticCurveTo(x, yy + hh, x, yy + hh - radius);
+        ctx.lineTo(x, yy + radius);
+        ctx.quadraticCurveTo(x, yy, x + radius, yy);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        ctx.fillStyle = tColor;
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(titleText, widgetWidth / 2, yy + hh / 2 + 0.5);
+        ctx.restore();
+    };
 
     widget.__primereTitleMeta = {
         label,
         name: sectionName,
     };
-    return widget;
+    return {
+        widget,
+        before: String(section?.before || ""),
+        after: String(section?.after || ""),
+    };
 }
 
 function formatTitleLine(rawTitle, totalChars = TITLE_TOTAL_CHARS) {
@@ -118,32 +126,21 @@ function insertTitleWidgets(node, sections) {
 
     const created = [];
     for (const section of sections) {
-        const widget = makeTitleWidget(node, section);
-        if (!widget) continue;
-        created.push({
-            widget,
-            before: String(section?.before || ""),
-            after: String(section?.after || ""),
-        });
+        const item = makeTitleWidget(node, section);
+        if (!item) continue;
+        created.push(item);
     }
-
     for (const item of created.reverse()) {
         const from = node.widgets.indexOf(item.widget);
         if (from >= 0) node.widgets.splice(from, 1);
         let insertAt = node.widgets.length;
-
         if (item.before) {
             const beforeIndex = node.widgets.findIndex(w => w.name === item.before);
-            if (beforeIndex >= 0) {
-                insertAt = beforeIndex;
-            }
+            if (beforeIndex >= 0) insertAt = beforeIndex;
         } else if (item.after) {
             const afterIndex = node.widgets.findIndex(w => w.name === item.after);
-            if (afterIndex >= 0) {
-                insertAt = afterIndex + 1;
-            }
+            if (afterIndex >= 0) insertAt = afterIndex + 1;
         }
-
         node.widgets.splice(insertAt, 0, item.widget);
     }
 
@@ -308,14 +305,25 @@ app.registerExtension({
     async beforeRegisterNodeDef(nodeType, nodeData) {
         if (!TITLE_MANAGED_NODES.includes(nodeData.name)) return;
 
-        const onNodeCreated = nodeType.prototype.onNodeCreated;
-        nodeType.prototype.onNodeCreated = function () {
-            onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
-            const node = this;
+        const applyTitleManager = (node) => {
             getNodeTitleConfig(nodeData.name).then((sections) => {
                 insertTitleWidgets(node, sections);
                 attachTitleHoverHandlers(node);
             });
+        };
+
+        const onNodeCreated = nodeType.prototype.onNodeCreated;
+        nodeType.prototype.onNodeCreated = function () {
+            onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
+            const node = this;
+            setTimeout(() => applyTitleManager(node), 0);
+        };
+
+        const onConfigure = nodeType.prototype.onConfigure;
+        nodeType.prototype.onConfigure = function (config) {
+            onConfigure ? onConfigure.apply(this, [config]) : undefined;
+            const node = this;
+            setTimeout(() => applyTitleManager(node), 0);
         };
     },
 });

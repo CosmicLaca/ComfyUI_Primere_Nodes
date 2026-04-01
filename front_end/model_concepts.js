@@ -5,7 +5,7 @@ import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 const TARGET_NODE_NAME = "PrimereModelControl";
 const CONCEPT_JSON_URL = new URL("/extensions/ComfyUI_Primere_Nodes/model_concept.json", import.meta.url).href;
 
-const JSON_EXCLUDE_KEYS = new Set(["model_name"]);
+const JSON_EXCLUDE_KEYS = new Set(["model_name", "model_concept"]);
 
 function modelNameToKey(modelPath) {
     const base = modelPath.split(/[\\/]/).pop();
@@ -60,20 +60,13 @@ async function loadConceptValues(node, key, silent = false) {
 
     const saved = data[key];
     for (const w of node.widgets || []) {
-        if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) {
-            if (w.type == 'toggle') {
-                w.value = false;
-            } else {
-                continue;
-            }
+        if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) continue;
+        const newValue = saved[w.name];
+        if (w.options?.values) {
+            const match = w.options.values.find((v) => String(v) === String(newValue));
+            if (match !== undefined) w.value = match;
         } else {
-            const newValue = saved[w.name];
-            if (w.options?.values) {
-                const match = w.options.values.find((v) => String(v) === String(newValue));
-                if (match !== undefined) w.value = match;
-            } else {
-                w.value = newValue;
-            }
+            w.value = newValue;
         }
         w.callback?.(w.value);
     }
@@ -179,7 +172,7 @@ function initializeSamplerNode(node) {
         const modelsWidget = this.widgets?.find((w) => w.name === "models");
         const conceptsWidget = this.widgets?.find((w) => w.name === "concepts");
         if (conceptsWidget?.value !== "Auto" || modelsWidget?.value !== "Auto") return;
-        loadConceptValues(this, displayKey);
+        loadConceptValues(this, displayKey, true);
     };
 }
 

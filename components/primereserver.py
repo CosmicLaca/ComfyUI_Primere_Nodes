@@ -18,6 +18,38 @@ import shutil
 from ..utils import here
 from ..components.images import histogram as histogram
 from ..components.API import api_schema_registry
+import importlib
+import inspect
+
+_SECTION_TITLES_CACHE = None
+
+def _collect_section_titles():
+    global _SECTION_TITLES_CACHE
+    if _SECTION_TITLES_CACHE is not None:
+        return _SECTION_TITLES_CACHE
+
+    section_map = {}
+    nodes_dir = Path(PRIMERE_ROOT) / "Nodes"
+    base_pkg = __package__.split(".components")[0]
+
+    for py_file in nodes_dir.glob("*.py"):
+        stem = py_file.stem
+        if stem.startswith("_"):
+            continue
+        try:
+            mod = importlib.import_module(f"{base_pkg}.Nodes.{stem}")
+        except Exception:
+            continue
+
+        for _, obj in vars(mod).items():
+            if inspect.isclass(obj) and hasattr(obj, "SECTION_TITLES"):
+                titles = getattr(obj, "SECTION_TITLES", None)
+                if isinstance(titles, list):
+                    section_map[obj.__name__] = titles
+
+    _SECTION_TITLES_CACHE = section_map
+    return _SECTION_TITLES_CACHE
+
 
 '''
 ************ TEST *******************
@@ -558,12 +590,10 @@ async def primere_rasterix_read(request):
     return web.json_response(data)
 
 routes19b = PromptServer.instance.routes
-@routes19b.get('/primere_rasterix_titles')
-async def primere_rasterix_titles(request):
+@routes19b.get('/primere_titles')
+async def primere_titles(request):
     node_name = request.rel_url.query.get("node_name", "PrimereRasterix")
-    section_map = {
-        "PrimereRasterix": PrimereRasterix.SECTION_TITLES,
-    }
+    section_map = _collect_section_titles()
     return web.json_response({"success": True, "sections": section_map.get(node_name, [])})
 
 routes20 = PromptServer.instance.routes
