@@ -687,16 +687,16 @@ class PrimereModelControl:
     REFINER_MODELS  = [n for n in PrimereModelConceptSelector.MODELLIST if "refiner" in os.path.basename(n).lower() or "refiner" in os.path.dirname(n).lower()]
 
     SECTION_TITLES = [
-        {"before": "concepts", "name": "modelctrl_target", "title": "🧭 Model Target & Concept", "color": "#5C3D34", "text_color": "#EAF1F8", "label": "Select active concept/model context and auto-binding behavior for setting profiles."},
-        {"after": "models", "name": "modelctrl_sampling_core", "title": "🎛 Core Sampling Controls", "color": "#6A4A2A", "text_color": "#EAF1F8", "label": "Set sampler, scheduler, step strategy, CFG and override behavior for baseline generation."},
-        {"after": "rescale_cfg", "name": "modelctrl_vae_clip", "title": "🧩 VAE & CLIP Selection", "color": "#6A4A2A", "text_color": "#EAF1F8", "label": "Choose VAE/CLIP source preference and final CLIP layer behavior."},
-        {"after": "last_layer", "name": "modelctrl_text_encoders", "title": "📝 Text Encoder Routing", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Assign encoder slots for multi-encoder pipelines (T5/CLIP/UNET-backed text paths)."},
-        {"after": "encoder_3", "name": "modelctrl_attention", "title": "🧠 Attention Modulation", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Preset or custom attention scaling for self/cross attention blocks and expander shaping."},
-        {"after": "attn_expander", "name": "modelctrl_sampler_backend", "title": "⚙ Backend Sampling Model", "color": "#405985", "text_color": "#EAF1F8", "label": "Configure sampler backend mode, EDM/discrete options, sigma bounds and flux shift parameters."},
-        {"after": "beta_beta", "name": "modelctrl_guidance_precision", "title": "📐 Guidance & Precision", "color": "#405985", "text_color": "#EAF1F8", "label": "Tune model guidance and runtime precision/weight dtype for speed, memory and quality balance."},
-        {"after": "precision", "name": "modelctrl_speed_loras", "title": "⚡ Acceleration LoRAs", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "LCM and speed-focused LoRA controls for faster inference and step/cfg auto-alignment."},
-        {"after": "speed_lora_steps_offset", "name": "modelctrl_special_loras", "title": "🧪 Specialized LoRAs", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Optional SRPO, SRPO-SVDQ and Nunchaku LoRA blocks for specialized behavior."},
-        {"after": "nunchaku_lora_strength", "name": "modelctrl_refiner", "title": "✨ Refiner Stage", "color": "#554267", "text_color": "#EAF1F8", "label": "Enable second-stage refiner pass and tune sampler, denoise, prompt handoff and step window."},
+        {"before": "concepts", "name": "modelctrl_target", "title": "🧭 Model Target & Concept", "color": "#233945", "text_color": "#EAF1F8", "label": "Select active concept/model context and auto-binding behavior for setting profiles."},
+        {"after": "models", "name": "modelctrl_sampling_core", "title": "🎛 Core Sampling Controls", "color": "#2D4B57", "text_color": "#EAF1F8", "label": "Set sampler, scheduler, step strategy, CFG and override behavior for baseline generation."},
+        {"after": "rescale_cfg", "name": "modelctrl_vae_clip", "title": "🧩 VAE & CLIP Selection", "color": "#2D4B57", "text_color": "#EAF1F8", "label": "Choose VAE/CLIP source preference and final CLIP layer behavior."},
+        {"after": "last_layer", "name": "modelctrl_text_encoders", "title": "📝 Text Encoder Routing", "color": "#274441", "text_color": "#EAF1F8", "label": "Assign encoder slots for multi-encoder pipelines (T5/CLIP/UNET-backed text paths)."},
+        {"after": "encoder_3", "name": "modelctrl_attention", "title": "🧠 Attention Modulation", "color": "#274441", "text_color": "#EAF1F8", "label": "Preset or custom attention scaling for self/cross attention blocks and expander shaping."},
+        {"after": "attn_expander", "name": "modelctrl_sampler_backend", "title": "⚙ Backend Sampling Model", "color": "#2B384A", "text_color": "#EAF1F8", "label": "Configure sampler backend mode, EDM/discrete options, sigma bounds and flux shift parameters."},
+        {"after": "beta_beta", "name": "modelctrl_guidance_precision", "title": "📐 Guidance & Precision", "color": "#2B384A", "text_color": "#EAF1F8", "label": "Tune model guidance and runtime precision/weight dtype for speed, memory and quality balance."},
+        {"after": "precision", "name": "modelctrl_speed_loras", "title": "⚡ Acceleration LoRAs", "color": "#1C3D47", "text_color": "#EAF1F8", "label": "LCM and speed-focused LoRA controls for faster inference and step/cfg auto-alignment."},
+        {"after": "speed_lora_steps_offset", "name": "modelctrl_special_loras", "title": "🧪 Specialized LoRAs", "color": "#1C3D47", "text_color": "#EAF1F8", "label": "Optional SRPO, SRPO-SVDQ and Nunchaku LoRA blocks for specialized behavior."},
+        {"after": "nunchaku_lora_strength", "name": "modelctrl_refiner", "title": "✨ Refiner Stage", "color": "#392E42", "text_color": "#EAF1F8", "label": "Enable second-stage refiner pass and tune sampler, denoise, prompt handoff and step window."},
     ]
 
     @classmethod

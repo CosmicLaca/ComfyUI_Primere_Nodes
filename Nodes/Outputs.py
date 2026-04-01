@@ -42,11 +42,11 @@ class PrimereMetaSave:
     NODE_ROOT = os.path.dirname(NODE_FILE)
 
     SECTION_TITLES = [
-        {"before": "save_image", "name": "metasave_main_switch", "title": "💾 Save Control", "color": "#4C5E70", "text_color": "#EAF1F8", "label": "Master save toggle and aesthetic-score gate for deciding if output should be written."},
-        {"before": "output_path", "name": "metasave_pathing", "title": "🗂 Path & Folder Routing", "color": "#5B4C70", "text_color": "#EAF1F8", "label": "Configure output path, subpath behavior, and optional concept/model folder nesting."},
-        {"after": "filename_prefix", "name": "metasave_filename_tokens", "title": "🧾 Filename Composition", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Set filename delimiter and automatic token suffixes like date, time, seed, size, and aesthetic score."},
-        {"after": "extension", "name": "metasave_embed", "title": "🧬 Metadata Embedding", "color": "#3E5C4B", "text_color": "#EAF1F8", "label": "Choose PNG workflow/data embedding, EXIF output, and A1111/Civitai-compatible metadata formatting."},
-        {"after": "overwrite_mode", "name": "metasave_export_sidecars", "title": "🧰 Export Policy & Sidecars", "color": "#5A603E", "text_color": "#EAF1F8", "label": "Define overwrite policy and optional sidecar outputs (JSON/TXT) for downstream workflows."},
+        {"before": "save_image", "name": "metasave_main_switch", "title": "💾 Save Control", "color": "#21362B", "text_color": "#EAF1F8", "label": "Master save toggle and aesthetic-score gate for deciding if output should be written."},
+        {"before": "output_path", "name": "metasave_pathing", "title": "🗂 Path & Folder Routing", "color": "#21362B", "text_color": "#EAF1F8", "label": "Configure output path, subpath behavior, and optional concept/model folder nesting."},
+        {"after": "filename_prefix", "name": "metasave_filename_tokens", "title": "🧾 Filename Composition", "color": "#2D3436", "text_color": "#EAF1F8", "label": "Set filename delimiter and automatic token suffixes like date, time, seed, size, and aesthetic score."},
+        {"after": "extension", "name": "metasave_embed", "title": "🧬 Metadata Embedding", "color": "#1C2E25", "text_color": "#EAF1F8", "label": "Choose PNG workflow/data embedding, EXIF output, and A1111/Civitai-compatible metadata formatting."},
+        {"after": "overwrite_mode", "name": "metasave_export_sidecars", "title": "🧰 Export Policy & Sidecars", "color": "#1C2E25", "text_color": "#EAF1F8", "label": "Define overwrite policy and optional sidecar outputs (JSON/TXT) for downstream workflows."},
     ]
 
     def __init__(self):
