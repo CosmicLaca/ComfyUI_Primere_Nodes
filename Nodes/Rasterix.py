@@ -30,6 +30,8 @@ from ..components.images import img_filmic_curve as img_filmic_curve
 from ..components.images import img_lut3d as img_lut3d
 from ..components.images import img_edge_jitter as img_edge_jitter
 from ..components.images import img_depth_blur as img_depth_blur
+from ..components.images import img_photo_paper as img_photo_paper
+from ..components.images.img_photo_paper import PAPER_PRESETS
 
 from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
@@ -69,7 +71,8 @@ class PrimereRasterix:
         {"after": "blend_mode", "name": "rasterix_local_laplacian", "title": "🧱 Tone: Edge-Aware Pyramid", "color": "#405985", "text_color": "#EAF1F8", "label": "Local Laplacian contrast/detail enhancement with strong edge preservation."},
 
         {"after": "levels", "name": "rasterix_analog_film", "title": "🎞 Creative: Analog Film / CCD", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Stylized film and sensor-era rendering for mood, palette, and texture character. Inspired by DxO."},
-        {"after": "photo_paper", "name": "rasterix_lut_reader", "title": "📷 Creative: LUT .cube Reader", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Load and blend LUT looks for fast creative direction and consistent show style. Inspired by Blackmagic DaVinci Resolve and DxO."},
+        {"after": "expiration_years", "name": "rasterix_photo_paper", "title": "🧪 Creative: Photo Paper Simulation", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Darkroom-inspired paper response with selectable grade, RC/FB base, color/B&W mode, and controlled print intensity."},
+        {"after": "paper_intensity", "name": "rasterix_lut_reader", "title": "📷 Creative: LUT .cube Reader", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Load and blend LUT looks for fast creative direction and consistent show style. Inspired by Blackmagic DaVinci Resolve and DxO."},
         {"after": "color_space", "name": "rasterix_filmic_camera", "title": "🎥 Creative: Filmic Camera Curve", "color": "#3B5E68", "text_color": "#EAF1F8", "label": "Camera-like highlight roll-off and tonal response for cinematic dynamic range behavior. Inspired by Adobe Camera Raw."},
 
         {"after": "pivot", "name": "rasterix_selective_tone", "title": "🎛 Color: Selective Tone Zones", "color": "#6A5636", "text_color": "#EAF1F8", "label": "Zone-based tonal pushes for highlights, midtones, shadows, and blacks. Inspired by DxO Photolab"},
@@ -176,8 +179,12 @@ class PrimereRasterix:
                 "halation": ("BOOLEAN", {"default": False, "label_off": "Ignore halation", "label_on": "Add halation"}),
                 "expiration_years": ("INT", {"default": 0, "min": 0, "max": 30, "step": 1}),
 
-                "use_photo_paper": ("BOOLEAN", {"default": False, "label_off": "Ignore H/B photo paper", "label_on": "Apply H/B photo paper"}),
-                "photo_paper": ("BOOLEAN", {"default": False, "label_off": "Soft paper", "label_on": "Hard paper"}),
+                "use_photo_paper": ("BOOLEAN", {"default": False, "label_off": "Ignore photo paper", "label_on": "Apply photo paper"}),
+                "photo_paper": (list(PAPER_PRESETS.keys()), {"default": list(PAPER_PRESETS.keys())[0]}),
+                "color_paper": ("BOOLEAN", {"default": False, "label_off": "B&W paper", "label_on": "Color paper"}),
+                "paper_base": (["RC", "FB"], {"default": "RC"}),
+                "paper_expiration_years": ("FLOAT", {"default": 0, "min": 0, "max": 30, "step": 0.1}),
+                "paper_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
 
                 "use_lut": ("BOOLEAN", {"default": False, "label_off": "Ignore LUT", "label_on": "Apply LUT"}),
                 "lut_file": (cls._list_luts(),),
@@ -339,7 +346,11 @@ class PrimereRasterix:
         halation = kwargs.get('halation', False)
         expiration_years = kwargs.get('expiration_years', 0)
         use_photo_paper = kwargs.get('use_photo_paper', False)
-        photo_paper = kwargs.get('photo_paper', False)
+        photo_paper = kwargs.get('photo_paper', "N (ISO R 90, normal)")
+        color_paper = kwargs.get('color_paper', False)
+        paper_base = kwargs.get('paper_base', "RC")
+        paper_expiration_years = kwargs.get('paper_expiration_years', 0)
+        paper_intensity = kwargs.get('paper_intensity', 100)
         use_filmic = kwargs.get('use_filmic', False)
         curve_type = kwargs.get('curve_type', "filmic")
         filmic_contrast = kwargs.get('filmic_contrast', 1.0)
@@ -427,8 +438,8 @@ class PrimereRasterix:
         if use_filmic:
             pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=filmic_contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
 
-        if use_photo_paper:
-            pil_img = img_solarization_bw.img_solarization_bw(image=pil_img, color_mode=False, strength=0.00, pivot=0.00, sigma=0.01, edge_boost=0.00, edge_radius=0.5, contrast=1, precision=precision, hard_paper=photo_paper, grain_modulation=False, grain_strength=0, grain_scale=1, seed=1)
+        if use_photo_paper and paper_intensity != 0:
+            pil_img = img_photo_paper.img_photo_paper(image=pil_img, paper_type=photo_paper, color_paper=color_paper, paper_base=paper_base, paper_intensity=paper_intensity, expiration_years=paper_expiration_years)
 
         st_data = rasterix_data.get('selective_tone', {})
         if use_selective_tone and st_data:
@@ -1377,5 +1388,32 @@ class PrimereDepthBlur:
         pil_img = utility.tensor_to_image(image)
         if use_depth_blur:
             pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3)
+
+        return (utility.image_to_tensor(pil_img),)
+
+class PrimerePhotoPaper:
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("IMAGE",)
+    FUNCTION = "primere_photo_paper"
+    CATEGORY = TREE_RASTERIX
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE", {"forceInput": True}),
+                "use_photo_paper": ("BOOLEAN", {"default": False, "label_off": "Ignore photo paper", "label_on": "Apply photo paper"}),
+                "photo_paper": (list(PAPER_PRESETS.keys()), {"default": list(PAPER_PRESETS.keys())[0]}),
+                "color_paper": ("BOOLEAN", {"default": False, "label_off": "B&W paper", "label_on": "Color paper"}),
+                "paper_base": (["RC", "FB"], {"default": "RC"}),
+                "paper_expiration_years": ("FLOAT", {"default": 0, "min": 0, "max": 30, "step": 0.1}),
+                "paper_intensity": ("FLOAT", {"default": 100, "min": 0, "max": 200, "step": 1}),
+            }
+        }
+
+    def primere_photo_paper(self, image, use_photo_paper, photo_paper, color_paper, paper_base, paper_intensity, paper_expiration_years):
+        pil_img = utility.tensor_to_image(image)
+        if use_photo_paper and paper_intensity != 0:
+            pil_img = img_photo_paper.img_photo_paper(image=pil_img, paper_type=photo_paper, color_paper=color_paper, paper_base=paper_base, paper_intensity=paper_intensity, expiration_years=paper_expiration_years)
 
         return (utility.image_to_tensor(pil_img),)
