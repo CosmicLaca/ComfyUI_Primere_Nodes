@@ -53,27 +53,36 @@ class PrimereRasterix:
 
     LUT_DIR = os.path.join(PRIMERE_ROOT, 'components', 'images', 'luts')
     SECTION_TITLES = [
-        {"before": "concepts", "title": "🧭 Main Settings", "color": "#3A3F52", "text_color": "#F2F5FF"},
-        {"after": "precision", "title": "🎚 Auto levels", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "gamma_target", "title": "🔦 White balance", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "wb_tint", "title": "💡 Smart lightning", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "smart_lighting", "title": "🌫 Dehaze", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "dehaze_contrast", "title": "🪄 Depth blur", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "depth_gamma", "title": "🫗 Blur", "color": "#364556", "text_color": "#EAF1F8"},
-        {"after": "edge_threshold", "title": "🧊 Primary Image Ops", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "use_legacy", "title": "🪒 Portrait retouching", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "blend_mode", "title": "⚔ Edge-Aware pyramid", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "levels", "title": "🎞 Analog film and CCD rendering", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "photo_paper", "title": "📷 LUT .cube file reader", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "color_space", "title": "🎥 Filmic camera", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "pivot", "title": "🎛 Selective tone", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "selective_tone_strength", "title": "⚖ Color balance", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "color_balance_separation", "title": "🪁 Hue Saturation Lightness", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "hsl_skin_protection", "title": "💎 Microcontrast - Shade detailer", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "shade_strength", "title": "🧹 Midtone claity", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "edge_preservation", "title": "🔛 Black and light endpoints", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "skip_if_no_clip", "title": "🛝 Dithering / diffusion", "color": "#355443", "text_color": "#E8F6EF"},
-        {"after": "error_diffusion", "title": "📊 Histogram", "color": "#2F4F61", "text_color": "#E6F5FF"},
+        {"before": "concepts", "name": "rasterix_main", "title": "🧭 Main Settings", "color": "#A13C2F", "text_color": "#EAF1F8", "label": "Choose model concept or model to save and load settings, set precision for all features at once."},
+
+        {"after": "precision", "title": "🎚 Auto levels", "color": "#4A351B", "text_color": "#EAF1F8"},
+        {"after": "gamma_target", "title": "🔦 White balance", "color": "#4A351B", "text_color": "#EAF1F8"},
+        {"after": "wb_tint", "title": "💡 Smart lightning", "color": "#4A351B", "text_color": "#EAF1F8"},
+
+        {"after": "smart_lighting", "title": "🌫 Dehaze", "color": "#314A2D", "text_color": "#EAF1F8"},
+        {"after": "dehaze_contrast", "title": "🪄 Depth blur", "color": "#314A2D", "text_color": "#EAF1F8"},
+        {"after": "depth_gamma", "title": "🫗 Blur", "color": "#314A2D", "text_color": "#EAF1F8"},
+
+        {"after": "edge_threshold", "title": "🧊 Brightness-contrast", "color": "#404A94", "text_color": "#EAF1F8"},
+
+        {"after": "use_legacy", "title": "🪒 Portrait retouching", "color": "#404A94", "text_color": "#EAF1F8"},
+        {"after": "blend_mode", "title": "⚔ Edge-Aware pyramid", "color": "#404A94", "text_color": "#EAF1F8"},
+
+        {"after": "levels", "title": "🎞 Analog film and CCD rendering", "color": "#305157", "text_color": "#EAF1F8"},
+        {"after": "photo_paper", "title": "📷 LUT .cube file reader", "color": "#305157", "text_color": "#EAF1F8"},
+        {"after": "color_space", "title": "🎥 Filmic camera", "color": "#305157", "text_color": "#EAF1F8"},
+
+        {"after": "pivot", "title": "🎛 Selective tone", "color": "#52472C", "text_color": "#EAF1F8"},
+        {"after": "selective_tone_strength", "title": "⚖ Color balance", "color": "#52472C", "text_color": "#EAF1F8"},
+        {"after": "color_balance_separation", "title": "🪁 Hue Saturation Lightness", "color": "#52472C", "text_color": "#EAF1F8"},
+
+        {"after": "hsl_skin_protection", "title": "💎 Microcontrast - Shade detailer", "color": "#4A2D3A", "text_color": "#EAF1F8"},
+        {"after": "shade_strength", "title": "🧹 Midtone claity", "color": "#355443", "text_color": "#EAF1F8"},
+
+        {"after": "edge_preservation", "title": "🔛 Black and light endpoints", "color": "#454A2D", "text_color": "#EAF1F8"},
+        {"after": "skip_if_no_clip", "title": "🛝 Dithering / diffusion", "color": "#454A2D", "text_color": "#EAF1F8"},
+
+        {"after": "error_diffusion", "title": "📊 Histogram", "color": "#2F4F61", "text_color": "#EAF1F8"},
     ]
 
     @classmethod

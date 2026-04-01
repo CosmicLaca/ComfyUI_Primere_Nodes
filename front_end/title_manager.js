@@ -7,6 +7,7 @@ const TITLE_MANAGED_NODES = [
 
 const titleConfigCache = {};
 const titleConfigPromise = {};
+const TITLE_WIDGET_HEIGHT = 30;
 
 function hexToRgb(hex) {
     const clean = String(hex || "").trim().replace("#", "");
@@ -50,9 +51,11 @@ function makeTitleWidget(node, section) {
 
     const bgColor = section?.color ? String(section.color) : null;
     const textColor = section?.text_color ? String(section.text_color) : bestTextColor(bgColor);
+    const label = section?.label ? String(section.label) : "";
+    const sectionName = section?.name ? String(section.name) : "";
 
     if (bgColor || section?.text_color) {
-        const label = widget.name;
+        const titleText = widget.name;
         widget.draw = function (ctx, nodeObj, widgetWidth, y, h) {
             const x = 15;
             const w = widgetWidth - 30;
@@ -79,10 +82,15 @@ function makeTitleWidget(node, section) {
             ctx.font = "12px Arial";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(label, widgetWidth / 2, yy + hh / 2 + 0.5);
+            ctx.fillText(titleText, widgetWidth / 2, yy + hh / 2 + 0.5);
             ctx.restore();
         };
     }
+
+    widget.__primereTitleMeta = {
+        label,
+        name: sectionName,
+    };
     return widget;
 }
 
@@ -125,6 +133,92 @@ function insertTitleWidgets(node, sections) {
     node.setDirtyCanvas?.(true, true);
 }
 
+function ensureTitleTooltip() {
+    let box = document.querySelector("div#primere_title_hover");
+    if (box) return box;
+    box = document.createElement("div");
+    box.id = "primere_title_hover";
+    box.style.cssText = [
+        "display:none",
+        "position:fixed",
+        "z-index:99999",
+        "max-width:360px",
+        "padding:10px 12px",
+        "border-radius:8px",
+        "background:rgba(22,24,28,0.96)",
+        "border:1px solid rgba(255,255,255,0.12)",
+        "box-shadow:0 8px 24px rgba(0,0,0,0.35)",
+        "color:#EDEFF4",
+        "font:12px/1.4 Arial, sans-serif",
+        "pointer-events:none",
+        "white-space:normal",
+    ].join(";");
+    document.body.appendChild(box);
+    return box;
+}
+
+function hideTitleTooltip() {
+    const box = ensureTitleTooltip();
+    box.style.display = "none";
+}
+
+function showTitleTooltip(text, x, y) {
+    const box = ensureTitleTooltip();
+    box.textContent = text;
+    box.style.left = `${x + 12}px`;
+    box.style.top = `${y + 12}px`;
+    box.style.display = "block";
+}
+
+function handleTitleHover(node, event, pos) {
+    if (!event || event.type !== "pointermove" || !Array.isArray(node?.widgets)) {
+        hideTitleTooltip();
+        return;
+    }
+
+    const nodeWidth = Number(node?.size?.[0] || 300);
+    const xMin = 15;
+    const xMax = Math.max(xMin + 20, nodeWidth - 15);
+    const rightHalfStart = xMin + (xMax - xMin) / 2;
+
+    for (const w of node.widgets) {
+        const meta = w?.__primereTitleMeta;
+        if (!meta?.label) continue;
+        const y0 = Number(w.last_y || 0);
+        const y1 = y0 + TITLE_WIDGET_HEIGHT;
+        const insideY = pos[1] >= y0 && pos[1] <= y1;
+        const insideRightHalf = pos[0] >= rightHalfStart && pos[0] <= xMax;
+        if (insideY && insideRightHalf) {
+            showTitleTooltip(meta.label, event.clientX, event.clientY);
+            return;
+        }
+    }
+
+    hideTitleTooltip();
+}
+
+function attachTitleHoverHandlers(node) {
+    if (!node || node.__primereTitleHoverBound) return;
+    const prevMove = node.onMouseMove;
+    const prevLeave = node.onMouseLeave;
+
+    node.onMouseMove = function (event, pos, graphcanvas) {
+        if (typeof prevMove === "function") {
+            prevMove.call(this, event, pos, graphcanvas);
+        }
+        handleTitleHover(this, event, pos);
+    };
+
+    node.onMouseLeave = function (event, pos, graphcanvas) {
+        if (typeof prevLeave === "function") {
+            prevLeave.call(this, event, pos, graphcanvas);
+        }
+        hideTitleTooltip();
+    };
+
+    node.__primereTitleHoverBound = true;
+}
+
 app.registerExtension({
     name: "Primere.TitleManager",
 
@@ -137,6 +231,7 @@ app.registerExtension({
             const node = this;
             getNodeTitleConfig(nodeData.name).then((sections) => {
                 insertTitleWidgets(node, sections);
+                attachTitleHoverHandlers(node);
             });
         };
     },
