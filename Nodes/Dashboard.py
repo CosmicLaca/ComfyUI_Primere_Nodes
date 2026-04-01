@@ -792,7 +792,7 @@ class PrimereModelControl:
         }
 
     def get_primeremodelcontrol(self, **kwargs):
-        model_concept = kwargs.pop('model_concept', 'SD1')
+        model_concept = kwargs.pop('model_concept', None)
         model_name = kwargs.pop('model_name', None)
         concepts = kwargs.pop('concepts', 'Auto')
         models = kwargs.pop('models', 'Auto')
@@ -800,7 +800,7 @@ class PrimereModelControl:
         scheduler_name = kwargs.pop('scheduler_name', comfy.samplers.KSampler.SCHEDULERS[0])
         steps = kwargs.pop('steps', 12)
         cfg = kwargs.pop('cfg', 7.0)
-        active_concept = model_concept if concepts == "Auto" else concepts
+        active_concept = model_concept if concepts == "Auto" and model_name is not None else concepts
         saved = {}
         if concepts == "Auto" and models == "Auto":
             raw_model = model_name
@@ -827,7 +827,7 @@ class PrimereModelControl:
         else:
             active_display = active_concept
 
-        if kwargs.get('override_steps') == True:
+        if kwargs.get('override_steps') == True and model_name is not None:
             found = re.findall(r"(?i)(\d+)step", model_name.lower())
             if found:
                 steps = int(found[0])

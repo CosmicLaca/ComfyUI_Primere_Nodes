@@ -299,6 +299,27 @@ function attachTitleHoverHandlers(node) {
     node.__primereTitleHoverBound = true;
 }
 
+function attachTitleSerializationGuard(node) {
+    if (!node || node.__primereTitleSerializeGuardBound) return;
+    const prevOnSerialize = node.onSerialize;
+    node.onSerialize = function (o) {
+        if (typeof prevOnSerialize === "function") {
+            prevOnSerialize.call(this, o);
+        }
+        if (!o || !Array.isArray(o.widgets_values) || !Array.isArray(this.widgets)) return;
+        const titleIndexes = new Set();
+        for (let i = 0; i < this.widgets.length; i++) {
+            if (this.widgets[i]?.__primereTitleWidget) {
+                titleIndexes.add(i);
+            }
+        }
+        if (titleIndexes.size > 0) {
+            o.widgets_values = o.widgets_values.filter((_, idx) => !titleIndexes.has(idx));
+        }
+    };
+    node.__primereTitleSerializeGuardBound = true;
+}
+
 app.registerExtension({
     name: "Primere.TitleManager",
 
@@ -309,6 +330,7 @@ app.registerExtension({
             getNodeTitleConfig(nodeData.name).then((sections) => {
                 insertTitleWidgets(node, sections);
                 attachTitleHoverHandlers(node);
+                attachTitleSerializationGuard(node);
             });
         };
 
@@ -321,9 +343,16 @@ app.registerExtension({
 
         const onConfigure = nodeType.prototype.onConfigure;
         nodeType.prototype.onConfigure = function (config) {
+            if (config && Array.isArray(config.widgets_values)) {
+                config.widgets_values = config.widgets_values.filter((v) => {
+                    if (typeof v !== "string") return true;
+                    return !/^─+\s.*\s─+$/.test(v.trim());
+                });
+            }
             onConfigure ? onConfigure.apply(this, [config]) : undefined;
             const node = this;
             setTimeout(() => applyTitleManager(node), 0);
         };
+
     },
 });
