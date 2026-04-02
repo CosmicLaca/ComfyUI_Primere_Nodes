@@ -48,7 +48,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereSeed": Dashboard.PrimereSeed,
     "PrimereFastSeed": Dashboard.PrimereFastSeed,
     "PrimereLatentNoise": Dashboard.PrimereFractalLatent,
-    "PrimereCLIPEncoder": Dashboard.PrimereCLIP,
+    "PrimereCLIPEncoder": Dashboard.PrimereCLIPEncoder,
     "PrimereResolution": Dashboard.PrimereResolution,
     "PrimereClearNetworkTagsPrompt": Dashboard.PrimereClearNetworkTagsPrompt,
     "PrimereDiTPurifyPrompt": Dashboard.PrimereDiTPurifyPrompt,

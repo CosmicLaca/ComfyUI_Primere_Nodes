@@ -1247,17 +1247,11 @@ CLIP_SAVE_KEYS = frozenset({
     'l_strength', 'width', 'height'
 })
 
-class PrimereCLIP:
+class PrimereCLIPEncoder:
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "STRING", "STRING", "STRING", "STRING", "STRING", "TUPLE")
     RETURN_NAMES = ("COND+", "COND-", "PROMPT+", "PROMPT-", "T5XXL_PROMPT", "PROMPT L+", "PROMPT L-", "CONTROL_DATA")
     FUNCTION = "clip_encode"
     CATEGORY = TREE_DASHBOARD
-
-    @staticmethod
-    def get_default_neg(toml_path: str):
-        with open(toml_path, "rb") as f:
-            style_def_neg = tomli.load(f)
-        return style_def_neg
 
     SECTION_TITLES = [
         {"before": "negative_strength", "name": "clip_core", "title": "📝 Core Prompt Setup", "color": "#4C5E70", "text_color": "#EAF1F8", "label": "Base positive and negative prompt inputs (force-connected) with global negative prompt strength control."},
@@ -1268,6 +1262,12 @@ class PrimereCLIP:
         {"before": "style_handling", "name": "clip_style_handling", "title": "🖼️ Style Prompt Management", "color": "#4C705E", "text_color": "#EAF1F8", "label": "Separate/merge style prompts, control position (front/end), and swap between default CLIP and T5/L with dedicated strengths."},
         {"before": "l_strength", "name": "clip_l_strength", "title": "🔗 Final CLIP L Strength", "color": "#5C4C70", "text_color": "#EAF1F8", "label": "Final strength multiplier applied to the CLIP L component of the encoding pipeline."}
     ]
+
+    @staticmethod
+    def get_default_neg(toml_path: str):
+        with open(toml_path, "rb") as f:
+            style_def_neg = tomli.load(f)
+        return style_def_neg
 
     @classmethod
     def INPUT_TYPES(cls):

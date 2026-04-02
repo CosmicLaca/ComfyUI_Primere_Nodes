@@ -1,8 +1,8 @@
 {
   "id": "650a9c87-7e57-45b7-9c11-d95dbe261b26",
   "revision": 0,
-  "last_node_id": 163,
-  "last_link_id": 998,
+  "last_node_id": 165,
+  "last_link_id": 1021,
   "nodes": [
     {
       "id": 84,
@@ -48,8 +48,8 @@
       "id": 109,
       "type": "PrimereClearNetworkTagsPrompt",
       "pos": [
-        1824.7899189453124,
-        1059.9312292480463
+        1822.404036455078,
+        1223.3681608871461
       ],
       "size": [
         433.72161865234375,
@@ -81,14 +81,14 @@
           "type": "STRING",
           "links": [
             780,
-            979
+            1002
           ]
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            980
+            1003
           ]
         }
       ],
@@ -348,8 +348,8 @@
       "id": 132,
       "type": "PrimereNetworkTagLoader",
       "pos": [
-        2270.790163085938,
-        1059.9312292480463
+        2268.4042805957033,
+        1223.3681608871461
       ],
       "size": [
         360.28504638671893,
@@ -393,7 +393,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            978
+            1001
           ]
         },
         {
@@ -415,14 +415,14 @@
           "name": "LORA_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            982
+            1005
           ]
         },
         {
           "name": "LYCORIS_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            983
+            1006
           ]
         }
       ],
@@ -493,7 +493,7 @@
             817,
             818,
             819,
-            986
+            1009
           ]
         },
         {
@@ -503,7 +503,7 @@
             821,
             822,
             823,
-            987
+            1010
           ]
         },
         {
@@ -596,7 +596,7 @@
           "name": "CONTROL_DATA",
           "type": "TUPLE",
           "links": [
-            988
+            1011
           ]
         }
       ],
@@ -670,7 +670,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [891386485674053]"
+        "Last seed: [62880108915019]"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1165,8 +1165,8 @@
       "id": 141,
       "type": "PrimereModelKeyword",
       "pos": [
-        1826.2124922241214,
-        1925.3419838867183
+        1823.8266097338872,
+        2088.778915525816
       ],
       "size": [
         801.9446179565434,
@@ -1188,7 +1188,7 @@
           "name": "MODEL_KEYWORD",
           "type": "MODEL_KEYWORD",
           "links": [
-            981
+            1004
           ]
         }
       ],
@@ -2120,160 +2120,10 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_decoded\": \"futuristic difficult alien rusty iron robot, face portrait, light in eyes, alien world in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative_decoded\": \"(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20)\",\n    \"seed\": 891386485674053,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 683,\n    \"height\": 384,\n    \"preferred\": {\n        \"subpath\": \"Sci-fi\",\n        \"model\": null,\n        \"orientation\": \"Vertical\"\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": true,\n    \"rescale_cfg\": 1,\n    \"vae\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": false,\n    \"last_layer\": 0,\n    \"encoder_1\": \"clip_l.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"align_your_steps\": true,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120,\n    \"sigma_min\": 1,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.6,\n    \"beta_beta\": 0.6,\n    \"guidance\": 3.5,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": true,\n    \"refiner_model\": \"Refiners\\\\photon_refiner-FP16.safetensors\",\n    \"refiner_sampler\": \"euler_ancestral\",\n    \"refiner_scheduler\": \"karras\",\n    \"refiner_cfg\": 6,\n    \"refiner_steps\": 50,\n    \"refiner_start\": 30,\n    \"refiner_denoise\": 1,\n    \"refiner_sampling_denoise\": 0.94,\n    \"refiner_ignore_prompt\": false,\n    \"encoders\": [\n        \"clip_l.safetensors\"\n    ],\n    \"model\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_name\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_concept\": \"SD1\",\n    \"model_version\": \"SD1\",\n    \"scheduler\": \"karras\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"steps\": 36,\n    \"cfg\": 6.5,\n    \"clip_attn_q\": 1.04,\n    \"clip_attn_k\": 1.09,\n    \"clip_attn_v\": 0.87,\n    \"clip_attn_out\": 0.96,\n    \"attn_cross_q\": 1.09,\n    \"attn_cross_k\": 1.09,\n    \"attn_cross_v\": 0.87,\n    \"attn_cross_out\": 0.96,\n    \"concept_data\": {\n        \"vae_name\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n        \"vae_selection\": true,\n        \"clip_selection\": false\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 0.867,\n        \"modulator\": 1.36,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"width\": 683,\n        \"int_style_neg\": \"None\",\n        \"int_style_neg_strength\": 1.0,\n        \"opt_neg_strength\": 1.0,\n        \"opt_pos_strength\": 1.0,\n        \"adv_encode\": false,\n        \"style_handling\": false,\n        \"token_normalization\": \"mean\",\n        \"use_int_style\": false,\n        \"l_strength\": 1.0,\n        \"weight_interpretation\": \"comfy++\",\n        \"height\": 384,\n        \"style_pos_strength\": 1.0,\n        \"int_style_pos_strength\": 1.0,\n        \"style_neg_strength\": 1.0,\n        \"style_position\": true,\n        \"int_style_pos\": \"None\",\n        \"negative_strength\": 1.2,\n        \"enhanced_prompt_strength\": 1.0,\n        \"style_swap\": false,\n        \"enhanced_prompt_usage\": \"T5-XXL\"\n    },\n    \"sampler_settings\": {\n        \"denoise\": 0.94,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": true,\n        \"noise_constant\": 0.08,\n        \"variation_seed\": 891386485674053,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
+        "{\n    \"positive\": \"{futuristic|old style|friendly|creepy} {difficult|simple|damaged} {mechanical|half-human|alien} {platina metal|plastic|rusty iron} robot, {half body|full body|closeup|face} portrait, light in eyes, {space|alien world|spaceship interior|big city|hill|fire, thunder lightning} in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative\": \"draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman\",\n    \"positive_decoded\": \"creepy difficult alien platina metal robot, face portrait, light in eyes, fire, thunder lightning in the background, extremely detailed, realistic photography, perfect lights\",\n    \"negative_decoded\": \"(draw, illustration, child, childish, kid, nsfw, sex, porn, human, man, woman:1.20)\",\n    \"seed\": 62880108915019,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 683,\n    \"height\": 384,\n    \"preferred\": {\n        \"subpath\": \"Sci-fi\",\n        \"model\": null,\n        \"orientation\": \"Vertical\"\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": true,\n    \"rescale_cfg\": 1,\n    \"vae\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": false,\n    \"last_layer\": 0,\n    \"encoder_1\": \"clip_l.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"align_your_steps\": true,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120,\n    \"sigma_min\": 1,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.6,\n    \"beta_beta\": 0.6,\n    \"guidance\": 3.5,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": true,\n    \"refiner_model\": \"Refiners\\\\photon_refiner-FP16.safetensors\",\n    \"refiner_sampler\": \"euler_ancestral\",\n    \"refiner_scheduler\": \"karras\",\n    \"refiner_cfg\": 6,\n    \"refiner_steps\": 50,\n    \"refiner_start\": 30,\n    \"refiner_denoise\": 1,\n    \"refiner_sampling_denoise\": 0.94,\n    \"refiner_ignore_prompt\": false,\n    \"encoders\": [\n        \"clip_l.safetensors\"\n    ],\n    \"model\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_name\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_concept\": \"SD1\",\n    \"model_version\": \"SD1\",\n    \"scheduler\": \"karras\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"steps\": 36,\n    \"cfg\": 6.5,\n    \"clip_attn_q\": 1.04,\n    \"clip_attn_k\": 1.09,\n    \"clip_attn_v\": 0.87,\n    \"clip_attn_out\": 0.96,\n    \"attn_cross_q\": 1.09,\n    \"attn_cross_k\": 1.09,\n    \"attn_cross_v\": 0.87,\n    \"attn_cross_out\": 0.96,\n    \"concept_data\": {\n        \"vae_name\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n        \"vae_selection\": true,\n        \"clip_selection\": false\n    },\n    \"latent_data\": {\n        \"noise_type\": \"brownian_fractal\",\n        \"alpha_exponent\": 0.548,\n        \"modulator\": 1.36,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"width\": 683,\n        \"int_style_pos\": \"None\",\n        \"opt_pos_strength\": 1.0,\n        \"style_neg_strength\": 1.0,\n        \"adv_encode\": false,\n        \"enhanced_prompt_usage\": \"T5-XXL\",\n        \"int_style_neg\": \"None\",\n        \"height\": 384,\n        \"style_swap\": false,\n        \"style_position\": true,\n        \"style_pos_strength\": 1.0,\n        \"enhanced_prompt_strength\": 1.0,\n        \"weight_interpretation\": \"comfy++\",\n        \"l_strength\": 1.0,\n        \"int_style_neg_strength\": 1.0,\n        \"opt_neg_strength\": 1.0,\n        \"use_int_style\": false,\n        \"negative_strength\": 1.2,\n        \"int_style_pos_strength\": 1.0,\n        \"style_handling\": false,\n        \"token_normalization\": \"mean\"\n    },\n    \"sampler_settings\": {\n        \"denoise\": 0.94,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": true,\n        \"noise_constant\": 0.1,\n        \"variation_seed\": 62880108915019,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
       ],
       "color": "#332922",
       "bgcolor": "#593930"
-    },
-    {
-      "id": 158,
-      "type": "PrimereHistogram",
-      "pos": [
-        2655.670133434404,
-        1133.212476619011
-      ],
-      "size": [
-        600.6690460082995,
-        342
-      ],
-      "flags": {},
-      "order": 40,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 946
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereHistogram"
-      },
-      "widgets_values": [
-        true,
-        true,
-        "RGB",
-        "bars"
-      ],
-      "color": "#6650a4",
-      "bgcolor": "#523c90"
-    },
-    {
-      "id": 126,
-      "type": "PrimereMetaCollector",
-      "pos": [
-        2656.7578999775646,
-        1639.5466369506585
-      ],
-      "size": [
-        220.8090576282848,
-        266.0002219460225
-      ],
-      "flags": {},
-      "order": 43,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive",
-          "type": "STRING",
-          "link": 741
-        },
-        {
-          "name": "negative",
-          "type": "STRING",
-          "link": 742
-        },
-        {
-          "name": "positive_decoded",
-          "shape": 7,
-          "type": "STRING",
-          "link": 993
-        },
-        {
-          "name": "negative_decoded",
-          "shape": 7,
-          "type": "STRING",
-          "link": 994
-        },
-        {
-          "name": "control_data",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 975
-        },
-        {
-          "name": "seed",
-          "shape": 7,
-          "type": "INT",
-          "link": 725
-        },
-        {
-          "name": "t5_xxl_prompt",
-          "shape": 7,
-          "type": "STRING",
-          "link": 995
-        },
-        {
-          "name": "positive_l",
-          "shape": 7,
-          "type": "STRING",
-          "link": 996
-        },
-        {
-          "name": "negative_l",
-          "shape": 7,
-          "type": "STRING",
-          "link": 997
-        },
-        {
-          "name": "width",
-          "shape": 7,
-          "type": "INT",
-          "link": 819
-        },
-        {
-          "name": "height",
-          "shape": 7,
-          "type": "INT",
-          "link": 823
-        },
-        {
-          "name": "preferred",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 728
-        },
-        {
-          "name": "aesthetic_score",
-          "shape": 7,
-          "type": "INT",
-          "link": 800
-        }
-      ],
-      "outputs": [
-        {
-          "name": "METADATA",
-          "type": "TUPLE",
-          "links": [
-            854,
-            855,
-            977
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMetaCollector"
-      },
-      "widgets_values": [],
-      "color": "#451900",
-      "bgcolor": "#592d00"
     },
     {
       "id": 155,
@@ -2510,87 +2360,6 @@
       ],
       "color": "#185a4d",
       "bgcolor": "#044639"
-    },
-    {
-      "id": 159,
-      "type": "PrimereStylePile",
-      "pos": [
-        2891.4789423039992,
-        1516.4546005476734
-      ],
-      "size": [
-        361.8411053113705,
-        390
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            984
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "slot_index": 1,
-          "links": [
-            985
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereStylePile",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#949454",
-      "bgcolor": "#808040"
     },
     {
       "id": 153,
@@ -3190,12 +2959,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 990
+          "link": 1013
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 992
+          "link": 1015
         },
         {
           "name": "latent_image",
@@ -3212,7 +2981,7 @@
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 998
+          "link": 1021
         },
         {
           "name": "seed",
@@ -3243,7 +3012,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        334647548834397,
+        576555451185978,
         "randomize",
         1,
         0,
@@ -3303,53 +3072,6 @@
       "bgcolor": "#400040"
     },
     {
-      "id": 162,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        3270.8392105642647,
-        53.94031664208154
-      ],
-      "size": [
-        1255.2152099609375,
-        1420.6171875
-      ],
-      "flags": {},
-      "order": 46,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 976
-        },
-        {
-          "name": "image_metadata",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 977
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        false,
-        true,
-        "Photo\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
-    },
-    {
       "id": 125,
       "type": "UltimateSDUpscale",
       "pos": [
@@ -3377,12 +3099,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 989
+          "link": 1012
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 991
+          "link": 1014
         },
         {
           "name": "vae",
@@ -3465,7 +3187,7 @@
           "type": "IMAGE",
           "links": [
             721,
-            976
+            999
           ]
         }
       ],
@@ -3474,7 +3196,7 @@
       },
       "widgets_values": [
         2,
-        199440304564918,
+        587302346192766,
         "randomize",
         20,
         8,
@@ -3510,7 +3232,7 @@
         78
       ],
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -3550,7 +3272,285 @@
       "bgcolor": "#0f4d0d"
     },
     {
-      "id": 163,
+      "id": 164,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        3270.8392105642647,
+        53.94031664208154
+      ],
+      "size": [
+        1255.2152099609375,
+        1420.6171875
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 999
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 1000
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        true,
+        "Photo\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
+    },
+    {
+      "id": 126,
+      "type": "PrimereMetaCollector",
+      "pos": [
+        2655.7188969262506,
+        1563.6564023059657
+      ],
+      "size": [
+        220.8090576282848,
+        266.0002219460225
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 741
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 742
+        },
+        {
+          "name": "positive_decoded",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1016
+        },
+        {
+          "name": "negative_decoded",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1017
+        },
+        {
+          "name": "control_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 975
+        },
+        {
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "link": 725
+        },
+        {
+          "name": "t5_xxl_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1018
+        },
+        {
+          "name": "positive_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1019
+        },
+        {
+          "name": "negative_l",
+          "shape": 7,
+          "type": "STRING",
+          "link": 1020
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "link": 819
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "link": 823
+        },
+        {
+          "name": "preferred",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 728
+        },
+        {
+          "name": "aesthetic_score",
+          "shape": 7,
+          "type": "INT",
+          "link": 800
+        }
+      ],
+      "outputs": [
+        {
+          "name": "METADATA",
+          "type": "TUPLE",
+          "links": [
+            854,
+            855,
+            1000
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMetaCollector"
+      },
+      "widgets_values": [],
+      "color": "#451900",
+      "bgcolor": "#592d00"
+    },
+    {
+      "id": 158,
+      "type": "PrimereHistogram",
+      "pos": [
+        2653.2838577532516,
+        1183.2859435028033
+      ],
+      "size": [
+        600.6690460082995,
+        342
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 946
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereHistogram"
+      },
+      "widgets_values": [
+        true,
+        true,
+        "RGB",
+        "bars"
+      ],
+      "color": "#6650a4",
+      "bgcolor": "#523c90"
+    },
+    {
+      "id": 159,
+      "type": "PrimereStylePile",
+      "pos": [
+        2889.4224423085325,
+        1565.757182228518
+      ],
+      "size": [
+        361.8411053113705,
+        390
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            1007
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": [
+            1008
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereStylePile",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.0.1"
+        }
+      },
+      "widgets_values": [
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#949454",
+      "bgcolor": "#808040"
+    },
+    {
+      "id": 165,
       "type": "PrimereCLIPEncoder",
       "pos": [
         2163.343994140625,
@@ -3558,7 +3558,7 @@
       ],
       "size": [
         341.30432421875,
-        870
+        1038
       ],
       "flags": {},
       "order": 31,
@@ -3567,17 +3567,17 @@
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 978
+          "link": 1001
         },
         {
           "name": "positive_prompt",
           "type": "STRING",
-          "link": 979
+          "link": 1002
         },
         {
           "name": "negative_prompt",
           "type": "STRING",
-          "link": 980
+          "link": 1003
         },
         {
           "name": "enhanced_prompt",
@@ -3601,19 +3601,19 @@
           "name": "model_keywords",
           "shape": 7,
           "type": "MODEL_KEYWORD",
-          "link": 981
+          "link": 1004
         },
         {
           "name": "lora_keywords",
           "shape": 7,
           "type": "MODEL_KEYWORD",
-          "link": 982
+          "link": 1005
         },
         {
           "name": "lycoris_keywords",
           "shape": 7,
           "type": "MODEL_KEYWORD",
-          "link": 983
+          "link": 1006
         },
         {
           "name": "embedding_pos",
@@ -3643,13 +3643,13 @@
           "name": "style_pos_prompt",
           "shape": 7,
           "type": "STRING",
-          "link": 984
+          "link": 1007
         },
         {
           "name": "style_neg_prompt",
           "shape": 7,
           "type": "STRING",
-          "link": 985
+          "link": 1008
         },
         {
           "name": "positive_l",
@@ -3667,19 +3667,19 @@
           "name": "width",
           "shape": 7,
           "type": "INT",
-          "link": 986
+          "link": 1009
         },
         {
           "name": "height",
           "shape": 7,
           "type": "INT",
-          "link": 987
+          "link": 1010
         },
         {
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 988
+          "link": 1011
         }
       ],
       "outputs": [
@@ -3687,58 +3687,58 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            989,
-            990
+            1012,
+            1013
           ]
         },
         {
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            991,
-            992
+            1014,
+            1015
           ]
         },
         {
           "name": "PROMPT+",
           "type": "STRING",
           "links": [
-            993
+            1016
           ]
         },
         {
           "name": "PROMPT-",
           "type": "STRING",
           "links": [
-            994
+            1017
           ]
         },
         {
           "name": "T5XXL_PROMPT",
           "type": "STRING",
           "links": [
-            995
+            1018
           ]
         },
         {
           "name": "PROMPT L+",
           "type": "STRING",
           "links": [
-            996
+            1019
           ]
         },
         {
           "name": "PROMPT L-",
           "type": "STRING",
           "links": [
-            997
+            1020
           ]
         },
         {
           "name": "CONTROL_DATA",
           "type": "TUPLE",
           "links": [
-            998
+            1021
           ]
         }
       ],
@@ -4812,184 +4812,184 @@
       "TUPLE"
     ],
     [
-      976,
+      999,
       125,
       0,
-      162,
+      164,
       0,
       "IMAGE"
     ],
     [
-      977,
+      1000,
       126,
       0,
-      162,
+      164,
       1,
       "TUPLE"
     ],
     [
-      978,
+      1001,
       132,
       1,
-      163,
+      165,
       0,
       "CLIP"
     ],
     [
-      979,
+      1002,
       109,
       0,
-      163,
+      165,
       1,
       "STRING"
     ],
     [
-      980,
+      1003,
       109,
       1,
-      163,
+      165,
       2,
       "STRING"
     ],
     [
-      981,
+      1004,
       141,
       0,
-      163,
+      165,
       6,
       "MODEL_KEYWORD"
     ],
     [
-      982,
+      1005,
       132,
       5,
-      163,
+      165,
       7,
       "MODEL_KEYWORD"
     ],
     [
-      983,
+      1006,
       132,
       6,
-      163,
+      165,
       8,
       "MODEL_KEYWORD"
     ],
     [
-      984,
+      1007,
       159,
       0,
-      163,
+      165,
       13,
       "STRING"
     ],
     [
-      985,
+      1008,
       159,
       1,
-      163,
+      165,
       14,
       "STRING"
     ],
     [
-      986,
+      1009,
       139,
       0,
-      163,
+      165,
       17,
       "INT"
     ],
     [
-      987,
+      1010,
       139,
       1,
-      163,
+      165,
       18,
       "INT"
     ],
     [
-      988,
+      1011,
       122,
       2,
-      163,
+      165,
       19,
       "TUPLE"
     ],
     [
-      989,
-      163,
+      1012,
+      165,
       0,
       125,
       2,
       "CONDITIONING"
     ],
     [
-      990,
-      163,
+      1013,
+      165,
       0,
       161,
       5,
       "CONDITIONING"
     ],
     [
-      991,
-      163,
+      1014,
+      165,
       1,
       125,
       3,
       "CONDITIONING"
     ],
     [
-      992,
-      163,
+      1015,
+      165,
       1,
       161,
       6,
       "CONDITIONING"
     ],
     [
-      993,
-      163,
+      1016,
+      165,
       2,
       126,
       2,
       "STRING"
     ],
     [
-      994,
-      163,
+      1017,
+      165,
       3,
       126,
       3,
       "STRING"
     ],
     [
-      995,
-      163,
+      1018,
+      165,
       4,
       126,
       6,
       "STRING"
     ],
     [
-      996,
-      163,
+      1019,
+      165,
       5,
       126,
       7,
       "STRING"
     ],
     [
-      997,
-      163,
+      1020,
+      165,
       6,
       126,
       8,
       "STRING"
     ],
     [
-      998,
-      163,
+      1021,
+      165,
       7,
       161,
       9,
@@ -5001,8 +5001,8 @@
       "id": 0,
       "title": "Network loader",
       "bounding": [
-        1816.7899189453124,
-        988.9312292480469,
+        1814.404036455078,
+        1152.368160887147,
         824.5974954101562,
         1101.7182432128907
       ],
@@ -5016,8 +5016,8 @@
       "bounding": [
         1814,
         21,
-        1055.6363525390625,
-        951.9386893310548
+        1052.3770385742191,
+        1118.9757773437502
       ],
       "color": "#A88",
       "font_size": 24,
@@ -5118,10 +5118,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.564473930053778,
+      "scale": 0.6830134553650705,
       "offset": [
-        908.8735178626572,
-        109.49830577985774
+        -996.4555770133574,
+        331.5002772150011
       ]
     },
     "frontendVersion": "1.42.8",
