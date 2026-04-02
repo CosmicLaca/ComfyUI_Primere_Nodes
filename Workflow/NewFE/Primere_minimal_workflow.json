@@ -1,8 +1,8 @@
 {
   "id": "650a9c87-7e57-45b7-9c11-d95dbe261b26",
   "revision": 0,
-  "last_node_id": 142,
-  "last_link_id": 887,
+  "last_node_id": 145,
+  "last_link_id": 916,
   "nodes": [
     {
       "id": 16,
@@ -22,7 +22,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 705
+          "link": 915
         },
         {
           "name": "vae",
@@ -92,7 +92,7 @@
         "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
       },
       "widgets_values": [
-        ""
+        "*** Image saver switched OFF, image not saved. ***"
       ],
       "color": "#149454",
       "bgcolor": "#008040"
@@ -315,155 +315,6 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 125,
-      "type": "UltimateSDUpscale",
-      "pos": [
-        4529.3779296875,
-        106.75484466552734
-      ],
-      "size": [
-        299.1000061035156,
-        638
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 707
-        },
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 788
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 758
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 760
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 793
-        },
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 712
-        },
-        {
-          "name": "upscale_by",
-          "type": "FLOAT",
-          "widget": {
-            "name": "upscale_by"
-          },
-          "link": 713
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "widget": {
-            "name": "seed"
-          },
-          "link": 714
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "widget": {
-            "name": "steps"
-          },
-          "link": 885
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "widget": {
-            "name": "cfg"
-          },
-          "link": 887
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "sampler_name"
-          },
-          "link": 881
-        },
-        {
-          "name": "scheduler",
-          "type": "COMBO",
-          "widget": {
-            "name": "scheduler"
-          },
-          "link": 883
-        },
-        {
-          "name": "tile_width",
-          "type": "INT",
-          "widget": {
-            "name": "tile_width"
-          },
-          "link": 719
-        },
-        {
-          "name": "tile_height",
-          "type": "INT",
-          "widget": {
-            "name": "tile_height"
-          },
-          "link": 720
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            721,
-            722
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UltimateSDUpscale"
-      },
-      "widgets_values": [
-        2,
-        1082034648619924,
-        "randomize",
-        20,
-        8,
-        "ddim",
-        "beta",
-        1,
-        "None",
-        512,
-        512,
-        8,
-        0,
-        "None",
-        1,
-        64,
-        8,
-        16,
-        true,
-        false,
-        1
-      ],
-      "color": "#236121",
-      "bgcolor": "#0f4d0d"
-    },
-    {
       "id": 129,
       "type": "ttN hiresfixScale",
       "pos": [
@@ -580,7 +431,7 @@
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 877
+          "link": 893
         }
       ],
       "outputs": [
@@ -588,7 +439,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            781
+            904
           ]
         },
         {
@@ -776,7 +627,7 @@
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 878
+          "link": 894
         }
       ],
       "outputs": [
@@ -784,7 +635,7 @@
           "name": "LATENTS",
           "type": "LATENT",
           "links": [
-            704
+            911
           ]
         },
         {
@@ -961,16 +812,16 @@
           "name": "COND+",
           "type": "CONDITIONING",
           "links": [
-            757,
-            758
+            758,
+            909
           ]
         },
         {
           "name": "COND-",
           "type": "CONDITIONING",
           "links": [
-            759,
-            760
+            760,
+            910
           ]
         },
         {
@@ -1012,7 +863,7 @@
           "name": "CONTROL_DATA",
           "type": "TUPLE",
           "links": [
-            830
+            913
           ]
         }
       ],
@@ -1069,163 +920,10 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season\",\n    \"negative\": \"human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw\",\n    \"positive_decoded\": \"(design:1.4), Nature spring season photography, expressionist realistic style, living scenery, Dynamic wide shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, daytime photography, seasonal rain, perfect colors of selected season\",\n    \"negative_decoded\": \"(human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw:1.20)\",\n    \"seed\": 819743424700648,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 683,\n    \"height\": 384,\n    \"preferred\": {\n        \"subpath\": \"SeassonBackground\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": false,\n    \"rescale_cfg\": 1.0,\n    \"vae\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": true,\n    \"last_layer\": 0,\n    \"sampler\": \"ksampler\",\n    \"align_your_steps\": false,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120.0,\n    \"sigma_min\": 1.0,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.6,\n    \"beta_beta\": 0.6,\n    \"guidance\": 3.5,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": false,\n    \"encoders\": [],\n    \"model_name\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_concept\": \"SD1\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"steps\": 35,\n    \"cfg\": 7.5,\n    \"clip_attn_q\": 1.0,\n    \"clip_attn_k\": 1.0,\n    \"clip_attn_v\": 1.0,\n    \"clip_attn_out\": 1.0,\n    \"attn_cross_q\": 1.0,\n    \"attn_cross_k\": 1.0,\n    \"attn_cross_v\": 1.0,\n    \"attn_cross_out\": 1.0,\n    \"latent_data\": {\n        \"noise_type\": \"brownian_fractal\",\n        \"alpha_exponent\": 0.708,\n        \"modulator\": 0.93,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"adv_encode\": false,\n        \"enhanced_prompt_strength\": 1.0,\n        \"weight_interpretation\": \"comfy++\",\n        \"style_neg_strength\": 1.0,\n        \"negative_strength\": 1.2,\n        \"int_style_neg\": \"None\",\n        \"l_strength\": 1.0,\n        \"int_style_neg_strength\": 1.0,\n        \"token_normalization\": \"mean\",\n        \"enhanced_prompt_usage\": \"T5-XXL\",\n        \"int_style_pos\": \"None\",\n        \"height\": 384,\n        \"opt_neg_strength\": 1.0,\n        \"opt_pos_strength\": 1.0,\n        \"use_int_style\": false,\n        \"int_style_pos_strength\": 1.0,\n        \"width\": 683,\n        \"style_pos_strength\": 1.0,\n        \"style_position\": false,\n        \"style_handling\": false,\n        \"style_swap\": false\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": true,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.07,\n        \"variation_seed\": 819743424700648,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
+        "{\n    \"positive\": \"Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season\",\n    \"negative\": \"human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw\",\n    \"positive_decoded\": \"Nature spring season photography, expressionist realistic style, living scenery, Dynamic normal shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, sunny photography, seasonal rain, perfect colors of selected season\",\n    \"negative_decoded\": \"(human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw:1.20)\",\n    \"seed\": 159219218930930,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 683,\n    \"height\": 384,\n    \"preferred\": {\n        \"subpath\": \"SeassonBackground\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": true,\n    \"rescale_cfg\": 1,\n    \"vae\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": false,\n    \"last_layer\": 0,\n    \"encoder_1\": \"clip_l.safetensors\",\n    \"sampler\": \"dpmpp_sde\",\n    \"align_your_steps\": true,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120,\n    \"sigma_min\": 1,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.6,\n    \"beta_beta\": 0.6,\n    \"guidance\": 3.5,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": true,\n    \"refiner_model\": \"Refiners\\\\photon_refiner-FP16.safetensors\",\n    \"refiner_sampler\": \"euler_ancestral\",\n    \"refiner_scheduler\": \"karras\",\n    \"refiner_cfg\": 6,\n    \"refiner_steps\": 50,\n    \"refiner_start\": 30,\n    \"refiner_denoise\": 1,\n    \"refiner_sampling_denoise\": 0.94,\n    \"refiner_ignore_prompt\": false,\n    \"encoders\": [\n        \"clip_l.safetensors\"\n    ],\n    \"model\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_name\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_concept\": \"SD1\",\n    \"model_version\": \"SD1\",\n    \"scheduler\": \"karras\",\n    \"sampler_name\": \"dpmpp_sde\",\n    \"scheduler_name\": \"karras\",\n    \"steps\": 36,\n    \"cfg\": 6.5,\n    \"clip_attn_q\": 1.04,\n    \"clip_attn_k\": 1.09,\n    \"clip_attn_v\": 0.87,\n    \"clip_attn_out\": 0.96,\n    \"attn_cross_q\": 1.09,\n    \"attn_cross_k\": 1.09,\n    \"attn_cross_v\": 0.87,\n    \"attn_cross_out\": 0.96,\n    \"concept_data\": {\n        \"vae_name\": \"SD1\\\\vae-ft-mse-840000-ema.safetensors\",\n        \"vae_selection\": true,\n        \"clip_selection\": false\n    },\n    \"latent_data\": {\n        \"noise_type\": \"violet\",\n        \"alpha_exponent\": 0.654,\n        \"modulator\": 1.14,\n        \"device\": \"cuda\"\n    },\n    \"prompt_encoder\": {\n        \"width\": 683,\n        \"int_style_neg\": \"None\",\n        \"int_style_neg_strength\": 1.0,\n        \"opt_neg_strength\": 1.0,\n        \"opt_pos_strength\": 1.0,\n        \"adv_encode\": false,\n        \"style_handling\": false,\n        \"token_normalization\": \"mean\",\n        \"use_int_style\": false,\n        \"l_strength\": 1.0,\n        \"weight_interpretation\": \"comfy++\",\n        \"height\": 384,\n        \"style_pos_strength\": 1.0,\n        \"int_style_pos_strength\": 1.0,\n        \"style_neg_strength\": 1.0,\n        \"style_position\": false,\n        \"int_style_pos\": \"None\",\n        \"negative_strength\": 1.2,\n        \"enhanced_prompt_strength\": 1.0,\n        \"style_swap\": false,\n        \"enhanced_prompt_usage\": \"T5-XXL\"\n    },\n    \"sampler_settings\": {\n        \"denoise\": 0.94,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": true,\n        \"noise_constant\": 0.99,\n        \"variation_seed\": 159219218930930,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
       ],
       "color": "#332922",
       "bgcolor": "#593930"
-    },
-    {
-      "id": 104,
-      "type": "PrimereUpscaleModel",
-      "pos": [
-        4158.96533203125,
-        407.4887390136719
-      ],
-      "size": [
-        359.9754943847656,
-        78
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "slot_index": 0,
-          "links": [
-            712
-          ]
-        },
-        {
-          "name": "MODEL_NAME",
-          "type": "COMBO",
-          "slot_index": 1,
-          "links": [
-            769
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereUpscaleModel",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
-      },
-      "widgets_values": [
-        "SwinIR\\SwinIR_4x.pth"
-      ],
-      "color": "#236121",
-      "bgcolor": "#0f4d0d"
-    },
-    {
-      "id": 123,
-      "type": "PrimereKSampler",
-      "pos": [
-        2511,
-        176
-      ],
-      "size": [
-        345.094087658691,
-        354
-      ],
-      "flags": {},
-      "order": 21,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 781
-        },
-        {
-          "name": "seed",
-          "type": "INT",
-          "link": 697
-        },
-        {
-          "name": "steps",
-          "type": "INT",
-          "link": 884
-        },
-        {
-          "name": "cfg",
-          "type": "FLOAT",
-          "link": 886
-        },
-        {
-          "name": "sampler_name",
-          "type": "COMBO",
-          "link": 880
-        },
-        {
-          "name": "scheduler_name",
-          "type": "COMBO",
-          "link": 882
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 757
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 759
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 704
-        },
-        {
-          "name": "model_concept",
-          "shape": 7,
-          "type": "STRING",
-          "link": 801
-        },
-        {
-          "name": "control_data",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 830
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            705
-          ]
-        },
-        {
-          "name": "CONTROL_DATA",
-          "type": "TUPLE",
-          "links": [
-            853
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereKSampler"
-      },
-      "widgets_values": [
-        1,
-        0,
-        0,
-        true,
-        "DEFAULT"
-      ],
-      "color": "#941414",
-      "bgcolor": "#800000"
     },
     {
       "id": 126,
@@ -1268,7 +966,7 @@
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 853
+          "link": 916
         },
         {
           "name": "seed",
@@ -1326,7 +1024,7 @@
           "links": [
             854,
             855,
-            856
+            889
           ]
         }
       ],
@@ -1491,7 +1189,7 @@
         136
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1505,10 +1203,10 @@
             628,
             677,
             692,
-            697,
             714,
             725,
-            815
+            815,
+            914
           ]
         }
       ],
@@ -1528,7 +1226,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [819743424700648]"
+        "Last seed: [159219218930930]"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1542,10 +1240,10 @@
       ],
       "size": [
         385.6425744628905,
-        302
+        446
       ],
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1605,6 +1303,12 @@
         true,
         "None",
         "Art::Turbulent Lady",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
         "None",
         "None"
       ],
@@ -1711,7 +1415,7 @@
       ],
       "size": [
         401.0989929199218,
-        350
+        614
       ],
       "flags": {},
       "order": 6,
@@ -1786,7 +1490,18 @@
         false,
         "Architechture exterior",
         "None",
-        "None"
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        "None",
+        0
       ],
       "color": "#145414",
       "bgcolor": "#004000"
@@ -1956,54 +1671,6 @@
       "bgcolor": "#004000"
     },
     {
-      "id": 135,
-      "type": "PrimereAestheticCKPTScorer",
-      "pos": [
-        2515.2888803710935,
-        573.3814674987788
-      ],
-      "size": [
-        339.73527229492174,
-        180
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 798
-        },
-        {
-          "name": "control_data",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 876
-        }
-      ],
-      "outputs": [
-        {
-          "name": "SCORE",
-          "type": "INT",
-          "links": [
-            800
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereAestheticCKPTScorer"
-      },
-      "widgets_values": [
-        false,
-        false,
-        false,
-        ""
-      ],
-      "color": "#2c002c",
-      "bgcolor": "#400040"
-    },
-    {
       "id": 120,
       "type": "PrimereVisualCKPT",
       "pos": [
@@ -2035,14 +1702,14 @@
           "links": [
             787,
             871,
-            875
+            891
           ]
         },
         {
           "name": "MODEL_VERSION",
           "type": "STRING",
           "links": [
-            874
+            890
           ]
         }
       ],
@@ -2061,53 +1728,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 124,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        2883.4774130588094,
-        48.71357021755657
-      ],
-      "size": [
-        1255.2152099609375,
-        1420.6171875
-      ],
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 722
-        },
-        {
-          "name": "image_metadata",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": 856
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        false,
-        true,
-        "Photo\\photon_v1.safetensors",
-        null
-      ],
-      "color": "#549494",
-      "bgcolor": "#408080"
-    },
-    {
       "id": 85,
       "type": "PrimereMetaSave",
       "pos": [
@@ -2116,7 +1736,7 @@
       ],
       "size": [
         434.2799987792969,
-        654
+        774
       ],
       "flags": {},
       "order": 29,
@@ -2298,7 +1918,7 @@
           "name": "control_data",
           "shape": 7,
           "type": "TUPLE",
-          "link": 879
+          "link": 895
         },
         {
           "name": "loaded_model",
@@ -2350,8 +1970,8 @@
           "type": "STRING",
           "links": [
             795,
-            801,
-            816
+            816,
+            912
           ]
         }
       ],
@@ -2363,155 +1983,6 @@
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
-    },
-    {
-      "id": 142,
-      "type": "PrimereModelControl",
-      "pos": [
-        1156.9398678306136,
-        52.16968163497517
-      ],
-      "size": [
-        646.5429385295273,
-        1808
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_concept",
-          "type": "STRING",
-          "link": 874
-        },
-        {
-          "name": "model_name",
-          "type": "CHECKPOINT_NAME",
-          "link": 875
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONTROL_DATA",
-          "type": "TUPLE",
-          "links": [
-            876,
-            877,
-            878,
-            879
-          ]
-        },
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            880,
-            881
-          ]
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            882,
-            883
-          ]
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            884,
-            885
-          ]
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            886,
-            887
-          ]
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelControl"
-      },
-      "widgets_values": [
-        "SD1",
-        "Auto",
-        "dpmpp_sde",
-        "karras",
-        35,
-        false,
-        7.5,
-        1,
-        "SD1\\vae-ft-mse-840000-ema.safetensors",
-        true,
-        true,
-        0,
-        "None",
-        "None",
-        "None",
-        "Off",
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        "ksampler",
-        false,
-        2.5,
-        "edm",
-        "default",
-        false,
-        120,
-        1,
-        1.15,
-        0.5,
-        0.6,
-        0.6,
-        3.5,
-        "default",
-        "fp16",
-        false,
-        1,
-        false,
-        "Hyper-SD15-8steps-lora.safetensors",
-        2,
-        4,
-        2,
-        false,
-        "srpo_128_adaptive_quantile_0.10_fp16.safetensors",
-        1,
-        false,
-        "svdq-int4-srpo_128_base_oficial_model_fp16_lora.safetensors",
-        1,
-        false,
-        "flux_kontext_deblur_nunchaku.safetensors",
-        1,
-        false,
-        "Refiners\\realismRefinerGoldV2.safetensors",
-        "dpmpp_sde",
-        "beta",
-        2.5,
-        12,
-        4,
-        0.98,
-        0.92,
-        false
-      ],
-      "color": "#7e6839",
-      "bgcolor": "#6a5425"
     },
     {
       "id": 141,
@@ -2567,7 +2038,7 @@
         101.12262401504518
       ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -2579,6 +2050,559 @@
       ],
       "color": "#c09430",
       "bgcolor": "#653"
+    },
+    {
+      "id": 144,
+      "type": "PrimereModelControl",
+      "pos": [
+        1156.9398678306136,
+        52.16968163497517
+      ],
+      "size": [
+        646.5429385295273,
+        2048
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 890
+        },
+        {
+          "name": "model_name",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": 891
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONTROL_DATA",
+          "type": "TUPLE",
+          "links": [
+            892,
+            893,
+            894,
+            895
+          ]
+        },
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            897,
+            907
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            899,
+            908
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            901,
+            905
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            903,
+            906
+          ]
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelControl"
+      },
+      "widgets_values": [
+        "Auto",
+        "Auto",
+        "dpmpp_sde",
+        "karras",
+        36,
+        true,
+        6.5,
+        1,
+        "SD1\\vae-ft-mse-840000-ema.safetensors",
+        true,
+        false,
+        0,
+        "clip_l.safetensors",
+        "None",
+        "None",
+        "Photography",
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1.85,
+        "ksampler",
+        true,
+        2.5,
+        "edm",
+        "default",
+        false,
+        120,
+        1,
+        1.15,
+        0.5,
+        0.6,
+        0.6,
+        3.5,
+        "default",
+        "fp16",
+        false,
+        1,
+        false,
+        "Hyper-SD15-8steps-lora.safetensors",
+        2,
+        4,
+        2,
+        false,
+        "srpo_128_adaptive_quantile_0.10_fp16.safetensors",
+        1,
+        false,
+        "svdq-int4-srpo_128_base_oficial_model_fp16_lora.safetensors",
+        1,
+        false,
+        "flux_kontext_deblur_nunchaku.safetensors",
+        1,
+        true,
+        "Refiners\\photon_refiner-FP16.safetensors",
+        "euler_ancestral",
+        "karras",
+        6,
+        50,
+        30,
+        1,
+        0.94,
+        false
+      ],
+      "color": "#7e6839",
+      "bgcolor": "#6a5425"
+    },
+    {
+      "id": 104,
+      "type": "PrimereUpscaleModel",
+      "pos": [
+        4158.96533203125,
+        407.4887390136719
+      ],
+      "size": [
+        359.9754943847656,
+        78
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "slot_index": 0,
+          "links": [
+            712
+          ]
+        },
+        {
+          "name": "MODEL_NAME",
+          "type": "COMBO",
+          "slot_index": 1,
+          "links": [
+            769
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereUpscaleModel",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
+      },
+      "widgets_values": [
+        "SwinIR\\SwinIR_4x.pth"
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 125,
+      "type": "UltimateSDUpscale",
+      "pos": [
+        4529.3779296875,
+        106.75484466552734
+      ],
+      "size": [
+        299.1000061035156,
+        638
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 707
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 788
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 758
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 760
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 793
+        },
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 712
+        },
+        {
+          "name": "upscale_by",
+          "type": "FLOAT",
+          "widget": {
+            "name": "upscale_by"
+          },
+          "link": 713
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 714
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": 901
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": 903
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": 897
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": 899
+        },
+        {
+          "name": "tile_width",
+          "type": "INT",
+          "widget": {
+            "name": "tile_width"
+          },
+          "link": 719
+        },
+        {
+          "name": "tile_height",
+          "type": "INT",
+          "widget": {
+            "name": "tile_height"
+          },
+          "link": 720
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            721,
+            888
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UltimateSDUpscale"
+      },
+      "widgets_values": [
+        2,
+        444015581733178,
+        "randomize",
+        20,
+        8,
+        "ddim",
+        "beta",
+        1,
+        "None",
+        512,
+        512,
+        8,
+        0,
+        "None",
+        1,
+        64,
+        8,
+        16,
+        true,
+        false,
+        1
+      ],
+      "color": "#236121",
+      "bgcolor": "#0f4d0d"
+    },
+    {
+      "id": 135,
+      "type": "PrimereAestheticCKPTScorer",
+      "pos": [
+        2511.248464000355,
+        596.2770585410373
+      ],
+      "size": [
+        339.73527229492174,
+        180
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 798
+        },
+        {
+          "name": "control_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 892
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCORE",
+          "type": "INT",
+          "links": [
+            800
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereAestheticCKPTScorer"
+      },
+      "widgets_values": [
+        false,
+        false,
+        false,
+        "0 / *** Aesthetic scorer error ***%"
+      ],
+      "color": "#2c002c",
+      "bgcolor": "#400040"
+    },
+    {
+      "id": 145,
+      "type": "PrimereKSampler",
+      "pos": [
+        2511,
+        176
+      ],
+      "size": [
+        345.094087658691,
+        382
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 904
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 905
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 906
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": 907
+        },
+        {
+          "name": "scheduler_name",
+          "type": "COMBO",
+          "link": 908
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 909
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 910
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 911
+        },
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 912
+        },
+        {
+          "name": "control_data",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 913
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 914
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            915
+          ]
+        },
+        {
+          "name": "CONTROL_DATA",
+          "type": "TUPLE",
+          "links": [
+            916
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereKSampler"
+      },
+      "widgets_values": [
+        760630075438623,
+        "randomize",
+        1,
+        0,
+        0,
+        false,
+        "DEFAULT"
+      ],
+      "color": "#941414",
+      "bgcolor": "#800000"
+    },
+    {
+      "id": 143,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        2883.4774130588094,
+        48.71357021755657
+      ],
+      "size": [
+        1255.2152099609375,
+        1420.6171875
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 888
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": 889
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        true,
+        "Photo\\photon_v1.safetensors",
+        null
+      ],
+      "color": "#549494",
+      "bgcolor": "#408080"
     }
   ],
   "links": [
@@ -2799,30 +2823,6 @@
       "IMAGE"
     ],
     [
-      697,
-      111,
-      0,
-      123,
-      1,
-      "INT"
-    ],
-    [
-      704,
-      122,
-      0,
-      123,
-      8,
-      "LATENT"
-    ],
-    [
-      705,
-      123,
-      0,
-      16,
-      0,
-      "LATENT"
-    ],
-    [
       707,
       115,
       3,
@@ -2879,14 +2879,6 @@
       "IMAGE"
     ],
     [
-      722,
-      125,
-      0,
-      124,
-      0,
-      "IMAGE"
-    ],
-    [
       725,
       111,
       0,
@@ -2935,27 +2927,11 @@
       "STRING"
     ],
     [
-      757,
-      128,
-      0,
-      123,
-      6,
-      "CONDITIONING"
-    ],
-    [
       758,
       128,
       0,
       125,
       2,
-      "CONDITIONING"
-    ],
-    [
-      759,
-      128,
-      1,
-      123,
-      7,
       "CONDITIONING"
     ],
     [
@@ -3045,14 +3021,6 @@
       132,
       2,
       "STRING"
-    ],
-    [
-      781,
-      132,
-      0,
-      123,
-      0,
-      "MODEL"
     ],
     [
       782,
@@ -3167,14 +3135,6 @@
       "INT"
     ],
     [
-      801,
-      134,
-      3,
-      123,
-      9,
-      "STRING"
-    ],
-    [
       815,
       111,
       0,
@@ -3263,22 +3223,6 @@
       "TUPLE"
     ],
     [
-      830,
-      128,
-      7,
-      123,
-      10,
-      "TUPLE"
-    ],
-    [
-      853,
-      123,
-      1,
-      126,
-      4,
-      "TUPLE"
-    ],
-    [
       854,
       126,
       0,
@@ -3291,14 +3235,6 @@
       126,
       0,
       85,
-      1,
-      "TUPLE"
-    ],
-    [
-      856,
-      126,
-      0,
-      124,
       1,
       "TUPLE"
     ],
@@ -3319,116 +3255,204 @@
       "MODEL_KEYWORD"
     ],
     [
-      874,
+      888,
+      125,
+      0,
+      143,
+      0,
+      "IMAGE"
+    ],
+    [
+      889,
+      126,
+      0,
+      143,
+      1,
+      "TUPLE"
+    ],
+    [
+      890,
       120,
       1,
-      142,
+      144,
       0,
       "STRING"
     ],
     [
-      875,
+      891,
       120,
       0,
-      142,
+      144,
       1,
       "CHECKPOINT_NAME"
     ],
     [
-      876,
-      142,
+      892,
+      144,
       0,
       135,
       1,
       "TUPLE"
     ],
     [
-      877,
-      142,
+      893,
+      144,
       0,
       132,
       3,
       "TUPLE"
     ],
     [
-      878,
-      142,
+      894,
+      144,
       0,
       122,
       4,
       "TUPLE"
     ],
     [
-      879,
-      142,
+      895,
+      144,
       0,
       134,
       1,
       "TUPLE"
     ],
     [
-      880,
-      142,
-      1,
-      123,
-      4,
-      "COMBO"
-    ],
-    [
-      881,
-      142,
+      897,
+      144,
       1,
       125,
       10,
       "COMBO"
     ],
     [
-      882,
-      142,
-      2,
-      123,
-      5,
-      "COMBO"
-    ],
-    [
-      883,
-      142,
+      899,
+      144,
       2,
       125,
       11,
       "COMBO"
     ],
     [
-      884,
-      142,
-      3,
-      123,
-      2,
-      "INT"
-    ],
-    [
-      885,
-      142,
+      901,
+      144,
       3,
       125,
       8,
       "INT"
     ],
     [
-      886,
-      142,
-      4,
-      123,
-      3,
-      "FLOAT"
-    ],
-    [
-      887,
-      142,
+      903,
+      144,
       4,
       125,
       9,
       "FLOAT"
+    ],
+    [
+      904,
+      132,
+      0,
+      145,
+      0,
+      "MODEL"
+    ],
+    [
+      905,
+      144,
+      3,
+      145,
+      1,
+      "INT"
+    ],
+    [
+      906,
+      144,
+      4,
+      145,
+      2,
+      "FLOAT"
+    ],
+    [
+      907,
+      144,
+      1,
+      145,
+      3,
+      "COMBO"
+    ],
+    [
+      908,
+      144,
+      2,
+      145,
+      4,
+      "COMBO"
+    ],
+    [
+      909,
+      128,
+      0,
+      145,
+      5,
+      "CONDITIONING"
+    ],
+    [
+      910,
+      128,
+      1,
+      145,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      911,
+      122,
+      0,
+      145,
+      7,
+      "LATENT"
+    ],
+    [
+      912,
+      134,
+      3,
+      145,
+      8,
+      "STRING"
+    ],
+    [
+      913,
+      128,
+      7,
+      145,
+      9,
+      "TUPLE"
+    ],
+    [
+      914,
+      111,
+      0,
+      145,
+      10,
+      "INT"
+    ],
+    [
+      915,
+      145,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      916,
+      145,
+      1,
+      126,
+      4,
+      "TUPLE"
     ]
   ],
   "groups": [
@@ -3514,13 +3538,13 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537778,
+      "scale": 0.5131581182307067,
       "offset": [
-        -1530.7031985256995,
-        603.6383198322294
+        217.38707634887953,
+        183.77286024304192
       ]
     },
-    "frontendVersion": "1.41.20",
+    "frontendVersion": "1.42.8",
     "ue_links": [],
     "links_added_by_ue": [],
     "VHS_latentpreview": false,

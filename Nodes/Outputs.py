@@ -808,18 +808,19 @@ class PrimerePreviewImage():
                     for DATA_NAME in REQUIRED_DATA_NAMES:
                         if type(DATA_NAME).__name__ == 'str':
                             WIDGET_VALUE_ORIGINAL = utility.getDataFromWorkflowByName(WORKFLOWDATA, ITEM_TYPE, DATA_NAME, kwargs['prompt'])
-                            if DATA_NAME[-1].isdigit():
-                                USE_WIDGET_NAME = 'use_' + DATA_NAME
-                                WIDGET_STATE = utility.getDataFromWorkflowByName(WORKFLOWDATA, ITEM_TYPE, USE_WIDGET_NAME, kwargs['prompt'])
+                            if WIDGET_VALUE_ORIGINAL:
+                                if DATA_NAME[-1].isdigit():
+                                    USE_WIDGET_NAME = 'use_' + DATA_NAME
+                                    WIDGET_STATE = utility.getDataFromWorkflowByName(WORKFLOWDATA, ITEM_TYPE, USE_WIDGET_NAME, kwargs['prompt'])
 
-                            if ITEM_TYPE in VISUAL_NODE_FILENAMES:
-                                REPLACED_WIDGETS = Path(WIDGET_VALUE_ORIGINAL).stem.replace(' ', '_')
-                            else:
-                                REPLACED_WIDGETS = WIDGET_VALUE_ORIGINAL.replace(' ', '_')
+                                if ITEM_TYPE in VISUAL_NODE_FILENAMES:
+                                    REPLACED_WIDGETS = Path(WIDGET_VALUE_ORIGINAL).stem.replace(' ', '_')
+                                else:
+                                    REPLACED_WIDGETS = WIDGET_VALUE_ORIGINAL.replace(' ', '_')
 
-                            if WIDGET_STATE == True and REPLACED_WIDGETS not in VALUE_LIST:
-                                VALUE_LIST.append(REPLACED_WIDGETS)
-                                VALUE_LIST_ORIGINAL.append(WIDGET_VALUE_ORIGINAL)
+                                if WIDGET_STATE == True and REPLACED_WIDGETS not in VALUE_LIST:
+                                    VALUE_LIST.append(REPLACED_WIDGETS)
+                                    VALUE_LIST_ORIGINAL.append(WIDGET_VALUE_ORIGINAL)
 
                     VISUAL_DATA[ITEM_TYPE] = VALUE_LIST
                     VISUAL_DATA[ITEM_TYPE + '_ORIGINAL'] = VALUE_LIST_ORIGINAL

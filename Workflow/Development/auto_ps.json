@@ -1,8 +1,8 @@
 {
   "id": "62d65e47-8be4-48ae-9938-685c574da4f3",
   "revision": 0,
-  "last_node_id": 68,
-  "last_link_id": 135,
+  "last_node_id": 73,
+  "last_link_id": 144,
   "nodes": [
     {
       "id": 27,
@@ -13,7 +13,7 @@
       ],
       "size": [
         370.7737915039063,
-        1162
+        1378
       ],
       "flags": {},
       "order": 5,
@@ -22,7 +22,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 135
+          "link": 142
         }
       ],
       "outputs": [
@@ -119,7 +119,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            59
+            144
           ]
         }
       ],
@@ -140,51 +140,6 @@
         0.3,
         0.4,
         0
-      ]
-    },
-    {
-      "id": 8,
-      "type": "PrimerePreviewImage",
-      "pos": [
-        1298.7592610433578,
-        139.53898173310924
-      ],
-      "size": [
-        1128.4106290470122,
-        1408.4781444463952
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 59
-        },
-        {
-          "name": "image_metadata",
-          "shape": 7,
-          "type": "TUPLE",
-          "link": null
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PrimerePreviewImage"
-      },
-      "widgets_values": [
-        false,
-        "jpeg",
-        0,
-        95,
-        "Checkpoint",
-        "Overwrite",
-        false,
-        false,
-        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
-        null
       ]
     },
     {
@@ -239,7 +194,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            132
+            139
           ]
         }
       ],
@@ -304,88 +259,7 @@
       "widgets_values": []
     },
     {
-      "id": 2,
-      "type": "LoadImage",
-      "pos": [
-        -289.6036872223329,
-        357.20135646032696
-      ],
-      "size": [
-        847.8209835466038,
-        1173.17325790213
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            3,
-            5
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "Image_A685_20242710_163452_191939868053378_848x1232_1.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 62,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        -154.07278970585884,
-        19.522936131427095
-      ],
-      "size": [
-        572.2316514105224,
-        246
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            134
-          ]
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            133
-          ]
-        }
-      ],
-      "properties": {},
-      "widgets_values": [
-        "LCM\\realismByStableYogi_sd15V9LCM.safetensors",
-        true,
-        true,
-        true,
-        false,
-        550,
-        800,
-        0
-      ]
-    },
-    {
-      "id": 68,
+      "id": 71,
       "type": "PrimereRasterix",
       "pos": [
         585.9729935888138,
@@ -393,7 +267,7 @@
       ],
       "size": [
         687.0483287464491,
-        2205.2276553503416
+        3630
       ],
       "flags": {},
       "order": 4,
@@ -402,19 +276,19 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 132
+          "link": 139
         },
         {
           "name": "model_concept",
           "shape": 7,
           "type": "STRING",
-          "link": 133
+          "link": 140
         },
         {
           "name": "model_name",
           "shape": 7,
           "type": "CHECKPOINT_NAME",
-          "link": 134
+          "link": 141
         },
         {
           "name": "seed",
@@ -428,7 +302,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            135
+            142
           ]
         }
       ],
@@ -438,16 +312,30 @@
       "widgets_values": [
         "Auto",
         "Auto",
-        true,
-        true,
-        0.6,
-        true,
+        false,
+        false,
+        0.2,
+        false,
         128,
-        true,
+        false,
         6500,
         0,
-        true,
-        11.851806640625,
+        false,
+        0,
+        false,
+        0.7,
+        15,
+        0.95,
+        0.1,
+        1.05,
+        false,
+        false,
+        false,
+        "large",
+        0.5,
+        0.2,
+        8,
+        1,
         false,
         "bilateral",
         0,
@@ -460,13 +348,39 @@
         0,
         0,
         false,
-        true,
-        "All",
-        "canon_5d_mark2_CCD",
-        100,
-        true,
-        true,
+        false,
+        3,
+        1,
+        1,
+        "add",
+        false,
+        1,
+        1.2,
+        1,
         8,
+        false,
+        "All",
+        "fuji_astia_100_CF",
+        100,
+        false,
+        false,
+        0,
+        false,
+        "BN (ISO R 130, soft)",
+        false,
+        "RC",
+        0,
+        100,
+        false,
+        "None",
+        1,
+        "sRGB",
+        false,
+        "filmic",
+        1,
+        0.5,
+        0,
+        0.5,
         false,
         0,
         "midtones",
@@ -493,6 +407,11 @@
         "medium",
         0.5,
         false,
+        0.5,
+        2,
+        0.5,
+        0.8,
+        false,
         0,
         0,
         false,
@@ -503,14 +422,135 @@
         false,
         false,
         false,
-        0.019,
-        0.32,
-        38,
-        4,
-        true,
         false,
         "RGB",
         "bars"
+      ]
+    },
+    {
+      "id": 69,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        -154.07278970585884,
+        19.522936131427095
+      ],
+      "size": [
+        572.2316514105224,
+        246
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            141
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            140
+          ]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "Style\\comicDiffusion_v2.ckpt",
+        true,
+        true,
+        true,
+        false,
+        550,
+        800,
+        0
+      ]
+    },
+    {
+      "id": 73,
+      "type": "PrimerePreviewImage",
+      "pos": [
+        1298.7592610433578,
+        139.53898173310924
+      ],
+      "size": [
+        1128.4106290470122,
+        1408.4781444463952
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 144
+        },
+        {
+          "name": "image_metadata",
+          "shape": 7,
+          "type": "TUPLE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PrimerePreviewImage"
+      },
+      "widgets_values": [
+        false,
+        "jpeg",
+        0,
+        95,
+        "Checkpoint",
+        "Overwrite",
+        false,
+        false,
+        "ERROR: Cannot list target for Checkpoint",
+        null
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -289.6036872223329,
+        357.20135646032696
+      ],
+      "size": [
+        847.8209835466038,
+        1173.17325790213
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Image_A690_20250506_171430_504611852645537_1632x2592_1.jpg",
+        "image"
       ]
     }
   ],
@@ -556,42 +596,42 @@
       "IMAGE"
     ],
     [
-      59,
-      31,
-      0,
-      8,
-      0,
-      "IMAGE"
-    ],
-    [
-      132,
+      139,
       4,
       3,
-      68,
+      71,
       0,
       "IMAGE"
     ],
     [
-      133,
-      62,
+      140,
+      69,
       1,
-      68,
+      71,
       1,
       "STRING"
     ],
     [
-      134,
-      62,
+      141,
+      69,
       0,
-      68,
+      71,
       2,
       "CHECKPOINT_NAME"
     ],
     [
-      135,
-      68,
+      142,
+      71,
       0,
       27,
+      0,
+      "IMAGE"
+    ],
+    [
+      144,
+      31,
+      0,
+      73,
       0,
       "IMAGE"
     ]
@@ -600,13 +640,13 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5131581182307067,
+      "scale": 0.5131581182307068,
       "offset": [
-        1005.9521183144615,
-        563.8783530202974
+        1318.1611816034156,
+        864.857262548711
       ]
     },
-    "frontendVersion": "1.41.21"
+    "frontendVersion": "1.42.8"
   },
   "version": 0.4
 }
