@@ -140,6 +140,7 @@ class PrimereRasterix:
                 "use_depth_blur": ("BOOLEAN", {"default": False, "label_off": "Ignore depth blur", "label_on": "Apply depth blur"}),
                 "auto_optimize": ("BOOLEAN", {"default": False, "label_off": "Use custom inputs", "label_on": "Optimize settings by focus"}),
                 "use_DA_v3": ("BOOLEAN", {"default": False, "label_off": "Depth-anything V2", "label_on": "Depth-anything V3"}),
+                "DA_model": (["small", "base", "large", "mono", "metric", "giant", "nested"], {"default": "large"}),
                 "focus_depth": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "depth_range": ("FLOAT", {"default": 0.200, "min": 0.001, "max": 1.000, "step": 0.001}),
                 "max_blur": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 50.0, "step": 0.5}),
@@ -304,6 +305,7 @@ class PrimereRasterix:
         use_depth_blur = kwargs.get('use_depth_blur', False)
         auto_optimize = kwargs.get('auto_optimize', False)
         use_DA_v3 = kwargs.get('use_DA_v3', False)
+        DA_model = kwargs.get('DA_model', "large")
         focus_depth = kwargs.get('focus_depth', 0.5)
         depth_range = kwargs.get('depth_range', 0.200)
         max_blur = kwargs.get('bilateral_edge_sensitivity', 8.0)
@@ -410,7 +412,7 @@ class PrimereRasterix:
             pil_img = img_dehaze.img_dehaze(image=pil_img, strength=strength, radius=dehaze_radius, omega=omega, t0=t0, contrast=dehaze_contrast, precision=precision)
 
         if use_depth_blur and focus_depth > 0 and max_blur > 0:
-            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3)
+            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3, DA_model=DA_model)
 
         if use_blur and blur_intensity != 0:
             pil_img = img_blur.img_blur(image=pil_img, blur_type=blur_type, intensity=blur_intensity, radius=blur_radius, angle=angle, edge_only=blur_edge_only, bilateral_edge_sensitivity=bilateral_edge_sensitivity, edge_threshold=edge_threshold)
@@ -1389,6 +1391,7 @@ class PrimereDepthBlur:
                 "use_depth_blur": ("BOOLEAN", {"default": False, "label_off": "Ignore depth blur", "label_on": "Apply depth blur"}),
                 "auto_optimize": ("BOOLEAN", {"default": False, "label_off": "Use custom inputs", "label_on": "Optimize settings by focus"}),
                 "use_DA_v3": ("BOOLEAN", {"default": False, "label_off": "Depth-anything V2", "label_on": "Depth-anything V3"}),
+                "DA_model": (["small", "base", "large", "mono", "metric", "giant", "nested"], {"default": "large"}),
                 "focus_depth": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "depth_range": ("FLOAT", {"default": 0.200, "min": 0.001, "max": 1.000, "step": 0.001}),
                 "max_blur": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 50.0, "step": 0.5}),
@@ -1396,10 +1399,10 @@ class PrimereDepthBlur:
             }
         }
 
-    def primere_depth_blur(self, image, use_depth_blur, auto_optimize, use_DA_v3, focus_depth, depth_range, max_blur, depth_gamma):
+    def primere_depth_blur(self, image, use_depth_blur, auto_optimize, use_DA_v3, DA_model, focus_depth, depth_range, max_blur, depth_gamma):
         pil_img = utility.tensor_to_image(image)
         if use_depth_blur:
-            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3)
+            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3, DA_model=DA_model)
 
         return (utility.image_to_tensor(pil_img),)
 
