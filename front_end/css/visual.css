@@ -290,19 +290,19 @@
 }
 
 
-div#primere_previewbox {
+div#primere_previewbox, div#primere_previewbox_title {
     position: absolute;
     left: 0px;
     top: 0px;
     display: none;
 }
-div#primere_previewbox img.privewbox_image {
+div#primere_previewbox img.previewbox_image, div#primere_previewbox_title img.previewbox_image {
     border: white solid 1px;
     height: 220px;
     box-shadow: 3px 3px 3px #969696a3;
     background-color: #d8d8d899;
 }
-div#primere_previewbox div.preview_closebutton {
+div#primere_previewbox div.preview_closebutton, div#primere_previewbox_title div.preview_closebutton {
     display: block;
     position: absolute;
     background-color: brown;
@@ -311,6 +311,22 @@ div#primere_previewbox div.preview_closebutton {
     padding: 3px;
     border: white solid 1px;
     cursor: pointer;
+}
+
+div#primere_title_hover {
+    display:none;
+    position:fixed;
+    z-index:99999;
+    max-width:360px;
+    padding:10px 12px;
+    border-radius:8px;
+    background:rgba(22,24,28,0.96);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    color:#EDEFF4;
+    font:12px/1.4 Arial, sans-serif;
+    pointer-events:none;
+    white-space:normal;
 }
 
 #primere_promptsaver_modal .promptmodal_header .prompt_modal_title {

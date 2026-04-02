@@ -156,7 +156,7 @@ function showPreviewIfExist(node, coordX, coordY) {
     const wv = getWidgetValues(node);
     if (state.saveIsValid && wv.saveMode && state.previewExist) {
         const previewBox = document.querySelector('div#primere_previewbox');
-        const previewImage = document.querySelector('div#primere_previewbox img.privewbox_image');
+        const previewImage = document.querySelector('div#primere_previewbox img.previewbox_image');
         if (!previewBox || !previewImage) return;
         previewBox.style.top = coordY + 'px';
         previewBox.style.left = coordX + 'px';
@@ -241,7 +241,7 @@ app.registerExtension({
                 previewbox = document.createElement("div");
                 previewbox.setAttribute('style', 'display:none;');
                 previewbox.setAttribute("id", "primere_previewbox");
-                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="privewbox_image">';
+                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="previewbox_image">';
                 document.body.appendChild(previewbox);
             }
 

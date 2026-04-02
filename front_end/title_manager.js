@@ -152,7 +152,7 @@ function ensureTitleTooltip() {
     if (box) return box;
     box = document.createElement("div");
     box.id = "primere_title_hover";
-    box.style.cssText = [
+    /* box.style.cssText = [
         "display:none",
         "position:fixed",
         "z-index:99999",
@@ -166,7 +166,7 @@ function ensureTitleTooltip() {
         "font:12px/1.4 Arial, sans-serif",
         "pointer-events:none",
         "white-space:normal",
-    ].join(";");
+    ].join(";"); */
     document.body.appendChild(box);
     return box;
 }
@@ -177,11 +177,11 @@ function hideTitleTooltip() {
 }
 
 function ensureTitlePreviewBox() {
-    let box = document.querySelector("div#primere_previewbox");
+    let box = document.querySelector("div#primere_previewbox_title");
     if (!box) {
         box = document.createElement("div");
-        box.id = "primere_previewbox";
-        box.style.cssText = [
+        box.id = "primere_previewbox_title";
+        /* box.style.cssText = [
             "display:none",
             "position:fixed",
             "z-index:99998",
@@ -191,15 +191,15 @@ function ensureTitlePreviewBox() {
             "border:1px solid rgba(255,255,255,0.12)",
             "box-shadow:0 8px 24px rgba(0,0,0,0.35)",
             "pointer-events:none",
-        ].join(";");
+        ].join(";"); */
         const img = document.createElement("img");
-        img.className = "privewbox_image";
-        img.style.cssText = [
+        img.className = "previewbox_image";
+        /* img.style.cssText = [
             "display:block",
-            "max-width:240px",
+            "max-width:560px",
             "max-height:180px",
             "border-radius:4px",
-        ].join(";");
+        ].join(";"); */
         box.appendChild(img);
         document.body.appendChild(box);
     }
@@ -217,7 +217,7 @@ function showTitlePreview(sectionName, x, y) {
         return;
     }
     const box = ensureTitlePreviewBox();
-    const img = box.querySelector("img.privewbox_image");
+    const img = box.querySelector("img.previewbox_image");
     if (!img) return;
 
     const src = `/extensions/ComfyUI_Primere_Nodes/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
