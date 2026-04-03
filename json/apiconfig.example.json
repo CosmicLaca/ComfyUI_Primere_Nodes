@@ -13,25 +13,5 @@
   {
     "Name": "Gemini",
     "APIKEY": "*************************"
-  },
-  "Anthropic":
-  {
-    "Name": "Anthropic",
-    "APIKEY": "*************************"
-  },
-  "HeyGen":
-  {
-    "Name": "HeyGen",
-    "APIKEY": "*************************"
-  },
-  "FAL":
-  {
-    "Name": "FAL",
-    "APIKEY": "*************************"
-  },
-    "Elevenlabs":
-  {
-    "Name": "Elevenlabs",
-    "APIKEY": "*************************"
   }
 }
