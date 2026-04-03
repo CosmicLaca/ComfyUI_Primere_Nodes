@@ -703,9 +703,6 @@ class PrimereModelControl:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                # "model_concept": ("STRING", {"default": None, "forceInput": True}),
-                # "model_name": ("CHECKPOINT_NAME", {"default": None, "forceInput": True}),
-
                 "concepts": (["Auto"] + cls.CONCEPT_LIST,),
                 "models": (["Auto"] + cls.MODELLIST,),
 

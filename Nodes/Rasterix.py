@@ -291,192 +291,93 @@ class PrimereRasterix:
                     if k in kwargs:
                         kwargs[k] = v
 
-        image = kwargs.get('image')
-        precision = kwargs.get('precision', False)
-        seed = kwargs.get('seed', 0)
-        auto_normalize = kwargs.get('auto_normalize', False)
-        auto_levels_threshold = kwargs.get('auto_levels_threshold', 0.2)
-        normalize_midpeaks = kwargs.get('normalize_midpeaks', False)
-        peak_width = kwargs.get('peak_width', 3)
-        auto_gamma = kwargs.get('auto_gamma', False)
-        gamma_target = kwargs.get('gamma_target', 128.0)
-        use_white_balance = kwargs.get('use_white_balance', False)
-        wb_temperature = kwargs.get('wb_temperature', 6500)
-        wb_tint = kwargs.get('wb_tint', 0)
-        use_depth_blur = kwargs.get('use_depth_blur', False)
-        auto_optimize = kwargs.get('auto_optimize', False)
-        use_DA_v3 = kwargs.get('use_DA_v3', False)
-        DA_model = kwargs.get('DA_model', "large")
-        focus_depth = kwargs.get('focus_depth', 0.5)
-        depth_range = kwargs.get('depth_range', 0.200)
-        max_blur = kwargs.get('max_blur', 8.0)
-        depth_gamma = kwargs.get('depth_gamma', 1.0)
-        use_blur = kwargs.get('use_blur', False)
-        blur_type = kwargs.get('blur_type', "bilateral")
-        blur_intensity = kwargs.get('blur_intensity', 0.0)
-        blur_radius = kwargs.get('blur_radius', 2.0)
-        angle = kwargs.get('angle', 0.0)
-        bilateral_edge_sensitivity = kwargs.get('bilateral_edge_sensitivity', 0.5)
-        blur_edge_only = kwargs.get('blur_edge_only', False)
-        edge_threshold = kwargs.get('edge_threshold', 0.0)
-        use_smart_lighting = kwargs.get('use_smart_lighting', False)
-        smart_lighting = kwargs.get('smart_lighting', 0)
-        use_dehaze = kwargs.get('use_dehaze', False)
-        strength = kwargs.get('strength', 0.7)
-        dehaze_radius = kwargs.get('dehaze_radius', 15)
-        omega = kwargs.get('omega', 0.95)
-        t0 = kwargs.get('t0', 0.1)
-        dehaze_contrast = kwargs.get('dehaze_contrast', 1.05)
-        use_brightness_contrast = kwargs.get('use_brightness_contrast', False)
-        brightness = kwargs.get('brightness', 0)
-        contrast = kwargs.get('contrast', 0)
-        use_legacy = kwargs.get('use_legacy', False)
-        use_frequency_separation = kwargs.get('use_frequency_separation', False)
-        radius = kwargs.get('radius', 3.0)
-        low_freq_strength = kwargs.get('low_freq_strength', 1.0)
-        high_freq_strength = kwargs.get('high_freq_strength', 1.0)
-        blend_mode = kwargs.get('blend_mode', 'add')
-        use_local_laplacian = kwargs.get('use_local_laplacian', False)
-        sigma = kwargs.get('sigma', 1.0)
-        laplacian_contrast = kwargs.get('laplacian_contrast', 1.2)
-        detail = kwargs.get('detail', 1.0)
-        levels = kwargs.get('levels', 8)
-        use_film_rendering = kwargs.get('use_film_rendering', False)
-        film_type = "All" if auto_runtime_mode else kwargs.get('film_type', "All")
-        film_rendering = kwargs.get('film_rendering', list(FILM_PRESETS.keys())[0])
-        film_rendering_intensity = kwargs.get('film_rendering_intensity', 100)
-        iso_grain = kwargs.get('iso_grain', False)
-        halation = kwargs.get('halation', False)
-        expiration_years = kwargs.get('expiration_years', 0)
-        use_photo_paper = kwargs.get('use_photo_paper', False)
-        photo_paper = kwargs.get('photo_paper', "N (ISO R 90, normal)")
-        color_paper = kwargs.get('color_paper', False)
-        paper_base = kwargs.get('paper_base', "RC")
-        paper_expiration_years = kwargs.get('paper_expiration_years', 0)
-        paper_intensity = kwargs.get('paper_intensity', 100)
-        use_filmic = kwargs.get('use_filmic', False)
-        curve_type = kwargs.get('curve_type', "filmic")
-        filmic_contrast = kwargs.get('filmic_contrast', 1.0)
-        highlight_rolloff = kwargs.get('highlight_rolloff', 0.5)
-        shadow_lift = kwargs.get('shadow_lift', 0.0)
-        pivot = kwargs.get('pivot', 0.5)
-        use_selective_tone = kwargs.get('use_selective_tone', False)
-        selective_tone_separation = kwargs.get('selective_tone_separation', 50)
-        selective_tone_strength = kwargs.get('selective_tone_strength', 0.5)
-        use_color_balance = kwargs.get('use_color_balance', False)
-        color_balance_preserve_luminosity = kwargs.get('color_balance_preserve_luminosity', False)
-        color_balance_separation = kwargs.get('color_balance_separation', 50)
-        use_lut = kwargs.get('use_lut', False)
-        lut_file = kwargs.get('lut_file', "None")
-        intensity = kwargs.get('intensity', 1.0)
-        color_space = kwargs.get('color_space', "sRGB")
-        use_hsl = kwargs.get('use_hsl', False)
-        hsl_channel_width = kwargs.get('hsl_channel_width', 50)
-        hsl_skin_protection = kwargs.get('hsl_skin_protection', True)
-        use_shade_detailer = kwargs.get('use_shade_detailer', False)
-        shade_strength = kwargs.get('shade_strength', 0.5)
-        use_clarity = kwargs.get('use_clarity', False)
-        clarity_strength = kwargs.get('clarity_strength', 0.5)
-        clarity_radius = kwargs.get('clarity_radius', 2.0)
-        midtone_range = kwargs.get('midtone_range', 0.5)
-        edge_preservation = kwargs.get('edge_preservation', 0.8)
-        use_level_endpoints = kwargs.get('use_level_endpoints', False)
-        black_offset = kwargs.get('black_offset', 0.0)
-        white_offset = kwargs.get('white_offset', 0.0)
-        skip_if_no_clip = kwargs.get('skip_if_no_clip', False)
-        normalize_gaps = kwargs.get('normalize_gaps', False)
-        dither_quantization = kwargs.get('dither_quantization', False)
-        adaptive_dither_strength = kwargs.get('adaptive_dither_strength', False)
-        error_diffusion = kwargs.get('error_diffusion', False)
-        show_histogram = kwargs.get('show_histogram', False)
-        histogram_source = kwargs.get('histogram_source', False)
-        histogram_channel = kwargs.get('histogram_channel', "RGB")
-        histogram_style = kwargs.get('histogram_style', "bars")
-        node_id = kwargs.get('id', None)
+        p = SimpleNamespace(**kwargs)
+        node_id = p.id
 
-        pil_img = utility.tensor_to_image(image)
+        pil_img = utility.tensor_to_image(p.image)
         pil_img_input = pil_img.copy()
 
         rasterix_json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'rasterix.json')
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
 
-        if auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=auto_normalize, threshold=auto_levels_threshold, normalize_gaps=normalize_gaps, normalize_midpeaks=False, peak_width=peak_width, auto_gamma=auto_gamma, gamma_target=gamma_target, precision=precision, seed=seed)
+        if p.auto_normalize:
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=p.auto_normalize, threshold=p.auto_levels_threshold, normalize_gaps=p.normalize_gaps, normalize_midpeaks=False, peak_width=p.peak_width, auto_gamma=p.auto_gamma, gamma_target=p.gamma_target, precision=p.precision, seed=p.seed)
 
-        if use_white_balance and (wb_temperature != 6500 or wb_tint != 0):
-            pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=wb_temperature, tint=wb_tint)
+        if p.use_white_balance and (p.wb_temperature != 6500 or p.wb_tint != 0):
+            pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=p.wb_temperature, tint=p.wb_tint)
 
-        if use_smart_lighting and smart_lighting != 0:
-            pil_img = img_smart_lighting.img_smart_lighting(image=pil_img, intensity=smart_lighting)
+        if p.use_smart_lighting and p.smart_lighting != 0:
+            pil_img = img_smart_lighting.img_smart_lighting(image=pil_img, intensity=p.smart_lighting)
 
-        if use_dehaze and strength > 0:
-            pil_img = img_dehaze.img_dehaze(image=pil_img, strength=strength, radius=dehaze_radius, omega=omega, t0=t0, contrast=dehaze_contrast, precision=precision)
+        if p.use_dehaze and p.strength > 0:
+            pil_img = img_dehaze.img_dehaze(image=pil_img, strength=p.strength, radius=p.dehaze_radius, omega=p.omega, t0=p.t0, contrast=p.dehaze_contrast, precision=p.precision)
 
-        if use_depth_blur and focus_depth > 0 and max_blur > 0:
-            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3, DA_model=DA_model)
+        if p.use_depth_blur and p.focus_depth > 0 and p.max_blur > 0:
+            pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=p.focus_depth, depth_range=p.depth_range, max_blur=p.max_blur, depth_gamma=p.depth_gamma, auto_optimize=p.auto_optimize, use_v3=p.use_DA_v3, DA_model=p.DA_model)
 
-        if use_blur and blur_intensity != 0:
-            pil_img = img_blur.img_blur(image=pil_img, blur_type=blur_type, intensity=blur_intensity, radius=blur_radius, angle=angle, edge_only=blur_edge_only, bilateral_edge_sensitivity=bilateral_edge_sensitivity, edge_threshold=edge_threshold)
+        if p.use_blur and p.blur_intensity != 0:
+            pil_img = img_blur.img_blur(image=pil_img, blur_type=p.blur_type, intensity=p.blur_intensity, radius=p.blur_radius, angle=p.angle, edge_only=p.blur_edge_only, bilateral_edge_sensitivity=p.bilateral_edge_sensitivity, edge_threshold=p.edge_threshold)
 
-        if use_brightness_contrast and (brightness != 0 or contrast != 0):
-            pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=brightness, contrast=contrast, use_legacy=use_legacy)
+        if p.use_brightness_contrast and (p.brightness != 0 or p.contrast != 0):
+            pil_img = img_brightness_contrast.img_brightness_contrast(image=pil_img, brightness=p.brightness, contrast=p.contrast, use_legacy=p.use_legacy)
 
-        if use_frequency_separation:
-            pil_img = img_frequency_separation.img_frequency_separation(image=pil_img, radius=radius, low_freq_strength=low_freq_strength, high_freq_strength=high_freq_strength, blend_mode=blend_mode)
+        if p.use_frequency_separation:
+            pil_img = img_frequency_separation.img_frequency_separation(image=pil_img, radius=p.radius, low_freq_strength=p.low_freq_strength, high_freq_strength=p.high_freq_strength, blend_mode=p.blend_mode)
 
-        if use_local_laplacian:
-            pil_img = img_local_laplacian.img_local_laplacian(image=pil_img, sigma=sigma, contrast=laplacian_contrast, detail=detail, levels=levels)
+        if p.use_local_laplacian:
+            pil_img = img_local_laplacian.img_local_laplacian(image=pil_img, sigma=p.sigma, contrast=p.laplacian_contrast, detail=p.detail, levels=p.levels)
 
-        if film_type != "All":
-            allowed_presets = self.FILM_PRESETS_BY_TYPE.get(film_type, [])
-            if allowed_presets and film_rendering not in allowed_presets:
+        film_rendering = p.film_rendering
+        if p.film_type != "All":
+            allowed_presets = self.FILM_PRESETS_BY_TYPE.get(p.film_type, [])
+            if allowed_presets and p.film_rendering not in allowed_presets:
                 film_rendering = allowed_presets[0]
-        if use_film_rendering and film_rendering_intensity != 0:
-            pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=film_rendering_intensity, add_grain=iso_grain, add_halation=halation, expiration_years=expiration_years)
+        if p.use_film_rendering and p.film_rendering_intensity != 0:
+            pil_img = img_film_rendering.img_film_rendering(image=pil_img, rendering=film_rendering, intensity=p.film_rendering_intensity, add_grain=p.iso_grain, add_halation=p.halation, expiration_years=p.expiration_years)
 
-        if use_lut and lut_file != "None":
-            lut_path = os.path.join(self.LUT_DIR, lut_file)
-            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=intensity, input_space=color_space, output_space=color_space)
+        if p.use_lut and p.lut_file != "None":
+            lut_path = os.path.join(self.LUT_DIR, p.lut_file)
+            pil_img = img_lut3d.img_lut3d(image=pil_img, lut_path=lut_path, intensity=p.intensity, input_space=p.color_space, output_space=p.color_space)
 
-        if use_filmic:
-            pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=curve_type, contrast=filmic_contrast, highlight_rolloff=highlight_rolloff, shadow_lift=shadow_lift, pivot=pivot)
+        if p.use_filmic:
+            pil_img = img_filmic_curve.img_filmic_curve(image=pil_img, curve_type=p.curve_type, contrast=p.filmic_contrast, highlight_rolloff=p.highlight_rolloff, shadow_lift=p.shadow_lift, pivot=p.pivot)
 
-        if use_photo_paper and paper_intensity != 0:
-            pil_img = img_photo_paper.img_photo_paper(image=pil_img, paper_type=photo_paper, color_paper=color_paper, paper_base=paper_base, paper_intensity=paper_intensity, expiration_years=paper_expiration_years)
+        if p.use_photo_paper and p.paper_intensity != 0:
+            pil_img = img_photo_paper.img_photo_paper(image=pil_img, paper_type=p.photo_paper, color_paper=p.color_paper, paper_base=p.paper_base, paper_intensity=p.paper_intensity, expiration_years=p.paper_expiration_years)
 
         st_data = rasterix_data.get('selective_tone', {})
-        if use_selective_tone and st_data:
-            pil_img = img_selective_tone.img_selective_tone(image=pil_img, channels_data=st_data, separation=selective_tone_separation, strength=selective_tone_strength)
+        if p.use_selective_tone and st_data:
+            pil_img = img_selective_tone.img_selective_tone(image=pil_img, channels_data=st_data, separation=p.selective_tone_separation, strength=p.selective_tone_strength)
 
         cb_data = rasterix_data.get('color_balance', {})
-        if use_color_balance and cb_data:
-            pil_img = img_color_balance.img_color_balance(image=pil_img, channels_data=cb_data, preserve_luminosity=color_balance_preserve_luminosity, separation=color_balance_separation)
+        if p.use_color_balance and cb_data:
+            pil_img = img_color_balance.img_color_balance(image=pil_img, channels_data=cb_data, preserve_luminosity=p.color_balance_preserve_luminosity, separation=p.color_balance_separation)
 
         hs_data = rasterix_data.get('hue_saturation', {})
-        if use_hsl and hs_data:
-            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data, channel_width=hsl_channel_width, skin_protection=hsl_skin_protection)
+        if p.use_hsl and hs_data:
+            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data, channel_width=p.sl_channel_width, skin_protection=p.hsl_skin_protection)
 
         shade_data = rasterix_data.get('shade', {})
-        if use_shade_detailer and shade_data:
+        if p.use_shade_detailer and shade_data:
             for mode, vals in shade_data.items():
                 lvl = vals.get('shade_level', 0)
                 if lvl != 0:
                     rad = vals.get('shade_radius', 0)
-                    pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad, strength=shade_strength)
+                    pil_img = img_shade_level.img_shade_level(image=pil_img, shade_level=lvl, radius=rad, strength=p.shade_strength)
 
-        if use_clarity and strength != 0:
-            pil_img = img_clarity.img_clarity(image=pil_img, strength=clarity_strength, radius=clarity_radius, midtone_range=midtone_range, edge_preservation=edge_preservation, precision=precision)
+        if p.use_clarity and p.strength != 0:
+            pil_img = img_clarity.img_clarity(image=pil_img, strength=p.clarity_strength, radius=p.clarity_radius, midtone_range=p.midtone_range, edge_preservation=p.edge_preservation, precision=p.precision)
 
-        if use_level_endpoints and (black_offset != 0 or white_offset != 0):
-            pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=black_offset, white_offset=white_offset, skip_if_no_clip=skip_if_no_clip, high_precision=precision)
+        if p.use_level_endpoints and (p.black_offset != 0 or p.white_offset != 0):
+            pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=p.black_offset, white_offset=p.white_offset, skip_if_no_clip=p.skip_if_no_clip, high_precision=p.precision)
 
-        if dither_quantization or error_diffusion or normalize_midpeaks:
-            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=dither_quantization, adaptive_dither_strength=adaptive_dither_strength, error_diffusion=error_diffusion, normalize_midpeaks=normalize_midpeaks, peak_width=peak_width, high_precision=precision, seed=seed)
+        if p.dither_quantization or p.error_diffusion or p.normalize_midpeaks:
+            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=p.dither_quantization, adaptive_dither_strength=p.adaptive_dither_strength, error_diffusion=p.error_diffusion, normalize_midpeaks=p.normalize_midpeaks, peak_width=p.peak_width, high_precision=p.precision, seed=p.seed)
 
-        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision, node_id=node_id)
-        if show_histogram:
-            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, precision, node_id=node_id)
-            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, precision, histogram_source, histogram_channel, histogram_style, node_id=node_id)
+        histogram.rasterix_hist_cache_store(pil_img_input, pil_img, p.precision, node_id=node_id)
+        if p.show_histogram:
+            histogram.rasterix_hist_cache_store(pil_img_input, pil_img, p.precision, node_id=node_id)
+            active_hist = histogram.rasterix_hist_render_selected(pil_img_input, pil_img, p.precision, p.histogram_source, p.histogram_channel, p.histogram_style, node_id=node_id)
             suffix      = ''.join(random.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
             temp_file   = f"rasterix_hist_{suffix}.png"
             active_hist.save(os.path.join(folder_paths.temp_directory, temp_file), compress_level=1)
@@ -1029,48 +930,50 @@ class PrimereRasterixLens:
             }
         }
 
-    def primere_rasterix_lens(self, image, use_vignette, vignette_strength, vignette_radius, vignette_feather, vignette_shape, use_chroma, chroma_intensity, chroma_falloff, chroma_fringe_color, use_bokeh, bokeh_radius, bokeh_blades, bokeh_highlight_boost, bokeh_cat_eye, use_distortion, distortion_barrel, distortion_pincushion, distortion_zoom, use_flare, flare_intensity, flare_pos_x, flare_pos_y, flare_streak_count, flare_streak_length, flare_ghost_count, flare_color, use_halation, halation_intensity, halation_radius, halation_threshold, halation_warmth, use_focus, focus_blur_radius, focus_mode, focus_pos, focus_width, focus_feather, use_spherical, spherical_intensity, spherical_radius, spherical_zone, use_anamorphic, anamorphic_intensity, anamorphic_streak_color, anamorphic_streak_length, anamorphic_oval_bokeh, anamorphic_blue_bias):
-        pil_img = utility.tensor_to_image(image)
+    def primere_rasterix_lens(self, **kwargs):
+        p = SimpleNamespace(**kwargs)
+
+        pil_img = utility.tensor_to_image(p.image)
         pil_img = img_lens_effects.img_lens_effect(
             image=pil_img,
-            vignette_strength=vignette_strength if use_vignette else 0,
-            vignette_radius=vignette_radius,
-            vignette_feather=vignette_feather,
-            vignette_shape=vignette_shape,
-            chroma_intensity=chroma_intensity if use_chroma else 0,
-            chroma_falloff=chroma_falloff,
-            chroma_fringe_color=chroma_fringe_color,
-            bokeh_radius=bokeh_radius if use_bokeh else 0,
-            bokeh_blades=bokeh_blades,
-            bokeh_highlight_boost=bokeh_highlight_boost,
-            bokeh_cat_eye=bokeh_cat_eye,
-            distortion_barrel=distortion_barrel if use_distortion else 0,
-            distortion_pincushion=distortion_pincushion if use_distortion else 0,
-            distortion_zoom=distortion_zoom,
-            flare_intensity=flare_intensity if use_flare else 0,
-            flare_pos_x=flare_pos_x,
-            flare_pos_y=flare_pos_y,
-            flare_streak_count=flare_streak_count,
-            flare_streak_length=flare_streak_length,
-            flare_ghost_count=flare_ghost_count,
-            flare_color=flare_color,
-            halation_intensity=halation_intensity if use_halation else 0,
-            halation_radius=halation_radius,
-            halation_threshold=halation_threshold,
-            halation_warmth=halation_warmth,
-            focus_blur_radius=focus_blur_radius if use_focus else 0,
-            focus_mode=focus_mode,
-            focus_pos=focus_pos,
-            focus_width=focus_width,
-            focus_feather=focus_feather,
-            spherical_intensity=spherical_intensity if use_spherical else 0,
-            spherical_radius=spherical_radius,
-            spherical_zone=spherical_zone,
-            anamorphic_intensity=anamorphic_intensity if use_anamorphic else 0,
-            anamorphic_streak_color=anamorphic_streak_color,
-            anamorphic_streak_length=anamorphic_streak_length,
-            anamorphic_oval_bokeh=anamorphic_oval_bokeh,
-            anamorphic_blue_bias=anamorphic_blue_bias,
+            vignette_strength=p.vignette_strength if p.use_vignette else 0,
+            vignette_radius=p.vignette_radius,
+            vignette_feather=p.vignette_feather,
+            vignette_shape=p.vignette_shape,
+            chroma_intensity=p.chroma_intensity if p.use_chroma else 0,
+            chroma_falloff=p.chroma_falloff,
+            chroma_fringe_color=p.chroma_fringe_color,
+            bokeh_radius=p.bokeh_radius if p.use_bokeh else 0,
+            bokeh_blades=p.bokeh_blades,
+            bokeh_highlight_boost=p.bokeh_highlight_boost,
+            bokeh_cat_eye=p.bokeh_cat_eye,
+            distortion_barrel=p.distortion_barrel if p.use_distortion else 0,
+            distortion_pincushion=p.distortion_pincushion if p.use_distortion else 0,
+            distortion_zoom=p.distortion_zoom,
+            flare_intensity=p.flare_intensity if p.use_flare else 0,
+            flare_pos_x=p.flare_pos_x,
+            flare_pos_y=p.flare_pos_y,
+            flare_streak_count=p.flare_streak_count,
+            flare_streak_length=p.flare_streak_length,
+            flare_ghost_count=p.flare_ghost_count,
+            flare_color=p.flare_color,
+            halation_intensity=p.halation_intensity if p.use_halation else 0,
+            halation_radius=p.halation_radius,
+            halation_threshold=p.halation_threshold,
+            halation_warmth=p.halation_warmth,
+            focus_blur_radius=p.focus_blur_radius if p.use_focus else 0,
+            focus_mode=p.focus_mode,
+            focus_pos=p.focus_pos,
+            focus_width=p.focus_width,
+            focus_feather=p.focus_feather,
+            spherical_intensity=p.spherical_intensity if p.use_spherical else 0,
+            spherical_radius=p.spherical_radius,
+            spherical_zone=p.spherical_zone,
+            anamorphic_intensity=p.anamorphic_intensity if p.use_anamorphic else 0,
+            anamorphic_streak_color=p.anamorphic_streak_color,
+            anamorphic_streak_length=p.anamorphic_streak_length,
+            anamorphic_oval_bokeh=p.anamorphic_oval_bokeh,
+            anamorphic_blue_bias=p.anamorphic_blue_bias,
         )
         return (utility.image_to_tensor(pil_img),)
 
