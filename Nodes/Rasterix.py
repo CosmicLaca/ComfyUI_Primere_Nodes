@@ -267,6 +267,7 @@ class PrimereRasterix:
         models = kwargs.get('models', 'Auto')
         model_concept = kwargs.get('model_concept', None)
         model_name = kwargs.get('model_name', None)
+        seed = kwargs.get('seed', 0)
         active_concept = model_concept if concepts == "Auto" else concepts
         active_display = active_concept
 
@@ -301,7 +302,7 @@ class PrimereRasterix:
         rasterix_data = utility.json2tuple(rasterix_json_path) or {}
 
         if p.auto_normalize:
-            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=p.auto_normalize, threshold=p.auto_levels_threshold, normalize_gaps=p.normalize_gaps, normalize_midpeaks=False, peak_width=p.peak_width, auto_gamma=p.auto_gamma, gamma_target=p.gamma_target, precision=p.precision, seed=p.seed)
+            pil_img = img_levels_auto.img_levels_auto(image=pil_img, auto_normalize=p.auto_normalize, threshold=p.auto_levels_threshold, normalize_gaps=p.normalize_gaps, normalize_midpeaks=False, peak_width=p.peak_width, auto_gamma=p.auto_gamma, gamma_target=p.gamma_target, precision=p.precision, seed=seed)
 
         if p.use_white_balance and (p.wb_temperature != 6500 or p.wb_tint != 0):
             pil_img = img_white_balance.img_white_balance(image=pil_img, temperature=p.wb_temperature, tint=p.wb_tint)
@@ -355,7 +356,7 @@ class PrimereRasterix:
 
         hs_data = rasterix_data.get('hue_saturation', {})
         if p.use_hsl and hs_data:
-            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data, channel_width=p.sl_channel_width, skin_protection=p.hsl_skin_protection)
+            pil_img = img_hue_saturation.img_hue_saturation(image=pil_img, channels_data=hs_data, channel_width=p.hsl_channel_width, skin_protection=p.hsl_skin_protection)
 
         shade_data = rasterix_data.get('shade', {})
         if p.use_shade_detailer and shade_data:
@@ -372,7 +373,7 @@ class PrimereRasterix:
             pil_img = img_levels_compress.img_levels_compress(image=pil_img, black_offset=p.black_offset, white_offset=p.white_offset, skip_if_no_clip=p.skip_if_no_clip, high_precision=p.precision)
 
         if p.dither_quantization or p.error_diffusion or p.normalize_midpeaks:
-            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=p.dither_quantization, adaptive_dither_strength=p.adaptive_dither_strength, error_diffusion=p.error_diffusion, normalize_midpeaks=p.normalize_midpeaks, peak_width=p.peak_width, high_precision=p.precision, seed=p.seed)
+            pil_img = img_dithering.img_dithering(image=pil_img, dither_quantization=p.dither_quantization, adaptive_dither_strength=p.adaptive_dither_strength, error_diffusion=p.error_diffusion, normalize_midpeaks=p.normalize_midpeaks, peak_width=p.peak_width, high_precision=p.precision, seed=seed)
 
         histogram.rasterix_hist_cache_store(pil_img_input, pil_img, p.precision, node_id=node_id)
         if p.show_histogram:
