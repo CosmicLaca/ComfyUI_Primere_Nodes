@@ -37,6 +37,7 @@ from ..components import utility
 from .Dashboard import PrimereModelConceptSelector as PrimereModelConceptSelector
 import os
 from server import PromptServer
+from types import SimpleNamespace
 
 FILM_PRESETS_BY_TYPE = img_film_rendering.list_presets_by_type()
 FILM_TYPES = ["All"] + sorted(FILM_PRESETS_BY_TYPE.keys())
@@ -308,7 +309,7 @@ class PrimereRasterix:
         DA_model = kwargs.get('DA_model', "large")
         focus_depth = kwargs.get('focus_depth', 0.5)
         depth_range = kwargs.get('depth_range', 0.200)
-        max_blur = kwargs.get('bilateral_edge_sensitivity', 8.0)
+        max_blur = kwargs.get('max_blur', 8.0)
         depth_gamma = kwargs.get('depth_gamma', 1.0)
         use_blur = kwargs.get('use_blur', False)
         blur_type = kwargs.get('blur_type', "bilateral")
@@ -1401,7 +1402,7 @@ class PrimereDepthBlur:
 
     def primere_depth_blur(self, image, use_depth_blur, auto_optimize, use_DA_v3, DA_model, focus_depth, depth_range, max_blur, depth_gamma):
         pil_img = utility.tensor_to_image(image)
-        if use_depth_blur:
+        if use_depth_blur and focus_depth > 0 and max_blur > 0:
             pil_img = img_depth_blur.img_depth_blur(image=pil_img, focus_depth=focus_depth, depth_range=depth_range, max_blur=max_blur, depth_gamma=depth_gamma, auto_optimize=auto_optimize, use_v3=use_DA_v3, DA_model=DA_model)
 
         return (utility.image_to_tensor(pil_img),)
