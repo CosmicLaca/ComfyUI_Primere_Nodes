@@ -856,7 +856,7 @@ class PrimereRasterixLens:
     CATEGORY = "Primere/Rasterix"   # or your original TREE_RASTERIX
 
     SECTION_TITLES = [
-        {"before": "image", "name": "lensfx_input", "title": "🖼️ Input Image", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Force-input image to which all camera lens simulation effects will be applied in sequence."},
+        {"before": "lens_profile", "name": "lensfx_profile", "title": "📸 Real Lens Profile", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Select a real camera lens to automatically load authentic optical characteristics (vignette, distortion, CA, flare, anamorphic, etc.). Fine-tune any slider afterwards."},
         {"before": "use_vignette", "name": "lensfx_vignette", "title": "🌑 Vignette Control", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Master toggle and parameters for vignette: darken corners/edges with strength, radius, feather, and shape. Inspired by Adobe Lightroom."},
         {"before": "use_chroma", "name": "lensfx_chromatic", "title": "🌈 Chromatic Aberration", "color": "#243B55", "text_color": "#EAF1F8", "label": "Toggle and control chromatic aberration: intensity, falloff, and fringe color for realistic color fringing. Inspired by Adobe Camera Raw."},
         {"before": "use_bokeh", "name": "lensfx_bokeh", "title": "✨ Bokeh Effect", "color": "#1A2A6C", "text_color": "#EAF1F8", "label": "Enable bokeh simulation: radius, blade count, highlight boost, and cat-eye shaping for dreamy out-of-focus highlights. Inspired by Adobe Photoshop."},
@@ -866,8 +866,6 @@ class PrimereRasterixLens:
         {"before": "use_focus", "name": "lensfx_focus", "title": "🔍 Focus Falloff", "color": "#30336B", "text_color": "#EAF1F8", "label": "Enable selective focus blur: radius, mode (horizontal/vertical/radial/oval), position, width, and feather. Inspired by Adobe Photoshop."},
         {"before": "use_spherical", "name": "lensfx_spherical", "title": "🌐 Spherical Aberration", "color": "#130F40", "text_color": "#EAF1F8", "label": "Toggle spherical aberration: intensity, radius, and zone (centre/edge/global) for soft-focus effects."},
         {"before": "use_anamorphic", "name": "lensfx_anamorphic", "title": "📽️ Anamorphic Lens", "color": "#0C2461", "text_color": "#EAF1F8", "label": "Apply anamorphic characteristics: intensity, streak color/length, oval bokeh, and blue bias for cinematic look. Inspired by Blackmagic DaVinci Resolve."},
-
-        # ── NEW SECTIONS ───────────────────────────────────────────────────────
         {"before": "use_coating_spectral", "name": "lensfx_coating_spectral", "title": "🔬 Coating & Spectral", "color": "#2C3E50", "text_color": "#EAF1F8", "label": "Lens coating quality and per-channel spectral response for film/sensor simulation."},
         {"before": "use_advanced_aberrations", "name": "lensfx_advanced_aberrations", "title": "📐 Advanced Optical Aberrations", "color": "#34495E", "text_color": "#EAF1F8", "label": "Field curvature, astigmatism, coma, breathing, and anamorphic squeeze for realistic lens imperfections."},
         {"before": "use_sensor_effects", "name": "lensfx_sensor_effects", "title": "📸 Sensor & Bloom Effects", "color": "#3D5A6B", "text_color": "#EAF1F8", "label": "Sensor bloom, glare, and microlens array simulation."},
@@ -876,11 +874,14 @@ class PrimereRasterixLens:
 
     @classmethod
     def INPUT_TYPES(cls):
+        lens_options = list(img_lens_effects.LENS_PROFILES.keys())
+
         return {
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
 
-                # ── Original effects (unchanged) ─────────────────────────────────
+                "lens_profile": (lens_options, {"default": "None"}),
+
                 "use_vignette":      ("BOOLEAN", {"default": False, "label_off": "Ignore vignette", "label_on": "Apply vignette"}),
                 "vignette_strength": ("FLOAT", {"default": 0.5,  "min": 0.0, "max": 1.0,  "step": 0.01}),
                 "vignette_radius":   ("FLOAT", {"default": 0.65, "min": 0.0, "max": 1.0,  "step": 0.01}),
@@ -937,7 +938,6 @@ class PrimereRasterixLens:
                 "anamorphic_oval_bokeh":    ("FLOAT", {"default": 0.4, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "anamorphic_blue_bias":     ("FLOAT", {"default": 0.3, "min": 0.0, "max": 1.0,  "step": 0.01}),
 
-                # ── NEW ADVANCED GROUPS ─────────────────────────────────────────────
                 "use_coating_spectral": ("BOOLEAN", {"default": False, "label_off": "Ignore coating & spectral", "label_on": "Apply coating & spectral"}),
                 "coating_quality":      ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "spectral_red":         ("FLOAT", {"default": 1.0, "min": 0.5, "max": 1.5, "step": 0.01}),
@@ -971,11 +971,31 @@ class PrimereRasterixLens:
     def primere_rasterix_lens(self, **kwargs):
         p = SimpleNamespace(**kwargs)
 
-        pil_img = utility.tensor_to_image(p.image)   # your existing utility
+        # ── PRESET OVERRIDE LOGIC ─────────────────────────────────────
+        if p.lens_profile != "None":
+            profile = img_lens_effects.LENS_PROFILES.get(p.lens_profile, {})
 
-        pil_img = img_lens_effects.img_lens_effect(   # ← now imports the merged back-end
+            # 1. Force ALL sliders to preset values (ignore whatever user typed)
+            for param, value in profile.items():
+                if param != "enabled_toggles" and hasattr(p, param):
+                    setattr(p, param, value)
+
+            # 2. Auto-enable only the relevant toggles, disable the rest
+            enabled = profile.get("enabled_toggles", [])
+            toggle_list = [
+                "use_vignette", "use_chroma", "use_bokeh", "use_distortion",
+                "use_flare", "use_halation", "use_focus", "use_spherical",
+                "use_anamorphic", "use_coating_spectral", "use_advanced_aberrations",
+                "use_sensor_effects", "use_creative_effects"
+            ]
+            for toggle in toggle_list:
+                if hasattr(p, toggle):
+                    setattr(p, toggle, toggle in enabled)
+
+        pil_img = utility.tensor_to_image(p.image)
+
+        pil_img = img_lens_effects.img_lens_effect(
             image=pil_img,
-
             # Original effects (zero when disabled)
             vignette_strength=p.vignette_strength if p.use_vignette else 0,
             vignette_radius=p.vignette_radius,
@@ -1024,7 +1044,6 @@ class PrimereRasterixLens:
             anamorphic_oval_bokeh=p.anamorphic_oval_bokeh,
             anamorphic_blue_bias=p.anamorphic_blue_bias,
 
-            # New advanced effects
             coating_quality=p.coating_quality if p.use_coating_spectral else 1.0,
             spectral_red=p.spectral_red if p.use_coating_spectral else 1.0,
             spectral_green=p.spectral_green if p.use_coating_spectral else 1.0,

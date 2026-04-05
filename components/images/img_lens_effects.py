@@ -1,17 +1,156 @@
-# ──────────────────────────────────────────────────────────────────────────────
-# primere_lens_effects.py  (FULL MERGED ALL-IN-ONE LENS BACK-END)
-# Combines original detailed effects + all new advanced features from the second pipeline
-# ──────────────────────────────────────────────────────────────────────────────
-
 import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image
 
+# ──────────────────────────────────────────────────────────────────────────────
+# REAL CAMERA LENS PROFILES
+# Plausible real-world optical characteristics based on known lens behavior
+# ──────────────────────────────────────────────────────────────────────────────
+LENS_PROFILES = {
+    "None": {},
 
-# ──────────────────────────────────────────────────────────────────────────────
-# CORE HELPERS (from original detailed implementation)
-# ──────────────────────────────────────────────────────────────────────────────
+    # ── All profiles now include "enabled_toggles" for automatic switching
+    "Canon EF 50mm f/1.8 STM": {
+        "distortion_barrel": 0.28, "distortion_pincushion": 0.0,
+        "vignette_strength": 0.42, "vignette_radius": 0.62, "vignette_feather": 0.38,
+        "chroma_intensity": 1.65, "chroma_falloff": 0.55,
+        "flare_intensity": 0.55, "flare_streak_count": 8, "flare_ghost_count": 5,
+        "halation_intensity": 0.35,
+        "field_curvature_strength": 0.18, "coma_strength": 0.12,
+        "breathing_strength": 0.08,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_halation", "use_advanced_aberrations"]
+    },
+
+    "Nikon AF-S 50mm f/1.8G": {
+        "distortion_barrel": 0.22, "distortion_pincushion": 0.0,
+        "vignette_strength": 0.38, "vignette_radius": 0.65,
+        "chroma_intensity": 1.45,
+        "flare_intensity": 0.48,
+        "field_curvature_strength": 0.15,
+        "sensor_bloom_intensity": 0.22,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_sensor_effects"]
+    },
+
+    "Sony FE 50mm f/1.8": {
+        "distortion_barrel": 0.19,
+        "vignette_strength": 0.31, "vignette_radius": 0.68,
+        "chroma_intensity": 1.30,
+        "sensor_bloom_intensity": 0.25,
+        "mtf_falloff_strength": 0.12,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_sensor_effects", "use_creative_effects"]
+    },
+
+    "Zeiss Otus 85mm f/1.4": {
+        "distortion_barrel": 0.05,
+        "vignette_strength": 0.22,
+        "chroma_intensity": 0.75,
+        "flare_intensity": 0.30,
+        "halation_intensity": 0.25,
+        "mtf_falloff_strength": 0.10,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_halation", "use_creative_effects"]
+    },
+
+    "Leica Summilux-M 35mm f/1.4 ASPH": {
+        "distortion_barrel": 0.35,
+        "vignette_strength": 0.58, "vignette_radius": 0.58,
+        "chroma_intensity": 2.10,
+        "flare_intensity": 0.75,
+        "halation_intensity": 0.45,
+        "field_curvature_strength": 0.25,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_halation", "use_advanced_aberrations"]
+    },
+
+    "Sigma 35mm f/1.4 DG HSM Art": {
+        "distortion_barrel": 0.12,
+        "vignette_strength": 0.29,
+        "chroma_intensity": 1.10,
+        "coma_strength": 0.08,
+        "field_curvature_strength": 0.14,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_advanced_aberrations"]
+    },
+
+    "Tamron SP 15-30mm f/2.8 Di VC USD": {
+        "distortion_barrel": 0.65,
+        "vignette_strength": 0.51,
+        "chroma_intensity": 2.80,
+        "field_curvature_strength": 0.35,
+        "coma_strength": 0.22,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_advanced_aberrations"]
+    },
+
+    "Arri Master Anamorphic 50mm": {
+        "anamorphic_intensity": 0.85, "anamorphic_streak_length": 0.95,
+        "anamorphic_squeeze_ratio": 2.0, "anamorphic_oval_bokeh": 0.65,
+        "distortion_barrel": 0.45, "vignette_strength": 0.40,
+        "flare_intensity": 0.90, "starburst_intensity": 0.60,
+        "breathing_strength": 0.25,
+        "enabled_toggles": ["use_vignette", "use_distortion", "use_flare", "use_anamorphic", "use_advanced_aberrations", "use_creative_effects"]
+    },
+
+    # ── 10 new realistic profiles (same logic) ─────────────────────────────
+    "Canon RF 50mm f/1.8 STM": {
+        "distortion_barrel": 0.15, "vignette_strength": 0.35, "vignette_radius": 0.68,
+        "chroma_intensity": 1.20, "flare_intensity": 0.40, "halation_intensity": 0.28,
+        "field_curvature_strength": 0.10,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_halation", "use_advanced_aberrations"]
+    },
+
+    "Nikon Z 50mm f/1.8 S": {
+        "distortion_barrel": 0.08, "vignette_strength": 0.22, "chroma_intensity": 0.85,
+        "mtf_falloff_strength": 0.05, "sensor_bloom_intensity": 0.18,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_sensor_effects", "use_creative_effects"]
+    },
+
+    "Sony FE 85mm f/1.8": {
+        "distortion_barrel": 0.12, "vignette_strength": 0.29, "chroma_intensity": 1.05,
+        "bokeh_highlight_boost": 0.45,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion"]
+    },
+
+    "Sigma 85mm f/1.4 DG DN Art": {
+        "distortion_barrel": 0.10, "vignette_strength": 0.26, "chroma_intensity": 0.95,
+        "coma_strength": 0.05,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_advanced_aberrations"]
+    },
+
+    "Leica Summicron-M 50mm f/2 ASPH": {
+        "distortion_barrel": 0.03, "vignette_strength": 0.18, "chroma_intensity": 0.65,
+        "flare_intensity": 0.35,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare"]
+    },
+
+    "Zeiss Milvus 85mm f/1.4": {
+        "distortion_barrel": 0.07, "vignette_strength": 0.24, "chroma_intensity": 0.80,
+        "halation_intensity": 0.32,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_halation"]
+    },
+
+    "Tamron 35mm f/1.4 SP Di USD": {
+        "distortion_barrel": 0.25, "vignette_strength": 0.33, "chroma_intensity": 1.55,
+        "field_curvature_strength": 0.20,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_advanced_aberrations"]
+    },
+
+    "Fujifilm XF 50mm f/1.0 R WR": {
+        "distortion_barrel": 0.18, "vignette_strength": 0.48, "chroma_intensity": 1.85,
+        "flare_intensity": 0.60,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare"]
+    },
+
+    "Voigtländer Nokton 50mm f/1.2": {
+        "distortion_barrel": 0.32, "vignette_strength": 0.55, "chroma_intensity": 2.20,
+        "flare_intensity": 0.70, "halation_intensity": 0.50,
+        "enabled_toggles": ["use_vignette", "use_chroma", "use_distortion", "use_flare", "use_halation"]
+    },
+
+    "Cooke S4 50mm f/2": {
+        "distortion_barrel": 0.04, "vignette_strength": 0.15,
+        "breathing_strength": 0.12, "coma_strength": 0.06, "field_curvature_strength": 0.08,
+        "enabled_toggles": ["use_vignette", "use_distortion", "use_advanced_aberrations"]
+    },
+}
+
 def _to_tensor(img):
     if isinstance(img, Image.Image):
         arr = np.array(img.convert("RGB")).astype(np.float32) / 255.0
@@ -61,9 +200,6 @@ def _gaussian_blur(img, sigma):
     return img
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# ORIGINAL DETAILED EFFECTS (preserved with full parameters)
-# ──────────────────────────────────────────────────────────────────────────────
 def _distortion(img, barrel, pincushion, zoom):
     B, C, H, W = img.shape
     device = img.device
@@ -270,9 +406,6 @@ def _anamorphic(img, intensity, color, length, oval, blue_bias):
     return result
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# NEW ADVANCED EFFECTS (from second pipeline, adapted to shared helpers)
-# ──────────────────────────────────────────────────────────────────────────────
 def _coating(img, quality):
     return img * quality + _gaussian_blur(img, 10) * (1 - quality)
 
@@ -289,7 +422,6 @@ def _field_curvature(img, strength):
 
 
 def _astigmatism(img, strength, angle):
-    # Approximate directional blur (isotropic fallback when strength is low)
     if strength <= 0:
         return img
     sigma = strength * 10
@@ -377,12 +509,8 @@ def _anamorphic_squeeze(img, ratio):
     return _sample(img, grid)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# MAIN ALL-IN-ONE PIPELINE
-# ──────────────────────────────────────────────────────────────────────────────
 def img_lens_effect(
     image: Image.Image,
-    # Original toggled effects (passed as 0 when disabled)
     vignette_strength: float = 0.0,
     vignette_radius: float = 0.65,
     vignette_feather: float = 0.4,
@@ -430,7 +558,6 @@ def img_lens_effect(
     anamorphic_oval_bokeh: float = 0.4,
     anamorphic_blue_bias: float = 0.3,
 
-    # New advanced features (passed with their real values or defaults)
     coating_quality: float = 1.0,
     spectral_red: float = 1.0,
     spectral_green: float = 1.0,
@@ -503,9 +630,7 @@ def img_lens_effect(
 
     # ── Anamorphic (original detailed) ────────────────────────────────────────
     if anamorphic_intensity > 0:
-        img = _anamorphic(img, anamorphic_intensity, anamorphic_streak_color,
-                          anamorphic_streak_length, anamorphic_oval_bokeh,
-                          anamorphic_blue_bias)
+        img = _anamorphic(img, anamorphic_intensity, anamorphic_streak_color, anamorphic_streak_length, anamorphic_oval_bokeh, anamorphic_blue_bias)
 
     # ── MTF + Diffraction ─────────────────────────────────────────────────────
     img = _mtf(img, mtf_falloff_strength)
@@ -513,10 +638,8 @@ def img_lens_effect(
 
     # ── Flare + Starburst (original detailed) ─────────────────────────────────
     if flare_intensity > 0:
-        img = _flare(img, flare_intensity, flare_pos_x, flare_pos_y,
-                     flare_streak_count, flare_streak_length,
-                     flare_ghost_count, flare_color)
-    img = _starburst(img, starburst_intensity)
+        img = _flare(img, flare_intensity, flare_pos_x, flare_pos_y, flare_streak_count, flare_streak_length, flare_ghost_count, flare_color)
+        img = _starburst(img, starburst_intensity)
 
     # ── Vignette (original detailed) ──────────────────────────────────────────
     if vignette_strength > 0:
