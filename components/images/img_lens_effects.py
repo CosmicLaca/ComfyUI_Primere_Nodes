@@ -622,7 +622,7 @@ def img_lens_effect(
 
     # ── Chromatic + Longitudinal CA ───────────────────────────────────────────
     if chroma_intensity > 0:
-        img = _chroma(img, chroma_intensity, chroma_falloff, chroma_fringe_color)
+        img = _chroma(img, chroma_intensity/100, chroma_falloff, chroma_fringe_color)
     img = _loca(img, loca_intensity)
 
     # ── Microlens ─────────────────────────────────────────────────────────────

@@ -889,7 +889,7 @@ class PrimereRasterixLens:
                 "vignette_shape":    (["circular", "oval", "corner"], {"default": "circular"}),
 
                 "use_chroma":          ("BOOLEAN", {"default": False, "label_off": "Ignore chromatic aberration", "label_on": "Apply chromatic aberration"}),
-                "chroma_intensity":    ("FLOAT", {"default": 2.0, "min": 0.0,  "max": 10.0, "step": 0.1}),
+                "chroma_intensity":    ("FLOAT", {"default": 0.010, "min": 0.000,  "max": 10.000, "step": 0.001}),
                 "chroma_falloff":      ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0,  "step": 0.01}),
                 "chroma_fringe_color": (["red_blue", "green_magenta", "yellow_purple"], {"default": "red_blue"}),
 
