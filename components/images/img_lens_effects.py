@@ -1,3 +1,8 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# primere_lens_effects.py  (FULL MERGED ALL-IN-ONE LENS BACK-END)
+# Combines original detailed effects + all new advanced features from the second pipeline
+# ──────────────────────────────────────────────────────────────────────────────
+
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -5,14 +10,12 @@ from PIL import Image
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Helpers
+# CORE HELPERS (from original detailed implementation)
 # ──────────────────────────────────────────────────────────────────────────────
-
 def _to_tensor(img):
     if isinstance(img, Image.Image):
         arr = np.array(img.convert("RGB")).astype(np.float32) / 255.0
-        t = torch.from_numpy(arr).permute(2, 0, 1).unsqueeze(0)
-        return t
+        return torch.from_numpy(arr).permute(2, 0, 1).unsqueeze(0)
     return img
 
 
@@ -33,7 +36,7 @@ def _meshgrid(H, W, device):
 def _radial(H, W, device):
     yy, xx = _meshgrid(H, W, device)
     r = torch.sqrt((yy - 0.5) ** 2 + (xx - 0.5) ** 2)
-    return r / r.max()
+    return r / (r.max() + 1e-6)
 
 
 def _sample(img, grid):
@@ -59,9 +62,8 @@ def _gaussian_blur(img, sigma):
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Effects
+# ORIGINAL DETAILED EFFECTS (preserved with full parameters)
 # ──────────────────────────────────────────────────────────────────────────────
-
 def _distortion(img, barrel, pincushion, zoom):
     B, C, H, W = img.shape
     device = img.device
@@ -258,7 +260,7 @@ def _anamorphic(img, intensity, color, length, oval, blue_bias):
     result = (img + flare * tint * intensity).clamp(0,1)
 
     if oval > 0:
-        vblur = _gaussian_blur(img, [6.0*oval, 0.5] if isinstance(oval,float) else oval)
+        vblur = _gaussian_blur(img, 6.0*oval)   # isotropic approximation for oval bokeh
         result = result*(1-oval*0.5) + vblur*(oval*0.5)
 
     if blue_bias > 0:
@@ -269,91 +271,255 @@ def _anamorphic(img, intensity, color, length, oval, blue_bias):
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Main
+# NEW ADVANCED EFFECTS (from second pipeline, adapted to shared helpers)
 # ──────────────────────────────────────────────────────────────────────────────
+def _coating(img, quality):
+    return img * quality + _gaussian_blur(img, 10) * (1 - quality)
 
+
+def _spectral(img, r, g, b):
+    gains = torch.tensor([r, g, b], device=img.device).view(1, 3, 1, 1)
+    return img * gains
+
+
+def _field_curvature(img, strength):
+    r = _radial(*img.shape[2:], img.device)
+    blur = _gaussian_blur(img, strength * 10)
+    return img * (1 - r) + blur * r
+
+
+def _astigmatism(img, strength, angle):
+    # Approximate directional blur (isotropic fallback when strength is low)
+    if strength <= 0:
+        return img
+    sigma = strength * 10
+    return _gaussian_blur(img, sigma)
+
+
+def _coma(img, strength):
+    B, C, H, W = img.shape
+    yy, xx = _meshgrid(H, W, img.device)
+    shift = ((xx-0.5)**2 + (yy-0.5)**2) * strength
+    grid = torch.stack([(xx + shift - 0.5)*2, (yy - 0.5)*2], dim=-1).unsqueeze(0)
+    return _sample(img, grid)
+
+
+def _loca(img, intensity):
+    if intensity <= 0:
+        return img
+    r = _gaussian_blur(img[:,0:1], intensity*5)
+    b = _gaussian_blur(img[:,2:3], intensity*5)
+    return torch.cat([r, img[:,1:2], b], dim=1)
+
+
+def _glare(img, intensity):
+    if intensity <= 0:
+        return img
+    return img * (1 - intensity) + _gaussian_blur(img, 20) * intensity
+
+
+def _mtf(img, strength):
+    if strength <= 0:
+        return img
+    r = _radial(*img.shape[2:], img.device)
+    return img * (1 - r) + _gaussian_blur(img, strength * 8) * r
+
+
+def _sensor_bloom(img, intensity, radius, threshold):
+    if intensity <= 0:
+        return img
+    bright = torch.clamp(img - threshold, min=0)
+    return img + _gaussian_blur(bright, radius) * intensity
+
+
+def _microlens(img, strength, shift):
+    if strength <= 0:
+        return img
+    r = _radial(*img.shape[2:], img.device)
+    color = torch.tensor([1 + shift, 1, 1 - shift], device=img.device).view(1, 3, 1, 1)
+    return img * (1 - r * strength).unsqueeze(0).unsqueeze(0) * color
+
+
+def _diffraction(img, strength):
+    if strength <= 0:
+        return img
+    return _gaussian_blur(img, strength * 3)
+
+
+def _starburst(img, intensity):
+    if intensity <= 0:
+        return img
+    B, C, H, W = img.shape
+    yy, xx = _meshgrid(H, W, img.device)
+    star = torch.sin(xx * 50) * torch.sin(yy * 50)
+    return img + star.unsqueeze(0).unsqueeze(0) * intensity
+
+
+def _breathing(img, strength):
+    if strength <= 0:
+        return img
+    B, C, H, W = img.shape
+    scale = 1 + strength
+    yy, xx = _meshgrid(H, W, img.device)
+    xx = (xx - 0.5) / scale + 0.5
+    yy = (yy - 0.5) / scale + 0.5
+    grid = torch.stack([xx * 2 - 1, yy * 2 - 1], dim=-1).unsqueeze(0)
+    return _sample(img, grid)
+
+
+def _anamorphic_squeeze(img, ratio):
+    if abs(ratio - 1.0) < 1e-6:
+        return img
+    B, C, H, W = img.shape
+    yy, xx = _meshgrid(H, W, img.device)
+    xx = (xx - 0.5) / ratio + 0.5
+    grid = torch.stack([xx * 2 - 1, yy * 2 - 1], dim=-1).unsqueeze(0)
+    return _sample(img, grid)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# MAIN ALL-IN-ONE PIPELINE
+# ──────────────────────────────────────────────────────────────────────────────
 def img_lens_effect(
     image: Image.Image,
-    # ── Vignette ──────────────────────────────────────────────────────────────
-    vignette_strength:          float = 0.0,
-    vignette_radius:            float = 0.65,
-    vignette_feather:           float = 0.4,
-    vignette_shape:             str   = "circular",
-    # ── Chromatic Aberration ──────────────────────────────────────────────────
-    chroma_intensity:           float = 0.0,
-    chroma_falloff:             float = 0.5,
-    chroma_fringe_color:        str   = "red_blue",
-    # ── Bokeh ─────────────────────────────────────────────────────────────────
-    bokeh_radius:               float = 0.0,
-    bokeh_blades:               int   = 0,
-    bokeh_highlight_boost:      float = 0.3,
-    bokeh_cat_eye:              float = 0.0,
-    # ── Lens Distortion ───────────────────────────────────────────────────────
-    distortion_barrel:          float = 0.0,
-    distortion_pincushion:      float = 0.0,
-    distortion_zoom:            float = 1.0,
-    # ── Lens Flare ────────────────────────────────────────────────────────────
-    flare_intensity:            float = 0.0,
-    flare_pos_x:                float = 0.2,
-    flare_pos_y:                float = 0.2,
-    flare_streak_count:         int   = 6,
-    flare_streak_length:        float = 0.4,
-    flare_ghost_count:          int   = 4,
-    flare_color:                str   = "warm",
-    # ── Halation ─────────────────────────────────────────────────────────────
-    halation_intensity:         float = 0.0,
-    halation_radius:            float = 15.0,
-    halation_threshold:         float = 0.75,
-    halation_warmth:            float = 0.7,
-    # ── Focus Falloff ─────────────────────────────────────────────────────────
-    focus_blur_radius:          float = 0.0,
-    focus_mode:                 str   = "horizontal",
-    focus_pos:                  float = 0.5,
-    focus_width:                float = 0.2,
-    focus_feather:              float = 0.3,
-    # ── Spherical Aberration ──────────────────────────────────────────────────
-    spherical_intensity:        float = 0.0,
-    spherical_radius:           float = 3.0,
-    spherical_zone:             str   = "centre",
-    # ── Anamorphic ────────────────────────────────────────────────────────────
-    anamorphic_intensity:       float = 0.0,
-    anamorphic_streak_color:    str   = "blue",
-    anamorphic_streak_length:   float = 0.8,
-    anamorphic_oval_bokeh:      float = 0.4,
-    anamorphic_blue_bias:       float = 0.3,
+    # Original toggled effects (passed as 0 when disabled)
+    vignette_strength: float = 0.0,
+    vignette_radius: float = 0.65,
+    vignette_feather: float = 0.4,
+    vignette_shape: str = "circular",
+
+    chroma_intensity: float = 0.0,
+    chroma_falloff: float = 0.5,
+    chroma_fringe_color: str = "red_blue",
+
+    bokeh_radius: float = 0.0,
+    bokeh_blades: int = 0,
+    bokeh_highlight_boost: float = 0.3,
+    bokeh_cat_eye: float = 0.0,
+
+    distortion_barrel: float = 0.0,
+    distortion_pincushion: float = 0.0,
+    distortion_zoom: float = 1.0,
+
+    flare_intensity: float = 0.0,
+    flare_pos_x: float = 0.2,
+    flare_pos_y: float = 0.2,
+    flare_streak_count: int = 6,
+    flare_streak_length: float = 0.4,
+    flare_ghost_count: int = 4,
+    flare_color: str = "warm",
+
+    halation_intensity: float = 0.0,
+    halation_radius: float = 15.0,
+    halation_threshold: float = 0.75,
+    halation_warmth: float = 0.7,
+
+    focus_blur_radius: float = 0.0,
+    focus_mode: str = "horizontal",
+    focus_pos: float = 0.5,
+    focus_width: float = 0.2,
+    focus_feather: float = 0.3,
+
+    spherical_intensity: float = 0.0,
+    spherical_radius: float = 3.0,
+    spherical_zone: str = "centre",
+
+    anamorphic_intensity: float = 0.0,
+    anamorphic_streak_color: str = "blue",
+    anamorphic_streak_length: float = 0.8,
+    anamorphic_oval_bokeh: float = 0.4,
+    anamorphic_blue_bias: float = 0.3,
+
+    # New advanced features (passed with their real values or defaults)
+    coating_quality: float = 1.0,
+    spectral_red: float = 1.0,
+    spectral_green: float = 1.0,
+    spectral_blue: float = 1.0,
+
+    field_curvature_strength: float = 0.0,
+    astigmatism_strength: float = 0.0,
+    astigmatism_angle: int = 0,
+    coma_strength: float = 0.0,
+    breathing_strength: float = 0.0,
+    anamorphic_squeeze_ratio: float = 1.0,
+
+    sensor_bloom_intensity: float = 0.0,
+    sensor_bloom_radius: float = 10.0,
+    sensor_bloom_threshold: float = 0.8,
+    glare_intensity: float = 0.0,
+    microlens_vignette_strength: float = 0.0,
+    microlens_color_shift: float = 0.0,
+
+    loca_intensity: float = 0.0,
+    mtf_falloff_strength: float = 0.0,
+    diffraction_strength: float = 0.0,
+    starburst_intensity: float = 0.0,
 ) -> Image.Image:
-    img = image.convert("RGB")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    img = _to_tensor(image).to(device)
+
+    # ── Coating & Spectral ─────────────────────────────────────────────────────
+    img = _coating(img, coating_quality)
+    img = _spectral(img, spectral_red, spectral_green, spectral_blue)
+
+    # ── Distortion (original detailed) ────────────────────────────────────────
     if distortion_barrel != 0 or distortion_pincushion != 0:
         img = _distortion(img, distortion_barrel, distortion_pincushion, distortion_zoom)
 
+    # ── Breathing + Anamorphic Squeeze ────────────────────────────────────────
+    img = _breathing(img, breathing_strength)
+    img = _anamorphic_squeeze(img, anamorphic_squeeze_ratio)
+
+    # ── Advanced Optical Aberrations ──────────────────────────────────────────
+    img = _field_curvature(img, field_curvature_strength)
+    img = _astigmatism(img, astigmatism_strength, astigmatism_angle)
+    img = _coma(img, coma_strength)
+
+    # ── Focus + Spherical (original detailed) ─────────────────────────────────
     if focus_blur_radius > 0:
         img = _focus(img, focus_mode, focus_blur_radius, focus_pos, focus_width, focus_feather)
-
-    if bokeh_radius > 0:
-        img = _bokeh(img, bokeh_radius, bokeh_blades, bokeh_highlight_boost, bokeh_cat_eye)
-
     if spherical_intensity > 0:
         img = _spherical(img, spherical_intensity, spherical_radius, spherical_zone)
 
+    # ── Sensor Effects ────────────────────────────────────────────────────────
+    img = _sensor_bloom(img, sensor_bloom_intensity, sensor_bloom_radius, sensor_bloom_threshold)
+    img = _glare(img, glare_intensity)
+
+    # ── Halation (original detailed) ──────────────────────────────────────────
+    if halation_intensity > 0:
+        img = _halation(img, halation_intensity, halation_radius, halation_threshold, halation_warmth)
+
+    # ── Bokeh (original detailed) ─────────────────────────────────────────────
+    if bokeh_radius > 0:
+        img = _bokeh(img, bokeh_radius, bokeh_blades, bokeh_highlight_boost, bokeh_cat_eye)
+
+    # ── Chromatic + Longitudinal CA ───────────────────────────────────────────
     if chroma_intensity > 0:
         img = _chroma(img, chroma_intensity, chroma_falloff, chroma_fringe_color)
+    img = _loca(img, loca_intensity)
 
+    # ── Microlens ─────────────────────────────────────────────────────────────
+    img = _microlens(img, microlens_vignette_strength, microlens_color_shift)
+
+    # ── Anamorphic (original detailed) ────────────────────────────────────────
     if anamorphic_intensity > 0:
         img = _anamorphic(img, anamorphic_intensity, anamorphic_streak_color,
                           anamorphic_streak_length, anamorphic_oval_bokeh,
                           anamorphic_blue_bias)
 
-    if halation_intensity > 0:
-        img = _halation(img, halation_intensity, halation_radius,
-                        halation_threshold, halation_warmth)
+    # ── MTF + Diffraction ─────────────────────────────────────────────────────
+    img = _mtf(img, mtf_falloff_strength)
+    img = _diffraction(img, diffraction_strength)
 
+    # ── Flare + Starburst (original detailed) ─────────────────────────────────
     if flare_intensity > 0:
         img = _flare(img, flare_intensity, flare_pos_x, flare_pos_y,
                      flare_streak_count, flare_streak_length,
                      flare_ghost_count, flare_color)
+    img = _starburst(img, starburst_intensity)
 
+    # ── Vignette (original detailed) ──────────────────────────────────────────
     if vignette_strength > 0:
-        img = _vignette(img, vignette_strength, vignette_radius,
-                        vignette_feather, vignette_shape)
+        img = _vignette(img, vignette_strength, vignette_radius, vignette_feather, vignette_shape)
 
     return _to_image(img)

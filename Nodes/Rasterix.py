@@ -853,7 +853,7 @@ class PrimereRasterixLens:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("IMAGE",)
     FUNCTION = "primere_rasterix_lens"
-    CATEGORY = TREE_RASTERIX
+    CATEGORY = "Primere/Rasterix"   # or your original TREE_RASTERIX
 
     SECTION_TITLES = [
         {"before": "image", "name": "lensfx_input", "title": "🖼️ Input Image", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Force-input image to which all camera lens simulation effects will be applied in sequence."},
@@ -866,6 +866,12 @@ class PrimereRasterixLens:
         {"before": "use_focus", "name": "lensfx_focus", "title": "🔍 Focus Falloff", "color": "#30336B", "text_color": "#EAF1F8", "label": "Enable selective focus blur: radius, mode (horizontal/vertical/radial/oval), position, width, and feather. Inspired by Adobe Photoshop."},
         {"before": "use_spherical", "name": "lensfx_spherical", "title": "🌐 Spherical Aberration", "color": "#130F40", "text_color": "#EAF1F8", "label": "Toggle spherical aberration: intensity, radius, and zone (centre/edge/global) for soft-focus effects."},
         {"before": "use_anamorphic", "name": "lensfx_anamorphic", "title": "📽️ Anamorphic Lens", "color": "#0C2461", "text_color": "#EAF1F8", "label": "Apply anamorphic characteristics: intensity, streak color/length, oval bokeh, and blue bias for cinematic look. Inspired by Blackmagic DaVinci Resolve."},
+
+        # ── NEW SECTIONS ───────────────────────────────────────────────────────
+        {"before": "use_coating_spectral", "name": "lensfx_coating_spectral", "title": "🔬 Coating & Spectral", "color": "#2C3E50", "text_color": "#EAF1F8", "label": "Lens coating quality and per-channel spectral response for film/sensor simulation."},
+        {"before": "use_advanced_aberrations", "name": "lensfx_advanced_aberrations", "title": "📐 Advanced Optical Aberrations", "color": "#34495E", "text_color": "#EAF1F8", "label": "Field curvature, astigmatism, coma, breathing, and anamorphic squeeze for realistic lens imperfections."},
+        {"before": "use_sensor_effects", "name": "lensfx_sensor_effects", "title": "📸 Sensor & Bloom Effects", "color": "#3D5A6B", "text_color": "#EAF1F8", "label": "Sensor bloom, glare, and microlens array simulation."},
+        {"before": "use_creative_effects", "name": "lensfx_creative_effects", "title": "✨ Creative Optical Effects", "color": "#4C6B7A", "text_color": "#EAF1F8", "label": "Longitudinal CA, MTF falloff, diffraction, and starburst for artistic lens looks."},
     ]
 
     @classmethod
@@ -874,6 +880,7 @@ class PrimereRasterixLens:
             "required": {
                 "image": ("IMAGE", {"forceInput": True}),
 
+                # ── Original effects (unchanged) ─────────────────────────────────
                 "use_vignette":      ("BOOLEAN", {"default": False, "label_off": "Ignore vignette", "label_on": "Apply vignette"}),
                 "vignette_strength": ("FLOAT", {"default": 0.5,  "min": 0.0, "max": 1.0,  "step": 0.01}),
                 "vignette_radius":   ("FLOAT", {"default": 0.65, "min": 0.0, "max": 1.0,  "step": 0.01}),
@@ -882,7 +889,7 @@ class PrimereRasterixLens:
 
                 "use_chroma":          ("BOOLEAN", {"default": False, "label_off": "Ignore chromatic aberration", "label_on": "Apply chromatic aberration"}),
                 "chroma_intensity":    ("FLOAT", {"default": 2.0, "min": 0.0,  "max": 10.0, "step": 0.1}),
-                "chroma_falloff":      ("FLOAT", {"default": 0.5, "min": 0.0,  "max": 1.0,  "step": 0.01}),
+                "chroma_falloff":      ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0,  "step": 0.01}),
                 "chroma_fringe_color": (["red_blue", "green_magenta", "yellow_purple"], {"default": "red_blue"}),
 
                 "use_bokeh":             ("BOOLEAN", {"default": False, "label_off": "Ignore bokeh", "label_on": "Apply bokeh"}),
@@ -928,30 +935,66 @@ class PrimereRasterixLens:
                 "anamorphic_streak_color":  (["blue", "warm", "white"], {"default": "blue"}),
                 "anamorphic_streak_length": ("FLOAT", {"default": 0.8, "min": 0.0, "max": 1.0, "step": 0.01}),
                 "anamorphic_oval_bokeh":    ("FLOAT", {"default": 0.4, "min": 0.0, "max": 1.0, "step": 0.01}),
-                "anamorphic_blue_bias":     ("FLOAT", {"default": 0.3, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "anamorphic_blue_bias":     ("FLOAT", {"default": 0.3, "min": 0.0, "max": 1.0,  "step": 0.01}),
+
+                # ── NEW ADVANCED GROUPS ─────────────────────────────────────────────
+                "use_coating_spectral": ("BOOLEAN", {"default": False, "label_off": "Ignore coating & spectral", "label_on": "Apply coating & spectral"}),
+                "coating_quality":      ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "spectral_red":         ("FLOAT", {"default": 1.0, "min": 0.5, "max": 1.5, "step": 0.01}),
+                "spectral_green":       ("FLOAT", {"default": 1.0, "min": 0.5, "max": 1.5, "step": 0.01}),
+                "spectral_blue":        ("FLOAT", {"default": 1.0, "min": 0.5, "max": 1.5, "step": 0.01}),
+
+                "use_advanced_aberrations": ("BOOLEAN", {"default": False, "label_off": "Ignore advanced aberrations", "label_on": "Apply advanced aberrations"}),
+                "field_curvature_strength": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "astigmatism_strength":     ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "astigmatism_angle":        ("INT",   {"default": 0, "min": -90, "max": 90, "step": 1}),
+                "coma_strength":            ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "breathing_strength":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "anamorphic_squeeze_ratio": ("FLOAT", {"default": 1.0, "min": 0.5, "max": 2.0, "step": 0.01}),
+
+                "use_sensor_effects":        ("BOOLEAN", {"default": False, "label_off": "Ignore sensor effects", "label_on": "Apply sensor effects"}),
+                "sensor_bloom_intensity":    ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "sensor_bloom_radius":       ("FLOAT", {"default": 10.0, "min": 1.0, "max": 50.0, "step": 0.5}),
+                "sensor_bloom_threshold":    ("FLOAT", {"default": 0.8, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "glare_intensity":           ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "microlens_vignette_strength": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "microlens_color_shift":     ("FLOAT", {"default": 0.0, "min": -0.5, "max": 0.5, "step": 0.01}),
+
+                "use_creative_effects":      ("BOOLEAN", {"default": False, "label_off": "Ignore creative effects", "label_on": "Apply creative effects"}),
+                "loca_intensity":            ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "mtf_falloff_strength":      ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "diffraction_strength":      ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
+                "starburst_intensity":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0,  "step": 0.01}),
             }
         }
 
     def primere_rasterix_lens(self, **kwargs):
         p = SimpleNamespace(**kwargs)
 
-        pil_img = utility.tensor_to_image(p.image)
-        pil_img = img_lens_effects.img_lens_effect(
+        pil_img = utility.tensor_to_image(p.image)   # your existing utility
+
+        pil_img = img_lens_effects.img_lens_effect(   # ← now imports the merged back-end
             image=pil_img,
+
+            # Original effects (zero when disabled)
             vignette_strength=p.vignette_strength if p.use_vignette else 0,
             vignette_radius=p.vignette_radius,
             vignette_feather=p.vignette_feather,
             vignette_shape=p.vignette_shape,
+
             chroma_intensity=p.chroma_intensity if p.use_chroma else 0,
             chroma_falloff=p.chroma_falloff,
             chroma_fringe_color=p.chroma_fringe_color,
+
             bokeh_radius=p.bokeh_radius if p.use_bokeh else 0,
             bokeh_blades=p.bokeh_blades,
             bokeh_highlight_boost=p.bokeh_highlight_boost,
             bokeh_cat_eye=p.bokeh_cat_eye,
+
             distortion_barrel=p.distortion_barrel if p.use_distortion else 0,
             distortion_pincushion=p.distortion_pincushion if p.use_distortion else 0,
             distortion_zoom=p.distortion_zoom,
+
             flare_intensity=p.flare_intensity if p.use_flare else 0,
             flare_pos_x=p.flare_pos_x,
             flare_pos_y=p.flare_pos_y,
@@ -959,24 +1002,54 @@ class PrimereRasterixLens:
             flare_streak_length=p.flare_streak_length,
             flare_ghost_count=p.flare_ghost_count,
             flare_color=p.flare_color,
+
             halation_intensity=p.halation_intensity if p.use_halation else 0,
             halation_radius=p.halation_radius,
             halation_threshold=p.halation_threshold,
             halation_warmth=p.halation_warmth,
+
             focus_blur_radius=p.focus_blur_radius if p.use_focus else 0,
             focus_mode=p.focus_mode,
             focus_pos=p.focus_pos,
             focus_width=p.focus_width,
             focus_feather=p.focus_feather,
+
             spherical_intensity=p.spherical_intensity if p.use_spherical else 0,
             spherical_radius=p.spherical_radius,
             spherical_zone=p.spherical_zone,
+
             anamorphic_intensity=p.anamorphic_intensity if p.use_anamorphic else 0,
             anamorphic_streak_color=p.anamorphic_streak_color,
             anamorphic_streak_length=p.anamorphic_streak_length,
             anamorphic_oval_bokeh=p.anamorphic_oval_bokeh,
             anamorphic_blue_bias=p.anamorphic_blue_bias,
+
+            # New advanced effects
+            coating_quality=p.coating_quality if p.use_coating_spectral else 1.0,
+            spectral_red=p.spectral_red if p.use_coating_spectral else 1.0,
+            spectral_green=p.spectral_green if p.use_coating_spectral else 1.0,
+            spectral_blue=p.spectral_blue if p.use_coating_spectral else 1.0,
+
+            field_curvature_strength=p.field_curvature_strength if p.use_advanced_aberrations else 0,
+            astigmatism_strength=p.astigmatism_strength if p.use_advanced_aberrations else 0,
+            astigmatism_angle=p.astigmatism_angle if p.use_advanced_aberrations else 0,
+            coma_strength=p.coma_strength if p.use_advanced_aberrations else 0,
+            breathing_strength=p.breathing_strength if p.use_advanced_aberrations else 0,
+            anamorphic_squeeze_ratio=p.anamorphic_squeeze_ratio if p.use_advanced_aberrations else 1.0,
+
+            sensor_bloom_intensity=p.sensor_bloom_intensity if p.use_sensor_effects else 0,
+            sensor_bloom_radius=p.sensor_bloom_radius if p.use_sensor_effects else 10.0,
+            sensor_bloom_threshold=p.sensor_bloom_threshold if p.use_sensor_effects else 0.8,
+            glare_intensity=p.glare_intensity if p.use_sensor_effects else 0,
+            microlens_vignette_strength=p.microlens_vignette_strength if p.use_sensor_effects else 0,
+            microlens_color_shift=p.microlens_color_shift if p.use_sensor_effects else 0,
+
+            loca_intensity=p.loca_intensity if p.use_creative_effects else 0,
+            mtf_falloff_strength=p.mtf_falloff_strength if p.use_creative_effects else 0,
+            diffraction_strength=p.diffraction_strength if p.use_creative_effects else 0,
+            starburst_intensity=p.starburst_intensity if p.use_creative_effects else 0,
         )
+
         return (utility.image_to_tensor(pil_img),)
 
 class PrimereHistogram:
