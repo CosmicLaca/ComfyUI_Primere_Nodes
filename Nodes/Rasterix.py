@@ -856,6 +856,7 @@ class PrimereRasterixLens:
     CATEGORY = TREE_RASTERIX
 
     SECTION_TITLES = [
+        {"before": "image", "name": "lensfx_input", "title": "🖼️ Input Image", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Force-input image to which all camera lens simulation effects will be applied in sequence."},
         {"before": "use_vignette", "name": "lensfx_vignette", "title": "🌑 Vignette Control", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Master toggle and parameters for vignette: darken corners/edges with strength, radius, feather, and shape. Inspired by Adobe Lightroom."},
         {"before": "use_chroma", "name": "lensfx_chromatic", "title": "🌈 Chromatic Aberration", "color": "#243B55", "text_color": "#EAF1F8", "label": "Toggle and control chromatic aberration: intensity, falloff, and fringe color for realistic color fringing. Inspired by Adobe Camera Raw."},
         {"before": "use_bokeh", "name": "lensfx_bokeh", "title": "✨ Bokeh Effect", "color": "#1A2A6C", "text_color": "#EAF1F8", "label": "Enable bokeh simulation: radius, blade count, highlight boost, and cat-eye shaping for dreamy out-of-focus highlights. Inspired by Adobe Photoshop."},
