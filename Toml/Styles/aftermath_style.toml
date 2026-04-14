@@ -1,0 +1,56 @@
+[Aftermath]
+
+   [Aftermath.N_0]
+      MainStyle = "Aftermath"
+      SubStyle = ""
+      Positive = "Environment carries subtle traces of past events, objects and surroundings imply prior activity without showing it directly, the scene feels lived in or recently altered, narrative is suggested through absence and residual details, atmosphere holds quiet tension and implicit history rather than explicit action."
+
+   [Aftermath.N_1]
+      MainStyle = "Aftermath"
+      SubStyle = "Recently abandoned"
+      Positive = "Space appears to have been occupied moments ago but is now empty, objects remain slightly displaced, subtle signs of human presence linger, lighting and composition emphasize sudden absence, the environment feels paused in time with a quiet sense of interruption."
+
+   [Aftermath.N_2]
+      MainStyle = "Aftermath"
+      SubStyle = "Post-event silence"
+      Positive = "Scene reflects the calm after a significant event, no visible action remains but the atmosphere is heavy with implication, stillness dominates, subtle disorder or traces suggest something has just occurred, creating emotional tension through quiet emptiness."
+
+   [Aftermath.N_3]
+      MainStyle = "Aftermath"
+      SubStyle = "Gradual decay"
+      Positive = "Environment shows signs of slow deterioration over time, materials break down, surfaces age, small details reveal long-term neglect, the scene communicates passage of time through wear, erosion, and subtle degradation rather than dramatic destruction."
+
+   [Aftermath.N_4]
+      MainStyle = "Aftermath"
+      SubStyle = "Interrupted activity"
+      Positive = "Objects and elements appear mid-use or mid-action but are left incomplete, suggesting a sudden stop, compositions imply motion or purpose that has been halted, creating narrative tension through unfinished states and abandoned intention."
+
+   [Aftermath.N_5]
+      MainStyle = "Aftermath"
+      SubStyle = "Forgotten objects"
+      Positive = "Personal or functional objects remain without their owner, placement feels meaningful and intentional, each item hints at a story, the scene builds emotional context through absence, focusing on what was left behind rather than who left it."
+
+   [Aftermath.N_6]
+      MainStyle = "Aftermath"
+      SubStyle = "Subtle disorder"
+      Positive = "Environment is mostly intact but contains small irregularities, displaced elements, slight asymmetry, and minor inconsistencies, suggesting prior disturbance, the scene feels natural but not perfectly ordered, creating realism and narrative depth."
+
+   [Aftermath.N_7]
+      MainStyle = "Aftermath"
+      SubStyle = "Residual traces"
+      Positive = "Faint marks, impressions, or environmental changes indicate previous presence or activity, footprints, imprints, or subtle alterations remain visible, the scene communicates history through indirect evidence rather than direct depiction."
+
+   [Aftermath.N_8]
+      MainStyle = "Aftermath"
+      SubStyle = "Lingering warmth"
+      Positive = "Environment suggests recent human presence through subtle cues like warmth, light, or arrangement, objects feel recently used, atmosphere carries a soft emotional residue, creating a sense of closeness without visible subjects."
+
+   [Aftermath.N_9]
+      MainStyle = "Aftermath"
+      SubStyle = "Emotional residue"
+      Positive = "Scene conveys lingering emotional tone without showing characters, arrangement, lighting, and environment imply prior emotional states such as tension, comfort, or conflict, the space feels psychologically charged despite being empty."
+
+   [Aftermath.N_10]
+      MainStyle = "Aftermath"
+      SubStyle = "Silent narrative"
+      Positive = "The entire environment acts as a storytelling device, composition and object placement imply a narrative arc without explicit action, viewer infers events from context, creating a strong sense of story through stillness and implication."

@@ -1,0 +1,56 @@
+[Subsurface]
+
+   [Subsurface.N_0]
+      MainStyle = "Subsurface"
+      SubStyle = ""
+      Positive = "Light penetrates beneath the surface of materials rather than reflecting immediately, creating soft internal diffusion and subtle glow, forms appear to have depth beyond their exterior, edges are gently softened by internal light transport, the material feels physically rich and volumetric, not flat, with realistic interaction between light and internal structure."
+
+   [Subsurface.N_1]
+      MainStyle = "Subsurface"
+      SubStyle = "Subsurface scattering"
+      Positive = "Light enters the material and scatters internally before exiting at a different point, producing soft translucent shading especially in organic materials like skin, wax, or marble, highlights bloom gently, shadows retain detail, edges glow subtly, giving a lifelike depth and softness rather than hard surface reflection."
+
+   [Subsurface.N_2]
+      MainStyle = "Subsurface"
+      SubStyle = "Translucent layering"
+      Positive = "Multiple semi-transparent layers overlap within the material, allowing light to pass through and interact with internal strata, creating depth, color blending, and soft diffusion, inner structures are partially visible, producing a complex volumetric appearance with gradual transitions and internal complexity."
+
+   [Subsurface.N_3]
+      MainStyle = "Subsurface"
+      SubStyle = "Internal fracturing"
+      Positive = "Cracks and fractures exist inside the material rather than on the surface, creating intricate internal patterns that catch and scatter light, the structure appears stressed or crystalline, with sharp internal lines contrasted by smooth outer surfaces, producing a visually rich and physically complex interior."
+
+   [Subsurface.N_4]
+      MainStyle = "Subsurface"
+      SubStyle = "Organic tissue depth"
+      Positive = "Material behaves like layered biological tissue, with subtle color variation, soft translucency, and depth beneath the surface, light diffuses unevenly through internal structures, creating lifelike complexity, gradients shift gently, and the surface feels alive with underlying form and density variation."
+
+   [Subsurface.N_5]
+      MainStyle = "Subsurface"
+      SubStyle = "Wax diffusion"
+      Positive = "Soft, milky translucency similar to wax, where light penetrates and spreads smoothly, creating a gentle glow and rounded highlights, edges appear slightly blurred, internal diffusion softens contrast, producing a calm, warm, and physically believable material response."
+
+   [Subsurface.N_6]
+      MainStyle = "Subsurface"
+      SubStyle = "Gelatinous volume"
+      Positive = "Semi-liquid translucent material with internal softness and subtle wobble-like visual qualities, light passes through with uneven scattering, internal density appears variable, creating depth and organic irregularity, surfaces feel soft and flexible rather than rigid."
+
+   [Subsurface.N_7]
+      MainStyle = "Subsurface"
+      SubStyle = "Ice internal structure"
+      Positive = "Cold translucent material with trapped bubbles, internal cracks, and layered density variations, light refracts and scatters through the volume, creating sharp highlights and deep internal detail, the structure feels solid yet optically complex with visible inner formations."
+
+   [Subsurface.N_8]
+      MainStyle = "Subsurface"
+      SubStyle = "Resin depth"
+      Positive = "Clear or tinted resin-like material with suspended particles or inclusions, strong sense of depth within a transparent volume, light refracts and reflects internally, creating layered visual interest, surfaces are smooth while internal elements float within the medium."
+
+   [Subsurface.N_9]
+      MainStyle = "Subsurface"
+      SubStyle = "Marble translucency"
+      Positive = "Stone material with subtle translucency allowing light to penetrate slightly beneath the surface, creating soft glowing edges and visible internal veining, the structure appears dense yet softly illuminated, combining solidity with delicate internal light behavior."
+
+   [Subsurface.N_10]
+      MainStyle = "Subsurface"
+      SubStyle = "Diffused light penetration"
+      Positive = "Light gradually loses intensity as it travels through the material, creating smooth gradients and soft internal illumination, no harsh transitions, the volume appears filled with light, giving a calm, immersive, and physically coherent sense of depth and presence."

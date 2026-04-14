@@ -1,0 +1,56 @@
+[ScientificPhenomena]
+
+   [ScientificPhenomena.N_0]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = ""
+      Positive = "Visual representation of complex natural and physical processes, abstract yet grounded in real scientific behavior, patterns emerge from underlying rules rather than artistic intention, the scene feels governed by invisible forces, structured, dynamic, and intellectually driven rather than purely aesthetic."
+
+   [ScientificPhenomena.N_1]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Fluid turbulence"
+      Positive = "Chaotic fluid motion with swirling vortices and unpredictable flow patterns, smooth regions transition into complex turbulence, motion appears continuous and dynamic, structures form and dissolve rapidly, creating a highly energetic and naturalistic flow behavior."
+
+   [ScientificPhenomena.N_2]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Magnetic field lines"
+      Positive = "Invisible magnetic forces become visible as flowing curved lines, forming structured patterns around objects, lines bend, converge, and diverge in smooth arcs, creating an organized yet dynamic field structure that suggests underlying physical forces."
+
+   [ScientificPhenomena.N_3]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Wave interference"
+      Positive = "Overlapping wave patterns create regions of constructive and destructive interference, forming repeating bands, ripples, and complex oscillating structures, the visual result is rhythmic, mathematical, and highly structured with alternating intensity."
+
+   [ScientificPhenomena.N_4]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Plasma dynamics"
+      Positive = "Energetic, glowing matter in a highly dynamic state, flowing and shifting with irregular, filament-like structures, intense light emission and color variation suggest high energy, motion appears unstable yet cohesive, driven by invisible forces."
+
+   [ScientificPhenomena.N_5]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Particle dispersion"
+      Positive = "Fine particles spread outward from a source, forming gradients of density, motion appears directional yet diffusive, individual elements remain small but collectively create structured patterns, suggesting motion through space and interaction with forces."
+
+   [ScientificPhenomena.N_6]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Fractal growth"
+      Positive = "Self-similar structures repeat at multiple scales, branching patterns expand recursively, complexity increases with scale, the form feels mathematically generated yet organic, with intricate detail emerging from simple rules."
+
+   [ScientificPhenomena.N_7]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Energy field"
+      Positive = "Invisible energy becomes visible as gradients, waves, or distortions in space, subtle fluctuations suggest continuous motion, the environment appears influenced by a field that alters perception, light, or structure in a coherent but unseen way."
+
+   [ScientificPhenomena.N_8]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Thermal gradients"
+      Positive = "Temperature differences become visible through smooth transitions, distortion, or color variation, heat appears to flow and spread, creating gradients and subtle movement, the scene feels physically reactive and dynamically balanced."
+
+   [ScientificPhenomena.N_9]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Wave propagation"
+      Positive = "Energy travels through space in organized wavefronts, patterns expand outward in rhythmic motion, repetition and spacing create a sense of structured movement, the scene emphasizes transmission and continuity of motion."
+
+   [ScientificPhenomena.N_10]
+      MainStyle = "ScientificPhenomena"
+      SubStyle = "Field distortion"
+      Positive = "Space itself appears warped or altered by invisible forces, straight lines bend, forms distort subtly, the environment reacts to an unseen influence, creating a sense of tension and underlying physical interaction affecting the entire scene."

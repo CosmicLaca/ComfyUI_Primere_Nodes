@@ -1,0 +1,56 @@
+[OrganicProcesses]
+
+   [OrganicProcesses.N_0]
+      MainStyle = "OrganicProcesses"
+      SubStyle = ""
+      Positive = "Visual emphasis on natural processes of growth and decay over time, materials evolve rather than remain static, subtle transformation is visible in structure and surface, organic change introduces irregularity, asymmetry, and layered complexity, the scene feels alive with progression, erosion, or accumulation."
+
+   [OrganicProcesses.N_1]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Mold spread"
+      Positive = "Irregular organic growth spreads across surfaces in branching, clustered patterns, soft fuzzy textures and subtle color variation emerge, edges are uneven and creeping, the process feels gradual and invasive, creating a sense of biological expansion over time."
+
+   [OrganicProcesses.N_2]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Corrosion"
+      Positive = "Chemical degradation alters material surfaces, producing rough textures, oxidation patterns, and color shifts, edges become brittle and uneven, structural integrity appears weakened, the surface tells a story of long-term exposure and environmental interaction."
+
+   [OrganicProcesses.N_3]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Overgrowth"
+      Positive = "Natural elements such as plants or organic matter reclaim and cover structures, growth follows irregular paths, intertwining and layering over surfaces, blending artificial and natural forms, creating a dense and immersive sense of environmental takeover."
+
+   [OrganicProcesses.N_4]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Rot decomposition"
+      Positive = "Material breaks down into softer, fragmented forms, textures become uneven, moist, and unstable, structural clarity is lost, organic decay introduces dark tones and irregular patterns, conveying advanced stages of natural breakdown."
+
+   [OrganicProcesses.N_5]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Crystallization"
+      Positive = "Ordered mineral structures emerge and grow over time, forming sharp geometric patterns, surfaces become encrusted with reflective crystalline formations, growth appears structured yet organic, creating contrast between natural process and precise geometry."
+
+   [OrganicProcesses.N_6]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Fungal network"
+      Positive = "Interconnected organic filaments spread beneath and across surfaces, forming complex branching networks, subtle translucency and layered depth suggest hidden systems, growth appears intelligent and adaptive, extending in all directions."
+
+   [OrganicProcesses.N_7]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Erosion"
+      Positive = "Gradual removal of material through environmental forces creates smooth worn surfaces, softened edges, and natural shaping, textures reveal long-term exposure, forms appear sculpted by time rather than designed."
+
+   [OrganicProcesses.N_8]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Biological layering"
+      Positive = "Multiple layers of organic material accumulate over time, creating stratified textures with variation in color and density, surfaces feel complex and lived-in, with visible history embedded in each layer."
+
+   [OrganicProcesses.N_9]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Decay contrast"
+      Positive = "Juxtaposition of intact and decayed areas within the same scene, sharp contrast between preservation and degradation, highlights the process of transformation, drawing attention to the boundary between life and breakdown."
+
+   [OrganicProcesses.N_10]
+      MainStyle = "OrganicProcesses"
+      SubStyle = "Organic bloom"
+      Positive = "Rapid natural expansion of organic forms, soft shapes and fluid growth patterns spread outward, colors may intensify or shift subtly, creating a sense of vitality and active biological emergence."

@@ -1,0 +1,56 @@
+[Perception]
+
+   [Perception.N_0]
+      MainStyle = "Perception"
+      SubStyle = ""
+      Positive = "Perception shaped by human visual cognition rather than objective reality, subtle distortions emerge from the way the brain interprets incomplete or ambiguous information, the scene feels subjectively processed, slightly unstable, with micro inconsistencies, visual interpretation dominates over physical accuracy, gentle cognitive bias in how forms are recognized and connected, not purely optical but psychologically filtered perception."
+
+   [Perception.N_1]
+      MainStyle = "Perception"
+      SubStyle = "Pareidolia"
+      Positive = "Random patterns and chaotic textures begin to suggest recognizable forms such as faces, eyes, or figures without being fully defined, ambiguous structures hover between noise and meaning, the brain attempts to impose order on randomness, subtle illusions of familiarity emerge from abstract shapes, partially formed features appear and disappear depending on attention, the image feels psychologically suggestive rather than explicit."
+
+   [Perception.N_2]
+      MainStyle = "Perception"
+      SubStyle = "Peripheral vision"
+      Positive = "Central area remains sharp and highly detailed while outer regions degrade into softness, blur, and reduced clarity, edges of the frame exhibit lower resolution, muted contrast, and slight distortion, visual information falls off gradually from the focal point, simulating natural human vision where attention is concentrated centrally, periphery feels less reliable and slightly unstable."
+
+   [Perception.N_3]
+      MainStyle = "Perception"
+      SubStyle = "Motion smear"
+      Positive = "Moving elements leave behind faint layered trails and ghosted silhouettes, temporal blending creates semi-transparent overlaps of motion, forms appear stretched across time rather than frozen, dynamic movement is integrated into a continuous visual flow, edges are softened by motion persistence, the scene conveys the perception of movement rather than a single frozen instant."
+
+   [Perception.N_4]
+      MainStyle = "Perception"
+      SubStyle = "Afterimage"
+      Positive = "Residual visual impressions linger after bright or high contrast stimuli, faint complementary color ghosts and subtle silhouettes echo around objects, light appears to persist momentarily, edges may glow or leave traces, perception includes temporal carryover from previous visual states, the image feels like a continuation of vision rather than a clean frame."
+
+   [Perception.N_5]
+      MainStyle = "Perception"
+      SubStyle = "Depth compression"
+      Positive = "Spatial distances appear visually flattened, foreground and background elements feel unnaturally close together, depth cues are reduced or minimized, perspective appears compressed, layering is present but lacks strong separation, the scene feels optically condensed, as if viewed through a long focal perception, reducing the sense of three dimensional space."
+
+   [Perception.N_6]
+      MainStyle = "Perception"
+      SubStyle = "Tunnel vision"
+      Positive = "Extreme focus on a central subject with everything else fading into darkness, blur, or insignificance, visual attention narrows dramatically, surrounding details lose clarity and contrast, subtle vignette or perceptual isolation effect, the scene reflects intense concentration where only a small area is processed in detail while the rest is cognitively suppressed."
+
+   [Perception.N_7]
+      MainStyle = "Perception"
+      SubStyle = "Noise interpretation"
+      Positive = "Fine grain, noise, or chaotic visual data begins to organize into unstable pseudo-structures, edges appear uncertain and fluctuate between defined and undefined, the brain attempts to resolve randomness into recognizable forms, patterns seem almost meaningful but never fully resolve, visual ambiguity remains persistent, giving a sense of cognitive strain in interpretation."
+
+   [Perception.N_8]
+      MainStyle = "Perception"
+      SubStyle = "Scale ambiguity"
+      Positive = "Objects lack clear size references, making it difficult to determine whether forms are miniature or massive, conflicting spatial cues create uncertainty in scale, textures and perspective do not provide reliable measurement, the viewer cannot anchor the scene to a known dimension, resulting in a surreal but plausible ambiguity of size and proportion."
+
+   [Perception.N_9]
+      MainStyle = "Perception"
+      SubStyle = "Fragmented perception"
+      Positive = "Visual information appears incomplete or discontinuous, parts of objects are missing, obscured, or disconnected without clear physical cause, the scene feels partially processed or interrupted, forms break into segments or fail to fully resolve, perception is unstable and fragmented, as if the brain cannot fully assemble the visual input into a coherent whole."
+
+   [Perception.N_10]
+      MainStyle = "Perception"
+      SubStyle = "Echo vision"
+      Positive = "Objects and edges appear duplicated with slight offsets, creating layered visual echoes, repeated outlines suggest multiple perception passes, subtle rhythmic duplication introduces instability, forms seem to persist in space briefly before settling, the image conveys repeated perception of the same subject within a short temporal window, creating a soft visual reverberation effect."
