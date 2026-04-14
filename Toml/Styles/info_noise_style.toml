@@ -1,0 +1,61 @@
+[InformationDensity]
+   [InformationDensity.N_0]
+      MainStyle = "Information Density"
+      SubStyle = "High-density field"
+      Positive = "The frame is saturated with layered cues, micro-details, and overlapping visual channels, so interpretation requires selective filtering and active prioritization of relevant signals."
+   [InformationDensity.N_1]
+      MainStyle = "Information Density"
+      SubStyle = "Moderate structure"
+      Positive = "Visual elements are numerous but hierarchically organized, allowing rich complexity while preserving navigable attention paths and coherent scene readability."
+   [InformationDensity.N_2]
+      MainStyle = "Information Density"
+      SubStyle = "Sparse clarity"
+      Positive = "Only essential signals remain, with low element count and high semantic contrast, producing immediate comprehension and minimal cognitive overhead."
+
+[VisualNoiseSystems]
+   [VisualNoiseSystems.N_0]
+      MainStyle = "Visual Noise Systems"
+      SubStyle = "Controlled noise"
+      Positive = "Noise is intentionally distributed to add realism and texture while preserving core subject legibility, creating a balance between raw signal and interpretive stability."
+   [VisualNoiseSystems.N_1]
+      MainStyle = "Visual Noise Systems"
+      SubStyle = "Chaotic interference"
+      Positive = "Competing textures, fragmented edges, and irregular artifacts partially obscure key forms, forcing the viewer to resolve meaning under degraded signal conditions."
+   [VisualNoiseSystems.N_2]
+      MainStyle = "Visual Noise Systems"
+      SubStyle = "Compression artifacts"
+      Positive = "The scene includes banding, block structure, and quantization-like distortion as aesthetic components, framing information loss itself as a visible part of the image language."
+
+[SignalClarity]
+   [SignalClarity.N_0]
+      MainStyle = "Signal Clarity"
+      SubStyle = "Primary signal lock"
+      Positive = "A dominant visual channel remains unmistakable despite surrounding complexity, with contrast and layout engineered to keep the core message continuously readable."
+   [SignalClarity.N_1]
+      MainStyle = "Signal Clarity"
+      SubStyle = "Multi-channel decoding"
+      Positive = "Several information layers coexist, but each has clear coding through scale, color, and position, allowing the viewer to decode complex content without collapse."
+
+[EntropyControl]
+   [EntropyControl.N_0]
+      MainStyle = "Entropy Control"
+      SubStyle = "Rising entropy"
+      Positive = "Order appears to be breaking down in measured stages, with local structure dissolving into variability while global composition still hints at former system coherence."
+   [EntropyControl.N_1]
+      MainStyle = "Entropy Control"
+      SubStyle = "Low entropy discipline"
+      Positive = "Elements follow strict repetition and predictable spacing, minimizing uncertainty and emphasizing deterministic visual logic with high process transparency."
+   [EntropyControl.N_2]
+      MainStyle = "Entropy Control"
+      SubStyle = "Edge-of-chaos"
+      Positive = "The scene sits between rigid order and full randomness, where slight perturbations produce rich complexity while maintaining enough structure for meaningful interpretation."
+
+[CognitiveLoadMapping]
+   [CognitiveLoadMapping.N_0]
+      MainStyle = "Cognitive Load Mapping"
+      SubStyle = "Attention overload"
+      Positive = "Multiple high-priority cues compete simultaneously, creating deliberate attentional strain and requiring rapid triage between urgent but partially conflicting signals."
+   [CognitiveLoadMapping.N_1]
+      MainStyle = "Cognitive Load Mapping"
+      SubStyle = "Guided reduction"
+      Positive = "Visual hierarchy progressively reduces uncertainty by sequencing cues from broad context to critical detail, lowering cognitive load while preserving information depth."

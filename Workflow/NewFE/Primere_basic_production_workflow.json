@@ -1,8 +1,8 @@
 {
   "id": "8650c3f4-c506-4f99-9224-e97e0c2563f6",
   "revision": 0,
-  "last_node_id": 546,
-  "last_link_id": 5735,
+  "last_node_id": 551,
+  "last_link_id": 5747,
   "nodes": [
     {
       "id": 222,
@@ -1103,249 +1103,6 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 350,
-      "type": "PrimereLensStyles",
-      "pos": [
-        4309.74462890625,
-        1785.1158447265625
-      ],
-      "size": [
-        342.0473327636719,
-        390
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            4114
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "slot_index": 1,
-          "links": [
-            4115
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereLensStyles",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1.2,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#949454",
-      "bgcolor": "#808040"
-    },
-    {
-      "id": 348,
-      "type": "PrimereEmotionsStyles",
-      "pos": [
-        4309.61865234375,
-        1358.9742431640625
-      ],
-      "size": [
-        342.5,
-        390
-      ],
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4108
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4109
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            4110
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "slot_index": 1,
-          "links": [
-            4111
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereEmotionsStyles",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [
-        "None",
-        1,
-        "None",
-        1.2,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#949454",
-      "bgcolor": "#808040"
-    },
-    {
-      "id": 347,
-      "type": "PrimereStylePile",
-      "pos": [
-        3951.4267578125,
-        1358.7760009765625
-      ],
-      "size": [
-        344.70001220703125,
-        390
-      ],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4114
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4115
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            4108
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "slot_index": 1,
-          "links": [
-            4109
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereStylePile",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        0.8,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#949454",
-      "bgcolor": "#808040"
-    },
-    {
       "id": 221,
       "type": "PreviewImage",
       "pos": [
@@ -1502,7 +1259,7 @@
         88
       ],
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2848,7 +2605,7 @@
         340.7728271484375
       ],
       "flags": {},
-      "order": 40,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -3065,7 +2822,7 @@
         }
       },
       "widgets_values": [
-        "inside of a minimalist design style, (((office room))), interior estate photography, modern plastic table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
+        "inside of a Roma design style, (((computer room))), interior estate photography, modern glass table in the center of the room, modern and beautiful interior, photo realistic, volumetric lighting, colorful lamps on the top, large window, large TV screen"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3082,7 +2839,7 @@
         46
       ],
       "flags": {},
-      "order": 39,
+      "order": 38,
       "mode": 0,
       "inputs": [
         {
@@ -3138,7 +2895,7 @@
         46
       ],
       "flags": {},
-      "order": 41,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -3258,7 +3015,7 @@
         98
       ],
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3414,7 +3171,7 @@
         341.1094055175781
       ],
       "flags": {},
-      "order": 38,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -3567,7 +3324,7 @@
         88
       ],
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -3644,120 +3401,6 @@
       "bgcolor": "#008040"
     },
     {
-      "id": 255,
-      "type": "ReroutePrimitive|pysssss",
-      "pos": [
-        5396.643795624646,
-        -103.60845867178622
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {},
-      "order": 55,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": " ",
-          "name": "value",
-          "type": "*",
-          "link": 5725
-        }
-      ],
-      "outputs": [
-        {
-          "label": "STRING",
-          "name": "*",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            3403,
-            3414,
-            3424,
-            3434
-          ]
-        }
-      ],
-      "title": "Prompt +",
-      "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss",
-        "cnr_id": "comfyui-custom-scripts",
-        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 256,
-      "type": "ReroutePrimitive|pysssss",
-      "pos": [
-        5395.370846405896,
-        -33.9214450456876
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {},
-      "order": 57,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": " ",
-          "name": "value",
-          "type": "*",
-          "link": 5728
-        }
-      ],
-      "outputs": [
-        {
-          "label": "STRING",
-          "name": "*",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            3404,
-            3415,
-            3425,
-            3435
-          ]
-        }
-      ],
-      "title": "Prompt -",
-      "properties": {
-        "Node name for S&R": "ReroutePrimitive|pysssss",
-        "cnr_id": "comfyui-custom-scripts",
-        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 61,
       "type": "Note",
       "pos": [
@@ -3769,7 +3412,7 @@
         122.75114599869005
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -3798,7 +3441,7 @@
         486.31854248046875
       ],
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3885,7 +3528,7 @@
         458.5198974609375
       ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3972,7 +3615,7 @@
         867.0125805903626
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4059,7 +3702,7 @@
         867.0125805903626
       ],
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4146,7 +3789,7 @@
         590
       ],
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4233,7 +3876,7 @@
         590
       ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4320,7 +3963,7 @@
         590
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4407,7 +4050,7 @@
         590
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4494,7 +4137,7 @@
         590
       ],
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4581,7 +4224,7 @@
         590
       ],
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4668,7 +4311,7 @@
         590
       ],
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4755,7 +4398,7 @@
         590
       ],
       "flags": {},
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4842,7 +4485,7 @@
         590
       ],
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4929,7 +4572,7 @@
         374
       ],
       "flags": {},
-      "order": 16,
+      "order": 15,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5019,7 +4662,7 @@
         446
       ],
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5332,7 +4975,7 @@
         642.6027221679688
       ],
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5422,7 +5065,7 @@
         643.1478271484375
       ],
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5501,95 +5144,6 @@
       "bgcolor": "#025515"
     },
     {
-      "id": 349,
-      "type": "PrimereMidjourneyStyles",
-      "pos": [
-        4664.74609375,
-        1360.3826904296875
-      ],
-      "size": [
-        351.29998779296875,
-        582
-      ],
-      "flags": {},
-      "order": 37,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4110
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 4111
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "slot_index": 0,
-          "links": [
-            5715
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "slot_index": 1,
-          "links": [
-            5716
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereMidjourneyStyles",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "5a5de3b366e431d9b5f493efdcc3f192514311f2",
-        "enableTabs": false,
-        "tabWidth": 65,
-        "tabXOffset": 10,
-        "hasSecondTab": false,
-        "secondTabText": "Send Back",
-        "secondTabOffset": 80,
-        "secondTabWidth": 65,
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "version": "7.0.1"
-        }
-      },
-      "widgets_values": [
-        "None",
-        1,
-        "None",
-        1.35,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#949454",
-      "bgcolor": "#808040"
-    },
-    {
       "id": 392,
       "type": "PrimereResolution",
       "pos": [
@@ -5601,7 +5155,7 @@
         310
       ],
       "flags": {},
-      "order": 43,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -5703,7 +5257,7 @@
         1298
       ],
       "flags": {},
-      "order": 32,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -6076,7 +5630,7 @@
         1807.3454771346862
       ],
       "flags": {},
-      "order": 33,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -6109,7 +5663,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 42,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -6169,7 +5723,7 @@
         154
       ],
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 4,
       "inputs": [
         {
@@ -6372,8 +5926,8 @@
       },
       "widgets_values": [
         false,
-        0,
-        0,
+        28.40753173828125,
+        1.5,
         "medium",
         0.5
       ],
@@ -6544,7 +6098,7 @@
       },
       "widgets_values": [
         false,
-        0,
+        22.9630126953125,
         "midtones",
         50,
         0.5
@@ -6631,10 +6185,10 @@
       },
       "widgets_values": [
         false,
-        0,
-        0,
-        0,
-        0,
+        -128.888916015625,
+        8.7037353515625,
+        0.48193359375,
+        -24.66668701171875,
         "master",
         50,
         true
@@ -6677,9 +6231,9 @@
       },
       "widgets_values": [
         false,
-        0,
-        0,
-        0,
+        -7.4072265625,
+        -2.2222900390625,
+        -5.18505859375,
         "midtones",
         false,
         50
@@ -6925,7 +6479,7 @@
         138
       ],
       "flags": {},
-      "order": 35,
+      "order": 34,
       "mode": 4,
       "inputs": [
         {
@@ -7016,7 +6570,7 @@
         158
       ],
       "flags": {},
-      "order": 34,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -7427,7 +6981,7 @@
         136
       ],
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7469,7 +7023,7 @@
       "widgets_values": [
         "Random",
         214747998140357,
-        "Last seed: [156820307255158]"
+        "Last seed: [449894355645068]"
       ],
       "color": "#1414a2",
       "bgcolor": "#00008e"
@@ -7529,7 +7083,7 @@
         590
       ],
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7701,7 +7255,7 @@
         246
       ],
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7762,7 +7316,7 @@
         614
       ],
       "flags": {},
-      "order": 26,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -7948,7 +7502,7 @@
           "name": "CONTROL_DATA",
           "type": "TUPLE",
           "links": [
-            5735
+            5737
           ]
         }
       ],
@@ -7956,7 +7510,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        195252260794900,
+        380567987180496,
         "randomize",
         1,
         0,
@@ -8052,7 +7606,7 @@
         true,
         false,
         false,
-        "377 / 0%"
+        "548 / 0%"
       ],
       "color": "#611414",
       "bgcolor": "#4d0000"
@@ -8069,7 +7623,7 @@
         2048
       ],
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -8226,7 +7780,7 @@
       ],
       "size": [
         444.16538528327874,
-        1378
+        2050
       ],
       "flags": {},
       "order": 97,
@@ -8297,7 +7851,31 @@
         "blue",
         0.8,
         0.4,
-        0.3
+        0.3,
+        false,
+        1,
+        1,
+        1,
+        1,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        false,
+        0,
+        1,
+        0.8,
+        0,
+        0,
+        0,
+        false,
+        0,
+        0,
+        0,
+        0
       ],
       "color": "#6650a4",
       "bgcolor": "#523c90"
@@ -8419,7 +7997,7 @@
           "links": [
             5595,
             5596,
-            5734
+            5736
           ]
         }
       ],
@@ -8464,7 +8042,7 @@
         78
       ],
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -8519,7 +8097,7 @@
         26
       ],
       "flags": {},
-      "order": 36,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -8661,13 +8239,13 @@
           "name": "style_pos_prompt",
           "shape": 7,
           "type": "STRING",
-          "link": 5715
+          "link": 5744
         },
         {
           "name": "style_neg_prompt",
           "shape": 7,
           "type": "STRING",
-          "link": 5716
+          "link": 5745
         },
         {
           "name": "positive_l",
@@ -8790,7 +8368,7 @@
       "bgcolor": "#800000"
     },
     {
-      "id": 546,
+      "id": 547,
       "type": "PrimerePreviewImage",
       "pos": [
         2965.7981139105873,
@@ -8808,13 +8386,13 @@
           "name": "images",
           "shape": 7,
           "type": "IMAGE",
-          "link": 5734
+          "link": 5736
         },
         {
           "name": "image_metadata",
           "shape": 7,
           "type": "TUPLE",
-          "link": 5735
+          "link": 5737
         }
       ],
       "outputs": [],
@@ -8837,6 +8415,282 @@
       "bgcolor": "#408080"
     },
     {
+      "id": 548,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        3956.4811553153468,
+        1359.5925719455224
+      ],
+      "size": [
+        340,
+        414
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5742
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5743
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "emotions_style.toml",
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 550,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        4674.872527592744,
+        1360.573856233446
+      ],
+      "size": [
+        340,
+        606
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5740
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5741
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5744
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5745
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "mj_styles.toml",
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 551,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        3956.3739090390873,
+        1817.2914742435973
+      ],
+      "size": [
+        340,
+        414
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5742
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5743
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5738
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5739
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "stylepile.toml",
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 549,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        4317.311750382618,
+        1360.0800425843127
+      ],
+      "size": [
+        340,
+        414
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5738
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5739
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5740
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5741
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "lens_styles.toml",
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
       "id": 254,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -8848,7 +8702,7 @@
         26
       ],
       "flags": {},
-      "order": 25,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -8895,6 +8749,118 @@
       },
       "color": "#223",
       "bgcolor": "#335"
+    },
+    {
+      "id": 255,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5396.643795624646,
+        -103.60845867178622
+      ],
+      "size": [
+        156.10792951653457,
+        26
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": " ",
+          "name": "value",
+          "type": "*",
+          "link": 5725
+        }
+      ],
+      "outputs": [
+        {
+          "label": "STRING",
+          "name": "*",
+          "type": "*",
+          "slot_index": 0,
+          "links": [
+            3403,
+            3414,
+            3424,
+            3434
+          ]
+        }
+      ],
+      "title": "Prompt +",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.0.1"
+        }
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 256,
+      "type": "ReroutePrimitive|pysssss",
+      "pos": [
+        5395.370846405896,
+        -33.9214450456876
+      ],
+      "size": [
+        159.82453955078563,
+        26
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": " ",
+          "name": "value",
+          "type": "*",
+          "link": 5728
+        }
+      ],
+      "outputs": [
+        {
+          "label": "STRING",
+          "name": "*",
+          "type": "*",
+          "slot_index": 0,
+          "links": [
+            3404,
+            3415,
+            3425,
+            3435
+          ]
+        }
+      ],
+      "title": "Prompt -",
+      "properties": {
+        "Node name for S&R": "ReroutePrimitive|pysssss",
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "bc8922deff73f59311c05cef27b9d4caaf43e87b",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.0.1"
+        }
+      },
+      "color": "#322",
+      "bgcolor": "#533"
     }
   ],
   "links": [
@@ -10099,54 +10065,6 @@
       "CONDITIONING"
     ],
     [
-      4108,
-      347,
-      0,
-      348,
-      0,
-      "STRING"
-    ],
-    [
-      4109,
-      347,
-      1,
-      348,
-      1,
-      "STRING"
-    ],
-    [
-      4110,
-      348,
-      0,
-      349,
-      0,
-      "STRING"
-    ],
-    [
-      4111,
-      348,
-      1,
-      349,
-      1,
-      "STRING"
-    ],
-    [
-      4114,
-      350,
-      0,
-      347,
-      0,
-      "STRING"
-    ],
-    [
-      4115,
-      350,
-      1,
-      347,
-      1,
-      "STRING"
-    ],
-    [
       4187,
       289,
       0,
@@ -11115,22 +11033,6 @@
       "MODEL_KEYWORD"
     ],
     [
-      5715,
-      349,
-      0,
-      545,
-      13,
-      "STRING"
-    ],
-    [
-      5716,
-      349,
-      1,
-      545,
-      14,
-      "STRING"
-    ],
-    [
       5717,
       392,
       0,
@@ -11267,20 +11169,84 @@
       "STRING"
     ],
     [
-      5734,
+      5736,
       519,
       0,
-      546,
+      547,
       0,
       "IMAGE"
     ],
     [
-      5735,
+      5737,
       541,
       1,
-      546,
+      547,
       1,
       "TUPLE"
+    ],
+    [
+      5738,
+      551,
+      0,
+      549,
+      0,
+      "STRING"
+    ],
+    [
+      5739,
+      551,
+      1,
+      549,
+      1,
+      "STRING"
+    ],
+    [
+      5740,
+      549,
+      0,
+      550,
+      0,
+      "STRING"
+    ],
+    [
+      5741,
+      549,
+      1,
+      550,
+      1,
+      "STRING"
+    ],
+    [
+      5742,
+      548,
+      0,
+      551,
+      0,
+      "STRING"
+    ],
+    [
+      5743,
+      548,
+      1,
+      551,
+      1,
+      "STRING"
+    ],
+    [
+      5744,
+      550,
+      0,
+      545,
+      13,
+      "STRING"
+    ],
+    [
+      5745,
+      550,
+      1,
+      545,
+      14,
+      "STRING"
     ]
   ],
   "groups": [
@@ -11499,7 +11465,7 @@
         3878.659526734446,
         2437.5931673114037,
         1701.7863357750707,
-        1475.841446496458
+        2150.73861150579
       ],
       "color": "#523c90",
       "font_size": 24,
@@ -11509,13 +11475,13 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.4950000000001016,
+      "scale": 0.6588450000001359,
       "offset": [
-        -28.04895798986665,
-        473.1988286757324
+        -1018.6037907535975,
+        280.21759035846253
       ]
     },
-    "frontendVersion": "1.42.8",
+    "frontendVersion": "1.42.10",
     "node_versions": {
       "comfy-core": "0.3.12",
       "ComfyUI_Primere_Nodes": "772012d53eaa70ccfa8dcfeae2f1c2ceeeae86a7",

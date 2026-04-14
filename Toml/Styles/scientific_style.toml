@@ -54,3 +54,55 @@
       MainStyle = "ScientificPhenomena"
       SubStyle = "Field distortion"
       Positive = "Space itself appears warped or altered by invisible forces, straight lines bend, forms distort subtly, the environment reacts to an unseen influence, creating a sense of tension and underlying physical interaction affecting the entire scene."
+
+[Scientific]
+   [Scientific.N_0]
+      MainStyle = "Scientific"
+      SubStyle = "Analytical"
+      Positive = "Visual organization emphasizes measurable relationships, controlled variables, and clear structure so the image communicates evidence rather than spectacle."
+   [Scientific.N_1]
+      MainStyle = "Scientific"
+      SubStyle = "Laboratory"
+      Positive = "The setting reflects procedural discipline with instrument-ready surfaces, controlled illumination, and layout choices that support repeatable experimentation."
+   [Scientific.N_2]
+      MainStyle = "Scientific"
+      SubStyle = "Method-focused"
+      Positive = "Attention is placed on process and verification, using composition that suggests sequence, control, and transparent experimental reasoning."
+
+[Observation]
+   [Observation.N_0]
+      MainStyle = "Observation"
+      SubStyle = "Field notes"
+      Positive = "The subject is documented in context with practical realism, showing surroundings, condition, and comparative cues useful for informed interpretation."
+   [Observation.N_1]
+      MainStyle = "Observation"
+      SubStyle = "Comparative"
+      Positive = "Multiple related samples are arranged to highlight differences and similarities under consistent viewing conditions, reinforcing comparative analysis."
+   [Observation.N_2]
+      MainStyle = "Observation"
+      SubStyle = "Longitudinal"
+      Positive = "Temporal change is communicated through staged progression, enabling a clear reading of development, degradation, or adaptation over time."
+
+[Taxonomy]
+   [Taxonomy.N_0]
+      MainStyle = "Taxonomy"
+      SubStyle = "Systematic"
+      Positive = "Objects are grouped by explicit criteria with coherent category boundaries, enabling quick hierarchical understanding and precise reference."
+   [Taxonomy.N_1]
+      MainStyle = "Taxonomy"
+      SubStyle = "Morphological"
+      Positive = "Classification is driven by structural traits such as form, proportion, and boundary pattern, making distinctions visually rigorous and reproducible."
+   [Taxonomy.N_2]
+      MainStyle = "Taxonomy"
+      SubStyle = "Annotated order"
+      Positive = "Presentation supports annotation and indexing with stable orientation, standardized spacing, and repeatable display logic suitable for catalog use."
+
+[Instrumentation]
+   [Instrumentation.N_0]
+      MainStyle = "Instrumentation"
+      SubStyle = "Sensor-centric"
+      Positive = "Devices, probes, and readout systems are integrated as functional elements, showing how measurement tools shape what can be observed and inferred."
+   [Instrumentation.N_1]
+      MainStyle = "Instrumentation"
+      SubStyle = "Calibration stage"
+      Positive = "Scene emphasizes setup and calibration steps, with alignment markers and controlled references that indicate precision before data capture."

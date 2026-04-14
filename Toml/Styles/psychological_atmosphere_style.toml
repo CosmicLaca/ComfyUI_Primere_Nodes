@@ -1,0 +1,63 @@
+[PsychologicalAtmosphere]
+   [PsychologicalAtmosphere.N_0]
+      MainStyle = "Psychological Atmosphere"
+      SubStyle = "Ambient cognitive load"
+      Positive = "The environment suggests sustained mental pressure through dense visual information, constrained pathways, and layered signals that imply constant interpretation, decision making, and attentional fatigue without depicting explicit emotional performance."
+   [PsychologicalAtmosphere.N_1]
+      MainStyle = "Psychological Atmosphere"
+      SubStyle = "Quiet surveillance"
+      Positive = "Spatial arrangement implies that behavior is being monitored by systems, architecture, or social design, creating a controlled atmosphere where people would self-regulate due to perceived observation rather than visible conflict."
+   [PsychologicalAtmosphere.N_2]
+      MainStyle = "Psychological Atmosphere"
+      SubStyle = "Behavior-shaping space"
+      Positive = "Built forms, light direction, and object placement subtly guide movement and choices, making the scene feel psychologically programmed, where cognition is steered by environmental cues instead of overt instruction."
+
+[InstitutionalPressure]
+   [InstitutionalPressure.N_0]
+      MainStyle = "Institutional Pressure"
+      SubStyle = "Procedural dominance"
+      Positive = "The setting communicates rule-bound operation through repetitive modules, standardized interfaces, and impersonal order, implying that cognition is constrained by protocol, compliance, and process hierarchy."
+   [InstitutionalPressure.N_1]
+      MainStyle = "Institutional Pressure"
+      SubStyle = "Administrative inertia"
+      Positive = "Spatial logic feels optimized for control rather than comfort, with bureaucratic density and system-first organization that suggest delayed agency, slowed decisions, and cognitive friction."
+
+[CognitiveDissonance]
+   [CognitiveDissonance.N_0]
+      MainStyle = "Cognitive Dissonance"
+      SubStyle = "Conflicting cues"
+      Positive = "Multiple environmental signals imply incompatible interpretations at once, such as safety markers paired with threat-like spatial cues, producing a scene where the mind must constantly reconcile contradiction."
+   [CognitiveDissonance.N_1]
+      MainStyle = "Cognitive Dissonance"
+      SubStyle = "Unstable normality"
+      Positive = "Everyday objects and layout appear almost ordinary but contain subtle deviations in proportion, repetition, or logic, generating low-grade epistemic uncertainty rather than overt surrealism."
+
+[SocialAbsence]
+   [SocialAbsence.N_0]
+      MainStyle = "Social Absence"
+      SubStyle = "Post-occupation"
+      Positive = "The space carries signs of recent coordinated activity but lacks visible actors, implying distributed cognition and social systems that remain legible only through residual arrangement and unfinished task traces."
+   [SocialAbsence.N_1]
+      MainStyle = "Social Absence"
+      SubStyle = "Deferred interaction"
+      Positive = "Furniture orientation, object grouping, and pathway geometry indicate expected interaction that has not yet occurred, creating anticipatory social structure without direct interpersonal depiction."
+
+[TemporalDisorientation]
+   [TemporalDisorientation.N_0]
+      MainStyle = "Temporal Disorientation"
+      SubStyle = "Asynchronous layers"
+      Positive = "The environment combines artifacts from different operational timescales, making present-time cognition difficult and suggesting that users must mentally synchronize overlapping temporal systems."
+   [TemporalDisorientation.N_1]
+      MainStyle = "Temporal Disorientation"
+      SubStyle = "Delayed feedback"
+      Positive = "Spatial feedback loops appear slow or indirect, with actions implied to have consequences elsewhere or later, producing a psychologically deferred sense of causality at scene level."
+
+[CollectiveMindspace]
+   [CollectiveMindspace.N_0]
+      MainStyle = "Collective Mindspace"
+      SubStyle = "Shared inference"
+      Positive = "Environmental affordances indicate that understanding emerges collectively through distributed cues, where no single focal point explains the scene and cognition is implied as networked across positions."
+   [CollectiveMindspace.N_1]
+      MainStyle = "Collective Mindspace"
+      SubStyle = "Cultural encoding"
+      Positive = "Signs, symbols, and spatial conventions imply culturally learned interpretation frameworks, so the atmosphere reflects social cognition embedded in the environment rather than individual emotional display."

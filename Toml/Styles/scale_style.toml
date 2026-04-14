@@ -54,3 +54,52 @@
       MainStyle = "Scale"
       SubStyle = "Perspective paradox"
       Positive = "Spatial logic breaks conventional rules of perspective, angles and depth cues contradict each other, structures appear geometrically impossible yet visually coherent, the viewer perceives a stable image that cannot exist in real three dimensional space."
+
+   [Scale.N_11]
+      MainStyle = "Scale"
+      SubStyle = "Monumental contrast"
+      Positive = "A very small subject is positioned against a vast structure or landscape so proportions are instantly readable and the scene communicates physical magnitude."
+
+   [Scale.N_12]
+      MainStyle = "Scale"
+      SubStyle = "Readable reference"
+      Positive = "Known-size anchors such as people, doors, or tools are placed deliberately to stabilize dimensional understanding across foreground and background distances."
+
+   [Scale.N_13]
+      MainStyle = "Scale"
+      SubStyle = "Layered distance"
+      Positive = "Depth bands are clearly separated with atmospheric and geometric cues, allowing the viewer to perceive progression from intimate scale to expansive context."
+
+[Macro]
+   [Macro.N_0]
+      MainStyle = "Macro"
+      SubStyle = "Micro detail"
+      Positive = "Tiny structures are magnified with shallow depth and precise local texture, making ordinary materials feel unfamiliar, intricate, and physically present."
+   [Macro.N_1]
+      MainStyle = "Macro"
+      SubStyle = "Specimen isolation"
+      Positive = "The subject is isolated from distracting context so micro-features, edge behavior, and surface variation become the primary narrative of the image."
+   [Macro.N_2]
+      MainStyle = "Macro"
+      SubStyle = "Instrumental close-up"
+      Positive = "Framing and focus emulate scientific close observation, emphasizing measurable detail, controlled distance, and repeatable visual inspection."
+
+[Megastructure]
+   [Megastructure.N_0]
+      MainStyle = "Megastructure"
+      SubStyle = "Colossal built form"
+      Positive = "Massive architecture dominates the frame through repeating modules, heavy verticality, and long sightlines that communicate engineered scale beyond human comfort."
+   [Megastructure.N_1]
+      MainStyle = "Megastructure"
+      SubStyle = "Infrastructure giant"
+      Positive = "Large systems such as bridges, reactors, or transit cores are depicted as interconnected superstructures, prioritizing function, load, and material mass."
+
+[Microscale_Context]
+   [Microscale_Context.N_0]
+      MainStyle = "Microscale Context"
+      SubStyle = "World in miniature"
+      Positive = "Small constructed environments are treated as complete worlds, with believable proportion, lighting, and wear that support close narrative reading."
+   [Microscale_Context.N_1]
+      MainStyle = "Microscale Context"
+      SubStyle = "Model realism"
+      Positive = "Miniature forms retain full-scale design logic, using accurate material cues and perspective control to feel coherent at reduced size."

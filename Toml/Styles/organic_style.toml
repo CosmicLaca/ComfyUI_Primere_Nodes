@@ -54,3 +54,55 @@
       MainStyle = "OrganicProcesses"
       SubStyle = "Organic bloom"
       Positive = "Rapid natural expansion of organic forms, soft shapes and fluid growth patterns spread outward, colors may intensify or shift subtly, creating a sense of vitality and active biological emergence."
+
+[Organic]
+   [Organic.N_0]
+      MainStyle = "Organic"
+      SubStyle = "Natural flow"
+      Positive = "Forms evolve through asymmetry and gradual transitions, with curved silhouettes and variable texture that feel grown rather than engineered, creating a living visual rhythm."
+   [Organic.N_1]
+      MainStyle = "Organic"
+      SubStyle = "Living surface"
+      Positive = "Surface detail appears layered and biological, with pores, fibers, and micro-irregularities that create tactile realism and natural complexity instead of synthetic uniformity."
+   [Organic.N_2]
+      MainStyle = "Organic"
+      SubStyle = "Adaptive structure"
+      Positive = "Shape language suggests adaptation to environment, where thickness, branching, and directional growth respond to light, pressure, and ecological context in believable ways."
+
+[Botanical]
+   [Botanical.N_0]
+      MainStyle = "Botanical"
+      SubStyle = "Leaf anatomy"
+      Positive = "Plant forms are described with clear anatomical logic, including vein networks, subtle translucency, and localized variation in tone that makes each part feel biologically plausible."
+   [Botanical.N_1]
+      MainStyle = "Botanical"
+      SubStyle = "Canopy depth"
+      Positive = "Layered foliage controls light and space, producing filtered illumination, humid atmosphere, and depth transitions that feel consistent with dense natural environments."
+   [Botanical.N_2]
+      MainStyle = "Botanical"
+      SubStyle = "Seasonal transition"
+      Positive = "Color and surface condition reflect seasonal change, showing growth, maturity, or decay through coherent botanical signals rather than arbitrary decoration."
+
+[Biomorphic]
+   [Biomorphic.N_0]
+      MainStyle = "Biomorphic"
+      SubStyle = "Cell-like"
+      Positive = "Rounded modular forms resemble cellular assemblies, with soft boundaries and clustered organization that suggest biological emergence and internal logic."
+   [Biomorphic.N_1]
+      MainStyle = "Biomorphic"
+      SubStyle = "Membrane forms"
+      Positive = "Thin layered boundaries stretch and fold like living membranes, creating soft tension, internal depth, and gentle translucency across connected structures."
+   [Biomorphic.N_2]
+      MainStyle = "Biomorphic"
+      SubStyle = "Hybrid growth"
+      Positive = "Shapes feel neither purely plant nor animal, but occupy a believable organic middle ground where growth patterns and material behavior remain coherent."
+
+[Ecological]
+   [Ecological.N_0]
+      MainStyle = "Ecological"
+      SubStyle = "Interdependence"
+      Positive = "Multiple organisms and materials interact in a balanced system, with visible relationships between shelter, moisture, nutrient flow, and growth pressure."
+   [Ecological.N_1]
+      MainStyle = "Ecological"
+      SubStyle = "Micro-habitat"
+      Positive = "Small-scale environmental niches are emphasized through moisture gradients, layered debris, and localized life patterns, making the scene feel ecologically specific."

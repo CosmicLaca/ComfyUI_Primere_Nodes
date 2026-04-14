@@ -54,3 +54,56 @@
       MainStyle = "Perception"
       SubStyle = "Echo vision"
       Positive = "Objects and edges appear duplicated with slight offsets, creating layered visual echoes, repeated outlines suggest multiple perception passes, subtle rhythmic duplication introduces instability, forms seem to persist in space briefly before settling, the image conveys repeated perception of the same subject within a short temporal window, creating a soft visual reverberation effect."
+
+   [Perception.N_11]
+      MainStyle = "Perception"
+      SubStyle = "Selective focus"
+      Positive = "The composition guides attention toward chosen cues while allowing peripheral ambiguity, reproducing how human perception prioritizes salience over exhaustive detail."
+
+   [Perception.N_12]
+      MainStyle = "Perception"
+      SubStyle = "Interpretive"
+      Positive = "Visual information supports multiple readings, where framing, contrast, and timing encourage interpretation and make meaning depend on the observer."
+
+   [Perception.N_13]
+      MainStyle = "Perception"
+      SubStyle = "Sensory weighting"
+      Positive = "Some visual elements feel amplified while others recede, simulating cognitive weighting and moment-to-moment shifts in awareness rather than neutral recording."
+
+[Illusion]
+   [Illusion.N_0]
+      MainStyle = "Illusion"
+      SubStyle = "Figure-ground shift"
+      Positive = "Positive and negative space alternate in dominance so forms appear and disappear with viewing angle, creating controlled ambiguity without losing compositional coherence."
+   [Illusion.N_1]
+      MainStyle = "Illusion"
+      SubStyle = "Spatial paradox"
+      Positive = "Perspective cues intentionally conflict to produce impossible or unstable depth, making the viewer question spatial logic while still recognizing structured intent."
+   [Illusion.N_2]
+      MainStyle = "Illusion"
+      SubStyle = "Optical drift"
+      Positive = "Pattern frequency and contrast are arranged to create subtle apparent motion and perceptual vibration, giving the image a dynamic cognitive edge."
+
+[Memory]
+   [Memory.N_0]
+      MainStyle = "Memory"
+      SubStyle = "Impression trace"
+      Positive = "Details appear partially retained and emotionally filtered, as though recalled from memory, with softened boundaries and selective clarity shaped by significance."
+   [Memory.N_1]
+      MainStyle = "Memory"
+      SubStyle = "Reconstruction"
+      Positive = "The scene feels assembled from fragments of recollection, combining accurate anchors with gaps and reinterpretations that mirror how memory is rebuilt over time."
+   [Memory.N_2]
+      MainStyle = "Memory"
+      SubStyle = "Temporal bleed"
+      Positive = "Past and present visual cues overlap in a controlled way, suggesting layered time perception rather than a single fixed moment."
+
+[Cognitive_Bias]
+   [Cognitive_Bias.N_0]
+      MainStyle = "Cognitive Bias"
+      SubStyle = "Expectation-driven"
+      Positive = "Composition reflects how prior expectation shapes interpretation, allowing ordinary forms to read differently depending on contextual hints and visual priming."
+   [Cognitive_Bias.N_1]
+      MainStyle = "Cognitive Bias"
+      SubStyle = "Confirmation framing"
+      Positive = "Evidence is visually weighted toward one interpretation while alternate cues remain present, modeling selective attention and confirmation tendencies."

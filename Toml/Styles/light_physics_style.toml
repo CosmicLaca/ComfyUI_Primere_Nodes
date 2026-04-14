@@ -1,0 +1,71 @@
+[LightBehaviorPhysics]
+   [LightBehaviorPhysics.N_0]
+      MainStyle = "Light Behavior Physics"
+      SubStyle = "Complex transport"
+      Positive = "Light is treated as a physically interacting medium that scatters, refracts, reflects, and attenuates through multiple materials, producing layered illumination that feels causally coherent across the scene."
+   [LightBehaviorPhysics.N_1]
+      MainStyle = "Light Behavior Physics"
+      SubStyle = "Multi-bounce realism"
+      Positive = "Indirect illumination contributes strongly to color bleed and tonal fill, so shadowed regions still carry structured information and realistic energy transfer from surrounding surfaces."
+   [LightBehaviorPhysics.N_2]
+      MainStyle = "Light Behavior Physics"
+      SubStyle = "Spectral awareness"
+      Positive = "Different wavelengths appear to interact unequally with media, creating subtle chromatic separation and physically grounded color behavior beyond flat white-light assumptions."
+
+[RefractionSystems]
+   [RefractionSystems.N_0]
+      MainStyle = "Refraction Systems"
+      SubStyle = "Index transition"
+      Positive = "As light crosses boundaries between air, liquid, glass, and crystal-like media, direction shifts follow believable index changes, producing coherent lensing and depth distortion."
+   [RefractionSystems.N_1]
+      MainStyle = "Refraction Systems"
+      SubStyle = "Caustic projection"
+      Positive = "Focused refracted light forms structured caustic patterns on nearby surfaces, encoding geometry and motion through dynamic, physically plausible energy concentration."
+   [RefractionSystems.N_2]
+      MainStyle = "Refraction Systems"
+      SubStyle = "Dispersion split"
+      Positive = "Prismatic behavior separates light into spectral components with controlled intensity, adding chromatic complexity while preserving realistic optical consistency."
+
+[VolumetricMedia]
+   [VolumetricMedia.N_0]
+      MainStyle = "Volumetric Media"
+      SubStyle = "Participating atmosphere"
+      Positive = "Fog, dust, smoke, or aerosol volumes interact with light through forward and backward scattering, making beams visible and depth perception strongly atmosphere-dependent."
+   [VolumetricMedia.N_1]
+      MainStyle = "Volumetric Media"
+      SubStyle = "Phase-function control"
+      Positive = "Scattering anisotropy shapes how light blooms around sources and silhouettes, creating physically motivated halos, shafts, and directional haze."
+   [VolumetricMedia.N_2]
+      MainStyle = "Volumetric Media"
+      SubStyle = "Layered extinction"
+      Positive = "Different depth zones show distinct attenuation and color filtering, so distant forms fade through medium thickness rather than simple blur or uniform dimming."
+
+[InterferenceDiffraction]
+   [InterferenceDiffraction.N_0]
+      MainStyle = "Interference & Diffraction"
+      SubStyle = "Thin-film iridescence"
+      Positive = "Microscopic film thickness causes angle-dependent color shifts that produce iridescent highlights with physically plausible transitions across curved surfaces."
+   [InterferenceDiffraction.N_1]
+      MainStyle = "Interference & Diffraction"
+      SubStyle = "Diffraction spread"
+      Positive = "Fine apertures and edge structures introduce diffraction effects that gently spread and pattern light, adding wave-optic character without breaking scene realism."
+
+[PolarizationEffects]
+   [PolarizationEffects.N_0]
+      MainStyle = "Polarization Effects"
+      SubStyle = "Glare suppression"
+      Positive = "Specular reflections vary by orientation as polarization behavior changes, making highlights and transparency differ with viewing angle in a physically meaningful way."
+   [PolarizationEffects.N_1]
+      MainStyle = "Polarization Effects"
+      SubStyle = "Surface stress reveal"
+      Positive = "Polarization-sensitive interactions reveal stress-like internal patterns in transparent materials, exposing hidden structure through controlled optical anisotropy."
+
+[FluorescencePhosphorescence]
+   [FluorescencePhosphorescence.N_0]
+      MainStyle = "Fluorescence & Phosphorescence"
+      SubStyle = "Instant re-emission"
+      Positive = "Materials absorb energetic light and re-emit at longer wavelengths, producing fluorescence that appears spectrally shifted and locally intense under appropriate excitation."
+   [FluorescencePhosphorescence.N_1]
+      MainStyle = "Fluorescence & Phosphorescence"
+      SubStyle = "Persistent afterglow"
+      Positive = "Phosphorescent response lingers after excitation changes, introducing temporal light memory where surfaces continue to emit softly even as direct illumination falls away."

@@ -1,0 +1,75 @@
+[SymbolicArchetypalEncoding]
+   [SymbolicArchetypalEncoding.N_0]
+      MainStyle = "Symbolic & Archetypal Encoding"
+      SubStyle = "Layered symbol field"
+      Positive = "The scene communicates meaning through recurring symbolic motifs distributed across objects, architecture, and light behavior, so interpretation emerges from pattern relationships rather than explicit narrative statements."
+   [SymbolicArchetypalEncoding.N_1]
+      MainStyle = "Symbolic & Archetypal Encoding"
+      SubStyle = "Mythic subtext"
+      Positive = "Visual elements evoke mythological logic without literal retelling, using emblematic forms, ritual-like spatial arrangement, and timeless material language to imply deep cultural memory."
+   [SymbolicArchetypalEncoding.N_2]
+      MainStyle = "Symbolic & Archetypal Encoding"
+      SubStyle = "Archetype resonance"
+      Positive = "Composition and form suggest universal archetypal structures such as threshold, guide, guardian, ascent, descent, and transformation, creating depth that reads across different cultural contexts."
+
+[MythicFramework]
+   [MythicFramework.N_0]
+      MainStyle = "Mythic Framework"
+      SubStyle = "Heroic threshold"
+      Positive = "The environment is staged as a liminal crossing point where ordinary and symbolic worlds meet, emphasizing gateways, directional light, and spatial tension that imply initiation."
+   [MythicFramework.N_1]
+      MainStyle = "Mythic Framework"
+      SubStyle = "Cosmic order"
+      Positive = "Elements are organized around axis, cycle, and hierarchy to suggest cosmological structure, with visual rhythm implying that local events are tied to larger metaphysical systems."
+   [MythicFramework.N_2]
+      MainStyle = "Mythic Framework"
+      SubStyle = "Underworld mirror"
+      Positive = "Subterranean or shadowed spatial logic reflects hidden knowledge and confrontation with the unknown, using descent cues and reflective motifs to encode transformational trials."
+
+[ArchetypalRoles]
+   [ArchetypalRoles.N_0]
+      MainStyle = "Archetypal Roles"
+      SubStyle = "Mentor signal"
+      Positive = "Guidance is implied through stabilizing forms, directional markers, and protective visual anchors that indicate transmission of knowledge without direct character exposition."
+   [ArchetypalRoles.N_1]
+      MainStyle = "Archetypal Roles"
+      SubStyle = "Trickster disturbance"
+      Positive = "Order is subtly disrupted by paradoxical details, mirrored inversions, and playful inconsistencies that challenge certainty and force interpretive re-evaluation."
+   [ArchetypalRoles.N_2]
+      MainStyle = "Archetypal Roles"
+      SubStyle = "Shadow encounter"
+      Positive = "Hidden or rejected aspects are encoded through obscured zones, doubled forms, and unresolved contrasts, giving the scene psychological depth through symbolic confrontation."
+
+[RitualSemiotics]
+   [RitualSemiotics.N_0]
+      MainStyle = "Ritual Semiotics"
+      SubStyle = "Ceremonial geometry"
+      Positive = "Spatial composition follows ritual-like geometry with repeated alignments, concentric zones, and processional pathways that imply collective meaning-making and intentional enactment."
+   [RitualSemiotics.N_1]
+      MainStyle = "Ritual Semiotics"
+      SubStyle = "Consecrated objects"
+      Positive = "Selected objects are framed as carriers of encoded significance through placement, isolation, and light emphasis, transforming ordinary artifacts into symbolic instruments."
+   [RitualSemiotics.N_2]
+      MainStyle = "Ritual Semiotics"
+      SubStyle = "Transformative rite"
+      Positive = "Visual progression implies passage from one existential state to another, with thresholds, repetition, and directional cues signaling purification, trial, or renewal."
+
+[IconicLanguage]
+   [IconicLanguage.N_0]
+      MainStyle = "Iconic Language"
+      SubStyle = "Emblem network"
+      Positive = "Symbols are interlinked like a semantic system, where each emblem gains meaning from neighboring signs, creating a coherent iconographic grammar across the whole scene."
+   [IconicLanguage.N_1]
+      MainStyle = "Iconic Language"
+      SubStyle = "Myth-symbol synthesis"
+      Positive = "Traditional icon forms are recombined with contemporary visual structure, producing a layered style where ancient symbolic memory and modern perception operate simultaneously."
+
+[CollectiveUnconscious]
+   [CollectiveUnconscious.N_0]
+      MainStyle = "Collective Unconscious"
+      SubStyle = "Primordial pattern"
+      Positive = "Recurring motifs such as circle, spiral, tree, mountain, vessel, and mirror are embedded across scales to evoke deep-seated cognitive recognition beyond explicit storytelling."
+   [CollectiveUnconscious.N_1]
+      MainStyle = "Collective Unconscious"
+      SubStyle = "Dream archetype"
+      Positive = "The atmosphere feels dream-coherent rather than surreal-chaotic, with symbolic continuity and associative transitions that suggest shared unconscious structures."

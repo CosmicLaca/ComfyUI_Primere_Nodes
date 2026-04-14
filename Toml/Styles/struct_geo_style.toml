@@ -1,0 +1,75 @@
+[StructuralLogicGeometrySystems]
+   [StructuralLogicGeometrySystems.N_0]
+      MainStyle = "Structural Logic & Geometry Systems"
+      SubStyle = "Rule-driven composition"
+      Positive = "The scene is organized by explicit structural rules, where proportions, alignments, and load paths feel mathematically intentional and each element appears constrained by coherent geometric logic."
+   [StructuralLogicGeometrySystems.N_1]
+      MainStyle = "Structural Logic & Geometry Systems"
+      SubStyle = "Constraint hierarchy"
+      Positive = "Primary geometric constraints dominate the layout while secondary forms adapt around them, creating a clear hierarchy of structural decisions from global framework to local detail."
+   [StructuralLogicGeometrySystems.N_2]
+      MainStyle = "Structural Logic & Geometry Systems"
+      SubStyle = "Abstract order"
+      Positive = "Spatial relationships prioritize formal consistency over narrative realism, using repeated geometric grammar and strict relational ratios to express system-level order."
+
+[ArchitecturalGrammar]
+   [ArchitecturalGrammar.N_0]
+      MainStyle = "Architectural Grammar"
+      SubStyle = "Modular syntax"
+      Positive = "Built forms follow a modular language where components repeat with controlled variation, producing a readable architectural syntax that balances repetition and function."
+   [ArchitecturalGrammar.N_1]
+      MainStyle = "Architectural Grammar"
+      SubStyle = "Structural rhythm"
+      Positive = "Columns, spans, apertures, and voids are sequenced rhythmically, making the composition feel engineered through interval logic rather than decorative placement."
+   [ArchitecturalGrammar.N_2]
+      MainStyle = "Architectural Grammar"
+      SubStyle = "Programmatic zoning"
+      Positive = "Different functional zones are encoded through geometry, scale, and circulation paths, so structural logic communicates purpose before any explicit labeling."
+
+[MathematicalTopology]
+   [MathematicalTopology.N_0]
+      MainStyle = "Mathematical Topology"
+      SubStyle = "Continuous transformation"
+      Positive = "Forms appear to morph through continuous geometric deformation while preserving underlying connectivity, emphasizing topological continuity over rigid Euclidean identity."
+   [MathematicalTopology.N_1]
+      MainStyle = "Mathematical Topology"
+      SubStyle = "Surface logic"
+      Positive = "Curved manifolds and non-trivial surface relationships govern space, creating a coherent but unusual geometry where adjacency and enclosure behave by deeper rules."
+   [MathematicalTopology.N_2]
+      MainStyle = "Mathematical Topology"
+      SubStyle = "Nonlinear pathway"
+      Positive = "Circulation and visual flow follow folded or looped structures, suggesting topological navigation where shortest paths and intuitive routes are intentionally redefined."
+
+[ParametricOrder]
+   [ParametricOrder.N_0]
+      MainStyle = "Parametric Order"
+      SubStyle = "Variable-controlled pattern"
+      Positive = "Geometric repetition is driven by smoothly changing parameters, producing gradients of form that feel computed, adaptive, and mathematically linked across the whole composition."
+   [ParametricOrder.N_1]
+      MainStyle = "Parametric Order"
+      SubStyle = "Algorithmic facade"
+      Positive = "Surface articulation emerges from procedural rules, with each unit responding to neighboring conditions to create collective order from local computation."
+   [ParametricOrder.N_2]
+      MainStyle = "Parametric Order"
+      SubStyle = "Optimization trace"
+      Positive = "Structural members and voids imply performance-driven optimization, where geometry appears shaped by stress paths, efficiency criteria, and constrained solution spaces."
+
+[SymmetryAsymmetryControl]
+   [SymmetryAsymmetryControl.N_0]
+      MainStyle = "Symmetry-Asymmetry Control"
+      SubStyle = "Balanced symmetry"
+      Positive = "Global symmetry establishes stability and legibility, while subtle local variation prevents monotony and keeps the system visually alive without breaking formal balance."
+   [SymmetryAsymmetryControl.N_1]
+      MainStyle = "Symmetry-Asymmetry Control"
+      SubStyle = "Directed asymmetry"
+      Positive = "Intentional asymmetry channels attention and movement, creating dynamic imbalance that still reads as structurally justified within the governing geometric framework."
+
+[SpatialProportionSystems]
+   [SpatialProportionSystems.N_0]
+      MainStyle = "Spatial Proportion Systems"
+      SubStyle = "Canonical ratios"
+      Positive = "Key dimensions and intervals follow recognizable proportional systems, so scale transitions feel harmonized and mathematically grounded across nested spatial layers."
+   [SpatialProportionSystems.N_1]
+      MainStyle = "Spatial Proportion Systems"
+      SubStyle = "Fractal recurrence"
+      Positive = "Similar geometric relationships recur across multiple scales, generating fractal-like coherence where macro structure and micro detail obey related proportion logic."

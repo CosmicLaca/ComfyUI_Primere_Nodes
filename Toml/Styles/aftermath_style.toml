@@ -1,5 +1,4 @@
 [Aftermath]
-
    [Aftermath.N_0]
       MainStyle = "Aftermath"
       SubStyle = ""
@@ -54,3 +53,56 @@
       MainStyle = "Aftermath"
       SubStyle = "Silent narrative"
       Positive = "The entire environment acts as a storytelling device, composition and object placement imply a narrative arc without explicit action, viewer infers events from context, creating a strong sense of story through stillness and implication."
+
+   [Aftermath.N_11]
+      MainStyle = "Aftermath"
+      SubStyle = "Recent event"
+      Positive = "The scene feels like an event ended moments ago, with subtle disorder and suspended motion implying what just happened, while empty space and object placement carry the narrative without showing direct action."
+
+   [Aftermath.N_12]
+      MainStyle = "Aftermath"
+      SubStyle = "Silent remains"
+      Positive = "Visible traces of human presence remain in an otherwise still environment, and the composition suggests emotional residue through absence, interruptions, and unfinished states rather than explicit drama."
+
+   [Aftermath.N_13]
+      MainStyle = "Aftermath"
+      SubStyle = "Abrupt interruption"
+      Positive = "Objects appear paused mid-purpose, as if activity was suddenly stopped, creating tension through incompletion, implied urgency, and a quiet atmosphere that invites the viewer to infer the backstory."
+
+[Ruin]
+   [Ruin.N_0]
+      MainStyle = "Ruin"
+      SubStyle = "Weathered"
+      Positive = "Materials show long-term wear through cracks, fading, corrosion, and layered dust, communicating the passage of time with believable physical degradation and historically accumulated texture."
+   [Ruin.N_1]
+      MainStyle = "Ruin"
+      SubStyle = "Overgrown"
+      Positive = "Nature gradually reclaims built structures as vegetation spreads through fractures and openings, blending decay with organic growth so the environment feels abandoned yet still alive."
+   [Ruin.N_2]
+      MainStyle = "Ruin"
+      SubStyle = "Post-industrial"
+      Positive = "Large engineered forms remain but function has vanished, leaving behind silent infrastructure, fractured surfaces, and a muted palette that emphasizes desolation and scale."
+
+[Recovery]
+   [Recovery.N_0]
+      MainStyle = "Recovery"
+      SubStyle = "Early rebuild"
+      Positive = "Small interventions signal that restoration has begun, with provisional repairs and practical adjustments conveying resilience, cautious optimism, and a gradual return of order."
+   [Recovery.N_1]
+      MainStyle = "Recovery"
+      SubStyle = "Human return"
+      Positive = "The environment still carries scars from previous disruption, but signs of renewed use and care suggest people are returning, rebuilding routine, and transforming loss into continuity."
+   [Recovery.N_2]
+      MainStyle = "Recovery"
+      SubStyle = "Stabilized calm"
+      Positive = "Visual tension softens as the scene transitions from shock to stability, balancing remaining damage with repaired elements to express endurance rather than collapse."
+
+[Residual_Story]
+   [Residual_Story.N_0]
+      MainStyle = "Residual Story"
+      SubStyle = "Clue-driven"
+      Positive = "Narrative meaning is carried by secondary details such as misplaced objects, faint marks, and directional composition, allowing the viewer to reconstruct prior events from environmental evidence."
+   [Residual_Story.N_1]
+      MainStyle = "Residual Story"
+      SubStyle = "Emotional imprint"
+      Positive = "Atmosphere is shaped by subtle cues that suggest prior conflict, care, or urgency, making the space feel psychologically charged even without characters present."

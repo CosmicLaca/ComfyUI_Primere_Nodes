@@ -120,10 +120,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereAestheticCKPTScorer": Outputs.PrimereAestheticCKPTScorer,
     "DebugToFile": Outputs.DebugToFile,
 
-    "PrimereStylePile": Styles.PrimereStylePile,
-    "PrimereMidjourneyStyles": Styles.PrimereMidjourneyStyles,
-    "PrimereEmotionsStyles": Styles.PrimereEmotionsStyles,
-    "PrimereLensStyles": Styles.PrimereLensStyles,
+    "PrimereCustomStyles": Styles.PrimereCustomStyles,
 
     "PrimereVisualCKPT": Visuals.PrimereVisualCKPT,
     "PrimereVisualLORA": Visuals.PrimereVisualLORA,
@@ -228,10 +225,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereAestheticCKPTScorer": "Primere Aesthetic Scorer",
     "DebugToFile": "Primere Debug To File",
 
-    "PrimereStylePile": "Primere Style Pile",
-    "PrimereMidjourneyStyles": "Primere Midjourney Styles",
-    "PrimereEmotionsStyles": "Primere Emotions Styles",
-    "PrimereLensStyles": "Primere Lens Styles",
+    "PrimereCustomStyles": "Primere Custom Styles",
 
     "PrimereVisualCKPT": "Primere Visual CKPT Selector",
     "PrimereVisualLORA": "Primere Visual LORA Selector",

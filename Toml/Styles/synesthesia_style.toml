@@ -1,0 +1,75 @@
+[SensoryTranslationSynesthesia]
+   [SensoryTranslationSynesthesia.N_0]
+      MainStyle = "Sensory Translation (Synesthesia Systems)"
+      SubStyle = "Cross-sensory mapping"
+      Positive = "Visual form, color, rhythm, and texture encode non-visual sensory qualities, so the image reads as a translation layer where auditory, tactile, and gustatory information is rendered into coherent visual structure."
+   [SensoryTranslationSynesthesia.N_1]
+      MainStyle = "Sensory Translation (Synesthesia Systems)"
+      SubStyle = "Perceptual fusion"
+      Positive = "Multiple sensory channels are fused into one visual field, producing meaningful correspondences between intensity, tone, and material sensation without collapsing into random abstraction."
+   [SensoryTranslationSynesthesia.N_2]
+      MainStyle = "Sensory Translation (Synesthesia Systems)"
+      SubStyle = "Encoded sensation"
+      Positive = "The composition behaves like a sensory interface where each visual decision implies a specific non-visual stimulus, allowing viewers to infer felt qualities from structured visual cues."
+
+[SoundToImage]
+   [SoundToImage.N_0]
+      MainStyle = "Sound to Image"
+      SubStyle = "Tonal chroma"
+      Positive = "Pitch relationships are translated into hue hierarchy and luminance contrast, so harmonic and dissonant structures become visible as color systems with musical logic."
+   [SoundToImage.N_1]
+      MainStyle = "Sound to Image"
+      SubStyle = "Rhythmic geometry"
+      Positive = "Temporal rhythm is represented through repeated spacing, interval variation, and directional pulse, turning beat and syncopation into geometric cadence across the frame."
+   [SoundToImage.N_2]
+      MainStyle = "Sound to Image"
+      SubStyle = "Timbre texture"
+      Positive = "Sonic texture is encoded as surface grain and edge behavior, where roughness, softness, and spectral richness are visualized through layered material detail."
+
+[TasteToImage]
+   [TasteToImage.N_0]
+      MainStyle = "Taste to Image"
+      SubStyle = "Flavor profile"
+      Positive = "Sweetness, bitterness, acidity, saltiness, and umami are translated into color temperature, shape tension, and compositional balance, creating a readable flavor topology in visual form."
+   [TasteToImage.N_1]
+      MainStyle = "Taste to Image"
+      SubStyle = "Aftertaste gradient"
+      Positive = "Long-tail flavor persistence is represented as trailing tonal transitions and receding visual echoes, making temporal taste evolution legible as spatial progression."
+   [TasteToImage.N_2]
+      MainStyle = "Taste to Image"
+      SubStyle = "Complex palate"
+      Positive = "Layered flavor interactions are visualized through nested forms and overlapping chromatic fields, emphasizing balance, contrast, and progression rather than single-note impact."
+
+[TouchToImage]
+   [TouchToImage.N_0]
+      MainStyle = "Touch to Image"
+      SubStyle = "Haptic surface"
+      Positive = "Tactile sensation is encoded through micro-relief, softness cues, and pressure-like deformation, making the viewer perceive material touch qualities from purely visual evidence."
+   [TouchToImage.N_1]
+      MainStyle = "Touch to Image"
+      SubStyle = "Thermal feel"
+      Positive = "Perceived warmth or coolness is translated into local color behavior, diffusion patterns, and gradient edges that imply temperature without explicit thermal objects."
+   [TouchToImage.N_2]
+      MainStyle = "Touch to Image"
+      SubStyle = "Weight and resistance"
+      Positive = "Heaviness, elasticity, and friction are conveyed through structural response, compression cues, and contact geometry, allowing material resistance to be visually inferred."
+
+[MultiSensoryIntegration]
+   [MultiSensoryIntegration.N_0]
+      MainStyle = "Multi-Sensory Integration"
+      SubStyle = "Concordant channels"
+      Positive = "Different sensory mappings reinforce one another through shared visual grammar, creating a stable integrated percept where sound, taste, and touch correspond coherently."
+   [MultiSensoryIntegration.N_1]
+      MainStyle = "Multi-Sensory Integration"
+      SubStyle = "Intentional mismatch"
+      Positive = "Cross-sensory channels are partially misaligned to generate productive tension, revealing how perception adapts when expected sensory correspondences are deliberately disrupted."
+
+[SensoryNotation]
+   [SensoryNotation.N_0]
+      MainStyle = "Sensory Notation"
+      SubStyle = "Symbolic score"
+      Positive = "The image functions like a score that records sensory events as visual symbols and structured intervals, enabling repeatable interpretation rather than purely impressionistic mood."
+   [SensoryNotation.N_1]
+      MainStyle = "Sensory Notation"
+      SubStyle = "Dynamic legend"
+      Positive = "A consistent internal legend links visual attributes to sensory meaning, so complex multisensory data remains decodable across dense compositions."

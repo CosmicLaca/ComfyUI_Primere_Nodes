@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import glob
 from ..components import utility
+from ..components import stylehandler
 import os
 from PIL import Image
 from server import PromptServer
@@ -170,6 +171,49 @@ async def primere_keyword_parser(request):
             PromptServer.instance.send_sync("ModelKeywordResponse", keyword_list)
 
     return web.json_response({})
+
+routes_styles = PromptServer.instance.routes
+@routes_styles.post('/primere_unistyle_data')
+async def primere_unistyle_data(request):
+    post = await request.post()
+    selected_file = post.get('style_file')
+
+    style_dir = os.path.join(PRIMERE_ROOT, 'Toml', 'Styles')
+    source_files = []
+    if os.path.isdir(style_dir):
+        source_files = sorted([f for f in os.listdir(style_dir) if f.lower().endswith('.toml')], key=str.casefold)
+
+    if len(source_files) == 0:
+        return web.json_response({"files": [], "selected_file": None, "styles": []})
+
+    if selected_file is None or selected_file not in source_files:
+        selected_file = source_files[0]
+
+    style_path = os.path.join(style_dir, os.path.basename(selected_file))
+    style_result = stylehandler.toml2node(style_path)
+    input_dict = style_result[0]
+
+    styles = []
+    for input_key, input_value in input_dict.items():
+        if input_key.endswith('_strength'):
+            continue
+
+        values = ['None']
+        if isinstance(input_value, tuple) and len(input_value) > 0 and isinstance(input_value[0], list):
+            values = input_value[0]
+        elif isinstance(input_value, list):
+            values = input_value
+
+        strength_key = input_key + "_strength"
+        strength_cfg = {"default": 1, "min": 0.0, "max": 10.0, "step": 0.01}
+        if strength_key in input_dict:
+            raw_strength = input_dict[strength_key]
+            if isinstance(raw_strength, tuple) and len(raw_strength) > 1 and isinstance(raw_strength[1], dict):
+                strength_cfg = raw_strength[1]
+
+        styles.append({"key": input_key, "values": values, "strength": strength_cfg})
+
+    return web.json_response({"files": source_files, "selected_file": selected_file, "styles": styles})
 
 # ************ VISUALS *******************
 

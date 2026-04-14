@@ -1,0 +1,77 @@
+[TemporalStateTimePerception]
+   [TemporalStateTimePerception.N_0]
+      MainStyle = "Temporal State & Time Perception"
+      SubStyle = "Extended present"
+      Positive = "The scene feels trapped in a prolonged present moment, where motion cues are softened and event progression appears suspended, creating the impression that time is passing without clear transition."
+   [TemporalStateTimePerception.N_1]
+      MainStyle = "Temporal State & Time Perception"
+      SubStyle = "Accelerated flow"
+      Positive = "Visual layering suggests rapid temporal throughput, with compressed action traces and overlapping state changes that imply many events occurring faster than normal perception can comfortably resolve."
+   [TemporalStateTimePerception.N_2]
+      MainStyle = "Temporal State & Time Perception"
+      SubStyle = "Decelerated attention"
+      Positive = "Micro-details and subtle transitions become unusually prominent, as if perception has slowed, making small changes in light, texture, and posture read as temporally significant."
+   [TemporalStateTimePerception.N_3]
+      MainStyle = "Temporal State & Time Perception"
+      SubStyle = "Rhythmic cyclicality"
+      Positive = "Recurrent motifs and compositional loops imply repeating temporal phases, so the environment reads as cyclical rather than linear, with return points embedded in form and spacing."
+   [TemporalStateTimePerception.N_4]
+      MainStyle = "Temporal State & Time Perception"
+      SubStyle = "Split-duration awareness"
+      Positive = "Short-term urgency and long-duration background change are visible at once, creating dual temporal scales that the viewer must interpret simultaneously."
+
+[TemporalAnomalies]
+   [TemporalAnomalies.N_0]
+      MainStyle = "Temporal Anomalies"
+      SubStyle = "Asynchronous zones"
+      Positive = "Different areas of the same scene imply mismatched temporal rates, where one region appears freshly active while another appears aged or delayed, producing localized time inconsistency."
+   [TemporalAnomalies.N_1]
+      MainStyle = "Temporal Anomalies"
+      SubStyle = "Causal offset"
+      Positive = "Effects seem to appear before their causes or linger long after triggers, introducing controlled temporal dislocation while preserving overall visual coherence."
+   [TemporalAnomalies.N_2]
+      MainStyle = "Temporal Anomalies"
+      SubStyle = "Temporal echo"
+      Positive = "Residual traces of prior states remain faintly visible alongside current forms, as if previous moments have not fully collapsed and continue to imprint the present."
+
+[ChronologicalDrift]
+   [ChronologicalDrift.N_0]
+      MainStyle = "Chronological Drift"
+      SubStyle = "Era overlap"
+      Positive = "Artifacts from different historical periods coexist in a way that feels temporally entangled rather than merely eclectic, implying drift across chronological boundaries."
+   [ChronologicalDrift.N_1]
+      MainStyle = "Chronological Drift"
+      SubStyle = "Future residue"
+      Positive = "Design cues suggest that unrealized future states are leaking into current perception, creating anticipatory temporal artifacts embedded in ordinary space."
+   [ChronologicalDrift.N_2]
+      MainStyle = "Chronological Drift"
+      SubStyle = "Past persistence"
+      Positive = "Material wear, legacy structures, and obsolete systems remain actively legible, making prior temporal layers functionally present within current scene logic."
+
+[MemoryTimeLayering]
+   [MemoryTimeLayering.N_0]
+      MainStyle = "Memory Time Layering"
+      SubStyle = "Recollected present"
+      Positive = "Current perception is visibly filtered through memory, with selective emphasis and softened transitions that merge immediate observation with remembered structure."
+   [MemoryTimeLayering.N_1]
+      MainStyle = "Memory Time Layering"
+      SubStyle = "Fragmented recall"
+      Positive = "Only certain temporal fragments remain crisp while other intervals are diffuse, giving the scene a discontinuous timeline assembled from uneven retention."
+   [MemoryTimeLayering.N_2]
+      MainStyle = "Memory Time Layering"
+      SubStyle = "Temporal palimpsest"
+      Positive = "Multiple past states are partially overwritten but still detectable, producing layered temporal inscription where each revision leaves readable traces."
+
+[EventHorizonPerception]
+   [EventHorizonPerception.N_0]
+      MainStyle = "Event Horizon Perception"
+      SubStyle = "Pre-event tension"
+      Positive = "Spatial organization and directional cues imply an imminent threshold event, with temporal energy accumulating toward a near-future transition point."
+   [EventHorizonPerception.N_1]
+      MainStyle = "Event Horizon Perception"
+      SubStyle = "Post-event lag"
+      Positive = "The environment appears to be processing the aftermath of a major transition, where temporal inertia leaves delayed responses and gradually settling structures."
+   [EventHorizonPerception.N_2]
+      MainStyle = "Event Horizon Perception"
+      SubStyle = "Threshold freeze"
+      Positive = "The moment of transition is held in visual suspension, as if crossing from one state to another is paused and stretched into a stable yet unstable equilibrium."

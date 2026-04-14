@@ -54,3 +54,56 @@
       MainStyle = "Subsurface"
       SubStyle = "Diffused light penetration"
       Positive = "Light gradually loses intensity as it travels through the material, creating smooth gradients and soft internal illumination, no harsh transitions, the volume appears filled with light, giving a calm, immersive, and physically coherent sense of depth and presence."
+
+   [Subsurface.N_11]
+      MainStyle = "Subsurface"
+      SubStyle = "Skin diffusion"
+      Positive = "Light penetrates beneath the surface before re-emerging, producing soft internal diffusion and natural edge rolloff so forms feel volumetric rather than flat."
+
+   [Subsurface.N_12]
+      MainStyle = "Subsurface"
+      SubStyle = "Thin material"
+      Positive = "Semi-translucent materials transmit light through shallow depth, creating delicate glow, softened boundaries, and believable internal color transport."
+
+   [Subsurface.N_13]
+      MainStyle = "Subsurface"
+      SubStyle = "Warm backscatter"
+      Positive = "Backlighting produces warm internal scattering in thinner regions, with gradual tonal transitions that reflect physical thickness and realistic material response."
+
+[Translucency]
+   [Translucency.N_0]
+      MainStyle = "Translucency"
+      SubStyle = "Organic layers"
+      Positive = "Layered semi-opaque structures reveal depth through controlled transmission, where internal gradients and attenuation imply stacked material complexity."
+   [Translucency.N_1]
+      MainStyle = "Translucency"
+      SubStyle = "Mineral"
+      Positive = "Stone or crystal-like media carry light internally, showing banded scattering, cloudy depth, and non-uniform transmission consistent with natural inclusions."
+   [Translucency.N_2]
+      MainStyle = "Translucency"
+      SubStyle = "Wax-like body"
+      Positive = "The material exhibits soft body transmission and muted highlights, avoiding hard mirror reflection while preserving shape definition through internal glow."
+
+[Volumetric_Tissue]
+   [Volumetric_Tissue.N_0]
+      MainStyle = "Volumetric Tissue"
+      SubStyle = "Medical render"
+      Positive = "Biological tissue appears depth-aware and physically plausible, with smooth attenuation, internal softness, and light transport that respects layered anatomy."
+   [Volumetric_Tissue.N_1]
+      MainStyle = "Volumetric Tissue"
+      SubStyle = "Cross-sectional depth"
+      Positive = "Internal structure is readable through gradual density variation and controlled translucency, making the volume feel materially coherent across thickness changes."
+   [Volumetric_Tissue.N_2]
+      MainStyle = "Volumetric Tissue"
+      SubStyle = "Soft vascular hint"
+      Positive = "Subtle internal variation suggests embedded channels and micro-structure without over-detailing, preserving realism through restrained, physically consistent scattering."
+
+[Light_Transport]
+   [Light_Transport.N_0]
+      MainStyle = "Light Transport"
+      SubStyle = "Internal bounce"
+      Positive = "Illumination is redistributed inside the material before exiting, creating gentle luminance buildup, softened contours, and richer perception of internal volume."
+   [Light_Transport.N_1]
+      MainStyle = "Light Transport"
+      SubStyle = "Thickness response"
+      Positive = "Different thickness zones respond differently to light, with thinner areas glowing more strongly and thicker regions attenuating transmission in a gradual, realistic way."

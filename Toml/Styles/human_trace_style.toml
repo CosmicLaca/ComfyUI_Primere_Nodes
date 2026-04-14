@@ -1,0 +1,69 @@
+[HumanPresenceWithoutHumans]
+   [HumanPresenceWithoutHumans.N_0]
+      MainStyle = "Human Presence Without Humans"
+      SubStyle = "Recently occupied"
+      Positive = "The scene implies that people were present moments ago through warm residual cues, displaced objects, and unfinished actions, while the frame remains physically empty of visible human figures."
+   [HumanPresenceWithoutHumans.N_1]
+      MainStyle = "Human Presence Without Humans"
+      SubStyle = "Routine imprint"
+      Positive = "Repeated use patterns are encoded in wear marks, object placement, and pathway logic, suggesting long-term habits and social rhythm without direct character depiction."
+   [HumanPresenceWithoutHumans.N_2]
+      MainStyle = "Human Presence Without Humans"
+      SubStyle = "Interrupted intention"
+      Positive = "Items appear arranged for tasks that stopped mid-flow, creating a narrative of halted intention where purpose is legible through environment alone."
+
+[ObjectNarrative]
+   [ObjectNarrative.N_0]
+      MainStyle = "Object Narrative"
+      SubStyle = "Personal artifacts"
+      Positive = "Everyday belongings are framed as narrative anchors, with subtle sequencing and proximity relationships that imply identity, memory, and private life without showing a person."
+   [ObjectNarrative.N_1]
+      MainStyle = "Object Narrative"
+      SubStyle = "Task residue"
+      Positive = "Tools, materials, and partial outputs indicate process history, allowing the viewer to infer who was here, what was being done, and why the activity paused."
+   [ObjectNarrative.N_2]
+      MainStyle = "Object Narrative"
+      SubStyle = "Selective omission"
+      Positive = "Strategic absence of expected objects becomes meaningful, turning gaps and missing items into story signals that imply prior human decisions and departures."
+
+[ArchitecturalMemory]
+   [ArchitecturalMemory.N_0]
+      MainStyle = "Architectural Memory"
+      SubStyle = "Lived-in geometry"
+      Positive = "Spatial organization reflects accumulated human behavior, where furniture orientation, circulation lines, and adaptive modifications reveal social use over time."
+   [ArchitecturalMemory.N_1]
+      MainStyle = "Architectural Memory"
+      SubStyle = "Incremental adaptation"
+      Positive = "The environment shows layered modifications made to meet practical needs, communicating long-term habitation through repairs, add-ons, and improvised solutions."
+   [ArchitecturalMemory.N_2]
+      MainStyle = "Architectural Memory"
+      SubStyle = "Institutional residue"
+      Positive = "Rooms retain procedural structure and operational traces from repeated human systems, suggesting organizational presence through layout discipline and material wear."
+
+[SocialEcho]
+   [SocialEcho.N_0]
+      MainStyle = "Social Echo"
+      SubStyle = "Deferred interaction"
+      Positive = "Object groupings and spatial distance imply anticipated conversation or collaboration, capturing social choreography in advance of visible participants."
+   [SocialEcho.N_1]
+      MainStyle = "Social Echo"
+      SubStyle = "Collective aftermath"
+      Positive = "The setting carries evidence of multiple people having shared the space, with distributed traces that indicate group activity now transitioned into silence."
+   [SocialEcho.N_2]
+      MainStyle = "Social Echo"
+      SubStyle = "Silent community"
+      Positive = "Environmental details suggest belonging, rules, and mutual understanding among absent users, producing a social atmosphere without character foregrounding."
+
+[TemporalTrace]
+   [TemporalTrace.N_0]
+      MainStyle = "Temporal Trace"
+      SubStyle = "Fresh trace"
+      Positive = "Recent disturbances, still-settling materials, and active environmental carryover imply immediate prior presence, making absence feel temporary and near-continuous."
+   [TemporalTrace.N_1]
+      MainStyle = "Temporal Trace"
+      SubStyle = "Aged trace"
+      Positive = "Long-standing marks, faded labels, and persistent wear encode historical occupancy, turning the space into an archive of repeated human contact over time."
+   [TemporalTrace.N_2]
+      MainStyle = "Temporal Trace"
+      SubStyle = "Layered occupancy"
+      Positive = "Different generations of use remain simultaneously legible, with old and new traces overlapping to reveal evolving human presence through environmental sedimentation."
