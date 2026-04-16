@@ -30,6 +30,7 @@ import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_upscale_model as nodes_upscale_model
 import comfy_extras.nodes_cfg as nodes_cfg
 import comfy_extras.nodes_qwen as nodes_qwen
+import comfy_extras.nodes_flux as nodes_flux
 from comfy import model_management
 from ..components.gguf import nodes as gguf_nodes
 import comfy_extras.nodes_flux as nodes_flux
@@ -218,7 +219,7 @@ class PrimereModelConceptSelector:
     TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
     TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -794,6 +795,7 @@ class PrimereModelControl:
         concepts = kwargs.pop('concepts', 'Auto')
         models = kwargs.pop('models', 'Auto')
         sampler_name = kwargs.pop('sampler_name', comfy.samplers.KSampler.SAMPLERS[0])
+        sampler_type = kwargs.pop('sampler', 'ksampler')
         scheduler_name = kwargs.pop('scheduler_name', comfy.samplers.KSampler.SCHEDULERS[0])
         steps = kwargs.pop('steps', 12)
         cfg = kwargs.pop('cfg', 7.0)
@@ -892,6 +894,7 @@ class PrimereModelControl:
         kwargs['model_name'] = model_name
         kwargs['model_concept'] = active_concept
         kwargs['model_version'] = active_concept
+        kwargs['sampler_type'] = sampler_type
         kwargs['sampler'] = sampler_name
         kwargs['scheduler'] = scheduler_name
         kwargs['sampler_name'] = sampler_name
@@ -995,7 +998,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
             case 'Z-Image':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_zimage_model(self, ckpt_name, control_data)
-            case 'Flux':
+            case 'Flux' | 'Flux2':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_flux_model(self, ckpt_name, control_data)
             case 'LCM':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, control_data)
@@ -1163,6 +1166,11 @@ class PrimereFractalLatent:
             return float('NaN')
 
     def primere_latent_noise(self, width, height, rand_noise_type, noise_type, rand_alpha_exponent, alpha_exponent, alpha_exp_rand_min, alpha_exp_rand_max, rand_modulator, modulator, modulator_rand_min, modulator_rand_max, noise_seed, rand_device, device, optional_vae=None, control_data=None, expand_random_limits=False):
+        LATENT_DIVIDER = 8
+        MODEL_TYPE = None
+        if control_data is not None and len(control_data) > 0:
+            MODEL_TYPE = control_data.get('model_concept', None)
+
         if control_data is not None and len(control_data) > 0 and 'exif_status' in control_data and control_data['exif_status'] == 'SUCCEED':
             if 'latent_data' in control_data and len(control_data['latent_data']) > 0 and 'setup_states' in control_data and 'latent_setup' in control_data['setup_states']:
                 if control_data['setup_states']['latent_setup'] == True:
@@ -1208,9 +1216,20 @@ class PrimereFractalLatent:
         alpha_channel = torch.ones((1, height, width, 1), dtype=tensors.dtype, device="cpu")
         tensors = torch.cat((tensors, alpha_channel), dim=3)
 
+        if control_data is not None:
+            control_data['latent_data'] = {}
+            control_data['latent_data']['noise_type'] = noise_type
+            control_data['latent_data']['alpha_exponent'] = alpha_exponent
+            control_data['latent_data']['modulator'] = modulator
+            control_data['latent_data']['device'] = device
+
+        if MODEL_TYPE == 'Flux2':
+            latents = nodes_flux.EmptyFlux2LatentImage.execute(width, height, 1)[0]
+            return latents, tensors, control_data
+
         if optional_vae is None:
             latents = tensors.permute(0, 3, 1, 2)
-            latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
+            latents = F.interpolate(latents, size=((height // LATENT_DIVIDER), (width // LATENT_DIVIDER)), mode='nearest-exact')
             return {'samples': latents}, tensors, control_data
 
         encoder = nodes.VAEEncode()
@@ -1221,16 +1240,9 @@ class PrimereFractalLatent:
                 latents.append(encoder.encode(optional_vae, tensor)[0]['samples'])
             except Exception:
                 latents = tensors.permute(0, 3, 1, 2)
-                latents = F.interpolate(latents, size=((height // 8), (width // 8)), mode='nearest-exact')
+                latents = F.interpolate(latents, size=((height // LATENT_DIVIDER), (width // LATENT_DIVIDER)), mode='nearest-exact')
                 return {'samples': latents}, tensors, control_data
         latents = torch.cat(latents)
-
-        if control_data is not None:
-            control_data['latent_data'] = {}
-            control_data['latent_data']['noise_type'] = noise_type
-            control_data['latent_data']['alpha_exponent'] = alpha_exponent
-            control_data['latent_data']['modulator'] = modulator
-            control_data['latent_data']['device'] = device
 
         return {'samples': latents}, tensors, control_data
 
@@ -1418,7 +1430,7 @@ class PrimereCLIPEncoder:
                 return clipping.encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'StableCascade':
                 return clipping.encode_stable_cascade(clip, positive_text, negative_text, control_data)
-            case 'Flux':
+            case 'Flux' | 'Flux2':
                 return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'PixartSigma':
                 return clipping.encode_pixart_sigma(clip, positive_text, negative_text, control_data)
@@ -1686,7 +1698,7 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
@@ -1835,7 +1847,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:26]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})

@@ -253,6 +253,7 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     weight_dtype = concept_data.get('weight_dtype', 'default')
     is_gguf_model = False
     File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
+
     if File_link:
         if 'diffusion_models' in str(File_link) or 'unet' in str(File_link):
             if model_ext == '.gguf':
@@ -267,14 +268,21 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
             OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, linkedFileName)[0]
     else:
         OUTPUT_MODEL = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)[0]
+
     encoder_1 = concept_data.get('encoder_1', None)
     encoder_2 = concept_data.get('encoder_2', None)
     clip_ext_1 = os.path.splitext(encoder_1)[1].lower() if encoder_1 else ''
     clip_ext_2 = os.path.splitext(encoder_2)[1].lower() if encoder_2 else ''
     if is_gguf_model or clip_ext_1 == '.gguf' or clip_ext_2 == '.gguf':
-        OUTPUT_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(loader_self, encoder_1, encoder_2, 'flux')[0]
+        if encoder_1 and encoder_2:
+            OUTPUT_CLIP = gguf_nodes.DualCLIPLoaderGGUF.load_clip(loader_self, encoder_1, encoder_2, 'flux')[0]
+        else:
+            OUTPUT_CLIP = gguf_nodes.CLIPLoaderGGUF.load_clip(loader_self, encoder_1, 'flux2')[0]
     else:
-        OUTPUT_CLIP = nodes.DualCLIPLoader.load_clip(loader_self, encoder_1, encoder_2, 'flux')[0]
+        if encoder_1 and encoder_2:
+            OUTPUT_CLIP = nodes.DualCLIPLoader.load_clip(loader_self, encoder_1, encoder_2, 'flux')[0]
+        else:
+            OUTPUT_CLIP = nodes.CLIPLoader.load_clip(loader_self, encoder_1, 'flux2')[0]
     OUTPUT_VAE = utility.vae_loader_class.load_vae(concept_data.get('vae', None))[0]
     lora_name, lora_strength = pick_lora(concept_data)
     if lora_name:
@@ -282,12 +290,16 @@ def load_flux_model(loader_self, ckpt_name, concept_data):
     rescale_cfg = concept_data.get('rescale_cfg', 1.0)
     if rescale_cfg != 1.0:
         OUTPUT_MODEL = nodes_model_advanced.RescaleCFG.patch(loader_self, OUTPUT_MODEL, rescale_cfg)[0]
+
+    MODEL_CONCEPT =concept_data.get('model_concept', None)
     flux_max_shift = concept_data.get('flux_max_shift', 1.15)
     flux_base_shift = concept_data.get('flux_base_shift', 0.5)
-    try:
-        OUTPUT_MODEL = nodes_model_advanced.ModelSamplingFlux.patch(loader_self, OUTPUT_MODEL, flux_max_shift, flux_base_shift, 1024, 1024)[0]
-    except Exception as e:
-        print(f"Primere: ModelSamplingFlux failed: {e}")
+    if MODEL_CONCEPT == 'Flux' and flux_max_shift > 0 and flux_base_shift > 0 and flux_max_shift != 1.15 and flux_base_shift != 0.5:
+        try:
+          OUTPUT_MODEL = nodes_model_advanced.ModelSamplingFlux.patch(loader_self, OUTPUT_MODEL, flux_max_shift, flux_base_shift, 1024, 1024)[0]
+        except Exception as e:
+          print(f"Primere: ModelSamplingFlux failed: {e}")
+
     OUTPUT_MODEL = apply_generic_patches(loader_self, OUTPUT_MODEL, concept_data)
     return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
 

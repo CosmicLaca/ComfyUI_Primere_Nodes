@@ -659,7 +659,7 @@ class PrimereKSampler:
                                                         align_your_steps, noise_extender_ksampler, None)[0]
 
             case 'Flux':
-                FLUX_SAMPLER = control_data.get('sampler', 'ksampler') if control_data else 'ksampler'
+                FLUX_SAMPLER = control_data.get('sampler_type', 'ksampler') if control_data else 'ksampler'
                 FLUX_GUIDANCE = float(control_data.get('guidance', 3.5)) if control_data else 3.5
                 align_your_steps = False
                 if FLUX_SAMPLER == 'custom_advanced':
