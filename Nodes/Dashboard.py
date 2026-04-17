@@ -20,6 +20,7 @@ from pathlib import Path
 import re
 from ..components import hypernetwork
 from ..components import clipping
+from ..components import models
 from ..components import models as model_loaders
 from ..components import nf4_helper
 from ..components import sana_utils
@@ -734,6 +735,7 @@ class PrimereModelControl:
                 "attn_cross_output": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_expander": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 3.00, "step": 0.01}),
 
+                "inference_preset": (["Custom"] + list(models.INFERENCE_PRESETS.keys()), {"default": "Off"}),
                 "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
                 "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
                 "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
