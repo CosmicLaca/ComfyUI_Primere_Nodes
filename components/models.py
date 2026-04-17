@@ -100,10 +100,10 @@ INFERENCE_PRESETS = {
     "Details": {
         "Flux": {
             "flux_max_shift": 1.15,
-            "flux_base_shift": 0.40,
-            "beta_alpha": 1.20,
-            "beta_beta": 3.50,
-            "guidance": 4.0,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 3.00,
+            "beta_beta": 1.00,
+            "guidance": 4.5,
         },
     },
     "Sci-fi": {
@@ -117,10 +117,10 @@ INFERENCE_PRESETS = {
     },
     "Fantasy": {
         "Flux": {
-            "flux_max_shift": 1.50,
-            "flux_base_shift": 0.60,
-            "beta_alpha": 1.80,
-            "beta_beta": 2.50,
+            "flux_max_shift": 1.45,
+            "flux_base_shift": 0.55,
+            "beta_alpha": 2.00,
+            "beta_beta": 2.00,
             "guidance": 4.5,
         },
     },
@@ -144,11 +144,11 @@ INFERENCE_PRESETS = {
     },
     "Dreamy": {
         "Flux": {
-            "flux_max_shift": 1.40,
-            "flux_base_shift": 0.65,
-            "beta_alpha": 1.60,
-            "beta_beta": 2.80,
-            "guidance": 4.1,
+            "flux_max_shift": 1.30,
+            "flux_base_shift": 0.55,
+            "beta_alpha": 1.80,
+            "beta_beta": 1.80,
+            "guidance": 3.6,
         },
     },
     "Anime": {
@@ -172,9 +172,9 @@ INFERENCE_PRESETS = {
     "Architecture": {
         "Flux": {
             "flux_max_shift": 1.20,
-            "flux_base_shift": 0.35,
-            "beta_alpha": 1.30,
-            "beta_beta": 3.20,
+            "flux_base_shift": 0.48,
+            "beta_alpha": 2.80,
+            "beta_beta": 1.20,
             "guidance": 4.3,
         },
     },
@@ -190,18 +190,18 @@ INFERENCE_PRESETS = {
     "Macro": {
         "Flux": {
             "flux_max_shift": 1.22,
-            "flux_base_shift": 0.38,
-            "beta_alpha": 1.40,
-            "beta_beta": 3.40,
-            "guidance": 4.4,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 3.00,
+            "beta_beta": 1.00,
+            "guidance": 4.8,
         },
     },
     "DarkFantasy": {
         "Flux": {
             "flux_max_shift": 1.65,
-            "flux_base_shift": 0.58,
-            "beta_alpha": 2.60,
-            "beta_beta": 2.20,
+            "flux_base_shift": 0.55,
+            "beta_alpha": 2.80,
+            "beta_beta": 1.80,
             "guidance": 5.2,
         },
     },
