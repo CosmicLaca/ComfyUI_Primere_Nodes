@@ -735,7 +735,7 @@ class PrimereModelControl:
                 "attn_cross_output": ("FLOAT", {"default": 1.0, "min": 0.80, "max": 1.20, "step": 0.01}),
                 "attn_expander": ("FLOAT", {"default": 1.00, "min": 0.10, "max": 3.00, "step": 0.01}),
 
-                "inference_preset": (["Custom"] + list(models.INFERENCE_PRESETS.keys()), {"default": "Off"}),
+                "sampling_preset": (["Off", "Custom"] + list(models.INFERENCE_PRESETS.keys()), {"default": "Off"}),
                 "sampler": (["custom_advanced", "ksampler"], {"default": "ksampler"}),
                 "align_your_steps": ("BOOLEAN", {"default": False, "label_on": "Use AlignYourSteps", "label_off": "Ignore AlignYourSteps"}),
                 "model_sampling": ("FLOAT", {"default": 2.5, "min": 0.0, "max": 10.0, "step": 0.01}),
@@ -795,7 +795,7 @@ class PrimereModelControl:
         model_concept = kwargs.pop('model_concept', None)
         model_name = kwargs.pop('model_name', None)
         concepts = kwargs.pop('concepts', 'Auto')
-        models = kwargs.pop('models', 'Auto')
+        selected_model = kwargs.pop('models', 'Auto')
         sampler_name = kwargs.pop('sampler_name', comfy.samplers.KSampler.SAMPLERS[0])
         sampler_type = kwargs.pop('sampler', 'ksampler')
         scheduler_name = kwargs.pop('scheduler_name', comfy.samplers.KSampler.SCHEDULERS[0])
@@ -803,7 +803,7 @@ class PrimereModelControl:
         cfg = kwargs.pop('cfg', 7.0)
         active_concept = model_concept if concepts == "Auto" and model_name is not None else concepts
         saved = {}
-        if concepts == "Auto" and models == "Auto":
+        if concepts == "Auto" and selected_model == "Auto":
             raw_model = model_name
             model_key = os.path.splitext(os.path.basename(raw_model))[0] if raw_model else None
             json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
@@ -833,7 +833,7 @@ class PrimereModelControl:
             if found:
                 steps = int(found[0])
 
-        if concepts == "Auto" and models == "Auto":
+        if concepts == "Auto" and selected_model == "Auto":
             if kwargs.get('speed_lora') == True and 'speed_lora' not in saved:
                 kwargs['speed_lora'] = False
 
@@ -888,6 +888,30 @@ class PrimereModelControl:
                 round(1.0 + (v - 1.0) * attn_expander, 2)
                 for v in (attn_q, attn_k, attn_v, attn_out, cross_q, cross_k, cross_v, cross_out)
             )
+
+        sampling_preset = kwargs.pop('sampling_preset', kwargs.pop('inference_preset', 'Off'))
+        flux_max_shift = kwargs.pop('flux_max_shift', 1.15)
+        flux_base_shift = kwargs.pop('flux_base_shift', 0.5)
+        beta_alpha = kwargs.pop('beta_alpha', 0.5)
+        beta_beta = kwargs.pop('beta_beta', 0.5)
+        guidance = kwargs.pop('guidance', 3.5)
+
+        if sampling_preset not in ('Off', 'Custom'):
+            concept_presets = models.INFERENCE_PRESETS.get(sampling_preset, {})
+            concept_values = concept_presets.get(active_concept) if isinstance(concept_presets, dict) else None
+            if isinstance(concept_values, dict):
+                flux_max_shift = concept_values.get('flux_max_shift', flux_max_shift)
+                flux_base_shift = concept_values.get('flux_base_shift', flux_base_shift)
+                beta_alpha = concept_values.get('beta_alpha', beta_alpha)
+                beta_beta = concept_values.get('beta_beta', beta_beta)
+                guidance = concept_values.get('guidance', guidance)
+
+        kwargs['flux_max_shift'] = flux_max_shift
+        kwargs['flux_base_shift'] = flux_base_shift
+        kwargs['beta_alpha'] = beta_alpha
+        kwargs['beta_beta'] = beta_beta
+        kwargs['guidance'] = guidance
+
         suppressed = [k + "_" for k, v in kwargs.items() if v == "None" or v is False]
         kwargs = {k: v for k, v in kwargs.items() if v != "None" and not any(k.startswith(p) for p in suppressed)}
         kwargs['encoders'] = [kwargs[k] for k in ('encoder_1', 'encoder_2', 'encoder_3') if kwargs.get(k) not in (None, 'None')]

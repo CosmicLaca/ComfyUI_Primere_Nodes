@@ -60,6 +60,152 @@ def resolve_symlink(ckpt_name):
 DISCRETE_CONCEPTS = {'SD1', 'SD2', 'SDXL', 'Illustrious', 'Turbo', 'Pony', 'Hyper', 'Lightning'}
 UNET_CONCEPTS = {'SD1', 'SD2', 'SDXL', 'Illustrious', 'Turbo', 'Pony', 'Hyper', 'Lightning', 'Playground', 'LCM'}
 
+INFERENCE_PRESETS = {
+    "Default": {
+        "Flux": {
+            "flux_max_shift": 1.15,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 0.50,
+            "beta_beta": 0.50,
+            "guidance": 3.5,
+        },
+    },
+    "Universal": {
+        "Flux": {
+            "flux_max_shift": 1.15,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 1.50,
+            "beta_beta": 1.20,
+            "guidance": 3.5,
+        },
+    },
+    "Photo": {
+        "Flux": {
+            "flux_max_shift": 1.15,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 2.00,
+            "beta_beta": 1.00,
+            "guidance": 3.5,
+        },
+    },
+    "Portrait": {
+        "Flux": {
+            "flux_max_shift": 1.15,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 2.50,
+            "beta_beta": 2.00,
+            "guidance": 3.0,
+        },
+    },
+    "Details": {
+        "Flux": {
+            "flux_max_shift": 1.15,
+            "flux_base_shift": 0.40,
+            "beta_alpha": 1.20,
+            "beta_beta": 3.50,
+            "guidance": 4.0,
+        },
+    },
+    "Sci-fi": {
+        "Flux": {
+            "flux_max_shift": 1.80,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 2.50,
+            "beta_beta": 1.50,
+            "guidance": 5.0,
+        },
+    },
+    "Fantasy": {
+        "Flux": {
+            "flux_max_shift": 1.50,
+            "flux_base_shift": 0.60,
+            "beta_alpha": 1.80,
+            "beta_beta": 2.50,
+            "guidance": 4.5,
+        },
+    },
+    "Cinematic": {
+        "Flux": {
+            "flux_max_shift": 1.35,
+            "flux_base_shift": 0.55,
+            "beta_alpha": 2.20,
+            "beta_beta": 1.80,
+            "guidance": 4.2,
+        },
+    },
+    "Moody": {
+        "Flux": {
+            "flux_max_shift": 1.25,
+            "flux_base_shift": 0.45,
+            "beta_alpha": 2.10,
+            "beta_beta": 2.30,
+            "guidance": 3.8,
+        },
+    },
+    "Dreamy": {
+        "Flux": {
+            "flux_max_shift": 1.40,
+            "flux_base_shift": 0.65,
+            "beta_alpha": 1.60,
+            "beta_beta": 2.80,
+            "guidance": 4.1,
+        },
+    },
+    "Anime": {
+        "Flux": {
+            "flux_max_shift": 1.30,
+            "flux_base_shift": 0.50,
+            "beta_alpha": 2.80,
+            "beta_beta": 1.40,
+            "guidance": 4.8,
+        },
+    },
+    "ConceptArt": {
+        "Flux": {
+            "flux_max_shift": 1.55,
+            "flux_base_shift": 0.52,
+            "beta_alpha": 2.40,
+            "beta_beta": 1.70,
+            "guidance": 4.6,
+        },
+    },
+    "Architecture": {
+        "Flux": {
+            "flux_max_shift": 1.20,
+            "flux_base_shift": 0.35,
+            "beta_alpha": 1.30,
+            "beta_beta": 3.20,
+            "guidance": 4.3,
+        },
+    },
+    "Product": {
+        "Flux": {
+            "flux_max_shift": 1.10,
+            "flux_base_shift": 0.40,
+            "beta_alpha": 1.90,
+            "beta_beta": 2.10,
+            "guidance": 4.0,
+        },
+    },
+    "Macro": {
+        "Flux": {
+            "flux_max_shift": 1.22,
+            "flux_base_shift": 0.38,
+            "beta_alpha": 1.40,
+            "beta_beta": 3.40,
+            "guidance": 4.4,
+        },
+    },
+    "DarkFantasy": {
+        "Flux": {
+            "flux_max_shift": 1.65,
+            "flux_base_shift": 0.58,
+            "beta_alpha": 2.60,
+            "beta_beta": 2.20,
+            "guidance": 5.2,
+        },
+    },
+}
 
 def apply_generic_patches(loader_self, model, concept_data):
     model_concept = concept_data.get('model_concept', '')
