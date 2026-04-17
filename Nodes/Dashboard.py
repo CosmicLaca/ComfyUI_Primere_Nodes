@@ -744,8 +744,8 @@ class PrimereModelControl:
                 "sigma_min": ("FLOAT", {"default": 1, "min": 0.001, "max": 100, "step": 0.001}),
                 "flux_max_shift": ("FLOAT", {"default": 1.15, "min": 0.0, "max": 100.0, "step": 0.01}),
                 "flux_base_shift": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 100.0, "step": 0.01}),
-                "beta_alpha": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 50.0, "step": 0.01}),
-                "beta_beta": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 50.0, "step": 0.01}),
+                "beta_alpha": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 50.0, "step": 0.01}),
+                "beta_beta": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 50.0, "step": 0.01}),
 
                 "guidance": ('FLOAT', {"default": 3.5, "min": 0.0, "max": 100.0, "step": 0.1}),
                 "weight_dtype": (["None"] + ["Auto", "default", "fp16", "bf16", "fp32", "fp8_e4m3fn", "fp8_e5m2"], {"default": "default"}),

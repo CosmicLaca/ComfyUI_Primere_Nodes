@@ -33,8 +33,8 @@ def PKSampler(self, device, seed, model,
     samples = None
 
     if scheduler_name == 'beta' and control_data is not None:
-        beta_alpha = float(control_data.get('beta_alpha', 0.6))
-        beta_beta = float(control_data.get('beta_beta', 0.6))
+        beta_alpha = float(control_data.get('beta_alpha', 0.5))
+        beta_beta = float(control_data.get('beta_beta', 0.5))
         try:
             sigmas = comfy.samplers.beta_scheduler(model.get_model_object("model_sampling"), steps, alpha=beta_alpha, beta=beta_beta)
             sampler = comfy.samplers.sampler_object(sampler_name)
