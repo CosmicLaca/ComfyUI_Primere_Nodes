@@ -168,7 +168,18 @@ async function scheduleTitlePreview(sectionName, x, y, hoverKey) {
     titlePreviewHoverState.key = hoverKey;
     await waitForHoverDelay();
     if (titlePreviewHoverState.token !== token || titlePreviewHoverState.key !== hoverKey) return;
-    showTitlePreview(sectionName, x, y);
+
+    const previewSrc = await resolvePreviewImageSource(sectionName);
+    if (titlePreviewHoverState.token !== token || titlePreviewHoverState.key !== hoverKey) return;
+
+    if (previewSrc) {
+        hideTitleTooltip();
+        showTitlePreview(previewSrc, x, y);
+        return;
+    }
+
+    hideTitlePreview();
+    showTitleTooltip(buildPreviewHelpText(sectionName), x, y);
 }
 
 function ensureTitleTooltip() {
@@ -251,8 +262,33 @@ function hideTitlePreview() {
     box.style.display = "none";
 }
 
-function showTitlePreview(sectionName, x, y) {
-    if (!sectionName) {
+function getPreviewRelativePath(sectionName) {
+    return `front_end/images/sections_titles/${sectionName}.jpg`;
+}
+
+function buildPreviewHelpText(sectionName) {
+    return `Tip: save preview as ${getPreviewRelativePath(sectionName)}`;
+}
+
+function buildPreviewImageSource(sectionName) {
+    if (!sectionName) return null;
+    return `/extensions/ComfyUI_Primere_Nodes/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
+}
+
+function resolvePreviewImageSource(sectionName) {
+    const src = buildPreviewImageSource(sectionName);
+    if (!src) return Promise.resolve(null);
+
+    return new Promise((resolve) => {
+        const probe = new Image();
+        probe.onload = () => resolve(src);
+        probe.onerror = () => resolve(null);
+        probe.src = src;
+    });
+}
+
+function showTitlePreview(src, x, y) {
+    if (!src) {
         hideTitlePreview();
         return;
     }
@@ -260,7 +296,6 @@ function showTitlePreview(sectionName, x, y) {
     const img = box.querySelector("img.previewbox_image");
     if (!img) return;
 
-    const src = `/extensions/ComfyUI_Primere_Nodes/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
     img.onload = () => {
         box.style.left = `${x + 12}px`;
         box.style.top = `${y + 12}px`;
@@ -306,12 +341,11 @@ function handleTitleHover(node, event, pos) {
             return;
         }
         if (insideY && insideLeftHalf && meta.name) {
-            hideTitleTooltip();
-            //showTitlePreview(meta.name, event.clientX, event.clientY);
             const hoverKey = `${node.id || "node"}:${meta.name}`;
             if (titlePreviewHoverState.key !== hoverKey) {
+                hideTitleTooltip();
                 hideTitlePreview();
-                scheduleTitlePreview(meta.name, event.clientX, event.clientY, hoverKey);
+                void scheduleTitlePreview(meta.name, event.clientX, event.clientY, hoverKey);
             }
             return;
         }
