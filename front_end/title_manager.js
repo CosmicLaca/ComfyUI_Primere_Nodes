@@ -9,6 +9,12 @@ const titleConfigCache = {};
 const titleConfigPromise = {};
 const TITLE_WIDGET_HEIGHT = 30;
 const TITLE_TOTAL_CHARS = 40;
+const TITLE_PREVIEW_HOVER_DELAY_MS = 1000;
+
+const titlePreviewHoverState = {
+    token: 0,
+    key: null,
+};
 
 function hexToRgb(hex) {
     const clean = String(hex || "").trim().replace("#", "");
@@ -147,6 +153,24 @@ function insertTitleWidgets(node, sections) {
     node.setDirtyCanvas?.(true, true);
 }
 
+function waitForHoverDelay(delayMs = TITLE_PREVIEW_HOVER_DELAY_MS) {
+    return new Promise((resolve) => setTimeout(resolve, delayMs));
+}
+
+function clearPendingTitlePreview() {
+    titlePreviewHoverState.token += 1;
+    titlePreviewHoverState.key = null;
+}
+
+async function scheduleTitlePreview(sectionName, x, y, hoverKey) {
+    titlePreviewHoverState.token += 1;
+    const token = titlePreviewHoverState.token;
+    titlePreviewHoverState.key = hoverKey;
+    await waitForHoverDelay();
+    if (titlePreviewHoverState.token !== token || titlePreviewHoverState.key !== hoverKey) return;
+    showTitlePreview(sectionName, x, y);
+}
+
 function ensureTitleTooltip() {
     let box = document.querySelector("div#primere_title_hover");
     if (box) return box;
@@ -192,6 +216,10 @@ function ensureTitlePreviewBox() {
             "box-shadow:0 8px 24px rgba(0,0,0,0.35)",
             "pointer-events:none",
         ].join(";"); */
+        const closeButton = document.createElement("div");
+        closeButton.className = "preview_closebutton";
+        closeButton.textContent = "X";
+
         const img = document.createElement("img");
         img.className = "previewbox_image";
         /* img.style.cssText = [
@@ -200,9 +228,21 @@ function ensureTitlePreviewBox() {
             "max-height:180px",
             "border-radius:4px",
         ].join(";"); */
+        box.appendChild(closeButton);
         box.appendChild(img);
         document.body.appendChild(box);
     }
+
+    if (!box.__primereCloseHandlerBound) {
+        box.addEventListener("click", (event) => {
+            if (event.target?.closest("div.preview_closebutton")) {
+                hideTitlePreview();
+                clearPendingTitlePreview();
+            }
+        });
+        box.__primereCloseHandlerBound = true;
+    }
+
     return box;
 }
 
@@ -260,17 +300,24 @@ function handleTitleHover(node, event, pos) {
         const insideLeftHalf = pos[0] >= xMin && pos[0] < rightHalfStart;
         const insideRightHalf = pos[0] >= rightHalfStart && pos[0] <= xMax;
         if (insideY && insideRightHalf) {
+            clearPendingTitlePreview();
             hideTitlePreview();
             showTitleTooltip(meta.label, event.clientX, event.clientY);
             return;
         }
         if (insideY && insideLeftHalf && meta.name) {
             hideTitleTooltip();
-            showTitlePreview(meta.name, event.clientX, event.clientY);
+            //showTitlePreview(meta.name, event.clientX, event.clientY);
+            const hoverKey = `${node.id || "node"}:${meta.name}`;
+            if (titlePreviewHoverState.key !== hoverKey) {
+                hideTitlePreview();
+                scheduleTitlePreview(meta.name, event.clientX, event.clientY, hoverKey);
+            }
             return;
         }
     }
 
+    clearPendingTitlePreview();
     hideTitleTooltip();
     hideTitlePreview();
 }
@@ -291,6 +338,7 @@ function attachTitleHoverHandlers(node) {
         if (typeof prevLeave === "function") {
             prevLeave.call(this, event, pos, graphcanvas);
         }
+        clearPendingTitlePreview();
         hideTitleTooltip();
         hideTitlePreview();
     };
