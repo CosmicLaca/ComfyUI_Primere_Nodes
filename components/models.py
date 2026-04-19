@@ -745,31 +745,49 @@ def load_hunyuan_model(loader_self, ckpt_name, concept_data):
     weight_dtype = concept_data.get('weight_dtype', 'fp32')
 
     HUNYUAN_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
-    T5 = None
+    File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
+    if File_link:
+        if 'diffusion_models' in str(File_link):
+            if model_ext == '.gguf':
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+            else:
+                OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
+        elif 'unet' in str(File_link):
+            if model_ext == '.gguf':
+                OUTPUT_MODEL = gguf_nodes.UnetLoaderGGUF.load_unet(loader_self, linkedFileName)[0]
+            else:
+                try:
+                    OUTPUT_MODEL = nodes.UNETLoader.load_unet(loader_self, linkedFileName, weight_dtype)[0]
+                except Exception:
+                    OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
 
-    try:
-        LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
-        HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
-        CLIP = LOADED_CHECKPOINT[1]
-    except Exception:
-        ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-        HUNYUAN_MODEL = load_hydit(model_path=ckpt_path, model_conf=hydit_conf['G/2-1.2'])
+        OUTPUT_CLIP = nodes.DualCLIPLoader.load_clip(loader_self, encoder_1, encoder_2, 'hunyuan_image')[0]
+        return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, HUNYUAN_VAE, loader_self, concept_data)
 
-        dtype = string_to_dtype(weight_dtype, "text_encoder")
-        CLIP = load_hydit_clip(
-            model_path=folder_paths.get_full_path("clip", encoder_2),
-            device='GPU',
-            dtype=dtype,
-        )
+    else:
+        try:
+            LOADED_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(loader_self, ckpt_name)
+            HUNYUAN_MODEL = LOADED_CHECKPOINT[0]
+            CLIP = LOADED_CHECKPOINT[1]
+        except Exception:
+            ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+            HUNYUAN_MODEL = load_hydit(model_path=ckpt_path, model_conf=hydit_conf['G/2-1.2'])
 
-        if encoder_1:
-            t5_path = folder_paths.get_full_path("clip", encoder_1)
-            if t5_path is None:
-                t5_path = folder_paths.get_full_path("text_encoders", encoder_1)
-            if t5_path:
-                T5 = load_hydit_t5(model_path=t5_path, device='GPU', dtype=dtype)
+            dtype = string_to_dtype(weight_dtype, "text_encoder")
+            CLIP = load_hydit_clip(
+                model_path=folder_paths.get_full_path("clip", encoder_2),
+                device='GPU',
+                dtype=dtype,
+            )
 
-    return _wrap_refiner(HUNYUAN_MODEL, {'clip': CLIP, 't5': T5}, HUNYUAN_VAE, loader_self, concept_data)
+            if encoder_1:
+                t5_path = folder_paths.get_full_path("clip", encoder_1)
+                if t5_path is None:
+                    t5_path = folder_paths.get_full_path("text_encoders", encoder_1)
+                if t5_path:
+                    T5 = load_hydit_t5(model_path=t5_path, device='GPU', dtype=dtype)
+
+        return _wrap_refiner(HUNYUAN_MODEL, {'clip': CLIP, 't5': T5}, HUNYUAN_VAE, loader_self, concept_data)
 
 
 def load_qwen_model(loader_self, ckpt_name, concept_data):
@@ -854,5 +872,3 @@ def load_chroma_model(loader_self, ckpt_name, concept_data):
     if rescale_cfg != 1.0:
         OUTPUT_MODEL = nodes_model_advanced.RescaleCFG.patch(loader_self, OUTPUT_MODEL, rescale_cfg)[0]
     return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, loader_self, concept_data)
-
-

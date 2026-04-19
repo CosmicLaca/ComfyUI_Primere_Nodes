@@ -922,19 +922,32 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data
 
 
 def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, control_data):
-    if clip['t5'] is not None:
+    refiner_clip = None
+    if type(clip).__name__ == 'dict':
+        if clip['t5'] is not None:
+            positive_text = utility.DiT_cleaner(positive_text)
+            negative_text = utility.DiT_cleaner(negative_text)
+            t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
+            pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
+            neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
+            return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+        else:
+            clip_model = clip['clip']
+            positive_text = utility.DiT_cleaner(positive_text, 512)
+            negative_text = utility.DiT_cleaner(negative_text, 512)
+            out_pos = clip_model.encode_from_tokens(clip_model.tokenize(positive_text), return_pooled=True, return_dict=True)
+            out_neg = clip_model.encode_from_tokens(clip_model.tokenize(negative_text), return_pooled=True, return_dict=True)
+            cond_pos = out_pos.pop("cond")
+            cond_neg = out_neg.pop("cond")
+            return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+    else:
         positive_text = utility.DiT_cleaner(positive_text)
         negative_text = utility.DiT_cleaner(negative_text)
-        t5xxl_prompt = utility.DiT_cleaner(t5xxl_prompt)
-        pos_out = HunyuanClipping(loader_self, positive_text, t5xxl_prompt, clip['clip'], clip['t5'])
-        neg_out = HunyuanClipping(loader_self, negative_text, "", clip['clip'], clip['t5'])
-        return (pos_out[0], neg_out[0], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
-    else:
-        clip_model = clip['clip']
-        positive_text = utility.DiT_cleaner(positive_text, 512)
-        negative_text = utility.DiT_cleaner(negative_text, 512)
-        out_pos = clip_model.encode_from_tokens(clip_model.tokenize(positive_text), return_pooled=True, return_dict=True)
-        out_neg = clip_model.encode_from_tokens(clip_model.tokenize(negative_text), return_pooled=True, return_dict=True)
+        tokens_pos = clip.tokenize(positive_text)
+        tokens_neg = clip.tokenize(negative_text)
+        out_pos = clip.encode_from_tokens(tokens_pos, return_pooled=True, return_dict=True)
+        out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        return ([[cond_pos, out_pos]], [[cond_neg, out_neg]], positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+        pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
+        return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
