@@ -1040,7 +1040,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, control_data)
             case 'KwaiKolors':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, control_data)
-            case 'Hunyuan', "HunyuanV2":
+            case 'Hunyuan' | "HunyuanV2":
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, control_data)
             case 'QwenGen' | 'QwenEdit':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, control_data)
@@ -1431,7 +1431,7 @@ class PrimereCLIPEncoder:
 
         model_concept = control_data.get('model_concept', 'SD1')
 
-        advanced_default = ['StableCascade', 'Chroma', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'QwenGen', 'QwenEdit', 'AuraFlow']
+        advanced_default = ['StableCascade', 'Chroma', 'KwaiKolors', 'Flux', "Z-Image", 'Pony', 'SD1', 'SD2', 'SD3', 'Lightning', 'Hunyuan', 'HunyuanV2', 'QwenGen', 'QwenEdit', 'AuraFlow']
         if model_concept in advanced_default:
             adv_encode = False
 
@@ -1464,7 +1464,7 @@ class PrimereCLIPEncoder:
                 return clipping.encode_sana(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'KwaiKolors':
                 return clipping.encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data)
-            case 'Hunyuan', 'HunyuanV2':
+            case 'Hunyuan' | 'HunyuanV2':
                 return clipping.encode_hunyuan(self, clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'QwenEdit':
                 return clipping.encode_qwen_edit(self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, control_data)
