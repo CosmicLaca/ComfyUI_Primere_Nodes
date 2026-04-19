@@ -743,6 +743,7 @@ def load_hunyuan_model(loader_self, ckpt_name, concept_data):
     encoder_1 = concept_data.get('encoder_1')
     encoder_2 = concept_data.get('encoder_2')
     weight_dtype = concept_data.get('weight_dtype', 'fp32')
+    T5 = None
 
     HUNYUAN_VAE = utility.vae_loader_class.load_vae(vae_name)[0]
     File_link, linkedFileName, model_ext = resolve_symlink(ckpt_name)
