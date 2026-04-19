@@ -14,9 +14,22 @@ function getNodeIdentifier(node) {
     return String(node.id);
 }
 
+function normalizeDisplay(pathValue) {
+    return pathValue && String(pathValue).trim().length > 0 ? String(pathValue) : DEFAULT_DISPLAY;
+}
+
+function setNodePathDisplay(node, pathValue) {
+    if (!node?._primerePathDisplayWidget) {
+        return;
+    }
+    node._primerePathDisplayWidget.value = normalizeDisplay(pathValue);
+    app.graph?.setDirtyCanvas(true, true);
+}
+
 async function clearNodePath(node) {
     const nodeId = getNodeIdentifier(node);
     if (!nodeId) {
+        setNodePathDisplay(node, "");
         return;
     }
 
@@ -25,15 +38,16 @@ async function clearNodePath(node) {
     body.append("clear", "1");
 
     try {
-        await api.fetchApi(PATH_ENDPOINT, { method: "POST", body });
+        const response = await api.fetchApi(PATH_ENDPOINT, {method: "POST", body});
+        const payload = await response.json();
+        if (!response.ok || payload?.error) {
+            throw new Error(payload?.error ?? "Failed to clear selected path");
+        }
+        setNodePathDisplay(node, payload?.path ?? "");
     } catch (error) {
         showToast("error", error?.message ?? "Failed to clear selected path");
+        setNodePathDisplay(node, "");
     }
-
-    if (node._primerePathDisplayWidget) {
-        node._primerePathDisplayWidget.value = DEFAULT_DISPLAY;
-    }
-    app.graph?.setDirtyCanvas(true, true);
 }
 
 async function openPathDialog(node) {
@@ -52,7 +66,7 @@ async function openPathDialog(node) {
 
     let response;
     try {
-        response = await api.fetchApi(PATH_ENDPOINT, { method: "POST", body });
+        response = await api.fetchApi(PATH_ENDPOINT, {method: "POST", body});
     } catch (error) {
         showToast("error", error?.message ?? "Failed to open path dialog");
         return;
@@ -61,7 +75,7 @@ async function openPathDialog(node) {
     let payload;
     try {
         payload = await response.json();
-    } catch (error) {
+    } catch (_error) {
         showToast("error", "Invalid response from path dialog");
         return;
     }
@@ -70,8 +84,7 @@ async function openPathDialog(node) {
         showToast("error", payload?.error ?? "Failed to open path dialog");
         return;
     }
-
-    app.graph?.setDirtyCanvas(true, true);
+    setNodePathDisplay(node, payload?.path ?? "");
 }
 
 app.registerExtension({
@@ -101,21 +114,19 @@ app.registerExtension({
                 ["STRING", { multiline: true }],
                 app
             ).widget;
-            this._primerePathDisplayWidget.value = DEFAULT_DISPLAY;
             this._primerePathDisplayWidget.inputEl.readOnly = true;
-            this._primerePathDisplayWidget.serializeValue = async (node, index) => {
-                node.widgets_values[index] = "";
-                return "";
+            this._primerePathDisplayWidget.options = {
+                ...(this._primerePathDisplayWidget.options ?? {}),
+                serialize: false,
             };
+            this._primerePathDisplayWidget.serializeValue = async () => "";
+            setNodePathDisplay(this, "");
         };
-
         const onExecuted = nodeType.prototype.onExecuted;
         nodeType.prototype.onExecuted = function (message) {
             onExecuted?.apply(this, [message]);
-            if (!this._primerePathDisplayWidget) return;
-            const display = message?.path_display?.[0] ?? message?.text?.[0] ?? DEFAULT_DISPLAY;
-            this._primerePathDisplayWidget.value = display;
-            app.canvas.setDirty(true);
+            const display = message?.path_display?.[0] ?? message?.text?.[0] ?? "";
+            setNodePathDisplay(this, display);
         };
     },
 });

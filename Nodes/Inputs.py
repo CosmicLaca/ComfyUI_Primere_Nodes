@@ -1797,7 +1797,7 @@ class PrimereMultiImage:
 
 class PrimerePathSelector:
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("PATH",)
+    RETURN_NAMES = ("final_path",)
     FUNCTION = "select_path"
     CATEGORY = TREE_INPUTS
     OUTPUT_NODE = True
@@ -1813,6 +1813,11 @@ class PrimerePathSelector:
                 "id": "UNIQUE_ID",
             },
         }
+
+    @classmethod
+    def IS_CHANGED(cls, select_file=True, id=None, **_kwargs):
+        node_id = str(id) if id is not None else None
+        return get_node_path(node_id)
 
     def select_path(self, select_file=True, id=None, **_kwargs):
         node_id = str(id) if id is not None else None
