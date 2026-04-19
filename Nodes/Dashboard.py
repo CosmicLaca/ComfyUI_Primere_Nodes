@@ -220,7 +220,7 @@ class PrimereModelConceptSelector:
     TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
     TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -1040,7 +1040,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, control_data)
             case 'KwaiKolors':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, control_data)
-            case 'Hunyuan':
+            case 'Hunyuan', "HunyuanV2":
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, control_data)
             case 'QwenGen' | 'QwenEdit':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, control_data)
@@ -1464,7 +1464,7 @@ class PrimereCLIPEncoder:
                 return clipping.encode_sana(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'KwaiKolors':
                 return clipping.encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data)
-            case 'Hunyuan':
+            case 'Hunyuan', 'HunyuanV2':
                 return clipping.encode_hunyuan(self, clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'QwenEdit':
                 return clipping.encode_qwen_edit(self, clip, positive_text, negative_text, t5xxl_prompt, edit_vae, edit_image_list, control_data)
@@ -1724,7 +1724,7 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
@@ -1873,7 +1873,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:27]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
