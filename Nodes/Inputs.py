@@ -1796,8 +1796,8 @@ class PrimereMultiImage:
         return (image_list, image_batch, image_concat)
 
 class PrimerePathSelector:
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("final_path",)
+    RETURN_TYPES = ("STRING", "BOOLEAN",)
+    RETURN_NAMES = ("final_path", "path_type")
     FUNCTION = "select_path"
     CATEGORY = TREE_INPUTS
     OUTPUT_NODE = True
@@ -1823,4 +1823,4 @@ class PrimerePathSelector:
         node_id = str(id) if id is not None else None
         final_path = get_node_path(node_id)
         display_path = final_path if final_path else "No path selected"
-        return {"ui": {"path_display": [display_path]}, "result": (final_path,)}
+        return {"ui": {"path_display": [display_path]}, "result": (final_path, select_file,)}
