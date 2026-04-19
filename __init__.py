@@ -110,6 +110,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereLLMEnhancerOptions": Inputs.PrimereLLMEnhancerOptions,
     "PrimereImgToPrompt": Inputs.PrimereImgToPrompt,
     "PrimereMultiImage": Inputs.PrimereMultiImage,
+    "PrimerePathSelector": Inputs.PrimerePathSelector,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -215,6 +216,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereLLMEnhancerOptions": "Primere LLM Options",
     "PrimereImgToPrompt": "Primere Img2Prompt",
     "PrimereMultiImage": "Primere Multi Image",
+    "PrimerePathSelector": "Primere Path Selector",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",
