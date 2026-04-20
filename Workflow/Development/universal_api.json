@@ -1,8 +1,8 @@
 {
   "id": "3ed198dc-bee5-40d4-a269-63c758e8edff",
   "revision": 0,
-  "last_node_id": 84,
-  "last_link_id": 722,
+  "last_node_id": 87,
+  "last_link_id": 730,
   "nodes": [
     {
       "id": 30,
@@ -137,7 +137,7 @@
         739.8065007039345
       ],
       "flags": {},
-      "order": 34,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -154,7 +154,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"video\": {\n        \"url\": \"https://v3b.fal.media/files/b/0a96fc8a/rHRdrwE_zn-BKjFKKpkQ-_video.mp4\",\n        \"content_type\": \"video/mp4\",\n        \"file_name\": \"video.mp4\",\n        \"file_size\": 3032319\n    },\n    \"seed\": 1040484444\n}"
+        "{\n    \"video\": {\n        \"url\": \"https://v3b.fal.media/files/b/0a96fc9b/-vUmcD6mId_114I6KNAf__video.mp4\",\n        \"content_type\": \"video/mp4\",\n        \"file_name\": \"video.mp4\",\n        \"file_size\": 2523655\n    },\n    \"seed\": 472790577\n}"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -171,7 +171,7 @@
         1163.5127427084483
       ],
       "flags": {},
-      "order": 33,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -188,7 +188,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "[\n    {\n        \"schema\": {\n            \"provider\": \"FAL\",\n            \"service\": \"Seedance\",\n            \"response_handler\": \"FAL_Seedance.py\",\n            \"reference_images_handler\": \"FAL.py\",\n            \"import_modules\": [\n                \"import fal_client\"\n            ],\n            \"possible_parameters\": {\n                \"aspect_ratio\": [\n                    \"auto\",\n                    \"21:9\",\n                    \"16:9\",\n                    \"4:3\",\n                    \"1:1\",\n                    \"3:4\",\n                    \"9:16\"\n                ],\n                \"duration\": [\n                    \"auto\",\n                    4,\n                    5,\n                    6,\n                    7,\n                    8,\n                    9,\n                    10,\n                    11,\n                    12,\n                    13,\n                    14,\n                    15\n                ],\n                \"resolution\": [\n                    \"480p\",\n                    \"720p\"\n                ],\n                \"model_type\": [\n                    \"reference-to-video\"\n                ],\n                \"version\": [\n                    \"2.0\"\n                ],\n                \"generate_audio\": [\n                    false,\n                    true\n                ],\n                \"with_logs\": [\n                    false,\n                    true\n                ]\n            },\n            \"request\": {\n                \"method\": \"SDK\",\n                \"endpoint\": \"fal_client.subscribe\",\n                \"sdk_call\": {\n                    \"args\": [\n                        \"bytedance/seedance-{{version}}/fast/{{model_type}}\"\n                    ],\n                    \"kwargs\": {\n                        \"arguments\": {\n                            \"prompt\": \"{{prompt}}\",\n                            \"image_urls\": \"{{reference_images}}\",\n                            \"video_urls\": \"{{custom_path_1}}\",\n                            \"audio_urls\": \"{{custom_path_2}}\",\n                            \"resolution\": \"{{resolution}}\",\n                            \"seed\": \"{{seed}}\",\n                            \"duration\": \"{{duration}}\",\n                            \"aspect_ratio\": \"{{aspect_ratio}}\",\n                            \"generate_audio\": \"{{generate_audio}}\",\n                            \"with_logs\": \"{{with_logs}}\"\n                        }\n                    }\n                }\n            }\n        },\n        \"selected_parameters\": {\n            \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n            \"width\": 1365,\n            \"height\": 768,\n            \"batch\": 1,\n            \"aspect_ratio\": \"16:9\",\n            \"debug_mode\": false,\n            \"seed\": 429091895475161,\n            \"with_logs\": false,\n            \"model_type\": \"reference-to-video\",\n            \"version\": \"2.0\",\n            \"duration\": \"8\",\n            \"resolution\": \"720p\",\n            \"generate_audio\": true\n        },\n        \"used_values\": {\n            \"version\": \"2.0\",\n            \"model_type\": \"reference-to-video\",\n            \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n            \"reference_images\": \"[reference_images omitted]\",\n            \"resolution\": \"720p\",\n            \"seed\": 429091895475161,\n            \"duration\": \"8\",\n            \"aspect_ratio\": \"16:9\",\n            \"generate_audio\": true,\n            \"with_logs\": false\n        },\n        \"selected_service\": \"Seedance\",\n        \"rendered\": {\n            \"provider\": \"FAL\",\n            \"endpoint\": \"fal_client.subscribe\",\n            \"method\": \"SDK\",\n            \"headers\": {},\n            \"query\": {},\n            \"body\": null,\n            \"sdk_call\": {\n                \"args\": [\n                    \"bytedance/seedance-2.0/fast/reference-to-video\"\n                ],\n                \"kwargs\": {\n                    \"arguments\": {\n                        \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n                        \"image_urls\": [\n                            \"https://v3b.fal.media/files/b/0a96fc7b/cmDJ6ITylibfpVU7VlpjT_FAL_edit_1553.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc7b/LWw8syByogFX11AvggMLK_FAL_edit_5510.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc7b/cEG36H0Rdv6_UnDx4byGV_FAL_edit_4390.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc7c/ruNmpNHccb0TCSjrhUj5H_FAL_edit_7572.png\"\n                        ],\n                        \"resolution\": \"720p\",\n                        \"seed\": 429091895475161,\n                        \"duration\": \"8\",\n                        \"aspect_ratio\": \"16:9\",\n                        \"generate_audio\": true,\n                        \"with_logs\": false\n                    }\n                }\n            },\n            \"request_exclusions\": []\n        },\n        \"api_result\": {\n            \"video\": {\n                \"url\": \"https://v3b.fal.media/files/b/0a96fc8a/rHRdrwE_zn-BKjFKKpkQ-_video.mp4\",\n                \"content_type\": \"video/mp4\",\n                \"file_name\": \"video.mp4\",\n                \"file_size\": 3032319\n            },\n            \"seed\": 1040484444\n        },\n        \"api_error\": null\n    }\n]"
+        "[\n    {\n        \"schema\": {\n            \"provider\": \"FAL\",\n            \"service\": \"Seedance\",\n            \"response_handler\": \"FAL_Seedance.py\",\n            \"reference_images_handler\": \"FAL.py\",\n            \"import_modules\": [\n                \"import fal_client\"\n            ],\n            \"possible_parameters\": {\n                \"aspect_ratio\": [\n                    \"auto\",\n                    \"21:9\",\n                    \"16:9\",\n                    \"4:3\",\n                    \"1:1\",\n                    \"3:4\",\n                    \"9:16\"\n                ],\n                \"duration\": [\n                    \"auto\",\n                    4,\n                    5,\n                    6,\n                    7,\n                    8,\n                    9,\n                    10,\n                    11,\n                    12,\n                    13,\n                    14,\n                    15\n                ],\n                \"resolution\": [\n                    \"480p\",\n                    \"720p\"\n                ],\n                \"model_type\": [\n                    \"reference-to-video\"\n                ],\n                \"version\": [\n                    \"2.0\"\n                ],\n                \"generate_audio\": [\n                    false,\n                    true\n                ],\n                \"with_logs\": [\n                    false,\n                    true\n                ]\n            },\n            \"request\": {\n                \"method\": \"SDK\",\n                \"endpoint\": \"fal_client.subscribe\",\n                \"sdk_call\": {\n                    \"args\": [\n                        \"bytedance/seedance-{{version}}/fast/{{model_type}}\"\n                    ],\n                    \"kwargs\": {\n                        \"arguments\": {\n                            \"prompt\": \"{{prompt}}\",\n                            \"image_urls\": \"{{reference_images}}\",\n                            \"video_urls\": \"{{custom_path_1}}\",\n                            \"audio_urls\": \"{{custom_path_2}}\",\n                            \"resolution\": \"{{resolution}}\",\n                            \"seed\": \"{{seed}}\",\n                            \"duration\": \"{{duration}}\",\n                            \"aspect_ratio\": \"{{aspect_ratio}}\",\n                            \"generate_audio\": \"{{generate_audio}}\",\n                            \"with_logs\": \"{{with_logs}}\"\n                        }\n                    }\n                }\n            }\n        },\n        \"selected_parameters\": {\n            \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n            \"width\": 1365,\n            \"height\": 768,\n            \"batch\": 1,\n            \"aspect_ratio\": \"16:9\",\n            \"debug_mode\": false,\n            \"seed\": 188328346181536,\n            \"with_logs\": false,\n            \"model_type\": \"reference-to-video\",\n            \"version\": \"2.0\",\n            \"duration\": \"8\",\n            \"resolution\": \"720p\",\n            \"generate_audio\": true\n        },\n        \"used_values\": {\n            \"version\": \"2.0\",\n            \"model_type\": \"reference-to-video\",\n            \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n            \"reference_images\": \"[reference_images omitted]\",\n            \"resolution\": \"720p\",\n            \"seed\": 188328346181536,\n            \"duration\": \"8\",\n            \"aspect_ratio\": \"16:9\",\n            \"generate_audio\": true,\n            \"with_logs\": false\n        },\n        \"selected_service\": \"Seedance\",\n        \"rendered\": {\n            \"provider\": \"FAL\",\n            \"endpoint\": \"fal_client.subscribe\",\n            \"method\": \"SDK\",\n            \"headers\": {},\n            \"query\": {},\n            \"body\": null,\n            \"sdk_call\": {\n                \"args\": [\n                    \"bytedance/seedance-2.0/fast/reference-to-video\"\n                ],\n                \"kwargs\": {\n                    \"arguments\": {\n                        \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n                        \"image_urls\": [\n                            \"https://v3b.fal.media/files/b/0a96fc8b/qsYdcLaL9N13r0FuFIRod_FAL_edit_7901.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc8b/VtBeS7MvIeawXTWFDIL_n_FAL_edit_2415.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc8b/Fb8oOx-l5mcBwuH3Ex3kf_FAL_edit_8798.png\",\n                            \"https://v3b.fal.media/files/b/0a96fc8b/muuCtIjIUrUj4nkSDn1Vc_FAL_edit_5884.png\"\n                        ],\n                        \"resolution\": \"720p\",\n                        \"seed\": 188328346181536,\n                        \"duration\": \"8\",\n                        \"aspect_ratio\": \"16:9\",\n                        \"generate_audio\": true,\n                        \"with_logs\": false\n                    }\n                }\n            },\n            \"request_exclusions\": []\n        },\n        \"api_result\": {\n            \"video\": {\n                \"url\": \"https://v3b.fal.media/files/b/0a96fc9b/-vUmcD6mId_114I6KNAf__video.mp4\",\n                \"content_type\": \"video/mp4\",\n                \"file_name\": \"video.mp4\",\n                \"file_size\": 2523655\n            },\n            \"seed\": 472790577\n        },\n        \"api_error\": null\n    }\n]"
       ],
       "color": "#2a363b",
       "bgcolor": "#3f5159"
@@ -205,7 +205,7 @@
         1628.4858571984864
       ],
       "flags": {},
-      "order": 26,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -241,40 +241,6 @@
       ]
     },
     {
-      "id": 5,
-      "type": "PrimereAnyOutput",
-      "pos": [
-        -622.5113949863711,
-        654.0087654979694
-      ],
-      "size": [
-        926.2206882503098,
-        1078.7652401045225
-      ],
-      "flags": {},
-      "order": 30,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "*",
-          "link": 715
-        }
-      ],
-      "outputs": [],
-      "title": "Primere Any Debug - RENDERED",
-      "properties": {
-        "Node name for S&R": "PrimereAnyOutput",
-        "cnr_id": "comfyui_primere_nodes",
-        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
-      },
-      "widgets_values": [
-        "{\n    \"provider\": \"FAL\",\n    \"endpoint\": \"fal_client.subscribe\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [\n            \"bytedance/seedance-2.0/fast/reference-to-video\"\n        ],\n        \"kwargs\": {\n            \"arguments\": {\n                \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n                \"image_urls\": [\n                    \"https://v3b.fal.media/files/b/0a96fc7b/cmDJ6ITylibfpVU7VlpjT_FAL_edit_1553.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc7b/LWw8syByogFX11AvggMLK_FAL_edit_5510.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc7b/cEG36H0Rdv6_UnDx4byGV_FAL_edit_4390.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc7c/ruNmpNHccb0TCSjrhUj5H_FAL_edit_7572.png\"\n                ],\n                \"resolution\": \"720p\",\n                \"seed\": 429091895475161,\n                \"duration\": \"8\",\n                \"aspect_ratio\": \"16:9\",\n                \"generate_audio\": true,\n                \"with_logs\": false\n            }\n        }\n    },\n    \"request_exclusions\": []\n}"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 47,
       "type": "PrimereAnyOutput",
       "pos": [
@@ -286,7 +252,7 @@
         1079.130111868482
       ],
       "flags": {},
-      "order": 31,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -303,7 +269,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"arguments\": {\n        \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n        \"image_urls\": [\n            \"https://v3b.fal.media/files/b/0a96fc7b/cmDJ6ITylibfpVU7VlpjT_FAL_edit_1553.png\",\n            \"https://v3b.fal.media/files/b/0a96fc7b/LWw8syByogFX11AvggMLK_FAL_edit_5510.png\",\n            \"https://v3b.fal.media/files/b/0a96fc7b/cEG36H0Rdv6_UnDx4byGV_FAL_edit_4390.png\",\n            \"https://v3b.fal.media/files/b/0a96fc7c/ruNmpNHccb0TCSjrhUj5H_FAL_edit_7572.png\"\n        ],\n        \"resolution\": \"720p\",\n        \"seed\": 429091895475161,\n        \"duration\": \"8\",\n        \"aspect_ratio\": \"16:9\",\n        \"generate_audio\": true,\n        \"with_logs\": false\n    }\n}"
+        "{\n    \"arguments\": {\n        \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n        \"image_urls\": [\n            \"https://v3b.fal.media/files/b/0a96fc8b/qsYdcLaL9N13r0FuFIRod_FAL_edit_7901.png\",\n            \"https://v3b.fal.media/files/b/0a96fc8b/VtBeS7MvIeawXTWFDIL_n_FAL_edit_2415.png\",\n            \"https://v3b.fal.media/files/b/0a96fc8b/Fb8oOx-l5mcBwuH3Ex3kf_FAL_edit_8798.png\",\n            \"https://v3b.fal.media/files/b/0a96fc8b/muuCtIjIUrUj4nkSDn1Vc_FAL_edit_5884.png\"\n        ],\n        \"resolution\": \"720p\",\n        \"seed\": 188328346181536,\n        \"duration\": \"8\",\n        \"aspect_ratio\": \"16:9\",\n        \"generate_audio\": true,\n        \"with_logs\": false\n    }\n}"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -320,7 +286,7 @@
         88
       ],
       "flags": {},
-      "order": 28,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -351,7 +317,7 @@
         105.8946101654052
       ],
       "flags": {},
-      "order": 27,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -612,47 +578,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 58,
-      "type": "LoadImage",
-      "pos": [
-        -615.4746356323245,
-        208.02991470031756
-      ],
-      "size": [
-        327.5351346026613,
-        386.2967736602784
-      ],
-      "flags": {},
-      "order": 9,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            700
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage",
-        "cnr_id": "comfy-core",
-        "ver": "0.14.1"
-      },
-      "widgets_values": [
-        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
-        "image"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
       "id": 36,
       "type": "LoadImage",
       "pos": [
@@ -664,7 +589,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -694,206 +619,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 78,
-      "type": "PrimerePathSelector",
-      "pos": [
-        -1393.1523639885643,
-        -544.0564625160083
-      ],
-      "size": [
-        760.2021982666013,
-        163.5916230102539
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "final_path",
-          "type": "STRING",
-          "links": [
-            702
-          ]
-        },
-        {
-          "name": "path_type",
-          "type": "BOOLEAN",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePathSelector"
-      },
-      "widgets_values": [
-        true,
-        null,
-        "E:/!Works/SZOVEGEK/Cikkek/substack/Images/b76a65a3-b7c4-40fc-ab51-beb7aafedb5c_1376x768.jpg"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 82,
-      "type": "PrimerePathSelector",
-      "pos": [
-        -1403.519213475869,
-        331.62875781480193
-      ],
-      "size": [
-        760.2021982666013,
-        163.5916230102539
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "final_path",
-          "type": "STRING",
-          "links": [
-            710
-          ]
-        },
-        {
-          "name": "path_type",
-          "type": "BOOLEAN",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePathSelector"
-      },
-      "widgets_values": [
-        true,
-        null,
-        "E:/!Works/SZOVEGEK/DTP-munka-angol.txt"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
-      "id": 81,
-      "type": "PrimerePathSelector",
-      "pos": [
-        -1397.674114342568,
-        103.21794630967511
-      ],
-      "size": [
-        760.2021982666013,
-        163.5916230102539
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "final_path",
-          "type": "STRING",
-          "links": [
-            709
-          ]
-        },
-        {
-          "name": "path_type",
-          "type": "BOOLEAN",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePathSelector"
-      },
-      "widgets_values": [
-        true,
-        null,
-        "E:/!Works/SZOVEGEK/Leslie_Perjes_CV_2026_Final-HU.docx"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
-      "id": 80,
-      "type": "PrimerePathSelector",
-      "pos": [
-        -1395.0823126091695,
-        -116.51679482496837
-      ],
-      "size": [
-        760.2021982666013,
-        163.5916230102539
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "final_path",
-          "type": "STRING",
-          "links": [
-            708
-          ]
-        },
-        {
-          "name": "path_type",
-          "type": "BOOLEAN",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePathSelector"
-      },
-      "widgets_values": [
-        true,
-        null,
-        "E:/!Works/20260329_200310.jpg"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
-      "id": 79,
-      "type": "PrimerePathSelector",
-      "pos": [
-        -1390.32152679374,
-        -334.0824625160083
-      ],
-      "size": [
-        760.2021982666013,
-        163.5916230102539
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "final_path",
-          "type": "STRING",
-          "links": [
-            707
-          ]
-        },
-        {
-          "name": "path_type",
-          "type": "BOOLEAN",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimerePathSelector"
-      },
-      "widgets_values": [
-        true,
-        null,
-        "E:/!Works/670730357_1386805386819731_7576913027516684053_n.jpg"
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
       "id": 83,
       "type": "LoadImage",
       "pos": [
@@ -905,7 +630,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 16,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -946,7 +671,7 @@
         1020.0648981547242
       ],
       "flags": {},
-      "order": 29,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -980,7 +705,7 @@
         628.220628990278
       ],
       "flags": {},
-      "order": 32,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -997,7 +722,7 @@
         "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
       },
       "widgets_values": [
-        "{\n    \"version\": \"2.0\",\n    \"model_type\": \"reference-to-video\",\n    \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n    \"reference_images\": \"[reference_images omitted]\",\n    \"resolution\": \"720p\",\n    \"seed\": 429091895475161,\n    \"duration\": \"8\",\n    \"aspect_ratio\": \"16:9\",\n    \"generate_audio\": true,\n    \"with_logs\": false\n}"
+        "{\n    \"version\": \"2.0\",\n    \"model_type\": \"reference-to-video\",\n    \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n    \"reference_images\": \"[reference_images omitted]\",\n    \"resolution\": \"720p\",\n    \"seed\": 188328346181536,\n    \"duration\": \"8\",\n    \"aspect_ratio\": \"16:9\",\n    \"generate_audio\": true,\n    \"with_logs\": false\n}"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1014,7 +739,7 @@
         382.46790301705124
       ],
       "flags": {},
-      "order": 17,
+      "order": 11,
       "mode": 4,
       "inputs": [],
       "outputs": [
@@ -1047,7 +772,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 18,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1088,7 +813,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 19,
+      "order": 13,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1129,7 +854,7 @@
         310
       ],
       "flags": {},
-      "order": 22,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1210,7 +935,7 @@
         508.84732322692867
       ],
       "flags": {},
-      "order": 20,
+      "order": 14,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1252,7 +977,7 @@
         622
       ],
       "flags": {},
-      "order": 23,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -1393,33 +1118,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 42,
-      "type": "PreviewImage",
-      "pos": [
-        -1907.1337043038639,
-        -1180.6678131342337
-      ],
-      "size": [
-        2324.0069677273495,
-        581.7454612396214
-      ],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 691
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 9,
       "type": "PrimitiveStringMultiline",
       "pos": [
@@ -1431,7 +1129,7 @@
         595.7926347113871
       ],
       "flags": {},
-      "order": 21,
+      "order": 15,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1455,6 +1153,318 @@
       "bgcolor": "#353"
     },
     {
+      "id": 42,
+      "type": "PreviewImage",
+      "pos": [
+        -1900.603579413728,
+        -1183.3819398172793
+      ],
+      "size": [
+        2324.0069677273495,
+        581.7454612396214
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 691
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 5,
+      "type": "PrimereAnyOutput",
+      "pos": [
+        -622.5113949863711,
+        654.0087654979694
+      ],
+      "size": [
+        926.2206882503098,
+        1078.7652401045225
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 715
+        }
+      ],
+      "outputs": [],
+      "title": "Primere Any Debug - RENDERED",
+      "properties": {
+        "Node name for S&R": "PrimereAnyOutput",
+        "cnr_id": "comfyui_primere_nodes",
+        "ver": "ce14e5d0f46aaa12155853e05132bffb2ee70361"
+      },
+      "widgets_values": [
+        "{\n    \"provider\": \"FAL\",\n    \"endpoint\": \"fal_client.subscribe\",\n    \"method\": \"SDK\",\n    \"headers\": {},\n    \"query\": {},\n    \"body\": null,\n    \"sdk_call\": {\n        \"args\": [\n            \"bytedance/seedance-2.0/fast/reference-to-video\"\n        ],\n        \"kwargs\": {\n            \"arguments\": {\n                \"prompt\": \"A hyper-realistic UGC-style medium close-up of a woman [Image2] in her standing in her kitchen [Image3], filmed vertically as if she's holding her phone at arm's length for a TikTok or Instagram Reel; she is holding up a compact mirrorless camera on [Image1] in one hand close to the lens so it's clearly visible, her expression bright and genuine \\u2014 not overly polished \\u2014 as she says directly to the camera: \\\"Okay I never do this, but I genuinely have to talk about this camera \\u2014 I've had it for three weeks and it has not left my bag, the photos look like film straight out of it, no editing, and it literally fits in my jacket pocket\\\"; Her dog [Image4] barking loud while she talking. She turns the camera around to briefly show its compact size against her hand, natural skin texture including pores, subtle handheld shake, ambient room tone, and unfiltered warm color grading that feels like an authentic creator review rather than a produced advertisement.\",\n                \"image_urls\": [\n                    \"https://v3b.fal.media/files/b/0a96fc8b/qsYdcLaL9N13r0FuFIRod_FAL_edit_7901.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc8b/VtBeS7MvIeawXTWFDIL_n_FAL_edit_2415.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc8b/Fb8oOx-l5mcBwuH3Ex3kf_FAL_edit_8798.png\",\n                    \"https://v3b.fal.media/files/b/0a96fc8b/muuCtIjIUrUj4nkSDn1Vc_FAL_edit_5884.png\"\n                ],\n                \"resolution\": \"720p\",\n                \"seed\": 188328346181536,\n                \"duration\": \"8\",\n                \"aspect_ratio\": \"16:9\",\n                \"generate_audio\": true,\n                \"with_logs\": false\n            }\n        }\n    },\n    \"request_exclusions\": []\n}"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 85,
+      "type": "PrimereMultiPath",
+      "pos": [
+        -877.4082912107186,
+        -548.34399682935
+      ],
+      "size": [
+        270,
+        382
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "path_1",
+          "type": "PATH",
+          "link": 723
+        },
+        {
+          "name": "path_2",
+          "shape": 7,
+          "type": "PATH",
+          "link": 725
+        },
+        {
+          "name": "path_3",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_4",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_5",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_6",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_7",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_8",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_9",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_10",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_11",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_12",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_13",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_14",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_15",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_16",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "path_list",
+          "type": "PATH",
+          "links": [
+            724
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMultiPath"
+      },
+      "widgets_values": [
+        false,
+        1
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 86,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1405.5045940911036,
+        -341.6739961646898
+      ],
+      "size": [
+        478.227297399902,
+        156
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            725
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 78,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1397.4904215141992,
+        -550.5634594428881
+      ],
+      "size": [
+        478.227297399902,
+        156
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            723
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 58,
+      "type": "LoadImage",
+      "pos": [
+        -603.545044458008,
+        206.9455120208742
+      ],
+      "size": [
+        327.5351346026613,
+        386.2967736602784
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            700
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1"
+      },
+      "widgets_values": [
+        "Image_A662_20260902_134540_258750579776_2072x3024_1.jpg",
+        "image"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
       "id": 84,
       "type": "PrimereApiProcessor",
       "pos": [
@@ -1466,7 +1476,7 @@
         1142
       ],
       "flags": {},
-      "order": 24,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -1507,8 +1517,8 @@
         {
           "name": "reference_video",
           "shape": 7,
-          "type": "STRING",
-          "link": 702
+          "type": "PATH",
+          "link": 724
         },
         {
           "name": "width",
@@ -1537,26 +1547,26 @@
         {
           "name": "custom_path_1",
           "shape": 7,
-          "type": "STRING",
-          "link": 707
+          "type": "PATH",
+          "link": 726
         },
         {
           "name": "custom_path_2",
           "shape": 7,
-          "type": "STRING",
-          "link": 708
+          "type": "PATH",
+          "link": null
         },
         {
           "name": "custom_path_3",
           "shape": 7,
-          "type": "STRING",
-          "link": 709
+          "type": "PATH",
+          "link": null
         },
         {
           "name": "custom_path_4",
           "shape": 7,
-          "type": "STRING",
-          "link": 710
+          "type": "PATH",
+          "link": null
         }
       ],
       "outputs": [
@@ -1630,7 +1640,7 @@
       "widgets_values": [
         null,
         true,
-        false,
+        true,
         "FAL",
         "Seedance",
         1,
@@ -1650,15 +1660,305 @@
         95,
         true,
         true,
-        false,
+        "auto",
+        "480p",
         "reference-to-video",
         "2.0",
-        "8",
-        "720p",
-        true
+        false,
+        false
       ],
       "color": "#233",
       "bgcolor": "#355"
+    },
+    {
+      "id": 87,
+      "type": "PrimereMultiPath",
+      "pos": [
+        -887.5916265927982,
+        -118.2127061280558
+      ],
+      "size": [
+        270,
+        382
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "path_1",
+          "type": "PATH",
+          "link": 727
+        },
+        {
+          "name": "path_2",
+          "shape": 7,
+          "type": "PATH",
+          "link": 728
+        },
+        {
+          "name": "path_3",
+          "shape": 7,
+          "type": "PATH",
+          "link": 729
+        },
+        {
+          "name": "path_4",
+          "shape": 7,
+          "type": "PATH",
+          "link": 730
+        },
+        {
+          "name": "path_5",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_6",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_7",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_8",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_9",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_10",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_11",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_12",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_13",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_14",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_15",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        },
+        {
+          "name": "path_16",
+          "shape": 7,
+          "type": "PATH",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "path_list",
+          "type": "PATH",
+          "links": [
+            726
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereMultiPath"
+      },
+      "widgets_values": [
+        false,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 79,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1419.6035267937398,
+        313.3752593513626
+      ],
+      "size": [
+        786.2303646972653,
+        156
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            727
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 80,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1413.5190347527248,
+        512.5039814949166
+      ],
+      "size": [
+        778.6389204101558,
+        156
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            728
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 81,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1417.6066150583447,
+        714.8088251480929
+      ],
+      "size": [
+        779.7235911743162,
+        156
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            729
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 82,
+      "type": "PrimerePathSelector",
+      "pos": [
+        -1414.3644019707422,
+        914.0156614784377
+      ],
+      "size": [
+        771.0474761230469,
+        156
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "final_path",
+          "type": "PATH",
+          "links": [
+            730
+          ]
+        },
+        {
+          "name": "path_type",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimerePathSelector"
+      },
+      "widgets_values": [
+        true,
+        null,
+        "No path selected"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
     }
   ],
   "links": [
@@ -1775,14 +2075,6 @@
       "IMAGE"
     ],
     [
-      702,
-      78,
-      0,
-      84,
-      6,
-      "STRING"
-    ],
-    [
       703,
       15,
       0,
@@ -1813,38 +2105,6 @@
       84,
       10,
       "INT"
-    ],
-    [
-      707,
-      79,
-      0,
-      84,
-      11,
-      "STRING"
-    ],
-    [
-      708,
-      80,
-      0,
-      84,
-      12,
-      "STRING"
-    ],
-    [
-      709,
-      81,
-      0,
-      84,
-      13,
-      "STRING"
-    ],
-    [
-      710,
-      82,
-      0,
-      84,
-      14,
-      "STRING"
     ],
     [
       711,
@@ -1941,16 +2201,80 @@
       77,
       3,
       "IMAGE"
+    ],
+    [
+      723,
+      78,
+      0,
+      85,
+      0,
+      "PATH"
+    ],
+    [
+      724,
+      85,
+      0,
+      84,
+      6,
+      "PATH"
+    ],
+    [
+      725,
+      86,
+      0,
+      85,
+      1,
+      "PATH"
+    ],
+    [
+      726,
+      87,
+      0,
+      84,
+      11,
+      "PATH"
+    ],
+    [
+      727,
+      79,
+      0,
+      87,
+      0,
+      "PATH"
+    ],
+    [
+      728,
+      80,
+      0,
+      87,
+      1,
+      "PATH"
+    ],
+    [
+      729,
+      81,
+      0,
+      87,
+      2,
+      "PATH"
+    ],
+    [
+      730,
+      82,
+      0,
+      87,
+      3,
+      "PATH"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.620921323059155,
+      "scale": 0.6830134553650705,
       "offset": [
-        1729.5454898304179,
-        1248.6577006398272
+        2293.7894797055933,
+        792.8010280156445
       ]
     },
     "frontendVersion": "1.42.11"

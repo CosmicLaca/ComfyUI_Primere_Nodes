@@ -21,7 +21,6 @@ import nodes
 from .modules.exif_data_checker import check_model_from_exif
 from ..utils import comfy_dir
 from ..components import hypernetwork
-from ..components.path_selector_state import get_node_path
 import json
 from ..components import llm_enhancer
 import datetime
@@ -30,6 +29,7 @@ import torch.nn.functional as torchfunc
 import torch
 import comfy_extras.nodes_images as nodes_images
 from itertools import islice
+import itertools
 
 class PrimereDoublePrompt:
     RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
@@ -1796,7 +1796,7 @@ class PrimereMultiImage:
         return (image_list, image_batch, image_concat)
 
 class PrimerePathSelector:
-    RETURN_TYPES = ("STRING", "BOOLEAN",)
+    RETURN_TYPES = ("PATH", "BOOLEAN",)
     RETURN_NAMES = ("final_path", "path_type")
     FUNCTION = "select_path"
     CATEGORY = TREE_INPUTS
@@ -1817,10 +1817,56 @@ class PrimerePathSelector:
     @classmethod
     def IS_CHANGED(cls, select_file=True, id=None, **_kwargs):
         node_id = str(id) if id is not None else None
-        return get_node_path(node_id)
+        return utility.get_node_path(node_id)
 
     def select_path(self, select_file=True, id=None, **_kwargs):
         node_id = str(id) if id is not None else None
-        final_path = get_node_path(node_id)
+        final_path = utility.get_node_path(node_id)
         display_path = final_path if final_path else "No path selected"
         return {"ui": {"path_display": [display_path]}, "result": (final_path, select_file,)}
+
+class PrimereMultiPath:
+    RETURN_TYPES = ("PATH",)
+    RETURN_NAMES = ("path_list",)
+    FUNCTION = "multi_path_source"
+    CATEGORY = TREE_INPUTS
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "path_1": ("PATH",),
+                "process_list": ("BOOLEAN", {"default": True, "label_on": "Path list on", "label_off": "Path list off"}),
+                "number_of_path": ("INT", {"default": 16, "min": 1, "max": 16, "step": 1},)
+            },
+            "optional": {
+                "path_2": ("PATH", {"default": None}),
+                "path_3": ("PATH", {"default": None}),
+                "path_4": ("PATH", {"default": None}),
+                "path_5": ("PATH", {"default": None}),
+                "path_6": ("PATH", {"default": None}),
+                "path_7": ("PATH", {"default": None}),
+                "path_8": ("PATH", {"default": None}),
+                "path_9": ("PATH", {"default": None}),
+                "path_10": ("PATH", {"default": None}),
+                "path_11": ("PATH", {"default": None}),
+                "path_12": ("PATH", {"default": None}),
+                "path_13": ("PATH", {"default": None}),
+                "path_14": ("PATH", {"default": None}),
+                "path_15": ("PATH", {"default": None}),
+                "path_16": ("PATH", {"default": None})
+            },
+        }
+
+    def multi_path_source(self, process_list, number_of_path, **kwargs):
+        path_data = kwargs
+        path_values = list(path_data.values())
+        path_list = path_values[0:number_of_path]
+        path_list = list(itertools.filterfalse(lambda x: x is None or len(x) < 3, path_list))
+        if len(path_list) < 1:
+            path_list = None
+
+        if process_list == False:
+            path_list = None
+
+        return (path_list,)

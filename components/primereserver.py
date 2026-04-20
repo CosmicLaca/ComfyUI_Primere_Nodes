@@ -19,7 +19,6 @@ import shutil
 from ..utils import here
 from ..components.images import histogram as histogram
 from ..components.API import api_schema_registry
-from ..components.path_selector_state import set_node_path
 import importlib
 import inspect
 

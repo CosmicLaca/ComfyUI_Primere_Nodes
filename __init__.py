@@ -111,6 +111,7 @@ NODE_CLASS_MAPPINGS = {
     "PrimereImgToPrompt": Inputs.PrimereImgToPrompt,
     "PrimereMultiImage": Inputs.PrimereMultiImage,
     "PrimerePathSelector": Inputs.PrimerePathSelector,
+    "PrimereMultiPath": Inputs.PrimereMultiPath,
 
     "PrimereMetaSave": Outputs.PrimereMetaSave,
     "PrimereAnyOutput": Outputs.PrimereAnyOutput,
@@ -217,6 +218,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PrimereImgToPrompt": "Primere Img2Prompt",
     "PrimereMultiImage": "Primere Multi Image",
     "PrimerePathSelector": "Primere Path Selector",
+    "PrimereMultiPath": "Primere Multi Path",
 
     "PrimereMetaSave": "Primere Image Meta Saver",
     "PrimereAnyOutput": "Primere Any Debug",

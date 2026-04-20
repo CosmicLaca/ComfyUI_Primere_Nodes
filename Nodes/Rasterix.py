@@ -853,7 +853,7 @@ class PrimereRasterixLens:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("IMAGE",)
     FUNCTION = "primere_rasterix_lens"
-    CATEGORY = "Primere/Rasterix"   # or your original TREE_RASTERIX
+    CATEGORY = TREE_RASTERIX
 
     SECTION_TITLES = [
         # {"before": "lens_profile", "name": "lensfx_profile", "title": "📸 Real Lens Profile", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Select a real camera lens to automatically load authentic optical characteristics (vignette, distortion, CA, flare, anamorphic, etc.). Fine-tune any slider afterwards."},
