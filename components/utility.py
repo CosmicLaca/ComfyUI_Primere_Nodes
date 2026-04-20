@@ -37,6 +37,10 @@ from comfy.utils import common_upscale
 import types
 import comfy.conds
 import node_helpers
+from typing import Dict, Optional
+from threading import Lock
+import tkinter as tk
+from tkinter import filedialog
 
 here = Path(__file__).parent.parent.absolute()
 comfy_dir = str(here.parent.parent)
@@ -1518,3 +1522,51 @@ def json2tuple(json_path):
                 data_tuple = None
 
     return data_tuple
+
+_PATH_STORE: Dict[str, str] = {}
+def set_node_path(node_id: Optional[str], path: Optional[str]) -> None:
+    if not node_id:
+        return
+
+    if path:
+        _PATH_STORE[node_id] = path
+    else:
+        _PATH_STORE.pop(node_id, None)
+
+def get_node_path(node_id: Optional[str]) -> str:
+    if not node_id:
+        return ""
+
+    return _PATH_STORE.get(node_id, "")
+
+_TK_DIALOG_LOCK = Lock()
+def open_path_dialog(select_file=True):
+    if tk is None or filedialog is None:
+        return "", "tkinter is not available"
+
+    with _TK_DIALOG_LOCK:
+        root = tk.Tk()
+        root.withdraw()
+        try:
+            root.attributes("-topmost", True)
+        except Exception:
+            pass
+
+        try:
+            if select_file:
+                selected = filedialog.askopenfilename()
+            else:
+                selected = filedialog.askdirectory()
+        except Exception as exc:
+            try:
+                root.destroy()
+            except Exception:
+                pass
+            return "", str(exc)
+        finally:
+            try:
+                root.destroy()
+            except Exception:
+                pass
+
+    return selected or "", None

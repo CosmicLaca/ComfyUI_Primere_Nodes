@@ -22,18 +22,8 @@ from ..components.API import api_schema_registry
 from ..components.path_selector_state import set_node_path
 import importlib
 import inspect
-from threading import Lock
-
-try:
-    import tkinter as tk
-    from tkinter import filedialog
-except Exception:
-    tk = None
-    filedialog = None
 
 _SECTION_TITLES_CACHE = None
-
-_TK_DIALOG_LOCK = Lock()
 
 def _collect_section_titles():
     global _SECTION_TITLES_CACHE
@@ -61,38 +51,6 @@ def _collect_section_titles():
 
     _SECTION_TITLES_CACHE = section_map
     return _SECTION_TITLES_CACHE
-
-
-def _open_path_dialog(select_file=True):
-    if tk is None or filedialog is None:
-        return "", "tkinter is not available"
-
-    with _TK_DIALOG_LOCK:
-        root = tk.Tk()
-        root.withdraw()
-        try:
-            root.attributes("-topmost", True)
-        except Exception:
-            pass
-
-        try:
-            if select_file:
-                selected = filedialog.askopenfilename()
-            else:
-                selected = filedialog.askdirectory()
-        except Exception as exc:
-            try:
-                root.destroy()
-            except Exception:
-                pass
-            return "", str(exc)
-        finally:
-            try:
-                root.destroy()
-            except Exception:
-                pass
-
-    return selected or "", None
 
 
 '''
@@ -125,15 +83,15 @@ async def primere_select_path(request):
     node_id = str(node_id_raw) if node_id_raw is not None else ""
 
     if str(post.get('clear', "")).lower() in ("1", "true", "yes"):
-        set_node_path(node_id, "")
+        utility.set_node_path(node_id, "")
         return web.json_response({"success": True, "path": ""})
 
     select_file_param = str(post.get('select_file', '1')).lower()
     select_file = select_file_param not in ("0", "false", "directory", "dir")
-    path, error = _open_path_dialog(select_file)
+    path, error =  utility.open_path_dialog(select_file)
 
     if error is None:
-        set_node_path(node_id, path or "")
+        utility.set_node_path(node_id, path or "")
 
     status = 200 if error is None else 503
     response = {"success": error is None, "path": path or "", "error": error}
