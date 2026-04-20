@@ -10,6 +10,7 @@ import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
 import comfy_extras.nodes_stable_cascade as nodes_stable_cascade
 import comfy_extras.nodes_flux as nodes_flux
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
+import comfy_extras.nodes_hunyuan as nodes_hunyuan
 from comfy import model_management
 import gc
 import os
@@ -67,29 +68,69 @@ def PKSampler(self, device, seed, model,
     if control_data and control_data.get('refiner') == True:
         refiner_model_name = control_data.get('refiner_model', None)
         if refiner_model_name and refiner_model_name != 'None':
-            try:
-                REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model_name)
-                RAW_IMAGE = nodes.VAEDecode.decode(self, REFINER_CHECKPOINT[2], samples[0])[0]
-                RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
-                REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
-                REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
-                REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
-                REFINER_STEPS = int(control_data.get('refiner_steps', 22))
-                REFINER_DENOISE = float(control_data.get('refiner_denoise', 0.9))
-                REFINER_START = int(control_data.get('refiner_start', 12))
-                sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(REFINER_CHECKPOINT[0], REFINER_SCHEDULER, REFINER_STEPS, REFINER_DENOISE)[0]
-                splitted_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, REFINER_START)[1]
-                sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
-                if control_data.get('refiner_ignore_prompt', True):
-                    empty_cond = nodes.CLIPTextEncode.encode(self, REFINER_CHECKPOINT[1], "")[0]
-                    refiner_pos = empty_cond
-                    refiner_neg = empty_cond
-                else:
-                    refiner_pos = positive
-                    refiner_neg = negative
-                samples = (nodes_custom_sampler.SamplerCustom.execute(REFINER_CHECKPOINT[0], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_sigma, RAW_IMAGE_ENCODED)[0],)
-            except Exception as e:
-                print(f"Primere: Refiner sampling failed: {e}")
+            model_concept = control_data.get('model_concept', None)
+            original_clip = control_data.get('clip', None)
+            refiner_vae = control_data.get('refiner_vae', None)
+            original_vae = control_data.get('vae', None)
+            if model_concept is not None and original_clip is not None and original_vae is not None and refiner_vae is not None and original_vae is not None and model_concept == 'HunyuanV2':
+                refiner_cfg = control_data.get('refiner_cfg', 1.00)
+                refiner_steps = control_data.get('refiner_steps', 4)
+                refiner_denoise = control_data.get('refiner_denoise', 1.00)
+                refiner_sampler = control_data.get('refiner_sampler', 'euler')
+                refiner_scheduler = control_data.get('refiner_scheduler', 'simple')
+                refiner_ignore_prompt = control_data.get('refiner_ignore_prompt', False)
+                File_link, linkedFileName, model_ext = resolve_symlink(refiner_model_name)
+                if File_link:
+                    REFINER_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
+                    ORIGINAL_VAE = utility.vae_loader_class.load_vae(original_vae)[0]
+                    RAW_IMAGE = nodes.VAEDecode.decode(self, ORIGINAL_VAE, samples[0])[0]
+                    REFINER_VAE = utility.vae_loader_class.load_vae(refiner_vae)[0]
+                    RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, REFINER_VAE, RAW_IMAGE)[0]
+                    ref_pos_prompt = '''<|start_header_id|>system<|end_header_id|>
+Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+Make the image high quality
+<|eot_id|>'''
+
+                    ref_neg_prompt = '''<|start_header_id|>system<|end_header_id|>
+Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+<|eot_id|>'''
+
+                    if refiner_ignore_prompt == True:
+                        ref_cond_pos = nodes.CLIPTextEncode.encode(self, original_clip, ref_pos_prompt)[0]
+                        ref_cond_neg = nodes.CLIPTextEncode.encode(self, original_clip, ref_neg_prompt)[0]
+                    else:
+                        ref_cond_pos = positive
+                        ref_cond_neg = negative
+                    noise_augmentation = 0.10
+
+                    positive, negative, latent_image = nodes_hunyuan.HunyuanRefinerLatent.execute(ref_cond_pos, ref_cond_neg, RAW_IMAGE_ENCODED, noise_augmentation)[0]
+                    samples = nodes.KSampler.sample(self, REFINER_CHECKPOINT, seed, refiner_steps, refiner_cfg, refiner_sampler, refiner_scheduler, positive, negative, latent_image, denoise=refiner_denoise)
+            else:
+                try:
+                    REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model_name)
+                    RAW_IMAGE = nodes.VAEDecode.decode(self, REFINER_CHECKPOINT[2], samples[0])[0]
+                    RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
+                    REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
+                    REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
+                    REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
+                    REFINER_STEPS = int(control_data.get('refiner_steps', 22))
+                    REFINER_DENOISE = float(control_data.get('refiner_denoise', 0.9))
+                    REFINER_START = int(control_data.get('refiner_start', 12))
+                    sigmas_refiner = nodes_custom_sampler.BasicScheduler.execute(REFINER_CHECKPOINT[0], REFINER_SCHEDULER, REFINER_STEPS, REFINER_DENOISE)[0]
+                    splitted_sigma = nodes_custom_sampler.SplitSigmas.execute(sigmas_refiner, REFINER_START)[1]
+                    sampler_refiner = comfy.samplers.sampler_object(REFINER_SAMPLER)
+                    if control_data.get('refiner_ignore_prompt', True):
+                        empty_cond = nodes.CLIPTextEncode.encode(self, REFINER_CHECKPOINT[1], "")[0]
+                        refiner_pos = empty_cond
+                        refiner_neg = empty_cond
+                    else:
+                        refiner_pos = positive
+                        refiner_neg = negative
+                    samples = (nodes_custom_sampler.SamplerCustom.execute(REFINER_CHECKPOINT[0], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_sigma, RAW_IMAGE_ENCODED)[0],)
+                except Exception as e:
+                    print(f"Primere: Refiner sampling failed: {e}")
 
     return samples
 

@@ -775,7 +775,8 @@ class PrimereModelControl:
                 "nunchaku_lora_strength": ("FLOAT", {"default": 1, "min": -20.000, "max": 20.000, "step": 0.001}),
 
                 "refiner": ("BOOLEAN", {"default": False, "label_on": "Refiner ON", "label_off": "Refiner OFF"}),
-                "refiner_model": (cls.REFINER_MODELS,),
+                "refiner_model": (['Baked'] + cls.REFINER_MODELS,),
+                "refiner_vae": (cls.VAELIST,),
                 "refiner_sampler": (comfy.samplers.KSampler.SAMPLERS, {"default": "dpmpp_2m"}),
                 "refiner_scheduler": (comfy.samplers.KSampler.SCHEDULERS, {"default": "normal"}),
                 "refiner_cfg": ("FLOAT", {"default": 2.0, "min": 0.1, "max": 100, "step": 0.01}),

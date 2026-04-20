@@ -949,5 +949,9 @@ def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt
         out_neg = clip.encode_from_tokens(tokens_neg, return_pooled=True, return_dict=True)
         cond_pos = out_pos.pop("cond")
         cond_neg = out_neg.pop("cond")
-        pos_cond, neg_cond = _maybe_wrap_cond([[cond_pos, out_pos]], [[cond_neg, out_neg]], refiner_clip, positive_text, negative_text)
-        return (pos_cond, neg_cond, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
+
+        refiner_state = control_data.get('refiner', False)
+        refiner_model = control_data.get('refiner_model', None)
+        if refiner_state and refiner_model:
+            control_data['clip'] = clip
+        return (cond_pos, cond_neg, positive_text, negative_text, t5xxl_prompt, "", "", control_data)
