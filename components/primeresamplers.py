@@ -69,7 +69,7 @@ def PKSampler(self, device, seed, model,
         refiner_model_name = control_data.get('refiner_model', None)
         if refiner_model_name and refiner_model_name != 'None':
             model_concept = control_data.get('model_concept', None)
-            original_clip = control_data.get('clip', None)
+            original_clip = control_data.get('loaded_clip', None)
             refiner_vae = control_data.get('refiner_vae', None)
             original_vae = control_data.get('vae', None)
             if model_concept is not None and original_clip is not None and original_vae is not None and refiner_vae is not None and original_vae is not None and model_concept == 'HunyuanV2':
