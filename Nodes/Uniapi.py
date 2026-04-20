@@ -38,6 +38,12 @@ class PrimereApiProcessor:
     API_SCHEMAS_RAW = utility.json2tuple(_schema_file if Path(_schema_file).is_file() else _schema_example)
     API_SCHEMA_REGISTRY = api_schema_registry.normalize_registry(API_SCHEMAS_RAW)
 
+    SECTION_TITLES = [
+        {"before": "processor", "name": "primere_api_proc", "title": "🧭 API Setup", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Setup API processor, select related provider and service."},
+        {"before": "auto_save_result", "name": "primere_save_api_result", "title": "💾 API result save", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Save API results. Define main path, add subdirectory structure, add filename prefixes. Save related data to .txt or .json file."},
+        {"after": "save_data_to_txt", "name": "primere_api_body", "title": "⚙ API body parameters", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Set API body custom parameters."},
+    ]
+
     @classmethod
     def INPUT_TYPES(cls):
         cls.required_inputs = {

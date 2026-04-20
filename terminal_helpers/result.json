@@ -1,57 +1,53 @@
 {
-  "Gemini": {
-    "Nanobanana_2": {
-      "provider": "Gemini",
-      "service": "Nanobanana_2",
-      "response_handler": "Gemini_Nanobanana_2.py",
-      "reference_images_handler": "Gemini.py",
+  "FAL": {
+    "Seedance": {
+      "provider": "FAL",
+      "service": "Seedance",
+      "response_handler": "FAL_Seedance.py",
+      "reference_images_handler": "FAL.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "aspect_ratio": [
-          "fake_aspect_ratio_value_1",
-          "fake_aspect_ratio_value_2"
+        "audio_urls": [
+          "fake_audio_urls_value_1",
+          "fake_audio_urls_value_2"
         ],
-        "resolution": [
-          "1K",
-          "2K",
-          "4K"
+        "reference_image": [
+          "fake_reference_image_value_1",
+          "fake_reference_image_value_2"
+        ],
+        "aspect_ratio": ["auto", "21:9", "16:9", "4:3", "1:1", "3:4", "9:16"],
+        "duration": ["auto", 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "resolution": ["480p", "720p"],
+        "video_urls": [
+          "fake_video_urls_value_1",
+          "fake_video_urls_value_2"
+        ],
+        "with_logs": [
+          "fake_with_logs_value_1",
+          "fake_with_logs_value_2"
         ]
       },
       "request": {
         "method": "SDK",
-        "endpoint": "client.models.generate_content",
+        "endpoint": "fal_client.subscribe",
         "sdk_call": {
-          "args": [],
+          "args": [
+            "bytedance/seedance-2.0/fast/reference-to-video"
+          ],
           "kwargs": {
-            "model": "gemini-3.1-flash-image-preview",
-            "contents": "{{prompt}}",
-            "config": {
-              "$call": "types.GenerateContentConfig",
-              "$args": [],
-              "$kwargs": {
-                "response_modalities": [
-                  "IMAGE"
-                ],
-                "image_config": {
-                  "$call": "types.ImageConfig",
-                  "$args": [],
-                  "$kwargs": {
-                    "aspect_ratio": "{{aspect_ratio}}",
-                    "image_size": "{{resolution}}"
-                  }
-                },
-                "thinking_config": {
-                  "$call": "types.ThinkingConfig",
-                  "$args": [],
-                  "$kwargs": {
-                    "thinking_level": "High",
-                    "include_thoughts": true
-                  }
-                }
-              }
+            "arguments": {
+              "prompt": "{{prompt}}",
+              "image_urls": "{{reference_image}}",
+              "video_urls": "{{video_urls}}",
+              "audio_urls": "{{audio_urls}}",
+              "resolution": "{{resolution}}",
+              "seed": "{{seed}}",
+              "duration": "{{duration}}",
+              "aspect_ratio": "{{aspect_ratio}}",
+              "with_logs": "{{with_logs}}"
             }
           }
         }

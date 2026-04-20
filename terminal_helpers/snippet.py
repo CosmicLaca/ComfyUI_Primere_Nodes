@@ -1,15 +1,13 @@
-response = client.models.generate_content(
-    model="gemini-3.1-flash-image-preview",
-    contents=prompt,
-    config=types.GenerateContentConfig(
-        response_modalities=['IMAGE'],
-        image_config=types.ImageConfig(
-            aspect_ratio=aspect_ratio,
-            image_size=resolution
-        ),
-        thinking_config=types.ThinkingConfig(
-            thinking_level="High",
-            include_thoughts=True
-        ),
-    )
+result = fal_client.subscribe("bytedance/seedance-2.0/fast/reference-to-video",
+    arguments={
+        "prompt": prompt,
+        "image_urls": reference_image,
+        "video_urls": video_urls,
+        "audio_urls": audio_urls,
+        "resolution": resolution,
+        "seed": seed,
+        "duration": "auto",
+        "aspect_ratio": "auto",
+        "with_logs": with_logs
+    }
 )

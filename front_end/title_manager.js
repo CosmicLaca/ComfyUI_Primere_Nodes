@@ -2,7 +2,7 @@ import { app } from "/scripts/app.js";
 
 // Add node names here to enable backend-driven title separators on those nodes.
 const TITLE_MANAGED_NODES = [
-    "PrimereRasterix", "PrimereModelControl", "PrimereMetaSave", "PrimereRasterixLens", "PrimereMetaHandler", "PrimereCLIPEncoder"
+    "PrimereRasterix", "PrimereModelControl", "PrimereMetaSave", "PrimereRasterixLens", "PrimereMetaHandler", "PrimereCLIPEncoder", "PrimereApiProcessor"
 ];
 
 const titleConfigCache = {};
