@@ -735,7 +735,7 @@ class PrimereKSampler:
 
         return (samples_out, control_data)
 
-class PrimerePreviewImage():
+class PrimerePreviewImage:
     CATEGORY = TREE_OUTPUTS
     RETURN_TYPES = ()
     OUTPUT_NODE = True
