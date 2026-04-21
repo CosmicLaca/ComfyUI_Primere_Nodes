@@ -763,7 +763,8 @@ def load_hunyuan_model(loader_self, ckpt_name, concept_data):
                     OUTPUT_MODEL = nf4_helper.UNETLoaderNF4.load_nf4unet(linkedFileName)[0]
 
         OUTPUT_CLIP = nodes.DualCLIPLoader.load_clip(loader_self, encoder_1, encoder_2, 'hunyuan_image')[0]
-        return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, HUNYUAN_VAE, loader_self, concept_data)
+        # return _wrap_refiner(OUTPUT_MODEL, OUTPUT_CLIP, HUNYUAN_VAE, loader_self, concept_data)
+        return (OUTPUT_MODEL, OUTPUT_CLIP, HUNYUAN_VAE)
 
     else:
         try:

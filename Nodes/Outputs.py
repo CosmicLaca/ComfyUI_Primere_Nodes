@@ -761,6 +761,7 @@ class PrimerePreviewImage():
                 "preview_save_mode": (['Overwrite', 'Keep', 'Join horizontal', 'Join vertical'], {"default": "Overwrite"}),
                 "embed_metadata": ("BOOLEAN", {"default": False, "label_on": "Embed metadata", "label_off": "No metadata"}),
                 "auto_save_path": ("BOOLEAN", {"default": False, "label_on": "Comfy output folder", "label_off": "Temp folder, will be deleted"}),
+                # "target_selection": (['select target...'],),
             },
             "optional": {
                 "images": ("IMAGE", {"default": None}),

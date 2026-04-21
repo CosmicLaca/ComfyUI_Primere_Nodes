@@ -4,6 +4,7 @@ import torch
 import folder_paths
 from ..components import latentnoise
 from ..components import utility
+from ..components import models
 import comfy_extras.nodes_align_your_steps as nodes_align_your_steps
 import comfy.samplers
 import comfy_extras.nodes_custom_sampler as nodes_custom_sampler
@@ -79,7 +80,7 @@ def PKSampler(self, device, seed, model,
                 refiner_sampler = control_data.get('refiner_sampler', 'euler')
                 refiner_scheduler = control_data.get('refiner_scheduler', 'simple')
                 refiner_ignore_prompt = control_data.get('refiner_ignore_prompt', False)
-                File_link, linkedFileName, model_ext = resolve_symlink(refiner_model_name)
+                File_link, linkedFileName, model_ext = models.resolve_symlink(refiner_model_name)
                 if File_link:
                     REFINER_CHECKPOINT = nodes.UNETLoader.load_unet(self, linkedFileName, 'default')[0]
                     ORIGINAL_VAE = utility.vae_loader_class.load_vae(original_vae)[0]
@@ -105,7 +106,7 @@ Describe the image by detailing the color, shape, size, texture, quantity, text,
                         ref_cond_neg = negative
                     noise_augmentation = 0.10
 
-                    positive, negative, latent_image = nodes_hunyuan.HunyuanRefinerLatent.execute(ref_cond_pos, ref_cond_neg, RAW_IMAGE_ENCODED, noise_augmentation)[0]
+                    positive, negative, latent_image = nodes_hunyuan.HunyuanRefinerLatent.execute(ref_cond_pos, ref_cond_neg, RAW_IMAGE_ENCODED, noise_augmentation)
                     samples = nodes.KSampler.sample(self, REFINER_CHECKPOINT, seed, refiner_steps, refiner_cfg, refiner_sampler, refiner_scheduler, positive, negative, latent_image, denoise=refiner_denoise)
             else:
                 try:

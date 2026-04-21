@@ -922,7 +922,6 @@ def encode_kolors(clip, positive_text, negative_text, t5xxl_prompt, control_data
 
 
 def encode_hunyuan(loader_self, clip, positive_text, negative_text, t5xxl_prompt, control_data):
-    refiner_clip = None
     if type(clip).__name__ == 'dict' and 't5' in clip:
         if clip['t5'] is not None:
             positive_text = utility.DiT_cleaner(positive_text)
