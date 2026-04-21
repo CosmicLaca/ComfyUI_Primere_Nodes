@@ -113,6 +113,13 @@ app.registerExtension({
                 onNodeCreated ? onNodeCreated.apply(this, []) : undefined;
                 new MiniPreviewControl(this);
                 PrimerePreviewSaverWidget.apply(this, [this, 'PrimerePreviewSaver']);
+                normalizeTargetSelectionWidget(this, true);
+            };
+
+            const onConfigure = nodeType.prototype.onConfigure;
+            nodeType.prototype.onConfigure = function () {
+                onConfigure ? onConfigure.apply(this, arguments) : undefined;
+                normalizeTargetSelectionWidget(this);
             };
         }
     },
@@ -172,6 +179,21 @@ function checkPreviewExample() {
     }
 }
 
+function normalizeTargetSelectionWidget(node, forceDefault = false) {
+    const state = ensureNodeState(node);
+    const targetWidget = node.widgets?.find(w => w.name === 'target_selection');
+    if (!targetWidget) return;
+
+    const values = Array.isArray(targetWidget.options?.values) ? targetWidget.options.values : ['select target...'];
+    const hasOnlyDefaultValue = values.length === 1 && values[0] === 'select target...';
+    const shouldReset = forceDefault || hasOnlyDefaultValue || !values.includes(targetWidget.value);
+
+    if (shouldReset && values.length > 0) {
+        targetWidget.value = values[0];
+        state.selectedTarget = values[0];
+    }
+}
+
 async function PrimerePreviewSaverWidget(node, inputName) {
     if (inputName == 'PrimerePreviewSaver') {
         node.name = inputName;
@@ -191,6 +213,7 @@ async function PrimerePreviewSaverWidget(node, inputName) {
         node.addWidget("combo", "target_selection", 'select target...', () => {}, {
             values: ["select target..."],
         });
+        normalizeTargetSelectionWidget(node, true);
 
         const saveBtn = node.addWidget("button", '⛔ Image not available for save. Please load one.', null, () => {
             const state = ensureNodeState(node);
@@ -580,6 +603,7 @@ function applyWidgetValues(node, buttontitle, targetSelValues) {
             }
         }
     }
+    normalizeTargetSelectionWidget(node);
     app.canvas.setDirty(true);
 }
 
