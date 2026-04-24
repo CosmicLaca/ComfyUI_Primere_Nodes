@@ -1,6 +1,7 @@
 .idea
 .github
 .git
+.secrets
 wildcards
 stylecsv
 consoletests

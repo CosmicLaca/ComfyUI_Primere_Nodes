@@ -79,6 +79,53 @@ After editing `api_schemas.json`, use the **↺ Reload API Schema** button at th
 
 ---
 
+### Kling v3/o3 multi-prompt + elements input convention
+
+For Kling schemas, Uniapi now supports building `multi_prompt` and `elements` from existing node inputs:
+
+- This logic is enabled **only** when `model_type` is:
+  - `reference-to-video`
+  - `video-to-video/reference`
+- For all other Kling `model_type` values, Uniapi ignores multiprompt conversion and ignores custom-path elements.
+
+- `prompt` input (single multiline string) is split by separator lines that contain only `---`.
+- If the separator is present (multi-prompt mode):
+  - all blocks are converted into `multi_prompt` items (including the first block),
+  - `prompt` is forced to an empty string (`""`),
+  - `shot_type` is auto-set to `"customize"`.
+  - `duration` is auto-overwritten to the sum of all multiprompt item durations.
+- If no separator is present (single prompt mode):
+  - `prompt` is sent as a normal single prompt,
+  - `multi_prompt` and `shot_type` are omitted.
+- Each multiprompt block can end with `::duration`.
+  - Example: `Camera pans left ...::5`
+  - Output item becomes:
+    - `{"prompt": "Camera pans left ...", "duration": "5"}`
+- If `::duration` is missing, duration defaults to `"Default"`.
+- In duration sum, `"Default"` is treated as **5 seconds**.
+
+`elements` are sourced from `custom_path_1` to `custom_path_4` (`PATH` inputs):
+
+- Each `custom_path_N` input produces at most one `elements[N-1]` object.
+- All local files are uploaded with the provider uploader when available.
+- Within each `custom_path_N` list:
+  - the **first image** becomes `frontal_image_url` (required for valid element object),
+  - any additional images become `reference_image_urls` list,
+  - the first video (if any) becomes `video_url` string,
+  - non-image/non-video files are ignored for Kling elements.
+- If a `custom_path_N` list has no image, that element object is skipped.
+- Element index is determined by `custom_path` input order and maps to Kling references like `@Element1`, `@Element2`, etc.
+
+For variable-length references, prefer schema request body mapping:
+
+```json
+"elements": "{{elements}}"
+```
+
+instead of fixed, hard-coded element array blocks.
+
+---
+
 ## 3) Schema workflow — snippet to JSON
 
 Run from `terminal_helpers/`:

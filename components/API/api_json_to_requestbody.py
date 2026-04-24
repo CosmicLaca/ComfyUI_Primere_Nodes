@@ -1,9 +1,204 @@
 from __future__ import annotations
 from typing import Any
 import os
+import ast
+import mimetypes
+import re
+from pathlib import Path
 from . import external_api_backend
 from . import api_helper
 from . import request_exceptions
+
+class KlingRequestBuilder:
+    MULTI_PROMPT_SEPARATOR_RE = re.compile(r"(?m)^\s*---\s*$")
+    MULTI_INPUT_MODEL_TYPES = {"reference-to-video", "video-to-video/reference"}
+
+    @staticmethod
+    def is_kling_schema(schema: Any) -> bool:
+        if not isinstance(schema, dict):
+            return False
+        schema_service = str(schema.get("service", "")).lower()
+        schema_provider = str(schema.get("provider", "")).lower()
+        request_data = schema.get("request") if isinstance(schema.get("request"), dict) else {}
+        sdk_call = request_data.get("sdk_call") if isinstance(request_data.get("sdk_call"), dict) else {}
+        sdk_args = sdk_call.get("args") if isinstance(sdk_call.get("args"), list) else []
+        endpoint = str(sdk_args[0] if len(sdk_args) > 0 else "").lower()
+        return "kling" in schema_service or "kling" in endpoint or (schema_provider == "fal" and "kling" in endpoint)
+
+    @classmethod
+    def supports_multi_inputs_for_model_type(cls, model_type: Any) -> bool:
+        return str(model_type or "").strip().lower() in cls.MULTI_INPUT_MODEL_TYPES
+
+    @classmethod
+    def resolve_model_type(cls, selected_parameters: dict[str, Any], schema: dict[str, Any]) -> str:
+        model_type_value = selected_parameters.get("model_type")
+        if model_type_value not in (None, ""):
+            return str(model_type_value)
+
+        possible_parameters = schema.get("possible_parameters", {}) if isinstance(schema, dict) else {}
+        model_type_options = possible_parameters.get("model_type") if isinstance(possible_parameters, dict) else None
+        if isinstance(model_type_options, list) and len(model_type_options) > 0:
+            return str(model_type_options[0])
+        return ""
+
+    @staticmethod
+    def apply_prompt_logic(selected_parameters: dict[str, Any], prompt_value: Any) -> dict[str, Any]:
+        updated = dict(selected_parameters)
+        if not isinstance(prompt_value, str):
+            existing_multi_prompt = updated.get("multi_prompt")
+            if isinstance(existing_multi_prompt, list) and len(existing_multi_prompt) > 0:
+                updated["prompt"] = ""
+                updated["shot_type"] = "customize"
+            else:
+                updated.pop("shot_type", None)
+            return updated
+
+        normalized_prompt = prompt_value.replace("\r\n", "\n")
+        prompt_blocks = [block.strip() for block in KlingRequestBuilder.MULTI_PROMPT_SEPARATOR_RE.split(normalized_prompt) if block.strip()]
+        existing_multi_prompt = updated.get("multi_prompt")
+        has_existing_multi_prompt = isinstance(existing_multi_prompt, list) and len(existing_multi_prompt) > 0
+        is_multi_prompt = len(prompt_blocks) > 1 or has_existing_multi_prompt
+
+        updated.pop("shot_type", None)
+
+        if len(prompt_blocks) == 0:
+            if has_existing_multi_prompt:
+                updated["prompt"] = ""
+                updated["shot_type"] = "customize"
+            return updated
+
+        if has_existing_multi_prompt and len(prompt_blocks) <= 1:
+            updated["prompt"] = ""
+            updated["shot_type"] = "customize"
+            return updated
+
+        if not is_multi_prompt:
+            updated["prompt"] = prompt_blocks[0]
+            updated.pop("multi_prompt", None)
+            return updated
+
+        updated["prompt"] = ""
+        multi_prompt: list[dict[str, str]] = []
+        for raw_block in prompt_blocks:
+            prompt_part = raw_block.strip()
+            duration_part = "Default"
+            if "::" in raw_block:
+                prompt_candidate, duration_candidate = raw_block.rsplit("::", 1)
+                prompt_candidate = prompt_candidate.strip()
+                duration_candidate = duration_candidate.strip()
+                if prompt_candidate:
+                    prompt_part = prompt_candidate
+                duration_part = duration_candidate if duration_candidate else "Default"
+            multi_prompt.append({"prompt": prompt_part, "duration": duration_part})
+
+        if len(multi_prompt) > 0:
+            updated["multi_prompt"] = multi_prompt
+            updated["shot_type"] = "customize"
+        return updated
+
+    @staticmethod
+    def normalize_path_input(path_input: Any) -> list[str]:
+        if path_input in (None, ""):
+            return []
+        if isinstance(path_input, (list, tuple)):
+            return [str(item) for item in path_input if item not in (None, "")]
+        if isinstance(path_input, str):
+            stripped = path_input.strip()
+            if not stripped:
+                return []
+            if stripped.startswith("[") and stripped.endswith("]"):
+                try:
+                    parsed = ast.literal_eval(stripped)
+                    if isinstance(parsed, (list, tuple)):
+                        return [str(item) for item in parsed if item not in (None, "")]
+                except Exception:
+                    pass
+            return [stripped]
+        return []
+
+    @staticmethod
+    def _upload_local_reference(path_value: str, loaded_client_for_upload: Any) -> str:
+        if hasattr(loaded_client_for_upload, "upload_file") and os.path.isfile(path_value):
+            return str(loaded_client_for_upload.upload_file(path_value))
+        return str(path_value)
+
+    @classmethod
+    def _detect_media_type(cls, source_path: str) -> str:
+        guessed_mime, _ = mimetypes.guess_type(source_path)
+        mime_low = str(guessed_mime or "").lower()
+        suffix = Path(source_path).suffix.lower()
+
+        if mime_low.startswith("video/") or suffix in {".mp4", ".mov", ".mkv", ".webm", ".avi", ".m4v"}:
+            return "video"
+        if mime_low.startswith("image/") or suffix in {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".gif"}:
+            return "image"
+        return "other"
+
+    @classmethod
+    def _build_single_element(cls, path_input: Any, loaded_client_for_upload: Any) -> dict[str, Any] | None:
+        normalized_paths = cls.normalize_path_input(path_input)
+        if len(normalized_paths) == 0:
+            return None
+
+        image_urls: list[str] = []
+        video_url: str | None = None
+
+        for single_path in normalized_paths:
+            source_path = str(single_path).strip()
+            if not source_path:
+                continue
+            media_type = cls._detect_media_type(source_path)
+            if media_type not in {"image", "video"}:
+                continue
+
+            uploaded_path = cls._upload_local_reference(source_path, loaded_client_for_upload)
+            if media_type == "image":
+                image_urls.append(uploaded_path)
+            elif video_url is None:
+                video_url = uploaded_path
+
+        if len(image_urls) == 0:
+            return None
+
+        element_object: dict[str, Any] = {
+            "frontal_image_url": image_urls[0],
+            "reference_image_urls": image_urls[1:],
+        }
+        if video_url is not None:
+            element_object["video_url"] = video_url
+        return element_object
+
+    @classmethod
+    def build_elements(cls, path_inputs: list[Any], loaded_client_for_upload: Any) -> list[dict[str, Any]]:
+        element_list: list[dict[str, Any]] = []
+        for single_input in path_inputs:
+            element_object = cls._build_single_element(single_input, loaded_client_for_upload)
+            if isinstance(element_object, dict) and len(element_object) > 0:
+                element_list.append(element_object)
+        return element_list
+
+    @staticmethod
+    def summarize_multi_prompt_duration(multi_prompt_value: Any, default_duration: int = 5) -> int | None:
+        if not isinstance(multi_prompt_value, list) or len(multi_prompt_value) == 0:
+            return None
+
+        total_duration = 0
+        for entry in multi_prompt_value:
+            duration_value = default_duration
+            if isinstance(entry, dict):
+                raw_duration = entry.get("duration")
+                if isinstance(raw_duration, str):
+                    stripped = raw_duration.strip()
+                    if stripped and stripped.lower() != "default":
+                        try:
+                            duration_value = int(float(stripped))
+                        except (TypeError, ValueError):
+                            duration_value = default_duration
+                elif isinstance(raw_duration, (int, float)):
+                    duration_value = int(raw_duration)
+            total_duration += max(0, int(duration_value))
+
+        return total_duration
 
 def _provider_api_key(spec: dict[str, Any]) -> Any:
     provider = str(spec.get("provider") or "").strip()
@@ -23,20 +218,21 @@ def _provider_api_key(spec: dict[str, Any]) -> Any:
 def _secret_placeholder_default(key: str, spec: dict[str, Any]) -> Any:
     normalized = str(key or "").strip()
     low = normalized.lower()
+    looks_like_secret = (
+        low.endswith(("_api_key", "_key", "_token", "_secret", "_password"))
+        or low in {"api_key", "apikey", "x_api_key", "provider_api_key", "authorization", "auth_token", "access_token", "bearer_token", "token"}
+    )
 
-    # If placeholder itself looks like an env-var token, keep token name.
-    # This preserves schemas that intentionally use:
-    # {"$call": "os.environ.get", "$args": ["{{BFL_API_KEY}}"]}
-    # so runtime executes os.environ.get("BFL_API_KEY") correctly.
     if normalized.upper() == normalized and "_" in normalized:
-        if low.endswith(("_key", "_token", "_secret", "_password")):
+        if looks_like_secret:
             return normalized
 
-    direct_env = os.environ.get(normalized) or os.environ.get(normalized.upper())
-    if direct_env not in (None, ""):
-        return direct_env
+    if looks_like_secret:
+        direct_env = os.environ.get(normalized) or os.environ.get(normalized.upper())
+        if direct_env not in (None, ""):
+            return direct_env
 
-    if low.endswith("_api_key") or low in {"api_key", "apikey", "x_api_key", "provider_api_key", "authorization", "auth_token", "access_token", "bearer_token", "token"}:
+    if looks_like_secret:
         return _provider_api_key(spec)
 
     return None
@@ -210,6 +406,25 @@ def _remove_none_values(value: Any) -> Any:
 def render_from_schema(spec: dict[str, Any], values: dict[str, Any] | None = None):
     used_values = _build_values(spec, values)
     rendered = external_api_backend.build_request(spec, used_values)
+
+    if KlingRequestBuilder.is_kling_schema(spec):
+        sdk_call_data = rendered.sdk_call if isinstance(rendered.sdk_call, dict) else {}
+        sdk_kwargs = sdk_call_data.get("kwargs") if isinstance(sdk_call_data.get("kwargs"), dict) else {}
+        arguments = sdk_kwargs.get("arguments") if isinstance(sdk_kwargs.get("arguments"), dict) else {}
+        model_type_value = used_values.get("model_type")
+        if KlingRequestBuilder.supports_multi_inputs_for_model_type(model_type_value):
+            multi_prompt_value = arguments.get("multi_prompt")
+            if isinstance(multi_prompt_value, list) and len(multi_prompt_value) > 0:
+                arguments["shot_type"] = "customize"
+                total_duration = KlingRequestBuilder.summarize_multi_prompt_duration(multi_prompt_value, default_duration=5)
+                if total_duration is not None:
+                    arguments["duration"] = total_duration
+            else:
+                arguments.pop("shot_type", None)
+        else:
+            arguments.pop("multi_prompt", None)
+            arguments.pop("elements", None)
+            arguments.pop("shot_type", None)
 
     request_exclusions = rendered.request_exclusions if isinstance(rendered.request_exclusions, list) else []
     sdk_call_data = rendered.sdk_call if isinstance(rendered.sdk_call, dict) else {}

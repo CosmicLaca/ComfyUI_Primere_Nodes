@@ -192,6 +192,24 @@ class PrimereApiProcessor:
                 if value not in (None, ""):
                     selected_parameters[key] = value
 
+        if api_json_to_requestbody.KlingRequestBuilder.is_kling_schema(schema):
+            kling_model_type = api_json_to_requestbody.KlingRequestBuilder.resolve_model_type(selected_parameters, schema)
+            if api_json_to_requestbody.KlingRequestBuilder.supports_multi_inputs_for_model_type(kling_model_type):
+                selected_parameters = api_json_to_requestbody.KlingRequestBuilder.apply_prompt_logic(selected_parameters, prompt)
+                kling_element_inputs = [
+                    kwargs.get("custom_path_1"),
+                    kwargs.get("custom_path_2"),
+                    kwargs.get("custom_path_3"),
+                    kwargs.get("custom_path_4"),
+                ]
+                kling_elements = api_json_to_requestbody.KlingRequestBuilder.build_elements(kling_element_inputs, loaded_client_for_upload)
+                if len(kling_elements) > 0:
+                    selected_parameters["elements"] = kling_elements
+            else:
+                selected_parameters.pop("multi_prompt", None)
+                selected_parameters.pop("elements", None)
+                selected_parameters.pop("shot_type", None)
+
         if aspect_ratio not in (None, ""):
             selected_aspect_ratio = aspect_ratio
             schema_aspect_ratios = external_api_backend.schema_possible_values(self, api_provider, (selected_service or api_service), "aspect_ratio",)
