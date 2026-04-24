@@ -853,6 +853,9 @@ class PrimereModelControl:
             if kwargs.get('refiner') == True and 'refiner' not in saved:
                 kwargs['refiner'] = False
 
+            if kwargs.get('refiner') == True and 'refiner_vae' not in saved:
+                kwargs['refiner_vae'] = 'Baked'
+
         if kwargs.get('speed_lora') == True:
             speed_lora_name_val = kwargs.get('speed_lora_name', '')
             if speed_lora_name_val:
@@ -964,8 +967,8 @@ class PrimereConceptDataTuple:
         return (sampler_name, scheduler_name, steps, cfg, data,)
 
 class PrimereCKPTLoader:
-    RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING",)
-    RETURN_NAMES = ("MODEL", "CLIP", "VAE", "MODEL_VERSION")
+    RETURN_TYPES = ("MODEL", "CLIP", "VAE", "VAE", "STRING",)
+    RETURN_NAMES = ("MODEL", "CLIP", "VAE", "VAE_REFINER", "MODEL_VERSION")
     FUNCTION = "load_primere_ckpt"
     CATEGORY = TREE_DASHBOARD
 
@@ -1018,37 +1021,37 @@ class PrimereCKPTLoader:
 
         match model_concept:
             case 'SD1' | 'SD2' | 'SDXL' | 'Illustrious' | 'Turbo' | 'Pony':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_sd_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
             case 'SD3':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sd3_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_sd3_model(self, ckpt_name, control_data)
             case 'StableCascade':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
-            case 'Z-Image':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_zimage_model(self, ckpt_name, control_data)
-            case 'Flux' | 'Flux2':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_flux_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
+            case 'ZImage':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_zimage_model(self, ckpt_name, control_data)
+            case 'Flux':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_flux_model(self, ckpt_name, control_data)
             case 'LCM':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lcm_model(self, ckpt_name, control_data)
-            case 'Hyper' | 'Lightning':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_lightning_hyper_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_lcm_model(self, ckpt_name, control_data)
+            case 'Lightning' | 'Hyper':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_lightning_hyper_model(self, ckpt_name, control_data)
             case 'Playground':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
-            case 'PixartSigma':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_pixart_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
+            case 'Pixart':
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_pixart_model(self, ckpt_name, control_data)
             case 'AuraFlow':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_auraflow_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_auraflow_model(self, ckpt_name, control_data)
             case 'SANA1024' | 'SANA512':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_sana_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_sana_model(self, ckpt_name, control_data)
             case 'KwaiKolors':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_kolors_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_kolors_model(self, ckpt_name, control_data)
             case 'Hunyuan' | "HunyuanV2":
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_hunyuan_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_hunyuan_model(self, ckpt_name, control_data)
             case 'QwenGen' | 'QwenEdit':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_qwen_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_qwen_model(self, ckpt_name, control_data)
             case 'Chroma':
-                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = model_loaders.load_chroma_model(self, ckpt_name, control_data)
+                OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_chroma_model(self, ckpt_name, control_data)
 
-        return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, MODEL_VERSION_ORIGINAL)
+        return (OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER, MODEL_VERSION_ORIGINAL)
 
 class AnyType(str):
     def __ne__(self, __value: object) -> bool:

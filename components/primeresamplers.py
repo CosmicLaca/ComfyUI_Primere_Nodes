@@ -111,8 +111,17 @@ Describe the image by detailing the color, shape, size, texture, quantity, text,
             else:
                 try:
                     REFINER_CHECKPOINT = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model_name)
-                    RAW_IMAGE = nodes.VAEDecode.decode(self, REFINER_CHECKPOINT[2], samples[0])[0]
-                    RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, REFINER_CHECKPOINT[2], RAW_IMAGE)[0]
+                    
+                    main_vae = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
+                    RAW_IMAGE = nodes.VAEDecode.decode(self, main_vae, samples[0])[0]
+                    
+                    refiner_vae_name = control_data.get('refiner_vae', 'Baked')
+                    if refiner_vae_name and refiner_vae_name != 'Baked':
+                        refiner_vae = utility.vae_loader_class.load_vae(refiner_vae_name)[0]
+                    else:
+                        refiner_vae = REFINER_CHECKPOINT[2]
+                    
+                    RAW_IMAGE_ENCODED = nodes.VAEEncode.encode(self, refiner_vae, RAW_IMAGE)[0]
                     REFINER_SAMPLER = control_data.get('refiner_sampler', 'dpmpp_2m')
                     REFINER_SCHEDULER = control_data.get('refiner_scheduler', 'normal')
                     REFINER_CFG = float(control_data.get('refiner_cfg', 2.0))
@@ -129,7 +138,9 @@ Describe the image by detailing the color, shape, size, texture, quantity, text,
                     else:
                         refiner_pos = positive
                         refiner_neg = negative
-                    samples = (nodes_custom_sampler.SamplerCustom.execute(REFINER_CHECKPOINT[0], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_sigma, RAW_IMAGE_ENCODED)[0],)
+                    
+                    samples = nodes_custom_sampler.SamplerCustom.execute(REFINER_CHECKPOINT[0], True, seed, REFINER_CFG, refiner_pos, refiner_neg, sampler_refiner, splitted_sigma, RAW_IMAGE_ENCODED)
+                    samples = (samples[0],)
                 except Exception as e:
                     print(f"Primere: Refiner sampling failed: {e}")
 
@@ -235,7 +246,14 @@ def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, sa
     main_vae = utility.vae_loader_class.load_vae(control_data.get('vae'))[0]
     raw_image = nodes.VAEDecode.decode(self, main_vae, samples_main)[0]
     refiner_ckpt = nodes.CheckpointLoaderSimple.load_checkpoint(self, control_data.get('refiner_model'))
-    encoded_image = nodes.VAEEncode.encode(self, refiner_ckpt[2], raw_image)[0]
+    
+    refiner_vae_name = control_data.get('refiner_vae', 'Baked')
+    if refiner_vae_name and refiner_vae_name != 'Baked':
+        refiner_vae = utility.vae_loader_class.load_vae(refiner_vae_name)[0]
+    else:
+        refiner_vae = refiner_ckpt[2]
+    
+    encoded_image = nodes.VAEEncode.encode(self, refiner_vae, raw_image)[0]
     refiner_sampler = control_data.get('refiner_sampler', 'dpmpp_2m')
     refiner_scheduler = control_data.get('refiner_scheduler', 'normal')
     refiner_cfg = float(control_data.get('refiner_cfg', 2.0))
@@ -252,7 +270,10 @@ def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, sa
     else:
         pos_cond = refiner_cond_pos if refiner_cond_pos is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
         neg_cond = refiner_cond_neg if refiner_cond_neg is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
-    return nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
+    
+    refiner_output = nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
+    
+    return (refiner_output[0],)
 
 
 def PSamplerPixart(self, device, seed, model,
