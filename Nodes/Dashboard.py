@@ -1028,7 +1028,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
             case 'Z-Image':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_zimage_model(self, ckpt_name, control_data)
-            case 'Flux':
+            case 'Flux' | 'Flux2':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_flux_model(self, ckpt_name, control_data)
             case 'LCM':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_lcm_model(self, ckpt_name, control_data)

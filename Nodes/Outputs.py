@@ -694,7 +694,7 @@ class PrimereKSampler:
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
-        if refiner_model_data is not None:
+        if refiner_model_data is not None and not (control_data is not None and control_data.get('refiner') == True):
             samples_out = primeresamplers.run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)[0]
 
         if control_data is not None:
