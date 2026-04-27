@@ -102,7 +102,7 @@ const ReadAScores          = (type)                         => apiPost('/primere
 const ReadSTimes           = (type)                         => apiPost('/primere_get_stime',           'STimeData',              { type });
 const modelImageData       = (SubdirName, PreviewPath)      => apiPost('/primere_get_images',          'CollectedImageData',      { SubdirName, PreviewPath });
 const ReadFileDate         = (sourcetype)                   => apiPost('/primere_get_filedates',       'FileDateData',           { type: sourcetype });
-const ReadSimilarity       = (SubdirName, PreviewPath, SelectedModel) => apiPost('/primere_get_similarity', 'SimilarityData', { SubdirName, PreviewPath, SelectedModel });
+const ReadSimilarity       = (SubdirName, PreviewPath, SelectedModel) => apiPost('/primere_get_similarity', 'SimilarityData',    { SubdirName, PreviewPath, SelectedModel });
 const ReadFileSymlink      = (sourcetype)                   => apiPost('/primere_get_filelinks',       'FileLinkData',           { type: sourcetype });
 
 function sendPOSTModelName(modelName) {
@@ -602,7 +602,6 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         if (typeof state.nodeHelper['sortbuttons'] === "object" && typeof state.nodeHelper['sortbuttons'][0] === "object" && state.nodeHelper['sortbuttons'][0].length > 0) {
             if (state.nodeHelper['sortbuttons'][0].indexOf("Similarity") > -1) {
                 state.SimilarityDataResponse = await ReadSimilarity(state.source_subdirname, PreviewPath, SelectedModel);
-                alert(JSON.stringify(state.SimilarityDataResponse))
             }
         }
     }
