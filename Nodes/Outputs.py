@@ -484,6 +484,7 @@ class PrimereKSampler:
         if control_data is not None:
             align_your_steps = control_data.get('align_your_steps', align_your_steps)
             model_sampling = control_data.get('model_sampling', model_sampling)
+            control_data.pop('_refiner_applied', None)
         if control_data is not None and len(control_data) > 0 and 'exif_status' in control_data and control_data['exif_status'] == 'SUCCEED':
             if 'sampler_settings' in control_data and len(control_data['sampler_settings']) > 0 and 'setup_states' in control_data and 'sampler_setup' in control_data['setup_states']:
                 if control_data['setup_states']['sampler_setup'] == True:
@@ -694,7 +695,7 @@ class PrimereKSampler:
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
-        if refiner_model_data is not None and not (control_data is not None and control_data.get('refiner') == True):
+        if refiner_model_data is not None:
             samples_out = primeresamplers.run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)[0]
 
         if control_data is not None:

@@ -168,12 +168,21 @@ def PSamplerSana(self, device, seed, model,
     return (latent_out,)
 
 def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, samples_main, control_data, seed):
-    if control_data is None or control_data.get('refiner') != True:
+    has_direct_refiner_model = refiner_model is not None
+    if control_data is not None and control_data.get('_refiner_applied') == True:
+        return (samples_main,)
+
+    refiner_enabled = control_data is not None and control_data.get('refiner') == True
+    if not refiner_enabled and not has_direct_refiner_model:
+        return (samples_main,)
+
+    if control_data is None:
         return (samples_main,)
 
     refiner_model_name = control_data.get('refiner_model', None)
     if refiner_model_name in (None, 'None'):
-        return (samples_main,)
+        if not has_direct_refiner_model:
+            return (samples_main,)
 
     model_concept = control_data.get('model_concept', None)
     refiner_sampler = control_data.get('refiner_sampler', 'dpmpp_2m')
@@ -199,15 +208,15 @@ def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, sa
             encoded_image = nodes.VAEEncode.encode(self, refiner_vae, raw_image)[0]
 
             ref_pos_prompt = '''<|start_header_id|>system<|end_header_id|>
-Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
-<|eot_id|><|start_header_id|>user<|end_header_id|>
-Make the image high quality
-<|eot_id|>'''
+    Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
+    <|eot_id|><|start_header_id|>user<|end_header_id|>
+    Make the image high quality
+    <|eot_id|>'''
 
             ref_neg_prompt = '''<|start_header_id|>system<|end_header_id|>
-Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
-<|eot_id|><|start_header_id|>user<|end_header_id|>
-<|eot_id|>'''
+    Describe the image by detailing the color, shape, size, texture, quantity, text, spatial relationships of the objects and background:
+    <|eot_id|><|start_header_id|>user<|end_header_id|>
+    <|eot_id|>'''
 
             if refiner_ignore_prompt:
                 hunyuan_clip = control_data.get('loaded_clip', None)
@@ -222,6 +231,7 @@ Describe the image by detailing the color, shape, size, texture, quantity, text,
             noise_augmentation = float(control_data.get('noise_augmentation', 0.10))
             refiner_pos, refiner_neg, refiner_latent = nodes_hunyuan.HunyuanRefinerLatent.execute(ref_cond_pos, ref_cond_neg, encoded_image, noise_augmentation)
             refiner_output = nodes.KSampler.sample(self, refiner_model, seed, refiner_steps, refiner_cfg, refiner_sampler, refiner_scheduler, refiner_pos, refiner_neg, refiner_latent, denoise=refiner_denoise)
+            control_data['_refiner_applied'] = True
             return (refiner_output[0],)
 
         refiner_ckpt = nodes.CheckpointLoaderSimple.load_checkpoint(self, refiner_model_name)
@@ -247,6 +257,7 @@ Describe the image by detailing the color, shape, size, texture, quantity, text,
             neg_cond = refiner_cond_neg if refiner_cond_neg is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
 
         refiner_output = nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
+        control_data['_refiner_applied'] = True
         return (refiner_output[0],)
     except Exception as e:
         print(f"Primere: Refiner sampling failed: {e}")
