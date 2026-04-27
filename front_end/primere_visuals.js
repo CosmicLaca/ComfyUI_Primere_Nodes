@@ -836,7 +836,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     }
 
     if (state.SimilarityDataResponse != null && state.SimilarityDataResponse.hasOwnProperty(ckptName) === true) {
-        card.dataset.similarity = String(Math.floor(state.SimilarityDataResponse[ckptName]));
+        card.dataset.similarity = String(Math.floor(state.SimilarityDataResponse[ckptName] * 100));
     } else {
         card.dataset.similarity = '0';
     }

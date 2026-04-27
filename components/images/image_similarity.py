@@ -7,7 +7,7 @@ from skimage.metrics import structural_similarity as ssim
 
 def img_similarity(image_list: list) -> dict:
     _WEIGHTS     = {"phash": 0.35, "histogram": 0.30, "ssim": 0.35}
-    _COMPARE_SIZE = (64, 64)
+    _COMPARE_SIZE = (128, 128)
 
     def _load(path):
         return Image.open(path).convert("RGB")
@@ -16,7 +16,7 @@ def img_similarity(image_list: list) -> dict:
         arr = np.array(img.convert("L").resize((size, size), Image.LANCZOS), dtype=np.float32)
         return arr > arr.mean()
 
-    def _histogram(img, bins=64):
+    def _histogram(img, bins=128):
         parts = []
         for ch in img.split():
             h, _ = np.histogram(np.array(ch), bins=bins, range=(0, 256))
@@ -36,14 +36,14 @@ def img_similarity(image_list: list) -> dict:
         hi  = min(1.0, float(np.sum(np.sqrt(ref["hist"] * target["hist"]))))
         ss  = (ssim(ref["ssim"], target["ssim"], data_range=1.0) + 1.0) / 2.0
         raw = _WEIGHTS["phash"] * ph + _WEIGHTS["histogram"] * hi + _WEIGHTS["ssim"] * ss
-        return float(round(min(1.0, max(0.0, raw)) ** 0.65 * 100, 1))
+        return float(round(min(1.00, max(0.00, raw)) ** 0.65 * 100, 2))
 
     # ── Main logic ────────────────────────────────────────────────────────────
     if not image_list:
         return {}
 
     ref_features = _features(_load(image_list[0]))
-    result = {Path(str(os.path.basename(image_list[0]))).stem: float(100.0)}
+    result = {Path(str(os.path.basename(image_list[0]))).stem: float(100.00)}
 
     for path in image_list[1:]:
         name = Path(str(os.path.basename(path))).stem
@@ -51,6 +51,6 @@ def img_similarity(image_list: list) -> dict:
             result[name] = _score(ref_features, _features(_load(path)))
         except Exception as e:
             print(f"[img_similarity] Could not process '{path}': {e}")
-            result[name] = 0.0
+            result[name] = 0.00
 
     return result
