@@ -19,6 +19,7 @@ import shutil
 from ..utils import here
 from ..components.images import histogram as histogram
 from ..components.API import api_schema_registry
+from ..components.images import image_similarity
 import importlib
 import inspect
 
@@ -460,6 +461,56 @@ async def primere_get_images(request):
             imgbase_tuple[filename] = relative_path
 
     PromptServer.instance.send_sync("CollectedImageData", imgbase_tuple)
+    return web.json_response({})
+
+routes11b = PromptServer.instance.routes
+@routes11b.post('/primere_get_similarity') # ReadSimilarity()
+async def primere_get_similarity(request):
+    post = await request.post()
+    subdir_name = post.get('SubdirName')
+    preview_path = post.get('PreviewPath')
+    reference_name = post.get('SelectedModel')
+    supported_images = ['.jpg', '.png', '.jpeg', '.preview.jpg', '.preview.jpeg', '.preview.png']
+    preview_source = os.path.join(here, 'front_end')
+
+    imagefiles = []
+    if preview_path == "false":
+        sub_name = str(folder_paths.folder_names_and_paths[subdir_name][0][0])
+        model_homes = [f.path for f in os.scandir(sub_name) if f.is_dir()]
+        for model_home in model_homes:
+            dir_name = os.path.basename(os.path.normpath(model_home))
+            all_files = [os.path.join(dir_name, os.path.basename(x)) for x in glob.glob(model_home + '/**/*', recursive=True)]
+            img_files = folder_paths.filter_files_extensions(all_files, supported_images)
+            imagefiles.extend(img_files)
+    else:
+        subdir = os.path.join(preview_source, 'images', str(subdir_name))
+        folder_paths.add_model_folder_path("previewpics_similarity" + subdir_name, subdir)
+        allfiles = folder_paths.get_filename_list("previewpics_similarity" + subdir_name)
+        imagefiles = folder_paths.filter_files_extensions(allfiles, supported_images)
+
+    image_lookup = {}
+    for imagefile in imagefiles:
+        if preview_path == "false":
+            image_path = os.path.abspath(folder_paths.get_full_path(subdir_name, imagefile))
+        else:
+            image_path = os.path.abspath(folder_paths.get_full_path('previewpics_similarity' + subdir_name, imagefile))
+        filename = Path(image_path).stem.replace('.preview', '')
+        if os.path.isfile(image_path):
+            image_lookup[filename] = image_path
+
+    similarity_data = {}
+    if len(image_lookup) > 1:
+        reference_clean = Path(str(reference_name)).name
+        reference_stem = Path(reference_clean).stem
+        if reference_stem in image_lookup:
+            ordered_images = [image_lookup[reference_stem]]
+            ordered_images.extend([v for k, v in image_lookup.items() if k != reference_stem])
+        else:
+            ordered_images = list(image_lookup.values())
+
+        similarity_data = image_similarity.img_similarity(ordered_images)
+
+    PromptServer.instance.send_sync("SimilarityData", similarity_data)
     return web.json_response({})
 
 routes12 = PromptServer.instance.routes

@@ -1,48 +1,14 @@
-"""
-image_similarity.py
--------------------
-Drop this file anywhere and import it.
-
-Usage:
-    from image_similarity import img_similarity
-
-    source = [
-        '/home/user/pics/image0.jpg',  # reference, always score 100
-        '/home/user/pics/image1.jpg',
-        '/home/user/pics/image2.jpg',
-    ]
-
-    result = img_similarity(source)
-    # → {'image0.jpg': 100.0, 'image1.jpg': 87.3, 'image2.jpg': 42.1}
-
-Requirements:
-    pip install Pillow numpy scikit-image
-"""
-
 import os
+from pathlib import Path
 import numpy as np
 from PIL import Image
 from skimage.metrics import structural_similarity as ssim
 
 
 def img_similarity(image_list: list) -> dict:
-    """
-    Compare all images against the first image (index 0 = reference, score 100).
-
-    Args:
-        image_list : list of full absolute image paths.
-                     First path is always the reference image.
-
-    Returns:
-        dict of { filename: score } where score is 0.0 – 100.0.
-        Reference image (index 0) always returns 100.0.
-    """
-
-    # ── Internal constants ────────────────────────────────────────────────────
     _WEIGHTS     = {"phash": 0.35, "histogram": 0.30, "ssim": 0.35}
     _COMPARE_SIZE = (64, 64)
 
-    # ── Internal helpers ──────────────────────────────────────────────────────
     def _load(path):
         return Image.open(path).convert("RGB")
 
@@ -77,10 +43,10 @@ def img_similarity(image_list: list) -> dict:
         return {}
 
     ref_features = _features(_load(image_list[0]))
-    result = {os.path.basename(image_list[0]): float(100.0)}
+    result = {Path(str(os.path.basename(image_list[0]))).stem: float(100.0)}
 
     for path in image_list[1:]:
-        name = os.path.basename(path)
+        name = Path(str(os.path.basename(path))).stem
         try:
             result[name] = _score(ref_features, _features(_load(path)))
         except Exception as e:

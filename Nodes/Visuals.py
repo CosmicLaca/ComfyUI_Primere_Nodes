@@ -35,7 +35,7 @@ class PrimereVisualCKPT:
             },
             "hidden": {
                 "subdir": ("checkpoints",),
-                "sortbuttons": (['aScore', 'Name', 'Version', 'Path', 'Date', 'Symlink', 'STime'],),
+                "sortbuttons": (['aScore', 'Name', 'Version', 'Path', 'Date', 'Similarity', 'Symlink', 'STime'],),
                 "cache_key": ("model",),
             }
         }
@@ -136,7 +136,7 @@ class PrimereVisualLORA:
             },
             "hidden": {
                 "subdir": ("loras",),
-                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Similarity', 'Date'],),
                 "cache_key": ("lora",),
                 "version_filter_input": ("stack_version",),
             }
@@ -231,7 +231,7 @@ class PrimereVisualEmbedding:
             },
             "hidden": {
                 "subdir": ("embeddings",),
-                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Similarity', 'Date'],),
                 "cache_key": ("embedding",),
                 "version_filter_input": ("stack_version",),
             }
@@ -313,7 +313,7 @@ class PrimereVisualHypernetwork:
             },
             "hidden": {
                 "subdir": ("hypernetworks",),
-                "sortbuttons": (['Name', 'Path', 'Date'],),
+                "sortbuttons": (['Name', 'Path', 'Similarity', 'Date'],),
                 "cache_key": ("embedding",),
             }
         }
@@ -593,7 +593,7 @@ class PrimereVisualLYCORIS:
             },
             "hidden": {
                 "subdir": ("lycoris",),
-                "sortbuttons": (['Name', 'Version', 'Path', 'Date'],),
+                "sortbuttons": (['Name', 'Version', 'Path', 'Similarity', 'Date'],),
                 "cache_key": ("lycoris",),
                 "version_filter_input": ("stack_version",),
             }

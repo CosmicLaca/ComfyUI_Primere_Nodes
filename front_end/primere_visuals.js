@@ -37,6 +37,7 @@ const state = {
     AscoreDataResponse: {},
     STimeDataResponse: {},
     FileDateResponse: {},
+    SimilarityDataResponse: {},
     FileLinkResponse: {},
     RawImageDataResponse: {},
 };
@@ -101,6 +102,7 @@ const ReadAScores          = (type)                         => apiPost('/primere
 const ReadSTimes           = (type)                         => apiPost('/primere_get_stime',           'STimeData',              { type });
 const modelImageData       = (SubdirName, PreviewPath)      => apiPost('/primere_get_images',          'CollectedImageData',      { SubdirName, PreviewPath });
 const ReadFileDate         = (sourcetype)                   => apiPost('/primere_get_filedates',       'FileDateData',           { type: sourcetype });
+const ReadSimilarity       = (SubdirName, PreviewPath, SelectedModel) => apiPost('/primere_get_similarity', 'SimilarityData', { SubdirName, PreviewPath, SelectedModel });
 const ReadFileSymlink      = (sourcetype)                   => apiPost('/primere_get_filelinks',       'FileLinkData',           { type: sourcetype });
 
 function sendPOSTModelName(modelName) {
@@ -596,6 +598,15 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
         }
     }
 
+    if (typeof state.nodeHelper['sortbuttons'] !== "undefined") {
+        if (typeof state.nodeHelper['sortbuttons'] === "object" && typeof state.nodeHelper['sortbuttons'][0] === "object" && state.nodeHelper['sortbuttons'][0].length > 0) {
+            if (state.nodeHelper['sortbuttons'][0].indexOf("Similarity") > -1) {
+                state.SimilarityDataResponse = await ReadSimilarity(state.source_subdirname, PreviewPath, SelectedModel);
+                alert(JSON.stringify(state.SimilarityDataResponse))
+            }
+        }
+    }
+
     if (state.nodeHelper['subdir'] == 'checkpoints' && state.nodeHelper['sortbuttons'][0].indexOf("Symlink") > -1) {
         state.FileLinkResponse = await ReadFileSymlink(state.nodeHelper['subdir']);
     }
@@ -823,6 +834,12 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
         card_html += stimeWidget;
     } else {
         card.dataset.stime = '0';
+    }
+
+    if (state.SimilarityDataResponse != null && state.SimilarityDataResponse.hasOwnProperty(ckptName) === true) {
+        card.dataset.similarity = String(Math.floor(state.SimilarityDataResponse[ckptName]));
+    } else {
+        card.dataset.similarity = '0';
     }
 
     card.dataset.name = ckptName;
