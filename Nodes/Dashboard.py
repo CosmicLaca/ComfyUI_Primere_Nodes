@@ -1036,7 +1036,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_lightning_hyper_model(self, ckpt_name, control_data)
             case 'Playground':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_playground_model(self, ckpt_name, use_yaml, ModelConfigFullPath, control_data)
-            case 'Pixart':
+            case 'PixartSigma':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_pixart_model(self, ckpt_name, control_data)
             case 'AuraFlow':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_auraflow_model(self, ckpt_name, control_data)
