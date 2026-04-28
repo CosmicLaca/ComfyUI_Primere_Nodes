@@ -7,7 +7,7 @@ from skimage.metrics import structural_similarity as ssim
 
 def img_similarity(image_list: list) -> dict:
     _WEIGHTS     = {"phash": 0.35, "histogram": 0.30, "ssim": 0.35}
-    _COMPARE_SIZE = (128, 128)
+    _COMPARE_SIZE = (64, 64)
 
     def _load(path):
         return Image.open(path).convert("RGB")
@@ -16,7 +16,7 @@ def img_similarity(image_list: list) -> dict:
         arr = np.array(img.convert("L").resize((size, size), Image.LANCZOS), dtype=np.float32)
         return arr > arr.mean()
 
-    def _histogram(img, bins=128):
+    def _histogram(img, bins=64):
         parts = []
         for ch in img.split():
             h, _ = np.histogram(np.array(ch), bins=bins, range=(0, 256))
