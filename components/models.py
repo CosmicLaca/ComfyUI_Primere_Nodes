@@ -505,7 +505,7 @@ def load_pixart_model(loader_self, ckpt_name, concept_data):
 
 
 def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data):
-    OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE = load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data)
+    OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = load_sd_model(loader_self, ckpt_name, use_yaml, model_config_full_path, concept_data)
     sigma_max = concept_data.get('sigma_max', 120)
     sigma_min = concept_data.get('sigma_min', 0.002)
     edm_sampling = concept_data.get('edm_sampling', 'edm_playground_v2.5')
@@ -518,7 +518,7 @@ def load_playground_model(loader_self, ckpt_name, use_yaml, model_config_full_pa
         OUTPUT_MODEL['main'] = main_model
     else:
         OUTPUT_MODEL = main_model
-    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE
+    return OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER
 
 
 def load_lightning_hyper_model(loader_self, ckpt_name, concept_data):
