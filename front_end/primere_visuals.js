@@ -40,6 +40,7 @@ const state = {
     SimilarityDataResponse: {},
     FileLinkResponse: {},
     RawImageDataResponse: {},
+    PreviewCacheBust: 0,
 };
 
 function apiPost(endpoint, eventName, params = {}) {
@@ -465,6 +466,7 @@ class ModalControl {
 async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node, PreviewPath) {
     var container = null;
     var modal = null;
+    state.PreviewCacheBust = Date.now();
 
     modal = document.getElementById("primere_visual_modal");
     if (!modal) {
@@ -852,8 +854,8 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
                 var imgsrc = 'data:image/jpeg;charset=utf-8;base64,  ' + state.RawImageDataResponse[finalName];
                 card_html += '<img src="data:image/jpeg;charset=utf-8;base64,  ' + state.RawImageDataResponse[finalName] + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
             } else {
-                var imgsrc = prwPath + '/images/' + state.RawImageDataResponse[finalName];
-                card_html += '<img src="' + prwPath + '/images/' + state.RawImageDataResponse[finalName] + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
+                var imgsrc = prwPath + '/images/' + state.RawImageDataResponse[finalName] + '?v=' + state.PreviewCacheBust;
+                card_html += '<img src="' + prwPath + '/images/' + state.RawImageDataResponse[finalName] + '?v=' + state.PreviewCacheBust + '" title="' + checkpoint_new + '" data-ckptname="' + checkpoint + '" data-ckptver="' + CategoryName + '">';
             }
             card.innerHTML = card_html;
             container.appendChild(card);
