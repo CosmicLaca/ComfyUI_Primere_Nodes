@@ -56,11 +56,11 @@ VALID_SHAPES = np.arange(256, 4096, 256).tolist()
 # PREVIEW_ROOT = os.path.join(comfy_dir, "web", "extensions", "PrimerePreviews", "images")
 PREVIEW_ROOT = os.path.join(here, 'front_end', "images")
 KEYWORD_SELECTOR_VALUES = ["None", "Select in order", "Random select"]
-SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Turbo", "Flux", "Flux2", "Nunchaku", "QwenGen", "QwenEdit", "WanImg", "KwaiKolors", "Hunyuan", "HunyuanV2", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512",  "AuraFlow", "HiDream", "Mochi", "WanT2V", "WanI2V", "Cosmos", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "SD09", "StableAudio", 'LTXV']
+SUPPORTED_MODELS = ["SD1", "SD2", "SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Turbo", "Flux", "Flux2", "Ernie", "Nunchaku", "QwenGen", "QwenEdit", "WanImg", "KwaiKolors", "Hunyuan", "HunyuanV2", "Playground", "Pony", "LCM", "Lightning", "Hyper", "PixartSigma", "SANA1024", "SANA512",  "AuraFlow", "HiDream", "Mochi", "WanT2V", "WanI2V", "Cosmos", "SSD", "SegmindVega", "KOALA", "StableZero", "SV3D", "SD09", "StableAudio", 'LTXV']
 CONCEPT_RESOLUTIONS = {
     "512": ['SD09', 'SD1', "Turbo", "SANA512", "WanT2V", "WanI2V", 'LTXV'],
     "768": ['SD2', "LCM"],
-    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "WanImg", "AuraFlow", "HiDream", "Mochi", "Cosmos", "Flux2"],
+    "1024": ["SDXL", "Illustrious", "SD3", "StableCascade", "Chroma", "Z-Image", "Flux", "KwaiKolors", "Hunyuan", "Playground", "Pony", "Lightning", "Hyper", "PixartSigma", "SANA1024", "WanImg", "AuraFlow", "HiDream", "Mochi", "Cosmos", "Flux2", "Ernie"],
     "1328": ["QwenGen", "QwenEdit"],
     "1280": ["Nunchaku"],
     "2048": ["HunyuanV2"]

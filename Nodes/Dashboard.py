@@ -220,7 +220,7 @@ class PrimereModelConceptSelector:
     TEXT_ENCODERS_PATHS = llm_enhancer.getValidLLMPaths(TENC_DIR)
     TEXT_ENCODERS_PATHS += llm_enhancer.getValidLLMPaths(LLM_PRIMERE_ROOT)
 
-    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
+    CONCEPT_LIST = utility.SUPPORTED_MODELS[0:29]
 
     SAMPLER_INPUTS = {
         'model_version': ("STRING", {"forceInput": True, "default": "SD1"}),
@@ -1028,7 +1028,7 @@ class PrimereCKPTLoader:
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_stable_cascade_model(self, ckpt_name, control_data)
             case 'Z-Image':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_zimage_model(self, ckpt_name, control_data)
-            case 'Flux' | 'Flux2':
+            case 'Flux' | 'Flux2' | 'Ernie':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_flux_model(self, ckpt_name, control_data)
             case 'LCM':
                 OUTPUT_MODEL, OUTPUT_CLIP, OUTPUT_VAE, OUTPUT_VAE_REFINER = model_loaders.load_lcm_model(self, ckpt_name, control_data)
@@ -1460,7 +1460,7 @@ class PrimereCLIPEncoder:
                 return clipping.encode_sd3(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'StableCascade':
                 return clipping.encode_stable_cascade(clip, positive_text, negative_text, control_data)
-            case 'Flux' | 'Flux2':
+            case 'Flux' | 'Flux2' | 'Ernie':
                 return clipping.encode_flux(clip, positive_text, negative_text, t5xxl_prompt, control_data)
             case 'PixartSigma':
                 return clipping.encode_pixart_sigma(clip, positive_text, negative_text, control_data)
@@ -1728,7 +1728,7 @@ class PrimereClearNetworkTagsPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:29]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["remove_from_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "REMOVE " + concept.upper(), "label_off": "KEEP " + concept.upper()})
@@ -1877,7 +1877,7 @@ class PrimereDiTPurifyPrompt:
 
     @classmethod
     def INPUT_TYPES(cls):
-        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:28]
+        CONCEPT_LIST = utility.SUPPORTED_MODELS[0:29]
         CONCEPT_INPUTS = {}
         for concept in CONCEPT_LIST:
             CONCEPT_INPUTS["purify_" + concept.lower()] = ("BOOLEAN", {"default": True, "label_on": "PURIFY " + concept.upper(), "label_off": "KEEP " + concept.upper()})
