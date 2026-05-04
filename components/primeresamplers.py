@@ -40,7 +40,7 @@ def PKSampler(self, device, seed, model,
         try:
             sigmas = comfy.samplers.beta_scheduler(model.get_model_object("model_sampling"), steps, alpha=beta_alpha, beta=beta_beta)
             sampler = comfy.samplers.sampler_object(sampler_name)
-            samples = (nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)[0],)
+            samples = (nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas, latent_image)[0],)
         except Exception as e:
             print(f"Primere: BetaSamplingScheduler failed: {e}")
 
@@ -61,7 +61,7 @@ def PKSampler(self, device, seed, model,
                             model_type = 'SD1'
                     sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
                     sampler = comfy.samplers.sampler_object(sampler_name)
-                    AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                    AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                     samples = (AYS_samples[0],)
                 else:
                     samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
@@ -74,7 +74,7 @@ def PKSampler(self, device, seed, model,
 def PTurboSampler(model, seed, cfg, positive, negative, latent_image, steps, denoise, sampler_name):
     sigmas = nodes_custom_sampler.SDTurboScheduler.execute(model, steps, denoise)
     sampler = comfy.samplers.sampler_object(sampler_name)
-    turbo_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+    turbo_samples = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
     samples = (turbo_samples[0],)
     return samples
 
@@ -125,14 +125,14 @@ def PSamplerHyper(self, extra_pnginfo, model, seed, steps, cfg, positive, negati
     if HyperSDSelector == 'UNET':
         sigmas = utility.get_hypersd_sigmas(model)
         sampler = comfy.samplers.sampler_object(sampler_name)
-        hyper_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+        hyper_samples = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
         samples = (hyper_samples[0],)
     else:
         SamplingDiscreteResults = utility.TCDModelSamplingDiscrete(self, model, steps, scheduler_name, denoise, eta=0.8)
         model = SamplingDiscreteResults[0]
         sampler = SamplingDiscreteResults[1]
         sigmas = SamplingDiscreteResults[2]
-        hyper_lora_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas, latent_image)
+        hyper_lora_samples = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas, latent_image)
         samples = (hyper_lora_samples[0],)
 
     return samples
@@ -246,6 +246,7 @@ def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, sa
 
         encoded_image = nodes.VAEEncode.encode(self, refiner_vae, raw_image)[0]
         sigmas = nodes_custom_sampler.BasicScheduler.execute(refiner_model, refiner_scheduler, refiner_steps, refiner_denoise)[0]
+        refiner_start = max(0, min(refiner_start, len(sigmas) - 1))
         low_sigmas = nodes_custom_sampler.SplitSigmas.execute(sigmas, refiner_start)[1]
         sampler = comfy.samplers.sampler_object(refiner_sampler)
         if refiner_ignore_prompt:
@@ -256,7 +257,7 @@ def run_refiner_pass(self, refiner_model, refiner_cond_pos, refiner_cond_neg, sa
             pos_cond = refiner_cond_pos if refiner_cond_pos is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
             neg_cond = refiner_cond_neg if refiner_cond_neg is not None else nodes.CLIPTextEncode.encode(self, refiner_ckpt[1], "")[0]
 
-        refiner_output = nodes_custom_sampler.SamplerCustom.execute(refiner_model, True, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
+        refiner_output = nodes_custom_sampler.SamplerCustom.execute(refiner_model, False, seed, refiner_cfg, pos_cond, neg_cond, sampler, low_sigmas, encoded_image)
         control_data['_refiner_applied'] = True
         return (refiner_output[0],)
     except Exception as e:
@@ -290,10 +291,10 @@ def PSamplerPixart(self, device, seed, model,
                 model_type = 'SDXL'
                 sigmas = nodes_align_your_steps.AlignYourStepsScheduler.get_sigmas(self, model_type, steps, denoise)
                 sampler = comfy.samplers.sampler_object(sampler_name)
-                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+                AYS_samples = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
                 samples_main = AYS_samples[0]
             else:
-                samples_main = nodes_custom_sampler.SamplerCustom.execute(model, True, seed, cfg, positive, negative, sampler, sigmas_main, latent_image)[0]
+                samples_main = nodes_custom_sampler.SamplerCustom.execute(model, False, seed, cfg, positive, negative, sampler, sigmas_main, latent_image)[0]
 
     return (samples_main,)
 

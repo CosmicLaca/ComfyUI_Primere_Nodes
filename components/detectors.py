@@ -1083,7 +1083,7 @@ def ksampler_wrapper(model, seed, steps, cfg, sampler_name, scheduler, positive,
             cfg = cfg * 1.5
             sigmas = nodes_custom_sampler.SDTurboScheduler().get_sigmas(model, steps, denoise)
             sampler = comfy.samplers.sampler_object(sampler_name)
-            turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, True, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
+            turbo_samples = nodes_custom_sampler.SamplerCustom().sample(model, False, seed, cfg, positive, negative, sampler, sigmas[0], latent_image)
             refined_latent = turbo_samples[0]
         else:
             try:
