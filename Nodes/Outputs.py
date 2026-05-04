@@ -697,7 +697,8 @@ class PrimereKSampler:
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
         stage_1_samples = samples_out
-        if refiner_model_data is not None:
+        # if refiner_model_data is not None:
+        if control_data and control_data.get('refiner') == True:
             samples_out = primeresamplers.run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)[0]
 
         if control_data is not None:

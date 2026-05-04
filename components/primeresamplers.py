@@ -66,8 +66,8 @@ def PKSampler(self, device, seed, model,
                 else:
                     samples = nodes.KSampler.sample(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, denoise=denoise)
 
-    if control_data and control_data.get('refiner') == True:
-        samples = run_refiner_pass(self, None, positive, negative, samples[0], control_data, seed)
+    # if control_data and control_data.get('refiner') == True:
+    #    samples = run_refiner_pass(self, None, positive, negative, samples[0], control_data, seed)
 
     return samples
 
