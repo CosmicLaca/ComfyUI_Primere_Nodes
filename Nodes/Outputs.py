@@ -436,8 +436,8 @@ class PrimereMetaCollector:
 
 class PrimereKSampler:
     CATEGORY = TREE_OUTPUTS
-    RETURN_TYPES = ("LATENT", "TUPLE")
-    RETURN_NAMES = ("LATENT", "CONTROL_DATA")
+    RETURN_TYPES = ("LATENT", "LATENT", "TUPLE")
+    RETURN_NAMES = ("LATENT", "STAGE_1_LATENT", "CONTROL_DATA")
     FUNCTION = "pk_sampler"
 
     def __init__(self):
@@ -695,6 +695,7 @@ class PrimereKSampler:
                                                         variation_extender, variation_batch_step_original, batch_counter, variation_extender_original, variation_batch_step, variation_level, variation_limit,
                                                         align_your_steps, noise_extender_ksampler, None, control_data)[0]
 
+        stage_1_samples = samples_out
         if refiner_model_data is not None:
             samples_out = primeresamplers.run_refiner_pass(self, refiner_model_data, refiner_cond_pos, refiner_cond_neg, samples_out, control_data, seed)[0]
 
@@ -734,7 +735,7 @@ class PrimereKSampler:
                 diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
                 utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
-        return (samples_out, control_data)
+        return (samples_out, stage_1_samples, control_data)
 
 class PrimerePreviewImage:
     CATEGORY = TREE_OUTPUTS
