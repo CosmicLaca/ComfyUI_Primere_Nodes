@@ -436,8 +436,8 @@ class PrimereMetaCollector:
 
 class PrimereKSampler:
     CATEGORY = TREE_OUTPUTS
-    RETURN_TYPES = ("LATENT", "LATENT", "TUPLE")
-    RETURN_NAMES = ("LATENT", "STAGE_1_LATENT", "CONTROL_DATA")
+    RETURN_TYPES = ("LATENT", "LATENT", "IMAGE", "TUPLE")
+    RETURN_NAMES = ("LATENT", "STAGE_1_LATENT", "STAGE_1_PREVIEW", "CONTROL_DATA")
     FUNCTION = "pk_sampler"
 
     def __init__(self):
@@ -467,6 +467,7 @@ class PrimereKSampler:
             "optional": {
                 "model_concept": ("STRING", {"default": "Auto", "forceInput": True}),
                 "control_data": ("TUPLE", {"default": None}),
+                "vae": ("VAE", ),
             },
             "hidden": {
                 "extra_pnginfo": "EXTRA_PNGINFO",
@@ -479,7 +480,7 @@ class PrimereKSampler:
         if kwargs['variation_extender'] > 0 or kwargs['device'] != 'DEFAULT' or kwargs['variation_batch_step'] > 0 or kwargs['variation_level'] == True:
             return float("NaN")
 
-    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Auto", control_data = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False):
+    def pk_sampler(self, model, seed, steps, cfg, sampler_name, scheduler_name, positive, negative, latent_image, extra_pnginfo, prompt, model_concept = "Auto", control_data = None, denoise=1.0, variation_extender = 0, variation_batch_step = 0, variation_level = False, model_sampling = 2.5, device = 'DEFAULT', align_your_steps = False, vae = None):
         timestamp_start = time.time()
         if control_data is not None:
             align_your_steps = control_data.get('align_your_steps', align_your_steps)
@@ -735,7 +736,15 @@ class PrimereKSampler:
                 diffvalue = str(int(model_samplingtime_list[1]) + timestamp_diff)
                 utility.add_value_to_cache('model_samplingtime', modelname_only, counter + '|' + diffvalue)
 
-        return (samples_out, stage_1_samples, control_data)
+        if vae is not None:
+            try:
+                stage_1_preview = nodes.VAEDecode.decode(self, vae, stage_1_samples)[0]
+            except Exception:
+                stage_1_preview = stage_1_samples
+        else:
+            stage_1_preview = stage_1_samples
+
+        return (samples_out, stage_1_samples, stage_1_preview, control_data)
 
 class PrimerePreviewImage:
     CATEGORY = TREE_OUTPUTS
