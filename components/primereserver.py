@@ -841,3 +841,10 @@ async def primere_uniapi_schema_read(request):
         registry = api_schema_registry.normalize_registry(raw_schema)
 
     return web.json_response({"success": True, "source": source_name, "warning": warning, "registry": registry,})
+
+routes25 = PromptServer.instance.routes
+@routes25.get('/primere_model_concept_read')
+async def primere_model_concept_read(request):
+    json_path = os.path.join(PRIMERE_ROOT, 'front_end', 'model_concept.json')
+    data = utility.json2tuple(json_path) or {}
+    return web.json_response(data)

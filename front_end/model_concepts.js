@@ -3,7 +3,6 @@ import { ComfyWidgets } from "/scripts/widgets.js";
 import { applyPrimereButtonStyle, showToast } from "./frontend_helper.js";
 
 const TARGET_NODE_NAME = "PrimereModelControl";
-const CONCEPT_JSON_URL = new URL("/extensions/ComfyUI_Primere_Nodes/model_concept.json", import.meta.url).href;
 
 const JSON_EXCLUDE_KEYS = new Set(["model_name", "model_concept"]);
 
@@ -56,7 +55,7 @@ function collectNodeData(node, includeLoraToggles = false) {
 async function loadConceptValues(node, key, silent = false) {
     let data;
     try {
-        const response = await fetch(CONCEPT_JSON_URL + "?t=" + Date.now());
+        const response = await fetch("/primere_model_concept_read");
         if (!response.ok) {
             if (!silent) showToast("error", `No saved settings found. Save settings for "${key}" first.`);
             return;
