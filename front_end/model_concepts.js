@@ -12,6 +12,13 @@ function modelNameToKey(modelPath) {
     return base.replace(/\.[^/.]+$/, "");
 }
 
+function isFractionalStep(step) {
+    if (step === null || step === undefined) return false;
+    const n = Number(step);
+    if (!Number.isFinite(n)) return false;
+    return !Number.isInteger(n);
+}
+
 function collectNodeData(node, includeLoraToggles = false) {
     const SKIP_KEYS = new Set(["concepts", "models", "runtime_concept", ...JSON_EXCLUDE_KEYS]);
     const widgets = node.widgets || [];
@@ -29,15 +36,21 @@ function collectNodeData(node, includeLoraToggles = false) {
     }
 
     const data = {};
+    const floatKeys = [];
     for (const w of widgets) {
         if (!w.name || SKIP_KEYS.has(w.name)) continue;
         if (!includeLoraToggles && loraBooleans.has(w.name)) continue;
         if (w.value === null || w.value === undefined) continue;
         if (suppressedPrefixes.some((p) => w.name.startsWith(p))) continue;
+        if (typeof w.value === "number" && isFractionalStep(w.options?.step)) {
+            data[w.name] = Number.parseFloat(w.value);
+            floatKeys.push(w.name);
+            continue;
+        }
         data[w.name] = w.value;
     }
 
-    return data;
+    return { data, floatKeys };
 }
 
 async function loadConceptValues(node, key, silent = false) {
@@ -61,7 +74,10 @@ async function loadConceptValues(node, key, silent = false) {
     const saved = data[key];
     for (const w of node.widgets || []) {
         if (!w.name || !Object.prototype.hasOwnProperty.call(saved, w.name)) continue;
-        const newValue = saved[w.name];
+        let newValue = saved[w.name];
+        if (typeof newValue === "number" && isFractionalStep(w.options?.step)) {
+            newValue = Number.parseFloat(newValue);
+        }
         if (w.options?.values) {
             const match = w.options.values.find((v) => String(v) === String(newValue));
             if (match !== undefined) w.value = match;
@@ -116,13 +132,13 @@ function initializeSamplerNode(node) {
             return;
         }
 
-        const data = collectNodeData(node, modelVal && modelVal !== "Auto");
+        const { data, floatKeys } = collectNodeData(node, modelVal && modelVal !== "Auto");
 
         try {
             const response = await fetch("/primere_model_concept_save", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ concept: saveKey, data }),
+                body: JSON.stringify({ concept: saveKey, data, float_keys: floatKeys }),
             });
             const result = response.ok ? await response.json() : null;
             if (result?.success) {
