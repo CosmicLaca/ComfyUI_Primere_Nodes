@@ -247,7 +247,7 @@
         "from openai import OpenAI"
       ],
       "possible_parameters": {
-        "model": ["chatgpt-image-latest", "gpt-image-1.5", "gpt-image-1", "gpt-image-1-mini"],
+        "model": ["chatgpt-image-latest", "gpt-image-2", "gpt-image-1.5", "gpt-image-1", "gpt-image-1-mini"],
         "gen_method": ["generate", "edit"],
         "background": ["auto", "transparent", "opaque"],
         "moderation": ["low", "auto"],
@@ -269,6 +269,10 @@
         {
           "when": {"path": "gen_method", "equals": "generate"},
           "remove": ["image", "reference_images", "input_fidelity"]
+        },
+        {
+          "when": {"path": "model", "equals": "gpt-image-2"},
+          "remove": ["input_fidelity"]
         }
       ],
       "request": {
