@@ -19,6 +19,7 @@ import numpy as np
 import torch
 import comfy.utils
 import types
+import ast
 
 from . import request_exceptions
 
@@ -623,6 +624,20 @@ def apply_response_handler(schema: dict[str, Any] | None, api_result: Any, provi
     return handler(api_result, **kwargs)
 
 def sanitize_debug_value(value: Any) -> Any:
+    if isinstance(value, str):
+        text_value = value.strip()
+        if text_value:
+            try:
+                parsed_json = json.loads(text_value)
+                return sanitize_debug_value(parsed_json)
+            except Exception:
+                normalized = re.sub(r"\bUnset\s*\(\s*\)", "None", text_value)
+                try:
+                    parsed_literal = ast.literal_eval(normalized)
+                    return sanitize_debug_value(parsed_literal)
+                except Exception:
+                    pass
+
     if isinstance(value, torch.Tensor):
         return f"[torch.Tensor omitted: shape={tuple(value.shape)}, dtype={value.dtype}]"
 
@@ -689,6 +704,7 @@ def sanitize_debug_value(value: Any) -> Any:
 
 def sanitize_api_debug_payload(value: Any) -> Any:
     return redact_reference_images(sanitize_debug_value(value))
+
 def apply_parameter_constraints(selected_parameters: dict[str, Any], schema: dict[str, Any] | None) -> dict[str, Any]:
     if not isinstance(schema, dict):
         return selected_parameters

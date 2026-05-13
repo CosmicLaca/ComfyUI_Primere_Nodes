@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import base64
 from . import response_helper
 

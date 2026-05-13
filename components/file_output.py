@@ -122,8 +122,8 @@ def resolve_output_file(output_path_input, base_dir, subdirs, prefix, delimiter,
     )
 
     output_file = os.path.abspath(os.path.join(resolved, filename))
-    json_file = os.path.splitext(output_file)[0] + '.json'
-    txt_file = os.path.splitext(output_file)[0] + '.txt'
+    json_file = os.path.splitext(output_file)[0] + '_meta.json'
+    txt_file = os.path.splitext(output_file)[0] + '_meta.txt'
 
     return output_file, json_file, txt_file
 

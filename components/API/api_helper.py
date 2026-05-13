@@ -26,6 +26,10 @@ def get_api_config(name: str) -> dict:
                 config_json['FAL']['APIKEY'] = os.environ.get("FAL_API_KEY") or config_json['FAL']['APIKEY']
             case "Elevenlabs":
                 config_json['Elevenlabs']['APIKEY'] = os.environ.get("ELEVENLABS_API_KEY") or config_json['Elevenlabs']['APIKEY']
+            case "Mistral":
+                config_json['Mistral']['APIKEY'] = os.environ.get("MISTRAL_API_KEY") or config_json['Mistral']['APIKEY']
+            case "Opencode":
+                config_json['Opencode']['APIKEY'] = os.environ.get("OPENCODE_API_KEY") or config_json['Opencode']['APIKEY']
 
     return config_json
 
@@ -54,6 +58,9 @@ def create_api_client(api_provider, config_json):
                 from elevenlabs.client import ElevenLabs
                 load_dotenv()
                 APIClient = ElevenLabs(api_key=config_json['Elevenlabs']['APIKEY'])
+            case "Mistral":
+                from mistralai.client import Mistral
+                APIClient = Mistral(api_key=config_json['Mistral']['APIKEY'])
             case _:
                 return (None, None)
 

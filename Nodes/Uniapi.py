@@ -7,6 +7,7 @@ from ..components import utility
 from ..components.API import api_helper
 import folder_paths
 
+import re
 import random
 import argparse
 import json
@@ -41,7 +42,7 @@ class PrimereApiProcessor:
     SECTION_TITLES = [
         {"before": "processor", "name": "primere_api_proc", "title": "🧭 API Setup", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Setup API processor, select related provider and service."},
         {"before": "auto_save_result", "name": "primere_save_api_result", "title": "💾 API result save", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Save API results. Define main path, add subdirectory structure, add filename prefixes. Save related data to .txt or .json file."},
-        {"after": "save_data_to_txt", "name": "primere_api_body", "title": "⚙ API body parameters", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Set API body custom parameters."},
+        {"after": "save_response_to_json", "name": "primere_api_body", "title": "⚙ API body parameters", "color": "#1B263B", "text_color": "#EAF1F8", "label": "Set API body custom parameters."},
     ]
 
     @classmethod
@@ -69,6 +70,7 @@ class PrimereApiProcessor:
             "image_quality": ("INT", {"default": 95, "min": 1, "max": 100, "step": 1}),
             "save_data_to_json": ("BOOLEAN", {"default": False}),
             "save_data_to_txt": ("BOOLEAN", {"default": False}),
+            "save_response_to_json": ("BOOLEAN", {"default": False}),
         }
 
         cls.optional_inputs = {
@@ -378,6 +380,7 @@ class PrimereApiProcessor:
             image_quality = kwargs.get('image_quality', 95)
             save_data_to_json = kwargs.get('save_data_to_json', False)
             save_data_to_txt = kwargs.get('save_data_to_txt', False)
+            save_response_to_json = kwargs.get('save_response_to_json', False)
             add_model_to_path = kwargs.get('add_model_to_path', False)
 
             model_subdir = None
@@ -421,6 +424,11 @@ class PrimereApiProcessor:
                     # "api_result": api_result_debug,
                 }
                 file_output.save_metadata(save_data, json_file, txt_file, save_data_to_json, save_data_to_txt, used_values_output)
+
+                if save_response_to_json:
+                    response_json_file = os.path.splitext(saved_path)[0] + '.response.json'
+                    with open(response_json_file, 'w', encoding='utf-8') as response_file:
+                        json.dump(api_result_debug, response_file, ensure_ascii=False, indent=4, default=str)
 
                 PromptServer.instance.send_sync("primere.save_result", {
                     "node_id": unique_id,
