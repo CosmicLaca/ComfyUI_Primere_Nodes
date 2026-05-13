@@ -141,6 +141,7 @@ def detect_mime(save_bytes, temp_directory):
 def save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, temp_directory):
     if save_bytes is None:
         return output_file, save_bytes
+
     mime = detect_mime(save_bytes, temp_directory)
     stem = os.path.splitext(output_file)[0]
     if mime.startswith('image/'):

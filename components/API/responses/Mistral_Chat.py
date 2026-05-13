@@ -51,9 +51,9 @@ def _clean_text_output(value: Any) -> str:
         text_value = text_value[2:-1]
 
     try:
-        text_value = bytes(text_value, "utf-8").decode("unicode_escape")
+       text_value = bytes(text_value, "utf-8").decode("unicode_escape")
     except Exception:
-        pass
+       pass
 
     text_value = text_value.replace("\\r\\n", "\n").replace("\\n", "\n")
 
@@ -99,7 +99,7 @@ def handle_response(api_result, schema=None, loaded_client=None, response_url=No
 
     if content is not None:
         cleaned_content = _clean_text_output(content)
-        return ["text_result", cleaned_content.encode("utf-8")]
+        return ["text_result", cleaned_content.encode("utf-8").decode("utf-8")]
 
     fallback = {
         "error": "Mistral content not found in response. Saved full response instead.",

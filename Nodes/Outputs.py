@@ -355,13 +355,31 @@ class PrimereAnyOutput:
   def show_output(self, input = None):
     value = 'None'
     if input is not None:
-      try:
-        value = json.dumps(input, indent=4)
-      except Exception:
+      if type(input).__name__ == 'tuple' and len(input) == 1:
+          input = input[0]
+
+      if type(input).__name__ == 'dict':
+        try:
+          value = json.dumps(input, indent=4)
+        except Exception:
+          try:
+            value = json.dumps(input, indent=4, cls=utility.UnsetEncoder)
+          except Exception:
+            try:
+              value = str(input)
+            except Exception:
+              value = 'Input data exists, but could not be serialized.'
+      else:
         try:
           value = str(input)
         except Exception:
           value = 'Input data exists, but could not be serialized.'
+
+    if type(value).__name__ == 'str':
+      try:
+        value = value.encode('utf-8').decode('unicode_escape') if '\\u' in repr(value) else value
+      except Exception:
+        value = value
 
     return {"ui": {"text": (value.strip( '"'),)}}
 

@@ -1578,3 +1578,9 @@ def open_path_dialog(select_file=True):
                 pass
 
     return selected or "", None
+
+class UnsetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if type(obj).__name__ == 'Unset':
+            return None
+        return super().default(obj)
