@@ -1070,8 +1070,9 @@ def getDataFromWorkflowByName(workflow, nodeName, inputName, prompt):
 
     return results
 
-def getInputsFromWorkflowByNode(workflow, nodeName, prompt):
+def getInputsFromWorkflowByNode(workflow, nodeName, prompt, target_node_id=None):
     filtered = {}
+    target_id = str(target_node_id) if target_node_id is not None else None
 
     for node in workflow:
         node_id = None
@@ -1088,9 +1089,16 @@ def getInputsFromWorkflowByNode(workflow, nodeName, prompt):
                 node_id = node["id"]
         if node_id is None:
             continue
-        if str(node_id) in prompt:
-            values = prompt[str(node_id)]["inputs"]
+
+        node_id_str = str(node_id)
+        if target_id is not None and node_id_str != target_id:
+            continue
+
+        if node_id_str in prompt:
+            values = prompt[node_id_str]["inputs"]
             filtered = {k: v for k, v in values.items() if not isinstance(v, list)}
+            if target_id is not None:
+                return filtered
 
     return filtered
 

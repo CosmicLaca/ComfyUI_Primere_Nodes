@@ -29,8 +29,8 @@ from server import PromptServer
 
 class PrimereApiProcessor:
     CATEGORY = TREE_API
-    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE")
-    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "RAW_PAYLOAD", "REQUEST_BODY", "API_SCHEMAS", "API_RESULT")
+    RETURN_TYPES = ("IMAGE", "APICLIENT", "STRING", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "TUPLE", "STRING")
+    RETURN_NAMES = ("RESULT", "CLIENT", "PROVIDER", "SCHEMA", "RENDERED", "RAW_PAYLOAD", "REQUEST_BODY", "API_SCHEMAS", "API_RESULT", "RAW_RESULT")
     FUNCTION = "process_uniapi"
 
     API_RESULT = api_helper.get_api_config("apiconfig.json")
@@ -106,7 +106,7 @@ class PrimereApiProcessor:
         img_binary_api = None
 
         WORKFLOWDATA = kwargs['extra_pnginfo']['workflow']['nodes']
-        custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', kwargs['prompt_extra'])
+        custom_values = utility.getInputsFromWorkflowByNode(WORKFLOWDATA, 'PrimereApiProcessor', kwargs['prompt_extra'], unique_id)
 
         custom_user_inputs = {k: v for k, v in custom_values.items() if k not in self.required_inputs}
         custom_user_inputs = {k: v for k, v in custom_user_inputs.items() if k not in self.optional_inputs}
@@ -412,7 +412,7 @@ class PrimereApiProcessor:
 
             Path(folder_paths.temp_directory).mkdir(parents=True, exist_ok=True)
             try:
-                saved_path = file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
+                saved_path, save_bytes = file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
 
                 save_data = {
                     "provider": api_provider,
@@ -442,4 +442,4 @@ class PrimereApiProcessor:
                     "error": str(save_error),
                 })
 
-        return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug)
+        return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug, save_bytes)

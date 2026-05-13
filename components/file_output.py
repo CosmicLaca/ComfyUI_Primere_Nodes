@@ -140,7 +140,7 @@ def detect_mime(save_bytes, temp_directory):
 
 def save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, temp_directory):
     if save_bytes is None:
-        return output_file
+        return output_file, save_bytes
     mime = detect_mime(save_bytes, temp_directory)
     stem = os.path.splitext(output_file)[0]
     if mime.startswith('image/'):
@@ -164,11 +164,12 @@ def save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, 
     elif mime.startswith('text/'):
         output_file = stem + '.txt'
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(save_bytes.decode('utf-8', errors='replace'))
+            save_bytes = save_bytes.decode('utf-8', errors='replace')
+            f.write(save_bytes)
     else:
         with open(output_file, 'wb') as f:
             f.write(save_bytes)
-    return output_file
+    return output_file, save_bytes
 
 def save_metadata(save_data, json_file, txt_file, save_data_to_json, save_data_to_txt, used_values):
     if save_data_to_json:
