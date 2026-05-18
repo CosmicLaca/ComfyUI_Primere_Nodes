@@ -114,7 +114,7 @@ class PrimereApiProcessor:
         del kwargs['prompt_extra']
 
         if not processor:
-            return (None, None, api_provider, None, None, None, None, None, None)
+            return (None, None, api_provider, None, None, None, None, None, None, prompt)
 
         config_json = self.API_RESULT
         _requested_provider = api_provider
@@ -312,7 +312,7 @@ class PrimereApiProcessor:
                 loaded_client = context.get(endpoint_root, client)
 
                 if debug_mode:
-                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_result, None)
+                    return (reference_images, loaded_client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_result, None, prompt)
                 api_result = external_api_backend.execute_sdk_request(rendered, context, allowed_roots, match_context=used_values)
             else:
                 response = requests.request(
