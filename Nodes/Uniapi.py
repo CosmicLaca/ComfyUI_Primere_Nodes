@@ -114,7 +114,7 @@ class PrimereApiProcessor:
         del kwargs['prompt_extra']
 
         if not processor:
-            return (None, None, api_provider, None, None, None, None, None, None, prompt)
+            return (None, None, api_provider, None, None, None, None, None, None, None)
 
         config_json = self.API_RESULT
         _requested_provider = api_provider
