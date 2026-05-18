@@ -184,12 +184,12 @@
         "width":  {"min": 256, "max": 1440, "step": 32},
         "height": {"min": 256, "max": 1440, "step": 32},
         "safety_tolerance": [
-          {"when": {"path": "model_name", "equals": "flux-2-max"}, "max": 5},
-          {"when": {"path": "model_name", "equals": "flux-2-klein-9b"}, "max": 5},
-          {"when": {"path": "model_name", "equals": "flux-2-klein-4b"}, "max": 5},
-          {"when": {"path": "model_name", "equals": "flux-2-pro-preview"}, "max": 5},
-          {"when": {"path": "model_name", "equals": "flux-2-pro"}, "max": 5},
-          {"when": {"path": "model_name", "equals": "flux-2-flex"}, "max": 5}
+          {"when": {"path": "model_name", "equals": "flux-2-max"}, "max": 5, "def": 5},
+          {"when": {"path": "model_name", "equals": "flux-2-klein-9b"}, "max": 5, "def": 5},
+          {"when": {"path": "model_name", "equals": "flux-2-klein-4b"}, "max": 5, "def": 5},
+          {"when": {"path": "model_name", "equals": "flux-2-pro-preview"}, "max": 5, "def": 5},
+          {"when": {"path": "model_name", "equals": "flux-2-pro"}, "max": 5, "def": 5},
+          {"when": {"path": "model_name", "equals": "flux-2-flex"}, "max": 5, "def": 5}
         ]
       },
       "request": {

@@ -584,8 +584,8 @@ Applies to every call regardless of other parameter values:
 
 ```json
 "parameter_constraints": {
-  "width":  {"min": 256, "max": 1440, "step": 32},
-  "height": {"min": 256, "max": 1440, "step": 32}
+  "width":  {"min": 256, "max": 1440, "step": 32, "def": 1024},
+  "height": {"min": 256, "max": 1440, "step": 32, "def": 1024}
 }
 ```
 
@@ -594,11 +594,13 @@ Applies to every call regardless of other parameter values:
 | `min` | Lower bound. Value is raised to this if below it. Optional. |
 | `max` | Upper bound. Value is capped to this if above it. Optional. |
 | `step` | Snap to nearest lower multiple of this value after clamping. Then re-clamp to `min` if needed. Optional. |
+| `def` | Default value for the input widget. Sets the initial value when the node loads. Optional. |
 
 Processing order: clamp to `max` → clamp to `min` → snap down to `step` multiple → re-clamp to `min`.
 
 Example: input `width = 1500` → capped to `1440` → already a multiple of 32 → result `1440`.
 Example: input `width = 260` → within range → snapped down to `256` (nearest multiple of 32) → re-clamped to `256` → result `256`.
+Example with default: `width` input will initialize with value `1024` when the node is created.
 
 #### Conditional constraint
 
@@ -607,15 +609,17 @@ A list of rules, each with a `when` condition using the same syntax as `request_
 ```json
 "parameter_constraints": {
   "safety_tolerance": [
-    {"when": {"path": "model_name", "equals": "flux-pro-1.1"},       "max": 5},
-    {"when": {"path": "model_name", "equals": "flux-pro-1.1-ultra"}, "max": 6}
+    {"when": {"path": "model_name", "equals": "flux-pro-1.1"},       "max": 5, "def": 3},
+    {"when": {"path": "model_name", "equals": "flux-pro-1.1-ultra"}, "max": 6, "def": 4}
   ]
 }
 ```
 
-Each rule can include `min`, `max`, and/or `step`. The `when` condition checks the resolved value of `path` against `equals` (string comparison).
+Each rule can include `min`, `max`, `step`, and/or `def`. The `when` condition checks the resolved value of `path` against `equals` (string comparison).
 
 If none of the rules match (e.g. a model not listed), no constraint is applied.
+
+For conditional constraints with `def`, the first matching rule's `def` value is used as the default for the input widget.
 
 #### Combining both in one block
 
@@ -632,12 +636,42 @@ Unconditional and conditional constraints can coexist in the same `parameter_con
 }
 ```
 
+#### Default values in constraints
+
+The `def` field in `parameter_constraints` allows you to set default values for numeric input widgets. This is particularly useful for providing sensible starting values instead of the generic `1` or `1.0` defaults.
+
+**Unconditional default:**
+```json
+"parameter_constraints": {
+  "width": {"min": 256, "max": 1440, "step": 32, "def": 1024}
+}
+```
+The `width` input will initialize with value `1024` when the node is created.
+
+**Conditional defaults:**
+```json
+"parameter_constraints": {
+  "safety_tolerance": [
+    {"when": {"path": "model_name", "equals": "flux-2-max"}, "max": 5, "def": 3},
+    {"when": {"path": "model_name", "equals": "flux-2-pro"},  "max": 5, "def": 4}
+  ]
+}
+```
+The first matching rule's `def` value is used. If `model_name` is `"flux-2-max"`, the `safety_tolerance` input will default to `3`.
+
+**Key behaviors:**
+- `def` values are only used for UI initialization - they don't affect runtime constraint processing
+- If no `def` is specified, the widget falls back to the standard default (`1` for integers, `1.0` for floats)
+- For conditional constraints, the first matching rule's `def` is used
+- `def` values work with both unconditional and conditional constraint rules
+
 #### Notes
 
 - The block is fully optional. If absent, all values pass through unchanged.
 - Only numeric values are constrained (integers and floats). Non-numeric values are skipped.
 - String values from COMBO widgets (dropdown lists) are automatically converted to numbers before the constraint is applied.
 - Corrected values flow into `used_values` and `RAW_PAYLOAD` debug outputs, so you can verify the correction without reading source code.
+- Default values (`def`) are purely for UI convenience and don't affect the constraint processing logic.
 
 ---
 

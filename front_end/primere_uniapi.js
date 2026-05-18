@@ -98,16 +98,16 @@ function ensureBooleanWidget(node, widgetName, values) {
     return markDynamicWidget(node, widgetName);
 }
 
-function ensureNumberWidget(node, widgetName, valueType) {
+function ensureNumberWidget(node, widgetName, valueType, defaultValue = null) {
     const isInteger = valueType === "INT";
-    const defaultValue = isInteger ? 1 : 1.0;
+    const effectiveDefault = defaultValue !== null ? defaultValue : (isInteger ? 1 : 1.0);
     const expectedStep = isInteger ? 1 : 0.01;
     const expectedPrecision = isInteger ? 0 : 4;
 
     let widget = getWidget(node, widgetName);
     if (!widget || widget.type !== "number") {
         removeWidgetByName(node, widgetName);
-        widget = node.addWidget("number", widgetName, defaultValue, () => {}, {
+        widget = node.addWidget("number", widgetName, effectiveDefault, () => {}, {
             step: expectedStep,
             precision: expectedPrecision,
         });
@@ -118,7 +118,7 @@ function ensureNumberWidget(node, widgetName, valueType) {
     widget.options.precision = expectedPrecision;
 
     if (typeof widget.value !== "number" || Number.isNaN(widget.value)) {
-        widget.value = defaultValue;
+        widget.value = effectiveDefault;
     } else if (isInteger) {
         widget.value = Math.round(widget.value);
     }
@@ -250,6 +250,7 @@ function updateParameterWidgets(node, schemaRegistry) {
     const service = String(serviceWidget.value);
     const schema = readServiceSchema(schemaRegistry, provider, service);
     const possible = schema?.possible_parameters;
+    const constraints = schema?.parameter_constraints || {};
 
     const activeParams = new Set(listServiceParameterNames(schemaRegistry, provider, service));
     const blockedParams = getBlockedParameterNames(node);
@@ -278,7 +279,21 @@ function updateParameterWidgets(node, schemaRegistry) {
                 continue;
             }
             if (paramType === "INT" || paramType === "FLOAT") {
-                ensureNumberWidget(node, paramName, paramType);
+                const constraint = constraints[paramName];
+                let defaultValue = null;
+                if (constraint) {
+                    if (Array.isArray(constraint)) {
+                        for (const rule of constraint) {
+                            if (rule.def !== undefined) {
+                                defaultValue = rule.def;
+                                break;
+                            }
+                        }
+                    } else if (constraint.def !== undefined) {
+                        defaultValue = constraint.def;
+                    }
+                }
+                ensureNumberWidget(node, paramName, paramType, defaultValue);
                 continue;
             }
             if (paramType === "STRING") {
