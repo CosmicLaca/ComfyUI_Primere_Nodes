@@ -403,8 +403,49 @@ def _remove_none_values(value: Any) -> Any:
         return tuple(cleaned_tuple)
     return value
 
+
+def parse_llm_messages(prompt_value: Any) -> list[dict[str, str]] | str:
+    if not isinstance(prompt_value, str):
+        return prompt_value if prompt_value is not None else ""
+    
+    prompt_text = prompt_value.strip()
+    if not prompt_text:
+        return ""
+    
+    if "::" not in prompt_text:
+        return prompt_text
+    
+    prompt_blocks = [block.strip() for block in re.split(r'(?m)^\s*---\s*$', prompt_text) if block.strip()]
+    
+    messages = []
+    for block in prompt_blocks:
+        if "::" in block:
+            content_part, role_part = block.rsplit("::", 1)
+            content = content_part.strip()
+            role = role_part.strip().lower()
+            
+            if content and role:
+                messages.append({
+                    "role": role,
+                    "content": content
+                })
+        else:
+            messages.append({
+                "role": "user",
+                "content": block
+            })
+    
+    return messages if messages else prompt_text
+
 def render_from_schema(spec: dict[str, Any], values: dict[str, Any] | None = None):
     used_values = _build_values(spec, values)
+    
+    if "prompt" in used_values and isinstance(used_values["prompt"], str):
+        llm_messages = parse_llm_messages(used_values["prompt"])
+        if isinstance(llm_messages, list):
+            used_values["llm_messages"] = llm_messages
+            used_values["prompt"] = used_values["prompt"]
+    
     rendered = external_api_backend.build_request(spec, used_values)
 
     if KlingRequestBuilder.is_kling_schema(spec):
