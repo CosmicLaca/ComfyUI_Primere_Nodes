@@ -50,10 +50,13 @@ def _clean_text_output(value: Any) -> str:
     elif text_value.startswith('b"') and text_value.endswith('"'):
         text_value = text_value[2:-1]
 
-    try:
-       text_value = bytes(text_value, "utf-8").decode("unicode_escape")
-    except Exception:
-       pass
+    # Only apply unicode_escape decoding if the text contains actual escape sequences
+    # Don't apply it to properly encoded UTF-8 text as it causes double-encoding
+    if r"\\" in text_value:
+        try:
+            text_value = bytes(text_value, "utf-8").decode("unicode_escape")
+        except Exception:
+            pass
 
     text_value = text_value.replace("\\r\\n", "\n").replace("\\n", "\n")
 
@@ -90,6 +93,8 @@ def _extract_content(payload: Any) -> str | None:
     content = message.get("content")
     if isinstance(content, str) and content.strip():
         return content
+    elif isinstance(content, bytes) and content.strip():
+        return content.decode("utf-8", errors="replace")
     return None
 
 
@@ -99,11 +104,11 @@ def handle_response(api_result, schema=None, loaded_client=None, response_url=No
 
     if content is not None:
         cleaned_content = _clean_text_output(content)
-        return ["text_result", cleaned_content.encode("utf-8").decode("utf-8")]
+        return ["text_result", cleaned_content]
 
     fallback = {
         "error": "Mistral content not found in response. Saved full response instead.",
         "response": payload,
     }
     fallback_text = json.dumps(fallback, ensure_ascii=False, indent=2, default=str)
-    return ["text_result", fallback_text.encode("utf-8")]
+    return ["text_result", fallback_text]
