@@ -1,124 +1,57 @@
 {
-  "FAL": {
-    "Seedance": {
-      "provider": "FAL",
-      "service": "Seedance",
-      "response_handler": "FAL_Seedance.py",
-      "reference_images_handler": "FAL.py",
+  "OpenRouter": {
+    "LLM": {
+      "provider": "OpenRouter",
+      "service": "LLM",
+      "response_handler": "OpenRouter_LLM.py",
+      "reference_images_handler": "OpenRouter.py",
       "import_modules": [
         "import your_provider_sdk",
         "from your_provider_sdk import types"
       ],
       "possible_parameters": {
-        "audio_urls": [
-          "fake_audio_urls_value_1",
-          "fake_audio_urls_value_2"
+        "Authorization": [
+          "fake_Authorization_value_1",
+          "fake_Authorization_value_2"
         ],
-        "reference_image": [
-          "fake_reference_image_value_1",
-          "fake_reference_image_value_2"
-        ],
-        "aspect_ratio": [
-          "auto",
-          "21:9",
-          "16:9",
-          "4:3",
-          "1:1",
-          "3:4",
-          "9:16"
-        ],
-        "duration": [
-          "auto",
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15
-        ],
-        "resolution": [
-          "480p",
-          "720p"
-        ],
-        "video_urls": [
-          "fake_video_urls_value_1",
-          "fake_video_urls_value_2"
-        ],
-        "with_logs": [
-          "fake_with_logs_value_1",
-          "fake_with_logs_value_2"
-        ]
-      },
-      "request": {
-        "method": "SDK",
-        "endpoint": "fal_client.subscribe",
-        "sdk_call": {
-          "args": [
-            "bytedance/seedance-2.0/fast/reference-to-video"
-          ],
-          "kwargs": {
-            "arguments": {
-              "prompt": "{{prompt}}",
-              "image_urls": "{{reference_image}}",
-              "video_urls": "{{video_urls}}",
-              "audio_urls": "{{audio_urls}}",
-              "resolution": "{{resolution}}",
-              "seed": "{{seed}}",
-              "duration": "{{duration}}",
-              "aspect_ratio": "{{aspect_ratio}}",
-              "with_logs": "{{with_logs}}"
-            }
-          }
-        }
-      }
-    }
-  },
-  "Mistral": {
-    "Chat": {
-      "provider": "Mistral",
-      "service": "Chat",
-      "response_handler": "Mistral_Chat.py",
-      "reference_images_handler": "Mistral.py",
-      "import_modules": [
-        "import your_provider_sdk",
-        "from your_provider_sdk import types"
-      ],
-      "possible_parameters": {
+        "frequency_penalty": "FLOAT",
+        "max_tokens": "INT",
         "model": [
           "example-model-1",
           "example-model-2"
         ],
-        "response": [
-          "fake_response_value_1",
-          "fake_response_value_2"
+        "presence_penalty": "FLOAT",
+        "quantizations": [
+          "fake_quantizations_value_1",
+          "fake_quantizations_value_2"
         ],
-        "role": [
-          "fake_role_value_1",
-          "fake_role_value_2"
-        ]
+        "temperature": "FLOAT",
+        "top_p": "FLOAT"
       },
       "request": {
         "method": "SDK",
-        "endpoint": "mistral.chat.complete",
+        "endpoint": "requests.post",
         "sdk_call": {
-          "args": [],
+          "args": [
+            "https://openrouter.ai/api/v1/chat/completions"
+          ],
           "kwargs": {
-            "model": "{{model}}",
-            "messages": [
-              {
-                "role": "{{role}}",
-                "content": "{{prompt}}"
+            "headers": {
+              "Authorization": "{{Authorization}}",
+              "Content-Type": "application/json"
+            },
+            "json": {
+              "model": "{{model}}",
+              "messages": "{{prompt}}",
+              "temperature": "{{temperature}}",
+              "max_tokens": "{{max_tokens}}",
+              "top_p": "{{top_p}}",
+              "frequency_penalty": "{{frequency_penalty}}",
+              "presence_penalty": "{{presence_penalty}}",
+              "provider": {
+                "data_collection": "deny",
+                "quantizations": "{{quantizations}}"
               }
-            ],
-            "stream": false,
-            "response_format": {
-              "type": "{{response}}"
             }
           }
         }

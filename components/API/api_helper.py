@@ -30,6 +30,8 @@ def get_api_config(name: str) -> dict:
                 config_json['Mistral']['APIKEY'] = os.environ.get("MISTRAL_API_KEY") or config_json['Mistral']['APIKEY']
             case "Opencode":
                 config_json['Opencode']['APIKEY'] = os.environ.get("OPENCODE_API_KEY") or config_json['Opencode']['APIKEY']
+            case "OpenRouter":
+                config_json['OpenRouter']['APIKEY'] = os.environ.get("OPENROUTER_API_KEY") or config_json['OpenRouter']['APIKEY']
 
     return config_json
 
@@ -61,6 +63,9 @@ def create_api_client(api_provider, config_json):
             case "Mistral":
                 from mistralai.client import Mistral
                 APIClient = Mistral(api_key=config_json['Mistral']['APIKEY'])
+            case "OpenRouter":
+                from openrouter import OpenRouter
+                APIClient = OpenRouter(api_key=config_json['OpenRouter']['APIKEY'])
             case _:
                 return (None, None)
 
