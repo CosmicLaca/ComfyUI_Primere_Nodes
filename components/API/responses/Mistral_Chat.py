@@ -50,8 +50,6 @@ def _clean_text_output(value: Any) -> str:
     elif text_value.startswith('b"') and text_value.endswith('"'):
         text_value = text_value[2:-1]
 
-    # Only apply unicode_escape decoding if the text contains actual escape sequences
-    # Don't apply it to properly encoded UTF-8 text as it causes double-encoding
     if r"\\" in text_value:
         try:
             text_value = bytes(text_value, "utf-8").decode("unicode_escape")

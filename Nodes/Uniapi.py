@@ -363,11 +363,6 @@ class PrimereApiProcessor:
             else:
                 result_image = handler_result
 
-
-        print('----------------- 1')
-        print(save_bytes)
-
-        # --- File naming and output path resolution ---
         auto_save_result = kwargs.get('auto_save_result', False)
         if auto_save_result and result_image is not None:
             if type(result_image).__name__ == "str":
@@ -422,10 +417,6 @@ class PrimereApiProcessor:
             Path(folder_paths.temp_directory).mkdir(parents=True, exist_ok=True)
             try:
                 saved_path, save_bytes = file_output.save_bytes_to_file(save_bytes, output_file, image_extension, image_quality, folder_paths.temp_directory)
-
-                print('----------------- 2')
-                print(save_bytes)
-
                 save_data = {
                     "provider": api_provider,
                     "service": selected_service or api_service,
@@ -453,9 +444,5 @@ class PrimereApiProcessor:
                     "status": "failed",
                     "error": str(save_error),
                 })
-
-        print('----------------- 3')
-        print(save_bytes)
-
 
         return (result_image, client, api_provider, schema, rendered_payload, raw_payload, used_values_output, api_schemas, api_result_debug, save_bytes)
