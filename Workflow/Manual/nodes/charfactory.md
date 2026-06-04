@@ -18,12 +18,13 @@ The final output is a composed text prompt that chains all selected attributes i
 
 ---
 
-## Saving characters as reusable presets
+## Saving & deleting characters
 
 1. Select values across the attribute sections to build your character
-2. Click the **Save prompt** button (red, pinned at the top)
+2. Click the **Save character** button (green, left side at the top)
 3. Give the preset a name and confirm
 4. The preset appears in the **saved_character** dropdown — select it to instantly restore all values
+5. To remove a preset, select it in the **saved_character** dropdown and click **Delete character** (red, right side at the top)
 
 Saved presets store every attribute, plus gender and content rating, so you can switch between characters without re-selecting each section manually.
 
@@ -35,7 +36,8 @@ Click on any section's dropdown or the saved_character widget to open a visual p
 
 - **None** and **Random** cards are always pinned at the top
 - Use the **filter** input to search by name
-- Click the **Name** sort button to sort alphabetically, toggle between ascending/descending
+- Sort by **Name** (alphabetical) or **Similarity** (visually similar to the currently selected card)
+- Click the sort direction button to toggle ascending/descending
 - Click a card to select that value and close the modal
 
 ### Saving your own preview images
@@ -50,11 +52,25 @@ The preview filename is generated automatically from the section name and value.
 
 ---
 
+## Action bar — bulk operations
+
+The blue action bar at the top provides three one-click operations across all attribute sections:
+
+| Button | Action |
+|---|---|
+| **All to random** | Sets every section to `Random` — the node will pick a value for each at generation time |
+| **All to none** | Sets every section to `None` — clears all selections for a fresh start |
+| **Randomize** | For every section currently set to `Random`, picks a **concrete value** immediately. This freezes random choices so you can save them as a preset or tweak individual selections |
+
+After clicking any action button, any previously loaded saved character preset is cleared.
+
+---
+
 ## Tips for creative use
 
-- **Single-section preview mode:** Select just one attribute (e.g. only "eye color") and set everything else to None. The output wraps with clean framing and detail prompts — useful for isolating and previewing individual features before assembling a full character
+- **Single-section preview mode:** Select just one attribute (e.g. only "eye color") and set everything else to None. The output wraps with clean framing and detail prompts — useful for isolating and previewing individual features before assembling a full character. In this mode the prompt differs per gender: it appends **"Men's version"** or **"Women's version"** so each preview image is tailored to the selected gender. Because the preview saver can merge results, a single preview may contain both the men's and women's version of the same section
 - **Random seed:** Connect a noise seed for reproducible randomization. Set to 0 for true randomness on each run
-- **Gender and content rating** control which sections and options appear — feminine sections show for "woman", masculine for "man"; content rating filters appropriate material
+- **Gender and content rating** control which sections and options appear — feminine sections show for "woman", masculine for "man"; content rating filters appropriate material. When **gender is set to "man"**, content rating is restricted to **"normal"** only (sexy/NSFW content is only available for "woman")
 - **Workflow metadata:** Character values are recovered from workflow metadata on graph load, so dynamic section widgets are restored even though they are created by the frontend
 
 ---
