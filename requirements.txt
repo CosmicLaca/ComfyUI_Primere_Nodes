@@ -28,7 +28,6 @@ tomli
 torch
 torchvision
 tqdm
-transformers<5.0.0
 ultralytics
 yapf
 openai-clip
@@ -55,3 +54,4 @@ python-magic-bin
 deepface
 numba
 scikit-image
+transformers==4.57.3
