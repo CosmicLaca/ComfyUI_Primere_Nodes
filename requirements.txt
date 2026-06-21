@@ -28,7 +28,7 @@ tomli
 torch
 torchvision
 tqdm
-transformers
+transformers<5.0.0
 ultralytics
 yapf
 openai-clip
@@ -53,3 +53,5 @@ dotenv
 elevenlabs
 python-magic-bin
 deepface
+numba
+scikit-image

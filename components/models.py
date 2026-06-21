@@ -8,7 +8,7 @@ import nodes
 import comfy_extras.nodes_sd3 as nodes_sd3
 import comfy_extras.nodes_model_advanced as nodes_model_advanced
 import comfy_extras.nodes_cfg as nodes_cfg
-from comfy_extras.nodes_attention_multiply import attention_multiply
+
 from comfy import model_management
 from pathlib import Path
 from .tree import PRIMERE_ROOT
@@ -207,6 +207,24 @@ INFERENCE_PRESETS = {
     },
 }
 
+def _apply_unet_attention_multiply(model_obj, attn_name, q, k, v, out):
+    m = model_obj.clone()
+    sd = m.model_state_dict()
+    for key in sd:
+        mult = None
+        if key.endswith("{}.to_q.bias".format(attn_name)) or key.endswith("{}.to_q.weight".format(attn_name)):
+            mult = q
+        elif key.endswith("{}.to_k.bias".format(attn_name)) or key.endswith("{}.to_k.weight".format(attn_name)):
+            mult = k
+        elif key.endswith("{}.to_v.bias".format(attn_name)) or key.endswith("{}.to_v.weight".format(attn_name)):
+            mult = v
+        elif key.endswith("{}.to_out.0.bias".format(attn_name)) or key.endswith("{}.to_out.0.weight".format(attn_name)):
+            mult = out
+        if mult is not None and mult != 1.0:
+            m.patcher.weight_wrapper_patches.setdefault(key, []).append(lambda w, m=mult: w * m)
+    return m
+
+
 def apply_generic_patches(loader_self, model, concept_data):
     model_concept = concept_data.get('model_concept', '')
 
@@ -225,7 +243,7 @@ def apply_generic_patches(loader_self, model, concept_data):
         self_out = concept_data.get('clip_attn_out', 1.0)
         if (self_q, self_k, self_v, self_out) != (1.0, 1.0, 1.0, 1.0):
             try:
-                model = attention_multiply("attn1", model, self_q, self_k, self_v, self_out)
+                model = _apply_unet_attention_multiply(model, "attn1", self_q, self_k, self_v, self_out)
             except Exception as e:
                 print(f"Primere: UNet self-attention multiply failed: {e}")
 
@@ -236,7 +254,7 @@ def apply_generic_patches(loader_self, model, concept_data):
         cross_out = concept_data.get('attn_cross_out', 1.0)
         if (cross_q, cross_k, cross_v, cross_out) != (1.0, 1.0, 1.0, 1.0):
             try:
-                model = attention_multiply("attn2", model, cross_q, cross_k, cross_v, cross_out)
+                model = _apply_unet_attention_multiply(model, "attn2", cross_q, cross_k, cross_v, cross_out)
             except Exception as e:
                 print(f"Primere: UNet cross-attention multiply failed: {e}")
 

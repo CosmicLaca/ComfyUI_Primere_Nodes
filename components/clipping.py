@@ -632,6 +632,24 @@ def apply_clip_overrides(loader_self, clip, control_data):
     return clip
 
 
+def _apply_attention_multiply_to_clip(clip_obj, q, k, v, out):
+    m = clip_obj.clone()
+    sd = m.patcher.model_state_dict()
+    for key in sd:
+        mult = None
+        if key.endswith("self_attn.q_proj.weight") or key.endswith("self_attn.q_proj.bias"):
+            mult = q
+        elif key.endswith("self_attn.k_proj.weight") or key.endswith("self_attn.k_proj.bias"):
+            mult = k
+        elif key.endswith("self_attn.v_proj.weight") or key.endswith("self_attn.v_proj.bias"):
+            mult = v
+        elif key.endswith("self_attn.out_proj.weight") or key.endswith("self_attn.out_proj.bias"):
+            mult = out
+        if mult is not None and mult != 1.0:
+            m.patcher.weight_wrapper_patches.setdefault(key, []).append(lambda w, m=mult: w * m)
+    return m
+
+
 def apply_clip_attention_multiply(clip, control_data):
     if not control_data:
         return clip
@@ -643,12 +661,12 @@ def apply_clip_attention_multiply(clip, control_data):
         return clip
     if isinstance(clip, dict):
         try:
-            clip['main'] = nodes_attention_multiply.CLIPAttentionMultiply.execute(clip['main'], q, k, v, out)[0]
+            clip['main'] = _apply_attention_multiply_to_clip(clip['main'], q, k, v, out)
         except Exception:
             pass
         return clip
     try:
-        return nodes_attention_multiply.CLIPAttentionMultiply.execute(clip, q, k, v, out)[0]
+        return _apply_attention_multiply_to_clip(clip, q, k, v, out)
     except Exception:
         return clip
 
