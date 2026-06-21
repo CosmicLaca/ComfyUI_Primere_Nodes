@@ -789,7 +789,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     finalName = finalName.substring(pathLastIndex + 1);
 
     var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
-    var missingimgsrc = prwPath + '/images/missing.jpg';
+    var missingimgsrc = prwPath + '/images/\\missing.jpg';
     card.classList.add('visual-ckpt', 'version-' + versionString);
 
     if (state.FileDateResponse.hasOwnProperty(ckptName) === true) {

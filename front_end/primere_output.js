@@ -264,7 +264,7 @@ app.registerExtension({
                 previewbox = document.createElement("div");
                 previewbox.setAttribute('style', 'display:none;');
                 previewbox.setAttribute("id", "primere_previewbox");
-                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="previewbox_image">';
+                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/\missing.jpg" ' + 'class="previewbox_image">';
                 document.body.appendChild(previewbox);
             }
 
