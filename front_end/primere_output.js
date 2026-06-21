@@ -7,8 +7,8 @@ let hasShownAlertForUpdatingInt = false;
 let currentClass = false;
 let outputEventListenerInit = false;
 let ImagePath = null;
-const realPath = "/extensions/Primere_Comfynodes_Private";
-const prwPath = "/extensions/Primere_Comfynodes_Private";
+const realPath = "/extensions/comfyui_primere_nodes";
+const prwPath = "/extensions/comfyui_primere_nodes";
 
 let pendingSaveNode = null;
 

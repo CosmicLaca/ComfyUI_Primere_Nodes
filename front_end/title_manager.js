@@ -272,7 +272,7 @@ function buildPreviewHelpText(sectionName) {
 
 function buildPreviewImageSource(sectionName) {
     if (!sectionName) return null;
-    return `/extensions/Primere_Comfynodes_Private/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
+    return `/extensions/comfyui_primere_nodes/images/sections_titles/${encodeURIComponent(sectionName)}.jpg?t=${Date.now()}`;
 }
 
 function resolvePreviewImageSource(sectionName) {

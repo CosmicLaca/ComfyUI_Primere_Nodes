@@ -1,7 +1,7 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
-const prwPath = "/extensions/Primere_Comfynodes_Private";
+const prwPath = "/extensions/comfyui_primere_nodes";
 const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereVisualPromptOrganizerCSV', 'PrimereCharacterFactory'];
 const stackedClasses = ['PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS'];
 
@@ -636,7 +636,7 @@ async function fetchCharFactorySimilarity(node, referenceName) {
 
 async function openCharFactoryVisualModal(node, widget) {
     const PREVIEW_MODAL_ID = "primere_charfactory_modal";
-    const MISSING_IMAGE = "/extensions/Primere_Comfynodes_Private/images/missing.jpg";
+    const MISSING_IMAGE = "/extensions/comfyui_primere_nodes/images/missing.jpg";
 
     if (!widget) return;
 
