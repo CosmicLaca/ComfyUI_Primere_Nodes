@@ -1,8 +1,8 @@
 import { app } from "/scripts/app.js";
 import { api } from "/scripts/api.js";
 
-const prwPath = "/extensions/ComfyUI_Primere_Nodes";
-const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereVisualPromptOrganizerCSV'];
+const prwPath = "/extensions/Primere_Comfynodes_Private";
+const validClasses = ['PrimereVisualCKPT', 'PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualStyle', 'PrimereVisualLYCORIS', 'PrimereVisualPromptOrganizerCSV', 'PrimereCharacterFactory'];
 const stackedClasses = ['PrimereVisualLORA', 'PrimereVisualEmbedding', 'PrimereVisualHypernetwork', 'PrimereVisualLYCORIS'];
 
 const state = {
@@ -122,7 +122,7 @@ function getFilterInput() {
 }
 
 function clearModalCardsKeepingSelected() {
-    const cards = document.querySelectorAll('div.primere-modal-content div.visual-ckpt');
+    const cards = document.querySelectorAll('#primere_visual_modal div.primere-modal-content div.visual-ckpt');
     for (const card of cards) {
         if (!card.classList.contains('visual-ckpt-selected')) card.remove();
     }
@@ -163,57 +163,83 @@ app.registerExtension({
 function ModalHandler() {
     state.eventListenerInit = true;
 
-    document.body.addEventListener("click", async function (event) {
-        let modal = null;
+    function getActiveModal() {
+        const v = document.getElementById("primere_visual_modal");
+        const c = document.getElementById("primere_charfactory_modal");
+        if (v && v.style.display !== 'none') return { modal: v, id: 'visual' };
+        if (c && c.style.display !== 'none') return { modal: c, id: 'cf' };
+        return null;
+    }
 
+    document.body.addEventListener("click", async function (event) {
+        // Close button
         const closeButton = event.target.closest('button.modal-closer');
         if (closeButton) {
-            modal = document.getElementById("primere_visual_modal");
-            if (modal) modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
+            const visModal = document.getElementById("primere_visual_modal");
+            const cfModal = document.getElementById("primere_charfactory_modal");
 
-            var lastDirValue = 'All';
-            if (state.lastDirObject.hasOwnProperty(state.currentClass) === true) lastDirValue = state.lastDirObject[state.currentClass];
+            if (visModal && visModal.style.display !== 'none') {
+                visModal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
 
-            if (typeof state.nodeHelper['sortbuttons'] !== "object" || typeof state.nodeHelper['sortbuttons'][0] !== "object" || state.nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
-                if (state.AutoFilter !== true) {
-                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + state.cache_key);
-                    await categoryHandler(state.FilterType, 'add', 'last_visual_category_type' + '_' + state.cache_key);
-                    const filter = getFilterInput()?.value ?? '';
-                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + state.cache_key);
-                    await categoryHandler(state.sortType, 'add', 'last_visual_sort_type' + '_' + state.cache_key);
-                    await categoryHandler(state.operator, 'add', 'last_visual_sort_operator' + '_' + state.cache_key);
+                var lastDirValue = 'All';
+                if (state.lastDirObject.hasOwnProperty(state.currentClass) === true) lastDirValue = state.lastDirObject[state.currentClass];
+
+                if (typeof state.nodeHelper['sortbuttons'] !== "object" || typeof state.nodeHelper['sortbuttons'][0] !== "object" || state.nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                    if (state.AutoFilter !== true) {
+                        await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + state.cache_key);
+                        await categoryHandler(state.FilterType, 'add', 'last_visual_category_type' + '_' + state.cache_key);
+                        const filter = getFilterInput()?.value ?? '';
+                        await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + state.cache_key);
+                        await categoryHandler(state.sortType, 'add', 'last_visual_sort_type' + '_' + state.cache_key);
+                        await categoryHandler(state.operator, 'add', 'last_visual_sort_operator' + '_' + state.cache_key);
+                    }
                 }
+            }
+
+            if (cfModal && cfModal.style.display !== 'none') {
+                cfModal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
             }
             return;
         }
 
+        // Image/option card click — check CF modal first (its cards match the same selector)
+        const active = getActiveModal();
         const selectedImage = event.target.closest('div.primere-modal-content div.visual-ckpt img');
-        if (selectedImage) {
-            var ckptName = selectedImage.dataset.ckptname;
-            modal = document.getElementById("primere_visual_modal");
-            if (modal) modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
+        if (selectedImage && active) {
+            if (active.id === 'cf') {
+                // CF modal card
+                const cfValue = selectedImage.dataset.charfactoryValue ?? selectedImage.dataset.ckptname;
+                active.modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
+                if (cfValue && typeof state.callbackfunct == 'function') {
+                    state.callbackfunct(cfValue);
+                }
+            } else {
+                // Visual modal card
+                var ckptName = selectedImage.dataset.ckptname;
+                active.modal.setAttribute('style', 'display: none; width: 80%; height: 70%;');
 
-            var lastDirValue = 'All';
-            if (state.lastDirObject.hasOwnProperty(state.currentClass) === true) lastDirValue = state.lastDirObject[state.currentClass];
+                var lastDirValue = 'All';
+                if (state.lastDirObject.hasOwnProperty(state.currentClass) === true) lastDirValue = state.lastDirObject[state.currentClass];
 
-            if (state.source_subdirname == 'styles') {
-                let pathLastIndex = ckptName.lastIndexOf('\\');
-                ckptName = ckptName.substring(pathLastIndex + 1);
-            }
+                if (state.source_subdirname == 'styles') {
+                    let pathLastIndex = ckptName.lastIndexOf('\\');
+                    ckptName = ckptName.substring(pathLastIndex + 1);
+                }
 
-            if (ckptName && typeof state.callbackfunct == 'function') {
-                state.callbackfunct(ckptName);
-                sendPOSTModelName(ckptName);
-            }
+                if (ckptName && typeof state.callbackfunct == 'function') {
+                    state.callbackfunct(ckptName);
+                    sendPOSTModelName(ckptName);
+                }
 
-            if (typeof state.nodeHelper['sortbuttons'] !== "object" || typeof state.nodeHelper['sortbuttons'][0] !== "object" || state.nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
-                if (state.AutoFilter !== true) {
-                    await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + state.cache_key);
-                    await categoryHandler(state.FilterType, 'add', 'last_visual_category_type' + '_' + state.cache_key);
-                    const filter = getFilterInput()?.value ?? '';
-                    await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + state.cache_key);
-                    await categoryHandler(state.sortType, 'add', 'last_visual_sort_type' + '_' + state.cache_key);
-                    await categoryHandler(state.operator, 'add', 'last_visual_sort_operator' + '_' + state.cache_key);
+                if (typeof state.nodeHelper['sortbuttons'] !== "object" || typeof state.nodeHelper['sortbuttons'][0] !== "object" || state.nodeHelper['sortbuttons'][0].indexOf("Path") > -1) {
+                    if (state.AutoFilter !== true) {
+                        await categoryHandler(lastDirValue, 'add', 'last_visual_category' + '_' + state.cache_key);
+                        await categoryHandler(state.FilterType, 'add', 'last_visual_category_type' + '_' + state.cache_key);
+                        const filter = getFilterInput()?.value ?? '';
+                        await categoryHandler(filter, 'add', 'last_visual_filter' + '_' + state.cache_key);
+                        await categoryHandler(state.sortType, 'add', 'last_visual_sort_type' + '_' + state.cache_key);
+                        await categoryHandler(state.operator, 'add', 'last_visual_sort_operator' + '_' + state.cache_key);
+                    }
                 }
             }
             return;
@@ -224,6 +250,8 @@ function ModalHandler() {
 
         const subdirButton = event.target.closest('div.subdirtab button.subdirfilter');
         if (subdirButton) {
+            const active = getActiveModal();
+            if (!active || active.id !== 'visual') return;
             const filterInput = getFilterInput();
             if (filterInput) filterInput.value = '';
             subdirName = subdirButton.dataset.ckptsubdir;
@@ -286,6 +314,8 @@ function ModalHandler() {
 
         const versionButton = event.target.closest('div.subdirtab button.verfilter');
         if (versionButton) {
+            const active = getActiveModal();
+            if (!active || active.id !== 'visual') return;
             const filterInput = getFilterInput();
             if (filterInput) filterInput.value = '';
             var versionName = versionButton.dataset.ckptver;
@@ -320,23 +350,47 @@ function ModalHandler() {
 
         const clearButton = event.target.closest('div.subdirtab button.filter_clear');
         if (clearButton) {
-            const filterInput = getFilterInput();
-            if (filterInput) filterInput.value = '';
-            const images = document.querySelectorAll('div.primere-modal-content div.visual-ckpt img');
-            filteredCheckpoints = 0;
-            for (const image of images) {
-                const parent = image.parentElement;
-                if (parent) {
-                    parent.style.display = '';
-                    filteredCheckpoints++;
+            const visModal = document.getElementById("primere_visual_modal");
+            const cfModal = document.getElementById("primere_charfactory_modal");
+
+            if (cfModal && cfModal.style.display !== 'none') {
+                const filterInput = cfModal.querySelector('input.filter_input');
+                if (filterInput) filterInput.value = '';
+                const cards = cfModal.querySelectorAll('div.primere-modal-content div.visual-ckpt');
+                for (const card of cards) card.style.display = '';
+                const counter = cfModal.querySelector('label.ckpt-counter');
+                if (counter) counter.textContent = String(cards.length);
+            } else if (visModal && visModal.style.display !== 'none') {
+                const filterInput = getFilterInput();
+                if (filterInput) filterInput.value = '';
+                const images = document.querySelectorAll('#primere_visual_modal div.primere-modal-content div.visual-ckpt img');
+                filteredCheckpoints = 0;
+                for (const image of images) {
+                    const parent = image.parentElement;
+                    if (parent) {
+                        parent.style.display = '';
+                        filteredCheckpoints++;
+                    }
                 }
+                setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints - 1));
             }
-            setText('div#primere_visual_modal div.modal_header label.ckpt-counter', String(filteredCheckpoints - 1));
             return;
         }
 
         const sortButton = event.target.closest('div.subdirtab button.preview_sort');
         if (sortButton) {
+            const active = getActiveModal();
+            if (active && active.id === 'cf') {
+                // CF modal sort
+                state.sortType = sortButton.dataset.sortsource;
+                state.operator = active.modal.querySelector('button.preview_sort_direction')?.textContent ?? 'ASC';
+                const container = active.modal.querySelector('div.ckpt-container');
+                sortCharFactoryCards(container, state.operator, state.sortType);
+                const sortButtons = active.modal.querySelectorAll('div.subdirtab button.preview_sort');
+                for (const button of sortButtons) button.classList.remove('selected_path');
+                sortButton.classList.add('selected_path');
+                return;
+            }
             state.sortType = sortButton.dataset.sortsource;
             state.operator = document.querySelector('button.preview_sort_direction')?.textContent ?? 'ASC';
             previewSorter(state.operator, state.sortType);
@@ -348,6 +402,16 @@ function ModalHandler() {
 
         const sortDirectionButton = event.target.closest('div.subdirtab button.preview_sort_direction');
         if (sortDirectionButton) {
+            const active = getActiveModal();
+            if (active && active.id === 'cf') {
+                // CF direction
+                const newDir = sortDirectionButton.textContent === 'ASC' ? 'DESC' : 'ASC';
+                sortDirectionButton.textContent = newDir;
+                const sortType = active.modal.querySelector('button.preview_sort.selected_path')?.dataset.sortsource || 'name';
+                const container = active.modal.querySelector('div.ckpt-container');
+                sortCharFactoryCards(container, newDir, sortType);
+                return;
+            }
             state.operator = sortDirectionButton.textContent;
             if (state.operator == 'ASC') {
                 sortDirectionButton.textContent = 'DESC';
@@ -364,7 +428,14 @@ function ModalHandler() {
 
     document.body.addEventListener("keyup", function (event) {
         const filterInput = event.target.closest('div.subdirtab input');
-        if (filterInput) previewFilter(filterInput.value);
+        if (filterInput) {
+            const cfModal = document.getElementById("primere_charfactory_modal");
+            if (cfModal && cfModal.style.display !== 'none') {
+                cfPreviewFilter(filterInput.value);
+            } else {
+                previewFilter(filterInput.value);
+            }
+        }
     });
 }
 
@@ -377,8 +448,17 @@ class ModalControl {
             var w = node.widgets[i];
             if (!w || w.disabled) continue;
             if (w.type != "combo") continue;
+            if (w.__visual_mouse_set) continue;
+
+            // For CF nodes, skip gender and content_rating — they're static dropdowns, not modal widgets
+            if (node.type === 'PrimereCharacterFactory' && (w.name === 'gender' || w.name === 'content_rating')) {
+                continue;
+            }
+
+            w.__visual_mouse_set = true;
 
             let nx = i;
+            const origMouse = w.mouse;
             node.widgets[i].mouse = async function (event, pos, node) {
                 if (event.type == 'pointerup' && (pos[0] < 35 || pos[0] > node.size[0] - 35)) return false;
                 if (event.type == 'pointermove' && validClasses.includes(node.type)) return false;
@@ -423,6 +503,19 @@ class ModalControl {
                         if (ckptContainer) ckptContainer.innerHTML = '';
                     }
 
+                    if (state.currentClass === 'PrimereCharacterFactory') {
+                        // gender and content_rating trigger rebuild, not the preview modal
+                        if (state.widget_object.name === 'gender' || state.widget_object.name === 'content_rating') {
+                            return origMouse?.apply(this, arguments);
+                        }
+                        await sleep(200);
+                        state.SelectedModel = state.node_object.widgets[nx].value;
+                        await new Promise((resolve) => requestAnimationFrame(resolve));
+                        await openCharFactoryVisualModal(node, state.widget_object);
+                        state.callbackfunct = inner_clicked.bind(state.widget_object);
+                        return null;
+                    }
+
                     const widgetNumericEnd = /\d$/.test(String(state.widget_object?.name ?? ''));
                     if (state.widget_object.name.match(nodematch) && widgetNumericEnd === isnumeric_end) {
                         await sleep(200);
@@ -431,36 +524,260 @@ class ModalControl {
                         setup_visual_modal(modaltitle, 'AllModels', state.ShowHidden, state.SelectedModel, state.source_subdirname, state.node_object, state.PreviewPath);
                         state.callbackfunct = inner_clicked.bind(state.widget_object);
 
-                        function inner_clicked(value, option, event) {
-                            inner_value_change(state.widget_object, value);
-                            app.canvas.setDirty(true);
-                            return false;
-                        }
+                        return null;
+                    }
 
-                        function inner_value_change(widget_object, value) {
-                            if (typeof state.nodeHelper['sortbuttons'] === "object" && typeof state.nodeHelper['sortbuttons'][0] === "object" && state.nodeHelper['sortbuttons'][0].indexOf("Path") == -1) {
-                                for (var ic = 0; ic < state.node_object.widgets.length; ++ic) {
-                                    if (state.node_object.widgets[ic].type == 'combo' && state.node_object.widgets[ic].value != 'None') {
-                                        state.node_object.widgets[ic].value = 'None';
-                                    }
+                    // Shared helpers used by both CF and visual modal callbacks
+                    function inner_clicked(value, option, event) {
+                        inner_value_change(state.widget_object, value);
+                        app.canvas.setDirty(true);
+                        return false;
+                    }
+
+                    function inner_value_change(widget_object, value) {
+                        if (state.currentClass !== 'PrimereCharacterFactory' && typeof state.nodeHelper['sortbuttons'] === "object" && typeof state.nodeHelper['sortbuttons'][0] === "object" && state.nodeHelper['sortbuttons'][0].indexOf("Path") == -1) {
+                            for (var ic = 0; ic < state.node_object.widgets.length; ++ic) {
+                                if (state.node_object.widgets[ic].type == 'combo' && state.node_object.widgets[ic].value != 'None') {
+                                    state.node_object.widgets[ic].value = 'None';
                                 }
                             }
-                            if (widget_object.type == "number") value = Number(value);
-                            widget_object.value = value;
-                            if (widget_object.options && widget_object.options.property && state.node_object.properties[widget_object.options.property] !== undefined) {
-                                state.node_object.setProperty(widget_object.options.property, value);
-                            }
-                            if (widget_object.callback) {
-                                widget_object.callback(widget_object.value, this, state.node_object, pos, event);
-                            }
                         }
-
-                        return null;
+                        if (widget_object.type == "number") value = Number(value);
+                        widget_object.value = value;
+                        if (widget_object.options && widget_object.options.property && state.node_object.properties[widget_object.options.property] !== undefined) {
+                            state.node_object.setProperty(widget_object.options.property, value);
+                        }
+                        if (widget_object.callback) {
+                            widget_object.callback(widget_object.value, this, state.node_object, pos, event);
+                        }
                     }
                 }
             }
         }
     }
+}
+
+// ── Character Factory visual modal ──
+
+function sanitizePreviewName(value) {
+    return String(value ?? "")
+        .trim()
+        .replace(/ /g, "_")
+        .replace(/^_+|_+$/g, "");
+}
+
+function sectionPreviewName(sectionKey, value) {
+    const valueName = sanitizePreviewName(String(value ?? "").substring(0, 20));
+    return valueName ? `${sectionKey}_${valueName}` : sectionKey;
+}
+
+function savedCharacterPreviewName(characterName) {
+    const savedName = sanitizePreviewName(characterName);
+    return savedName || "character";
+}
+
+function getCharFactoryModalItems(node, widget) {
+    if (!widget) return [];
+    if (widget.name === "saved_character") {
+        const values = Array.isArray(widget.options?.values) ? widget.options.values : [];
+        return values.map((value) => ({
+            value,
+            label: value,
+            previewName: value === "None" ? "none" : savedCharacterPreviewName(value),
+        }));
+    }
+    const values = Array.isArray(widget.options?.values) ? widget.options.values : [];
+    return values.map((value) => ({
+        value,
+        label: value,
+        previewName: sectionPreviewName(widget.name, value),
+    }));
+}
+
+let CharFactoryImageData = null;
+
+async function fetchCharFactoryImages(node) {
+    try {
+        const hiddenData = state.hiddenWidgets["PrimereCharacterFactory"] || {};
+        const rawSubdir = hiddenData.subdir;
+        const subdir = Array.isArray(rawSubdir) ? rawSubdir[0] : (rawSubdir || "charfactory");
+        const body = new FormData();
+        body.append("subdir", subdir);
+        const response = await api.fetchApi("/primere_charfactory_images", { method: "POST", body });
+        CharFactoryImageData = await response.json();
+    } catch {
+        CharFactoryImageData = {};
+    }
+    return CharFactoryImageData;
+}
+
+async function fetchCharFactorySimilarity(node, referenceName) {
+    try {
+        const hiddenData = state.hiddenWidgets["PrimereCharacterFactory"] || {};
+        const rawSubdir = hiddenData.subdir;
+        const subdir = Array.isArray(rawSubdir) ? rawSubdir[0] : (rawSubdir || "charfactory");
+        const body = new FormData();
+        body.append("SubdirName", subdir);
+        body.append("PreviewPath", "true");
+        body.append("SelectedModel", referenceName || "");
+        const result = await new Promise((resolve) => {
+            const timer = setTimeout(() => resolve({}), 10000);
+            api.addEventListener("SimilarityData", (event) => {
+                clearTimeout(timer);
+                resolve(event.detail || {});
+            }, { once: true });
+            api.fetchApi("/primere_get_similarity", { method: "POST", body });
+        });
+        return result;
+    } catch {
+        return {};
+    }
+}
+
+async function openCharFactoryVisualModal(node, widget) {
+    const PREVIEW_MODAL_ID = "primere_charfactory_modal";
+    const MISSING_IMAGE = "/extensions/Primere_Comfynodes_Private/images/missing.jpg";
+
+    if (!widget) return;
+
+    const items = getCharFactoryModalItems(node, widget);
+    if (!items.length) return;
+
+    const hiddenData = state.hiddenWidgets["PrimereCharacterFactory"] || {};
+    const rawSort = hiddenData.sortbuttons;
+    const sortButtonsList = Array.isArray(rawSort?.[0]) ? rawSort[0] : (rawSort || ["Name"]);
+
+    const imageData = await fetchCharFactoryImages(node);
+    const similarityData = sortButtonsList.some(s => s.toLowerCase() === "similarity")
+        ? await fetchCharFactorySimilarity(node, items.find(i => i.value === widget.value)?.previewName)
+        : {};
+
+    let modal = document.getElementById(PREVIEW_MODAL_ID);
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.classList.add("comfy-modal", "primere-modal-base");
+        modal.setAttribute("id", PREVIEW_MODAL_ID);
+        modal.innerHTML = '<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title"></h3></div>';
+
+        const subdirContainer = document.createElement("div");
+        subdirContainer.classList.add("subdirtab");
+        modal.appendChild(subdirContainer);
+
+        const container = document.createElement("div");
+        container.classList.add("primere-modal-content", "ckpt-container", "ckpt-grid-layout");
+        modal.appendChild(container);
+        document.body.appendChild(modal);
+    }
+
+    const title = modal.querySelector("h3.visual_modal_title");
+    if (title) {
+        const sectionName = widget.name === "saved_character"
+            ? "Saved characters"
+            : widget.name.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+        title.innerHTML = `${sectionName} :: <label class="ckpt-name">${widget.value}</label> :: <label class="ckpt-counter">${items.length}</label>`;
+    }
+
+    const subdirContainer = modal.querySelector("div.subdirtab");
+    if (subdirContainer) {
+        let html = '<input type="text" name="ckptfilter" placeholder="filter" class="filter_input"> <button type="button" class="filter_clear">Clear filter</button><label class="sort_by_label"> | Sort by: </label>';
+        for (const btn of sortButtonsList) {
+            const isActive = btn.toLowerCase() === "name";
+            html += `<button type="button" class="preview_sort${isActive ? " selected_path" : ""}" data-sortsource="${btn.toLowerCase()}">${btn}</button><label> | </label>`;
+        }
+        html += '<button type="button" class="preview_sort_direction">ASC</button>';
+        subdirContainer.innerHTML = html;
+    }
+
+    const container = modal.querySelector("div.ckpt-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    for (const item of items) {
+        const card = document.createElement("div");
+        card.classList.add("visual-ckpt", "version-CharacterFactory");
+        if (item.value === widget.value) card.classList.add("visual-ckpt-selected");
+        card.dataset.name = item.label.toLowerCase();
+        card.dataset.value = item.value;
+        const similarityVal = similarityData && similarityData[item.previewName] != null ? Math.floor(similarityData[item.previewName] * 100) : 0;
+        card.dataset.similarity = String(similarityVal);
+
+        let imgSrc;
+        if (item.value === "None" && imageData && imageData["none"]) {
+            imgSrc = 'data:image/jpeg;charset=utf-8;base64,' + imageData["none"];
+        } else if (item.value === "Random" && imageData && imageData["random"]) {
+            imgSrc = 'data:image/jpeg;charset=utf-8;base64,' + imageData["random"];
+        } else if (imageData && imageData[item.previewName]) {
+            imgSrc = 'data:image/jpeg;charset=utf-8;base64,' + imageData[item.previewName];
+        } else {
+            imgSrc = MISSING_IMAGE;
+        }
+        card.innerHTML = `<div class="checkpoint-name background-CharacterFactory">${item.label}</div><img src="${imgSrc}" title="${item.label}" data-charfactory-value="${item.value}" data-ckptname="${item.value}">`;
+        const img = card.querySelector("img");
+        if (img) {
+            img.onerror = () => { img.src = MISSING_IMAGE; };
+        }
+        container.appendChild(card);
+    }
+
+    // Initial sort — keep None/Random first
+    sortCharFactoryCards(container, "ASC", "name");
+
+    modal.setAttribute("style", "display: block; width: 80%; height: 70%;");
+}
+
+function sortCharFactoryCards(container, direction, sortType) {
+    if (!container) return;
+    const fixedValues = ["None", "Random"];
+    const cards = Array.from(container.querySelectorAll("div.visual-ckpt"));
+
+    const fixed = [];
+    const normal = [];
+
+    for (const card of cards) {
+        if (fixedValues.includes(card.dataset.value)) {
+            fixed.push(card);
+        } else {
+            normal.push(card);
+        }
+    }
+
+    normal.sort(function (a, b) {
+        var aVal = a.dataset[sortType] ?? "";
+        var bVal = b.dataset[sortType] ?? "";
+        if (isNaN(parseInt(aVal)) && isNaN(parseInt(bVal))) {
+            aVal = String(aVal).toUpperCase();
+            bVal = String(bVal).toUpperCase();
+            if (direction === "ASC") return aVal < bVal ? -1 : (aVal > bVal ? 1 : 0);
+            return aVal > bVal ? -1 : (aVal < bVal ? 1 : 0);
+        }
+        if (direction === "ASC") return parseInt(aVal) - parseInt(bVal);
+        return parseInt(bVal) - parseInt(aVal);
+    });
+
+    container.innerHTML = "";
+    for (const card of fixed) container.appendChild(card);
+    for (const card of normal) container.appendChild(card);
+
+    // Update state for previewFilter
+    state.sortType = sortType;
+    state.operator = direction;
+}
+
+function cfPreviewFilter(filterString) {
+    const cfModal = document.getElementById("primere_charfactory_modal");
+    if (!cfModal || cfModal.style.display === "none") return;
+    const images = cfModal.querySelectorAll('div.primere-modal-content div.visual-ckpt img');
+    let count = 0;
+    for (const img of images) {
+        const card = img.closest(".visual-ckpt");
+        if (!card) continue;
+        const isFixed = card.dataset.value === "None" || card.dataset.value === "Random";
+        const visible = isFixed || (img.title || "").toLowerCase().includes(filterString.toLowerCase());
+        card.style.display = visible ? "" : "none";
+        if (visible) count++;
+    }
+    const counter = cfModal.querySelector("label.ckpt-counter");
+    if (counter) counter.textContent = String(count);
 }
 
 async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedModel, ModelType, node, PreviewPath) {
@@ -471,7 +788,7 @@ async function setup_visual_modal(combo_name, AllModels, ShowHidden, SelectedMod
     modal = document.getElementById("primere_visual_modal");
     if (!modal) {
         modal = document.createElement("div");
-        modal.classList.add("comfy-modal");
+        modal.classList.add("comfy-modal", "primere-modal-base");
         modal.setAttribute("id","primere_visual_modal");
         modal.innerHTML = '<div class="modal_header"><button type="button" class="modal-closer">Close modal</button> <h3 class="visual_modal_title">' + combo_name.replace("_"," ") + '<label class="ckpt-ver">Subdir</label> :: <label class="ckpt-name">All</label> :: <label class="ckpt-counter"></label></h3></div>';
 
@@ -727,7 +1044,7 @@ function previewSorter(operator, sortType) {
 }
 
 function previewFilter(filterString) {
-    var imageContainers = document.querySelectorAll('div.primere-modal-content div.visual-ckpt img');
+    var imageContainers = document.querySelectorAll('#primere_visual_modal div.primere-modal-content div.visual-ckpt img');
     var filteredCheckpoints = 0;
     for (const img_obj of imageContainers) {
         var versiontext = img_obj.dataset.ckptver;
@@ -789,7 +1106,7 @@ async function createCardElement(checkpoint, container, SelectedModel, ModelType
     finalName = finalName.substring(pathLastIndex + 1);
 
     var card_html = '<div class="checkpoint-name background-' + versionString + '">' + ckptName.replaceAll('_', " ") + '</div>' + versionWidget;
-    var missingimgsrc = prwPath + '/images/\\missing.jpg';
+    var missingimgsrc = prwPath + '/images/missing.jpg';
     card.classList.add('visual-ckpt', 'version-' + versionString);
 
     if (state.FileDateResponse.hasOwnProperty(ckptName) === true) {
@@ -935,3 +1252,9 @@ async function waitUntilEqual(condition1, condition2, time = 100) {
 async function waitForImageToLoad(imageElement) {
     return new Promise(resolve => { imageElement.onload = resolve });
 }
+
+export { ModalControl, getCharFactoryModalItems, fetchCharFactoryImages, fetchCharFactorySimilarity };
+
+// Make ModalControl globally accessible for ComfyUI extension module loading
+window.__primere = window.__primere || {};
+window.__primere.ModalControl = ModalControl;

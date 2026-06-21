@@ -7,8 +7,8 @@ let hasShownAlertForUpdatingInt = false;
 let currentClass = false;
 let outputEventListenerInit = false;
 let ImagePath = null;
-const realPath = "/extensions/ComfyUI_Primere_Nodes";
-const prwPath = "/extensions/ComfyUI_Primere_Nodes";
+const realPath = "/extensions/Primere_Comfynodes_Private";
+const prwPath = "/extensions/Primere_Comfynodes_Private";
 
 let pendingSaveNode = null;
 
@@ -18,7 +18,8 @@ const NodenameByType = {
     'Lora': 'PrimereVisualLORA',
     'Lycoris': 'PrimereVisualLYCORIS',
     'Hypernetwork': 'PrimereVisualHypernetwork',
-    'Embedding': 'PrimereVisualEmbedding'
+    'Embedding': 'PrimereVisualEmbedding',
+    'Character Factory': 'PrimereCharacterFactory'
 }
 
 const NodesubdirByType = {
@@ -27,7 +28,8 @@ const NodesubdirByType = {
     'Lora': 'loras',
     'Lycoris': 'lycoris',
     'Hypernetwork': 'hypernetworks',
-    'Embedding': 'embeddings'
+    'Embedding': 'embeddings',
+    'Character Factory': 'charfactory'
 }
 
 const OutputToNode = ['PrimereAnyOutput', 'PrimereTextOutput', 'PrimereAestheticCKPTScorer', 'PrimereFastSeed'];
@@ -264,7 +266,7 @@ app.registerExtension({
                 previewbox = document.createElement("div");
                 previewbox.setAttribute('style', 'display:none;');
                 previewbox.setAttribute("id", "primere_previewbox");
-                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/\missing.jpg" ' + 'class="previewbox_image">';
+                previewbox.innerHTML = '<div class="preview_closebutton">X</div><img src="' + prwPath + '/images/missing.jpg" ' + 'class="previewbox_image">';
                 document.body.appendChild(previewbox);
             }
 
@@ -544,26 +546,36 @@ function ButtonLabelCreator(node, url = false) {
                     }
 
                     let prwpathNew = state.selectedTarget.replaceAll('\\', '/');
+                    if (wv.previewTarget === 'Character Factory' && state.targetFileName) {
+                        prwpathNew = state.targetFileName;
+                    }
                     const dotLastIndex = prwpathNew.lastIndexOf('.');
                     const finalName = (dotLastIndex > 1 ? prwpathNew.substring(0, dotLastIndex) : prwpathNew).replaceAll(' ', '_');
                     const imgsrc = prwPath + '/images/' + NodesubdirByType[wv.previewTarget] + '/' + finalName + '.jpg';
 
-                    fetch(imgsrc, { method: 'HEAD' })
-                        .then(response => {
-                            state.previewExist = response.ok;
-                            state.previewURL = response.ok ? imgsrc : null;
+                    const checkPreviewExists = (name) => {
+                        const body = new FormData();
+                        body.append('previewDir', NodesubdirByType[wv.previewTarget]);
+                        body.append('filename', name);
+                        return api.fetchApi("/primere_check_preview", { method: "POST", body })
+                            .then(r => r.json())
+                            .then(data => data.exists);
+                    };
 
-                            const prwMode = wv.prwSaveMode.split(' ').map(n => n[0]).join('').toUpperCase();
-                            const imgExistLink = state.previewExist ? ' [' + prwMode + ']' : ' [C]';
-                            const title = '🏙️ Save preview as: [' + state.targetFileName + '.jpg] to [' + wv.previewTarget + '] folder.' + imgExistLink;
-                            applyWidgetValues(node, title, state.targetSelValues);
-                        })
-                        .catch(() => {
-                            state.previewExist = false;
-                            state.previewURL = null;
-                            const title = '🏙️ Save preview as: [' + state.targetFileName + '.jpg] to [' + wv.previewTarget + '] folder. [C]';
-                            applyWidgetValues(node, title, state.targetSelValues);
-                        });
+                    checkPreviewExists(finalName).then(exists => {
+                        state.previewExist = exists;
+                        state.previewURL = exists ? imgsrc : null;
+
+                        const prwMode = wv.prwSaveMode.split(' ').map(n => n[0]).join('').toUpperCase();
+                        const imgExistLink = exists ? ' [' + prwMode + ']' : ' [C]';
+                        const title = '🏙️ Save preview as: [' + state.targetFileName + '.jpg] to [' + wv.previewTarget + '] folder.' + imgExistLink;
+                        applyWidgetValues(node, title, state.targetSelValues);
+                    }).catch(() => {
+                        state.previewExist = false;
+                        state.previewURL = null;
+                        const title = '🏙️ Save preview as: [' + state.targetFileName + '.jpg] to [' + wv.previewTarget + '] folder. [C]';
+                        applyWidgetValues(node, title, state.targetSelValues);
+                    });
                 }
             } else {
                 const title = '❌ Required node: [' + NodenameByType[wv.previewTarget] + '] not available in workflow for target: [' + wv.previewTarget + ']';

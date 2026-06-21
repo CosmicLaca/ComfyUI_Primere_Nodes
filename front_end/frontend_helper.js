@@ -1,30 +1,92 @@
 const TOAST_DURATION_MS = 6000;
-const BTN_HEIGHT = 32;
-const BTN_COLOR = "#771a1a";
-const BTN_COLOR_ACTIVE = "#932424";
-const BTN_RADIUS = 6;
-const BTN_FONT = "bold 15px sans-serif";
 
-export function applyPrimereButtonStyle(widget) {
-    widget.computeSize = () => [0, BTN_HEIGHT];
+export function applyPrimereButtonStyle(widget, options = {}) {
+    const {
+        height = 32,
+        radius = 6,
+        margin = 15,
+        bgColor = "#771a1a",
+        activeColor = "#932424",
+        textColor = "#dad570",
+        fontSize = "bold 15px sans-serif",
+        label = null,
+    } = options;
+
+    widget.computeSize = () => [0, height];
     widget.draw = function (ctx, node, widget_width, y) {
         ctx.save();
-        const margin = 15;
-        ctx.fillStyle = this.clicked ? BTN_COLOR_ACTIVE : BTN_COLOR;
+        ctx.fillStyle = this.clicked ? activeColor : bgColor;
         if (this.clicked) {
             this.clicked = false;
             node.setDirtyCanvas?.(true);
         }
         ctx.beginPath();
-        ctx.roundRect(margin, y, widget_width - margin * 2, BTN_HEIGHT, BTN_RADIUS);
+        ctx.roundRect(margin, y, widget_width - margin * 2, height, radius);
         ctx.fill();
-        ctx.fillStyle = "#dad570";
-        ctx.font = BTN_FONT;
+        ctx.fillStyle = textColor;
+        ctx.font = fontSize;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(this.name, widget_width * 0.5, y + BTN_HEIGHT * 0.5);
+        ctx.fillText(label ?? this.name, widget_width * 0.5, y + height * 0.5);
         ctx.restore();
     };
+}
+
+export function applyPrimereTwinButtonStyle(widget, options = {}) {
+    const {
+        height = 30,
+        radius = 6,
+        margin = 15,
+        gap = 4,
+        bgColor = "#274e7a",
+        activeColor = "#366294",
+        textColor = "#ffffff",
+        fontSize = "bold 13px sans-serif",
+        leftLabel = "Left",
+        rightLabel = "Right",
+    } = options;
+
+    widget.computeSize = () => [0, height + 4];
+
+    widget.draw = function (ctx, node, widget_width, y) {
+        ctx.save();
+        const halfW = (widget_width - margin * 2 - gap) / 2;
+        const leftX = margin;
+        const rightX = leftX + halfW + gap;
+
+        ctx.fillStyle = this.__twinClickedSide === "left" ? activeColor : bgColor;
+        ctx.beginPath();
+        ctx.roundRect(leftX, y + 2, halfW, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.font = fontSize;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(leftLabel, leftX + halfW / 2, y + 2 + height / 2);
+
+        ctx.fillStyle = this.__twinClickedSide === "right" ? activeColor : bgColor;
+        ctx.beginPath();
+        ctx.roundRect(rightX, y + 2, halfW, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.fillText(rightLabel, rightX + halfW / 2, y + 2 + height / 2);
+
+        ctx.restore();
+
+        if (this.__twinClickedSide) {
+            this.__twinClickedSide = null;
+            node.setDirtyCanvas?.(true);
+        }
+    };
+
+    widget.__twinButtonCfg = { margin, gap };
+}
+
+export function getTwinButtonSide(widget, node, posX) {
+    const cfg = widget.__twinButtonCfg || { margin: 15, gap: 4 };
+    const halfW = (node.size[0] - cfg.margin * 2 - cfg.gap) / 2;
+    const relX = posX - cfg.margin;
+    return relX < halfW + cfg.gap / 2 ? "left" : "right";
 }
 
 export function showToast(status, message) {
@@ -123,4 +185,131 @@ export function showToast(status, message) {
 
     const timer = setTimeout(dismiss, TOAST_DURATION_MS);
     closeBtn.addEventListener("click", dismiss);
+}
+
+export function applyPrimereDualButtonStyle(widget, options = {}) {
+    const {
+        height = 32,
+        radius = 6,
+        margin = 15,
+        gap = 4,
+        leftLabel = "Left",
+        rightLabel = "Right",
+        leftBg = "#2d6e2d",
+        leftActive = "#3d8e3d",
+        rightBg = "#771a1a",
+        rightActive = "#932424",
+        textColor = "#ffffff",
+        fontSize = "bold 13px sans-serif",
+    } = options;
+
+    widget.computeSize = () => [0, height + 4];
+
+    widget.draw = function (ctx, node, widget_width, y) {
+        ctx.save();
+        const halfW = (widget_width - margin * 2 - gap) / 2;
+        const leftX = margin;
+        const rightX = leftX + halfW + gap;
+
+        ctx.fillStyle = this.__dualClickedSide === "left" ? leftActive : leftBg;
+        ctx.beginPath();
+        ctx.roundRect(leftX, y + 2, halfW, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.font = fontSize;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(leftLabel, leftX + halfW / 2, y + 2 + height / 2);
+
+        ctx.fillStyle = this.__dualClickedSide === "right" ? rightActive : rightBg;
+        ctx.beginPath();
+        ctx.roundRect(rightX, y + 2, halfW, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.fillText(rightLabel, rightX + halfW / 2, y + 2 + height / 2);
+
+        ctx.restore();
+
+        if (this.__dualClickedSide) {
+            this.__dualClickedSide = null;
+            node.setDirtyCanvas?.(true);
+        }
+    };
+
+    widget.__dualButtonCfg = { margin, gap };
+}
+
+export function getDualButtonSide(widget, node, posX) {
+    const cfg = widget.__dualButtonCfg || { margin: 15, gap: 4 };
+    const halfW = (node.size[0] - cfg.margin * 2 - cfg.gap) / 2;
+    const relX = posX - cfg.margin;
+    return relX < halfW + cfg.gap / 2 ? "left" : "right";
+}
+
+export function applyPrimereTripleButtonStyle(widget, options = {}) {
+    const {
+        height = 30,
+        radius = 6,
+        margin = 15,
+        gap = 4,
+        bgColor = "#274e7a",
+        activeColor = "#366294",
+        textColor = "#ffffff",
+        fontSize = "bold 13px sans-serif",
+        leftLabel = "Left",
+        centerLabel = "Center",
+        rightLabel = "Right",
+    } = options;
+
+    widget.computeSize = () => [0, height + 4];
+
+    widget.draw = function (ctx, node, widget_width, y) {
+        ctx.save();
+        const thirds = (widget_width - margin * 2 - gap * 2) / 3;
+        const leftX = margin;
+        const centerX = leftX + thirds + gap;
+        const rightX = centerX + thirds + gap;
+
+        ctx.fillStyle = this.__tripleClickedSide === "left" ? activeColor : bgColor;
+        ctx.beginPath();
+        ctx.roundRect(leftX, y + 2, thirds, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.font = fontSize;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(leftLabel, leftX + thirds / 2, y + 2 + height / 2);
+
+        ctx.fillStyle = this.__tripleClickedSide === "center" ? activeColor : bgColor;
+        ctx.beginPath();
+        ctx.roundRect(centerX, y + 2, thirds, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.fillText(centerLabel, centerX + thirds / 2, y + 2 + height / 2);
+
+        ctx.fillStyle = this.__tripleClickedSide === "right" ? activeColor : bgColor;
+        ctx.beginPath();
+        ctx.roundRect(rightX, y + 2, thirds, height, radius);
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.fillText(rightLabel, rightX + thirds / 2, y + 2 + height / 2);
+
+        ctx.restore();
+
+        if (this.__tripleClickedSide) {
+            this.__tripleClickedSide = null;
+            node.setDirtyCanvas?.(true);
+        }
+    };
+
+    widget.__tripleButtonCfg = { margin, gap };
+}
+
+export function getTripleButtonSide(widget, node, posX) {
+    const cfg = widget.__tripleButtonCfg || { margin: 15, gap: 4 };
+    const thirds = (node.size[0] - cfg.margin * 2 - cfg.gap * 2) / 3;
+    const relX = posX - cfg.margin;
+    if (relX < thirds + cfg.gap / 2) return "left";
+    if (relX < thirds * 2 + cfg.gap + cfg.gap / 2) return "center";
+    return "right";
 }

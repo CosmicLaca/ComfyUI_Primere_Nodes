@@ -7,14 +7,14 @@
 @import url("../fonts/FUTURATEE_BOOK/stylesheet.css"); /* FUTURATEE BOOK */
 
 /* Primere css for visual selectors */
-#primere_visual_modal,
+.primere-modal-base,
 #primere_promptsaver_modal {
     align-content: start;
     text-align: left;
     background-color: #484848;
     font-family: 'NIMBUSSANSDEE BOLD';
 }
-#primere_visual_modal .visual_modal_title,
+.primere-modal-base .visual_modal_title,
 #primere_promptsaver_modal .prompt_modal_title {
     text-align: center;
     padding: 0px;
@@ -27,7 +27,7 @@
     height: 10px;
 }
 
-#primere_visual_modal button.modal-closer {
+.primere-modal-base button.modal-closer {
     text-align: center;
     padding: 5px;
     margin-top: -1em;
@@ -36,12 +36,12 @@
     box-shadow: inset 1px 1px 3px #bdbdbd;
 }
 
-#primere_visual_modal .primere-modal-content {
+.primere-modal-base .primere-modal-content {
     z-index: 10000;
     overflow: auto;
     height: 76%;
 }
-#primere_visual_modal .visual-ckpt {
+.primere-modal-base .visual-ckpt {
     width: min-content;
     display: inline-grid;
     margin-right: 10px;
@@ -59,7 +59,7 @@
    -webkit-border-radius: 5px;
    border-radius:5px;
 }
-#primere_visual_modal .visual-ckpt.visual-ckpt-selected {
+.primere-modal-base .visual-ckpt.visual-ckpt-selected {
     background: #672727 !important;
     color: white !important;
     border: #ff5151 solid 2px;
@@ -67,7 +67,7 @@
     pointer-events: none;
     margin-right: 25px;
 }
-#primere_visual_modal .visual-ckpt.visual-ckpt-selected:after {
+.primere-modal-base .visual-ckpt.visual-ckpt-selected:after {
     content: "";
     background-color: #b3b3b3;
     position: absolute;
@@ -77,11 +77,11 @@
     right: -15px;
     display: block;
 }
-#primere_visual_modal .visual-ckpt.visual-ckpt-selected .checkpoint-name {
+.primere-modal-base .visual-ckpt.visual-ckpt-selected .checkpoint-name {
     background: #672727 !important;
     color: white !important;
 }
-#primere_visual_modal .visual-ckpt:hover {
+.primere-modal-base .visual-ckpt:hover {
     box-shadow: unset;
     left: 2px;
     top: 2px;
@@ -90,7 +90,7 @@
     color: white;
 }
 
-#primere_visual_modal .visual-ckpt img {
+.primere-modal-base .visual-ckpt img {
     height: 220px;
     display: block;
     -moz-border-radius-bottomleft: 5px;
@@ -101,7 +101,7 @@
     border-bottom-right-radius:5px;
 }
 
-#primere_visual_modal .checkpoint-name {
+.primere-modal-base .checkpoint-name {
     overflow: hidden;
     display: inline-block;
     width: 100%;
@@ -123,7 +123,7 @@
     border-top-right-radius: 5px;
 }
 
-#primere_visual_modal .ckpt-version {
+.primere-modal-base .ckpt-version {
     display: block;
     -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-right-radius: 4px;
@@ -147,7 +147,7 @@
     text-transform: capitalize;
 }
 
-#primere_visual_modal .ckpt-version::before {
+.primere-modal-base .ckpt-version::before {
     display: block;
     margin: 0px;
     padding-left: 5px;
@@ -157,7 +157,7 @@
     border-bottom-right-radius: 5px;
 }
 
-#primere_visual_modal .subdirtab {
+.primere-modal-base .subdirtab {
     background: #656565;
     vertical-align: middle;
     display: block;
@@ -166,7 +166,7 @@
     border-bottom: #aeaeae  solid 1px;
     border-top: #aeaeae  solid 1px;
 }
-#primere_visual_modal .subdirtab button {
+.primere-modal-base .subdirtab button {
     min-width: 80px;
     margin-right: 5px;
     padding-left: 9px;
@@ -178,33 +178,33 @@
     box-shadow: inset 1px 1px 3px #bdbdbd;
 }
 
-#primere_visual_modal .subdirtab button.subdirfilter {
+.primere-modal-base .subdirtab button.subdirfilter {
     background-color: #133b51;
 }
-#primere_visual_modal .subdirtab button.verfilter {
+.primere-modal-base .subdirtab button.verfilter {
     background-color: #372222;
 }
-#primere_visual_modal .subdirtab button.preview_sort {
+.primere-modal-base .subdirtab button.preview_sort {
     background-color: #24471c;
 }
-#primere_visual_modal .subdirtab button.filter_clear {
+.primere-modal-base .subdirtab button.filter_clear {
     background-color: #24471c;
 }
-#primere_visual_modal .subdirtab input.filter_input {
+.primere-modal-base .subdirtab input.filter_input {
     background-color: #dbda9c;
 }
 
-#primere_visual_modal .subdirtab label {
+.primere-modal-base .subdirtab label {
     color: var(--input-text);
 }
 
-#primere_visual_modal .selected_path {
+.primere-modal-base .selected_path {
     color: #443535 !important;
     background: #bdbdbd !important;
     border: white solid 1px !important;
 }
 
-#primere_visual_modal .visual-aesthetic-score hr {
+.primere-modal-base .visual-aesthetic-score hr {
     margin: 0px;
     height: 2px;
     border-top: 1px solid #da2b2b;
@@ -213,7 +213,7 @@
     bottom: 0px;
 }
 
-#primere_visual_modal div.visual-symlink-type {
+.primere-modal-base div.visual-symlink-type {
     display: block;
     position: absolute;
     background-color: #0f5b77;
@@ -238,7 +238,7 @@
     letter-spacing: 1px;
 }
 
-#primere_visual_modal .visual-aesthetic-score {
+.primere-modal-base .visual-aesthetic-score {
     display: block;
     position: absolute;
     -moz-border-radius-bottomright: 4px;
@@ -261,13 +261,13 @@
     white-space: nowrap;
 }
 
-#primere_visual_modal .visual-aesthetic-score span {
+.primere-modal-base .visual-aesthetic-score span {
     position: unset !important;
     font-size: 11px;
     /* font-family: 'NIMBUSSANSDEE LIGHT'; */
 }
 
-#primere_visual_modal .visual-stime {
+.primere-modal-base .visual-stime {
     display: block;
     position: absolute;
     padding-top: 0px;

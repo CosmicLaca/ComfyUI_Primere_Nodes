@@ -128,5 +128,4 @@ app.registerExtension({
             updateSelectWidget(this);
         };
     },
-
 });
