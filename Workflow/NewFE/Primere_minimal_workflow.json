@@ -92,7 +92,7 @@
         "ver": "9a85ed6602902307c35385d4c735e57d9e31b3a6"
       },
       "widgets_values": [
-        "*** Image saver switched OFF, image not saved. ***"
+        ""
       ],
       "color": "#149454",
       "bgcolor": "#008040"
@@ -300,7 +300,13 @@
           "link": 695
         }
       ],
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
       "properties": {
         "Node name for S&R": "PreviewImage",
         "enableTabs": false,
@@ -703,7 +709,7 @@
         "Node name for S&R": "PrimereAnyOutput"
       },
       "widgets_values": [
-        "{\n    \"positive\": \"Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season\",\n    \"negative\": \"human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw\",\n    \"positive_decoded\": \"Nature spring season photography, expressionist realistic style, living scenery, Dynamic normal shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, sunny photography, seasonal rain, perfect colors of selected season\",\n    \"negative_decoded\": \"(human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw:1.20)\",\n    \"seed\": 322983800356293,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 683,\n    \"height\": 384,\n    \"preferred\": {\n        \"subpath\": \"SeassonBackground\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": false,\n    \"rescale_cfg\": 1.0,\n    \"vae\": \"AuraFlow\\\\aura_vae.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": true,\n    \"last_layer\": 0,\n    \"align_your_steps\": false,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm_playground_v2.5\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120.0,\n    \"sigma_min\": 1.0,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": false,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.5,\n    \"beta_beta\": 0.5,\n    \"guidance\": 3.5,\n    \"encoders\": [],\n    \"model\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_name\": \"Photo\\\\photon_v1.safetensors\",\n    \"model_concept\": \"SD1\",\n    \"model_version\": \"SD1\",\n    \"sampler_type\": \"ksampler\",\n    \"sampler\": \"euler\",\n    \"scheduler\": \"flow_dpm-solver\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"flow_dpm-solver\",\n    \"steps\": 12,\n    \"cfg\": 7.0,\n    \"clip_attn_q\": 1.0,\n    \"clip_attn_k\": 1.0,\n    \"clip_attn_v\": 1.0,\n    \"clip_attn_out\": 1.0,\n    \"attn_cross_q\": 1.0,\n    \"attn_cross_k\": 1.0,\n    \"attn_cross_v\": 1.0,\n    \"attn_cross_out\": 1.0,\n    \"concept_data\": {\n        \"vae_name\": \"AuraFlow\\\\aura_vae.safetensors\",\n        \"vae_selection\": true,\n        \"clip_selection\": true\n    },\n    \"latent_data\": {\n        \"noise_type\": \"blue\",\n        \"alpha_exponent\": 1.234,\n        \"modulator\": 1.32,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"width\": 683,\n        \"style_pos_strength\": 1.0,\n        \"int_style_pos_strength\": 1.0,\n        \"use_int_style\": false,\n        \"style_position\": true,\n        \"int_style_neg_strength\": 1.0,\n        \"enhanced_prompt_strength\": 1.0,\n        \"token_normalization\": \"mean\",\n        \"style_neg_strength\": 1.0,\n        \"style_handling\": false,\n        \"weight_interpretation\": \"comfy++\",\n        \"opt_pos_strength\": 1.0,\n        \"int_style_pos\": \"None\",\n        \"adv_encode\": false,\n        \"height\": 384,\n        \"enhanced_prompt_usage\": \"T5-XXL\",\n        \"negative_strength\": 1.2,\n        \"l_strength\": 1.0,\n        \"opt_neg_strength\": 1.0,\n        \"style_swap\": false,\n        \"int_style_neg\": \"None\"\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.93,\n        \"variation_seed\": 322983800356293,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
+        "{\n    \"positive\": \"Nature {summer|winter|autumn|spring} season photography, expressionist realistic style, living scenery, Dynamic {closeup|normal|wide} shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, {sunny|daytime|night time} photography, seasonal rain, perfect colors of selected season\",\n    \"negative\": \"human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw\",\n    \"positive_decoded\": \"Nature winter season photography, expressionist realistic style, living scenery, Dynamic normal shot of many raindrops hitting the petal of a golden laburnum bush, sunshine reflecting in the raindrops, misty and damp forest in the background, depth of field, night time photography, seasonal rain, perfect colors of selected season\",\n    \"negative_decoded\": \"(human, man, woman, girl, nsfw, boring, bad anatomy, text, watermark, blury, artifact, draw:1.20)\",\n    \"seed\": 323604818625661,\n    \"t5_xxl_prompt\": \"\",\n    \"positive_l\": \"\",\n    \"negative_l\": \"\",\n    \"width\": 1365,\n    \"height\": 768,\n    \"preferred\": {\n        \"subpath\": \"SeassonBackground\",\n        \"model\": null,\n        \"orientation\": null\n    },\n    \"aesthetic_score\": 0,\n    \"override_steps\": false,\n    \"rescale_cfg\": 1.0,\n    \"vae\": \"AuraFlow\\\\aura_vae.safetensors\",\n    \"vae_selection\": true,\n    \"clip_selection\": true,\n    \"last_layer\": 0,\n    \"align_your_steps\": false,\n    \"model_sampling\": 2.5,\n    \"edm_sampling\": \"edm_playground_v2.5\",\n    \"discrete_sampling\": \"default\",\n    \"discrete_zsnr\": false,\n    \"sigma_max\": 120.0,\n    \"sigma_min\": 1.0,\n    \"weight_dtype\": \"default\",\n    \"precision\": \"fp16\",\n    \"lcm_lora\": false,\n    \"speed_lora\": false,\n    \"srpo_lora\": false,\n    \"srpo_svdq_lora\": false,\n    \"nunchaku_lora\": false,\n    \"refiner\": false,\n    \"flux_max_shift\": 1.15,\n    \"flux_base_shift\": 0.5,\n    \"beta_alpha\": 0.5,\n    \"beta_beta\": 0.5,\n    \"guidance\": 3.5,\n    \"encoders\": [],\n    \"model\": \"BestAll\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_name\": \"BestAll\\\\batchCOREALISMXL_v40.safetensors\",\n    \"model_concept\": \"SDXL\",\n    \"model_version\": \"SDXL\",\n    \"sampler_type\": \"ksampler\",\n    \"sampler\": \"euler\",\n    \"scheduler\": \"flow_dpm-solver\",\n    \"sampler_name\": \"euler\",\n    \"scheduler_name\": \"flow_dpm-solver\",\n    \"steps\": 12,\n    \"cfg\": 7.0,\n    \"clip_attn_q\": 1.0,\n    \"clip_attn_k\": 1.0,\n    \"clip_attn_v\": 1.0,\n    \"clip_attn_out\": 1.0,\n    \"attn_cross_q\": 1.0,\n    \"attn_cross_k\": 1.0,\n    \"attn_cross_v\": 1.0,\n    \"attn_cross_out\": 1.0,\n    \"concept_data\": {\n        \"vae_name\": \"AuraFlow\\\\aura_vae.safetensors\",\n        \"vae_selection\": true,\n        \"clip_selection\": true\n    },\n    \"latent_data\": {\n        \"noise_type\": \"brownian_fractal\",\n        \"alpha_exponent\": 1.441,\n        \"modulator\": 1.17,\n        \"device\": \"cpu\"\n    },\n    \"prompt_encoder\": {\n        \"opt_pos_strength\": 1.0,\n        \"enhanced_prompt_strength\": 1.0,\n        \"negative_strength\": 1.2,\n        \"height\": 768,\n        \"width\": 1365,\n        \"int_style_neg_strength\": 1.0,\n        \"style_handling\": false,\n        \"adv_encode\": false,\n        \"opt_neg_strength\": 1.0,\n        \"token_normalization\": \"mean\",\n        \"style_pos_strength\": 1.0,\n        \"use_int_style\": false,\n        \"int_style_pos\": \"None\",\n        \"l_strength\": 1.0,\n        \"weight_interpretation\": \"comfy++\",\n        \"int_style_pos_strength\": 1.0,\n        \"style_swap\": false,\n        \"style_position\": true,\n        \"style_neg_strength\": 1.0,\n        \"enhanced_prompt_usage\": \"T5-XXL\",\n        \"int_style_neg\": \"None\"\n    },\n    \"sampler_settings\": {\n        \"denoise\": 1.0,\n        \"variation_extender_original\": 0.0,\n        \"variation_batch_step_original\": 0.0,\n        \"variation_level\": false,\n        \"device\": \"DEFAULT\",\n        \"align_your_steps\": false,\n        \"noise_constant\": 0.08,\n        \"variation_seed\": 323604818625661,\n        \"batch_counter\": 1,\n        \"model_sampling\": 2.5\n    }\n}"
       ],
       "color": "#332922",
       "bgcolor": "#593930"
@@ -899,7 +905,7 @@
       "widgets_values": [
         "Random",
         42,
-        "Last seed: [322983800356293]"
+        "Last seed: [323604818625661]"
       ],
       "color": "#1414ff",
       "bgcolor": "#0000ff"
@@ -1764,63 +1770,6 @@
       "bgcolor": "#0000ff"
     },
     {
-      "id": 120,
-      "type": "PrimereVisualCKPT",
-      "pos": [
-        41.00965572397778,
-        90.96296514062867
-      ],
-      "size": [
-        471,
-        246
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "random_seed",
-          "shape": 7,
-          "type": "INT",
-          "widget": {
-            "name": "random_seed"
-          },
-          "link": 677
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL_NAME",
-          "type": "CHECKPOINT_NAME",
-          "links": [
-            787,
-            871,
-            957
-          ]
-        },
-        {
-          "name": "MODEL_VERSION",
-          "type": "STRING",
-          "links": [
-            956
-          ]
-        }
-      ],
-      "properties": {},
-      "widgets_values": [
-        "Photo\\photon_v1.safetensors",
-        true,
-        true,
-        true,
-        false,
-        400,
-        800,
-        0
-      ],
-      "color": "#1414ff",
-      "bgcolor": "#0000ff"
-    },
-    {
       "id": 94,
       "type": "PrimereVisualStyle",
       "pos": [
@@ -2023,7 +1972,7 @@
         "Node name for S&R": "PrimereKSampler"
       },
       "widgets_values": [
-        121742996778265,
+        503273824620548,
         "randomize",
         1,
         0,
@@ -2159,7 +2108,7 @@
       },
       "widgets_values": [
         2,
-        970309285419734,
+        35000896309816,
         "randomize",
         20,
         8,
@@ -2275,164 +2224,11 @@
         "Overwrite",
         false,
         true,
-        "Photo\\photon_v1.safetensors",
+        "select target...",
         null
       ],
       "color": "#549494",
       "bgcolor": "#408080"
-    },
-    {
-      "id": 149,
-      "type": "PrimereModelControl",
-      "pos": [
-        1156.9398678306136,
-        52.16968163497517
-      ],
-      "size": [
-        646.5429385295273,
-        2096
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model_concept",
-          "shape": 7,
-          "type": "STRING",
-          "link": 956
-        },
-        {
-          "name": "model_name",
-          "shape": 7,
-          "type": "CHECKPOINT_NAME",
-          "link": 957
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONTROL_DATA",
-          "type": "TUPLE",
-          "links": [
-            958,
-            959,
-            960,
-            961
-          ]
-        },
-        {
-          "name": "SAMPLER_NAME",
-          "type": "COMBO",
-          "links": [
-            962,
-            963
-          ]
-        },
-        {
-          "name": "SCHEDULER_NAME",
-          "type": "COMBO",
-          "links": [
-            964,
-            965
-          ]
-        },
-        {
-          "name": "STEPS",
-          "type": "INT",
-          "links": [
-            966,
-            967
-          ]
-        },
-        {
-          "name": "CFG",
-          "type": "FLOAT",
-          "links": [
-            968,
-            969
-          ]
-        },
-        {
-          "name": "MODEL_CONCEPT",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereModelControl"
-      },
-      "widgets_values": [
-        "SD1",
-        "Auto",
-        "euler",
-        "flow_dpm-solver",
-        12,
-        false,
-        7,
-        1,
-        "AuraFlow\\aura_vae.safetensors",
-        true,
-        true,
-        0,
-        "None",
-        "None",
-        "None",
-        "Off",
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        "Off",
-        "ksampler",
-        false,
-        2.5,
-        "edm_playground_v2.5",
-        "default",
-        false,
-        120,
-        1,
-        1.15,
-        0.5,
-        0.5,
-        0.5,
-        3.5,
-        "default",
-        "fp16",
-        false,
-        1,
-        false,
-        "FireRed-Image-Edit-1.0-Lightning-8steps-v1.0.safetensors",
-        1,
-        1,
-        0,
-        false,
-        "srpo_128_adaptive_quantile_0.10_fp16.safetensors",
-        1,
-        false,
-        "svdq-int4-srpo_128_base_oficial_model_fp16_lora.safetensors",
-        1,
-        false,
-        "flux_kontext_deblur_nunchaku.safetensors",
-        1,
-        false,
-        "Refiners\\fluxRefiner_v11.safetensors",
-        "Baked",
-        "dpmpp_2m",
-        "normal",
-        2,
-        20,
-        10,
-        0.9,
-        0.9,
-        true
-      ],
-      "color": "#7e6839",
-      "bgcolor": "#6a5425"
     },
     {
       "id": 115,
@@ -2560,7 +2356,7 @@
         "First",
         1,
         1.4,
-        "design"
+        "None"
       ],
       "color": "#c41414",
       "bgcolor": "#b00000"
@@ -2608,10 +2404,220 @@
         false,
         false,
         false,
-        "0 / *** Aesthetic scorer error ***%"
+        ""
       ],
       "color": "#2c002c",
       "bgcolor": "#400040"
+    },
+    {
+      "id": 149,
+      "type": "PrimereModelControl",
+      "pos": [
+        1156.9398678306136,
+        52.16968163497517
+      ],
+      "size": [
+        646.5429385295273,
+        2096
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model_concept",
+          "shape": 7,
+          "type": "STRING",
+          "link": 956
+        },
+        {
+          "name": "model_name",
+          "shape": 7,
+          "type": "CHECKPOINT_NAME",
+          "link": 957
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONTROL_DATA",
+          "type": "TUPLE",
+          "links": [
+            958,
+            959,
+            960,
+            961
+          ]
+        },
+        {
+          "name": "SAMPLER_NAME",
+          "type": "COMBO",
+          "links": [
+            962,
+            963
+          ]
+        },
+        {
+          "name": "SCHEDULER_NAME",
+          "type": "COMBO",
+          "links": [
+            964,
+            965
+          ]
+        },
+        {
+          "name": "STEPS",
+          "type": "INT",
+          "links": [
+            966,
+            967
+          ]
+        },
+        {
+          "name": "CFG",
+          "type": "FLOAT",
+          "links": [
+            968,
+            969
+          ]
+        },
+        {
+          "name": "MODEL_CONCEPT",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereModelControl"
+      },
+      "widgets_values": [
+        "Auto",
+        "Auto",
+        "euler",
+        "flow_dpm-solver",
+        12,
+        false,
+        7,
+        1,
+        "AuraFlow\\aura_vae.safetensors",
+        true,
+        true,
+        0,
+        "None",
+        "None",
+        "None",
+        "Off",
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        "Off",
+        "ksampler",
+        false,
+        2.5,
+        "edm_playground_v2.5",
+        "default",
+        false,
+        120,
+        1,
+        1.15,
+        0.5,
+        0.5,
+        0.5,
+        3.5,
+        "default",
+        "fp16",
+        false,
+        1,
+        false,
+        "FireRed-Image-Edit-1.0-Lightning-8steps-v1.0.safetensors",
+        1,
+        1,
+        0,
+        false,
+        "srpo_128_adaptive_quantile_0.10_fp16.safetensors",
+        1,
+        false,
+        "svdq-int4-srpo_128_base_oficial_model_fp16_lora.safetensors",
+        1,
+        false,
+        "flux_kontext_deblur_nunchaku.safetensors",
+        1,
+        false,
+        "Refiners\\fluxRefiner_v11.safetensors",
+        "Baked",
+        "dpmpp_2m",
+        "normal",
+        2,
+        20,
+        10,
+        0.9,
+        0.9,
+        true
+      ],
+      "color": "#7e6839",
+      "bgcolor": "#6a5425"
+    },
+    {
+      "id": 120,
+      "type": "PrimereVisualCKPT",
+      "pos": [
+        41.00965572397778,
+        90.96296514062867
+      ],
+      "size": [
+        471,
+        246
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "random_seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "random_seed"
+          },
+          "link": 677
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL_NAME",
+          "type": "CHECKPOINT_NAME",
+          "links": [
+            787,
+            871,
+            957
+          ]
+        },
+        {
+          "name": "MODEL_VERSION",
+          "type": "STRING",
+          "links": [
+            956
+          ]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "BestAll\\batchCOREALISMXL_v40.safetensors",
+        true,
+        true,
+        true,
+        false,
+        400,
+        800,
+        0
+      ],
+      "color": "#1414ff",
+      "bgcolor": "#0000ff"
     }
   ],
   "links": [
@@ -3541,10 +3547,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.4665073802097338,
+      "scale": 0.5131581182307072,
       "offset": [
-        186.27744332290047,
-        258.39303114172475
+        614.1149366714861,
+        445.8420940692362
       ]
     },
     "frontendVersion": "1.45.19",
