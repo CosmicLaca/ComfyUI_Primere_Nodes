@@ -8,6 +8,10 @@
 
 <hr>
 
+**LICENSE:** This software is proprietary and not open-source. It is owned by Primere Development and is provided as part of paid AI-related services. Unauthorized use, distribution, or modification is strictly prohibited. See [LICENSE](LICENSE) for details.
+
+<hr>
+
 Nodepack under development. Manual written by AI, please open issue if something wrong or missing. If you upgrade, check attached new workflows or use git to downgrade to previous version if something failed.
 
 **ComfyUI core functions requirement:** This nodepack uses new ComfyUI core functions. Update your ComfyUI installation before using. Use `git pull` on your ComfyUI folder.
@@ -92,7 +96,7 @@ Professional prompt development workflow. Extended prompt management for testing
 #### Same as Minimal workflow plus:
 
 - 12 prompt inputs with 1-click selector for prompt switching
-- Style injection node: Select result art style for prompt injection
+- 1 simple style block: External .toml files controlled universal style node
 - Photoshop-style postprocessing nodes: Image manipulation and effects
 - Histogram for result checking
 - Efficient workflow for prompt developers testing multiple variations with integrated finishing
@@ -114,35 +118,61 @@ Full production pipeline with styling, refinement, and selective output.
 #### Same as Basic workflow plus:
 
 - 19 prompt sources for special cases (Daily Challenges, Articles, etc.)
-- Style block: Style Pile, Midjourney, Emotions, Camera Lens (prompt injection styling)
+- 4 Style block: External .toml files controlled universal style node
 - 4 separated refiner detailer blocks: Face, Eye, Mouth, Hands
 - Selective image saver: saves only images exceeding user-defined aesthetic score threshold (portfolio filtering)
+- LLM prompt enhancer
+- Large gropup of Rasterix post-processing nodes
+
+<hr>
+
+## Basic Production Plus workflow
+
+<img src="./Workflow/Manual/wf_basic_prod_plus.jpg" width="800px">
+
+### <ins>[Detailed manual for included nodes](Workflow/Manual/nodes/basic_production_plus_workflow.md)</ins>
+
+Full production pipeline with styling, refinement, and selective output.
+
+**Same central orchestration and model support as Minimal workflow.**
+
+### Basic Production Plus workflow features:
+
+#### Same as Basic Production workflow plus:
+
+- Reference image source for editing models like Qwen-edit or FireRed, etc...
+- Image comparison before/after of refining process
+- Histogram for raw output and for Rasteric post-processed output
 
 <hr>
 
 ## Workflow Comparison
 
-| Feature                        | Minimal         | Basic | Basic Production |
-|--------------------------------|-----------------|-------|------------------|
-| **Primary Use**                | Core generation | Prompt dev + postprocessing | Production pipeline |
-| **Prompt Inputs**              | 4               | 12 | 19 |
-| **Prompt Selector**            | 1-click         | 1-click | 1-click |
-| **Model Concepts**             | 25+             | 25+ | 25+ |
-| **Central Model Orchestrator** | ✓               | ✓ | ✓ |
-| **Model Keyword Insertion**    | ✓               | ✓ | ✓ |
-| **CSV/TOML Readers**           | ✓               | ✓ | ✓ |
-| **Network Injection**          | ✓               | ✓ | ✓ |
-| **Network Tag Cleaner**        | ✓               | ✓ | ✓ |
-| **Variation Extender**         | ✓               | ✓ | ✓ |
-| **Image Saver**                | ✓               | ✓ | ✓ |
-| **Aesthetic Scorer**           | ✓               | ✓ | ✓ |
-| **Speed LoRAs**                | ✓               | ✓ | ✓ |
-| **Two-Stage Refiner**          | ✓               | ✓ | ✓ |
-| **Style Injection Node**       | —               | ✓ | ✓ |
-| **Postprocessing Nodes**       | —               | ✓ | ✓ |
-| **Histogram**                  | —               | ✓ | ✓ |
-| **Style Block**                | —               | — | ✓ |
-| **Refiner Detailers**          | —               | — | ✓ (Face, Eye, Mouth, Hands) |
-| **Selective Saver**            | —               | — | ✓ |
+| Feature                        | Minimal         | Basic                       | Basic Production            | Basic Production Plus |
+|--------------------------------|-----------------|-----------------------------|-----------------------------|-----------------------|
+| **Primary Use**                | Core generation | Prompt dev + postprocessing | Full production pipeline    | Full production pipeline (extended) |
+| **Prompt Inputs**              | 4               | 12                          | 19                          | 19                    |
+| **Prompt Selector**            | 1-click         | 1-click                     | 1-click                     | 1-click               |
+| **Model Concepts**             | 25+             | 25+                         | 25+                         | 25+                   |
+| **Central Model Orchestrator** | ✓               | ✓                           | ✓                           | ✓                     |
+| **Model Keyword Insertion**    | ✓               | ✓                           | ✓                           | ✓                     |
+| **CSV/TOML Readers**           | ✓               | ✓                           | ✓                           | ✓                     |
+| **Network Injection**          | ✓               | ✓                           | ✓                           | ✓                     |
+| **Network Tag Cleaner**        | ✓               | ✓                           | ✓                           | ✓                     |
+| **Variation Extender**         | ✓               | ✓                           | ✓                           | ✓                     |
+| **Image Saver**                | ✓               | ✓                           | ✓                           | ✓                     |
+| **Aesthetic Scorer**           | ✓               | ✓                           | ✓                           | ✓                     |
+| **Speed LoRAs**                | ✓               | ✓                           | ✓                           | ✓                     |
+| **Two-Stage Refiner**          | ✓               | ✓                           | ✓                           | ✓                     |
+| **Style Injection Node**       | —               | ✓                           | ✓                           | ✓                     |
+| **Postprocessing Nodes**       | —               | ✓                           | ✓                           | ✓                     |
+| **Histogram**                  | —               | ✓                           | ✓                           | ✓ (Dual)              |
+| **Style Block**                | —               | ✓ (1)                       | ✓ (4)                       | ✓ (4)                 |
+| **Refiner Detailers**          | —               | —                           | ✓ (Face, Eye, Mouth, Hands) | ✓ (Face, Eye, Mouth, Hands) |
+| **Selective Saver**            | —               | —                           | ✓                           | ✓                     |
+| **LLM Prompt Enhancer**        | —               | —                           | ✓                           | ✓                     |
+| **Rasterix Post-Processing**   | —               | ✓ (Small block)             | ✓ (Large block)             | ✓ (Large block)                    |
+| **Reference Image Source**     | —               | —                           | —                           | ✓                     |
+| **Image Comparison**           | —               | —                           | —                           | ✓                     |
 
 <hr>
