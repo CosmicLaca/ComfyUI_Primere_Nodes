@@ -1,6 +1,6 @@
 # <ins>Prompt Enhancement Node with Local LLMs:</ins>
 
-<img src="llm_enhancer.jpg" width="300px">
+<img src="llm_enhancer_group.jpg" width="800px">
 
 This specialized ComfyUI node utilizes local LLM models to enhance, refine, or repair image generation prompts. It's particularly valuable for optimizing prompts for modern DiT (Diffusion Transformers) models like Flux and Cascade, which require T5-XXL compatible prompt structures.
 
@@ -25,7 +25,7 @@ The model path is: `[your_comfy_dir]\custom_nodes\ComfyUI_Primere_Nodes\Nodes\Do
 
 Example structure of downloaded models:
 
-<img src="llm_folders.jpg" width="500px">
+<img src="llm_folders.jpg" width="600px">
 
 ## Configuration System:
 
@@ -496,3 +496,7 @@ Keep settings:
 Remember: DiT prompt purification is essential for optimal performance with modern architectures while maintaining prompt effectiveness.
 
 <hr>
+
+# <ins>Advanced style block:</ins>
+
+<img src="Basic_style_block.jpg" width="800px">
