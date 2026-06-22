@@ -500,3 +500,52 @@ Remember: DiT prompt purification is essential for optimal performance with mode
 # <ins>Advanced style block:</ins>
 
 <img src="Basic_style_block.jpg" width="800px">
+
+The Advanced style block extends the Basic workflow's style injection by providing **4 parallel Primere Custom Styles nodes**, each independently configurable with a different `.toml` source from `Toml/Styles/`. This allows composing styles from multiple files simultaneously — for example, applying a mood from `emotions_style.toml` while layering lighting from `light_physics_style.toml` and lens effects from `lens_styles.toml`.
+
+**How it works:**
+
+- Each of the 4 nodes is an independent instance of the same universal style handler described in the [Basic workflow manual](./basic_workflow.md#style-injection-group).
+- Each node selects its own `style_source` (`.toml` file) and exposes per-section dynamic widgets for style selection and strength.
+- The outputs (`STYLE+`, `STYLE-`) can be mixed, chained, or routed individually to the prompt encoder.
+- You can add more instances by duplicating a node — there is no hard limit.
+
+**Use cases:**
+
+- Combine artistic movement reference + mood + camera lens profile in a single generation
+- Keep dedicated TOML files for different projects or clients and toggle between them per node
+- A/B test style combinations by enabling/disabling individual nodes
+
+For a detailed description of the Primere Custom Styles node, see the [Style Injection Group](./basic_workflow.md#style-injection-group) in the Basic workflow manual.
+
+---
+
+# <ins>Advanced Rasterix block:</ins>
+
+<img src="Rasterix_group_small.jpg" width="800px">
+
+The Advanced Rasterix block provides a comprehensive set of modular image post-processing nodes for professional-grade finishing. Each node operates independently with its own `use_*` enable switch, allowing you to build a custom processing pipeline.
+
+**Available Rasterix nodes in this block:**
+
+- **Selective Tone** — Per-zone exposure control (highlights, midtones, shadows, blacks)
+- **Brightness Contrast** — Global brightness/contrast with adaptive mode
+- **Color Balance** — Channel-based grading per tonal range
+- **Grain** — Film grain with tonal distribution and color tinting
+- **Histogram** — Luminance and color distribution visualization
+- **Auto Levels** — Automatic tonal range optimization
+- **Film Rendering** — Cinematic color grading and film simulation
+- **Levels** — Manual shadow/midtone/highlight adjustment
+- **DxO Style** — DxO-inspired lens and color correction profiles
+- **Clipping Display** — Visual feedback for clipped highlights/shadows
+- **Tone Lab** — Advanced curve-based tonal manipulation
+
+**Pipeline position:**
+
+`Sampler → Decoder → Rasterix post-processing stack → Histogram → Saver`
+
+Nodes can be chained in any order. Use the `use_*` switch on each node to enable/disable processing without removing it from the pipeline.
+
+> **For the complete Rasterix documentation including detailed settings, behavior, and use cases, see the [Rasterix Nodes Manual](./rasterix.md).**
+
+---

@@ -1292,7 +1292,7 @@
         88
       ],
       "flags": {},
-      "order": 29,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -2764,7 +2764,7 @@
         46
       ],
       "flags": {},
-      "order": 43,
+      "order": 42,
       "mode": 0,
       "inputs": [
         {
@@ -2820,7 +2820,7 @@
         46
       ],
       "flags": {},
-      "order": 45,
+      "order": 44,
       "mode": 0,
       "inputs": [
         {
@@ -3205,7 +3205,7 @@
         88
       ],
       "flags": {},
-      "order": 27,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -4762,7 +4762,7 @@
         1807.3454771346862
       ],
       "flags": {},
-      "order": 34,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -4793,7 +4793,7 @@
         154
       ],
       "flags": {},
-      "order": 28,
+      "order": 27,
       "mode": 4,
       "inputs": [
         {
@@ -5549,7 +5549,7 @@
         138
       ],
       "flags": {},
-      "order": 36,
+      "order": 35,
       "mode": 4,
       "inputs": [
         {
@@ -6534,250 +6534,6 @@
       "bgcolor": "#408080"
     },
     {
-      "id": 548,
-      "type": "PrimereCustomStyles",
-      "pos": [
-        3956.4811553153468,
-        1359.5925719455224
-      ],
-      "size": [
-        340,
-        414
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            5742
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            5743
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCustomStyles"
-      },
-      "widgets_values": [
-        "aftermath_style.toml",
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#777d2b",
-      "bgcolor": "#636917"
-    },
-    {
-      "id": 550,
-      "type": "PrimereCustomStyles",
-      "pos": [
-        4674.872527592744,
-        1360.573856233446
-      ],
-      "size": [
-        340,
-        606
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5740
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5741
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            5783
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            5784
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCustomStyles"
-      },
-      "widgets_values": [
-        "aftermath_style.toml",
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#777d2b",
-      "bgcolor": "#636917"
-    },
-    {
-      "id": 551,
-      "type": "PrimereCustomStyles",
-      "pos": [
-        3956.3739090390873,
-        1817.2914742435973
-      ],
-      "size": [
-        340,
-        414
-      ],
-      "flags": {},
-      "order": 26,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5742
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5743
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            5738
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            5739
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCustomStyles"
-      },
-      "widgets_values": [
-        "aftermath_style.toml",
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#777d2b",
-      "bgcolor": "#636917"
-    },
-    {
-      "id": 549,
-      "type": "PrimereCustomStyles",
-      "pos": [
-        4317.311750382618,
-        1360.0800425843127
-      ],
-      "size": [
-        340,
-        414
-      ],
-      "flags": {},
-      "order": 33,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "opt_pos_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5738
-        },
-        {
-          "name": "opt_neg_style",
-          "shape": 7,
-          "type": "STRING",
-          "link": 5739
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STYLE+",
-          "type": "STRING",
-          "links": [
-            5740
-          ]
-        },
-        {
-          "name": "STYLE-",
-          "type": "STRING",
-          "links": [
-            5741
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PrimereCustomStyles"
-      },
-      "widgets_values": [
-        "aftermath_style.toml",
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1,
-        "None",
-        1
-      ],
-      "color": "#777d2b",
-      "bgcolor": "#636917"
-    },
-    {
       "id": 254,
       "type": "ReroutePrimitive|pysssss",
       "pos": [
@@ -6789,7 +6545,7 @@
         26
       ],
       "flags": {},
-      "order": 31,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -6849,7 +6605,7 @@
         310
       ],
       "flags": {},
-      "order": 41,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -6951,7 +6707,7 @@
         2096
       ],
       "flags": {},
-      "order": 30,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -7113,7 +6869,7 @@
         374
       ],
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7203,7 +6959,7 @@
         246
       ],
       "flags": {},
-      "order": 20,
+      "order": 19,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7583,7 +7339,7 @@
         340.7728271484375
       ],
       "flags": {},
-      "order": 44,
+      "order": 43,
       "mode": 0,
       "inputs": [
         {
@@ -7627,7 +7383,7 @@
         158
       ],
       "flags": {},
-      "order": 35,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -7727,7 +7483,7 @@
         341.1094055175781
       ],
       "flags": {},
-      "order": 42,
+      "order": 41,
       "mode": 0,
       "inputs": [
         {
@@ -7771,7 +7527,7 @@
         643.1478271484375
       ],
       "flags": {},
-      "order": 21,
+      "order": 20,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -7861,7 +7617,7 @@
         614
       ],
       "flags": {},
-      "order": 32,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -7960,7 +7716,7 @@
         1298
       ],
       "flags": {},
-      "order": 38,
+      "order": 37,
       "mode": 0,
       "inputs": [
         {
@@ -8333,7 +8089,7 @@
         446
       ],
       "flags": {},
-      "order": 22,
+      "order": 21,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8421,7 +8177,7 @@
         26
       ],
       "flags": {},
-      "order": 37,
+      "order": 36,
       "mode": 0,
       "inputs": [
         {
@@ -8483,7 +8239,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 40,
+      "order": 39,
       "mode": 0,
       "inputs": [
         {
@@ -8655,7 +8411,7 @@
         136
       ],
       "flags": {},
-      "order": 23,
+      "order": 22,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8715,7 +8471,7 @@
         136.3629386579846
       ],
       "flags": {},
-      "order": 24,
+      "order": 23,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -8762,7 +8518,7 @@
         274
       ],
       "flags": {},
-      "order": 25,
+      "order": 24,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -9093,6 +8849,276 @@
       ],
       "color": "#d31414",
       "bgcolor": "#bf0000"
+    },
+    {
+      "id": 551,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        3956.3739090390873,
+        1817.2914742435973
+      ],
+      "size": [
+        340,
+        606
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5742
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5743
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5738
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5739
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "mj_styles.toml",
+        "Abstract::Collage::Kurt Schwitters",
+        1,
+        "Art::Deco::Tamara de Lempicka",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "Precisionist::Sculpture::Charles Sheeler",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 550,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        4674.872527592744,
+        1360.573856233446
+      ],
+      "size": [
+        340,
+        606
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5740
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5741
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5783
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5784
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "light_physics_style.toml",
+        "None",
+        1,
+        "Refraction Systems::Index transition",
+        1,
+        "None",
+        1,
+        "Interference & Diffraction::Diffraction spread",
+        1,
+        "None",
+        1,
+        "Fluorescence & Phosphorescence::Persistent afterglow",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 549,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        4317.311750382618,
+        1360.0800425843127
+      ],
+      "size": [
+        340,
+        414
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5738
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": 5739
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5740
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5741
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "human_trace_style.toml",
+        "Human Presence Without Humans::Recently occupied",
+        1,
+        "None",
+        1,
+        "None",
+        1.0029999999999997,
+        "None",
+        1,
+        "Temporal Trace::Aged trace",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
+    },
+    {
+      "id": 548,
+      "type": "PrimereCustomStyles",
+      "pos": [
+        3956.4811553153468,
+        1359.5925719455224
+      ],
+      "size": [
+        340,
+        414
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_pos_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "opt_neg_style",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STYLE+",
+          "type": "STRING",
+          "links": [
+            5742
+          ]
+        },
+        {
+          "name": "STYLE-",
+          "type": "STRING",
+          "links": [
+            5743
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimereCustomStyles"
+      },
+      "widgets_values": [
+        "emotions_style.toml",
+        "None",
+        1,
+        "Melancholic",
+        1,
+        "None",
+        1,
+        "Surprise::Astonishment",
+        1.0029999999999997,
+        "None",
+        1,
+        "Sadness::Depression",
+        1,
+        "None",
+        1
+      ],
+      "color": "#777d2b",
+      "bgcolor": "#636917"
     }
   ],
   "links": [
@@ -11716,8 +11742,8 @@
       "bounding": [
         3943.895263671875,
         1284.5947265625,
-        1083.4688720703125,
-        1134.0596923828125
+        1085.563245210088,
+        1143.1351559300515
       ],
       "color": "#808040",
       "flags": {}
@@ -11750,10 +11776,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7972024500001696,
+      "scale": 0.9646149645002058,
       "offset": [
-        -13.378027010046026,
-        179.71846983105775
+        -619.015884682149,
+        209.80806738458145
       ]
     },
     "frontendVersion": "1.45.19",

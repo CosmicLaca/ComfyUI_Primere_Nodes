@@ -237,58 +237,72 @@ Pipeline position:
 
 ---
 
-The Style Injection group adds professional-grade art style control to the Basic workflow. It enables rapid selection and injection of complex artistic styles, concepts, artists, movements, colors, directions, and moods directly into your prompts. This node works in tandem with the 12-prompt selector system for efficient style experimentation and iteration.
+The Style Injection group adds professional-grade art style control to the Basic workflow. It enables rapid selection and injection of complex artistic styles, concepts, moods, lighting, and more directly into your prompts. This node works in tandem with the 12-prompt selector system for efficient style experimentation and iteration.
 
 <img src="./Basic_style_node.jpg" width="300px">
 
 ---
 
-### Primiere Style Pile
+### Primere Custom Styles
 
-Purpose: Multi-category style composer that builds precise positive and negative style descriptors from curated preset lists. All combo options are dynamically loaded from the external `stylepile.toml` file, allowing easy customization and extension of available styles.
+**Purpose:** Universal TOML-based style handler that loads all style definitions from external `.toml` files. The node scans the `Toml/Styles/` directory and presents every `.toml` file as a selectable style source. Each section within the file becomes a pair of dynamic widgets — a dropdown and a strength slider — giving you full control over style composition.
 
----
+**Key benefit:** Users can create custom `.toml` files with their own style sections and drop them into `Toml/Styles/`. The node automatically detects new files and loads their contents, with no code changes or configuration needed. There is no limit to the number of custom style sources.
 
-Outputs:
-
-| Output          | Purpose                                                                 |
-| --------------- | ----------------------------------------------------------------------- |
-| `opt_pos_style` | STYLE+ : Positive style injection string (ready to connect to prompt)   |
-| `opt_neg_style` | STYLE- : Negative style injection string (ready to connect to prompt)   |
+The node ships with 18 example `.toml` files covering emotions, lighting, lens effects, art movements, organic forms, perception, and more.
 
 ---
 
-Settings:
+**How It Works:**
 
-| Setting                    | Purpose                                                                 |
-| -------------------------- | ----------------------------------------------------------------------- |
-| `art-type`                 | Base art format (painting, photo, digital-artwork, 3d-rendering, etc.) |
-| `art-type_strength`        | Strength multiplier for the selected art-type                           |
-| `concepts`                 | High-level conceptual qualifiers (Extreme, Masterpiece, Cinematic, etc.)|
-| `concepts_strength`        | Strength multiplier for concepts                                        |
-| `artists`                  | Artist/illustrator reference                                            |
-| `artists_strength`         | Strength multiplier for artist influence                                |
-| `art-movements`            | Historical/modern art movement (Action Painting, Surrealism, etc.)      |
-| `art-movements_strength`   | Strength multiplier for art movement                                    |
-| `colors`                   | Color palette or processing style (CMYK Colors, Vivid Colors, etc.)     |
-| `colors_strength`          | Strength multiplier for color treatment                                 |
-| `directions`               | Rendering direction/quality descriptor (Masterpiece, Realistic, etc.)   |
-| `directions_strength`      | Strength multiplier for direction                                       |
-| `moods`                    | Emotional or atmospheric tone (Energetic, Romantic, Dramatic, etc.)     |
-| `moods_strength`           | Strength multiplier for mood                                            |
+1. On node load, `Nodes/Styles.py` scans `Toml/Styles/*.toml` and populates the `style_source` dropdown.
+2. When you select a source file, the frontend fetches its parsed sections and creates dynamic widgets: a **combo dropdown** per section for style selection, and a **number widget** for per-style strength (0–10, step 0.01).
+3. On execution, the backend reads your selections via workflow metadata, builds style strings, and merges them with optional manual overrides.
 
-#### Behavior:
-* Each selected category appends the corresponding Positive/Negative text defined in `stylepile.toml`.
-* Strength values are automatically applied as weighted prompt syntax `(selected_item:strength)`.
-* Empty or default selections are safely skipped.
-* The node outputs clean, ready-to-use strings that can be injected into any prompt input without manual editing.
-* Works with the existing prompt encoder, dynamic prompts, and the 12-prompt selector system.
+---
 
-#### Use Cases:
-* One-click style switching during prompt development (e.g. painting → photo → vector-art)
-* Artist-specific or movement-specific testing
-* Layering multiple style elements with precise strength control
-* Consistent aesthetic application across batch generations or A/B testing
+**Inputs:**
+
+| Input | Type | Purpose |
+|-------|------|---------|
+| `style_source` | Required *COMBO* | Select a `.toml` file from `Toml/Styles/` |
+| `opt_pos_style` | Optional *STRING* | Manual positive style override text |
+| `opt_neg_style` | Optional *STRING* | Manual negative style override text |
+| *(dynamic)* | *COMBO + FLOAT* | Per-section dropdown + strength, created per TOML section |
+
+---
+
+**Outputs:**
+
+| Output | Purpose |
+|--------|---------|
+| `STYLE+` | Positive style injection string (ready to connect to prompt) |
+| `STYLE-` | Negative style injection string (ready to connect to prompt) |
+
+---
+
+**Adding Custom Style Sources:**
+
+Create a new `.toml` file in `Toml/Styles/` with this structure:
+
+```toml
+[SectionName]
+   [SectionName.N_0]
+      MainStyle = "Your Style"
+      SubStyle = ""
+      Positive = "Positive prompt text for this style"
+      Negative = "Negative prompt text for this style"
+```
+
+Each top-level section becomes a widget pair. The `Positive` field feeds into `STYLE+`, and the `Negative` field into `STYLE-`. You can add as many sections and files as needed — the node will load all of them automatically.
+
+---
+
+**Use Cases:**
+* One-click style switching during prompt development
+* Custom style libraries shared across projects
+* Themed style packs for specific genres or aesthetics
+* Rapid A/B testing of different artistic directions
 
 ---
 
@@ -296,9 +310,9 @@ Settings:
 
 Pipeline position:
 
-`Prompt Sources / 12-Prompt Selector → Primiere Style Pile (STYLE+ / STYLE-) → Prompt Encoder → Sampler`
+`Prompt Sources / 12-Prompt Selector → Primere Custom Styles (STYLE+ / STYLE-) → Prompt Encoder → Sampler`
 
-The Style Pile node sits early in the prompt pipeline and feeds directly into the central prompt builder. It is fully compatible with CSV/TOML prompt readers and the existing style injection points.
+The style injection sits early in the prompt pipeline and feeds directly into the prompt encoder. It is fully compatible with CSV/TOML prompt readers, dynamic prompts, and the existing style injection points.
 
 ---
 
@@ -354,4 +368,4 @@ Pipeline position:
 
 `Prompt Development Group → Style Injection Group → Prompt Encoder → Sampler`
 
-The selected prompt channel flows directly into the Primiere Style Pile (STYLE+ / STYLE-) for seamless combination of your base prompt with artistic styling.
+The selected prompt channel flows directly into the Primere Custom Styles node (STYLE+ / STYLE-) for seamless combination of your base prompt with artistic styling.

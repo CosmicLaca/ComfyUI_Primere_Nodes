@@ -1,219 +1,128 @@
-# <ins>Several style nodes:</ins>
+# Basic Production Plus Workflow - Node Groups Manual
 
-### Style pile:
+Basic Production Plus workflow contains everything that exists in the Basic Production workflow. Here are only the added features listed. <ins>[Read the Basic Production workflow manual first.](./basic_production_workflow.md)</ins>
 
-<img src="pstyle_pile.jpg" width="400px">
+---
 
-A node that enhances your prompts by adding predefined artistic styles and attributes with fine-grained control over their influence.
+# <ins>Reference Image Source:</ins>
 
-#### Description:
+<img src="reference_example.jpg" width="800px">
 
-This node allows you to enrich your prompts with various artistic styles, concepts, and attributes. You can stack multiple style elements while controlling their individual strengths, making it easy to create complex, nuanced prompts without manual typing.
+The Reference Image Source node provides the ability to feed external reference images into editing-capable models such as Qwen-Edit, FireRed, or similar image-to-image architectures. This is essential for workflows that modify existing images based on prompt instructions rather than generating from scratch.
 
-#### Features:
+---
 
-- Add multiple style elements to positive and negative prompts
-- Fine-tune the strength of each style component
-- Categories include:
-- Art Types (3d-rendering, digital-artwork, drawing, painting, photo, vector-art)
-- Concepts 
-- Artists
-- Art Movements
-- Colors
-- Directions
-- Moods
+### Primere Multi Image
 
-#### Style Controls:
+**Purpose:** Load and prepare up to 16 source images for editing models. The node handles resizing, padding, batching, and concatenation, outputting a flexible image list that editing models consume.
 
-Each category includes:
-- Main selector for choosing style elements
-- Strength slider (0.00-1.00) to control influence
+---
 
-#### Benefits:
+**Inputs:**
 
-- Create consistent style presets
-- Quickly experiment with different artistic styles
-- Fine-tune style influence without prompt editing
-- Stack multiple styles with precise control
-- Separate positive and negative style applications
+| Input | Type | Purpose |
+|-------|------|---------|
+| `image` | Required *IMAGE* | Primary image input (always connected) |
+| `image_2` – `image_16` | Optional *IMAGE* | Additional source images (up to 16 total) |
+| `number_of_images` | *INT* | How many of the 16 slots to process (1–16) |
 
-Example montage. The first pic made without style addition, all pics generated same seed and settings:
+---
 
-<img src="montage_spile.jpg" width="600px">
+**Settings:**
 
-<hr>
+| Setting | Options | Purpose |
+|---------|---------|---------|
+| `process_list` | ON / OFF | Enable/disable list output for editing models |
+| `resize_source` | ON / OFF | Resize all source images to a target megapixel value |
+| `resize_source_mpx` | 0.10 – 48.00 MPX | Target resolution when resizing is enabled |
+| `padded_list` | ON / OFF | Pad listed images to uniform size (recommended for editing models) |
+| `batch_match` | ON / OFF | Pad batched images to uniform size |
+| `batch_padding_color` | white / black | Padding color for uniform sizing |
+| `concat_resize_mode` | ON / OFF | Resize final concatenated output to target megapixels |
+| `concat_mode` | Horizontal / Vertical / Square | Direction for concatenating images |
+| `concat_match_size` | ON / OFF | Match all sources to the first image's dimensions |
+| `concat_spacing_width` | 0 – 1024 px | Gap between concatenated images |
+| `concat_spacing_color` | white/black/red/green/blue | Spacing color |
 
-### Midjourney styles:
+---
 
-<img src="pstyle_mj.jpg" width="400px">
+**Outputs:**
 
-A specialized node that brings Midjourney-inspired artistic styles and aesthetics to ComfyUI workflows, allowing fine-grained control over multiple art movements and styles.
+| Output | Purpose |
+|--------|---------|
+| `IMAGE_LIST` | Individual image tensors as a list (best for editing models like Qwen-Edit, FireRed) |
+| `IMAGE_BATCH` | All images batched into a single tensor |
+| `IMAGE_CONCAT` | Images concatenated into a single composite image |
 
-#### Description:
+---
 
-This node enhances your prompts with carefully curated artistic styles inspired by Midjourney's signature aesthetics. It offers granular control over various art movements and styles, each with adjustable strength parameters.
+**Recommended usage for editing models:**
 
-#### Special Features:
+For the best results with image editing models, use the `IMAGE_LIST` output with these settings:
 
-- mj_artists_styles: Curated artist-specific styles
-- mj_art_keywords: Special Midjourney-compatible keywords
-- Hierarchical style options (e.g., Realism::Gustave Courbet)
-- Individual strength controls (0.00-1.00) for each style
+```
+process_list: ON
+resize_source: ON
+resize_source_mpx: 1.00 (or match your model's preferred input resolution)
+padded_list: ON
+```
 
-#### Benefits:
+The resized, padded image list ensures consistent dimensions across all source images, which editing architectures like Qwen-Edit and FireRed expect for reliable processing.
 
-- Create Midjourney-like aesthetics in ComfyUI
-- Mix multiple art movements with precise control
-- Apply artist-specific styles
-- Fine-tune style intensity
-- Separate positive and negative style applications
+---
 
-#### Example Applications:
+**Use cases:**
+- Batch editing multiple reference images through Qwen-Edit
+- Providing before/after style transfer references to FireRed
+- Supplying multiple angles or variants to image-conditioned generators
+- Creating composite reference sheets for consistent character editing
 
-As shown in the example images:
-1. Precision-focused elephant portrait with strong lines and detailed textures
-2. Renaissance-style medieval scene with classical composition
-3. Blend of realism and romanticism in character portraits
+---
 
-Example montage. The first pic made without style addition, all pics generated same seed and settings:
+# <ins>Image Comparison Before/After:</ins>
 
-<img src="montage_mj.jpg" width="600px">
+The Basic Production Plus workflow includes built-in before/after comparison for the refinement process. The pre-refiner output and the post-refiner output are both preserved in the pipeline, allowing direct visual assessment of what the detailer nodes changed.
 
-#### Usage Tips:
+**How it works:**
 
-1. Select primary art movement (e.g., Realism)
-2. Choose specific artist or sub-style
-3. Adjust strength for desired intensity
-4. Stack multiple styles for complex effects
-5. Use keywords for additional refinement
+- The raw generator output is tapped before entering the refiner detailer blocks (Face, Eye, Mouth, Hands)
+- The final refined output is captured after all detailer passes
+- Both images are available for side-by-side comparison
+- This lets you evaluate whether each refiner pass improved or altered the image as intended
 
-<hr>
+**Workflow position:**
 
-### Emotion styles:
+`Generator → [Pre-refiner tap] → Refiner Detailers → [Post-refiner tap] → Saver`
 
-<img src="pstyle_emo.jpg" width="400px">
+**Use cases:**
+- Verify that face detailer improved facial features without introducing artifacts
+- Compare eye enhancement results against the original
+- Tune refiner settings by observing before/after differences
+- Debug which detailer pass caused unexpected changes
 
-A sophisticated node that infuses emotional layers into your images by adding carefully calibrated emotional qualities to prompts.
+---
 
-#### Description:
+# <ins>Dual Histogram:</ins>
 
-This specialized node enables the addition of complex emotional states and moods to your generations. It offers fine-tuned control over various emotions, from basic feelings to nuanced psychological states, particularly focusing on subtle variations of melancholic moods.
+The Basic Production Plus workflow places **two histogram instances** at different points in the pipeline:
 
-#### Core Emotions:
+1. **Raw output histogram** — Monitors the image directly after the decoder, before any Rasterix post-processing
+2. **Rasterix output histogram** — Monitors the final image after all Rasterix post-processing nodes
 
-- Love: Romantic and affectionate qualities
-- Joy: Happiness and positive expressions
-- Surprise: Unexpected and wonder-filled moments
-- Anger: Intensity and passion
-- Sadness: Subtle expressions of sorrow
-- Fear: Tension and apprehension
+This dual placement gives you full insight into both the generator's native output quality and the effect of your post-processing adjustments.
 
-#### Melancholic Variations:
+**Pipeline position:**
 
-Refined control over melancholic moods including:
-- Melancholia: Classical melancholic expression
-- Saudade: Portuguese concept of longing
-- Grief: Deep emotional response
-- Han: Korean concept of collective sorrow
-- Hiraeth: Welsh nostalgia for home
-- Mono no aware: Japanese awareness of impermanence
-- Nostalgia: Bittersweet remembrance
-- Sehnsucht: German romantic yearning
-- Good old days: Reminiscent mood
+```
+Decoder → [Histogram: raw] → Rasterix stack → [Histogram: post-processed] → Saver
+```
 
-#### Benefits:
+**Benefits:**
+- Compare tonal distribution before and after grading
+- Detect clipping introduced during post-processing
+- Verify that your Rasterix adjustments improved the image rather than degrading it
+- Fine-tune the Rasterix pipeline with objective visual feedback
 
-- Add emotional depth to portraits
-- Create mood-specific variations of the same image
-- Control the intensity of emotional expression
-- Layer multiple emotions for complex feelings
-- Separate positive and negative emotional qualities
+For detailed histogram settings and behavior, see the [Rasterix Nodes Manual](./rasterix.md).
 
-#### Example Applications:
-
-As shown in the example portraits:
-1. Neutral baseline portrait
-2. Joy and warmth expression
-3. Subtle melancholic undertones
-4. Contemplative mood variation
-
-Example montage. The first pic made without style addition, all pics generated same seed and settings:
-
-<img src="montage_emo.jpg" width="600px">
-
-One more montage of Emotion style node:
-
-<img src="montage_emo_1.jpg" width="600px">
-
-#### Usage Tips:
-
-1. Select primary emotion
-2. Choose specific variation if available
-3. Adjust strength (0.00-1.00) for intensity
-4. Layer multiple emotions for complexity
-5. Use with portrait-focused generations
-
-<hr>
-
-### Camera lens styles:
-
-<img src="pstyle_lens.jpg" width="400px">
-
-A custom node that enhances prompts with detailed camera lens characteristics for improved image generation results.
-
-#### Features:
-
-- Categorized lens presets by photography type
-- Detailed lens descriptions and technical specifications included to prompt 
-- Adjustable strength parameters
-- Manufacturer-specific presets
-
-#### Usage:
-
-1. Add "Primere Lens Styles" node to workflow
-2. Connect `opt_pos_style` for positive prompts
-3. Connect `opt_neg_style` for negative prompts 
-4. Select lens category
-5. Adjust strength (0.0-1.0)
-6. Choose specific lens preset
-
-### Categories:
-
-#### Art:
-- Circular Fisheye
-- Special Effects
-- Tilt-Shift
-
-#### Landscape: 
-- Wide Angle
-- Ultra-Wide
-- Panoramic
-
-#### Portrait:
-- Art Lens (Sony)
-- Bokeh Lens (Sony) 
-- Lightroom Lens (Fujifilm)
-- Low Light Lens (Sigma)
-- Macro Lens (Canon)
-- Portrait Lens (Nikon)
-- Prime Lens (Canon)
-- Telephoto Lens (Canon)
-- Vintage Lens (Nikon)
-- Zoom Lens (Tamron)
-
-#### Additional Categories (with seevral lens type):
-- Product
-- Sport
-- Street
-- Wildlife
-
-Example montage. The first pic made without style addition, all pics generated same seed and settings:
-
-<img src="montage_lens.jpg" width="600px">
-
-Example images demonstrate:
-- Bokeh effects
-- Background compression
-- Detail retention
-- Subject isolation
-- Color rendition
+---
