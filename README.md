@@ -8,10 +8,6 @@
 
 <hr>
 
-**LICENSE:** This software is proprietary and not open-source. It is owned by Primere Development and is provided as part of paid AI-related services. Unauthorized use, distribution, or modification is strictly prohibited. See [LICENSE](LICENSE) for details.
-
-<hr>
-
 Nodepack under development. Manual written by AI, please open issue if something wrong or missing. If you upgrade, check attached new workflows or use git to downgrade to previous version if something failed.
 
 **ComfyUI core functions requirement:** This nodepack uses new ComfyUI core functions. Update your ComfyUI installation before using. Use `git pull` on your ComfyUI folder.
@@ -43,6 +39,12 @@ The workflow appears complex because it **handles real-world generation scenario
 > Explore the Uniapi quick manual: **[PrimereApiProcessor (Uniapi) guide](Workflow/Manual/nodes/uniapi.md)**.
 > 
 > <img src="./Workflow/Manual/nodes/uniapi.jpg" width="500px">
+
+
+<hr>
+
+> ### First step:
+> ## [Step by step video installation tutorial](https://youtu.be/AXFKI3z-HzI)
 
 <hr>
 
